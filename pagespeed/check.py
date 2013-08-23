@@ -4,6 +4,7 @@ import time
 
 # 3rd party
 import urllib2
+import base64
 
 # project
 from util import headers
@@ -363,6 +364,7 @@ class PagespeedCheck(AgentCheck):
 
     def __init__(self, name, init_config, agentConfig, instances=None):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
+        self.assumed_url = {}
 
     def check(self, instance):
         if 'pagespeed_status_url' not in instance:
