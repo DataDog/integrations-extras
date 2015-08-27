@@ -1,11 +1,21 @@
 init_config:
-  # Any global configurable parameters should be added here
+# this check uses fail2ban-client to get the status from fail2ban, usually you need root
+# in order to access the fail2ban-server
+#
+# since this check runs as the dd-agent user you will probably need to set sudo: True
+# as well as granting the dd-agent user rights to execute the fail2ban-client command
+# using sudo, you can do so by adding the following to your /etc/sudoers file
+#
+#   dd-agent ALL=(ALL) NOPASSWD: /usr/bin/fail2ban-client
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+  - # sudo: True
+    # this probably needs to be set to True, but lets leave commented out, just in case
+
+    # tags:
+    #   - optional:tag
+    # additional tags to emit along with the metrics
+
+    # jail_blacklist:
+    #   - optional_blacklist
+    # use this blacklist to omit fetching and emiting status/metrics for a given jail, e.g. "ssh"
