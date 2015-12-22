@@ -6,10 +6,9 @@
 import re
 import subprocess
 
-# 3rd party
-
 # project
 from checks import AgentCheck
+
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'daemontools'
 
