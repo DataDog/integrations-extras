@@ -2,10 +2,23 @@ init_config:
   # Any global configurable parameters should be added here
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+  - host: 127.0.0.1
+    port: 3003
+
+    # All metrics collected by default. You probably don't want to do this,
+    # so list the ones you do want here. Check with asinfo -v statistics -l
+    # and asinfo -v namespace/YOURNAMESPACE -l.
+
+    # metrics:
+    # - migrate_rx_objs
+    # - migrate_tx_objs
+    # namespace_metrics:
+    # - free-pct-disk
+    # - free-pct-memory
+    # - evicted-objects
+    # - expired-objects
+    # - master-objects
+    # - migrate-rx-partitions-initial
+    # - migrate-rx-partitions-remaining
+    # - migrate-tx-partitions-initial
+    # - migrate-tx-partitions-remaining
