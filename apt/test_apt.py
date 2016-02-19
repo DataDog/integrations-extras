@@ -1,38 +1,39 @@
-# (C) Datadog, Inc. 2010-2016
-# All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
-
 # stdlib
 from nose.plugins.attrib import attr
 
 # 3p
+import mock
+import json
 
 # project
-from tests.checks.common import AgentCheckTest
+from tests.checks.common import AgentCheckTest, load_check, Fixtures
 
 
-instance = {
-    'host': 'localhost',
-    'port': 26379,
-    'password': 'datadog-is-devops-best-friend'
-}
+def mock_config(fixture):
+    return {
+            'init_config': {},
+            'instances' : [{
+                'updates_file': Fixtures.file(fixture)
+                }]
+            }
 
-
-# NOTE: Feel free to declare multiple test classes if needed
-
-@attr(requires='apt')
-class TestApt(AgentCheckTest):
-    """Basic Test for apt integration."""
+class TestCheckAPT(AgentCheckTest):
     CHECK_NAME = 'apt'
 
-    def test_check(self):
-        """
-        Testing Apt check.
-        """
-        self.load_check({}, {})
+    def test_no_updates(self):
+        self.run_check(mock_config('updates-available.no-updates'))
+        self.assertServiceCheckOK('apt.updates')
+        self.assertMetric('apt.updates.packages', value=0)
+        self.assertMetric('apt.updates.security', value=0)
 
-        # run your actual tests...
+    def test_package_updates(self):
+        self.run_check(mock_config('updates-available.package-updates'))
+        self.assertServiceCheckWarning('apt.updates')
+        self.assertMetric('apt.updates.packages', value=15)
+        self.assertMetric('apt.updates.security', value=0)
 
-        self.assertTrue(True)
-        # Raises when COVERAGE=true and coverage < 100%
-        self.coverage_report()
+    def test_package_security_updates(self):
+        self.run_check(mock_config('updates-available.security-updates'))
+        self.assertServiceCheckCritical('apt.updates')
+        self.assertMetric('apt.updates.packages', value=10)
+        self.assertMetric('apt.updates.security', value=2)

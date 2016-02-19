@@ -1,21 +1,50 @@
-# (C) Datadog, Inc. 2010-2016
-# All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
-
 # stdlib
+import re
 
-# 3rd party
+#3p
+import requests
 
 # project
 from checks import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'apt'
 
+# The name of the service check we'll use to report when there are package
+# updates available. Normal non-security related packages will generate a
+# warning, security related package updates will generate a critical alert.
+SECURITY_CHECK = 'apt.updates'
+
+# Regular expressions to match the /var/lib/update-notifier/updates-available format.
+PACKAGES_REGEX = re.compile(r"^(\d+) packages can be updated.*", re.MULTILINE)
+SECURITY_REGEX = re.compile(r"^(\d+) updates are security updates.*$", re.MULTILINE)
 
 class AptCheck(AgentCheck):
+    """Generates metrics and service alerts when package updates are available
+    """
 
     def __init__(self, name, init_config, agentConfig, instances=None):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
 
     def check(self, instance):
-        pass
+        updates = self.updates(instance)
+
+        self.gauge('apt.updates.packages', updates['packages'])
+        self.gauge('apt.updates.security', updates['security'])
+
+        if updates['security'] > 0:
+            self.service_check(SECURITY_CHECK, AgentCheck.CRITICAL)
+        elif updates['packages'] > 0:
+            self.service_check(SECURITY_CHECK, AgentCheck.WARNING)
+        else:
+            self.service_check(SECURITY_CHECK, AgentCheck.OK)
+
+    def updates(self, instance):
+        updates = {}
+        content = open(instance['updates_file'], 'r').read()
+
+        for m in PACKAGES_REGEX.finditer(content):
+            updates['packages'] = int(m.groups()[0])
+        for m in SECURITY_REGEX.finditer(content):
+            updates['security'] = int(m.groups()[0])
+
+        return updates
