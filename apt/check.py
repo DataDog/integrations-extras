@@ -39,7 +39,7 @@ class AptCheck(AgentCheck):
             self.service_check(SECURITY_CHECK, AgentCheck.OK)
 
     def updates(self, instance):
-        updates = { 'packages': 0, 'security': 0 }
+        updates = {'packages': 0, 'security': 0}
 
         with open(instance['updates_file'], 'r') as fd:
             content = fd.read()

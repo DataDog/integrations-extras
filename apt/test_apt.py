@@ -1,21 +1,9 @@
-# stdlib
-from nose.plugins.attrib import attr
-
-# 3p
-import mock
-import json
-
 # project
-from tests.checks.common import AgentCheckTest, load_check, Fixtures
+from tests.checks.common import AgentCheckTest, Fixtures
 
 
 def mock_config(fixture):
-    return {
-            'init_config': {},
-            'instances' : [{
-                'updates_file': Fixtures.file(fixture)
-                }]
-            }
+    return {'init_config': {}, 'instances' : [{'updates_file': Fixtures.file(fixture)}]}
 
 class TestCheckAPT(AgentCheckTest):
     CHECK_NAME = 'apt'
