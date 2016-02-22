@@ -15,8 +15,8 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'apt'
 SECURITY_CHECK = 'apt.updates'
 
 # Regular expressions to match the /var/lib/update-notifier/updates-available format.
-PACKAGES_REGEX = re.compile(r"^(\d+) packages can be updated.*", re.MULTILINE)
-SECURITY_REGEX = re.compile(r"^(\d+) updates are security updates.*$", re.MULTILINE)
+PACKAGES_REGEX = re.compile(r"^(\d+) packages? can be updated.*", re.MULTILINE)
+SECURITY_REGEX = re.compile(r"^(\d+) updates? (is a|are) security updates?.*$", re.MULTILINE)
 
 class AptCheck(AgentCheck):
     """Generates metrics and service alerts when package updates are available
@@ -39,7 +39,8 @@ class AptCheck(AgentCheck):
             self.service_check(SECURITY_CHECK, AgentCheck.OK)
 
     def updates(self, instance):
-        updates = {}
+        updates = { 'packages': 0, 'security': 0 }
+
         with open(instance['updates_file'], 'r') as fd:
             content = fd.read()
 
