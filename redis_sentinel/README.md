@@ -1,19 +1,21 @@
-# Overview
+# Redis Sentinel
+
+## Overview
 
 Get metrics from Redis's Sentinel service in real time to:
 
-* Visualize sentinels states
+* Visualize and monitor sentinels states
 * Be notified about failovers
 
-# Installation
+## Installation
 
-Install the `dd-check-twemproxy` package
+Install the `dd-check-redis-sentinel` package manually or with your favorite configuration manager
 
-# Configuration
+## Configuration
 
 Edit the `redis_sentinel.yaml` file to point to your server and port, set the masters to monitor
 
-# Validation
+## Validation
 
 When you run `datadog-agent info` you should see something like the following:
 
@@ -24,3 +26,7 @@ When you run `datadog-agent info` you should see something like the following:
         --------------
           - instance #0 [OK]
           - Collected 39 metrics, 0 events & 7 service checks
+
+## Compatibility
+
+The Redis Sentinel check is compatible with all major platforms
