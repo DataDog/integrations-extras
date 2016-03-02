@@ -1,4 +1,4 @@
-# Redis Sentinel
+# Redis Sentinal
 
 ## Overview
 
