@@ -1,5 +1,38 @@
+machine:
+    python:
+        version: 2.7.3
+    services:
+        - docker
+    environment:
+        NOSE_FILTER: "not windows"
+
+
 general:
   branches:
     only:
       - /jaime.*/  # for now - whitelisting
       - /tristan.*/ # for now - whitelisting
+
+dependencies:
+    pre:
+        - sudo apt-get update ; sudo apt-get install curl
+        - sudo bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/install_agent.sh)"
+        - sudo pip install docker-compose
+        - sudo pip install nose
+        - sudo pip install flake8
+        - sudo pip install pep8==1.5.7
+        - if [ -e requirements.txt ]; then sudo pip install -r requirements.txt; fi
+
+test:
+    pre:
+        #- docker-compose -f development.yml -f development.test.yml run -d db
+        - docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
+        # - docker run -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
+    override:
+        - docker run redis-sentinel
+        - nosetests
+        - docker stop redis-sentinel
+    post:
+        # docker-compose stop was not stopping containers started with docker-compose run
+        # so using this hackity hack to force stop them all
+        - docker stop $(docker ps -a -q)
