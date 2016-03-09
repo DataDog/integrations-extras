@@ -15,8 +15,10 @@ general:
 
 dependencies:
     pre:
-        - sudo apt-get update ; sudo apt-get install curl
-        - DD_API_KEY="unknown" bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/install_agent.sh)"
+        - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https
+        - sudo sh -c "echo 'deb http://apt.datadoghq.com/ stable main' > /etc/apt/sources.list.d/datadog.list"
+        - sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 C7A7DA52
+        - sudo apt-get install -y --force-yes datadog-agent
         - sudo service datadog-agent stop
         - sudo pip install docker-compose
         - sudo pip install nose
