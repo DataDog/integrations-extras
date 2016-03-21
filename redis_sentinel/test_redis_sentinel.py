@@ -19,6 +19,6 @@ class TestRedisSentinel(AgentCheckTest):
         self.load_check({}, {})
 
 
-        self.assertTrue(2 > 1)
+        self.assertTrue(True)
         # Raises when COVERAGE=true and coverage < 100%
         # self.coverage_report()
