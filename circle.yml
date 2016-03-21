@@ -24,9 +24,10 @@ dependencies:
         - cd ~/dd-agent ; git fetch && git checkout jaime/sdktesting ; cd -
         - echo "$HOME/dd-agent/" > ~/virtualenvs/venv-2.7.3/lib/python2.7/site-packages/datadog-agent.pth
         - pip install docker-compose
-        - pip install nose
-        - pip install flake8
-        - pip install pep8==1.5.7
+        - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements.txt; fi
+        - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt; fi
+        - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt; fi
+        - if [ -e ~/$CIRCLE_PROJECT_REPONAME/Gemfile ]; then cd ~/$CIRCLE_PROJECT_REPONAME ; bundle install; cd - ; fi
           # - if [ -e requirements.txt ]; then sudo pip install -r requirements.txt; fi (should be done automagically)
 
 test:
@@ -36,7 +37,8 @@ test:
         # - docker run -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
     override:
         - docker start redis-sentinel
-        - nosetests -v -w ~/$CIRCLE_PROJECT_REPONAME/redis_sentinel test_redis_sentinel.py
+        - bundle exec rake lint
+        - nosetests -v -w redis_sentinel test_redis_sentinel.py
         - docker stop redis-sentinel
     post:
         # docker-compose stop was not stopping containers started with docker-compose run
