@@ -20,7 +20,6 @@ namespace :ci do
       this_provides = [
         'redis_sentinel'
       ]
-      puts "RUnning test...."
       Rake::Task['ci:common:run_tests'].invoke(this_provides)
     end
 

@@ -177,7 +177,6 @@ namespace :ci do
           /.*#{flavors}.*$/.match(test).nil?
         end
       end
-      puts "flavors: #{flavors} tests: #{tests_directory}"
       # Rake on Windows doesn't support setting the var at the beginning of the
       # command
       path = ''
