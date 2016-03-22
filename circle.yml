@@ -38,7 +38,7 @@ test:
     override:
         - docker start redis-sentinel
         - bundle exec rake lint
-        - nosetests -v -w redis_sentinel test_redis_sentinel.py
+        - rake ci:run[default]
         - docker stop redis-sentinel
     post:
         # docker-compose stop was not stopping containers started with docker-compose run
