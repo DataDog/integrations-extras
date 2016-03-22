@@ -6,6 +6,7 @@ require 'rubocop/rake_task'
 
 # Flavored Travis CI jobs
 require './ci/default'
+require './ci/redis_sentinel'
 
 CLOBBER.include '**/*.pyc'
 

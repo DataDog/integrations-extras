@@ -171,11 +171,13 @@ namespace :ci do
                "(requires in ['#{flavors.join("','")}']) and #{filter}"
              end
 
-      tests_directory, = if flavors.include?('default')
-                           integration_tests(File.dirname(__FILE__))
-                         else
-                           ['tests/checks', nil]
-                         end
+      tests_directory, = integration_tests(File.dirname(__FILE__))
+      unless flavors.include?('default')
+        tests_directory = tests_directory.reject do |test|
+          /.*#{flavors}.*$/.match(test).nil?
+        end
+      end
+      puts "flavors: #{flavors} tests: #{tests_directory}"
       # Rake on Windows doesn't support setting the var at the beginning of the
       # command
       path = ''
