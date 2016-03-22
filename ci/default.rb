@@ -7,24 +7,7 @@ namespace :ci do
     task before_install: ['ci:common:before_install']
 
     task :coverage do
-      ci_dir = File.dirname(__FILE__)
-      sdk_dir = File.join(ci_dir, '..')
-
-      integrations = []
-      untested = []
-      testable = []
-      pyfiles = Dir.glob(File.join(sdk_dir, '**/test_*.py')).reject do |path|
-        !%r{#{sdk_dir}/embedded/.*$}.match(path).nil? || !%r{#{sdk_dir}\/venv\/.*$}.match(path).nil?
-      end
-      pyfiles.each do |check|
-        integration_name = /test_((\w|_)+).py$/.match(check)[1]
-        integrations.push(integration_name)
-        if File.exist?(check)
-          testable.push(check)
-        else
-          untested.push(check)
-        end
-      end
+      testable, untested = integration_tests(File.dirname(__FILE__))
       total_checks = (untested + testable).length
       unless untested.empty?
         puts "Untested checks (#{untested.length}/#{total_checks})".red

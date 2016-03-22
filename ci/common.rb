@@ -19,6 +19,10 @@ def section(name)
   puts ''
 end
 
+def in_venv
+  ENV['RUN_VENV'] && ENV['RUN_VENV'] == 'true' ? true : false
+end
+
 def install_requirements(req_file, pip_options = nil, output = nil, use_venv = nil)
   pip_command = use_venv ? 'venv/bin/pip' : 'pip'
   redirect_output = output ? "2>&1 >> #{output}" : ''
@@ -32,6 +36,29 @@ def install_requirements(req_file, pip_options = nil, output = nil, use_venv = n
       end
     end
   end
+end
+
+def test_files(sdk_dir)
+  Dir.glob(File.join(sdk_dir, '**/test_*.py')).reject do |path|
+    !%r{#{sdk_dir}/embedded/.*$}.match(path).nil? || !%r{#{sdk_dir}\/venv\/.*$}.match(path).nil?
+  end
+end
+
+def integration_tests(ci_dir)
+  sdk_dir = File.join(ci_dir, '..')
+  integrations = []
+  untested = []
+  testable = []
+  test_files(sdk_dir).each do |check|
+    integration_name = /test_((\w|_)+).py$/.match(check)[1]
+    integrations.push(integration_name)
+    if Dir.exist?(File.join(sdk_dir, integration_name))
+      testable.push(check)
+    else
+      untested.push(check)
+    end
+  end
+  [testable, untested]
 end
 
 # helper class to wait for TCP/HTTP services to boot
@@ -108,7 +135,7 @@ namespace :ci do
 
     task :install do |t|
       section('INSTALL')
-      use_venv = ENV['RUN_VENV'] && ENV['RUN_VENV'] == 'true' ? true : false
+      use_venv = in_venv
       pip_command = use_venv ? 'venv/bin/pip' : 'pip'
       sh %(#{'python -m ' if Gem.win_platform?}#{pip_command} install --upgrade pip setuptools)
       install_requirements('requirements.txt',
@@ -136,18 +163,19 @@ namespace :ci do
     task :run_tests, :flavor do |t, attr|
       flavors = attr[:flavor]
       filter = ENV['NOSE_FILTER'] || '1'
+      nose_command = in_venv ? 'venv/bin/nosetests' : 'nosetests'
 
-      nose = if flavors.include?('default') || flavors.include?('checks_mock')
+      nose = if flavors.include?('default')
                "(not requires) and #{filter}"
              else
                "(requires in ['#{flavors.join("','")}']) and #{filter}"
              end
 
-      tests_directory = if flavors.include?('default') || flavors.include?('core_integration')
-                          'tests/core'
-                        else
-                          'tests/checks'
-                        end
+      tests_directory, = if flavors.include?('default')
+                           integration_tests(File.dirname(__FILE__))
+                         else
+                           ['tests/checks', nil]
+                         end
       # Rake on Windows doesn't support setting the var at the beginning of the
       # command
       path = ''
@@ -157,7 +185,9 @@ namespace :ci do
         # separate dir we symlink stuff in the rootdir
         path = %(PATH="#{ENV['INTEGRATIONS_DIR']}/bin:#{ENV['PATH']}" )
       end
-      sh %(#{path}nosetests -s -v -A "#{nose}" #{tests_directory})
+      tests_directory.each do |testdir|
+        sh %(#{path}#{nose_command} -s -v -A "#{nose}" #{testdir})
+      end
       t.reenable
     end
     task execute: [:before_install, :install, :script]
