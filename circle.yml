@@ -43,7 +43,8 @@ test:
         # - docker start redis-sentinel
         - bundle exec rake lint
         - rake ci:run[default]
-        - docker stop redis-sentinel
+        - rake ci:run[redis_sentinel]
+        # - docker stop redis-sentinel
     post:
         # docker-compose stop was not stopping containers started with docker-compose run
         # so using this hackity hack to force stop them all
