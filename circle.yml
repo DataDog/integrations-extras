@@ -37,10 +37,10 @@ dependencies:
 test:
     pre:
         #- docker-compose -f development.yml -f development.test.yml run -d db
-        - docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
+        # - docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
         # - docker run -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
     override:
-        - docker start redis-sentinel
+        # - docker start redis-sentinel
         - bundle exec rake lint
         - rake ci:run[default]
         - docker stop redis-sentinel

@@ -12,7 +12,10 @@ namespace :ci do
   namespace :redis_sentinel do |flavor|
     task before_install: ['ci:common:before_install']
 
-    task install: ['ci:common:install']
+    task install: ['ci:common:install'] do
+      sh %(docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379)
+      sh %(docker start redis-sentinel)
+    end
 
     task before_script: ['ci:common:before_script']
 
@@ -27,7 +30,9 @@ namespace :ci do
 
     task cache: ['ci:common:cache']
 
-    task cleanup: ['ci:common:cleanup']
+    task cleanup: ['ci:common:cleanup'] do
+      sh %(docker stop $(docker ps -a -q))
+    end
 
     task :execute do
       exception = nil
