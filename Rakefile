@@ -18,6 +18,7 @@ unless ENV['CI']
   ENV['VOLATILE_DIR'] = '/tmp/integration-sdk-testing'
   ENV['CONCURRENCY'] = ENV['CONCURRENCY'] || '2'
   ENV['NOSE_FILTER'] = 'not windows'
+  ENV['RUN_VENV'] = 'true'
 end
 
 desc 'Setup a development environment for the SDK'
@@ -40,21 +41,6 @@ task 'setup_env' do
 end
 
 namespace :test do
-  desc 'Run dogstatsd tests'
-  task 'dogstatsd' do
-    sh 'nosetests tests/core/test_dogstatsd.py'
-  end
-
-  desc 'Run performance tests'
-  task 'performance' do
-    sh 'nosetests --with-xunit --xunit-file=nosetests-performance.xml tests/core/benchmark*.py'
-  end
-
-  desc 'cProfile unit tests (requires \'nose-cprof\')'
-  task 'profile' do
-    sh 'nosetests --with-cprofile tests/core/benchmark*.py'
-  end
-
   desc 'cProfile tests, then run pstats'
   task 'profile:pstats' => ['test:profile'] do
     sh 'python -m pstats stats.dat'
@@ -70,11 +56,6 @@ end
 
 desc 'Lint the code through pylint'
 task 'lint' => ['ci:default:lint'] do
-end
-
-desc 'Run the Agent locally'
-task 'run' do
-  sh('supervisord -n -c supervisord.dev.conf')
 end
 
 namespace :ci do

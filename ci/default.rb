@@ -13,10 +13,13 @@ namespace :ci do
       integrations = []
       untested = []
       testable = []
-      Dir.glob(File.join(sdk_dir, '**/*.py')).each do |check|
+      pyfiles = Dir.glob(File.join(sdk_dir, '**/test_*.py')).reject do |path|
+        !%r{#{sdk_dir}/embedded/.*$}.match(path).nil? || !%r{#{sdk_dir}\/venv\/.*$}.match(path).nil?
+      end
+      pyfiles.each do |check|
         integration_name = /test_((\w|_)+).py$/.match(check)[1]
         integrations.push(integration_name)
-        if File.exist?(File.join(integration_dir, "test_#{integration_name}.py"))
+        if File.exist?(check)
           testable.push(check)
         else
           untested.push(check)
@@ -33,8 +36,6 @@ namespace :ci do
 
     task install: ['ci:common:install']
 
-    task before_script: ['ci:common:before_script']
-
     task lint: ['rubocop'] do
       sh %(flake8)
     end
@@ -48,8 +49,7 @@ namespace :ci do
     task :execute do
       exception = nil
       begin
-        %w(before_install install before_script
-           script).each do |t|
+        %w(before_install install script).each do |t|
           Rake::Task["#{flavor.scope.path}:#{t}"].invoke
         end
       rescue => e

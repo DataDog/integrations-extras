@@ -23,7 +23,7 @@ def install_requirements(req_file, pip_options = nil, output = nil, use_venv = n
   pip_command = use_venv ? 'venv/bin/pip' : 'pip'
   redirect_output = output ? "2>&1 >> #{output}" : ''
   pip_options = '' if pip_options.nil?
-  File.open(req_file, 'r') do |f|
+  File.exist?(req_file) && File.open(req_file, 'r') do |f|
     f.each_line do |line|
       line.strip!
       unless line.empty? || line.start_with?('#')
@@ -108,26 +108,18 @@ namespace :ci do
 
     task :install do |t|
       section('INSTALL')
-      sh %(#{'python -m ' if Gem.win_platform?}pip install --upgrade pip setuptools)
-      sh %(pip install\
-           -r requirements.txt\
-           --cache-dir #{ENV['PIP_CACHE']}\
-           2>&1 >> #{ENV['VOLATILE_DIR']}/ci.log)
-      install_requirements('requirements-opt.txt',
+      use_venv = ENV['RUN_VENV'] && ENV['RUN_VENV'] == 'true' ? true : false
+      pip_command = use_venv ? 'venv/bin/pip' : 'pip'
+      sh %(#{'python -m ' if Gem.win_platform?}#{pip_command} install --upgrade pip setuptools)
+      install_requirements('requirements.txt',
                            "--cache-dir #{ENV['PIP_CACHE']}",
-                           "#{ENV['VOLATILE_DIR']}/ci.log")
-      sh %(pip install\
-           --upgrade\
-           -r requirements-test.txt\
-           --cache-dir #{ENV['PIP_CACHE']}\
-            2>&1 >> #{ENV['VOLATILE_DIR']}/ci.log)
-      t.reenable
-    end
-
-    task :before_script do |t|
-      section('BEFORE_SCRIPT')
-      sh %(cp #{ENV['TRAVIS_BUILD_DIR']}/ci/resources/datadog.conf.example\
-           #{ENV['TRAVIS_BUILD_DIR']}/datadog.conf)
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
+      install_requirements('requirements-opt.txt',
+                           "--upgrade --cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
+      install_requirements('requirements-test.txt',
+                           "--cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
       t.reenable
     end
 
@@ -168,6 +160,6 @@ namespace :ci do
       sh %(#{path}nosetests -s -v -A "#{nose}" #{tests_directory})
       t.reenable
     end
-    task execute: [:before_install, :install, :before_script, :script]
+    task execute: [:before_install, :install, :script]
   end
 end
