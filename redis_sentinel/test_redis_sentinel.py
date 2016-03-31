@@ -1,3 +1,6 @@
+# stdlib
+from nose.plugins.attrib import attr
+
 # project
 from tests.checks.common import AgentCheckTest
 
@@ -8,6 +11,7 @@ instance = {
     'password': 'datadog-is-devops-best-friend'
 }
 
+@attr(requires='redis_sentinel')
 class TestRedisSentinel(AgentCheckTest):
     CHECK_NAME = 'redis_sentinel'
     SDK = True

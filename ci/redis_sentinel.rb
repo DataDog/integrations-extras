@@ -13,6 +13,10 @@ namespace :ci do
     task before_install: ['ci:common:before_install']
 
     task install: ['ci:common:install'] do
+      use_venv = in_venv
+      install_requirements('redis_sentinel/requirements.txt',
+                           "--cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
       sh %(docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379)
       sh %(docker start redis-sentinel)
     end
@@ -31,7 +35,8 @@ namespace :ci do
     task cache: ['ci:common:cache']
 
     task cleanup: ['ci:common:cleanup'] do
-      sh %(docker stop $(docker ps -a -q))
+      sh %(docker stop redis-sentinel)
+      sh %(docker rm redis-sentinel)
     end
 
     task :execute do
