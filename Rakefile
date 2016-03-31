@@ -59,6 +59,27 @@ desc 'Lint the code through pylint'
 task 'lint' => ['ci:default:lint'] do
 end
 
+namespace :generate do
+  desc 'Setup a development environment for the SDK'
+  task :skeleton, :option do |t, args|
+    puts "generating skeleton files for #{args[:option]}"
+    capitalized = args[:option].capitalize
+    sh "mkdir -p ./ci"
+    sh "mkdir -p ./#{args[:option]}"
+    sh "wget -O ./ci/#{args[:option]}.rb https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/ci/skeleton.rb"
+    sh "wget -O ./#{args[:option]}/manifest.json https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
+    sh "wget -O ./#{args[:option]}/check.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/check.py"
+    sh "wget -O ./#{args[:option]}/test_#{args[:option]}.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/test_skeleton.py"
+    sh "wget -O ./#{args[:option]}/metadata.csv https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/metadata.csv"
+    sh "wget -O ./#{args[:option]}/requirements.txt https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/requirements.txt"
+    sh "wget -O ./#{args[:option]}/README.md https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/README.md"
+    sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/skeleton/#{args[:option]}/g\" {} \\;"
+    sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/Skeleton/#{capitalized}/g\" {} \\;"
+    sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rb"
+    sh "sed -i '' \"s/Skeleton/#{capitalized}/g\" ./ci/#{args[:option]}.rb"
+  end
+end
+
 namespace :ci do
   desc 'Run integration tests'
   task :run, :flavor do |_, args|
