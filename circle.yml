@@ -20,10 +20,6 @@ general:
 dependencies:
     pre:
         - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
-          #        - sudo sh -c "echo 'deb http://apt.datadoghq.com/ stable main' > /etc/apt/sources.list.d/datadog.list"
-          #        - sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 C7A7DA52
-          #        - sudo apt-get update && sudo apt-get install -y --force-yes datadog-agent
-          #        - sudo service datadog-agent stop
         - git clone https://github.com/DataDog/dd-agent.git ~/dd-agent
         - cd ~/dd-agent ; git fetch && git checkout jaime/sdktesting ; cd -
         - echo "$HOME/dd-agent/" > ~/virtualenvs/venv-2.7.3/lib/python2.7/site-packages/datadog-agent.pth
@@ -32,20 +28,11 @@ dependencies:
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt; fi
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt; fi
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/Gemfile ]; then cd ~/$CIRCLE_PROJECT_REPONAME ; bundle install; cd - ; fi
-          # - if [ -e requirements.txt ]; then sudo pip install -r requirements.txt; fi (should be done automagically)
 
 test:
-    pre:
-        #- docker-compose -f development.yml -f development.test.yml run -d db
-        # - docker create -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
-        # - docker run -p 26379:26379 --name redis-sentinel joshula/redis-sentinel --sentinel announce-ip 1.2.3.4 --sentinel announce-port 26379
     override:
-        # - docker start redis-sentinel
         - bundle exec rake lint
         - rake ci:run[default]
         - rake ci:run[redis_sentinel]
-        # - docker stop redis-sentinel
     post:
-        # docker-compose stop was not stopping containers started with docker-compose run
-        # so using this hackity hack to force stop them all
         - docker stop $(docker ps -a -q)
