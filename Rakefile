@@ -61,22 +61,34 @@ end
 
 namespace :generate do
   desc 'Setup a development environment for the SDK'
-  task :skeleton, :option do |t, args|
+  task :skeleton, :option do |_, args|
     puts "generating skeleton files for #{args[:option]}"
     capitalized = args[:option].capitalize
-    sh "mkdir -p ./ci"
+    sh 'mkdir -p ./ci'
     sh "mkdir -p ./#{args[:option]}"
     sh "wget -O ./ci/#{args[:option]}.rb https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/ci/skeleton.rb"
     sh "wget -O ./#{args[:option]}/manifest.json https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
     sh "wget -O ./#{args[:option]}/check.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/check.py"
-    sh "wget -O ./#{args[:option]}/test_#{args[:option]}.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/test_skeleton.py"
+    sh "wget -O ./#{args[:option]}/test_#{args[:option]}.py \
+    https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/test_skeleton.py"
     sh "wget -O ./#{args[:option]}/metadata.csv https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/metadata.csv"
-    sh "wget -O ./#{args[:option]}/requirements.txt https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/requirements.txt"
+    sh "wget -O ./#{args[:option]}/requirements.txt \
+    https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/requirements.txt"
     sh "wget -O ./#{args[:option]}/README.md https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/README.md"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/skeleton/#{args[:option]}/g\" {} \\;"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/Skeleton/#{capitalized}/g\" {} \\;"
     sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rb"
     sh "sed -i '' \"s/Skeleton/#{capitalized}/g\" ./ci/#{args[:option]}.rb"
+
+    new_file = './circle.yml.new'
+    File.open(new_file, 'w') do |fo|
+      File.foreach('./circle.yml') do |line|
+        fo.puts "        - rake ci:run[#{args[:option]}]" if line =~ /post\:/
+        fo.puts line
+      end
+    end
+    File.delete('./circle.yml')
+    File.rename(new_file, './circle.yml')
   end
 end
 
