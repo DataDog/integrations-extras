@@ -1,11 +1,8 @@
 init_config:
-  # Any global configurable parameters should be added here
+# Not required for this check
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+ - path: '/var/run/reboot-required'
+   expected: absent
+ - path: '/etc/passwd'
+   expected: present
