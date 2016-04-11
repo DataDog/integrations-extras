@@ -67,7 +67,8 @@ namespace :generate do
     sh 'mkdir -p ./ci'
     sh "mkdir -p ./#{args[:option]}"
     sh "wget -q -O ./ci/#{args[:option]}.rake https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/ci/skeleton.rake"
-    sh "wget -q -O ./#{args[:option]}/manifest.json https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
+    sh "wget -q -O ./#{args[:option]}/manifest.json \
+    https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
     sh "wget -q -O ./#{args[:option]}/check.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/check.py"
     sh "wget -q -O ./#{args[:option]}/test_#{args[:option]}.py \
     https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/test_skeleton.py"
