@@ -6,7 +6,7 @@ require 'rubocop/rake_task'
 
 # Flavored Travis CI jobs
 require './ci/default'
-require './ci/redis_sentinel'
+Rake.add_rakelib 'ci/'
 
 CLOBBER.include '**/*.pyc'
 
@@ -25,11 +25,11 @@ end
 desc 'Setup a development environment for the SDK'
 task 'setup_env' do
   `mkdir -p venv`
-  `wget -O venv/virtualenv.py https://raw.github.com/pypa/virtualenv/1.11.6/virtualenv.py`
+  `wget -q -O venv/virtualenv.py https://raw.github.com/pypa/virtualenv/1.11.6/virtualenv.py`
   `python venv/virtualenv.py  --no-site-packages --no-pip --no-setuptools venv/`
-  `wget -O venv/ez_setup.py https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py`
+  `wget -q -O venv/ez_setup.py https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py`
   `venv/bin/python venv/ez_setup.py`
-  `wget -O venv/get-pip.py https://bootstrap.pypa.io/get-pip.py`
+  `wget -q -O venv/get-pip.py https://bootstrap.pypa.io/get-pip.py`
   `venv/bin/python venv/get-pip.py`
   `venv/bin/pip install -r requirements.txt` if File.exist?('requirements.txt')
   `venv/bin/pip install -r requirements-test.txt` if File.exist?('requirements-test.txt')
@@ -66,15 +66,15 @@ namespace :generate do
     capitalized = args[:option].capitalize
     sh 'mkdir -p ./ci'
     sh "mkdir -p ./#{args[:option]}"
-    sh "wget -O ./ci/#{args[:option]}.rb https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/ci/skeleton.rb"
-    sh "wget -O ./#{args[:option]}/manifest.json https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
-    sh "wget -O ./#{args[:option]}/check.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/check.py"
-    sh "wget -O ./#{args[:option]}/test_#{args[:option]}.py \
+    sh "wget -q -O ./ci/#{args[:option]}.rake https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/ci/skeleton.rake"
+    sh "wget -q -O ./#{args[:option]}/manifest.json https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/manifest.json"
+    sh "wget -q -O ./#{args[:option]}/check.py https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/check.py"
+    sh "wget -q -O ./#{args[:option]}/test_#{args[:option]}.py \
     https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/test_skeleton.py"
-    sh "wget -O ./#{args[:option]}/metadata.csv https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/metadata.csv"
-    sh "wget -O ./#{args[:option]}/requirements.txt \
+    sh "wget -q -O ./#{args[:option]}/metadata.csv https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/metadata.csv"
+    sh "wget -q -O ./#{args[:option]}/requirements.txt \
     https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/requirements.txt"
-    sh "wget -O ./#{args[:option]}/README.md https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/README.md"
+    sh "wget -q -O ./#{args[:option]}/README.md https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/README.md"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/skeleton/#{args[:option]}/g\" {} \\;"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/Skeleton/#{capitalized}/g\" {} \\;"
     sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rb"
