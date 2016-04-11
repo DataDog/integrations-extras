@@ -78,8 +78,8 @@ namespace :generate do
     sh "wget -q -O ./#{args[:option]}/README.md https://raw.githubusercontent.com/DataDog/integrations-extras/jaime/skeleton/skeleton/README.md"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/skeleton/#{args[:option]}/g\" {} \\;"
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/Skeleton/#{capitalized}/g\" {} \\;"
-    sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rb"
-    sh "sed -i '' \"s/Skeleton/#{capitalized}/g\" ./ci/#{args[:option]}.rb"
+    sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rake"
+    sh "sed -i '' \"s/Skeleton/#{capitalized}/g\" ./ci/#{args[:option]}.rake"
 
     new_file = './circle.yml.new'
     File.open(new_file, 'w') do |fo|
