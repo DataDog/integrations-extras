@@ -80,6 +80,8 @@ namespace :generate do
     sh "find ./#{args[:option]} -type f -exec sed -i '' \"s/Skeleton/#{capitalized}/g\" {} \\;"
     sh "sed -i '' \"s/skeleton/#{args[:option]}/g\" ./ci/#{args[:option]}.rake"
     sh "sed -i '' \"s/Skeleton/#{capitalized}/g\" ./ci/#{args[:option]}.rake"
+    sh "git add ./ci/#{args[:option]}.rake"
+    sh "git add ./#{args[:option]}/*"
 
     new_file = './circle.yml.new'
     File.open(new_file, 'w') do |fo|
