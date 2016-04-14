@@ -65,6 +65,10 @@ desc 'Lint the code through pylint'
 task 'lint' => ['ci:default:lint'] do
 end
 
+desc 'Find requirements conflicts'
+task 'requirements' => ['ci:default:requirements'] do
+end
+
 namespace :generate do
   desc 'Setup a development environment for the SDK'
   task :skeleton, :option do |_, args|

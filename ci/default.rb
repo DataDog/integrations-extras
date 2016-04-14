@@ -23,6 +23,11 @@ namespace :ci do
       sh %(flake8)
     end
 
+    task :requirements do
+      root = Rake.application.original_dir
+      sh "#{root}/ci/hooks/pre-commit.py"
+    end
+
     task script: ['ci:common:script', :coverage, :lint] do
       Rake::Task['ci:common:run_tests'].invoke(['default'])
     end
