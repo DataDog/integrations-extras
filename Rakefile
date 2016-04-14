@@ -96,7 +96,7 @@ namespace :generate do
     new_file = './circle.yml.new'
     File.open(new_file, 'w') do |fo|
       File.foreach('./circle.yml') do |line|
-        fo.puts "        - rake ci:run[#{args[:option]}]" if line =~ /post\:/
+        fo.puts "        - rake ci:run[#{args[:option]}]" if line =~ /bundle\ exec\ rake\ requirements/
         fo.puts line
       end
     end
