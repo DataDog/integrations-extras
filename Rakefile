@@ -41,6 +41,12 @@ task 'setup_env' do
   `echo "$PWD/embedded/dd-agent/" > venv/lib/python2.7/site-packages/datadog-agent.pth`
 end
 
+desc 'Setup git hooks'
+task 'setup_hooks' do
+  pwd = File.dirname(__FILE__)
+  sh "ln -sf #{pwd}/ci/hooks/pre-commit.py #{pwd}/.git/hooks/pre-commit"
+end
+
 namespace :test do
   desc 'cProfile tests, then run pstats'
   task 'profile:pstats' => ['test:profile'] do
