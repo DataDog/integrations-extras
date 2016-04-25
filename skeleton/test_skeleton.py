@@ -17,7 +17,6 @@ instance = {
 @attr(requires='skeleton')
 class TestSkeleton(AgentCheckTest):
     CHECK_NAME = 'skeleton'
-    SDK = True
 
     def test_check(self):
         """
@@ -25,7 +24,7 @@ class TestSkeleton(AgentCheckTest):
         """
         self.load_check({}, {})
 
-        #run your actual tests...
+        # run your actual tests...
 
         self.assertTrue(True)
         # Raises when COVERAGE=true and coverage < 100%
