@@ -32,10 +32,10 @@ install:
   - cd ~/dd-agent ; git fetch && git checkout jaime/sdktesting ; cd -
   - echo "$HOME/dd-agent/" > $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")/datadog-agent.pth
   - pip install docker-compose
-  - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements.txt; fi
-  - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt; fi
-  - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt; fi
-  - if [ -e ~/$CIRCLE_PROJECT_REPONAME/Gemfile ]; then cd ~/$CIRCLE_PROJECT_REPONAME ; bundle install; cd - ; fi
+  - if [ -e $TRAVIS_BUILD_DIR/requirements.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements.txt; fi
+  - if [ -e $TRAVIS_BUILD_DIR/requirements-test.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-test.txt; fi
+  - if [ -e $TRAVIS_BUILD_DIR/requirements-opt.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-opt.txt; fi
+  - if [ -e $TRAVIS_BUILD_DIR/Gemfile ]; then cd $TRAVIS_BUILD_DIR ; bundle install; cd - ; fi
 
 script:
   - bundle exec rake lint
