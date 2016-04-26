@@ -26,7 +26,7 @@ before_install:
   - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
   - git clone https://github.com/DataDog/dd-agent.git ~/dd-agent
   - cd ~/dd-agent ; git fetch && git checkout jaime/sdktesting ; cd -
-  - echo "$HOME/dd-agent/" > ~/virtualenvs/venv-2.7.3/lib/python2.7/site-packages/datadog-agent.pth
+  - echo "$HOME/dd-agent/" > ~/virtualenv/python$TRAVIS_PYTHON_VERSION.9/lib/python2.7/site-packages/datadog-agent.pth
   - pip install docker-compose
   - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements.txt; fi
   - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt; fi
