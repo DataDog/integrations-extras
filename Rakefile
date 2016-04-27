@@ -113,7 +113,6 @@ namespace :generate do
     end
     File.delete('./.travis.yml')
     File.rename(new_file, './.travis.yml')
-
   end
 end
 
