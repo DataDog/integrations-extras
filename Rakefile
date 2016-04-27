@@ -103,6 +103,17 @@ namespace :generate do
     end
     File.delete('./circle.yml')
     File.rename(new_file, './circle.yml')
+
+    new_file = './.travis.yml.new'
+    File.open(new_file, 'w') do |fo|
+      File.foreach('./.travis.yml') do |line|
+        fo.puts "  - rake ci:run[#{args[:option]}]" if line =~ /bundle\ exec\ rake\ requirements/
+        fo.puts line
+      end
+    end
+    File.delete('./.travis.yml')
+    File.rename(new_file, './.travis.yml')
+
   end
 end
 
