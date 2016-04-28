@@ -22,9 +22,8 @@ class TestTravis_integration(AgentCheckTest):
         """
         Testing Travis_integration check.
         """
-        self.load_check({}, {})
-
         # run your actual tests...
+        self.run_check({})
 
         self.assertTrue(True)
         # Raises when COVERAGE=true and coverage < 100%
