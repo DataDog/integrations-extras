@@ -38,7 +38,6 @@ task 'setup_env' do
   ENV['PIP_COMMAND'] = 'venv/bin/pip'
   `./utils/pip-allow-failures.sh requirements-opt.txt` if File.exist?('requirements-opt.txt')
   `git clone https://github.com/DataDog/dd-agent.git ./embedded/dd-agent`
-  `cd ./embedded/dd-agent ; git fetch && git checkout jaime/sdktesting ; cd -`
   `echo "$PWD/embedded/dd-agent/" > venv/lib/python2.7/site-packages/datadog-agent.pth`
 end
 
