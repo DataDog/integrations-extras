@@ -39,7 +39,7 @@ task 'setup_env' do
   `./utils/pip-allow-failures.sh requirements-opt.txt` if File.exist?('requirements-opt.txt')
   `git clone https://github.com/DataDog/dd-agent.git ./embedded/dd-agent`
   # install agent core dependencies
-  `venv/bin/pip install -r i./embedded/dd-agent/requirements.txt`
+  `venv/bin/pip install -r ./embedded/dd-agent/requirements.txt`
   `echo "$PWD/embedded/dd-agent/" > venv/lib/python2.7/site-packages/datadog-agent.pth`
 end
 
