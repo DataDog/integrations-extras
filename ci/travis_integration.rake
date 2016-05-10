@@ -18,7 +18,7 @@ namespace :ci do
                            "--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
       # sample docker usage
-      sh %(docker create -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=foo mysql:latest)
+      sh %(docker create -p 3307:3306 --name mysql -e MYSQL_ROOT_PASSWORD=foo mysql:latest)
       sh %(docker start mysql)
     end
 
