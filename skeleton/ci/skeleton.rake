@@ -1,4 +1,4 @@
-require './ci/common'
+require 'ci/common'
 
 def skeleton_version
   ENV['FLAVOR_VERSION'] || '2.4.12'
