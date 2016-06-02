@@ -1,11 +1,27 @@
 init_config:
-  # Any global configurable parameters should be added here
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+  - host: localhost
+    port: 6379
+
+    # Can be used in lieu of host/port
+    #
+    # unix_socket_path: /var/run/redis/redis.sock # optional, can be used in lieu of host/port
+
+    # Addional connection options
+    #
+    # db: 0
+    # password: mypassword
+    # socket_timeout: 5
+
+    # Monitor only the following queues
+    #
+    # queues:
+    #   - high
+    #   - critical
+
+    # Optional extra tags added to all RQ metrics
+    # tags:
+    #   - optional_tag1
+    #   - optional_tag2
+    #
