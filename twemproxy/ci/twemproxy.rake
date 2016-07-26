@@ -56,12 +56,11 @@ namespace :ci do
     end
 
     task :script, [:mocked] => ['ci:common:script'] do |_, attr|
-      ci_home = File.dirname(__FILE__)
       mocked = attr[:mocked] || false
       this_provides = [
         'twemproxy'
       ]
-      Rake::Task['ci:common:run_tests'].invoke(this_provides, ci_home, mocked)
+      Rake::Task['ci:common:run_tests'].invoke(this_provides, mocked)
     end
 
     task before_cache: ['ci:common:before_cache']
