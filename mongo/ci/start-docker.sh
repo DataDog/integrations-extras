@@ -10,7 +10,7 @@ NAME2='dd-test-mongo-2'
 
 set -e
 
-if docker ps | grep dd-test-mongo >/dev/null 2>&1; then
+if docker ps | grep dd-test-mongo >/dev/null; then
   echo 'the containers already exist, we have to remove them'
   bash mongo/ci/stop-docker.sh
 fi
