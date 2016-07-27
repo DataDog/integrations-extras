@@ -20,7 +20,12 @@ namespace :ci do
       sh %(bash mongo/ci/start-docker.sh)
     end
 
-    task before_script: ['ci:common:before_script']
+    task before_script: ['ci:common:before_script'] do
+      use_venv = in_venv
+      install_requirements('mongo/requirements.txt',
+                           "--cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
+    end
 
     task :script, [:mocked] => ['ci:common:script'] do |_, attr|
       mocked = attr[:mocked] || false
