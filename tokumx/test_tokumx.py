@@ -158,8 +158,7 @@ IDX_HISTS = [
 
 
 # LocalRates are computed as rates but sent as histograms
-# FIXME ['nscanned', 'nscannedObjects', 'inserts', 'deletes'] are N/A
-IDX_LCL_RATES = ['queries']
+IDX_LCL_RATES = ['queries', 'nscanned', 'nscannedObjects', 'inserts', 'deletes']
 
 
 COLL_HISTS = [

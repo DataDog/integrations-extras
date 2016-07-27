@@ -1,39 +1,46 @@
 require 'ci/common'
 
-def tokumx_version
-  ENV['FLAVOR_VERSION'] || '2.0.1'
+def mongo_version
+  ENV['FLAVOR_VERSION'] || '3.0.1'
 end
 
-def tokumx_rootdir
-  "#{ENV['INTEGRATIONS_DIR']}/tokumx_#{tokumx_version}"
+def mongo_rootdir
+  "#{ENV['INTEGRATIONS_DIR']}/mongo_#{mongo_version}"
 end
 
 namespace :ci do
-  namespace :tokumx do |flavor|
+  namespace :mongo do |flavor|
     task before_install: ['ci:common:before_install']
 
     task install: ['ci:common:install'] do
       use_venv = in_venv
-      install_requirements('tokumx/requirements.txt',
+      install_requirements('mongo/requirements.txt',
                            "--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
-      sh %(bash tokumx/ci/start-docker.sh)
+      sh %(bash mongo/ci/start-docker.sh)
     end
 
-    task before_script: ['ci:common:before_script']
+    task before_script: ['ci:common:before_script'] do
+      use_venv = in_venv
+      install_requirements('mongo/requirements.txt',
+                           "--cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
+    end
 
     task :script, [:mocked] => ['ci:common:script'] do |_, attr|
       mocked = attr[:mocked] || false
       this_provides = [
-        'tokumx'
+        'mongo'
       ]
       Rake::Task['ci:common:run_tests'].invoke(this_provides, mocked)
     end
 
     task before_cache: ['ci:common:before_cache']
 
+    # task cleanup: ['ci:common:cleanup']
+    # sample cleanup task
     task cleanup: ['ci:common:cleanup'] do
-      sh %(bash tokumx/ci/stop-docker.sh)
+      sh %(bash mongo/ci/stop-docker.sh)
     end
 
     task :execute, :mocked do |_, attr|
