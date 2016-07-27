@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo never | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-
 PORT=37017
 
 NAME='dd-test-tokumx'
@@ -13,7 +11,7 @@ if docker ps | grep dd-test-tokumx >/dev/null; then
   bash tokumx/ci/stop-docker.sh
 fi
 
-SHARD00_ID=$(docker run -p $PORT:$PORT --name $NAME -d ankurcha/tokumx mongod --bind_ip 0.0.0.0 --port $PORT)
+SHARD00_ID=$(docker run --privileged -p $PORT:$PORT --name $NAME -d datadog/tokumx mongod --bind_ip 0.0.0.0 --port $PORT)
 SHARD00_IP=$(docker inspect ${SHARD00_ID} | grep '"IPAddress"' | cut -d':' -f2 | cut -d'"' -f2)
 SHARD00_IP=$(echo $SHARD00_IP | cut -d " " -f2)
 
