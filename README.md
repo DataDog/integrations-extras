@@ -25,9 +25,29 @@ Once the required Ruby gems have been installed by Bundler, you can easily creat
 
 You can use rake to generate the skeleton for a new integration by running `rake generate:skeleton[my_integration]`, where "my_integration" is the name of your new integration. This will create a new directory, `my_integration`, that contains all the files required for your new integration:
 
+
+- `README.md`: Your README file should provide the following sections:
+    - **Overview** (Required): Let others know what they can expect to do with your integration.
+    - **Installation** (Required): Provide information about how to install your integration.
+    - **Configuration** (Required): Detail any steps necessary to configure your integration or the service you are integrating.
+    - **Validation** (Required): How can users ensure the integration is working as intended?
+    - **Compatibility** (Required): List the version(s) of the application or service that your integration has been tested and validated against.
+    - **Metrics** (Required): Include a list of the metrics your integration will provide.
+    - **Events**: Include a list of events if your integration provides any.
+    - **Troubleshooting**: Help other users by sharing solutions to common problems they might experience.
 - `check.py`: The file where your check logic should reside.
-- `test_my_integration.py`: We strongly believe in testing code and you should too! Your code tests should be placed in this file.
 - `ci/my_integration.rake`: If your tests require a testing environment, you can use the `install` and `cleanup` tasks to respectively set up and tear down a testing environment.
+- `manifest.json`: This JSON file provides metadata about your integration and should include:
+    - **maintainer**: Provide a valid email address where you can be contacted regarding this integration.
+    - **manifest_version**: The version of this manifest file.
+    - **max_agent_version**: The maximum version of the Datadog agent that is compatible with your integration. We do our best to maintain integration stability within major versions, so you should leave this at the number generated for you. If your integration breaks with a new release of the Datadog agent, please set this number and [submit an issue on the Datadog Agent project](https://github.com/DataDog/dd-agent/blob/master/CONTRIBUTING.md#submitting-issues) (**<<- is that right?**)
+    - **min_agent_version**: The mininmum version of the Datadog agent that is compatible with your integration.
+    - **name**: The name of your integration.
+    - **short_description**: Provide a short description of your integration.
+    - **support**: As a community contributed integration, this should be set to "contrib". Please leave this as "contrib" unless directed to do so by Datadog staff.
+    - **version**: The current version of your integration.
+- `metadata.csv`: Stuff goes in here... or maybe it doesn't. Wouldn't you like to know!
+- `test_my_integration.py`: We strongly believe in testing code and you should too! Your code tests should be placed in this file.
 
 As you build your check and test code, you can use the following to run your tests:
 
