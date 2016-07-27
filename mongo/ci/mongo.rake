@@ -17,9 +17,6 @@ namespace :ci do
       install_requirements('mongo/requirements.txt',
                            "--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
-      # sample docker usage
-      sh %(pwd)
-      sh %(ls)
       sh %(bash mongo/ci/start-docker.sh)
     end
 

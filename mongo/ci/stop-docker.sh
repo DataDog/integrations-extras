@@ -2,11 +2,14 @@
 
 set -e
 
-docker kill dd-test-mongo
-docker rm dd-test-mongo
-docker kill dd-test-mongo-1
-docker rm dd-test-mongo-1
-docker kill dd-test-mongo-2
-docker rm dd-test-mongo-2
-docker kill dd-test-mongo-3
-docker rm dd-test-mongo-3
+if docker ps | grep dd-test-mongo >/dev/null 2>&1; then
+  containers=`docker ps --format '{{.Names}}' | grep dd-test-mongo`
+
+  echo 'removing containers'
+  for container in $containers; do
+    echo "removing $container"
+    docker kill $container >/dev/null 2>&1
+    docker rm $container >/dev/null 2>&1
+  done
+
+fi

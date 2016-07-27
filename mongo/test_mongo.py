@@ -208,7 +208,6 @@ class TestMongo(unittest.TestCase):
 
         # Service checks
         service_checks = self.check.get_service_checks()
-        print service_checks
         service_checks_count = len(service_checks)
         self.assertTrue(isinstance(service_checks, ListType))
         self.assertTrue(service_checks_count > 0)
