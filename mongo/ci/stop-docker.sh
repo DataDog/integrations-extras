@@ -3,7 +3,8 @@
 set -e
 
 if docker ps | grep dd-test-mongo >/dev/null; then
-  containers=`docker ps --format '{{.Names}}' | grep dd-test-mongo`
+  containers=`docker ps --format '{{.Names}}' --filter name=dd-test-mongo`
+  stopped_containers=`docker ps -a --format '{{.Names}}' --filter name=dd-test-mongo`
 
   echo 'removing containers'
   for container in $containers; do
@@ -11,7 +12,6 @@ if docker ps | grep dd-test-mongo >/dev/null; then
     docker kill $container >/dev/null 2>&1
   done
 
-  stopped_containers=`docker ps -a --format '{{.Names}}' | grep dd-test-mongo`
   for container in $stopped_containers; do
     echo "removing $container"
     docker rm $container >/dev/null 2>&1
