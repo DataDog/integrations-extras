@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo never | tee /sys/kernel/mm/transparent_hugepage/enabled
+
 PORT=37017
 
 NAME='dd-test-tokumx'
