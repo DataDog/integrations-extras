@@ -24,6 +24,6 @@ do
 done
 
 echo 'docker exec -it $NAME mongo --eval "printjson(db.serverStatus());" localhost:$PORT'
-mongo localhost:37017 --eval "printjson(db.serverStatus());"
+docker exec -it $NAME mongo localhost:37017 --eval "printjson(db.serverStatus());"
 
 sleep 2
