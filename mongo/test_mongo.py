@@ -18,7 +18,7 @@ MAX_WAIT = 150
 GAUGE = AgentCheck.gauge
 RATE = AgentCheck.rate
 
-
+@attr(requires='mongo')
 class TestMongoUnit(AgentCheckTest):
     """
     Unit tests for MongoDB AgentCheck.
