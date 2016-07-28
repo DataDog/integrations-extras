@@ -10,7 +10,7 @@ You will also need [Wget](https://www.gnu.org/software/wget/). Wget is already i
 
 ## Setup
 
-We've written a gem and a set of scripts to help you get set up, ease development, and provide testing. To begin:
+We've written [a gem](https://rubygems.org/gems/datadog-sdk-testing) and a set of scripts to help you get set up, ease development, and provide testing. To begin:
 
 1. Clone the Github repository
 2. Run `gem install bundler`
@@ -35,8 +35,11 @@ You can use rake to generate the skeleton for a new integration by running `rake
     - **Metrics** (Required): Include a list of the metrics your integration will provide.
     - **Events**: Include a list of events if your integration provides any.
     - **Troubleshooting**: Help other users by sharing solutions to common problems they might experience.
+
 - `check.py`: The file where your check logic should reside.
+
 - `ci/my_integration.rake`: If your tests require a testing environment, you can use the `install` and `cleanup` tasks to respectively set up and tear down a testing environment.
+
 - `manifest.json`: This JSON file provides metadata about your integration and should include:
     - **maintainer**: Provide a valid email address where you can be contacted regarding this integration.
     - **manifest_version**: The version of this manifest file.
@@ -46,7 +49,9 @@ You can use rake to generate the skeleton for a new integration by running `rake
     - **short_description**: Provide a short description of your integration.
     - **support**: As a community contributed integration, this should be set to "contrib". Please leave this as "contrib" unless directed to do so by Datadog staff.
     - **version**: The current version of your integration.
+
 - `metadata.csv`: Stuff goes in here... or maybe it doesn't. Wouldn't you like to know!
+
 - `test_my_integration.py`: We strongly believe in testing code and you should too! Your code tests should be placed in this file.
 
 As you build your check and test code, you can use the following to run your tests:
