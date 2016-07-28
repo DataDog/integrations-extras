@@ -39,9 +39,9 @@ install:
   - if [ -e $TRAVIS_BUILD_DIR/Gemfile ]; then cd $TRAVIS_BUILD_DIR ; bundle install; cd - ; fi
 
 script:
-  - rake ci:run[tokumx]
-  - rake ci:run[default]
   - bundle exec rake lint
+  - rake ci:run[default]
+  - rake ci:run[tokumx]
   - bundle exec rake requirements
 
 after_script:
