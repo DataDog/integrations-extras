@@ -1,6 +1,6 @@
 # Datadog Agent Integrations
 
-Collecting data is cheap; not having it when you need it can be very expensive. So we recommened instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for [Datadog](https://www.datadoghq.com).
+Collecting data is cheap; not having it when you need it can be very expensive. So we recommend instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for [Datadog](https://www.datadoghq.com).
 
 # Adding New Integrations
 
@@ -35,12 +35,12 @@ New integrations should contain the following files:
 
 Your README file should provide the following sections:
 
-- **Overview** (Required): Let others know what they can expect to do with your integration.
-- **Installation** (Required): Provide information about how to install your integration.
-- **Configuration** (Required): Detail any steps necessary to configure your integration or the service you are integrating.
-- **Validation** (Required): How can users ensure the integration is working as intended?
-- **Compatibility** (Required): List the version(s) of the application or service that your integration has been tested and validated against.
-- **Metrics** (Required): Include a list of the metrics your integration will provide.
+- **Overview** (required): Let others know what they can expect to do with your integration.
+- **Installation** (required): Provide information about how to install your integration.
+- **Configuration** (required): Detail any steps necessary to configure your integration or the service you are integrating.
+- **Validation** (required): How can users ensure the integration is working as intended?
+- **Compatibility** (required): List the version(s) of the application or service that your integration has been tested and validated against.
+- **Metrics** (required): Include a list of the metrics your integration will provide.
 - **Events**: Include a list of events if your integration provides any.
 - **Troubleshooting**: Help other users by sharing solutions to common problems they might experience.
 
@@ -59,7 +59,7 @@ This JSON file provides metadata about your integration and should include:
 - **`maintainer`**: Provide a valid email address where you can be contacted regarding this integration.
 - **`manifest_version`**: The version of this manifest file.
 - **`max_agent_version`**: The maximum version of the Datadog agent that is compatible with your integration. We do our best to maintain integration stability within major versions, so you should leave this at the number generated for you. If your integration breaks with a new release of the Datadog agent, please set this number and [submit an issue on the Datadog Agent project](https://github.com/DataDog/dd-agent/blob/master/CONTRIBUTING.md#submitting-issues) (**<<- is that right?**)
-- **`min_agent_version`**: The mininmum version of the Datadog agent that is compatible with your integration.
+- **`min_agent_version`**: The minimum version of the Datadog agent that is compatible with your integration.
 - **`name`**: The name of your integration.
 - **`short_description`**: Provide a short description of your integration.
 - **`support`**: As a community contributed integration, this should be set to "contrib". Only set this to another value if directed to do so by Datadog staff.
@@ -71,15 +71,47 @@ The metadata CSV contains a list of the metrics your integration will provide an
 
 The CSV should include a header row and the following columns:
 
-- **`metric_name`**: The name of the metric as it should appear in the Datadog web application when creating dashboards or monitors. Often this name is a period delimited combination of the provider, service, and metric (e.g. `aws.ec2.disk_write_ops`) or the application, application feature, and metric (e.g. `apache.net.request_per_s`).
-- **`metric_type`**: The type of metric you are reporting. This will influence how the Datadog web application handles and displays your data. Accepted values are: `count`, `guage`, or `rate`.
-- **`interval`**: The time interval in seconds that ???
-- **`unit_name`**: The label for the unit of measure you are gathering. (e.g. `request`, `byte`, `percent`)
-- **`per_unit_name`**: If you are gathering a per unit metric, you may provide an additional unit name here and it will be combined with the `unit_name`. For example, providing a `unit_name` of "request" and a `per_unit_name` of "second" will result in a metric of "requests per second".
-- **`description`**: A basic description of the information this metric represents.
-- **`orientation`**:
-- **`integration`**: The name of your integration. (e.g. "my_integration").
-- **`short_name`**: The name of the metric. (e.g. "total resp time", "avg latency")
+**`metric_name`** (required): The name of the metric as it should appear in the Datadog web application when creating dashboards or monitors. Often this name is a period delimited combination of the provider, service, and metric (e.g. `aws.ec2.disk_write_ops`) or the application, application feature, and metric (e.g. `apache.net.request_per_s`).
+
+**`metric_type`** (required): The type of metric you are reporting. This will influence how the Datadog web application handles and displays your data. Accepted values are: `count`, `gauge`, or `rate`.
+
+  - `count`: A count is the number of particular events that have occurred. When reporting a count, you should only submit the number of new events (delta) recorded since the previous submission. For example, the `aws.apigateway.5xxerror` metric is a `count` of the number of server-side errors.
+  - `gauge`: A gauge is a metric that tracks a value at a specific point in time. For example, `docker.io.read_bytes` is a `guage` of the number of bytes read per second.
+  - `rate`: A rate a metric over time (and as such, will typically include a `per_unit_name` value). For example, `lighttpd.response.status_2xx` is a `rate` metric capturing the number of 2xx status codes produced per second.
+
+**`interval`**: The interval used for conversion between rates and counts. This is required when the `metric_type` is set to the `rate` type.
+
+**`unit_name`**: The label for the unit of measure you are gathering. The following units (grouped by type) are available:
+
+  - **Bytes**: `bit`, `byte`, `kibibyte`, `mebibyte`, `gibibyte`, `tebibyte`, `pebibyte`, `exbibyte`
+  - **Cache**: `eviction`, `get`,  `hit`,  `miss`,  `set`
+  - **Database**: `assertion`, `column`, `command`, `commit`, `cursor`, `document`, `fetch`, `flush`, `index`, `key`, `lock`, `merge`, `object`, `offset`, `query`, `question`, `record`, `refresh`, `row`, `scan`, `shard`, `table`, `ticket`, `transaction`, `wait`
+  - **Disk**: `block`, `file`, `inode`, `sector`
+  - **Frequency**: `hertz`, `kilohertz`, `megahertz`, `gigahertz`
+  - **General**: `buffer`, `check`, `email`, `error`, `event`, `garbage`,  `collection`, `item`, `location`, `monitor`, `occurrence`, `operation`, `read`, `resource`, `sample`, `stage`, `task`, `time`, `unit`, `worker`, `write`
+  - **Memory**: `page`, `split`
+  - **Money**: `cent`, `dollar`
+  - **Network**: `connection`, `datagram`, `message`, `packet`, `payload`, `request`, `response`, `segment`, `timeout`
+  - **Percentage**: `apdex`, `fraction`, `percent`, `percent_nano`
+  - **System**: `core`, `fault`, `host`, `instance`, `node`, `process`, `service`, `thread`
+  - **Time**: `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`
+  -
+
+If the unit name is not listed above, please leave this blank. To add a unit to this listing, please file an [issue](https://github.com/DataDog/integrations-extras/issues)
+
+**`per_unit_name`**: If you are gathering a per unit metric, you may provide an additional unit name here and it will be combined with the `unit_name`. For example, providing a `unit_name` of "request" and a `per_unit_name` of "second" will result in a metric of "requests per second". If provided, this must be a value from the available units listed above.
+
+**`description`**: A basic description (limited to 400 characters) of the information this metric represents.
+
+**`orientation`** (required): An integer of `-1`, `0`, or `1`.
+
+  - `-1` indicates that smaller values are better. For example, `mysql.performance.slow_queries` or `varnish.fetch_failed` where low counts are desirable.
+  - `0` indicates no intrinsic preference in values. For example, `rabbitmq.queue.messages` or `postgresql.rows_inserted` where there is no preference for the size of the value or the preference will depend on the business objectives of the system.
+  - `1` indicates that larger values are better. For example, `mesos.stats.uptime_secs` where higher uptime or `mysql.performance.key_cache_utilization` where more cache hits are desired.
+
+**`integration`** (required): This must match the name of your integration. (e.g. "my_integration").
+
+**`short_name`**: A more human-readable and abbreviated version of the metric name. For example, `postgresql.index_blocks_read` might be set to `idx blks read`. Aim for human-readability and easy understandability over brevity. Don't repeat the integration name. If you can't make the `short_name` shorter and easier to understand than the `metric_name`, leave this field empty.
 
 #### `test_my_integration.py`
 
@@ -97,4 +129,10 @@ As you build your check and test code, you can use the following to run your tes
 
 When you have finished building your integration, you can run `rake clean_env` to remove the Python virtual environment.
 
+# Submitting Your integration
+
+Once you have completed the development of your integration, submit a [pull request](https://github.com/DataDog/integrations-extras/compare) to have Datadog review your integration. Once we've reviewed your integration, we will approve and merge your pull request or provide feedback and next steps required for approval.
+
 # Reporting Bugs
+
+For more information on integrations, please reference our [documentation](http://docs.datadoghq.com) and [knowledge base](https://help.datadoghq.com/hc/en-us). You can also visit our [help page](http://docs.datadoghq.com/help/) to connect with us.
