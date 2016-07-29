@@ -46,7 +46,9 @@ Your README file should provide the following sections:
 
 #### `check.py`
 
-The file where your check logic should reside.
+The file where your check logic should reside. The skeleton function will boilerplate an integration class for your integration, including a `check` method where you should place your check logic.
+
+If you need to import any third party libraries, you can add them to the `requirements.txt` file.
 
 #### `ci/my_integration.rake`
 
@@ -97,7 +99,7 @@ The CSV should include a header row and the following columns:
   - **Time**: `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`
   -
 
-If the unit name is not listed above, please leave this blank. To add a unit to this listing, please file an [issue](https://github.com/DataDog/integrations-extras/issues)
+If the unit name is not listed above, please leave this value blank. To add a unit to this listing, please file an [issue](https://github.com/DataDog/integrations-extras/issues)
 
 **`per_unit_name`**: If you are gathering a per unit metric, you may provide an additional unit name here and it will be combined with the `unit_name`. For example, providing a `unit_name` of "request" and a `per_unit_name` of "second" will result in a metric of "requests per second". If provided, this must be a value from the available units listed above.
 
@@ -112,6 +114,10 @@ If the unit name is not listed above, please leave this blank. To add a unit to 
 **`integration`** (required): This must match the name of your integration. (e.g. "my_integration").
 
 **`short_name`**: A more human-readable and abbreviated version of the metric name. For example, `postgresql.index_blocks_read` might be set to `idx blks read`. Aim for human-readability and easy understandability over brevity. Don't repeat the integration name. If you can't make the `short_name` shorter and easier to understand than the `metric_name`, leave this field empty.
+
+#### `requirements.txt`
+
+If you require any additional libraries, you can list them here and they will be automatically installed via pip when others use your integration.
 
 #### `test_my_integration.py`
 
