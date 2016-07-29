@@ -9,12 +9,7 @@ import types
 
 # 3p
 import bson
-from pymongo import (
-    MongoClient,
-    ReadPreference,
-    uri_parser,
-    version as py_version,
-)
+import pymongo
 
 # project
 from checks import AgentCheck
@@ -210,7 +205,7 @@ class TokuMX(AgentCheck):
         self.idx_rates = {}
 
     def get_library_versions(self):
-        return {"pymongo": py_version}
+        return {"pymongo": pymongo.version}
 
     def check_last_state(self, state, server, agentConfig):
         if self._last_state_by_server.get(server, -1) != state:
@@ -285,7 +280,7 @@ class TokuMX(AgentCheck):
         tags = list(set(tags))
 
         # Configuration a URL, mongodb://user:pass@server/db
-        parsed = uri_parser.parse_uri(server)
+        parsed = pymongo.uri_parser.parse_uri(server)
         username = parsed.get('username')
         password = parsed.get('password')
         db_name = parsed.get('database')
@@ -313,12 +308,12 @@ class TokuMX(AgentCheck):
             do_auth = False
         try:
             if read_preference:
-                conn = MongoClient(server,
+                conn = pymongo.MongoClient(server,
                                    socketTimeoutMS=DEFAULT_TIMEOUT*1000,
-                                   read_preference=ReadPreference.SECONDARY,
+                                   read_preference=pymongo.ReadPreference.SECONDARY,
                                    **ssl_params)
             else:
-                conn = MongoClient(server, socketTimeoutMS=DEFAULT_TIMEOUT*1000, **ssl_params)
+                conn = pymongo.MongoClient(server, socketTimeoutMS=DEFAULT_TIMEOUT*1000, **ssl_params)
             db = conn[db_name]
         except Exception:
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=service_check_tags)
@@ -374,7 +369,7 @@ class TokuMX(AgentCheck):
                     self.log.debug("Current replSet member is secondary. "
                                    "Creating new connection to set read_preference to secondary.")
                     # need a new connection to deal with replica sets
-                    server, conn, db, _ = self._get_connection(instance, read_preference=ReadPreference.SECONDARY)
+                    server, conn, db, _ = self._get_connection(instance, read_preference=pymongo.ReadPreference.SECONDARY)
 
                 data['state'] = replSet['myState']
                 self.check_last_state(data['state'], server, self.agentConfig)
