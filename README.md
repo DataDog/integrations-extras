@@ -1,6 +1,6 @@
 # Datadog Agent Integrations
 
-Collecting data is cheap; not having it when you need it can be very expensive. So we recommened instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for Datadog.
+Collecting data is cheap; not having it when you need it can be very expensive. So we recommened instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for [Datadog](https://www.datadoghq.com).
 
 # Adding New Integrations
 
@@ -67,7 +67,7 @@ This JSON file provides metadata about your integration and should include:
 
 #### `metadata.csv`
 
-The metadata CSV provides a list of the metrics your integration will provide and basic details that will help inform the Datadog web application as to which graphs and alerts can be provided for the metric.
+The metadata CSV contains a list of the metrics your integration will provide and basic details that will help inform the Datadog web application as to which graphs and alerts can be provided for the metric.
 
 The CSV should include a header row and the following columns:
 
