@@ -48,11 +48,57 @@ Your README file should provide the following sections:
 
 The file where your check logic should reside. The skeleton function will boilerplate an integration class for your integration, including a `check` method where you should place your check logic.
 
+For example:
+
+```
+import time
+from checks import AgentCheck
+
+class MyIntegrationCheck(AgentCheck):
+  def __init__(self, name, init_config, agentConfig, instances=None):
+    AgentCheck.__init__(self, name, init_config, agentConfig, instances)
+
+  def check(self, instance):
+    # Send a custom event.
+    self.event({
+      'timestamp': int(time.time()),
+      'source_type_name': 'my_integration',
+      'msg_title': 'Custom event',
+      'msg_text': 'My custom integration event occurred.',
+      'host': self.hostname,
+      'tags': [
+          'action:my_integration_custom_event',
+      ]
+    })
+```
+
+For more information about writing checks and how to send metrics to the Datadog agent, reference our [Writing and Agent Check guide](http://docs.datadoghq.com/guides/agent_checks/)
+
 If you need to import any third party libraries, you can add them to the `requirements.txt` file.
 
 #### `ci/my_integration.rake`
 
 If your tests require a testing environment, you can use the `install` and `cleanup` tasks to respectively set up and tear down a testing environment.
+
+For example:
+```
+namespace :ci do
+  namespace :my_integration do |flavor|
+    task install: ['ci:common:install'] do
+
+      # Use the Python Virtual Environment and install packages.
+      use_venv = in_venv
+      install_requirements('my_integration/requirements.txt',
+                           "--cache-dir #{ENV['PIP_CACHE']}",
+                           "#{ENV['VOLATILE_DIR']}/ci.log",
+                           use_venv)
+
+      # Setup a docker testing container.
+      $(docker run -p 80:80 --name my_int_container -d my_docker)
+```
+
+For more information about writing integration tests, please see [the documentation in the Datadog agent repository](https://github.com/DataDog/dd-agent/blob/master/tests/README.md#integration-tests). You can also reference the [ci common library](https://github.com/DataDog/dd-agent/blob/master/ci/common.rb) for helper functions such as `install_requirements` and `sleep_for`.
+
 
 #### `manifest.json`
 
@@ -66,6 +112,8 @@ This JSON file provides metadata about your integration and should include:
 - **`short_description`**: Provide a short description of your integration.
 - **`support`**: As a community contributed integration, this should be set to "contrib". Only set this to another value if directed to do so by Datadog staff.
 - **`version`**: The current version of your integration.
+
+You can reference one of the existing integrations for an example of the manifest file.
 
 #### `metadata.csv`
 
@@ -97,7 +145,6 @@ The CSV should include a header row and the following columns:
   - **Percentage**: `apdex`, `fraction`, `percent`, `percent_nano`
   - **System**: `core`, `fault`, `host`, `instance`, `node`, `process`, `service`, `thread`
   - **Time**: `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`
-  -
 
 If the unit name is not listed above, please leave this value blank. To add a unit to this listing, please file an [issue](https://github.com/DataDog/integrations-extras/issues)
 
@@ -117,11 +164,33 @@ If the unit name is not listed above, please leave this value blank. To add a un
 
 #### `requirements.txt`
 
-If you require any additional libraries, you can list them here and they will be automatically installed via pip when others use your integration.
+If you require any additional Python libraries, you can list them here and they will be automatically installed via pip when others use your integration.
 
 #### `test_my_integration.py`
 
-We strongly believe in testing code and you should too! Your code tests should be placed in this file.
+Integration tests ensure that the Datadog agent is correctly receiving and recording metrics from the software you are integrating.
+
+Though we don't require test for each of the metrics collected by your integration, we strongly encourage you to provide as much coverage as possible. You can run the `self.coverage_report()` method in your test to see which metrics are covered.
+
+Here's an example `test_my_integration.py`:
+
+```
+from nose.plugins.attrib import attr
+from checks import AgentCheck
+from tests.checks.common import AgentCheckTest
+
+@attr(requires='my_integration')
+Class TestMyIntegration(AgentCheckTest):
+
+  def testMyIntegration(self):
+    self.assertServiceCheck('my_integration.can_connect',
+                            count=1,
+                            status=AgentCheck.OK,
+                            tags=[host:localhost', 'port:80'])
+    self.coverage_report()
+```
+
+For more information about tests and available test methods, please reference the [AgentCheckTest class in the Datadog Agent repository](https://github.com/DataDog/dd-agent/blob/master/tests/checks/common.py)
 
 ### Testing your integration
 
