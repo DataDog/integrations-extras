@@ -107,7 +107,7 @@ This JSON file provides metadata about your integration and should include:
 
 - **`maintainer`**: Provide a valid email address where you can be contacted regarding this integration.
 - **`manifest_version`**: The version of this manifest file.
-- **`max_agent_version`**: The maximum version of the Datadog agent that is compatible with your integration. We do our best to maintain integration stability within major versions, so you should leave this at the number generated for you. If your integration breaks with a new release of the Datadog agent, please set this number and [submit an issue on the Datadog Agent project](https://github.com/DataDog/dd-agent/blob/master/CONTRIBUTING.md#submitting-issues) (**<<- is that right?**)
+- **`max_agent_version`**: The maximum version of the Datadog agent that is compatible with your integration. We do our best to maintain integration stability within major versions, so you should leave this at the number generated for you. If your integration breaks with a new release of the Datadog agent, please set this number and [submit an issue on the Datadog Agent project](https://github.com/DataDog/dd-agent/blob/master/CONTRIBUTING.md#submitting-issues).
 - **`min_agent_version`**: The minimum version of the Datadog agent that is compatible with your integration.
 - **`name`**: The name of your integration.
 - **`short_description`**: Provide a short description of your integration.
