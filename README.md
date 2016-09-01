@@ -99,6 +99,7 @@ namespace :ci do
 
 For more information about writing integration tests, please see [the documentation in the Datadog agent repository](https://github.com/DataDog/dd-agent/blob/master/tests/README.md#integration-tests). You can also reference the [ci common library](https://github.com/DataDog/dd-agent/blob/master/ci/common.rb) for helper functions such as `install_requirements` and `sleep_for`.
 
+A note about terminology: You may notice the variable `flavor` in this file and other areas of testing. *Flavor* is a term we use to denote variations of integrated software, such as versions, platforms, etc. This allows you to write one set of tests, but target different *flavors*, variants or versions of the software you are integrating.
 
 #### `manifest.json`
 
@@ -199,6 +200,9 @@ As you build your check and test code, you can use the following to run your tes
 - `rake lint`: Lint your code for potential errors
 - `rake ci:run[my_integration]`: Run the tests that you have created in your `test_my_integration.py` file.
 - `rake ci:run[default]`: Run the tests you have written in addition to some additional generic tests we have written.
+
+Travis CI will automatically run tests when you create a pull request. Please ensure that you have thorough test coverage and that you are passing all tests prior to submitting pull requests.
+
 
 ### Teardown and cleanup
 
