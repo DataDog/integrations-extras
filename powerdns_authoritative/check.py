@@ -117,5 +117,5 @@ class PowerDNSAuthoritativeCheck(AgentCheck):
             raise
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK,
                            tags=service_check_tags)
-	    self.log.debug(request.json())
+        self.log.debug(request.json())
         return request.json()
