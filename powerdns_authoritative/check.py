@@ -11,7 +11,7 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'powerdns_authoritative'
 
 
 class PowerDNSAuthoritativeCheck(AgentCheck):
-    # See https://doc.powerdns.com/md/authoritative/stats/ for metrics explanation
+    # See https://doc.powerdns.com/md/authoritative/performance/#performance-monitoring for metrics explanation
 
     SERVICE_CHECK_NAME = 'powerdns.authoritative.can_connect'
 
@@ -23,7 +23,18 @@ class PowerDNSAuthoritativeCheck(AgentCheck):
         stats = self._get_pdns_stats(config)
         for stat in stats:
             self.log.debug('powerdns.authoritative.{}:{}'.format(stat['name'], stat['value']))
-            if 'status' or 'usage' or 'size' in stat['name']:
+
+            if 'status' in stat['name']:
+                self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
+            elif 'size' in stat['name']:
+                self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
+            elif 'usage' in stat['name']:
+                self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
+            elif 'msec' in stat['name']:
+                self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
+            elif 'time' in stat['name']:
+                self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
+            elif 'latency' in stat['name']:
                 self.gauge('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
             else:
                 self.rate('powerdns.authoritative.{}'.format(stat['name']), float(stat['value']), tags=tags)
