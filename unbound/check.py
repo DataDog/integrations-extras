@@ -1,12 +1,7 @@
 # stdlib
-import os
 import re
 
-# 3rd party
-
 # project
-from config import _is_affirmative
-from util import Platform
 from utils.subprocess_output import get_subprocess_output
 from checks import AgentCheck
 
