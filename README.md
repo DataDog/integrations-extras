@@ -10,6 +10,6 @@ For more information about how to build a new integration, please see [the guide
 
 Once you have completed the development of your integration, submit a [pull request](https://github.com/DataDog/integrations-extras/compare) to have Datadog review your integration. Once we've reviewed your integration, we will approve and merge your pull request or provide feedback and next steps required for approval.
 
-# Reporting Bugs
+# Reporting Issues
 
 For more information on integrations, please reference our [documentation](http://docs.datadoghq.com) and [knowledge base](https://help.datadoghq.com/hc/en-us). You can also visit our [help page](http://docs.datadoghq.com/help/) to connect with us.
