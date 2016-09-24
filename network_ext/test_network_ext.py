@@ -1,38 +1,33 @@
-# (C) Datadog, Inc. 2010-2016
-# All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
-
 # stdlib
-from nose.plugins.attrib import attr
+import mock
 
 # 3p
 
 # project
-from tests.checks.common import AgentCheckTest
+from tests.checks.common import AgentCheckTest, Fixtures
+from checks import AgentCheck
 
 
-instance = {
-    'host': 'localhost',
-    'port': 26379,
-    'password': 'datadog-is-devops-best-friend'
-}
+MOCK_CONFIG = {
+    'init_config': {},
+    'instances' : [{}]}
 
 
-# NOTE: Feel free to declare multiple test classes if needed
+def mock_read_lines(path):
+    files = {
+        '/proc/net/netstat': 'netstat',
+        '/proc/net/snmp': 'snmp',
+        '/proc/net/udp': 'udp',
+        '/proc/net/udp6': 'udp6'}
+    return Fixtures.read_file(files[path]).splitlines()
 
-@attr(requires='network_ext')
-class TestNetwork_ext(AgentCheckTest):
-    """Basic Test for network_ext integration."""
+class TestNetworkExt(AgentCheckTest):
     CHECK_NAME = 'network_ext'
 
-    def test_check(self):
-        """
-        Testing Network_ext check.
-        """
-        self.load_check({}, {})
-
-        # run your actual tests...
-
-        self.assertTrue(True)
-        # Raises when COVERAGE=true and coverage < 100%
-        self.coverage_report()
+    def test_success(self):
+        self.run_check_twice(MOCK_CONFIG, mocks={ 'read_lines': mock_read_lines })
+        self.assertMetric("system.net.tcp.rto_algorithm", value=1)
+        self.assertMetric("system.net.tcp.sack_discard", value=0)
+        self.assertMetric("system.net.tcp.backlog_drop", value=0)
+        self.assertMetric("system.net.udp.drops", value=0, count=1, tags=["inode:29167010"])
+        self.assertMetric("system.net.udp6.drops", value=0, count=1, tags=["inode:2383"])
