@@ -1,11 +1,7 @@
-init_config:
-  # Any global configurable parameters should be added here
-
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+    - host: localhost                   #defaults to localhost
+      port: 5038                        #defaults to 5038
+      manager_user: user                #required
+      manager_secret: secret            #required
+
+      #this user needs to have the command write privilege
