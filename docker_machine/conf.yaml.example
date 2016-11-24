@@ -1,11 +1,13 @@
 init_config:
-  # Any global configurable parameters should be added here
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+# refer to https://docs.docker.com/machine/reference/ls/ formatting
+  - format_args: [Name, State, Error, DriverName, URL, ResponseTime]
+    docker_machine_cmd: "docker-machine ls -f"
+    api_key: DATADOG_API_KEY 
+#
+# If your environment requires sudo, please add a line like:
+#          dd-agent ALL=(ALL) NOPASSWD:/usr/bin/ceph
+# to your sudoers file, and uncomment the below option.
+#
+#    use_sudo: True
