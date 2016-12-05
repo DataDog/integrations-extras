@@ -33,7 +33,7 @@ This is because of how CodaHale handles counters. And for ease of use in Datadog
 See /dropwizard/conf.yaml.example for documentation on all accepted input options.
 Further implementation details can be found below...
 
-Questions or Comments? chriswberry at gmail.com
+Questions or Comments? chrisberry.dw at gmail.com
 
 About Metric Naming
 -----------------------
