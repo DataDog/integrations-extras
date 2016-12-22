@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'bundler'
 gem 'addressable'
+gem 'bundler'
 gem 'colorize'
+gem 'datadog-sdk-testing'
 gem 'httparty'
 gem 'rake'
-gem 'datadog-sdk-testing'
 gem 'rubocop'
