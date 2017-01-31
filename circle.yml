@@ -32,6 +32,7 @@ test:
     override:
         - bundle exec rake prep_travis_ci
         - rake ci:run[default]
+        - rake ci:run[logstats]
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
