@@ -1,11 +1,18 @@
 init_config:
-  # Any global configurable parameters should be added here
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
-  # - host: localhost
-  #   port: 26379
-  #   tags: ['custom:tag']
+    # The instances here will provide a list of services which this integration
+    # should check with `svstatus`. Note that you'll need to verify that the
+    # dd-agent can execute `svstatus`! You may need to make an entry in your
+    # sudoers file for this:
+    # `dd-agent ALL=(ALL) NOPASSWD: /usr/bin/svstat`
+    # Checks in the form of `daemontools.$SERVICE.is_running` will be created
+    # as well as a `daemontools.service.uptime` gauge with a tag for the
+    # `$SERVICE`.
+    #
+    # - service: "consul"
+    #   path: "/etc/service"
+    #   tags: ["foo","bar:baz"]
+    # - service: "someotherservice"
+    #   path: "/etc/service"
+    #   tags: ["foo","bar:baz"]
