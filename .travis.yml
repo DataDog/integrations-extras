@@ -54,6 +54,7 @@ install:
 script:
   - bundle exec rake prep_travis_ci
   - rake ci:run
+  - rake ci:run[snmpwalk]
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
