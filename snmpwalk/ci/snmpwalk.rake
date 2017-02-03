@@ -8,6 +8,11 @@ def snmpwalk_rootdir
   "#{ENV['INTEGRATIONS_DIR']}/snmpwalk_#{snmpwalk_version}"
 end
 
+def resources_path
+  base = ENV['TRAVIS_BUILD_DIR'] || ENV['CI_BUILD_DIR']
+  base.to_s + '/snmpwalk/ci/resources'
+end
+
 namespace :ci do
   namespace :snmpwalk do |flavor|
     task before_install: ['ci:common:before_install']
@@ -17,8 +22,10 @@ namespace :ci do
       install_requirements('snmpwalk/requirements.txt',
                            "--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
-      sh %( docker run -d --name snmpwalk -p 11111:161/udp polinux/snmpd -c /etc/snmp/snmpd.conf)
-      Wait.for 11111
+      sh %(docker run -d -v #{resources_path}:/etc/snmp/ \
+           --name dd-test-snmpwalk -p 11111:161/udp \
+            polinux/snmpd -c /etc/snmp/snmpd.conf)
+      sleep_for 5
     end
 
     task before_script: ['ci:common:before_script']
@@ -33,8 +40,8 @@ namespace :ci do
     task before_cache: ['ci:common:before_cache']
 
     task cleanup: ['ci:common:cleanup'] do
-      sh %(docker stop snmpwalk)
-      sh %(docker rm snmpwalk)
+      sh %(docker stop dd-test-snmpwalk)
+      sh %(docker rm dd-test-snmpwalk)
     end
 
     task :execute do

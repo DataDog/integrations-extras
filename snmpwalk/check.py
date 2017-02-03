@@ -2,6 +2,7 @@
 from collections import defaultdict
 from subprocess import check_output, CalledProcessError
 import re
+import os
 
 # 3rd party
 
@@ -9,7 +10,10 @@ import re
 from checks.network_checks import NetworkCheck, Status
 
 
-EVENT_TYPE = SOURCE_TYPE_NAME = 'snmpwrap'
+EVENT_TYPE = SOURCE_TYPE_NAME = 'snmpwalk'
+
+class BinaryUnavailable(Exception):
+    pass
 
 class SnmpwalkCheck(NetworkCheck):
     '''
@@ -21,29 +25,36 @@ class SnmpwalkCheck(NetworkCheck):
         * tags using "enum" values emit the human-readable form instead of the
           integer.
     '''
-
+    DEFAULT_SNMPWALK_PATH = '/usr/bin/snmpwalk'
     DEFAULT_RETRIES = 2
     DEFAULT_TIMEOUT = 1
     COUNTER_TYPES = frozenset(('Counter32', 'Counter64', 'ZeroBasedCounter64'))
     GAUGE_TYPES = frozenset(('Gauge32', 'Unsigned32', 'CounterBasedGauge64',
                              'INTEGER', 'Integer32'))
-    SC_STATUS = 'snmp.can_check'
+    SC_NAME = '{}.can_check'.format(SOURCE_TYPE_NAME)
 
     # regex for parsing the output of snmp walk
     output_re = re.compile(r'([\w\-]+)::(?P<symbol>\w+)\.(?P<index>\d+) = '
                         r'(?P<type>\w+): (?P<value>.*)$')
 
     def __init__(self, name, init_config, agentConfig, instances=None):
+        self.binary = None
+        self.expected_bin = init_config.get('binary', self.DEFAULT_SNMPWALK_PATH)
+        if os.path.isfile(self.expected_bin):
+            self.binary = self.expected_bin
+
+        self.mib_dirs = init_config.get('mibs_folder')
+
         for instance in instances:
             # if we don't have a name add one, but mark skip_event so that we
             # don't emit the event
             if 'name' not in instance:
-                instance['name'] = self._get_instance_name(instance)
+                instance['name'] = self._get_instance_addr(instance)
             instance['skip_event'] = True
 
         NetworkCheck.__init__(self, name, init_config, agentConfig, instances)
 
-    def _get_instance_name(self, instance):
+    def _get_instance_addr(self, instance):
         host = instance.get('host', None)
         ip = instance.get('ip_address', None)
         port = instance.get('port', None)
@@ -59,7 +70,10 @@ class SnmpwalkCheck(NetworkCheck):
         return key
 
     def _check(self, instance):
-        ip_address = instance["ip_address"]
+        if not self.binary:
+            raise BinaryUnavailable("Cannot find executable: {}".format(self.expected_bin))
+
+        ip_address = self._get_instance_addr(instance)
         metrics = instance.get('metrics', [])
         community_string = instance.get('community_string', 'public')
         timeout = int(instance.get('timeout', self.DEFAULT_TIMEOUT))
@@ -73,9 +87,11 @@ class SnmpwalkCheck(NetworkCheck):
         for metric in metrics:
             mib = metric['MIB']
             table = metric['table']
-            cmd = ['/usr/bin/snmpwalk', '-c{}'.format(community_string),
-                   '-v2c', '-t', str(timeout), '-r', str(retries), ip_address,
-                   '{}:{}'.format(mib, table)]
+            cmd = [self.binary, '-c{}'.format(community_string),
+                   '-v2c', '-t', str(timeout), '-r', str(retries)]
+            if self.mib_dirs:
+                cmd.extend(['-M', self.mib_dirs])
+            cmd.extend([ip_address, '{}:{}'.format(mib, table)])
 
             try:
                 output = check_output(cmd)
@@ -83,7 +99,7 @@ class SnmpwalkCheck(NetworkCheck):
                 error = "Fail to collect metrics for {0} - {1}" \
                     .format(instance['name'], e)
                 self.log.warning(error)
-                return [(self.SC_STATUS, Status.CRITICAL, error)]
+                return [(self.SC_NAME, Status.CRITICAL, error)]
 
             for line in output.split('\n'):
                 if line == '':
@@ -158,8 +174,9 @@ class SnmpwalkCheck(NetworkCheck):
                             # This is a standard tag, just use the value
                             dynamic_tags[i].append('{}:{}'.format(tag, v))
                 else:
-                    raise Exception('unsupported metric_tag: {}'
-                                    .format(metric_tag))
+                    self.log.debug('unsupported metric_tag: {}'
+                                   .format(metric_tag))
+                    continue
 
             symbols = metric.get('symbols', [])
             # For each of the symbols we'll be recording as a metric
@@ -170,7 +187,7 @@ class SnmpwalkCheck(NetworkCheck):
                         # skip empty
                         continue
                     # metric key
-                    key = 'snmp.{}'.format(symbol)
+                    key = '{}.{}'.format(SOURCE_TYPE_NAME, symbol)
                     value = int(value)
 
                     typ = types[symbol]
@@ -184,13 +201,14 @@ class SnmpwalkCheck(NetworkCheck):
                         raise Exception('unsupported metric symbol type: {}'
                                         .format(typ))
 
-        return [(self.SC_STATUS, Status.UP, None)]
+        return [(self.SC_NAME, Status.UP, None)]
 
     def report_as_service_check(self, sc_name, status, instance, msg=None):
-        sc_tags = ['snmp_device:{0}'.format(instance["ip_address"])]
+        sc_tags = ['snmp_device:{0}'.format(instance['name'])]
         custom_tags = instance.get('tags', [])
         tags = sc_tags + custom_tags
 
+        self.log.debug('Submitting with the following tags: %s', sc_tags)
         self.service_check(sc_name,
                            NetworkCheck.STATUS_TO_SERVICE_CHECK[status],
                            tags=tags, message=msg)

@@ -20,9 +20,10 @@ RESULTS_TIMEOUT = 10
 @attr(requires='snmpwalk')
 class TestSnmpwalk(AgentCheckTest):
     """Basic Test for snmpwrap integration."""
-    CHECK_NAME = 'snmpwrap'
+    CHECK_NAME = 'snmpwalk'
     FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'ci')
 
+    CHECK_TAGS = ['snmp_device:localhost:11111']
     INSTANCE_CONF = {
         'ip_address': "localhost",
         'port': 11111,
@@ -54,7 +55,7 @@ class TestSnmpwalk(AgentCheckTest):
 
     @classmethod
     def generate_instance_config(cls, metrics):
-        instance_config = copy.copy(cls.SNMP_CONF)
+        instance_config = copy.copy(cls.INSTANCE_CONF)
         instance_config['metrics'] = metrics
         instance_config['name'] = "localhost"
         return instance_config
@@ -89,16 +90,35 @@ class TestSnmpwalk(AgentCheckTest):
 
         # Test metrics
         for symbol in self.TABULAR_OBJECTS[0]['symbols']:
-            metric_name = "snmp." + symbol
+            metric_name = '{}.{}'.format(self.CHECK_NAME, symbol)
             self.assertMetric(metric_name, at_least=1)
             self.assertMetricTag(metric_name, self.CHECK_TAGS[0], at_least=1)
 
             for mtag in self.TABULAR_OBJECTS[0]['metric_tags']:
                 tag = mtag['tag']
-                self.assertMetricTagPrefix(metric_name, tag, at_least=1)
+                if tag is 'dumbindex':  # unsupported
+                    self.assertMetricTagPrefix(metric_name, tag, count=0)
+                else:
+                    self.assertMetricTagPrefix(metric_name, tag, at_least=1)
 
         # Test service check
-        self.assertServiceCheck("snmp.can_check", status=AgentCheck.OK,
-                                tags=self.CHECK_TAGS, count=1)
+        svcchk_name = '{}.can_check'.format(self.CHECK_NAME)
+        self.assertServiceCheck(svcchk_name, status=AgentCheck.OK,
+                                tags=[':'.join(self.CHECK_TAGS[0].split(':')[:-1])], count=1)
 
         self.coverage_report()
+
+    def test_unavailable_binary(self):
+        """
+        Should raise exception if binary is unavailable.
+        """
+        config = {
+            'init_config': {'binary': '/path/to/nonexistant/snmpwalk'},
+            'instances': [self.generate_instance_config(self.TABULAR_OBJECTS)]
+        }
+
+        self.run_check(config)
+        self.assertRaises(
+            Exception,
+            lambda: self.wait_for_async('get_service_checks', 'service_checks', 1)
+        )
