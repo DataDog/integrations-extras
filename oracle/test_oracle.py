@@ -7,6 +7,9 @@ import logging
 from types import ListType
 import unittest
 
+# 3p
+from nose.plugins.attrib import attr
+
 # project
 from tests.checks.common import get_check
 
