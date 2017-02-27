@@ -96,15 +96,14 @@ class OracleCheck(AgentCheck):
                 self.gauge(self.SYS_METRICS[metric_name], metric_value)
 
     def _get_tablespace_metrics(self, con):
-        query = "SELECT TABLESPACE_NAME, USED_SPACE, TABLESPACE_SIZE, USED_PERCENT " \
-            "FROM DBA_TABLESPACE_USAGE_METRICS"
+        query = "SELECT TABLESPACE_NAME, BYTES, MAXBYTES FROM sys.dba_data_files"
         cur = con.cursor()
         cur.execute(query)
         for row in cur:
             tablespace_tag = 'tablespace:%s' % row[0]
             used = row[1]
             size = row[2]
-            in_use = row[3]
+            in_use = used / size * 100
             self.gauge('oracle.tablespace.used', used, tags=[tablespace_tag])
             self.gauge('oracle.tablespace.size', size, tags=[tablespace_tag])
             self.gauge('oracle.tablespace.in_use', in_use, tags=[tablespace_tag])
