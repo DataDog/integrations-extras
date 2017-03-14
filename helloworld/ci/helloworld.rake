@@ -33,7 +33,6 @@ namespace :ci do
 
     task before_cache: ['ci:common:before_cache']
 
-    #task cleanup: ['ci:common:cleanup']
     # sample cleanup task
     task cleanup: ['ci:common:cleanup'] do
        sh %(docker stop helloworld)
