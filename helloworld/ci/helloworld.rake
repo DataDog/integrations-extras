@@ -18,7 +18,7 @@ namespace :ci do
                            "--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
       # sample docker usage
-      sh %(docker create -p 8080:8080 --name helloworld helloworld)
+      sh %(docker create -p 8080:8080 --name helloworld remh/hello)
       sh %(docker start helloworld)
     end
 
