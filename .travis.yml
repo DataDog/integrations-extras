@@ -39,7 +39,7 @@ env:
     # END OF TRAVIS MATRIX
 
 before_install:
-  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
+  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git snmp snmp-mibs-downloader
 
 install:
   - bundle install
@@ -57,6 +57,7 @@ install:
 script:
   - bundle exec rake prep_travis_ci
   - bundle exec rake ci:run
+  - bundle exec rake ci:run[snmpwalk]
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
