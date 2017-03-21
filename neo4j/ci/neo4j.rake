@@ -22,8 +22,7 @@ namespace :ci do
       use_venv = in_venv
       install_requirements("--cache-dir #{ENV['PIP_CACHE']}",
                            "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
-#      sh %(docker run -p #{container_port}:3306 --name #{container_name} -e MYSQL_ROOT_PASSWORD=datadog -d mysql:5.7)
-      sh %(docker run --name #{container_name} --publish=7474:7474 --publish=7687:7687 --volume=$HOME/neo4j/data:/data --volume=$HOME/neo4j/logs:/logs neo4j:3.1.0 )
+      sh %(docker run --name #{container_name} --publish=7474:7474 --publish=7687:7687 --volume=$HOME/neo4j/data:/data --volume=$HOME/neo4j/logs:/logs neo4j:3.1.1 )
     end
 
     task before_script: ['ci:common:before_script'] do
@@ -33,7 +32,7 @@ namespace :ci do
       puts "Waiting for Neo4j to come up"
       until count == 60 or logs.include? 'Remote interface available at'
         sleep_for 2
-        logs = `docker logs dd-test-mysql 2>&1`
+        logs = `docker logs dd-test-neo4j 2>&1`
         count += 1
       end
       if logs.include? 'Remote interface available at'
@@ -45,7 +44,7 @@ namespace :ci do
 
     task script: ['ci:common:script'] do
       this_provides = [
-        'mysql'
+        'neo4j'
       ]
       Rake::Task['ci:common:run_tests'].invoke(this_provides)
     end

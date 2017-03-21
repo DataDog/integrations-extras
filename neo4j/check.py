@@ -16,7 +16,7 @@ from checks import AgentCheck
 from util import headers
 
 
-class HTTPCheck(AgentCheck):
+class Neo4jCheck(AgentCheck):
     SERVICE_CHECK_NAME = 'neo4j.can_connect'
 	
 	# Neo4j metrics to send
@@ -58,6 +58,43 @@ class HTTPCheck(AgentCheck):
         'ha.pull_interval',
         'dbms.memory.pagecache.size',
     ])
+
+    display = {'kernelversion':'neo4j.kernel.version',
+    'storeid':'neo4j.storeid',
+    'storecreationdate':'neo4j.store.creationdate',
+    'storelogversion':'neo4j.store.log.version',
+    'kernelstarttime':'neo4j.kernel.starttime',
+    'lastcommittedtxid':'neo4j.last.committed.transaction.id',
+    'peaknumberofconcurrenttransactions':'neo4j.peak.concurrent.transactions',
+    'numberofrolledbacktransactions':'neo4j.peak.rolledback.transactions',
+    'numberofopentransactions':'neo4j.open.transactions',
+    'numberofopenedtransactions':'neo4j.opened.transactions',
+    'numberofcommittedtransactions':'neo4j.committed.transactions',
+    'logicallogsize':'neo4j.logicallog.size',
+    'propertystoresize':'neo4j.property.store.size',
+    'arraystoresize':'neo4j.array.store.size',
+    'totalstoresize':'neo4j.total.store.size',
+    'relationshipstoresize':'neo4j.relationship.store.size',
+    'stringstoresize':'neo4j.string.store.size',
+    'nodestoresize':'neo4j.node.store.size',
+    'locks':'neo4j.locks',
+    'numberofaverteddeadlocks':'neo4j.adverted.locks',
+    'numberofrelationshipidsinuse':'neo4j.relationship.ids.inuse',
+    'numberofpropertyidsinuse':'neo4j.property.ids.inuse',
+    'numberofnodeidsinuse':'neo4j.node.ids.inuse',
+    'numberofrelationshiptypeidsinuse':'neo4j.relationshiptype.ids.inuse',
+    'memorypools':'neo4j.memory.pools',
+    'pins':'neo4j.page.cache.pins',
+    'evictions':'neo4j.page.cache.evictions',
+    'byteswritten':'neo4j.bytes.written',
+    'filemappings':'neo4j.page.cache.file.mappings',
+    'fileunmappings':'neo4j.page.cache.file.unmappings',
+    'bytesread':'neo4j.bytes.read',
+    'flushes':'neo4j.page.cache.flushes',
+    'evictionexceptions':'neo4j.page.cache.eviction.exceptions',
+    'faults':'neo4j.page.cache.faults',
+    'ha.pull_interval':'neo4j.ha.pull_interval',
+    'dbms.memory.pagecache.size':'neo4j.dbms.memory.pagecache.size'}
 	
     def __init__(self, name, init_config, agentConfig, instances=None):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
@@ -103,7 +140,8 @@ class HTTPCheck(AgentCheck):
 
         for doc in stats['results'][0]['data']:
             if doc['row'][0].lower() in self.keys:
-                self.gauge(server_name + "." + doc['row'][0], doc['row'][1], tags=tags)
+                self.gauge(server_name + "." + self.display.get(doc['row'][0].lower(),""), doc['row'][1], tags=tags)
+#                self.gauge(server_name + "." + doc['row'][0].lower(), doc['row'][1], tags=tags)
                 
 
     def timeout_event(self, url, timeout, aggregation_key):
@@ -138,7 +176,7 @@ class HTTPCheck(AgentCheck):
 
 
 if __name__ == '__main__':
-    check, instances = HTTPCheck.from_yaml('neo4j.yaml')
+    check, instances = Neo4jCheck.from_yaml('neo4j.yaml')
     for instance in instances:
         print "\nRunning the check against url: %s" % (instance['neo4j_url'])
         check.check(instance)

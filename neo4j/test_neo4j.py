@@ -11,8 +11,8 @@ from utils.platform import Platform
 from shared.test.common import AgentCheckTest
 
 
-@attr(requires='mysql')
-class TestMySql(AgentCheckTest):
+@attr(requires='neo4j')
+class TestNeo4j(AgentCheckTest):
     CHECK_NAME = 'neo4j'
 
     METRIC_TAGS = ['tag1', 'tag2']
@@ -20,7 +20,7 @@ class TestMySql(AgentCheckTest):
     SC_FAILURE_TAGS = ['server:localhost', 'port:unix_socket']
 
 
-    MYSQL_MINIMAL_CONFIG = [{
+    NEO4J_MINIMAL_CONFIG = [{
         'server': 'localhost',
         'user': 'neo4j',
         'pass': 'neo4j',
