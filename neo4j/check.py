@@ -98,11 +98,13 @@ class Neo4jCheck(AgentCheck):
 
 
     def check(self, instance):
-        host, port, user, password, connect_timeout, server_name, version = self._get_config(instance)
+        host, port, user, password, connect_timeout, server_name = self._get_config(instance)
+        tmpVersion = self._get_version(instance)
         usrPass = user + ":" + password
         b64Val = base64.b64encode(usrPass)
+
         url = instance['neo4j_url'] + ":" + str(port) + "/"
-        if int(version[0]) > 2:
+        if int(tmpVersion) > 2:
             checkURL = host + ":" + str(port) + "/db/data/transaction/commit"
         else:
             checkURL = host + ":" + str(port) + "/v1/service/metrics"
@@ -165,10 +167,23 @@ class Neo4jCheck(AgentCheck):
         password = str(instance.get('password', ''))
         connect_timeout = instance.get('connect_timeout', None)
         server_name = instance.get('server_name','')
-        version = instance.get('neo4j_version', '3.1')
 
-        return (self.host, self.port, user, password, connect_timeout,server_name, version)
+        return (self.host, self.port, user, password, connect_timeout,server_name)
 
+    def _get_version(self, instance):
+        user = instance.get('user', '')
+        password = str(instance.get('password', ''))
+        usrPass = user + ":" + password
+        b64Val = base64.b64encode(usrPass)
+        port = int(instance.get('port', 7474))
+        versionURL = instance['neo4j_url'] + ":" + str(port) + '/db/data/'
+
+        #check version
+        headers_sent = {'Content-Type':'application/json','Authorization':'Basic ' + b64Val + '','Content-Type':'application/json'}
+        r = requests.get(versionURL,headers=headers_sent)
+        stats = r.json()
+        version = stats['neo4j_version'][:1]
+        return (version)
 
 
 if __name__ == '__main__':
