@@ -9,7 +9,6 @@ def neo4j_rootdir
 end
 
 container_name = 'dd-test-neo4j'
-container_port = 13306
 
 namespace :ci do
   namespace :neo4j do |flavor|
@@ -29,14 +28,14 @@ namespace :ci do
       Wait.for 7474
       count = 0
       logs = `docker logs dd-test-neo4j 2>&1`
-      puts "Waiting for Neo4j to come up"
-      until count == 60 or logs.include? 'Remote interface available at'
+      puts 'Waiting for Neo4j to come up'
+      until count == 60 || logs.include? 'Remote interface available at'
         sleep_for 2
         logs = `docker logs dd-test-neo4j 2>&1`
         count += 1
       end
       if logs.include? 'Remote interface available at'
-        puts "Neo4j is up!"
+        puts 'Neo4j is up!'
       end
 
 
