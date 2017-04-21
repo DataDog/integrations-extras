@@ -56,7 +56,7 @@ class OracleCheck(AgentCheck):
 
         con = self._get_connection(server, user, password)
 
-        self._get_sys_metrics(con)
+        self._get_sys_metrics(con, tags)
 
         self._get_tablespace_metrics(con)
 
@@ -84,7 +84,7 @@ class OracleCheck(AgentCheck):
             raise
         return con
 
-    def _get_sys_metrics(self, con):
+    def _get_sys_metrics(self, con, tags):
         query = "SELECT METRIC_NAME, VALUE, BEGIN_TIME FROM GV$SYSMETRIC " \
             "ORDER BY BEGIN_TIME"
         cur = con.cursor()
@@ -93,7 +93,7 @@ class OracleCheck(AgentCheck):
             metric_name = row[0]
             metric_value = row[1]
             if metric_name in self.SYS_METRICS:
-                self.gauge(self.SYS_METRICS[metric_name], metric_value)
+                self.gauge(self.SYS_METRICS[metric_name], metric_value, tags=tags)
 
     def _get_tablespace_metrics(self, con):
         query = "SELECT TABLESPACE_NAME, BYTES, MAXBYTES FROM sys.dba_data_files"
