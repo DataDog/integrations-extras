@@ -131,7 +131,7 @@ class Stats:
             }
 
     def key(self, name):
-        return "%s:%s" % (self.namespace, name) if self.namespace else name
+        return '%s:%s' % (self.namespace, name) if self.namespace else name
 
 
 class SidekiqCheck(AgentCheck):
@@ -143,7 +143,7 @@ class SidekiqCheck(AgentCheck):
 
     def _key(self, instance, name):
         ns = instance.get('namespace')
-        return "%s:%s" % (ns, name) if ns else name
+        return '%s:%s' % (ns, name) if ns else name
 
     # Taken from redisdb.py, returns custom tags and redis tags for redis connection.
     def _get_tags(self, custom_tags, instance):
@@ -151,13 +151,13 @@ class SidekiqCheck(AgentCheck):
 
         if 'unix_socket_path' in instance:
             tags_to_add = [
-                "redis_host:%s" % instance.get("unix_socket_path"),
-                "redis_port:unix_socket",
+                'redis_host:%s' % instance.get('unix_socket_path'),
+                'redis_port:unix_socket',
             ]
         else:
             tags_to_add = [
-                "redis_host:%s" % instance.get('host'),
-                "redis_port:%s" % instance.get('port')
+                'redis_host:%s' % instance.get('host'),
+                'redis_port:%s' % instance.get('port')
             ]
 
         tags = sorted(tags.union(tags_to_add))
@@ -194,7 +194,7 @@ class SidekiqCheck(AgentCheck):
                 self.connections[key] = redis.Redis(**connection_params)
 
             except TypeError:
-                raise Exception("You need a redis library that supports authenticated connections. Try sudo easy_install redis.")
+                raise Exception('You need a redis library that supports authenticated connections. Try sudo easy_install redis.')
 
         return self.connections[key]
 
@@ -212,11 +212,11 @@ class SidekiqCheck(AgentCheck):
             status = AgentCheck.OK
             self.service_check('sidekiq.redis.can_connect', status, tags=tags_to_add)
             self._collect_metadata(info)
-        except ValueError, e:
+        except ValueError:
             status = AgentCheck.CRITICAL
             self.service_check('sidekiq.redis.can_connect', status, tags=tags_to_add)
             raise
-        except Exception, e:
+        except Exception:
             status = AgentCheck.CRITICAL
             self.service_check('sidekiq.redis.can_connect', status, tags=tags_to_add)
             raise
@@ -242,8 +242,8 @@ class SidekiqCheck(AgentCheck):
             self.gauge('sidekiq.queue.latency', stat['latency'], tags=queue_tags)
 
     def check(self, instance):
-        if ("host" not in instance or "port" not in instance) and "unix_socket_path" not in instance:
-            raise Exception("You must specify a host/port couple or a unix_socket_path")
+        if ('host' not in instance or 'port' not in instance) and 'unix_socket_path' not in instance:
+            raise Exception('You must specify a host/port couple or a unix_socket_path')
         custom_tags = instance.get('tags', [])
 
         self._check_sidekiq(instance, custom_tags)

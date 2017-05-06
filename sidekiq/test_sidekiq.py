@@ -41,21 +41,21 @@ class TestSidekiq(AgentCheckTest):
         self._reset_sidekiq(db)
         db.set('stat:processed', '123')
         db.set('stat:failed', '456')
-        db.sadd("queues", "foo", "bar")
-        db.lpush("queue:foo", self._job())
-        db.lpush("queue:bar", self._job(), self._job())
+        db.sadd('queues', 'foo', 'bar')
+        db.lpush('queue:foo', self._job())
+        db.lpush('queue:bar', self._job(), self._job())
 
         r = load_check('sidekiq', {}, {})
         r.check(instance)
         metrics = self._sort_metrics(r.get_metrics())
-        assert metrics, "No metrics returned"
+        assert metrics, 'No metrics returned'
 
         # Assert we have values, timestamps and tags for each metric.
         for m in metrics:
             assert isinstance(m[1], int)    # timestamp
             assert isinstance(m[2], (int, float, long))  # value
-            tags = m[3]["tags"]
-            expected_tags = ["redis_host:localhost", "redis_port:%s" % DEFAULT_PORT]
+            tags = m[3]['tags']
+            expected_tags = ['redis_host:localhost', 'redis_port:%s' % DEFAULT_PORT]
             for e in expected_tags:
                 assert e in tags
 
@@ -76,10 +76,10 @@ class TestSidekiq(AgentCheckTest):
 
         # Assert queue latency metrics exist
         m = self._metric(metrics, 'sidekiq.queue.latency', 'queue:foo')
-        assert m, "No sidekiq.queue.latency metric returned for queue:foo"
+        assert m, 'No sidekiq.queue.latency metric returned for queue:foo'
 
         m = self._metric(metrics, 'sidekiq.queue.latency', 'queue:bar')
-        assert m, "No sidekiq.queue.latency metric returned for queue:bar"
+        assert m, 'No sidekiq.queue.latency metric returned for queue:bar'
 
     def test_sidekiq_namespace(self):
         instance = {
@@ -92,13 +92,13 @@ class TestSidekiq(AgentCheckTest):
         db = redis.Redis(port=DEFAULT_PORT, db=TEST_DB)
         db.flushdb()
         self._reset_sidekiq(db, 'ns')
-        db.sadd("ns:queues", "foo", "bar")
-        db.lpush("ns:queue:foo", self._job())
+        db.sadd('ns:queues', 'foo', 'bar')
+        db.lpush('ns:queue:foo', self._job())
 
         r = load_check('sidekiq', {}, {})
         r.check(instance)
         metrics = self._sort_metrics(r.get_metrics())
-        assert metrics, "No metrics returned"
+        assert metrics, 'No metrics returned'
 
         # Assert queue length metrics are correct
         m = self._metric(metrics, 'sidekiq.queue.length', 'queue:foo')
@@ -107,7 +107,7 @@ class TestSidekiq(AgentCheckTest):
 
     def _reset_sidekiq(self, db, namespace=None):
         def k(n):
-            return "%s:%s" % (namespace, n) if namespace else n
+            return '%s:%s' % (namespace, n) if namespace else n
 
         db.delete(k('queues'), k('processes'), k('schedule'), k('retry'), k('dead'))
         db.set(k('stat:processed'), '0')
@@ -121,7 +121,7 @@ class TestSidekiq(AgentCheckTest):
     def _metric(self, metrics, name, tag=None):
         res = [m for m in metrics if m[0] == name]
         if tag:
-            res = [m for m in res if tag in m[3]["tags"]]
+            res = [m for m in res if tag in m[3]['tags']]
         return self._sort_metrics(res)
 
     def _job(self):
