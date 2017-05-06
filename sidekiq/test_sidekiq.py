@@ -32,11 +32,11 @@ class TestSidekiq(AgentCheckTest):
     def test_sidekiq_default(self):
         instance = {
             'host': 'localhost',
-            'port': NOAUTH_PORT,
+            'port': DEFAULT_PORT,
             'db': TEST_DB
         }
 
-        db = redis.Redis(port=NOAUTH_PORT, db=TEST_DB)
+        db = redis.Redis(port=DEFAULT_PORT, db=TEST_DB)
         db.flushdb()
         self._reset_sidekiq(db)
         db.set('stat:processed', '123')
@@ -55,7 +55,7 @@ class TestSidekiq(AgentCheckTest):
             assert isinstance(m[1], int)    # timestamp
             assert isinstance(m[2], (int, float, long))  # value
             tags = m[3]["tags"]
-            expected_tags = ["redis_host:localhost", "redis_port:%s" % NOAUTH_PORT]
+            expected_tags = ["redis_host:localhost", "redis_port:%s" % DEFAULT_PORT]
             for e in expected_tags:
                 assert e in tags
 
@@ -84,12 +84,12 @@ class TestSidekiq(AgentCheckTest):
     def test_sidekiq_namespace(self):
         instance = {
             'host': 'localhost',
-            'port': NOAUTH_PORT,
+            'port': DEFAULT_PORT,
             'db': TEST_DB,
             'namespace': 'ns'
         }
 
-        db = redis.Redis(port=NOAUTH_PORT, db=TEST_DB)
+        db = redis.Redis(port=DEFAULT_PORT, db=TEST_DB)
         db.flushdb()
         self._reset_sidekiq(db, 'ns')
         db.sadd("ns:queues", "foo", "bar")
