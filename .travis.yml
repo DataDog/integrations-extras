@@ -18,6 +18,7 @@ branches:
 
 services:
   - docker
+  - redis-server
 
 matrix:
   fast_finish: true
@@ -32,18 +33,21 @@ env:
     - SDK_TESTING=true
     - BUNDLE_PATH=$TRAVIS_BUILD_DIR/vendor/cache
     - DD_AGENT_BRANCH=master
+    - CORE_BRANCH=master
+    - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
   matrix:
     - TRAVIS_FLAVOR=default
     - TRAVIS_FLAVOR=sidekiq FLAVOR_VERSION=latest
     # END OF TRAVIS MATRIX
 
 before_install:
-  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
+  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git snmp snmp-mibs-downloader
 
 install:
   - bundle install
   - bundle package
   - git -C $HOME/dd-agent pull || git clone -b $DD_AGENT_BRANCH --depth 1 https://github.com/DataDog/dd-agent.git $HOME/dd-agent
+  - git -C $HOME/integrations-core pull || git clone -b $CORE_BRANCH --depth 1 https://github.com/DataDog/integrations-core.git $HOME/integrations-core
   - echo "$HOME/dd-agent/" > $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")/datadog-agent.pth
   - pip install 'docker-compose==1.9.0'
   - pip install pylint
@@ -54,7 +58,8 @@ install:
 
 script:
   - bundle exec rake prep_travis_ci
-  - rake ci:run
+  - bundle exec rake ci:run
+  - bundle exec rake ci:run[snmpwalk]
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
