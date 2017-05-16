@@ -36,6 +36,7 @@ env:
     - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
   matrix:
     - TRAVIS_FLAVOR=default
+    - TRAVIS_FLAVOR=snmpwalk
     # END OF TRAVIS MATRIX
 
 before_install:
@@ -57,7 +58,6 @@ install:
 script:
   - bundle exec rake prep_travis_ci
   - bundle exec rake ci:run
-  - bundle exec rake ci:run[snmpwalk]
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
