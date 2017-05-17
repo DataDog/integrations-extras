@@ -50,56 +50,68 @@ init_config:
           Assign_99th_percentile:
             metric_type: gauge
             alias: hbase.master.assignmentmanager.assign.percentile.99
+
     - include:
         domain: Hadoop
         bean:
          - Hadoop:service=HBase,name=Master,sub=IPC
         attribute:
+          # Number of bytes in the call queues.
           queueSize:
             metric_type: gauge
             alias: hbase.master.ipc.queue_size
+          # Number of calls in the general call queue.
           numCallsInGeneralQueue:
             metric_type: gauge
             alias: hbase.master.ipc.num_calls_in_general_queue
+          # Number of calls in the replication call queue.
           numCallsInReplicationQueue:
             metric_type: gauge
             alias: hbase.master.ipc.num_calls_in_replication_queue
+          # Number of calls in the priority call queue.
           numCallsInPriorityQueue:
             metric_type: gauge
             alias: hbase.master.ipc.num_calls_in_priority_queue
+          # Number of open connections.
           numOpenConnections:
             metric_type: gauge
             alias: hbase.master.ipc.num_open_connections
+          # Number of active rpc handlers.
           numActiveHandler:
             metric_type: gauge
             alias: hbase.master.ipc.num_active_handler
+          # total call time, including both queued and processing time.
           TotalCallTime_max:
             metric_type: gauge
             alias: hbase.master.ipc.total_call_time.max
+          # total call time, including both queued and processing time.
           TotalCallTime_mean:
             metric_type: gauge
             alias: hbase.master.ipc.total_call_time.mean
+          # total call time, including both queued and processing time.
           TotalCallTime_median:
             metric_type: gauge
             alias: hbase.master.ipc.total_call_time.median
+          # total call time, including both queued and processing time.
           TotalCallTime_99th_percentile:
             metric_type: gauge
             alias: hbase.master.ipc.total_call_time.percentile.99
+
     - include:
         domain: Hadoop
         bean:
          - Hadoop:service=HBase,name=Master,sub=Server
         attribute:
+          # Is Active Master
           tag.isActiveMaster:
             metric_type: gauge
             alias: hbase.master.server.tag.is_active_master
-            values:
-              true: 1
-              false: 0
-              default: 0
+            values: {true: 1, false: 0, default: 0}
+          # Number of RegionServers
           numRegionServers:
             metric_type: gauge
             alias: hbase.master.server.num_region_servers
+          # Number of dead RegionServers
           numDeadRegionServers:
             metric_type: gauge
             alias: hbase.master.server.num_dead_region_servers
