@@ -46,12 +46,12 @@
   attribute: sink.ageOfLastAppliedOp
   metric_type: gauge
   alias: hbase.regionserver.replication.sink.age_of_last_applied_op
-  description: Time lag of last applied WAL entry between master and slave in milliseconds.
+  description: Replication time lag of last applied WAL entry between source and sink.
 - bean: Hadoop:service=HBase,name=RegionServer,sub=Replication
   attribute: sink.appliedBatches
   metric_type: gauge
   alias: hbase.regionserver.replication.sink.applied_batches
-  description: Number of applying WAL entries in batch on replication sink.
+  description: Number of WAL applying operations processd on replication sink.
 - bean: Hadoop:service=HBase,name=RegionServer,sub=Server
   attribute: regionCount
   metric_type: gauge
