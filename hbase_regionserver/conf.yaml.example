@@ -1,6 +1,6 @@
 instances:
   - host: localhost
-    port: 10102 # This is the JMX port on which HBase RegionServer exposes its metrics (usually 10101)
+    port: 10102 # This is the JMX port on which HBase RegionServer exposes its metrics (usually 10102)
     tags:
       hbase: regionserver
       # env: stage
@@ -70,12 +70,15 @@ init_config:
         bean:
          - Hadoop:service=HBase,name=RegionServer,sub=Replication
         attribute:
+          # Number of WAL entries applied on replication sink.
           sink.appliedOps:
             metric_type: gauge
             alias: hbase.regionserver.replication.sink.applied_ops
+          # Replication time lag of last applied WAL entry between source and sink.
           sink.ageOfLastAppliedOp:
             metric_type: gauge
             alias: hbase.regionserver.replication.sink.age_of_last_applied_op
+          # Number of WAL applying operations processd on replication sink.
           sink.appliedBatches:
             metric_type: gauge
             alias: hbase.regionserver.replication.sink.applied_batches
@@ -625,3 +628,4 @@ init_config:
           GcTimeMillis:
             metric_type: gauge
             alias: hbase.jvm_metrics.gc_time_millis
+
