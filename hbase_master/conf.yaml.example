@@ -26,12 +26,15 @@ init_config:
         bean:
          - Hadoop:service=HBase,name=Master,sub=AssignmentManger
         attribute:
+          # The age of the longest region in transition, in milliseconds
           ritOldestAge:
             metric_type: gauge
             alias: hbase.master.assignmentmanager.rit_oldest_age
+          # The number of regions that have been in transition longer than a threshold time
           ritCountOverThreshold:
             metric_type: gauge
             alias: hbase.master.assignmentmanager.rit_count_over_threshold
+          # The number of regions in transition
           ritCount:
             metric_type: gauge
             alias: hbase.master.assignmentmanager.rit_count

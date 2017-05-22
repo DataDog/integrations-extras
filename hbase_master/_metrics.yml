@@ -7,14 +7,19 @@
 ---
 - bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
   attribute: ritOldestAge
+  description: The age of the longest region in transition, in milliseconds
   metric_type: gauge
+  unit_name: millisecond
   alias: hbase.master.assignmentmanager.rit_oldest_age
 - bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
   attribute: ritCountOverThreshold
+  description: The number of regions that have been in transition longer than a threshold time
+  unit_name: ""
   metric_type: gauge
   alias: hbase.master.assignmentmanager.rit_count_over_threshold
 - bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
   attribute: ritCount
+  description: The number of regions in transition
   metric_type: gauge
   alias: hbase.master.assignmentmanager.rit_count
 - bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger

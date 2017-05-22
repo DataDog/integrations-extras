@@ -31,7 +31,7 @@ metrics = YAML.load(File.new(METRICS_FILENAME, "r"))
 def decorate_descrption(metric, dumped_attribute)
   if Hash === dumped_attribute && dumped_attribute.has_key?("description")
     metric["description"] = dumped_attribute["description"]
-  else
+  elsif !metric.has_key?("description")
     metric["description"] = ""
   end
 end
