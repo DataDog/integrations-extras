@@ -17,11 +17,8 @@ namespace :ci do
   namespace :snmpwalk do |flavor|
     task before_install: ['ci:common:before_install']
 
-    task install: ['ci:common:install'] do
-      use_venv = in_venv
-      install_requirements('snmpwalk/requirements.txt',
-                           "--cache-dir #{ENV['PIP_CACHE']}",
-                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
+    task :install do
+      Rake::Task['ci:common:install'].invoke('snmpwalk')
       sh %(docker run -d -v #{resources_path}:/etc/snmp/ \
            --name dd-test-snmpwalk -p 11111:161/udp \
             polinux/snmpd -c /etc/snmp/snmpd.conf)
