@@ -1,30 +1,32 @@
 machine:
     python:
-        version: 2.7.3
+        version: 2.7.10
+    ruby:
+        version: 2.2.6
     services:
         - docker
     environment:
-        NOSE_FILTER: 'not windows'
+        NOSE_FILTER: 'not windows and not fixme'
         VOLATILE_DIR: '/tmp/integration-sdk-testing'
         SKIP_CLEANUP: 'true'
         INTEGRATIONS_DIR: "$HOME/embedded"
+        CI_BUILD_DIR: "$HOME/$CIRCLE_PROJECT_REPONAME"
         PIP_CACHE: "$HOME/.cache/pip"
         SDK_TESTING: "true"
-
-general:
-  branches:
-    only:
-      - /jaime.*/  # for now - whitelisting
-      - /tristan.*/ # for now - whitelisting
+        DD_AGENT_BRANCH: "master"
+        CORE_BRANCH: "master"
+        REQ_LOCALS: "$HOME/$CIRCLE_PROJECT_REPONAME,$HOME/dd-agent,$HOME/integrations-core"
 
 dependencies:
     pre:
-        - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
-        - git clone https://github.com/DataDog/dd-agent.git ~/dd-agent
-        - echo "$HOME/dd-agent/" > ~/virtualenvs/venv-2.7.3/lib/python2.7/site-packages/datadog-agent.pth
+        - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git snmp snmp-mibs-downloader
+        - git -C $HOME/dd-agent pull || git clone -b $DD_AGENT_BRANCH --depth 1 https://github.com/DataDog/dd-agent.git $HOME/dd-agent
+        - git -C $HOME/integrations-core pull || git clone -b $CORE_BRANCH --depth 1 https://github.com/DataDog/integrations-core.git $HOME/integrations-core
+        - echo "$HOME/dd-agent/" > $(dirname $(pyenv which python))/../lib/python2.7/site-packages/datadog-agent.pth
+        - echo "$HOME/dd-agent/" > $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")/datadog-agent.pth
         - pip install pip --upgrade
         - pip install docker-compose
-        - pip install pylint 
+        - pip install pylint
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements.txt; fi
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-test.txt; fi
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt; fi
@@ -33,8 +35,11 @@ dependencies:
 
 test:
     override:
-        - bundle exec rake lint
+        - bundle exec rake prep_travis_ci
         - rake ci:run[default]
+        - rake ci:run[snmpwalk]
+        - rake ci:run[hbase_master]
+        - rake ci:run[hbase_regionserver]
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
