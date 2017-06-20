@@ -3,12 +3,12 @@ from checks.prometheus_check import PrometheusCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'traefik'
 
-class Traefik(PrometheusCheck):
+class TraefikCheck(PrometheusCheck):
     """
     Collect traefik metrics from Prometheus
     """
     def __init__(self, name, init_config, agentConfig, instances=None):
-        super(Traefik, self).__init__(name, init_config, agentConfig, instances)
+        super(TraefikCheck, self).__init__(name, init_config, agentConfig, instances)
         self.NAMESPACE = 'traefik'
 
         self.metrics_mapper = {
