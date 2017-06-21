@@ -40,6 +40,7 @@ env:
     - TRAVIS_FLAVOR=snmpwalk
     - TRAVIS_FLAVOR=hbase_master
     - TRAVIS_FLAVOR=hbase_regionserver
+    - TRAVIS_FLAVOR=redis-sentinel
     # END OF TRAVIS MATRIX
 
 before_install:
@@ -62,6 +63,7 @@ install:
 script:
   - bundle exec rake prep_travis_ci
   - bundle exec rake ci:run
+  - bundle exec rake lint
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
