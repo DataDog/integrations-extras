@@ -22,17 +22,24 @@ instance = {
 
 @attr(requires='aerospike')
 class TestAerospike(AgentCheckTest):
-    """Basic Test for aerospike integration."""
     CHECK_NAME = 'aerospike'
 
     def test_check(self):
-        """
-        Testing Aerospike check.
-        """
-        self.load_check({}, {})
+        config = {
+            'instances': [
+                {
+                    'metrics':['cluster_size'],
+                    'namespace_metrics':['objects'],
+                    'namespaces':{'test'},
+                    'tags':['tag:value']
+                }
+            ]
+        }
+        self.run_check(config)
 
-        # run your actual tests...
+        self.assertMetric('aerospike.cluster_size', at_least=1)
+        self.assertMetric('aerospike.namespace.objects', at_least=1)
+        self.assertServiceCheckOK('aerospike.cluster_up')
 
-        self.assertTrue(True)
         # Raises when COVERAGE=true and coverage < 100%
         self.coverage_report()
