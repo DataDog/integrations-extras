@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/DataDog/integrations-extras.svg?branch=master)](https://travis-ci.org/DataDog/integrations-extras)
 # Datadog Agent Integrations
 
 Collecting data is cheap; not having it when you need it can be very expensive. So we recommend instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for [Datadog](https://www.datadoghq.com).
