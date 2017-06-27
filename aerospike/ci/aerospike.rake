@@ -14,15 +14,15 @@ container_port = 3003
 namespace :ci do
   namespace :aerospike do |flavor|
     task before_install: ['ci:common:before_install'] do
-        sh %(docker kill $(docker ps -q --filter name=#{container_name}) || true)
-        sh %(docker rm $(docker ps -aq --filter name=#{container_name}) || true)
+      sh %(docker kill $(docker ps -q --filter name=#{container_name}) || true)
+      sh %(docker rm $(docker ps -aq --filter name=#{container_name}) || true)
     end
 
     task install: ['ci:common:install'] do
       sh %(docker run -d -p 3000:3000 -p3003:3003 --name #{container_name} aerospike/aerospike-server)
     end
 
-    task before_script: ['ci:common:before_script'] do 
+    task before_script: ['ci:common:before_script'] do
       Wait.for container_port
       count = 0
       logs = `docker logs #{container_name} 2>&1`
@@ -47,8 +47,8 @@ namespace :ci do
     task before_cache: ['ci:common:before_cache']
 
     task cleanup: ['ci:common:cleanup'] do
-        sh %(docker kill $(docker ps -q --filter name=#{container_name}) || true)
-        sh %(docker rm $(docker ps -aq --filter name=#{container_name}) || true)
+      sh %(docker kill $(docker ps -q --filter name=#{container_name}) || true)
+      sh %(docker rm $(docker ps -aq --filter name=#{container_name}) || true)
     end
 
     task :execute do
