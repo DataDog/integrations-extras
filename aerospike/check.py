@@ -35,7 +35,7 @@ class AerospikeCheck(AgentCheck):
 
                 for ns in self._get_namespaces(conn, fp, required_namespaces):
                     conn.send('namespace/%s\r' % ns)
-                    self._process_data(fp, NAMESPACE_EVENT_TYPE, namespace_metrics, tags|{'namespace:%s' % ns})
+                    self._process_data(fp, NAMESPACE_EVENT_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
 
             self.service_check(SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
         except Exception as e:
@@ -50,7 +50,7 @@ class AerospikeCheck(AgentCheck):
         metrics = set(instance.get('metrics', []))
         namespace_metrics = set(instance.get('namespace_metrics', []))
         required_namespaces = instance.get('namespaces', None)
-        tags = set(instance.get('tags', []))
+        tags = instance.get('tags', [])
 
         return (Addr(host,port), metrics, namespace_metrics, required_namespaces, tags)
 
