@@ -29,7 +29,7 @@ class TestAerospike(AgentCheckTest):
             'instances': [
                 {
                     'metrics':['cluster_size'],
-                    'namespace_metrics':['objects'],
+                    'namespace_metrics':['objects','hwm_breached'],
                     'namespaces':{'test'},
                     'tags':['tag:value']
                 }
@@ -39,6 +39,7 @@ class TestAerospike(AgentCheckTest):
 
         self.assertMetric('aerospike.cluster_size', at_least=1)
         self.assertMetric('aerospike.namespace.objects', at_least=1)
+        self.assertMetric('aerospike.namespace.hwm_breached', at_least=1)
         self.assertServiceCheckOK('aerospike.cluster_up')
 
         # Raises when COVERAGE=true and coverage < 100%

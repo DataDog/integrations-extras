@@ -83,8 +83,27 @@ class AerospikeCheck(AgentCheck):
             self._process_datum(event_type, key, value, tags)
 
     def _process_datum(self, event_type, key, val, tags={}):
+        datatype = 'event'
+
         if val.isdigit():
+            datatype = 'gauge'
+        elif val.lower() in ('true', 'on', 'enable', 'enabled'): # boolean : true
+            val = 1
+            datatype = 'gauge'
+        elif val.lower() in ('false', 'off', 'disable', 'disabled'): # boolean : false
+            val = 0
+            datatype = 'gauge'
+        else:
+            try:
+                float(val)
+                datatype = 'gauge'
+            except ValueError:
+                datatype = 'event'
+
+        if datatype == 'gauge':
             self.gauge(self._make_key(event_type, key), val, tags=tags)
+        #elif
+        #    self.event(self._make_key(event_type, key), val, tags=tags)
 
     @staticmethod
     def _make_key(event_type, n):
