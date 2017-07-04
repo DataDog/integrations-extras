@@ -42,7 +42,7 @@ test:
         - TRAVIS_FLAVOR="snmpwalk" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_master" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_regionserver" bundle exec rake ci:run
-        - TRAVIS_FLAVOR="redis-sentinel" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="redis_sentinel" bundle exec rake ci:run
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
