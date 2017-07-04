@@ -17,8 +17,9 @@ class RedisSentinelCheck(AgentCheck):
         self._masters = defaultdict(lambda: "")
 
     def check(self, instance):
+        self.log.info(instance)
         redis_conn = redis.StrictRedis(
-            host=instance['sentinel_host'], port=instance['sentinel_port'], db=0
+            host=instance['sentinel_host'], port=int(instance['sentinel_port']), db=0
         )
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])
@@ -67,20 +68,30 @@ class RedisSentinelCheck(AgentCheck):
             if stats['is_odown'] or stats['is_sdown']:  # sentinel keeps track of old sentinels
                 continue
             self.increment('redis.sentinel.ok_sentinels', tags=master_tags)
-            self.gauge(
-                'redis.sentinel.pending_commands',
-                stats['pending-commands'], tags=['sentinel'] + sentinel_tags
-            )
-            self.gauge(
-                'redis.sentinel.ping_latency',
-                stats['last-ping-reply'] - stats['last-ping-sent'],
-                sentinel_tags
-            )
-            self.gauge(
-                'redis.sentinel.last_ok_ping_latency',
-                stats['last-ping-reply'] - stats['last-ok-ping-reply'],
-                sentinel_tags
-            )
+
+            pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+            if pending is not None:
+                self.gauge(
+                    'redis.sentinel.pending_commands',
+                    pending, tags=['sentinel'] + sentinel_tags
+                )
+
+            reply = stats.get('last-ping-reply')
+            sent = stats.get('last-ping-sent')
+            if reply is not None and sent is not None:
+                self.gauge(
+                    'redis.sentinel.ping_latency',
+                    reply - sent,
+                    sentinel_tags
+                )
+
+            ok_reply = stats.get('last-ok-ping-reply')
+            if ok_reply is not None and sent is not None:
+                self.gauge(
+                    'redis.sentinel.last_ok_ping_latency',
+                    reply - ok_reply,
+                    sentinel_tags
+                )
 
     def _process_slaves_stats(self, redis_conn, master_name, base_tags, master_tags):
         """
@@ -119,10 +130,13 @@ class RedisSentinelCheck(AgentCheck):
                 continue
             self.increment('redis.sentinel.ok_slaves', tags=master_tags)
             slave_tags = ['slave_ip:%s' % stats['ip']] + base_tags
-            self.gauge(
-                'redis.sentinel.pending_commands', stats['pending-commands'],
-                tags=['slave'] + slave_tags
-            )
+
+            pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+            if pending is not None:
+                self.gauge(
+                    'redis.sentinel.pending_commands', pending,
+                    tags=['slave'] + slave_tags
+                )
 
             self.service_check(
                 'redis.sentinel.slave_is_disconnected',
@@ -168,27 +182,36 @@ class RedisSentinelCheck(AgentCheck):
         """
         stats = redis_conn.sentinel_master(master_name)
         master_tags = ['master_ip:%s' % stats['ip']] + base_tags
-        self.gauge(
-            'redis.sentinel.pending_commands', stats['pending-commands'],
-            tags=['master'] + master_tags
-        )
-        self.gauge(
-            'redis.sentinel.known_slaves', stats['num-slaves'], tags=master_tags
-        )
-        self.gauge(
-            'redis.sentinel.known_sentinels',
-            stats['num-other-sentinels'] + 1,
+
+        pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+        if pending is not None:
+            self.gauge(
+                'redis.sentinel.pending_commands', pending, tags=['master'] + master_tags
+            )
+
+        known_slaves = stats.get('num-slaves')
+        if known_slaves is not None:
+            self.gauge(
+                'redis.sentinel.known_slaves', known_slaves, tags=master_tags
+            )
+
+        known_sentinels = stats.get('num-other-sentinels')
+        if known_slaves is not None:
+            self.gauge(
+                'redis.sentinel.known_sentinels',
+                known_sentinels + 1,
+                tags=master_tags
+            )
+
+        self.service_check(
+            'redis.sentinel.master_is_disconnected',
+            AgentCheck.CRITICAL if stats.get('is_disconnected') else AgentCheck.OK,
             tags=master_tags
         )
 
         self.service_check(
-            'redis.sentinel.master_is_disconnected',
-            AgentCheck.CRITICAL if stats['is_disconnected'] else AgentCheck.OK,
-            tags=master_tags
-        )
-        self.service_check(
             'redis.sentinel.master_is_down',
-            AgentCheck.CRITICAL if stats['is_master_down'] else AgentCheck.OK,
+            AgentCheck.CRITICAL if stats.get('is_master_down') else AgentCheck.OK,
             tags=master_tags
         )
 

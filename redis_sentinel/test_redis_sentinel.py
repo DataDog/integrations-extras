@@ -8,13 +8,25 @@ from tests.checks.common import AgentCheckTest
 
 
 instance = {
-    'host': 'localhost',
-    'port': 26379,
-    'password': 'datadog-is-devops-best-friend'
+    'sentinel_host': 'localhost',
+    'sentinel_port': 26379,
+    'masters': ['mymaster']
 }
 
+METRICS = [
+    'redis.sentinel.ok_slaves',
+    'redis.sentinel.ok_sentinels',
+    'redis.sentinel.known_sentinels',
+    'redis.sentinel.known_slaves',
+    'redis.sentinel.pending_commands',
+]
 
-# NOTE: Feel free to declare multiple test classes if needed
+SERVICE_CHECKS = [
+    'redis.sentinel.master_is_disconnected',
+    'redis.sentinel.master_is_down',
+    'redis.sentinel.slave_is_disconnected',
+    'redis.sentinel.slave_master_link_down',
+]
 
 @attr(requires='redis_sentinel', mock=False)  # set mock to True if appropriate
 class TestRedis_sentinel(AgentCheckTest):
@@ -25,10 +37,13 @@ class TestRedis_sentinel(AgentCheckTest):
         """
         Testing Redis_sentinel check.
         """
-        self.load_check({}, {})
+        self.run_check({'instances': [instance]})
 
-        # run your actual tests...
+        for mname in METRICS:
+            self.assertMetric(mname, at_least=1)
 
-        self.assertTrue(True)
+        for svc_chk in SERVICE_CHECKS:
+            self.assertServiceCheckOK(svc_chk)
+
         # Raises when COVERAGE=true and coverage < 100%
         self.coverage_report()
