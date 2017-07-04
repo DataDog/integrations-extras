@@ -3,6 +3,8 @@
 
 # stdlib
 import socket
+import time
+import re
 from contextlib import closing
 from collections import namedtuple
 
@@ -13,6 +15,7 @@ SOURCE_TYPE_NAME = 'aerospike'
 SERVICE_CHECK_NAME = '%s.cluster_up' % SOURCE_TYPE_NAME
 CLUSTER_EVENT_TYPE = SOURCE_TYPE_NAME
 NAMESPACE_EVENT_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
+NAMESPACE_TPS_EVENT_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
 
 Addr = namedtuple('Addr', ['host', 'port'])
 
@@ -33,9 +36,14 @@ class AerospikeCheck(AgentCheck):
                 conn.send('statistics\r')
                 self._process_data(fp, CLUSTER_EVENT_TYPE, metrics, tags=tags)
 
-                for ns in self._get_namespaces(conn, fp, required_namespaces):
+                namespaces = self._get_namespaces(conn, fp, required_namespaces)
+
+                for ns in namespaces:
                     conn.send('namespace/%s\r' % ns)
                     self._process_data(fp, NAMESPACE_EVENT_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
+
+                conn.send('throughput:\r')
+                self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_EVENT_TYPE, namespaces, tags)
 
             self.service_check(SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
         except Exception as e:
@@ -72,6 +80,31 @@ class AerospikeCheck(AgentCheck):
 
         return conn
 
+    def _process_throughput(self, data, event_type, namespaces, tags={}):
+        while data != []:
+            l = data.pop(0)
+
+            # skip errors
+            while l.startswith('error-'):
+                if data == []:
+                    return
+                l = data.pop(0)
+
+            match = re.match('^{(.+)}-([^:]+):',l)
+            if match == None:
+                continue
+
+            ns = match.groups()[0]
+            if ns not in namespaces:
+                continue
+
+            key = match.groups()[1]
+            if data == []:
+                return # unexpected EOF
+            val = data.pop(0).split(',')[1]
+
+            self._send(event_type, key, val, tags + ['namespace:%s' % ns] )
+
     def _process_data(self, fp, event_type, required_keys=[], tags={}):
         d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(';'))
         if required_keys:
@@ -80,10 +113,16 @@ class AerospikeCheck(AgentCheck):
             required_data = d
 
         for key, value in required_data.items():
-            self._process_datum(event_type, key, value, tags)
+            self._send(event_type, key, value, tags)
 
-    def _process_datum(self, event_type, key, val, tags={}):
+    def _send(self, event_type, key, val, tags={}):
         datatype = 'event'
+
+        if re.match('^{(.+)}-^[-]+-hist',key):
+            return # skip histogram configuration
+
+        if key == 'cluster_key':
+            val = str(int(val, 16))
 
         if val.isdigit():
             datatype = 'gauge'
@@ -102,8 +141,15 @@ class AerospikeCheck(AgentCheck):
 
         if datatype == 'gauge':
             self.gauge(self._make_key(event_type, key), val, tags=tags)
-        #elif
-        #    self.event(self._make_key(event_type, key), val, tags=tags)
+        #else:
+        #    self.event({
+        #        'timestamp': int(time.time()),
+        #        'event_type': self._make_key(event_type, key),
+        #        'aggregation_key': 'text-metrics',
+        #        'msg_title': key,
+        #        'msg_text': val,
+        #        'tags': tags
+        #    })
 
     @staticmethod
     def _make_key(event_type, n):
