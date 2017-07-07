@@ -16,8 +16,21 @@ SERVICE_CHECK_NAME = '%s.cluster_up' % SOURCE_TYPE_NAME
 CLUSTER_EVENT_TYPE = SOURCE_TYPE_NAME
 NAMESPACE_EVENT_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
 NAMESPACE_TPS_EVENT_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
+SINDEX_EVENT_TYPE = '%s.sindex' % SOURCE_TYPE_NAME
 
 Addr = namedtuple('Addr', ['host', 'port'])
+
+def parse_sindex_namespace(data, namespace):
+    idxs = []
+    while data != []:
+        l = data.pop(0)
+
+        match = re.match('^ns=%s:[^:]+:indexname=([^:]+):.*$' % namespace,l)
+        if match == None:
+            continue
+        idxs.append(match.groups()[0])
+
+    return idxs   
 
 class AerospikeCheck(AgentCheck):
 
@@ -41,6 +54,12 @@ class AerospikeCheck(AgentCheck):
                 for ns in namespaces:
                     conn.send('namespace/%s\r' % ns)
                     self._process_data(fp, NAMESPACE_EVENT_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
+
+                    conn.send('sindex/%s\r' % ns)
+                    for idx in parse_sindex_namespace(fp.readline().split(';')[:-1], ns):
+                        conn.send('sindex/%s/%s\r' % (ns,idx))
+                        self._process_data(fp, SINDEX_EVENT_TYPE, [], 
+                                tags+['namespace:%s' % ns, 'sindex:%s' % idx])
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_EVENT_TYPE, namespaces, tags)
