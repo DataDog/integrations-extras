@@ -59,7 +59,7 @@ class AerospikeCheck(AgentCheck):
                     for idx in parse_sindex_namespace(fp.readline().split(';')[:-1], ns):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
                         self._process_data(fp, SINDEX_EVENT_TYPE, [], 
-                                tags+['namespace:%s' % ns, 'sindex:%s' % idx])
+                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_EVENT_TYPE, namespaces, tags)
