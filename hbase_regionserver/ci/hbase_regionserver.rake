@@ -14,11 +14,27 @@ namespace :ci do
 
     task :install do
       Rake::Task['ci:common:install'].invoke('hbase_regionserver')
+      # run zookeeper and wait until it is up
       sh %(docker-compose -f \
-           #{ENV['TRAVIS_BUILD_DIR']}/hbase_regionserver/ci/resources/docker-compose-hbase.yaml up -d)
+           #{ENV['TRAVIS_BUILD_DIR']}/hbase_master/ci/resources/docker-compose-hbase.yaml up -d zookeeper)
+      wait_on_docker_logs('resources_zookeeper_1', '30', 'Zookeeper Admin Concole:', 'http://localhost:8080/commands')
+      Wait.for 2181
+      # run hadoop and wait until it is up.
+      sh %(docker-compose -f \
+           #{ENV['TRAVIS_BUILD_DIR']}/hbase_master/ci/resources/docker-compose-hbase.yaml up -d hadoop)
+      wait_on_docker_logs('resources_hadoop_1', '30', 'NameNode:', 'http://localhost:50070')
+      Wait.for 8020
+      Wait.for 50_070
+      Wait.for 8042
+      Wait.for 50_075
+      # run zookeeper and wait until it is up
+      sh %(docker-compose -f \
+           #{ENV['TRAVIS_BUILD_DIR']}/hbase_master/ci/resources/docker-compose-hbase.yaml up -d hbase)
+      wait_on_docker_logs('resources_hbase_1', '30', 'HBase Master', 'http://localhost:60010', 'HBase Region Server', 'http://localhost:60030')
       Wait.for 10_101
       Wait.for 10_102
-      wait_on_docker_logs('resources_hbase_1', '30', 'HBase Master', 'http://localhost:60010', 'HBase Region Server', 'http://localhost:60030')
+      Wait.for 60_010
+      Wait.for 60_030
     end
 
     task before_script: ['ci:common:before_script']
