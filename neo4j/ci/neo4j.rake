@@ -29,7 +29,7 @@ namespace :ci do
       count = 0
       logs = `docker logs dd-test-neo4j 2>&1`
       puts 'Waiting for Neo4j to come up'
-      until count == 60 or logs.include? 'Remote interface available at'
+      until count == 60 || logs.include? 'Remote interface available at'
         sleep_for 2
         logs = `docker logs dd-test-neo4j 2>&1`
         count += 1
@@ -37,7 +37,6 @@ namespace :ci do
       if logs.include? 'Remote interface available at'
         puts 'Neo4j is up!'
       end
-
 
     end
 
