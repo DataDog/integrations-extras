@@ -131,10 +131,10 @@ class RedisSentinelCheck(AgentCheck):
             self.increment('redis.sentinel.ok_slaves', tags=master_tags)
             slave_tags = ['slave_ip:%s' % stats['ip']] + base_tags
 
-            pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+            pending = stats.get('link-pending-commands', stats.get('pending-commands'))
             if pending is not None:
                 self.gauge(
-                    'redis.sentinel.pending_commands', pending,
+                    'redis.sentinel.link_pending_commands', pending,
                     tags=['slave'] + slave_tags
                 )
 
@@ -183,10 +183,10 @@ class RedisSentinelCheck(AgentCheck):
         stats = redis_conn.sentinel_master(master_name)
         master_tags = ['master_ip:%s' % stats['ip']] + base_tags
 
-        pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+        pending = stats.get('link-pending-commands', stats.get('pending-commands'))
         if pending is not None:
             self.gauge(
-                'redis.sentinel.pending_commands', pending, tags=['master'] + master_tags
+                'redis.sentinel.link_pending_commands', pending, tags=['master'] + master_tags
             )
 
         known_slaves = stats.get('num-slaves')
