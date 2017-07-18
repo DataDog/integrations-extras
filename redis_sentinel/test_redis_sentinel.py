@@ -18,7 +18,7 @@ METRICS = [
     'redis.sentinel.ok_sentinels',
     'redis.sentinel.known_sentinels',
     'redis.sentinel.known_slaves',
-    'redis.sentinel.pending_commands',
+    'redis.sentinel.link_pending_commands',
 ]
 
 SERVICE_CHECKS = [

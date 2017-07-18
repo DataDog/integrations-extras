@@ -51,7 +51,7 @@ class RedisSentinelCheck(AgentCheck):
                 'last-ping-reply': 12345679
                 'last-ping-sent': 12345678,
                 'name': '10.1.2.3:26379',
-                'pending-commands': 78,
+                'link-pending-commands': 78,
                 'port': 26379,
                 'runid': '123456789abcdef',
                 's-down-time': 12345678,
@@ -69,10 +69,10 @@ class RedisSentinelCheck(AgentCheck):
                 continue
             self.increment('redis.sentinel.ok_sentinels', tags=master_tags)
 
-            pending = stats.get('pending-commands', stats.get('link-pending-commands'))
+            pending = stats.get('link-pending-commands', stats.get('pending-commands'))
             if pending is not None:
                 self.gauge(
-                    'redis.sentinel.pending_commands',
+                    'redis.sentinel.link_pending_commands',
                     pending, tags=['sentinel'] + sentinel_tags
                 )
 
