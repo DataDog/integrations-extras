@@ -3,7 +3,7 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
 # stdlib
-from nose.plugins.attrib import attr
+import os
 
 # 3p
 import simplejson as json
@@ -11,15 +11,15 @@ import simplejson as json
 # project
 from tests.checks.common import AgentCheckTest, Fixtures
 
+FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'ci')
 
-@attr(requires='nsq')
 class TestNsq(AgentCheckTest):
     """Basic Test for nsq integration."""
     CHECK_NAME = 'nsq'
 
     def test_simple_metrics(self):
         mocks = {
-            'get_json': lambda x,y: json.loads(Fixtures.read_file('nsq_stats.json')),
+            'get_json': lambda x,y: json.loads(Fixtures.read_file('nsq_stats.json', sdk_dir=FIXTURE_DIR)),
         }
         config = {
             'instances': [{'url': 'http://localhost:44151'}]
