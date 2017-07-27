@@ -15,6 +15,7 @@ machine:
         SDK_TESTING: "true"
         DD_AGENT_BRANCH: "master"
         CORE_BRANCH: "master"
+        JMXFETCH_URL: "https://dd-jmxfetch.s3.amazonaws.com"
         REQ_LOCALS: "$HOME/$CIRCLE_PROJECT_REPONAME,$HOME/dd-agent,$HOME/integrations-core"
 
 dependencies:
@@ -32,13 +33,14 @@ dependencies:
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt ]; then pip install -r ~/$CIRCLE_PROJECT_REPONAME/requirements-opt.txt; fi
         - if [ -e ~/dd-agent/requirements.txt ]; then pip install -r ~/dd-agent/requirements.txt; fi
         - if [ -e ~/$CIRCLE_PROJECT_REPONAME/Gemfile ]; then cd ~/$CIRCLE_PROJECT_REPONAME ; bundle install; cd - ; fi
+        - if [ -e ~/$CIRCLE_PROJECT_REPONAME/Gemfile ]; then cd ~/$CIRCLE_PROJECT_REPONAME ; bundle exec rake setup_agent_libs; cd - ; fi
 
 test:
     override:
         - bundle exec rake prep_travis_ci
-        - rake ci:run[default]
-        - rake ci:run[snmpwalk]
-        - rake ci:run[storm]
+        - TRAVIS_FLAVOR="default" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="snmpwalk" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="storm" bundle exec rake ci:run
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
