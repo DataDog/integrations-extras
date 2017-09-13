@@ -39,13 +39,13 @@ class TestNeo4j(AgentCheckTest):
         'kernel.version',
         'property.store.size',
         'store.creationdate',
-		'relationship.store.size',
-		'storeid',
-		'kernel.starttime',
-		'string.store.size',
-		'relationship.ids.inuse',
-		'store.log.version',
-		'logicallog.size'
+        'relationship.store.size',
+        'storeid',
+        'kernel.starttime',
+        'string.store.size',
+        'relationship.ids.inuse',
+        'store.log.version',
+        'logicallog.size',
     ]
 
 
