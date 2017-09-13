@@ -8,20 +8,25 @@ def neo4j_rootdir
   "#{ENV['INTEGRATIONS_DIR']}/data_#{neo4j_version}"
 end
 
+def temp_dir
+  ENV['VOLATILE_DIR'] + '/neo4j'
+end
+
 container_name = 'dd-test-neo4j'
 
 namespace :ci do
   namespace :neo4j do |flavor|
     task before_install: ['ci:common:before_install'] do
-      `docker kill $(docker ps -q --filter name=dd-test-neo4j) || true`
-      `docker rm $(docker ps -aq --filter name=dd-test-neo4j) || true`
+      sh %(docker kill #{container_name} || true)
+      sh %(docker rm #{container_name} || true)
     end
 
     task install: ['ci:common:install'] do
-      use_venv = in_venv
-      install_requirements("--cache-dir #{ENV['PIP_CACHE']}",
-                           "#{ENV['VOLATILE_DIR']}/ci.log", use_venv)
-      sh %(docker run --name #{container_name} --publish=7474:7474 --publish=7687:7687 --volume=$HOME/neo4j/data:/data --volume=$HOME/neo4j/logs:/logs neo4j:3.1.1 )
+      Rake::Task['ci:common:install'].invoke('neo4j')
+      volumes = "--volume=#{temp_dir}/data:/data \
+      --volume=#{temp_dir}/logs:/logs"
+      publish = '--publish=7474:7474 --publish=7687:7687'
+      sh %(docker run -d --name #{container_name} #{volumes} #{publish} neo4j:3.1.1)
     end
 
     task before_script: ['ci:common:before_script'] do
@@ -29,15 +34,15 @@ namespace :ci do
       count = 0
       logs = `docker logs dd-test-neo4j 2>&1`
       puts 'Waiting for Neo4j to come up'
-      until count == 60 || logs.include? 'Remote interface available at'
+      until count == 60 || logs.include?('Remote interface available at')
         sleep_for 2
         logs = `docker logs dd-test-neo4j 2>&1`
         count += 1
       end
-      if logs.include? 'Remote interface available at'
-        puts 'Neo4j is up!'
-      end
-
+      logs.include?('Remote interface available at') && puts('Neo4j is up!')
+      sh %(curl -H "Content-Type: application/json" \
+          -X POST -d '{"password":"dog"}' -u neo4j:neo4j \
+          http://localhost:7474/user/neo4j/password)
     end
 
     task script: ['ci:common:script'] do
@@ -50,8 +55,9 @@ namespace :ci do
     task before_cache: ['ci:common:before_cache']
 
     task cleanup: ['ci:common:cleanup'] do
-      `docker kill $(docker ps -q --filter name=dd-test-neo4j) || true`
-      `docker rm $(docker ps -aq --filter name=dd-test-neo4j) || true`
+      sh %(docker kill #{container_name} || true)
+      sh %(docker rm #{container_name} || true)
+      sh %(rm -rf #{temp_dir})
     end
 
     task :execute do

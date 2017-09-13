@@ -7,8 +7,7 @@ from nose.plugins.attrib import attr
 
 # project
 from checks import AgentCheck
-from utils.platform import Platform
-from shared.test.common import AgentCheckTest
+from tests.checks.common import AgentCheckTest
 
 
 @attr(requires='neo4j')
@@ -16,27 +15,23 @@ class TestNeo4j(AgentCheckTest):
     CHECK_NAME = 'neo4j'
 
     METRIC_TAGS = ['tag1', 'tag2']
-    SC_TAGS = ['server:localhost', 'port:13306']
-    SC_FAILURE_TAGS = ['server:localhost', 'port:unix_socket']
-
 
     NEO4J_MINIMAL_CONFIG = [{
-        'server': 'localhost',
+        'neo4j_url': 'http://localhost',
         'user': 'neo4j',
-        'pass': 'neo4j',
+        'password': 'dog',
         'port': '7474'
     }]
 
-
     CONNECTION_FAILURE = [{
-        'server': 'localhost',
+        'neo4j_url': 'http://localhost',
         'user': 'unknown',
         'pass': 'dog',
     }]
 
     NEO4J_VARS = [
         'kernelversion',
-	#        'databasename',
+        #        'databasename',
         'mbeanquery',
         'storeid',
         'readonly',
@@ -119,7 +114,7 @@ class TestNeo4j(AgentCheckTest):
         before = len(filter(lambda m: m[3].get('tested'), self.metrics))
 
         for mname in optional_metrics:
-            self.assertMetric(mname, tags=self.METRIC_TAGS, at_least=0)
+            self.assertMetric('neo4j.' + mname, tags=self.METRIC_TAGS, at_least=0)
 
         # Compute match rate
         after = len(filter(lambda m: m[3].get('tested'), self.metrics))
@@ -131,14 +126,13 @@ class TestNeo4j(AgentCheckTest):
         self.run_check_twice(config)
 
         # Test service check
-        self.assertServiceCheck('neo4j.can_connect', status=AgentCheck.OK,
-                                tags=self.SC_TAGS, count=1)
+        self.assertServiceCheck('neo4j.can_connect', status=AgentCheck.OK, count=1)
 
         # Test metrics
         testable_metrics = (self.NEO4J_VARS)
 
         for mname in testable_metrics:
-            self.assertMetric(mname, at_least=0)
+            self.assertMetric('neo4j.' + mname, at_least=0)
 
 
 
@@ -153,6 +147,5 @@ class TestNeo4j(AgentCheckTest):
             lambda: self.run_check(config)
         )
 
-        self.assertServiceCheck('neo4j.can_connect', status=AgentCheck.CRITICAL,
-                                tags=self.SC_FAILURE_TAGS, count=1)
+        self.assertServiceCheck('neo4j.can_connect', status=AgentCheck.CRITICAL, count=1)
         self.coverage_report()
