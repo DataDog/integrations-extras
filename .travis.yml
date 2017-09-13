@@ -33,14 +33,19 @@ env:
     - BUNDLE_PATH=$TRAVIS_BUILD_DIR/vendor/cache
     - DD_AGENT_BRANCH=master
     - CORE_BRANCH=master
+    - JMXFETCH_URL="https://dd-jmxfetch.s3.amazonaws.com"
     - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
   matrix:
     - TRAVIS_FLAVOR=default
+    - TRAVIS_FLAVOR=snmpwalk
+    - TRAVIS_FLAVOR=hbase_master
+    - TRAVIS_FLAVOR=hbase_regionserver
+    - TRAVIS_FLAVOR=redis_sentinel FLAVOR_VERSION="latest"
     - TRAVIS_FLAVOR=neo4j
     # END OF TRAVIS MATRIX
 
 before_install:
-  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git
+  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git snmp snmp-mibs-downloader
 
 install:
   - bundle install
@@ -54,10 +59,12 @@ install:
   - if [ -e $TRAVIS_BUILD_DIR/requirements-test.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-test.txt; fi
   - if [ -e $TRAVIS_BUILD_DIR/requirements-opt.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-opt.txt; fi
   - if [ -e ~/dd-agent/requirements.txt ]; then pip install -r ~/dd-agent/requirements.txt; fi
+  - bundle exec rake setup_agent_libs
 
 script:
   - bundle exec rake prep_travis_ci
-  - rake ci:run
+  - bundle exec rake ci:run
+  - bundle exec rake lint
   - bundle exec rake requirements
 
 # we should clean generated files before we save the cache
