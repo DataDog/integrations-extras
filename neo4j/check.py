@@ -159,7 +159,7 @@ class Neo4jCheck(AgentCheck):
         headers_sent = {'Content-Type':'application/json','Authorization':'Basic ' + b64Val + '','Content-Type':'application/json'}
         r = requests.get(versionURL,headers=headers_sent)
         if r.status_code != 200:
-            msg = "nexpected status of {0} when fetching Neo4j stats, response: {1}"
+            msg = "unexpected status of {0} when fetching Neo4j stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
             self._critical_service_check(service_check_tags, msg)
             r.raise_for_status()
