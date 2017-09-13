@@ -26,7 +26,7 @@ namespace :ci do
       volumes = "--volume=#{temp_dir}/data:/data \
       --volume=#{temp_dir}/logs:/logs"
       publish = '--publish=7474:7474 --publish=7687:7687'
-      sh %(docker run -d --name #{container_name} #{volumes} #{publish} neo4j:3.1.1)
+      sh %(docker run -d --name #{container_name} #{volumes} #{publish} neo4j:3.2.3)
     end
 
     task before_script: ['ci:common:before_script'] do

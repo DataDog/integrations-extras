@@ -35,7 +35,6 @@ class TestNeo4j(AgentCheckTest):
         'total.store.size',
         'node.store.size',
         'property.ids.inuse',
-        'dbms.memory.pagecache.size',
         'relationshiptype.ids.inuse',
         'kernel.version',
         'property.store.size',
@@ -46,7 +45,7 @@ class TestNeo4j(AgentCheckTest):
 		'string.store.size',
 		'relationship.ids.inuse',
 		'store.log.version',
-		'logicallog.size',
+		'logicallog.size'
     ]
 
 
