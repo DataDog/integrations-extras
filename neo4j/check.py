@@ -1,4 +1,3 @@
-import time
 import requests
 
 # stdlib
@@ -97,7 +96,6 @@ class Neo4jCheck(AgentCheck):
 
     def check(self, instance):
         host, port, user, password, connect_timeout, server_name = self._get_config(instance)
-        url = host + ":" + str(port) + "/"
         tags = instance.get('tags', [])
         tags = tags + ['server_name:%s' % server_name]
         service_check_tags = tags + ['url:%s' % host]
