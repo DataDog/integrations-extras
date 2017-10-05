@@ -5,8 +5,8 @@
 # stdlib
 
 # 3rd party
-import json
 import os
+import simplejson
 
 # project
 from checks import AgentCheck
@@ -33,7 +33,7 @@ class FilebeatCheck(AgentCheck):
     def _parse_registry_file(self, registry_file_path):
         try:
             with open(registry_file_path) as registry_file:
-                return json.load(registry_file)
+                return simplejson.load(registry_file)
         except IOError:
             self.log.warn('No filebeat registry file found at %s' % (registry_file_path, ))
             return {}
