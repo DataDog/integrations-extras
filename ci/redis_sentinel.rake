@@ -37,7 +37,7 @@ namespace :ci do
 
     task cleanup: ['ci:common:cleanup']
     # sample cleanup task
-    # task cleanup: ['ci:common:cleanup'] do 
+    # task cleanup: ['ci:common:cleanup'] do
     #   sh %(docker stop redis_sentinel)
     #   sh %(docker rm redis_sentinel)
     # end
@@ -46,8 +46,8 @@ namespace :ci do
       mocked = attr[:mocked] || false
       exception = nil
       begin
-        if not mocked
-          %w(before_install install before_script).each do |u|
+        unless mocked
+          %w[before_install install before_script].each do |u|
             Rake::Task["#{flavor.scope.path}:#{u}"].invoke
           end
         end
