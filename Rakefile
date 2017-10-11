@@ -18,12 +18,3 @@ ENV['SDK_HOME'] = File.dirname(__FILE__)
 
 spec = Gem::Specification.find_by_name 'datadog-sdk-testing'
 load "#{spec.gem_dir}/lib/tasks/sdk.rake"
-
-
-
-
-
-
-
-
-
