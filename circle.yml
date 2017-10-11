@@ -38,11 +38,16 @@ dependencies:
 test:
     override:
         - bundle exec rake prep_travis_ci
+<<<<<<< HEAD
         - TRAVIS_FLAVOR="default" bundle exec rake ci:run
         - TRAVIS_FLAVOR="snmpwalk" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_master" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_regionserver" bundle exec rake ci:run
         - TRAVIS_FLAVOR="redis_sentinel" FLAVOR_VERSION="latest" bundle exec rake ci:run
+=======
+        - rake ci:run[default]
+        - rake ci:run[nsq]
+>>>>>>> [nsq] adding integration skeleton
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
