@@ -71,7 +71,7 @@ def _float(v):
         return 0.0
 
 
-def _long( v):
+def _long(v):
     """Try to convert to a long
 
     :param v: value
@@ -404,8 +404,9 @@ class StormCheck(AgentCheck):
             return r
 
     def report_gauge(self, metric, value, tags, additional_tags=list()):
-        all_tags = tags + ['#env:{}'.format(self.environment_name), '#environment:{}'.format(self.environment_name)] + \
-                   additional_tags
+        all_tags = tags + [
+            '#env:{}'.format(self.environment_name),
+            '#environment:{}'.format(self.environment_name)] + additional_tags
         self.gauge(
             metric=metric,
             value=value,
@@ -436,7 +437,6 @@ class StormCheck(AgentCheck):
             self.intervals.extend([int(i) for i in intervals.split(',')])
 
     def check(self, instance):
-        timings = {}
         # Setup
         self.update_from_config(instance)
 
