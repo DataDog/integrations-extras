@@ -633,8 +633,11 @@ class TestStorm(AgentCheckTest):
 
     @attr('helper')
     def test_g(self):
-        from check import _g, _long, _float
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        module = __import__(self.check.__class__.__module__)
+        _g = module._g
+        _long = module._long
+        _float = module._float
 
         test_cases = ( # ((func, expected, default, input), ...)
             # Long tests
@@ -687,15 +690,15 @@ class TestStorm(AgentCheckTest):
 
     @attr('helper')
     def test_try_float(self):
-        from check import _float
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        _float = __import__(self.check.__class__.__module__)._float
         self.assertEquals(0.1, _float("0.1"))
         self.assertEquals(0.0, _float("garbage"))
 
     @attr('helper')
     def test_try_long(self):
-        from check import _long
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        _long = __import__(self.check.__class__.__module__)._long
         self.assertEquals(1, _long("1"))
         self.assertEquals(0.0, _long("garbage"))
 
