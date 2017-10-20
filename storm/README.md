@@ -4,7 +4,7 @@
 
 Get metrics from storm service in real time to:
 
-* Visualize and monitor storm states
+* Visualize and monitor storm cluster and topology metrics.
 * Be notified about storm failovers and events.
 
 ## Installation
