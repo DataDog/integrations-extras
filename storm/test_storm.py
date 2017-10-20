@@ -863,7 +863,7 @@ class TestStorm(AgentCheckTest):
         # Check Bolt Stats
         bs = bolt_stats[0]
         self.assertEquals(3, bs['storm.bolt.last_60.tasks'][0])
-        self.assertTrue('#bolt:Bolt1' in bs['storm.bolt.last_60.tasks'][1])
+        self.assertTrue('bolt:Bolt1' in bs['storm.bolt.last_60.tasks'][1])
         self.assertEquals(0.001, bs['storm.bolt.last_60.executeLatency'][0])
         self.assertEquals(201.474, bs['storm.bolt.last_60.processLatency'][0])
         self.assertEquals(0.000, bs['storm.bolt.last_60.capacity'][0])
@@ -878,7 +878,7 @@ class TestStorm(AgentCheckTest):
         # Check Spout Stats
         ss = spout_stats[0]
         self.assertEquals(8, ss['storm.spout.last_60.tasks'][0])
-        self.assertTrue('#spout:source' in ss['storm.spout.last_60.tasks'][1])
+        self.assertTrue('spout:source' in ss['storm.spout.last_60.tasks'][1])
         self.assertEquals(285.950, ss['storm.spout.last_60.completeLatency'][0])
         self.assertEquals(0, ss['storm.spout.last_60.failed'][0])
         self.assertEquals(104673, ss['storm.spout.last_60.acked'][0])
@@ -899,13 +899,13 @@ class TestStorm(AgentCheckTest):
         # Check Bolt Stats
         bs = bolt_stats[0]
         self.assertEquals(120, bs['storm.topologyStats.metrics.bolts.emitted'][0][0])
-        self.assertIn('#stream:__metrics', bs['storm.topologyStats.metrics.bolts.emitted'][0][1])
+        self.assertIn('stream:__metrics', bs['storm.topologyStats.metrics.bolts.emitted'][0][1])
         self.assertEquals(190748180, bs['storm.topologyStats.metrics.bolts.emitted'][1][0])
-        self.assertIn('#stream:default', bs['storm.topologyStats.metrics.bolts.emitted'][1][1])
+        self.assertIn('stream:default', bs['storm.topologyStats.metrics.bolts.emitted'][1][1])
         self.assertEquals(190718100, bs['storm.topologyStats.metrics.bolts.emitted'][2][0])
-        self.assertIn('#stream:__ack_ack', bs['storm.topologyStats.metrics.bolts.emitted'][2][1])
+        self.assertIn('stream:__ack_ack', bs['storm.topologyStats.metrics.bolts.emitted'][2][1])
         self.assertEquals(20, bs['storm.topologyStats.metrics.bolts.emitted'][3][0])
-        self.assertIn('#stream:__system', bs['storm.topologyStats.metrics.bolts.emitted'][3][1])
+        self.assertIn('stream:__system', bs['storm.topologyStats.metrics.bolts.emitted'][3][1])
         self.assertEquals(120, bs['storm.topologyStats.metrics.bolts.transferred'][0][0])
         self.assertEquals(190733160, bs['storm.topologyStats.metrics.bolts.acked'][0][0])
         self.assertEqual(0, len(bs['storm.topologyStats.metrics.bolts.failed']))
@@ -917,13 +917,13 @@ class TestStorm(AgentCheckTest):
         # Check Spout Stats
         ss = spout_stats[0]
         self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.emitted'][0][0])
-        self.assertIn('#stream:__metrics', ss['storm.topologyStats.metrics.spouts.emitted'][0][1])
+        self.assertIn('stream:__metrics', ss['storm.topologyStats.metrics.spouts.emitted'][0][1])
         self.assertEquals(17350280, ss['storm.topologyStats.metrics.spouts.emitted'][1][0])
-        self.assertIn('#stream:default', ss['storm.topologyStats.metrics.spouts.emitted'][1][1])
+        self.assertIn('stream:default', ss['storm.topologyStats.metrics.spouts.emitted'][1][1])
         self.assertEquals(17328160, ss['storm.topologyStats.metrics.spouts.emitted'][2][0])
-        self.assertIn('#stream:__ack_init', ss['storm.topologyStats.metrics.spouts.emitted'][2][1])
+        self.assertIn('stream:__ack_init', ss['storm.topologyStats.metrics.spouts.emitted'][2][1])
         self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.emitted'][3][0])
-        self.assertIn('#stream:__system', ss['storm.topologyStats.metrics.spouts.emitted'][3][1])
+        self.assertIn('stream:__system', ss['storm.topologyStats.metrics.spouts.emitted'][3][1])
         self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.transferred'][0][0])
         self.assertEquals(17339180, ss['storm.topologyStats.metrics.spouts.acked'][0][0])
         self.assertEqual(0, len(ss['storm.topologyStats.metrics.spouts.failed']))
@@ -985,7 +985,7 @@ class TestStorm(AgentCheckTest):
             'topology-check.my_topology',
             count=1,
             status=AgentCheck.OK,
-            tags=['#env:test', '#environment:test']
+            tags=['env:test', 'environment:test']
         )
 
         # Cluster Stats
@@ -1004,7 +1004,7 @@ class TestStorm(AgentCheckTest):
             ('totalMem', 1, 0),
             ('memAssignedPercentUtil', 1, 0)
         )
-        test_tags = ['#stormClusterEnvironment:test', '#stormVersion:unknown', '#env:test', '#environment:test']
+        test_tags = ['stormClusterEnvironment:test', 'stormVersion:unknown', 'env:test', 'environment:test']
         for name, count, value in test_cases:
             self.assertMetric(
                 'storm.cluster.{}'.format(name),
@@ -1015,15 +1015,15 @@ class TestStorm(AgentCheckTest):
 
         # Nimbus Stats
         test_cases = (
-            ('upTimeSeconds', 1, 25842, ['#stormStatus:leader', '#stormVersion:1.0.3', '#stormHost:1.2.3.4']),
-            ('upTimeSeconds', 1, 0, ['#stormStatus:offline', '#stormVersion:not_applicable',
-                                     '#stormHost:nimbus01.example.com']),
+            ('upTimeSeconds', 1, 25842, ['stormStatus:leader', 'stormVersion:1.0.3', 'stormHost:1.2.3.4']),
+            ('upTimeSeconds', 1, 0, ['stormStatus:offline', 'stormVersion:not_applicable',
+                                     'stormHost:nimbus01.example.com']),
             ('numLeaders', 1, 1, []),
             ('numFollowers', 1, 0, []),
             ('numOffline', 1, 1, []),
             ('numDead', 1, 0, [])
         )
-        test_tags = ['#stormClusterEnvironment:test', '#env:test', '#environment:test']
+        test_tags = ['stormClusterEnvironment:test', 'env:test', 'environment:test']
 
         for name, count, value, additional_tags in test_cases:
             self.assertMetric(
@@ -1078,7 +1078,7 @@ class TestStorm(AgentCheckTest):
             ('samplingPct', 1, 10)
         )
 
-        test_tags = ['#topology:my_topology', '#env:test', '#environment:test']
+        test_tags = ['topology:my_topology', 'env:test', 'environment:test']
         interval = 'last_60'
 
         for name, count, value in test_cases:
@@ -1099,7 +1099,7 @@ class TestStorm(AgentCheckTest):
             ('Bolt5', (2, 0.001, 1014.634, 0.000, 0, 208890, 17, 104445, 17, 2, 1E10, 0, 0, 0)),
             ('Bolt6', (3, 0.010, 0.005, 0.000, 0, 4705, 0, 4705, 0, 3, 1E10, 0, 0, 0))
         ]:
-            test_tags = ['#env:test', '#environment:test', '#topology:my_topology', '#bolt:{}'.format(name)]
+            test_tags = ['env:test', 'environment:test', 'topology:my_topology', 'bolt:{}'.format(name)]
             for i, metric_name in enumerate([
                 'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
                 'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
@@ -1116,7 +1116,7 @@ class TestStorm(AgentCheckTest):
         for name, values in [
             ('source', (8, 285.950, 0, 104673, 104673, 104673, 8, 38737, 0, 0, 0)),
         ]:
-            test_tags = ['#topology:my_topology', '#spout:{}'.format(name), '#env:test', '#environment:test']
+            test_tags = ['topology:my_topology', 'spout:{}'.format(name), 'env:test', 'environment:test']
             for i, metric_name in enumerate([
                 'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
                 'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
@@ -1133,7 +1133,7 @@ class TestStorm(AgentCheckTest):
         metric_cases = (
             # Topology Metrics By Bolt
             ('storm.topologyStats.metrics.bolts.transferred', 0.0,
-             ['#topology:my_topology', '#bolts:count', '#stream:__system', '#env:test', '#environment:test']),
+             ['topology:my_topology', 'bolts:count', 'stream:__system', 'env:test', 'environment:test']),
         )
 
         for m in ['transferred', 'emitted', 'complete_ms_avg', 'acked']:
