@@ -446,8 +446,11 @@ class StormCheck(AgentCheck):
                 worker_stat[_mw('assignedCpu')] = _gt(w, 0, worker_tags, _float, 'assignedCpu')
                 worker_stat[_mw('assignedMemOffHeap')] = _gt(w, 0, worker_tags, _long, 'assignedMemOffHeap')
                 worker_stat[_mw('assignedMemOnHeap')] = _gt(w, 0, worker_tags, _long, 'assignedMemOnHeap')
+                worker_stat[_mw('componentNumTasks')] = []
                 for cn, cv in _g(w, {}, None, 'componentNumTasks').items():
-                    worker_stat[_mw('componentNumTasks')] = (_long(cv or 0), worker_tags + ['component:{}'.format(cn)])
+                    worker_stat[_mw('componentNumTasks')].append(
+                        (_long(cv or 0), worker_tags + ['component:{}'.format(cn)])
+                    )
                 worker_stat[_mw('executorsTotal')] = _gt(w, 0, worker_tags, _long, 'executorsTotal')
                 worker_stat[_mw('uptimeSeconds')] = _gt(w, 0, worker_tags, _long, 'uptimeSeconds')
 
@@ -496,7 +499,7 @@ class StormCheck(AgentCheck):
             return r
 
     def report_gauge(self, metric, value, tags, additional_tags=list()):
-        """ Report the Metric.
+        """ Report the Gauge Metric.
 
         :param metric:
         :param value:
@@ -508,6 +511,24 @@ class StormCheck(AgentCheck):
             'env:{}'.format(self.environment_name),
             'environment:{}'.format(self.environment_name)] + additional_tags
         self.gauge(
+            metric=metric,
+            value=value,
+            tags=all_tags
+        )
+
+    def report_histogram(self, metric, value, tags, additional_tags=list()):
+        """ Report the Histogram Metric.
+
+        :param metric:
+        :param value:
+        :param tags:
+        :param additional_tags:
+        :return:
+        """
+        all_tags = tags + [
+            'env:{}'.format(self.environment_name),
+            'environment:{}'.format(self.environment_name)] + additional_tags
+        self.histogram(
             metric=metric,
             value=value,
             tags=all_tags
@@ -613,21 +634,39 @@ class StormCheck(AgentCheck):
                         for k, v in results['topologyStats'].items():
                             value = v[0]
                             tags = v[1]
-                            self.report_gauge(metric=k, value=value, tags=tags, additional_tags=self.additional_tags)
+                            self.report_histogram(metric=k, value=value, tags=tags,
+                                                  additional_tags=self.additional_tags)
 
                         # Bolt stats
                         for stat in results['bolts']:
                             for k, v in stat.items():
                                 value = v[0]
                                 tags = v[1]
-                                self.report_gauge(metric=k, value=value, tags=tags, additional_tags=self.additional_tags)
+                                self.report_histogram(metric=k, value=value, tags=tags,
+                                                      additional_tags=self.additional_tags)
 
                         # Spout stats
                         for stat in results['spouts']:
                             for k, v in stat.items():
                                 value = v[0]
                                 tags = v[1]
-                                self.report_gauge(metric=k, value=value, tags=tags, additional_tags=self.additional_tags)
+                                self.report_histogram(metric=k, value=value, tags=tags,
+                                                      additional_tags=self.additional_tags)
+
+                        # Worker Stats
+                        for stat in results['workers']:
+                            for k, v in stat.items():
+                                if k == 'componentNumTasks':
+                                    for sv in v:
+                                        value = sv[0]
+                                        tags = sv[1]
+                                        self.report_histogram(metric=k, value=value, tags=tags,
+                                                              additional_tags=self.additional_tags)
+                                else:
+                                    value = v[0]
+                                    tags = v[1]
+                                    self.report_histogram(metric=k, value=value, tags=tags,
+                                                          additional_tags=self.additional_tags)
 
                 if len(metric_results) > 0:
                     # Bolt stats
@@ -636,8 +675,8 @@ class StormCheck(AgentCheck):
                             for v in stat:
                                 value = v[0]
                                 tags = v[1]
-                                self.report_gauge(metric=k, value=value, tags=tags,
-                                                  additional_tags=self.additional_tags)
+                                self.report_histogram(metric=k, value=value, tags=tags,
+                                                      additional_tags=self.additional_tags)
 
                     # Spout stats
                     for stats in metric_results['spouts']:
@@ -645,5 +684,5 @@ class StormCheck(AgentCheck):
                             for v in stat:
                                 value = v[0]
                                 tags = v[1]
-                                self.report_gauge(metric=k, value=value, tags=tags,
-                                                  additional_tags=self.additional_tags)
+                                self.report_histogram(metric=k, value=value, tags=tags,
+                                                      additional_tags=self.additional_tags)

@@ -607,11 +607,24 @@ TEST_STORM_TOPOLOGY_METRICS_RESP = {
     ]
 }
 
+
 @attr(requires='storm')
 class TestStorm(AgentCheckTest):
     """Basic Test for storm integration."""
     CHECK_NAME = 'storm'
     STORM_CHECK_CONFIG = {'instances': [{'server': 'localhost:9005', 'environment': 'test'}]}
+
+    def assertHistogramMetric(self, metric_name, value=None, tags=None, count=None, at_least=1, hostname=None,
+                              device_name=None):
+        for postfix in ['max', 'median', 'avg', '95percentile']:
+            self.assertMetric(
+                metric_name='{}.{}'.format(metric_name, postfix), value=value, tags=tags, count=count,
+                at_least=at_least, hostname=hostname, device_name=device_name
+            )
+        self.assertMetric(
+            metric_name='{}.count'.format(metric_name), value=count, tags=tags, count=count, at_least=at_least,
+            hostname=hostname, device_name=device_name
+        )
 
     def assign_self_info_from_check(self):
         self.service_checks = self.check.service_checks
@@ -1082,12 +1095,11 @@ class TestStorm(AgentCheckTest):
         interval = 'last_60'
 
         for name, count, value in test_cases:
-            self.assertMetric(
+            self.assertHistogramMetric(
                 'storm.topologyStats.{}.{}'.format(interval, name),
                 count=count,
                 value=value,
-                tags=test_tags,
-                metric_type='gauge'
+                tags=test_tags
             )
 
         # Bolt Stats
@@ -1104,12 +1116,11 @@ class TestStorm(AgentCheckTest):
                 'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
                 'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
             ]):
-                self.assertMetric(
+                self.assertHistogramMetric(
                     'storm.bolt.last_60.{}'.format(metric_name),
                     value=values[i],
                     tags=test_tags,
-                    count=1,
-                    metric_type='gauge'
+                    count=1
                 )
 
         # Spout Stats
@@ -1121,12 +1132,11 @@ class TestStorm(AgentCheckTest):
                 'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
                 'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
             ]):
-                self.assertMetric(
+                self.assertHistogramMetric(
                     'storm.spout.last_60.{}'.format(metric_name),
                     value=values[i],
                     tags=test_tags,
-                    count=1,
-                    metric_type='gauge'
+                    count=1
                 )
 
         # Topology Metrics
@@ -1136,20 +1146,20 @@ class TestStorm(AgentCheckTest):
              ['topology:my_topology', 'bolts:count', 'stream:__system', 'env:test', 'environment:test']),
         )
 
-        for m in ['transferred', 'emitted', 'complete_ms_avg', 'acked']:
-            self.assertMetric(
+        for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
+            self.assertHistogramMetric(
                 'storm.topologyStats.metrics.spouts.{}'.format(m),
                 at_least=1
             )
 
-        for m in ['transferred', 'emitted', 'executed_ms_avg', 'process_ms_avg', 'acked', 'executed']:
-            self.assertMetric(
+        for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
+            self.assertHistogramMetric(
                 'storm.topologyStats.metrics.bolts.{}'.format(m),
                 at_least=1
             )
 
         for case in metric_cases:
-            self.assertMetric(case[0], value=case[1], tags=case[2], count=1, metric_type='gauge')
+            self.assertHistogramMetric(case[0], value=case[1], tags=case[2], count=1)
 
         # Raises when COVERAGE=true and coverage < 100%
         self.coverage_report()
