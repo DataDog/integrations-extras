@@ -571,4 +571,3 @@ class StormCheck(AgentCheck):
                                 tags=['env:{}'.format(self.environment_name),
                                       'environment:{}'.format(self.environment_name)] + self.additional_tags
                             )
-
