@@ -40,6 +40,9 @@ test:
         - bundle exec rake prep_travis_ci
         - TRAVIS_FLAVOR="default" bundle exec rake ci:run
         - TRAVIS_FLAVOR="snmpwalk" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="hbase_master" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="hbase_regionserver" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="redis_sentinel" FLAVOR_VERSION="latest" bundle exec rake ci:run
         - TRAVIS_FLAVOR="storm" bundle exec rake ci:run
         - bundle exec rake requirements
     post:

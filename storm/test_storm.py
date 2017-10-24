@@ -3,6 +3,7 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
 # stdlib
+from collections import defaultdict
 from nose.plugins.attrib import attr
 
 # 3p
@@ -612,7 +613,7 @@ TEST_STORM_TOPOLOGY_METRICS_RESP = {
 class TestStorm(AgentCheckTest):
     """Basic Test for storm integration."""
     CHECK_NAME = 'storm'
-    STORM_CHECK_CONFIG = {'instances': [{'server': 'localhost:9005', 'environment': 'test'}]}
+    STORM_CHECK_CONFIG = {'instances': [{'server': 'http://localhost:9005', 'environment': 'test'}]}
 
     def assertHistogramMetric(self, metric_name, value=None, tags=None, count=None, at_least=1, hostname=None,
                               device_name=None):
@@ -637,7 +638,7 @@ class TestStorm(AgentCheckTest):
     def test_load_from_config(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
         self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
-        self.assertEqual('localhost:9005', self.check.nimbus_server)
+        self.assertEqual('http://localhost:9005', self.check.nimbus_server)
         self.assertEqual('test', self.check.environment_name)
         self.assertListEqual([], self.check.additional_tags)
         self.assertListEqual([], self.check.excluded_topologies)
@@ -804,7 +805,15 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'cluster')
     def test_process_cluster_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
-        results = self.check.process_cluster_stats('test', TEST_STORM_CLUSTER_SUMMARY)
+
+        results = defaultdict(list)
+
+        def report_gauge(metric, value, tags, additional_tags):
+            results[metric].append(value)
+
+        self.check.report_gauge = report_gauge
+
+        self.check.process_cluster_stats('test', TEST_STORM_CLUSTER_SUMMARY)
         self.assertEquals(13, len(results))
 
         # Check Cluster Stats
@@ -819,131 +828,151 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'nimbus')
     def test_process_nimbus_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
-        results = self.check.process_nimbus_stats('test', TEST_STORM_NIMBUSES_SUMMARY)
-        self.assertEquals(3, len(results))
+
+        results = defaultdict(list)
+
+        def report_gauge(metric, value, tags, additional_tags):
+            results[metric].append(value)
+
+        self.check.report_gauge = report_gauge
+
+        self.check.process_nimbus_stats('test', TEST_STORM_NIMBUSES_SUMMARY)
+        self.assertEquals(5, len(results))
 
         # Check Leader Stats
-        self.assertEquals(0, results[0]['storm.nimbus.upTimeSeconds'][0])
-        self.assertEquals(25842, results[1]['storm.nimbus.upTimeSeconds'][0])
+        self.assertEquals(0, results['storm.nimbus.upTimeSeconds'][0])
+        self.assertEquals(25842, results['storm.nimbus.upTimeSeconds'][1])
 
         # Check General Stats
-        self.assertEquals(1, results[2]['storm.nimbus.numLeaders'][0])
-        self.assertEquals(0, results[2]['storm.nimbus.numFollowers'][0])
-        self.assertEquals(1, results[2]['storm.nimbus.numOffline'][0])
-        self.assertEquals(0, results[2]['storm.nimbus.numDead'][0])
+        self.assertEquals(1, results['storm.nimbus.numLeaders'][0])
+        self.assertEquals(0, results['storm.nimbus.numFollowers'][0])
+        self.assertEquals(1, results['storm.nimbus.numOffline'][0])
+        self.assertEquals(0, results['storm.nimbus.numDead'][0])
 
     @attr('process', 'supervisor')
     def test_process_supervisor_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
-        results = self.check.process_supervisor_stats(TEST_STORM_SUPERVISOR_SUMMARY)
-        self.assertEquals(1, len(results))
-        self.assertEquals(7, len(results[0]))
+
+        results = defaultdict(list)
+
+        def report_gauge(metric, value, tags, additional_tags):
+            results[metric].append(value)
+
+        self.check.report_gauge = report_gauge
+
+        self.check.process_supervisor_stats(TEST_STORM_SUPERVISOR_SUMMARY)
+        self.assertEquals(7, len(results))
 
         # Check Supervisor Stats
-        self.assertEquals(31559, results[0]['storm.supervisor.uptimeSeconds'][0])
-        self.assertEquals(10, results[0]['storm.supervisor.slotsTotal'][0])
-        self.assertEquals(6, results[0]['storm.supervisor.slotsUsed'][0])
-        self.assertEquals(3072, results[0]['storm.supervisor.totalMem'][0])
-        self.assertEquals(4992, results[0]['storm.supervisor.usedMem'][0])
-        self.assertEquals(900, results[0]['storm.supervisor.totalCpu'][0])
-        self.assertEquals(0, results[0]['storm.supervisor.usedCpu'][0])
+        self.assertEquals(31559, results['storm.supervisor.uptimeSeconds'][0])
+        self.assertEquals(10, results['storm.supervisor.slotsTotal'][0])
+        self.assertEquals(6, results['storm.supervisor.slotsUsed'][0])
+        self.assertEquals(3072, results['storm.supervisor.totalMem'][0])
+        self.assertEquals(4992, results['storm.supervisor.usedMem'][0])
+        self.assertEquals(900, results['storm.supervisor.totalCpu'][0])
+        self.assertEquals(0, results['storm.supervisor.usedCpu'][0])
 
     @attr('process', 'topology')
     def test_process_topology_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
-        results = self.check.process_topology_stats(TEST_STORM_TOPOLOGY_RESP, interval=60)
-        topology_stats = results['topologyStats']
-        bolt_stats = results['bolts']
-        spout_stats = results['spouts']
-        self.assertEquals(1, len(spout_stats))
-        self.assertEquals(6, len(bolt_stats))
-        self.assertEquals(22, len(topology_stats))
+
+        results = defaultdict(list)
+
+        def report_histogram(metric, value, tags, additional_tags):
+            results[metric].append((value, tags, additional_tags))
+
+        self.check.report_histogram = report_histogram
+
+        self.check.process_topology_stats(TEST_STORM_TOPOLOGY_RESP, interval=60)
+        self.assertEqual(47, len(results))
 
         # Check Topology Stats
-        self.assertEquals(307606, topology_stats['storm.topologyStats.last_60.emitted'][0])
-        self.assertEquals(307606, topology_stats['storm.topologyStats.last_60.transferred'][0])
-        self.assertEquals(104673, topology_stats['storm.topologyStats.last_60.acked'][0])
-        self.assertEquals(0, topology_stats['storm.topologyStats.last_60.failed'][0])
-        self.assertEquals(285.950, topology_stats['storm.topologyStats.last_60.completeLatency'][0])
-        self.assertEquals(1525788, topology_stats['storm.topologyStats.last_60.uptimeSeconds'][0])
-        self.assertEquals(33, topology_stats['storm.topologyStats.last_60.executorsTotal'][0])
-        self.assertEquals(6, topology_stats['storm.topologyStats.last_60.numBolts'][0])
-        self.assertEquals(1, topology_stats['storm.topologyStats.last_60.replicationCount'][0])
-        self.assertEquals(33, topology_stats['storm.topologyStats.last_60.tasksTotal'][0])
-        self.assertEquals(1, topology_stats['storm.topologyStats.last_60.numSpouts'][0])
-        self.assertEquals(6, topology_stats['storm.topologyStats.last_60.workersTotal'][0])
+        self.assertEquals(307606, results['storm.topologyStats.last_60.emitted'][0][0])
+        self.assertEquals(307606, results['storm.topologyStats.last_60.transferred'][0][0])
+        self.assertEquals(104673, results['storm.topologyStats.last_60.acked'][0][0])
+        self.assertEquals(0, results['storm.topologyStats.last_60.failed'][0][0])
+        self.assertEquals(285.950, results['storm.topologyStats.last_60.completeLatency'][0][0])
+        self.assertEquals(1525788, results['storm.topologyStats.last_60.uptimeSeconds'][0][0])
+        self.assertEquals(33, results['storm.topologyStats.last_60.executorsTotal'][0][0])
+        self.assertEquals(6, results['storm.topologyStats.last_60.numBolts'][0][0])
+        self.assertEquals(1, results['storm.topologyStats.last_60.replicationCount'][0][0])
+        self.assertEquals(33, results['storm.topologyStats.last_60.tasksTotal'][0][0])
+        self.assertEquals(1, results['storm.topologyStats.last_60.numSpouts'][0][0])
+        self.assertEquals(6, results['storm.topologyStats.last_60.workersTotal'][0][0])
 
         # Check Bolt Stats
-        bs = bolt_stats[0]
-        self.assertEquals(3, bs['storm.bolt.last_60.tasks'][0])
-        self.assertTrue('bolt:Bolt1' in bs['storm.bolt.last_60.tasks'][1])
-        self.assertEquals(0.001, bs['storm.bolt.last_60.executeLatency'][0])
-        self.assertEquals(201.474, bs['storm.bolt.last_60.processLatency'][0])
-        self.assertEquals(0.000, bs['storm.bolt.last_60.capacity'][0])
-        self.assertEquals(0, bs['storm.bolt.last_60.failed'][0])
-        self.assertEquals(101309, bs['storm.bolt.last_60.emitted'][0])
-        self.assertEquals(212282, bs['storm.bolt.last_60.acked'][0])
-        self.assertEquals(101309, bs['storm.bolt.last_60.transferred'][0])
-        self.assertEquals(106311, bs['storm.bolt.last_60.executed'][0])
-        self.assertEquals(3, bs['storm.bolt.last_60.executors'][0])
-        self.assertEquals(1E10, bs['storm.bolt.last_60.errorLapsedSecs'][0])
+        self.assertEquals(3, results['storm.bolt.last_60.tasks'][0][0])
+        self.assertTrue('bolt:Bolt1' in results['storm.bolt.last_60.tasks'][0][1])
+        print results['storm.bolt.last_60.executeLatency']
+        self.assertEquals(0.001, results['storm.bolt.last_60.executeLatency'][0][0])
+        self.assertEquals(201.474, results['storm.bolt.last_60.processLatency'][0][0])
+        self.assertEquals(0.000, results['storm.bolt.last_60.capacity'][0][0])
+        self.assertEquals(0, results['storm.bolt.last_60.failed'][0][0])
+        self.assertEquals(101309, results['storm.bolt.last_60.emitted'][0][0])
+        self.assertEquals(212282, results['storm.bolt.last_60.acked'][0][0])
+        self.assertEquals(101309, results['storm.bolt.last_60.transferred'][0][0])
+        self.assertEquals(106311, results['storm.bolt.last_60.executed'][0][0])
+        self.assertEquals(3, results['storm.bolt.last_60.executors'][0][0])
+        self.assertEquals(1E10, results['storm.bolt.last_60.errorLapsedSecs'][0][0])
 
         # Check Spout Stats
-        ss = spout_stats[0]
-        self.assertEquals(8, ss['storm.spout.last_60.tasks'][0])
-        self.assertTrue('spout:source' in ss['storm.spout.last_60.tasks'][1])
-        self.assertEquals(285.950, ss['storm.spout.last_60.completeLatency'][0])
-        self.assertEquals(0, ss['storm.spout.last_60.failed'][0])
-        self.assertEquals(104673, ss['storm.spout.last_60.acked'][0])
-        self.assertEquals(104673, ss['storm.spout.last_60.transferred'][0])
-        self.assertEquals(104673, ss['storm.spout.last_60.emitted'][0])
-        self.assertEquals(8, ss['storm.spout.last_60.executors'][0])
-        self.assertEquals(38737, ss['storm.spout.last_60.errorLapsedSecs'][0])
+        self.assertEquals(8, results['storm.spout.last_60.tasks'][0][0])
+        self.assertTrue('spout:source' in results['storm.spout.last_60.tasks'][0][1])
+        self.assertEquals(285.950, results['storm.spout.last_60.completeLatency'][0][0])
+        self.assertEquals(0, results['storm.spout.last_60.failed'][0][0])
+        self.assertEquals(104673, results['storm.spout.last_60.acked'][0][0])
+        self.assertEquals(104673, results['storm.spout.last_60.transferred'][0][0])
+        self.assertEquals(104673, results['storm.spout.last_60.emitted'][0][0])
+        self.assertEquals(8, results['storm.spout.last_60.executors'][0][0])
+        self.assertEquals(38737, results['storm.spout.last_60.errorLapsedSecs'][0][0])
 
     @attr('process', 'topology_metrics')
     def test_process_topology_metrics(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
-        results = self.check.process_topology_metrics('test', TEST_STORM_TOPOLOGY_METRICS_RESP)
-        bolt_stats = results['bolts']
-        spout_stats = results['spouts']
-        self.assertEquals(1, len(spout_stats))
-        self.assertEquals(2, len(bolt_stats))
+
+        results = defaultdict(list)
+
+        def report_histogram(metric, value, tags, additional_tags):
+            results[metric].append((value, tags, additional_tags))
+
+        self.check.report_histogram = report_histogram
+
+        self.check.process_topology_metrics('test', TEST_STORM_TOPOLOGY_METRICS_RESP, 60)
+        self.assertEqual(10, len(results))
 
         # Check Bolt Stats
-        bs = bolt_stats[0]
-        self.assertEquals(120, bs['storm.topologyStats.metrics.bolts.emitted'][0][0])
-        self.assertIn('stream:__metrics', bs['storm.topologyStats.metrics.bolts.emitted'][0][1])
-        self.assertEquals(190748180, bs['storm.topologyStats.metrics.bolts.emitted'][1][0])
-        self.assertIn('stream:default', bs['storm.topologyStats.metrics.bolts.emitted'][1][1])
-        self.assertEquals(190718100, bs['storm.topologyStats.metrics.bolts.emitted'][2][0])
-        self.assertIn('stream:__ack_ack', bs['storm.topologyStats.metrics.bolts.emitted'][2][1])
-        self.assertEquals(20, bs['storm.topologyStats.metrics.bolts.emitted'][3][0])
-        self.assertIn('stream:__system', bs['storm.topologyStats.metrics.bolts.emitted'][3][1])
-        self.assertEquals(120, bs['storm.topologyStats.metrics.bolts.transferred'][0][0])
-        self.assertEquals(190733160, bs['storm.topologyStats.metrics.bolts.acked'][0][0])
-        self.assertEqual(0, len(bs['storm.topologyStats.metrics.bolts.failed']))
-        self.assertEqual(0, len(bs['storm.topologyStats.metrics.bolts.complete_ms_avg']))
-        self.assertEquals(0.004, bs['storm.topologyStats.metrics.bolts.process_ms_avg'][0][0])
-        self.assertEquals(190733140, bs['storm.topologyStats.metrics.bolts.executed'][0][0])
-        self.assertEquals(0.005, bs['storm.topologyStats.metrics.bolts.executed_ms_avg'][0][0])
+        self.assertEquals(120, results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][0])
+        self.assertIn('stream:__metrics', results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][1])
+        self.assertEquals(190748180, results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][0])
+        self.assertIn('stream:default', results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][1])
+        self.assertEquals(190718100, results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][0])
+        self.assertIn('stream:__ack_ack', results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][1])
+        self.assertEquals(20, results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][0])
+        self.assertIn('stream:__system', results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][1])
+        self.assertEquals(120, results['storm.topologyStats.metrics.bolts.last_60.transferred'][0][0])
+        self.assertEquals(190733160, results['storm.topologyStats.metrics.bolts.last_60.acked'][0][0])
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.bolts.last_60.failed']))
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.bolts.last_60.complete_ms_avg']))
+        self.assertEquals(0.004, results['storm.topologyStats.metrics.bolts.last_60.process_ms_avg'][0][0])
+        self.assertEquals(190733140, results['storm.topologyStats.metrics.bolts.last_60.executed'][0][0])
+        self.assertEquals(0.005, results['storm.topologyStats.metrics.bolts.last_60.executed_ms_avg'][0][0])
 
         # Check Spout Stats
-        ss = spout_stats[0]
-        self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.emitted'][0][0])
-        self.assertIn('stream:__metrics', ss['storm.topologyStats.metrics.spouts.emitted'][0][1])
-        self.assertEquals(17350280, ss['storm.topologyStats.metrics.spouts.emitted'][1][0])
-        self.assertIn('stream:default', ss['storm.topologyStats.metrics.spouts.emitted'][1][1])
-        self.assertEquals(17328160, ss['storm.topologyStats.metrics.spouts.emitted'][2][0])
-        self.assertIn('stream:__ack_init', ss['storm.topologyStats.metrics.spouts.emitted'][2][1])
-        self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.emitted'][3][0])
-        self.assertIn('stream:__system', ss['storm.topologyStats.metrics.spouts.emitted'][3][1])
-        self.assertEquals(20, ss['storm.topologyStats.metrics.spouts.transferred'][0][0])
-        self.assertEquals(17339180, ss['storm.topologyStats.metrics.spouts.acked'][0][0])
-        self.assertEqual(0, len(ss['storm.topologyStats.metrics.spouts.failed']))
-        self.assertEqual(0, len(ss['storm.topologyStats.metrics.spouts.process_ms_avg']))
-        self.assertEqual(0, len(ss['storm.topologyStats.metrics.spouts.executed_ms_avg']))
-        self.assertEqual(0, len(ss['storm.topologyStats.metrics.spouts.executed']))
-        self.assertEquals(920.497, ss['storm.topologyStats.metrics.spouts.complete_ms_avg'][0][0])
+        self.assertEquals(20, results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][0])
+        self.assertIn('stream:__metrics', results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][1])
+        self.assertEquals(17350280, results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][0])
+        self.assertIn('stream:default', results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][1])
+        self.assertEquals(17328160, results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][0])
+        self.assertIn('stream:__ack_init', results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][1])
+        self.assertEquals(20, results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][0])
+        self.assertIn('stream:__system', results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][1])
+        self.assertEquals(20, results['storm.topologyStats.metrics.spouts.last_60.transferred'][0][0])
+        self.assertEquals(17339180, results['storm.topologyStats.metrics.spouts.last_60.acked'][0][0])
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.spouts.last_60.failed']))
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.spouts.last_60.process_ms_avg']))
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.spouts.last_60.executed_ms_avg']))
+        self.assertEqual(0, len(results['storm.topologyStats.metrics.spouts.last_60.executed']))
+        self.assertEquals(920.497, results['storm.topologyStats.metrics.spouts.last_60.complete_ms_avg'][0][0])
 
     @attr('check')
     @responses.activate
@@ -1142,19 +1171,19 @@ class TestStorm(AgentCheckTest):
         # Topology Metrics
         metric_cases = (
             # Topology Metrics By Bolt
-            ('storm.topologyStats.metrics.bolts.transferred', 0.0,
+            ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
              ['topology:my_topology', 'bolts:count', 'stream:__system', 'env:test', 'environment:test']),
         )
 
         for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
             self.assertHistogramMetric(
-                'storm.topologyStats.metrics.spouts.{}'.format(m),
+                'storm.topologyStats.metrics.spouts.last_60.{}'.format(m),
                 at_least=1
             )
 
         for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
             self.assertHistogramMetric(
-                'storm.topologyStats.metrics.bolts.{}'.format(m),
+                'storm.topologyStats.metrics.bolts.last_60.{}'.format(m),
                 at_least=1
             )
 

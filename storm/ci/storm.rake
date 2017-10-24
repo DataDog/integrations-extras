@@ -13,11 +13,6 @@ namespace :ci do
     task before_install: ['ci:common:before_install']
 
     task install: ['ci:common:install'] do
-      use_venv = in_venv
-      install_requirements('storm/requirements.txt',
-                           "--cache-dir #{ENV['PIP_CACHE']}",
-                           "#{ENV['VOLATILE_DIR']}/ci.log",
-                           use_venv)
       # sample docker usage
       # sh %(docker create -p XXX:YYY --name storm source/storm:storm_version)
       # sh %(docker start storm)
