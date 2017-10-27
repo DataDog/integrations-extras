@@ -14,7 +14,7 @@ namespace :ci do
 
     task install: ['ci:common:install'] do
       # Build the storm jar for the sample topology
-      sh %(docker build -t topology-maker $(pwd))
+      sh %(docker build -t topology-maker $(pwd)/storm/ci/.)
       sh %(docker run -d --name topology-build --rm -v $(pwd):/artifacts topology-maker)
       sh %(docker cp topology-build:/topology.jar $(pwd))
       sh %(docker stop topology-build)
