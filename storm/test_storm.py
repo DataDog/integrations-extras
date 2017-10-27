@@ -614,6 +614,7 @@ class TestStorm(AgentCheckTest):
     """Basic Test for storm integration."""
     CHECK_NAME = 'storm'
     STORM_CHECK_CONFIG = {'instances': [{'server': 'http://localhost:9005', 'environment': 'test'}]}
+    STORM_CHECK_INTEGRATION_CONFIG = {'instances': [{'server': 'http://localhost:9005', 'environment': 'integration'}]}
 
     def assertHistogramMetric(self, metric_name, value=None, tags=None, count=None, at_least=1, hostname=None,
                               device_name=None):
@@ -705,6 +706,7 @@ class TestStorm(AgentCheckTest):
     @attr('helper')
     def test_try_float(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+
         _float = __import__(self.check.__class__.__module__)._float
         self.assertEquals(0.1, _float("0.1"))
         self.assertEquals(0.0, _float("garbage"))
@@ -715,6 +717,15 @@ class TestStorm(AgentCheckTest):
         _long = __import__(self.check.__class__.__module__)._long
         self.assertEquals(1, _long("1"))
         self.assertEquals(0.0, _long("garbage"))
+
+    @attr('helper')
+    def test_try_bool(self):
+        self.load_check(self.STORM_CHECK_CONFIG, {})
+        _bool = __import__(self.check.__class__.__module__)._bool
+        for i, case in enumerate(['1', 1, 'true', 'True', True]):
+            self.assertTrue(_bool(case), "Expected Truthy conversion for case[{}] = {}".format(i, case))
+        for i, case in enumerate(['0', 0, 'false', 'False', False, None]):
+            self.assertFalse(_bool(case), "Expected False conversion for case[{}] = {}".format(i, case))
 
     @attr('request', 'cluster')
     @responses.activate
@@ -727,6 +738,7 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_storm_cluster_summary()
         self.assertEquals(TEST_STORM_CLUSTER_SUMMARY, result)
 
@@ -741,6 +753,7 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_storm_nimbus_summary()
         self.assertEquals(TEST_STORM_NIMBUSES_SUMMARY, result)
 
@@ -755,6 +768,7 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_storm_supervisor_summary()
         self.assertEquals(TEST_STORM_SUPERVISOR_SUMMARY, result)
 
@@ -769,6 +783,7 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_storm_topology_summary()
         self.assertEquals(TEST_STORM_TOPOLOGY_SUMMARY, result)
 
@@ -784,6 +799,7 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_topology_info('my_topology-1-1489183263')
         self.assertEquals(TEST_STORM_TOPOLOGY_RESP, result)
 
@@ -799,12 +815,14 @@ class TestStorm(AgentCheckTest):
         )
 
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
         result = self.check.get_topology_metrics('my_topology-1-1489183263')
         self.assertEquals(TEST_STORM_TOPOLOGY_METRICS_RESP, result)
 
     @attr('process', 'cluster')
     def test_process_cluster_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
 
         results = defaultdict(list)
 
@@ -828,6 +846,7 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'nimbus')
     def test_process_nimbus_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
 
         results = defaultdict(list)
 
@@ -852,6 +871,7 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'supervisor')
     def test_process_supervisor_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
 
         results = defaultdict(list)
 
@@ -875,6 +895,7 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'topology')
     def test_process_topology_stats(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
 
         results = defaultdict(list)
 
@@ -929,6 +950,7 @@ class TestStorm(AgentCheckTest):
     @attr('process', 'topology_metrics')
     def test_process_topology_metrics(self):
         self.load_check(self.STORM_CHECK_CONFIG, {})
+        self.check.update_from_config(self.STORM_CHECK_CONFIG['instances'][0])
 
         results = defaultdict(list)
 
@@ -1022,12 +1044,17 @@ class TestStorm(AgentCheckTest):
         # run your actual tests...
         self.run_check(self.STORM_CHECK_CONFIG['instances'][0])
 
+        topology_tags = ['topology:my_topology']
+        env_tags = ['env:test', 'environment:test']
+        storm_version_tags = ['stormVersion:1.0.3']
+        storm_cluster_environment_tags = ['stormClusterEnvironment:test']
+
         # Service Check
         self.assertServiceCheck(
             'topology-check.my_topology',
             count=1,
             status=AgentCheck.OK,
-            tags=['env:test', 'environment:test']
+            tags=env_tags + storm_version_tags
         )
 
         # Cluster Stats
@@ -1046,7 +1073,7 @@ class TestStorm(AgentCheckTest):
             ('totalMem', 1, 0),
             ('memAssignedPercentUtil', 1, 0)
         )
-        test_tags = ['stormClusterEnvironment:test', 'stormVersion:unknown', 'env:test', 'environment:test']
+        test_tags = env_tags + storm_version_tags + storm_cluster_environment_tags
         for name, count, value in test_cases:
             self.assertMetric(
                 'storm.cluster.{}'.format(name),
@@ -1057,15 +1084,14 @@ class TestStorm(AgentCheckTest):
 
         # Nimbus Stats
         test_cases = (
-            ('upTimeSeconds', 1, 25842, ['stormStatus:leader', 'stormVersion:1.0.3', 'stormHost:1.2.3.4']),
-            ('upTimeSeconds', 1, 0, ['stormStatus:offline', 'stormVersion:not_applicable',
-                                     'stormHost:nimbus01.example.com']),
+            ('upTimeSeconds', 1, 25842, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('upTimeSeconds', 1, 0, ['stormStatus:offline', 'stormHost:nimbus01.example.com']),
             ('numLeaders', 1, 1, []),
             ('numFollowers', 1, 0, []),
             ('numOffline', 1, 1, []),
             ('numDead', 1, 0, [])
         )
-        test_tags = ['stormClusterEnvironment:test', 'env:test', 'environment:test']
+        test_tags = storm_cluster_environment_tags + env_tags + storm_version_tags
 
         for name, count, value, additional_tags in test_cases:
             self.assertMetric(
@@ -1120,7 +1146,7 @@ class TestStorm(AgentCheckTest):
             ('samplingPct', 1, 10)
         )
 
-        test_tags = ['topology:my_topology', 'env:test', 'environment:test']
+        test_tags = topology_tags + env_tags + storm_version_tags
         interval = 'last_60'
 
         for name, count, value in test_cases:
@@ -1140,7 +1166,7 @@ class TestStorm(AgentCheckTest):
             ('Bolt5', (2, 0.001, 1014.634, 0.000, 0, 208890, 17, 104445, 17, 2, 1E10, 0, 0, 0)),
             ('Bolt6', (3, 0.010, 0.005, 0.000, 0, 4705, 0, 4705, 0, 3, 1E10, 0, 0, 0))
         ]:
-            test_tags = ['env:test', 'environment:test', 'topology:my_topology', 'bolt:{}'.format(name)]
+            test_tags = storm_version_tags + env_tags + topology_tags + ['bolt:{}'.format(name)]
             for i, metric_name in enumerate([
                 'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
                 'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
@@ -1156,7 +1182,7 @@ class TestStorm(AgentCheckTest):
         for name, values in [
             ('source', (8, 285.950, 0, 104673, 104673, 104673, 8, 38737, 0, 0, 0)),
         ]:
-            test_tags = ['topology:my_topology', 'spout:{}'.format(name), 'env:test', 'environment:test']
+            test_tags = storm_version_tags + topology_tags + env_tags + ['spout:{}'.format(name)]
             for i, metric_name in enumerate([
                 'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
                 'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
@@ -1172,7 +1198,7 @@ class TestStorm(AgentCheckTest):
         metric_cases = (
             # Topology Metrics By Bolt
             ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
-             ['topology:my_topology', 'bolts:count', 'stream:__system', 'env:test', 'environment:test']),
+             storm_version_tags + topology_tags + env_tags + ['bolts:count', 'stream:__system']),
         )
 
         for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
@@ -1192,3 +1218,158 @@ class TestStorm(AgentCheckTest):
 
         # Raises when COVERAGE=true and coverage < 100%
         self.coverage_report()
+
+    @attr('integration', 'check')
+    def test_integration_with_ci_cluster(self):
+        self.load_check(self.STORM_CHECK_INTEGRATION_CONFIG, {})
+
+        # run your actual tests...
+        self.run_check(self.STORM_CHECK_CONFIG['instances'][0])
+
+        # Service Check
+        self.assertServiceCheck(
+            'topology-check.topology',
+            count=1,
+            status=AgentCheck.OK,
+            tags=['env:integration', 'environment:integration', 'stormVersion:1.1.1']
+        )
+
+        topology_tags = ['topology:topology']
+        env_tags = ['env:integration', 'environment:integration']
+        storm_version_tags = ['stormVersion:1.1.1']
+        storm_cluster_environment_tags = ['stormClusterEnvironment:integration']
+
+        self.assertMetric(
+            'storm.cluster.supervisors', value=1, count=1,
+            tags=storm_cluster_environment_tags + storm_version_tags + env_tags
+        )
+
+        # Cluster Stats
+        test_cases = (
+            ('executorsTotal', 1, 28, True),
+            ('slotsTotal', 1, 4, True),
+            ('slotsFree', 1, 1, True),
+            ('topologies', 1, 1, True),
+            ('supervisors', 1, 1, True),
+            ('tasksTotal', 1, 28, True),
+            ('slotsUsed', 1, 3, True),
+            ('availCpu', 1, None, False),
+            ('totalCpu', 1, None, False),
+            ('cpuAssignedPercentUtil', 1, None, False),
+            ('availMem', 1, None, False),
+            ('totalMem', 1, None, False),
+            ('memAssignedPercentUtil', 1, None, False)
+        )
+        test_tags = storm_cluster_environment_tags + storm_version_tags + env_tags
+        for name, count, value, test_value in test_cases:
+            self.assertMetric(
+                'storm.cluster.{}'.format(name),
+                count=count,
+                value=value if test_value else None,
+                tags=test_tags
+            )
+
+        # Nimbus Stats
+        test_cases = (
+            ('numLeaders', 1, 1, []),
+            ('numFollowers', 1, 0, []),
+            ('numOffline', 1, 1, []),
+            ('numDead', 1, 0, [])
+        )
+        test_tags = storm_cluster_environment_tags + env_tags + storm_version_tags
+
+        for name, count, value, additional_tags in test_cases:
+            self.assertMetric(
+                'storm.nimbus.{}'.format(name),
+                count=count,
+                value=value,
+                tags=test_tags + additional_tags
+            )
+
+        # Supervisor Stats
+        test_cases = (
+            ('slotsTotal', 1, 4, True),
+            ('slotsUsed', 1, 3, True),
+            ('totalMem', 1, None, False),
+            ('usedMem', 1, None, False),
+            ('totalCpu', 1, None, False),
+            ('usedCpu', 1, None, False),
+
+        )
+
+        for name, count, value, test_value in test_cases:
+            self.assertMetric(
+                'storm.supervisor.{}'.format(name),
+                count=count,
+                value=value if test_value else None
+            )
+
+        # Topology Stats
+        test_cases = (
+            ('emitted', 1, None, False),
+            ('transferred', 1, None, False),
+            ('acked', 1, None, False),
+            ('failed', 1, None, False),
+            ('completeLatency', 1, None, False),
+            ('uptimeSeconds', 1, None, False),
+            ('executorsTotal', 1, 28, True),
+            ('numBolts', 1, 2, True),
+            ('replicationCount', 1, 1, True),
+            ('tasksTotal', 1, 28, True),
+            ('numSpouts', 1, 1, True),
+            ('workersTotal', 1, 3, True),
+            ('assignedMemOnHeap', 1, None, False),
+            ('assignedMemOffHeap', 1, None, False),
+            ('assignedTotalMem', 1, None, False),
+            ('requestedMemOnHeap', 1, None, False),
+            ('requestedMemOffHeap', 1, None, False),
+            ('requestedCpu', 1, None, False),
+            ('assignedCpu', 1, None, False),
+            ('msgTimeout', 1, 30, True),
+            ('debug', 1, 0, True),
+            ('samplingPct', 1, None, False)
+        )
+
+        test_tags = topology_tags + env_tags + storm_version_tags
+        interval = 'last_60'
+
+        for name, count, value, test_value in test_cases:
+            self.assertHistogramMetric(
+                'storm.topologyStats.{}.{}'.format(interval, name),
+                at_least=count,
+                value=value if test_value else None,
+                tags=test_tags
+            )
+
+        # Bolt Stats
+        for name, values in [
+            ('split', (8, None, None, None, None, None, None, None, None, 8, None, None, None, None)),
+            ('count', (12, None, None, None, None, None, None, None, None, 12, None, None, None, None))
+        ]:
+            test_tags = env_tags + topology_tags + ['bolt:{}'.format(name)] + storm_version_tags
+            for i, metric_name in enumerate([
+                'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
+                'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
+            ]):
+                self.assertHistogramMetric(
+                    'storm.bolt.last_60.{}'.format(metric_name),
+                    value=values[i],
+                    tags=test_tags,
+                    at_least=1
+                )
+
+        # Spout Stats
+        for name, values in [
+            ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
+        ]:
+            test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
+            for i, metric_name in enumerate([
+                'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
+                'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
+            ]):
+                self.assertHistogramMetric(
+                    'storm.spout.last_60.{}'.format(metric_name),
+                    value=values[i],
+                    tags=test_tags,
+                    at_least=1
+                )

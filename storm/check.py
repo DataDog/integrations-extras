@@ -69,6 +69,23 @@ def _long(v):
         return 0
 
 
+def _bool(v):
+    """Try to convert to a boolean
+
+    :param v: value
+    :rtype: bool
+    """
+    try:
+        if isinstance(v, basestring):
+            if v.lower() in ['t', 'true', '1']:
+                return True
+            else:
+                return False
+        return bool(v)
+    except Exception:
+        return False
+
+
 def _get_length(stat_map, default, *components):
     """ Helper Function to get the length of an array type from the map.
 
@@ -104,19 +121,66 @@ def _get_float(stat_map, default, *components):
     """
     return _g(stat_map, default, _float, *components)
 
+def _get_string(stat_map, default, *components):
+    """ Helper Function to get the string value from the map.
+
+    :param stat_map: stat map
+    :param default: default string value
+    :param components: components in order to traverse.
+    :return: str of value or default value.
+    :rtype: str
+    """
+    return _g(stat_map, default, str, *components)
+
+def _get_bool(stat_map, default, *components):
+    """ Helper Function to get the boolean value from the map.
+
+    :param stat_map: stat map
+    :param default: default boolean value
+    :param components: components in order to traverse.
+    :return: bool of value or default value.
+    :rtype: bool
+    """
+    return _g(stat_map, default, _bool, *components)
+
+def _get_list(stat_map, *components):
+    """ Helper Function to get the list value from the map.
+
+    :param stat_map: stat map
+    :param components: components in order to traverse.
+    :return: list of component
+    :rtype: list
+    """
+    val = _g(stat_map, [], None, *components)
+    if not val or not isinstance(val, list):
+        return []
+
+    return val
+
+def _get_dict(stat_map, *components):
+    """ Helper Function to get the list value from the map.
+
+    :param stat_map: stat map
+    :param components: components in order to traverse.
+    :return: dict of component
+    :rtype: dict
+    """
+    val = _g(stat_map, {}, None, *components)
+
+    if not val or not isinstance(val, dict):
+        return {}
+
+    return val
+
 
 class StormCheck(AgentCheck):
     """
     Apache Storm 1.x.x Topology Execution Stats
     """
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        self.nimbus_server = 'http://localhost:9005'
-        self.additional_tags = []
-        self.excluded_topologies = []
-        self.environment_name = 'dev'
-        self.intervals = []
-        AgentCheck.__init__(self, name, init_config, agentConfig, instances)
+    DEFAULT_STORM_SERVER = 'http://localhost:9005'
+    DEFAULT_STORM_ENVIRONMENT = 'dev'
+    DEFAULT_STORM_INTERVALS = [60]
 
     def get_request_json(self, url_part, error_message, params=None):
         url = "{}{}".format(self.nimbus_server, url_part)
@@ -205,11 +269,15 @@ class StormCheck(AgentCheck):
         :return: Extracted cluster stats metrics
         :rtype: dict
         """
-        if len(cluster_stats) == 0:
-            return {}
-        else:
-            version = _g(cluster_stats, 'unknown', None, 'version').replace(' ', '_').lower()
-            tags = ['stormClusterEnvironment:{}'.format(environment), 'stormVersion:{}'.format(version)]
+        if len(cluster_stats) >= 0:
+            version = _get_string(cluster_stats,
+                                  _get_string(cluster_stats, 'unknown', 'stormVersion'),
+                                  'version').replace(' ', '_').lower()
+            storm_version = 'stormVersion:{}'.format(version)
+            tags = ['stormClusterEnvironment:{}'.format(environment), storm_version]
+            if storm_version not in self.additional_tags:
+                self.additional_tags.append(storm_version)
+
             # Longs
             for metric_name in ['executorsTotal', 'slotsFree', 'slotsTotal', 'slotsUsed', 'supervisors', 'tasksTotal',
                                 'topologies']:
@@ -238,12 +306,10 @@ class StormCheck(AgentCheck):
             numDead = 0
             numOffline = 0
             for ns in nimbus_stats.get('nimbuses', []):
-                nimbus_status = _g(ns, 'offline', None, 'status').lower()
-                version = _g(ns, 'unknown', None, 'version').replace(' ', '_').lower()
-                storm_host = _g(ns, 'unknown', None, 'host')
+                nimbus_status = _get_string(ns, 'offline', 'status').lower()
+                storm_host = _get_string(ns, 'unknown', 'host')
                 tags = [
                     'stormClusterEnvironment:{}'.format(environment),
-                    'stormVersion:{}'.format(version),
                     'stormHost:{}'.format(storm_host),
                     'stormStatus:{}'.format(nimbus_status)
                 ]
@@ -278,12 +344,10 @@ class StormCheck(AgentCheck):
         :rtype: dict
         """
         if len(supervisor_stats) > 0:
-            for ss in supervisor_stats.get('supervisors', []):
-                host = _g(ss, 'unknown', None, 'host')
-                version = _g(ss, 'unknown', None, 'version').replace(' ', '_').lower()
-                storm_id = _g(ss, 'unknown', None, 'id')
-                tags = ['stormHost:{}'.format(host), 'stormVersion:{}'.format(version),
-                        'stormSupervisorId:{}'.format(storm_id)]
+            for ss in _get_list(supervisor_stats, 'supervisors'):
+                host = _get_string(ss, 'unknown', 'host')
+                storm_id = _get_string(ss, 'unknown', 'id')
+                tags = ['stormHost:{}'.format(host), 'stormSupervisorId:{}'.format(storm_id)]
                 # longs
                 for metric_name in ['slotsTotal', 'slotsUsed', 'uptimeSeconds']:
                     self.report_gauge('storm.supervisor.{}'.format(metric_name), _get_long(ss, 0, metric_name),
@@ -305,8 +369,8 @@ class StormCheck(AgentCheck):
             return 'storm.topologyStats.last_{}.{}'.format(interval, metric_name)
 
         if len(topology_stats) > 0:
-            name = _g(topology_stats, 'unknown', None, 'name').replace('.', '_').replace(':', '_')
-            debug_mode = _g(topology_stats, False, bool, 'debug')
+            name = _get_string(topology_stats, 'unknown', 'name').replace('.', '_').replace(':', '_')
+            debug_mode = _get_bool(topology_stats, False, 'debug')
             tags = ['topology:{}'.format(name)]
 
             self.report_histogram(_mts('acked'), _get_long(topology_stats, 0, 'topologyStats', 0, 'acked'),
@@ -359,8 +423,8 @@ class StormCheck(AgentCheck):
             def _mb(metric_name):
                 return 'storm.bolt.last_{}.{}'.format(interval, metric_name)
 
-            for b in _g(topology_stats, [], None, 'bolts'):
-                bolt_name = _g(b, 'unknown', None, 'boltId').replace('.', '_').replace(':', '_')
+            for b in _get_list(topology_stats, 'bolts'):
+                bolt_name = _get_string(b, 'unknown', 'boltId').replace('.', '_').replace(':', '_')
                 bolt_tags = tags + ['bolt:{}'.format(bolt_name)]
 
                 # Longs:
@@ -380,8 +444,8 @@ class StormCheck(AgentCheck):
             def _ms(metric_name):
                 return 'storm.spout.last_{}.{}'.format(interval, metric_name)
 
-            for s in _g(topology_stats, [], None, 'spouts'):
-                spout_name = _g(s, 'unknown', None, 'spoutId').replace('.', '_').replace(':', '_')
+            for s in _get_list(topology_stats, 'spouts'):
+                spout_name = _get_string(s, 'unknown', 'spoutId').replace('.', '_').replace(':', '_')
                 spout_tags = tags + ['spout:{}'.format(spout_name)]
 
                 # Longs:
@@ -401,11 +465,11 @@ class StormCheck(AgentCheck):
             def _mw(metric_name):
                 return 'storm.worker.last_{}.{}'.format(interval, metric_name)
 
-            for w in _g(topology_stats, [], None, 'workers'):
+            for w in _get_list(topology_stats, 'workers'):
                 worker_stat = {}
-                host = _g(w, 'unknown', None, 'host')
-                port = _g(w, 0, _long, 'port')
-                supervisor_id = _g(w, 'unknown', None, 'supervisorId')
+                host = _get_string(w, 'unknown', 'host')
+                port = _get_long(w, 0, 'port')
+                supervisor_id = _get_string(w, 'unknown', 'supervisorId')
                 worker_tags = tags + ['worker:{}:{}'.format(host, port), 'supervisor:{}'.format(supervisor_id)]
 
                 self.report_histogram(_mw('assignedCpu'), _get_float(w, 0, 'assignedCpu'),
@@ -420,7 +484,7 @@ class StormCheck(AgentCheck):
                                       tags=worker_tags, additional_tags=self.additional_tags)
 
                 worker_stat[_mw('componentNumTasks')] = []
-                for cn, cv in _g(w, {}, None, 'componentNumTasks').items():
+                for cn, cv in _get_dict(w, 'componentNumTasks').items():
                     worker_component_tags = worker_tags + ['component:{}'.format(cn)]
                     self.report_histogram(_mw('componentNumTasks'), _long(cv or 0),
                                           tags=worker_component_tags, additional_tags=self.additional_tags)
@@ -440,19 +504,19 @@ class StormCheck(AgentCheck):
             tags = ['topology:{}'.format(name)]
             r = {'bolts': [], 'spouts': []}
             for k in r.keys():
-                for s in _g(topology_stats, [], None, k):
-                    k_name = _g(s, 'unknown', None, 'id').replace('.', '_').replace(':', '_')
+                for s in _get_list(topology_stats, k):
+                    k_name = _get_string(s, 'unknown', 'id').replace('.', '_').replace(':', '_')
                     k_tags = tags + ['{}:{}'.format(k, k_name)]
                     for sc in ['acked', 'complete_ms_avg', 'emitted', 'executed', 'executed_ms_avg', 'failed',
                                'process_ms_avg', 'transferred']:
-                        for ks in _g(s, [], None, sc):
-                            stream_id = _g(ks, 'unknown', None, 'stream_id')
+                        for ks in _get_list(s, sc):
+                            stream_id = _get_string(ks, 'unknown', 'stream_id')
                             ks_tags = k_tags + ['stream:{}'.format(stream_id)]
-                            component_id = _g(ks, None, None, 'component_id')
+                            component_id = ks.get('component_id')
                             if component_id:
                                 ks_tags.append('component:{}'.format(component_id))
 
-                            component_value = _g(ks, 0.0, _float, 'value')
+                            component_value = _get_float(ks, 0.0, 'value')
                             if component_value is not None:
                                 # will make stats like these two examples
                                 # storm.topologyStats.metrics.spouts.last_60.emitted
@@ -478,7 +542,7 @@ class StormCheck(AgentCheck):
         self.gauge(
             metric=metric,
             value=value,
-            tags=all_tags
+            tags=set(all_tags)
         )
 
     def report_histogram(self, metric, value, tags, additional_tags=list()):
@@ -496,7 +560,7 @@ class StormCheck(AgentCheck):
         self.histogram(
             metric=metric,
             value=value,
-            tags=all_tags
+            tags=set(all_tags)
         )
 
     def update_from_config(self, instance):
@@ -505,11 +569,16 @@ class StormCheck(AgentCheck):
         :param instance: Agent config instance.
         :return: None
         """
-        self.nimbus_server = instance.get('server', self.init_config.get('server', 'http://localhost:9005'))
-        self.environment_name = instance.get('environment', self.init_config.get('environment', 'dev'))
+
+        self.nimbus_server = instance.get('server', self.init_config.get('server', StormCheck.DEFAULT_STORM_SERVER))
+        self.environment_name = instance.get('environment',
+                                             self.init_config.get('environment', StormCheck.DEFAULT_STORM_ENVIRONMENT))
+        self.additional_tags = []
         self.additional_tags.extend(instance.get('tags', []))
+        self.excluded_topologies = []
         self.excluded_topologies.extend(instance.get('excluded', []))
-        intervals = instance.get('intervals', self.init_config.get('intervals', [60]))
+        self.intervals = []
+        intervals = instance.get('intervals', self.init_config.get('intervals', StormCheck.DEFAULT_STORM_INTERVALS))
 
         if not isinstance(intervals, (list, tuple)) or len(intervals) < 1:
             raise AssertionError("Expected intervals to be a list of integers with at least 1 value")
@@ -539,9 +608,12 @@ class StormCheck(AgentCheck):
 
         # Topology Stats
         summary = self.get_storm_topology_summary()
-        for topology in summary['topologies']:
+        for topology in _get_list(summary, 'topologies'):
             topology_id = topology.get('id')
-            topology_name = _g(topology, 'unknown', None, 'name')
+            if topology_id in (None, ''):
+                self.log.warning("Ignoring topology without id.")
+                continue
+            topology_name = _get_string(topology, 'unknown', 'name')
             topology_status = None
             if topology_name not in self.excluded_topologies:
                 for interval in self.intervals:
@@ -551,23 +623,13 @@ class StormCheck(AgentCheck):
                     self.process_topology_metrics(topology_name, metric_stats, interval=interval)
 
                     # only report this once.
-                    if topology_status is None and _g(stats, 'unknown', None, 'status') is not None:
-                        topology_status = _g(stats, 'unknown', None, 'status').upper()
-                        if topology_status != 'ACTIVE':
-                            check_status = AgentCheck.CRITICAL
-                            self.service_check(
-                                'topology-check.{}'.format(topology_name),
-                                status=check_status,
-                                message='{} topology status marked as: {}'.format(topology_name, topology_status),
-                                tags=['env:{}'.format(self.environment_name),
-                                      'environment:{}'.format(self.environment_name)] + self.additional_tags
-                            )
-                        else:
-                            check_status = AgentCheck.OK
-                            self.service_check(
-                                'topology-check.{}'.format(topology_name),
-                                status=check_status,
-                                message='{} topology is active'.format(topology_name),
-                                tags=['env:{}'.format(self.environment_name),
-                                      'environment:{}'.format(self.environment_name)] + self.additional_tags
-                            )
+                    if topology_status is None:
+                        topology_status = _get_string(stats, 'unknown', 'status').upper()
+                        check_status = AgentCheck.CRITICAL if topology_status != 'ACTIVE' else AgentCheck.OK
+                        self.service_check(
+                            'topology-check.{}'.format(topology_name),
+                            status=check_status,
+                            message='{} topology status marked as: {}'.format(topology_name, topology_status),
+                            tags=['env:{}'.format(self.environment_name),
+                                  'environment:{}'.format(self.environment_name)] + self.additional_tags
+                        )
