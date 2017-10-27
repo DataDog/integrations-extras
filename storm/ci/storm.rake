@@ -21,15 +21,15 @@ namespace :ci do
       sh %(docker rmi -f topology-maker)
       # Start the storm cluster
       sh %(docker run -d --restart always --name storm-zookeeper zookeeper:3.4)
-      sh %(docker run -d --restart always -p 6627:6627 --name storm-nimbus --link storm-zookeeper:zookeeper
+      sh %(docker run -d --restart always -p 6627:6627 --name storm-nimbus --link storm-zookeeper:zookeeper \
         storm:1.1 storm nimbus)
-      sh %(docker run -d --restart always --name storm-supervisor --link storm-zookeeper:zookeeper
+      sh %(docker run -d --restart always --name storm-supervisor --link storm-zookeeper:zookeeper \
         --link storm-nimbus:nimbus storm:1.1 storm supervisor)
       sh %(docker run -d -p 9005:8080 --restart always --name storm-ui --link storm-nimbus:nimbus storm:1.1 storm ui)
       # Wait for storm to start...
       sh %(sleep 60)
       # Deploy the basic WordCountTopology we created earlier.
-      sh %(docker run --link storm-nimbus:nimbus -it --rm -v $(pwd)/topology.jar:/topology.jar storm:1.1 storm jar
+      sh %(docker run --link storm-nimbus:nimbus -it --rm -v $(pwd)/topology.jar:/topology.jar storm:1.1 storm jar \
         /topology.jar org.apache.storm.starter.WordCountTopology topology)
     end
 
