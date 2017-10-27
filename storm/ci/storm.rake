@@ -31,6 +31,8 @@ namespace :ci do
       # Deploy the basic WordCountTopology we created earlier.
       sh %(docker run --link storm-nimbus:nimbus -it --rm -v $(pwd)/topology.jar:/topology.jar storm:1.1 storm jar \
         /topology.jar org.apache.storm.starter.WordCountTopology topology)
+      # Wait again for slow topology starts.
+      sh %(sleep 60)
     end
 
     task before_script: ['ci:common:before_script']
