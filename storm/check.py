@@ -16,6 +16,22 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'storm'
 def _g(stat_map, default, func, *components):
     """ Helper method to return value, tag tuple from a stat map get.
 
+    Note: This safely handles the odd cases where the API can return things like:
+      {
+        "key1": null,
+        "key2": ""
+      }
+
+      Where we want `key1`, `key2`, and `key3` (absent) to be replaced with a `default` value.
+
+    This method will also safely traverse a map for nested objects like:
+      {
+        "parent": [{"mykey": 1}, {"mykey": 2}]
+      }
+      When the `components` are `["parent", 1, "mykey"]` this will return `2`.
+      When the `components` are `["parent", 1, "myotherkey"]` this will return the default value.
+
+
     :param stat_map: stat map
     :param default: default value
     :param func: function to apply after getting the value.
@@ -87,7 +103,7 @@ def _bool(v):
 
 
 def _get_length(stat_map, default, *components):
-    """ Helper Function to get the length of an array type from the map.
+    """ Helper Function to safely get the length of an array type from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -99,7 +115,7 @@ def _get_length(stat_map, default, *components):
 
 
 def _get_long(stat_map, default, *components):
-    """ Helper Function to get the long value from the map.
+    """ Helper Function to safely get the long value from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -111,7 +127,7 @@ def _get_long(stat_map, default, *components):
 
 
 def _get_float(stat_map, default, *components):
-    """ Helper Function to get the float value from the map.
+    """ Helper Function to safely get the float value from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -122,7 +138,7 @@ def _get_float(stat_map, default, *components):
     return _g(stat_map, default, _float, *components)
 
 def _get_string(stat_map, default, *components):
-    """ Helper Function to get the string value from the map.
+    """ Helper Function to safely get the string value from the map.
 
     :param stat_map: stat map
     :param default: default string value
@@ -133,7 +149,7 @@ def _get_string(stat_map, default, *components):
     return _g(stat_map, default, str, *components)
 
 def _get_bool(stat_map, default, *components):
-    """ Helper Function to get the boolean value from the map.
+    """ Helper Function to safely get the boolean value from the map.
 
     :param stat_map: stat map
     :param default: default boolean value
@@ -144,7 +160,7 @@ def _get_bool(stat_map, default, *components):
     return _g(stat_map, default, _bool, *components)
 
 def _get_list(stat_map, *components):
-    """ Helper Function to get the list value from the map.
+    """ Helper Function to safely get the list value from the map.
 
     :param stat_map: stat map
     :param components: components in order to traverse.
@@ -158,7 +174,7 @@ def _get_list(stat_map, *components):
     return val
 
 def _get_dict(stat_map, *components):
-    """ Helper Function to get the list value from the map.
+    """ Helper Function to safely get the list value from the map.
 
     :param stat_map: stat map
     :param components: components in order to traverse.
