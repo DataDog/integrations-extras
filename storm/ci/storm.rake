@@ -18,7 +18,6 @@ namespace :ci do
       sh %(docker run -d --name topology-build --rm -v $(pwd):/artifacts topology-maker)
       sh %(docker cp topology-build:/topology.jar $(pwd))
       sh %(docker stop topology-build)
-      sh %(docker rm -f topology-build)
       sh %(docker rmi -f topology-maker)
       # Start the storm cluster
       sh %(docker run -d --restart always --name storm-zookeeper zookeeper:3.4)
