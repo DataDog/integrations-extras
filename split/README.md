@@ -9,7 +9,7 @@ Integrate Split with Datadog to:
 * Correlate feature impact with application performance
 * Avoid critical issues before they happen. Disable features proactively based on Datadog metrics and alerts
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/split-screenshot.png =500x282)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/split-screenshot.png)
 
 ## Setup
 
@@ -22,10 +22,10 @@ Integrate Split with Datadog to:
 
 * Go to **Admin Settings** and click **Integrations** and navigate to the Marketplace. Click Add next to Datadog.<br/>
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/in-split.png =800x)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/in-split.png)
 
 * Paste your Datadog API Key and click Save.
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/integrations-datadog.png =800x)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/integrations-datadog.png)
 
 Split data should now be flowing into Datadog.
