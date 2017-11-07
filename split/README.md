@@ -2,7 +2,7 @@
 
 ## Overview
 
-<a href="http://www.split.io">Split</a> is a platform for <a href="http://www.split.io/articles/controlled-rollout">controlled rollouts</a>, helping businesses of all sizes deliver exceptional user experiences—and mitigate risk—by providing an easy, secure way to target features to customers.
+<a href="http://www.split.io">Split</a> is a platform for <a href="http://www.split.io/articles/controlled-rollout">controlled rollouts</a>, helping businesses of all sizes deliver exceptional user experiences and mitigate risk by providing an easy, secure way to target features to customers.
 
 Integrate Split with Datadog to:
 * See feature changes in context by including Split changlelogs in your event stream
