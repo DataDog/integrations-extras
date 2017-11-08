@@ -16,6 +16,7 @@ Integrate Split with Datadog to:
 ### Configuration
 
 **In Datadog**<br/>
+
 * Create an API Key <span class="hidden-api-key">${api_key}</span>
 
 **In Split**<br/>
