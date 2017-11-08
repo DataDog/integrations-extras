@@ -15,11 +15,11 @@ Integrate Split with Datadog to:
 
 ### Configuration
 
-**In Datadog**<br/>
+#### In Datadog
 
 * Create an API Key <span class="hidden-api-key">${api_key}</span>
 
-**In Split**<br/>
+#### In Split
 
 * Go to **Admin Settings** and click **Integrations** and navigate to the Marketplace. Click Add next to Datadog.<br/>
 
