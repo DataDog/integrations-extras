@@ -10,7 +10,7 @@ Integrate Split with Datadog to:
  * Correlate feature impact with application performance
  * Avoid critical issues before they happen. Disable features proactively based on Datadog metrics and alerts
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/split-screenshot.png)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/split-screenshot.png)
 
 ## Setup
 
