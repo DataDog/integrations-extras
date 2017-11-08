@@ -23,10 +23,10 @@ Integrate Split with Datadog to:
 
 * Go to **Admin Settings** and click **Integrations** and navigate to the Marketplace. Click Add next to Datadog.<br/>
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/in-split.png)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/in-split.png)
 
 * Paste your Datadog API Key and click Save.
 
-![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split/split/images/integrations-datadog.png)
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/integrations-datadog.png)
 
 Split data should now be flowing into Datadog.
