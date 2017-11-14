@@ -39,6 +39,7 @@ test:
     override:
         - bundle exec rake prep_travis_ci
         - TRAVIS_FLAVOR="default" bundle exec rake ci:run
+        - TRAVIS_FLAVOR="filebeat" bundle exec rake ci:run
         - TRAVIS_FLAVOR="snmpwalk" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_master" bundle exec rake ci:run
         - TRAVIS_FLAVOR="hbase_regionserver" bundle exec rake ci:run
