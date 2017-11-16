@@ -1,5 +1,6 @@
 # stdlib
 from nose.plugins.attrib import attr
+from distutils.version import LooseVersion # pylint: disable=E0611,E0401
 
 # 3p
 import requests
@@ -118,7 +119,7 @@ class TestLogstash(AgentCheckTest):
 
         expected_metrics = dict(STATS_METRICS)
 
-        if logstash_version < [6, 0, 0]:
+        if logstash_version and LooseVersion(logstash_version) < LooseVersion("6.0.0"):
             expected_metrics.update(PIPELINE_METRICS)
             expected_metrics.update(PIPELINE_INPUTS_METRICS)
             expected_metrics.update(PIPELINE_OUTPUTS_METRICS)

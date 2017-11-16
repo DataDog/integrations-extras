@@ -1,6 +1,7 @@
 # stdlib
 from collections import namedtuple
 import urlparse
+from distutils.version import LooseVersion # pylint: disable=E0611,E0401
 
 # 3rd party
 import requests
@@ -8,6 +9,7 @@ import requests
 # project
 from checks import AgentCheck
 from util import headers
+
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'logstash'
 
@@ -141,6 +143,7 @@ class LogstashCheck(AgentCheck):
         if isinstance(config.ssl_verify, bool) or isinstance(config.ssl_verify, str):
             verify = config.ssl_verify
         else:
+            self.log.error("ssl_verify in the configuration file must be a bool or a string.")
             verify = None
         if config.ssl_cert and config.ssl_key:
             cert = (config.ssl_cert, config.ssl_key)
@@ -177,14 +180,13 @@ class LogstashCheck(AgentCheck):
         try:
             data = self._get_data(config.url, config, send_sc=False)
             version = data['version']
-            version = map(int, version.split('.')[0:3])
         except Exception as e:
             self.warning(
                 "Error while trying to get Logstash version "
-                "from %s %s"
+                "from %s %s. Defaulting to version 1.0.0."
                 % (config.url, str(e))
             )
-            version = [1, 0, 0]
+            version = "1.0.0"
 
 
         self.service_metadata('version', version)
@@ -197,21 +199,18 @@ class LogstashCheck(AgentCheck):
         version = self._get_logstash_version(config)
 
         stats_metrics = dict(self.STATS_METRICS)
-        if version < [6, 0, 0]:
+        if version and LooseVersion(version) < LooseVersion("6.0.0"):
             stats_metrics.update(self.PIPELINE_METRICS)
-            pipeline_input_metrics = self.PIPELINE_INPUTS_METRICS
-            pipeline_output_metrics = self.PIPELINE_OUTPUTS_METRICS
-            pipeline_filters_metrics = self.PIPELINE_FILTERS_METRICS
 
         stats_url = urlparse.urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
 
         self._process_stats_data(stats_data, stats_metrics, config)
 
-        if version < [6, 0, 0]:
-            self._process_pipeline_input_data(stats_data, pipeline_input_metrics, config)
-            self._process_pipeline_output_data(stats_data, pipeline_output_metrics, config)
-            self._process_pipeline_filters_data(stats_data, pipeline_filters_metrics, config)
+        if version and LooseVersion(version) < LooseVersion("6.0.0"):
+            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name')
+            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_OUTPUTS_METRICS, config, 'outputs', 'output_name')
+            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_FILTERS_METRICS, config, 'filters', 'filter_name')
 
         self.service_check(
             self.SERVICE_CHECK_CONNECT_NAME,
@@ -222,6 +221,25 @@ class LogstashCheck(AgentCheck):
     def _process_stats_data(self, data, stats_metrics, config):
         for metric, desc in stats_metrics.iteritems():
             self._process_metric(data, metric, *desc, tags=config.tags)
+
+
+    def _process_pipeline_plugins_data(self, pipeline_plugins_data, pipeline_plugins_metrics, config, plugin_type, tag_name):
+        for plugin_data in pipeline_plugins_data.get(plugin_type,[]):
+            plugin_name = plugin_data.get('name')
+
+            metrics_tags = list(config.tags)
+
+            if not plugin_name:
+                    plugin_name = 'unknown'
+
+            metrics_tags.append(
+                u"{}:{}".format(tag_name, plugin_name)
+            )
+
+            for metric, desc in pipeline_plugins_metrics.iteritems():
+                self._process_metric(
+                    plugin_data, metric, *desc,
+                    tags=metrics_tags)
 
     def _process_pipeline_input_data(self, data, pipeline_inputs_metrics, config):
         plugins_data = data['pipeline']['plugins']
@@ -274,12 +292,11 @@ class LogstashCheck(AgentCheck):
                     filters_data, metric, *desc,
                     tags=metrics_tags)
 
-    def _process_metric(self, data, metric, xtype, path, xform=None,
+    def _process_metric(self, data, metric, xtype, path,
                         tags=None, hostname=None):
         """data: dictionary containing all the stats
         metric: datadog metric
         path: corresponding path in data, flattened, e.g. thread_pool.bulk.queue
-        xfom: a lambda to apply to the numerical value
         """
         value = data
 
@@ -291,8 +308,6 @@ class LogstashCheck(AgentCheck):
                 break
 
         if value is not None:
-            if xform:
-                value = xform(value)
             if xtype == "gauge":
                 self.gauge(metric, value, tags=tags, hostname=hostname)
             else:
