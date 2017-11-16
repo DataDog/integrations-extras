@@ -29,4 +29,26 @@ When you run `datadog-agent info` you should see something like the following:
 
 ## Compatibility
 
-The logstash check is compatible with all major platforms
+The logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
+
+## Metrics
+
+See [metadata.csv](metadata.csv) for a list of metrics provided by this integration.
+
+### Service checks
+
+`logstash.can_connect`:
+
+Returns `Critical` if the Agent cannot connect to Logstash to collect metrics.
+
+## Troubleshooting
+
+### Agent cannot connect
+```
+    logstash
+    -------
+      - instance #0 [ERROR]: "('Connection aborted.', error(111, 'Connection refused'))"
+      - Collected 0 metrics, 0 events & 1 service check
+```
+
+Check that the `url` in `logstash.yaml` is correct.
