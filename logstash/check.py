@@ -25,6 +25,7 @@ LogstashInstanceConfig = namedtuple(
     ])
 
 class LogstashCheck(AgentCheck):
+    DEFAULT_VERSION = '1.0.0'
     DEFAULT_TIMEOUT = 5
     SERVICE_CHECK_CONNECT_NAME = 'logstash.can_connect'
 
@@ -183,10 +184,10 @@ class LogstashCheck(AgentCheck):
         except Exception as e:
             self.warning(
                 "Error while trying to get Logstash version "
-                "from %s %s. Defaulting to version 1.0.0."
-                % (config.url, str(e))
+                "from %s %s. Defaulting to version %s."
+                % (config.url, str(e), self.DEFAULT_VERSION)
             )
-            version = "1.0.0"
+            version = self.DEFAULT_VERSION
 
 
         self.service_metadata('version', version)
@@ -239,57 +240,6 @@ class LogstashCheck(AgentCheck):
             for metric, desc in pipeline_plugins_metrics.iteritems():
                 self._process_metric(
                     plugin_data, metric, *desc,
-                    tags=metrics_tags)
-
-    def _process_pipeline_input_data(self, data, pipeline_inputs_metrics, config):
-        plugins_data = data['pipeline']['plugins']
-        for inputs_data in plugins_data.get('inputs',[]):
-            inputs_name = inputs_data.get('name')
-
-            metrics_tags = list(config.tags)
-
-            if inputs_name:
-                metrics_tags.append(
-                    u"input_name:{}".format(inputs_name)
-                )
-
-            for metric, desc in pipeline_inputs_metrics.iteritems():
-                self._process_metric(
-                    inputs_data, metric, *desc,
-                    tags=metrics_tags)
-
-    def _process_pipeline_output_data(self, data, pipeline_outputs_metrics, config):
-        plugins_data = data['pipeline']['plugins']
-        for outputs_data in plugins_data.get('outputs',[]):
-            outputs_name = outputs_data.get('name')
-
-            metrics_tags = list(config.tags)
-
-            if outputs_name:
-                metrics_tags.append(
-                    u"output_name:{}".format(outputs_name)
-                )
-
-            for metric, desc in pipeline_outputs_metrics.iteritems():
-                self._process_metric(
-                    outputs_data, metric, *desc,
-                    tags=metrics_tags)
-
-    def _process_pipeline_filters_data(self, data, pipeline_filters_metrics, config):
-        plugins_data = data['pipeline']['plugins']
-        for filters_data in plugins_data.get('filters',[]):
-            filters_name = filters_data.get('name')
-
-            metrics_tags = list(config.tags)
-
-            if filters_name:
-                metrics_tags.append(
-                    u"filter_name:{}".format(filters_name)
-                )
-
-            for metric, desc in pipeline_filters_metrics.iteritems():
-                self._process_metric(
-                    filters_data, metric, *desc,
                     tags=metrics_tags)
 
     def _process_metric(self, data, metric, xtype, path,
