@@ -2,7 +2,10 @@
 
 ## Overview
 
-Gather health metrics from your Nomad clusters.
+Gather metrics from your Nomad clusters to:
+
+* Visualize and monitor cluster performance
+* Alert on cluster health and availability 
 
 ## Setup
 
@@ -18,6 +21,7 @@ telemetry {
   publish_node_metrics       = true
   datadog_address = "localhost:8125"
   disable_hostname = true
+}
 ```
 
 Next, reload or restart the Nomad agent on each host. You should now begin to see Nomad metrics flowing to
