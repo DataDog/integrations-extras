@@ -5,6 +5,7 @@
 Amazon Fargate is a technology that provisions containers for your applications. ECS containers provisioned by Fargate are automatically scaled, load balanced, and managed. Fargate schedules your containers for availability, providing an easier way to build and operate containerized applications.
 
 Connect Fargate to Fargate in order to:
+
 * Monitor the health of your tasks and containers in real time.
 * Collect metrics from your containerized applications running in Fargate tasks.
 
