@@ -36,9 +36,6 @@
 '''
 
 # stdlib
-import sys
-import os
-import json
 import time
 from urlparse import urlparse
 
@@ -95,29 +92,25 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'sortdb'
 SORTDB_SERVICE_CHECK = 'sortdb.http.can_connect'
 
 class SortdbCheck(AgentCheck):
-    
+
 
     def check(self, instance):
         sortdb_url = instance.get('url')
         if sortdb_url is None:
             raise Exception('The Sortdb http api stats url must be specified in the configuration')
-        
         # get tags for instances to differentiate multiple instances
         o = urlparse(sortdb_url)
         instance_tags = []
- 
         if all([o.hostname, o.port]):
             instance_tags = ["sortdb_instance:{0}-{1}".format(o.hostname, o.port)]
-
         #service check
         self.service_check(SORTDB_SERVICE_CHECK,
             AgentCheck.OK,
             tags=instance_tags,
-            message='Connection to %s was successful' % sortdb_url) 
+            message='Connection to %s was successful' % sortdb_url)
 
         # get and set metrics
         self._get_sortdb_metrics(sortdb_url, SORTDB_METRICS, instance_tags)
-               
 
     def _get_response_from_url(self, url, timeout, aggregation_key, instance_tags):
         '''
@@ -136,7 +129,6 @@ class SortdbCheck(AgentCheck):
             self.service_check(SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL,
                                tags= instance_tags,
                                message="Request timeout: {0}, {1}".format(url, e))
-            
             self.timeout_event(url, timeout, aggregation_key)
             raise
 
@@ -153,7 +145,7 @@ class SortdbCheck(AgentCheck):
         except JSONDecodeError as e:
             self.service_check(SORTDB_SERVICE_CHECK,
                 AgentCheck.CRITICAL,
-                               tags = instance_tags, 
+                               tags = instance_tags,
                                message='JSON Parse failed: {0}, {1}'.format(url, e))
             raise
 
@@ -173,7 +165,7 @@ class SortdbCheck(AgentCheck):
         '''
 
         timeout = float(self.init_config.get('timeout', 10))
-         # Use a hash of the URL as an aggregation key
+        # Use a hash of the URL as an aggregation key
         aggregation_key = md5(sortdb_url).hexdigest()
 
         response = self._get_response_from_url(sortdb_url, timeout, aggregation_key, instance_tags)
@@ -186,8 +178,6 @@ class SortdbCheck(AgentCheck):
 
             else:
                 self.log.debug('Value not returned for metric: "%s" ' % (metric))
-            
-
 
     def _set_metric(self, metric_name, metric_type, value, instance_tags):
         '''
@@ -209,5 +199,4 @@ class SortdbCheck(AgentCheck):
             'event_type': 'http_check',
             'msg_title': 'URL timeout',
             'msg_text': '%s timed out after %s seconds.' % (url, timeout),
-            'aggregation_key': aggregation_key
-    })
+            'aggregation_key': aggregation_key})

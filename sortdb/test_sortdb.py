@@ -4,12 +4,11 @@
 
 # stdlib
 import os
-from nose.plugins.attrib import attr
 import json
 # 3p
 from mock import MagicMock
 # project
-from tests.checks.common import AgentCheckTest, Fixtures
+from tests.checks.common import AgentCheckTest
 
 
 instance = {
@@ -52,13 +51,11 @@ class TestSortdb(AgentCheckTest):
     """Basic Test for sortdb integration."""
     CHECK_NAME = 'sortdb'
     FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'ci')
- 
 
     def test_check(self):
         """
         Testing Sortdb check.
         """
-        content_type = 'application/json; version=0.0.4'
         f_name = os.path.join(os.path.dirname(__file__), 'ci', 'sortdb_metrics.json')
         with open(f_name, 'r') as f:
             bin_data = json.load(f)
