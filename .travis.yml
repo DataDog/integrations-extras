@@ -37,6 +37,7 @@ env:
     - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
   matrix:
     - TRAVIS_FLAVOR=default
+    - TRAVIS_FLAVOR=filebeat FLAVOR_VERSION=latest
     - TRAVIS_FLAVOR=snmpwalk
     - TRAVIS_FLAVOR=hbase_master
     - TRAVIS_FLAVOR=hbase_regionserver
@@ -44,6 +45,7 @@ env:
     - TRAVIS_FLAVOR=neo4j
     - TRAVIS_FLAVOR=storm FLAVOR_VERSION=latest
     - TRAVIS_FLAVOR=sortdb FLAVOR_VERSION=latest
+    - TRAVIS_FLAVOR=logstash FLAVOR_VERSION=latest
     # END OF TRAVIS MATRIX
 
 before_install:
