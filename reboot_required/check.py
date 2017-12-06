@@ -33,7 +33,7 @@ class RebootRequiredCheck(AgentCheck):
         if isfile(reboot_signal_file):
             if isfile(created_at_file):
                 created_at = self._get_created_at(created_at_file)
-                return datetime.utcnow() - datetime.fromtimestamp(created_at)
+                return datetime.utcnow() - datetime.utcfromtimestamp(created_at)
             else:
                 self._touch(created_at_file)
         elif isfile(created_at_file):
