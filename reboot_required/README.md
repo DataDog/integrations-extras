@@ -8,6 +8,13 @@ Linux systems that are configured to autoinstall packages may not be configured 
 
 The directory check is packaged with the Agent, so simply [install the Agent](https://app.datadoghq.com/account/settings#agent) anywhere you wish to use it.
 
+Make sure you create a dd-agent (user that runs the Datadog agent) writeable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
+
+```
+sudo mkdir /var/run/dd-agent
+sudo chown dd-agent:dd-agent /var/run/dd-agent 
+```
+
 ## Configuration
 
 1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml](https://github.com/DataDog/integrations-core/blob/master/reboot_required/conf.yaml.example) for all available configuration options:
