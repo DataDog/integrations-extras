@@ -52,7 +52,7 @@ The reboot_required check does not include any events at this time.
 
 ## Service Checks
 
-To create alert conditions on these service checks in Datadog, select 'System' on the [Create Monitor](https://app.datadoghq.com/monitors#/create) page, not 'Integration'.
+To create alert conditions on these service checks in Datadog, select 'Custom Check' on the [Create Monitor](https://app.datadoghq.com/monitors#/create) page, not 'Integration'.
 
 **`system.reboot_required`**:
 
