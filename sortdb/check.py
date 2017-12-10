@@ -37,7 +37,6 @@
 
 # stdlib
 import time
-from urlparse import urlparse
 
 # 3rd party
 import requests
@@ -99,10 +98,9 @@ class SortdbCheck(AgentCheck):
         if sortdb_url is None:
             raise Exception('The Sortdb http api stats url must be specified in the configuration')
         # get tags for instances to differentiate multiple instances
-        o = urlparse(sortdb_url)
-        instance_tags = []
-        if all([o.hostname, o.port]):
-            instance_tags = ["sortdb_instance:{0}-{1}".format(o.hostname, o.port)]
+        instance_tags = instance.get('tags', [])
+        # deduplicating the tags
+        instance_tags = list(set(instance_tags))
         #service check
         self.service_check(SORTDB_SERVICE_CHECK,
             AgentCheck.OK,
