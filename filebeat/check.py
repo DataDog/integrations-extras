@@ -6,7 +6,7 @@
 
 # 3rd party
 import os
-import simplejson
+import ast
 
 # project
 from checks import AgentCheck
@@ -27,15 +27,23 @@ class FilebeatCheck(AgentCheck):
 
         registry_contents = self._parse_registry_file(registry_file_path)
 
-        for item in registry_contents.itervalues():
+        for item in registry_contents:
+            self.log.debug("found item: %s" % item)
             self._process_registry_item(item)
 
     def _parse_registry_file(self, registry_file_path):
         try:
-            with open(registry_file_path) as registry_file:
-                return simplejson.load(registry_file)
-        except IOError:
-            self.log.warn('No filebeat registry file found at %s' % (registry_file_path, ))
+            # check that the collector user has permissions to read the file
+            if os.access(registry_file_path ,os.R_OK):
+                with open(registry_file_path) as registry_file:
+                    return ast.literal_eval(registry_file.read()) # convert the content from str to list
+            else:
+                # no permissions, alert and return empty dict
+                self.log.error("Cannot open the registry log file - check the file permissions")
+                return {}
+        except Exception as e:
+            self.log.error("General error while reading the registry file,"
+                           " the error message is: %s" % e.message)
             return {}
 
     def _process_registry_item(self, item):
@@ -57,3 +65,4 @@ class FilebeatCheck(AgentCheck):
 
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os['device'] and stats.st_ino == file_state_os['inode']
+
