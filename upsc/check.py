@@ -18,6 +18,8 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'upsc'
 class UpscCheck(AgentCheck):
 
     DEV_NULL = open(os.devnull, 'w')
+    DEFAULT_STRING_TAGS = ['device.mfr', 'device.model']
+    DEFAULT_EXCLUDED_TAGS = ['ups.vendorid', 'ups.productid', 'driver.version.internal', 'driver.version']
 
     def list_ups_devices(self):
         """ Generate and return the list of configured devices.
@@ -27,7 +29,7 @@ class UpscCheck(AgentCheck):
         """
         try:
             results = subprocess.check_output(['upsc', '-l'], stderr=self.DEV_NULL)
-            return results.splitlines(False)
+            return [r.lstrip().rstrip() for r in results.split('\n')]
         except subprocess.CalledProcessError as e:
             self.log.error("Unable to query devices", e)
             return []
@@ -45,7 +47,7 @@ class UpscCheck(AgentCheck):
             stats = {}
             for line in results.splitlines(False):
                 key, val = line.split(':', 1)
-                stats[key] = val
+                stats[key] = val.lstrip().rstrip()
             return stats
         except subprocess.CalledProcessError as e:
             self.log.error("Unable to query device %s" % name, e)
@@ -68,26 +70,24 @@ class UpscCheck(AgentCheck):
                 continue
             found_re = False
             for r in self.excluded_re:
-                "type: re.compile"
                 if r.match(k):
                     found_re = True
                     break
             if found_re:
                 continue
 
-            v = v.lstrip().rstrip()
             try:
                 value = float(v.lstrip().rstrip())
                 results[k] = value
             except Exception:
                 if k == 'ups.status':
                     if v.lower().startswith('ol') or v.lower().startswith('on'):
-                        results[k] = 1
+                        results[k] = 1.0
                     else:
-                        results[k] = 0
+                        results[k] = 0.0
                 if k in self.string_tags:
                     tags.add('{}:{}'.format(k, self.convert_to_underscore_separated(v)))
-        return results
+        return results, tags
 
     def check(self, instance):
         self.update_from_config(instance)
@@ -102,11 +102,14 @@ class UpscCheck(AgentCheck):
                 if excluded:
                     continue
 
+                self.log.debug("querying device: %s", device)
+
                 # query stats
-                stats, tags = self.query_ups_device(device)
+                raw_stats = self.query_ups_device(device)
+                stats, tags = self.convert_and_filter_stats(raw_stats)
 
                 # report stats
-                for k, v in stats:
+                for k, v in stats.items():
                     self.gauge('upsc.{}'.format(k), v, tags=tags)
 
     def update_from_config(self, instance):
@@ -115,13 +118,13 @@ class UpscCheck(AgentCheck):
         :param instance: Agent config instance.
         :return: None
         """
-        self.string_tags = ['device.mfr', 'device.model']
+        self.string_tags = list(self.DEFAULT_STRING_TAGS)
         self.string_tags.extend(instance.get('string_tags', []))
 
         self.additional_tags = []
         self.additional_tags.extend(instance.get('tags', []))
 
-        self.excluded = ['ups.vendorid', 'ups.productid', 'driver.version.internal', 'driver.version']
+        self.excluded = list(self.DEFAULT_EXCLUDED_TAGS)
         self.excluded.extend(instance.get('excluded', []))
         self.excluded_re = []
         for excluded_regex in instance.get('excluded_re', []):
