@@ -135,3 +135,4 @@ class UpscCheck(AgentCheck):
         self.excluded_devices_re = []
         for excluded_regex in instance.get('excluded_devices_re', []):
             self.excluded_devices_re.append(re.compile(excluded_regex))
+
