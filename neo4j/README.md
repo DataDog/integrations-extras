@@ -7,11 +7,12 @@ Get metrics from neo4j service in real time to:
 * Visualize and monitor neo4j states
 * Be notified about neo4j failovers and events.
 
-## Installation
+## Setup
+### Installation
 
 Install the `dd-check-neo4j` package manually or with your favorite configuration manager
 
-## Configuration
+### Configuration
 
 Edit the `neo4j.yaml` file to configure the servers to monitor:
 
@@ -23,9 +24,9 @@ Edit the `neo4j.yaml` file to configure the servers to monitor:
 * server_name: set to what should be displayed in DataDog
 * version: set to the neo4j versin
 
-## Validation
+### Validation
 
-When you run `datadog-agent info` you should see something like the following:
+[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
 
     Checks
     ======
@@ -38,3 +39,20 @@ When you run `datadog-agent info` you should see something like the following:
 ## Compatibility
 
 The neo4j check is compatible with all major platforms
+
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+The Neo4j check does not include any event at this time.
+
+### Service Checks
+The Neo4j check does not include any service check at this time.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
