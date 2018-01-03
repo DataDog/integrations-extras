@@ -68,4 +68,4 @@ Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

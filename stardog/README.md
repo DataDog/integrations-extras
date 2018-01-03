@@ -2,19 +2,19 @@
 
 ## Overview
 
-Get metrics from stardog service in real time to:
+Get metrics from Stardog service in real time to:
 
-* Visualize and monitor stardog states
-* Be notified about stardog failovers and events.
+* Visualize and monitor Stardog states
+* Be notified about Stardog failovers and events.
 
 ## Setup
 ### Installation
 
-Install the `dd-check-stardog` package manually or with your favorite configuration manager
+Install the `dd-check-stardog` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `stardog.yaml` file to point to your server and set the admin username and password
+Edit the `stardog.yaml` file to point to your server and set the admin username and password.
 
 ### Validation
 
@@ -30,21 +30,21 @@ Edit the `stardog.yaml` file to point to your server and set the admin username 
 
 ## Compatibility
 
-The stardog check is compatible with all major platforms
+The Stardog check is compatible with all major platforms.
 
 ## Data Collected
 ### Metrics
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/stardog/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-The Stardog check does not include any event at this time.
+The Stardog check does not include any events at this time.
 
 ### Service Checks
-The Stardog check does not include any service check at this time.
+The Stardog check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

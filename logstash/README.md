@@ -4,17 +4,17 @@
 
 Get metrics from logstash service in real time to:
 
-* Visualize and monitor logstash states
+* Visualize and monitor logstash states.
 * Be notified about logstash events.
 
 ## Setup
 ### Installation
 
-Install the `dd-check-logstash` package manually or with your favorite configuration manager
+Install the `dd-check-logstash` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `logstash.yaml` file to point to your server and port, set the masters to monitor
+Edit the `logstash.yaml` file to point to your server and port, set the masters to monitor.
 
 ### Validation
 
@@ -37,7 +37,7 @@ The logstash check is compatible with Logstash 5.6 and possible earlier versions
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-The Filebeat check does not include any event at this time.
+The Filebeat check does not include any events at this time.
 
 ### Service checks
 
@@ -59,4 +59,4 @@ Check that the `url` in `logstash.yaml` is correct.
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

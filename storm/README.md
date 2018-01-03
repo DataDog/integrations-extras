@@ -2,7 +2,7 @@
 
 ## Overview
 
-Get metrics from storm service in real time to:
+Get metrics from Storm service in real time to:
 
 * Visualize and monitor storm cluster and topology metrics.
 * Be notified about storm failovers and events.
@@ -10,11 +10,11 @@ Get metrics from storm service in real time to:
 ## Setup
 ### Installation
 
-Install the `dd-check-storm` package manually or with your favorite configuration manager
+Install the `dd-check-storm` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `storm.yaml` file to point to your server and port, set the masters to monitor
+Edit the `storm.yaml` file to point to your server and port, set the masters to monitor.
 
 ### Validation
 
@@ -37,14 +37,14 @@ The storm check is compatible with all major platforms, and apache storm version
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/storm/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-The Storm check does not include any event at this time.
+The Storm check does not include any events at this time.
 
 ### Service Checks
-The Storm check does not include any service check at this time.
+The Storm check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

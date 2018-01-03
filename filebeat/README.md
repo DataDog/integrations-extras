@@ -4,17 +4,17 @@
 
 Get metrics from filebeat service in real time to:
 
-* Visualize and monitor filebeat states
+* Visualize and monitor filebeat states.
 * Be notified about filebeat failovers and events.
 
 ## Setup
 ### Installation
 
-Install the `dd-check-filebeat` package manually or with your favorite configuration manager
+Install the `dd-check-filebeat` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `filebeat.yaml` file to point to your server and port, set the masters to monitor
+Edit the `filebeat.yaml` file to point to your server and port, set the masters to monitor.
 
 ### Validation
 
@@ -30,21 +30,21 @@ Edit the `filebeat.yaml` file to point to your server and port, set the masters 
 
 ## Compatibility
 
-The Filebeat check is compatible with all major platforms
+The Filebeat check is compatible with all major platforms.
 
 ## Data Collected
 ### Metrics
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-The Filebeat check does not include any event at this time.
+The Filebeat check does not include any events at this time.
 
 ### Service Checks
-The Filebeat check does not include any service check at this time.
+The Filebeat check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

@@ -2,19 +2,19 @@
 
 ## Overview
 
-Get metrics from snmpwalk service in real time to:
+Get metrics from SNMP walk service in real time to:
 
-* Visualize and monitor snmpwalk states
-* Be notified about snmpwalk failovers and events.
+* Visualize and monitor SNMP walk states
+* Be notified about SNMP walk failovers and events.
 
 ## Setup
 ### Installation
 
-Install the `dd-check-snmpwalk` package manually or with your favorite configuration manager
+Install the `dd-check-snmpwalk` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `snmpwalk.yaml` file to point to your server and port, set the masters to monitor
+Edit the `snmpwalk.yaml` file to point to your server and port, set the masters to monitor.
 
 ### Validation
 
@@ -30,22 +30,22 @@ Edit the `snmpwalk.yaml` file to point to your server and port, set the masters 
 
 ## Compatibility
 
-The snmpwalk check is compatible with all major platforms
+The SNMP walk check is compatible with all major platforms.
 
 ## Data Collected
 ### Metrics
 
-The SNMP walk check does not include any event at this time.
+The SNMP walk check does not include any metrics at this time.
 
 ### Events
-The SNMP walk check does not include any event at this time.
+The SNMP walk check does not include any events at this time.
 
 ### Service Checks
-The SNMP walk check does not include any service check at this time.
+The SNMP walk check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
