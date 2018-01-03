@@ -2,10 +2,10 @@
 
 ## Overview
 
-Get events and metrics from your app in real time to
+Get events and metrics from your app in real time to:
 
-* Track and notify of any downtime or interruptions
-* Visualize response time metrics from synthetic requests
+* Track and notify of any downtime or interruptions.
+* Visualize response time metrics from synthetic requests.
 
 ![Uptime.com Graph](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/uptime/uptime/images/snapshot.png)
 
@@ -24,5 +24,21 @@ The following describes the fields shown when configuring Datadog within your Up
 * Application Key: <span class="app_key" data-name="uptime.com"></span> 
 
 <li>Once you've configured your Datadog profile, you will need to assign the profile to a contact group located under Alerting>Contacts. The profile is assigned at the Push Notifications field within the contact group.</li> 
-
 </ul>
+
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/uptime/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+The Uptime check does not include any events at this time.
+
+### Service Checks
+The Uptime check does not include any service checks at this time.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
