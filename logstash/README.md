@@ -34,10 +34,10 @@ The logstash check is compatible with Logstash 5.6 and possible earlier versions
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-The Filebeat check does not include any events at this time.
+The Logstash check does not include any events at this time.
 
 ### Service checks
 
