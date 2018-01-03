@@ -2,10 +2,10 @@
 
 ## Overview
 
-Get metrics from logstash service in real time to:
+Get metrics from Logstash service in real time to:
 
-* Visualize and monitor logstash states.
-* Be notified about logstash events.
+* Visualize and monitor Logstash states.
+* Be notified about Logstash events.
 
 ## Setup
 ### Installation
@@ -30,7 +30,7 @@ Edit the `logstash.yaml` file to point to your server and port, set the masters 
 
 ## Compatibility
 
-The logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
+The Logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
 
 ## Data Collected
 ### Metrics
