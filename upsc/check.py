@@ -29,7 +29,7 @@ class UpscCheck(AgentCheck):
         """
         try:
             results = subprocess.check_output(['upsc', '-l'], stderr=self.DEV_NULL)
-            return [r.lstrip().rstrip() for r in results.split('\n')]
+            return [r.strip() for r in results.split('\n')]
         except subprocess.CalledProcessError as e:
             self.log.error("Unable to query devices: %s", e)
             return []
@@ -47,7 +47,7 @@ class UpscCheck(AgentCheck):
             stats = {}
             for line in results.splitlines(False):
                 key, val = line.split(':', 1)
-                stats[key] = val.lstrip().rstrip()
+                stats[key] = val.strip()
             return stats
         except subprocess.CalledProcessError as e:
             self.log.error("Unable to query device %s" % name, e)
@@ -76,10 +76,10 @@ class UpscCheck(AgentCheck):
             if found_re:
                 continue
 
-            try:
-                value = float(v.lstrip().rstrip())
+            try:  # try a number conversion
+                value = float(v.strip())
                 results[k] = value
-            except Exception:
+            except Exception:  # this is a string value instead
                 if k == 'ups.status':
                     if v.lower().startswith('ol') or v.lower().startswith('on'):
                         results[k] = 1.0
@@ -121,8 +121,7 @@ class UpscCheck(AgentCheck):
         self.string_tags = list(self.DEFAULT_STRING_TAGS)
         self.string_tags.extend(instance.get('string_tags', []))
 
-        self.additional_tags = []
-        self.additional_tags.extend(instance.get('tags', []))
+        self.additional_tags = instance.get('tags', [])
 
         self.excluded = list(self.DEFAULT_EXCLUDED_TAGS)
         self.excluded.extend(instance.get('excluded', []))
@@ -130,8 +129,7 @@ class UpscCheck(AgentCheck):
         for excluded_regex in instance.get('excluded_re', []):
             self.excluded_re.append(re.compile(excluded_regex))
 
-        self.excluded_devices = []
-        self.excluded_devices.extend(instance.get('excluded_devices', []))
+        self.excluded_devices = instance.get('excluded_devices', [])
         self.excluded_devices_re = []
         for excluded_regex in instance.get('excluded_devices_re', []):
             self.excluded_devices_re.append(re.compile(excluded_regex))
