@@ -20,4 +20,4 @@ To capture metrics, you need to deploy Cohesive Networks' DataDog container, set
 
 Read the guide [here](https://cohesive.net/dnld/Cohesive-Networks_VNS3-DataDog-Container-Guide.pdf).
 
-Watch the video</a> [here](https://youtu.be/sTCgCG3m4vk).
+Watch the video [here](https://youtu.be/sTCgCG3m4vk).
