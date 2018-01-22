@@ -4,15 +4,15 @@ Get state information regarding your VNS3 topology's IPSec endpoints/tunnels, VN
 
 *   Peering links Status Check:
 
-    ![](images/peering.png)
+    ![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/peering.png)
 
 *   Overlay Clients Status Check:
 
-    ![](images/clients.png)
+    ![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/clients.png)
 
 *   IPSec tunnels Status Check:
 
-    ![](images/ipsec.png)
+    ![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/ipsec.png)
 
 ## Configuration
 
