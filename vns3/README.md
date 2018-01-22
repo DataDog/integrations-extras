@@ -16,6 +16,8 @@ Get state information regarding your VNS3 topology's IPSec endpoints/tunnels, VN
 
 ## Setup
 
+### Configuration
+
 To capture metrics, you need to deploy Cohesive Networks' DataDog container, set up the VNS3 firewall, and configure the container.
 
 Read the guide [here](https://cohesive.net/dnld/Cohesive-Networks_VNS3-DataDog-Container-Guide.pdf).
