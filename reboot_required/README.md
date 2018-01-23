@@ -18,7 +18,7 @@ sudo chown dd-agent:dd-agent /var/run/dd-agent
 
 ### Configuration
 
-1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml](https://github.com/DataDog/integrations-core/blob/master/reboot_required/conf.yaml.example) for all available configuration options:
+1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml](https://github.com/DataDog/integrations-extras/blob/master/reboot_required/conf.yaml.example) for all available configuration options:
 
 ### Validation
 
