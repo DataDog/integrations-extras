@@ -47,7 +47,8 @@ test:
         - TRAVIS_FLAVOR="storm" bundle exec rake ci:run
         - TRAVIS_FLAVOR="logstash" bundle exec rake ci:run
         - TRAVIS_FLAVOR="stardog" bundle exec rake ci:run
-         - rake ci:run[sortdb]
+        - TRAVIS_FLAVOR="sortdb" bundle exec rake ci:run[sortdb]
+        - TRAVIS_FLAVOR="upsc" bundle exec rake ci:run
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi

@@ -18,6 +18,7 @@ is available in our contribution guidelines.
 
 - [ ] Bumped the version check in `manifest.json`
 - [ ] Updated `CHANGELOG.md`
+- [ ] If PR impacts documentation, docs team has been notified or [an issue has been opened on the documentation repository](https://github.com/DataDog/documentation/issues/new)
 
 ### Additional Notes
 
