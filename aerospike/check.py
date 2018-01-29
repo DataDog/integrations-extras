@@ -13,10 +13,10 @@ from checks import AgentCheck
 
 SOURCE_TYPE_NAME = 'aerospike'
 SERVICE_CHECK_NAME = '%s.cluster_up' % SOURCE_TYPE_NAME
-CLUSTER_EVENT_TYPE = SOURCE_TYPE_NAME
-NAMESPACE_EVENT_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
-NAMESPACE_TPS_EVENT_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
-SINDEX_EVENT_TYPE = '%s.sindex' % SOURCE_TYPE_NAME
+CLUSTER_METRIC_TYPE = SOURCE_TYPE_NAME
+NAMESPACE_METRIC_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
+NAMESPACE_TPS_METRIC_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
+SINDEX_METRIC_TYPE = '%s.sindex' % SOURCE_TYPE_NAME
 
 Addr = namedtuple('Addr', ['host', 'port'])
 
@@ -24,6 +24,11 @@ def parse_sindex_namespace(data, namespace):
     idxs = []
     while data != []:
         l = data.pop(0)
+
+       # $ asinfo -v 'sindex/phobos_sindex'
+       # ns=phobos_sindex:set=longevity:indexname=str_100_idx:num_bins=1:bins=str_100_bin:type=TEXT:sync_state=synced:state=RW; \
+       # ns=phobos_sindex:set=longevity:indexname=str_uniq_idx:num_bins=1:bins=str_uniq_bin:type=TEXT:sync_state=synced:state=RW; \
+       # ns=phobos_sindex:set=longevity:indexname=int_uniq_idx:num_bins=1:bins=int_uniq_bin:type=INT SIGNED:sync_state=synced:state=RW;
 
         match = re.match('^ns=%s:[^:]+:indexname=([^:]+):.*$' % namespace,l)
         if match == None:
@@ -39,7 +44,7 @@ class AerospikeCheck(AgentCheck):
         self.connections = {}
 
     def check(self, instance):
-        addr, metrics, namespace_metrics, required_namespaces, tags = \
+        addr, metrics, namespace_metrics, required_namespaces, tags, mappings = \
             self._get_config(instance)
 
         try:
@@ -47,22 +52,22 @@ class AerospikeCheck(AgentCheck):
 
             with closing(conn.makefile('r')) as fp:
                 conn.send('statistics\r')
-                self._process_data(fp, CLUSTER_EVENT_TYPE, metrics, tags=tags)
+                self._process_data(fp, CLUSTER_METRIC_TYPE, metrics, tags=tags, mappings=mappings.get(mappings['service'],{}))
 
                 namespaces = self._get_namespaces(conn, fp, required_namespaces)
 
                 for ns in namespaces:
                     conn.send('namespace/%s\r' % ns)
-                    self._process_data(fp, NAMESPACE_EVENT_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
+                    self._process_data(fp, NAMESPACE_METRIC_TYPE, namespace_metrics, tags+['namespace:%s' % ns],mappings.get(mappings['namespace'],{}))
 
                     conn.send('sindex/%s\r' % ns)
                     for idx in parse_sindex_namespace(fp.readline().split(';')[:-1], ns):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
-                        self._process_data(fp, SINDEX_EVENT_TYPE, [], 
-                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
+                        self._process_data(fp, SINDEX_METRIC_TYPE, [], 
+                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)],mappings.get(mappings['service'],{}))
 
                 conn.send('throughput:\r')
-                self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_EVENT_TYPE, namespaces, tags)
+                self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_METRIC_TYPE, namespaces, tags)
 
             self.service_check(SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
         except Exception as e:
@@ -78,8 +83,9 @@ class AerospikeCheck(AgentCheck):
         namespace_metrics = set(instance.get('namespace_metrics', []))
         required_namespaces = instance.get('namespaces', None)
         tags = instance.get('tags', [])
+		mappings = instance.get('mappings',{})
 
-        return (Addr(host,port), metrics, namespace_metrics, required_namespaces, tags)
+        return (Addr(host,port), metrics, namespace_metrics, required_namespaces, tags, mappings)
 
     def _get_namespaces(self, conn, fp, required_namespaces=[]):
         conn.send('namespaces\r')
@@ -99,7 +105,7 @@ class AerospikeCheck(AgentCheck):
 
         return conn
 
-    def _process_throughput(self, data, event_type, namespaces, tags={}):
+    def _process_throughput(self, data, metric_type, namespaces, tags={}):
         while data != []:
             l = data.pop(0)
 
@@ -109,7 +115,13 @@ class AerospikeCheck(AgentCheck):
                     return
                 l = data.pop(0)
 
-            match = re.match('^{(.+)}-([^:]+):',l)
+            # $ asinfo -v 'throughput:'
+            # {ns}-read:23:56:38-GMT,ops/sec;23:56:48,0.0;{ns}-write:23:56:38-GMT,ops/sec;23:56:48,0.0; \
+            # error-no-data-yet-or-back-too-small;error-no-data-yet-or-back-too-small
+			#
+			# data = [ "{ns}-read..","23:56:40,0.0", "{ns}-write...","23:56:48,0.0" ... ]
+
+            match = re.match('^{(.+)}-([^:]+):',l) 
             if match == None:
                 continue
 
@@ -120,11 +132,11 @@ class AerospikeCheck(AgentCheck):
             key = match.groups()[1]
             if data == []:
                 return # unexpected EOF
-            val = data.pop(0).split(',')[1]
+            val = data.pop(0).split(',')[1]  
 
-            self._send(event_type, key, val, tags + ['namespace:%s' % ns] )
+            self._send(metric_type, key, val, tags + ['namespace:%s' % ns] )
 
-    def _process_data(self, fp, event_type, required_keys=[], tags={}):
+    def _process_data(self, fp, metric_type, required_keys=[], tags={},mappings={}):
         d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(';'))
         if required_keys:
             required_data = {k: d[k] for k in required_keys if k in d}
@@ -132,19 +144,23 @@ class AerospikeCheck(AgentCheck):
             required_data = d
 
         for key, value in required_data.items():
-            self._send(event_type, key, value, tags)
+            self._send(metric_type, key, value, tags, mappings)
 
-    def _send(self, event_type, key, val, tags={}):
+    def _send(self, metric_type, key, val, tags={}, mappings={}):
         datatype = 'event'
 
-        if re.match('^{(.+)}-^[-]+-hist',key):
+        if re.match('^{(.+)}-(.*)hist-track',key):
+            self.log.debug("Histogram config skipped: %s=%s",key,str(val))
             return # skip histogram configuration
 
         if key == 'cluster_key':
             val = str(int(val, 16))
 
         if val.isdigit():
-            datatype = 'gauge'
+			if key in mappings:
+			    datatype='rate'
+			else:
+                datatype = 'gauge'
         elif val.lower() in ('true', 'on', 'enable', 'enabled'): # boolean : true
             val = 1
             datatype = 'gauge'
@@ -159,7 +175,11 @@ class AerospikeCheck(AgentCheck):
                 datatype = 'event'
 
         if datatype == 'gauge':
-            self.gauge(self._make_key(event_type, key), val, tags=tags)
+            self.gauge(self._make_key(metric_type, key), val, tags=tags)
+        else if datatype == 'rate':
+		    self.rate(self._make_key(metric_type, key), val, tags=tags)
+		else:
+            return # Non numeric/boolean metric, discard
         #else:
         #    self.event({
         #        'timestamp': int(time.time()),
