@@ -1,5 +1,13 @@
 # Aerospike agent check for Datadog Agent.
-# Copyright (C) 2015 Pippio, Inc. All rights reserved.
+# Original work Copyright (C) 2015 Pippio, Inc. All rights reserved.
+# Modified work Copyright (C) 2017 Red Sift
+# Modified work Copyright (C) 2018 Aerospike, Inc.
+
+# (C) Datadog, Inc. 2010-2018
+# All rights reserved
+# This software may be modified and distributed under the terms
+# of the BSD-3 license. See the LICENSE file for details.
+
 
 # stdlib
 import socket
@@ -180,15 +188,6 @@ class AerospikeCheck(AgentCheck):
             self.rate(self._make_key(metric_type, key), val, tags=tags)
         else:
             return # Non numeric/boolean metric, discard
-        #else:
-        #    self.event({
-        #        'timestamp': int(time.time()),
-        #        'event_type': self._make_key(event_type, key),
-        #        'aggregation_key': 'text-metrics',
-        #        'msg_title': key,
-        #        'msg_text': val,
-        #        'tags': tags
-        #    })
 
     @staticmethod
     def _make_key(event_type, n):
