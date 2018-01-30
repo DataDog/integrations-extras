@@ -2,7 +2,7 @@
 
 ## Overview
 
-Get metrics from aerospike service in real time to:
+Get metrics from Aerospike Database in real time to:
 
 * Visualize and monitor aerospike states
 * Be notified about aerospike failovers and events.
@@ -25,8 +25,8 @@ When you run `datadog-agent info` you should see something like the following:
         aerospike
         -----------
           - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
+          - Collected 269 metrics, 0 events & 1 service checks
 
 ## Compatibility
 
-The aerospike check is compatible with all major platforms
+The Aerospike check is compatible with all major platforms and Aerospike Community Edition

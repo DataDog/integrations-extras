@@ -44,7 +44,7 @@ class AerospikeCheck(AgentCheck):
         self.connections = {}
 
     def check(self, instance):
-        addr, metrics, namespace_metrics, required_namespaces, tags, mappings = \
+        addr, metrics, namespace_metrics, required_namespaces, tags = \
             self._get_config(instance)
 
         try:
@@ -52,19 +52,19 @@ class AerospikeCheck(AgentCheck):
 
             with closing(conn.makefile('r')) as fp:
                 conn.send('statistics\r')
-                self._process_data(fp, CLUSTER_METRIC_TYPE, metrics, tags=tags, mappings=mappings.get(mappings['service'],{}))
+                self._process_data(fp, CLUSTER_METRIC_TYPE, metrics, tags=tags)
 
                 namespaces = self._get_namespaces(conn, fp, required_namespaces)
 
                 for ns in namespaces:
                     conn.send('namespace/%s\r' % ns)
-                    self._process_data(fp, NAMESPACE_METRIC_TYPE, namespace_metrics, tags+['namespace:%s' % ns],mappings.get(mappings['namespace'],{}))
+                    self._process_data(fp, NAMESPACE_METRIC_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
 
                     conn.send('sindex/%s\r' % ns)
                     for idx in parse_sindex_namespace(fp.readline().split(';')[:-1], ns):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
                         self._process_data(fp, SINDEX_METRIC_TYPE, [], 
-                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)],mappings.get(mappings['service'],{}))
+                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_METRIC_TYPE, namespaces, tags)
@@ -83,9 +83,8 @@ class AerospikeCheck(AgentCheck):
         namespace_metrics = set(instance.get('namespace_metrics', []))
         required_namespaces = instance.get('namespaces', None)
         tags = instance.get('tags', [])
-		mappings = instance.get('mappings',{})
 
-        return (Addr(host,port), metrics, namespace_metrics, required_namespaces, tags, mappings)
+        return (Addr(host,port), metrics, namespace_metrics, required_namespaces, tags)
 
     def _get_namespaces(self, conn, fp, required_namespaces=[]):
         conn.send('namespaces\r')
@@ -118,8 +117,8 @@ class AerospikeCheck(AgentCheck):
             # $ asinfo -v 'throughput:'
             # {ns}-read:23:56:38-GMT,ops/sec;23:56:48,0.0;{ns}-write:23:56:38-GMT,ops/sec;23:56:48,0.0; \
             # error-no-data-yet-or-back-too-small;error-no-data-yet-or-back-too-small
-			#
-			# data = [ "{ns}-read..","23:56:40,0.0", "{ns}-write...","23:56:48,0.0" ... ]
+            #
+            # data = [ "{ns}-read..","23:56:40,0.0", "{ns}-write...","23:56:48,0.0" ... ]
 
             match = re.match('^{(.+)}-([^:]+):',l) 
             if match == None:
@@ -136,7 +135,7 @@ class AerospikeCheck(AgentCheck):
 
             self._send(metric_type, key, val, tags + ['namespace:%s' % ns] )
 
-    def _process_data(self, fp, metric_type, required_keys=[], tags={},mappings={}):
+    def _process_data(self, fp, metric_type, required_keys=[], tags={}):
         d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(';'))
         if required_keys:
             required_data = {k: d[k] for k in required_keys if k in d}
@@ -144,9 +143,9 @@ class AerospikeCheck(AgentCheck):
             required_data = d
 
         for key, value in required_data.items():
-            self._send(metric_type, key, value, tags, mappings)
+            self._send(metric_type, key, value, tags)
 
-    def _send(self, metric_type, key, val, tags={}, mappings={}):
+    def _send(self, metric_type, key, val, tags={}):
         datatype = 'event'
 
         if re.match('^{(.+)}-(.*)hist-track',key):
@@ -157,9 +156,9 @@ class AerospikeCheck(AgentCheck):
             val = str(int(val, 16))
 
         if val.isdigit():
-			if key in mappings:
-			    datatype='rate'
-			else:
+            if key in self.init_config.get('mappings',[]):
+                datatype='rate'
+            else:
                 datatype = 'gauge'
         elif val.lower() in ('true', 'on', 'enable', 'enabled'): # boolean : true
             val = 1
@@ -176,9 +175,10 @@ class AerospikeCheck(AgentCheck):
 
         if datatype == 'gauge':
             self.gauge(self._make_key(metric_type, key), val, tags=tags)
-        else if datatype == 'rate':
-		    self.rate(self._make_key(metric_type, key), val, tags=tags)
-		else:
+        elif datatype == 'rate':
+            print "self.rate %s"%key
+            self.rate(self._make_key(metric_type, key), val, tags=tags)
+        else:
             return # Non numeric/boolean metric, discard
         #else:
         #    self.event({
