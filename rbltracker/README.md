@@ -18,3 +18,20 @@ Setting up RBLTracker using webhooks:
 4.  (optional) adjust the contact schedule for this new contact.
 
 RBLTracker will send listing and delisting alerts to your Datadog events dashboard. Click [here](https://rbltracker.com/docs/adding-a-datadog-contact-type/) for a full integration guide.
+
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/rbltracker/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+Push your RBLTracker listing/de-listing events into your [Datadog Even Stream](https://docs.datadoghq.com/graphing/event_stream/) 
+
+### Service Checks
+The RBLTracker check does not include any service checks at this time.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

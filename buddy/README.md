@@ -17,14 +17,31 @@ Enabling this integration will let you:
 4.  Enter the name of your Datadog account and paste the API key that you copied
 5.  You can use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
 
-```
-# Event title
-${execution.pipeline.name} execution #${execution.id}
+    ```
+    # Event title
+    ${execution.pipeline.name} execution #${execution.id}
 
-# Content
-${execution.to_revision.revision} - ${execution.to_revision.message}`
-```              
+    # Content
+    ${execution.to_revision.revision} - ${execution.to_revision.message}`
+    ```
 
 6.  When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
 
-![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png)
+![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png)
+
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/buddy/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+All Buddy deployment events are sent to your [Datadog Even Stream](https://docs.datadoghq.com/graphing/event_stream/) 
+
+### Service Checks
+The Buddy check does not include any service checks at this time.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
