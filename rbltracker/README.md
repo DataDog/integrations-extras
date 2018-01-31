@@ -8,7 +8,6 @@ Connect your [RBLTracker](https://rbltracker.com/) account to Datadog to:
 *   Push de-listing events from RBLTracker to your dashboard.
 
 ## Setup
-### Configuration
 
 Setting up RBLTracker using webhooks:
 
