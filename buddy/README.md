@@ -9,7 +9,6 @@ Enabling this integration will let you:
 ![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png)
 
 ## Setup
-## Configuration
 
 1.  In your Datadog account settings go to [Integrations -> APIs](https://app.datadoghq.com/account/settings#api) and copy the **API Key** token
 2.  [Sign in to your Buddy account](https://app.buddy.works/login) and go to the pipeline with the deployment action that you want to track
@@ -18,12 +17,14 @@ Enabling this integration will let you:
 5.  You can use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
 
 ```
+<%text filter="h">
 # Event title
 ${execution.pipeline.name} execution #${execution.id}
 
 # Content
-${execution.to_revision.revision} - ${execution.to_revision.message}`
-```              
+${execution.to_revision.revision} - ${execution.to_revision.message}
+</%text>
+```
 
 6.  When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
 
