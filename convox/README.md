@@ -11,13 +11,12 @@ Please refer to the [Convox setup doc page](https://convox.com/docs/datadog/).
 ### Deploy the Datadog Agent
 
 You can deploy the Datadog Agent as a Convox app with a very simple `docker-compose.yml` manifest:
-
 ```
-# check out the repo
+check out the repo
 $ git clone https://github.com/convox-examples/dd-agent.git
 $ cd dd-agent
 
-# deploy the agent app and secret
+deploy the agent app and secret
 $ convox apps create
 $ convox env set API_KEY=<your api key>
 $ convox deploy
