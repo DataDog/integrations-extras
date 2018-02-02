@@ -39,7 +39,7 @@ ${execution.to_revision.revision} - ${execution.to_revision.message}
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/buddy/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-All Buddy deployment events are sent to your [Datadog Even Stream](https://docs.datadoghq.com/graphing/event_stream/)
+All Buddy deployment events are sent to your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
 
 ### Service Checks
 The Buddy check does not include any service checks at this time.
