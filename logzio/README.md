@@ -11,7 +11,8 @@ Integrate with Logz.io alerts to see events taking place in real-time
 ![dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png)
 
 ## Setup
-### Configuration
+
+### Installation
 
 _To import alerts into Datadog, you need to take the following steps:_
 
@@ -25,7 +26,7 @@ For a more detailed setup description, see [the logz.io dedicated datadog docume
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logzio/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
-Send your logz.io events into your [Datadog Even Stream](https://docs.datadoghq.com/graphing/event_stream/) 
+Send your logz.io events into your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
 
 ### Service Checks
 The Logz.io check does not include any service checks at this time.
