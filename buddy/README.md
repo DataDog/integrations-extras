@@ -16,7 +16,13 @@ Enabling this integration will let you:
 4.  Enter the name of your Datadog account and paste the API key that you copied
 5.  You can use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
 
+<%text>
+Event title
+${execution.pipeline.name} execution #${execution.id}
 
+Content
+${execution.to_revision.revision} - ${execution.to_revision.message}
+</%text>
 
 6.  When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
 
