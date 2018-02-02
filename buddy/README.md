@@ -20,15 +20,13 @@ Enabling this integration will let you:
 
 * You can use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
 
-Event title
-<%text>
-${execution.pipeline.name} execution #${execution.id}
-</%text>
+```
+# Event title
+${'${execution.pipeline.name} execution #${execution.id}'}
 
-Content
-<%text>
-${execution.to_revision.revision} - ${execution.to_revision.message}
-</%text>
+# Content
+${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
+```
 
 * When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
 
