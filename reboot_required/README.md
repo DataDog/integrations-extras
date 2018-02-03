@@ -4,7 +4,8 @@
 
 Linux systems that are configured to autoinstall packages may not be configured to autoreboot (it may be desirable to time this manually). This check will enable alerts to be fired in the case where reboots are not performed in a timely manner.
 
-## Installation
+## Setup
+### Installation
 
 The directory check is packaged with the Agent, so simply [install the Agent](https://app.datadoghq.com/account/settings#agent) anywhere you wish to use it.
 
@@ -15,13 +16,13 @@ sudo mkdir /var/run/dd-agent
 sudo chown dd-agent:dd-agent /var/run/dd-agent 
 ```
 
-## Configuration
+### Configuration
 
-1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml](https://github.com/DataDog/integrations-core/blob/master/reboot_required/conf.yaml.example) for all available configuration options:
+1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml](https://github.com/DataDog/integrations-extras/blob/master/reboot_required/conf.yaml.example) for all available configuration options:
 
-## Validation
+### Validation
 
-[Run the Agent's `info` subcommand](https://help.datadoghq.com/hc/en-us/articles/203764635-Agent-Status-and-Information) and look for `reboot_required` under the Checks section:
+[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/) and look for `reboot_required` under the Checks section:
 
 ```
   Checks
@@ -61,3 +62,10 @@ The check returns:
 * `OK` if the system does not require a reboot or for less than `days_warning` or `days_critical`.
 * `WARNING` if the system has required a reboot for longer than `days_warning` days.
 * `CRITICAL` if the system has required a reboot for longer than `days_critical` days.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).

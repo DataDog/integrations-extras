@@ -2,22 +2,23 @@
 
 ## Overview
 
-Get metrics from logstash service in real time to:
+Get metrics from Logstash service in real time to:
 
-* Visualize and monitor logstash states
-* Be notified about logstash events.
+* Visualize and monitor Logstash states.
+* Be notified about Logstash events.
 
-## Installation
+## Setup
+### Installation
 
-Install the `dd-check-logstash` package manually or with your favorite configuration manager
+Install the `dd-check-logstash` package manually or with your favorite configuration manager.
 
-## Configuration
+### Configuration
 
-Edit the `logstash.yaml` file to point to your server and port, set the masters to monitor
+Edit the `logstash.yaml` file to point to your server and port, set the masters to monitor.
 
-## Validation
+### Validation
 
-When you run `datadog-agent info` you should see something like the following:
+[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
 
     Checks
     ======
@@ -29,11 +30,14 @@ When you run `datadog-agent info` you should see something like the following:
 
 ## Compatibility
 
-The logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
+The Logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
 
-## Metrics
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv) for a list of metrics provided by this integration.
 
-See [metadata.csv](metadata.csv) for a list of metrics provided by this integration.
+### Events
+The Logstash check does not include any events at this time.
 
 ### Service checks
 
@@ -52,3 +56,7 @@ Returns `Critical` if the Agent cannot connect to Logstash to collect metrics.
 ```
 
 Check that the `url` in `logstash.yaml` is correct.
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
