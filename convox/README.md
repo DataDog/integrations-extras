@@ -13,11 +13,11 @@ Please refer to the [Convox setup doc page](https://convox.com/docs/datadog/).
 You can deploy the Datadog Agent as a Convox app with a very simple `docker-compose.yml` manifest:
 
 ```
-check out the repo
+# check out the repo
 $ git clone https://github.com/convox-examples/dd-agent.git
 $ cd dd-agent
 
-deploy the agent app and secret
+# deploy the agent app and secret
 $ convox apps create
 $ convox env set API_KEY=<your api key>
 $ convox deploy
@@ -34,7 +34,7 @@ See the [Listening for ECS CloudWatch Events Tutorial](http://docs.aws.amazon.co
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/convox/metadata.csv) for a list of metrics provided by this integration.
+The Convox check does not include any metrics at this time.
 
 ### Events
 The Convox check does not include any events at this time.

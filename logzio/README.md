@@ -23,10 +23,10 @@ For a more detailed setup description, see [the logz.io dedicated datadog docume
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logzio/metadata.csv) for a list of metrics provided by this integration.
+The Logz.io check does not include any metrics at this time.
 
 ### Events
-Send your logz.io events into your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
+The Logz.io check does not include any events at this time.
 
 ### Service Checks
 The Logz.io check does not include any service checks at this time.
