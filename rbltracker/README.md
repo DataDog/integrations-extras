@@ -20,10 +20,10 @@ RBLTracker will send listing and delisting alerts to your Datadog events dashboa
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/rbltracker/metadata.csv) for a list of metrics provided by this integration.
+The RBLTracker check does not include any metrics at this time.
 
 ### Events
-Push your RBLTracker listing/de-listing events into your [Datadog Even Stream](https://docs.datadoghq.com/graphing/event_stream/) 
+Push your RBLTracker listing/de-listing events into your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/).
 
 ### Service Checks
 The RBLTracker check does not include any service checks at this time.
