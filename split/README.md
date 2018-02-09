@@ -30,7 +30,8 @@ Split data should now be flowing into Datadog.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/split/metadata.csv) for a list of metrics provided by this integration.
+
+The Split check does not include any metrics at this time.
 
 ### Events
 Push your Split listing/de-listing events into your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/).
