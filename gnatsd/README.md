@@ -1,0 +1,60 @@
+# Gnatsd Integration
+
+## Overview
+
+Get metrics from gnatsd service in real time to:
+
+* Visualize and monitor gnatsd states
+* Be notified about gnatsd failovers and events.
+
+## Setup
+### Installation
+
+Install the `dd-check-gnatsd` package manually or with your favorite configuration manager
+
+### Configuration
+
+Edit the `gnatsd.yaml` file to point to your server and port, set the masters to monitor
+
+* host: set to the gnatsd host to monitor
+* port: set to the _monitoring_ port used by gnatsd
+* tags: add these tags to recorded metrics
+* server_name: set to what should be displayed in DataDog
+
+### Validation
+
+When you run `datadog-agent info` you should see something like the following:
+
+    Checks
+    ======
+
+        gnatsd
+        -----------
+          - instance #0 [OK]
+          - Collected 23 metrics, 0 events & 1 service checks
+
+## Compatibility
+
+The gnatsd check is compatible with all major platforms
+
+## Data Collected
+### Metrics
+
+See [metadata.csv](https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+The gnatsd check does not include any events at this time.
+
+### Service Checks
+This gnatsd check tags all service checks it collects with:
+
+* `server_name:<server_name_in_yaml>`
+
+`gnatsd.can_connect`:
+Returns CRITICAL if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns UP.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
