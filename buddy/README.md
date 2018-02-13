@@ -34,7 +34,7 @@ ${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/buddy/metadata.csv) for a list of metrics provided by this integration.
+The Buddy check does not include any metrics at this time.
 
 ### Events
 All Buddy deployment events are sent to your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
