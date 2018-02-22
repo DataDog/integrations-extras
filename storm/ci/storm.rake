@@ -8,6 +8,7 @@ def storm_rootdir
   "#{ENV['INTEGRATIONS_DIR']}/storm_#{storm_version}"
 end
 
+# rubocop:disable Metrics/BlockLength
 namespace :ci do
   namespace :storm do |flavor|
     task before_install: ['ci:common:before_install']
@@ -22,14 +23,17 @@ namespace :ci do
       # Start the storm cluster
       sh %(docker run -d --restart always --name storm-zookeeper zookeeper:3.4)
       sh %(docker run -d --restart always -p 6627:6627 --name storm-nimbus --link storm-zookeeper:zookeeper \
-        storm:1.1 storm nimbus)
+        storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30 storm nimbus)
       sh %(docker run -d --restart always --name storm-supervisor --link storm-zookeeper:zookeeper \
-        --link storm-nimbus:nimbus storm:1.1 storm supervisor)
-      sh %(docker run -d -p 9005:8080 --restart always --name storm-ui --link storm-nimbus:nimbus storm:1.1 storm ui)
+        --link storm-nimbus:nimbus storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30 \
+        storm supervisor)
+      sh %(docker run -d -p 9005:8080 --restart always --name storm-ui --link storm-nimbus:nimbus \
+        storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30 storm ui)
       # Wait for storm to start...
       sh %(sleep 60)
       # Deploy the basic WordCountTopology we created earlier.
-      sh %(docker run --link storm-nimbus:nimbus -it --rm -v $(pwd)/topology.jar:/topology.jar storm:1.1 storm jar \
+      sh %(docker run --link storm-nimbus:nimbus -it --rm -v $(pwd)/topology.jar:/topology.jar \
+        storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30 storm jar \
         /topology.jar org.apache.storm.starter.WordCountTopology topology)
       # Wait again for slow topology starts.
       sh %(sleep 60)
