@@ -83,7 +83,7 @@ class AerospikeCheck(AgentCheck):
                     for s in parse_namespace(fp.readline().split(';'),ns,'set'):
                         conn.send('sets/%s/%s\r' % (ns,s))
                         self._process_data(fp, SET_METRIC_TYPE, [],
-                                tags+['namespace:%s' % ns, 'set:%s.%s' % (ns,s)])
+                                tags+['namespace:%s' % ns, 'set:%s.%s' % (ns,s)], ':')
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_METRIC_TYPE, namespaces, tags)
@@ -154,8 +154,8 @@ class AerospikeCheck(AgentCheck):
 
             self._send(metric_type, key, val, tags + ['namespace:%s' % ns] )
 
-    def _process_data(self, fp, metric_type, required_keys=[], tags={}):
-        d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(';'))
+    def _process_data(self, fp, metric_type, required_keys=[], tags={}, delim=';'):
+        d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(delim))
         if required_keys:
             required_data = {k: d[k] for k in required_keys if k in d}
         else:
