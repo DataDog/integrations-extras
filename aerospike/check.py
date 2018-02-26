@@ -25,23 +25,28 @@ CLUSTER_METRIC_TYPE = SOURCE_TYPE_NAME
 NAMESPACE_METRIC_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
 NAMESPACE_TPS_METRIC_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
 SINDEX_METRIC_TYPE = '%s.sindex' % SOURCE_TYPE_NAME
+SET_METRIC_TYPE = '%s.set' % SOURCE_TYPE_NAME
 
 Addr = namedtuple('Addr', ['host', 'port'])
 
-def parse_sindex_namespace(data, namespace):
+def parse_namespace(data, namespace, secondary):
     idxs = []
     while data != []:
         l = data.pop(0)
 
-       # $ asinfo -v 'sindex/phobos_sindex'
-       # ns=phobos_sindex:set=longevity:indexname=str_100_idx:num_bins=1:bins=str_100_bin:type=TEXT:sync_state=synced:state=RW; \
-       # ns=phobos_sindex:set=longevity:indexname=str_uniq_idx:num_bins=1:bins=str_uniq_bin:type=TEXT:sync_state=synced:state=RW; \
-       # ns=phobos_sindex:set=longevity:indexname=int_uniq_idx:num_bins=1:bins=int_uniq_bin:type=INT SIGNED:sync_state=synced:state=RW;
+        # $ asinfo -v 'sindex/phobos_sindex'
+        # ns=phobos_sindex:set=longevity:indexname=str_100_idx:num_bins=1:bins=str_100_bin:type=TEXT:sync_state=synced:state=RW; \
+        # ns=phobos_sindex:set=longevity:indexname=str_uniq_idx:num_bins=1:bins=str_uniq_bin:type=TEXT:sync_state=synced:state=RW; \
+        # ns=phobos_sindex:set=longevity:indexname=int_uniq_idx:num_bins=1:bins=int_uniq_bin:type=INT SIGNED:sync_state=synced:state=RW;
 
-        match = re.match('^ns=%s:[^:]+:indexname=([^:]+):.*$' % namespace,l)
+        # $ asinfo -v 'sets/bar'
+        # ns=bar:set=demo:objects=1:tombstones=0:memory_data_bytes=34:truncate_lut=0:stop-writes-count=0:set-enable-xdr=use-default:disable-eviction=false;\
+        # ns=bar:set=demo2:objects=123456:tombstones=0:memory_data_bytes=8518464:truncate_lut=0:stop-writes-count=0:set-enable-xdr=use-default:disable-eviction=false
+
+        match = re.match('^ns=%s:([^:]+:)?%s=([^:]+):.*$' % (namespace, secondary), l)
         if match == None:
             continue
-        idxs.append(match.groups()[0])
+        idxs.append(match.groups()[1])
 
     return idxs   
 
@@ -69,10 +74,16 @@ class AerospikeCheck(AgentCheck):
                     self._process_data(fp, NAMESPACE_METRIC_TYPE, namespace_metrics, tags+['namespace:%s' % ns])
 
                     conn.send('sindex/%s\r' % ns)
-                    for idx in parse_sindex_namespace(fp.readline().split(';')[:-1], ns):
+                    for idx in parse_namespace(fp.readline().split(';')[:-1], ns,'indexname'):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
                         self._process_data(fp, SINDEX_METRIC_TYPE, [], 
                                 tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
+                    
+                    conn.send('sets/%s\r' % ns)
+                    for s in parse_namespace(fp.readline().split(';'),ns,'set'):
+                        conn.send('sets/%s/%s\r' % (ns,s))
+                        self._process_data(fp, SET_METRIC_TYPE, [],
+                                tags+['namespace:%s' % ns, 'set:%s.%s' % (ns,s)])
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_METRIC_TYPE, namespaces, tags)
