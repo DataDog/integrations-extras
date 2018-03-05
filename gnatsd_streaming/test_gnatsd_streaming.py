@@ -75,6 +75,14 @@ class TestGnatsdStreaming(AgentCheckTest):
         self.assertMetricTagPrefix('gnatsd.streaming.channelsz.total', 'nss-cluster_id', at_least=1)
         self.assertMetricTagPrefix('gnatsd.streaming.channelsz.total', 'nss-server_id', at_least=1)
 
+    def test_failover_event(self):
+        config = {'instances': self.CONNECTION_SUCCESS}
+        self.run_check(config)
+        self.check.ft_status = 'FT_STANDBY'
+        self.run_check(config)
+        self.assertEvent('NATS Streaming Server Changed Status from FT_STANDBY to FT_ACTIVE', count=1)
+
+
     def test_deltas(self):
         config = {'instances': self.CONNECTION_SUCCESS}
         self.run_check(config)
@@ -85,4 +93,3 @@ class TestGnatsdStreaming(AgentCheckTest):
         self.assertMetric('gnatsd.streaming.channelsz.channels.test_channel1.msgs', metric_type='count', value=0)
         self.run_check(config)
         self.assertMetric('gnatsd.streaming.channelsz.channels.test_channel1.msgs', metric_type='count', value=0)
-
