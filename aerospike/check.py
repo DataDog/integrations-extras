@@ -11,7 +11,6 @@
 
 # stdlib
 import socket
-import time
 import re
 from contextlib import closing
 from collections import namedtuple
@@ -44,11 +43,11 @@ def parse_namespace(data, namespace, secondary):
         # ns=bar:set=demo2:objects=123456:tombstones=0:memory_data_bytes=8518464:truncate_lut=0:stop-writes-count=0:set-enable-xdr=use-default:disable-eviction=false
 
         match = re.match('^ns=%s:([^:]+:)?%s=([^:]+):.*$' % (namespace, secondary), l)
-        if match == None:
+        if match is None:
             continue
         idxs.append(match.groups()[1])
 
-    return idxs   
+    return idxs
 
 class AerospikeCheck(AgentCheck):
 
@@ -76,9 +75,9 @@ class AerospikeCheck(AgentCheck):
                     conn.send('sindex/%s\r' % ns)
                     for idx in parse_namespace(fp.readline().split(';')[:-1], ns,'indexname'):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
-                        self._process_data(fp, SINDEX_METRIC_TYPE, [], 
+                        self._process_data(fp, SINDEX_METRIC_TYPE, [],
                                 tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
-                    
+
                     conn.send('sets/%s\r' % ns)
                     for s in parse_namespace(fp.readline().split(';'),ns,'set'):
                         conn.send('sets/%s/%s\r' % (ns,s))
@@ -139,8 +138,8 @@ class AerospikeCheck(AgentCheck):
             #
             # data = [ "{ns}-read..","23:56:40,0.0", "{ns}-write...","23:56:48,0.0" ... ]
 
-            match = re.match('^{(.+)}-([^:]+):',l) 
-            if match == None:
+            match = re.match('^{(.+)}-([^:]+):',l)
+            if match is None:
                 continue
 
             ns = match.groups()[0]
@@ -150,9 +149,9 @@ class AerospikeCheck(AgentCheck):
             key = match.groups()[1]
             if data == []:
                 return # unexpected EOF
-            val = data.pop(0).split(',')[1]  
+            val = data.pop(0).split(',')[1]
 
-            self._send(metric_type, key, val, tags + ['namespace:%s' % ns] )
+            self._send(metric_type, key, val, tags + ['namespace:%s' % ns])
 
     def _process_data(self, fp, metric_type, required_keys=[], tags={}, delim=';'):
         d = dict(x.split('=', 1) for x in fp.readline().rstrip().split(delim))
@@ -176,7 +175,7 @@ class AerospikeCheck(AgentCheck):
 
         if val.isdigit():
             if key in self.init_config.get('mappings',[]):
-                datatype='rate'
+                datatype = 'rate'
             else:
                 datatype = 'gauge'
         elif val.lower() in ('true', 'on', 'enable', 'enabled'): # boolean : true
@@ -195,7 +194,7 @@ class AerospikeCheck(AgentCheck):
         if datatype == 'gauge':
             self.gauge(self._make_key(metric_type, key), val, tags=tags)
         elif datatype == 'rate':
-            print "self.rate %s"%key
+            print "self.rate %s" % key
             self.rate(self._make_key(metric_type, key), val, tags=tags)
         else:
             return # Non numeric/boolean metric, discard
