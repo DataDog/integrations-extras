@@ -25,7 +25,6 @@ NAMESPACE_METRIC_TYPE = '%s.namespace' % SOURCE_TYPE_NAME
 NAMESPACE_TPS_METRIC_TYPE = '%s.namespace.tps' % SOURCE_TYPE_NAME
 SINDEX_METRIC_TYPE = '%s.sindex' % SOURCE_TYPE_NAME
 SET_METRIC_TYPE = '%s.set' % SOURCE_TYPE_NAME
-
 Addr = namedtuple('Addr', ['host', 'port'])
 
 def parse_namespace(data, namespace, secondary):
@@ -76,13 +75,13 @@ class AerospikeCheck(AgentCheck):
                     for idx in parse_namespace(fp.readline().split(';')[:-1], ns,'indexname'):
                         conn.send('sindex/%s/%s\r' % (ns,idx))
                         self._process_data(fp, SINDEX_METRIC_TYPE, [],
-                                tags+['namespace:%s' % ns, 'sindex:%s.%s' % (ns,idx)])
+                                tags+['namespace:%s' % ns, 'sindex:%s' % idx])
 
                     conn.send('sets/%s\r' % ns)
                     for s in parse_namespace(fp.readline().split(';'),ns,'set'):
                         conn.send('sets/%s/%s\r' % (ns,s))
                         self._process_data(fp, SET_METRIC_TYPE, [],
-                                tags+['namespace:%s' % ns, 'set:%s.%s' % (ns,s)], ':')
+                                tags+['namespace:%s' % ns, 'set:%s' % s], delim=':')
 
                 conn.send('throughput:\r')
                 self._process_throughput(fp.readline().rstrip().split(';'), NAMESPACE_TPS_METRIC_TYPE, namespaces, tags)
