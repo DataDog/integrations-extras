@@ -194,7 +194,6 @@ class AerospikeCheck(AgentCheck):
         if datatype == 'gauge':
             self.gauge(self._make_key(metric_type, key), val, tags=tags)
         elif datatype == 'rate':
-            print "self.rate %s" % key
             self.rate(self._make_key(metric_type, key), val, tags=tags)
         else:
             return # Non numeric/boolean metric, discard
