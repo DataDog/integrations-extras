@@ -5,9 +5,6 @@
 # stdlib
 from nose.plugins.attrib import attr
 
-# 3p
-import aerospike
-
 # project
 from tests.checks.common import AgentCheckTest
 
@@ -27,6 +24,8 @@ class TestAerospike(AgentCheckTest):
     CHECK_NAME = 'aerospike'
 
     def test_check(self):
+        import aerospike
+
         config = {
             'instances': [
                 {
