@@ -21,6 +21,7 @@ instance = {
 
 # NOTE: Feel free to declare multiple test classes if needed
 
+@attr('unix')
 @attr(requires='aerospike')
 class TestAerospike(AgentCheckTest):
     CHECK_NAME = 'aerospike'
@@ -29,8 +30,8 @@ class TestAerospike(AgentCheckTest):
         config = {
             'instances': [
                 {
-                    'metrics':['cluster_size','batch_error'],
-                    'namespace_metrics':[
+                    'metrics': ['cluster_size', 'batch_error'],
+                    'namespace_metrics': [
                         'objects',
                         'hwm_breached',
                         'client_write_error',
@@ -40,15 +41,15 @@ class TestAerospike(AgentCheckTest):
                         'stop_writes_count',
                         'truncate_lut',
                         'memory_data_bytes'],
-                    'namespaces':{'test'},
-                    'tags':['tag:value']
+                    'namespaces': {'test'},
+                    'tags': ['tag:value']
                 }
             ]
         }
 
         # sample Aerospike Python Client code
         # https://www.aerospike.com/docs/client/python/usage/kvs/write.html
-        client = aerospike.client({'hosts': [('127.0.0.1',3000)]}).connect()
+        client = aerospike.client({'hosts': [('127.0.0.1', 3000)]}).connect()
         key = ('test', 'characters', 'bender')
         bins = {
             'name': 'Bender',
@@ -62,7 +63,7 @@ class TestAerospike(AgentCheckTest):
             'apartment': bytearray(b'\x24'),
             'quote_cnt': 47
         }
-        client.put(key,bins)
+        client.put(key, bins)
         client.close()
 
         self.run_check(config)
@@ -72,15 +73,15 @@ class TestAerospike(AgentCheckTest):
 
         self.assertMetric('aerospike.batch_error', value='0', at_least=1)
         self.assertMetric('aerospike.namespace.client_write_error', value='0', at_least=1)
-        self.assertMetric('aerospike.namespace.client_write_success',value='1', at_least=1)
-        self.assertMetric('aerospike.namespace.truncate_lut',value='0', at_least=1)
-        self.assertMetric('aerospike.namespace.tombstones',value='0',at_least=1)
-        self.assertMetric('aerospike.set.tombstones',value='0',at_least=1)
-        self.assertMetric('aerospike.set.objects',value='1', at_least=1)
-        self.assertMetricTag('aerospike.set.objects', tag='namespace:test',at_least=1)
+        self.assertMetric('aerospike.namespace.client_write_success', value='1', at_least=1)
+        self.assertMetric('aerospike.namespace.truncate_lut', value='0', at_least=1)
+        self.assertMetric('aerospike.namespace.tombstones', value='0', at_least=1)
+        self.assertMetric('aerospike.set.tombstones', value='0', at_least=1)
+        self.assertMetric('aerospike.set.objects', value='1', at_least=1)
+        self.assertMetricTag('aerospike.set.objects', tag='namespace:test', at_least=1)
         self.assertMetric('aerospike.set.stop_writes_count', value='0', at_least=1)
-        self.assertMetricTag('aerospike.set.stop_writes_count', tag='set:characters',at_least=1)
-        self.assertMetric('aerospike.set.truncate_lut',value='0', at_least=1)
+        self.assertMetricTag('aerospike.set.stop_writes_count', tag='set:characters', at_least=1)
+        self.assertMetric('aerospike.set.truncate_lut', value='0', at_least=1)
         self.assertMetric('aerospike.set.memory_data_bytes', value='289', at_least=1)
 
         self.assertServiceCheckOK('aerospike.cluster_up')
