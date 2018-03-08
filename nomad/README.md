@@ -1,18 +1,16 @@
-# Nomad
-
 ## Overview
 
 Gather metrics from your Nomad clusters to:
 
 * Visualize and monitor cluster performance
-* Alert on cluster health and availability 
+* Alert on cluster health and availability
 
 ## Setup
 
 ### Configuration
 
-Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, you will need 
-to install the Datadog Agent on each client and server host.  Once installed, add a Telemetry 
+Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, you will need
+to install the Datadog Agent on each client and server host.  Once installed, add a Telemetry
 stanza to the Nomad configuration for your clients and servers:
 
 ```
