@@ -8,9 +8,6 @@ Get metrics from SNMP walk service in real time to:
 * Be notified about SNMP walk failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-snmpwalk` package manually or with your favorite configuration manager.
 
 ### Configuration
 

@@ -7,15 +7,12 @@ Get metrics from UPSD service via upsc in real time to:
 * Visualize and monitor UPS battery health and states
 * Be notified about UPS failovers and events.
 
-## Installation
-
-Install the `dd-check-upsc` package manually or with your favorite configuration manager
-
-## Configuration
+## Setup
+### Configuration
 
 Edit the `upsc.yaml` file to point to your server and port, set the masters to monitor
 
-## Validation
+### Validation
 
 When you run `datadog-agent info` you should see something like the following:
 

@@ -8,9 +8,6 @@ Get metrics from Redis's Sentinel service in real time to:
 * Be notified about failovers
 
 ## Setup
-### Installation
-
-Install the `dd-check-redis-sentinel` package manually or with your favorite configuration manager.
 
 ### Configuration
 

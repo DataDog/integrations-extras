@@ -8,9 +8,6 @@ Get metrics from filebeat service in real time to:
 * Be notified about filebeat failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-filebeat` package manually or with your favorite configuration manager.
 
 ### Configuration
 

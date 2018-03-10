@@ -8,9 +8,6 @@ Get metrics from Logstash service in real time to:
 * Be notified about Logstash events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-logstash` package manually or with your favorite configuration manager.
 
 ### Configuration
 
