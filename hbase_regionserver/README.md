@@ -8,9 +8,6 @@ Get metrics from hbase_regionserver service in real time to:
 * Be notified about hbase_regionserver failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-hbase_regionserver` package manually or with your favorite configuration manager.
 
 ### Configuration
 

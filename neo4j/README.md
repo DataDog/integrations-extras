@@ -8,9 +8,6 @@ Get metrics from neo4j service in real time to:
 * Be notified about neo4j failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-neo4j` package manually or with your favorite configuration manager.
 
 ### Configuration
 
