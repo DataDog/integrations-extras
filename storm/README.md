@@ -8,9 +8,6 @@ Get metrics from Storm service in real time to:
 * Be notified about storm failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-storm` package manually or with your favorite configuration manager.
 
 ### Configuration
 

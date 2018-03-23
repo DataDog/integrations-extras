@@ -8,13 +8,32 @@ Get metrics from Logstash service in real time to:
 * Be notified about Logstash events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-logstash` package manually or with your favorite configuration manager.
 
 ### Configuration
 
-Edit the `logstash.yaml` file to point to your server and port, set the masters to monitor.
+Create a file `logstash.yaml` in the Agent's `conf.d` directory.
+
+#### Metric Collection
+
+* Add this configuration setup to your `logstash.yaml` file to start gathering your [Logstash metrics](#metrics):
+
+```
+init_config:
+
+instances:
+  #   The URL where Logstash provides its monitoring API. This will be used to fetch various runtime metrics about Logstash.
+  #
+  - url: http://localhost:9600
+```
+
+Configure it to point to your server and port.
+
+See the [sample logstash.yaml](https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example) for all available configuration options.
+* [Restart the Agent](https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent) to begin sending Logstash metrics to Datadog.
+
+#### Log Collection
+
+Follow those [instructions](https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash) to start forwarding logs to Datadog with Logstash.
 
 ### Validation
 

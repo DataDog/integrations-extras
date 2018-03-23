@@ -8,9 +8,6 @@ Get metrics from hbase_master service in real time to:
 * Be notified about hbase_master failovers and events.
 
 ## Setup
-### Installation
-
-Install the `dd-check-hbase_master` package manually or with your favorite configuration manager.
 
 ### Configuration
 
