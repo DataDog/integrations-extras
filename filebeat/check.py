@@ -3,6 +3,7 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
 # stdlib
+import collections
 import errno
 import numbers
 import os
@@ -18,66 +19,6 @@ from checks import AgentCheck
 
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'filebeat'
-
-
-class FilebeatCheckHttpProfilerInstanceConfig(object):
-    def __init__(self, http_profiler):
-        if not isinstance(http_profiler, dict):
-            raise Exception("If given, filebeat's http_profiler config must be a dict, got %s" % (http_profiler, ))
-
-        self._port = http_profiler.get('port')
-        if not isinstance(self._port, int):
-            raise Exception("Filebeat's http_profiler's port must be an integer, got %s" % (self._port, ))
-
-        self._host = http_profiler.get('host', 'localhost')
-
-        self._only_metrics = http_profiler.get('only_metrics', [])
-        if not isinstance(self._only_metrics, list):
-            raise Exception("If given, filebeat's http_profiler only_metrics must be a list of regexes, got %s" % (self._only_metrics, ))
-
-        self._timeout = http_profiler.get('timeout', 2)
-        if not isinstance(self._timeout, numbers.Real) or self._timeout <= 0:
-            raise Exception("If given, filebeat's http_profiler's timeout must be a positive number, got %s" % (self._timeout, ))
-
-    @property
-    def host(self):
-        return self._host
-
-    @property
-    def port(self):
-        return self._port
-
-    @property
-    def timeout(self):
-        return self._timeout
-
-    @property
-    def socket_address(self):
-        return '%s:%s' % (self._host, self._port)
-
-    def should_keep_metric(self, metric_name):
-        if not self._only_metrics:
-            return True
-
-        return any(re.search(regex, metric_name) for regex in self._compiled_regexes())
-
-    def _compiled_regexes(self):
-        try:
-            return self._only_metrics_regexes
-        except AttributeError:
-            self._only_metrics_regexes = self._compile_regexes()
-            return self._compiled_regexes()
-
-    def _compile_regexes(self):
-        compiled_regexes = []
-
-        for regex in self._only_metrics:
-            try:
-                compiled_regexes.append(re.compile(regex))
-            except sre_constants.error as ex:
-                raise Exception('Invalid only_metric regex for filebeat: "%s", error: %s' % (regex, ex))
-
-        return compiled_regexes
 
 
 class FilebeatCheckHttpProfiler(object):
@@ -116,7 +57,10 @@ class FilebeatCheckHttpProfiler(object):
         'libbeat.logstash.publish.write_errors',
         'libbeat.logstash.published_and_acked_events',
         'libbeat.logstash.published_but_not_acked_events',
-        'libbeat.outputs.messages_dropped',
+        'libbeat.output.events.dropped',
+        'libbeat.output.events.failed',
+        'libbeat.pipeline.events.dropped',
+        'libbeat.pipeline.events.failed',
         'libbeat.publisher.messages_in_worker_queues',
         'libbeat.publisher.published_events',
         'libbeat.redis.publish.read_bytes',
@@ -136,8 +80,8 @@ class FilebeatCheckHttpProfiler(object):
 
     VARS_ROUTE = 'debug/vars'
 
-    def __init__(self, http_profiler_config):
-        self._config = http_profiler_config
+    def __init__(self, config):
+        self._config = config
         self._previous_increment_values = {}
         # regex matching ain't free, let's cache this
         self._should_keep_metrics = {}
@@ -151,12 +95,11 @@ class FilebeatCheckHttpProfiler(object):
         }
 
     def _make_request(self):
-        url = 'http://%s/%s' % (self._config.socket_address, self.VARS_ROUTE)
 
-        response = requests.get(url, timeout=self._config.timeout)
+        response = requests.get(self._config.stats_endpoint, timeout=self._config.timeout)
         response.raise_for_status()
 
-        return response.json()
+        return self.flatten(response.json())
 
     def _gather_increment_metrics(self, response):
         new_values = {name: response[name] for name in self.INCREMENT_METRIC_NAMES
@@ -190,6 +133,16 @@ class FilebeatCheckHttpProfiler(object):
             self._should_keep_metrics[name] = self._config.should_keep_metric(name)
         return self._should_keep_metrics[name]
 
+    def flatten(self, d, parent_key='', sep='.'):
+        items = []
+        for k, v in d.items():
+            new_key = parent_key + sep + k if parent_key else k
+            if isinstance(v, collections.MutableMapping):
+                items.extend(self.flatten(v, new_key, sep=sep).items())
+            else:
+                items.append((new_key, v))
+        return dict(items)
+
 
 class FilebeatCheckInstanceConfig(object):
 
@@ -198,29 +151,65 @@ class FilebeatCheckInstanceConfig(object):
         if self._registry_file_path is None:
             raise Exception('An absolute path to a filebeat registry path must be specified')
 
-        self._http_profiler = instance.get('http_profiler')
-        if self._http_profiler is not None:
-            self._http_profiler = FilebeatCheckHttpProfilerInstanceConfig(self._http_profiler)
+        self._stats_endpoint = instance.get('stats_endpoint')
+
+        self._only_metrics = instance.get('only_metrics', [])
+        if not isinstance(self._only_metrics, list):
+            raise Exception("If given, filebeat's only_metrics must be a list of regexes, got %s" % (
+                self._only_metrics, ))
+
+        self._timeout = instance.get('timeout', 2)
+        if not isinstance(self._timeout, numbers.Real) or self._timeout <= 0:
+            raise Exception("If given, filebeats timeout must be a positive number, got %s" % (self._timeout, ))
 
     @property
     def registry_file_path(self):
         return self._registry_file_path
 
     @property
-    def http_profiler(self):
-        return self._http_profiler
+    def stats_endpoint(self):
+        return self._stats_endpoint
+
+    @property
+    def timeout(self):
+        return self._timeout
+
+    def should_keep_metric(self, metric_name):
+
+        if not self._only_metrics:
+            return True
+
+        return any(re.search(regex, metric_name) for regex in self._compiled_regexes())
+
+    def _compiled_regexes(self):
+        try:
+            return self._only_metrics_regexes
+        except AttributeError:
+            self._only_metrics_regexes = self._compile_regexes()
+            return self._compiled_regexes()
+
+    def _compile_regexes(self):
+        compiled_regexes = []
+
+        for regex in self._only_metrics:
+            try:
+                compiled_regexes.append(re.compile(regex))
+            except sre_constants.error as ex:
+                raise Exception(
+                    'Invalid only_metric regex for filebeat: "%s", error: %s' % (regex, ex))
+
+        return compiled_regexes
 
 
 class FilebeatCheck(AgentCheck):
 
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
-        self._http_profilers = {}
 
     def check(self, instance):
         config = FilebeatCheckInstanceConfig(instance)
         self._process_registry(config)
-        self._process_http_profiler(config)
+        self._gather_http_profiler_metrics(config)
 
     def _process_registry(self, config):
         registry_contents = self._parse_registry_file(config.registry_file_path)
@@ -264,26 +253,15 @@ class FilebeatCheck(AgentCheck):
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os['device'] and stats.st_ino == file_state_os['inode']
 
-    def _process_http_profiler(self, config):
-        profiler_config = config.http_profiler
-        if profiler_config is None:
-            return
-
-        socket_addresss = profiler_config.socket_address
-        if socket_addresss not in self._http_profilers:
-            self._http_profilers[socket_addresss] = FilebeatCheckHttpProfiler(profiler_config)
-        profiler = self._http_profilers[socket_addresss]
-
-        self._gather_http_profiler_metrics(profiler, profiler_config)
-
-    def _gather_http_profiler_metrics(self, profiler, profiler_config):
+    def _gather_http_profiler_metrics(self, config):
+        profiler = FilebeatCheckHttpProfiler(config)
         try:
             all_metrics = profiler.gather_metrics()
         except StandardError as ex:
-            self.log.error('Error when fetching metrics from %s: %s' % (profiler_config.socket_address, ex))
+            self.log.error('Error when fetching metrics from %s: %s' % (config.stats_endpoint, ex))
             return
 
-        tags = ['host:{0}'.format(profiler_config.host), 'port:{0}'.format(profiler_config.port)]
+        tags = ['stats_endpoint:{0}'.format(config.stats_endpoint)]
 
         for action, metrics in all_metrics.iteritems():
             method = getattr(self, action)
