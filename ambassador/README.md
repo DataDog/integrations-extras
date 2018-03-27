@@ -6,7 +6,7 @@ Get metrics from [Ambassador](https://www.getambassador.io) in real time to:
 
 * Understand the impact of new versions of your services as you use Ambassador to do a canary rollout
 
-![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/Ambassador/Images/upstream-req-time.png)
+![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/ambassador/ambassador/Images/upstream-req-time.png)
 
 ## Setup
 
