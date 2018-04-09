@@ -6,7 +6,7 @@ Get metrics from [Ambassador](https://www.getambassador.io) in real time to:
 
 * Understand the impact of new versions of your services as you use Ambassador to do a canary rollout
 
-![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/Ambassador/Images/upstream-req-time.png)
+![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/ambassador/ambassador/Images/upstream-req-time.png)
 
 ## Setup
 
@@ -69,7 +69,7 @@ By default, Ambassador installs a `statsd` sidecar on its pod. This sidecar forw
 
 ## Data Collected
 
-This integration provides full access to [all metrics exposed by Envoy](https://www.envoyproxy.io/docs/envoy/latest/configuration/cluster_manager/cluster_stats.html#config-cluster-manager-cluster-stats), the L7 networking proxy at the heart of Ambassador. This includes metrics on throughput, latency, and availability for each of Ambassador's upstream services.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
 
