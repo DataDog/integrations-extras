@@ -69,6 +69,8 @@ By default, Ambassador installs a `statsd` sidecar on its pod. This sidecar forw
 
 ## Data Collected
 
+### Metrics
+
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
