@@ -204,11 +204,16 @@ class StormCheck(AgentCheck):
             self.log.debug("Fetching url %s", url)
             resp = requests.get(url, params=params)
             resp.encoding = 'utf-8'
+            resp.raise_for_status()
             data = resp.json()
+            self.log.debug("Response data: %s" % data)
             if 'error' in data:
                 self.log.warning("[url:{}] {}".format(url, error_message))
                 return {}
             return data
+        except requests.exceptions.ConnectionError as e:
+            self.log.error("{1} [url:{0}]".format(self.nimbus_server, "Unable to establish a connection to Storm UI"))
+            raise
         except Exception as e:
             self.log.warning("[url:{}] {}".format(url, error_message))
             self.log.exception(e)
