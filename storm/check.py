@@ -280,11 +280,9 @@ class StormCheck(AgentCheck):
                                      "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
                                      params=params)
 
-    def process_cluster_stats(self, environment, cluster_stats):
+    def process_cluster_stats(self, cluster_stats):
         """ Process Cluster Stats Response
 
-        :param environment: Storm Environment
-        :type environment: str
         :param cluster_stats: Cluster stats response
         :type cluster_stats: dict
         :return: Extracted cluster stats metrics
@@ -295,7 +293,7 @@ class StormCheck(AgentCheck):
                                   _get_string(cluster_stats, 'unknown', 'stormVersion'),
                                   'version').replace(' ', '_').lower()
             storm_version = 'stormVersion:{}'.format(version)
-            tags = ['stormClusterEnvironment:{}'.format(environment), storm_version]
+            tags = [storm_version]
             if storm_version not in self.additional_tags:
                 self.additional_tags.append(storm_version)
 
@@ -311,11 +309,9 @@ class StormCheck(AgentCheck):
                                   _get_float(cluster_stats, 0.0, metric_name),
                                   tags=tags, additional_tags=self.additional_tags)
 
-    def process_nimbus_stats(self, environment, nimbus_stats):
+    def process_nimbus_stats(self, nimbus_stats):
         """ Process Nimbus Stats Response
 
-        :param environment: Storm Environment
-        :type environment: str
         :param nimbus_stats: Nimbus stats response
         :type nimbus_stats: dict
         :return: Extracted nimbus stats metrics
@@ -330,7 +326,6 @@ class StormCheck(AgentCheck):
                 nimbus_status = _get_string(ns, 'offline', 'status').lower()
                 storm_host = _get_string(ns, 'unknown', 'host')
                 tags = [
-                    'stormClusterEnvironment:{}'.format(environment),
                     'stormHost:{}'.format(storm_host),
                     'stormStatus:{}'.format(nimbus_status)
                 ]
@@ -346,7 +341,6 @@ class StormCheck(AgentCheck):
 
                 self.report_gauge('storm.nimbus.upTimeSeconds', _get_long(ns, 0, 'nimbusUpTimeSeconds'),
                                   tags=tags, additional_tags=self.additional_tags)
-            tags = ['stormClusterEnvironment:{}'.format(environment)]
             self.report_gauge('storm.nimbus.numDead', numDead,
                               tags=tags, additional_tags=self.additional_tags)
             self.report_gauge('storm.nimbus.numFollowers', numFollowers,
@@ -558,8 +552,7 @@ class StormCheck(AgentCheck):
         :return:
         """
         all_tags = tags + [
-            'env:{}'.format(self.environment_name),
-            'environment:{}'.format(self.environment_name)] + additional_tags
+            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
         self.gauge(
             metric,
             value=value,
@@ -576,8 +569,7 @@ class StormCheck(AgentCheck):
         :return:
         """
         all_tags = tags + [
-            'env:{}'.format(self.environment_name),
-            'environment:{}'.format(self.environment_name)] + additional_tags
+            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
         self.histogram(
             metric,
             value=value,
@@ -617,11 +609,11 @@ class StormCheck(AgentCheck):
 
         # Cluster Stats
         cluster_stats = self.get_storm_cluster_summary()
-        self.process_cluster_stats(self.environment_name, cluster_stats)
+        self.process_cluster_stats(cluster_stats)
 
         # Nimbus Stats
         nimbus_stats = self.get_storm_nimbus_summary()
-        self.process_nimbus_stats(self.environment_name, nimbus_stats)
+        self.process_nimbus_stats(nimbus_stats)
 
         # Supervisor Stats
         supervisor_stats = self.get_storm_supervisor_summary()
@@ -651,6 +643,5 @@ class StormCheck(AgentCheck):
                             'topology-check.{}'.format(topology_name),
                             status=check_status,
                             message='{} topology status marked as: {}'.format(topology_name, topology_status),
-                            tags=['env:{}'.format(self.environment_name),
-                                  'environment:{}'.format(self.environment_name)] + self.additional_tags
+                            tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags
                         )
