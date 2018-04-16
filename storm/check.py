@@ -561,7 +561,7 @@ class StormCheck(AgentCheck):
             'env:{}'.format(self.environment_name),
             'environment:{}'.format(self.environment_name)] + additional_tags
         self.gauge(
-            metric=metric,
+            metric,
             value=value,
             tags=set(all_tags)
         )
@@ -579,7 +579,7 @@ class StormCheck(AgentCheck):
             'env:{}'.format(self.environment_name),
             'environment:{}'.format(self.environment_name)] + additional_tags
         self.histogram(
-            metric=metric,
+            metric,
             value=value,
             tags=set(all_tags)
         )
