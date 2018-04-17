@@ -13,7 +13,7 @@ Get metrics from neo4j service in real time to:
 
 Edit the `neo4j.yaml` file to configure the servers to monitor:
 
-* neo4j_url: set to the url of the server (i.e http://ec2-54-85-23-10.compute-1.amazonaws.com)
+* neo4j_url: set to the url of the server (i.e `http://ec2-54-85-23-10.compute-1.amazonaws.com`)
 * port: set to the http port used by neo4j. Default is 7474
 * username: set to a valid neo4j username
 * password: set to the password for the username
