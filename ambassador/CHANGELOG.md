@@ -4,4 +4,4 @@
 ==================
 ### Changes
 
-* [FEATURE] Initial AwesomeApp Integration Tile.
+* Initial Ambassador Tile.
