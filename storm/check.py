@@ -205,13 +205,13 @@ class StormCheck(AgentCheck):
             if params: self.log.debug("Request params: %s", params)
             resp = requests.get(url, params=params)
             resp.encoding = 'utf-8'
-            resp.raise_for_status()
             data = resp.json()
             # Log response data exluding configuration section
             self.log.debug("Response data: %s" % json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
-                self.log.warning("[url:{}] {}".format(url, error_message))
-                return {}
+                self.log.warning("Error message returned in JSON response")
+                raise Exception(data['error'])
+            resp.raise_for_status()
             return data
         except requests.exceptions.ConnectionError as e:
             self.log.error("{1} [url:{0}]".format(self.nimbus_server, "Unable to establish a connection to Storm UI"))
@@ -219,7 +219,7 @@ class StormCheck(AgentCheck):
         except Exception as e:
             self.log.warning("[url:{}] {}".format(url, error_message))
             self.log.exception(e)
-            return {}
+            raise
 
     def get_storm_cluster_summary(self):
         """ Make the storm cluster summary metric request.
