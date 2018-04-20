@@ -5,7 +5,7 @@
 # stdlib
 
 # 3rd party
-import requests
+import requests, json
 
 # project
 from checks import AgentCheck
@@ -202,11 +202,13 @@ class StormCheck(AgentCheck):
         url = "{}{}".format(self.nimbus_server, url_part)
         try:
             self.log.debug("Fetching url %s", url)
+            if params: self.log.debug("Request params: %s", params)
             resp = requests.get(url, params=params)
             resp.encoding = 'utf-8'
             resp.raise_for_status()
             data = resp.json()
-            self.log.debug("Response data: %s" % data)
+            # Log response data exluding configuration section
+            self.log.debug("Response data: %s" % json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
                 self.log.warning("[url:{}] {}".format(url, error_message))
                 return {}
@@ -225,6 +227,7 @@ class StormCheck(AgentCheck):
         :return: Cluster Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Cluster Summary Stats")
         return self.get_request_json("/api/v1/cluster/summary", "Error retrieving Storm Cluster Summary")
 
     def get_storm_nimbus_summary(self):
@@ -233,6 +236,7 @@ class StormCheck(AgentCheck):
         :return: Nimbus Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Nimbus Summary Stats")
         return self.get_request_json("/api/v1/nimbus/summary", "Error retrieving Storm Nimbus Summary")
 
     def get_storm_supervisor_summary(self):
@@ -241,6 +245,7 @@ class StormCheck(AgentCheck):
         :return: Supervisor Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Supervisor Summary Stats")
         return self.get_request_json("/api/v1/supervisor/summary", "Error retrieving Storm Supervisor Summary")
 
     def get_storm_topology_summary(self):
@@ -249,6 +254,7 @@ class StormCheck(AgentCheck):
         :return: Topology Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Topology Summary Stats")
         return self.get_request_json("/api/v1/topology/summary", "Error retrieving Storm Topology Summary")
 
     def get_topology_info(self, topology_id, interval=60):
@@ -259,6 +265,7 @@ class StormCheck(AgentCheck):
         :return: Topology Info Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Topology Info. Id: %s" % topology_id)
         params = {'window': interval}
         return self.get_request_json("/api/v1/topology/{}".format(topology_id),
                                      "Error retrieving Storm Topology Info for topology:{}".format(topology_id),
