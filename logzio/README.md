@@ -4,11 +4,11 @@ Integrate with Logz.io alerts to see events taking place in real-time
 
 *   Import alerts into Datadog
 
-![import_alert_from_logz](https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/import_alert_from_logz.jpg)
+![import_alert_from_logz][1]
 
 *   Incorporate the events into a dashboard to identify correlations with metrics
 
-![dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png)
+![dashboard][2]
 
 ## Setup
 
@@ -19,7 +19,7 @@ _To import alerts into Datadog, you need to take the following steps:_
 1.  Use a Datadog API key to create a new alert endpoint in Logz.io.
 2.  Create a new alert in Logz.io for a specific query.
 
-For a more detailed setup description, see [the logz.io dedicated datadog documentation](http://logz.io/blog/log-correlation-datadog/).
+For a more detailed setup description, see [the logz.io dedicated datadog documentation][3].
 
 ## Data Collected
 ### Metrics
@@ -32,8 +32,15 @@ The Logz.io check does not include any events at this time.
 The Logz.io check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][4].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][5].
+
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/import_alert_from_logz.jpg
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png
+[3]: http://logz.io/blog/log-correlation-datadog/
+[4]: http://docs.datadoghq.com/help/
+[5]: https://www.datadoghq.com/blog/

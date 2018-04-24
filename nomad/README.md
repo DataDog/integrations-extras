@@ -27,7 +27,7 @@ your Datadog account.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][1] for a list of metrics provided by this integration.
 
 ### Events
 The Nomad check does not include any events at this time.
@@ -36,8 +36,13 @@ The Nomad check does not include any events at this time.
 The Nomad check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][2].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][3].
+
+
+[1]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
+[2]: http://docs.datadoghq.com/help/
+[3]: https://www.datadoghq.com/blog/
