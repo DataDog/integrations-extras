@@ -37,15 +37,7 @@ Follow those [instructions][3] to start forwarding logs to Datadog with Logstash
 
 ### Validation
 
-[Run the Agent's `info` subcommand][4], you should see something like the following:
-
-    Checks
-    ======
-
-      logstash 
-      -----------------
-        - instance #0 [OK]
-        - Collected 61 metrics, 0 events & 1 service check
+[Run the Agent's `status` subcommand][4] and look for `logstash` under the Checks section.
 
 ## Compatibility
 
@@ -84,6 +76,6 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [1]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
 [2]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [3]: https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash
-[4]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [6]: https://www.datadoghq.com/blog/

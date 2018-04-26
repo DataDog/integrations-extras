@@ -22,24 +22,7 @@ sudo chown dd-agent:dd-agent /var/run/dd-agent
 
 ### Validation
 
-[Run the Agent's `info` subcommand][3] and look for `reboot_required` under the Checks section:
-
-```
-  Checks
-  ======
-    [...]
-
-    reboot_required 
-    -------
-      - instance #0 [OK]
-      - Collected 0 metrics, 0 events & 1 service check
-
-    [...]
-```
-
-## Compatibility
-
-The reboot_required check is currently only compatible with Linux systems.
+[Run the Agent's `status` subcommand][3] and look for `reboot_required` under the Checks section.
 
 ## Data Collected
 
@@ -72,7 +55,7 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/conf.yaml.example
-[3]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/
 [6]: https://www.datadoghq.com/blog/

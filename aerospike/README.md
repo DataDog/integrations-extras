@@ -17,18 +17,6 @@ Edit the `aerospike.yaml` file to point to your server and port, set the masters
 
 ## Validation
 
-When you run `datadog-agent info` you should see something like the following:
+[Run the Agent's `status` subcommand][1] and look for `aerospike` under the Checks section.
 
-    Checks
-    ======
-
-        aerospike
-        -----------
-          - instance #0 [OK]
-          - Collected 269 metrics, 0 events & 1 service checks
-
-## Compatibility
-
-The Aerospike check is compatible with all major platforms and Aerospike Community Edition
-
-
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
