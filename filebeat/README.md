@@ -15,7 +15,7 @@ Edit the `filebeat.yaml` file to point to your server and port, set the masters 
 
 ### Validation
 
-[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
+[Run the Agent's `info` subcommand][1], you should see something like the following:
 
     Checks
     ======
@@ -31,7 +31,7 @@ The Filebeat check is compatible with all major platforms.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Events
 The Filebeat check does not include any events at this time.
@@ -40,8 +40,13 @@ The Filebeat check does not include any events at this time.
 The Filebeat check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][3].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][4].
+
+[1]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[2]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
+[3]: http://docs.datadoghq.com/help/
+[4]: https://www.datadoghq.com/blog/
