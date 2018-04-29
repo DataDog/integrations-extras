@@ -14,19 +14,7 @@ Edit the `upsc.yaml` file to point to your server and port, set the masters to m
 
 ### Validation
 
-When you run `datadog-agent info` you should see something like the following:
-
-    Checks
-    ======
-
-        upsc
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
-
-## Compatibility
-
-The UPSC check is compatible with linux-based platforms.
+[Run the Agent's `status` subcommand][5] and look for `upsc` under the Checks section.
 
 ## Data Collected
 ### Metrics
@@ -49,3 +37,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [2]: https://docs.datadoghq.com/graphing/event_stream/
 [3]: http://docs.datadoghq.com/help/
 [4]: https://www.datadoghq.com/blog/
+[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information

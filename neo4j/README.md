@@ -23,19 +23,7 @@ Edit the `neo4j.yaml` file to configure the servers to monitor:
 
 ### Validation
 
-[Run the Agent's `info` subcommand][1], you should see something like the following:
-
-    Checks
-    ======
-
-        neo4j
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
-
-## Compatibility
-
-The Neo4j check is compatible with all major platforms.
+[Run the Agent's `status` subcommand][1] and look for `neo4j` under the Checks section.
 
 ## Data Collected
 ### Metrics
@@ -55,7 +43,7 @@ Need help? Contact [Datadog Support][3].
 Learn more about infrastructure monitoring and all our integrations on [our blog][4].
 
 
-[1]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [2]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
 [3]: http://docs.datadoghq.com/help/
 [4]: https://www.datadoghq.com/blog/

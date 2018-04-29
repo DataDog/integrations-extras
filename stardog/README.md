@@ -15,19 +15,7 @@ Edit the `stardog.yaml` file to point to your server and set the admin username 
 
 ### Validation
 
-[Run the Agent's `info` subcommand][1], you should see something like the following:
-
-    Checks
-    ======
-
-        stardog
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
-
-## Compatibility
-
-The Stardog check is compatible with all major platforms.
+[Run the Agent's `status` subcommand][1] and look for `stardog` under the Checks section.
 
 ## Data Collected
 ### Metrics
@@ -46,7 +34,7 @@ Need help? Contact [Datadog Support][3].
 
 Learn more about infrastructure monitoring and all our integrations on [our blog][4].
 
-[1]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [2]: https://github.com/DataDog/integrations-extras/blob/master/stardog/metadata.csv
 [3]: http://docs.datadoghq.com/help/
 [4]: https://www.datadoghq.com/blog/
