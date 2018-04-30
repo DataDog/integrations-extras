@@ -1,22 +1,46 @@
-# Aerospike Integration
-
 ## Overview
 
-Get metrics from Aerospike Database in real time to:
+Get metrics from [Aerospike](https://aerospike.com) in real time to:
 
-* Visualize and monitor aerospike states
-* Be notified about aerospike failovers and events.
+* Visualize your database's performance.
 
-## Installation
+* Obtain usage statistics
 
-Install the `dd-check-aerospike` package manually or with your favorite configuration manager
 
-## Configuration
+## Setup
 
-Edit the `aerospike.yaml` file to point to your server and port, set the masters to monitor
+*To capture Aerospike metrics, you need to install the Datadog Agent*
 
-## Validation
+**Note:** This plugin does not support access control. As such, it is only compatible with Community Edition and Enterprise Edition that does not have TLS or Access Control enabled.
 
-[Run the Agent's `status` subcommand][1] and look for `aerospike` under the Checks section.
+1. Configure the Agent to connect to Aerospike  
+edit conf.d/aerospike.yaml
 
-[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+```
+init_config:
+  mappings:
+    ...
+instances:
+  - host: localhost
+```
+
+1. Restart the Agent
+
+## Data Collected
+### Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/aerospike/metadata.csv) for a list of metrics provided by this integration.
+
+### Events
+
+The Aerospike integration does not include any events at this time.
+
+### Service Checks
+
+There is one service check: `aerospike.cluster_up`
+
+## Troubleshooting
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+
+## Further Reading
+
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
