@@ -203,7 +203,7 @@ class StormCheck(AgentCheck):
         url = "{}{}".format(self.nimbus_server, url_part)
         try:
             self.log.debug("Fetching url %s", url)
-            if params: 
+            if params:
                 self.log.debug("Request params: %s", params)
             resp = requests.get(url, params=params)
             resp.encoding = 'utf-8'
