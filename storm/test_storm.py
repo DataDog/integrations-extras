@@ -1085,10 +1085,10 @@ class TestStorm(AgentCheckTest):
         test_cases = (
             ('upTimeSeconds', 1, 25842, ['stormStatus:leader', 'stormHost:1.2.3.4']),
             ('upTimeSeconds', 1, 0, ['stormStatus:offline', 'stormHost:nimbus01.example.com']),
-            ('numLeaders', 1, 1, []),
-            ('numFollowers', 1, 0, []),
-            ('numOffline', 1, 1, []),
-            ('numDead', 1, 0, [])
+            ('numLeaders', 1, 1, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numFollowers', 1, 0, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numOffline', 1, 1, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numDead', 1, 0, ['stormStatus:leader', 'stormHost:1.2.3.4'])
         )
         test_tags = env_tags + storm_version_tags
 
@@ -1280,8 +1280,7 @@ class TestStorm(AgentCheckTest):
             self.assertMetric(
                 'storm.nimbus.{}'.format(name),
                 count=count,
-                value=value,
-                tags=test_tags + additional_tags
+                value=value
             )
 
         # Supervisor Stats
