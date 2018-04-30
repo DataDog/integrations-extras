@@ -12,4 +12,4 @@ Connect Fargate to Fargate in order to:
 ## Setup
 
 To enable monitoring of applications deployed in Fargate, you will need to add a Datadog Agent contaienr to your task definitions.
-Additional details are available in our [AWS Fargate guide](https://docs.datadoghq.com/guides/awsfargate/).
+Additional details are available in our [AWS Fargate guide](https://docs.datadoghq.com/integrations/ecs_fargate/).
