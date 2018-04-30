@@ -7,7 +7,7 @@
 
 * [FIX] Cluster metrics sent with 0 values if unable to connect to Storm UI. Now bails on ConnectionErrors.
 * [FIX] If on Agent6 - TypeError: gauge() got an unexpected keyword argument 'metric'
-* [UPDATE] Redundant environment tags. stormEnvironment replaces env/environment/stormClusterEnviroment to reduce number of metrics.
+* [UPDATE] Redundant environment tags. stormEnvironment replaces env/environment/stormClusterEnviroment ot reduce number of metrics.
 
 1.0.1/ Released
 =================
