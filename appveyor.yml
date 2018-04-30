@@ -27,6 +27,7 @@ services:
 install:
   # Use the 64-bit ruby so that all the Powershell classes are accessible when running shell commands from ruby
   - set PATH=C:\Ruby22-x64\bin;%PATH%
+  - set PATH=C:\Python27-x64\Scripts;%PATH%
   - bundle install
   - bundle package
   - git clone -b %DD_AGENT_BRANCH% https://github.com/DataDog/dd-agent.git c:\projects\dd-agent
