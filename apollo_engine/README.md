@@ -64,11 +64,7 @@ Please refer to the [Apollo Engine docs](https://www.apollographql.com/docs/engi
 
 ### Metrics
 
-<<<<<<< HEAD
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/apollo-engine/metadata.csv) for a list of metrics provided by this integration.
-=======
 See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/apollo_engine/metadata.csv) for a list of metrics provided by this integration.
->>>>>>> 97ae6fb4cf46ed3baab2ae2e06b90c8247aed828
 
 ### Events
 
