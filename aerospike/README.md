@@ -24,7 +24,7 @@ instances:
   - host: localhost
 ```
 
-1. Restart the Agent
+2. Restart the Agent
 
 ## Data Collected
 ### Metrics
