@@ -16,13 +16,13 @@ Get metrics from [Aerospike](https://aerospike.com) in real time to:
 1. Configure the Agent to connect to Aerospike  
 edit conf.d/aerospike.yaml
 
-```
-init_config:
-  mappings:
-    ...
-instances:
-  - host: localhost
-```
+  ```
+  init_config:
+    mappings:
+      ...
+  instances:
+    - host: localhost
+  ```
 
 2. Restart the Agent
 
