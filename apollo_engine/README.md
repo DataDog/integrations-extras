@@ -32,9 +32,8 @@ Getting set up with Engine's Datadog integration is as simple as providing a Dat
 
 1. Copy your Datadog API key:
 
-  ```
   ${api_key}
-  ```
+
 
 2. Navigate to the [Apollo Engine service(s)](https://engine.apollographql.com/) you would like to enable Datadog metrics for. Go to the /settings page for that service:
 
