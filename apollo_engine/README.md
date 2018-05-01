@@ -32,25 +32,19 @@ Getting set up with Engine's Datadog integration is as simple as providing a Dat
 
 1. Copy your Datadog API key:
 
-```
-${api_key}
-```
+  ```
+  ${api_key}
+  ```
 
 2. Navigate to the [Apollo Engine service(s)](https://engine.apollographql.com/) you would like to enable Datadog metrics for. Go to the /settings page for that service:
 
-<<<<<<< HEAD
-![SettingsLink](https://github.com/DataDog/integrations-extras/blob/master/apollo-engine/images/settings-link.png)
+  ![Settings](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/apollo/apollo_engine/images/settings-toggle.png)
+
+  ![SettingsLink](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/apollo/apollo_engine/images/settings-link.png)
 
 3. You should see an Integrations section at the bottom of the page. Toggle the Datadog integration to turn it on:
 
-![Settings](https://github.com/DataDog/integrations-extras/blob/master/apollo-engine/images/settings-toggle.png)
-=======
-![SettingsLink](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/apollo/apollo_engine/images/settings-link.png)
-
-3. You should see an Integrations section at the bottom of the page. Toggle the Datadog integration to turn it on:
-
-![Settings](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/apollo/apollo_engine/images/settings-toggle.png)
->>>>>>> 97ae6fb4cf46ed3baab2ae2e06b90c8247aed828
+  ![Settings](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/apollo/apollo_engine/images/settings-toggle.png)
 
 4. Paste the API key, and press **Done**. You can use the same API key for all Apollo Engine services as all metrics are tagged with a service ID (`service:<service-id>`).
 
