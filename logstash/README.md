@@ -11,8 +11,6 @@ Get metrics from Logstash service in real time to:
 
 ### Configuration
 
-Logstash is a community-supported integration so it's not packaged with the agent. 
-
 Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
 
 Create a file `logstash.yaml` in the Agent's `conf.d` directory.
