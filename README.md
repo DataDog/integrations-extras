@@ -10,6 +10,7 @@ For more information about how to build a new integration, please see [the guide
 # Community Maintenance
 
 Please note that integrations in this repository are maintained by the community. The current maintainer is listed in manifest.json and will address the pull requests and issues opened for that integration. Additionally, Datadog will assist on a best-effort basis, and will support the current maintainer whenever possible. When submitting a new integration, please indicate in the PR that you're willing to become the maintainer. For current maintainers, we understand circumstances change. If you're no longer able to maintain an integration, please notify us so we can find a new maintainer or mark the integration as orphaned. If you have any questions about the process, don't hesitate to contact us.
+Note: Integrations in this repo are not included with the Agent, and are not currently packaged.
 
 # Submitting Your Integration
 
