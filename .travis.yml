@@ -64,6 +64,7 @@ install:
   - pip uninstall --no-cache-dir -y docker || true
   - pip install --no-cache-dir docker
   - pip install "docker-compose==1.21.2"
+  - which -a docker-compose
   - pip install pylint
   - if [ -e $TRAVIS_BUILD_DIR/requirements.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements.txt; fi
   - if [ -e $TRAVIS_BUILD_DIR/requirements-test.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-test.txt; fi
