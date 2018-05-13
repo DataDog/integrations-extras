@@ -77,6 +77,7 @@ install:
   - bundle exec rake setup_agent_libs
 
 script:
+  - which -a docker-compose
   - bundle exec rake prep_travis_ci
   - bundle exec rake ci:run
   - bundle exec rake lint
