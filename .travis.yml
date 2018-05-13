@@ -62,7 +62,8 @@ install:
   - echo "$HOME/dd-agent/" > $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")/datadog-agent.pth
   - pip uninstall --no-cache-dir -y docker-py || true
   - pip uninstall --no-cache-dir -y docker || true
-  - pip install --no-cache-dir "docker-compose==1.21.2"
+  - pip install --no-cache-dir docker
+  - pip install "docker-compose==1.21.2"
   - pip install pylint
   - if [ -e $TRAVIS_BUILD_DIR/requirements.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements.txt; fi
   - if [ -e $TRAVIS_BUILD_DIR/requirements-test.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-test.txt; fi
