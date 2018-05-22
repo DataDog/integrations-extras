@@ -11,13 +11,13 @@ Get metrics from Logstash service in real time to:
 
 ### Configuration
 
-Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
+Download the [`check.py`](https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py) file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
 
 Create a file `logstash.yaml` in the Agent's `conf.d` directory.
 
 #### Metric Collection
 
-* Add this configuration setup to your `logstash.yaml` file to start gathering your [Logstash metrics](#metrics):
+* Add this configuration setup to your `logstash.yaml` file to start gathering your Logstash metrics:
 
 ```
 init_config:
@@ -30,16 +30,16 @@ instances:
 
 Configure it to point to your server and port.
 
-See the [sample logstash.yaml][1] for all available configuration options.
-* [Restart the Agent][2] to begin sending Logstash metrics to Datadog.
+See the [sample logstash.yaml](https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example) for all available configuration options.
+* [Restart the Agent](https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent) to begin sending Logstash metrics to Datadog.
 
 #### Log Collection
 
-Follow those [instructions][3] to start forwarding logs to Datadog with Logstash.
+Follow those [instructions](https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash) to start forwarding logs to Datadog with Logstash.
 
 ### Validation
 
-[Run the Agent's `status` subcommand][4] and look for `logstash` under the Checks section.
+[Run the Agent's `status` subcommand](https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information) and look for `logstash` under the Checks section.
 
 ## Compatibility
 
@@ -47,7 +47,7 @@ The Logstash check is compatible with Logstash 5.6 and possible earlier versions
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][5] for a list of metrics provided by this integration.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
 The Logstash check does not include any events at this time.
@@ -72,7 +72,7 @@ Check that the `url` in `logstash.yaml` is correct.
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][6].
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
 
 
 [1]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
