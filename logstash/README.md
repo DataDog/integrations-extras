@@ -11,7 +11,7 @@ Get metrics from Logstash service in real time to:
 
 ### Configuration
 
-Download the [`check.py`](https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py) file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
+Download the [`check.py`](https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py) file, place it in the Agent's `checks.d` directory, and rename it to `logstash.py`. 
 
 Create a file `logstash.yaml` in the Agent's `conf.d` directory.
 
