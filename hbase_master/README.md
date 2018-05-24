@@ -15,23 +15,11 @@ Edit the `hbase_master.yaml` file to point to your server and port, set the mast
 
 ### Validation
 
-[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
-
-    Checks
-    ======
-
-        hbase_master
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 0 service checks
-
-## Compatibility
-
-The hbase_master check is compatible with all major platforms.
+[Run the Agent's `status` subcommand][1] and look for `hbase_master` under the Checks section.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/hbase_master/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Events
 The Hbase Master check does not include any events at this time.
@@ -40,8 +28,13 @@ The Hbase Master check does not include any events at this time.
 The Hbase Master check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][3].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][4].
+
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[2]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/metadata.csv
+[3]: http://docs.datadoghq.com/help/
+[4]: https://www.datadoghq.com/blog/

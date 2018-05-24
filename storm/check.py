@@ -6,6 +6,7 @@
 
 # 3rd party
 import requests
+import json
 
 # project
 from checks import AgentCheck
@@ -202,17 +203,25 @@ class StormCheck(AgentCheck):
         url = "{}{}".format(self.nimbus_server, url_part)
         try:
             self.log.debug("Fetching url %s", url)
+            if params:
+                self.log.debug("Request params: %s", params)
             resp = requests.get(url, params=params)
             resp.encoding = 'utf-8'
             data = resp.json()
+            # Log response data exluding configuration section
+            self.log.debug("Response data: %s" % json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
-                self.log.warning("[url:{}] {}".format(url, error_message))
-                return {}
+                self.log.warning("Error message returned in JSON response")
+                raise Exception(data['error'])
+            resp.raise_for_status()
             return data
+        except requests.exceptions.ConnectionError as e:
+            self.log.error("{1} [url:{0}]".format(self.nimbus_server, "Unable to establish a connection to Storm UI"))
+            raise
         except Exception as e:
             self.log.warning("[url:{}] {}".format(url, error_message))
             self.log.exception(e)
-            return {}
+            raise
 
     def get_storm_cluster_summary(self):
         """ Make the storm cluster summary metric request.
@@ -220,6 +229,7 @@ class StormCheck(AgentCheck):
         :return: Cluster Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Cluster Summary Stats")
         return self.get_request_json("/api/v1/cluster/summary", "Error retrieving Storm Cluster Summary")
 
     def get_storm_nimbus_summary(self):
@@ -228,6 +238,7 @@ class StormCheck(AgentCheck):
         :return: Nimbus Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Nimbus Summary Stats")
         return self.get_request_json("/api/v1/nimbus/summary", "Error retrieving Storm Nimbus Summary")
 
     def get_storm_supervisor_summary(self):
@@ -236,6 +247,7 @@ class StormCheck(AgentCheck):
         :return: Supervisor Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Supervisor Summary Stats")
         return self.get_request_json("/api/v1/supervisor/summary", "Error retrieving Storm Supervisor Summary")
 
     def get_storm_topology_summary(self):
@@ -244,6 +256,7 @@ class StormCheck(AgentCheck):
         :return: Topology Summary Stats Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Topology Summary Stats")
         return self.get_request_json("/api/v1/topology/summary", "Error retrieving Storm Topology Summary")
 
     def get_topology_info(self, topology_id, interval=60):
@@ -254,6 +267,7 @@ class StormCheck(AgentCheck):
         :return: Topology Info Response
         :rtype: dict
         """
+        self.log.debug("Retrieving Topology Info. Id: %s" % topology_id)
         params = {'window': interval}
         return self.get_request_json("/api/v1/topology/{}".format(topology_id),
                                      "Error retrieving Storm Topology Info for topology:{}".format(topology_id),
@@ -275,11 +289,9 @@ class StormCheck(AgentCheck):
                                      "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
                                      params=params)
 
-    def process_cluster_stats(self, environment, cluster_stats):
+    def process_cluster_stats(self, cluster_stats):
         """ Process Cluster Stats Response
 
-        :param environment: Storm Environment
-        :type environment: str
         :param cluster_stats: Cluster stats response
         :type cluster_stats: dict
         :return: Extracted cluster stats metrics
@@ -290,7 +302,7 @@ class StormCheck(AgentCheck):
                                   _get_string(cluster_stats, 'unknown', 'stormVersion'),
                                   'version').replace(' ', '_').lower()
             storm_version = 'stormVersion:{}'.format(version)
-            tags = ['stormClusterEnvironment:{}'.format(environment), storm_version]
+            tags = [storm_version]
             if storm_version not in self.additional_tags:
                 self.additional_tags.append(storm_version)
 
@@ -306,11 +318,9 @@ class StormCheck(AgentCheck):
                                   _get_float(cluster_stats, 0.0, metric_name),
                                   tags=tags, additional_tags=self.additional_tags)
 
-    def process_nimbus_stats(self, environment, nimbus_stats):
+    def process_nimbus_stats(self, nimbus_stats):
         """ Process Nimbus Stats Response
 
-        :param environment: Storm Environment
-        :type environment: str
         :param nimbus_stats: Nimbus stats response
         :type nimbus_stats: dict
         :return: Extracted nimbus stats metrics
@@ -325,7 +335,6 @@ class StormCheck(AgentCheck):
                 nimbus_status = _get_string(ns, 'offline', 'status').lower()
                 storm_host = _get_string(ns, 'unknown', 'host')
                 tags = [
-                    'stormClusterEnvironment:{}'.format(environment),
                     'stormHost:{}'.format(storm_host),
                     'stormStatus:{}'.format(nimbus_status)
                 ]
@@ -341,7 +350,6 @@ class StormCheck(AgentCheck):
 
                 self.report_gauge('storm.nimbus.upTimeSeconds', _get_long(ns, 0, 'nimbusUpTimeSeconds'),
                                   tags=tags, additional_tags=self.additional_tags)
-            tags = ['stormClusterEnvironment:{}'.format(environment)]
             self.report_gauge('storm.nimbus.numDead', numDead,
                               tags=tags, additional_tags=self.additional_tags)
             self.report_gauge('storm.nimbus.numFollowers', numFollowers,
@@ -553,10 +561,9 @@ class StormCheck(AgentCheck):
         :return:
         """
         all_tags = tags + [
-            'env:{}'.format(self.environment_name),
-            'environment:{}'.format(self.environment_name)] + additional_tags
+            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
         self.gauge(
-            metric=metric,
+            metric,
             value=value,
             tags=set(all_tags)
         )
@@ -571,10 +578,9 @@ class StormCheck(AgentCheck):
         :return:
         """
         all_tags = tags + [
-            'env:{}'.format(self.environment_name),
-            'environment:{}'.format(self.environment_name)] + additional_tags
+            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
         self.histogram(
-            metric=metric,
+            metric,
             value=value,
             tags=set(all_tags)
         )
@@ -612,11 +618,11 @@ class StormCheck(AgentCheck):
 
         # Cluster Stats
         cluster_stats = self.get_storm_cluster_summary()
-        self.process_cluster_stats(self.environment_name, cluster_stats)
+        self.process_cluster_stats(cluster_stats)
 
         # Nimbus Stats
         nimbus_stats = self.get_storm_nimbus_summary()
-        self.process_nimbus_stats(self.environment_name, nimbus_stats)
+        self.process_nimbus_stats(nimbus_stats)
 
         # Supervisor Stats
         supervisor_stats = self.get_storm_supervisor_summary()
@@ -646,6 +652,5 @@ class StormCheck(AgentCheck):
                             'topology-check.{}'.format(topology_name),
                             status=check_status,
                             message='{} topology status marked as: {}'.format(topology_name, topology_status),
-                            tags=['env:{}'.format(self.environment_name),
-                                  'environment:{}'.format(self.environment_name)] + self.additional_tags
+                            tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags
                         )

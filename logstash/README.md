@@ -11,6 +11,8 @@ Get metrics from Logstash service in real time to:
 
 ### Configuration
 
+Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
+
 Create a file `logstash.yaml` in the Agent's `conf.d` directory.
 
 #### Metric Collection
@@ -28,24 +30,16 @@ instances:
 
 Configure it to point to your server and port.
 
-See the [sample logstash.yaml](https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example) for all available configuration options.
-* [Restart the Agent](https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent) to begin sending Logstash metrics to Datadog.
+See the [sample logstash.yaml][1] for all available configuration options.
+* [Restart the Agent][2] to begin sending Logstash metrics to Datadog.
 
 #### Log Collection
 
-Follow those [instructions](https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash) to start forwarding logs to Datadog with Logstash.
+Follow those [instructions][3] to start forwarding logs to Datadog with Logstash.
 
 ### Validation
 
-[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
-
-    Checks
-    ======
-
-      logstash 
-      -----------------
-        - instance #0 [OK]
-        - Collected 61 metrics, 0 events & 1 service check
+[Run the Agent's `status` subcommand][4] and look for `logstash` under the Checks section.
 
 ## Compatibility
 
@@ -53,7 +47,7 @@ The Logstash check is compatible with Logstash 5.6 and possible earlier versions
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Events
 The Logstash check does not include any events at this time.
@@ -78,4 +72,13 @@ Check that the `url` in `logstash.yaml` is correct.
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][6].
+
+
+[1]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
+[2]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[3]: https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash
+[4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[5]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
+[6]: https://www.datadoghq.com/blog/
+[7]: https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py

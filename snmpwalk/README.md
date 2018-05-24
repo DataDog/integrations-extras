@@ -15,19 +15,7 @@ Edit the `snmpwalk.yaml` file to point to your server and port, set the masters 
 
 ### Validation
 
-[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
-
-    Checks
-    ======
-
-        snmpwalk
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
-
-## Compatibility
-
-The SNMP walk check is compatible with all major platforms.
+[Run the Agent's `status` subcommand][1] and look for `snmpwalk` under the Checks section.
 
 ## Data Collected
 ### Metrics
@@ -41,8 +29,12 @@ The SNMP walk check does not include any events at this time.
 The SNMP walk check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][2].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][3].
+
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[2]: http://docs.datadoghq.com/help/
+[3]: https://www.datadoghq.com/blog/

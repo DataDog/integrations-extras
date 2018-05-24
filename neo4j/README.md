@@ -13,7 +13,7 @@ Get metrics from neo4j service in real time to:
 
 Edit the `neo4j.yaml` file to configure the servers to monitor:
 
-* neo4j_url: set to the url of the server (i.e http://ec2-54-85-23-10.compute-1.amazonaws.com)
+* neo4j_url: set to the url of the server (i.e `http://ec2-54-85-23-10.compute-1.amazonaws.com`)
 * port: set to the http port used by neo4j. Default is 7474
 * username: set to a valid neo4j username
 * password: set to the password for the username
@@ -23,23 +23,11 @@ Edit the `neo4j.yaml` file to configure the servers to monitor:
 
 ### Validation
 
-[Run the Agent's `info` subcommand](https://docs.datadoghq.com/agent/faq/agent-status-and-information/), you should see something like the following:
-
-    Checks
-    ======
-
-        neo4j
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
-
-## Compatibility
-
-The Neo4j check is compatible with all major platforms.
+[Run the Agent's `status` subcommand][1] and look for `neo4j` under the Checks section.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Events
 The Neo4j check does not include any events at this time.
@@ -48,8 +36,14 @@ The Neo4j check does not include any events at this time.
 The Neo4j check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][3].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][4].
+
+
+[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[2]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
+[3]: http://docs.datadoghq.com/help/
+[4]: https://www.datadoghq.com/blog/
