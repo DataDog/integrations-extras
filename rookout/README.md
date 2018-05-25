@@ -85,6 +85,7 @@ Any attribute must be formatted the following way to be accepted by our rule:
 
 ## Data Collected
 You can collect custom metrics and events by creating a Datadog output in your Rookout rule. Some commonly used patterns:
+
 * Count the number of a times a method is invoked (increment)
 * Document process started in DataDog (event)
 * Record batch sizes (histogram)
