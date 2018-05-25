@@ -19,19 +19,19 @@ Rookout sends data to Datadog via the DogstatsD service available from the Datad
 
 3. In the right panel (Rules) click on the menu button
 
-    ![Rule actions menu](https://raw.githubusercontent.com/DataDog/IntegrationTemplate/dhruv/rookout/images/click_rule_action.png)
+    ![Rule actions menu](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/rookout/rookout/images/click_rule_action.png)
 
 4. Click on *Create new template* in order to edit a new rule template
 
-    ![Create new template button](https://raw.githubusercontent.com/DataDog/IntegrationTemplate/dhruv/rookout/images/click_new_template.png)
+    ![Create new template button](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/rookout/rookout/images/click_new_template.png)
 
-5. Copy the Datadog Custom Metric rule template [available here](https://raw.githubusercontent.com/DataDog/IntegrationTemplate/dhruv/rookout/rule-template.json) into the editor and replace the default rule template.
+5. Copy the Datadog Custom Metric rule template [available here](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/rookout/rookout/rule-template.json) into the editor and replace the default rule template.
 
-    ![Datadog Custom Metric rule template](https://raw.githubusercontent.com/DataDog/IntegrationTemplate/dhruv/rookout/images/datadog_rule_template.png)
+    ![Datadog Custom Metric rule template](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/rookout/rookout/images/datadog_rule_template.png)
 
 6. Click the save icon to save the template
 
-    ![Click Save Icon](https://raw.githubusercontent.com/DataDog/IntegrationTemplate/dhruv/rookout/images/click_save.png)
+    ![Click Save Icon](https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/rookout/rookout/images/click_save.png)
 
 7. Add the newly created rule to any application as you would normally
 
@@ -53,6 +53,7 @@ You can configure the rule to use specific actions, every rule should contain th
 
 Depending on the actions, it needs different additional attributes:
 
+```
 | Datadog Action |  Attributes |
 |----------------|-------------|
 |    increment   | value       |
@@ -62,6 +63,7 @@ Depending on the actions, it needs different additional attributes:
 |    histogram   | value       |
 |     timing     | value       |
 |  distribution  | value       |
+```
 
 For more information about these actions you can see [Dogstatsd documentation](https://docs.datadoghq.com/developers/dogstatsd/)
 
@@ -88,7 +90,9 @@ You can collect custom metrics and events by creating a Datadog output in your R
 * Record batch sizes (histogram)
 
 ## Troubleshooting
+
 If you have any questions, contact us at support@rookout.com.
 
 ## Further Reading
+
 Find out more at [https://docs.datadog.com/](https://docs.datadog.com/)
