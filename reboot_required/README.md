@@ -5,20 +5,29 @@
 Linux systems that are configured to autoinstall packages may not be configured to autoreboot (it may be desirable to time this manually). This check will enable alerts to be fired in the case where reboots are not performed in a timely manner.
 
 ## Setup
+
 ### Installation
 
 Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'reboot_required.py'.
 
-Make sure you create a dd-agent (user that runs the Datadog agent) writeable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
-
-```
-sudo mkdir /var/run/dd-agent
-sudo chown dd-agent:dd-agent /var/run/dd-agent 
-```
-
 ### Configuration
 
-1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml][2] for all available configuration options:
+1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml][2] for all available configuration options.
+
+   ```yaml
+    init_config:
+    instances:
+      - reboot_signal_file: "/var/run/reboot-required"
+   ```
+
+2. Make sure you create a dd-agent (user that runs the Datadog agent) writeable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
+
+    ```
+    sudo mkdir /var/run/dd-agent
+    sudo chown dd-agent:dd-agent /var/run/dd-agent 
+    ```
+
+3. [Restart the Agent][3].
 
 ### Validation
 
@@ -38,10 +47,9 @@ The reboot_required check does not include any events at this time.
 
 To create alert conditions on these service checks in Datadog, select 'Custom Check' on the [Create Monitor][4] page, not 'Integration'.
 
-**`system.reboot_required`**:
+**`system.reboot_required`**
 
 The check returns:
-
 * `OK` if the system does not require a reboot or for less than `days_warning` or `days_critical`.
 * `WARNING` if the system has required a reboot for longer than `days_warning` days.
 * `CRITICAL` if the system has required a reboot for longer than `days_critical` days.
