@@ -7,7 +7,7 @@ Linux systems that are configured to autoinstall packages may not be configured 
 ## Setup
 ### Installation
 
-The directory check is packaged with the Agent, so simply [install the Agent][1] anywhere you wish to use it.
+Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'reboot_required.py'.
 
 Make sure you create a dd-agent (user that runs the Datadog agent) writeable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
 
@@ -59,3 +59,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/
 [6]: https://www.datadoghq.com/blog/
+[7]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/check.py
