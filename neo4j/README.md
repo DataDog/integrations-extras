@@ -48,10 +48,10 @@ To configure the Neo4j check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Neo4j check does not include any event at this time.
+The Neo4j check does not include any events at this time.
 
 ### Service Checks
-The Neo4j check does not include any service check at this time.
+The Neo4j check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].

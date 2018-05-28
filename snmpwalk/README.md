@@ -40,10 +40,10 @@ To configure the SNMP walk check:
 The SNMP walk check does not include any metrics at this time.
 
 ### Events
-The SNMP walk check does not include any event at this time.
+The SNMP walk check does not include any events at this time.
 
 ### Service Checks
-The SNMP walk check does not include any service check at this time.
+The SNMP walk check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
