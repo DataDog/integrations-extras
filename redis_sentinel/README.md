@@ -7,34 +7,55 @@ Get metrics from Redis's Sentinel service in real time to:
 * Visualize and monitor sentinels states
 * Be notified about failovers
 
+
 ## Setup
+
+The Redis's Sentinel check is **NOT** included in the [Datadog Agent][1] package.
+
+### Installation
+
+To install the Redis's Sentinel check on your host:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`check.py` file][2] for Redis's Sentinel.
+3. Place it in the Agent's `checks.d` directory.
+4. Rename it to `redis_sentinel.py`.
 
 ### Configuration
 
-Edit the `redis_sentinel.yaml` file to point to your server and port, set the masters to monitor.
+To configure the Redis's Sentinel check: 
 
-### Validation
+1. Create a `redis_sentinel/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `redis_sentinel/` folder previously created.
+3. Consult the [sample redis_sentinel.yaml][2] file and copy its content in the `conf.yaml` file.
+4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
+5. [Restart the Agent][3].
 
-[Run the Agent's `status` subcommand][1] and look for `redis_sentinel` under the Checks section.
+## Validation
+
+[Run the Agent's `status` subcommand][4] and look for `redis_sentinel` under the Checks section.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][2] for a list of metrics provided by this integration.
+See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Redis Sentinel check does not include any events at this time.
+The Redis's Sentinel check does not include any event at this time.
 
 ### Service Checks
-The Redis Sentinel check does not include any service checks at this time.
+The Redis's Sentinel check does not include any service check at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][3].
+Need help? Contact [Datadog Support][6].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][4].
+Learn more about infrastructure monitoring and all our integrations on [our blog][7]
 
-[1]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
-[2]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/metadata.csv
-[3]: http://docs.datadoghq.com/help/
-[4]: https://www.datadoghq.com/blog/
+[1]: https://app.datadoghq.com/account/settings#agent
+[2]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/conf.yaml.example
+[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[5]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/metadata.csv
+[6]: http://docs.datadoghq.com/help/
+[7]: https://www.datadoghq.com/blog/

@@ -5,29 +5,38 @@
 Linux systems that are configured to autoinstall packages may not be configured to autoreboot (it may be desirable to time this manually). This check will enable alerts to be fired in the case where reboots are not performed in a timely manner.
 
 ## Setup
-
+The Reboot Required check is **NOT** included in the [Datadog Agent][1] package.
 ### Installation
 
-Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'reboot_required.py'.
+To install the Reboot Required check on your host:
+
+1. [Download the Datadog Agent][1]
+2. Download the [`check.py` file][7] for Reboot Required
+3. Place it in the Agent's `checks.d` directory, 
+4. Rename it to `reboot_required.py`.
 
 ### Configuration
 
-1. Edit your `reboot_required.yaml` file in the Agent's `conf.d` directory. See the [sample reboot_required.yaml][2] for all available configuration options.
+To configure the Reboot Required check: 
 
-   ```yaml
+1. Create a `reboot_required/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `reboot_required/` folder previously created.
+3. Consult the [sample reboot_required.yaml][2] file and copy its content in the `conf.yaml` file. Minimum configuration should include:  
+
+    ```
     init_config:
     instances:
-      - reboot_signal_file: "/var/run/reboot-required"
-   ```
+        - reboot_signal_file: "/var/run/reboot-required"
+    ```
 
-2. Make sure you create a dd-agent (user that runs the Datadog agent) writeable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
+4. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
 
     ```
     sudo mkdir /var/run/dd-agent
     sudo chown dd-agent:dd-agent /var/run/dd-agent 
     ```
 
-3. [Restart the Agent][3].
+5. [Restart the Agent][3].
 
 ### Validation
 

@@ -14,9 +14,9 @@ Integrate with Logz.io alerts to see events taking place in real-time
 
 ### Installation
 
-_To import alerts into Datadog, you need to take the following steps:_
+Import your alerts into Datadog with the following steps:
 
-1.  Use a Datadog API key to create a new alert endpoint in Logz.io.
+1.  Use a [Datadog API key][6] to create a new alert endpoint in Logz.io.
 2.  Create a new alert in Logz.io for a specific query.
 
 For a more detailed setup description, see [the logz.io dedicated datadog documentation][3].
@@ -44,3 +44,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [3]: http://logz.io/blog/log-correlation-datadog/
 [4]: http://docs.datadoghq.com/help/
 [5]: https://www.datadoghq.com/blog/
+[6]: https://app.datadoghq.com/account/settings#api
