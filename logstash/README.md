@@ -24,8 +24,8 @@ To install the Logstash check on your host:
 
 To configure the Logstash check: 
 
-1. Create a `logstash/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `logstash/` folder previously created.
+1. Create a `logstash.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `logstash.d/` folder previously created.
 3. Consult the [sample logstash.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml`  to start collecting your [metrics](#metric-collection) or [logs](#log-collection)
 5. [Restart the Agent][3].

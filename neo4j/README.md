@@ -24,8 +24,8 @@ To install the Neo4j check on your host:
 
 To configure the Neo4j check: 
 
-1. Create a `neo4j/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `neo4j/` folder previously created.
+1. Create a `neo4j.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `neo4j.d/` folder previously created.
 3. Consult the [sample neo4j.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to configure the servers to monitor:
     

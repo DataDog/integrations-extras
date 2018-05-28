@@ -24,8 +24,8 @@ To install the Filebeat check on your host:
 
 To configure the Filebeat check: 
 
-1. Create a `filebeat/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `filebeat/` folder previously created.
+1. Create a `filebeat.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `filebeat.d/` folder previously created.
 3. Consult the [sample filebeat.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
 5. [Restart the Agent][3].

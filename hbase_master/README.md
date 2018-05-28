@@ -24,8 +24,8 @@ To install the Hbase_master check on your host:
 
 To configure the Hbase_master check: 
 
-1. Create a `hbase_master/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `hbase_master/` folder previously created.
+1. Create a `hbase_master.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `hbase_master.d/` folder previously created.
 3. Consult the [sample hbase_master.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
 5. [Restart the Agent][3].

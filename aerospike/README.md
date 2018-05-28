@@ -24,8 +24,8 @@ To install the Aerospike check on your host:
 
 To configure the Aerospike check: 
 
-1. Create a `aerospike/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `aerospike/` folder previously created.
+1. Create a `aerospike.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `aerospike.d/` folder previously created.
 3. Consult the [sample aerospike.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
 5. [Restart the Agent][3].

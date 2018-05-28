@@ -25,8 +25,8 @@ To install the Redis's Sentinel check on your host:
 
 To configure the Redis's Sentinel check: 
 
-1. Create a `redis_sentinel/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `redis_sentinel/` folder previously created.
+1. Create a `redis_sentinel.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `redis_sentinel.d/` folder previously created.
 3. Consult the [sample redis_sentinel.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
 5. [Restart the Agent][3].

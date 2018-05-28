@@ -25,8 +25,8 @@ To install the SNMP walk check on your host:
 
 To configure the SNMP walk check: 
 
-1. Create a `snmpwalk/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `snmpwalk/` folder previously created.
+1. Create a `snmpwalk.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `snmpwalk.d/` folder previously created.
 3. Consult the [sample snmpwalk.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
 5. [Restart the Agent][3].

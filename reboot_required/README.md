@@ -19,8 +19,8 @@ To install the Reboot Required check on your host:
 
 To configure the Reboot Required check: 
 
-1. Create a `reboot_required/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `reboot_required/` folder previously created.
+1. Create a `reboot_required.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `reboot_required.d/` folder previously created.
 3. Consult the [sample reboot_required.yaml][2] file and copy its content in the `conf.yaml` file. Minimum configuration should include:  
 
     ```
