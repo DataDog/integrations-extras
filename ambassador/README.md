@@ -36,7 +36,7 @@ spec:
            protocol: UDP
        env:
          - name: API_KEY
-           value: <your_api_key>
+           value: <YOUR_DATADOG_API_KEY>
          - name: KUBERNETES
            value: "yes"
          - name: SD_BACKEND
@@ -71,15 +71,15 @@ kubectl apply -f datadog-statsd-sink.yaml
 
 ### Metrics
 
-See [metadata.csv][3] for a list of metrics provided by this integration.
+See [metadata.csv][3] for a list of metrics provided by this check.
 
 ### Events
 
-The DataDog integration does not include any events at this time.
+The Ambassador check does not include any events at this time.
 
 ### Service Checks
 
-The DataDog integration does not include any service checks at this time.
+The Ambassador check does not include any service checks at this time.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][4].

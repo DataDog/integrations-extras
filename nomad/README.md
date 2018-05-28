@@ -7,11 +7,13 @@ Gather metrics from your Nomad clusters to:
 
 ## Setup
 
+### Installation
+
+Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, [install the Datadog Agent][4] on each client and server host.  
+
 ### Configuration
 
-Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, you will need
-to install the Datadog Agent on each client and server host.  Once installed, add a Telemetry
-stanza to the Nomad configuration for your clients and servers:
+Once the Datadog Agent is installed, add a Telemetry stanza to the Nomad configuration for your clients and servers:
 
 ```
 telemetry {
@@ -22,8 +24,7 @@ telemetry {
 }
 ```
 
-Next, reload or restart the Nomad agent on each host. You should now begin to see Nomad metrics flowing to
-your Datadog account.  
+Next, reload or restart the Nomad agent on each host. You should now begin to see Nomad metrics flowing to your Datadog account.  
 
 ## Data Collected
 ### Metrics
@@ -46,3 +47,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [1]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
 [2]: http://docs.datadoghq.com/help/
 [3]: https://www.datadoghq.com/blog/
+[4]: https://app.datadoghq.com/account/settings#agent

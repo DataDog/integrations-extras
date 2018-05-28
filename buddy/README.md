@@ -6,7 +6,7 @@ Enabling this integration will let you:
 *   Correlate deployment details with your Datadog metrics
 *   Detect the sources of performance spikes
 
-![][1]
+![datadog-integration][1]
 
 ## Setup
 
@@ -18,7 +18,7 @@ Enabling this integration will let you:
 
 * Enter the name of your Datadog account and paste the API key that you copied
 
-* You can use [Buddy parameters][4] to define the title of the event and content sent, for example:
+* Use [Buddy parameters][4] to define the title of the event and content sent, for example:
 
 ```
 # Event title

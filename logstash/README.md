@@ -9,15 +9,30 @@ Get metrics from Logstash service in real time to:
 
 ## Setup
 
+The Logstash check is **NOT** included in the [Datadog Agent][1] package.
+
+### Installation
+
+To install the Logstash check on your host:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`check.py` file][2] for Logstash.
+3. Place it in the Agent's `checks.d` directory.
+4. Rename it to `logstash.py`.
+
 ### Configuration
 
-Download the [`check.py`][7] file, place it in the Agent's `checks.d` directory, and rename it to 'logstash.py'. 
+To configure the Logstash check: 
 
-Create a file `logstash.yaml` in the Agent's `conf.d` directory.
+1. Create a `logstash.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `logstash.d/` folder previously created.
+3. Consult the [sample logstash.yaml][2] file and copy its content in the `conf.yaml` file.
+4. Edit the `conf.yaml`  to start collecting your [metrics](#metric-collection) or [logs](#log-collection)
+5. [Restart the Agent][3].
 
 #### Metric Collection
 
-* Add this configuration setup to your `logstash.yaml` file to start gathering your [Logstash metrics](#metrics):
+* Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics](#metrics):
 
 ```
 init_config:
@@ -30,14 +45,14 @@ instances:
 
 Configure it to point to your server and port.
 
-See the [sample logstash.yaml][1] for all available configuration options.
-* [Restart the Agent][2] to begin sending Logstash metrics to Datadog.
+See the [sample conf.yaml][2] for all available configuration options.
+* [Restart the Agent][3] to begin sending Logstash metrics to Datadog.
 
 #### Log Collection
 
-Follow those [instructions][3] to start forwarding logs to Datadog with Logstash.
+Follow those [instructions][8] to start forwarding logs to Datadog with Logstash.
 
-### Validation
+## Validation
 
 [Run the Agent's `status` subcommand][4] and look for `logstash` under the Checks section.
 
@@ -47,7 +62,7 @@ The Logstash check is compatible with Logstash 5.6 and possible earlier versions
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][5] for a list of metrics provided by this integration.
+See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
 The Logstash check does not include any events at this time.
@@ -68,17 +83,19 @@ Returns `Critical` if the Agent cannot connect to Logstash to collect metrics.
       - Collected 0 metrics, 0 events & 1 service check
 ```
 
-Check that the `url` in `logstash.yaml` is correct.
+Check that the `url` in `conf.yaml` is correct.
+
+If you need further help, contact [Datadog Support][6].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][6].
+Learn more about infrastructure monitoring and all our integrations on [our blog][7]
 
-
-[1]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
-[2]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[3]: https://docs.datadoghq.com/logs/faq/how-to-send-logs-to-datadog-via-external-log-shippers/#logstash
+[1]: https://app.datadoghq.com/account/settings#agent
+[2]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
+[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
-[6]: https://www.datadoghq.com/blog/
-[7]: https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py
+[6]: http://docs.datadoghq.com/help/
+[7]: https://www.datadoghq.com/blog/
+[8]: https://docs.datadoghq.com/logs/log_collection/logstash/
