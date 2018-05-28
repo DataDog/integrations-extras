@@ -54,7 +54,7 @@ Follow those [instructions][8] to start forwarding logs to Datadog with Logstash
 
 ## Validation
 
-[Run the Agent's `status` subcommand][4] and look for `hbase_regionserver` under the Checks section.
+[Run the Agent's `status` subcommand][4] and look for `logstash` under the Checks section.
 
 ## Compatibility
 
