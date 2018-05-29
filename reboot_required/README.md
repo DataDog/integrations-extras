@@ -59,6 +59,7 @@ To create alert conditions on these service checks in Datadog, select 'Custom Ch
 **`system.reboot_required`**
 
 The check returns:
+
 * `OK` if the system does not require a reboot or for less than `days_warning` or `days_critical`.
 * `WARNING` if the system has required a reboot for longer than `days_warning` days.
 * `CRITICAL` if the system has required a reboot for longer than `days_critical` days.
