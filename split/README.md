@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Split][1] is a platform for [controlled rollouts][2], helping businesses of all sizes deliver exceptional user experiences and mitigate risk by providing an easy, secure way to target features to customers.
+[Split](http://www.split.io) is a platform for [controlled rollouts](http://www.split.io/articles/controlled-rollout), helping businesses of all sizes deliver exceptional user experiences and mitigate risk by providing an easy, secure way to target features to customers.
 
 Integrate Split with Datadog to:
 
@@ -20,11 +20,11 @@ Integrate Split with Datadog to:
 
  * Go to **Admin Settings** and click **Integrations** and navigate to the Marketplace. Click Add next to Datadog.<br/>
 
-![Split Screenshot][3]
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/in-split.png)
 
  * Paste your Datadog API Key and click Save.
 
-![Split Screenshot][4]
+![Split Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/integrations-datadog.png)
 
 Split data should now be flowing into Datadog.
 
@@ -34,17 +34,17 @@ Split data should now be flowing into Datadog.
 The Split check does not include any metrics at this time.
 
 ### Events
-Push your Split listing/de-listing events into your [Datadog Event Stream][5].
+Push your Split listing/de-listing events into your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/).
 
 ### Service Checks
 The Split check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][7].
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
 
 
 [1]: http://www.split.io

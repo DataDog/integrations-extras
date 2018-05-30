@@ -1,12 +1,12 @@
 ## Overview
 
-Get metrics from [Ambassador][1] in real time to:
+Get metrics from [Ambassador](https://www.getambassador.io) in real time to:
 
 * Visualize the performance of your microservices
 
 * Understand the impact of new versions of your services as you use Ambassador to do a canary rollout
 
-![snapshot][2]
+![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png)
 
 ## Setup
 
@@ -71,7 +71,7 @@ kubectl apply -f datadog-statsd-sink.yaml
 
 ### Metrics
 
-See [metadata.csv][3] for a list of metrics provided by this check.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv) for a list of metrics provided by this check.
 
 ### Events
 
@@ -82,11 +82,11 @@ The Ambassador check does not include any events at this time.
 The Ambassador check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][5].
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
 
 
 [1]: https://www.getambassador.io
