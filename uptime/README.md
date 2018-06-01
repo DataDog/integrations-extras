@@ -7,13 +7,13 @@ Get events and metrics from your app in real time to:
 * Track and notify of any downtime or interruptions.
 * Visualize response time metrics from synthetic requests.
 
-![Uptime.com Graph][1]
+![Uptime.com Graph](https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/uptime/uptime/images/snapshot.png)
 
 ## Setup
 
 ### Configuration
 
-In order to activate the integration of Datadog within your Uptime account, you will go to [Alerting>Push Notifications][2] then choose Datadog as the provider type when adding a new push notifications profile.
+In order to activate the integration of Datadog within your Uptime account, go to [Alerting>Push Notifications](https://uptime.com/push-notifications/manage/) then choose Datadog as the provider type when adding a new push notifications profile.
 
 The following describes the fields shown when configuring Datadog within your Uptime account: 
 
@@ -28,7 +28,7 @@ The following describes the fields shown when configuring Datadog within your Up
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][3] for a list of metrics provided by this integration.
+See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/uptime/metadata.csv) for a list of metrics provided by this integration.
 
 ### Events
 The Uptime check does not include any events at this time.
@@ -37,11 +37,11 @@ The Uptime check does not include any events at this time.
 The Uptime check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][5].
+Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
 
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/uptime/uptime/images/snapshot.png
