@@ -6,7 +6,7 @@ Enabling this integration will let you:
 *   Correlate deployment details with your Datadog metrics
 *   Detect the sources of performance spikes
 
-![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png)
+![datadog-integration](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png)
 
 ## Setup
 
@@ -18,7 +18,7 @@ Enabling this integration will let you:
 
 * Enter the name of your Datadog account and paste the API key that you copied
 
-* You can use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
+* Use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
 
 ```
 # Event title
@@ -48,3 +48,13 @@ Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 ## Further Reading
 
 Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
+[2]: https://app.datadoghq.com/account/settings#api
+[3]: https://app.buddy.works/login
+[4]: https://buddy.works/knowledge/deployments/what-parameters-buddy-use
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png
+[6]: https://docs.datadoghq.com/graphing/event_stream/
+[7]: http://docs.datadoghq.com/help/
+[8]: https://www.datadoghq.com/blog/

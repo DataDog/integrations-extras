@@ -45,3 +45,12 @@ Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 ## Further Reading
 
 Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+
+
+[1]: http://www.split.io
+[2]: http://www.split.io/articles/controlled-rollout
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/in-split.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/integrations-datadog.png
+[5]: https://docs.datadoghq.com/graphing/event_stream/
+[6]: http://docs.datadoghq.com/help/
+[7]: https://www.datadoghq.com/blog/

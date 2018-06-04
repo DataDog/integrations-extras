@@ -27,6 +27,7 @@ services:
 install:
   # Use the 64-bit ruby so that all the Powershell classes are accessible when running shell commands from ruby
   - set PATH=C:\Ruby22-x64\bin;%PATH%
+  - set PATH=C:\Python27-x64\Scripts;%PATH%
   - bundle install
   - bundle package
   - git clone -b %DD_AGENT_BRANCH% https://github.com/DataDog/dd-agent.git c:\projects\dd-agent
@@ -35,6 +36,7 @@ install:
   - "%PYTHON%/Scripts/easy_install.exe %PYWIN_PATH%"
   - ps: mkdir -p $(python -m site --user-site)
   - ps: echo "C:\projects\dd-agent" | out-file "$(python -m site --user-site)/datadog-agent.pth" -encoding ASCII
+  - ps: (& "$env:PYTHON/python.exe" -m pip install --upgrade pip)
   - ps: '& "$env:PYTHON/Scripts/pip.exe" install -r c:\projects\dd-agent\requirements.txt'
   # Remove the adodbapi module shipped with pywin32: it conflicts with the pip-installed adodbapi
   - ps: rm $env:PYTHON/lib/site-packages/$env:PYWIN32_INSTALL_DIR/adodbapi/__init__.py

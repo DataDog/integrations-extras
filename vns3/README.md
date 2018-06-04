@@ -40,3 +40,12 @@ Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
 ## Further Reading
 
 Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/peering.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/clients.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/ipsec.png
+[4]: https://cohesive.net/dnld/Cohesive-Networks_VNS3-DataDog-Container-Guide.pdf
+[5]: https://youtu.be/sTCgCG3m4vk
+[6]: https://github.com/DataDog/integrations-extras/blob/master/vns3/metadata.csv
+[7]: http://docs.datadoghq.com/help/
+[8]: https://www.datadoghq.com/blog/

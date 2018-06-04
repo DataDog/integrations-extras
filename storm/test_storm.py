@@ -831,7 +831,7 @@ class TestStorm(AgentCheckTest):
 
         self.check.report_gauge = report_gauge
 
-        self.check.process_cluster_stats('test', TEST_STORM_CLUSTER_SUMMARY)
+        self.check.process_cluster_stats(TEST_STORM_CLUSTER_SUMMARY)
         self.assertEquals(13, len(results))
 
         # Check Cluster Stats
@@ -855,7 +855,7 @@ class TestStorm(AgentCheckTest):
 
         self.check.report_gauge = report_gauge
 
-        self.check.process_nimbus_stats('test', TEST_STORM_NIMBUSES_SUMMARY)
+        self.check.process_nimbus_stats(TEST_STORM_NIMBUSES_SUMMARY)
         self.assertEquals(5, len(results))
 
         # Check Leader Stats
@@ -1045,9 +1045,8 @@ class TestStorm(AgentCheckTest):
         self.run_check(self.STORM_CHECK_CONFIG['instances'][0])
 
         topology_tags = ['topology:my_topology']
-        env_tags = ['env:test', 'environment:test']
+        env_tags = ['stormEnvironment:test']
         storm_version_tags = ['stormVersion:1.0.3']
-        storm_cluster_environment_tags = ['stormClusterEnvironment:test']
 
         # Service Check
         self.assertServiceCheck(
@@ -1073,7 +1072,7 @@ class TestStorm(AgentCheckTest):
             ('totalMem', 1, 0),
             ('memAssignedPercentUtil', 1, 0)
         )
-        test_tags = env_tags + storm_version_tags + storm_cluster_environment_tags
+        test_tags = env_tags + storm_version_tags
         for name, count, value in test_cases:
             self.assertMetric(
                 'storm.cluster.{}'.format(name),
@@ -1086,12 +1085,12 @@ class TestStorm(AgentCheckTest):
         test_cases = (
             ('upTimeSeconds', 1, 25842, ['stormStatus:leader', 'stormHost:1.2.3.4']),
             ('upTimeSeconds', 1, 0, ['stormStatus:offline', 'stormHost:nimbus01.example.com']),
-            ('numLeaders', 1, 1, []),
-            ('numFollowers', 1, 0, []),
-            ('numOffline', 1, 1, []),
-            ('numDead', 1, 0, [])
+            ('numLeaders', 1, 1, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numFollowers', 1, 0, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numOffline', 1, 1, ['stormStatus:leader', 'stormHost:1.2.3.4']),
+            ('numDead', 1, 0, ['stormStatus:leader', 'stormHost:1.2.3.4'])
         )
-        test_tags = storm_cluster_environment_tags + env_tags + storm_version_tags
+        test_tags = env_tags + storm_version_tags
 
         for name, count, value, additional_tags in test_cases:
             self.assertMetric(
@@ -1231,17 +1230,16 @@ class TestStorm(AgentCheckTest):
             'topology-check.topology',
             count=1,
             status=AgentCheck.OK,
-            tags=['env:integration', 'environment:integration', 'stormVersion:1.1.1']
+            tags=['stormEnvironment:integration', 'stormVersion:1.1.1']
         )
 
         topology_tags = ['topology:topology']
-        env_tags = ['env:integration', 'environment:integration']
+        env_tags = ['stormEnvironment:integration']
         storm_version_tags = ['stormVersion:1.1.1']
-        storm_cluster_environment_tags = ['stormClusterEnvironment:integration']
 
         self.assertMetric(
             'storm.cluster.supervisors', value=1, count=1,
-            tags=storm_cluster_environment_tags + storm_version_tags + env_tags
+            tags= storm_version_tags + env_tags
         )
 
         # Cluster Stats
@@ -1260,7 +1258,7 @@ class TestStorm(AgentCheckTest):
             ('totalMem', 1, None, False),
             ('memAssignedPercentUtil', 1, None, False)
         )
-        test_tags = storm_cluster_environment_tags + storm_version_tags + env_tags
+        test_tags = storm_version_tags + env_tags
         for name, count, value, test_value in test_cases:
             self.assertMetric(
                 'storm.cluster.{}'.format(name),
@@ -1276,14 +1274,13 @@ class TestStorm(AgentCheckTest):
             ('numOffline', 1, 1, []),
             ('numDead', 1, 0, [])
         )
-        test_tags = storm_cluster_environment_tags + env_tags + storm_version_tags
+        test_tags = env_tags + storm_version_tags
 
         for name, count, value, additional_tags in test_cases:
             self.assertMetric(
                 'storm.nimbus.{}'.format(name),
                 count=count,
-                value=value,
-                tags=test_tags + additional_tags
+                value=value
             )
 
         # Supervisor Stats
