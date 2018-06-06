@@ -6,5 +6,6 @@ from datadog_checks.nifi import NiFiCheck
 
 def test_check(aggregator):
     c = NiFiCheck('nifi', {}, {}, None)
-    c.check({})
+    instance = {'host': 'localhost', 'port': "8080"}
+    c.check(instance)
     aggregator.assert_all_metrics_covered()
