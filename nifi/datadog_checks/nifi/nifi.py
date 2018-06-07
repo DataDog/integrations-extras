@@ -1,43 +1,63 @@
 # (C) Datadog, Inc. 2010-2017
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
+import requests
+import time
 from collections import namedtuple
-import httplib
-
-
 from datadog_checks.checks import AgentCheck
 from datadog_checks.errors import CheckException
 
-NiFiHost = namedtuple('NiFiHost', ['Host', 'Port'])
 # EndPoint information https://nifi.apache.org/docs/nifi-docs/rest-api/index.html
-EndPoints = ['system-diagnostics', 'flow/cluster/summary']
 ENDPOINT = '/nifi-api/system-diagnostics'
+
+GuageInfo = namedtuple('GuageInfo', ['type', 'metric'])
 
 
 class NiFiCheck(AgentCheck):
 
     def check(self, instance):
-        nifi = NiFiCheck.__GetNiFiHost(instance)
-        con = httplib.HTTPConnection(nifi.Host, nifi.Port, timeout=10)
-        if 'ssl' in instance:
-            ''' Add the NiFi P12 and Password to the Http Connection '''
-            pass
+        if 'host' not in instance:
+            raise CheckException("No host defined for nifi instance")
+        nifi = instance.get('host')
+        instance_tags = instance.get('tags', [])
+        self.log.info('Connecting to nifi instance')
         try:
-            con.request("GET", ENDPOINT)
-            req = con.getresponse()
-
-            if req.status in [400, 401, 404, 403]:
-                raise CheckException('Unable to connect to endpoint')
-            data = req.read()
-            print('Data I have is:', data)
-        except httplib.HTTPException as e:
-            self.service_check(self.CRITICAL, e)
+            r = requests.get(nifi + ENDPOINT, timeout=10)
+            r.raise_for_status()
+        except requests.exception.Timeout as e:
+            self.service_check('nifi.instance.http_check',
+                               self.WARNING,
+                               tags=instance_tags,
+                               message=str(e))
+            return
         except Exception as e:
-            print("I have done something wrong")
-            self.service_check(self.CRITICAL, e)
+            self.service_check('nifi.instance.http_check', self.CRITICAL,
+                               tags=instance_tags)
+            raise CheckException(e)
+        self.service_check('nifi.instance.http_check', self.OK, tags=instance_tags)
+        # Obtain all the key metrics from nifi to send to DataDog
+        for point in NiFiCheck.getSystemMetrics(r.json()):
+            try:
+                v = float(point.metric)
+                self.gauge(point.type, v, tags=instance_tags)
+            except ValueError:
+                self.rate(point.type, point.metric, tags=instance_tags)
+            time.sleep(1)
 
     @staticmethod
-    def __GetNiFiHost(instance):
-        if 'host' not in instance:
-            raise CheckException('No host defined for nifi instance')
-        return NiFiHost(instance.get('host'), instance.get('port', '8080'))
+    def getSystemMetrics(response):
+        stats = []
+        # Get NiFi system information
+        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.freenonheap.bytes',
+                          response['systemDiagnostics']['aggregateSnapshot']['freeNonHeapBytes'])
+        stats.append(point)
+        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.usedheap.bytes',
+                          response['systemDiagnostics']['aggregateSnapshot']['usedHeapBytes'])
+        stats.append(point)
+        # Had to remove the percentage symbol given in the Json
+        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.heaputilization.percentage',
+                          response['systemDiagnostics']['aggregateSnapshot']['heapUtilization'][:-1])
+        stats.append(point)
+        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.processorloadaverage.percentage',
+                          response['systemDiagnostics']['aggregateSnapshot']['processorLoadAverage'])
+        return stats
