@@ -37,11 +37,10 @@ class NiFiCheck(AgentCheck):
         self.service_check('nifi.instance.http_check', self.OK, tags=instance_tags)
         # Obtain all the key metrics from nifi to send to DataDog
         for point in NiFiCheck.getSystemMetrics(r.json()):
-            try:
-                v = float(point.metric)
-                self.gauge(point.type, v, tags=instance_tags)
-            except ValueError:
+            if type(point.metric) is int:
                 self.rate(point.type, point.metric, tags=instance_tags)
+            else:
+                self.gauge(point.type, point.metric, tags=instance_tags)
             time.sleep(1)
 
     @staticmethod
