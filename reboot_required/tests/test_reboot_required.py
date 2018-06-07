@@ -5,6 +5,8 @@ from os.path import join, isfile
 from tempfile import gettempdir
 from datetime import datetime, timedelta
 from time import mktime
+import pytest
+
 
 CONFIG_STATUS_OK = {
     'instances': [{
