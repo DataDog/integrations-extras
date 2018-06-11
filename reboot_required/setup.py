@@ -69,7 +69,7 @@ setup(
     },
 
     # Testing setup and dependencies
-    tests_require=get_requirements(path.join('tests', 'requirements.txt')),
+    tests_require=get_requirements('requirements-dev.txt'),
 
     # Extra files to ship with the wheel package
     package_data={'datadog_checks.reboot_required': ['conf.yaml.default']},
