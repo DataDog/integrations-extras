@@ -11,6 +11,7 @@ from os.path import isfile
 from stat import ST_MTIME
 from datetime import datetime, timedelta
 
+
 class RebootRequiredCheck(AgentCheck):
 
     REBOOT_SIGNAL_FILE = '/var/run/reboot-required'
