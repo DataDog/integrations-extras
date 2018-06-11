@@ -91,3 +91,19 @@ def test_check_ok(aggregator):
     reboot_required.check(CONFIG_STATUS_OK)
     aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
     assert(isfile(join(gettempdir(), 'reboot-required.created_at.freshly_minted')))
+
+
+def test_check_np_ok(aggregator):
+    reboot_required.check(CONFIG_STATUS_NP_OK)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
+    assert(not isfile(join(gettempdir(), 'reboot-required.created_at.should_not_be_present')))
+
+
+def test_check_warning(aggregator):
+    reboot_required.check(CONFIG_STATUS_WARNING)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.WARNING)
+
+
+def test_check_critical(aggregator):
+    reboot_required.check(CONFIG_STATUS_CRITICAL)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.CRITICAL)
