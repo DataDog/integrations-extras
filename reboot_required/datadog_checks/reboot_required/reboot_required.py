@@ -4,7 +4,7 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
 # project
-from checks import AgentCheck
+from datadog_checks.checks import AgentCheck
 
 from os import stat, utime, remove
 from os.path import isfile

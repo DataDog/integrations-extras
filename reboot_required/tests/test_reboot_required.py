@@ -4,7 +4,7 @@ from os.path import join, isfile
 from tempfile import gettempdir
 from datetime import datetime, timedelta
 from time import mktime
-# import pytest
+import pytest
 
 
 CONFIG_STATUS_OK = {
@@ -44,9 +44,10 @@ CONFIG_STATUS_CRITICAL = {
 }
 
 
-reboot_required = RebootRequiredCheck('reboot_required',{},{})
+reboot_required = RebootRequiredCheck('reboot_required', {}, {})
 
-@pytest.fixture(autouse=True)
+
+@pytest.fixture()
 def aggregator():
     from datadog_checks.stubs import aggregator
     aggregator.reset()
@@ -86,11 +87,7 @@ def teardown_module():
     remove(join(temp_dir, 'reboot-required.created_at.critical'))
 
 
-def test_check_ok(self):
+def test_check_ok(aggregator):
     reboot_required.check(CONFIG_STATUS_OK)
-    aggregator.assert_service_check('system.reboot_required',status=reboot_required.OK)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
     assert(isfile(join(gettempdir(), 'reboot-required.created_at.freshly_minted')))
-
-
-def test_test():
-    assert True is True
