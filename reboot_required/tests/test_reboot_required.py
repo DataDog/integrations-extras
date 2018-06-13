@@ -6,35 +6,12 @@ from datetime import datetime, timedelta
 from time import mktime
 import pytest
 
-
-CONFIG_STATUS_OK = {
-    'reboot_signal_file': join(gettempdir(), 'reboot-required.freshly_minted'),
-    'created_at_file': join(gettempdir(), 'reboot-required.created_at.freshly_minted'),
-    'days_warning': 7,
-    'days_critical': 14
-}
-
-CONFIG_STATUS_NP_OK = {
-    'reboot_signal_file': join(gettempdir(), 'reboot-required.should_not_be_present'),
-    'created_at_file': join(gettempdir(), 'reboot-required.created_at.should_not_be_present'),
-    'days_warning': 7,
-    'days_critical': 14
-}
-
-CONFIG_STATUS_WARNING = {
-    'reboot_signal_file': join(gettempdir(), 'reboot-required.warning'),
-    'created_at_file': join(gettempdir(), 'reboot-required.created_at.warning'),
-    'days_warning': 7,
-    'days_critical': 14
-}
-
-CONFIG_STATUS_CRITICAL = {
-    'reboot_signal_file': join(gettempdir(), 'reboot-required.critical'),
-    'created_at_file': join(gettempdir(), 'reboot-required.created_at.critical'),
-    'days_warning': 7,
-    'days_critical': 14
-}
-
+from .common import (
+    CONFIG_STATUS_OK,
+    CONFIG_STATUS_NP_OK,
+    CONFIG_STATUS_WARNING,
+    CONFIG_STATUS_CRITICAL
+)
 
 reboot_required = RebootRequiredCheck('reboot_required', {}, {})
 
@@ -50,22 +27,21 @@ def setup_module():
     temp_dir = gettempdir()
     now = datetime.utcnow()
 
-    eight_days_ago = mktime((now - timedelta(days=8)).timetuple())
-    fifteen_days_ago = mktime((now - timedelta(days=15)).timetuple())
+    nine_days_ago = mktime((now - timedelta(days=9)).timetuple())
+    sixteen_days_ago = mktime((now - timedelta(days=16)).timetuple())
 
     open(join(temp_dir, 'reboot-required.freshly_minted'), 'a').close()
     open(join(temp_dir, 'reboot-required.created_at.freshly_minted'), 'a').close()
- #   open(join(temp_dir, 'reboot-required.created_at.should_not_be_present'), 'a').close()
 
     open(join(temp_dir, 'reboot-required.warning'), 'a').close()
     open(join(temp_dir, 'reboot-required.created_at.warning'), 'a').close()
 
-    utime(join(temp_dir, 'reboot-required.created_at.warning'), (eight_days_ago, eight_days_ago))
+    utime(join(temp_dir, 'reboot-required.created_at.warning'), (nine_days_ago, nine_days_ago))
 
     open(join(temp_dir, 'reboot-required.critical'), 'a').close()
     open(join(temp_dir, 'reboot-required.created_at.critical'), 'a').close()
 
-    utime(join(temp_dir, 'reboot-required.created_at.critical'), (fifteen_days_ago, fifteen_days_ago))
+    utime(join(temp_dir, 'reboot-required.created_at.critical'), (sixteen_days_ago, sixteen_days_ago))
 
 
 def teardown_module():
@@ -78,16 +54,16 @@ def teardown_module():
     remove(join(temp_dir, 'reboot-required.created_at.critical'))
 
 
-# def test_check_ok(aggregator):
-#     reboot_required.check(CONFIG_STATUS_OK)
-#     aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
-#     assert(isfile(join(gettempdir(), 'reboot-required.created_at.freshly_minted')))
+def test_check_ok(aggregator):
+    reboot_required.check(CONFIG_STATUS_OK)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
+    assert(isfile(join(gettempdir(), 'reboot-required.created_at.freshly_minted')))
 
 
-# def test_check_np_ok(aggregator):
-#     reboot_required.check(CONFIG_STATUS_NP_OK)
-#     aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
-#     assert(not isfile(join(gettempdir(), 'reboot-required.created_at.should_not_be_present')))
+def test_check_np_ok(aggregator):
+    reboot_required.check(CONFIG_STATUS_NP_OK)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.OK)
+    assert(not isfile(join(gettempdir(), 'reboot-required.created_at.should_not_be_present')))
 
 
 def test_check_warning(aggregator):
@@ -95,6 +71,6 @@ def test_check_warning(aggregator):
     aggregator.assert_service_check('system.reboot_required', status=reboot_required.WARNING)
 
 
-# def test_check_critical(aggregator):
-#     reboot_required.check(CONFIG_STATUS_CRITICAL)
-#     aggregator.assert_service_check('system.reboot_required', status=reboot_required.CRITICAL)
+def test_check_critical(aggregator):
+    reboot_required.check(CONFIG_STATUS_CRITICAL)
+    aggregator.assert_service_check('system.reboot_required', status=reboot_required.CRITICAL)
