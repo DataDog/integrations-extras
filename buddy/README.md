@@ -6,19 +6,19 @@ Enabling this integration will let you:
 *   Correlate deployment details with your Datadog metrics
 *   Detect the sources of performance spikes
 
-![datadog-integration](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png)
+![datadog-integration][1]
 
 ## Setup
 
-* In your Datadog account settings go to [Integrations -> APIs](https://app.datadoghq.com/account/settings#api) and copy the **API Key** token
+* In your Datadog account settings go to [Integrations -> APIs][2] and copy the **API Key** token
 
-* [Sign in to your Buddy account](https://app.buddy.works/login) and go to the pipeline with the deployment action that you want to track
+* [Sign in to your Buddy account][3] and go to the pipeline with the deployment action that you want to track
 
 * Click the plus at the end of the pipeline and select **Datadog** in the **Notifications** section
 
 * Enter the name of your Datadog account and paste the API key that you copied
 
-* Use [Buddy parameters](https://buddy.works/knowledge/deployments/what-parameters-buddy-use) to define the title of the event and content sent, for example:
+* Use [Buddy parameters][4] to define the title of the event and content sent, for example:
 
 ```
 # Event title
@@ -30,25 +30,24 @@ ${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
 
 * When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
 
-![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png)
+![snapshot][5]
 
 ## Data Collected
 ### Metrics
 The Buddy check does not include any metrics at this time.
 
 ### Events
-All Buddy deployment events are sent to your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
+All Buddy deployment events are sent to your [Datadog Event Stream][6]
 
 ### Service Checks
 The Buddy check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][7].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
-
+Learn more about infrastructure monitoring and all our integrations on [our blog][8].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
 [2]: https://app.datadoghq.com/account/settings#api

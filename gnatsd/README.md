@@ -40,7 +40,7 @@ The gnatsd check is compatible with all major platforms
 ## Data Collected
 ### Metrics
 
-See [metadata.csv](https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][1] for a list of metrics provided by this integration.
 
 ### Events
 The gnatsd check does not include any events at this time.
@@ -54,7 +54,12 @@ This gnatsd check tags all service checks it collects with:
 Returns CRITICAL if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns UP.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][2].
 
 ## Further Reading
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog][3]
+
+
+[1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
+[2]: http://docs.datadoghq.com/help/
+[3]: https://www.datadoghq.com/blog/
