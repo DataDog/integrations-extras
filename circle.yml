@@ -52,6 +52,7 @@ test:
         - TRAVIS_FLAVOR="gnatsd" bundle exec rake ci:run
         - rake ci:run[aerospike]
         - rake ci:run[default]
+        - rake ci:run[portworx]
         - bundle exec rake requirements
     post:
         - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
