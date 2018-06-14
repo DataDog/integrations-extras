@@ -65,10 +65,9 @@ class SortdbCheck(AgentCheck):
         self._get_sortdb_metrics(sortdb_url, SORTDB_METRICS, instance_tags)
 
     def _get_response_from_url(self, url, timeout, aggregation_key, instance_tags):
-        '''
+        """
         Send rest request to address and return the response as JSON
-
-        '''
+        """
         response = None
         self.log.debug('Sending request to "%s"' % url)
 
@@ -109,7 +108,6 @@ class SortdbCheck(AgentCheck):
         aggregation_key = md5(sortdb_url).hexdigest()
 
         response = self._get_response_from_url(sortdb_url, timeout, aggregation_key, instance_tags)
-        print(response)
         for metric, (metric_name, metric_type) in metrics.iteritems():
             value = response.get(metric)
 
@@ -120,9 +118,9 @@ class SortdbCheck(AgentCheck):
                 self.log.debug('Value not returned for metric: "%s" ' % (metric))
 
     def _set_metric(self, metric_name, metric_type, value, instance_tags):
-        '''
+        """
         Set a metric
-        '''
+        """
         if metric_type == GAUGE:
             self.gauge(metric_name, value, tags=instance_tags)
 
