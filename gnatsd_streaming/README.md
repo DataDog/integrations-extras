@@ -8,9 +8,16 @@ Get metrics from gnatsd_streaming service in real time to:
 * Be notified about gnatsd_streaming failovers and events.
 
 ## Setup
+
 ### Installation
 
-Install the `dd-check-gnatsd_streaming` package manually or with your favorite configuration manager
+To install the Aerospike check on your host:
+
+1. [Download the Datadog Agent][4].
+2. Download the [`check.py` file][5] for Gnatsd_streaming.
+3. Place it in the Agent's `checks.d` directory.
+4. Rename it to `aerospike.py`.
+
 
 ### Configuration
 
@@ -66,3 +73,5 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [2]: http://docs.datadoghq.com/help/
 [3]: https://www.datadoghq.com/blog/
+[4]: https://app.datadoghq.com/account/settings#agent
+[5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/check.py
