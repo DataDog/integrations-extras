@@ -44,6 +44,11 @@ jobs:
       script:
         # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
         - travis_retry inv test --targets=${CHECK}
+    - stage: test
+      env: CHECK=sortdb
+      script:
+        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
+        - travis_retry inv test --targets=${CHECK}
 
 install:
   - pip install -U pip setuptools
