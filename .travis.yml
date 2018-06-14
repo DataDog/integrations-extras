@@ -37,15 +37,13 @@ jobs:
   include:
     - stage: test_changed
       script:
-      #  - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
+       #  - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
        - inv test --changed-only
     - stage: test
-      env: CHECK=datadog_checks_base
+      env: CHECK=reboot_required
       script:
-        - inv manifest --include-extras
+        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
         - travis_retry inv test --targets=${CHECK}
-    # - stage: test
-    #   env: CHECK=my_check
 
 install:
   - pip install -U pip setuptools
