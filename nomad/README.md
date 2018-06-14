@@ -9,7 +9,7 @@ Gather metrics from your Nomad clusters to:
 
 ### Installation
 
-Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, [install the Datadog Agent](https://app.datadoghq.com/account/settings#agent) on each client and server host.  
+Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, [install the Datadog Agent][1] on each client and server host.  
 
 ### Configuration
 
@@ -28,7 +28,7 @@ Next, reload or restart the Nomad agent on each host. You should now begin to se
 
 ## Data Collected
 ### Metrics
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Events
 The Nomad check does not include any events at this time.
@@ -37,14 +37,13 @@ The Nomad check does not include any events at this time.
 The Nomad check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][3].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
+Learn more about infrastructure monitoring and all our integrations on [our blog][4].
 
-
-[1]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
-[2]: http://docs.datadoghq.com/help/
-[3]: https://www.datadoghq.com/blog/
-[4]: https://app.datadoghq.com/account/settings#agent
+[1]: https://app.datadoghq.com/account/settings#agent
+[2]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
+[3]: http://docs.datadoghq.com/help/
+[4]: https://www.datadoghq.com/blog/
