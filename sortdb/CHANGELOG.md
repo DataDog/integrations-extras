@@ -1,8 +1,5 @@
 # CHANGELOG - Sortdb
 
-0.1.0/ Unreleased
-==================
+## 1.0.0 / 2018-06-14
 
-### Changes
-
-* [FEATURE] adds sortdb integration.
+* [Added] adds sortdb integration.
