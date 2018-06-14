@@ -16,7 +16,7 @@ To install the Aerospike check on your host:
 1. [Download the Datadog Agent][4].
 2. Download the [`check.py` file][5] for Gnatsd.
 3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `aerospike.py`.
+4. Rename it to `gnatsd.py`.
 
 ### Configuration
 
