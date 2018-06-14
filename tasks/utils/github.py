@@ -8,7 +8,7 @@ import requests
 
 
 API_URL = 'https://api.github.com'
-PR_ENDPOINT = API_URL + '/repos/DataDog/integrations-core/pulls/{}'
+PR_ENDPOINT = API_URL + '/repos/DataDog/integrations-extras/pulls/{}'
 
 CHANGELOG_LABEL_PREFIX = 'changelog/'
 CHANGELOG_TYPE_NONE = 'no-changelog'

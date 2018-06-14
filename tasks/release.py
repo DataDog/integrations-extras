@@ -2,7 +2,6 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 from __future__ import print_function, unicode_literals
-import os
 import sys
 
 from packaging import version
@@ -10,15 +9,14 @@ from invoke import task
 from invoke.exceptions import Exit
 from colorama import Fore
 
-from .constants import AGENT_BASED_INTEGRATIONS, ROOT
+from .constants import AGENT_BASED_INTEGRATIONS
 from .utils.git import (
-    get_current_branch, parse_pr_numbers, get_diff, git_tag, git_commit
+    get_current_branch, parse_pr_numbers, get_diff, git_tag
 )
 from .utils.common import (
     get_version_string, get_release_tag_string, update_version_module
 )
 from .utils.github import get_changelog_types, get_pr
-from .utils.requirements import get_requirement_line, update_requirements
 from .changelog import do_update_changelog
 
 
@@ -160,32 +158,3 @@ def release_prepare(ctx, target, new_version):
 
     # done
     print("All done, remember to push to origin and open a PR to merge these changes on master")
-
-
-@task(help={
-    'target': "The check to release",
-    'dry-run': "Runs the task without publishing the package",
-})
-def release_upload(ctx, target, dry_run=False):
-    """
-    Release to PyPI a specific check as it is on the repo HEAD
-    """
-    # sanity check on the target
-    if target not in AGENT_BASED_INTEGRATIONS:
-        raise Exit("Provided target is not an Agent-based Integration")
-
-    # retrieve credentials
-    username = os.environ.get('DD_PYPI_USERNAME')
-    password = os.environ.get('DD_PYPI_PASSWORD')
-    if not (username and password):
-        raise Exit("Please set DD_PYPI_USERNAME and DD_PYPI_PASSWORD env vars and try again.")
-
-    print("Building and publishing {} on PyPI".format(target))
-    with ctx.cd(target):
-        ctx.run('python setup.py bdist_wheel', hide='stdout')
-        print("Build done, uploading the package...")
-        if not dry_run:
-            cmd = 'twine upload -u "{}" -p "{}" dist/*'.format(username, password)
-            ctx.run(cmd, warn=True)
-
-    print("Done.")
