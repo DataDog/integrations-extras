@@ -1,3 +1,6 @@
+# (C) Datadog, Inc. 2018
+# All rights reserved
+# Licensed under Simplified BSD License (see LICENSE)
 from os.path import join
 from tempfile import gettempdir
 
