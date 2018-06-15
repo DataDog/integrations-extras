@@ -18,12 +18,6 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-# Parse requirements
-def get_requirements(fpath):
-    with open(path.join(HERE, fpath), encoding='utf-8') as f:
-        return f.readlines()
-
-
 setup(
     name='datadog-reboot-required',
     version=ABOUT["__version__"],
@@ -54,12 +48,6 @@ setup(
 
     # The package we're going to ship
     packages=['datadog_checks.reboot_required'],
-
-    # Run-time dependencies
-    install_requires=get_requirements('requirements.in'),
-
-    # Testing setup and dependencies
-    tests_require=get_requirements('requirements-dev.txt'),
 
     # Extra files to ship with the wheel package
     include_package_data=True,

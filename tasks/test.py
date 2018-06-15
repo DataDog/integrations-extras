@@ -65,7 +65,7 @@ def check_requirements(ctx, target, dry_run, changed_files):
     if not dry_run:
         # Check the files are there
         req_in = os.path.join(target_path, 'requirements.in')
-        req_txt = os.path.join(target_path, 'requirements.txt')
+        req_txt = os.path.join(target_path, 'datadog_checks', target, 'data', 'requirements.txt')
         if not (os.path.exists(req_in) and os.path.exists(req_txt)):
             raise Exit("Target folder '{}' must contain 'requirements.in' and 'requirements.txt'\n".format(target_path))
 
