@@ -56,22 +56,11 @@ setup(
     packages=['datadog_checks.reboot_required'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in')+[
-        'datadog_checks_base',
-    ],
-
-    # Development dependencies, run with:
-    # $ pip install -e .[dev]
-    extras_require={
-        'dev': [
-            'check-manifest',
-        ],
-    },
+    install_requires=get_requirements('requirements.in'),
 
     # Testing setup and dependencies
     tests_require=get_requirements('requirements-dev.txt'),
 
     # Extra files to ship with the wheel package
-    package_data={'datadog_checks.reboot_required': ['conf.yaml.default']},
     include_package_data=True,
 )

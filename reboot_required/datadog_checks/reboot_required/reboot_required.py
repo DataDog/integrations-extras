@@ -1,15 +1,13 @@
-# vim: ts=4:sw=4:et
-# (C) Datadog, Inc. 2010-2017
+# (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-
-# project
-from datadog_checks.checks import AgentCheck
-
 from os import stat, utime, remove
 from os.path import isfile
 from stat import ST_MTIME
 from datetime import datetime, timedelta
+
+# project
+from datadog_checks.checks import AgentCheck
 
 
 class RebootRequiredCheck(AgentCheck):

@@ -1,10 +1,14 @@
-from datadog_checks.reboot_required import RebootRequiredCheck
+# (C) Datadog, Inc. 2018
+# All rights reserved
+# Licensed under Simplified BSD License (see LICENSE)
 from os import utime, remove
 from os.path import join, isfile
 from tempfile import gettempdir
 from datetime import datetime, timedelta
 from time import mktime
+
 import pytest
+from datadog_checks.reboot_required import RebootRequiredCheck
 
 from .common import (
     CONFIG_STATUS_OK,
