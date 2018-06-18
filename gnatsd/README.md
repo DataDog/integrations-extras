@@ -55,9 +55,10 @@ The gnatsd check does not include any events at this time.
 This gnatsd check tags all service checks it collects with:
 
 * `server_name:<server_name_in_yaml>`
+* `url:<host_in_yaml>`
 
 `gnatsd.can_connect`:
-Returns CRITICAL if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns UP.
+Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][2].

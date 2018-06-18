@@ -23,9 +23,9 @@ To install the SNMP walk check on your host:
 
 ### Configuration
 
-To configure the SNMP walk check: 
+To configure the SNMP walk check:
 
-1. Create a `snmpwalk.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `snmpwalk.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `snmpwalk.d/` folder previously created.
 3. Consult the [sample snmpwalk.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
@@ -43,7 +43,12 @@ The SNMP walk check does not include any metrics at this time.
 The SNMP walk check does not include any events at this time.
 
 ### Service Checks
-The SNMP walk check does not include any service checks at this time.
+**`snmpwalk.can_check`**
+
+The check returns:
+
+* `OK` if the check can collect metrics from `snmpwalk`.
+* `CRITICAL` if check encounters an error when trying to collect metrics from `snmpwalk`.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
