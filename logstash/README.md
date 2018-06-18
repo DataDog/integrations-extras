@@ -22,9 +22,9 @@ To install the Logstash check on your host:
 
 ### Configuration
 
-To configure the Logstash check: 
+To configure the Logstash check:
 
-1. Create a `logstash.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `logstash.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `logstash.d/` folder previously created.
 3. Consult the [sample logstash.yaml][3] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml`  to start collecting your [metrics][5] or [logs][6]
@@ -71,7 +71,7 @@ The Logstash check does not include any events at this time.
 
 `logstash.can_connect`:
 
-Returns `Critical` if the Agent cannot connect to Logstash to collect metrics.
+Returns `Critical` if the Agent cannot connect to Logstash to collect metrics, returns `OK` otherwise.
 
 ## Troubleshooting
 

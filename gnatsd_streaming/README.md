@@ -57,11 +57,11 @@ when the status of a Server changes between `FT_STANDBY` and `FT_ACTIVE`
 ### Service Checks
 This gnatsd_streaming check tags all service checks it collects with:
 
-  * `nameserver:<nameserver_in_yaml>`
-  * `resolved_hostname:<hostname_in_yaml>`
+  * `server_name:<server_name_in_yaml>`
+  * `url:<host_in_yaml>`
 
-`gnatsd_streaming.can_resolve`:
-Returns CRITICAL if the Agent fails to resolve the request, otherwise returns UP.
+`gnatsd_streaming.can_connect`:
+Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][2].
