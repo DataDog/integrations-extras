@@ -7,28 +7,23 @@ Get metrics from Hbase_master service in real time to:
 * Visualize and monitor Hbase_master states.
 * Be notified about Hbase_master failovers and events.
 
-## Setup
-
-The Hbase_master check is **NOT** included in the [Datadog Agent][1] package.
-
 ### Installation
 
 To install the Hbase_master check on your host:
 
 1. [Download the Datadog Agent][1].
-2. Download the [`check.py` file][2] for Hbase_master.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `hbase_master.py`.
+2. Create a `hbase_master.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+3. Create a `conf.yaml` file in the `hbase_master.d/` folder previously created.
+4. Consult the [sample hbase_master.yaml][2] file and copy its content in the `conf.yaml` file.
+5. [Restart the Agent][3].
 
 ### Configuration
 
 To configure the Hbase_master check: 
 
-1. Create a `hbase_master.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `hbase_master.d/` folder previously created.
-3. Consult the [sample hbase_master.yaml][2] file and copy its content in the `conf.yaml` file.
-4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
-5. [Restart the Agent][3].
+1. Open the `conf.yaml` file created during installation.
+2. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
+3. [Restart the Agent][3].
 
 ## Validation
 
