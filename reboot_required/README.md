@@ -80,4 +80,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/
 [6]: https://www.datadoghq.com/blog/
-[7]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/check.py
+[7]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/reboot_required.py
