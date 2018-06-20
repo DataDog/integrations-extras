@@ -27,7 +27,7 @@ class FilebeatCheck(AgentCheck):
 
         registry_contents = self._parse_registry_file(registry_file_path)
 
-        for item in registry_contents.itervalues():
+        for item in registry_contents:
             self._process_registry_item(item)
 
     def _parse_registry_file(self, registry_file_path):
