@@ -19,19 +19,19 @@ Rookout sends data to Datadog via the DogStatsD service available from the Datad
 
 3. In the right panel (Rules) click on the menu button
 
-    ![Rule actions menu][4]
+    ![Rule actions menu](https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_rule_action.png)
 
 4. Click on *Create new template* in order to edit a new rule template
 
-    ![Create new template button][5]
+    ![Create new template button](https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_new_template.png)
 
 5. Copy the Datadog Custom Metric rule template [available here][6] into the editor and replace the default rule template
 
-    ![Datadog Custom Metric rule template][7]
+    ![Datadog Custom Metric rule template](https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/datadog_rule_template.png)
 
 6. Click the save icon to save the template
 
-    ![Click Save Icon][8]
+    ![Click Save Icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_save.png)
 
 7. Add the newly created rule to any application as you would normally
 
@@ -97,11 +97,7 @@ If you have any questions, contact us at support@rookout.com.
 [1]: https://docs.datadoghq.com/agent
 [2]: https://docs.rookout.com/docs/getting-started.html
 [3]: https://app.rookout.com
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_rule_action.png
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_new_template.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/rule-template.json
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/datadog_rule_template.png
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_save.png
 [9]: https://docs.datadoghq.com/developers/dogstatsd/
 [10]: https://docs.datadog.com/
 [11]: https://docs.datadoghq.com/getting_started/custom_metrics/
