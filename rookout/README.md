@@ -5,7 +5,7 @@ Collect custom metrics from your application with a few clicks and send it to Da
 * Enhance monitoring and expedite production debugging with Rookout’s on-demand data collection
 * Collect custom metrics ad-hoc from Rookout without the need for new instrumentation
 
-**Note: Since this integration enables you to collect custom metrics, there may be billing implications based on the number of custom metrics collected. More information on custom metrics can be [found here](https://docs.datadoghq.com/getting_started/custom_metrics/).**
+**Note: Since this integration enables you to collect custom metrics, there may be billing implications based on the number of custom metrics collected. More information on custom metrics can be [found here][11].**
 
 ## Setup
 
@@ -13,7 +13,7 @@ Collect custom metrics from your application with a few clicks and send it to Da
 
 Rookout sends data to Datadog via the DogStatsD service available from the Datadog Agent.
 
-1. Install the [Datadog Agent][1] and [Rookout][2].
+1. Install the [Datadog Agent][1] and [Rookout][2]
 
 2. Log into [Rookout's webapp][3]
 
@@ -25,7 +25,7 @@ Rookout sends data to Datadog via the DogStatsD service available from the Datad
 
     ![Create new template button][5]
 
-5. Copy the Datadog Custom Metric rule template [available here][6] into the editor and replace the default rule template.
+5. Copy the Datadog Custom Metric rule template [available here][6] into the editor and replace the default rule template
 
     ![Datadog Custom Metric rule template][7]
 
@@ -94,10 +94,6 @@ You can collect custom metrics and events by creating a Datadog output in your R
 
 If you have any questions, contact us at support@rookout.com.
 
-## Further Reading
-
-Find out more at [https://docs.datadog.com/][10]
-
 [1]: https://docs.datadoghq.com/agent
 [2]: https://docs.rookout.com/docs/getting-started.html
 [3]: https://app.rookout.com
@@ -108,3 +104,4 @@ Find out more at [https://docs.datadog.com/][10]
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_save.png
 [9]: https://docs.datadoghq.com/developers/dogstatsd/
 [10]: https://docs.datadog.com/
+[11]: https://docs.datadoghq.com/getting_started/custom_metrics/
