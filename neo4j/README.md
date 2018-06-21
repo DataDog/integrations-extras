@@ -22,13 +22,13 @@ To install the Neo4j check on your host:
 
 ### Configuration
 
-To configure the Neo4j check: 
+To configure the Neo4j check:
 
-1. Create a `neo4j.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `neo4j.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `neo4j.d/` folder previously created.
 3. Consult the [sample neo4j.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to configure the servers to monitor:
-    
+
     * `neo4j_url`: Set to the url of the server (i.e `http://ec2-54-85-23-10.compute-1.amazonaws.com`)
     * `port`: Set to the http port used by Neo4j. *Default is 7474*
     * `username`: Set to a valid Neo4j username
@@ -51,7 +51,13 @@ See [metadata.csv][5] for a list of metrics provided by this check.
 The Neo4j check does not include any events at this time.
 
 ### Service Checks
-The Neo4j check does not include any service checks at this time.
+This Neo4j check tags all service checks it collects with:
+
+  * `server_name:<server_name_in_yaml>`
+  * `url:<neo4j_url_in_yaml>`
+
+`neo4j.can_connect`:
+Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].

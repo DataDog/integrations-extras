@@ -23,9 +23,9 @@ To install the Redis's Sentinel check on your host:
 
 ### Configuration
 
-To configure the Redis's Sentinel check: 
+To configure the Redis's Sentinel check:
 
-1. Create a `redis_sentinel.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `redis_sentinel.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `redis_sentinel.d/` folder previously created.
 3. Consult the [sample redis_sentinel.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
@@ -43,7 +43,36 @@ See [metadata.csv][5] for a list of metrics provided by this check.
 The Redis's Sentinel check does not include any events at this time.
 
 ### Service Checks
-The Redis's Sentinel check does not include any service checks at this time.
+**`redis.sentinel.master_is_down`**
+
+The check returns:
+
+* `OK` if the master is up.
+* `CRITICAL` if the master is down.
+
+
+**`redis.sentinel.master_is_disconnected`**
+
+The check returns:
+
+* `OK` if the master is not disconnected.
+* `CRITICAL` if the master is disconnected.
+
+
+**`redis.sentinel.slave_master_link_down`**
+
+The check returns:
+
+* `OK` if the master link status is ok.
+* `CRITICAL` if the master link status is not ok.
+
+
+**`redis.sentinel.slave_is_disconnected`**
+
+The check returns:
+
+* `OK` if the slave is not disconnected.
+* `CRITICAL` if the slave is disconnected.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
