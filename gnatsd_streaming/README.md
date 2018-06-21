@@ -8,9 +8,16 @@ Get metrics from gnatsd_streaming service in real time to:
 * Be notified about gnatsd_streaming failovers and events.
 
 ## Setup
+
 ### Installation
 
-Install the `dd-check-gnatsd_streaming` package manually or with your favorite configuration manager
+To install the Gnatsd_streaming check on your host:
+
+1. [Download the Datadog Agent][4].
+2. Download the [`check.py` file][5] for Gnatsd_streaming.
+3. Place it in the Agent's `checks.d` directory.
+4. Rename it to `gnatsd_streaming.py`.
+
 
 ### Configuration
 
@@ -38,7 +45,7 @@ The gnatsd_streaming check is compatible with all major platforms
 ## Data Collected
 ### Metrics
 
-See [metadata.csv](https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][1] for a list of metrics provided by this integration.
 
 Nats Streaming Server metrics are tagged with names like "nss-cluster_id"
 
@@ -50,14 +57,21 @@ when the status of a Server changes between `FT_STANDBY` and `FT_ACTIVE`
 ### Service Checks
 This gnatsd_streaming check tags all service checks it collects with:
 
-  * `nameserver:<nameserver_in_yaml>`
-  * `resolved_hostname:<hostname_in_yaml>`
+  * `server_name:<server_name_in_yaml>`
+  * `url:<host_in_yaml>`
 
-`gnatsd_streaming.can_resolve`:
-Returns CRITICAL if the Agent fails to resolve the request, otherwise returns UP.
+`gnatsd_streaming.can_connect`:
+Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][2].
 
 ## Further Reading
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/)
+Learn more about infrastructure monitoring and all our integrations on [our blog][3]
+
+
+[1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
+[2]: http://docs.datadoghq.com/help/
+[3]: https://www.datadoghq.com/blog/
+[4]: https://app.datadoghq.com/account/settings#agent
+[5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/check.py

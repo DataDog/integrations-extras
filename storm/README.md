@@ -22,9 +22,9 @@ To install the Storm check on your host:
 
 ### Configuration
 
-To configure the Storm check: 
+To configure the Storm check:
 
-1. Create a `storm.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `storm.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `storm.d/` folder previously created.
 3. Consult the [sample storm.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
@@ -42,7 +42,12 @@ See [metadata.csv][5] for a list of metrics provided by this check.
 The Storm check does not include any events at this time.
 
 ### Service Checks
-The Storm check does not include any service checks at this time.
+**`topology-check.{}`**
+
+The check returns:
+
+* `OK` if the topology is active.
+* `CRITICAL` if the topology is not active.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
