@@ -11,7 +11,7 @@ class PortworxCheck(PrometheusCheck):
     def __init__(self, name, init_config, agentConfig, instances=None):
         super(PortworxCheck, self).__init__(name, init_config, agentConfig,
                                             instances)
-        self.NAMESPACE = 'px'
+        self.NAMESPACE = 'portworx'
         self.metrics_mapper = {
 			'px_cluster_cpu_percent': 'cluster.cpu_percent',
 			'px_cluster_disk_available_bytes': 'cluster.disk_available_bytes',
