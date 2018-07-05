@@ -39,11 +39,6 @@ The Nomad check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][3].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][4].
-
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
 [3]: http://docs.datadoghq.com/help/
-[4]: https://www.datadoghq.com/blog/
