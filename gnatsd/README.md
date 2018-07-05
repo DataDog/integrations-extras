@@ -63,12 +63,7 @@ Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ end
 ## Troubleshooting
 Need help? Contact [Datadog Support][2].
 
-## Further Reading
-Learn more about infrastructure monitoring and all our integrations on [our blog][3]
-
-
 [1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [2]: http://docs.datadoghq.com/help/
-[3]: https://www.datadoghq.com/blog/
 [4]: https://app.datadoghq.com/account/settings#agent
 [5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd/check.py

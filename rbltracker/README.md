@@ -31,13 +31,8 @@ The RBLTracker check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][7].
-
 [1]: https://rbltracker.com/
 [2]: https://app.datadoghq.com/account/settings#api
 [4]: https://rbltracker.com/docs/adding-a-datadog-contact-type/
 [5]: https://docs.datadoghq.com/graphing/event_stream/
 [6]: http://docs.datadoghq.com/help/
-[7]: https://www.datadoghq.com/blog/
