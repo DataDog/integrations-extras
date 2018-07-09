@@ -22,9 +22,9 @@ To install the UPSC check on your host:
 
 ### Configuration
 
-To configure the UPSC check: 
+To configure the UPSC check:
 
-1. Create a `upsc.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `upsc.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `upsc.d/` folder previously created.
 3. Consult the [sample upsc.yaml][2] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
@@ -47,14 +47,9 @@ The UPSC check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][6].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][7]
-
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/upsc/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/upsc/metadata.csv
 [6]: http://docs.datadoghq.com/help/
-[7]: https://www.datadoghq.com/blog/
