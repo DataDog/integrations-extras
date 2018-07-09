@@ -16,36 +16,6 @@ env:
   global:
     - SKIP_CLEANUP=true
     - PIP_CACHE=$HOME/.cache/pip
-<<<<<<< HEAD
-    - SDK_TESTING=true
-    - BUNDLE_PATH=$TRAVIS_BUILD_DIR/vendor/cache
-    - DD_AGENT_BRANCH=master
-    - CORE_BRANCH=master
-    - JMXFETCH_URL="https://dd-jmxfetch.s3.amazonaws.com"
-    - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
-  matrix:
-    - TRAVIS_FLAVOR=default
-    - TRAVIS_FLAVOR=filebeat FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=snmpwalk
-    - TRAVIS_FLAVOR=hbase_master
-    - TRAVIS_FLAVOR=hbase_regionserver
-    - TRAVIS_FLAVOR=redis_sentinel FLAVOR_VERSION="latest"
-    - TRAVIS_FLAVOR=neo4j
-    - TRAVIS_FLAVOR=storm FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=logstash FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=stardog FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=reboot_required FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=upsc FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=gnatsd_streaming FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=aerospike FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=gnatsd FLAVOR_VERSION=latest
-=======
-    - TRAVIS_FLAVOR=portworx FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=gnatsd FLAVOR_VERSION=latest
->>>>>>> 01aabcdb7fa7125ae229935e8de2a081b38cd839
-    # END OF TRAVIS MATRIX
-=======
->>>>>>> 5298fc485e90c4342449c53c00cb4509524ca9d3
 
 stages:
   - name: test_changed
