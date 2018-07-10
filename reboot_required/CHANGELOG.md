@@ -1,8 +1,5 @@
 # CHANGELOG - reboot_required
 
-1.0.0 / UNRELEASED
-==================
+## 1.0.0 / 2018-06-14
 
-### Changes
-
-* [FEATURE] Add reboot_required integration.
+* [Added] Add reboot_required integration.

@@ -2,11 +2,11 @@
 
 Get metrics from Convox in real-time to visualize your containers' performance:
 
-![snapshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png)
+![snapshot][1]
 
 ## Setup
 
-Please refer to the [Convox setup doc page](https://convox.com/docs/datadog/).
+Please refer to the [Convox setup doc page][2].
 
 ### Deploy the Datadog Agent
 
@@ -30,7 +30,7 @@ Use a `count` that matches the `InstanceCount` parameter of your Rack.
 
 If autoscaling is enabled on your Rack, you’ll need to dynamically scale the Datadog agent count to match the Rack instance count.
 
-See the [Listening for ECS CloudWatch Events Tutorial](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html) for guidance.
+See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 
 ## Data Collected
 ### Metrics
@@ -43,15 +43,9 @@ The Convox check does not include any events at this time.
 The Convox check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog](https://www.datadoghq.com/blog/).
-
+Need help? Contact [Datadog Support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
 [2]: https://convox.com/docs/datadog/
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html
 [4]: http://docs.datadoghq.com/help/
-[5]: https://www.datadoghq.com/blog/
