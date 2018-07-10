@@ -4,8 +4,8 @@
 
 Get metrics from Portworx service in real time to:
 
-* Visualize and monitor Logstash states.
-* Be notified about Logstash events.
+- Monitor health and performance of your Portworx Cluster
+- Track disk usage, latency and throughput for Portworx volumes
 
 ## Setup
 
@@ -26,7 +26,7 @@ Create a file `portworx.yaml` in the Agent's `conf.d` directory.
 
 #### Metric Collection
 
-* Add this configuration setup to your `portworx.yaml` file to start gathering your [portworx metrics](#metrics):
+- Add this configuration setup to your `portworx.yaml` file to start gathering your [portworx metrics][2]:
 
 ```
 init_config:
@@ -73,7 +73,7 @@ The Portworx check does not include any events at this time.
 ### Agent cannot connect
 
 ```
-    logstash
+    portworx
     -------
       - instance #0 [ERROR]: "('Connection aborted.', error(111, 'Connection refused'))"
       - Collected 0 metrics, 0 events & 0 service check
