@@ -87,11 +87,6 @@ Check that the `url` in `conf.yaml` is correct.
 
 If you need further help, contact [Datadog Support][14].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][15]
-
-
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://github.com/DataDog/integrations-extras/blob/master/logstash/conf.yaml.example
@@ -103,4 +98,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [13]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [14]: http://docs.datadoghq.com/help/
-[15]:  https://www.datadoghq.com/blog/
