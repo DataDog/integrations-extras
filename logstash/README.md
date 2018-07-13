@@ -16,7 +16,7 @@ The Logstash check is **NOT** included in the [Datadog Agent][1] package.
 To install the Logstash check on your host:
 
 1. [Download the Datadog Agent][2].
-2. Download the [`check.py` file][3] for Logstash.
+2. Download the [`check.py` file][15] for Logstash.
 3. Place it in the Agent's `checks.d` directory.
 4. Rename it to `logstash.py`.
 
@@ -98,3 +98,4 @@ If you need further help, contact [Datadog Support][14].
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [13]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [14]: http://docs.datadoghq.com/help/
+[15]: https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py
