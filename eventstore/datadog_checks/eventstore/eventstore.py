@@ -41,6 +41,8 @@ class EventStoreCheck(AgentCheck):
             parsed_api = json.loads(r.text)
         except ValueError as e:
             raise CheckException('{0} returned an unserializable payload of {1}.'.format(url, r.text))
+        except UnicodeEncodeError as e:
+            raise CheckException('{0} returned an unserializable payload of {1}.'.format(url, r.text))
 
         eventstore_paths = None
         eventstore_paths = self.walk(parsed_api)
