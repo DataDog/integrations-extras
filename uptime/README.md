@@ -39,13 +39,7 @@ The Uptime check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][4].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][5].
-
-
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/uptime/uptime/images/snapshot.png
 [2]: https://uptime.com/push-notifications/manage/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/uptime/metadata.csv
 [4]: http://docs.datadoghq.com/help/
-[5]: https://www.datadoghq.com/blog/
