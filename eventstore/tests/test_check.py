@@ -39,13 +39,6 @@ def test_config():
         c.check(instance)
 
 
-@pytest.fixture
-def aggregator():
-    from datadog_checks.stubs import aggregator
-    aggregator.reset()
-    return aggregator
-
-
 @pytest.mark.integration
 def test_service_check(aggregator):
     init_config = {
@@ -85,6 +78,8 @@ def test_service_check(aggregator):
 
     # the check should send OK
     instance = {
+        'default_timeout': 5,
+        'tag_by_url': True,
         'url': 'http://{}:2113/stats'.format(get_docker_hostname()),
         'name': 'testInstance',
         'json_path': [
