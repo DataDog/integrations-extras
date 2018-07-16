@@ -29,7 +29,7 @@ def test_config():
         c.check(instance)
 
     # Statuscode
-    instance = {'url': 'http://google.com'}
+    instance = {'url': 'https://google.com/IwillReturnA404StatusCode'}
     with pytest.raises(CheckException):
         c.check(instance)
 
