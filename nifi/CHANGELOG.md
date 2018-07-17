@@ -1,4 +1,4 @@
-# CHANGELOG - nifi
+# CHANGELOG - Nifi
 
 ## 0.1.0
 

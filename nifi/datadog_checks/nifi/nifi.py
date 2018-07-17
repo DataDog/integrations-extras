@@ -1,42 +1,44 @@
-# (C) Datadog, Inc. 2010-2017
+# (C) Datadog, Inc. 2018
 # All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
+# Licensed under a 3-clause BSD style license (see LICENSE)
 import requests
 import time
 from collections import namedtuple
+
 from datadog_checks.checks import AgentCheck
 from datadog_checks.errors import CheckException
 
 # EndPoint information https://nifi.apache.org/docs/nifi-docs/rest-api/index.html
-ENDPOINT = '/nifi-api/system-diagnostics'
+ENDPOINT = 'nifi-api/system-diagnostics'
 
-GuageInfo = namedtuple('GuageInfo', ['type', 'metric'])
+GaugeInfo = namedtuple('GaugeInfo', ['type', 'metric'])
 
 
 class NiFiCheck(AgentCheck):
 
     def check(self, instance):
-        if 'host' not in instance:
-            raise CheckException("No host defined for nifi instance")
-        nifi = instance.get('host')
+        service_check_metric_name = 'nifi.instance.http_check'
+        timeout = 10
+
+        if 'url' not in instance:
+            raise CheckException("No url defined for Nifi instance")
+        url = instance.get('url')
+        url = "{0}/{1}".format(url, ENDPOINT)
+
         instance_tags = instance.get('tags', [])
-        self.log.info('Connecting to nifi instance')
+        self.log.info('Connecting to Nifi instance {0}'.format(url))
         try:
-            r = requests.get(nifi + ENDPOINT, timeout=10)
+            r = requests.get(url, timeout=timeout)
             r.raise_for_status()
-        except requests.exception.Timeout as e:
-            self.service_check('nifi.instance.http_check',
-                               self.WARNING,
-                               tags=instance_tags,
-                               message=str(e))
+        except requests.exceptions.Timeout as e:
+            self.service_check(service_check_metric_name,  self.WARNING, tags=instance_tags, message=str(e))
             return
         except Exception as e:
-            self.service_check('nifi.instance.http_check', self.CRITICAL,
-                               tags=instance_tags)
+            self.service_check(service_check_metric_name, self.CRITICAL, tags=instance_tags)
             raise CheckException(e)
-        self.service_check('nifi.instance.http_check', self.OK, tags=instance_tags)
-        # Obtain all the key metrics from nifi to send to DataDog
-        for point in NiFiCheck.getSystemMetrics(r.json()):
+        self.service_check(service_check_metric_name, self.OK, tags=instance_tags)
+        # Obtain all the key metrics from Nifi to send to DataDog
+        for point in NiFiCheck.get_system_metrics(r.json()):
             if type(point.metric) is int:
                 self.rate(point.type, point.metric, tags=instance_tags)
             else:
@@ -44,19 +46,16 @@ class NiFiCheck(AgentCheck):
             time.sleep(1)
 
     @staticmethod
-    def getSystemMetrics(response):
-        stats = []
+    def get_system_metrics(response):
+        stats = list()
         # Get NiFi system information
-        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.freenonheap.bytes',
-                          response['systemDiagnostics']['aggregateSnapshot']['freeNonHeapBytes'])
-        stats.append(point)
-        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.usedheap.bytes',
-                          response['systemDiagnostics']['aggregateSnapshot']['usedHeapBytes'])
-        stats.append(point)
+        stats.append(GaugeInfo('nifi.systemdiagnostics.aggregatesnapshot.freenonheap.bytes',
+                               response['systemDiagnostics']['aggregateSnapshot']['freeNonHeapBytes']))
+        stats.append(GaugeInfo('nifi.systemdiagnostics.aggregatesnapshot.usedheap.bytes',
+                               response['systemDiagnostics']['aggregateSnapshot']['usedHeapBytes']))
         # Had to remove the percentage symbol given in the Json
-        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.heaputilization.percentage',
-                          response['systemDiagnostics']['aggregateSnapshot']['heapUtilization'][:-1])
-        stats.append(point)
-        point = GuageInfo('nifi.systemdiagnostics.aggregatesnapshot.processorloadaverage.percentage',
-                          response['systemDiagnostics']['aggregateSnapshot']['processorLoadAverage'])
+        stats.append(GaugeInfo('nifi.systemdiagnostics.aggregatesnapshot.heaputilization.percentage',
+                               response['systemDiagnostics']['aggregateSnapshot']['heapUtilization'][:-1]))
+        stats.append(GaugeInfo('nifi.systemdiagnostics.aggregatesnapshot.processorloadaverage.percentage',
+                               response['systemDiagnostics']['aggregateSnapshot']['processorLoadAverage']))
         return stats

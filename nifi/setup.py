@@ -22,13 +22,14 @@ def get_requirements(fpath):
     with open(path.join(HERE, fpath), encoding='utf-8') as f:
         return f.readlines()
 
+CHECKS_BASE_REQ = 'datadog_checks_base'
 
 setup(
     name='datadog-nifi',
     version=ABOUT["__version__"],
-    description='collect runtime metrics from nifi',
+    description='This check collects runtime metrics from Nifi',
     long_description=long_description,
-    keywords='datadog agent check',
+    keywords='datadog agent Nifi check',
     url='https://github.com/DataDog/integrations-core',
     author='Sean m',
     author_email='sean@beamery.com',
@@ -48,9 +49,7 @@ setup(
     packages=['datadog_checks.nifi'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in')+[
-        'datadog-checks-base',
-    ],
+    install_requires=[CHECKS_BASE_REQ],
     setup_requires=['pytest-runner', ],
     tests_require=get_requirements('requirements-dev.txt'),
 
