@@ -56,12 +56,12 @@ To install this plugin run the following command:
 
 * `logstash-plugin install logstash-output-datadog_logs`
 
-Then Configure datadog_logs plugin with your Datadog API key:
+Then configure the `datadog_logs` plugin with your [Datadog API key][21]:
 
 ```
 output {
     datadog_logs {
-        api_key => "<your_datadog_api_key>"
+        api_key => "<DATADOG_API_KEY>"
     }
 }
 ```
@@ -151,4 +151,4 @@ If you need further help, contact [Datadog Support][14].
 [18]: /logs/processing/#integration-pipelines
 [19]: https://app.datadoghq.com/infrastructure
 [20]: /getting_started/tagging/assigning_tags/
-
+[21]: https://app.datadoghq.com/account/settings#api
