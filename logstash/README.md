@@ -16,7 +16,7 @@ The Logstash check is **NOT** included in the [Datadog Agent][1] package.
 To install the Logstash check on your host:
 
 1. [Download the Datadog Agent][2].
-2. Download the [`check.py` file][3] for Logstash.
+2. Download the [`check.py` file][15] for Logstash.
 3. Place it in the Agent's `checks.d` directory.
 4. Rename it to `logstash.py`.
 
@@ -50,7 +50,55 @@ See the [sample conf.yaml][3] for all available configuration options.
 
 #### Log Collection
 
-Follow those [instructions][11] to start forwarding logs to Datadog with Logstash.
+Datadog has [an ouput plugin][16] for Logstash that takes care of sending your logs to your Datadog platform.
+
+To install this plugin run the following command:
+
+* `logstash-plugin install logstash-output-datadog_logs`
+
+Then configure the `datadog_logs` plugin with your [Datadog API key][21]:
+
+```
+output {
+    datadog_logs {
+        api_key => "<DATADOG_API_KEY>"
+    }
+}
+```
+
+##### Add metadata to your logs
+
+In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs (including hostname and source). By default, the hostname and timestamp should be properly remapped thanks to our default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the Service remapping list.
+
+##### Source
+
+Setup a Logstash filter to set the source (Datadog integration name) on your logs. 
+
+```
+filter {
+  mutate {
+    add_field => {
+ "ddsource" => "<MY_SOURCE_VALUE>"
+       }
+    }
+ }
+```
+
+This triggers the [integration automatic setup][18] in Datadog.
+
+##### Custom tags
+
+[Host tags][20] are automatically set on your logs if there is a matching hostname in your [infrastructure list][19]. Use the `ddtags` attribute to add custom tags to your logs:
+
+```
+filter {
+  mutate {
+    add_field => {
+        "ddtags" => "env:test,<KEY:VALUE>"
+       }
+    }
+ }
+```
 
 ## Validation
 
@@ -94,7 +142,13 @@ If you need further help, contact [Datadog Support][14].
 [6]: #log-collection
 [7]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [8]: #metrics
-[11]: https://docs.datadoghq.com/logs/log_collection/logstash/
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [13]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [14]: http://docs.datadoghq.com/help/
+[15]: https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py
+[16]: https://github.com/DataDog/logstash-output-datadog_logs
+[17]: /logs/#edit-reserved-attributes
+[18]: /logs/processing/#integration-pipelines
+[19]: https://app.datadoghq.com/infrastructure
+[20]: /getting_started/tagging/assigning_tags/
+[21]: https://app.datadoghq.com/account/settings#api
