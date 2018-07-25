@@ -1,15 +1,9 @@
 # (C) Calastone Ltd. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-# System
-import subprocess
-import os
-import time
 
-# 3rd Party
 import pytest
 
-# Project
 from datadog_checks.eventstore import EventStoreCheck
 from datadog_checks.errors import CheckException
 from datadog_checks.utils.common import get_docker_hostname
@@ -40,7 +34,7 @@ def test_config():
 
 
 @pytest.mark.integration
-def test_service_check(aggregator):
+def test_service_check(aggregator, eventstore_server):
     init_config = {
         'metric_definitions': [
             {
@@ -66,16 +60,6 @@ def test_service_check(aggregator):
 
     c = EventStoreCheck('eventstore', init_config, {}, None)
 
-    HERE = os.path.dirname(os.path.abspath(__file__))
-    args = [
-        "docker-compose",
-        "-f", os.path.join(HERE, 'docker-compose.yml')
-    ]
-
-    # start the Nginx container
-    subprocess.check_call(args + ["up", "-d"])
-    time.sleep(10)  # we should implement a better wait strategy :)
-
     # the check should send OK
     instance = {
         'default_timeout': 5,
@@ -93,5 +77,8 @@ def test_service_check(aggregator):
     for metric in init_config['metric_definitions']:
         aggregator.assert_metric(metric['metric_name'], tags=[], count=1)
 
-    # stop the container
-    subprocess.check_call(args + ["down"])
+    # for m in aggregator.not_asserted():
+    #     print(m)
+    #
+    # # Assert coverage for this check on this instance
+    # aggregator.assert_all_metrics_covered()

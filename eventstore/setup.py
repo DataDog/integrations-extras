@@ -24,6 +24,8 @@ def get_requirements(fpath):
         return f.readlines()
 
 
+CHECKS_BASE_REQ = 'datadog_checks_base'
+
 setup(
     name='datadog-eventstore',
     version=ABOUT["__version__"],
@@ -45,16 +47,14 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
     ],
-
     packages=['datadog_checks.eventstore'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in')+[
-        'datadog-checks-base',
-    ],
-    setup_requires=['pytest-runner', ],
+    install_requires=[CHECKS_BASE_REQ],
+
     tests_require=get_requirements('requirements-dev.txt'),
 
     # Extra files to ship with the wheel package
+    package_data={'datadog_checks.eventstore': ['conf.yaml.example']},
     include_package_data=True,
 )
