@@ -21,12 +21,13 @@ The following describes the fields shown when configuring Datadog within your Up
 
 * API key: <span class="hidden-api-key">${api_key}</span>
 
-* Application Key: <span class="app_key" data-name="uptime.com"></span> 
+* Application Key: <span class="app_key" data-name="uptime"></span> 
 
 <li>Once you've configured your Datadog profile, you will need to assign the profile to a contact group located under Alerting>Contacts. The profile is assigned at the Push Notifications field within the contact group.</li> 
 </ul>
 
 ## Data Collected
+
 ### Metrics
 See [metadata.csv][3] for a list of metrics provided by this integration.
 
