@@ -37,10 +37,6 @@ The VNS3 check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][7].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][8].
-
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/peering.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/clients.png
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/ipsec.png
@@ -48,4 +44,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [5]: https://youtu.be/sTCgCG3m4vk
 [6]: https://github.com/DataDog/integrations-extras/blob/master/vns3/metadata.csv
 [7]: http://docs.datadoghq.com/help/
-[8]: https://www.datadoghq.com/blog/
