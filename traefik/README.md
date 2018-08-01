@@ -22,9 +22,9 @@ Add this configuration setup to your `traefik.yaml` file to start gathering your
 init_config:
 
 instances:
-  - host: 10.1.1.2
-  - port: 8080
-  - path: /health
+  - host: 10.1.2.3
+    port: "8080"
+    path: health
 ```
 
 Configuration Options:
