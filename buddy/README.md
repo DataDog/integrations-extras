@@ -6,7 +6,7 @@ Enabling this integration will let you:
 *   Correlate deployment details with your Datadog metrics
 *   Detect the sources of performance spikes
 
-![][1]
+![datadog-integration][1]
 
 ## Setup
 
@@ -18,7 +18,7 @@ Enabling this integration will let you:
 
 * Enter the name of your Datadog account and paste the API key that you copied
 
-* You can use [Buddy parameters][4] to define the title of the event and content sent, for example:
+* Use [Buddy parameters][4] to define the title of the event and content sent, for example:
 
 ```
 # Event title
@@ -45,11 +45,6 @@ The Buddy check does not include any service checks at this time.
 ## Troubleshooting
 Need help? Contact [Datadog Support][7].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][8].
-
-
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
 [2]: https://app.datadoghq.com/account/settings#api
 [3]: https://app.buddy.works/login
@@ -57,4 +52,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png
 [6]: https://docs.datadoghq.com/graphing/event_stream/
 [7]: http://docs.datadoghq.com/help/
-[8]: https://www.datadoghq.com/blog/

@@ -1,26 +1,29 @@
 require 'ci/common'
 
-def reboot_required_version
+def portworx_version
   ENV['FLAVOR_VERSION'] || 'latest'
 end
 
-def reboot_required_rootdir
-  "#{ENV['INTEGRATIONS_DIR']}/reboot_required_#{reboot_required_version}"
+def portworx_rootdir
+  "#{ENV['INTEGRATIONS_DIR']}/portworx_#{portworx_version}"
 end
 
 namespace :ci do
-  namespace :reboot_required do |flavor|
+  namespace :portworx do |flavor|
     task before_install: ['ci:common:before_install']
 
     task :install do
-      Rake::Task['ci:common:install'].invoke('reboot_required')
+      Rake::Task['ci:common:install'].invoke('portworx')
+      # sample docker usage
+      # sh %(docker create -p XXX:YYY --name portworx source/portworx:portworx_version)
+      # sh %(docker start portworx)
     end
 
     task before_script: ['ci:common:before_script']
 
     task script: ['ci:common:script'] do
       this_provides = [
-        'reboot_required'
+        'portworx'
       ]
       Rake::Task['ci:common:run_tests'].invoke(this_provides)
     end
@@ -28,6 +31,11 @@ namespace :ci do
     task before_cache: ['ci:common:before_cache']
 
     task cleanup: ['ci:common:cleanup']
+    # sample cleanup task
+    # task cleanup: ['ci:common:cleanup'] do
+    #   sh %(docker stop portworx)
+    #   sh %(docker rm portworx)
+    # end
 
     task :execute do
       exception = nil
@@ -41,7 +49,7 @@ namespace :ci do
           puts 'Skipping tests'.yellow
         end
         Rake::Task["#{flavor.scope.path}:before_cache"].invoke
-      rescue => e
+      rescue StandardError => e
         exception = e
         puts "Failed task: #{e.class} #{e.message}".red
       end

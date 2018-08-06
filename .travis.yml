@@ -1,86 +1,60 @@
 sudo: required
-
+services:
+  - docker
 language: python
+python:
+  - '2.7'
 cache:
   directories:
-    - $home/.cache/pip
-    - $home/dd-agent
-    - vendor/cache
-python:
-  - "2.7"
-
+    - "$HOME/.cache/pip"
 git:
   depth: 3
-
 branches:
   only:
     - master
-
-services:
-  - docker
-
-matrix:
-  fast_finish: true
-
 env:
   global:
-    - NOSE_FILTER="not windows and not fixme"
-    - VOLATILE_DIR=/tmp/integration-sdk-testing
     - SKIP_CLEANUP=true
-    - INTEGRATIONS_DIR=$HOME/embedded
     - PIP_CACHE=$HOME/.cache/pip
-    - SDK_TESTING=true
-    - BUNDLE_PATH=$TRAVIS_BUILD_DIR/vendor/cache
-    - DD_AGENT_BRANCH=master
-    - CORE_BRANCH=master
-    - JMXFETCH_URL="https://dd-jmxfetch.s3.amazonaws.com"
-    - REQ_LOCALS="$TRAVIS_BUILD_DIR,$HOME/dd-agent,$HOME/integrations-core"
-  matrix:
-    - TRAVIS_FLAVOR=default
-    - TRAVIS_FLAVOR=filebeat FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=snmpwalk
-    - TRAVIS_FLAVOR=hbase_master
-    - TRAVIS_FLAVOR=hbase_regionserver
-    - TRAVIS_FLAVOR=redis_sentinel FLAVOR_VERSION="latest"
-    - TRAVIS_FLAVOR=neo4j
-    - TRAVIS_FLAVOR=storm FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=logstash FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=stardog FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=reboot_required FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=upsc FLAVOR_VERSION=latest
-    - TRAVIS_FLAVOR=aerospike FLAVOR_VERSION=latest
-    # END OF TRAVIS MATRIX
 
-before_install:
-  - sudo apt-get update ; sudo apt-get install -y curl apt-transport-https git snmp snmp-mibs-downloader
+stages:
+  - name: test_changed
+    if: type = pull_request
+  - name: test
+    if: (branch = master) AND (type != pull_request)
+
+script: travis_retry inv test --targets=${CHECK}
+
+# Conditional jobs are currently buggy and verbose.
+#
+# https://github.com/travis-ci/beta-features/issues/28
+# https://github.com/travis-ci/beta-features/issues/40
+# https://github.com/travis-ci/travis-ci/issues/8295
+# https://github.com/travis-ci/travis-conditions/pull/1
+# https://github.com/travis-ci/travis-ci/issues/6652
+jobs:
+  fast_finish: true
+  include:
+    - stage: test_changed
+      script:
+       #  - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
+       - inv test --changed-only
+    - stage: test
+      env: CHECK=reboot_required
+      script:
+        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
+        - travis_retry inv test --targets=${CHECK}
+    - stage: test
+      env: CHECK=sortdb
+      script:
+        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
+        - travis_retry inv test --targets=${CHECK}
 
 install:
-  - bundle install
-  - bundle package
-  - git -C $HOME/dd-agent pull || git clone -b $DD_AGENT_BRANCH --depth 1 https://github.com/DataDog/dd-agent.git $HOME/dd-agent
-  - git -C $HOME/integrations-core pull || git clone -b $CORE_BRANCH --depth 1 https://github.com/DataDog/integrations-core.git $HOME/integrations-core
-  - echo "$HOME/dd-agent/" > $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")/datadog-agent.pth
-  - pip install 'docker-compose==1.9.0'
-  - pip install pylint
-  - if [ -e $TRAVIS_BUILD_DIR/requirements.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements.txt; fi
-  - if [ -e $TRAVIS_BUILD_DIR/requirements-test.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-test.txt; fi
-  - if [ -e $TRAVIS_BUILD_DIR/requirements-opt.txt ]; then pip install -r $TRAVIS_BUILD_DIR/requirements-opt.txt; fi
-  - if [ -e ~/dd-agent/requirements.txt ]; then pip install -r ~/dd-agent/requirements.txt; fi
-  - bundle exec rake setup_agent_libs
-
-script:
-  - bundle exec rake prep_travis_ci
-  - bundle exec rake ci:run
-  - bundle exec rake lint
-  - bundle exec rake requirements
+  - pip install -U pip setuptools
+  - pip install -r requirements-dev.txt
 
 # we should clean generated files before we save the cache
-# We don't want to save .pyc files
-# Since clobber only cleans the project directory,
-# everything outside of it should be cleaned, too, so we'll use find and -delete
+# We don't want to save .pyc files, so we'll use find and -delete
 before_cache:
-  - rake clobber
-  - find $HOME/.cache/pip $HOME/dd-agent -name *.pyc -delete
-
-after_script:
-  - if [[ $(docker ps -a -q) ]]; then docker stop $(docker ps -a -q); fi
+  - find $HOME/.cache/pip -name *.pyc -delete
