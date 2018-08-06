@@ -7,6 +7,7 @@ The API Fortress integration is designed to bring your API Fortress test results
 By setting up a connector and pushing the data to DataDog, all that remains is to assign the imported data (status.success, status.failure) to the desired dashboard and formatting.
 
 **In Datadog**
+
 You will need a Datadog API key in order to setup the connector.
 Note: You must have Admin DataDog account access
 
