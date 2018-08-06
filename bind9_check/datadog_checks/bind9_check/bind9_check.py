@@ -8,5 +8,8 @@ from datadog_checks.checks import AgentCheck
 class bind9_check(AgentCheck):
 
     def check(self, instance):
-        # collect metrics here
-        pass
+    	url = instance['URL']
+    	if url is None :
+    		raise Exception('The statistic channel URL must be specified in the configuration')
+		    	
+
