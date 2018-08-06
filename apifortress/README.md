@@ -10,7 +10,7 @@ By setting up a connector and pushing the data to DataDog, all that remains is t
 You will need a Datadog API key in order to setup the connector.
 Note: You must have Admin DataDog account access
 
-Create an API key (also found under **Integrations->API**).
+Create an API key (also found under **Integrations->API**): <span class="hidden-api-key">${api_key}</span>
 
 **In API Fortress**
 1. Go to company settings (top right gear icon)
