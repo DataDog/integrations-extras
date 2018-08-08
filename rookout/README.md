@@ -2,7 +2,7 @@
 
 Collect custom metrics from your application with a few clicks and send it to Datadog. No need to write code, redeploy or restart your app.
 
-* Enhance monitoring and expedite production debugging with Rookout’s on-demand data collection
+* Enhance monitoring and expedite production debugging with Rookout's on-demand data collection
 * Collect custom metrics ad-hoc from Rookout without the need for new instrumentation
 
 **Note: Since this integration enables you to collect custom metrics, there may be billing implications based on the number of custom metrics collected. More information on custom metrics can be [found here][11].**
