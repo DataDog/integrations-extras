@@ -133,11 +133,11 @@ class Neo4jCheck(AgentCheck):
             self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=service_check_tags)
 
         for doc in stats['results'][0]['data']:
-          if doc['row'][0].lower() in self.keys:
-            try:
-              self.gauge(self.display.get(doc['row'][0].lower(),""), doc['row'][1], tags=tags)
-            except ValueError as e:
-              continue
+            if doc['row'][0].lower() in self.keys:
+                try:
+                    self.gauge(self.display.get(doc['row'][0].lower(),""), doc['row'][1], tags=tags)
+                except ValueError as e:
+                    continue
 
     def _get_config(self, instance):
         host = instance.get('neo4j_url', '')
