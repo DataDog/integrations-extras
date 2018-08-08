@@ -1,6 +1,14 @@
 # CHANGELOG - Storm
 
-1.0.2/ Unreleased
+1.1.1/ Released
+=================
+
+### Changes
+
+* [UPDATE] Make backwards compatible with storm [1.0.0, 1.2.0).
+* [FIX] Make this more robust to api errors.
+
+1.0.2/ Released
 =================
 
 ### Changes
