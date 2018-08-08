@@ -123,7 +123,7 @@ class Neo4jCheck(AgentCheck):
 
 
         if r.status_code != 200:
-            msg = "nexpected status of {0} when fetching Neo4j stats, response: {1}"
+            msg = "Unexpected status of {0} when fetching Neo4j stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
             self._critical_service_check(service_check_tags, msg)
             r.raise_for_status()
@@ -134,7 +134,10 @@ class Neo4jCheck(AgentCheck):
 
         for doc in stats['results'][0]['data']:
             if doc['row'][0].lower() in self.keys:
-                self.gauge(self.display.get(doc['row'][0].lower(),""), doc['row'][1], tags=tags)
+                try:
+                    self.gauge(self.display.get(doc['row'][0].lower(),""), doc['row'][1], tags=tags)
+                except ValueError as e:
+                    continue
 
     def _get_config(self, instance):
         host = instance.get('neo4j_url', '')
@@ -163,6 +166,7 @@ class Neo4jCheck(AgentCheck):
             r.raise_for_status()
         stats = r.json()
         version = stats.get('neo4j_version')
+        self.log.debug("Neo4j version: %s" % (version))
         version = version.split('.')
         if len(version) > 0:
             return int(version[0])
