@@ -24,7 +24,7 @@ init_config:
 instances:
   - host: 10.1.2.3
     port: "8080"
-    path: health
+    path: "/health"
 ```
 
 Configuration Options:
