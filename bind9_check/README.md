@@ -1,22 +1,24 @@
+
 # bind9_check Integration
 
 ## Overview
 
-[...]
+Get metrics from bind9 DNS Server
 
-* You can also use images here:
-
-![snapshot][1]
+* Visualize and monitor bind9 stats
+![Snap](https://github.com/ashuvyas45/integrations-extras/raw/bind9/bind9_check/images/snapshot.png)
 
 ## Setup
 
 ### Installation
 
-[...]
+
 
 ### Configuration
 
-Create a `bind9_check.yaml` in the Datadog Agent's `conf.d` directory.
+Create a `bind9_check/bind9_check.yaml` in the Datadog Agent's `conf.d` directory.
+
+
 
 #### Metric Collection
 
@@ -26,12 +28,12 @@ Add this configuration setup to your `bind9_check.yaml` file to start gathering 
 init_config:
 
 instances:
-  - []
+  - URL : #DNS Statistical-Channel URL
 ```
 
 Configuration Options:
 
-[...]
+
 
 [Restart the Agent][3] to begin sending Redis metrics to Datadog.
 
@@ -47,7 +49,7 @@ Configuration Options:
     bind9_check
     -------
       - instance #0 [OK]
-      - Collected 26 metrics, 0 events & 1 service check
+      - Collected 145 metrics, 0 events & 1 service check
 
     [...]
 ```
@@ -68,11 +70,11 @@ The bind9_check check does not include any event at this time.
 
 ### Service Checks
 
-[...]
-
+`bind9_check.BIND_SERVICE_CHECK` : Returns `OK` If Statistics-channel URL of DNS is present in Instance.
+`bind9_check.BIND_SERVICE_CHECK` : Returns `CRITICAL` If URL Errors occurs.
 ## Troubleshooting
 
-[...]
+
 
 ## Development
 
