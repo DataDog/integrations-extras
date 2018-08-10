@@ -7,10 +7,11 @@ import datetime
 import xml.etree.ElementTree as ET
 from datadog_checks.checks import AgentCheck
 from datadog_checks.errors import CheckException
-from socket import timeout
 
 class bind9_check(AgentCheck) :
 	BIND_SERVICE_CHECK = "BIND9 service check"
+	Query_Array=["opcode","qtype","nsstat","zonestat","resstat","sockstat"]
+
 	def check(self, instance) :
 		dns_url = instance.get('url')
 
@@ -21,13 +22,11 @@ class bind9_check(AgentCheck) :
                            message='Connection to %s was successful' % dns_url)
 
 		root = self.getStatsFromUrl(dns_url)
-		self.collectTimeMetric(root, 'boot-time')
-		self.collectTimeMetric(root, 'config-time')
-		self.collectTimeMetric(root, 'current-time')
+		self.collectTimeMetric(root[0], 'boot-time')
+		self.collectTimeMetric(root[0], 'config-time')
+		self.collectTimeMetric(root[0], 'current-time')
 
-		Query_Array=["opcode","qtype","nsstat","zonestat","resstat","sockstat"]
-
-		for counter in Query_Array :
+		for counter in self.Query_Array :
 			self.collectServerMetric(root[0],counter)
 
 
@@ -35,7 +34,7 @@ class bind9_check(AgentCheck) :
 		try:
 			xmlStats = urllib2.urlopen(dns_url)
 		except (urllib2.URLError, urllib2.HTTPError) as e:
-			self.service_check("connection_status",AgentCheck.CRITICAL, message= "stats cannot be taken")
+			self.service_check(self.BIND_SERVICE_CHECK,AgentCheck.CRITICAL, message= "stats cannot be taken")
 			raise
 		tree=ET.parse(xmlStats)
 		root = tree.getroot()
