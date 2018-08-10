@@ -2,9 +2,10 @@
 
 ## Overview
 
-[...]
+Get metrics from bind9 DNS Server
 
-* You can also use images here:
+* Visualize and monitor bind9 stats
+![Uptime.com Graph][1]
 
 ![snapshot][1]
 
