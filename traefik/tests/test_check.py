@@ -1,6 +1,3 @@
-# (C) Datadog, Inc. 2018
-# All rights reserved
-# Licensed under a 3-clause BSD style license (see LICENSE)
 import pytest
 import subprocess
 import os
@@ -14,6 +11,11 @@ from datadog_checks.errors import CheckException
 
 
 def test_check(aggregator):
+    """
+    Unit test to check:
+        - all expected metrics are collected
+        - expected exception are raised
+    """
 
     c = TraefikCheck('traefik', {}, {}, None)
 
@@ -32,18 +34,13 @@ def test_check(aggregator):
 
 
 @pytest.mark.integration
-def test_service_check(aggregator):
+def test_service_check_critical(aggregator):
+    """
+    Unit test to check:
+        - service_check return CRITICAL
+    """
+
     c = TraefikCheck('traefik', {}, {}, None)
-
-    HERE = os.path.dirname(os.path.abspath(__file__))
-    args = [
-        "docker-compose",
-        "-f", os.path.join(HERE, 'docker-compose.yml')
-    ]
-
-    # start the Traefik container
-    subprocess.check_call(args + ["up", "-d"])
-    time.sleep(5)  # we should implement a better wait strategy :)
 
     local_ip = '127.0.0.1'
 
@@ -51,32 +48,40 @@ def test_service_check(aggregator):
         'host': local_ip
     }
 
-    # the check should send OK
-    c.check(instance)
-    aggregator.assert_service_check('traefik.health', TraefikCheck.OK)
-
-    # stop the container
-    subprocess.check_call(args + ["down"])
-    time.sleep(5)  # we should implement a better wait strategy :)
-
-    # the check should send CRITICAL
     c.check(instance)
     aggregator.assert_service_check('traefik.health', TraefikCheck.CRITICAL)
 
 
 @pytest.mark.integration
-def test_collect_metrics(aggregator):
+@pytest.mark.usefixtures('spin_up_traefik')
+def test_service_check_ok(aggregator):
+    """
+    Unit test to check:
+        - service_check return OK
+    """
+
     c = TraefikCheck('traefik', {}, {}, None)
 
-    HERE = os.path.dirname(os.path.abspath(__file__))
-    args = [
-        "docker-compose",
-        "-f", os.path.join(HERE, 'docker-compose.yml')
-    ]
+    local_ip = '127.0.0.1'
 
-    # start the Traefik container
-    subprocess.check_call(args + ["up", "-d"])
-    time.sleep(5)  # we should implement a better wait strategy :)
+    instance = {
+        'host': local_ip
+    }
+
+    c.check(instance)
+    aggregator.assert_service_check('traefik.health', TraefikCheck.OK)
+
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('spin_up_traefik')
+def test_collect_metrics(aggregator):
+    """
+    Unit test to check:
+        - that we get metrics with the expected value and tag.
+    """
+
+    c = TraefikCheck('traefik', {}, {}, None)
 
     local_ip = '127.0.0.1'
 
@@ -91,6 +96,3 @@ def test_collect_metrics(aggregator):
 
     c.check(instance)
     aggregator.assert_metric('traefik.total_status_code_count', value=1, tags=['status_code:404'])
-
-    # stop the container
-    subprocess.check_call(args + ["down"])
