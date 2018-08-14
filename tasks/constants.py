@@ -13,6 +13,7 @@ AGENT_BASED_INTEGRATIONS = [
     'eventstore',
     'reboot_required',
     'sortdb',
+    'traefik',
 ]
 
 # If a file changes in a PR with any of these file extensiosn, a test will run against the check containing the file

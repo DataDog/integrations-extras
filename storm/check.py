@@ -199,6 +199,45 @@ class StormCheck(AgentCheck):
     DEFAULT_STORM_ENVIRONMENT = 'dev'
     DEFAULT_STORM_INTERVALS = [60]
 
+    class StormVersion(object):
+        @classmethod
+        def from_string(cls, version_string):
+            """ Returns a StormVersion from a given version string.
+
+            :param version_string: Version string, like "1.2.0-RC1" or "1.2.0"
+            :type version_string: str
+            :return: Storm Version
+            :rtype: StormCheck.StormVersion
+            """
+            parts = version_string.split(".")
+
+
+        def __init__(self, major, minor, patch, classifier=None):
+            self.major = major
+            self.minor = minor
+            self.patch = patch
+            self.classifier = classifier
+
+        def __lt__(self, other):
+            """ Check if this version is less than another version.
+
+            Ignores classification.
+
+            :param other: storm version
+            :type other: StormCheck.StormVersion | str
+            :return: < other version
+            :rtype: bool
+            """
+
+            if isinstance(other, str):
+                # convert first
+                other = StormCheck.StormVersion.from_string(other)
+
+            if not self.major < other.major:
+                if not self.minor < other.minor:
+                    return self.patch < other.patch
+            return True
+
     def get_request_json(self, url_part, error_message, params=None):
         url = "{}{}".format(self.nimbus_server, url_part)
         try:
@@ -273,7 +312,7 @@ class StormCheck(AgentCheck):
                                      "Error retrieving Storm Topology Info for topology:{}".format(topology_id),
                                      params=params)
 
-    def get_topology_metrics(self, topology_id, interval=60):
+    def get_topology_metrics(self, topology_id, interval=60, storm_version=None):
         """ Make the storm topology metrics request.
 
         :param topology_id: Topology Id
@@ -284,8 +323,13 @@ class StormCheck(AgentCheck):
         :rtype: dict
         """
 
+        # try 1.2 by default
+        endpoint = "/api/v1/topology/{}/metrics"
+        if not storm_version or storm_version < '1.2.0':
+            endpoint = "/api/v1/topology/{}"
+
         params = {'window': interval}
-        return self.get_request_json("/api/v1/topology/{}/metrics".format(topology_id),
+        return self.get_request_json(endpoint.format(topology_id),
                                      "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
                                      params=params)
 
@@ -294,8 +338,8 @@ class StormCheck(AgentCheck):
 
         :param cluster_stats: Cluster stats response
         :type cluster_stats: dict
-        :return: Extracted cluster stats metrics
-        :rtype: dict
+        :return: Version info
+        :rtype: StormCheck.StormVersion
         """
         if len(cluster_stats) >= 0:
             version = _get_string(cluster_stats,
@@ -317,6 +361,8 @@ class StormCheck(AgentCheck):
                 self.report_gauge('storm.cluster.{}'.format(metric_name),
                                   _get_float(cluster_stats, 0.0, metric_name),
                                   tags=tags, additional_tags=self.additional_tags)
+            return StormCheck.StormVersion.from_string(version)
+        return StormCheck.StormVersion(0, 0, 0)
 
     def process_nimbus_stats(self, nimbus_stats):
         """ Process Nimbus Stats Response
@@ -616,17 +662,25 @@ class StormCheck(AgentCheck):
         # Setup
         self.update_from_config(instance)
 
-        # Cluster Stats
+        # Cluster Stats - these must query!
         cluster_stats = self.get_storm_cluster_summary()
-        self.process_cluster_stats(cluster_stats)
+        storm_version = self.process_cluster_stats(cluster_stats)
 
         # Nimbus Stats
-        nimbus_stats = self.get_storm_nimbus_summary()
-        self.process_nimbus_stats(nimbus_stats)
+        nimbus_stats = {}
+        try:
+            nimbus_stats = self.get_storm_nimbus_summary()
+            self.process_nimbus_stats(nimbus_stats)
+        except Exception:  # noqa
+            self.log.exception("Error recording nimbus stats")
 
         # Supervisor Stats
-        supervisor_stats = self.get_storm_supervisor_summary()
-        self.process_supervisor_stats(supervisor_stats)
+        supervisor_stats = {}
+        try:
+            supervisor_stats = self.get_storm_supervisor_summary()
+            self.process_supervisor_stats(supervisor_stats)
+        except Exception:  # noqa
+            self.log.exception("Error recording supervisor stats")
 
         # Topology Stats
         summary = self.get_storm_topology_summary()
@@ -639,18 +693,25 @@ class StormCheck(AgentCheck):
             topology_status = None
             if topology_name not in self.excluded_topologies:
                 for interval in self.intervals:
-                    stats = self.get_topology_info(topology_id=topology_id, interval=interval)
-                    self.process_topology_stats(topology_stats=stats, interval=interval)
-                    metric_stats = self.get_topology_metrics(topology_id=topology_id, interval=interval)
-                    self.process_topology_metrics(topology_name, metric_stats, interval=interval)
+                    try:
+                        stats = self.get_topology_info(topology_id=topology_id, interval=interval)
+                        self.process_topology_stats(topology_stats=stats, interval=interval)
+                        metric_stats = self.get_topology_metrics(topology_id=topology_id, interval=interval,
+                                                                 storm_version=storm_version)
+                        self.process_topology_metrics(topology_name, metric_stats, interval=interval)
 
-                    # only report this once.
-                    if topology_status is None:
-                        topology_status = _get_string(stats, 'unknown', 'status').upper()
-                        check_status = AgentCheck.CRITICAL if topology_status != 'ACTIVE' else AgentCheck.OK
-                        self.service_check(
-                            'topology-check.{}'.format(topology_name),
-                            status=check_status,
-                            message='{} topology status marked as: {}'.format(topology_name, topology_status),
-                            tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags
-                        )
+                        # only report this once.
+                        if topology_status is None:
+                            topology_status = _get_string(stats, 'unknown', 'status').upper()
+                            check_status = AgentCheck.CRITICAL if topology_status != 'ACTIVE' else AgentCheck.OK
+                            self.service_check(
+                                'topology-check.{}'.format(topology_name),
+                                status=check_status,
+                                message='{} topology status marked as: {}'.format(topology_name, topology_status),
+                                tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags
+                            )
+                    except Exception:  # noqa
+                        self.log.exception(
+                            "unable to collect topology stats for topology_id:{}, topology_name:{}".format(
+                                topology_id, topology_name
+                            ))
