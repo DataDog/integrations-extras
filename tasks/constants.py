@@ -12,6 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AGENT_BASED_INTEGRATIONS = [
     'reboot_required',
     'sortdb',
+    'traefik',
 ]
 
 # If a file changes in a PR with any of these file extensiosn, a test will run against the check containing the file
