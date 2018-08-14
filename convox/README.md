@@ -28,7 +28,7 @@ Use a `count` that matches the `InstanceCount` parameter of your Rack.
 
 ### Auto Scaling
 
-If autoscaling is enabled on your Rack, you’ll need to dynamically scale the Datadog agent count to match the Rack instance count.
+If autoscaling is enabled on your Rack, you'll need to dynamically scale the Datadog agent count to match the Rack instance count.
 
 See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 
