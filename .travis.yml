@@ -23,7 +23,10 @@ stages:
   - name: test
     if: (branch = master) AND (type != pull_request)
 
-script: travis_retry inv test --targets=${CHECK}
+script:
+  # FIXME: re-enable as soon as we fix the manifest files
+  # - ddev -e manifest verify --include-extras
+  - travis_retry ddev -e test ${CHECK}
 
 # Conditional jobs are currently buggy and verbose.
 #
@@ -37,22 +40,20 @@ jobs:
   include:
     - stage: test_changed
       script:
-       #  - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
-       - inv test --changed-only
+        # FIXME: re-enable as soon as we fix the manifest files
+        # - ddev -e manifest verify --include-extras
+        - ddev -e test
     - stage: test
       env: CHECK=reboot_required
-      script:
-        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
-        - travis_retry inv test --targets=${CHECK}
     - stage: test
       env: CHECK=sortdb
-      script:
-        # - inv manifest --include-extras FIXME: re-enable as soon as we fix the manifest files
-        - travis_retry inv test --targets=${CHECK}
+    - stage: test
+      env: CHECK=traefik
 
 install:
   - pip install -U pip setuptools
   - pip install -r requirements-dev.txt
+  - ddev config set extras .
 
 # we should clean generated files before we save the cache
 # We don't want to save .pyc files, so we'll use find and -delete
