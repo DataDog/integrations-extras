@@ -2,7 +2,7 @@
 
 View, rerun, and halt Gremlin attacks directly from Datadog!
 
-Pairing Gremlin with Datadog's [Events][1] is an effective way to add context failure testing context to your Datadog workflows. 
+Pairing Gremlin with Datadog's [Events][1] is an effective way to add failure-testing context to your Datadog workflows.
 
 * Overlay attack events on top of your dashboards to pinpoint exactly how and when Gremlin is impacting your metrics.
 * Show, Rerun, and Halt Gremlin attacks from your Datadog [Event Stream][2]
@@ -28,7 +28,7 @@ The Gremlin Events integration does not provide any metrics at this time.
 
 ### Events
 
-The Gremlin Events integration sends events to your [Datadog Event Stream][4] when attacks are started and stopped on Gremlin.
+The Gremlin Events integration sends events to your [Datadog Event Stream][4] when attacks are started or stopped on Gremlin.
 
 ### Service Checks
 
