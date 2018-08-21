@@ -19,7 +19,7 @@ install:
   - if not exist %PIP_CACHE% mkdir %PIP_CACHE%
   - ps: If (-Not (Test-Path $env:PYWIN_PATH)) {(new-object net.webclient).DownloadFile("$env:PYWIN32_URL", "$env:PYWIN_PATH")}
   - "%PYTHON%/Scripts/easy_install.exe %PYWIN_PATH%"
-  - ps: (& "$env:PYTHON/python.exe" -m pip install --upgrade pip)
+  - ps: (& "$env:PYTHON/python.exe" -m pip install --upgrade pip virtualenv)
   - ps: '& "$env:PYTHON/Scripts/pip.exe" install -r requirements-dev.txt'
   - ddev config set extras .
   # Remove the adodbapi module shipped with pywin32: it conflicts with the pip-installed adodbapi
