@@ -24,7 +24,7 @@ Create an API key (also found under **Integrations->API**): <span class="hidden-
 
 Once this process is complete, API Fortress will begin passing data to DataDog where it can be charted in any way you like!
 
-Note: This connector shares events with Datadog, which are outages. If you would like to include performance metrics, such as latency and fetch, please let us know and we can help set that up. It requires a small script.
+Note: This connector shares events with Datadog, which are outages. If you would like to include performance metrics, such as latency and fetch, please contact API Fortress support to help setup a script.
 
 The official documentation for the DataDog connecter can be [found here][1].
 
