@@ -31,13 +31,6 @@ To configure the Reboot Required check:
         - reboot_signal_file: "/var/run/reboot-required"
     ```
 
-4. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
-
-    ```
-    sudo mkdir /var/run/dd-agent
-    sudo chown dd-agent:dd-agent /var/run/dd-agent
-    ```
-
 5. [Restart the Agent][3].
 
 ### Validation

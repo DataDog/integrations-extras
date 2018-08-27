@@ -13,7 +13,7 @@ from datadog_checks.checks import AgentCheck
 class RebootRequiredCheck(AgentCheck):
 
     REBOOT_SIGNAL_FILE = '/var/run/reboot-required'
-    CREATED_AT_FILE = '/var/run/dd-agent/reboot-required.created_at'
+    CREATED_AT_FILE = '/var/tmp/reboot-required.created_at'
 
     def check(self, instance):
         status, days_since, msg = self._check(instance)
