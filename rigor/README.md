@@ -1,72 +1,72 @@
 ## Overview
-Rigor provides synthetic monitoring and optimization insights throughout your development 
+Rigor provides synthetic monitoring and optimization insights throughout your development
 lifecycle.
 
-![timeboard](images/rigor_timeboard_with_metrics.png)
+![timeboard][1]
 
-With Rigor, you can collect synthetic, front-end performance metrics and push those 
+With Rigor, you can collect synthetic, front-end performance metrics and push those
 metrics into Datadog.  You can also push alerts into Datadog as events.
 
 ## Setup
 
-Rigor has two different integrations with Datadog, a metrics integration and an events 
+Rigor has two different integrations with Datadog, a metrics integration and an events
 integration.
 
 ### Configuring Metrics Integration
-As an administrator, click the "Admin Tools" menu in the upper right hand of your 
+As an administrator, click the "Admin Tools" menu in the upper right hand of your
 screen and select "Integrations".
 
-![admin-menu](images/rigor_admin_menu.png)
+![admin-menu][2]
 
-Add a new integration, by clicking the "New" button.  You will now be able to configure 
+Add a new integration, by clicking the "New" button.  You will now be able to configure
 the integration.
 
-![push-configuration](images/rigor_integration_configuration.png)
+![push-configuration][3]
 
-Add a unique name for this integration and your API key from Datadog.  Then choose which 
+Add a unique name for this integration and your API key from Datadog.  Then choose which
 tags and metrics you want to send. Some things to remember:
 - We include a normalized version of the check name as a default tag
-- For multi-step checks (Real Browser and API Checks), we include the position of the 
+- For multi-step checks (Real Browser and API Checks), we include the position of the
   request that the metrics came from
 - Uptime checks include HTTP, Port, and API checks
 - Port checks only report the "Response Time" metric
 - Not all browsers support all metrics
 
-If you would like Real Browser Checks to report timings from the 
-[User Timings API][mozilla], 
-make sure "Send All User Timings?" is selected.  Any marks are reported under the 
-`rigor.real_browser.marks` namespace and measures are reported under the 
+If you would like Real Browser Checks to report timings from the
+[User Timings API][4],
+make sure "Send All User Timings?" is selected.  Any marks are reported under the
+`rigor.real_browser.marks` namespace and measures are reported under the
 `rigor.real_browser.measures` namespace. Be aware that selecting this option
 could send a lot of new series into Datadog, especially if the marks and measures
-on the site you are testing are dynamically generated. 
+on the site you are testing are dynamically generated.
 
 Once you have configured the integration.  You can add to any Real Browser, HTTP, Port,
 or API check.  Just edit the check and go to the "Notifications" tab.  Here you can add
 the integration that you just created.
 
-![add-integration-to-check](images/rigor_add_integration_to_check.png)
+![add-integration-to-check][5]
 
 
 ### Configuring Events Integration
-As an administrator, click the "Admin Tools" menu in the upper right hand of your 
+As an administrator, click the "Admin Tools" menu in the upper right hand of your
 screen and select "Alert Webhooks".
 
-![webhook-menu](images/rigor_webhooks_menu.png)
+![webhook-menu][6]
 
 Add a new integration, by clicking the "New" button and clicking the Datadog tile.
 
-![webhooks-chooser](images/rigor_webhooks_chooser.png)
+![webhooks-chooser][7]
 
 Add a unique name for this webhook and make sure to update the triggers with your Datadog
 API key.
 
-![webhooks-configuration](images/rigor_webhooks_configuration.png)
+![webhooks-configuration][8]
 
 Once you have configured the integration.  You can add to any Real Browser, HTTP, Port,
 or API check.  Just edit the check and go to the "Notifications" tab.  Here you can add
 the webhook that you just created.
 
-![add-webhookto-check](images/rigor_add_webhook_to_check.png)
+![add-webhookto-check][9]
 
 ### Metrics
 
@@ -127,22 +127,32 @@ Additionally, if the integration is configured, browser User Timings will be sen
 
 When a check is configured to alert via a Datadog event, 2 events types will be pushed
 into Datadog:
-- **Failed** - whenever the check fails enough to pass the threshold so that it sends an 
+- **Failed** - whenever the check fails enough to pass the threshold so that it sends an
   alert
-- **Back online** - whenever the check successfully runs while in an alerting state 
+- **Back online** - whenever the check successfully runs while in an alerting state
 
-![events-example](images/rigor_events_example.png)
+![events-example][10]
 
 ### Service Checks
 
 The Rigor - Datadog integration does not include any service check.
 
 ### Troubleshooting
-Need help? Contact [Rigor Support](mailto:support@rigor.com).
+Need help? Contact [Rigor Support][11].
 
 ### Further Reading
-Learn more about Rigor and how we can help make your website faster, visit 
-[rigor][rigor].
+Learn more about Rigor and how we can help make your website faster, visit
+[rigor][12].
 
-[mozilla]: https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API
-[rigor]: https://rigor.com
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_timeboard_with_metrics.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_admin_menu.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_integration_configuration.png
+[4]: https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_add_integration_to_check.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_webhooks_menu.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_webhooks_chooser.png
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_webhooks_configuration.png
+[9]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_add_webhook_to_check.png
+[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/rigor/rigor/images/rigor_events_example.png
+[11]: mailto:support@rigor.com
+[12]: https://rigor.com
