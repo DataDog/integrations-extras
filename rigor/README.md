@@ -68,6 +68,8 @@ the webhook that you just created.
 
 ![add-webhookto-check][9]
 
+## Data Collected
+
 ### Metrics
 
 Any of Rigor's metrics can be sent to Datadog.  The metrics that are actually sent depend
@@ -135,7 +137,7 @@ into Datadog:
 
 ### Service Checks
 
-The Rigor - Datadog integration does not include any service check.
+This integration does not include any service checks.
 
 ### Troubleshooting
 Need help? Contact [Rigor Support][11].
