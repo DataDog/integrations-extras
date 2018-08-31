@@ -44,7 +44,7 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 
 [1]: https://docs.datadoghq.com/getting_started/#events
 [2]: https://app.datadoghq.com/event/stream
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gremlin/images/events-overlay.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/nick/gremlin_image_size/gremlin/images/events-overlay.png
 [4]: https://app.gremlin.com/settings/integrations
 [5]: http://docs.datadoghq.com/help/
 [6]: https://www.datadoghq.com/blog/
