@@ -17,8 +17,7 @@ In order to activate this integration, you will need to pass your Datadog API ke
 
 * API key: <span class="hidden-api-key">${api_key}</span>
 
-<li>Once you've configured your Datadog profile, you will need to assign the profile to a contact group located under Alerting>Contacts. The profile is assigned at the Push Notifications field within the contact group.</li> 
-</ul>
+You should now start seeing events from this integration in your [Event Stream][2].
 
 ## Data Collected
 
