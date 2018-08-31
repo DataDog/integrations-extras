@@ -100,7 +100,7 @@ filter {
  }
 ```
 
-## Validation
+### Validation
 
 [Run the Agent's `status` subcommand][12] and look for `logstash` under the Checks section.
 
