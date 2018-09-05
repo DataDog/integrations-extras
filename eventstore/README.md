@@ -7,12 +7,11 @@ Get metrics from Eventstore in real time to:
 * Visualize and monitor EventStore queues
 * capture all available metrics within the stats api
 
-
 ## Setup
 
 ### Installation
 
-To install please see the datadog documentation: https://docs.datadoghq.com/ja/guides/installcoreextra/
+Install the `dd-check-eventstore` package manually or with your favourite configuration manager
 
 ### Configuration
 
@@ -22,7 +21,16 @@ To install please see the datadog documentation: https://docs.datadoghq.com/ja/g
 
 ### Validation
 
-[Run the Agent's `status` subcommand][4] and look for `eventstore` under the Checks section:
+Run the Agent's `status` subcommand and look for `eventstore` under the Checks section:
+
+       Checks
+       ======
+
+       eventstore
+       -----------
+        - instance #0 [OK]
+        - Collected 50 metrics, 0 events & 0 service checks
+
 
 ## Compatibility
 

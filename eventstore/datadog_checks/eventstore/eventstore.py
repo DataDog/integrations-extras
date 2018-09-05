@@ -85,6 +85,7 @@ class EventStoreCheck(AgentCheck):
             if value is not None:
                 self.dispatch_metric(value, metric)
             else:
+                print("Metric {} did not return a value, skipping".format(metric['json_path']))
                 self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
 
     def format_tag(self, name):
@@ -319,7 +320,7 @@ class EventStoreCheck(AgentCheck):
           "metric_type": "gauge"
         })
         metric_definitions.append({
-          "json_path": "proc.tcp.sending_speed",
+          "json_path": "proc.tcp.sendingSpeed",
           "json_type": "float",
           "metric_name": "eventstore.tcp.sending_speed",
           "metric_type": "gauge"
@@ -580,12 +581,6 @@ class EventStoreCheck(AgentCheck):
           "json_path": "es.readIndex.cachedRecord",
           "json_type": "int",
           "metric_name": "eventstore.es.read_index.cached_record",
-          "metric_type": "gauge"
-        })
-        metric_definitions.append({
-          "json_path": "es.readIndex.queuedFlushMessages",
-          "json_type": "int",
-          "metric_name": "eventstore.es.read_index.queued_flush_messages",
           "metric_type": "gauge"
         })
         metric_definitions.append({
