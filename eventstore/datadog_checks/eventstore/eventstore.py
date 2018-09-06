@@ -44,13 +44,19 @@ class EventStoreCheck(AgentCheck):
 
         eventstore_paths = None
         eventstore_paths = self.walk(parsed_api)
+        self.log.debug("Event Store Paths:")
+        self.log.debug(eventstore_paths)
 
         # Flaten the self.init_config definitions into valid metric definitions
         metric_definitions = {}
         for metric in metric_def:
+            self.log.debug("metric {}".format(metric))
             json_path = metric.get('json_path', '')
+            self.log.debug("json_path {}".format(json_path))
             tags = metric.get('tag_by', {})
+            self.log.debug("tags {}".format(tags))
             paths = self.get_json_path(json_path, eventstore_paths)
+            self.log.debug("paths {}".format(paths))
             for path in paths:
                 # Deep copy needed else it will overwrite previous metric data
                 metric_builder = copy.deepcopy(metric)
@@ -70,22 +76,29 @@ class EventStoreCheck(AgentCheck):
         # Find metrics to check:
         metrics_to_check = {}
         for metric in instance['json_path']:
+            self.log.debug("metric: {}".format(metric))
             paths = self.get_json_path(metric, eventstore_paths)
+            self.log.debug("paths: {}".format(paths))
             for path in paths:
+                self.log.debug("path: {}".format(path))
                 try:
                     metrics_to_check[path] = metric_definitions[path]
+                    self.log.debug("metrics_to_check: {}".format(metric_definitions[path]))
                 except KeyError:
                     self.log.info("Skipping metric: {} as it is not defined".format(path))
 
         # Now we need to get the metrics from the endpoint
         # Get the value for a given key
+        self.log.debug("parsed_api:")
+        self.log.debug(parsed_api)
         for key, metric in metrics_to_check.items():
             value = self.get_value(parsed_api, metric['json_path'])
             value = self.convert_value(value, metric)
             if value is not None:
                 self.dispatch_metric(value, metric)
             else:
-                print("Metric {} did not return a value, skipping".format(metric['json_path']))
+                # self.dispatch_metric(0, metric)
+                self.log.debug("Metric {} did not return a value, skipping".format(metric['json_path']))
                 self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
 
     def format_tag(self, name):
@@ -132,19 +145,28 @@ class EventStoreCheck(AgentCheck):
 
     def get_json_path(self, json_path, eventstore_paths):
         """ Find all the possible keys for a given path """
+        self.log.debug("json paths: {}".format(json_path))
+        self.log.debug("eventstore_paths: {}".format(eventstore_paths))
         response = []
+        self.log.debug("response: {}".format(response))
         try:
             match = eventstore_paths.index(json_path)
-            if match:
+            self.log.debug("match: {}".format(match))
+            if match is not None:
                 response.append(json_path)
+                self.log.debug("match json path: {}".format(json_path))
         except ValueError:
             # Loop through all possible keys to find matches
             # Value Error means it didn't find it, so it must be
             # a wildcard
+            self.log.debug("value error")
             for path in eventstore_paths:
+                self.log.debug("path: {}".format(path))
                 match = fnmatch.fnmatch(path, json_path)
+                self.log.debug("match ve: {}".format(match))
                 if match:
                     response.append(path)
+                    self.log.debug("path ve: {}".format(path))
         return response
     # Fill out eventstore_paths using walk of json
 

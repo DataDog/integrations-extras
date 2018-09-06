@@ -56,7 +56,7 @@ def test_service_check(aggregator, eventstore_server):
                 "metric_type": "gauge"
             },
             {
-                "json_path": "proc.threadscount",
+                "json_path": "proc.threadsCount",
                 "json_type": "int",
                 "metric_name": "eventstore.proc.threads",
                 "metric_type": "gauge"
