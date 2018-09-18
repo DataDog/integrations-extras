@@ -6,7 +6,7 @@ import pytest
 
 from datadog_checks.eventstore import EventStoreCheck
 from datadog_checks.errors import CheckException
-from datadog_checks.utils.common import get_docker_hostname
+from datadog_checks.dev import get_docker_hostname
 
 
 def test_config():
