@@ -110,6 +110,8 @@ init_config:
             metric_type: gauge
             alias: hbase.master.server.tag.is_active_master
             values: {true: 1, false: 0, default: 0}
+            #must wrap true and false in quotes for Agent 6
+            #values: {"true": 1, "false": 0, default: 0}
           # Number of RegionServers
           numRegionServers:
             metric_type: gauge
