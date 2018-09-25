@@ -2,13 +2,9 @@
 
 ## Overview
 
-This collect for Traefik and check it health.
+This integration collects data from Traefik and checks its health.
 
 ## Setup
-
-### Installation
-
-[...]
 
 ### Configuration
 
@@ -33,7 +29,7 @@ Configuration Options:
 - port: API listener of Traefik endpoint. Default value `8080`. _Optional_
 - path: Path of Traefik health check endpoint. Default `/health`. _Optional_
 
-[Restart the Agent][3] to begin sending Traefil metrics to Datadog.
+[Restart the Agent][3] to begin sending Traefik metrics to Datadog.
 
 ### Validation
 
@@ -64,20 +60,15 @@ See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Events
 
-The traefik check does not include any event at this time.
+The Traefik check does not include any events at this time.
 
 ### Service Checks
 
 Query Traefik and expect `200` as return status code.
 
-## Troubleshooting
-
-[...]
-
 ## Development
 
-Please refer to the [main documentation][6]
-for more details about how to test and develop Agent based integrations.
+Refer to the [main documentation][6] for more details about how to test and develop Agent based integrations.
 
 [1]: https://raw.githubusercontent.com/DataDog/cookiecutter-datadog-check/master/%7B%7Bcookiecutter.check_name%7D%7D/images/snapshot.png
 [2]: #metrics
