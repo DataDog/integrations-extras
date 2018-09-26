@@ -7,6 +7,8 @@ Get metrics from Aerospike Database in real time to:
 * Visualize and monitor Aerospike states
 * Be notified about Aerospike failovers and events.
 
+Note: Authentication and TLS are not supported.
+
 ## Setup
 
 The Aerospike check is **NOT** included in the [Datadog Agent][1] package.
