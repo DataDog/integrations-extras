@@ -56,7 +56,7 @@ Learn more about application security, DevOps, SecOps, and all the ops on [Signa
 
 To sign up for the Signal Sciences-Datadog Monitoring Beta, a free service to see attacks against your applications, APIs, and microservices in real-time without a Signal Sciences subscription, visit our [beta registration page][6].
 
-[1]: ./images/datadog-sigsci-security.png
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/signalsciences/signalsciences/images/datadog-sigsci-security.png
 [2]: https://app.datadoghq.com/account/settings#api
 [3]: https://dashboard.signalsciences.net
 [4]: http://docs.datadoghq.com/help/
