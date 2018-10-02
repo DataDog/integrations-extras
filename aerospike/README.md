@@ -7,6 +7,8 @@ Get metrics from Aerospike Database in real time to:
 * Visualize and monitor Aerospike states
 * Be notified about Aerospike failovers and events.
 
+Note: Authentication and TLS are not supported.
+
 ## Setup
 
 The Aerospike check is **NOT** included in the [Datadog Agent][1] package.
@@ -45,11 +47,11 @@ The Aerospike check does not include any events at this time.
 The Aerospike check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact us in the [Aerospike Forums][6].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/aerospike/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/aerospike/metadata.csv
-[6]: http://docs.datadoghq.com/help/
+[6]: http://discuss.aerospike.com
