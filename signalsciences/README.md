@@ -19,7 +19,6 @@ Get metrics from Signal Sciences in real-time to:
 
 * See alerts on Signal Sciences agent status.
 
-
 ## Setup
 
 To use the Signal Sciences-Datadog integration, you must be a customer of Signal Sciences. For more information about Signal Sciences, visit us at <https://www.signalsciences.com>.
@@ -33,6 +32,20 @@ In your [Signal Sciences Dashboard][3] on the Site navigation bar, click Manage 
 Enter the API Key in the API Key field.
 
 Click Add.
+
+## Data Collected
+### Metrics
+
+The Signal Sciences integration does not provide any metrics at this time.
+
+### Events
+
+All Signal Sciences events are sent to your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
+
+### Service Checks
+
+The Signal Sciences integration does not include any service checks at this time.
+
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][4].
