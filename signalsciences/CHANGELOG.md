@@ -1,7 +1,7 @@
-# CHANGELOG - AwesomeApp Integration
+# CHANGELOG - Signal Sciences Integration
 
-1.0.0 / Unreleased
+1.0.0
 ==================
 ### Changes
 
-* [FEATURE] Initial AwesomeApp Integration Tile.
+* [FEATURE] Initial Signal Sciences Integration Tile.
