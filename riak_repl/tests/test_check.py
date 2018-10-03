@@ -59,7 +59,18 @@ def test_service_check(aggregator, riak_server):
             "riak_repl.realtime_queue_stats.percent_bytes_used",
             "riak_repl.realtime_queue_stats.bytes",
             "riak_repl.realtime_queue_stats.max_bytes",
-            "riak_repl.realtime_queue_stats.overload_drops"
+            "riak_repl.realtime_queue_stats.overload_drops",
+            "riak_repl.fullsync_coordinator.riak_west_1.queued",
+            "riak_repl.fullsync_coordinator.riak_west_1.in_progress",
+            "riak_repl.fullsync_coordinator.riak_west_1.waiting_for_retry",
+            "riak_repl.fullsync_coordinator.riak_west_1.starting",
+            "riak_repl.fullsync_coordinator.riak_west_1.successful_exits",
+            "riak_repl.fullsync_coordinator.riak_west_1.error_exits",
+            "riak_repl.fullsync_coordinator.riak_west_1.retry_exits",
+            "riak_repl.fullsync_coordinator.riak_west_1.soft_retry_exits",
+            "riak_repl.fullsync_coordinator.riak_west_1.busy_nodes",
+            "riak_repl.fullsync_coordinator.riak_west_1.fullsyncs_completed",
+            "riak_repl.fullsync_coordinator.riak_west_1.last_fullsync_duration"
         ]
     }
 

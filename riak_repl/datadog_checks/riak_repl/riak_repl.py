@@ -41,12 +41,26 @@ class RiakReplCheck(AgentCheck):
         "overload_drops"
     ]
 
+    FULLSYNC_COORDINATOR = [
+      "queued",
+      "in_progress",
+      "waiting_for_retry",
+      "starting",
+      "successful_exits",
+      "error_exits",
+      "retry_exits",
+      "soft_retry_exits",
+      "busy_nodes",
+      "fullsyncs_completed",
+      "last_fullsync_duration"
+    ]
+
     def __init__(self, name, init_config, agentConfig, instances=None):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
 
     def check(self, instance):
         url = instance.get('url', '')
-        default_timeout = self.init_config.get('default_timeout', 5)
+        default_timeout = instance.get('default_timeout', 5)
         timeout = float(instance.get('timeout', default_timeout))
         tags = instance.get('tags', [])
 
@@ -54,7 +68,7 @@ class RiakReplCheck(AgentCheck):
             raise CheckException("Configuration error, please fix conf.yaml")
 
         try:
-            r = requests.get(url)
+            r = requests.get(url, timeout=timeout)
         except requests.exceptions.Timeout as e:
             raise CheckException('URL: {0} timed out after {1} \
                                  seconds.'.format(url, timeout))
@@ -71,15 +85,23 @@ class RiakReplCheck(AgentCheck):
             raise CheckException('{0} returned an unserializable \
                                  payload'.format(url))
 
-        for k in self.REPL_STATS:
-            if k in stats:
-                self.safe_submit_metric("riak_repl." + k, stats[k], tags=tags)
+        for key, val in stats.iteritems():
+            if key in self.REPL_STATS:
+                self.safe_submit_metric("riak_repl." + key, val, tags=tags)
 
-        for k in self.REALTIME_QUEUE_STATS:
-            if k in stats['realtime_queue_stats']:
-                self.safe_submit_metric("riak_repl.realtime_queue_stats."
-                                        + k, stats['realtime_queue_stats'][k],
-                                        tags=tags)
+        if stats['realtime_enabled'] is not None:
+            for key, val in stats['realtime_queue_stats'].iteritems():
+                if key in self.REALTIME_QUEUE_STATS:
+                    self.safe_submit_metric("riak_repl.realtime_queue_stats."
+                                            + key, val, tags=tags)
+
+        for c in stats['connected_clusters']:
+            cluster = c.replace("-", "_")
+            for key, val in stats['fullsync_coordinator'][c].iteritems():
+                if key in self.FULLSYNC_COORDINATOR:
+                    self.safe_submit_metric("riak_repl.fullsync_coordinator."
+                                            + cluster + "." + key,
+                                            val, tags=tags)
 
     def safe_submit_metric(self, name, value, tags=None):
         tags = [] if tags is None else tags

@@ -10,6 +10,6 @@ from .common import HERE
 def riak_server():
     with docker_run(
         compose_file=os.path.join(HERE, "docker", "docker-compose.yml"),
-        sleep=30
+        sleep=120
     ):
         yield

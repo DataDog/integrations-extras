@@ -24,3 +24,9 @@ riak_repl.realtime_queue_stats.percent_bytes_used,gauge,,percent,,Percentage of 
 riak_repl.realtime_queue_stats.bytes,gauge,,byte,,Size in bytes of all objects currently in the realtime queue,-1,riak_repl,rt queue bytes
 riak_repl.realtime_queue_stats.max_bytes,gauge,,byte,,Size in bytes of the realtime queue,-1,riak_repl,rt queue max bytes
 riak_repl.realtime_queue_stats.overload_drops,gauge,,occurance,,Number of put transfers dropped due to an overload of the message queue of the Erlang process responsible for processing outgoing transfers,-1,riak_repl,rt overload drops
+riak_repl.fullsync_coordinator.<foo>.error_exits,gauge,,occurance,,Total number of partitions for which sync failed or was aborted,,,error exits
+riak_repl.fullsync_coordinator.<foo>.retry_exits,gauge,,occurance,,Total number of partitions successfully synced via retry,-1,riak_repl,retry exits
+riak_repl.fullsync_coordinator.<foo>.soft_retry_exits,gauge,,occurance,,description,-1,riak_repl,soft retry exits
+riak_repl.fullsync_coordinator.<foo>.busy_nodes,gauge,,node,,description,-1,riak_repl,busy nodes
+riak_repl.fullsync_coordinator.<foo>.fullsyncs_completed,count,,occurance,,Total number of fullsyncs that have been completed to the specified sink cluster,-1,riak_repl,fullsyncs completed
+riak_repl.fullsync_coordinator.<foo>.last_fullsync_duration,gauge,,second,,The duration (in seconds) of the last completed fullsync,-1,riak_repl,last fullsync duration
