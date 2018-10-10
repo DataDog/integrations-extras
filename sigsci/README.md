@@ -4,7 +4,7 @@ Send Signal Sciences events to Datadog to monitor real-time attacks and abuse ag
 
 ![image-datadog-sigsci-security][1]
 
-Get metrics from Signal Sciences in real-time to:
+Get events from Signal Sciences in real-time to:
 
 * See IPs that Signal Sciences has blocked and/or flagged as malicious from any of the following activities:
 
