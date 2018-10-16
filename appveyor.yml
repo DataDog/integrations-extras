@@ -20,7 +20,7 @@ install:
   - ps: If (-Not (Test-Path $env:PYWIN_PATH)) {(new-object net.webclient).DownloadFile("$env:PYWIN32_URL", "$env:PYWIN_PATH")}
   - "%PYTHON%/Scripts/easy_install.exe %PYWIN_PATH%"
   - ps: (& "$env:PYTHON/python.exe" -m pip install --upgrade pip virtualenv)
-  - ps: '& "$env:PYTHON/Scripts/pip.exe" install -r requirements-dev.txt'
+  - ps: '& "$env:PYTHON/Scripts/pip.exe" install datadog-checks-dev[cli]'
   - ddev config set extras .
   # Remove the adodbapi module shipped with pywin32: it conflicts with the pip-installed adodbapi
   - ps: rm $env:PYTHON/lib/site-packages/$env:PYWIN32_INSTALL_DIR/adodbapi/__init__.py
