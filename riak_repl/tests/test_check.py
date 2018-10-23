@@ -69,8 +69,7 @@ def test_service_check(aggregator, riak_server):
             "riak_repl.fullsync_coordinator.riak_west_1.retry_exits",
             "riak_repl.fullsync_coordinator.riak_west_1.soft_retry_exits",
             "riak_repl.fullsync_coordinator.riak_west_1.busy_nodes",
-            "riak_repl.fullsync_coordinator.riak_west_1.fullsyncs_completed",
-            "riak_repl.fullsync_coordinator.riak_west_1.last_fullsync_duration"
+            "riak_repl.fullsync_coordinator.riak_west_1.fullsyncs_completed"
         ]
     }
 
