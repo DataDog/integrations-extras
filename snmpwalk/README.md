@@ -51,11 +51,10 @@ The check returns:
 * `CRITICAL` if check encounters an error when trying to collect metrics from `snmpwalk`.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog Support][5].
 
 [1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://github.com/DataDog/integrations-extras/blob/master/hbase_regionserver/conf.yaml.example
+[2]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/check.py
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
-[5]: https://github.com/DataDog/integrations-extras/blob/master/hbase_regionserver/metadata.csv
-[6]: http://docs.datadoghq.com/help/
+[5]: http://docs.datadoghq.com/help/
