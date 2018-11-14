@@ -42,7 +42,7 @@ See [metadata.csv][5] for a list of metrics provided by this check.
 The Storm check does not include any events at this time.
 
 ### Service Checks
-**`topology-check.{}`**
+**`topology_check.{TOPOLOGY NAME}`**
 
 The check returns:
 
