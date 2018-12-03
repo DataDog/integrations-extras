@@ -14,7 +14,7 @@ need to install it yourself.
 ### Configuration
 
 1. Edit the `aqua.d/conf.yaml` file, in the `conf.d/` folder at the root of your
-   Agent's configuration directory to start collecting your aqua performance data.
+   Agent's configuration directory to start collecting your Aqua performance data.
    See the [sample aqua.d/conf.yaml][3] for all available configuration options.
 
 2. [Restart the Agent][4]
