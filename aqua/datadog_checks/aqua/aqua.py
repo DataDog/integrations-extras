@@ -21,18 +21,19 @@ class AquaCheck(AgentCheck):
     """
     Collect metrics from Aqua.
     """
+    SERVICE_CHECK_NAME = 'aqua.can_connect'
+
     def check(self, instance):
-        service_check_name = 'aqua.can_connect'
         instance_tags = instance.get("tags", [])
 
         self.validate_instance(instance)
 
         try:
             token = self.get_aqua_token(instance)
-            self.service_check(service_check_name, AgentCheck.OK, tags=instance_tags)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=instance_tags)
         except Exception as ex:
             self.log.error("Failed to get Aqua token, skipping check. Error: %s" % ex)
-            self.service_check(service_check_name, AgentCheck.CRITICAL, tags=instance_tags)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=instance_tags)
             return
         self._report_base_metrics(instance, token)
         self._report_connected_enforcers(instance, token)
