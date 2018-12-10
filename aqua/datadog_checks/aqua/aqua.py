@@ -80,9 +80,14 @@ class AquaCheck(AgentCheck):
         """
         Retrieve the Aqua token for next queries.
         """
-        headers = {'Content-Type': 'application/json','charset':'UTF-8'}
-        data={ "id": instance['api_user'], "password": instance['password'] }
-        res = requests.post(instance['url'] + '/api/v1/login', data=json.dumps(data),headers=headers, timeout=self.default_integration_http_timeout)
+        headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
+        data = {"id": instance['api_user'], "password": instance['password']}
+        res = requests.post(
+            instance['url'] + '/api/v1/login',
+            data=json.dumps(data),
+            headers=headers,
+            timeout=self.default_integration_http_timeout
+        )
         res.raise_for_status()
         return json.loads(res.text)['token']
 
@@ -90,7 +95,7 @@ class AquaCheck(AgentCheck):
         """
         Form queries and interact with the Aqua API.
         """
-        headers = {'Content-Type': 'application/json','charset':'UTF-8','Authorization': 'Bearer '+ token}
+        headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + token}
         res = requests.get(urljoin(instance['url'], route), headers=headers, timeout=60)
         res.raise_for_status()
         return json.loads(res.text)
@@ -120,16 +125,20 @@ class AquaCheck(AgentCheck):
         # running containers
         metric_name = 'aqua.running_containers'
         container_metrics = metrics['running_containers']
-        # FIXME: haissam is the tagging and substraction logic legit here?
         self.gauge(metric_name, container_metrics['total'], tags=instance.get('tags', []) + ['status:all'])
-        self.gauge(metric_name, container_metrics['unregistered'], tags=instance.get('tags', []) + ['status:unregistered'])
-        self.gauge(metric_name, container_metrics['total'] - container_metrics['unregistered'], tags=instance.get('tags', []) + ['status:registered'])
+        self.gauge(metric_name, container_metrics['unregistered'],
+                   tags=instance.get('tags', []) + ['status:unregistered'])
+        self.gauge(
+            metric_name,
+            container_metrics['total'] - container_metrics['unregistered'],
+            tags=instance.get('tags', []) + ['status:registered']
+        )
 
         # disconnected enforcers
-        # FIXME: haissam should we move this to the dedicated enforcer method?
         metric_name = 'aqua.enforcers'
         enforcer_metrics = metrics['hosts']
-        self.gauge('aqua.enforcers', enforcer_metrics['disconnected_count'], tags=instance.get('tags', []) + ['status:disconnected'])
+        self.gauge('aqua.enforcers', enforcer_metrics['disconnected_count'],
+                   tags=instance.get('tags', []) + ['status:disconnected'])
 
     def _report_status_metrics(self, instance, token, metric_name, route, statuses):
         try:
@@ -144,12 +153,9 @@ class AquaCheck(AgentCheck):
         """
         Report metrics about enforcers
         """
-        # FIXME: haissam is there more to collect here?
         try:
             metrics = self._perform_query(instance, '/api/v1/hosts', token)
         except Exception as ex:
             self.log.error("Failed to get enforcer metrics. Error: %s" % ex)
             return
-
-        # FIXME: haissam is it all or connected here?
         self.gauge('aqua.enforcers', metrics['count'], tags=instance.get('tags', []) + ['status:all'])
