@@ -47,7 +47,7 @@ Need help? Contact [Datadog Support][7].
 
 [1]: https://www.aquasec.com
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://github.com/DataDog/integrations-core/blob/master/aqua/datadog_checks/aqua/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/blob/master/aqua/datadog_checks/aqua/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/aqua/metadata.csv
