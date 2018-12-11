@@ -10,7 +10,7 @@ from mock import MagicMock
 from datadog_checks.aqua import AquaCheck
 
 
-CHECK_NAME = 'sortdb'
+CHECK_NAME = 'aqua'
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
