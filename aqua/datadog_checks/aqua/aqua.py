@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import requests
 import simplejson as json
-from urlparse import urljoin
+from six.moves.urllib.parse import urlparse
 
 from datadog_checks.checks import AgentCheck
 
@@ -97,7 +97,7 @@ class AquaCheck(AgentCheck):
         Form queries and interact with the Aqua API.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + token}
-        res = requests.get(urljoin(instance['url'], route), headers=headers, timeout=60)
+        res = requests.get(urlparse.urljoin(instance['url'], route), headers=headers, timeout=60)
         res.raise_for_status()
         return json.loads(res.text)
 
@@ -114,14 +114,16 @@ class AquaCheck(AgentCheck):
         # images
         metric_name = 'aqua.images'
         image_metrics = metrics['registry_counts']['images']
-        for sev, sev_tag in SEVERITIES.iteritems():
-            self.gauge(metric_name, image_metrics[sev], tags=instance.get('tags', []) + ['severity:%s' % sev_tag])
+        for sev in SEVERITIES:
+            self.gauge(metric_name, image_metrics[sev],
+                       tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]])
 
         # vulnerabilities
         metric_name = 'aqua.vulnerabilities'
         vuln_metrics = metrics['registry_counts']['vulnerabilities']
-        for sev, sev_tag in SEVERITIES.iteritems():
-            self.gauge(metric_name, vuln_metrics[sev], tags=instance.get('tags', []) + ['severity:%s' % sev_tag])
+        for sev in SEVERITIES:
+            self.gauge(metric_name, vuln_metrics[sev],
+                       tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]])
 
         # running containers
         metric_name = 'aqua.running_containers'
@@ -147,8 +149,8 @@ class AquaCheck(AgentCheck):
         except Exception as ex:
             self.log.error("Failed to get %s metrics. Error: %s" % (metric_name, ex))
             return
-        for status, status_tag in statuses.iteritems():
-            self.gauge(metric_name, metrics[status], tags=instance.get('tags', []) + ['status:%s' % status_tag])
+        for status in statuses:
+            self.gauge(metric_name, metrics[status], tags=instance.get('tags', []) + ['status:%s' % statuses[status]])
 
     def _report_connected_enforcers(self, instance, token):
         """
