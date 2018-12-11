@@ -4,6 +4,8 @@
 
 This check monitors [Aqua][1].
 
+The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua.  Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
+
 ## Setup
 
 ### Installation
