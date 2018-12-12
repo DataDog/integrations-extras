@@ -4,22 +4,30 @@
 
 This check monitors [Aqua][1].
 
-The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua.  Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
+The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua. Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
 
 ## Setup
-
-### Installation
 
 The Aqua check is not included in the [Datadog Agent][2] package, so you will
 need to install it yourself.
 
+### Installation
+
+To install the Aqua check on your host:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`aqua.py` file][8] for Aqua.
+3. Place it in the Agent's `checks.d` directory.
+
 ### Configuration
 
-1. Edit the `aqua.d/conf.yaml` file, in the `conf.d/` folder at the root of your
-   Agent's configuration directory to start collecting your Aqua performance data.
-   See the [sample aqua.d/conf.yaml][3] for all available configuration options.
+To configure the Aqua check: 
 
-2. [Restart the Agent][4]
+1. Create a `aqua.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+2. Create a `conf.yaml` file in the `aqua.d/` folder previously created.
+3. Consult the [sample conf.yaml][3] file and copy its content in the `conf.yaml` file.
+4. Edit the `conf.yaml` file with your Aqua API credentials.
+5. [Restart the Agent][4].
 
 ### Validation
 
@@ -52,3 +60,4 @@ Need help? Contact [Datadog Support][7].
 [5]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/aqua/metadata.csv
 [7]: https://docs.datadoghq.com/help/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/aqua/datadog_checks/aqua/aqua.py
