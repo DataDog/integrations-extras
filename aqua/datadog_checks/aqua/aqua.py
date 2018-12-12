@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import requests
 import simplejson as json
-from six.moves.urllib.parse import urlparse
+from six.moves.urllib.parse import urljoin
 
 from datadog_checks.checks import AgentCheck
 
@@ -97,7 +97,7 @@ class AquaCheck(AgentCheck):
         Form queries and interact with the Aqua API.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + token}
-        res = requests.get(urlparse.urljoin(instance['url'], route), headers=headers, timeout=60)
+        res = requests.get(urljoin(instance['url'], route), headers=headers, timeout=60)
         res.raise_for_status()
         return json.loads(res.text)
 
@@ -107,7 +107,9 @@ class AquaCheck(AgentCheck):
         """
         try:
             metrics = self._perform_query(instance, '/api/v1/dashboard', token)
-        except Exception as ex:
+        # io-related exceptions (all those coming from requests are included in that) are handled.
+        # All other exceptions are raised.
+        except IOError as ex:
             self.log.error("Failed to get base metrics. Some metrics will be missing. Error: %s" % ex)
             return
 
@@ -146,7 +148,9 @@ class AquaCheck(AgentCheck):
     def _report_status_metrics(self, instance, token, metric_name, route, statuses):
         try:
             metrics = self._perform_query(instance, route, token)
-        except Exception as ex:
+        # io-related exceptions (all those coming from requests are included in that) are handled.
+        # All other exceptions are raised.
+        except IOError as ex:
             self.log.error("Failed to get %s metrics. Error: %s" % (metric_name, ex))
             return
         for status in statuses:
@@ -158,7 +162,9 @@ class AquaCheck(AgentCheck):
         """
         try:
             metrics = self._perform_query(instance, '/api/v1/hosts', token)
-        except Exception as ex:
+        # io-related exceptions (all those coming from requests are included in that) are handled.
+        # All other exceptions are raised.
+        except IOError as ex:
             self.log.error("Failed to get enforcer metrics. Error: %s" % ex)
             return
         self.gauge('aqua.enforcers', metrics['count'], tags=instance.get('tags', []) + ['status:all'])
