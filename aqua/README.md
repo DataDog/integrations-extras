@@ -4,7 +4,7 @@
 
 This check monitors [Aqua][1].
 
-The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua.  Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
+The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua. Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
 
 ## Setup
 
@@ -16,7 +16,7 @@ need to install it yourself.
 To install the Aqua check on your host:
 
 1. [Download the Datadog Agent][2].
-2. Download the [`aqua.py` file][8] for Aerospike.
+2. Download the [`aqua.py` file][8] for Aqua.
 3. Place it in the Agent's `checks.d` directory.
 
 ### Configuration
