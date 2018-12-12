@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import requests
 import simplejson as json
-from six.moves.urllib.parse import urlparse
+from six.moves.urllib.parse import urljoin
 
 from datadog_checks.checks import AgentCheck
 
@@ -97,7 +97,7 @@ class AquaCheck(AgentCheck):
         Form queries and interact with the Aqua API.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + token}
-        res = requests.get(urlparse.urljoin(instance['url'], route), headers=headers, timeout=60)
+        res = requests.get(urljoin(instance['url'], route), headers=headers, timeout=60)
         res.raise_for_status()
         return json.loads(res.text)
 
