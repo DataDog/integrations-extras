@@ -51,7 +51,7 @@ Aqua does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][7].
+Need help? Contact [Datadog support][7].
 
 [1]: https://www.aquasec.com
 [2]: https://app.datadoghq.com/account/settings#agent

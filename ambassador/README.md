@@ -82,7 +82,7 @@ The Ambassador check does not include any events at this time.
 The Ambassador check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog support][4].
 
 [1]: https://www.getambassador.io
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png
