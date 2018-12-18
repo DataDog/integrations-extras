@@ -40,7 +40,7 @@ Push your Split listing/de-listing events into your [Datadog Event Stream][5].
 The Split check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog support][6].
 
 [1]: http://www.split.io
 [2]: http://www.split.io/articles/controlled-rollout
