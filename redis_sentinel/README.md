@@ -75,7 +75,7 @@ The check returns:
 * `CRITICAL` if the slave is disconnected.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/conf.yaml.example

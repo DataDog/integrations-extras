@@ -48,7 +48,7 @@ The Signal Sciences integration does not include any service checks at this time
 
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog support][4].
 
 ## Further Reading
 

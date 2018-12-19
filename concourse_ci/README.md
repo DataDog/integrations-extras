@@ -9,15 +9,15 @@ Configure the Datadog Metric Emitter in Concourse CI to:
 
 ### Installation
 
-Concourse CI comes bundled with a Datadog metrics emitter. A prerequisite to configuring [ATC](https://concourse-ci.org/concepts.html) to emit metrics on start is to have a [Datadog Agent](https://app.datadoghq.com/account/settings#agent) installed.
+Concourse CI comes bundled with a Datadog metrics emitter. A prerequisite to configuring [ATC][1] to emit metrics on start is to have a [Datadog Agent][2] installed.
 
 ### Configuration
 
-Configure ATC to use the Datadog emitter by setting the following options. It is important to use a prefix of ```concourse.ci``` to avoid emitting [custom metrics](https://docs.datadoghq.com/developers/metrics/custom_metrics/).
+Configure ATC to use the Datadog emitter by setting the following options. It is important to use a prefix of ```concourse.ci``` to avoid emitting [custom metrics][3].
 
 ### Datadog Metric Emitter Options
 
-See the Concourse CI [documentation](https://concourse-ci.org/metrics.html#configuring-metrics) for more information.
+See the Concourse CI [documentation][4] for more information.
 ```
 Metric Emitter (Datadog):
     --datadog-agent-host=       Datadog agent host to expose dogstatsd metrics [$CONCOURSE_DATADOG_AGENT_HOST]
@@ -29,7 +29,7 @@ Metric Emitter (Datadog):
 
 ### Metrics,
 
-A list of metrics emitted can be found [here](https://concourse-ci.org/metrics.html).
+A list of metrics emitted can be found [here][5].
 
 ### Events
 
@@ -41,4 +41,11 @@ This integration does not collect service checks.
 
 ## Troubleshooting
 
-Need help? [Contact Datadog Support](https://docs.datadoghq.com/help/)
+Need help? Contact [Datadog support][6].
+
+[1]: https://concourse-ci.org/concepts.html
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/developers/metrics/custom_metrics/
+[4]: https://concourse-ci.org/metrics.html#configuring-metrics
+[5]: https://concourse-ci.org/metrics.html
+[6]: https://docs.datadoghq.com/help/

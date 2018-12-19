@@ -40,7 +40,7 @@ The Hbase_master check does not include any events at this time.
 The Hbase_master check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/conf.yaml.example

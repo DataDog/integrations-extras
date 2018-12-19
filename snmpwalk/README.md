@@ -51,7 +51,7 @@ The check returns:
 * `CRITICAL` if check encounters an error when trying to collect metrics from `snmpwalk`.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][5].
+Need help? Contact [Datadog support][5].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/check.py

@@ -43,7 +43,7 @@ The Convox check does not include any events at this time.
 The Convox check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
 [2]: https://convox.com/docs/datadog/

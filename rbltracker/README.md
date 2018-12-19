@@ -29,7 +29,7 @@ Push your RBLTracker listing/de-listing events into your [Datadog Event Stream][
 The RBLTracker check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog support][6].
 
 [1]: https://rbltracker.com/
 [2]: https://app.datadoghq.com/account/settings#api

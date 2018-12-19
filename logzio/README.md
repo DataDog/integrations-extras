@@ -32,7 +32,7 @@ The Logz.io check does not include any events at this time.
 The Logz.io check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][5].
+Need help? Contact [Datadog support][5].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/import_alert_from_logz.jpg
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png
