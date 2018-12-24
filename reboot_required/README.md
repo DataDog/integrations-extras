@@ -68,7 +68,7 @@ The check returns:
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][5].
+Need help? Contact [Datadog support][5].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/conf.yaml.example

@@ -43,7 +43,7 @@ All Buddy deployment events are sent to your [Datadog Event Stream][6]
 The Buddy check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][7].
+Need help? Contact [Datadog support][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
 [2]: https://app.datadoghq.com/account/settings#api

@@ -61,7 +61,7 @@ This gnatsd check tags all service checks it collects with:
 Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][2].
+Need help? Contact [Datadog support][2].
 
 [1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [2]: http://docs.datadoghq.com/help/

@@ -35,7 +35,7 @@ The VNS3 check does not include any events at this time.
 The VNS3 check does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][7].
+Need help? Contact [Datadog support][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/peering.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/clients.png
