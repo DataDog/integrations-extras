@@ -13,7 +13,11 @@ This integration collects data from Traefik in order to check its health and mon
 
 ### Installation
 
-The Traefik check is included in the Datadog Agent package. To start gathering your Traefik metrics and logs, you need to [install the Datadog Agent][1]
+To install the Aerospike check on your host:
+1. [Download the Datadog Agent][12].
+2. Download the [`check.py` file][11] for Traefik.
+3. Place it in the Agent's `checks.d` directory.
+4. Rename it to `traefik.py`.
 
 ### Configuration
 
@@ -47,9 +51,9 @@ Configuration Options:
 
 **Available for Agent >6.0**
 
-By default [Traefik logging][9] feature logs to stdout. This should not be changed for containerised version as the Datadog Agent is able to collect logs directly from container `Stdout`/`Stderr`.
+By default [Traefik logs][9] are sent to stdout. This should not be changed for containerized version, as the Datadog Agent is able to collect logs directly from container `Stdout`/`Stderr`.
 
-To configure Traefik to log into a file simply add the following in the Traefik configuration file:
+To configure Traefik to log to a file, add the following in the Traefik configuration file:
 
 ```
 [traefikLog]
@@ -128,3 +132,5 @@ Refer to the [main documentation][6] for more details about how to test and deve
 [8]: https://github.com/DataDog/integrations-extras/blob/master/traefik/conf.yaml.example
 [9]: https://docs.traefik.io/configuration/logs/#traefik-logs
 [10]: https://docs.traefik.io/configuration/logs/#clf-common-log-format
+[11]: https://github.com/DataDog/integrations-extras/blob/master/traefik/datadog_checks/traefik/traefik.py
+[12]: https://app.datadoghq.com/account/settings#agent
