@@ -13,7 +13,7 @@ This integration collects data from Traefik in order to check its health and mon
 
 ### Installation
 
-To install the Aerospike check on your host:
+To install the Traefik check on your host:
 1. [Download the Datadog Agent][12].
 2. Download the [`check.py` file][11] for Traefik.
 3. Place it in the Agent's `checks.d` directory.
