@@ -15,7 +15,8 @@ import requests
 import simplejson
 
 # project
-from checks import AgentCheck
+from datadog_checks.checks import AgentCheck
+from datadog_checks.utils.containers import hash_mutable
 
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'filebeat'
@@ -205,11 +206,19 @@ class FilebeatCheck(AgentCheck):
 
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
+        self.instance_cache = {}
 
     def check(self, instance):
-        config = FilebeatCheckInstanceConfig(instance)
+        instance_key = hash_mutable(instance)
+        if instance_key in self.instance_cache:
+            config = self.instance_cache['config']
+            profiler = self.instance_cache['profiler']
+        else:
+            self.instance_cache['config'] = config = FilebeatCheckInstanceConfig(instance)
+            self.instance_cache['profiler'] = profiler = FilebeatCheckHttpProfiler(config)
+
         self._process_registry(config)
-        self._gather_http_profiler_metrics(config)
+        self._gather_http_profiler_metrics(config, profiler)
 
     def _process_registry(self, config):
         registry_contents = self._parse_registry_file(config.registry_file_path)
@@ -253,8 +262,7 @@ class FilebeatCheck(AgentCheck):
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os['device'] and stats.st_ino == file_state_os['inode']
 
-    def _gather_http_profiler_metrics(self, config):
-        profiler = FilebeatCheckHttpProfiler(config)
+    def _gather_http_profiler_metrics(self, config, profiler):
         try:
             all_metrics = profiler.gather_metrics()
         except StandardError as ex:
