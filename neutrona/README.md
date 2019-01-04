@@ -14,6 +14,7 @@ need to install it yourself.
 
 You can copy the check files manually or run the _install.sh_ script if you are running the [Datadog Agent][2] on Debian/Ubuntu. This will copy both the check script and sample configuration file and **restart** the [Datadog Agent][2] :exclamation:. 
 
+
 ### Configuration
 
 1. Edit the `neutrona.d/conf.yaml` file, in the `conf.d/` folder at the root of your
