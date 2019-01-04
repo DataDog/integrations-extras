@@ -1,0 +1,44 @@
+version: '3'
+services:
+  azure_auth:
+    image: python:3
+    ports:
+      - "65001:65001"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             FLASK_APP=azure_auth.py flask run --host=0.0.0.0 --port=65001"
+  azure_mgmt:
+    image: python:3
+    ports:
+      - "65002:65002"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             FLASK_APP=azure_mgmt.py flask run --host=0.0.0.0 --port=65002"
+
+  neutrona_express_route_api:
+    image: python:3
+    ports:
+      - "65000:65000"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             FLASK_APP=neutrona_express_route_api.py flask run --host=0.0.0.0 --port=65000"
+
+  neutrona_express_route_api_demo:
+    image: python:3
+    ports:
+      - "65004:65004"
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: >
+      sh -c "pip install --no-cache-dir -r requirements.txt &&
+             FLASK_APP=neutrona_express_route_api_demo.py flask run --host=0.0.0.0 --port=65004"
