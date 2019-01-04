@@ -8,7 +8,7 @@ Apollo Engine is designed to monitor the performance of your GraphQL infrastruct
 
 The Datadog metrics provided are:
 
-* `apollo.engine.operations.count` – the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
+* `apollo.engine.operations.count` - the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
 * `apollo.engine.operations.error_count`-  the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Engine failed to connect to your server.
 * `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Engine's full query cache.
 * A histogram of GraphQL operation response times, measured in milliseconds. Due to Engine's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
