@@ -25,7 +25,7 @@ You can copy the check files manually or run the _install.sh_ script if you are 
 
 ### Validation
 
-[Run the Agent's `status` subcommand][4] and look for `neutrona` under the Checks section.
+[Run the Agent's status subcommand][4] and look for `neutrona` under the Checks section.
 
 ## Data Collected
 
