@@ -21,7 +21,7 @@ You can copy the check files manually or run the _install.sh_ script if you are 
    Agent's configuration directory to start collecting your neutrona performance data.
    See the [sample neutrona.d/conf.yaml][2] for all available configuration options.
 
-2. [Restart the Agent][3]
+2. [Restart the Agent][3].
 
 ### Validation
 
