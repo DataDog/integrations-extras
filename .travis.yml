@@ -18,14 +18,18 @@ env:
     - PIP_CACHE=$HOME/.cache/pip
 
 stages:
-  - name: test_changed
+  - name: test_pr
     if: type = pull_request
   - name: test
     if: (branch = master) AND (type != pull_request)
 
 script:
-  # FIXME: re-enable as soon as we fix the manifest files
-  # - ddev -e manifest verify --include-extras
+  # This is the default script section that will be run for every 'test' stage
+  - ddev validate manifest -i
+  - ddev validate config
+  - ddev validate service-checks
+  # FIXME: fix metadata for all the integrations before enabling the following:
+  # - ddev validate metadata
   - travis_retry ddev -e test ${CHECK}
 
 # Conditional jobs are currently buggy and verbose.
@@ -38,11 +42,18 @@ script:
 jobs:
   fast_finish: true
   include:
-    - stage: test_changed
+    - stage: test_pr
       script:
-        # FIXME: re-enable as soon as we fix the manifest files
-        # - ddev -e manifest verify --include-extras
+        - ddev validate manifest -i
+        - ddev validate config
+        - ddev validate service-checks
+        - ddev validate metadata
+        # with no params, ddev will only test integrations that are part of the branch diff
         - ddev -e test
+    - stage: test
+      env: CHECK=aqua
+    - stage: test
+      env: CHECK=eventstore
     - stage: test
       env: CHECK=reboot_required
     - stage: test
