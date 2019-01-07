@@ -61,7 +61,7 @@ You can copy the check files manually or run the _install.sh_ script if you are 
                   
 ### Service Checks
 
-Neutrona does not include any service checks.
+Neutrona does not include any service checks at this time.
 
 ### Events
 
