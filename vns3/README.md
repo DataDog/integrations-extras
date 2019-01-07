@@ -1,16 +1,18 @@
+# VNS3 Integration
+
 ## Overview
 
 Get state information regarding your VNS3 topology's IPSec endpoints/tunnels, VNS3 Peers, and overlay clients.
 
-*   Peering links Status Check:
+* Peering links Status Check:
 
     ![peering][1]
 
-*   Overlay Clients Status Check:
+* Overlay Clients Status Check:
 
     ![clients][2]
 
-*   IPSec tunnels Status Check:
+* IPSec tunnels Status Check:
 
     ![ipsec][3]
 
