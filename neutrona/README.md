@@ -65,7 +65,7 @@ Neutrona does not include any service checks at this time.
 
 ### Events
 
-Neutrona does not include any events.
+Neutrona does not include any events at this time.
 
 ## Troubleshooting
 
