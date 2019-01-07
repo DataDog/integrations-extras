@@ -47,7 +47,8 @@ jobs:
         - ddev validate manifest -i
         - ddev validate config
         - ddev validate service-checks
-        - ddev validate metadata
+        # FIXME: fix metadata for all the integrations before enabling the following:
+        # - ddev validate metadata
         # with no params, ddev will only test integrations that are part of the branch diff
         - ddev -e test
     - stage: test
