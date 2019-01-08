@@ -12,7 +12,7 @@ This check monitors [Neutrona][1] cloud connectivity services to:
 The Neutrona check is not included in the [Datadog Agent][2] package, so you
 need to install it.
 
-You can copy the check files manually or run the _install.sh_ script if you are running the [Datadog Agent][2] on Debian/Ubuntu. This will copy both the check script and sample configuration file and **restart** the [Datadog Agent][2] :exclamation:. 
+Copy the check files manually or run the `_install.sh_` script if you are running the [Datadog Agent][2] on Debian/Ubuntu. This copies both the check script and sample configuration file and **restarts** the [Datadog Agent][2]. 
 
 
 ### Configuration
