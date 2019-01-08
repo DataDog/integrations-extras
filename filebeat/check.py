@@ -211,11 +211,12 @@ class FilebeatCheck(AgentCheck):
     def check(self, instance):
         instance_key = hash_mutable(instance)
         if instance_key in self.instance_cache:
-            config = self.instance_cache['config']
-            profiler = self.instance_cache['profiler']
+            config = self.instance_cache[instance_key]['config']
+            profiler = self.instance_cache[instance_key]['profiler']
         else:
-            self.instance_cache['config'] = config = FilebeatCheckInstanceConfig(instance)
-            self.instance_cache['profiler'] = profiler = FilebeatCheckHttpProfiler(config)
+            config = FilebeatCheckInstanceConfig(instance)
+            profiler = FilebeatCheckHttpProfiler(config)
+            self.instance_cache[instance_key] = {'config': config, 'profiler': profiler}
 
         self._process_registry(config)
         self._gather_http_profiler_metrics(config, profiler)
