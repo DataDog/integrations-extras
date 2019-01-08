@@ -26,7 +26,7 @@ For more information on integrations, please reference our [documentation][6] an
 [1]: https://api.travis-ci.com/DataDog/integrations-extras.svg?branch=master
 [2]: https://travis-ci.com/DataDog/integrations-extras
 [3]: https://www.datadoghq.com
-[4]: https://docs.datadoghq.com/developers/integrations/
+[4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/
 [5]: https://github.com/DataDog/integrations-extras/compare
 [6]: http://docs.datadoghq.com
 [7]: https://help.datadoghq.com/hc/en-us
