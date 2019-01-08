@@ -28,8 +28,7 @@ script:
   - ddev -e validate manifest -i
   - ddev -e validate config
   - ddev -e validate service-checks
-  # FIXME: fix metadata for all the integrations before enabling the following:
-  # - ddev -e validate metadata ${CHECK}
+  - ddev -e validate metadata ${CHECK}
   - travis_retry ddev -e test ${CHECK}
 
 # Conditional jobs are currently buggy and verbose.
@@ -47,8 +46,7 @@ jobs:
         - ddev -e validate manifest -i
         - ddev -e validate config
         - ddev -e validate service-checks
-        # FIXME: fix metadata for all the integrations before enabling the following:
-        # - ddev -e validate metadata
+        - ddev -e validate metadata
         # with no params, ddev will only test integrations that are part of the branch diff
         - ddev -e test
     - stage: test
