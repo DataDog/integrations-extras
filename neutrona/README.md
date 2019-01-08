@@ -29,36 +29,8 @@ Copy the check files manually or run the `_install.sh_` script if you are runnin
 
 ## Data Collected
 
-### Azure Metrics
+See [metadata.csv](https://github.com/DataDog/integrations-core/blob/master/neutrona/metadata.csv) for a list of metrics provided by this integration.
 
-#### ExpressRoute Netowrk-to-Network Interface (NNI) Metrics
-
-- **egress_bps:** Bits per second transmitted towards Azure over the ExpressRoute peering.
-
-- **egress_interface_errors:** Presence or absence of egress errors in the ExpressRoute NNI (Network-to-Network Interface)
-
-- **ingress_bps:** Bits per second received from Azure over the ExpressRoute peering.
-
-- **ingress_interface_errors:** Presence or absence of ingress errors in the ExpressRoute NNI (Network-to-Network Interface)
-
-- **output_optical_power:** Output optical power measured at the ExpressRoute NNI (Network-to-Network Interface)
-
-- **receiver_optical_power:** Input optical power measured at the ExpressRoute NNI (Network-to-Network Interface)
-
-- **tags:** Collection of tags
-
-  - **"primary|secondary":** Peering over _primary_ or _secondary_ Express Route NNI.
-  
-  - **"ctag_xxx":**  Peering's inner VLAN tag (Customer VLAN tag)
-  
-#### ExpressRoute Performance Metrics - Customer Premises to ExpressRoute NNI
- - **Two_Way_Delay**: Round trip delay 
- - **Two_Way_DV**: Jitter (delay variation)
- - **Packet_Loss_Ratio**: Packet loss ratio
- - **tags:** Collection of tags
-   - **performance:** Performance tag
-   - **E2E|LLP:** _End-to-End_ or _Local Loop_ segments
-                  
 ### Service Checks
 
 Neutrona does not include any service checks at this time.
