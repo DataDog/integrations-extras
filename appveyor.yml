@@ -5,12 +5,6 @@ test: off
 skip_branch_with_pr: true
 cache:
   - '%LOCALAPPDATA%\pip\Cache'
-services:
-  - iis
-  # We can't start more than one MSSQL instance to avoid conflicts on TCP port 1433. The only workaround to test a check
-  # against multiple versions is letting the test code to start/stop the corresponding services so that they run one at
-  # a time. See https://www.appveyor.com/docs/services-databases/ for details.
-  - mssql2008r2sp2
 
 branches:
   only:
@@ -29,13 +23,18 @@ init:
   - set PATH=%PYTHON2%;%PYTHON2%\Scripts;%PATH%
   - python -c "import sys; print(sys.version)"
 
+  # Test only what changed when it's a PR
   - if defined APPVEYOR_PULL_REQUEST_NUMBER ( set "CHANGED_ONLY_FLAG= --changed" ) else ( set "CHANGED_ONLY_FLAG= " )
 
 install:
   - python -m pip install --upgrade --disable-pip-version-check pip virtualenv codecov
   - pip uninstall -y docker-py
   - pip install datadog_checks_dev[cli]
-  - ddev config set core .
+  - ddev config set extras .
 
 test_script:
-  - ddev -e test
+  - ddev -e validate manifest -i
+  - ddev -e validate config
+  - ddev -e validate service-checks
+  - ddev -e validate metadata
+  - ddev -e test%CHANGED_ONLY_FLAG% -c aqua eventstore sortdb traefik
