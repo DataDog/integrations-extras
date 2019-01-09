@@ -41,7 +41,7 @@ def test_config():
 
 @pytest.mark.integration
 def test_metrics(aggregator):
-    if os.getenv('APPVEYOR').lower() != "true":
+    if os.getenv('APPVEYOR', 'false').lower() != "true":
         c = NeutronaCheck('neutrona', {}, {}, None)
 
         pwd = os.path.dirname(os.path.abspath(__file__))
