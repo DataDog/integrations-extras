@@ -29,7 +29,9 @@ Copy the check files manually or run the `_install.sh_` script if you are runnin
 
 ## Data Collected
 
-See [metadata.csv](https://github.com/DataDog/integrations-core/blob/master/neutrona/metadata.csv) for a list of metrics provided by this integration.
+### Metrics
+
+See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -48,3 +50,4 @@ Need help? Contact [Datadog support][5].
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/help/
+[6]: https://github.com/DataDog/integrations-core/blob/master/neutrona/metadata.csv
