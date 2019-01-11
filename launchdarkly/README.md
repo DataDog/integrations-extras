@@ -24,11 +24,11 @@ The relay collects metrics on the number of proxied stream connections and proxi
 
 ### Events
 
-The LaunchDarkly integration does not include any events at this time.
+The LaunchDarkly integration does not include any events.
 
 ### Service Checks
 
-The LaunchDarkly integration does not include any service checks at this time.
+The LaunchDarkly integration does not include any service checks.
 
 ## Troubleshooting
 

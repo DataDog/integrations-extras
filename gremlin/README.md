@@ -23,7 +23,7 @@ You should now start seeing events from this integration in your [Event Stream][
 
 ### Metrics
 
-The Gremlin integration does not provide any metrics at this time.
+The Gremlin integration does not provide any metrics.
 
 ### Events
 
@@ -31,7 +31,7 @@ The Gremlin integration sends events to your [Datadog Event Stream][4] when atta
 
 ### Service Checks
 
-The Gremlin integration does not include any service checks at this time.
+The Gremlin integration does not include any service checks.
 
 ## Troubleshooting
 

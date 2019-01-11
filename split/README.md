@@ -31,13 +31,13 @@ Split data should now be flowing into Datadog.
 ## Data Collected
 ### Metrics
 
-The Split check does not include any metrics at this time.
+The Split check does not include any metrics.
 
 ### Events
 Push your Split listing/de-listing events into your [Datadog Event Stream][5].
 
 ### Service Checks
-The Split check does not include any service checks at this time.
+The Split check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][6].

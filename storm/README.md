@@ -39,7 +39,7 @@ To configure the Storm check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Storm check does not include any events at this time.
+The Storm check does not include any events.
 
 ### Service Checks
 **`topology_check.{TOPOLOGY NAME}`**

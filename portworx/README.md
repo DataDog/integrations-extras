@@ -66,7 +66,7 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Events
 
-The Portworx check does not include any events at this time.
+The Portworx check does not include any events.
 
 ## Troubleshooting
 

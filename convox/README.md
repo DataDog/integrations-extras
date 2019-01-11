@@ -34,13 +34,13 @@ See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 
 ## Data Collected
 ### Metrics
-The Convox check does not include any metrics at this time.
+The Convox check does not include any metrics.
 
 ### Events
-The Convox check does not include any events at this time.
+The Convox check does not include any events.
 
 ### Service Checks
-The Convox check does not include any service checks at this time.
+The Convox check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][4].
