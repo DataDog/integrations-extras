@@ -113,7 +113,7 @@ The Logstash check is compatible with Logstash 5.6 and possible earlier versions
 See [metadata.csv][13] for a list of metrics provided by this check.
 
 ### Events
-The Logstash check does not include any events at this time.
+The Logstash check does not include any events.
 
 ### Service checks
 

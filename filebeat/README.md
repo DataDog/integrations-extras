@@ -39,10 +39,10 @@ To configure the Filebeat check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Filebeat check does not include any events at this time.
+The Filebeat check does not include any events.
 
 ### Service Checks
-The Filebeat check does not include any service checks at this time.
+The Filebeat check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][6].

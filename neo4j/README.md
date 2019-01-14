@@ -48,7 +48,7 @@ To configure the Neo4j check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Neo4j check does not include any events at this time.
+The Neo4j check does not include any events.
 
 ### Service Checks
 This Neo4j check tags all service checks it collects with:

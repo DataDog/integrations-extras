@@ -37,10 +37,10 @@ To configure the SNMP walk check:
 
 ## Data Collected
 ### Metrics
-The SNMP walk check does not include any metrics at this time.
+The SNMP walk check does not include any metrics.
 
 ### Events
-The SNMP walk check does not include any events at this time.
+The SNMP walk check does not include any events.
 
 ### Service Checks
 **`snmpwalk.can_check`**

@@ -48,11 +48,11 @@ To configure the Reboot Required check:
 
 ### Metrics
 
-No metrics are collected at this time.
+No metrics are collected.
 
 ### Events
 
-The reboot_required check does not include any events at this time.
+The reboot_required check does not include any events.
 
 ## Service Checks
 

@@ -31,10 +31,10 @@ Next, reload or restart the Nomad agent on each host. You should now begin to se
 See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Events
-The Nomad check does not include any events at this time.
+The Nomad check does not include any events.
 
 ### Service Checks
-The Nomad check does not include any service checks at this time.
+The Nomad check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][3].

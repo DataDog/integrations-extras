@@ -20,13 +20,13 @@ RBLTracker will send listing and delisting alerts to your Datadog events dashboa
 
 ## Data Collected
 ### Metrics
-The RBLTracker check does not include any metrics at this time.
+The RBLTracker check does not include any metrics.
 
 ### Events
 Push your RBLTracker listing/de-listing events into your [Datadog Event Stream][5].
 
 ### Service Checks
-The RBLTracker check does not include any service checks at this time.
+The RBLTracker check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][6].

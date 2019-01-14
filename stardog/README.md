@@ -40,10 +40,10 @@ To configure the Stardog check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Stardog check does not include any events at this time.
+The Stardog check does not include any events.
 
 ### Service Checks
-The Stardog check does not include any service checks at this time.
+The Stardog check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][6].
