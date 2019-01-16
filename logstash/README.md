@@ -66,6 +66,24 @@ output {
 }
 ```
 
+Additional parameters can be used to change the endpoint used in order to go through a proxy:
+
+* host: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
+* port: Proxy port when logs are not directly forwarded to Datadog	 (default value is `10516`)
+* use_ssl: If true, the agent initializes a secure connection to Datadog. In clear TCP otherwise. (default value is `true`)
+
+ This also can be used to send logs to **Datadog EU** by setting:
+
+ ```
+output {
+    datadog_logs {
+        api_key => "<DATADOG_API_KEY>"
+        host => "tcp-intake.logs.datadogh.eu
+        port => "443"
+    }
+}
+```
+
 ##### Add metadata to your logs
 
 In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs (including hostname and source). By default, the hostname and timestamp should be properly remapped thanks to our default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the Service remapping list.
@@ -100,22 +118,6 @@ filter {
  }
 ```
 
-##### Proxy parameters
-
-To configure Logstash to forward the logs through a proxy (or to Datadog EU) add the following parameters:
-
-```
-output {
-    datadog_logs {
-        api_key => "<DATADOG_API_KEY>"
-        host => "<PROXY_ENDPOINT>
-        port => "<PROXY_PORT>"
-        use_ssl => "false"
-    }
-}
-```
-
-The SSL must be disabled between Logstash and your proxy but must be activated again between your proxy and Datadog. More information about proxy setup available in the [proxy documentation][22].
 
 ### Validation
 
