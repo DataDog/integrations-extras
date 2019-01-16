@@ -100,6 +100,23 @@ filter {
  }
 ```
 
+##### Proxy parameters
+
+To configure Logstash to forward the logs through a proxy (or to Datadog EU) add the following parameters:
+
+```
+output {
+    datadog_logs {
+        api_key => "<DATADOG_API_KEY>"
+        host => "<PROXY_ENDPOINT>
+        port => "<PROXY_PORT>"
+        use_ssl => "false"
+    }
+}
+```
+
+The SSL must be disabled between Logstash and your proxy but must be activated again between your proxy and Datadog. More information about proxy setup available in the [proxy documentation][22].
+
 ### Validation
 
 [Run the Agent's `status` subcommand][12] and look for `logstash` under the Checks section.
@@ -152,3 +169,4 @@ If you need further help, contact [Datadog support][14].
 [19]: https://app.datadoghq.com/infrastructure
 [20]: /getting_started/tagging/assigning_tags/
 [21]: https://app.datadoghq.com/account/settings#api
+[22]: https://docs.datadoghq.com/agent/proxy/?tab=agentv6#proxy-for-logs
