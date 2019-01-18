@@ -50,7 +50,7 @@ See the [sample conf.yaml][3] for all available configuration options.
 
 #### Log Collection
 
-Datadog has [an ouput plugin][16] for Logstash that takes care of sending your logs to your Datadog platform.
+Datadog has [an output plugin][16] for Logstash that takes care of sending your logs to your Datadog platform.
 
 To install this plugin run the following command:
 
