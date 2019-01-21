@@ -66,7 +66,7 @@ output {
 }
 ```
 
-Additional parameters can be used to change the endpoint used in order to go through a proxy:
+Additional parameters can be used to change the endpoint used in order to go through a [proxy][22]:
 
 * `host`: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
 * `port`: Proxy port when logs are not directly forwarded to Datadog (default value is `10516`)
