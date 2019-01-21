@@ -78,7 +78,7 @@ This also can be used to send logs to **Datadog EU** by setting:
 output {
     datadog_logs {
         api_key => "<DATADOG_API_KEY>"
-        host => "tcp-intake.logs.datadogh.eu
+        host => "tcp-intake.logs.datadoghq.eu"
         port => "443"
     }
 }
