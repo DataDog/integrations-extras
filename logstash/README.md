@@ -70,7 +70,7 @@ Additional parameters can be used to change the endpoint used in order to go thr
 
 * `host`: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
 * `port`: Proxy port when logs are not directly forwarded to Datadog (default value is `10516`)
-* `use_ssl`: If `true`, the Agent initializes a secure TCP/SSL connection to Datadog. (default value is `true`)
+* `use_ssl`: If `true`, the Agent initializes a secure TCP/SSL connection to Datadog (default value is `true`)
 
 This also can be used to send logs to **Datadog EU** by setting:
 
@@ -86,11 +86,11 @@ output {
 
 ##### Add metadata to your logs
 
-In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs (including hostname and source). By default, the hostname and timestamp should be properly remapped thanks to our default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the Service remapping list.
+In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs, including hostname and source. By default, the hostname and timestamp should be properly remapped thanks to Datadog's default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the service remapping list.
 
 ##### Source
 
-Setup a Logstash filter to set the source (Datadog integration name) on your logs. 
+Set up a Logstash filter to set the source (Datadog integration name) on your logs. 
 
 ```
 filter {
@@ -125,7 +125,7 @@ filter {
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
+The Logstash check is compatible with Logstash 5.6 and possible earlier versions. It does not support the new pipelines metrics in Logstash 6.0.
 
 ## Data Collected
 ### Metrics
@@ -138,7 +138,7 @@ The Logstash check does not include any events.
 
 `logstash.can_connect`:
 
-Returns `Critical` if the Agent cannot connect to Logstash to collect metrics, returns `OK` otherwise.
+Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; returns `OK` otherwise.
 
 ## Troubleshooting
 
