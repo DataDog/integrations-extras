@@ -42,15 +42,15 @@ class PingCheck(AgentCheck):
         custom_tags.append('instance:{}'.format(instance.get('name')))
 
 
-        lines, err, retcode = get_subprocess_output(
+        pingcmd, err, retcode = get_subprocess_output(
             ["which", "ping"],
             self.log, raise_on_empty_output=True)
 
-        self.log.debug("which returned {} - {} - {}".format(retcode, lines, err))
+        self.log.debug("which returned {} - {} - {}".format(retcode, pingcmd, err))
 
         try:
             lines, err, retcode = get_subprocess_output(
-                ["ping", countOption, "1", timeoutOption, str(int(timeout)*1000), host],
+                [pingcmd.rstrip(), countOption, "1", timeoutOption, str(int(timeout)*1000), host],
                 self.log, raise_on_empty_output=True)
             self.log.debug("ping returned {} - {} - {}".format(retcode, lines, err))
             if retcode != 0:
