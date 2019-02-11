@@ -26,9 +26,7 @@ class PingCheck(AgentCheck):
 
         return host, custom_tags, timeout, response_time
 
-    def check(self, instance):
-        host, custom_tags, timeout, response_time = self._load_conf(instance)
-
+    def _exec_ping(self, timeout, target_host):
         if platform.system() == "Windows":
             countOption = "-n"
             timeoutOption = "-w"
@@ -36,25 +34,26 @@ class PingCheck(AgentCheck):
             countOption = "-c"
             timeoutOption = "-W"
 
-        self.log.debug("pinging {} {} {} {} {}".format(countOption, "1", timeoutOption, str(int(timeout)*1000), host))
+        self.log.debug("pinging {} {} {} {} {}".format(countOption, "1", timeoutOption, str(int(timeout)*1000), target_host))
+
+        lines, err, retcode = get_subprocess_output(
+            ["ping", countOption, "1", timeoutOption, str(int(timeout)*1000), target_host],
+            self.log, raise_on_empty_output=True)
+        self.log.debug("ping returned {} - {} - {}".format(retcode, lines, err))
+        if retcode != 0:
+            raise CheckException("ping returned {}: {}".format(retcode, err))
+
+        return lines
+
+    def check(self, instance):
+        host, custom_tags, timeout, response_time = self._load_conf(instance)
 
         custom_tags.append('target_host:{}'.format(host))
         custom_tags.append('instance:{}'.format(instance.get('name')))
 
 
-        pingcmd, err, retcode = get_subprocess_output(
-            ["which", "ping"],
-            self.log, raise_on_empty_output=True)
-
-        self.log.debug("which returned {} - {} - {}".format(retcode, pingcmd, err))
-
         try:
-            lines, err, retcode = get_subprocess_output(
-                [pingcmd.rstrip(), countOption, "1", timeoutOption, str(int(timeout)*1000), host],
-                self.log, raise_on_empty_output=True)
-            self.log.debug("ping returned {} - {} - {}".format(retcode, lines, err))
-            if retcode != 0:
-                raise CheckException("ping returned {}: {}".format(retcode, err))
+            lines = self._exec_ping(timeout, host)
 
             regex = re.compile(r"time=((\d|\.)*)")
 
