@@ -18,8 +18,8 @@ requires root privileges, which the agent does not have. The ping command uses t
 
 ### Installation
 
-The Ping check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself.
+The Ping check is not included in the [Datadog Agent][2] package, so you need to
+install it yourself.
 
 ### Configuration
 
@@ -27,11 +27,11 @@ need to install it yourself.
    Agent's configuration directory to start collecting your ping performance data.
    See the [sample ping.d/conf.yaml][2] for all available configuration options.
 
-2. [Restart the Agent][3]
+2. [Restart the Agent][3].
 
 ### Validation
 
-[Run the Agent's `status` subcommand][4] and look for `ping` under the Checks section.
+[Run the Agent's status subcommand][4] and look for `ping` under the Checks section.
 
 ## Data Collected
 
@@ -51,7 +51,7 @@ Ping does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][5].
+Need help? Contact [Datadog support][5].
 
 [1]: https://en.wikipedia.org/wiki/Ping_(networking_utility)
 [2]: https://github.com/DataDog/integrations-core/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
