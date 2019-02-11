@@ -21,7 +21,7 @@ CHECKS_BASE_REQ = 'datadog-checks-base'
 setup(
     name='datadog-ping',
     version=ABOUT['__version__'],
-    description='The Ping check',
+    description='Ping check',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent ping check',

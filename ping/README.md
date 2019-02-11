@@ -2,7 +2,17 @@
 
 ## Overview
 
-This check monitors [Ping][1].
+This check uses the system [ping][1] command to test the reachability of a host.
+It also optionally measures the round-trip time for messages sent the check to the
+destination host.
+
+Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets
+to the target host and waiting for an ICMP echo reply.
+
+This check uses the system ping command, rather than generating the ICMP echo request
+itself, as creating an ICMP packet requires a raw socket, and creating raw sockets
+requires root privileges, which the agent does not have. The ping command uses the
+`setuid` access flag to run with elevated privileges, avoiding this issue.
 
 ## Setup
 
@@ -27,11 +37,13 @@ need to install it yourself.
 
 ### Metrics
 
-Ping does not include any metrics.
+See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-Ping does not include any service checks.
+**`network.ping.can_connect`**:
+
+Returns DOWN if the check does not receive a response from `host`, otherwise UP.
 
 ### Events
 
@@ -41,8 +53,9 @@ Ping does not include any events.
 
 Need help? Contact [Datadog Support][5].
 
-[1]: **LINK_TO_INTEGERATION_SITE**
+[1]: https://en.wikipedia.org/wiki/Ping_(networking_utility)
 [2]: https://github.com/DataDog/integrations-core/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/help/
+[6]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
