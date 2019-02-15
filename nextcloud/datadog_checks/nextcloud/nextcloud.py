@@ -33,9 +33,9 @@ NEXTCLOUD_METRICS_GAUGES = [
 class NextcloudCheck(AgentCheck):
     def check(self, instance):
         url = instance['url']
-        user = instance['user']
+        username = instance['username']
         password = instance['password']
-        auth = (user, password)
+        auth = (username, password)
 
         try:
             self.log.debug("Checking against {}".format(url))

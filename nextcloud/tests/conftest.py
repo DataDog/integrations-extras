@@ -7,7 +7,7 @@ from copy import deepcopy
 
 from datadog_checks.dev import docker_run, WaitFor
 
-from .common import HERE, CONTAINER_NAME, BASE_CONFIG, VALID_URL, INVALID_URL, USER, PASSWORD
+from .common import HERE, CONTAINER_NAME, BASE_CONFIG, HOST, VALID_URL, INVALID_URL, USER, PASSWORD
 
 
 @pytest.fixture(scope="session")
@@ -22,6 +22,7 @@ def dd_environment():
         conditions=[
             WaitFor(nextcloud_container, attempts=15),
             WaitFor(nextcloud_install, attempts=15),
+            WaitFor(nextcloud_add_trusted_domain, attempts=15),
             WaitFor(nextcloud_stats, attempts=15),
         ]
     ):
@@ -65,17 +66,29 @@ def nextcloud_install():
     status_args = [
         'docker', 'exec', '--user', 'www-data', CONTAINER_NAME,
         'php', 'occ', 'maintenance:install', '-n',
-        '--admin-user=%s' % (USER), '--admin-pass=%s' % (PASSWORD)
+        '--admin-user={}'.format(USER), '--admin-pass={}'.format(PASSWORD)
+    ]
+    return subprocess.call(status_args) == 0
+
+
+def nextcloud_add_trusted_domain():
+    """
+    Wait for nextcloud to add container host to trusted domain
+    """
+    status_args = [
+        'docker', 'exec', '--user', 'www-data', CONTAINER_NAME,
+        'php', 'occ', 'config:system:set', 'trusted_domains',
+        '2', '--value="{}"'.format(HOST)
     ]
     return subprocess.call(status_args) == 0
 
 
 def nextcloud_stats():
     """
-    Wait for nextcloud to configure trusted domains
+    Wait for nextcloud monitoring endpoint to be reachable
     """
+    print("Curling shit", VALID_URL)
     status_args = [
-        'curl', '-u', '%s:%s' % (USER, PASSWORD),
-        VALID_URL
+        'curl', '-u', '{}:{}'.format(USER, PASSWORD), VALID_URL
     ]
     return subprocess.call(status_args) == 0
