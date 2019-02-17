@@ -56,8 +56,10 @@ To install this plugin run the following command:
 
 * `logstash-plugin install logstash-output-datadog_logs`
 
-Then configure the `datadog_logs` plugin with your [Datadog API key][21]:
 
+{{< tabs >}}
+{{% tab "Datadog US site" %}}
+Then configure the `datadog_logs` plugin with your [Datadog API key][21]:
 ```
 output {
     datadog_logs {
@@ -65,14 +67,41 @@ output {
     }
 }
 ```
+{{% /tab %}}
+{{% tab "Datadog EU site" %}}
+Then configure the `datadog_logs` plugin with your [Datadog API key][21] and override the default `host` and `port` options with the EU endpoint:
+
+```
+output {
+    datadog_logs {
+        api_key => "<DATADOG_API_KEY>"
+        host => "tcp-intake.logs.datadoghq.eu"
+        port => "443"
+    }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+##### Plugin configuration properties
+
+|  Property   |  Description                                                             |  Default value |
+|-------------|--------------------------------------------------------------------------|----------------|
+| **api_key** | The API key of your Datadog platform | nil |
+| **host** | Proxy endpoint when logs are not directly forwarded to Datadog | intake.logs.datadoghq.com |
+| **port** | Proxy port when logs are not directly forwarded to Datadog | 10516 |
+| **use_ssl** | If true, the agent initializes a secure connection to Datadog. In clear TCP otherwise.  | true |
+| **max_retries** | The number of retries before the output plugin stops | 5 |
+
+For additional options, see the [Datadog endpoint documentation][22]
 
 ##### Add metadata to your logs
 
-In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs (including hostname and source). By default, the hostname and timestamp should be properly remapped thanks to our default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the Service remapping list.
+In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs, including hostname and source. By default, the hostname and timestamp should be properly remapped thanks to Datadog's default [remapping for reserved attributes][17]. To make sure the service is correctly remapped, add its attribute value to the service remapping list.
 
 ##### Source
 
-Setup a Logstash filter to set the source (Datadog integration name) on your logs. 
+Set up a Logstash filter to set the source (Datadog integration name) on your logs. 
 
 ```
 filter {
@@ -100,13 +129,14 @@ filter {
  }
 ```
 
+
 ### Validation
 
 [Run the Agent's `status` subcommand][12] and look for `logstash` under the Checks section.
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.6 and possible earlier versions. Currently it does not support the new pipelines metrics in Logstash 6.0 yet.
+The Logstash check is compatible with Logstash 5.6 and possible earlier versions. It does not support the new pipelines metrics in Logstash 6.0.
 
 ## Data Collected
 ### Metrics
@@ -119,7 +149,7 @@ The Logstash check does not include any events.
 
 `logstash.can_connect`:
 
-Returns `Critical` if the Agent cannot connect to Logstash to collect metrics, returns `OK` otherwise.
+Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; returns `OK` otherwise.
 
 ## Troubleshooting
 
@@ -152,3 +182,4 @@ If you need further help, contact [Datadog support][14].
 [19]: https://app.datadoghq.com/infrastructure
 [20]: /getting_started/tagging/assigning_tags/
 [21]: https://app.datadoghq.com/account/settings#api
+[22]: /logs/#datadog-logs-endpoints
