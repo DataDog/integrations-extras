@@ -87,7 +87,6 @@ def nextcloud_stats():
     """
     Wait for nextcloud monitoring endpoint to be reachable
     """
-    print("Curling shit", VALID_URL)
     status_args = [
         'curl', '-u', '{}:{}'.format(USER, PASSWORD), VALID_URL
     ]
