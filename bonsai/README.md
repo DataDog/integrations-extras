@@ -40,7 +40,7 @@ Within a few minutes, request metrics are available in your Datadog dashboard.
 
 ### Metrics
 
-See [metadata.csv](https://github.com/omc/IntegrationTemplate/blob/master/Bonsai/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][3] for a list of metrics provided by this integration.
 
 Metrics are tagged for each cluster, so you can segment based on clusters.  The tags look like:
 
