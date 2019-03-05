@@ -30,7 +30,9 @@ script:
   - ddev validate config
   - ddev validate service-checks
   - ddev validate metadata ${CHECK}
-  - travis_retry ddev test ${CHECK}
+  - if [ -n "$PYTHON3" ]; then ddev validate py3 ${CHECK}; fi
+  - travis_retry ddev test --cov ${CHECK}
+  - ddev test ${CHECK} --bench || true
 
 # Conditional jobs are currently buggy and verbose.
 #
@@ -49,7 +51,8 @@ jobs:
         - ddev validate service-checks
         - ddev validate metadata
         # with no params, ddev will only test integrations that are part of the branch diff
-        - ddev test
+        - ddev test --cov
+        - ddev test --bench || true
     - stage: test
       env: CHECK=aqua PYTHON3=true
     - stage: test
