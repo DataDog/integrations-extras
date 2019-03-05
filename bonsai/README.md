@@ -22,7 +22,7 @@ In Datadog, navigate to [Integrations --> API][1] and copy your API Key.
 
 ### Step 2 - Submit API Key
 
-Navigate to https://app.bonsai.io/clusters and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
+Navigate to [Bonsai --> Clusters][2] and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
 
 Under the "Datadog Integration" section paste your API key and click "Activate Datadog"
 
