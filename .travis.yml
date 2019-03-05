@@ -1,3 +1,4 @@
+dist: xenial
 sudo: required
 services:
   - docker
@@ -25,11 +26,11 @@ stages:
 
 script:
   # This is the default script section that will be run for every 'test' stage
-  - ddev -e validate manifest -i
-  - ddev -e validate config
-  - ddev -e validate service-checks
-  - ddev -e validate metadata ${CHECK}
-  - travis_retry ddev -e test ${CHECK}
+  - ddev validate manifest -i
+  - ddev validate config
+  - ddev validate service-checks
+  - ddev validate metadata ${CHECK}
+  - travis_retry ddev test ${CHECK}
 
 # Conditional jobs are currently buggy and verbose.
 #
