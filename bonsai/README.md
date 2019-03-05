@@ -24,7 +24,7 @@ In Datadog, navigate to [Integrations --> API][1] and copy your API Key.
 
 Navigate to [Bonsai --> Clusters][2] and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
 
-Under the "Datadog Integration" section paste your API key and click "Activate Datadog"
+Under the "Datadog Integration" section paste your API key and click "Activate Datadog".
 
 ![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/activate_datadog.png)
 
