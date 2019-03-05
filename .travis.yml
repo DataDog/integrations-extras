@@ -43,12 +43,12 @@ jobs:
   include:
     - stage: test_pr
       script:
-        - ddev -e validate manifest -i
-        - ddev -e validate config
-        - ddev -e validate service-checks
-        - ddev -e validate metadata
+        - ddev validate manifest -i
+        - ddev validate config
+        - ddev validate service-checks
+        - ddev validate metadata
         # with no params, ddev will only test integrations that are part of the branch diff
-        - ddev -e test
+        - ddev test
     - stage: test
       env: CHECK=aqua
     - stage: test
@@ -63,12 +63,13 @@ jobs:
       env: CHECK=traefik
 
 before_install:
-  - PATH="$PATH:$(pyenv root)/versions/3.6/bin"
+  - PATH="$(pyenv root)/versions/3.7.1/bin:$PATH:$(pyenv root)/versions/3.6.7/bin"
 
 install:
   - pip install -U pip setuptools
   - pip install -r requirements-dev.txt
   - ddev config set extras .
+  - ddev config set repo extras
 
 # we should clean generated files before we save the cache
 # We don't want to save .pyc files, so we'll use find and -delete
