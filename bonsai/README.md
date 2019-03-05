@@ -50,7 +50,7 @@ cluster:my-cluster-slug
 
 ### Events
 
-The Bonsai integration does not include any events at this time.
+The Bonsai integration does not include any events.
 
 ### Service Checks
 
