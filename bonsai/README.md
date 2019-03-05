@@ -54,7 +54,7 @@ The Bonsai integration does not include any events.
 
 ### Service Checks
 
-The Bonsai integration does not include any service checks at this time.
+The Bonsai integration does not include any service checks.
 
 ## Troubleshooting
 
