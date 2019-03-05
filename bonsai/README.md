@@ -64,8 +64,6 @@ Need help? Contact [Datadog Support][8].
 
 Learn more about infrastructure monitoring and all Datadog integrations in [our blog][9].
 
-https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
-
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/snapshot.png
 [2]: https://app.datadoghq.com/account/settings#api
