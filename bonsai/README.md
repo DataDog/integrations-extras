@@ -15,7 +15,7 @@ Integrating your cluster with Datadog requires submitting your API key to the bo
 
 ### Step 1 - Aquire API Key
 
-Navigate to https://app.datadoghq.com/account/settings#api and copy the API Key
+In Datadog, navigate to [Integrations --> API][1] and copy your API Key.
 
 ![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/copy_key.png)
 
