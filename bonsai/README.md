@@ -58,7 +58,7 @@ The Bonsai integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support](http://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][4].
 
 ## Further Reading
 
