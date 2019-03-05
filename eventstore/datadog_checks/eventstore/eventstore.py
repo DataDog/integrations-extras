@@ -25,7 +25,7 @@ class EventStoreCheck(AgentCheck):
         metric_def = copy.deepcopy(ALL_METRICS)
         try:
             r = requests.get(url, timeout=timeout)
-        except requests.exceptions.Timeout as e:
+        except requests.exceptions.Timeout:
             raise CheckException('URL: {0} timed out after {1} seconds.'.format(url, timeout))
         except requests.exceptions.MissingSchema as e:
             raise CheckException(e)
@@ -38,7 +38,7 @@ class EventStoreCheck(AgentCheck):
         try:
             parsed_api = json.loads(r.text)
         except ValueError as e:
-            raise CheckException('{0} returned an unserializable payload'.format(url))
+            raise CheckException('{} returned an unserializable payload: {}'.format(url, e))
 
         eventstore_paths = None
         eventstore_paths = self.walk(parsed_api)
