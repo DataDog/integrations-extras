@@ -1,15 +1,26 @@
 init_config:
 
 instances: 
-  ## as the underlying lighthouse check can be resource intensive
-  ## and take about 10 seconds per instance, this has only been tested
+  ## The lighthouse check can be resource intensive
+  ## and can take ~10 seconds per instance, this has only been tested
   ## with a min collection interval of 60 seconds for a few instances
 
-  # - min_collection_interval: 60
-  #   url: "https://docs.datadoghq.com" # required
-  #   name: "datadog_docs" # required
+  - min_collection_interval: 60
 
-    # optional
+  ## @param url - string - required
+  ## url of the website to get lighthouse metrics of
+  ## ex: "https://www.datadoghq.com"
+  
+    url: <URL_PLACEHOLDER>
+
+  ## @param name - string - required
+  ## name of your website.
+  ## ex: "datadog_homepage"
+
+    name: <NAME_PLACEHOLDER>
+
+  ## tags - optional
+
     # tags: 
     #   - example_tag
     #   - another_example_tag:an_example_value
