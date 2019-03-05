@@ -6,7 +6,7 @@ Track request level metrics for your Bonsai clusters to:
 * Correlate search performance with application performance
 * Create alerts
 
-![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/snapshot.png)
+![snapshot][1]
 
 ## Setup
 
@@ -15,24 +15,24 @@ Integrating your cluster with Datadog requires submitting your API key to the bo
 
 ### Step 1 - Aquire API Key
 
-In Datadog, navigate to [Integrations --> API][1] and copy your API Key.
+In Datadog, navigate to [Integrations --> API][2] and copy your API Key.
 
-![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/copy_key.png)
+![snapshot][3]
 
 
 ### Step 2 - Submit API Key
 
-Navigate to [Bonsai --> Clusters][2] and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
+Navigate to [Bonsai --> Clusters][4] and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
 
 Under the "Datadog Integration" section paste your API key and click "Activate Datadog".
 
-![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/activate_datadog.png)
+![snapshot][5]
 
 ### Step 3 - Verify
 
 If your key is valid, you should see the integration as active.
 
-![snapshot](https://raw.githubusercontent.com/omc/IntegrationTemplate/master/Bonsai/images/datadog_activated.png)
+![snapshot][6]
 
 Within a few minutes, request metrics are available in your Datadog dashboard.
 
@@ -40,7 +40,7 @@ Within a few minutes, request metrics are available in your Datadog dashboard.
 
 ### Metrics
 
-See [metadata.csv][3] for a list of metrics provided by this integration.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 Metrics are tagged for each cluster, so you can segment based on clusters.  The tags look like:
 
@@ -58,8 +58,21 @@ The Bonsai integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][4].
+Need help? Contact [Datadog Support][8].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all Datadog integrations in [our blog][5].
+Learn more about infrastructure monitoring and all Datadog integrations in [our blog][9].
+
+https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
+
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/snapshot.png
+[2]: https://app.datadoghq.com/account/settings#api
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/copy_key.png
+[4]: https://app.bonsai.io/clusters
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/activate_datadog.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/datadog_activated.png
+[7]: https://github.com/DataDog/integrations-extras/blob/master/bonsai/metadata.csv
+[8]: http://docs.datadoghq.com/help/
+[9]: https://www.datadoghq.com/blog/
