@@ -97,6 +97,8 @@ class RiakReplCheck(AgentCheck):
 
         for c in stats['connected_clusters']:
             cluster = c.replace("-", "_")
+            if c not in stats['fullsync_coordinator']:
+                continue
             for key, val in stats['fullsync_coordinator'][c].iteritems():
                 if key in self.FULLSYNC_COORDINATOR:
                     self.safe_submit_metric("riak_repl.fullsync_coordinator."
