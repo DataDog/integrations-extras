@@ -2,9 +2,9 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import pytest
-from mock import MagicMock
-from datadog_checks.bind9_check import bind9_check
+from mock import patch, MagicMock
 import os
+from datadog_checks.bind9_check import bind9_check
 import urllib2
 import xml.etree.ElementTree as ET
 from datadog_checks.errors import CheckException
@@ -171,12 +171,17 @@ EXPECTED_VALUES = (
 Date = ["2018-08-08T01-15-46Z","2010-08-08T01-15-46Z"]
 Epoch = ["1533671146","1281210346"]
 
-def test_getStatsFromUrl() :
+@patch('urllib2.urlopen')
+def test_getStatsFromUrl(mock_openurl):
+    req = MagicMock()
+    req.read.side_effect = ['resp1']
+    req.getCode.return_value = 200
+    mock_openurl.return_value = req
     c = bind9_check('bind9_check', {}, {}, None)
     with open(os.path.join(HERE,'sample_stats.xml'), 'r') as file :
         tree=ET.parse(file)
         root = tree.getroot()
-        assert c.getStatsFromUrl(URL).attrib == root.attrib
+        assert c.getStatsFromUrl(URL) == 200
 
 def test_check(aggregator, instance) :
     c = bind9_check('bind9_check', {}, {}, None)
@@ -187,7 +192,7 @@ def test_check(aggregator, instance) :
     with pytest.raises(CheckException) :
         c.check({})
     c.check(instance)
-    
+
     for metric, value in EXPECTED_VALUES:
         aggregator.assert_metric(metric, value=value)
     aggregator.assert_service_check(c.BIND_SERVICE_CHECK)

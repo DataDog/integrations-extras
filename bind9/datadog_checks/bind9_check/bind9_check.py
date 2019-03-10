@@ -17,7 +17,7 @@ class bind9_check(AgentCheck) :
 
         if not dns_url :
             raise CheckException('The statistic channel URL must be specified in the configuration')
-        
+
         self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.OK,
                            message='Connection to %s was successful' % dns_url)
 
@@ -36,12 +36,10 @@ class bind9_check(AgentCheck) :
         except (urllib2.URLError, urllib2.HTTPError) as e:
             self.service_check(self.BIND_SERVICE_CHECK,AgentCheck.CRITICAL, message= "stats cannot be taken")
             raise
-        tree=ET.parse(xmlStats)
-        root = tree.getroot()
-        return root
+        return xmlStats.getCode()
 
     def DateTimeToEpoch(self, DateTime) :
-    
+
         year=int(DateTime[0:4])
         month=int(DateTime[5:7])
         date=int(DateTime[8:10])
@@ -58,7 +56,7 @@ class bind9_check(AgentCheck) :
         for counter in root.iter("counters") :
             if counter.get('type') == queryType :
                 for query in counter :
-                    self.SendMetricsToAgent(queryType +'_'+ query.get('name'), query.text) 
+                    self.SendMetricsToAgent(queryType +'_'+ query.get('name'), query.text)
 
     def SendMetricsToAgent(self,metricName,metricValue) :
         self.gauge(metricName,metricValue)
