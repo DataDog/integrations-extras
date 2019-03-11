@@ -1,12 +1,14 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import datetime
-
-import requests
+from datetime import datetime
 import xml.etree.ElementTree as ET
 
+import requests
+
 from datadog_checks.base import AgentCheck, ConfigurationError
+
+EPOCH = datetime(1970, 1, 1)
 
 
 class Bind9Check(AgentCheck):
@@ -42,13 +44,9 @@ class Bind9Check(AgentCheck):
         return root
 
     def DateTimeToEpoch(self, DateTime):
-        year = int(DateTime[0:4])
-        month = int(DateTime[5:7])
-        date = int(DateTime[8:10])
-        hour = int(DateTime[11:13])
-        minutes = int(DateTime[14:16])
-        seconds = int(DateTime[17:19])
-        return datetime.datetime(year, month, date, hour, minutes, seconds).strftime('%s')
+        # Ignore time zone
+        DateTime = DateTime[:20]
+        return int((datetime.strptime(DateTime[:20], '%Y-%m-%dT%H-%M-%S') - EPOCH).total_seconds())
 
     def collectTimeMetric(self, root, metricName):
         for name in root.iter(metricName):
