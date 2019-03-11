@@ -2,9 +2,12 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import datetime
-import urllib2
+
+import requests
+import xml.etree.ElementTree as ET
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+
 
 class Bind9Check(AgentCheck):
     BIND_SERVICE_CHECK = "bind9.can_connect"
@@ -27,14 +30,17 @@ class Bind9Check(AgentCheck):
         for counter in self.QUERY_ARRAY:
             self.collectServerMetric(root[0], counter)
 
-
     def getStatsFromUrl(self, dns_url):
         try:
-            xmlStats = urllib2.urlopen(dns_url)
-        except (urllib2.URLError, urllib2.HTTPError):
+            response = requests.get(dns_url)
+            response.raise_for_status()
+        except Exception:
             self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.CRITICAL, message="stats cannot be taken")
             raise
-        return xmlStats.getCode()
+
+        tree = ET.parse(response.text)
+        root = tree.getroot()
+        return root
 
     def DateTimeToEpoch(self, DateTime):
         year = int(DateTime[0:4])
@@ -49,11 +55,11 @@ class Bind9Check(AgentCheck):
         for name in root.iter(metricName):
             self.SendMetricsToAgent(metricName, self.DateTimeToEpoch(name.text))
 
-    def collectServerMetric(self, root, queryType) :
+    def collectServerMetric(self, root, queryType):
         for counter in root.iter("counters"):
             if counter.get('type') == queryType:
                 for query in counter:
                     self.SendMetricsToAgent('{}_{}'.format(queryType, query.get('name')), query.text)
 
     def SendMetricsToAgent(self, metricName, metricValue):
-        self.gauge(metricName,metricValue)
+        self.gauge(metricName, metricValue)

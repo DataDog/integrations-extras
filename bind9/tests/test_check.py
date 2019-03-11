@@ -2,11 +2,8 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import os
-import urllib2
 
 import pytest
-import xml.etree.ElementTree as ET
-from mock import patch, MagicMock
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.bind9 import Bind9Check
@@ -160,37 +157,26 @@ EXPECTED_VALUES = (
     ('sockstat_RawActive', 1)
 )
 
-Date = ["2018-08-08T01-15-46Z","2010-08-08T01-15-46Z"]
-Epoch = ["1533671146","1281210346"]
+Date = ["2018-08-08T01-15-46Z", "2010-08-08T01-15-46Z"]
+Epoch = ["1533671146", "1281210346"]
 
-@patch('urllib2.urlopen')
-def test_getStatsFromUrl(mock_openurl):
-    req = MagicMock()
-    req.read.side_effect = ['resp1']
-    req.getCode.return_value = 200
-    mock_openurl.return_value = req
-    c = Bind9Check('bind9', {}, {}, None)
-    with open(os.path.join(HERE,'sample_stats.xml'), 'r') as file :
-        tree=ET.parse(file)
-        root = tree.getroot()
-        assert c.getStatsFromUrl(URL) == 200
 
-def test_check(aggregator, instance) :
+def test_check(aggregator, instance):
     c = Bind9Check('bind9', {}, {}, None)
-    with open(os.path.join(HERE,'sample_stats.xml'), 'r') as file :
-        tree=ET.parse(file)
-        root = tree.getroot()
-        c.getStatsFromUrl = MagicMock(return_value=root)
-    with pytest.raises(ConfigurationError) :
+
+    with pytest.raises(ConfigurationError):
         c.check({})
+
     c.check(instance)
 
     for metric, value in EXPECTED_VALUES:
         aggregator.assert_metric(metric, value=value)
-    aggregator.assert_service_check(c.BIND_SERVICE_CHECK)
+
+    aggregator.assert_service_check(c.BIND_SERVICE_CHECK, c.OK)
     aggregator.assert_all_metrics_covered()
 
-def test_DateTimeToEpoch() :
+
+def test_DateTimeToEpoch():
     c = Bind9Check('bind9', {}, {}, None)
     assert c.DateTimeToEpoch(Date[0]) == Epoch[0]
     assert c.DateTimeToEpoch(Date[1]) == Epoch[1]
