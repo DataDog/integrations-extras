@@ -8,8 +8,8 @@ import xml.etree.ElementTree as ET
 from datadog_checks.checks import AgentCheck
 from datadog_checks.errors import CheckException
 
-class bind9_check(AgentCheck) :
-    BIND_SERVICE_CHECK = "BIND9 service check"
+class Bind9Check(AgentCheck) :
+    BIND_SERVICE_CHECK = "bind9.can_connect"
     Query_Array=["opcode","qtype","nsstat","zonestat","resstat","sockstat"]
 
     def check(self, instance) :

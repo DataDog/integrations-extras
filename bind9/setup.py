@@ -10,7 +10,7 @@ HERE = path.abspath(path.dirname(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, "datadog_checks", "bind9_check", "__about__.py")) as f:
+with open(path.join(HERE, "datadog_checks", "bind9", "__about__.py")) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -18,21 +18,17 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-# Parse requirements
-def get_requirements(fpath):
-    with open(path.join(HERE, fpath), encoding='utf-8') as f:
-        return f.readlines()
-
+CHECKS_BASE_REQ = 'datadog-checks-base'
 
 setup(
-    name='datadog-bind9_check',
+    name='datadog-bind9',
     version=ABOUT["__version__"],
     description='my_check collects my metrics.',
     long_description=long_description,
     keywords='datadog agent check',
-    url='https://github.com/DataDog/integrations-core',
-    author='Datadog',
-    author_email='packages@datadoghq.com',
+    url='https://github.com/DataDog/integrations-extras',
+    author='ashuvyas45',
+    author_email='ashuvyas45@gmail.com',
     license='BSD',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -42,20 +38,15 @@ setup(
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
     ],
 
-    packages=['datadog_checks.bind9_check'],
+    packages=['datadog_checks.bind9'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in')+[
-        'datadog-checks-base',
-    ],
-    setup_requires=['pytest-runner', ],
-    tests_require=get_requirements('requirements-dev.txt'),
+    install_requires=[CHECKS_BASE_REQ],
 
     # Extra files to ship with the wheel package
-    package_data={'datadog_checks.bind9_check': ['conf.yaml.example']},
     include_package_data=True,
 )
