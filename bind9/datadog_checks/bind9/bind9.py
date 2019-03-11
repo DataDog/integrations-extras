@@ -38,7 +38,7 @@ class Bind9Check(AgentCheck):
             self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.CRITICAL, message="stats cannot be taken")
             raise
 
-        tree = ET.parse(response.text)
+        tree = ET.fromstring(response.text)
         root = tree.getroot()
         return root
 
