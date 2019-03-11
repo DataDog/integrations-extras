@@ -1,27 +1,19 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import pytest
-from mock import patch, MagicMock
 import os
-from datadog_checks.bind9_check import bind9_check
 import urllib2
+
+import pytest
 import xml.etree.ElementTree as ET
-from datadog_checks.errors import CheckException
+from mock import patch, MagicMock
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-URL = 'http://10.10.1.101:8080'
+from datadog_checks.base import ConfigurationError
+from datadog_checks.bind9 import Bind9Check
 
-@pytest.fixture()
-def aggregator():
-    from datadog_checks.stubs import aggregator
-    aggregator.reset()
-    return aggregator
+from .common import HERE, URL
 
-@pytest.fixture
-def instance():
-    data = {'url': URL}
-    return data
+
 EXPECTED_VALUES = (
     ('opcode_QUERY', 0),
     ('opcode_IQUERY', 0),
@@ -177,19 +169,19 @@ def test_getStatsFromUrl(mock_openurl):
     req.read.side_effect = ['resp1']
     req.getCode.return_value = 200
     mock_openurl.return_value = req
-    c = bind9_check('bind9_check', {}, {}, None)
+    c = Bind9Check('bind9', {}, {}, None)
     with open(os.path.join(HERE,'sample_stats.xml'), 'r') as file :
         tree=ET.parse(file)
         root = tree.getroot()
         assert c.getStatsFromUrl(URL) == 200
 
 def test_check(aggregator, instance) :
-    c = bind9_check('bind9_check', {}, {}, None)
+    c = Bind9Check('bind9', {}, {}, None)
     with open(os.path.join(HERE,'sample_stats.xml'), 'r') as file :
         tree=ET.parse(file)
         root = tree.getroot()
         c.getStatsFromUrl = MagicMock(return_value=root)
-    with pytest.raises(CheckException) :
+    with pytest.raises(ConfigurationError) :
         c.check({})
     c.check(instance)
 
@@ -199,6 +191,6 @@ def test_check(aggregator, instance) :
     aggregator.assert_all_metrics_covered()
 
 def test_DateTimeToEpoch() :
-    c = bind9_check('bind9_check', {}, {}, None)
+    c = Bind9Check('bind9', {}, {}, None)
     assert c.DateTimeToEpoch(Date[0]) == Epoch[0]
     assert c.DateTimeToEpoch(Date[1]) == Epoch[1]
