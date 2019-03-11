@@ -23,9 +23,9 @@ class Bind9Check(AgentCheck):
                            message='Connection to %s was successful' % dns_url)
 
         root = self.getStatsFromUrl(dns_url)
-        self.collectTimeMetric(root[0], 'boot-time')
-        self.collectTimeMetric(root[0], 'config-time')
-        self.collectTimeMetric(root[0], 'current-time')
+        self.collectTimeMetric(root, 'boot-time')
+        self.collectTimeMetric(root, 'config-time')
+        self.collectTimeMetric(root, 'current-time')
 
         for counter in self.QUERY_ARRAY:
             self.collectServerMetric(root[0], counter)
@@ -38,8 +38,7 @@ class Bind9Check(AgentCheck):
             self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.CRITICAL, message="stats cannot be taken")
             raise
 
-        tree = ET.fromstring(response.text)
-        root = tree.getroot()
+        root = ET.fromstring(response.text)
         return root
 
     def DateTimeToEpoch(self, DateTime):
