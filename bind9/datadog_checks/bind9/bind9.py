@@ -45,8 +45,8 @@ class Bind9Check(AgentCheck):
 
     def DateTimeToEpoch(self, DateTime):
         # Ignore time zone
-        DateTime = DateTime[:20]
-        return int((datetime.strptime(DateTime[:20], '%Y-%m-%dT%H-%M-%S') - EPOCH).total_seconds())
+        DateTime = DateTime[:19]
+        return int((datetime.strptime(DateTime, '%Y-%m-%dT%H-%M-%S') - EPOCH).total_seconds())
 
     def collectTimeMetric(self, root, metricName):
         for name in root.iter(metricName):
