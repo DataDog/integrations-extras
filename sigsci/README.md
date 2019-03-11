@@ -36,7 +36,7 @@ Click Add.
 ## Data Collected
 ### Metrics
 
-The Signal Sciences integration does not provide any metrics at this time.
+The Signal Sciences integration does not provide any metrics.
 
 ### Events
 
@@ -44,7 +44,7 @@ All Signal Sciences events are sent to your [Datadog Event Stream](https://docs.
 
 ### Service Checks
 
-The Signal Sciences integration does not include any service checks at this time.
+The Signal Sciences integration does not include any service checks.
 
 
 ## Troubleshooting

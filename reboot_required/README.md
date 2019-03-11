@@ -48,11 +48,11 @@ To configure the Reboot Required check:
 
 ### Metrics
 
-No metrics are collected at this time.
+No metrics are collected.
 
 ### Events
 
-The reboot_required check does not include any events at this time.
+The reboot_required check does not include any events.
 
 ## Service Checks
 
@@ -71,7 +71,7 @@ The check returns:
 Need help? Contact [Datadog support][5].
 
 [1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/conf.yaml.example
+[2]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/

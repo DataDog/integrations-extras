@@ -44,11 +44,11 @@ Able to collect all numeric or datetime metrics supplied by the api, it will req
 
 ### Events
 
-The eventstore check does not include any events at this time.
+The eventstore check does not include any events.
 
 ### Service Checks
 
-The eventstore check does not include any service checks at this time.
+The eventstore check does not include any service checks.
 
 ## Troubleshooting
 

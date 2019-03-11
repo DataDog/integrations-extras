@@ -23,13 +23,13 @@ For a more detailed setup description, see [the logz.io dedicated datadog docume
 
 ## Data Collected
 ### Metrics
-The Logz.io check does not include any metrics at this time.
+The Logz.io check does not include any metrics.
 
 ### Events
-The Logz.io check does not include any events at this time.
+The Logz.io check does not include any events.
 
 ### Service Checks
-The Logz.io check does not include any service checks at this time.
+The Logz.io check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][5].

@@ -34,13 +34,13 @@ ${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
 
 ## Data Collected
 ### Metrics
-The Buddy check does not include any metrics at this time.
+The Buddy check does not include any metrics.
 
 ### Events
 All Buddy deployment events are sent to your [Datadog Event Stream][6]
 
 ### Service Checks
-The Buddy check does not include any service checks at this time.
+The Buddy check does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog support][7].

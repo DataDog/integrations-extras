@@ -49,7 +49,7 @@ The gnatsd check is compatible with all major platforms
 See [metadata.csv][1] for a list of metrics provided by this integration.
 
 ### Events
-The gnatsd check does not include any events at this time.
+The gnatsd check does not include any events.
 
 ### Service Checks
 This gnatsd check tags all service checks it collects with:
