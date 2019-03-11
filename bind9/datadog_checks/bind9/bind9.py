@@ -61,4 +61,4 @@ class Bind9Check(AgentCheck):
                     self.SendMetricsToAgent('{}_{}'.format(queryType, query.get('name')), query.text)
 
     def SendMetricsToAgent(self, metricName, metricValue):
-        self.gauge(metricName, metricValue)
+        self.gauge('bind9.{}'.format(metricName), metricValue)
