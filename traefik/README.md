@@ -1,4 +1,4 @@
-# traefik Integration
+# Traefik Integration
 
 ## Overview
 
@@ -8,16 +8,15 @@ This integration collects data from Traefik in order to check its health and mon
 - Number of requests
 - Number of bytes exchanged
 
-
 ## Setup
 
 ### Installation
 
 To install the Traefik check on your host:
 1. [Download the Datadog Agent][12].
-2. Download the [`check.py` file][11] for Traefik.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `traefik.py`.
+2. Install the [developer toolkit][11].
+3. Run `ddev release build traefik`.
+4. Run `datadog-agent integration install -w path/to/traefik/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -79,7 +78,7 @@ The [common Apache Access format][10] is used by default and is supported by thi
           service: traefik
       ```
 
-* Change the `path` and `service` parameter values and configure them for your environment. 
+* Change the `path` and `service` parameter values and configure them for your environment.
 
 * [Restart the Agent][3]
 
@@ -132,5 +131,5 @@ Refer to the [main documentation][6] for more details about how to test and deve
 [8]: https://github.com/DataDog/integrations-extras/blob/master/traefik/conf.yaml.example
 [9]: https://docs.traefik.io/configuration/logs/#traefik-logs
 [10]: https://docs.traefik.io/configuration/logs/#clf-common-log-format
-[11]: https://github.com/DataDog/integrations-extras/blob/master/traefik/datadog_checks/traefik/traefik.py
+[11]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [12]: https://app.datadoghq.com/account/settings#agent
