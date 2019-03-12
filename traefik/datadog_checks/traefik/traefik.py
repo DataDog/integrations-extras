@@ -1,11 +1,10 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-
 import requests
+from six import iteritems
 
-from datadog_checks.checks import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class TraefikCheck(AgentCheck):
@@ -16,8 +15,8 @@ class TraefikCheck(AgentCheck):
         path = instance.get('path', '/health')
 
         if not host:
-            self.warning("Configuration error, please fix traefik.yaml")
-            raise CheckException("Configuration error, please fix traefik.yaml")
+            self.warning('Configuration error, you must define `host`')
+            raise ConfigurationError('Configuration error, you must define `host`')
 
         try:
             url = 'http://{}:{}{}'.format(host, port, path)
@@ -30,10 +29,10 @@ class TraefikCheck(AgentCheck):
                 payload = response.json()
 
                 if 'total_status_code_count' in payload:
-                    values = payload['total_status_code_count']
+                    status_code_counts = payload['total_status_code_count']
 
-                    for status_code in values:
-                        self.gauge('traefik.total_status_code_count', values[status_code], ['status_code:' + status_code])
+                    for status_code, count in iteritems(status_code_counts):
+                        self.gauge('traefik.total_status_code_count', count, ['status_code:{}'.format(status_code)])
 
                 else:
                     self.log.warn('Field total_status_code_count not found in response.')
@@ -44,10 +43,12 @@ class TraefikCheck(AgentCheck):
                     self.log.warn('Field total_count not found in response.')
 
             else:
-                self.service_check('traefik.health', self.CRITICAL, message="Traefik health check return code is not 200")
+                self.service_check(
+                    'traefik.health', self.CRITICAL, message='Traefik health check return code is not 200'
+                )
 
         except requests.exceptions.ConnectionError:
-            self.service_check('traefik.health', self.CRITICAL, message="Traefik endpoint unreachable")
+            self.service_check('traefik.health', self.CRITICAL, message='Traefik endpoint unreachable')
 
         except Exception as e:
-            self.service_check('traefik.health', self.UNKNOWN, message="UNKNOWN exception" + str(e))
+            self.service_check('traefik.health', self.UNKNOWN, message='UNKNOWN exception: {}'.format(e))

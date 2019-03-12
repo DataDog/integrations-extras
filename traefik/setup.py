@@ -18,11 +18,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-# Parse requirements
-def get_requirements(fpath):
-    with open(path.join(HERE, fpath), encoding='utf-8') as f:
-        return f.readlines()
-
+CHECKS_BASE_REQ = 'datadog-checks-base'
 
 setup(
     name='datadog-traefik',
@@ -30,32 +26,28 @@ setup(
     description='collects traefik metrics',
     long_description=long_description,
     keywords='datadog agent check',
-    url='https://github.com/DataDog/integrations-core',
+    url='https://github.com/DataDog/integrations-extras',
     author='Renaud Hager',
     author_email='paas@argos.co.uk',
     license='BSD',
 
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
     ],
 
+    # The package we're going to ship
     packages=['datadog_checks.traefik'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in')+[
-        'datadog-checks-base',
-    ],
-    setup_requires=['pytest-runner', ],
-    tests_require=get_requirements('requirements-dev.txt'),
+    install_requires=[CHECKS_BASE_REQ],
 
-    # Extra files to ship with the wheel package
-    package_data={'datadog_checks.traefik': ['conf.yaml.example']},
+    # Extra files to ship with the wheel
     include_package_data=True,
 )
