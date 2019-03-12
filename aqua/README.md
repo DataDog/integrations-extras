@@ -15,7 +15,7 @@ need to install it yourself.
 
 To install the Aqua check on your host:
 
-1. Install the [developer toolkit][3] on any machine.
+1. Install the [developer toolkit][8] on any machine.
 2. Run `ddev release build aqua` to build the package.
 3. [Download the Datadog Agent][2].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/aqua/dist/<ARTIFACT_NAME>.whl`.
