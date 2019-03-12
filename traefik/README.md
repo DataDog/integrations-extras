@@ -13,10 +13,11 @@ This integration collects data from [Traefik][1] in order to check its health an
 ### Installation
 
 To install the Traefik check on your host:
-1. [Download the Datadog Agent][2].
-2. Install the [developer toolkit][3].
-3. Run `ddev release build traefik`.
-4. Run `datadog-agent integration install -w path/to/traefik/dist/<ARTIFACT_NAME>.whl`.
+
+1. Install the [developer toolkit][3] on any machine.
+2. Run `ddev release build traefik` to build the package.
+3. [Download the Datadog Agent][2].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/traefik/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
