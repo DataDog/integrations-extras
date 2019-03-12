@@ -1,16 +1,11 @@
 # (C) Datadog, Inc. 2010-2016
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-
-# stdlib
 import os
 import re
 import subprocess
 
-# 3rd party
-
-# project
-from checks import AgentCheck
+from datadog_checks.base import AgentCheck, ensure_unicode
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'upsc'
 
@@ -86,7 +81,7 @@ class UpscCheck(AgentCheck):
                     else:
                         results[k] = 0.0
                 if k in self.string_tags:
-                    tags.add('{}:{}'.format(k, self.convert_to_underscore_separated(v)))
+                    tags.add('{}:{}'.format(k, ensure_unicode(self.convert_to_underscore_separated(v))))
         return results, tags
 
     def check(self, instance):

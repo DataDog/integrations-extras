@@ -15,10 +15,11 @@ The UPSC check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the UPSC check on your host:
 
-1. [Download the Datadog Agent][1].
-2. Download the [`check.py` file][2] for UPSC.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `upsc.py`.
+1. Install the [developer toolkit][8] on any machine.
+2. Run `ddev release build upsc` to build the package.
+3. [Download the Datadog Agent][2].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/upsc/dist/<ARTIFACT_NAME>.whl`.
+
 
 ### Configuration
 
