@@ -36,7 +36,7 @@ class EventStoreCheck(AgentCheck):
         # Unable to deserialize the returned data
         try:
             parsed_api = r.json()
-        except ValueError as e:
+        except Exception as e:
             raise CheckException('{} returned an unserializable payload: {}'.format(url, e))
 
         eventstore_paths = self.walk(parsed_api)
