@@ -5,8 +5,7 @@
 import pytest
 
 from datadog_checks.eventstore import EventStoreCheck
-from datadog_checks.errors import CheckException
-from datadog_checks.dev import get_docker_hostname
+from datadog_checks.base.errors import CheckException
 
 
 def test_config():
@@ -34,7 +33,8 @@ def test_config():
 
 
 @pytest.mark.integration
-def test_service_check(aggregator, eventstore_server):
+@pytest.mark.usefixtures('dd_environment')
+def test_service_check(aggregator, instance):
     init_config = {
         'metric_definitions': [
             {
@@ -372,28 +372,9 @@ def test_service_check(aggregator, eventstore_server):
 
     c = EventStoreCheck('eventstore', init_config, {}, None)
 
-    # the check should send OK
-    instance = {
-        'default_timeout': 5,
-        'tag_by_url': True,
-        'url': 'http://{}:2113/stats'.format(get_docker_hostname()),
-        'name': 'testInstance',
-        'json_path': [
-            '*',
-            '*.*',
-            '*.*.*',
-            '*.*.*.*'
-        ]
-    }
     c.check(instance)
+
     for metric in init_config['metric_definitions']:
         aggregator.assert_metric(metric['metric_name'], tags=[])
 
-    i = 1
-    for m in aggregator.not_asserted():
-        print(m)
-        print('\r')
-        print(i)
-        i = i + 1
-    # Assert coverage for this check on this instance
     aggregator.assert_all_metrics_covered()
