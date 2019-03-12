@@ -15,13 +15,12 @@ need to install it yourself.
 
 To install the Aqua check on your host:
 
-1. [Download the Datadog Agent][2].
-2. Install the [developer toolkit][8].
-3. Run `ddev release build aqua`.
-4. Run `datadog-agent integration install -w path/to/aqua/dist/<ARTIFACT_NAME>.whl`.
+1. Install the [developer toolkit][3] on any machine.
+2. Run `ddev release build aqua` to build the package.
+3. [Download the Datadog Agent][2].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/aqua/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
-
 
 1. Edit the `aqua.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory) to start collecting your Aqua [metrics](#metric-collection) and [logs](#log-collection).
   See the [sample conf.yaml][3] for all available configuration options.
