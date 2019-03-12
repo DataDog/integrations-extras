@@ -18,11 +18,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-# Parse requirements
-def get_requirements(fpath):
-    with open(path.join(HERE, fpath), encoding='utf-8') as f:
-        return f.readlines()
-
+CHECKS_BASE_REQ = 'datadog-checks-base'
 
 setup(
     name='datadog-sortdb',
@@ -48,17 +44,15 @@ setup(
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
     ],
 
     # The package we're going to ship
     packages=['datadog_checks.sortdb'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in'),
+    install_requires=[CHECKS_BASE_REQ],
 
-    # Testing setup and dependencies
-    tests_require=get_requirements('requirements-dev.txt'),
     include_package_data=True,
 )
