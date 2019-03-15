@@ -18,10 +18,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-# Parse requirements
-def get_requirements(fpath):
-    with open(path.join(HERE, fpath), encoding='utf-8') as f:
-        return f.readlines()
+CHECKS_BASE_REQ = 'datadog-checks-base>=5.1.0'
 
 
 setup(
@@ -41,25 +38,22 @@ setup(
     # License
     license='MIT',
 
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.7',
     ],
 
     # The package we're going to ship
     packages=['datadog_checks.reboot_required'],
 
     # Run-time dependencies
-    install_requires=get_requirements('requirements.in'),
-
-    # Testing setup and dependencies
-    tests_require=get_requirements('requirements-dev.txt'),
+    install_requires=[CHECKS_BASE_REQ],
 
     # Extra files to ship with the wheel package
     include_package_data=True,

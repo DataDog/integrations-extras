@@ -6,16 +6,14 @@ Linux systems that are configured to autoinstall packages may not be configured 
 
 ## Setup
 
-The Reboot Required check is **NOT** included in the [Datadog Agent][1] package.
-
 ### Installation
 
 To install the Reboot Required check on your host:
 
-1. [Download the Datadog Agent][1]
-2. Download the [`check.py` file][7] for Reboot Required
-3. Place it in the Agent's `checks.d` directory,
-4. Rename it to `reboot_required.py`.
+1. Install the [developer toolkit][6] on any machine.
+2. Run `ddev release build reboot_required` to build the package.
+3. [Download the Datadog Agent][1].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/reboot_required/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -75,4 +73,4 @@ Need help? Contact [Datadog support][5].
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/
-[7]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/reboot_required.py
+[6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
