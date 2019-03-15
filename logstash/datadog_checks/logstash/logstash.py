@@ -132,7 +132,7 @@ class LogstashCheck(AgentCheck):
             service_check_tags=service_check_tags,
             ssl_cert=instance.get('ssl_cert'),
             ssl_key=instance.get('ssl_key'),
-            ssl_verify=instance.get('ssl_verify'),
+            ssl_verify=instance.get('ssl_verify', False),
             tags=tags,
             timeout=timeout,
             url=url
@@ -150,6 +150,7 @@ class LogstashCheck(AgentCheck):
         if isinstance(config.ssl_verify, (bool, str)):
             verify = config.ssl_verify
         else:
+            self.log.error("ssl_verify in the configuration file must be a bool or a string.")
             verify = None
         if config.ssl_cert and config.ssl_key:
             cert = (config.ssl_cert, config.ssl_key)
@@ -209,7 +210,6 @@ class LogstashCheck(AgentCheck):
 
         stats_url = urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
-        self.log.debug(str(stats_data))
 
         self._process_stats_data(stats_data, stats_metrics, config)
 
@@ -236,9 +236,14 @@ class LogstashCheck(AgentCheck):
         for metric, desc in iteritems(stats_metrics):
             self._process_metric(data, metric, *desc, tags=config.tags)
 
-    def _process_pipeline_plugins_data(self, pipeline_plugins_data,
-                                       pipeline_plugins_metrics, config,
-                                       plugin_type, tag_name):
+    def _process_pipeline_plugins_data(
+        self,
+        pipeline_plugins_data,
+        pipeline_plugins_metrics,
+        config,
+        plugin_type,
+        tag_name
+    ):
         for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
 

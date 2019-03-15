@@ -132,9 +132,5 @@ def test_check(aggregator):
             aggregator.assert_metric(
                 m_name, tags=m_tags, count=1)
 
-    aggregator.assert_service_check('logstash.can_connect',
-                                    tags=good_sc_tags + tags,
-                                    status=LogstashCheck.OK)
-    aggregator.assert_service_check('logstash.can_connect',
-                                    tags=bad_sc_tags,
-                                    status=LogstashCheck.CRITICAL)
+    aggregator.assert_service_check('logstash.can_connect', tags=good_sc_tags + tags, status=LogstashCheck.OK)
+    aggregator.assert_service_check('logstash.can_connect', tags=bad_sc_tags, status=LogstashCheck.CRITICAL)
