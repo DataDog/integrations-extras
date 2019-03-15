@@ -1,10 +1,8 @@
-import json
-
 import requests
 from urllib3.util import Timeout
 
-from datadog_checks.checks import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base.checks import AgentCheck
+from datadog_checks.base.errors import CheckException
 
 
 class Neo4jCheck(AgentCheck):
@@ -95,7 +93,6 @@ class Neo4jCheck(AgentCheck):
         payload = {"statements": [{"statement": "CALL dbms.queryJmx('org.neo4j:*') yield attributes with  "
                                                 "keys(attributes) as k, attributes unwind k as "
                                                 "row return row, attributes[row]['value'];"}]}
-        headers_sent = {'Content-Type': 'application/json'}
         try:
             version = self._get_version(host, port, timeout, auth, service_check_tags)
 
@@ -103,7 +100,7 @@ class Neo4jCheck(AgentCheck):
                 check_url = "{}:{}/db/data/transaction/commit".format(host, port)
             else:
                 check_url = "{}:{}/v1/service/metrics".format(host, port)
-            r = requests.post(check_url, auth=auth, data=json.dumps(payload), headers=headers_sent, timeout=timeout)
+            r = requests.post(check_url, auth=auth, json=payload, timeout=timeout)
         except Exception as e:
             msg = "Unable to fetch Neo4j stats: {}".format(e)
             self._critical_service_check(service_check_tags, msg)
