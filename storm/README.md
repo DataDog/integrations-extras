@@ -15,10 +15,11 @@ The Storm check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Storm check on your host:
 
-1. [Download the Datadog Agent][1].
-2. Download the [`check.py` file][2] for Storm.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `storm.py`.
+1. Install the [developer toolkit][7] on any machine.
+2. Run `ddev release build storm` to build the package.
+3. [Download the Datadog Agent][1].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/storm/dist/<ARTIFACT_NAME>.whl`.
+
 
 ### Configuration
 
@@ -53,8 +54,9 @@ The check returns:
 Need help? Contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://github.com/DataDog/integrations-extras/blob/master/storm/conf.yaml.example
+[2]: https://github.com/DataDog/integrations-extras/blob/master/storm/datadog_checks/storm/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/storm/metadata.csv
 [6]: http://docs.datadoghq.com/help/
+[7]: https://github.com/DataDog/integrations-core/blob/master/docs/dev/new_check_howto.md#developer-toolkit

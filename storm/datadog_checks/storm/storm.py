@@ -1,15 +1,15 @@
 # (C) Datadog, Inc. 2010-2016
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-
-# stdlib
-
-# 3rd party
 import requests
 import json
 
-# project
-from checks import AgentCheck
+from datadog_checks.base import AgentCheck
+
+from six import PY3
+
+if PY3:
+    long = int
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'storm'
 
@@ -138,6 +138,7 @@ def _get_float(stat_map, default, *components):
     """
     return _g(stat_map, default, _float, *components)
 
+
 def _get_string(stat_map, default, *components):
     """ Helper Function to safely get the string value from the map.
 
@@ -148,6 +149,7 @@ def _get_string(stat_map, default, *components):
     :rtype: str
     """
     return _g(stat_map, default, str, *components)
+
 
 def _get_bool(stat_map, default, *components):
     """ Helper Function to safely get the boolean value from the map.
@@ -160,6 +162,7 @@ def _get_bool(stat_map, default, *components):
     """
     return _g(stat_map, default, _bool, *components)
 
+
 def _get_list(stat_map, *components):
     """ Helper Function to safely get the list value from the map.
 
@@ -167,12 +170,14 @@ def _get_list(stat_map, *components):
     :param components: components in order to traverse.
     :return: list of component
     :rtype: list
+    val = _g(s, [], None, 'acked')
     """
     val = _g(stat_map, [], None, *components)
     if not val or not isinstance(val, list):
         return []
 
     return val
+
 
 def _get_dict(stat_map, *components):
     """ Helper Function to safely get the list value from the map.
@@ -209,8 +214,7 @@ class StormCheck(AgentCheck):
             :return: Storm Version
             :rtype: StormCheck.StormVersion
             """
-            parts = version_string.split(".")
-
+            version_string.split(".")
 
         def __init__(self, major, minor, patch, classifier=None):
             self.major = major
@@ -329,9 +333,10 @@ class StormCheck(AgentCheck):
             endpoint = "/api/v1/topology/{}"
 
         params = {'window': interval}
-        return self.get_request_json(endpoint.format(topology_id),
+        r = self.get_request_json(endpoint.format(topology_id),
                                      "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
                                      params=params)
+        return r
 
     def process_cluster_stats(self, cluster_stats):
         """ Process Cluster Stats Response

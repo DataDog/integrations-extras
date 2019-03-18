@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  topology-maker:
+    container_name: topology-build
+    build:
+      context: .
+      dockerfile: Dockerfile
+  storm-zk:
+    container_name: storm-zookeeper
+    image: "zookeeper:3.4"
+  storm-nimbus:
+    container_name: storm-nimbus
+    image: "storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30"
+    command: storm nimbus
+    ports:
+      - "6627:6627"
+    depends_on:
+      - storm-zk
+    links:
+      - storm-zk:zookeeper
+  storm-supervisor:
+    container_name: storm-supervisor
+    image: "storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30"
+    command: storm supervisor
+    depends_on:
+      - storm-nimbus
+      - storm-zk
+    links:
+      - storm-zk:zookeeper
+  storm-ui:
+    container_name: storm_ui
+    image: "storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30"
+    command: storm ui
+    depends_on:
+      - storm-supervisor
+    links:
+      - storm-nimbus:nimbus
+    ports:
+      - "8080:8080"
+  topology:
+    container_name: topology
+    image: "storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30"
+    command: storm jar /topology.jar org.apache.storm.starter.WordCountTopology topology
+    links:
+      - storm-nimbus:nimbus
+    volumes:
+      - ./topology.jar:/topology.jar
