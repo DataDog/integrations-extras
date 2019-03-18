@@ -1,14 +1,15 @@
 # stdlib
 from collections import namedtuple
-import urlparse
-from distutils.version import LooseVersion # pylint: disable=E0611,E0401
+from six import iteritems
+from six.moves.urllib.parse import urlparse, urljoin
+from distutils.version import LooseVersion
 
 # 3rd party
 import requests
 
 # project
-from checks import AgentCheck
-from util import headers
+from datadog_checks.base import AgentCheck
+from datadog_checks.base.utils.headers import headers
 
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'logstash'
@@ -23,6 +24,7 @@ LogstashInstanceConfig = namedtuple(
         'ssl_cert',
         'ssl_key',
     ])
+
 
 class LogstashCheck(AgentCheck):
     DEFAULT_VERSION = '1.0.0'
@@ -62,9 +64,11 @@ class LogstashCheck(AgentCheck):
         "logstash.jvm.mem.pools.young.peak_max_in_bytes": ("gauge", "jvm.mem.pools.young.peak_max_in_bytes"),
         "logstash.jvm.mem.pools.young.max_in_bytes": ("gauge", "jvm.mem.pools.young.max_in_bytes"),
         "logstash.jvm.mem.pools.young.committed_in_bytes": ("gauge", "jvm.mem.pools.young.committed_in_bytes"),
-        "logstash.jvm.gc.collectors.old.collection_time_in_millis": ("gauge", "jvm.gc.collectors.old.collection_time_in_millis"),
+        "logstash.jvm.gc.collectors.old.collection_time_in_millis":
+            ("gauge", "jvm.gc.collectors.old.collection_time_in_millis"),
         "logstash.jvm.gc.collectors.old.collection_count": ("gauge", "jvm.gc.collectors.old.collection_count"),
-        "logstash.jvm.gc.collectors.young.collection_time_in_millis": ("gauge", "jvm.gc.collectors.young.collection_time_in_millis"),
+        "logstash.jvm.gc.collectors.young.collection_time_in_millis":
+            ("gauge", "jvm.gc.collectors.young.collection_time_in_millis"),
         "logstash.jvm.gc.collectors.young.collection_count": ("gauge", "jvm.gc.collectors.young.collection_count"),
         "logstash.reloads.successes": ("gauge", "reloads.successes"),
         "logstash.reloads.failures": ("gauge", "reloads.failures")
@@ -81,7 +85,8 @@ class LogstashCheck(AgentCheck):
 
     PIPELINE_INPUTS_METRICS = {
         "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
-        "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": ("gauge", "events.queue_push_duration_in_millis")
+        "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis":
+            ("gauge", "events.queue_push_duration_in_millis")
     }
 
     PIPELINE_OUTPUTS_METRICS = {
@@ -103,7 +108,7 @@ class LogstashCheck(AgentCheck):
 
         # Support URLs that have a path in them from the config, for
         # backwards-compatibility.
-        parsed = urlparse.urlparse(url)
+        parsed = urlparse(url)
         if parsed[2] != "":
             url = "%s://%s" % (parsed[0], parsed[1])
         port = parsed.port
@@ -127,7 +132,7 @@ class LogstashCheck(AgentCheck):
             service_check_tags=service_check_tags,
             ssl_cert=instance.get('ssl_cert'),
             ssl_key=instance.get('ssl_key'),
-            ssl_verify=instance.get('ssl_verify'),
+            ssl_verify=instance.get('ssl_verify', False),
             tags=tags,
             timeout=timeout,
             url=url
@@ -140,8 +145,9 @@ class LogstashCheck(AgentCheck):
         auth = None
 
         # Load SSL configuration, if available.
-        # ssl_verify can be a bool or a string (http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification)
-        if isinstance(config.ssl_verify, bool) or isinstance(config.ssl_verify, str):
+        # ssl_verify can be a bool or a string
+        # (http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification)
+        if isinstance(config.ssl_verify, (bool, str)):
             verify = config.ssl_verify
         else:
             self.log.error("ssl_verify in the configuration file must be a bool or a string.")
@@ -189,7 +195,6 @@ class LogstashCheck(AgentCheck):
             )
             version = self.DEFAULT_VERSION
 
-
         self.service_metadata('version', version)
         self.log.debug("Logstash version is %s" % version)
         return version
@@ -203,15 +208,23 @@ class LogstashCheck(AgentCheck):
         if version and LooseVersion(version) < LooseVersion("6.0.0"):
             stats_metrics.update(self.PIPELINE_METRICS)
 
-        stats_url = urlparse.urljoin(config.url, '/_node/stats')
+        stats_url = urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
 
         self._process_stats_data(stats_data, stats_metrics, config)
 
         if version and LooseVersion(version) < LooseVersion("6.0.0"):
-            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name')
-            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_OUTPUTS_METRICS, config, 'outputs', 'output_name')
-            self._process_pipeline_plugins_data(stats_data['pipeline']['plugins'], self.PIPELINE_FILTERS_METRICS, config, 'filters', 'filter_name')
+            self._process_pipeline_plugins_data(
+                stats_data['pipeline']['plugins'],
+                self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name')
+            self._process_pipeline_plugins_data(
+                stats_data['pipeline']['plugins'],
+                self.PIPELINE_OUTPUTS_METRICS, config, 'outputs',
+                'output_name')
+            self._process_pipeline_plugins_data(
+                stats_data['pipeline']['plugins'],
+                self.PIPELINE_FILTERS_METRICS, config, 'filters',
+                'filter_name')
 
         self.service_check(
             self.SERVICE_CHECK_CONNECT_NAME,
@@ -220,24 +233,30 @@ class LogstashCheck(AgentCheck):
         )
 
     def _process_stats_data(self, data, stats_metrics, config):
-        for metric, desc in stats_metrics.iteritems():
+        for metric, desc in iteritems(stats_metrics):
             self._process_metric(data, metric, *desc, tags=config.tags)
 
-
-    def _process_pipeline_plugins_data(self, pipeline_plugins_data, pipeline_plugins_metrics, config, plugin_type, tag_name):
-        for plugin_data in pipeline_plugins_data.get(plugin_type,[]):
+    def _process_pipeline_plugins_data(
+        self,
+        pipeline_plugins_data,
+        pipeline_plugins_metrics,
+        config,
+        plugin_type,
+        tag_name
+    ):
+        for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
 
             metrics_tags = list(config.tags)
 
             if not plugin_name:
-                    plugin_name = 'unknown'
+                plugin_name = 'unknown'
 
             metrics_tags.append(
                 u"{}:{}".format(tag_name, plugin_name)
             )
 
-            for metric, desc in pipeline_plugins_metrics.iteritems():
+            for metric, desc in iteritems(pipeline_plugins_metrics):
                 self._process_metric(
                     plugin_data, metric, *desc,
                     tags=metrics_tags)
