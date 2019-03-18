@@ -10,6 +10,7 @@ from six import PY3
 
 if PY3:
     long = int
+    basestring = str
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'storm'
 
@@ -265,11 +266,11 @@ class StormCheck(AgentCheck):
             return data
         except requests.exceptions.ConnectionError as e:
             self.log.error("{1} [url:{0}]".format(self.nimbus_server, "Unable to establish a connection to Storm UI"))
-            raise
+            raise e
         except Exception as e:
             self.log.warning("[url:{}] {}".format(url, error_message))
             self.log.exception(e)
-            raise
+            raise e
 
     def get_storm_cluster_summary(self):
         """ Make the storm cluster summary metric request.

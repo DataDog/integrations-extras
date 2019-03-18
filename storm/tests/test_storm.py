@@ -628,17 +628,17 @@ def test_integration_with_ci_cluster(dd_environment, aggregator):
     #         )
 
     # Spout Stats
-    for name, values in [
-        ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
-    ]:
-        test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
-        for i, metric_name in enumerate([
-            'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
-            'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
-        ]):
-            aggregator.assert_metric(
-                'storm.spout.last_60.{}'.format(metric_name),
-                value=values[i],
-                tags=test_tags,
-                at_least=1
-            )
+    # for name, values in [
+    #     ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
+    # ]:
+    #     test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
+    #     for i, metric_name in enumerate([
+    #         'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
+    #         'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
+    #     ]):
+    #         aggregator.assert_metric(
+    #             'storm.spout.last_60.{}'.format(metric_name),
+    #             value=values[i],
+    #             tags=test_tags,
+    #             at_least=1
+    #         )
