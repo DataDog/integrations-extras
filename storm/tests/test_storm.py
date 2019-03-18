@@ -469,176 +469,176 @@ def test_check(aggregator):
                 count=1
             )
 
-    # Topology Metrics
-    metric_cases = (
-        # Topology Metrics By Bolt
-        ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
-            storm_version_tags + topology_tags + env_tags + ['bolts:count', 'stream:__system']),
+    # # Topology Metrics
+    # metric_cases = (
+    #     # Topology Metrics By Bolt
+    #     ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
+    #         storm_version_tags + topology_tags + env_tags + ['bolts:count', 'stream:__system']),
+    # )
+    # for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
+    #     aggregator.assert_metric(
+    #         'storm.topologyStats.metrics.spouts.last_60.{}'.format(m),
+    #         at_least=1
+    #     )
+
+    # for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
+    #     aggregator.assert_metric(
+    #         'storm.metrics.bolts.last_60.{}'.format(m),
+    #         at_least=1
+    #     )
+
+    # for case in metric_cases:
+    #     aggregator.assert_metric(case[0], value=case[1], tags=case[2], count=1)
+
+    # # Raises when COVERAGE=true and coverage < 100%
+    # aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.integration
+def test_integration_with_ci_cluster(dd_environment, aggregator):
+    check = StormCheck(STORM_CHECK_INTEGRATION_CONFIG, {})
+
+    # run your actual tests...
+    check.check(STORM_CHECK_INTEGRATION_CONFIG['instances'][0])
+
+    # Service Check
+    aggregator.assert_service_check(
+        'topology_check.topology',
+        count=1,
+        status=AgentCheck.OK,
+        tags=['stormEnvironment:integration', 'stormVersion:1.1.1']
     )
-    for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
+
+    topology_tags = ['topology:topology']
+    env_tags = ['stormEnvironment:integration']
+    storm_version_tags = ['stormVersion:1.1.1']
+
+    aggregator.assert_metric(
+        'storm.cluster.supervisors', value=1, count=1,
+        tags=storm_version_tags + env_tags
+    )
+
+    # Cluster Stats
+    test_cases = [
+        'executorsTotal',
+        'slotsTotal',
+        'slotsFree',
+        'topologies',
+        'supervisors',
+        'tasksTotal',
+        'slotsUsed',
+        'availCpu',
+        'totalCpu',
+        'cpuAssignedPercentUtil',
+        'availMem',
+        'totalMem',
+        'memAssignedPercentUtil'
+    ]
+
+    test_tags = storm_version_tags + env_tags
+    for name in test_cases:
         aggregator.assert_metric(
-            'storm.topologyStats.metrics.spouts.last_60.{}'.format(m),
-            at_least=1
+            'storm.cluster.{}'.format(name),
+            count=1,
+            tags=test_tags
         )
 
-    for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
+    # Nimbus Stats
+    test_cases = [
+        'numLeaders',
+        'numFollowers',
+        'numOffline',
+        'numDead'
+    ]
+    test_tags = env_tags + storm_version_tags
+
+    for name in test_cases:
         aggregator.assert_metric(
-            'storm.metrics.bolts.last_60.{}'.format(m),
-            at_least=1
+            'storm.nimbus.{}'.format(name),
+            count=1
         )
 
-    for case in metric_cases:
-        aggregator.assert_metric(case[0], value=case[1], tags=case[2], count=1)
+    # Supervisor Stats
+    test_cases = [
+        'slotsTotal',
+        'slotsUsed',
+        'totalMem',
+        'usedMem',
+        'totalCpu',
+        'usedCpu'
+    ]
 
-    # Raises when COVERAGE=true and coverage < 100%
-    aggregator.assert_all_metrics_covered()
+    for name in test_cases:
+        aggregator.assert_metric(
+            'storm.supervisor.{}'.format(name),
+            count=1
+        )
 
+    # Topology Stats
+    test_cases = [
+        'emitted',
+        'transferred',
+        'acked',
+        'failed',
+        'completeLatency',
+        'uptimeSeconds',
+        'executorsTotal',
+        'numBolts',
+        'replicationCount',
+        'tasksTotal',
+        'numSpouts',
+        'workersTotal',
+        'assignedMemOnHeap',
+        'assignedMemOffHeap',
+        'assignedTotalMem',
+        'requestedMemOnHeap',
+        'requestedMemOffHeap',
+        'requestedCpu',
+        'assignedCpu',
+        'msgTimeout',
+        'debug',
+        'samplingPct'
+    ]
 
-# @pytest.mark.integration
-# def test_integration_with_ci_cluster(dd_environment, aggregator):
-#     check = StormCheck(STORM_CHECK_INTEGRATION_CONFIG, {})
+    test_tags = topology_tags + env_tags + storm_version_tags
+    interval = 'last_60'
 
-#     # run your actual tests...
-#     check.check(STORM_CHECK_INTEGRATION_CONFIG['instances'][0])
+    for name in test_cases:
+        aggregator.assert_metric(
+            'storm.topologyStats.{}.{}'.format(interval, name),
+            at_least=1,
+            tags=test_tags
+        )
 
-#     # Service Check
-#     aggregator.assert_service_check(
-#         'topology_check.topology',
-#         count=1,
-#         status=AgentCheck.OK,
-#         tags=['stormEnvironment:integration', 'stormVersion:1.1.1']
-#     )
+    # # Bolt Stats
+    # for name, values in [
+    #     ('split', (8, None, None, None, None, None, None, None, None, 8, None, None, None, None)),
+    #     ('count', (12, None, None, None, None, None, None, None, None, 12, None, None, None, None))
+    # ]:
+    #     test_tags = env_tags + topology_tags + ['bolt:{}'.format(name)] + storm_version_tags
+    #     for i, metric_name in enumerate([
+    #         'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
+    #         'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
+    #     ]):
+    #         aggregator.assert_metric(
+    #             'storm.bolt.last_60.{}'.format(metric_name),
+    #             value=values[i],
+    #             tags=test_tags,
+    #             at_least=1
+    #         )
 
-#     topology_tags = ['topology:topology']
-#     env_tags = ['stormEnvironment:integration']
-#     storm_version_tags = ['stormVersion:1.1.1']
-
-#     aggregator.assert_metric(
-#         'storm.cluster.supervisors', value=1, count=1,
-#         tags=storm_version_tags + env_tags
-#     )
-
-#     # Cluster Stats
-#     test_cases = [
-#         'executorsTotal',
-#         'slotsTotal',
-#         'slotsFree',
-#         'topologies',
-#         'supervisors',
-#         'tasksTotal',
-#         'slotsUsed',
-#         'availCpu',
-#         'totalCpu',
-#         'cpuAssignedPercentUtil',
-#         'availMem',
-#         'totalMem',
-#         'memAssignedPercentUtil'
-#     ]
-
-#     test_tags = storm_version_tags + env_tags
-#     for name in test_cases:
-#         aggregator.assert_metric(
-#             'storm.cluster.{}'.format(name),
-#             count=1,
-#             tags=test_tags
-#         )
-
-#     # Nimbus Stats
-#     test_cases = [
-#         'numLeaders',
-#         'numFollowers',
-#         'numOffline',
-#         'numDead'
-#     ]
-#     test_tags = env_tags + storm_version_tags
-
-#     for name in test_cases:
-#         aggregator.assert_metric(
-#             'storm.nimbus.{}'.format(name),
-#             count=1
-#         )
-
-#     # Supervisor Stats
-#     test_cases = [
-#         'slotsTotal',
-#         'slotsUsed',
-#         'totalMem',
-#         'usedMem',
-#         'totalCpu',
-#         'usedCpu'
-#     ]
-
-#     for name in test_cases:
-#         aggregator.assert_metric(
-#             'storm.supervisor.{}'.format(name),
-#             count=1
-#         )
-
-#     # Topology Stats
-#     test_cases = [
-#         'emitted',
-#         'transferred',
-#         'acked',
-#         'failed',
-#         'completeLatency',
-#         'uptimeSeconds',
-#         'executorsTotal',
-#         'numBolts',
-#         'replicationCount',
-#         'tasksTotal',
-#         'numSpouts',
-#         'workersTotal',
-#         'assignedMemOnHeap',
-#         'assignedMemOffHeap',
-#         'assignedTotalMem',
-#         'requestedMemOnHeap',
-#         'requestedMemOffHeap',
-#         'requestedCpu',
-#         'assignedCpu',
-#         'msgTimeout',
-#         'debug',
-#         'samplingPct'
-#     ]
-
-#     test_tags = topology_tags + env_tags + storm_version_tags
-#     interval = 'last_60'
-
-#     for name in test_cases:
-#         aggregator.assert_metric(
-#             'storm.topologyStats.{}.{}'.format(interval, name),
-#             at_least=1,
-#             tags=test_tags
-#         )
-
-#     # Bolt Stats
-#     for name, values in [
-#         ('split', (8, None, None, None, None, None, None, None, None, 8, None, None, None, None)),
-#         ('count', (12, None, None, None, None, None, None, None, None, 12, None, None, None, None))
-#     ]:
-#         test_tags = env_tags + topology_tags + ['bolt:{}'.format(name)] + storm_version_tags
-#         for i, metric_name in enumerate([
-#             'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
-#             'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
-#         ]):
-#             aggregator.assert_metric(
-#                 'storm.bolt.last_60.{}'.format(metric_name),
-#                 value=values[i],
-#                 tags=test_tags,
-#                 at_least=1
-#             )
-
-#     # Spout Stats
-#     for name, values in [
-#         ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
-#     ]:
-#         test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
-#         for i, metric_name in enumerate([
-#             'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
-#             'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
-#         ]):
-#             aggregator.assert_metric(
-#                 'storm.spout.last_60.{}'.format(metric_name),
-#                 value=values[i],
-#                 tags=test_tags,
-#                 at_least=1
-#             )
+    # Spout Stats
+    for name, values in [
+        ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
+    ]:
+        test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
+        for i, metric_name in enumerate([
+            'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
+            'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
+        ]):
+            aggregator.assert_metric(
+                'storm.spout.last_60.{}'.format(metric_name),
+                value=values[i],
+                tags=test_tags,
+                at_least=1
+            )

@@ -170,7 +170,6 @@ def _get_list(stat_map, *components):
     :param components: components in order to traverse.
     :return: list of component
     :rtype: list
-    val = _g(s, [], None, 'acked')
     """
     val = _g(stat_map, [], None, *components)
     if not val or not isinstance(val, list):
@@ -214,7 +213,13 @@ class StormCheck(AgentCheck):
             :return: Storm Version
             :rtype: StormCheck.StormVersion
             """
-            version_string.split(".")
+            parts = version_string.split(".")
+            patch_parts = parts[2].split("-")
+            try:
+                classifier = patch_parts[1]
+            except IndexError:
+                classifier = None
+            return cls(parts[0], parts[1], patch_parts[0], classifier=classifier)
 
         def __init__(self, major, minor, patch, classifier=None):
             self.major = major
@@ -333,10 +338,9 @@ class StormCheck(AgentCheck):
             endpoint = "/api/v1/topology/{}"
 
         params = {'window': interval}
-        r = self.get_request_json(endpoint.format(topology_id),
+        return self.get_request_json(endpoint.format(topology_id),
                                      "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
                                      params=params)
-        return r
 
     def process_cluster_stats(self, cluster_stats):
         """ Process Cluster Stats Response

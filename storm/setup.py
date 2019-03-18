@@ -31,7 +31,7 @@ setup(
 
     # Author details
     author='@platinummonkey',
-    author_email='@platinummonkey',
+    author_email='cody.lee@datadoghq.com',
 
     # License
     license='BSD-3-Clause',
