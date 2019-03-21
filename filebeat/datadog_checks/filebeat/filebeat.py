@@ -5,24 +5,23 @@
 # stdlib
 import collections
 import errno
+import json
 import numbers
 import os
 import re
 import sre_constants
 
-# 3rd party
 import requests
-import simplejson
+from six import iteritems
 
-# project
-from datadog_checks.checks import AgentCheck
+from datadog_checks.base import AgentCheck
 from datadog_checks.utils.containers import hash_mutable
 
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'filebeat'
 
 
-class FilebeatCheckHttpProfiler(object):
+class FilebeatCheckHttpProfiler:
     '''
     Filebeat's HTTP profiler gives a bunch of counter variables; their value holds little interest,
     what we really want is the delta in between runs. This class is responsible for caching the
@@ -88,6 +87,9 @@ class FilebeatCheckHttpProfiler(object):
         self._should_keep_metrics = {}
 
     def gather_metrics(self):
+        if not self._config.stats_endpoint:
+            return {}
+
         response = self._make_request()
 
         return {
@@ -115,7 +117,7 @@ class FilebeatCheckHttpProfiler(object):
     def _compute_increment_deltas(self, new_values):
         deltas = {}
 
-        for name, new_value in new_values.iteritems():
+        for name, new_value in iteritems(new_values):
             if name not in self._previous_increment_values \
                     or self._previous_increment_values[name] > new_value:
                 # either the agent or filebeat got restarted, we're not
@@ -145,7 +147,9 @@ class FilebeatCheckHttpProfiler(object):
         return dict(items)
 
 
-class FilebeatCheckInstanceConfig(object):
+class FilebeatCheckInstanceConfig:
+
+    _only_metrics_regexes = None
 
     def __init__(self, instance):
         self._registry_file_path = instance.get('registry_file_path')
@@ -183,11 +187,9 @@ class FilebeatCheckInstanceConfig(object):
         return any(re.search(regex, metric_name) for regex in self._compiled_regexes())
 
     def _compiled_regexes(self):
-        try:
-            return self._only_metrics_regexes
-        except AttributeError:
+        if self._only_metrics_regexes is None:
             self._only_metrics_regexes = self._compile_regexes()
-            return self._compiled_regexes()
+        return self._only_metrics_regexes
 
     def _compile_regexes(self):
         compiled_regexes = []
@@ -234,12 +236,13 @@ class FilebeatCheck(AgentCheck):
     def _parse_registry_file(self, registry_file_path):
         try:
             with open(registry_file_path) as registry_file:
-                return simplejson.load(registry_file)
+                return json.load(registry_file)
         except IOError as ex:
             self.log.error('Cannot read the registry log file at %s: %s' % (registry_file_path, ex))
 
             if ex.errno == errno.EACCES:
-                self.log.error('You might be interesting in having a look at https://github.com/elastic/beats/pull/6455')
+                self.log.error('You might be interesting in having a look at '
+                               'https://github.com/elastic/beats/pull/6455')
 
             return []
 
@@ -266,14 +269,14 @@ class FilebeatCheck(AgentCheck):
     def _gather_http_profiler_metrics(self, config, profiler):
         try:
             all_metrics = profiler.gather_metrics()
-        except StandardError as ex:
+        except Exception as ex:
             self.log.error('Error when fetching metrics from %s: %s' % (config.stats_endpoint, ex))
             return
 
         tags = ['stats_endpoint:{0}'.format(config.stats_endpoint)]
 
-        for action, metrics in all_metrics.iteritems():
+        for action, metrics in iteritems(all_metrics):
             method = getattr(self, action)
 
-            for name, value in metrics.iteritems():
+            for name, value in iteritems(metrics):
                 method(name, value, tags)
