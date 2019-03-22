@@ -2,7 +2,7 @@
 
 ## Overview
 
-Get metrics from Eventstore in real time to:
+Get metrics from EventStore in real time to:
 
 * Visualize and monitor EventStore queues
 * capture all available metrics within the stats api
@@ -11,13 +11,19 @@ Get metrics from Eventstore in real time to:
 
 ### Installation
 
-Install the `dd-check-eventstore` package manually or with your favourite configuration manager
+To install the EventStore check on your host:
+
+1. Install the [developer toolkit][1] on any machine.
+2. Run `ddev release build eventstore` to build the package.
+3. [Download the Datadog Agent][2].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/eventstore/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
-  1. Edit the eventstore.d/conf.yaml file, in the conf.d/ folder at the root of your Agent's configuration directory to start collecting your eventstore performance data. See the sample eventstore.d/eventstore.yaml.default for all available configuration options.
+1. Edit the `eventstore.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][3] to start collecting your EventStore [metrics](#metric-collection) and [logs](#log-collection).
+  See the [sample eventstore.d/conf.yaml][4] for all available configuration options.
 
-  2. Restart the Agent
+2. [Restart the Agent][5]
 
 ### Validation
 
@@ -53,3 +59,9 @@ The eventstore check does not include any service checks.
 ## Troubleshooting
 
 Raise a ticket for the maintainer to assist with
+
+[1]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
+[4]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/datadog_checks/eventstore/data/conf.yaml.example
+[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
