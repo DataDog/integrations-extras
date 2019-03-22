@@ -11,8 +11,8 @@ import pytest
 
 from datadog_checks.filebeat import FilebeatCheck
 
+from .common import registry_file_path
 
-FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'fixtures')
 
 mocked_file_stats = namedtuple('mocked_file_stats', ['st_size', 'st_ino', 'st_dev'])
 
@@ -28,10 +28,6 @@ def mocked_os_stat(mocked_paths_and_stats):
         return vanilla_os_stat(path)
 
     return mock.patch.object(os, 'stat', side_effect=internal_mock)
-
-
-def registry_file_path(name):
-    return os.path.join(FIXTURE_DIR, '{}_registry.json'.format(name))
 
 
 def _build_instance(name, stats_endpoint=None, only_metrics=None, timeout=None):
@@ -389,3 +385,12 @@ def test_timeout_not_a_number():
 def test_negative_timeout():
     _assert_config_raises({'port': 82, 'timeout': 0}, 'must be a positive number')
     _assert_config_raises({'port': 82, 'timeout': -0.5}, 'must be a positive number')
+
+
+def test_check(aggregator, dd_environment):
+    check = FilebeatCheck('filebeat', {}, {})
+    check.check(dd_environment)
+    check.check(dd_environment)
+    tags = ['stats_endpoint:{}'.format(dd_environment['stats_endpoint'])]
+    aggregator.assert_metric('filebeat.harvester.running', metric_type=aggregator.GAUGE, count=2, tags=tags)
+    aggregator.assert_metric('libbeat.config.module.starts', metric_type=aggregator.COUNTER, count=1, tags=tags)
