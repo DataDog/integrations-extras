@@ -2,7 +2,7 @@ import base64
 import re
 import requests
 
-from checks import AgentCheck
+from datadog_checks.base import AgentCheck, ensure_bytes
 
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'stardog'
@@ -76,11 +76,11 @@ _g_metrics_map = {
 
 
 _g_bd_specific_map = {
-    'databases\.(.*).txns.openTransactions': convert_count_db,
-    'databases\.(.*).txns.speed': convert_query_speed_db,
-    'databases\.(.*).queries.running': convert_count_db,
-    'databases\.(.*).queries.speed': convert_query_speed_db,
-    'databases\.(.*).openConnections': convert_count_db,
+    r'databases\.(.*).txns.openTransactions': convert_count_db,
+    r'databases\.(.*).txns.speed': convert_query_speed_db,
+    r'databases\.(.*).queries.running': convert_count_db,
+    r'databases\.(.*).queries.speed': convert_query_speed_db,
+    r'databases\.(.*).openConnections': convert_count_db,
 }
 
 
@@ -110,8 +110,12 @@ class StardogCheck(AgentCheck):
 
     def check(self, instance):
         try:
-            auth_token = base64.b64encode(instance['username'] + ":" + instance['password'])
-            response = requests.get(instance['stardog_url'] + '/admin/status', headers={'Authorization': 'Basic ' + auth_token})
+            auth_token = base64.b64encode(
+                ensure_bytes(instance['username'] + ":" + instance['password'])
+            )
+            response = requests.get(
+                instance['stardog_url'] + '/admin/status', headers={'Authorization': 'Basic {}'.format(auth_token)}
+            )
         except KeyError:
             raise Exception('The Stardog check instance is not properly configured')
 

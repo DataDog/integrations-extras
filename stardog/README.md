@@ -16,16 +16,16 @@ The Stardog check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Stardog check on your host:
 
-1. [Download the Datadog Agent][1].
-2. Download the [check.py file][2] for Stardog.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `stardog.py`.
+1. Install the [developer toolkit][2] on any machine.
+2. Run `ddev release build stardog` to build the package.
+3. [Download the Datadog Agent][1].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/stardog/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
-To configure the Stardog check: 
+To configure the Stardog check:
 
-1. Create a `stardog.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+1. Create a `stardog.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
 2. Create a `conf.yaml` file in the `stardog.d/` folder previously created.
 3. Consult the [sample stardog.yaml][3] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
