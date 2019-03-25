@@ -3,14 +3,18 @@
 # Licensed under Simplified BSD License (see LICENSE)
 # flake8: noqa E501
 
+from datadog_checks.dev import get_docker_hostname
+
+HOST = get_docker_hostname()
+
 INSTANCE = {
-    'server': 'http://localhost:8080',
-    'environment': 'test'
+    'server': 'http://{}:8080'.format(HOST),
+    'environment': 'integration'
 }
 
 TEST_STORM_CLUSTER_SUMMARY = {
     "executorsTotal": 33,
-    "stormVersion": "1.0.3",
+    "stormVersion": "1.2.0",
     "slotsTotal": 10,
     "slotsFree": 4,
     "user": None,

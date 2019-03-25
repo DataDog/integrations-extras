@@ -17,13 +17,12 @@ import responses
 import mock
 
 CHECK_NAME = 'storm'
-STORM_CHECK_CONFIG = {'instances': [{'server': 'http://localhost:8080', 'environment': 'test'}]}
-STORM_CHECK_INTEGRATION_CONFIG = {'instances': [{'server': 'http://localhost:8080', 'environment': 'integration'}]}
+STORM_CHECK_CONFIG = {'server': 'http://localhost:8080', 'environment': 'test'}
 
 
 def test_load_from_config():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check = StormCheck(CHECK_NAME, {}, {})
+    check.update_from_config(STORM_CHECK_CONFIG)
     assert('http://localhost:8080' == check.nimbus_server)
     assert('test' == check.environment_name)
     assert([] == check.additional_tags)
@@ -36,8 +35,8 @@ def test_get_storm_cluster_summary():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_CLUSTER_SUMMARY
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_cluster_summary()
         assert(TEST_STORM_CLUSTER_SUMMARY == result)
 
@@ -47,8 +46,8 @@ def test_get_storm_nimbus_summary():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_NIMBUSES_SUMMARY
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_nimbus_summary()
         assert(TEST_STORM_NIMBUSES_SUMMARY == result)
 
@@ -58,8 +57,8 @@ def test_get_storm_supervisor_summary():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_SUPERVISOR_SUMMARY
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_supervisor_summary()
         assert(TEST_STORM_SUPERVISOR_SUMMARY == result)
 
@@ -69,8 +68,8 @@ def test_get_storm_topology_summary():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_TOPOLOGY_SUMMARY
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_topology_summary()
         assert(TEST_STORM_TOPOLOGY_SUMMARY == result)
 
@@ -80,8 +79,8 @@ def test_get_storm_topology_info():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_TOPOLOGY_RESP
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_topology_info('my_topology-1-1489183263')
         assert(TEST_STORM_TOPOLOGY_RESP == result)
 
@@ -91,16 +90,16 @@ def test_get_storm_topology_metrics():
         'datadog_checks.storm.StormCheck.get_request_json',
         return_value=TEST_STORM_TOPOLOGY_METRICS_RESP
     ):
-        check = StormCheck(STORM_CHECK_CONFIG, {})
-        check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+        check = StormCheck(CHECK_NAME, {}, {})
+        check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_topology_metrics('my_topology-1-1489183263')
         assert(TEST_STORM_TOPOLOGY_METRICS_RESP == result)
 
 
 def test_process_cluster_stats():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
+    check = StormCheck(CHECK_NAME, {}, {})
 
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check.update_from_config(STORM_CHECK_CONFIG)
 
     results = defaultdict(list)
 
@@ -123,8 +122,8 @@ def test_process_cluster_stats():
 
 
 def test_process_nimbus_stats():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check = StormCheck(CHECK_NAME, {}, {})
+    check.update_from_config(STORM_CHECK_CONFIG)
 
     results = defaultdict(list)
 
@@ -148,8 +147,8 @@ def test_process_nimbus_stats():
 
 
 def test_process_supervisor_stats():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check = StormCheck(CHECK_NAME, {}, {})
+    check.update_from_config(STORM_CHECK_CONFIG)
 
     results = defaultdict(list)
 
@@ -172,8 +171,8 @@ def test_process_supervisor_stats():
 
 
 def test_process_topology_stats():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check = StormCheck(CHECK_NAME, {}, {})
+    check.update_from_config(STORM_CHECK_CONFIG)
 
     results = defaultdict(list)
 
@@ -226,8 +225,8 @@ def test_process_topology_stats():
 
 
 def test_process_topology_metrics():
-    check = StormCheck(STORM_CHECK_CONFIG, {})
-    check.update_from_config(STORM_CHECK_CONFIG['instances'][0])
+    check = StormCheck(CHECK_NAME, {}, {})
+    check.update_from_config(STORM_CHECK_CONFIG)
 
     results = defaultdict(list)
 
@@ -279,7 +278,7 @@ def test_check(aggregator):
     """
     Testing Storm check.
     """
-    check = StormCheck(STORM_CHECK_CONFIG, {})
+    check = StormCheck(CHECK_NAME, {}, {})
 
     responses.add(
         responses.GET,
@@ -318,11 +317,11 @@ def test_check(aggregator):
         status=200
     )
 
-    check.check(STORM_CHECK_CONFIG['instances'][0])
+    check.check(STORM_CHECK_CONFIG)
 
     topology_tags = ['topology:my_topology']
     env_tags = ['stormEnvironment:test']
-    storm_version_tags = ['stormVersion:1.0.3']
+    storm_version_tags = ['stormVersion:1.2.0']
 
     # Service Check
     aggregator.assert_service_check(
@@ -470,36 +469,36 @@ def test_check(aggregator):
             )
 
     # # Topology Metrics
-    # metric_cases = (
-    #     # Topology Metrics By Bolt
-    #     ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
-    #         storm_version_tags + topology_tags + env_tags + ['bolts:count', 'stream:__system']),
-    # )
-    # for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
-    #     aggregator.assert_metric(
-    #         'storm.topologyStats.metrics.spouts.last_60.{}'.format(m),
-    #         at_least=1
-    #     )
+    metric_cases = (
+        # Topology Metrics By Bolt
+        ('storm.topologyStats.metrics.bolts.last_60.transferred', 0.0,
+            storm_version_tags + topology_tags + env_tags + ['bolts:count', 'stream:__system']),
+    )
+    for m in ['acked', 'complete_ms_avg', 'emitted', 'transferred']:
+        aggregator.assert_metric(
+            'storm.topologyStats.metrics.spouts.last_60.{}'.format(m),
+            at_least=1
+        )
 
-    # for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
-    #     aggregator.assert_metric(
-    #         'storm.metrics.bolts.last_60.{}'.format(m),
-    #         at_least=1
-    #     )
+    for m in ['acked', 'emitted', 'executed', 'executed_ms_avg', 'process_ms_avg', 'transferred']:
+        aggregator.assert_metric(
+            'storm.topologyStats.metrics.bolts.last_60.{}'.format(m),
+            at_least=1
+        )
 
-    # for case in metric_cases:
-    #     aggregator.assert_metric(case[0], value=case[1], tags=case[2], count=1)
+    for case in metric_cases:
+        aggregator.assert_metric(case[0], value=case[1], tags=case[2], count=1)
 
-    # # Raises when COVERAGE=true and coverage < 100%
-    # aggregator.assert_all_metrics_covered()
+    # Raises when COVERAGE=true and coverage < 100%
+    aggregator.assert_all_metrics_covered()
 
 
 @pytest.mark.integration
 def test_integration_with_ci_cluster(dd_environment, aggregator):
-    check = StormCheck(STORM_CHECK_INTEGRATION_CONFIG, {})
+    check = StormCheck(CHECK_NAME, {}, {})
 
     # run your actual tests...
-    check.check(STORM_CHECK_INTEGRATION_CONFIG['instances'][0])
+    check.check(dd_environment)
 
     # Service Check
     aggregator.assert_service_check(
