@@ -24,11 +24,11 @@ STORM_CHECK_CONFIG = {'server': 'http://localhost:8080', 'environment': 'test'}
 def test_load_from_config():
     check = StormCheck(CHECK_NAME, {}, {})
     check.update_from_config(STORM_CHECK_CONFIG)
-    assert('http://localhost:8080' == check.nimbus_server)
-    assert('test' == check.environment_name)
-    assert([] == check.additional_tags)
-    assert([] == check.excluded_topologies)
-    assert([60] == check.intervals)
+    assert check.nimbus_server == 'http://localhost:8080'
+    assert check.environment_name == 'test'
+    assert check.additional_tags == []
+    assert check.excluded_topologies == []
+    assert check.intervals == [60]
 
 
 def test_get_storm_cluster_summary():
@@ -39,7 +39,7 @@ def test_get_storm_cluster_summary():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_cluster_summary()
-        assert(TEST_STORM_CLUSTER_SUMMARY == result)
+        assert result == TEST_STORM_CLUSTER_SUMMARY
 
 
 def test_get_storm_nimbus_summary():
@@ -50,7 +50,7 @@ def test_get_storm_nimbus_summary():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_nimbus_summary()
-        assert(TEST_STORM_NIMBUSES_SUMMARY == result)
+        assert result == TEST_STORM_NIMBUSES_SUMMARY
 
 
 def test_get_storm_supervisor_summary():
@@ -61,7 +61,7 @@ def test_get_storm_supervisor_summary():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_supervisor_summary()
-        assert(TEST_STORM_SUPERVISOR_SUMMARY == result)
+        assert result == TEST_STORM_SUPERVISOR_SUMMARY
 
 
 def test_get_storm_topology_summary():
@@ -72,7 +72,7 @@ def test_get_storm_topology_summary():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_storm_topology_summary()
-        assert(TEST_STORM_TOPOLOGY_SUMMARY == result)
+        assert result == TEST_STORM_TOPOLOGY_SUMMARY
 
 
 def test_get_storm_topology_info():
@@ -83,7 +83,7 @@ def test_get_storm_topology_info():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_topology_info('my_topology-1-1489183263')
-        assert(TEST_STORM_TOPOLOGY_RESP == result)
+        assert result == TEST_STORM_TOPOLOGY_RESP
 
 
 def test_get_storm_topology_metrics():
@@ -94,7 +94,7 @@ def test_get_storm_topology_metrics():
         check = StormCheck(CHECK_NAME, {}, {})
         check.update_from_config(STORM_CHECK_CONFIG)
         result = check.get_topology_metrics('my_topology-1-1489183263')
-        assert(TEST_STORM_TOPOLOGY_METRICS_RESP == result)
+        assert result == TEST_STORM_TOPOLOGY_METRICS_RESP
 
 
 def test_process_cluster_stats():
@@ -110,16 +110,16 @@ def test_process_cluster_stats():
     check.report_gauge = report_gauge
 
     check.process_cluster_stats(TEST_STORM_CLUSTER_SUMMARY)
-    assert(13 == len(results))
+    assert len(results) == 13
 
     # Check Cluster Stats
-    assert(33 == results['storm.cluster.executorsTotal'][0])
-    assert(10 == results['storm.cluster.slotsTotal'][0])
-    assert(4 == results['storm.cluster.slotsFree'][0])
-    assert(1 == results['storm.cluster.topologies'][0])
-    assert(1 == results['storm.cluster.supervisors'][0])
-    assert(33 == results['storm.cluster.tasksTotal'][0])
-    assert(6 == results['storm.cluster.slotsUsed'][0])
+    assert results['storm.cluster.executorsTotal'][0] == 33
+    assert results['storm.cluster.slotsTotal'][0] == 10
+    assert results['storm.cluster.slotsFree'][0] == 4
+    assert results['storm.cluster.topologies'][0] == 1
+    assert results['storm.cluster.supervisors'][0] == 1
+    assert results['storm.cluster.tasksTotal'][0] == 33
+    assert results['storm.cluster.slotsUsed'][0] == 6
 
 
 def test_process_nimbus_stats():
@@ -134,17 +134,17 @@ def test_process_nimbus_stats():
     check.report_gauge = report_gauge
 
     check.process_nimbus_stats(TEST_STORM_NIMBUSES_SUMMARY)
-    assert(5 == len(results))
+    assert len(results) == 5
 
     # Check Leader Stats
-    assert(0 == results['storm.nimbus.upTimeSeconds'][0])
-    assert(25842 == results['storm.nimbus.upTimeSeconds'][1])
+    assert results['storm.nimbus.upTimeSeconds'][0] == 0
+    assert results['storm.nimbus.upTimeSeconds'][1] == 25842
 
     # Check General Stats
-    assert(1 == results['storm.nimbus.numLeaders'][0])
-    assert(0 == results['storm.nimbus.numFollowers'][0])
-    assert(1 == results['storm.nimbus.numOffline'][0])
-    assert(0 == results['storm.nimbus.numDead'][0])
+    assert results['storm.nimbus.numLeaders'][0] == 1
+    assert results['storm.nimbus.numFollowers'][0] == 0
+    assert results['storm.nimbus.numOffline'][0] == 1
+    assert results['storm.nimbus.numDead'][0] == 0
 
 
 def test_process_supervisor_stats():
@@ -159,16 +159,16 @@ def test_process_supervisor_stats():
     check.report_gauge = report_gauge
 
     check.process_supervisor_stats(TEST_STORM_SUPERVISOR_SUMMARY)
-    assert(7 == len(results))
+    assert len(results) == 7
 
     # Check Supervisor Stats
-    assert(31559 == results['storm.supervisor.uptimeSeconds'][0])
-    assert(10 == results['storm.supervisor.slotsTotal'][0])
-    assert(6 == results['storm.supervisor.slotsUsed'][0])
-    assert(3072 == results['storm.supervisor.totalMem'][0])
-    assert(4992 == results['storm.supervisor.usedMem'][0])
-    assert(900 == results['storm.supervisor.totalCpu'][0])
-    assert(0 == results['storm.supervisor.usedCpu'][0])
+    assert results['storm.supervisor.uptimeSeconds'][0] == 31559
+    assert results['storm.supervisor.slotsTotal'][0] == 10
+    assert results['storm.supervisor.slotsUsed'][0] == 6
+    assert results['storm.supervisor.totalMem'][0] == 3072
+    assert results['storm.supervisor.usedMem'][0] == 4992
+    assert results['storm.supervisor.totalCpu'][0] == 900
+    assert results['storm.supervisor.usedCpu'][0] == 0
 
 
 def test_process_topology_stats():
@@ -183,46 +183,46 @@ def test_process_topology_stats():
     check.report_histogram = report_histogram
 
     check.process_topology_stats(TEST_STORM_TOPOLOGY_RESP, interval=60)
-    assert(47 == len(results))
+    assert len(results) == 47
 
     # Check Topology Stats
-    assert(307606 == results['storm.topologyStats.last_60.emitted'][0][0])
-    assert(307606 == results['storm.topologyStats.last_60.transferred'][0][0])
-    assert(104673 == results['storm.topologyStats.last_60.acked'][0][0])
-    assert(0 == results['storm.topologyStats.last_60.failed'][0][0])
-    assert(285.950 == results['storm.topologyStats.last_60.completeLatency'][0][0])
-    assert(1525788 == results['storm.topologyStats.last_60.uptimeSeconds'][0][0])
-    assert(33 == results['storm.topologyStats.last_60.executorsTotal'][0][0])
-    assert(6 == results['storm.topologyStats.last_60.numBolts'][0][0])
-    assert(1 == results['storm.topologyStats.last_60.replicationCount'][0][0])
-    assert(33 == results['storm.topologyStats.last_60.tasksTotal'][0][0])
-    assert(1 == results['storm.topologyStats.last_60.numSpouts'][0][0])
-    assert(6 == results['storm.topologyStats.last_60.workersTotal'][0][0])
+    assert results['storm.topologyStats.last_60.emitted'][0][0] == 307606
+    assert results['storm.topologyStats.last_60.transferred'][0][0] == 307606
+    assert results['storm.topologyStats.last_60.acked'][0][0] == 104673
+    assert results['storm.topologyStats.last_60.failed'][0][0] == 0
+    assert results['storm.topologyStats.last_60.completeLatency'][0][0] == 285.950
+    assert results['storm.topologyStats.last_60.uptimeSeconds'][0][0] == 1525788
+    assert results['storm.topologyStats.last_60.executorsTotal'][0][0] == 33
+    assert results['storm.topologyStats.last_60.numBolts'][0][0] == 6
+    assert results['storm.topologyStats.last_60.replicationCount'][0][0] == 1
+    assert results['storm.topologyStats.last_60.tasksTotal'][0][0] == 33
+    assert results['storm.topologyStats.last_60.numSpouts'][0][0] == 1
+    assert results['storm.topologyStats.last_60.workersTotal'][0][0] == 6
 
     # Check Bolt Stats
-    assert(3 == results['storm.bolt.last_60.tasks'][0][0])
-    assert('bolt:Bolt1' in results['storm.bolt.last_60.tasks'][0][1])
-    assert(0.001 == results['storm.bolt.last_60.executeLatency'][0][0])
-    assert(201.474 == results['storm.bolt.last_60.processLatency'][0][0])
-    assert(0.000 == results['storm.bolt.last_60.capacity'][0][0])
-    assert(0 == results['storm.bolt.last_60.failed'][0][0])
-    assert(101309 == results['storm.bolt.last_60.emitted'][0][0])
-    assert(212282 == results['storm.bolt.last_60.acked'][0][0])
-    assert(101309 == results['storm.bolt.last_60.transferred'][0][0])
-    assert(106311 == results['storm.bolt.last_60.executed'][0][0])
-    assert(3 == results['storm.bolt.last_60.executors'][0][0])
-    assert(1E10 == results['storm.bolt.last_60.errorLapsedSecs'][0][0])
+    assert results['storm.bolt.last_60.tasks'][0][0] == 3
+    assert 'bolt:Bolt1' in results['storm.bolt.last_60.tasks'][0][1]
+    assert results['storm.bolt.last_60.executeLatency'][0][0] == 0.001
+    assert results['storm.bolt.last_60.processLatency'][0][0] == 201.474
+    assert results['storm.bolt.last_60.capacity'][0][0] == 0.000
+    assert results['storm.bolt.last_60.failed'][0][0] == 0
+    assert results['storm.bolt.last_60.emitted'][0][0] == 101309
+    assert results['storm.bolt.last_60.acked'][0][0] == 212282
+    assert results['storm.bolt.last_60.transferred'][0][0] == 101309
+    assert results['storm.bolt.last_60.executed'][0][0] == 106311
+    assert results['storm.bolt.last_60.executors'][0][0] == 3
+    assert results['storm.bolt.last_60.errorLapsedSecs'][0][0] == 1E10
 
     # Check Spout Stats
-    assert(8 == results['storm.spout.last_60.tasks'][0][0])
-    assert('spout:source' in results['storm.spout.last_60.tasks'][0][1])
-    assert(285.950 == results['storm.spout.last_60.completeLatency'][0][0])
-    assert(0 == results['storm.spout.last_60.failed'][0][0])
-    assert(104673 == results['storm.spout.last_60.acked'][0][0])
-    assert(104673 == results['storm.spout.last_60.transferred'][0][0])
-    assert(104673 == results['storm.spout.last_60.emitted'][0][0])
-    assert(8 == results['storm.spout.last_60.executors'][0][0])
-    assert(38737 == results['storm.spout.last_60.errorLapsedSecs'][0][0])
+    assert results['storm.spout.last_60.tasks'][0][0] == 8
+    assert 'spout:source' in results['storm.spout.last_60.tasks'][0][1]
+    assert results['storm.spout.last_60.completeLatency'][0][0] == 285.950
+    assert results['storm.spout.last_60.failed'][0][0] == 0
+    assert results['storm.spout.last_60.acked'][0][0] == 104673
+    assert results['storm.spout.last_60.transferred'][0][0] == 104673
+    assert results['storm.spout.last_60.emitted'][0][0] == 104673
+    assert results['storm.spout.last_60.executors'][0][0] == 8
+    assert results['storm.spout.last_60.errorLapsedSecs'][0][0] == 38737
 
 
 def test_process_topology_metrics():
@@ -237,41 +237,41 @@ def test_process_topology_metrics():
     check.report_histogram = report_histogram
 
     check.process_topology_metrics('test', TEST_STORM_TOPOLOGY_METRICS_RESP, 60)
-    assert(10 == len(results))
+    assert len(results) == 10
 
     # Check Bolt Stats
-    assert(120 == results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][0])
-    assert('stream:__metrics' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][1])
-    assert(190748180 == results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][0])
-    assert('stream:default' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][1])
-    assert(190718100 == results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][0])
-    assert('stream:__ack_ack' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][1])
-    assert(20 == results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][0])
-    assert('stream:__system' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][1])
-    assert(120 == results['storm.topologyStats.metrics.bolts.last_60.transferred'][0][0])
-    assert(190733160 == results['storm.topologyStats.metrics.bolts.last_60.acked'][0][0])
-    assert(0 == len(results['storm.topologyStats.metrics.bolts.last_60.failed']))
-    assert(0 == len(results['storm.topologyStats.metrics.bolts.last_60.complete_ms_avg']))
-    assert(0.004 == results['storm.topologyStats.metrics.bolts.last_60.process_ms_avg'][0][0])
-    assert(190733140 == results['storm.topologyStats.metrics.bolts.last_60.executed'][0][0])
-    assert(0.005 == results['storm.topologyStats.metrics.bolts.last_60.executed_ms_avg'][0][0])
+    assert results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][0] == 120
+    assert 'stream:__metrics' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][0][1]
+    assert results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][0] == 190748180
+    assert 'stream:default' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][1][1]
+    assert results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][0] == 190718100
+    assert 'stream:__ack_ack' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][2][1]
+    assert results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][0] == 20
+    assert 'stream:__system' in results['storm.topologyStats.metrics.bolts.last_60.emitted'][3][1]
+    assert results['storm.topologyStats.metrics.bolts.last_60.transferred'][0][0] == 120
+    assert results['storm.topologyStats.metrics.bolts.last_60.acked'][0][0] == 190733160
+    assert len(results['storm.topologyStats.metrics.bolts.last_60.failed']) == 0
+    assert len(results['storm.topologyStats.metrics.bolts.last_60.complete_ms_avg']) == 0
+    assert results['storm.topologyStats.metrics.bolts.last_60.process_ms_avg'][0][0] == 0.004
+    assert results['storm.topologyStats.metrics.bolts.last_60.executed'][0][0] == 190733140
+    assert results['storm.topologyStats.metrics.bolts.last_60.executed_ms_avg'][0][0] == 0.005
 
     # Check Spout Stats
-    assert(20 == results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][0])
-    assert('stream:__metrics' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][1])
-    assert(17350280 == results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][0])
-    assert('stream:default' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][1])
-    assert(17328160 == results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][0])
-    assert('stream:__ack_init' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][1])
-    assert(20 == results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][0])
-    assert('stream:__system' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][1])
-    assert(20 == results['storm.topologyStats.metrics.spouts.last_60.transferred'][0][0])
-    assert(17339180 == results['storm.topologyStats.metrics.spouts.last_60.acked'][0][0])
-    assert(0 == len(results['storm.topologyStats.metrics.spouts.last_60.failed']))
-    assert(0 == len(results['storm.topologyStats.metrics.spouts.last_60.process_ms_avg']))
-    assert(0 == len(results['storm.topologyStats.metrics.spouts.last_60.executed_ms_avg']))
-    assert(0 == len(results['storm.topologyStats.metrics.spouts.last_60.executed']))
-    assert(920.497 == results['storm.topologyStats.metrics.spouts.last_60.complete_ms_avg'][0][0])
+    assert results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][0] == 20
+    assert 'stream:__metrics' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][0][1]
+    assert results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][0] == 17350280
+    assert 'stream:default' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][1][1]
+    assert results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][0] == 17328160
+    assert 'stream:__ack_init' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][2][1]
+    assert results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][0] == 20
+    assert 'stream:__system' in results['storm.topologyStats.metrics.spouts.last_60.emitted'][3][1]
+    assert results['storm.topologyStats.metrics.spouts.last_60.transferred'][0][0] == 20
+    assert results['storm.topologyStats.metrics.spouts.last_60.acked'][0][0] == 17339180
+    assert len(results['storm.topologyStats.metrics.spouts.last_60.failed']) == 0
+    assert len(results['storm.topologyStats.metrics.spouts.last_60.process_ms_avg']) == 0
+    assert len(results['storm.topologyStats.metrics.spouts.last_60.executed_ms_avg']) == 0
+    assert len(results['storm.topologyStats.metrics.spouts.last_60.executed']) == 0
+    assert results['storm.topologyStats.metrics.spouts.last_60.complete_ms_avg'][0][0] == 920.497
 
 
 @responses.activate
