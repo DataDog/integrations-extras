@@ -2,6 +2,7 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 from collections import defaultdict
+import time
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.storm import StormCheck
@@ -609,35 +610,40 @@ def test_integration_with_ci_cluster(dd_environment, aggregator):
             tags=test_tags
         )
 
-    # # Bolt Stats
-    # for name, values in [
-    #     ('split', (8, None, None, None, None, None, None, None, None, 8, None, None, None, None)),
-    #     ('count', (12, None, None, None, None, None, None, None, None, 12, None, None, None, None))
-    # ]:
-    #     test_tags = env_tags + topology_tags + ['bolt:{}'.format(name)] + storm_version_tags
-    #     for i, metric_name in enumerate([
-    #         'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
-    #         'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
-    #     ]):
-    #         aggregator.assert_metric(
-    #             'storm.bolt.last_60.{}'.format(metric_name),
-    #             value=values[i],
-    #             tags=test_tags,
-    #             at_least=1
-    #         )
+    if not aggregator.metrics('storm.bolt.last_60.tasks'):
+        # It may takes some time for bolt/spout stats to appear
+        time.sleep(10)
+        check.check(dd_environment)
+
+    # Bolt Stats
+    for name, values in [
+        ('split', (8, None, None, None, None, None, None, None, None, 8, None, None, None, None)),
+        ('count', (12, None, None, None, None, None, None, None, None, 12, None, None, None, None))
+    ]:
+        test_tags = env_tags + topology_tags + ['bolt:{}'.format(name)] + storm_version_tags
+        for i, metric_name in enumerate([
+            'tasks', 'executeLatency', 'processLatency', 'capacity', 'failed', 'acked', 'transferred', 'executed',
+            'emitted', 'executors', 'errorLapsedSecs', 'requestedMemOnHeap', 'requestedCpu', 'requestedMemOffHeap'
+        ]):
+            aggregator.assert_metric(
+                'storm.bolt.last_60.{}'.format(metric_name),
+                value=values[i],
+                tags=test_tags,
+                at_least=1
+            )
 
     # Spout Stats
-    # for name, values in [
-    #     ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
-    # ]:
-    #     test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
-    #     for i, metric_name in enumerate([
-    #         'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
-    #         'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
-    #     ]):
-    #         aggregator.assert_metric(
-    #             'storm.spout.last_60.{}'.format(metric_name),
-    #             value=values[i],
-    #             tags=test_tags,
-    #             at_least=1
-    #         )
+    for name, values in [
+        ('spout', (5, None, None, None, None, None, 5, None, None, None, None)),
+    ]:
+        test_tags = topology_tags + ['spout:{}'.format(name)] + env_tags + storm_version_tags
+        for i, metric_name in enumerate([
+            'tasks', 'completeLatency', 'failed', 'acked', 'transferred', 'emitted', 'executors', 'errorLapsedSecs',
+            'requestedMemOffHeap', 'requestedCpu', 'requestedMemOnHeap'
+        ]):
+            aggregator.assert_metric(
+                'storm.spout.last_60.{}'.format(metric_name),
+                value=values[i],
+                tags=test_tags,
+                at_least=1
+            )
