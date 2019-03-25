@@ -95,10 +95,7 @@ def _bool(v):
     """
     try:
         if isinstance(v, basestring):
-            if v.lower() in ['t', 'true', '1']:
-                return True
-            else:
-                return False
+            return v.lower() in ['t', 'true', '1']
         return bool(v)
     except Exception:
         return False
@@ -382,7 +379,7 @@ class StormCheck(AgentCheck):
         :return: Extracted nimbus stats metrics
         :rtype: dict
         """
-        if len(nimbus_stats) > 0:
+        if nimbus_stats:
             numLeaders = 0
             numFollowers = 0
             numDead = 0
@@ -423,7 +420,7 @@ class StormCheck(AgentCheck):
         :return: Extracted supervisor stats metrics
         :rtype: dict
         """
-        if len(supervisor_stats) > 0:
+        if supervisor_stats:
             for ss in _get_list(supervisor_stats, 'supervisors'):
                 host = _get_string(ss, 'unknown', 'host')
                 storm_id = _get_string(ss, 'unknown', 'id')
@@ -448,7 +445,7 @@ class StormCheck(AgentCheck):
         def _mts(metric_name):
             return 'storm.topologyStats.last_{}.{}'.format(interval, metric_name)
 
-        if len(topology_stats) > 0:
+        if topology_stats:
             name = _get_string(topology_stats, 'unknown', 'name').replace('.', '_').replace(':', '_')
             debug_mode = _get_bool(topology_stats, False, 'debug')
             tags = ['topology:{}'.format(name)]
@@ -579,11 +576,10 @@ class StormCheck(AgentCheck):
         :param interval: Interval in seconds for reported metrics
         :type interval: int
         """
-        if len(topology_stats) > 0:
+        if topology_stats:
             name = topology_name.replace('.', '_').replace(':', '_')
             tags = ['topology:{}'.format(name)]
-            r = {'bolts': [], 'spouts': []}
-            for k in r.keys():
+            for k in ('bolts', 'spouts'):
                 for s in _get_list(topology_stats, k):
                     k_name = _get_string(s, 'unknown', 'id').replace('.', '_').replace(':', '_')
                     k_tags = tags + ['{}:{}'.format(k, k_name)]
@@ -607,7 +603,7 @@ class StormCheck(AgentCheck):
                                     tags=ks_tags, additional_tags=self.additional_tags
                                 )
 
-    def report_gauge(self, metric, value, tags, additional_tags=list()):
+    def report_gauge(self, metric, value, tags, additional_tags):
         """ Report the Gauge Metric.
 
         :param metric:
@@ -616,15 +612,16 @@ class StormCheck(AgentCheck):
         :param additional_tags:
         :return:
         """
-        all_tags = tags + [
-            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
+        all_tags = set(tags)
+        all_tags.add('stormEnvironment:{}'.format(self.environment_name))
+        all_tags.update(additional_tags)
         self.gauge(
             metric,
             value=value,
-            tags=set(all_tags)
+            tags=all_tags
         )
 
-    def report_histogram(self, metric, value, tags, additional_tags=list()):
+    def report_histogram(self, metric, value, tags, additional_tags):
         """ Report the Histogram Metric.
 
         :param metric:
@@ -633,12 +630,13 @@ class StormCheck(AgentCheck):
         :param additional_tags:
         :return:
         """
-        all_tags = tags + [
-            'stormEnvironment:{}'.format(self.environment_name)] + additional_tags
+        all_tags = set(tags)
+        all_tags.add('stormEnvironment:{}'.format(self.environment_name))
+        all_tags.update(additional_tags)
         self.histogram(
             metric,
             value=value,
-            tags=set(all_tags)
+            tags=all_tags
         )
 
     def update_from_config(self, instance):
@@ -647,7 +645,6 @@ class StormCheck(AgentCheck):
         :param instance: Agent config instance.
         :return: None
         """
-
         self.nimbus_server = instance.get('server', self.init_config.get('server', StormCheck.DEFAULT_STORM_SERVER))
         self.environment_name = instance.get('environment',
                                              self.init_config.get('environment', StormCheck.DEFAULT_STORM_ENVIRONMENT))
@@ -658,10 +655,9 @@ class StormCheck(AgentCheck):
         self.intervals = []
         intervals = instance.get('intervals', self.init_config.get('intervals', StormCheck.DEFAULT_STORM_INTERVALS))
 
-        if not isinstance(intervals, (list, tuple)) or len(intervals) < 1:
+        if not isinstance(intervals, (list, tuple)) or not intervals:
             raise AssertionError("Expected intervals to be a list of integers with at least 1 value")
-        else:
-            self.intervals.extend(intervals)
+        self.intervals.extend(intervals)
 
     def check(self, instance):
         """ Perform the agent check.
