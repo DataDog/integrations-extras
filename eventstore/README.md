@@ -23,7 +23,7 @@ To install the EventStore check on your host:
 1. Edit the `eventstore.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][3] to start collecting your EventStore [metrics](#metric-collection) and [logs](#log-collection).
   See the [sample eventstore.d/conf.yaml][4] for all available configuration options.
 
-2. [Restart the Agent][5]
+2. [Restart the Agent][5].
 
 ### Validation
 
@@ -62,6 +62,7 @@ Need help? Contact the [maintainer][6] of this integration.
 
 [1]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
+[3]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [4]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/datadog_checks/eventstore/data/conf.yaml.example
-[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-restart-the-agent
+[6]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/manifest.json
