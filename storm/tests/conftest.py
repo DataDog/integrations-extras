@@ -19,7 +19,7 @@ def dd_environment():
         run_command(
             ['docker', 'cp', 'topology-build:/topology.jar', os.path.join(get_here(), 'compose')]
         )
-    nimbus_condition = CheckCommandOutput(['nc', '-z', HOST, '6627'], 'succeeded')
+    nimbus_condition = CheckCommandOutput(['nc', '-zv', HOST, '6627'], 'succeeded')
     with docker_run(compose_file, service_name='storm-nimbus', conditions=[nimbus_condition]):
         with docker_run(compose_file, service_name='storm-ui',
                         log_patterns=[r'org.apache.storm.ui.core']):
