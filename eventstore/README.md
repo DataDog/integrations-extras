@@ -5,7 +5,7 @@
 Get metrics from EventStore in real time to:
 
 * Visualize and monitor EventStore queues
-* capture all available metrics within the stats api
+* Capture all available metrics within the stats API
 
 ## Setup
 
