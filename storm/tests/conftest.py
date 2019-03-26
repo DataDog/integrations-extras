@@ -2,12 +2,19 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 import os
+import socket
 
 import pytest
 
 from .common import INSTANCE, HOST
 from datadog_checks.dev import docker_run, get_here, run_command
-from datadog_checks.dev.conditions import CheckCommandOutput
+from datadog_checks.dev.conditions import WaitFor
+
+
+def wait_for_thrift():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((HOST, 6627))
+    sock.close()
 
 
 @pytest.fixture(scope='session')
@@ -19,7 +26,7 @@ def dd_environment():
         run_command(
             ['docker', 'cp', 'topology-build:/topology.jar', os.path.join(get_here(), 'compose')]
         )
-    nimbus_condition = CheckCommandOutput(['nc', '-zv', HOST, '6627'], 'succeeded')
+    nimbus_condition = WaitFor(wait_for_thrift)
     with docker_run(compose_file, service_name='storm-nimbus', conditions=[nimbus_condition]):
         with docker_run(compose_file, service_name='storm-ui',
                         log_patterns=[r'org.apache.storm.ui.core']):
