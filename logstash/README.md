@@ -90,7 +90,7 @@ In order to get the best use out of your logs in Datadog, it is important to hav
 
 ##### Source
 
-Set up a Logstash filter to set the source (Datadog integration name) on your logs. 
+Set up a Logstash filter to set the source (Datadog integration name) on your logs.
 
 ```
 filter {
@@ -125,7 +125,7 @@ filter {
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.6 and possible earlier versions. It does not support the new pipelines metrics in Logstash 6.0.
+The Logstash check is compatible with Logstash 6.6 and possible earlier versions.
 
 ## Data Collected
 ### Metrics

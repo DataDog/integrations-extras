@@ -205,8 +205,7 @@ class LogstashCheck(AgentCheck):
         version = self._get_logstash_version(config)
 
         stats_metrics = dict(self.STATS_METRICS)
-        if version and LooseVersion(version) < LooseVersion("6.0.0"):
-            stats_metrics.update(self.PIPELINE_METRICS)
+        stats_metrics.update(self.PIPELINE_METRICS)
 
         stats_url = urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
@@ -225,6 +224,17 @@ class LogstashCheck(AgentCheck):
                 stats_data['pipeline']['plugins'],
                 self.PIPELINE_FILTERS_METRICS, config, 'filters',
                 'filter_name')
+        elif version and LooseVersion(version) > LooseVersion("6.0.0"):
+            for name, pipeline in stats_data['pipelines'].iteritems():
+                self._process_pipeline_plugins_data(
+                    pipeline['plugins'],
+                    self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name', name)
+                self._process_pipeline_plugins_data(
+                    pipeline['plugins'],
+                    self.PIPELINE_OUTPUTS_METRICS, config, 'outputs', 'output_name', name)
+                self._process_pipeline_plugins_data(
+                    pipeline['plugins'],
+                    self.PIPELINE_FILTERS_METRICS, config, 'filters', 'filter_name', name)
 
         self.service_check(
             self.SERVICE_CHECK_CONNECT_NAME,
@@ -242,7 +252,8 @@ class LogstashCheck(AgentCheck):
         pipeline_plugins_metrics,
         config,
         plugin_type,
-        tag_name
+        tag_name,
+        pipeline_name=""
     ):
         for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
@@ -255,6 +266,11 @@ class LogstashCheck(AgentCheck):
             metrics_tags.append(
                 u"{}:{}".format(tag_name, plugin_name)
             )
+
+            if pipeline_name:
+                metrics_tags.append(
+                    u"{}:{}".format("pipeline_name", pipeline_name)
+                )
 
             for metric, desc in iteritems(pipeline_plugins_metrics):
                 self._process_metric(
