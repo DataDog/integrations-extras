@@ -58,7 +58,7 @@ The eventstore check does not include any service checks.
 
 ## Troubleshooting
 
-Raise a ticket for the maintainer to assist with
+Need help? Contact the [maintainer][6] of this integration.
 
 [1]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [2]: https://app.datadoghq.com/account/settings#agent
