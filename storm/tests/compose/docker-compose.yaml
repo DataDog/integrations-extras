@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  topology-maker:
+    container_name: topology-build
+    build:
+      context: .
+      dockerfile: Dockerfile
+  storm-zk:
+    container_name: storm-zookeeper
+    image: zookeeper:3.4
+    networks:
+     - storm-net
+  storm-nimbus:
+    container_name: storm-nimbus
+    image: storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30
+    command: storm nimbus -c storm.zookeeper.servers='["storm-zk"]'
+    ports:
+      - "6627:6627"
+    depends_on:
+      - storm-zk
+    networks:
+     - storm-net
+  storm-supervisor:
+    container_name: storm-supervisor
+    image: storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30
+    command: storm supervisor -c storm.zookeeper.servers='["storm-zk"]' -c nimbus.seeds='["storm-nimbus"]'
+    depends_on:
+      - storm-nimbus
+      - storm-zk
+    networks:
+     - storm-net
+  storm-ui:
+    container_name: storm_ui
+    image: storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30
+    command: storm ui -c storm.zookeeper.servers='["storm-zk"]' -c nimbus.seeds='["storm-nimbus"]' 
+    depends_on:
+      - storm-supervisor
+    ports:
+      - "8080:8080"
+    networks:
+     - storm-net
+  topology:
+    container_name: topology
+    image: storm@sha256:203e7c327e491c2d36ad208e5272d7cf953ba20915ce41c6b44a12ab17343a30
+    command: storm jar /topology.jar org.apache.storm.starter.WordCountTopology topology -c nimbus.seeds='["storm-nimbus"]' -c storm.zookeeper.servers='["storm-zk"]'
+    depends_on:
+      - storm-supervisor
+    volumes:
+      - ./topology.jar:/topology.jar
+    networks:
+     - storm-net
+
+networks:
+  storm-net: {}
