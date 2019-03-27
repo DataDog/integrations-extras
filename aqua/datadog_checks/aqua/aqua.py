@@ -92,7 +92,7 @@ class AquaCheck(AgentCheck):
         Retrieve the Aqua token for next queries.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-        data = {"id": instance['api_user'], "password": instance['password']}
+        data = {"id": str(instance['api_user']), "password": str(instance['password'])}
         res = requests.post(
             instance['url'] + '/api/v1/login',
             data=json.dumps(data),
