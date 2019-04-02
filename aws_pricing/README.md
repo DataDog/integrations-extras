@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Aws_pricing][1] through the Datadog Agent.
+This check pulls in pricing information [published by Amazon AWS](https://aws.amazon.com/pricing/) to make it easier to measure cost of resource utilization in within Datadog.
 
 ## Setup
 
