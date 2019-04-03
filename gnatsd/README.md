@@ -48,6 +48,9 @@ The gnatsd check is compatible with all major platforms
 
 See [metadata.csv][1] for a list of metrics provided by this integration.
 
+**Note**: If you use custom Nats cluster names, your metrics may look like this:  
+`gnatsd.connz.connections.cluster_name.in_msgs`
+
 ### Events
 The gnatsd check does not include any events.
 
