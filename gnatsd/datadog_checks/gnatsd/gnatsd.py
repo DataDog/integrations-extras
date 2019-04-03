@@ -33,7 +33,7 @@ class GnatsdCheckInvocation:
             'out_msgs': 'count',
             'in_bytes': 'count',
             'out_bytes': 'count',
-            'mem': 'gauge'
+            'mem': 'gauge',
         },
         'connz': {
             'num_connections': 'gauge',
@@ -44,8 +44,8 @@ class GnatsdCheckInvocation:
                 'out_msgs': 'count',
                 'subscriptions': 'gauge',
                 'in_bytes': 'count',
-                'out_bytes': 'count'
-            }
+                'out_bytes': 'count',
+            },
         },
         'routez': {
             'num_routes': 'gauge',
@@ -55,15 +55,15 @@ class GnatsdCheckInvocation:
                 'out_msgs': 'count',
                 'subscriptions': 'gauge',
                 'in_bytes': 'count',
-                'out_bytes': 'count'
-            }
-        }
+                'out_bytes': 'count',
+            },
+        },
     }
 
     TAGS = {
         'varz': ['server_id'],
         'connz.connections': ['cid', 'ip', 'name', 'lang', 'version'],
-        'routez.routes': ['rid', 'remote_id', 'ip']
+        'routez.routes': ['rid', 'remote_id', 'ip'],
     }
 
     def __init__(self, instance, checker):
@@ -92,7 +92,8 @@ class GnatsdCheckInvocation:
         except Exception as e:
             msg = "Unable to fetch NATS stats: %s" % str(e)
             self.checker.service_check(
-                self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=msg, tags=self.service_check_tags)
+                self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=msg, tags=self.service_check_tags
+            )
             raise e
 
     def _check_endpoint(self, endpoint, metrics):
@@ -115,7 +116,8 @@ class GnatsdCheckInvocation:
                         title = str(instance.get('name') or 'unnamed')
 
                     self._track_metrics(
-                        '{}.{}'.format(path, title), mtype, instance, tags=self._metric_tags(path, instance))
+                        '{}.{}'.format(path, title), mtype, instance, tags=self._metric_tags(path, instance)
+                    )
             else:
                 if mtype == 'count':
                     mid = str(data.get('cid') or data.get('rid') or '')
