@@ -1,4 +1,4 @@
-# Agent Check: Aws_pricing
+# Agent Check: AWS Pricing
 
 ## Overview
 
@@ -10,7 +10,7 @@ This check pulls in pricing information [published by AWS][1] to make it easier 
 
 ### Installation
 
-The Aws_pricing check is not included in the [Datadog Agent][2] package, so you will
+The AWS Pricing check is not included in the [Datadog Agent][2] package, so you will
 need to install it yourself.
 
 ### Configuration
@@ -41,7 +41,7 @@ Returns `OK` if no errors were encountered and all desired service rate code pri
 
 ### Events
 
-Aws_pricing does not include any events.
+AWS Pricing does not include any events.
 
 ## Troubleshooting
 
