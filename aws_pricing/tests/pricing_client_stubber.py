@@ -9,7 +9,13 @@ class PricingClientStubber:
     def activate(self):
         self.stubber.activate()
 
-    def stub_describe_services(self, service_codes):
+    def deactivate(self):
+        self.stubber.deactivate()
+
+    def stub_describe_services_error(self, service_error_code='', service_message='', http_status_code=400):
+        self.stubber.add_client_error('describe_services', service_error_code, service_message, http_status_code)
+
+    def stub_describe_services_response(self, service_codes):
         expected_params = {'FormatVersion': 'aws_v1'}
 
         describe_services_response = {
@@ -18,7 +24,7 @@ class PricingClientStubber:
 
         self.stubber.add_response('describe_services', describe_services_response, expected_params)
 
-    def stub_get_products(self, rate_data):
+    def stub_get_products_response(self, rate_data):
         if len(rate_data) == 0:
             self.stubber.add_response('get_products', {'PriceList': []})
             return
@@ -60,3 +66,6 @@ class PricingClientStubber:
             }
 
             self.stubber.add_response('get_products', get_products_response, expected_params)
+
+    def stub_get_products_error(self, service_error_code='', service_message='', http_status_code=400):
+        self.stubber.add_client_error('get_products', service_error_code, service_message, http_status_code)

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check pulls in pricing information [published by Amazon AWS](https://aws.amazon.com/pricing/) to make it easier to measure cost of resource utilization in within Datadog.
+This check pulls in pricing information [published by AWS][1] to make it easier to measure cost of resource utilization in within Datadog.
 
 ## Setup
 
@@ -13,7 +13,7 @@ need to install it yourself.
 
 ### Configuration
 
-1. Edit the `aws_pricing.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your aws_pricing performance data. See the [sample aws_pricing.d/conf.yaml][2] for all available configuration options.
+1. Edit the `aws_pricing.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting AWS pricing data. See the [sample aws_pricing.d/conf.yaml][2] for all available configuration options.
 
 2. [Restart the Agent][3].
 
@@ -25,11 +25,17 @@ need to install it yourself.
 
 ### Metrics
 
-Aws_pricing does not include any metrics.
+See [metadata.csv][6] for a list of metrics provided by this check..
 
 ### Service Checks
 
-Aws_pricing does not include any service checks.
+`aws_pricing.status`:
+
+Returns `Critical` if the Agent encounters an error when using the Boto3 pricing client to collect metrics.
+
+Returns `Warning` if a rate code was defined in `aws_pricing.d/conf.yaml` which couldn't be found using the Boto3 pricing client.
+
+Returns `OK` if no errors were encountered and all desired service rate code pricing data was collected.
 
 ### Events
 
@@ -39,8 +45,9 @@ Aws_pricing does not include any events.
 
 Need help? Contact [Datadog support][5].
 
-[1]: **LINK_TO_INTEGERATION_SITE**
+[1]: https://aws.amazon.com/pricing/
 [2]: https://github.com/DataDog/integrations-core/blob/master/aws_pricing/datadog_checks/aws_pricing/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/help
+[6]: ttps://github.com/DataDog/integrations-extras/blob/master/aws_pricing/metadata.csv

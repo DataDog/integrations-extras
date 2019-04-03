@@ -1,40 +1,47 @@
 import boto3
 import json
 
+from botocore.exceptions import ClientError
 from datadog_checks.base import AgentCheck
 from datadog_checks.errors import CheckException
 
 
 class AwsPricingCheck(AgentCheck):
     def check(self, instance, pricing_client=boto3.client('pricing', region_name='us-east-1')):
-        service_codes = get_aws_service_codes(pricing_client)
+        try:
+            service_codes = get_aws_service_codes(pricing_client)
 
-        rate_codes_dict = get_rate_codes_dict_from_instance(service_codes, instance)
+            rate_codes_dict = get_rate_codes_dict_from_instance(service_codes, instance)
 
-        # Python dictionaries evaluate to false when empty
-        if not rate_codes_dict:
-            raise CheckException('No rate codes were defined, please fix aws_pricing.yaml')
+            # Python dictionaries evaluate to false when empty
+            if not rate_codes_dict:
+                raise CheckException('No rate codes for existing AWS services were defined, please fix conf.yaml')
 
-        any_rate_codes_not_found = False
+            missing_rate_codes = {}
 
-        for service_code, rate_codes in rate_codes_dict.iteritems():
-            for rate_code in rate_codes:
-                price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
+            for service_code, rate_codes in rate_codes_dict.iteritems():
+                for rate_code in rate_codes:
+                    price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
 
-                if price_dimensions is None:
-                    any_rate_codes_not_found = True
-                    continue
+                    if price_dimensions is None:
+                        missing_rate_codes.setdefault(service_code, []).append(rate_code)
+                        continue
 
-                name = 'aws.pricing.{}'.format(service_code.lower())
-                price = get_price_from_price_dimensions(price_dimensions)
-                tags = get_tags_from_price_dimensions(price_dimensions)
+                    name = 'aws.pricing.{}'.format(service_code.lower())
+                    price = get_price_from_price_dimensions(price_dimensions)
+                    tags = get_tags_from_price_dimensions(price_dimensions)
 
-                self.gauge(name, price, tags)
+                    self.gauge(name, price, tags)
 
-        if any_rate_codes_not_found:
-            self.service_check('aws_pricing.all_good', self.WARNING)
+            # Python dictionaries evaluate to true when not empty
+            if missing_rate_codes:
+                message = 'Pricing data not found for these service rate codes: {}'.format(missing_rate_codes)
+                self.service_check('aws_pricing.status', self.WARNING, message=message)
 
-        self.service_check('aws_pricing.all_good', self.OK)
+            self.service_check('aws_pricing.status', self.OK)
+
+        except ClientError as client_error:
+            self.service_check('aws_pricing.status', self.CRITICAL, message=str(client_error))
 
 
 def get_rate_codes_dict_from_instance(service_codes, instance):
