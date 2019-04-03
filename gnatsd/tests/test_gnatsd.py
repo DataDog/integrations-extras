@@ -4,17 +4,12 @@
 
 import pytest
 
-from datadog_checks.gnatsd import GnatsdCheck
-
 from datadog_checks.dev.docker import get_container_ip
-
+from datadog_checks.gnatsd import GnatsdCheck
 
 CHECK_NAME = 'gnatsd'
 
-CONNECTION_FAILURE = {
-    'host': 'http://totally_not_locallhost',
-    'port': 8222
-}
+CONNECTION_FAILURE = {'host': 'http://totally_not_locallhost', 'port': 8222}
 
 
 def test_connection_failure(aggregator):
@@ -84,9 +79,11 @@ def test_metric_tags(aggregator, instance):
 
     route_ip = get_container_ip('docker_nats_serverA_1').replace('.', '_')
     aggregator.assert_metric_has_tag_prefix(
-        'gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-rid', at_least=1)
+        'gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-rid', at_least=1
+    )
     aggregator.assert_metric_has_tag_prefix(
-        'gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-remote_id', at_least=1)
+        'gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-remote_id', at_least=1
+    )
     aggregator.assert_metric_has_tag_prefix('gnatsd.routez.routes.{}.in_msgs'.format(route_ip), 'gnatsd-ip', at_least=1)
 
 
