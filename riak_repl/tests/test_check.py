@@ -3,6 +3,7 @@ import pytest
 from datadog_checks.riak_repl import RiakReplCheck
 from datadog_checks.errors import CheckException
 
+from .common import INSTANCE
 
 def test_config():
     c = RiakReplCheck('riak_repl', {}, {}, None)
@@ -74,7 +75,7 @@ def test_service_check(aggregator, dd_environment):
 
     c = RiakReplCheck('riak_repl', init_config, {}, None)
 
-    c.check(dd_environment)
+    c.check(INSTANCE)
     for key in init_config['keys']:
         aggregator.assert_metric(key, tags=[])
 

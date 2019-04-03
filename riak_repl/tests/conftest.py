@@ -14,4 +14,4 @@ def dd_environment():
         conditions=[CheckEndpoints(URL, wait=5)],
         sleep=60
     ):
-        yield {'default_timeout': 5, 'url': URL}
+        yield
