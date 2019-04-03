@@ -1,5 +1,5 @@
-from datadog_checks.base.errors import CheckException
 from datadog_checks.base.checks.prometheus.prometheus_base import PrometheusCheck
+from datadog_checks.base.errors import CheckException
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'portworx'
 
@@ -10,8 +10,7 @@ class PortworxCheck(PrometheusCheck):
     """
 
     def __init__(self, name, init_config, agentConfig, instances=None):
-        super(PortworxCheck, self).__init__(name, init_config, agentConfig,
-                                            instances)
+        super(PortworxCheck, self).__init__(name, init_config, agentConfig, instances)
         self.NAMESPACE = 'portworx'
         self.metrics_mapper = {
             'px_cluster_cpu_percent': 'cluster.cpu_percent',
@@ -77,8 +76,7 @@ class PortworxCheck(PrometheusCheck):
     def check(self, instance):
         endpoint = instance.get('prometheus_endpoint')
         if endpoint is None:
-            raise CheckException(
-                "Unable to find prometheus_endpoint in config file.")
+            raise CheckException("Unable to find prometheus_endpoint in config file.")
 
         send_buckets = instance.get('send_histograms_buckets', True)
         # By default we send the buckets.
