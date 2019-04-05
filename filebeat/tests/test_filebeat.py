@@ -300,7 +300,7 @@ def test_regexes_only_get_compiled_and_run_once():
 
                 re_compile.assert_called_once_with(regex)
                 # once per metric name
-                assert re_search.call_count == 44
+                assert re_search.call_count == 50
 
     with mock_request(
         {"libbeat.logstash.published_and_acked_events": 1138956, "libbeat.kafka.published_and_acked_events": 12}
