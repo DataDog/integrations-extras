@@ -10,6 +10,6 @@ INSTANCES = [
         'excluded': ['ups.ignoreme'],
         'excluded_re': [r'ups\.ignore\..*'],
         'excluded_devices': ['ignoreme'],
-        'excluded_devices_re': [r'ignore\..*']
+        'excluded_devices_re': [r'ignore\..*'],
     }
 ]
