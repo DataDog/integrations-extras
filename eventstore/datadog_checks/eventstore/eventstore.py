@@ -1,15 +1,16 @@
 # (C) Calastone Ltd. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
+import copy
+import datetime
 import fnmatch
 import re
-import datetime
-import copy
 
 import requests
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
+
 from .metrics import ALL_METRICS
 
 
@@ -170,6 +171,7 @@ class EventStoreCheck(AgentCheck):
                     response.append(path)
                     self.log.debug("path ve: {}".format(path))
         return response
+
     # Fill out eventstore_paths using walk of json
 
     def get_value(self, dictionary, metric_path, index=0):
