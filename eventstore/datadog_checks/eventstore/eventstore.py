@@ -88,7 +88,7 @@ class EventStoreCheck(AgentCheck):
         # Get the value for a given key
         self.log.debug("parsed_api:")
         self.log.debug(parsed_api)
-        for key, metric in metrics_to_check.items():
+        for metric in metrics_to_check.values():
             value = self.get_value(parsed_api, metric['json_path'])
             value = self.convert_value(value, metric)
             if value is not None:
