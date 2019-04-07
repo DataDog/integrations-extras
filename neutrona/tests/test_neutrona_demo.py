@@ -88,7 +88,7 @@ def test_metrics(aggregator):
     ]
 
     for conn in connections:
-        for metric, value in conn.items():
+        for metric in conn:
             if metric != 'tags':
                 aggregator.assert_metric(
                     name='.'.join(['neutrona', 'azure', 'expressroute', metric]),
