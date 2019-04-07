@@ -1,13 +1,12 @@
-import pytest
-
 import os
 import subprocess
-
 from copy import deepcopy
 
-from datadog_checks.dev import docker_run, WaitFor
+import pytest
 
-from .common import HERE, CONTAINER_NAME, BASE_CONFIG, HOST, VALID_URL, INVALID_URL, USER, PASSWORD
+from datadog_checks.dev import WaitFor, docker_run
+
+from .common import BASE_CONFIG, CONTAINER_NAME, HERE, HOST, INVALID_URL, PASSWORD, USER, VALID_URL
 
 
 @pytest.fixture(scope="session")
@@ -24,7 +23,7 @@ def dd_environment():
             WaitFor(nextcloud_install, attempts=15),
             WaitFor(nextcloud_add_trusted_domain, attempts=15),
             WaitFor(nextcloud_stats, attempts=15),
-        ]
+        ],
     ):
         yield BASE_CONFIG
 
@@ -52,10 +51,7 @@ def nextcloud_container():
     """
     Wait for nextcloud to start
     """
-    status_args = [
-        'docker', 'exec', '--user', 'www-data', CONTAINER_NAME,
-        'php', 'occ', 'status'
-    ]
+    status_args = ['docker', 'exec', '--user', 'www-data', CONTAINER_NAME, 'php', 'occ', 'status']
     return subprocess.call(status_args) == 0
 
 
@@ -64,9 +60,17 @@ def nextcloud_install():
     Wait for nextcloud to install
     """
     status_args = [
-        'docker', 'exec', '--user', 'www-data', CONTAINER_NAME,
-        'php', 'occ', 'maintenance:install', '-n',
-        '--admin-user={}'.format(USER), '--admin-pass={}'.format(PASSWORD)
+        'docker',
+        'exec',
+        '--user',
+        'www-data',
+        CONTAINER_NAME,
+        'php',
+        'occ',
+        'maintenance:install',
+        '-n',
+        '--admin-user={}'.format(USER),
+        '--admin-pass={}'.format(PASSWORD),
     ]
     return subprocess.call(status_args) == 0
 
@@ -76,9 +80,17 @@ def nextcloud_add_trusted_domain():
     Wait for nextcloud to add container host to trusted domain
     """
     status_args = [
-        'docker', 'exec', '--user', 'www-data', CONTAINER_NAME,
-        'php', 'occ', 'config:system:set', 'trusted_domains',
-        '2', '--value="{}"'.format(HOST)
+        'docker',
+        'exec',
+        '--user',
+        'www-data',
+        CONTAINER_NAME,
+        'php',
+        'occ',
+        'config:system:set',
+        'trusted_domains',
+        '2',
+        '--value="{}"'.format(HOST),
     ]
     return subprocess.call(status_args) == 0
 
@@ -87,7 +99,5 @@ def nextcloud_stats():
     """
     Wait for nextcloud monitoring endpoint to be reachable
     """
-    status_args = [
-        'curl', '-u', '{}:{}'.format(USER, PASSWORD), VALID_URL
-    ]
+    status_args = ['curl', '-u', '{}:{}'.format(USER, PASSWORD), VALID_URL]
     return subprocess.call(status_args) == 0
