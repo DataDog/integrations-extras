@@ -7,14 +7,7 @@ from six.moves.urllib.parse import urljoin
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-
-SEVERITIES = {
-    'total': 'all',
-    'high': 'high',
-    'medium': 'medium',
-    'ok': 'ok',
-    'low': 'low'
-}
+SEVERITIES = {'total': 'all', 'high': 'high', 'medium': 'medium', 'ok': 'ok', 'low': 'low'}
 STATUS_METRICS = [
     # (
     #     metric_name,
@@ -24,13 +17,7 @@ STATUS_METRICS = [
     (
         'aqua.audit.access',
         '/api/v1/audit/access_totals?alert=-1&limit=100&time=hour&type=all',
-        {
-            'total': 'all',
-            'success': 'success',
-            'blocked': 'blocked',
-            'detect': 'detect',
-            'alert': 'alert'
-        }
+        {'total': 'all', 'success': 'success', 'blocked': 'blocked', 'detect': 'detect', 'alert': 'alert'},
     ),
     (
         'aqua.scan_queue',
@@ -40,9 +27,9 @@ STATUS_METRICS = [
             'failed': 'failed',
             'in_progress': 'in_progress',
             'finished': 'finished',
-            'pending': 'pending'
-        }
-    )
+            'pending': 'pending',
+        },
+    ),
 ]
 
 
@@ -50,6 +37,7 @@ class AquaCheck(AgentCheck):
     """
     Collect metrics from Aqua.
     """
+
     SERVICE_CHECK_NAME = 'aqua.can_connect'
 
     def check(self, instance):
@@ -97,7 +85,7 @@ class AquaCheck(AgentCheck):
             instance['url'] + '/api/v1/login',
             data=json.dumps(data),
             headers=headers,
-            timeout=self.default_integration_http_timeout
+            timeout=self.default_integration_http_timeout,
         )
         res.raise_for_status()
         return json.loads(res.text)['token']
@@ -128,32 +116,38 @@ class AquaCheck(AgentCheck):
         metric_name = 'aqua.images'
         image_metrics = metrics['registry_counts']['images']
         for sev in SEVERITIES:
-            self.gauge(metric_name, image_metrics[sev],
-                       tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]])
+            self.gauge(
+                metric_name, image_metrics[sev], tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]]
+            )
 
         # vulnerabilities
         metric_name = 'aqua.vulnerabilities'
         vuln_metrics = metrics['registry_counts']['vulnerabilities']
         for sev in SEVERITIES:
-            self.gauge(metric_name, vuln_metrics[sev],
-                       tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]])
+            self.gauge(
+                metric_name, vuln_metrics[sev], tags=instance.get('tags', []) + ['severity:%s' % SEVERITIES[sev]]
+            )
 
         # running containers
         metric_name = 'aqua.running_containers'
         container_metrics = metrics['running_containers']
         self.gauge(metric_name, container_metrics['total'], tags=instance.get('tags', []) + ['status:all'])
-        self.gauge(metric_name, container_metrics['unregistered'],
-                   tags=instance.get('tags', []) + ['status:unregistered'])
+        self.gauge(
+            metric_name, container_metrics['unregistered'], tags=instance.get('tags', []) + ['status:unregistered']
+        )
         self.gauge(
             metric_name,
             container_metrics['total'] - container_metrics['unregistered'],
-            tags=instance.get('tags', []) + ['status:registered']
+            tags=instance.get('tags', []) + ['status:registered'],
         )
 
         # disconnected enforcers
         enforcer_metrics = metrics['hosts']
-        self.gauge('aqua.enforcers', enforcer_metrics['disconnected_count'],
-                   tags=instance.get('tags', []) + ['status:disconnected'])
+        self.gauge(
+            'aqua.enforcers',
+            enforcer_metrics['disconnected_count'],
+            tags=instance.get('tags', []) + ['status:disconnected'],
+        )
 
     def _report_status_metrics(self, instance, token, metric_name, route, statuses):
         try:
