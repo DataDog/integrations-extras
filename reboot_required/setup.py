@@ -1,9 +1,10 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-from setuptools import setup
 from codecs import open  # To use a consistent encoding
 from os import path
+
+from setuptools import setup
 
 HERE = path.abspath(path.dirname(__file__))
 
@@ -27,17 +28,13 @@ setup(
     description='The Reboot Required check',
     long_description=long_description,
     keywords='datadog agent reboot required check',
-
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
-
     # Author details
     author='Datadog',
     author_email='packages@datadoghq.com',
-
     # License
     license='MIT',
-
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -48,13 +45,10 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
     ],
-
     # The package we're going to ship
     packages=['datadog_checks.reboot_required'],
-
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
-
     # Extra files to ship with the wheel package
     include_package_data=True,
 )
