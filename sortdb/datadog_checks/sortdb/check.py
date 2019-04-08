@@ -8,7 +8,9 @@ from requests.exceptions import Timeout, HTTPError, InvalidURL, ConnectionError
 from simplejson import JSONDecodeError
 from hashlib import md5
 
-from datadog_checks.checks import AgentCheck
+from six import iteritems
+
+from datadog_checks.base import AgentCheck
 
 # Metric types
 GAUGE = 'gauge'
@@ -105,10 +107,10 @@ class SortdbCheck(AgentCheck):
         """
         timeout = float(self.init_config.get('timeout', 10))
         # Use a hash of the URL as an aggregation key
-        aggregation_key = md5(sortdb_url).hexdigest()
+        aggregation_key = md5(sortdb_url.encode('utf-8')).hexdigest()
 
         response = self._get_response_from_url(sortdb_url, timeout, aggregation_key, instance_tags)
-        for metric, (metric_name, metric_type) in metrics.iteritems():
+        for metric, (metric_name, metric_type) in iteritems(metrics):
             value = response.get(metric)
 
             if value is not None:

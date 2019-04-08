@@ -1,17 +1,38 @@
-import os
-
 import pytest
-import time
+import requests
 
-from datadog_checks.dev import docker_run
+from datadog_checks.dev import WaitFor, docker_run
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-docker_compose = os.path.join(HERE, 'docker-compose.yml')
+from . import common
 
 
-@pytest.fixture(scope='session', autouse=False)
-def spin_up_traefik():
-    with docker_run(docker_compose):
-        # Needed to give time to the container to be ready.
-        time.sleep(5)
-        yield
+def ping_traefik():
+    response = requests.get('http://{}:{}/health'.format(common.HOST, common.PORT))
+    response.raise_for_status()
+
+    # Trigger a 404
+    requests.get('http://{}:800'.format(common.HOST))
+
+
+@pytest.fixture(scope='session')
+def dd_environment():
+    with docker_run(
+        common.DOCKER_COMPOSE_FILE,
+        conditions=[WaitFor(ping_traefik)],
+    ):
+        yield common.INSTANCE
+
+
+@pytest.fixture
+def instance():
+    return common.INSTANCE
+
+
+@pytest.fixture
+def instance_bad():
+    return common.INSTANCE_BAD
+
+
+@pytest.fixture
+def instance_invalid():
+    return common.INSTANCE_INVALID

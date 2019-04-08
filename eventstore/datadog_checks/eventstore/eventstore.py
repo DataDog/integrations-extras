@@ -1,7 +1,6 @@
 # (C) Calastone Ltd. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import json
 import fnmatch
 import re
 import datetime
@@ -9,8 +8,8 @@ import copy
 
 import requests
 
-from datadog_checks.checks import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base import AgentCheck
+from datadog_checks.base.errors import CheckException
 from .metrics import ALL_METRICS
 
 
@@ -25,7 +24,7 @@ class EventStoreCheck(AgentCheck):
         metric_def = copy.deepcopy(ALL_METRICS)
         try:
             r = requests.get(url, timeout=timeout)
-        except requests.exceptions.Timeout as e:
+        except requests.exceptions.Timeout:
             raise CheckException('URL: {0} timed out after {1} seconds.'.format(url, timeout))
         except requests.exceptions.MissingSchema as e:
             raise CheckException(e)
@@ -36,16 +35,15 @@ class EventStoreCheck(AgentCheck):
             raise CheckException('Invalid Status Code, {0} returned a status of {1}.'.format(url, r.status_code))
         # Unable to deserialize the returned data
         try:
-            parsed_api = json.loads(r.text)
-        except ValueError as e:
-            raise CheckException('{0} returned an unserializable payload'.format(url))
+            parsed_api = r.json()
+        except Exception as e:
+            raise CheckException('{} returned an unserializable payload: {}'.format(url, e))
 
-        eventstore_paths = None
         eventstore_paths = self.walk(parsed_api)
         self.log.debug("Event Store Paths:")
         self.log.debug(eventstore_paths)
 
-        # Flaten the self.init_config definitions into valid metric definitions
+        # Flatten the self.init_config definitions into valid metric definitions
         metric_definitions = {}
         for metric in metric_def:
             self.log.debug("metric {}".format(metric))
@@ -99,19 +97,25 @@ class EventStoreCheck(AgentCheck):
                 self.log.debug("Metric {} did not return a value, skipping".format(metric['json_path']))
                 self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
 
-    def format_tag(self, name):
-        "Converts the string to snake case from camel case"
+    @classmethod
+    def format_tag(cls, name):
+        """Converts the string to snake case from camel case"""
         # https://stackoverflow.com/questions/1175208/elegant-python-function-to-convert-camelcase-to-snake-case
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
-    def walk(self, json_obj, p=[], es_paths=[]):
+    def walk(self, json_obj, p=None, es_paths=None):
         """ Walk a JSON tree and return the json paths in a list """
+        if p is None:
+            p = []
+        if es_paths is None:
+            es_paths = []
+
         for key, value in json_obj.items():
             if isinstance(value, dict):
                 # We add the instance to the path global variable to build up a map
                 p.append(key)
-                self.walk(value)
+                self.walk(value, p, es_paths)
                 # Once we have finished with this path we remove it from the global variable
                 p.pop()
             else:
@@ -184,7 +188,6 @@ class EventStoreCheck(AgentCheck):
             return v
         except KeyError:
             self.log.info('No value found for Metric: {}'.format(metric_path))
-            return None
 
     def convert_value(self, value, metric):
         """ Returns the metric formatted in the specified value"""
@@ -214,7 +217,7 @@ class EventStoreCheck(AgentCheck):
         Returns a time delta for strings in a format of: 0:00:00:00.0000
         Using RegEx to not introduce a dependancy on another package
         """
-        dt_re = re.compile(r'^(\d+)\:(\d\d):(\d\d):(\d\d).(\d+)$')
+        dt_re = re.compile(r'^(\d+):(\d\d):(\d\d):(\d\d).(\d+)$')
         tmp = dt_re.match(string)
         try:
             days = self._regex_number_to_int(tmp, 1)
@@ -226,12 +229,11 @@ class EventStoreCheck(AgentCheck):
             return td
         except AttributeError:
             self.log.info('Unable to convert {} to timedelta'.format(string))
-            return None
         except TypeError:
             self.log.info('Unable to convert {} to type timedelta'.format(string))
-            return None
 
-    def _regex_number_to_int(self, number, group_index):
+    @classmethod
+    def _regex_number_to_int(cls, number, group_index):
         """ Returns the number for the group or 0 """
         try:
             return int(number.group(group_index)) or 0

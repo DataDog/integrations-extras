@@ -2,8 +2,10 @@ import json
 import requests
 import unicodedata
 
-from datadog_checks.checks import AgentCheck
-from datadog_checks.errors import CheckException
+from six import iteritems
+
+from datadog_checks.base import AgentCheck
+from datadog_checks.base.errors import CheckException
 
 
 class RiakReplCheck(AgentCheck):
@@ -42,21 +44,18 @@ class RiakReplCheck(AgentCheck):
     ]
 
     FULLSYNC_COORDINATOR = [
-      "queued",
-      "in_progress",
-      "waiting_for_retry",
-      "starting",
-      "successful_exits",
-      "error_exits",
-      "retry_exits",
-      "soft_retry_exits",
-      "busy_nodes",
-      "fullsyncs_completed",
-      "last_fullsync_duration"
+        "queued",
+        "in_progress",
+        "waiting_for_retry",
+        "starting",
+        "successful_exits",
+        "error_exits",
+        "retry_exits",
+        "soft_retry_exits",
+        "busy_nodes",
+        "fullsyncs_completed",
+        "last_fullsync_duration"
     ]
-
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        AgentCheck.__init__(self, name, init_config, agentConfig, instances)
 
     def check(self, instance):
         url = instance.get('url', '')
@@ -69,7 +68,7 @@ class RiakReplCheck(AgentCheck):
 
         try:
             r = requests.get(url, timeout=timeout)
-        except requests.exceptions.Timeout as e:
+        except requests.exceptions.Timeout:
             raise CheckException('URL: {0} timed out after {1} \
                                  seconds.'.format(url, timeout))
         except requests.exceptions.ConnectionError as e:
@@ -81,23 +80,25 @@ class RiakReplCheck(AgentCheck):
 
         try:
             stats = json.loads(r.text)
-        except ValueError as e:
+        except ValueError:
             raise CheckException('{0} returned an unserializable \
                                  payload'.format(url))
 
-        for key, val in stats.iteritems():
+        for key, val in iteritems(stats):
             if key in self.REPL_STATS:
                 self.safe_submit_metric("riak_repl." + key, val, tags=tags)
 
         if stats['realtime_enabled'] is not None:
-            for key, val in stats['realtime_queue_stats'].iteritems():
+            for key, val in iteritems(stats['realtime_queue_stats']):
                 if key in self.REALTIME_QUEUE_STATS:
                     self.safe_submit_metric("riak_repl.realtime_queue_stats."
                                             + key, val, tags=tags)
 
         for c in stats['connected_clusters']:
             cluster = c.replace("-", "_")
-            for key, val in stats['fullsync_coordinator'][c].iteritems():
+            if c not in stats['fullsync_coordinator']:
+                continue
+            for key, val in iteritems(stats['fullsync_coordinator'][c]):
                 if key in self.FULLSYNC_COORDINATOR:
                     self.safe_submit_metric("riak_repl.fullsync_coordinator."
                                             + cluster + "." + key,
@@ -111,7 +112,6 @@ class RiakReplCheck(AgentCheck):
         except ValueError:
             self.log.debug("metric name {0} cannot be converted to a \
                            float: {1}".format(name, value))
-            pass
 
         try:
             self.gauge(name, unicodedata.numeric(value), tags=tags)
@@ -120,4 +120,3 @@ class RiakReplCheck(AgentCheck):
             self.log.debug("metric name {0} cannot be converted to a \
                            float even using unicode tools:\
                            {1}".format(name, value))
-            pass

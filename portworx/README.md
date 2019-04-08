@@ -15,10 +15,10 @@ The Portworx check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Portworx check on your host:
 
-1. [Download the Datadog Agent][1]
-2. Download the [`check.py` file][2] for Portworx
-3. Place it in the Agent's `checks.d` directory
-4. Rename it to `portworx.py`
+1. Install the [developer toolkit][2] on any machine.
+2. Run `ddev release build portworx` to build the package.
+3. [Download the Datadog Agent][2].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/portworx/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -26,7 +26,7 @@ Create a file `portworx.yaml` in the Agent's `conf.d` directory.
 
 #### Metric Collection
 
-- Add this configuration setup to your `portworx.yaml` file to start gathering your [portworx metrics][2]:
+- Add this configuration setup to your `portworx.yaml` file to start gathering your portworx metrics:
 
 ```
 init_config:
@@ -86,8 +86,8 @@ Check that the `url` in `portworx.yaml` is correct.
 Learn more about infrastructure monitoring and all our integrations on [our blog][7].
 
 [1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://github.com/DataDog/integrations-extras/blob/master/portworx/check.py
-[3]: https://github.com/DataDog/integrations-extras/blob/master/portworx/conf.yaml.example
+[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv

@@ -5,7 +5,7 @@ import requests
 import simplejson as json
 from six.moves.urllib.parse import urljoin
 
-from datadog_checks.checks import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 SEVERITIES = {
@@ -15,6 +15,35 @@ SEVERITIES = {
     'ok': 'ok',
     'low': 'low'
 }
+STATUS_METRICS = [
+    # (
+    #     metric_name,
+    #     route,
+    #     statuses
+    # )
+    (
+        'aqua.audit.access',
+        '/api/v1/audit/access_totals?alert=-1&limit=100&time=hour&type=all',
+        {
+            'total': 'all',
+            'success': 'success',
+            'blocked': 'blocked',
+            'detect': 'detect',
+            'alert': 'alert'
+        }
+    ),
+    (
+        'aqua.scan_queue',
+        '/api/v1/scanqueue/summary',
+        {
+            'total': 'all',
+            'failed': 'failed',
+            'in_progress': 'in_progress',
+            'finished': 'finished',
+            'pending': 'pending'
+        }
+    )
+]
 
 
 class AquaCheck(AgentCheck):
@@ -37,52 +66,33 @@ class AquaCheck(AgentCheck):
             return
         self._report_base_metrics(instance, token)
         self._report_connected_enforcers(instance, token)
-        status_metrics = [
-            # (
-            #     metric_name,
-            #     route,
-            #     statuses
-            # )
-            (
-                'aqua.audit.access',
-                '/api/v1/audit/access_totals?alert=-1&limit=100&time=hour&type=all',
-                {
-                    'total': 'all',
-                    'success': 'success',
-                    'blocked': 'blocked',
-                    'detect': 'detect',
-                    'alert': 'alert'
-                }
-            ),
-            (
-                'aqua.scan_queue',
-                '/api/v1/scanqueue/summary',
-                {
-                    'total': 'all',
-                    'failed': 'failed',
-                    'in_progress': 'in_progress',
-                    'finished': 'finished',
-                    'pending': 'pending'
-                }
-            )
-        ]
 
-        for metric_name, route, statuses in status_metrics:
+        for metric_name, route, statuses in STATUS_METRICS:
             self._report_status_metrics(instance, token, metric_name, route, statuses)
 
-    def validate_instance(self, instance):
+    @classmethod
+    def validate_instance(cls, instance):
         """
         Validate that all required parameters are set in the instance.
         """
-        if any(map(lambda x: x not in instance, ['api_user', 'password', 'url'])):
-            raise Exception("Aqua instance missing one of api_user, password, or url")
+        missing = []
+        for option in ('api_user', 'password', 'url'):
+            if option not in instance:
+                missing.append(option)
+
+        if missing:
+            last = missing.pop()
+            missing = ', '.join(missing)
+            missing += ', and {}'.format(last) if missing else last
+
+            raise ConfigurationError('Aqua instance missing: {}'.format(missing))
 
     def get_aqua_token(self, instance):
         """
         Retrieve the Aqua token for next queries.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
-        data = {"id": instance['api_user'], "password": instance['password']}
+        data = {"id": str(instance['api_user']), "password": str(instance['password'])}
         res = requests.post(
             instance['url'] + '/api/v1/login',
             data=json.dumps(data),
@@ -92,7 +102,8 @@ class AquaCheck(AgentCheck):
         res.raise_for_status()
         return json.loads(res.text)['token']
 
-    def _perform_query(self, instance, route, token):
+    @classmethod
+    def _perform_query(cls, instance, route, token):
         """
         Form queries and interact with the Aqua API.
         """
@@ -140,7 +151,6 @@ class AquaCheck(AgentCheck):
         )
 
         # disconnected enforcers
-        metric_name = 'aqua.enforcers'
         enforcer_metrics = metrics['hosts']
         self.gauge('aqua.enforcers', enforcer_metrics['disconnected_count'],
                    tags=instance.get('tags', []) + ['status:disconnected'])
