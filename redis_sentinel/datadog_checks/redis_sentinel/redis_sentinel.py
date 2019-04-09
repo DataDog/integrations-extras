@@ -1,26 +1,21 @@
 import time
 from collections import defaultdict
 
-# 3rd party
 import redis
 
-# project
-from checks import AgentCheck
+from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'redis_sentinel'
 
 
 class RedisSentinelCheck(AgentCheck):
-
     def __init__(self, name, init_config, agentConfig, instances=None):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
         self._masters = defaultdict(lambda: "")
 
     def check(self, instance):
         self.log.info(instance)
-        redis_conn = redis.StrictRedis(
-            host=instance['sentinel_host'], port=int(instance['sentinel_port']), db=0
-        )
+        redis_conn = redis.StrictRedis(host=instance['sentinel_host'], port=int(instance['sentinel_port']), db=0)
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])
             try:
@@ -71,27 +66,16 @@ class RedisSentinelCheck(AgentCheck):
 
             pending = stats.get('link-pending-commands', stats.get('pending-commands'))
             if pending is not None:
-                self.gauge(
-                    'redis.sentinel.link_pending_commands',
-                    pending, tags=['sentinel'] + sentinel_tags
-                )
+                self.gauge('redis.sentinel.link_pending_commands', pending, tags=['sentinel'] + sentinel_tags)
 
             reply = stats.get('last-ping-reply')
             sent = stats.get('last-ping-sent')
             if reply is not None and sent is not None:
-                self.gauge(
-                    'redis.sentinel.ping_latency',
-                    reply - sent,
-                    sentinel_tags
-                )
+                self.gauge('redis.sentinel.ping_latency', reply - sent, sentinel_tags)
 
             ok_reply = stats.get('last-ok-ping-reply')
             if ok_reply is not None and sent is not None:
-                self.gauge(
-                    'redis.sentinel.last_ok_ping_latency',
-                    reply - ok_reply,
-                    sentinel_tags
-                )
+                self.gauge('redis.sentinel.last_ok_ping_latency', reply - ok_reply, sentinel_tags)
 
     def _process_slaves_stats(self, redis_conn, master_name, base_tags, master_tags):
         """
@@ -133,20 +117,17 @@ class RedisSentinelCheck(AgentCheck):
 
             pending = stats.get('link-pending-commands', stats.get('pending-commands'))
             if pending is not None:
-                self.gauge(
-                    'redis.sentinel.link_pending_commands', pending,
-                    tags=['slave'] + slave_tags
-                )
+                self.gauge('redis.sentinel.link_pending_commands', pending, tags=['slave'] + slave_tags)
 
             self.service_check(
                 'redis.sentinel.slave_is_disconnected',
                 AgentCheck.CRITICAL if stats['is_disconnected'] else AgentCheck.OK,
-                tags=slave_tags
+                tags=slave_tags,
             )
             self.service_check(
                 'redis.sentinel.slave_master_link_down',
                 AgentCheck.CRITICAL if stats['master-link-status'] != 'ok' else AgentCheck.OK,
-                tags=slave_tags
+                tags=slave_tags,
             )
 
     def _process_master_stats(self, redis_conn, master_name, base_tags):
@@ -185,50 +166,43 @@ class RedisSentinelCheck(AgentCheck):
 
         pending = stats.get('link-pending-commands', stats.get('pending-commands'))
         if pending is not None:
-            self.gauge(
-                'redis.sentinel.link_pending_commands', pending, tags=['master'] + master_tags
-            )
+            self.gauge('redis.sentinel.link_pending_commands', pending, tags=['master'] + master_tags)
 
         known_slaves = stats.get('num-slaves')
         if known_slaves is not None:
-            self.gauge(
-                'redis.sentinel.known_slaves', known_slaves, tags=master_tags
-            )
+            self.gauge('redis.sentinel.known_slaves', known_slaves, tags=master_tags)
 
         known_sentinels = stats.get('num-other-sentinels')
         if known_slaves is not None:
-            self.gauge(
-                'redis.sentinel.known_sentinels',
-                known_sentinels + 1,
-                tags=master_tags
-            )
+            self.gauge('redis.sentinel.known_sentinels', known_sentinels + 1, tags=master_tags)
 
         self.service_check(
             'redis.sentinel.master_is_disconnected',
             AgentCheck.CRITICAL if stats.get('is_disconnected') else AgentCheck.OK,
-            tags=master_tags
+            tags=master_tags,
         )
 
         self.service_check(
             'redis.sentinel.master_is_down',
             AgentCheck.CRITICAL if stats.get('is_master_down') else AgentCheck.OK,
-            tags=master_tags
+            tags=master_tags,
         )
 
         if self._masters[master_name] != stats['ip']:
             if self._masters[master_name] != "":  # avoid check initialization
                 self.increment('redis.sentinel.failover', tags=base_tags)
-                self.event({
-                    'timestamp': int(time.time()),
-                    'event_type': EVENT_TYPE,
-                    'msg_title': '%s failover from %s to %s' % (
-                        master_name, self._masters[master_name], stats['ip']
-                    ),
-                    'alert_type': 'info',
-                    "source_type_name": SOURCE_TYPE_NAME,
-                    "event_object": master_name,
-                    "tags": base_tags
-                })
+                self.event(
+                    {
+                        'timestamp': int(time.time()),
+                        'event_type': EVENT_TYPE,
+                        'msg_title': '%s failover from %s to %s'
+                        % (master_name, self._masters[master_name], stats['ip']),
+                        'alert_type': 'info',
+                        "source_type_name": SOURCE_TYPE_NAME,
+                        "event_object": master_name,
+                        "tags": base_tags,
+                    }
+                )
 
             self._masters[master_name] = stats['ip']
 
