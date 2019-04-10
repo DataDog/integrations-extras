@@ -257,6 +257,7 @@ class LogstashCheck(AgentCheck):
     ):
         for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
+            plugin_conf_id = plugin_data.get('id')
 
             metrics_tags = list(config.tags)
 
@@ -266,6 +267,11 @@ class LogstashCheck(AgentCheck):
             metrics_tags.append(
                 u"{}:{}".format(tag_name, plugin_name)
             )
+
+            if plugin_conf_id:
+                metrics_tags.append(
+                    u"{}:{}".format("plugin_conf_id", plugin_conf_id)
+                )
 
             if pipeline_name:
                 metrics_tags.append(
