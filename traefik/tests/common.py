@@ -10,14 +10,8 @@ DOCKER_COMPOSE_FILE = os.path.join(HERE, 'docker', 'docker-compose.yaml')
 HOST = get_docker_hostname()
 PORT = '8080'
 
-INSTANCE = {
-    'host': HOST,
-    'port': PORT,
-}
+INSTANCE = {'host': HOST, 'port': PORT}
 
-INSTANCE_BAD = {
-    'host': 'foobar',
-    'port': 9000,
-}
+INSTANCE_BAD = {'host': 'foobar', 'port': 9000}
 
 INSTANCE_INVALID = {}
