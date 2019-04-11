@@ -7,10 +7,7 @@ from datadog_checks.dev import get_docker_hostname
 
 HOST = get_docker_hostname()
 
-INSTANCE = {
-    'server': 'http://{}:8080'.format(HOST),
-    'environment': 'integration'
-}
+INSTANCE = {'server': 'http://{}:8080'.format(HOST), 'environment': 'integration'}
 
 TEST_STORM_CLUSTER_SUMMARY = {
     "executorsTotal": 33,
@@ -23,7 +20,7 @@ TEST_STORM_CLUSTER_SUMMARY = {
     "central-log-url": None,
     "bugtracker-url": None,
     "tasksTotal": 33,
-    "slotsUsed": 6
+    "slotsUsed": 6,
 }
 
 TEST_STORM_NIMBUSES_SUMMARY = {
@@ -35,7 +32,7 @@ TEST_STORM_NIMBUSES_SUMMARY = {
             "status": "Offline",
             "nimbusLogLink": "http://nimbus01.example.com:9006/daemonlog?file=nimbus.log",
             "port": "6627",
-            "host": "nimbus01.example.com"
+            "host": "nimbus01.example.com",
         },
         {
             "nimbusUpTimeSeconds": 25842,
@@ -44,8 +41,8 @@ TEST_STORM_NIMBUSES_SUMMARY = {
             "status": "Leader",
             "nimbusLogLink": "http://1.2.3.4:9006/daemonlog?file=nimbus.log",
             "port": 6627,
-            "host": "1.2.3.4"
-        }
+            "host": "1.2.3.4",
+        },
     ]
 }
 
@@ -65,9 +62,9 @@ TEST_STORM_SUPERVISOR_SUMMARY = {
             "totalCpu": 900,
             "usedCpu": 0,
             "logLink": "http://1.2.3.4:9006/daemonlog?file=supervisor.log",
-            "usedMem": 4992
+            "usedMem": 4992,
         }
-    ]
+    ],
 }
 
 TEST_STORM_TOPOLOGY_SUMMARY = {
@@ -93,9 +90,9 @@ TEST_STORM_TOPOLOGY_SUMMARY = {
             "tasksTotal": 33,
             "requestedCpu": 0,
             "replicationCount": 1,
-            "executorsTotal": 33
+            "executorsTotal": 33,
         }
-    ]
+    ],
 }
 
 TEST_STORM_TOPOLOGY_RESP = {
@@ -108,7 +105,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "transferred": 307606,
             "emitted": 307606,
             "window": ":all-time",
-            "windowPretty": "All time"
+            "windowPretty": "All time",
         }
     ],
     "assignedCpu": 0,
@@ -133,7 +130,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 212282,
             "encodedBoltId": "Bolt1",
             "lastError": "",
-            "executed": 106311
+            "executed": 106311,
         },
         {
             "errorWorkerLogLink": "",
@@ -153,7 +150,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 3153,
             "encodedBoltId": "Bolt2",
             "lastError": "",
-            "executed": 3153
+            "executed": 3153,
         },
         {
             "errorWorkerLogLink": "",
@@ -173,7 +170,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 4704,
             "encodedBoltId": "Bolt3",
             "lastError": "",
-            "executed": 4704
+            "executed": 4704,
         },
         {
             "errorWorkerLogLink": "",
@@ -193,7 +190,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 218808,
             "encodedBoltId": "Bolt4",
             "lastError": "",
-            "executed": 110946
+            "executed": 110946,
         },
         {
             "errorWorkerLogLink": "",
@@ -213,7 +210,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 208890,
             "encodedBoltId": "Bolt5",
             "lastError": "",
-            "executed": 104445
+            "executed": 104445,
         },
         {
             "errorWorkerLogLink": "",
@@ -233,8 +230,8 @@ TEST_STORM_TOPOLOGY_RESP = {
             "acked": 4705,
             "encodedBoltId": "Bolt6",
             "lastError": "",
-            "executed": 4705
-        }
+            "executed": 4705,
+        },
     ],
     "schedulerDisplayResource": False,
     "replicationCount": 1,
@@ -259,7 +256,7 @@ TEST_STORM_TOPOLOGY_RESP = {
             "errorHost": "1.2.3.4",
             "failed": 0,
             "completeLatency": "285.950",
-            "executors": 8
+            "executors": 8,
         }
     ],
     "status": "ACTIVE",
@@ -310,9 +307,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "storm.blobstore.replication.factor": 3,
         "nimbus.cleanup.inbox.freq.secs": 600,
         "nimbus.queue.size": 100000,
-        "nimbus.seeds": [
-            "nimbus01.example.com"
-        ],
+        "nimbus.seeds": ["nimbus01.example.com"],
         "nimbus.topology.validator": "org.apache.storm.nimbus.DefaultTopologyValidator",
         "worker.gc.childopts": "",
         "topology.kryo.register": None,
@@ -335,8 +330,8 @@ TEST_STORM_TOPOLOGY_RESP = {
                 "argument": {
                     "metrics.statsd.prefix": "storm.metrics.",
                     "metrics.statsd.port": 8125,
-                    "metrics.statsd.host": "127.0.0.1"
-                }
+                    "metrics.statsd.host": "127.0.0.1",
+                },
             }
         ],
         "task.refresh.poll.secs": 10,
@@ -362,9 +357,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "topology.worker.shared.thread.pool.size": 4,
         "storm.health.check.dir": "/var/lib/storm/healthchecks",
         "topology.transfer.buffer.size": 1024,
-        "supervisor.slots.ports": [
-            6700
-        ],
+        "supervisor.slots.ports": [6700],
         "topology.state.checkpoint.interval.ms": 1000,
         "topology.worker.receiver.thread.count": 1,
         "drpc.https.keystore.type": "JKS",
@@ -379,9 +372,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "ui.host": "0.0.0.0",
         "topology.spout.wait.strategy": "org.apache.storm.spout.SleepSpoutWaitStrategy",
         "topology.worker.logwriter.childopts": "-Xmx64m",
-        "storm.daemon.metrics.reporter.plugins": [
-            "org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter"
-        ],
+        "storm.daemon.metrics.reporter.plugins": ["org.apache.storm.daemon.metrics.reporters.JmxPreparableReporter"],
         "pacemaker.auth.method": "NONE",
         "resource.aware.scheduler.priority.strategy": "org.apache.storm.scheduler.resource.strategies.priority.DefaultSchedulingPriorityStrategy",
         "topology.executor.send.buffer.size": 1024,
@@ -442,9 +433,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "topology.fall.back.on.java.serialization": True,
         "topology.eventlogger.executors": 0,
         "supervisor.localizer.cleanup.interval.ms": 600000,
-        "storm.zookeeper.servers": [
-            "zookeeper01.example.com"
-        ],
+        "storm.zookeeper.servers": ["zookeeper01.example.com"],
         "nimbus.thrift.threads": 64,
         "logviewer.cleanup.age.mins": 10080,
         "topology.worker.childopts": None,
@@ -475,9 +464,7 @@ TEST_STORM_TOPOLOGY_RESP = {
         "supervisor.supervisors.commands": [],
         "nimbus.blobstore.expiration.secs": 600,
         "logviewer.childopts": "-Xmx128m",
-        "topology.environment": {
-            "mytopology.foo": "bar"
-        },
+        "topology.environment": {"mytopology.foo": "bar"},
         "topology.debug": False,
         "topology.disruptor.batch.size": 100,
         "storm.messaging.netty.max_retries": 300,
@@ -505,12 +492,12 @@ TEST_STORM_TOPOLOGY_RESP = {
         "supervisor.worker.start.timeout.secs": 120,
         "storm.zookeeper.retry.interval": 1000,
         "logs.users": None,
-        "worker.profiler.command": "flight.bash"
+        "worker.profiler.command": "flight.bash",
     },
     "uptime": "17d 15h 49m 48s",
     "schedulerInfo": None,
     "name": "my_topology",
-    "workersTotal": 6
+    "workersTotal": 6,
 }
 
 TEST_STORM_TOPOLOGY_METRICS_RESP = {
@@ -523,21 +510,17 @@ TEST_STORM_TOPOLOGY_METRICS_RESP = {
                 {"stream_id": "__metrics", "value": 20},
                 {"stream_id": "default", "value": 17350280},
                 {"stream_id": "__ack_init", "value": 17328160},
-                {"stream_id": "__system", "value": 20}
+                {"stream_id": "__system", "value": 20},
             ],
             "transferred": [
                 {"stream_id": "__metrics", "value": 20},
                 {"stream_id": "default", "value": 17350280},
                 {"stream_id": "__ack_init", "value": 17328160},
-                {"stream_id": "__system", "value": 0}
+                {"stream_id": "__system", "value": 0},
             ],
-            "acked": [
-                {"stream_id": "default", "value": 17339180}
-            ],
+            "acked": [{"stream_id": "default", "value": 17339180}],
             "failed": [],
-            "complete_ms_avg": [
-                {"stream_id": "default", "value": "920.497"}
-            ]
+            "complete_ms_avg": [{"stream_id": "default", "value": "920.497"}],
         }
     ],
     "bolts": [
@@ -547,27 +530,19 @@ TEST_STORM_TOPOLOGY_METRICS_RESP = {
                 {"stream_id": "__metrics", "value": 120},
                 {"stream_id": "default", "value": 190748180},
                 {"stream_id": "__ack_ack", "value": 190718100},
-                {"stream_id": "__system", "value": 20}
+                {"stream_id": "__system", "value": 20},
             ],
             "transferred": [
                 {"stream_id": "__metrics", "value": 120},
                 {"stream_id": "default", "value": 0},
                 {"stream_id": "__ack_ack", "value": 190718100},
-                {"stream_id": "__system", "value": 0}
+                {"stream_id": "__system", "value": 0},
             ],
-            "acked": [
-                {"component_id": "split", "stream_id": "default", "value": 190733160}
-            ],
+            "acked": [{"component_id": "split", "stream_id": "default", "value": 190733160}],
             "failed": [],
-            "process_ms_avg": [
-                {"component_id": "split", "stream_id": "default", "value": "0.004"}
-            ],
-            "executed": [
-                {"component_id": "split", "stream_id": "default", "value": 190733140}
-            ],
-            "executed_ms_avg": [
-                {"component_id": "split", "stream_id": "default", "value": "0.005"}
-            ]
+            "process_ms_avg": [{"component_id": "split", "stream_id": "default", "value": "0.004"}],
+            "executed": [{"component_id": "split", "stream_id": "default", "value": 190733140}],
+            "executed_ms_avg": [{"component_id": "split", "stream_id": "default", "value": "0.005"}],
         },
         {
             "id": "split",
@@ -575,27 +550,19 @@ TEST_STORM_TOPOLOGY_METRICS_RESP = {
                 {"stream_id": "__metrics", "value": 60},
                 {"stream_id": "default", "value": 190754740},
                 {"stream_id": "__ack_ack", "value": 17317580},
-                {"stream_id": "__system", "value": 20}
+                {"stream_id": "__system", "value": 20},
             ],
             "transferred": [
                 {"stream_id": "__metrics", "value": 60},
                 {"stream_id": "default", "value": 190754740},
                 {"stream_id": "__ack_ack", "value": 17317580},
-                {"stream_id": "__system", "value": 0}
+                {"stream_id": "__system", "value": 0},
             ],
-            "acked": [
-                {"component_id": "spout", "stream_id": "default", "value": 17339180}
-            ],
+            "acked": [{"component_id": "spout", "stream_id": "default", "value": 17339180}],
             "failed": [],
-            "process_ms_avg": [
-                {"component_id": "spout", "stream_id": "default", "value": "0.051"}
-            ],
-            "executed": [
-                {"component_id": "spout", "stream_id": "default", "value": 17339240}
-            ],
-            "executed_ms_avg": [
-                {"component_id": "spout", "stream_id": "default", "value": "0.052"}
-            ]
-        }
-    ]
+            "process_ms_avg": [{"component_id": "spout", "stream_id": "default", "value": "0.051"}],
+            "executed": [{"component_id": "spout", "stream_id": "default", "value": 17339240}],
+            "executed_ms_avg": [{"component_id": "spout", "stream_id": "default", "value": "0.052"}],
+        },
+    ],
 }

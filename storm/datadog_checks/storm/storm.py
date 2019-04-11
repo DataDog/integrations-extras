@@ -1,12 +1,12 @@
 # (C) Datadog, Inc. 2010-2016
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-import requests
 import json
 
-from datadog_checks.base import AgentCheck
-
+import requests
 from six import PY3
+
+from datadog_checks.base import AgentCheck
 
 if PY3:
     long = int
@@ -315,9 +315,11 @@ class StormCheck(AgentCheck):
         """
         self.log.debug("Retrieving Topology Info. Id: %s" % topology_id)
         params = {'window': interval}
-        return self.get_request_json("/api/v1/topology/{}".format(topology_id),
-                                     "Error retrieving Storm Topology Info for topology:{}".format(topology_id),
-                                     params=params)
+        return self.get_request_json(
+            "/api/v1/topology/{}".format(topology_id),
+            "Error retrieving Storm Topology Info for topology:{}".format(topology_id),
+            params=params,
+        )
 
     def get_topology_metrics(self, topology_id, interval=60, storm_version=None):
         """ Make the storm topology metrics request.
@@ -336,9 +338,11 @@ class StormCheck(AgentCheck):
             endpoint = "/api/v1/topology/{}"
 
         params = {'window': interval}
-        return self.get_request_json(endpoint.format(topology_id),
-                                     "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
-                                     params=params)
+        return self.get_request_json(
+            endpoint.format(topology_id),
+            "Error retrieving Storm Topology Metrics for topology:{}".format(topology_id),
+            params=params,
+        )
 
     def process_cluster_stats(self, cluster_stats):
         """ Process Cluster Stats Response
@@ -349,25 +353,47 @@ class StormCheck(AgentCheck):
         :rtype: StormCheck.StormVersion
         """
         if len(cluster_stats) >= 0:
-            version = _get_string(cluster_stats,
-                                  _get_string(cluster_stats, 'unknown', 'stormVersion'),
-                                  'version').replace(' ', '_').lower()
+            version = (
+                _get_string(cluster_stats, _get_string(cluster_stats, 'unknown', 'stormVersion'), 'version')
+                .replace(' ', '_')
+                .lower()
+            )
             storm_version = 'stormVersion:{}'.format(version)
             tags = [storm_version]
             if storm_version not in self.additional_tags:
                 self.additional_tags.append(storm_version)
 
             # Longs
-            for metric_name in ['executorsTotal', 'slotsFree', 'slotsTotal', 'slotsUsed', 'supervisors', 'tasksTotal',
-                                'topologies']:
-                self.report_gauge('storm.cluster.{}'.format(metric_name), _get_long(cluster_stats, 0, metric_name),
-                                  tags=tags, additional_tags=self.additional_tags)
+            for metric_name in [
+                'executorsTotal',
+                'slotsFree',
+                'slotsTotal',
+                'slotsUsed',
+                'supervisors',
+                'tasksTotal',
+                'topologies',
+            ]:
+                self.report_gauge(
+                    'storm.cluster.{}'.format(metric_name),
+                    _get_long(cluster_stats, 0, metric_name),
+                    tags=tags,
+                    additional_tags=self.additional_tags,
+                )
             # Floats
-            for metric_name in ['availCpu', 'availMem', 'cpuAssignedPercentUtil', 'memAssignedPercentUtil', 'totalCpu',
-                                'totalMem']:
-                self.report_gauge('storm.cluster.{}'.format(metric_name),
-                                  _get_float(cluster_stats, 0.0, metric_name),
-                                  tags=tags, additional_tags=self.additional_tags)
+            for metric_name in [
+                'availCpu',
+                'availMem',
+                'cpuAssignedPercentUtil',
+                'memAssignedPercentUtil',
+                'totalCpu',
+                'totalMem',
+            ]:
+                self.report_gauge(
+                    'storm.cluster.{}'.format(metric_name),
+                    _get_float(cluster_stats, 0.0, metric_name),
+                    tags=tags,
+                    additional_tags=self.additional_tags,
+                )
             return StormCheck.StormVersion.from_string(version)
         return StormCheck.StormVersion(0, 0, 0)
 
@@ -387,10 +413,7 @@ class StormCheck(AgentCheck):
             for ns in nimbus_stats.get('nimbuses', []):
                 nimbus_status = _get_string(ns, 'offline', 'status').lower()
                 storm_host = _get_string(ns, 'unknown', 'host')
-                tags = [
-                    'stormHost:{}'.format(storm_host),
-                    'stormStatus:{}'.format(nimbus_status)
-                ]
+                tags = ['stormHost:{}'.format(storm_host), 'stormStatus:{}'.format(nimbus_status)]
 
                 if nimbus_status == 'offline':
                     numOffline += 1
@@ -401,16 +424,18 @@ class StormCheck(AgentCheck):
                 else:
                     numFollowers += 1
 
-                self.report_gauge('storm.nimbus.upTimeSeconds', _get_long(ns, 0, 'nimbusUpTimeSeconds'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_gauge('storm.nimbus.numDead', numDead,
-                              tags=tags, additional_tags=self.additional_tags)
-            self.report_gauge('storm.nimbus.numFollowers', numFollowers,
-                              tags=tags, additional_tags=self.additional_tags)
-            self.report_gauge('storm.nimbus.numLeaders', numLeaders,
-                              tags=tags, additional_tags=self.additional_tags)
-            self.report_gauge('storm.nimbus.numOffline', numOffline,
-                              tags=tags, additional_tags=self.additional_tags)
+                self.report_gauge(
+                    'storm.nimbus.upTimeSeconds',
+                    _get_long(ns, 0, 'nimbusUpTimeSeconds'),
+                    tags=tags,
+                    additional_tags=self.additional_tags,
+                )
+            self.report_gauge('storm.nimbus.numDead', numDead, tags=tags, additional_tags=self.additional_tags)
+            self.report_gauge(
+                'storm.nimbus.numFollowers', numFollowers, tags=tags, additional_tags=self.additional_tags
+            )
+            self.report_gauge('storm.nimbus.numLeaders', numLeaders, tags=tags, additional_tags=self.additional_tags)
+            self.report_gauge('storm.nimbus.numOffline', numOffline, tags=tags, additional_tags=self.additional_tags)
 
     def process_supervisor_stats(self, supervisor_stats):
         """ Process Supervisor Stats Response
@@ -427,12 +452,20 @@ class StormCheck(AgentCheck):
                 tags = ['stormHost:{}'.format(host), 'stormSupervisorId:{}'.format(storm_id)]
                 # longs
                 for metric_name in ['slotsTotal', 'slotsUsed', 'uptimeSeconds']:
-                    self.report_gauge('storm.supervisor.{}'.format(metric_name), _get_long(ss, 0, metric_name),
-                                      tags=tags, additional_tags=self.additional_tags)
+                    self.report_gauge(
+                        'storm.supervisor.{}'.format(metric_name),
+                        _get_long(ss, 0, metric_name),
+                        tags=tags,
+                        additional_tags=self.additional_tags,
+                    )
                 # floats
                 for metric_name in ['totalCpu', 'totalMem', 'usedCpu', 'usedMem']:
-                    self.report_gauge('storm.supervisor.{}'.format(metric_name), _get_float(ss, 0, metric_name),
-                                      tags=tags, additional_tags=self.additional_tags)
+                    self.report_gauge(
+                        'storm.supervisor.{}'.format(metric_name),
+                        _get_float(ss, 0, metric_name),
+                        tags=tags,
+                        additional_tags=self.additional_tags,
+                    )
 
     def process_topology_stats(self, topology_stats, interval):
         """ Process Topology Stats Response
@@ -442,6 +475,7 @@ class StormCheck(AgentCheck):
         :param interval: Interval of metrics reported
         :type interval: int
         """
+
         def _mts(metric_name):
             return 'storm.topologyStats.last_{}.{}'.format(interval, metric_name)
 
@@ -450,51 +484,135 @@ class StormCheck(AgentCheck):
             debug_mode = _get_bool(topology_stats, False, 'debug')
             tags = ['topology:{}'.format(name)]
 
-            self.report_histogram(_mts('acked'), _get_long(topology_stats, 0, 'topologyStats', 0, 'acked'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('assignedCpu'), _get_float(topology_stats, 0.0, 'assignedCpu'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('assignedMemOffHeap'), _get_long(topology_stats, 0, 'assignedMemOffHeap'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('assignedMemOnHeap'), _get_long(topology_stats, 0, 'assignedMemOnHeap'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('assignedTotalMem'), _get_long(topology_stats, 0, 'assignedTotalMem'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('completeLatency'),
-                                  _get_float(topology_stats, 0.0, 'topologyStats', 0, 'completeLatency'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('debug'), 1 if debug_mode else 0,
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('emitted'), _get_long(topology_stats, 0, 'topologyStats', 0, 'emitted'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('executorsTotal'), _get_long(topology_stats, 0, 'executorsTotal'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('failed'), _get_long(topology_stats, 0, 'topologyStats', 0, 'failed'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('msgTimeout'), _get_long(topology_stats, 0, 'msgTimeout'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('numBolts'), _get_length(topology_stats, 0, 'bolts'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('numSpouts'), _get_length(topology_stats, 0, 'spouts'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('replicationCount'), _get_long(topology_stats, 0, 'replicationCount'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('requestedCpu'), _get_float(topology_stats, 0.0, 'requestedCpu'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('requestedMemOffHeap'), _get_float(topology_stats, 0.0, 'requestedMemOffHeap'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('requestedMemOnHeap'), _get_float(topology_stats, 0.0, 'requestedMemOnHeap'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('samplingPct'), _get_float(topology_stats, 0.0, 'samplingPct'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('tasksTotal'), _get_long(topology_stats, 0, 'tasksTotal'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('transferred'), _get_long(topology_stats, 0, 'topologyStats', 0, 'transferred'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('uptimeSeconds'), _get_long(topology_stats, 0, 'uptimeSeconds'),
-                                  tags=tags, additional_tags=self.additional_tags)
-            self.report_histogram(_mts('workersTotal'), _get_long(topology_stats, 0, 'workersTotal'),
-                                  tags=tags, additional_tags=self.additional_tags)
+            self.report_histogram(
+                _mts('acked'),
+                _get_long(topology_stats, 0, 'topologyStats', 0, 'acked'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('assignedCpu'),
+                _get_float(topology_stats, 0.0, 'assignedCpu'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('assignedMemOffHeap'),
+                _get_long(topology_stats, 0, 'assignedMemOffHeap'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('assignedMemOnHeap'),
+                _get_long(topology_stats, 0, 'assignedMemOnHeap'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('assignedTotalMem'),
+                _get_long(topology_stats, 0, 'assignedTotalMem'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('completeLatency'),
+                _get_float(topology_stats, 0.0, 'topologyStats', 0, 'completeLatency'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('debug'), 1 if debug_mode else 0, tags=tags, additional_tags=self.additional_tags
+            )
+            self.report_histogram(
+                _mts('emitted'),
+                _get_long(topology_stats, 0, 'topologyStats', 0, 'emitted'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('executorsTotal'),
+                _get_long(topology_stats, 0, 'executorsTotal'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('failed'),
+                _get_long(topology_stats, 0, 'topologyStats', 0, 'failed'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('msgTimeout'),
+                _get_long(topology_stats, 0, 'msgTimeout'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('numBolts'),
+                _get_length(topology_stats, 0, 'bolts'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('numSpouts'),
+                _get_length(topology_stats, 0, 'spouts'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('replicationCount'),
+                _get_long(topology_stats, 0, 'replicationCount'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('requestedCpu'),
+                _get_float(topology_stats, 0.0, 'requestedCpu'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('requestedMemOffHeap'),
+                _get_float(topology_stats, 0.0, 'requestedMemOffHeap'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('requestedMemOnHeap'),
+                _get_float(topology_stats, 0.0, 'requestedMemOnHeap'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('samplingPct'),
+                _get_float(topology_stats, 0.0, 'samplingPct'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('tasksTotal'),
+                _get_long(topology_stats, 0, 'tasksTotal'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('transferred'),
+                _get_long(topology_stats, 0, 'topologyStats', 0, 'transferred'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('uptimeSeconds'),
+                _get_long(topology_stats, 0, 'uptimeSeconds'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
+            self.report_histogram(
+                _mts('workersTotal'),
+                _get_long(topology_stats, 0, 'workersTotal'),
+                tags=tags,
+                additional_tags=self.additional_tags,
+            )
 
             # Bolt Stats
             def _mb(metric_name):
@@ -505,17 +623,38 @@ class StormCheck(AgentCheck):
                 bolt_tags = tags + ['bolt:{}'.format(bolt_name)]
 
                 # Longs:
-                for metric_name in ['acked', 'emitted', 'executed', 'executors', 'failed',
-                                    'requestedMemOffHeap', 'requestedMemOnHeap', 'tasks', 'transferred']:
-                    self.report_histogram(_mb(metric_name), _get_long(b, 0, metric_name),
-                                          tags=bolt_tags, additional_tags=self.additional_tags)
+                for metric_name in [
+                    'acked',
+                    'emitted',
+                    'executed',
+                    'executors',
+                    'failed',
+                    'requestedMemOffHeap',
+                    'requestedMemOnHeap',
+                    'tasks',
+                    'transferred',
+                ]:
+                    self.report_histogram(
+                        _mb(metric_name),
+                        _get_long(b, 0, metric_name),
+                        tags=bolt_tags,
+                        additional_tags=self.additional_tags,
+                    )
                 # Floats
                 for metric_name in ['capacity', 'executeLatency', 'processLatency', 'requestedCpu']:
-                    self.report_histogram(_mb(metric_name), _get_float(b, 0, metric_name),
-                                          tags=bolt_tags, additional_tags=self.additional_tags)
+                    self.report_histogram(
+                        _mb(metric_name),
+                        _get_float(b, 0, metric_name),
+                        tags=bolt_tags,
+                        additional_tags=self.additional_tags,
+                    )
 
-                self.report_histogram(_mb('errorLapsedSecs'), _get_float(b, 1E10, 'errorLapsedSecs'),
-                                      tags=bolt_tags, additional_tags=self.additional_tags)
+                self.report_histogram(
+                    _mb('errorLapsedSecs'),
+                    _get_float(b, 1e10, 'errorLapsedSecs'),
+                    tags=bolt_tags,
+                    additional_tags=self.additional_tags,
+                )
 
             # Process Spout stats
             def _ms(metric_name):
@@ -526,17 +665,37 @@ class StormCheck(AgentCheck):
                 spout_tags = tags + ['spout:{}'.format(spout_name)]
 
                 # Longs:
-                for metric_name in ['acked', 'emitted', 'executors', 'failed', 'requestedMemOffHeap',
-                                    'requestedMemOnHeap', 'tasks', 'transferred']:
-                    self.report_histogram(_ms(metric_name), _get_long(s, 0, metric_name),
-                                          tags=spout_tags, additional_tags=self.additional_tags)
+                for metric_name in [
+                    'acked',
+                    'emitted',
+                    'executors',
+                    'failed',
+                    'requestedMemOffHeap',
+                    'requestedMemOnHeap',
+                    'tasks',
+                    'transferred',
+                ]:
+                    self.report_histogram(
+                        _ms(metric_name),
+                        _get_long(s, 0, metric_name),
+                        tags=spout_tags,
+                        additional_tags=self.additional_tags,
+                    )
                 # Floats
                 for metric_name in ['completeLatency', 'requestedCpu']:
-                    self.report_histogram(_ms(metric_name), _get_float(s, 0, metric_name),
-                                          tags=spout_tags, additional_tags=self.additional_tags)
+                    self.report_histogram(
+                        _ms(metric_name),
+                        _get_float(s, 0, metric_name),
+                        tags=spout_tags,
+                        additional_tags=self.additional_tags,
+                    )
 
-                self.report_histogram(_ms('errorLapsedSecs'), _get_float(s, 1E10, 'errorLapsedSecs'),
-                                      tags=spout_tags, additional_tags=self.additional_tags)
+                self.report_histogram(
+                    _ms('errorLapsedSecs'),
+                    _get_float(s, 1e10, 'errorLapsedSecs'),
+                    tags=spout_tags,
+                    additional_tags=self.additional_tags,
+                )
 
             # Process worker stats
             def _mw(metric_name):
@@ -549,22 +708,46 @@ class StormCheck(AgentCheck):
                 supervisor_id = _get_string(w, 'unknown', 'supervisorId')
                 worker_tags = tags + ['worker:{}:{}'.format(host, port), 'supervisor:{}'.format(supervisor_id)]
 
-                self.report_histogram(_mw('assignedCpu'), _get_float(w, 0, 'assignedCpu'),
-                                      tags=worker_tags, additional_tags=self.additional_tags)
-                self.report_histogram(_mw('assignedMemOffHeap'), _get_long(w, 0, 'assignedMemOffHeap'),
-                                      tags=worker_tags, additional_tags=self.additional_tags)
-                self.report_histogram(_mw('assignedMemOnHeap'), _get_long(w, 0, 'assignedMemOnHeap'),
-                                      tags=worker_tags, additional_tags=self.additional_tags)
-                self.report_histogram(_mw('executorsTotal'), _get_long(w, 0, 'executorsTotal'),
-                                      tags=worker_tags, additional_tags=self.additional_tags)
-                self.report_histogram(_mw('uptimeSeconds'), _get_long(w, 0, 'uptimeSeconds'),
-                                      tags=worker_tags, additional_tags=self.additional_tags)
+                self.report_histogram(
+                    _mw('assignedCpu'),
+                    _get_float(w, 0, 'assignedCpu'),
+                    tags=worker_tags,
+                    additional_tags=self.additional_tags,
+                )
+                self.report_histogram(
+                    _mw('assignedMemOffHeap'),
+                    _get_long(w, 0, 'assignedMemOffHeap'),
+                    tags=worker_tags,
+                    additional_tags=self.additional_tags,
+                )
+                self.report_histogram(
+                    _mw('assignedMemOnHeap'),
+                    _get_long(w, 0, 'assignedMemOnHeap'),
+                    tags=worker_tags,
+                    additional_tags=self.additional_tags,
+                )
+                self.report_histogram(
+                    _mw('executorsTotal'),
+                    _get_long(w, 0, 'executorsTotal'),
+                    tags=worker_tags,
+                    additional_tags=self.additional_tags,
+                )
+                self.report_histogram(
+                    _mw('uptimeSeconds'),
+                    _get_long(w, 0, 'uptimeSeconds'),
+                    tags=worker_tags,
+                    additional_tags=self.additional_tags,
+                )
 
                 worker_stat[_mw('componentNumTasks')] = []
                 for cn, cv in _get_dict(w, 'componentNumTasks').items():
                     worker_component_tags = worker_tags + ['component:{}'.format(cn)]
-                    self.report_histogram(_mw('componentNumTasks'), _long(cv or 0),
-                                          tags=worker_component_tags, additional_tags=self.additional_tags)
+                    self.report_histogram(
+                        _mw('componentNumTasks'),
+                        _long(cv or 0),
+                        tags=worker_component_tags,
+                        additional_tags=self.additional_tags,
+                    )
 
     def process_topology_metrics(self, topology_name, topology_stats, interval):
         """ Process Topology Metrics Stats Response
@@ -583,8 +766,16 @@ class StormCheck(AgentCheck):
                 for s in _get_list(topology_stats, k):
                     k_name = _get_string(s, 'unknown', 'id').replace('.', '_').replace(':', '_')
                     k_tags = tags + ['{}:{}'.format(k, k_name)]
-                    for sc in ['acked', 'complete_ms_avg', 'emitted', 'executed', 'executed_ms_avg', 'failed',
-                               'process_ms_avg', 'transferred']:
+                    for sc in [
+                        'acked',
+                        'complete_ms_avg',
+                        'emitted',
+                        'executed',
+                        'executed_ms_avg',
+                        'failed',
+                        'process_ms_avg',
+                        'transferred',
+                    ]:
                         for ks in _get_list(s, sc):
                             stream_id = _get_string(ks, 'unknown', 'stream_id')
                             ks_tags = k_tags + ['stream:{}'.format(stream_id)]
@@ -600,7 +791,8 @@ class StormCheck(AgentCheck):
                                 self.report_histogram(
                                     'storm.topologyStats.metrics.{}.last_{}.{}'.format(k, interval, sc),
                                     component_value,
-                                    tags=ks_tags, additional_tags=self.additional_tags
+                                    tags=ks_tags,
+                                    additional_tags=self.additional_tags,
                                 )
 
     def report_gauge(self, metric, value, tags, additional_tags):
@@ -615,11 +807,7 @@ class StormCheck(AgentCheck):
         all_tags = set(tags)
         all_tags.add('stormEnvironment:{}'.format(self.environment_name))
         all_tags.update(additional_tags)
-        self.gauge(
-            metric,
-            value=value,
-            tags=all_tags
-        )
+        self.gauge(metric, value=value, tags=all_tags)
 
     def report_histogram(self, metric, value, tags, additional_tags):
         """ Report the Histogram Metric.
@@ -633,11 +821,7 @@ class StormCheck(AgentCheck):
         all_tags = set(tags)
         all_tags.add('stormEnvironment:{}'.format(self.environment_name))
         all_tags.update(additional_tags)
-        self.histogram(
-            metric,
-            value=value,
-            tags=all_tags
-        )
+        self.histogram(metric, value=value, tags=all_tags)
 
     def update_from_config(self, instance):
         """ Update Configuration tunables from instance configuration.
@@ -646,8 +830,9 @@ class StormCheck(AgentCheck):
         :return: None
         """
         self.nimbus_server = instance.get('server', self.init_config.get('server', StormCheck.DEFAULT_STORM_SERVER))
-        self.environment_name = instance.get('environment',
-                                             self.init_config.get('environment', StormCheck.DEFAULT_STORM_ENVIRONMENT))
+        self.environment_name = instance.get(
+            'environment', self.init_config.get('environment', StormCheck.DEFAULT_STORM_ENVIRONMENT)
+        )
         self.additional_tags = []
         self.additional_tags.extend(instance.get('tags', []))
         self.excluded_topologies = []
@@ -702,8 +887,9 @@ class StormCheck(AgentCheck):
                     try:
                         stats = self.get_topology_info(topology_id=topology_id, interval=interval)
                         self.process_topology_stats(topology_stats=stats, interval=interval)
-                        metric_stats = self.get_topology_metrics(topology_id=topology_id, interval=interval,
-                                                                 storm_version=storm_version)
+                        metric_stats = self.get_topology_metrics(
+                            topology_id=topology_id, interval=interval, storm_version=storm_version
+                        )
                         self.process_topology_metrics(topology_name, metric_stats, interval=interval)
 
                         # only report this once.
@@ -714,10 +900,11 @@ class StormCheck(AgentCheck):
                                 'topology_check.{}'.format(topology_name),
                                 status=check_status,
                                 message='{} topology status marked as: {}'.format(topology_name, topology_status),
-                                tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags
+                                tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags,
                             )
                     except Exception:  # noqa
                         self.log.exception(
                             "unable to collect topology stats for topology_id:{}, topology_name:{}".format(
                                 topology_id, topology_name
-                            ))
+                            )
+                        )
