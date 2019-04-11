@@ -6,7 +6,7 @@ import os
 
 from datadog_checks.snmpwalk import SnmpwalkCheck
 
-from .common import HERE, HOST
+from .common import HERE
 
 RESULTS_TIMEOUT = 10
 
@@ -14,7 +14,7 @@ RESULTS_TIMEOUT = 10
 CHECK_NAME = 'snmpwalk'
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), 'ci')
 
-CHECK_TAGS = ['snmp_device:{}:11111'.format(HOST)]
+CHECK_TAGS = ['snmp_device:localhost:161']
 
 TABULAR_OBJECTS = [
     {
@@ -28,7 +28,7 @@ TABULAR_OBJECTS = [
 
 def generate_instance_config(instance_config, metrics):
     instance_config['metrics'] = metrics
-    instance_config['name'] = HOST
+    instance_config['name'] = 'localhost'
     return instance_config
 
 
