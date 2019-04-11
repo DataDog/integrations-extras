@@ -5,6 +5,7 @@ from datadog_checks.errors import CheckException
 
 from .common import INSTANCE
 
+
 def test_config():
     c = RiakReplCheck('riak_repl', {}, {}, None)
 
