@@ -2,17 +2,14 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 
-import requests
 import time
 
-# stdlib
+import requests
 
-# 3rd party
-
-# project
-from checks import AgentCheck
+from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'gnatsd_streaming'
+
 
 class GnatsdStreamingConfig:
     def __init__(self, instance):
@@ -23,6 +20,7 @@ class GnatsdStreamingConfig:
         self.server_name = instance.get('server_name', '')
         self.pagination_limit = instance.get('pagination_limit', 1024)
         self.tags = instance.get('tags', [])
+
 
 class GnatsdStreamingCheckInvocation:
     SERVICE_CHECK_NAME = 'gnatsd_streaming.can_connect'
@@ -35,27 +33,16 @@ class GnatsdStreamingCheckInvocation:
             'total_msgs': 'count',
             'total_bytes': 'count',
         },
-        'storez': {
-            'total_msgs': 'count',
-            'total_bytes': 'count',
-        },
-        'clientsz': {
-            'total': 'gauge',
-        },
-        'channelsz': {
-            'total': 'gauge',
-            'channels': {
-                'msgs': 'count',
-                'bytes': 'count'
-            }
-        }
+        'storez': {'total_msgs': 'count', 'total_bytes': 'count'},
+        'clientsz': {'total': 'gauge'},
+        'channelsz': {'total': 'gauge', 'channels': {'msgs': 'count', 'bytes': 'count'}},
     }
 
     TAGS = {
-        'serverz': ['cluster_id','server_id','version','go'],
-        'storez': ['cluster_id','server_id'],
-        'clientsz': ['cluster_id','server_id'],
-        'channelsz': ['cluster_id','server_id'],
+        'serverz': ['cluster_id', 'server_id', 'version', 'go'],
+        'storez': ['cluster_id', 'server_id'],
+        'clientsz': ['cluster_id', 'server_id'],
+        'channelsz': ['cluster_id', 'server_id'],
     }
 
     def __init__(self, instance, checker):
@@ -84,7 +71,9 @@ class GnatsdStreamingCheckInvocation:
                 raise ValueError('Non 200 response from NATS monitor port')
         except Exception as e:
             msg = "Unable to fetch NATS Streaming stats: %s" % str(e)
-            self.checker.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=msg, tags=self.service_check_tags)
+            self.checker.service_check(
+                self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=msg, tags=self.service_check_tags
+            )
             raise e
 
     def _failover_check(self):
@@ -93,20 +82,25 @@ class GnatsdStreamingCheckInvocation:
             # our first run through we just remember the state for later
             self.checker.ft_status = response['state']
         elif self.checker.ft_status != response['state']:
-            self.checker.event({
-                'timestamp': int(time.time()),
-                'source_type_name': 'gnatsd_streaming',
-                'msg_title': 'Nats Streaming Failover',
-                'msg_text': 'NATS Streaming Server Changed Status from {} to {}'.format(self.checker.ft_status, response['state']),
-                'host': self.config.host,
-                'tags': self.config.tags + ['action:gnatsd_streaming_failover']
-            })
+            self.checker.event(
+                {
+                    'timestamp': int(time.time()),
+                    'source_type_name': 'gnatsd_streaming',
+                    'msg_title': 'Nats Streaming Failover',
+                    'msg_text': 'NATS Streaming Server Changed Status from {} to {}'.format(
+                        self.checker.ft_status, response['state']
+                    ),
+                    'host': self.config.host,
+                    'tags': self.config.tags + ['action:gnatsd_streaming_failover'],
+                }
+            )
 
         self.checker.ft_status = response['state']
 
-    def _check_endpoint(self, endpoint, metrics, pagination={}):
+    def _check_endpoint(self, endpoint, metrics, pagination=None):
         params = self._params(endpoint)
-        params.update(pagination)
+        if pagination:
+            params.update(pagination)
 
         data = requests.get(self.config.url + '/' + endpoint, params).json()
         self._track_metrics(endpoint, metrics, data)
@@ -115,17 +109,19 @@ class GnatsdStreamingCheckInvocation:
             offset = data.get('offset') + data.get('limit')
             self._check_endpoint(endpoint, metrics, pagination={'offset': offset})
 
-    def _track_metrics(self, namespace, metrics, data, tags={}):
+    def _track_metrics(self, namespace, metrics, data, tags=None):
         if not tags:
             tags = self._metric_tags(namespace, data)
 
         for mname, mtype in metrics.items():
             path = namespace + '.' + mname
 
-            if type(mtype) is dict:
+            if isinstance(mtype, dict):
                 for instance in data.get(mname, []):
                     title = str(instance.get('name')) if 'channels' in namespace else ''
-                    self._track_metrics(path + '.' + title.replace(".","_"), mtype, instance, tags=self._metric_tags(path, instance))
+                    self._track_metrics(
+                        path + '.' + title.replace(".", "_"), mtype, instance, tags=self._metric_tags(path, instance)
+                    )
             else:
                 if mtype == 'count':
                     metric = self._count_delta(path, data[mname])
@@ -136,12 +132,7 @@ class GnatsdStreamingCheckInvocation:
                 getattr(self.checker, mtype)('gnatsd.streaming.' + path, metric, tags=tags)
 
     def _params(self, endpoint):
-        return {
-            'channelsz': {
-                'subs': 1,
-                'limit': self.config.pagination_limit
-            }
-        }.get(endpoint, {})
+        return {'channelsz': {'subs': 1, 'limit': self.config.pagination_limit}}.get(endpoint, {})
 
     def _metric_tags(self, endpoint, data):
         tags = []
