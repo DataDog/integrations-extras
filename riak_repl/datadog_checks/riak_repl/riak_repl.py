@@ -99,21 +99,12 @@ class RiakReplCheck(AgentCheck):
             self.gauge(name, float(value), tags=tags)
             return
         except ValueError:
-            self.log.debug(
-                "metric name {0} cannot be converted to a \
-                           float: {1}".format(
-                    name, value
-                )
-            )
+            self.log.debug("metric name {} cannot be converted to a float: {}".format(name, value))
 
         try:
             self.gauge(name, unicodedata.numeric(value), tags=tags)
             return
         except (TypeError, ValueError):
             self.log.debug(
-                "metric name {0} cannot be converted to a \
-                           float even using unicode tools:\
-                           {1}".format(
-                    name, value
-                )
+                "metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value)
             )
