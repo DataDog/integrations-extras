@@ -5,7 +5,6 @@ import os
 
 from datadog_checks.dev import get_docker_hostname
 
-
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 CONTAINER_NAME = 'nextcloud-standalone'
@@ -16,8 +15,4 @@ PORT = '8080'
 VALID_URL = 'http://{}:{}/ocs/v2.php/apps/serverinfo/api/v1/info?format=json'.format(HOST, PORT)
 INVALID_URL = 'http://{}:{}/ocs/v2.php'.format(HOST, PORT)
 
-BASE_CONFIG = {
-    'url': VALID_URL,
-    'username': USER,
-    'password': PASSWORD
-}
+BASE_CONFIG = {'url': VALID_URL, 'username': USER, 'password': PASSWORD}
