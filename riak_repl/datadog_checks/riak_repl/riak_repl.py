@@ -64,32 +64,17 @@ class RiakReplCheck(AgentCheck):
         try:
             r = requests.get(url, timeout=timeout)
         except requests.exceptions.Timeout:
-            raise CheckException(
-                'URL: {0} timed out after {1} \
-                                 seconds.'.format(
-                    url, timeout
-                )
-            )
+            raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
         except requests.exceptions.ConnectionError as e:
             raise CheckException(e)
 
         if r.status_code != 200:
-            raise CheckException(
-                'Invalid Status Code, {0} returned a status \
-                                 of {1}.'.format(
-                    url, r.status_code
-                )
-            )
+            raise CheckException('Invalid Status Code, {} returned a status of {}.'.format(url, r.status_code))
 
         try:
             stats = json.loads(r.text)
         except ValueError:
-            raise CheckException(
-                '{0} returned an unserializable \
-                                 payload'.format(
-                    url
-                )
-            )
+            raise CheckException('{} returned an unserializable payload'.format(url))
 
         for key, val in iteritems(stats):
             if key in self.REPL_STATS:
