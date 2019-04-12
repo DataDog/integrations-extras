@@ -28,6 +28,7 @@ class FilebeatCheckHttpProfiler:
     """
 
     INCREMENT_METRIC_NAMES = [
+        "filebeat.events.done",
         "filebeat.harvester.closed",
         "filebeat.harvester.files.truncated",
         "filebeat.harvester.open_files",
@@ -56,10 +57,15 @@ class FilebeatCheckHttpProfiler:
         "libbeat.logstash.publish.write_errors",
         "libbeat.logstash.published_and_acked_events",
         "libbeat.logstash.published_but_not_acked_events",
+        "libbeat.output.events.acked",
         "libbeat.output.events.dropped",
         "libbeat.output.events.failed",
+        "libbeat.output.events.total",
         "libbeat.pipeline.events.dropped",
         "libbeat.pipeline.events.failed",
+        "libbeat.pipeline.events.filtered",
+        "libbeat.pipeline.events.published",
+        "libbeat.pipeline.events.total",
         "libbeat.publisher.messages_in_worker_queues",
         "libbeat.publisher.published_events",
         "libbeat.redis.publish.read_bytes",

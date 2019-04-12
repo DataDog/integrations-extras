@@ -16,10 +16,7 @@ def ping_traefik():
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    with docker_run(
-        common.DOCKER_COMPOSE_FILE,
-        conditions=[WaitFor(ping_traefik)],
-    ):
+    with docker_run(common.DOCKER_COMPOSE_FILE, conditions=[WaitFor(ping_traefik)]):
         yield common.INSTANCE
 
 

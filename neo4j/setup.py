@@ -25,17 +25,13 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent neo4j check',
-
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
-
     # Author details
     author='@platinummonkey',
     author_email='@platinummonkey',
-
     # License
     license='BSD-3-Clause',
-
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -46,13 +42,10 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
     ],
-
     # The package we're going to ship
     packages=['datadog_checks.neo4j'],
-
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
-
     # Extra files to ship with the wheel package
     include_package_data=True,
 )

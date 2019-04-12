@@ -1,7 +1,7 @@
+import json
+
 import requests
 from requests import RequestException
-
-import json
 
 from datadog_checks.checks import AgentCheck
 from datadog_checks.errors import CheckException
@@ -34,29 +34,30 @@ class NeutronaCheck(AgentCheck):
 
         try:
             response = requests.post(
-                '/'.join([azure_authentication_url.strip('/'),
-                          directory_id,
-                          'oauth2/token?api-version=1.0']),
+                '/'.join([azure_authentication_url.strip('/'), directory_id, 'oauth2/token?api-version=1.0']),
                 data={
                     'grant_type': 'client_credentials',
                     'resource': 'https://management.core.windows.net/',
                     'client_id': application_id,
-                    'client_secret': application_key
-                }
+                    'client_secret': application_key,
+                },
             )
         except RequestException:
-            self.log.error(' '.join(['Connection error to', azure_authentication_url,
-                                     'Unable to obtain Azure access token.']))
-            raise CheckException(' '.join(['Connection error to', azure_authentication_url,
-                                           'Unable to obtain Azure access token.']))
+            self.log.error(
+                ' '.join(['Connection error to', azure_authentication_url, 'Unable to obtain Azure access token.'])
+            )
+            raise CheckException(
+                ' '.join(['Connection error to', azure_authentication_url, 'Unable to obtain Azure access token.'])
+            )
 
         azure_access_token = ''
 
         if response.status_code != 200:
 
             self.log.error(' '.join(['Error authenticating with Azure: ', str(response.status_code)]))
-            raise CheckException(' '.join(['Connection error to', azure_authentication_url,
-                                           'Unable to obtain Azure access token.']))
+            raise CheckException(
+                ' '.join(['Connection error to', azure_authentication_url, 'Unable to obtain Azure access token.'])
+            )
 
         else:
 
@@ -69,15 +70,18 @@ class NeutronaCheck(AgentCheck):
         # EXPRESS ROUTE CROSS CONNECTIONS
         try:
             response = requests.get(
-                ''.join([azure_management_url.strip('/'),
-                         '/subscriptions/',
-                         subscription_id,
-                         '/providers/Microsoft.Network',
-                         '/expressRouteCircuits',
-                         '?api-version=', '2018-08-01']),
-                headers={
-                    'Authorization': ' '.join(['Bearer', azure_access_token]),
-                }
+                ''.join(
+                    [
+                        azure_management_url.strip('/'),
+                        '/subscriptions/',
+                        subscription_id,
+                        '/providers/Microsoft.Network',
+                        '/expressRouteCircuits',
+                        '?api-version=',
+                        '2018-08-01',
+                    ]
+                ),
+                headers={'Authorization': ' '.join(['Bearer', azure_access_token])},
             )
         except RequestException:
             self.log.error(' '.join(['Connection error to', azure_management_url]))
@@ -106,9 +110,7 @@ class NeutronaCheck(AgentCheck):
                         # NEUTRONA TELEMETRY DATA
                         try:
                             response = requests.get(
-                                ''.join([neutrona_express_route_api_url.strip('/'),
-                                         '/client/?=',
-                                         service_key]),
+                                ''.join([neutrona_express_route_api_url.strip('/'), '/client/?=', service_key]),
                                 # headers={
                                 #    'Authorization': ' '.join(['Bearer', '']),
                                 # }
@@ -125,16 +127,27 @@ class NeutronaCheck(AgentCheck):
                                 for conn in connections:
                                     for metric, value in conn.items():
                                         if metric != 'tags':
-                                            self.gauge('.'.join(['neutrona', 'azure', 'expressroute', metric]),
-                                                       value, conn['tags'], service_key)
+                                            self.gauge(
+                                                '.'.join(['neutrona', 'azure', 'expressroute', metric]),
+                                                value,
+                                                conn['tags'],
+                                                service_key,
+                                            )
                             except KeyError:
                                 self.log.error(''.join(['Error querying Neutrona Express Route API: Invalid Response']))
                                 raise CheckException('Error querying Neutrona Express Route API: Invalid Response')
 
                         else:
-                            self.log.error(' -- '.join([service_key, service_provider_name,
-                                                        'Error querying Neutrona API: Code ',
-                                                        str(response.status_code)]))
+                            self.log.error(
+                                ' -- '.join(
+                                    [
+                                        service_key,
+                                        service_provider_name,
+                                        'Error querying Neutrona API: Code ',
+                                        str(response.status_code),
+                                    ]
+                                )
+                            )
                             raise CheckException(' '.join(['Connection error to', neutrona_express_route_api_url]))
 
             except KeyError:

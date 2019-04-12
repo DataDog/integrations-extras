@@ -2,9 +2,10 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-from setuptools import setup
 from codecs import open
 from os import path
+
+from setuptools import setup
 
 HERE = path.abspath(path.dirname(__file__))
 
@@ -30,7 +31,6 @@ setup(
     author='Renaud Hager',
     author_email='paas@argos.co.uk',
     license='BSD',
-
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -41,13 +41,10 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.7',
     ],
-
     # The package we're going to ship
     packages=['datadog_checks.traefik'],
-
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
-
     # Extra files to ship with the wheel
     include_package_data=True,
 )

@@ -10,14 +10,13 @@ from datadog_checks.aqua import AquaCheck
 
 from .common import HERE
 
-
 EXPECTED_VALUES = (
     ("aqua.images", 9),
     ("aqua.scan_queue", 0),
     ("aqua.audit.access", 2),
     ("aqua.vulnerabilities", 49),
     ("aqua.enforcers", 0),
-    ("aqua.running_containers", 0)
+    ("aqua.running_containers", 0),
 )
 
 
@@ -43,6 +42,7 @@ def test_check(aggregator, instance):
         elif url == '/api/v1/scanqueue/summary':
             with open(os.path.join(HERE, 'fixtures', 'aqua_scan_queues_metrics.json'), 'r') as f:
                 return json.load(f)
+
     check._perform_query = MagicMock(side_effect=mock_perform)
 
     check.check(instance)

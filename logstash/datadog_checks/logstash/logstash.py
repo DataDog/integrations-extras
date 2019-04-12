@@ -1,29 +1,21 @@
 # stdlib
 from collections import namedtuple
-from six import iteritems
-from six.moves.urllib.parse import urlparse, urljoin
 from distutils.version import LooseVersion
 
 # 3rd party
 import requests
+from six import iteritems
+from six.moves.urllib.parse import urljoin, urlparse
 
 # project
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.headers import headers
 
-
 EVENT_TYPE = SOURCE_TYPE_NAME = 'logstash'
 
 LogstashInstanceConfig = namedtuple(
-    'LogstashInstanceConfig', [
-        'service_check_tags',
-        'tags',
-        'timeout',
-        'url',
-        'ssl_verify',
-        'ssl_cert',
-        'ssl_key',
-    ])
+    'LogstashInstanceConfig', ['service_check_tags', 'tags', 'timeout', 'url', 'ssl_verify', 'ssl_cert', 'ssl_key']
+)
 
 
 class LogstashCheck(AgentCheck):
@@ -64,14 +56,18 @@ class LogstashCheck(AgentCheck):
         "logstash.jvm.mem.pools.young.peak_max_in_bytes": ("gauge", "jvm.mem.pools.young.peak_max_in_bytes"),
         "logstash.jvm.mem.pools.young.max_in_bytes": ("gauge", "jvm.mem.pools.young.max_in_bytes"),
         "logstash.jvm.mem.pools.young.committed_in_bytes": ("gauge", "jvm.mem.pools.young.committed_in_bytes"),
-        "logstash.jvm.gc.collectors.old.collection_time_in_millis":
-            ("gauge", "jvm.gc.collectors.old.collection_time_in_millis"),
+        "logstash.jvm.gc.collectors.old.collection_time_in_millis": (
+            "gauge",
+            "jvm.gc.collectors.old.collection_time_in_millis",
+        ),
         "logstash.jvm.gc.collectors.old.collection_count": ("gauge", "jvm.gc.collectors.old.collection_count"),
-        "logstash.jvm.gc.collectors.young.collection_time_in_millis":
-            ("gauge", "jvm.gc.collectors.young.collection_time_in_millis"),
+        "logstash.jvm.gc.collectors.young.collection_time_in_millis": (
+            "gauge",
+            "jvm.gc.collectors.young.collection_time_in_millis",
+        ),
         "logstash.jvm.gc.collectors.young.collection_count": ("gauge", "jvm.gc.collectors.young.collection_count"),
         "logstash.reloads.successes": ("gauge", "reloads.successes"),
-        "logstash.reloads.failures": ("gauge", "reloads.failures")
+        "logstash.reloads.failures": ("gauge", "reloads.failures"),
     }
 
     PIPELINE_METRICS = {
@@ -80,25 +76,27 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.events.out": ("gauge", "pipeline.events.out"),
         "logstash.pipeline.events.filtered": ("gauge", "pipeline.events.filtered"),
         "logstash.pipeline.reloads.successes": ("gauge", "pipeline.reloads.successes"),
-        "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures")
+        "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
     }
 
     PIPELINE_INPUTS_METRICS = {
         "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
-        "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis":
-            ("gauge", "events.queue_push_duration_in_millis")
+        "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
+            "gauge",
+            "events.queue_push_duration_in_millis",
+        ),
     }
 
     PIPELINE_OUTPUTS_METRICS = {
         "logstash.pipeline.plugins.outputs.events.in": ("gauge", "events.in"),
         "logstash.pipeline.plugins.outputs.events.out": ("gauge", "events.out"),
-        "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis")
+        "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
     }
 
     PIPELINE_FILTERS_METRICS = {
         "logstash.pipeline.plugins.filters.events.in": ("gauge", "events.in"),
         "logstash.pipeline.plugins.filters.events.out": ("gauge", "events.out"),
-        "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis")
+        "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
     }
 
     def get_instance_config(self, instance):
@@ -115,10 +113,7 @@ class LogstashCheck(AgentCheck):
         host = parsed.hostname
 
         custom_tags = instance.get('tags', [])
-        service_check_tags = [
-            'host:%s' % host,
-            'port:%s' % port
-        ]
+        service_check_tags = ['host:%s' % host, 'port:%s' % port]
         service_check_tags.extend(custom_tags)
 
         # Tag by URL so we can differentiate the metrics
@@ -135,7 +130,7 @@ class LogstashCheck(AgentCheck):
             ssl_verify=instance.get('ssl_verify', False),
             tags=tags,
             timeout=timeout,
-            url=url
+            url=url,
         )
         return config
 
@@ -161,12 +156,7 @@ class LogstashCheck(AgentCheck):
 
         try:
             resp = requests.get(
-                url,
-                timeout=config.timeout,
-                headers=headers(self.agentConfig),
-                auth=auth,
-                verify=verify,
-                cert=cert
+                url, timeout=config.timeout, headers=headers(self.agentConfig), auth=auth, verify=verify, cert=cert
             )
             resp.raise_for_status()
         except Exception as e:
@@ -175,7 +165,7 @@ class LogstashCheck(AgentCheck):
                     self.SERVICE_CHECK_CONNECT_NAME,
                     AgentCheck.CRITICAL,
                     message="Error {0} when hitting {1}".format(e, url),
-                    tags=config.service_check_tags
+                    tags=config.service_check_tags,
                 )
             raise
 
@@ -190,8 +180,7 @@ class LogstashCheck(AgentCheck):
         except Exception as e:
             self.warning(
                 "Error while trying to get Logstash version "
-                "from %s %s. Defaulting to version %s."
-                % (config.url, str(e), self.DEFAULT_VERSION)
+                "from %s %s. Defaulting to version %s." % (config.url, str(e), self.DEFAULT_VERSION)
             )
             version = self.DEFAULT_VERSION
 
@@ -215,34 +204,23 @@ class LogstashCheck(AgentCheck):
 
         if version and LooseVersion(version) < LooseVersion("6.0.0"):
             self._process_pipeline_plugins_data(
-                stats_data['pipeline']['plugins'],
-                self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name')
+                stats_data['pipeline']['plugins'], self.PIPELINE_INPUTS_METRICS, config, 'inputs', 'input_name'
+            )
             self._process_pipeline_plugins_data(
-                stats_data['pipeline']['plugins'],
-                self.PIPELINE_OUTPUTS_METRICS, config, 'outputs',
-                'output_name')
+                stats_data['pipeline']['plugins'], self.PIPELINE_OUTPUTS_METRICS, config, 'outputs', 'output_name'
+            )
             self._process_pipeline_plugins_data(
-                stats_data['pipeline']['plugins'],
-                self.PIPELINE_FILTERS_METRICS, config, 'filters',
-                'filter_name')
+                stats_data['pipeline']['plugins'], self.PIPELINE_FILTERS_METRICS, config, 'filters', 'filter_name'
+            )
 
-        self.service_check(
-            self.SERVICE_CHECK_CONNECT_NAME,
-            AgentCheck.OK,
-            tags=config.service_check_tags
-        )
+        self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK, tags=config.service_check_tags)
 
     def _process_stats_data(self, data, stats_metrics, config):
         for metric, desc in iteritems(stats_metrics):
             self._process_metric(data, metric, *desc, tags=config.tags)
 
     def _process_pipeline_plugins_data(
-        self,
-        pipeline_plugins_data,
-        pipeline_plugins_metrics,
-        config,
-        plugin_type,
-        tag_name
+        self, pipeline_plugins_data, pipeline_plugins_metrics, config, plugin_type, tag_name
     ):
         for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
@@ -252,17 +230,12 @@ class LogstashCheck(AgentCheck):
             if not plugin_name:
                 plugin_name = 'unknown'
 
-            metrics_tags.append(
-                u"{}:{}".format(tag_name, plugin_name)
-            )
+            metrics_tags.append(u"{}:{}".format(tag_name, plugin_name))
 
             for metric, desc in iteritems(pipeline_plugins_metrics):
-                self._process_metric(
-                    plugin_data, metric, *desc,
-                    tags=metrics_tags)
+                self._process_metric(plugin_data, metric, *desc, tags=metrics_tags)
 
-    def _process_metric(self, data, metric, xtype, path,
-                        tags=None, hostname=None):
+    def _process_metric(self, data, metric, xtype, path, tags=None, hostname=None):
         """data: dictionary containing all the stats
         metric: datadog metric
         path: corresponding path in data, flattened, e.g. thread_pool.bulk.queue

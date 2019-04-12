@@ -11,7 +11,6 @@ from .common import HERE, URL
 @pytest.fixture(scope='session')
 def dd_environment():
     with docker_run(
-        compose_file=os.path.join(HERE, "docker", "docker-compose.yml"),
-        conditions=[CheckEndpoints(URL, wait=2)]
+        compose_file=os.path.join(HERE, "docker", "docker-compose.yml"), conditions=[CheckEndpoints(URL, wait=2)]
     ):
         yield
