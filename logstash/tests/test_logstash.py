@@ -7,7 +7,6 @@ from datadog_checks.logstash import LogstashCheck
 
 from .common import HOST, URL
 
-
 STATS_METRICS = {
     "logstash.process.open_file_descriptors": ("gauge", "process.open_file_descriptors"),
     "logstash.process.peak_open_file_descriptors": ("gauge", "process.peak_open_file_descriptors"),
@@ -41,14 +40,18 @@ STATS_METRICS = {
     "logstash.jvm.mem.pools.young.peak_max_in_bytes": ("gauge", "jvm.mem.pools.young.peak_max_in_bytes"),
     "logstash.jvm.mem.pools.young.max_in_bytes": ("gauge", "jvm.mem.pools.young.max_in_bytes"),
     "logstash.jvm.mem.pools.young.committed_in_bytes": ("gauge", "jvm.mem.pools.young.committed_in_bytes"),
-    "logstash.jvm.gc.collectors.old.collection_time_in_millis":
-        ("gauge", "jvm.gc.collectors.old.collection_time_in_millis"),
+    "logstash.jvm.gc.collectors.old.collection_time_in_millis": (
+        "gauge",
+        "jvm.gc.collectors.old.collection_time_in_millis",
+    ),
     "logstash.jvm.gc.collectors.old.collection_count": ("gauge", "jvm.gc.collectors.old.collection_count"),
-    "logstash.jvm.gc.collectors.young.collection_time_in_millis":
-        ("gauge", "jvm.gc.collectors.young.collection_time_in_millis"),
+    "logstash.jvm.gc.collectors.young.collection_time_in_millis": (
+        "gauge",
+        "jvm.gc.collectors.young.collection_time_in_millis",
+    ),
     "logstash.jvm.gc.collectors.young.collection_count": ("gauge", "jvm.gc.collectors.young.collection_count"),
     "logstash.reloads.successes": ("gauge", "reloads.successes"),
-    "logstash.reloads.failures": ("gauge", "reloads.failures")
+    "logstash.reloads.failures": ("gauge", "reloads.failures"),
 }
 
 PIPELINE_METRICS = {
@@ -57,25 +60,27 @@ PIPELINE_METRICS = {
     "logstash.pipeline.events.out": ("gauge", "pipeline.events.out"),
     "logstash.pipeline.events.filtered": ("gauge", "pipeline.events.filtered"),
     "logstash.pipeline.reloads.successes": ("gauge", "pipeline.reloads.successes"),
-    "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures")
+    "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
 }
 
 PIPELINE_INPUTS_METRICS = {
     "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
-    "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis":
-        ("gauge", "events.queue_push_duration_in_millis")
+    "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
+        "gauge",
+        "events.queue_push_duration_in_millis",
+    ),
 }
 
 PIPELINE_OUTPUTS_METRICS = {
     "logstash.pipeline.plugins.outputs.events.in": ("gauge", "events.in"),
     "logstash.pipeline.plugins.outputs.events.out": ("gauge", "events.out"),
-    "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis")
+    "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
 }
 
 PIPELINE_FILTERS_METRICS = {
     "logstash.pipeline.plugins.filters.events.in": ("gauge", "events.in"),
     "logstash.pipeline.plugins.filters.events.out": ("gauge", "events.out"),
-    "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis")
+    "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
 }
 
 CHECK_NAME = 'logstash'
@@ -129,8 +134,7 @@ def test_check(aggregator):
         if m_name in PIPELINE_FILTERS_METRICS:
             m_tags = m_tags + filter_tag
         if desc[0] == "gauge":
-            aggregator.assert_metric(
-                m_name, tags=m_tags, count=1)
+            aggregator.assert_metric(m_name, tags=m_tags, count=1)
 
     aggregator.assert_service_check('logstash.can_connect', tags=good_sc_tags + tags, status=LogstashCheck.OK)
     aggregator.assert_service_check('logstash.can_connect', tags=bad_sc_tags, status=LogstashCheck.CRITICAL)
