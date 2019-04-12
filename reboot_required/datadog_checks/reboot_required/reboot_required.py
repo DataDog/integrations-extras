@@ -1,11 +1,10 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-from os import stat, utime, remove
+from datetime import datetime, timedelta
+from os import remove, stat, utime
 from os.path import isfile
 from stat import ST_MTIME
-from datetime import datetime, timedelta
-
 
 from datadog_checks.base import AgentCheck
 
@@ -43,11 +42,13 @@ class RebootRequiredCheck(AgentCheck):
     def _get_status(self, critical_days, warning_days, deltatime):
         if deltatime.days > critical_days:
             return (
-                AgentCheck.CRITICAL, 'Reboot is critical: security patches applied {} days ago'.format(deltatime.days)
+                AgentCheck.CRITICAL,
+                'Reboot is critical: security patches applied {} days ago'.format(deltatime.days),
             )
         elif deltatime.days > warning_days:
             return (
-                AgentCheck.WARNING, 'Reboot is necessary; security patches applied {} days ago'.format(deltatime.days)
+                AgentCheck.WARNING,
+                'Reboot is necessary; security patches applied {} days ago'.format(deltatime.days),
             )
         else:
             return AgentCheck.OK, None
