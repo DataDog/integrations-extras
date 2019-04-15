@@ -15,6 +15,6 @@ def dd_environment():
 
     with docker_run(
         compose_file=compose_file,
-        conditions=[CheckEndpoints(URL, wait=5), CheckDockerLogs(compose_file, log_patterns, matches='all')],
+        conditions=[CheckEndpoints(URL, wait=5), CheckDockerLogs(compose_file, log_patterns, matches='all', wait=5)],
     ):
         yield
