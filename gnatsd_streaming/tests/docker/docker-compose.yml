@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  nats_primary:
+    image: nats-streaming:latest
+    command:
+     - "-m"
+     - "8222"
+     - "-store"
+     - "file"
+     - "-dir"
+     - "/usr/share/nats/data"
+     - "-cluster"
+     - "nats://0.0.0.0:5222"
+     - "-routes"
+     - "nats://nats_secondary:5222"
+     - "-ft_group"
+     - "failover"
+    ports:
+     - "8222:8222"
+    networks:
+     - natsnet
+    volumes:
+     - ${TEMP_DIR}:/usr/share/nats/data
+  nats_secondary:
+    image: nats-streaming:latest
+    depends_on:
+     - nats_primary
+    command:
+     - "-m"
+     - "8223"
+     - "-store"
+     - "file"
+     - "-dir"
+     - "/usr/share/nats/data"
+     - "-cluster"
+     - "nats://0.0.0.0:5222"
+     - "-routes"
+     - "nats://nats_primary:5222"
+     - "-ft_group"
+     - "failover"
+    ports:
+     - "8223:8223"
+    networks:
+     - natsnet
+    volumes:
+     - ${TEMP_DIR}:/usr/share/nats/data
+  nats_channels:
+    build:
+      context: ./config
+    depends_on:
+     - nats_secondary
+    environment:
+     - NATS_SERVER=nats_primary
+    networks:
+     - natsnet
+
+networks:
+  natsnet:
+    driver: bridge
