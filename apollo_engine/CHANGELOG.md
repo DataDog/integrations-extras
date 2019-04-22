@@ -1,6 +1,6 @@
 # CHANGELOG - Apollo Engine Integration
 
-1.0.0 / Unreleased
+1.0.0
 ==================
 ### Changes
 
