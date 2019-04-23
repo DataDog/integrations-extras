@@ -1,13 +1,12 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-from os import stat, utime, remove
+from datetime import datetime, timedelta
+from os import remove, stat, utime
 from os.path import isfile
 from stat import ST_MTIME
-from datetime import datetime, timedelta
 
-# project
-from datadog_checks.checks import AgentCheck
+from datadog_checks.base import AgentCheck
 
 
 class RebootRequiredCheck(AgentCheck):
@@ -16,7 +15,7 @@ class RebootRequiredCheck(AgentCheck):
     CREATED_AT_FILE = '/var/run/dd-agent/reboot-required.created_at'
 
     def check(self, instance):
-        status, days_since, msg = self._check(instance)
+        status, msg = self._check(instance)
         self.service_check('system.reboot_required', status, message=msg)
 
     def _check(self, instance):
@@ -42,13 +41,17 @@ class RebootRequiredCheck(AgentCheck):
 
     def _get_status(self, critical_days, warning_days, deltatime):
         if deltatime.days > critical_days:
-            return AgentCheck.CRITICAL, deltatime.days, "Reboot is critical: security patches applied {0} days ago"\
-                .format(deltatime.days)
+            return (
+                AgentCheck.CRITICAL,
+                'Reboot is critical: security patches applied {} days ago'.format(deltatime.days),
+            )
         elif deltatime.days > warning_days:
-            return AgentCheck.WARNING, deltatime.days, "Reboot is necessary; security patches applied {0} days ago"\
-                .format(deltatime.days)
+            return (
+                AgentCheck.WARNING,
+                'Reboot is necessary; security patches applied {} days ago'.format(deltatime.days),
+            )
         else:
-            return AgentCheck.OK, 0, ''
+            return AgentCheck.OK, None
 
     def _get_created_at(self, fname):
         file_stat = stat(fname)
@@ -56,5 +59,5 @@ class RebootRequiredCheck(AgentCheck):
         return created_at
 
     def _touch(self, fname, times=None):
-        open(fname, 'a').close()
-        utime(fname, times)
+        with open(fname, 'a'):
+            utime(fname, times)

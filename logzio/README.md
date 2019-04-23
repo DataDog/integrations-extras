@@ -23,24 +23,19 @@ For a more detailed setup description, see [the logz.io dedicated datadog docume
 
 ## Data Collected
 ### Metrics
-The Logz.io check does not include any metrics at this time.
+The Logz.io check does not include any metrics.
 
 ### Events
-The Logz.io check does not include any events at this time.
+The Logz.io check does not include any events.
 
 ### Service Checks
-The Logz.io check does not include any service checks at this time.
+The Logz.io check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][5].
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][6].
+Need help? Contact [Datadog support][5].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/import_alert_from_logz.jpg
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png
 [3]: https://app.datadoghq.com/account/settings#api
 [4]: http://logz.io/blog/log-correlation-datadog/
 [5]: http://docs.datadoghq.com/help/
-[6]: https://www.datadoghq.com/blog/

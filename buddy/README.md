@@ -34,20 +34,16 @@ ${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
 
 ## Data Collected
 ### Metrics
-The Buddy check does not include any metrics at this time.
+The Buddy check does not include any metrics.
 
 ### Events
 All Buddy deployment events are sent to your [Datadog Event Stream][6]
 
 ### Service Checks
-The Buddy check does not include any service checks at this time.
+The Buddy check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][7].
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][8].
+Need help? Contact [Datadog support][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/datadog-integration.png
 [2]: https://app.datadoghq.com/account/settings#api
@@ -56,4 +52,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png
 [6]: https://docs.datadoghq.com/graphing/event_stream/
 [7]: http://docs.datadoghq.com/help/
-[8]: https://www.datadoghq.com/blog/

@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  nats_serverA:
+    image: nats:latest
+    command:
+     - "-D"
+     - "-cluster"
+     - "nats://0.0.0.0:5222"
+    networks:
+     - natsnet
+  nats_serverB:
+    image: nats:latest
+    depends_on:
+     - nats_serverA
+    command:
+     - "-D"
+     - "-m"
+     - "8222"
+     - "-cluster"
+     - "nats://0.0.0.0:5222"
+     - "-routes"
+     - "nats://nats_serverA:5222"
+    ports:
+     - "8222:8222"
+    networks:
+     - natsnet
+  subscriber:
+    build:
+      context: ./config
+    depends_on:
+     - nats_serverB
+    environment:
+     - NATS_SERVER=nats_serverB
+    networks:
+     - natsnet
+
+networks:
+  natsnet:
+    driver: bridge

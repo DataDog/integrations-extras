@@ -1,0 +1,15 @@
+instances:
+  # URL to the instance, eg: http://localhost:2113/stats
+  - url: 'http://localhost:2113/stats'
+  # The name to tag the instance by, eg: AppEventStore
+    name: 'MyEventStore'
+  # A list of metrics you wish to capture, with wildcard support
+  # The metric you wish to capture must be defined above, a wildcard will capture
+  # all available metrics at that point, eg : 
+  # es.* will capture es.checksum and es.checksumNotFlushed but will not capture queues
+  # es.queue.*.* will capture all metrics for all queues
+  # es.queue.*.length will capture the length for all queues
+    json_path:
+    - 'es.queue.*.*'
+    - 'proc.cpu'
+    - 'proc.tcp.*'

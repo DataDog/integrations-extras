@@ -1,34 +1,33 @@
-# Hbase_regionserver Integration
+# HBase RegionServer Integration
 
 ## Overview
 
-Get metrics from Hbase_regionserver service in real time to:
+Get metrics from the HBase RegionServer service in real time to:
 
-* Visualize and monitor Hbase_regionserver states.
-* Be notified about Hbase_regionserver failovers and events.
+* Visualize and monitor HBase RegionServer states.
+* Be notified about HBase RegionServer failovers and events.
 
 ## Setup
 
-The Hbase_regionserver check is **NOT** included in the [Datadog Agent][1] package.
+The HBase RegionServer check is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-To install the Hbase_regionserver check on your host:
+To install the HBase RegionServer check on your host:
 
 1. [Download the Datadog Agent][1].
-2. Download the [`check.py` file][2] for Hbase_regionserver.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `hbase_regionserver.py`.
+2. Create a `hbase_regionserver.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
+3. Create a `conf.yaml` file in the `hbase_regionserver.d/` folder previously created.
+4. Consult the [sample hbase_regionserver.yaml][2] file and copy its content in the `conf.yaml` file.
+5. [Restart the Agent][3].
 
 ### Configuration
 
-To configure the Hbase_regionserver check: 
+To configure the HBase RegionServer check: 
 
-1. Create a `hbase_regionserver.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `hbase_regionserver.d/` folder previously created.
-3. Consult the [sample hbase_regionserver.yaml][2] file and copy its content in the `conf.yaml` file.
-4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
-5. [Restart the Agent][3].
+1. Open the `conf.yaml` file created during installation.
+2. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
+3. [Restart the Agent][3].
 
 ## Validation
 
@@ -39,17 +38,13 @@ To configure the Hbase_regionserver check:
 See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
-The Hbase_regionserver check does not include any events at this time.
+The HBase RegionServer check does not include any events.
 
 ### Service Checks
-The Hbase_regionserver check does not include any service checks at this time.
+The HBase RegionServer check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][7]
+Need help? Contact [Datadog support][6].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/hbase_regionserver/conf.yaml.example
@@ -57,4 +52,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/hbase_regionserver/metadata.csv
 [6]: http://docs.datadoghq.com/help/
-[7]: https://www.datadoghq.com/blog/

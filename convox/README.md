@@ -28,30 +28,24 @@ Use a `count` that matches the `InstanceCount` parameter of your Rack.
 
 ### Auto Scaling
 
-If autoscaling is enabled on your Rack, you’ll need to dynamically scale the Datadog agent count to match the Rack instance count.
+If autoscaling is enabled on your Rack, you'll need to dynamically scale the Datadog agent count to match the Rack instance count.
 
 See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 
 ## Data Collected
 ### Metrics
-The Convox check does not include any metrics at this time.
+The Convox check does not include any metrics.
 
 ### Events
-The Convox check does not include any events at this time.
+The Convox check does not include any events.
 
 ### Service Checks
-The Convox check does not include any service checks at this time.
+The Convox check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][4].
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][5].
-
+Need help? Contact [Datadog support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
-[2]: https://convox.com/docs/datadog/
+[2]: https://docs.convox.com/external-services/datadog
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html
 [4]: http://docs.datadoghq.com/help/
-[5]: https://www.datadoghq.com/blog/

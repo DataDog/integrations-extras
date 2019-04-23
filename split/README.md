@@ -31,21 +31,16 @@ Split data should now be flowing into Datadog.
 ## Data Collected
 ### Metrics
 
-The Split check does not include any metrics at this time.
+The Split check does not include any metrics.
 
 ### Events
 Push your Split listing/de-listing events into your [Datadog Event Stream][5].
 
 ### Service Checks
-The Split check does not include any service checks at this time.
+The Split check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][6].
-
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][7].
-
+Need help? Contact [Datadog support][6].
 
 [1]: http://www.split.io
 [2]: http://www.split.io/articles/controlled-rollout
@@ -53,4 +48,3 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/ilan/split-integration/split/images/integrations-datadog.png
 [5]: https://docs.datadoghq.com/graphing/event_stream/
 [6]: http://docs.datadoghq.com/help/
-[7]: https://www.datadoghq.com/blog/

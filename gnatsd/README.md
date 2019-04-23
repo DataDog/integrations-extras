@@ -13,10 +13,10 @@ Get metrics from gnatsd service in real time to:
 
 To install the Gnatsd check on your host:
 
-1. [Download the Datadog Agent][4].
-2. Download the [`check.py` file][5] for Gnatsd.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `gnatsd.py`.
+1. Install the [developer toolkit][3] on any machine.
+2. Run `ddev release build gnatsd` to build the package.
+3. [Download the Datadog Agent][4].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/gnatsd/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -48,8 +48,11 @@ The gnatsd check is compatible with all major platforms
 
 See [metadata.csv][1] for a list of metrics provided by this integration.
 
+**Note**: If you use custom Nats cluster names, your metrics may look like this:  
+`gnatsd.connz.connections.cluster_name.in_msgs`
+
 ### Events
-The gnatsd check does not include any events at this time.
+The gnatsd check does not include any events.
 
 ### Service Checks
 This gnatsd check tags all service checks it collects with:
@@ -61,14 +64,9 @@ This gnatsd check tags all service checks it collects with:
 Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][2].
-
-## Further Reading
-Learn more about infrastructure monitoring and all our integrations on [our blog][3]
-
+Need help? Contact [Datadog support][2].
 
 [1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [2]: http://docs.datadoghq.com/help/
-[3]: https://www.datadoghq.com/blog/
+[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd/check.py

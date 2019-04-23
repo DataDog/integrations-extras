@@ -6,6 +6,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.jar*
 
 # C extensions
 *.so
@@ -14,7 +15,7 @@ __pycache__/
 .Python
 venv/
 embedded/
-env/
+/env/
 build/
 develop-eggs/
 dist/
@@ -30,13 +31,11 @@ var/
 .installed.cfg
 *.egg
 *.zip
-Gemfile.lock
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
-setuptools-*.zip
 
 # Installer logs
 pip-log.txt
@@ -53,6 +52,7 @@ coverage.xml
 *,cover
 .hypothesis/
 .pytest_cache/
+.benchmarks/
 
 # Translations
 *.mo
@@ -74,13 +74,9 @@ target/
 venv/
 embedded/
 .bundle/
-Gemfile.lock
 .ropeproject/
+setuptools-*.zip
 
-# rbenv ruby version file
-.ruby-version
-
-# temporary stuff
 tmp
 # redis tmp config
 *.tmp
@@ -90,4 +86,23 @@ tmp
 *.DS_Store
 *.fuse_hidden*
 
-datadog_checks_base/
+# Vi(m) stuff
+*.swp
+
+# Rbenv stuff
+.rbenv-gemsets
+.ruby-version
+
+# Common IDEs & editors
+.idea/
+.vscode/
+
+# wheels
+wheelhouse/
+*.whl
+
+.pytest_cache
+
+# by default, ignore in-toto metadata from the command line
+.links/
+*.link

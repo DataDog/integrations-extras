@@ -2,13 +2,14 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 import time
-
-import requests
-from requests.exceptions import Timeout, HTTPError, InvalidURL, ConnectionError
-from simplejson import JSONDecodeError
 from hashlib import md5
 
-from datadog_checks.checks import AgentCheck
+import requests
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+from simplejson import JSONDecodeError
+from six import iteritems
+
+from datadog_checks.base import AgentCheck
 
 # Metric types
 GAUGE = 'gauge'
@@ -41,7 +42,7 @@ SORTDB_METRICS = {
     'range_95': ('sortdb.stats.range_requests.95percentile', GAUGE),
     'range_99': ('sortdb.stats.range_requests.99percentile', GAUGE),
     'db_size': ('sortdb.stats.db_size.bytes', GAUGE),
-    'db_mtime': ('sortdb.stats.db_mtime', GAUGE)
+    'db_mtime': ('sortdb.stats.db_mtime', GAUGE),
 }
 
 
@@ -58,8 +59,12 @@ class SortdbCheck(AgentCheck):
         # deduplicating the tags
         instance_tags = list(set(instance_tags))
         # service check
-        self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags,
-                           message='Connection to %s was successful' % sortdb_url)
+        self.service_check(
+            self.SORTDB_SERVICE_CHECK,
+            AgentCheck.OK,
+            tags=instance_tags,
+            message='Connection to %s was successful' % sortdb_url,
+        )
 
         # get and set metrics
         self._get_sortdb_metrics(sortdb_url, SORTDB_METRICS, instance_tags)
@@ -77,24 +82,35 @@ class SortdbCheck(AgentCheck):
             response = response.json()
 
         except Timeout as e:
-            self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL, tags=instance_tags,
-                               message="Request timeout: {}, {}".format(url, e))
+            self.service_check(
+                self.SORTDB_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                tags=instance_tags,
+                message="Request timeout: {}, {}".format(url, e),
+            )
             self.timeout_event(url, timeout, aggregation_key)
             raise
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL, tags=instance_tags,
-                               message="Request failed: {0}, {1}".format(url, e))
+            self.service_check(
+                self.SORTDB_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                tags=instance_tags,
+                message="Request failed: {0}, {1}".format(url, e),
+            )
             raise
 
         except JSONDecodeError as e:
-            self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL, tags=instance_tags,
-                               message='JSON Parse failed: {0}, {1}'.format(url, e))
+            self.service_check(
+                self.SORTDB_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                tags=instance_tags,
+                message='JSON Parse failed: {0}, {1}'.format(url, e),
+            )
             raise
 
         except ValueError as e:
-            self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL, tags=instance_tags,
-                               message=str(e))
+            self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.CRITICAL, tags=instance_tags, message=str(e))
             raise
 
         return response
@@ -105,10 +121,10 @@ class SortdbCheck(AgentCheck):
         """
         timeout = float(self.init_config.get('timeout', 10))
         # Use a hash of the URL as an aggregation key
-        aggregation_key = md5(sortdb_url).hexdigest()
+        aggregation_key = md5(sortdb_url.encode('utf-8')).hexdigest()
 
         response = self._get_response_from_url(sortdb_url, timeout, aggregation_key, instance_tags)
-        for metric, (metric_name, metric_type) in metrics.iteritems():
+        for metric, (metric_name, metric_type) in iteritems(metrics):
             value = response.get(metric)
 
             if value is not None:
@@ -131,9 +147,12 @@ class SortdbCheck(AgentCheck):
             self.log.error('Unknown Metric Type: "{}"'.format(metric_type))
 
     def timeout_event(self, url, timeout, aggregation_key):
-        self.event({
-            'timestamp': int(time.time()),
-            'event_type': 'http_check',
-            'msg_title': 'URL timeout',
-            'msg_text': '%s timed out after %s seconds.' % (url, timeout),
-            'aggregation_key': aggregation_key})
+        self.event(
+            {
+                'timestamp': int(time.time()),
+                'event_type': 'http_check',
+                'msg_title': 'URL timeout',
+                'msg_text': '%s timed out after %s seconds.' % (url, timeout),
+                'aggregation_key': aggregation_key,
+            }
+        )
