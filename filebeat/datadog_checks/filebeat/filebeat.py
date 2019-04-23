@@ -227,7 +227,7 @@ class FilebeatCheckInstanceConfig:
 class FilebeatCheck(AgentCheck):
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
-	self._previous_offset = {}
+        self._previous_offset = {}
         self.instance_cache = {}
 
     def check(self, instance):
@@ -268,10 +268,10 @@ class FilebeatCheck(AgentCheck):
             return []
 
     def _check_offset(self, source, offset):
-	if source not in self._previous_offset or self._previous_offset[source] >= offset:
-        	return {}
-	new_offset = offset - self._previous_offset[source]
-	return new_offset 
+        if source not in self._previous_offset or self._previous_offset[source] >= offset:
+                return {}
+        new_offset = offset - self._previous_offset[source]
+        return new_offset
 
     def _process_registry_item(self, item):
         source = item["source"]
@@ -280,12 +280,12 @@ class FilebeatCheck(AgentCheck):
         try:
             stats = os.stat(source)
             if self._is_same_file(stats, item["FileStateOS"]):
-	    	delta = self._check_offset(source, offset)
-		self._previous_offset[source] = offset
+                delta = self._check_offset(source, offset)
+                self._previous_offset[source] = offset
                 unprocessed_bytes = stats.st_size - offset
                 self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
-		if delta:
-			self.count("filebeat.registry.offset", delta, tags=["source:{0}".format(source)])
+                if delta:
+                        self.count("filebeat.registry.offset", delta, tags=["source:{0}".format(source)])
             else:
                 self.log.debug("Filebeat source %s appears to have changed" % (source,))
         except OSError:
