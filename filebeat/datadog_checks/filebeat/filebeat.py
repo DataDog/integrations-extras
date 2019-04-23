@@ -28,58 +28,73 @@ class FilebeatCheckHttpProfiler:
     """
 
     INCREMENT_METRIC_NAMES = [
-        "filebeat.events.done",
-        "filebeat.harvester.closed",
-        "filebeat.harvester.files.truncated",
-        "filebeat.harvester.open_files",
-        "filebeat.harvester.skipped",
-        "filebeat.harvester.started",
-        "filebeat.prospector.log.files.renamed",
-        "filebeat.prospector.log.files.truncated",
-        "libbeat.config.module.running",
-        "libbeat.config.module.starts",
-        "libbeat.config.module.stops",
-        "libbeat.config.reloads",
-        "libbeat.es.call_count.PublishEvents",
-        "libbeat.es.publish.read_bytes",
-        "libbeat.es.publish.read_errors",
-        "libbeat.es.publish.write_bytes",
-        "libbeat.es.publish.write_errors",
-        "libbeat.es.published_and_acked_events",
-        "libbeat.es.published_but_not_acked_events",
-        "libbeat.kafka.call_count.PublishEvents",
-        "libbeat.kafka.published_and_acked_events",
-        "libbeat.kafka.published_but_not_acked_events",
-        "libbeat.logstash.call_count.PublishEvents",
-        "libbeat.logstash.publish.read_bytes",
-        "libbeat.logstash.publish.read_errors",
-        "libbeat.logstash.publish.write_bytes",
-        "libbeat.logstash.publish.write_errors",
-        "libbeat.logstash.published_and_acked_events",
-        "libbeat.logstash.published_but_not_acked_events",
-        "libbeat.output.events.acked",
-        "libbeat.output.events.dropped",
-        "libbeat.output.events.failed",
-        "libbeat.output.events.total",
-        "libbeat.pipeline.events.dropped",
-        "libbeat.pipeline.events.failed",
-        "libbeat.pipeline.events.filtered",
-        "libbeat.pipeline.events.published",
-        "libbeat.pipeline.events.total",
-        "libbeat.publisher.messages_in_worker_queues",
-        "libbeat.publisher.published_events",
-        "libbeat.redis.publish.read_bytes",
-        "libbeat.redis.publish.read_errors",
-        "libbeat.redis.publish.write_bytes",
-        "libbeat.redis.publish.write_errors",
-        "publish.events",
-        "registrar.states.cleanup",
-        "registrar.states.current",
-        "registrar.states.update",
-        "registrar.writes",
-    ]
+        'beat.info.uptime.ms',
+        'beat.memstats.rss',
+        'beat.memstats.gc_next',
+        'beat.memstats.memory_total',
+        'beat.memstats.memory_alloc',
+        'beat.handles.open',
+        'beat.handles.limit.hard',
+        'beat.handles.limit.soft',
+        'beat.cpu.total.ticks',
+        'beat.cpu.total.value',
+        'beat.cpu.total.time.ms',
+        'beat.cpu.system.ticks',
+        'beat.cpu.system.time.ms',
+        'beat.cpu.user.ticks',
+        'beat.cpu.user.time.ms',
+        'filebeat.input.log.files.renamed',
+        'filebeat.input.log.files.truncated',
+        'filebeat.events.active',
+        'filebeat.events.added',
+        'filebeat.events.done',
+        'registrar.states.current',
+        'registrar.states.cleanup',
+        'registrar.states.update',
+        'registrar.writes.fail',
+        'registrar.writes.total',
+        'registrar.writes.success',
+        'system.load.1',
+        'system.load.5',
+        'system.load.15',
+        'system.load.norm.1',
+        'system.load.norm.5',
+        'system.load.norm.15',
+        'system.cpu.cores',
+        'libbeat.output.read.errors',
+        'libbeat.output.read.bytes',
+        'libbeat.output.write.errors',
+        'libbeat.output.write.bytes',
+        'libbeat.output.events.batches',
+        'libbeat.output.events.duplicates',
+        'libbeat.output.events.acked',
+        'libbeat.output.events.failed',
+        'libbeat.output.events.dropped',
+        'libbeat.output.events.active',
+        'libbeat.output.events.total',
+        'libbeat.pipeline.queue.acked',
+        'libbeat.pipeline.clients',
+        'libbeat.pipeline.events.retry',
+        'libbeat.pipeline.events.failed',
+        'libbeat.pipeline.events.dropped',
+        'libbeat.pipeline.events.published',
+        'libbeat.pipeline.events.active',
+        'libbeat.pipeline.events.filtered',
+        'libbeat.pipeline.events.total',
+        'libbeat.config.reloads',
+        'libbeat.config.module.starts',
+        'libbeat.config.module.running',
+        'libbeat.config.module.stops'
+   ]
 
-    GAUGE_METRIC_NAMES = ["filebeat.harvester.running"]
+    GAUGE_METRIC_NAMES = [
+        'filebeat.harvester.started',
+        'filebeat.harvester.open_files',
+        'filebeat.harvester.skipped',
+        'filebeat.harvester.running',
+        'filebeat.harvester.closed',
+        'filebeat.harvester.running'
+    ]
 
     VARS_ROUTE = "debug/vars"
 
@@ -95,7 +110,7 @@ class FilebeatCheckHttpProfiler:
 
         response = self._make_request()
 
-        return {"increment": self._gather_increment_metrics(response), "gauge": self._gather_gauge_metrics(response)}
+        return {"count": self._gather_increment_metrics(response), "gauge": self._gather_gauge_metrics(response)}
 
     def _make_request(self):
 
@@ -212,6 +227,7 @@ class FilebeatCheckInstanceConfig:
 class FilebeatCheck(AgentCheck):
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
+	self._previous_offset = {}
         self.instance_cache = {}
 
     def check(self, instance):
@@ -251,17 +267,25 @@ class FilebeatCheck(AgentCheck):
 
             return []
 
+    def _check_offset(self, source, offset):
+	if source not in self._previous_offset or self._previous_offset[source] >= offset:
+        	return {}
+	new_offset = offset - self._previous_offset[source]
+	return new_offset 
+
     def _process_registry_item(self, item):
         source = item["source"]
         offset = item["offset"]
 
         try:
             stats = os.stat(source)
-
             if self._is_same_file(stats, item["FileStateOS"]):
+	    	delta = self._check_offset(source, offset)
+		self._previous_offset[source] = offset
                 unprocessed_bytes = stats.st_size - offset
-
                 self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
+		if delta:
+			self.count("filebeat.registry.offset", delta, tags=["source:{0}".format(source)])
             else:
                 self.log.debug("Filebeat source %s appears to have changed" % (source,))
         except OSError:
