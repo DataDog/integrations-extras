@@ -3,6 +3,6 @@ version: "3"
 services:
   logstash:
     image: logstash:5.6.15
-    command: "logstash -e 'input { stdin { } } filter { json { source => 'message' } } output { stdout { } }' --http.host 0.0.0.0"
+    command: "logstash -e 'input { stdin { id => 'dummy_input' } } filter { json { id => 'dummy_filter' source => 'message' } } output { stdout { id => 'dummy_output' } }' --http.host 0.0.0.0"
     ports:
       - 9600:9600

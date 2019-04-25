@@ -234,6 +234,7 @@ class LogstashCheck(AgentCheck):
     ):
         for plugin_data in pipeline_plugins_data.get(plugin_type, []):
             plugin_name = plugin_data.get('name')
+            plugin_conf_id = plugin_data.get('id')
 
             metrics_tags = list(tags)
 
@@ -243,6 +244,8 @@ class LogstashCheck(AgentCheck):
             metrics_tags.append(u"{}:{}".format(tag_name, plugin_name))
             if pipeline_name:
                 metrics_tags.append(u"pipeline_name:{}".format(pipeline_name))
+            if plugin_conf_id:
+                metrics_tags.append(u"plugin_conf_id:{}".format(plugin_conf_id))
 
             for metric, desc in iteritems(pipeline_plugins_metrics):
                 self._process_metric(plugin_data, metric, *desc, tags=metrics_tags)

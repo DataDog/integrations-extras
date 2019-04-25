@@ -111,11 +111,13 @@ def test_check(aggregator):
     logstash_version = check._get_logstash_version(instance_config)
     is_multi_pipeline = logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version)
 
-    input_tag = [u"input_name:stdin"]
-    output_tag = [u"output_name:stdout"]
-    filter_tag = [u"filter_name:json"]
+    input_tag = [u"plugin_conf_id:dummy_input"]
+    output_tag = [u"plugin_conf_id:dummy_output", u"output_name:stdout"]
+    filter_tag = [u"plugin_conf_id:dummy_filter", u"filter_name:json"]
     if logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version):
-        input_tag = [u"input_name:beats"]
+        input_tag.append(u"input_name:beats")
+    else:
+        input_tag.append(u"input_name:stdin")
 
     expected_metrics = dict(STATS_METRICS)
     expected_metrics.update(PIPELINE_METRICS)
@@ -142,8 +144,6 @@ def test_check(aggregator):
         is_pipeline_metric = m_name in pipeline_metrics
         if desc[0] == "gauge":
             if is_multi_pipeline and is_pipeline_metric:
-                print(m_name, m_tags + ['pipeline_name:main'])
-                print(m_name, m_tags + ['pipeline_name:second_pipeline'])
                 aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:main'])
                 aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:second_pipeline'])
             else:
