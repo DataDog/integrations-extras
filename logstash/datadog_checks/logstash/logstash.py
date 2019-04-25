@@ -99,6 +99,35 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
     }
 
+    PIPELINE_METRICS_V6 = {
+        "logstash.pipeline.{name}.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+        "logstash.pipeline.{name}.events.in": ("gauge", "events.in"),
+        "logstash.pipeline.{name}.events.out": ("gauge", "events.out"),
+        "logstash.pipeline.{name}.events.filtered": ("gauge", "events.filtered"),
+        "logstash.pipeline.{name}.reloads.successes": ("gauge", "reloads.successes"),
+        "logstash.pipeline.{name}.reloads.failures": ("gauge", "reloads.failures"),
+    }
+
+    PIPELINE_INPUTS_METRICS_V6 = {
+        "logstash.pipeline.{name}.plugins.inputs.events.out": ("gauge", "events.out"),
+        "logstash.pipeline.{name}.plugins.inputs.events.queue_push_duration_in_millis": (
+            "gauge",
+            "events.queue_push_duration_in_millis",
+        ),
+    }
+
+    PIPELINE_OUTPUTS_METRICS_V6 = {
+        "logstash.pipeline.{name}.plugins.outputs.events.in": ("gauge", "events.in"),
+        "logstash.pipeline.{name}.plugins.outputs.events.out": ("gauge", "events.out"),
+        "logstash.pipeline.{name}.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+    }
+
+    PIPELINE_FILTERS_METRICS_V6 = {
+        "logstash.pipeline.{name}.plugins.filters.events.in": ("gauge", "events.in"),
+        "logstash.pipeline.{name}.plugins.filters.events.out": ("gauge", "events.out"),
+        "logstash.pipeline.{name}.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+    }
+
     def get_instance_config(self, instance):
         url = instance.get('url')
         if url is None:
@@ -212,6 +241,36 @@ class LogstashCheck(AgentCheck):
             self._process_pipeline_plugins_data(
                 stats_data['pipeline']['plugins'], self.PIPELINE_FILTERS_METRICS, config, 'filters', 'filter_name'
             )
+        elif 'pipelines' in stats_data:
+            for pipeline_name, pipeline_data in iteritems(stats_data['pipelines']):
+                for metric, metric_desc in iteritems(self.PIPELINE_METRICS_V6):
+                    self._process_metric(
+                        pipeline_data,
+                        metric.format(name=pipeline_name),
+                        *metric_desc,
+                        tags=config.tags
+                    )
+                filter_metrics = dict()
+                input_metrics = dict()
+                output_metrics = dict()
+                events_metrics = dict()
+                for metric, metric_desc in iteritems(self.PIPELINE_FILTERS_METRICS_V6):
+                    filter_metrics[metric.format(name=pipeline_name)] = metric_desc
+                for metric, metric_desc in iteritems(self.PIPELINE_INPUTS_METRICS_V6):
+                    input_metrics[metric.format(name=pipeline_name)] = metric_desc
+                for metric, metric_desc in iteritems(self.PIPELINE_OUTPUTS_METRICS_V6):
+                    output_metrics[metric.format(name=pipeline_name)] = metric_desc
+                for metric, metric_desc in iteritems(self.PIPELINE_METRICS_V6):
+                    events_metrics[metric.format(name=pipeline_name)] = metric_desc
+                self._process_pipeline_plugins_data(
+                    stats_data['pipelines'][pipeline_name]['plugins'], input_metrics, config, 'inputs', 'input_name'
+                )
+                self._process_pipeline_plugins_data(
+                    stats_data['pipelines'][pipeline_name]['plugins'], output_metrics, config, 'outputs', 'output_name'
+                )
+                self._process_pipeline_plugins_data(
+                    stats_data['pipelines'][pipeline_name]['plugins'], filter_metrics, config, 'filters', 'filter_name'
+                )
 
         self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK, tags=config.service_check_tags)
 

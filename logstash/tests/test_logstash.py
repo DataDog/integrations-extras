@@ -54,7 +54,7 @@ STATS_METRICS = {
     "logstash.reloads.failures": ("gauge", "reloads.failures"),
 }
 
-PIPELINE_METRICS = {
+PIPELINE_METRICS_V5 = {
     "logstash.pipeline.events.duration_in_millis": ("gauge", "pipeline.events.duration_in_millis"),
     "logstash.pipeline.events.in": ("gauge", "pipeline.events.in"),
     "logstash.pipeline.events.out": ("gauge", "pipeline.events.out"),
@@ -63,7 +63,7 @@ PIPELINE_METRICS = {
     "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
 }
 
-PIPELINE_INPUTS_METRICS = {
+PIPELINE_INPUTS_METRICS_V5 = {
     "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
     "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
         "gauge",
@@ -71,16 +71,63 @@ PIPELINE_INPUTS_METRICS = {
     ),
 }
 
-PIPELINE_OUTPUTS_METRICS = {
+PIPELINE_OUTPUTS_METRICS_V5 = {
     "logstash.pipeline.plugins.outputs.events.in": ("gauge", "events.in"),
     "logstash.pipeline.plugins.outputs.events.out": ("gauge", "events.out"),
     "logstash.pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
 }
 
-PIPELINE_FILTERS_METRICS = {
+PIPELINE_FILTERS_METRICS_v5 = {
     "logstash.pipeline.plugins.filters.events.in": ("gauge", "events.in"),
     "logstash.pipeline.plugins.filters.events.out": ("gauge", "events.out"),
     "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+}
+
+PIPELINE_METRICS_V6 = {
+    "logstash.pipeline.main.events.duration_in_millis": ("gauge", "pipeline.events.duration_in_millis"),
+    "logstash.pipeline.main.events.in": ("gauge", "pipeline.events.in"),
+    "logstash.pipeline.main.events.out": ("gauge", "pipeline.events.out"),
+    "logstash.pipeline.main.events.filtered": ("gauge", "pipeline.events.filtered"),
+    "logstash.pipeline.main.reloads.successes": ("gauge", "pipeline.reloads.successes"),
+    "logstash.pipeline.main.reloads.failures": ("gauge", "pipeline.reloads.failures"),
+
+    "logstash.pipeline.second_pipeline.events.duration_in_millis": ("gauge", "pipeline.events.duration_in_millis"),
+    "logstash.pipeline.second_pipeline.events.in": ("gauge", "pipeline.events.in"),
+    "logstash.pipeline.second_pipeline.events.out": ("gauge", "pipeline.events.out"),
+    "logstash.pipeline.second_pipeline.events.filtered": ("gauge", "pipeline.events.filtered"),
+    "logstash.pipeline.second_pipeline.reloads.successes": ("gauge", "pipeline.reloads.successes"),
+    "logstash.pipeline.second_pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
+}
+
+PIPELINE_INPUTS_METRICS_V6 = {
+    "logstash.pipeline.main.plugins.inputs.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.main.plugins.inputs.events.queue_push_duration_in_millis": (
+        "gauge",
+        "events.queue_push_duration_in_millis",
+    ),
+    "logstash.pipeline.second_pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.second_pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
+        "gauge",
+        "events.queue_push_duration_in_millis",
+    ),
+}
+
+PIPELINE_OUTPUTS_METRICS_V6 = {
+    "logstash.pipeline.main.plugins.outputs.events.in": ("gauge", "events.in"),
+    "logstash.pipeline.main.plugins.outputs.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.main.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+    "logstash.pipeline.second_pipeline.plugins.outputs.events.in": ("gauge", "events.in"),
+    "logstash.pipeline.second_pipeline.plugins.outputs.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.second_pipeline.plugins.outputs.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+}
+
+PIPELINE_FILTERS_METRICS_V6 = {
+    "logstash.pipeline.main.plugins.filters.events.in": ("gauge", "events.in"),
+    "logstash.pipeline.main.plugins.filters.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.main.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
+    "logstash.pipeline.second_pipeline.plugins.filters.events.in": ("gauge", "events.in"),
+    "logstash.pipeline.second_pipeline.plugins.filters.events.out": ("gauge", "events.out"),
+    "logstash.pipeline.second_pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
 }
 
 CHECK_NAME = 'logstash'
@@ -117,21 +164,28 @@ def test_check(aggregator):
     expected_metrics = dict(STATS_METRICS)
 
     if logstash_version and LooseVersion(logstash_version) < LooseVersion("6.0.0"):
-        expected_metrics.update(PIPELINE_METRICS)
-        expected_metrics.update(PIPELINE_INPUTS_METRICS)
-        expected_metrics.update(PIPELINE_OUTPUTS_METRICS)
-        expected_metrics.update(PIPELINE_FILTERS_METRICS)
+
+        expected_metrics.update(PIPELINE_METRICS_V5)
+        expected_metrics.update(PIPELINE_INPUTS_METRICS_V5)
+        expected_metrics.update(PIPELINE_OUTPUTS_METRICS_V5)
+        expected_metrics.update(PIPELINE_FILTERS_METRICS_v5)
+    elif logstash_version and LooseVersion(logstash_version) < LooseVersion("8.0.0"):
+        input_tag = [u"input_name:beats"]
+        expected_metrics.update(PIPELINE_METRICS_V6)
+        expected_metrics.update(PIPELINE_INPUTS_METRICS_V6)
+        expected_metrics.update(PIPELINE_OUTPUTS_METRICS_V6)
+        expected_metrics.update(PIPELINE_FILTERS_METRICS_V6)
 
     good_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(port)]
     bad_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(bad_port)]
 
     for m_name, desc in expected_metrics.items():
         m_tags = tags + default_tags
-        if m_name in PIPELINE_INPUTS_METRICS:
+        if m_name in dict(PIPELINE_INPUTS_METRICS_V5, **PIPELINE_INPUTS_METRICS_V6):
             m_tags = m_tags + input_tag
-        if m_name in PIPELINE_OUTPUTS_METRICS:
+        if m_name in dict(PIPELINE_OUTPUTS_METRICS_V5, **PIPELINE_OUTPUTS_METRICS_V6):
             m_tags = m_tags + output_tag
-        if m_name in PIPELINE_FILTERS_METRICS:
+        if m_name in dict(PIPELINE_FILTERS_METRICS_v5, **PIPELINE_FILTERS_METRICS_V6):
             m_tags = m_tags + filter_tag
         if desc[0] == "gauge":
             aggregator.assert_metric(m_name, tags=m_tags, count=1)
