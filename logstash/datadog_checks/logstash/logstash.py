@@ -203,6 +203,9 @@ class LogstashCheck(AgentCheck):
             self._process_pipeline_data(stats_data['pipeline'], config.tags)
         elif 'pipelines' in stats_data:
             for pipeline_name, pipeline_data in iteritems(stats_data['pipelines']):
+                if pipeline_name.startswith('.'):
+                    # skip internal pipelines like '.monitoring_logstash'
+                    continue
                 metric_tags = list(config.tags)
                 metric_tags.append(u'pipeline_name:{}'.format(pipeline_name))
                 self._process_pipeline_data(pipeline_data, metric_tags)
