@@ -68,8 +68,8 @@ class LighthouseCheck(AgentCheck):
         except KeyError:
             tags = []
 
-        tags.append("lighthouse_url:{0}".format(lighthouse_url)
-        tags.append("lighthouse_name:{0}".format(lighthouse_name)
+        tags.append("lighthouse_url:{0}".format(lighthouse_url))
+        tags.append("lighthouse_name:{0}".format(lighthouse_name))
 
         self.gauge("lighthouse.accessibility", score_accessibility, tags=tags)
         self.gauge("lighthouse.best_practices", score_best_practices, tags=tags)
