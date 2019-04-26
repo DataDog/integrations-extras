@@ -15,6 +15,7 @@ __version__ = "1.0.0"
 
 EXPECTED_RESPONSE_CODE = "NO_ERROR"
 
+
 class LighthouseCheck(AgentCheck):
     def check(self, instance):
         lighthouse_url = instance.get('url')
@@ -43,7 +44,7 @@ class LighthouseCheck(AgentCheck):
         try:
             data = json.loads(json_string)
         except Exception as e:
-            self.log.warn("lighthouse response JSON structure different than expected for url: {0}".format(lighthouse_url))
+            self.log.warn("lighthouse response JSON different than expected for url: {0}".format(lighthouse_url))
             raise CheckException(error_message, exit_code, e)
 
         if data["runtimeError"]["code"] == EXPECTED_RESPONSE_CODE:
