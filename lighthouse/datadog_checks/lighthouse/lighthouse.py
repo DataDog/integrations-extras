@@ -13,10 +13,10 @@ import json
 # content of the special variable __version__ will be shown in the Agent status page
 __version__ = "1.0.0"
 
+EXPECTED_RESPONSE_CODE = "NO_ERROR"
 
 class LighthouseCheck(AgentCheck):
     def check(self, instance):
-        EXPECTED_RESPONSE_CODE = "NO_ERROR"
         lighthouse_url = instance.get('url')
         lighthouse_name = instance.get('name')
 
@@ -43,7 +43,7 @@ class LighthouseCheck(AgentCheck):
         try:
             data = json.loads(json_string)
         except Exception as e:
-            self.log.warn("lighthouse response JSON structure different than expected for url: %s" % lighthouse_url)
+            self.log.warn("lighthouse response JSON structure different than expected for url: {0}".format(lighthouse_url)
             raise CheckException(error_message, exit_code, e)
 
         if data["runtimeError"]["code"] == EXPECTED_RESPONSE_CODE:
@@ -61,15 +61,15 @@ class LighthouseCheck(AgentCheck):
             return
         # add tags
         try:
-            tags = instance['tags']
+            tags = instance.get('tags', [])
             if type(tags) != list:
                 self.log.warn('The tags list in the lighthouse check is not configured properly')
                 tags = []
         except KeyError:
             tags = []
 
-        tags.append("lighthouse_url:%s" % lighthouse_url)
-        tags.append("lighthouse_name:%s" % lighthouse_name)
+        tags.append("lighthouse_url:{0}".format(lighthouse_url)
+        tags.append("lighthouse_name:{0}".format(lighthouse_name)
 
         self.gauge("lighthouse.accessibility", score_accessibility, tags=tags)
         self.gauge("lighthouse.best_practices", score_best_practices, tags=tags)
