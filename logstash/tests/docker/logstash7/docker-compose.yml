@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.0.0
+    environment:
+      - HTTP_HOST="0.0.0.0"
+      - XPACK_MONITORING_ENABLED="false"
+      - PATH_CONFIG=""
+    ports:
+      - 9600:9600
+    volumes:
+      - ./test_multi_pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./test_pipeline1.conf:/usr/share/logstash/pipeline1/logstash.conf:ro
+      - ./test_pipeline2.conf:/usr/share/logstash/pipeline2/logstash.conf:ro
