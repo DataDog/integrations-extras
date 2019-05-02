@@ -1,12 +1,33 @@
 init_config:
 
 instances:
-  #   The URL where Logstash provides its monitoring API. This will be used to fetch various runtime metrics about Logstash.
-  #
+
+    ## @param url - string - required
+    ## The URL where Logstash provides its monitoring API.
+    ## This is used to fetch various runtime metrics about Logstash.
+    #
   - url: http://localhost:9600
+
+    ## @param ssl_verify - boolean - optional - default:
+    ## Instruct the check to validate SSL certificates when connecting to `url`.
+    #
     # ssl_verify: false
-    # ssl_cert: /path/to/cert.pem
-    # ssl_key: /path/to/cert.key
+
+    ## @param ssl_cert - boolean - optional
+    ## Path to the certificate file used to identify the connection to `url`.
+    #
+    # ssl_cert: <CERT_PEM_PATH>
+
+    ## @param ssl_key - boolean - optional
+    ## Path to the private keyfile used to identify the connection to `url`.
+    #
+    # ssl_key: <CERT_KEY_PATH>
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
     # tags:
-    #   - 'tag1:key1'
-    #   - 'tag2:key2'
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
