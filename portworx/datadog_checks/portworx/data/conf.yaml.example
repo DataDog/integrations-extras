@@ -1,9 +1,20 @@
 init_config:
 
 instances:
- # url of the metrics endpoint of prometheus
+
+   ## @param prometheus_endpoint - string - required
+   ## url of the metrics endpoint of prometheus
+   #
  - prometheus_endpoint: http://localhost:9001/metrics
+
+   ## @param namespace - string - required
+   ## Namespace for your portworx metrics within Datadog.
+   #
    namespace: "px"
+
+   ## @param metrics - list of key:value strings - required
+   ## Matching prometheus metrics with the corresponding Datadog metrics.
+   #
    metrics:
    - px_cluster_cpu_percent: cluster.cpu_percent
    - px_cluster_disk_available_bytes: cluster.disk_available_bytes
