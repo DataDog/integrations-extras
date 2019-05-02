@@ -1,19 +1,27 @@
+init_config:
+
 instances:
-## @param url - string - required
-## Base URL to your Aqua instance.
+
+    ## @param url - string - required
+    ## Base URL to your Aqua instance.
+    #
   - url: http://your-aqua-instance.com
 
     ## @param api_user - string - required
-    ## Username and password the agent will use to query the Aqua API.
+    ## Username the Agent should use to query the Aqua API.
     #
-    # api_user: api_username
+    # api_user: <USERNAME>
 
     ## @param password - string - required
-    # password: api_user_password
+    ## Password associated with the `api_user` username to query the Aqua API.
+    #
+    # password: <PASSWORD>
 
-    ## @param tags  - list of key:value element - optional
-    ## Supply a list of custom tags to send with all metrics for this instance.
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
     #
     # tags:
-    #  - <KEY_1>:<VALUE_1>
-    #  - <KEY_2>:<VALUE_2>
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
