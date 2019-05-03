@@ -1,11 +1,27 @@
 init_config:
-  # Any global configurable parameters should be added here
 
 instances:
-    - stardog_url: http://localhost:5820
-      username: admin
-      password: admin
 
-      tags:
-      - sampletag1
-      - sampletag2
+    ## @param stardog_url - string - required
+    ## Stardog Url to connect to to gather data.
+    #
+  - stardog_url: http://localhost:5820
+
+    ## @param username - string - required
+    ## Username to use for auth on `stardog_url`
+    #
+    username: admin
+
+    ## @param password - string - required
+    ## Password associated with `username` for auth on `stardog_url`
+    #
+    password: admin
+
+    ## @param tags - list of key:value element - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
