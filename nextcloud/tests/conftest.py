@@ -90,7 +90,7 @@ def nextcloud_add_trusted_domain():
         'config:system:set',
         'trusted_domains',
         '2',
-        '--value="{}"'.format(HOST),
+        '--value={}'.format(HOST),
     ]
     return subprocess.call(status_args) == 0
 
