@@ -1,9 +1,29 @@
 init_config:
 
 instances:
+
+    ## @param sentinel_host - string - required
+    ## Redis Sentinel host to connect to.
+    #
   - sentinel_host: localhost
+
+    ## @param sentinel_port - string - required
+    ## Port to connect to when reaching `sentinel_host`.
+    #
     sentinel_port: 26379
-    tags: ['custom:tag']
+
+    ## @param masters - list of strings - required
+    ## List of masters name to collect data from
+    #
     masters:
-      - mymaster
-      - myothermaster
+      - <MASTER_NAME_1>
+      - <MASTER_NAME_2>
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
