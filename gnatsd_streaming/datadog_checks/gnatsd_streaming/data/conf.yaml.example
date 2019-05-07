@@ -1,11 +1,22 @@
 init_config:
-  # Any global configurable parameters should be added here
 
 instances:
-  #   A typical instance configuration might include a hostname and port
-  #   a set of customizable tags and other parameters we might need to
-  #   configure the behavior of our check.
-  #
+
+    ## @param host - string - required
+    ## Gnatsd host to connect to.
+    #
   - host: localhost
+
+    ## @param port - integer - required
+    ## Gnatsd port to connect to when reaching `host`
+    #
     port: 8222
-    tags: ['custom:tag']
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
