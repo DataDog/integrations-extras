@@ -1,15 +1,25 @@
 init_config:
-   # Any global configurable parameters should be added here
-   timeout : 10
+
+  ## @param timeout - string - optional - default: 10
+  ## Timeout to use as a default for all your instances.
+  #
+  # timeout: 10
 
 instances:
-  # The SortDB custom check retrieves metrics from Sortdb's HTTP API.
-  # This check must be run from each of the nodes running sortdb instances
-  # and the http url  must be specified below. The url consist of sortdb  
-  # server's fqdn and port.
-  #
+
+    ## @param url - string - required
+    ## The SortDB custom check retrieves metrics from Sortdb's HTTP API.
+    ## This check must be run from each of the nodes running Sortdb instances
+    ## and the http url  must be specified below. The url consist of Sortdb
+    ## server's fqdn and port.
+    #
   - url: http://localhost:8080/stats
-    # Optional instance tags 
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
     # tags:
-    #   - optional_tag1
-    #   - optional_tag2
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
