@@ -6,7 +6,7 @@
 Get metrics from Bind9 DNS Server.
 
 * Visualize and monitor bind9 stats
-![Snap](https://github.com/ashuvyas45/integrations-extras/raw/bind9/bind9_check/images/snapshot.png)
+![Snap](https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png)
 
 ## Setup
 
