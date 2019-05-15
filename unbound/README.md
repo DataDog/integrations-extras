@@ -4,6 +4,11 @@
 
 This check monitors [Unbound][1] through the Datadog Agent.
 
+Get metrics from unbound service in real time to:
+
+* Visualize and monitor unbound states
+* Be notified about unbound failovers and events.
+
 ## Setup
 
 ### Installation
@@ -39,7 +44,7 @@ Unbound does not include any events.
 
 Need help? Contact [Datadog support][5].
 
-[1]: **LINK_TO_INTEGERATION_SITE**
+[1]: https://nlnetlabs.nl/documentation/unbound/unbound-control/
 [2]: https://github.com/DataDog/integrations-core/blob/master/unbound/datadog_checks/unbound/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
