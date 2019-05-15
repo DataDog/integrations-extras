@@ -2,10 +2,36 @@ init_config:
 
 instances:
 
-    ## @param host - string - required
-    ## The URL where your unbound server is run
+  -
+    ## @param unbound_control - string - optional
+    ## unbound-control binary to execute to gather stats, defaults to unbound-control
     #
-  - host: 127.0.0.1
+    # unbound_control: /path/to/unbound-control
+
+    ## @param use_sudo - boolean - optional - default: false
+    ## If your environment requires sudo, please add the following line:
+    ##
+    ## dd-agent ALL=(ALL) NOPASSWD:/usr/sbin/unbound-control
+    ##
+    ## (or a similar one with the correct path) to your sudoers file, and
+    ## uncomment the option below:
+    #
+    # use_sudo: true
+
+    ## @param stats_command - string - optional
+    ## unbound-control command to execute to gather stats, defaults to stats
+    #
+    # stats_command: stats_noreset
+
+    ## @param host - string - optional
+    ## server address (ip[@port]), if omitted config_file is used
+    #
+    # host: 127.0.0.1
+
+    ## @param config_file - string - optional
+    ## config file, default is unbound's default (e.g. /etc/unbound/unbound.conf)
+    #
+    # config_file: /path/to/unbound.conf
 
     ## @param tags - list of key:value element - optional
     ## List of tags to attach to every metric, event and service check emitted by this integration.
