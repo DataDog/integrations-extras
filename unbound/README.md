@@ -1,32 +1,46 @@
-# Unbound Integration
+# Agent Check: Unbound
 
 ## Overview
 
-Get metrics from unbound service in real time to:
+This check monitors [Unbound][1] through the Datadog Agent.
 
-* Visualize and monitor unbound states
-* Be notified about unbound failovers and events.
+## Setup
 
-## Installation
+### Installation
 
-Install the `dd-check-unbound` package manually or with your favorite configuration manager
+The Unbound check is not included in the [Datadog Agent][2] package, so it must
+be installed manually.
 
-## Configuration
+### Configuration
 
-Edit the `unbound.yaml` file to point to your server and port, set the masters to monitor
+1. Edit the `unbound.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your unbound performance data. See the [sample unbound.d/conf.yaml][2] for all available configuration options.
 
-## Validation
+2. [Restart the Agent][3].
 
-When you run `datadog-agent info` you should see something like the following:
+### Validation
 
-    Checks
-    ======
+[Run the Agent's status subcommand][4] and look for `unbound` under the Checks section.
 
-        unbound
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
+## Data Collected
 
-## Compatibility
+### Metrics
 
-The unbound check is compatible with all major platforms
+Unbound does not include any metrics.
+
+### Service Checks
+
+Unbound does not include any service checks.
+
+### Events
+
+Unbound does not include any events.
+
+## Troubleshooting
+
+Need help? Contact [Datadog support][5].
+
+[1]: **LINK_TO_INTEGERATION_SITE**
+[2]: https://github.com/DataDog/integrations-core/blob/master/unbound/datadog_checks/unbound/data/conf.yaml.example
+[3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
+[5]: https://docs.datadoghq.com/help
