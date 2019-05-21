@@ -11,4 +11,4 @@ Once the Datadog agent has been installed onto your Windows computer, the next t
 
 Next, navigate to the `/conf.d` directory and create a new folder called `win_docker.d`. Within the `/conf.d/win_docker.d` directory copy & paste the `conf.yaml` file, (which can be found in this repo).
 
-Finally, you will need to restart your Datadog agnet and within a few moments the newly discovered Windows Docker container metrics will begin to report into Datadog. 
+Finally, you will need to restart your Datadog agent and within a few moments the newly discovered Windows Docker container metrics will begin to report into Datadog. 
