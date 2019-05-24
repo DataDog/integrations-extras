@@ -14,9 +14,10 @@ Get metrics from EventStore in real time to:
 To install the EventStore check on your host:
 
 1. Install the [developer toolkit][1] on any machine.
-2. Run `ddev release build eventstore` to build the package.
-3. [Download the Datadog Agent][2].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/eventstore/dist/<ARTIFACT_NAME>.whl`.
+2. Make sure the repository used is set to integrations-extras where the EventStore integration lives: `ddev config set repo extras`
+3. Run `ddev release build eventstore` to build the package.
+4. [Download the Datadog Agent][2].
+5. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/eventstore/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
