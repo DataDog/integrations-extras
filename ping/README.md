@@ -3,7 +3,7 @@
 ## Overview
 
 This check uses the system [ping][1] command to test the reachability of a host.
-It also optionally measures the round-trip time for messages sent the check to the
+It also optionally measures the round-trip time for messages sent from the check to the
 destination host.
 
 Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets
