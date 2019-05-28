@@ -34,7 +34,8 @@ class PingCheck(AgentCheck):
             countOption = "-c"
             timeoutOption = "-W"
 
-        self.log.debug("pinging {} {} {} {} {}".format(countOption, "1", timeoutOption, str(int(timeout)*1000), target_host))
+        self.log.debug("pinging {} {} {} {} {}".format(
+            countOption, "1", timeoutOption, str(int(timeout)*1000), target_host))
 
         lines, err, retcode = get_subprocess_output(
             ["ping", countOption, "1", timeoutOption, str(int(timeout)*1000), target_host],
@@ -50,7 +51,6 @@ class PingCheck(AgentCheck):
 
         custom_tags.append('target_host:{}'.format(host))
         custom_tags.append('instance:{}'.format(instance.get('name')))
-
 
         try:
             lines = self._exec_ping(timeout, host)
