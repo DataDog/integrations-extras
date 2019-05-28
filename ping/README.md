@@ -43,7 +43,7 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 **`network.ping.can_connect`**:
 
-Returns DOWN if the check does not receive a response from `host`, otherwise UP.
+Returns `DOWN` if the check does not receive a response from `host`, otherwise returns `UP`.
 
 ### Events
 
