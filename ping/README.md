@@ -18,26 +18,31 @@ requires root privileges, which the agent does not have. The ping command uses t
 
 ### Installation
 
-The Ping check is not included in the [Datadog Agent][7] package, so you need to
-install it yourself.
+To install the Ping check on your host:
+
+1. Install the [developer toolkit][2] on any machine.
+2. Run `ddev release build ping` to build the package.
+3. [Download the Datadog Agent][3].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/ping/dist/<ARTIFACT_NAME>.whl`.
+
 
 ### Configuration
 
 1. Edit the `ping.d/conf.yaml` file, in the `conf.d/` folder at the root of your
    Agent's configuration directory to start collecting your ping performance data.
-   See the [sample ping.d/conf.yaml][2] for all available configuration options.
+   See the [sample ping.d/conf.yaml][4] for all available configuration options.
 
-2. [Restart the Agent][3].
+2. [Restart the Agent][5].
 
 ### Validation
 
-[Run the Agent's status subcommand][4] and look for `ping` under the Checks section.
+[Run the Agent's status subcommand][6] and look for `ping` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this check.
+See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -51,12 +56,13 @@ The Ping check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Datadog support][8].
 
 [1]: https://en.wikipedia.org/wiki/Ping_(networking_utility)
-[2]: https://github.com/DataDog/integrations-core/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
-[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
-[5]: https://docs.datadoghq.com/help/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
-[7]: https://app.datadoghq.com/account/settings#agent
+[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://app.datadoghq.com/account/settings#agent
+[4]: https://github.com/DataDog/integrations-core/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
+[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[6]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[7]: https://docs.datadoghq.com/help/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
