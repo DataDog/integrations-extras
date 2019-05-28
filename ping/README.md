@@ -11,7 +11,7 @@ to the target host and waiting for an ICMP echo reply.
 
 This check uses the system ping command, rather than generating the ICMP echo request
 itself, as creating an ICMP packet requires a raw socket, and creating raw sockets
-requires root privileges, which the agent does not have. The ping command uses the
+requires root privileges, which the Agent does not have. The ping command uses the
 `setuid` access flag to run with elevated privileges, avoiding this issue.
 
 ## Setup
