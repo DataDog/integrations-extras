@@ -59,3 +59,4 @@ Need help? Contact [Datadog support][5].
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/help/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
+[7]: https://app.datadoghq.com/account/settings#agent
