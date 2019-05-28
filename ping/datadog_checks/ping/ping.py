@@ -7,6 +7,8 @@ from datadog_checks.utils.subprocess_output import get_subprocess_output
 from datadog_checks.errors import CheckException
 import platform
 import re
+import pytest
+
 
 
 class PingCheck(AgentCheck):
