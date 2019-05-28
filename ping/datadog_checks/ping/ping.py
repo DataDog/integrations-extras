@@ -26,6 +26,7 @@ class PingCheck(AgentCheck):
 
         return host, custom_tags, timeout, response_time
 
+    # no cov
     def _exec_ping(self, timeout, target_host):
         if platform.system() == "Windows":
             countOption = "-n"
