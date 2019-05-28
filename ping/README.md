@@ -47,7 +47,7 @@ Returns DOWN if the check does not receive a response from `host`, otherwise UP.
 
 ### Events
 
-Ping does not include any events.
+The Ping check does not include any events.
 
 ## Troubleshooting
 
