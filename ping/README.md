@@ -48,7 +48,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 **`network.ping.can_connect`**:
 
-Returns `DOWN` if the check does not receive a response from `host`, otherwise returns `UP`.
+Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns `OK` if the ping is successful.
 
 ### Events
 
