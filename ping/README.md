@@ -18,7 +18,7 @@ requires root privileges, which the agent does not have. The ping command uses t
 
 ### Installation
 
-The Ping check is not included in the [Datadog Agent][2] package, so you need to
+The Ping check is not included in the [Datadog Agent][7] package, so you need to
 install it yourself.
 
 ### Configuration
