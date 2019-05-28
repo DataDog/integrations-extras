@@ -10,7 +10,6 @@ import re
 import pytest
 
 
-
 class PingCheck(AgentCheck):
 
     SERVICE_CHECK_NAME = 'network.ping.can_connect'
