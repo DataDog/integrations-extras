@@ -8,7 +8,6 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class TraefikCheck(AgentCheck):
-
     def check(self, instance):
         host = instance.get('host')
         port = instance.get('port', '8080')

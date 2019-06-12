@@ -1,15 +1,35 @@
+init_config:
+
 instances:
-  # URL to the instance, eg: http://localhost:2113/stats
+
+    ## @param url - string - required
+    ## Base URL to your event store instance.
+    #
   - url: 'http://localhost:2113/stats'
-  # The name to tag the instance by, eg: AppEventStore
-    name: 'MyEventStore'
-  # A list of metrics you wish to capture, with wildcard support
-  # The metric you wish to capture must be defined above, a wildcard will capture
-  # all available metrics at that point, eg : 
-  # es.* will capture es.checksum and es.checksumNotFlushed but will not capture queues
-  # es.queue.*.* will capture all metrics for all queues
-  # es.queue.*.length will capture the length for all queues
+
+    ## @param name - string - optional
+    ## The name to tag the instance by, eg: AppEventStore
+    #
+    # name: '<INSTANCE_NAME>'
+
+    ## @param json_path - list of strings - required
+    ## A list of metrics you wish to capture, with wildcard support
+    ## The metric you wish to capture must be defined above, a wildcard captures
+    ## all available metrics at that point, eg :
+    ##   - es.* captures es.checksum and es.checksumNotFlushed but doesn't capture queues
+    ##   - es.queue.*.* captures all metrics for all queues
+    ##   - es.queue.*.length captures the length for all queues
+    #
     json_path:
-    - 'es.queue.*.*'
-    - 'proc.cpu'
-    - 'proc.tcp.*'
+      - 'es.queue.*.*'
+      - 'proc.cpu'
+      - 'proc.tcp.*'
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>

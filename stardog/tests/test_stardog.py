@@ -15,11 +15,7 @@ else:
 
 
 HTTP = None
-INSTANCE = {
-    'username': 'admin',
-    'password': 'admin',
-    'tags': ['test1']
-}
+INSTANCE = {'username': 'admin', 'password': 'admin', 'tags': ['test1']}
 
 
 def setup_module(module):
@@ -93,9 +89,9 @@ DATA = {
     "dbms.mem.direct.buffer.used": {"value": 53248},
     "dbms.mem.heap.max": {"value": 2058354688},
     "dbms.mem.direct.pool.used": {"value": 0},
-    "system.cpu.usage": {"value": 3.65916233046042E-4},
+    "system.cpu.usage": {"value": 3.65916233046042e-4},
     "dbms.mem.heap.used": {"value": 223226480},
     "dbms.mem.direct.max": {"value": 1073741824},
     "dbms.mem.direct.buffer.max": {"value": 281857228},
-    "dbms.mem.direct.pool.max": {"value": 402653184}
+    "dbms.mem.direct.pool.max": {"value": 402653184},
 }

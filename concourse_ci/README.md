@@ -27,9 +27,9 @@ Metric Emitter (Datadog):
 
 ## Data Collected
 
-### Metrics,
+### Metrics
 
-A list of metrics emitted can be found [here][5].
+See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Events
 
@@ -47,5 +47,5 @@ Need help? Contact [Datadog support][6].
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/developers/metrics/custom_metrics/
 [4]: https://concourse-ci.org/metrics.html#configuring-metrics
-[5]: https://concourse-ci.org/metrics.html
+[5]: https://github.com/DataDog/integrations-extras/blob/master/concourse_ci/metadata.csv
 [6]: https://docs.datadoghq.com/help/

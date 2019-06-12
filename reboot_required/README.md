@@ -2,7 +2,7 @@
 
 ## Overview
 
-Linux systems that are configured to autoinstall packages may not be configured to autoreboot (it may be desirable to time this manually). This check will enable alerts to be fired in the case where reboots are not performed in a timely manner.
+Linux systems that are configured to autoinstall packages may not be configured to autoreboot (it may be desirable to time this manually). This check enables alerts to be fired in the case where reboots are not performed in a timely manner.
 
 ## Setup
 
@@ -29,7 +29,7 @@ To configure the Reboot Required check:
         - reboot_signal_file: "/var/run/reboot-required"
     ```
 
-4. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of /var/run/dd-agent is ideal. The snippet below should suffice.
+4. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of `/var/run/dd-agent` is ideal. The snippet below should suffice.
 
     ```
     sudo mkdir /var/run/dd-agent

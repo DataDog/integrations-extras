@@ -2,10 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-from .traefik import TraefikCheck
 from .__about__ import __version__
+from .traefik import TraefikCheck
 
-__all__ = [
-    '__version__',
-    'TraefikCheck'
-]
+__all__ = ['__version__', 'TraefikCheck']

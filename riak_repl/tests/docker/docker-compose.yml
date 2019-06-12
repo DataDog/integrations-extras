@@ -3,42 +3,40 @@ services:
   coordinator-east:
     image: abtreece/riak-kv:latest
     ports:
-      - "8087:8087"
       - "8098:8098"
     environment:
       - CLUSTER_NAME=riak-east-1
       - REPL_CLUSTER_NAME=riak-west-1
       - REPL_COORDINATOR_NODE=coordinator-west
+    networks:
+     - riaknet
   coordinator-west:
     image: abtreece/riak-kv:latest
-    ports:
-      - "8087"
-      - "8098"
     environment:
       - CLUSTER_NAME=riak-west-1
       - REPL_CLUSTER_NAME=riak-east-1
       - REPL_COORDINATOR_NODE=coordinator-east
+    networks:
+     - riaknet
   member-east:
     image: abtreece/riak-kv:latest
-    ports:
-      - "8087"
-      - "8098"
-    links:
-      - coordinator-east
     depends_on:
       - coordinator-east
     environment:
       - CLUSTER_NAME=riak-east-1
       - COORDINATOR_NODE=coordinator-east
+    networks:
+     - riaknet
   member-west:
     image: abtreece/riak-kv:latest
-    ports:
-      - "8087"
-      - "8098"
-    links:
-      - coordinator-west
     depends_on:
       - coordinator-west
     environment:
       - CLUSTER_NAME=riak-west-1
       - COORDINATOR_NODE=coordinator-west
+    networks:
+     - riaknet
+
+networks:
+  riaknet:
+    driver: bridge

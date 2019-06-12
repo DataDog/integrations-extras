@@ -1,6 +1,18 @@
 init_config:
 
 instances:
-  - host: 10.1.2.3
-    port: "8080"
-    path: "/health"
+
+    ## @param host - string - required
+    ## Traefik host endpoint to connect to.
+    #
+  - host: <TRAEFIK_HOSTNAME>
+
+    ## @param port - integer - optional - default: 8080
+    ## Port to connect to when reaching to `host`.
+    #
+    # port: 8080
+
+    ## @param path - string - optional - default: /health
+    ## Traefik host endpoint path to gather data from.
+    #
+    # path: "/health"

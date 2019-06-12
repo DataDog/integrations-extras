@@ -13,33 +13,24 @@ def expressroute_metrics():
 
     return jsonify(
         [
-          {
-            "egress_bps": 0,
-            "egress_interface_errors": False,
-            "ingress_bps": 0,
-            "ingress_interface_errors": False,
-            "output_optical_power": 0,
-            "receiver_optical_power": 0,
-            "tags": [
-              "primary",
-              "ctag_500"
-            ]
-          },
-          {
-            "tags": [
-              "performance"
-            ]
-          },
-          {
-            "egress_bps": 0,
-            "egress_interface_errors": False,
-            "ingress_bps": 0,
-            "ingress_interface_errors": False,
-            "output_optical_power": 0,
-            "receiver_optical_power": 0,
-            "tags": [
-              "secondary",
-              "ctag_500"
-            ]
-          }
-        ])
+            {
+                "egress_bps": 0,
+                "egress_interface_errors": False,
+                "ingress_bps": 0,
+                "ingress_interface_errors": False,
+                "output_optical_power": 0,
+                "receiver_optical_power": 0,
+                "tags": ["primary", "ctag_500"],
+            },
+            {"tags": ["performance"]},
+            {
+                "egress_bps": 0,
+                "egress_interface_errors": False,
+                "ingress_bps": 0,
+                "ingress_interface_errors": False,
+                "output_optical_power": 0,
+                "receiver_optical_power": 0,
+                "tags": ["secondary", "ctag_500"],
+            },
+        ]
+    )

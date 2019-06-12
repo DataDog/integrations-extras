@@ -13,11 +13,10 @@ Get metrics from gnatsd_streaming service in real time to:
 
 To install the Gnatsd_streaming check on your host:
 
-1. [Download the Datadog Agent][4].
-2. Download the [`check.py` file][5] for Gnatsd_streaming.
-3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `gnatsd_streaming.py`.
-
+1. Install the [developer toolkit][3] on any machine.
+2. Run `ddev release build gnatsd_streaming` to build the package.
+3. [Download the Datadog Agent][4].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/gnatsd_streaming/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -68,5 +67,5 @@ Need help? Contact [Datadog support][2].
 
 [1]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [2]: http://docs.datadoghq.com/help/
+[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/check.py

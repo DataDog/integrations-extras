@@ -23,7 +23,7 @@ def instance_not_present():
         'reboot_signal_file': 'reboot-required.should_not_be_present',
         'created_at_file': 'reboot-required.created_at.should_not_be_present',
         'days_warning': 7,
-        'days_critical': 14
+        'days_critical': 14,
     }
 
 
@@ -34,7 +34,7 @@ def instance_ok():
             'reboot_signal_file': touch(join(d, 'reboot-required.freshly_minted')),
             'created_at_file': touch(join(d, 'reboot-required.created_at.freshly_minted')),
             'days_warning': 7,
-            'days_critical': 14
+            'days_critical': 14,
         }
 
 
@@ -47,7 +47,7 @@ def instance_warning():
                 join(d, 'reboot-required.created_at.warning'), times=(NINE_DAYS_AGO, NINE_DAYS_AGO)
             ),
             'days_warning': 7,
-            'days_critical': 14
+            'days_critical': 14,
         }
 
 
@@ -60,5 +60,5 @@ def instance_critical():
                 join(d, 'reboot-required.created_at.critical'), times=(SIXTEEN_DAYS_AGO, SIXTEEN_DAYS_AGO)
             ),
             'days_warning': 7,
-            'days_critical': 14
+            'days_critical': 14,
         }

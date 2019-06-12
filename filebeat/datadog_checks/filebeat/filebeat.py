@@ -12,9 +12,10 @@ import re
 import sre_constants
 
 import requests
+from six import iteritems
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.utils.containers import hash_mutable
-from six import iteritems
 
 EVENT_TYPE = SOURCE_TYPE_NAME = "filebeat"
 
@@ -27,6 +28,7 @@ class FilebeatCheckHttpProfiler:
     """
 
     INCREMENT_METRIC_NAMES = [
+        "filebeat.events.done",
         "filebeat.harvester.closed",
         "filebeat.harvester.files.truncated",
         "filebeat.harvester.open_files",
@@ -55,10 +57,15 @@ class FilebeatCheckHttpProfiler:
         "libbeat.logstash.publish.write_errors",
         "libbeat.logstash.published_and_acked_events",
         "libbeat.logstash.published_but_not_acked_events",
+        "libbeat.output.events.acked",
         "libbeat.output.events.dropped",
         "libbeat.output.events.failed",
+        "libbeat.output.events.total",
         "libbeat.pipeline.events.dropped",
         "libbeat.pipeline.events.failed",
+        "libbeat.pipeline.events.filtered",
+        "libbeat.pipeline.events.published",
+        "libbeat.pipeline.events.total",
         "libbeat.publisher.messages_in_worker_queues",
         "libbeat.publisher.published_events",
         "libbeat.redis.publish.read_bytes",
@@ -88,16 +95,11 @@ class FilebeatCheckHttpProfiler:
 
         response = self._make_request()
 
-        return {
-            "increment": self._gather_increment_metrics(response),
-            "gauge": self._gather_gauge_metrics(response),
-        }
+        return {"increment": self._gather_increment_metrics(response), "gauge": self._gather_gauge_metrics(response)}
 
     def _make_request(self):
 
-        response = requests.get(
-            self._config.stats_endpoint, timeout=self._config.timeout
-        )
+        response = requests.get(self._config.stats_endpoint, timeout=self._config.timeout)
         response.raise_for_status()
 
         return self.flatten(response.json())
@@ -119,10 +121,7 @@ class FilebeatCheckHttpProfiler:
         deltas = {}
 
         for name, new_value in iteritems(new_values):
-            if (
-                name not in self._previous_increment_values
-                or self._previous_increment_values[name] > new_value
-            ):
+            if name not in self._previous_increment_values or self._previous_increment_values[name] > new_value:
                 # either the agent or filebeat got restarted, we're not
                 # reporting anything this time around
                 return {}
@@ -160,25 +159,19 @@ class FilebeatCheckInstanceConfig:
     def __init__(self, instance):
         self._registry_file_path = instance.get("registry_file_path")
         if self._registry_file_path is None:
-            raise Exception(
-                "An absolute path to a filebeat registry path must be specified"
-            )
+            raise Exception("An absolute path to a filebeat registry path must be specified")
 
         self._stats_endpoint = instance.get("stats_endpoint")
 
         self._only_metrics = instance.get("only_metrics", [])
         if not isinstance(self._only_metrics, list):
             raise Exception(
-                "If given, filebeat's only_metrics must be a list of regexes, got %s"
-                % (self._only_metrics,)
+                "If given, filebeat's only_metrics must be a list of regexes, got %s" % (self._only_metrics,)
             )
 
         self._timeout = instance.get("timeout", 2)
         if not isinstance(self._timeout, numbers.Real) or self._timeout <= 0:
-            raise Exception(
-                "If given, filebeats timeout must be a positive number, got %s"
-                % (self._timeout,)
-            )
+            raise Exception("If given, filebeats timeout must be a positive number, got %s" % (self._timeout,))
 
     @property
     def registry_file_path(self):
@@ -211,10 +204,7 @@ class FilebeatCheckInstanceConfig:
             try:
                 compiled_regexes.append(re.compile(regex))
             except sre_constants.error as ex:
-                raise Exception(
-                    'Invalid only_metric regex for filebeat: "%s", error: %s'
-                    % (regex, ex)
-                )
+                raise Exception('Invalid only_metric regex for filebeat: "%s", error: %s' % (regex, ex))
 
         return compiled_regexes
 
@@ -252,14 +242,11 @@ class FilebeatCheck(AgentCheck):
             with open(registry_file_path) as registry_file:
                 return json.load(registry_file)
         except IOError as ex:
-            self.log.error(
-                "Cannot read the registry log file at %s: %s" % (registry_file_path, ex)
-            )
+            self.log.error("Cannot read the registry log file at %s: %s" % (registry_file_path, ex))
 
             if ex.errno == errno.EACCES:
                 self.log.error(
-                    "You might be interesting in having a look at "
-                    "https://github.com/elastic/beats/pull/6455"
+                    "You might be interesting in having a look at " "https://github.com/elastic/beats/pull/6455"
                 )
 
             return []
@@ -274,29 +261,20 @@ class FilebeatCheck(AgentCheck):
             if self._is_same_file(stats, item["FileStateOS"]):
                 unprocessed_bytes = stats.st_size - offset
 
-                self.gauge(
-                    "filebeat.registry.unprocessed_bytes",
-                    unprocessed_bytes,
-                    tags=["source:{0}".format(source)],
-                )
+                self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
             else:
                 self.log.debug("Filebeat source %s appears to have changed" % (source,))
         except OSError:
             self.log.debug("Unable to get stats on filebeat source %s" % (source,))
 
     def _is_same_file(self, stats, file_state_os):
-        return (
-            stats.st_dev == file_state_os["device"]
-            and stats.st_ino == file_state_os["inode"]
-        )
+        return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
 
     def _gather_http_profiler_metrics(self, config, profiler):
         try:
             all_metrics = profiler.gather_metrics()
         except Exception as ex:
-            self.log.error(
-                "Error when fetching metrics from %s: %s" % (config.stats_endpoint, ex)
-            )
+            self.log.error("Error when fetching metrics from %s: %s" % (config.stats_endpoint, ex))
             return
 
         tags = ["stats_endpoint:{0}".format(config.stats_endpoint)]

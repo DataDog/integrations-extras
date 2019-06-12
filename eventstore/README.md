@@ -46,7 +46,7 @@ The check is compatible with all major platforms.
 
 ### Metrics
 
-Able to collect all numeric or datetime metrics supplied by the api, it will require you to add metric_definitions for new metrics, all current metrics are listed
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Events
 
@@ -66,3 +66,4 @@ Need help? Contact the [maintainer][6] of this integration.
 [4]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/datadog_checks/eventstore/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-restart-the-agent
 [6]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/manifest.json
+[7]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/metadata.csv

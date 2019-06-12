@@ -1,6 +1,6 @@
-from datadog_checks.nextcloud import NextcloudCheck
-
 import pytest
+
+from datadog_checks.nextcloud import NextcloudCheck
 
 
 def test_empty_url(aggregator, empty_url_instance):

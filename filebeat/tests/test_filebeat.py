@@ -8,6 +8,7 @@ from collections import namedtuple
 
 import mock
 import pytest
+
 from datadog_checks.filebeat import FilebeatCheck
 
 from .common import registry_file_path
@@ -47,23 +48,17 @@ def test_registry_happy_path(aggregator):
     check = FilebeatCheck("filebeat", {}, {})
     with mocked_os_stat(
         {
-            "/test_dd_agent/var/log/nginx/access.log": mocked_file_stats(
-                394154, 277025, 51713
-            ),
+            "/test_dd_agent/var/log/nginx/access.log": mocked_file_stats(394154, 277025, 51713),
             "/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152172, 51713),
         }
     ):
         check.check(_build_instance("happy_path"))
 
     aggregator.assert_metric(
-        "filebeat.registry.unprocessed_bytes",
-        value=2407,
-        tags=["source:/test_dd_agent/var/log/nginx/access.log"],
+        "filebeat.registry.unprocessed_bytes", value=2407, tags=["source:/test_dd_agent/var/log/nginx/access.log"]
     )
     aggregator.assert_metric(
-        "filebeat.registry.unprocessed_bytes",
-        value=0,
-        tags=["source:/test_dd_agent/var/log/syslog"],
+        "filebeat.registry.unprocessed_bytes", value=0, tags=["source:/test_dd_agent/var/log/syslog"]
     )
 
 
@@ -72,23 +67,17 @@ def test_registry_happy_path_with_legacy_format(aggregator):
     check = FilebeatCheck("filebeat", {}, {})
     with mocked_os_stat(
         {
-            "/test_dd_agent/var/log/nginx/access.log": mocked_file_stats(
-                394154, 277025, 51713
-            ),
+            "/test_dd_agent/var/log/nginx/access.log": mocked_file_stats(394154, 277025, 51713),
             "/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152172, 51713),
         }
     ):
         check.check(_build_instance("happy_path_legacy_format"))
 
     aggregator.assert_metric(
-        "filebeat.registry.unprocessed_bytes",
-        value=2407,
-        tags=["source:/test_dd_agent/var/log/nginx/access.log"],
+        "filebeat.registry.unprocessed_bytes", value=2407, tags=["source:/test_dd_agent/var/log/nginx/access.log"]
     )
     aggregator.assert_metric(
-        "filebeat.registry.unprocessed_bytes",
-        value=0,
-        tags=["source:/test_dd_agent/var/log/syslog"],
+        "filebeat.registry.unprocessed_bytes", value=0, tags=["source:/test_dd_agent/var/log/syslog"]
     )
 
 
@@ -96,10 +85,7 @@ def test_bad_config():
     check = FilebeatCheck("filebeat", {}, {})
     with pytest.raises(Exception) as excinfo:
         check.check({})
-        assert (
-            "an absolute path to a filebeat registry path must be specified"
-            in excinfo.value
-        )
+        assert "an absolute path to a filebeat registry path must be specified" in excinfo.value
 
 
 def test_missing_registry_file(aggregator):
@@ -117,18 +103,14 @@ def test_missing_source_file(aggregator):
 
 def test_source_file_inode_has_changed(aggregator):
     check = FilebeatCheck("filebeat", {}, {})
-    with mocked_os_stat(
-        {"/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152171, 51713)}
-    ):
+    with mocked_os_stat({"/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152171, 51713)}):
         check.check(_build_instance("single_source"))
     aggregator.assert_metric("filebeat.registry.unprocessed_bytes", count=0)
 
 
 def test_source_file_device_has_changed(aggregator):
     check = FilebeatCheck("filebeat", {}, {})
-    with mocked_os_stat(
-        {"/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152171, 51714)}
-    ):
+    with mocked_os_stat({"/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152171, 51714)}):
         check.check(_build_instance("single_source"))
     aggregator.assert_metric("filebeat.registry.unprocessed_bytes", count=0)
 
@@ -211,18 +193,7 @@ def generate_http_profiler_body(body_update):
             "NextGC": 9491669,
             "LastGC": 1520619692758256437,
             "PauseTotalNs": 14387932504,
-            "PauseNs": [
-                354477,
-                126296,
-                93752,
-                303703,
-                156045,
-                6939651,
-                107696,
-                115597,
-                110226,
-                87639,
-            ],
+            "PauseNs": [354477, 126296, 93752, 303703, 156045, 6939651, 107696, 115597, 110226, 87639],
         },
         "publish.events": 1139450,
         "registrar.states.cleanup": 0,
@@ -240,9 +211,7 @@ def generate_http_profiler_body(body_update):
 def mock_request(body_update=None):
     return mock.patch(
         "requests.get",
-        return_value=mock.MagicMock(
-            status_code=200, json=lambda: generate_http_profiler_body(body_update)
-        ),
+        return_value=mock.MagicMock(status_code=200, json=lambda: generate_http_profiler_body(body_update)),
     )
 
 
@@ -257,41 +226,24 @@ def test_happy_path(aggregator):
         check.check(config)
 
     aggregator.assert_metric("libbeat.logstash.published_and_acked_events", count=0)
-    aggregator.assert_metric(
-        "filebeat.harvester.running", metric_type=aggregator.GAUGE, value=10, tags=tags
-    )
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, value=10, tags=tags)
 
     # now the second run should have all the increment metrics as well
-    with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 1138956,
-            "filebeat.harvester.running": 9,
-        }
-    ):
+    with mock_request({"libbeat.logstash.published_and_acked_events": 1138956, "filebeat.harvester.running": 9}):
         check.check(config)
 
     aggregator.assert_metric(
-        "libbeat.logstash.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=28,
-        tags=tags,
+        "libbeat.logstash.published_and_acked_events", metric_type=aggregator.COUNTER, value=28, tags=tags
     )
     aggregator.assert_metric(
-        "libbeat.kafka.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
+        "libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=0, tags=tags
     )
-    aggregator.assert_metric(
-        "filebeat.harvester.running", metric_type=aggregator.GAUGE, value=9, tags=tags
-    )
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, value=9, tags=tags)
 
 
 def test_happy_path_with_an_only_metrics_list(aggregator):
     config = _build_instance(
-        "empty",
-        stats_endpoint="http://localhost:9999",
-        only_metrics=[r"^libbeat.kafka", r"truncated$"],
+        "empty", stats_endpoint="http://localhost:9999", only_metrics=[r"^libbeat.kafka", r"truncated$"]
     )
     check = FilebeatCheck("filebeat", {}, {})
     tags = ["stats_endpoint:http://localhost:9999"]
@@ -300,10 +252,7 @@ def test_happy_path_with_an_only_metrics_list(aggregator):
         check.check(config)
 
     with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 1138956,
-            "libbeat.kafka.published_and_acked_events": 12,
-        }
+        {"libbeat.logstash.published_and_acked_events": 1138956, "libbeat.kafka.published_and_acked_events": 12}
     ):
         check.check(config)
 
@@ -314,42 +263,23 @@ def test_happy_path_with_an_only_metrics_list(aggregator):
 
     # but these 4 should have
     aggregator.assert_metric(
-        "libbeat.kafka.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=12,
-        tags=tags,
+        "libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=12, tags=tags
     )
     aggregator.assert_metric(
-        "libbeat.kafka.published_but_not_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
+        "libbeat.kafka.published_but_not_acked_events", metric_type=aggregator.COUNTER, value=0, tags=tags
     )
     aggregator.assert_metric(
-        "libbeat.kafka.call_count.PublishEvents",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
+        "libbeat.kafka.call_count.PublishEvents", metric_type=aggregator.COUNTER, value=0, tags=tags
     )
-    aggregator.assert_metric(
-        "filebeat.harvester.files.truncated",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
-    )
+    aggregator.assert_metric("filebeat.harvester.files.truncated", metric_type=aggregator.COUNTER, value=0, tags=tags)
 
 
 def test_with_an_invalid_regex_in_the_only_metrics_list():
-    config = _build_instance(
-        "empty",
-        stats_endpoint="http://localhost:9999",
-        only_metrics=["invalid regex ["],
-    )
+    config = _build_instance("empty", stats_endpoint="http://localhost:9999", only_metrics=["invalid regex ["])
     check = FilebeatCheck("filebeat", {}, {})
 
     expected_message = (
-        'Invalid only_metric regex for filebeat: "invalid regex [", '
-        "error: unexpected end of regular expression"
+        'Invalid only_metric regex for filebeat: "invalid regex [", ' "error: unexpected end of regular expression"
     )
 
     with pytest.raises(Exception) as excinfo:
@@ -359,9 +289,7 @@ def test_with_an_invalid_regex_in_the_only_metrics_list():
 
 def test_regexes_only_get_compiled_and_run_once():
     regex = r"^libbeat.kafka"
-    config = _build_instance(
-        "empty", stats_endpoint="http://localhost:9999", only_metrics=[regex]
-    )
+    config = _build_instance("empty", stats_endpoint="http://localhost:9999", only_metrics=[regex])
     check = FilebeatCheck("filebeat", {}, {})
 
     with mock_request():
@@ -372,13 +300,10 @@ def test_regexes_only_get_compiled_and_run_once():
 
                 re_compile.assert_called_once_with(regex)
                 # once per metric name
-                assert re_search.call_count == 44
+                assert re_search.call_count == 50
 
     with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 1138956,
-            "libbeat.kafka.published_and_acked_events": 12,
-        }
+        {"libbeat.logstash.published_and_acked_events": 1138956, "libbeat.kafka.published_and_acked_events": 12}
     ):
         with mock.patch.object(re, "compile") as re_compile:
             with mock.patch.object(re, "search") as re_search:
@@ -397,10 +322,7 @@ def test_when_filebeat_restarts(aggregator):
         check.check(config)
 
     with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 0,
-            "libbeat.kafka.published_and_acked_events": 12,
-        }
+        {"libbeat.logstash.published_and_acked_events": 0, "libbeat.kafka.published_and_acked_events": 12}
     ):
         check.check(config)
 
@@ -411,23 +333,12 @@ def test_when_filebeat_restarts(aggregator):
     # at the next run though, we should get normal increment from in between
     # the 2nd & 3rd runs
     with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 28,
-            "libbeat.kafka.published_and_acked_events": 23,
-        }
+        {"libbeat.logstash.published_and_acked_events": 28, "libbeat.kafka.published_and_acked_events": 23}
     ):
         check.check(config)
 
-    aggregator.assert_metric(
-        "libbeat.logstash.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=28,
-    )
-    aggregator.assert_metric(
-        "libbeat.kafka.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=11,
-    )
+    aggregator.assert_metric("libbeat.logstash.published_and_acked_events", metric_type=aggregator.COUNTER, value=28)
+    aggregator.assert_metric("libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=11)
 
 
 def test_when_the_http_call_times_out(aggregator):
@@ -457,57 +368,31 @@ def test_with_two_different_instances(aggregator):
     with mock_request():
         check.check(config)
 
-    with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 1138956,
-            "filebeat.harvester.running": 9,
-        }
-    ):
+    with mock_request({"libbeat.logstash.published_and_acked_events": 1138956, "filebeat.harvester.running": 9}):
         check.check(config)
 
     # metrics for the first instance
     aggregator.assert_metric(
-        "libbeat.logstash.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=28,
-        tags=tags,
+        "libbeat.logstash.published_and_acked_events", metric_type=aggregator.COUNTER, value=28, tags=tags
     )
     aggregator.assert_metric(
-        "libbeat.kafka.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
+        "libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=0, tags=tags
     )
-    aggregator.assert_metric(
-        "filebeat.harvester.running", metric_type=aggregator.GAUGE, value=9, tags=tags
-    )
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, value=9, tags=tags)
 
-    config = _build_instance(
-        "empty", stats_endpoint="http://localhost:19999", only_metrics=[r"events$"]
-    )
+    config = _build_instance("empty", stats_endpoint="http://localhost:19999", only_metrics=[r"events$"])
 
     # and for the second
     tags = ["stats_endpoint:http://localhost:19999"]
     with mock_request():
         check.check(config)
-    with mock_request(
-        {
-            "libbeat.logstash.published_and_acked_events": 1238956,
-            "filebeat.harvester.running": 29,
-        }
-    ):
+    with mock_request({"libbeat.logstash.published_and_acked_events": 1238956, "filebeat.harvester.running": 29}):
         check.check(config)
     aggregator.assert_metric(
-        "libbeat.logstash.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=100028,
-        tags=tags,
+        "libbeat.logstash.published_and_acked_events", metric_type=aggregator.COUNTER, value=100028, tags=tags
     )
     aggregator.assert_metric(
-        "libbeat.kafka.published_and_acked_events",
-        metric_type=aggregator.COUNTER,
-        value=0,
-        tags=tags,
+        "libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=0, tags=tags
     )
     aggregator.assert_metric("filebeat.harvester.running", count=0, tags=tags)
 
@@ -533,9 +418,7 @@ def test_port_not_an_int():
 
 
 def test_only_metrics_not_a_list():
-    _assert_config_raises(
-        {"port": 82, "only_metrics": r"truncated$"}, "must be a list of regexes"
-    )
+    _assert_config_raises({"port": 82, "only_metrics": r"truncated$"}, "must be a list of regexes")
 
 
 def test_timeout_not_a_number():
@@ -552,12 +435,5 @@ def test_check(aggregator, dd_environment):
     check.check(dd_environment)
     check.check(dd_environment)
     tags = ["stats_endpoint:{}".format(dd_environment["stats_endpoint"])]
-    aggregator.assert_metric(
-        "filebeat.harvester.running", metric_type=aggregator.GAUGE, count=2, tags=tags
-    )
-    aggregator.assert_metric(
-        "libbeat.config.module.starts",
-        metric_type=aggregator.COUNTER,
-        count=1,
-        tags=tags,
-    )
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, count=2, tags=tags)
+    aggregator.assert_metric("libbeat.config.module.starts", metric_type=aggregator.COUNTER, count=1, tags=tags)

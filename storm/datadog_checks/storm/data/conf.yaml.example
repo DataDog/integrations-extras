@@ -1,25 +1,40 @@
 init_config:
-  # Default environment to use for all instances
-  # environment: production
+
+  ## @param environment - string - optional - default: dev
+  ## Default environment to use for all instances.
   #
-  # Intervals (in seconds): Default is 1 min
+  # environment: dev
+
+  ## @param intervals - list of integers - optional - default: 60
+  ## Intervals in seconds between each checks for all instance.
+  #
   # intervals:
   #   - 60
 
 instances:
+
+    ## @param server - string - required
+    ## Storm server url to gather data from.
+    ## Always specify the server with the default storm REST api port - Default is 8080
+    #
   - server: http://localhost:8080
-  #  Always specify the server with the default storm REST api port.
-  #  Default is 8080
-  #
-  #  Specify the environment
-  #  environment: preproduction
-  #
-  #  Specify additional tags
-  #  tags:
-  #    - mytag:myvalue
-  #    - mytag2:myvalue2
-  #
-  #   Specify metric intervals in seconds (note this overrides the defaults).
-  #   intervals:
-  #     - 60
-  #
+
+    ## @param environment - string - optional - default: dev
+    ## Dedicated instance environment.
+    #
+    # environment: dev
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param intervals - list of integers - optional - default: 60
+    ## Intervals in seconds between each checks for this specific instance.
+    #
+    # intervals:
+    #   - 60

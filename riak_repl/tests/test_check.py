@@ -1,8 +1,9 @@
 import pytest
 
-from datadog_checks.riak_repl import RiakReplCheck
 from datadog_checks.errors import CheckException
-from datadog_checks.utils.common import get_docker_hostname
+from datadog_checks.riak_repl import RiakReplCheck
+
+from .common import INSTANCE
 
 
 def test_config():
@@ -30,7 +31,7 @@ def test_config():
 
 
 @pytest.mark.integration
-def test_service_check(aggregator, riak_server):
+def test_service_check(aggregator, dd_environment):
     init_config = {
         'keys': [
             "riak_repl.server_bytes_sent",
@@ -69,17 +70,13 @@ def test_service_check(aggregator, riak_server):
             "riak_repl.fullsync_coordinator.riak_west_1.retry_exits",
             "riak_repl.fullsync_coordinator.riak_west_1.soft_retry_exits",
             "riak_repl.fullsync_coordinator.riak_west_1.busy_nodes",
-            "riak_repl.fullsync_coordinator.riak_west_1.fullsyncs_completed"
+            "riak_repl.fullsync_coordinator.riak_west_1.fullsyncs_completed",
         ]
     }
 
     c = RiakReplCheck('riak_repl', init_config, {}, None)
+    c.check(INSTANCE)
 
-    instance = {
-        'default_timeout': 5,
-        'url': 'http://{}:8098/riak-repl/stats'.format(get_docker_hostname())
-    }
-    c.check(instance)
     for key in init_config['keys']:
         aggregator.assert_metric(key, tags=[])
 

@@ -25,17 +25,13 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent nextcloud check',
-
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
-
     # Author details
     author='Emeric Planet',
     author_email='emeric.planet@gmail.com',
-
     # License
     license='BSD-3-Clause',
-
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -47,13 +43,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-
     # The package we're going to ship
     packages=['datadog_checks.nextcloud'],
-
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
-
     # Extra files to ship with the wheel package
     include_package_data=True,
 )

@@ -1,9 +1,9 @@
 import base64
 import re
+
 import requests
 
 from datadog_checks.base import AgentCheck, ensure_bytes
-
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'stardog'
 
@@ -29,9 +29,23 @@ def convert_query_speed(in_key, in_val, dn_name):
     except KeyError:
         raise Exception('The units are not properly defined')
 
-    entry_key = ["count", "max", "mean", "min", "p50", "p75", "p95", "p98",
-                 "p99", "p999", "stddev", "m15_rate", "m1_rate", "m5_rate",
-                 "mean_rate"]
+    entry_key = [
+        "count",
+        "max",
+        "mean",
+        "min",
+        "p50",
+        "p75",
+        "p95",
+        "p98",
+        "p99",
+        "p999",
+        "stddev",
+        "m15_rate",
+        "m1_rate",
+        "m5_rate",
+        "mean_rate",
+    ]
     out_dict = {}
     for ent in entry_key:
         new_key = "stardog.%s.%s" % (in_key, ent)
@@ -85,7 +99,6 @@ _g_bd_specific_map = {
 
 
 class StardogCheck(AgentCheck):
-
     def _process_doc(self, doc, metrics, tags, add_db_tags=False):
         for k in doc:
             # find match
@@ -110,9 +123,7 @@ class StardogCheck(AgentCheck):
 
     def check(self, instance):
         try:
-            auth_token = base64.b64encode(
-                ensure_bytes(instance['username'] + ":" + instance['password'])
-            )
+            auth_token = base64.b64encode(ensure_bytes(instance['username'] + ":" + instance['password']))
             response = requests.get(
                 instance['stardog_url'] + '/admin/status', headers={'Authorization': 'Basic {}'.format(auth_token)}
             )
