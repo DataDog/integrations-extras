@@ -19,7 +19,7 @@ class PricingClientStubber:
         expected_params = {'FormatVersion': 'aws_v1'}
 
         describe_services_response = {
-            'Services': map(lambda service_code: {'ServiceCode': service_code}, service_codes)
+            'Services': list(map(lambda service_code: {'ServiceCode': service_code}, service_codes))
         }
 
         self.stubber.add_response('describe_services', describe_services_response, expected_params)

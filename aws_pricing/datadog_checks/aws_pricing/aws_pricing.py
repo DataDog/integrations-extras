@@ -19,7 +19,7 @@ class AwsPricingCheck(AgentCheck):
 
             missing_rate_codes = {}
 
-            for service_code, rate_codes in rate_codes_dict.iteritems():
+            for service_code, rate_codes in rate_codes_dict.items():
                 for rate_code in rate_codes:
                     price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
 
@@ -77,7 +77,7 @@ def get_aws_prices(pricing_client, service_code, rate_code):
 
     if len(response['PriceList']) > 0:
         response_obj = json.loads(response['PriceList'][0])
-        terms = response_obj['terms'].itervalues()
+        terms = response_obj['terms'].values()
         price_dimensions = find_price_dimensions_by_rate_code(rate_code, terms)
 
     return price_dimensions
@@ -87,7 +87,7 @@ def find_price_dimensions_by_rate_code(rate_code, terms):
     rate_code_parts = rate_code.split('.')
     term_code = '.'.join(rate_code_parts[:2])
 
-    term = filter(lambda term: term_code in term, terms)[0]
+    term = list(filter(lambda term: term_code in term, terms))[0]
     price_dimensions = term[term_code]['priceDimensions'][rate_code]
 
     return price_dimensions

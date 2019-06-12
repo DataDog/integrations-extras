@@ -1,7 +1,7 @@
 import pytest
 import boto3
 
-from pricing_client_stubber import PricingClientStubber
+from tests.pricing_client_stubber import PricingClientStubber
 
 
 @pytest.fixture(scope='session')
