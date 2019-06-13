@@ -19,7 +19,7 @@ To install the Bind9 check on your host:
 On Agent versions <= 6.8:
 
 1. [Download the Datadog Agent][7].
-2. Download the [`aqua.py` file][8] for Aqua.
+2. Download the [`bind9.py` file][8] for Bind9.
 3. Place it in the Agent's `checks.d` directory.
 
 On Agent 6.8+:
