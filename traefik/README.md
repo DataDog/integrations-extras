@@ -14,6 +14,14 @@ This integration collects data from [Traefik][1] in order to check its health an
 
 To install the Traefik check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`traefik.py` file][12] for Traefik.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build traefik` to build the package.
 3. [Download the Datadog Agent][2].
@@ -133,3 +141,4 @@ Refer to the [main documentation][11] for more details about how to test and dev
 [9]: https://docs.traefik.io/configuration/logs/#clf-common-log-format
 [10]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [11]: https://docs.datadoghq.com/developers/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/traefik/datadog_checks/traefik/traefik.py
