@@ -16,6 +16,14 @@ The Redis's Sentinel check is **NOT** included in the [Datadog Agent][1] package
 
 To install the Redis's Sentinel check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`redis_sentinel.py` file][8] for Redis Sentinel.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][7] on any machine.
 2. Run `ddev release build redis_sentinel` to build the package.
 3. [Download the Datadog Agent][1].
@@ -84,3 +92,4 @@ Need help? Contact [Datadog support][6].
 [5]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/metadata.csv
 [6]: http://docs.datadoghq.com/help/
 [7]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[8]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/datadog_checks/redis_sentinel/redis_sentinel.py
