@@ -13,6 +13,14 @@ Get metrics from EventStore in real time to:
 
 To install the EventStore check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`eventstore.py` file][8] for EventStore.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][1] on any machine.
 2. Run `ddev release build eventstore` to build the package.
 3. [Download the Datadog Agent][2].
@@ -67,3 +75,4 @@ Need help? Contact the [maintainer][6] of this integration.
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-restart-the-agent
 [6]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/manifest.json
 [7]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/eventstore/datadog_checks/eventstore/eventstore.py
