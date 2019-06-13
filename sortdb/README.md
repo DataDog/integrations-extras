@@ -25,6 +25,8 @@ On Agent 6.8+:
 3. [Download the Datadog Agent][2].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/sortdb/dist/<ARTIFACT_NAME>.whl`.
 
+**Note**: The `integration` command is only available for Agent 6.8+.
+
 ## Configuration
 
 1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][4] to start collecting your Sortdb [metrics](#metric-collection) and [logs](#log-collection).

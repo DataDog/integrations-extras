@@ -28,6 +28,8 @@ On Agent 6.8+:
 3. [Download the Datadog Agent][1].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/neo4j/dist/<ARTIFACT_NAME>.whl`.
 
+**Note**: The `integration` command is only available for Agent 6.8+.
+
 ### Configuration
 
 To configure the Neo4j check:
