@@ -12,6 +12,14 @@ Get metrics from [Sortdb][1] service in real time to:
 
 To install the Sortdb check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`sortdb.py` file][7] for Sortdb.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build sortdb` to build the package.
 3. [Download the Datadog Agent][2].
@@ -46,3 +54,4 @@ The sortdb check is compatible with all major platforms
 [4]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
 [5]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[7]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/sortdb.py
