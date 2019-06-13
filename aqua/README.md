@@ -15,6 +15,14 @@ need to install it yourself.
 
 To install the Aqua check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`aqua.py` file][9] for Aqua.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][8] on any machine.
 2. Run `ddev release build aqua` to build the package.
 3. [Download the Datadog Agent][2].
@@ -109,3 +117,4 @@ Need help? Contact [Datadog support][7].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/aqua/metadata.csv
 [7]: https://docs.datadoghq.com/help/
 [8]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[9]: https://github.com/DataDog/integrations-extras/blob/master/aqua/datadog_checks/aqua/aqua.py
