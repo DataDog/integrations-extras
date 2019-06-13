@@ -13,6 +13,14 @@ Get metrics from gnatsd_streaming service in real time to:
 
 To install the Gnatsd_streaming check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][4].
+2. Download the [`gnatsd_streaming.py` file][5] for Gnatsd_streaming.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build gnatsd_streaming` to build the package.
 3. [Download the Datadog Agent][4].
@@ -69,3 +77,4 @@ Need help? Contact [Datadog support][2].
 [2]: http://docs.datadoghq.com/help/
 [3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
+[5]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/datadog_checks/gnatsd_streaming/gnatsd_streaming.py
