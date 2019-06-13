@@ -16,6 +16,14 @@ The SNMP walk check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the SNMP walk check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`snmpwalk.py` file][7] for SNMP walk.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build snmpwalk` to build the package.
 3. [Download the Datadog Agent][1].
@@ -59,3 +67,5 @@ Need help? Contact [Datadog support][5].
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: http://docs.datadoghq.com/help/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/datadog_checks/snmpwalk/data/conf.yaml.example
+[7]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/datadog_checks/snmpwalk/snmpwalk.py
+
