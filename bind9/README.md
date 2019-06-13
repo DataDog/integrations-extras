@@ -16,6 +16,14 @@ The Bind9 check is **NOT** included in the [Datadog Agent](https://app.datadoghq
 
 To install the Bind9 check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][7].
+2. Download the [`aqua.py` file][8] for Aqua.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit) on any machine.
 2. Run `ddev release build bind9` to build the package.
 3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
@@ -74,3 +82,5 @@ Please refer to the [main documentation][6] for more details about how to test a
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/cookiecutter-datadog-check/blob/master/%7B%7Bcookiecutter.check_name%7D%7D/metadata.csv
 [6]: https://docs.datadoghq.com/developers/
+[7]: https://app.datadoghq.com/account/settings#agent
+[8]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/bind9.py
