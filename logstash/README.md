@@ -20,7 +20,6 @@ On Agent versions <= 6.8:
 1. [Download the Datadog Agent][1].
 2. Download the [`check.py` file][15] for Logstash.
 3. Place it in the Agent's `checks.d` directory.
-4. Rename it to `logstash.py`.
 
 On Agent 6.8+:
 
@@ -174,7 +173,7 @@ If you need further help, contact [Datadog support][14].
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [13]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [14]: http://docs.datadoghq.com/help/
-[15]: https://github.com/DataDog/integrations-extras/blob/master/logstash/check.py
+[15]: https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/logstash.py
 [16]: https://github.com/DataDog/logstash-output-datadog_logs
 [17]: /logs/#edit-reserved-attributes
 [18]: /logs/processing/#integration-pipelines
