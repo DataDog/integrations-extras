@@ -10,6 +10,14 @@ This check monitors Riak replication [riak-repl][1].
 
 To install the Riak replication check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][2].
+2. Download the [`riak_repl.py` file][9] for Riak.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][8] on any machine.
 2. Run `ddev release build riak_repl` to build the package.
 3. [Download the Datadog Agent][2].
@@ -51,3 +59,4 @@ Need help? Contact [Datadog support][6].
 [6]: https://docs.datadoghq.com/help/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/metadata.csv
 [8]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[9]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/datadog_checks/riak_repl/riak_repl.py
