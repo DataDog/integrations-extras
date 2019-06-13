@@ -16,6 +16,15 @@ The Stardog check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Stardog check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`stardog.py` file][8] for Stardog.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
+
 1. Install the [developer toolkit][2] on any machine.
 2. Run `ddev release build stardog` to build the package.
 3. [Download the Datadog Agent][1].
@@ -55,3 +64,4 @@ Need help? Contact [Datadog support][7].
 [5]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/stardog/metadata.csv
 [7]: http://docs.datadoghq.com/help/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/stardog/datadog_checks/stardog/stardog.py
