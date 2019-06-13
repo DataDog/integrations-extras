@@ -15,9 +15,17 @@ The Portworx check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Portworx check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`portworx.py` file][8] for Portworx.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][2] on any machine.
 2. Run `ddev release build portworx` to build the package.
-3. [Download the Datadog Agent][2].
+3. [Download the Datadog Agent][1].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/portworx/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
@@ -92,3 +100,4 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [5]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv
 [7]: https://www.datadoghq.com/blog/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/portworx.py
