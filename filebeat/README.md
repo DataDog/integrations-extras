@@ -15,6 +15,14 @@ The Filebeat check is **NOT** included in the [Datadog Agent][1] package.
 
 To install the Filebeat check on your host:
 
+On Agent versions <= 6.8:
+
+1. [Download the Datadog Agent][1].
+2. Download the [`filebeat.py` file][8] for Filebeat.
+3. Place it in the Agent's `checks.d` directory.
+
+On Agent 6.8+:
+
 1. Install the [developer toolkit][7] on any machine.
 2. Run `ddev release build filebeat` to build the package.
 3. [Download the Datadog Agent][1].
@@ -54,3 +62,4 @@ Need help? Contact [Datadog support][6].
 [5]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
 [6]: http://docs.datadoghq.com/help/
 [7]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[8]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/datadog_checks/filebeat/filebeat.py
