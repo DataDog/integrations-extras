@@ -1,16 +1,47 @@
 init_config:
 
 instances:
+
+    ## @param ups - string - required
+    ## UPS information servers to collect information from.
+    #
   - ups: all
-  #   # your own custom tags
-  #   tags: ['custom:tag']
-  #   # string-based stats results that should be converted to tags on the metrics
-  #   string_tags: ['ups.beeper.status']
-  #   # specific list of stats to ignore
-  #   excluded: ['ups.load']
-  #   # regex list of stats to ignore
-  #   excluded_re: ['ups.*']
-  #   # list of specific excluded devices
-  #   excluded_devices: ['badups1']
-  #   # regex list of excluded devices
-  #   excluded_devices_regex: ['ext.*']
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param string_tags - list of strings - optional
+    ## string-based stats results that should be converted to tags on the metrics
+    #
+    # string_tags:
+    #   - ups.beeper.status
+
+    ## @param excluded - list of strings - optional
+    ## Specific list of stats to ignore.
+    #
+    # excluded:
+    #   - ups.load
+
+    ## @param excluded_re - list of strings - optional
+    ## Regex list of stats to ignore.
+    #
+    # excluded_re:
+    #   - ups.*
+
+    ## @param excluded_devices - list of strings - optional
+    ## List of specific excluded devices.
+    #
+    # excluded_devices:
+    #   - badups1
+
+    ## @param excluded_devices_regex - list of strings - optional
+    ## Regex list of excluded devices.
+    #
+    # excluded_devices_regex:
+    #   - ext.*

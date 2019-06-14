@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  snmpd:
+    image: polinux/snmpd
+    volumes:
+     - ./config:/etc/snmp
+    command: -c /etc/snmp/snmpd.conf

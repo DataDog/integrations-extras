@@ -149,10 +149,10 @@ EXPECTED_VALUES = (
     ('bind9.sockstat_TCP4Active', 69),
     ('bind9.sockstat_TCP6Active', 2),
     ('bind9.sockstat_UnixActive', 0),
-    ('bind9.sockstat_RawActive', 1)
+    ('bind9.sockstat_RawActive', 1),
 )
 
-Date = ["2018-08-08T01-15-46Z", "2010-08-08T01-15-46Z"]
+Date = ["2018-08-08T01:15:46Z", "2010-08-08T01:15:46Z"]
 Epoch = [1533690946, 1281230146]
 
 

@@ -1,14 +1,13 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
-import os
 import json
+import os
 
 import pytest
 from mock import MagicMock
 
 from datadog_checks.sortdb import SortdbCheck
-
 
 CHECK_NAME = 'sortdb'
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -16,14 +15,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 @pytest.fixture
 def instance():
-    return {
-        'url': 'http://localhost:8080/stats'
-    }
+    return {'url': 'http://localhost:8080/stats'}
 
 
 @pytest.fixture()
 def aggregator():
     from datadog_checks.stubs import aggregator
+
     aggregator.reset()
     return aggregator
 
@@ -56,7 +54,7 @@ EXPECTED_VALUES = (
     ("sortdb.stats.range_requests.95percentile", 24),
     ("sortdb.stats.range_requests.99percentile", 24),
     ("sortdb.stats.db_size.bytes", 767557632),
-    ("sortdb.stats.db_mtime", 1435463934)
+    ("sortdb.stats.db_mtime", 1435463934),
 )
 
 

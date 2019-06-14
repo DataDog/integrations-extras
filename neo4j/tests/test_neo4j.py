@@ -4,10 +4,10 @@
 
 import pytest
 
-from datadog_checks.neo4j import Neo4jCheck
 from datadog_checks.errors import CheckException
+from datadog_checks.neo4j import Neo4jCheck
 
-from .common import CHECK_NAME, NEO4J_VARS, NEO4J_MINIMAL_CONFIG, CONNECTION_FAILURE
+from .common import CHECK_NAME, CONNECTION_FAILURE, NEO4J_MINIMAL_CONFIG, NEO4J_VARS
 
 
 @pytest.mark.usefixtures('dd_environment')

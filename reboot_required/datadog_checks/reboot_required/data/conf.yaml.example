@@ -1,16 +1,30 @@
 init_config:
 
 instances:
-  # This config is for the Reboot Required Check which is used to report if  
-  # the system requires a reboot (usually after important software updates)
-  #
-  # For the instance there are no required configuration parameter
-  #
-  # WARNING: Ensure the user account running the Agent (typically dd-agent) has read
-  # access to the monitored file and write access to the directory where it wants to
-  # put the created_at file.
-  #
-  - reboot_signal_file: "/var/run/reboot-required"
-  # created_at_file: "/var/run/dd-agent/reboot-required.created_at"
-  # days_warning: 7
-  # days_critical: 14
+
+  -
+    ## @param reboot_signal_file - string - optional - default: /var/run/reboot-required
+    ## Reboot signal file path to monitor.
+    ## Ensure the user account running the Agent (typically dd-agent) has read
+    ## access to the monitored file.
+    #
+    # reboot_signal_file: "/var/run/reboot-required"
+
+    ## @param created_at_file - string - optional - default: /var/run/dd-agent/reboot-required.created_at
+    ## Path for the reboot created files.
+    ## Ensure the user account running the Agent (typically dd-agent) has write
+    ## access to the directory where it wants to put the created_at file.
+    #
+    # created_at_file: "/var/run/dd-agent/reboot-required.created_at"
+
+    ## @param days_warning - integer - optional - default: 7
+    ## Number of days before reboot signal from which the service check
+    ## begins emitting WARNING.
+    #
+    # days_warning: 7
+
+    ## @param days_critical - integer - optional - default: 14
+    ## Number of days before reboot signal from which the service check
+    ## begins emitting CRITICAL.
+    #
+    # days_critical: 14

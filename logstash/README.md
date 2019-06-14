@@ -125,7 +125,8 @@ filter {
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.6 and possible earlier versions. It does not support the new pipelines metrics in Logstash 6.0.
+The Logstash check is compatible with Logstash 5.x, 6.x and 7.x versions. It also supports the new multi-pipelines metrics introduced in Logstash 6.0.  
+Tested with Logstash versions 5.6.15, 6.3.0 and 7.0.0.
 
 ## Data Collected
 ### Metrics

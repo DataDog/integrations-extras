@@ -9,77 +9,81 @@ class Neo4jCheck(AgentCheck):
     SERVICE_CHECK_NAME = 'neo4j.can_connect'
 
     # Neo4j metrics to send
-    keys = set([
-        'storecreationdate',
-        'storelogversion',
-        'kernelstarttime',
-        'lastcommittedtxid',
-        'peaknumberofconcurrenttransactions',
-        'numberofrolledbacktransactions',
-        'numberofopentransactions',
-        'numberofopenedtransactions',
-        'numberofcommittedtransactions',
-        'logicallogsize',
-        'propertystoresize',
-        'arraystoresize',
-        'totalstoresize',
-        'relationshipstoresize',
-        'stringstoresize',
-        'nodestoresize',
-        'locks',
-        'numberofaverteddeadlocks',
-        'numberofrelationshipidsinuse',
-        'numberofpropertyidsinuse',
-        'numberofnodeidsinuse',
-        'numberofrelationshiptypeidsinuse',
-        'memorypools',
-        'pins',
-        'evictions',
-        'byteswritten',
-        'filemappings',
-        'fileunmappings',
-        'bytesread',
-        'flushes',
-        'evictionexceptions',
-        'faults',
-        'ha.pull_interval',
-        'dbms.memory.pagecache.size',
-    ])
+    keys = set(
+        [
+            'storecreationdate',
+            'storelogversion',
+            'kernelstarttime',
+            'lastcommittedtxid',
+            'peaknumberofconcurrenttransactions',
+            'numberofrolledbacktransactions',
+            'numberofopentransactions',
+            'numberofopenedtransactions',
+            'numberofcommittedtransactions',
+            'logicallogsize',
+            'propertystoresize',
+            'arraystoresize',
+            'totalstoresize',
+            'relationshipstoresize',
+            'stringstoresize',
+            'nodestoresize',
+            'locks',
+            'numberofaverteddeadlocks',
+            'numberofrelationshipidsinuse',
+            'numberofpropertyidsinuse',
+            'numberofnodeidsinuse',
+            'numberofrelationshiptypeidsinuse',
+            'memorypools',
+            'pins',
+            'evictions',
+            'byteswritten',
+            'filemappings',
+            'fileunmappings',
+            'bytesread',
+            'flushes',
+            'evictionexceptions',
+            'faults',
+            'ha.pull_interval',
+            'dbms.memory.pagecache.size',
+        ]
+    )
 
-    display = {'storecreationdate': 'neo4j.store.creationdate',
-               'storelogversion': 'neo4j.store.log.version',
-               'kernelstarttime': 'neo4j.kernel.starttime',
-               'lastcommittedtxid': 'neo4j.last.committed.transaction.id',
-               'peaknumberofconcurrenttransactions': 'neo4j.peak.concurrent.transactions',
-               'numberofrolledbacktransactions': 'neo4j.peak.rolledback.transactions',
-               'numberofopentransactions': 'neo4j.open.transactions',
-               'numberofopenedtransactions': 'neo4j.opened.transactions',
-               'numberofcommittedtransactions': 'neo4j.committed.transactions',
-               'logicallogsize': 'neo4j.logicallog.size',
-               'propertystoresize': 'neo4j.property.store.size',
-               'arraystoresize': 'neo4j.array.store.size',
-               'totalstoresize': 'neo4j.total.store.size',
-               'relationshipstoresize': 'neo4j.relationship.store.size',
-               'stringstoresize': 'neo4j.string.store.size',
-               'nodestoresize': 'neo4j.node.store.size',
-               'locks': 'neo4j.locks',
-               'numberofaverteddeadlocks': 'neo4j.adverted.locks',
-               'numberofrelationshipidsinuse': 'neo4j.relationship.ids.inuse',
-               'numberofpropertyidsinuse': 'neo4j.property.ids.inuse',
-               'numberofnodeidsinuse': 'neo4j.node.ids.inuse',
-               'numberofrelationshiptypeidsinuse': 'neo4j.relationshiptype.ids.inuse',
-               'memorypools': 'neo4j.memory.pools',
-               'pins': 'neo4j.page.cache.pins',
-               'evictions': 'neo4j.page.cache.evictions',
-               'byteswritten': 'neo4j.bytes.written',
-               'filemappings': 'neo4j.page.cache.file.mappings',
-               'fileunmappings': 'neo4j.page.cache.file.unmappings',
-               'bytesread': 'neo4j.bytes.read',
-               'flushes': 'neo4j.page.cache.flushes',
-               'evictionexceptions': 'neo4j.page.cache.eviction.exceptions',
-               'faults': 'neo4j.page.cache.faults',
-               'ha.pull_interval': 'neo4j.ha.pull_interval',
-               'dbms.memory.pagecache.size': 'neo4j.dbms.memory.pagecache.size'}
+    display = {
+        'storecreationdate': 'neo4j.store.creationdate',
+        'storelogversion': 'neo4j.store.log.version',
+        'kernelstarttime': 'neo4j.kernel.starttime',
+        'lastcommittedtxid': 'neo4j.last.committed.transaction.id',
+        'peaknumberofconcurrenttransactions': 'neo4j.peak.concurrent.transactions',
+        'numberofrolledbacktransactions': 'neo4j.peak.rolledback.transactions',
+        'numberofopentransactions': 'neo4j.open.transactions',
+        'numberofopenedtransactions': 'neo4j.opened.transactions',
+        'numberofcommittedtransactions': 'neo4j.committed.transactions',
+        'logicallogsize': 'neo4j.logicallog.size',
+        'propertystoresize': 'neo4j.property.store.size',
+        'arraystoresize': 'neo4j.array.store.size',
+        'totalstoresize': 'neo4j.total.store.size',
+        'relationshipstoresize': 'neo4j.relationship.store.size',
+        'stringstoresize': 'neo4j.string.store.size',
+        'nodestoresize': 'neo4j.node.store.size',
+        'locks': 'neo4j.locks',
+        'numberofaverteddeadlocks': 'neo4j.adverted.locks',
+        'numberofrelationshipidsinuse': 'neo4j.relationship.ids.inuse',
+        'numberofpropertyidsinuse': 'neo4j.property.ids.inuse',
+        'numberofnodeidsinuse': 'neo4j.node.ids.inuse',
+        'numberofrelationshiptypeidsinuse': 'neo4j.relationshiptype.ids.inuse',
+        'memorypools': 'neo4j.memory.pools',
+        'pins': 'neo4j.page.cache.pins',
+        'evictions': 'neo4j.page.cache.evictions',
+        'byteswritten': 'neo4j.bytes.written',
+        'filemappings': 'neo4j.page.cache.file.mappings',
+        'fileunmappings': 'neo4j.page.cache.file.unmappings',
+        'bytesread': 'neo4j.bytes.read',
+        'flushes': 'neo4j.page.cache.flushes',
+        'evictionexceptions': 'neo4j.page.cache.eviction.exceptions',
+        'faults': 'neo4j.page.cache.faults',
+        'ha.pull_interval': 'neo4j.ha.pull_interval',
+        'dbms.memory.pagecache.size': 'neo4j.dbms.memory.pagecache.size',
+    }
 
     def check(self, instance):
         host, port, user, password, timeout, server_name = self._get_config(instance)
@@ -90,9 +94,15 @@ class Neo4jCheck(AgentCheck):
 
         # Neo specific
         # Create payload using built-in Neo4j queryJmx stored procedure
-        payload = {"statements": [{"statement": "CALL dbms.queryJmx('org.neo4j:*') yield attributes with  "
-                                                "keys(attributes) as k, attributes unwind k as "
-                                                "row return row, attributes[row]['value'];"}]}
+        payload = {
+            "statements": [
+                {
+                    "statement": "CALL dbms.queryJmx('org.neo4j:*') yield attributes with  "
+                    "keys(attributes) as k, attributes unwind k as "
+                    "row return row, attributes[row]['value'];"
+                }
+            ]
+        }
         try:
             version = self._get_version(host, port, timeout, auth, service_check_tags)
 
@@ -113,8 +123,7 @@ class Neo4jCheck(AgentCheck):
             r.raise_for_status()
 
         stats = r.json()
-        self.service_check(
-            self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=service_check_tags)
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=service_check_tags)
 
         for doc in stats['results'][0]['data']:
             name = doc['row'][0].lower()
@@ -156,6 +165,4 @@ class Neo4jCheck(AgentCheck):
         return 0
 
     def _critical_service_check(self, service_check_tags, message):
-        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL,
-                           tags=service_check_tags,
-                           message=message)
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=service_check_tags, message=message)

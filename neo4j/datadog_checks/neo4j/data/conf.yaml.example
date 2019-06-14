@@ -1,12 +1,53 @@
 init_config:
-    default_timeout: 5
+
+  ## @param default_timeout - string - optional - default: 5
+  ## Timeout to use as a default for all your instances.
+  #
+  # default_timeout: 5
 
 instances:
-    -   neo4j_url: http://ec2-54-85-23-10.compute-1.amazonaws.com
-        port: 7474
-        user: neo4j
-        password: password
-        connect_timeout: 20
-        server_name: neo4j_advanti_aws
-        neo4j_version: 3.1.1
 
+    ## @param neo4j_url - string - required
+    ## Neo4J url to connect to.
+    #
+  - neo4j_url: localhost
+
+    ## @param port - integer - optional - default: 7474
+    ## Port to connect to when reaching `neo4j_url`
+    #
+    # port: 7474
+
+    ## @param user - string - required
+    ## Username to use when reaching the Neo4j instance.
+    #
+    user: <USERNAME>
+
+    ## @param password - string - required
+    ## Password associated with the `user` to connect to the
+    ## Neo4j instance
+    #
+    password: <PASSWORD>
+
+    ## @param connect_timeout - integer - required
+    ## Change the timeout time in second for the Agent queries.
+    #
+    connect_timeout: 20
+
+    ## @param server_name - string - required
+    ## Name of the Neo4j server to connect to.
+    #
+    server_name: <NEO4J_SERVER_NAME>
+
+    ## @param neo4j_version - string - required
+    ## The Neo4j version to gather metric from.
+    #
+    neo4j_version: '<NEO4J_VERSION>'
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>

@@ -6,18 +6,9 @@ CHECK_NAME = 'neo4j'
 
 METRIC_TAGS = ['tag1', 'tag2']
 
-NEO4J_MINIMAL_CONFIG = {
-    'neo4j_url': URL,
-    'user': 'neo4j',
-    'password': 'dog',
-    'port': '7474'
-}
+NEO4J_MINIMAL_CONFIG = {'neo4j_url': URL, 'user': 'neo4j', 'password': 'dog', 'port': '7474'}
 
-CONNECTION_FAILURE = {
-    'neo4j_url': URL,
-    'user': 'unknown',
-    'pass': 'dog',
-}
+CONNECTION_FAILURE = {'neo4j_url': URL, 'user': 'unknown', 'pass': 'dog'}
 
 NEO4J_VARS = [
     'array.store.size',

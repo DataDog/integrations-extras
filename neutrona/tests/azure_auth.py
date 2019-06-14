@@ -21,12 +21,14 @@ def auth_token():
     if not request.form['client_secret'] == 'my_application_key':
         return 'error', 400
 
-    return jsonify({
-        'token_type': 'Bearer',
-        'expires_in': '3600',
-        'ext_expires_in': '3600',
-        'expires_on': '1546552915',
-        'not_before': '1546549015',
-        'resource': 'https://management.core.windows.net/',
-        'access_token': 'my_access_token'
-    })
+    return jsonify(
+        {
+            'token_type': 'Bearer',
+            'expires_in': '3600',
+            'ext_expires_in': '3600',
+            'expires_on': '1546552915',
+            'not_before': '1546549015',
+            'resource': 'https://management.core.windows.net/',
+            'access_token': 'my_access_token',
+        }
+    )

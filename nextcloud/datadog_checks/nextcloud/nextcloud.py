@@ -1,7 +1,7 @@
+import requests
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.headers import headers
-
-import requests
 
 
 class NextcloudCheck(AgentCheck):
@@ -30,7 +30,7 @@ class NextcloudCheck(AgentCheck):
         "server.database.size",
         "activeUsers.last5minutes",
         "activeUsers.last1hour",
-        "activeUsers.last24hours"
+        "activeUsers.last24hours",
     ]
 
     # Tags that will be applied to all metrics
@@ -38,7 +38,7 @@ class NextcloudCheck(AgentCheck):
         {"name": "nextcloud_version", "json_path": "nextcloud.system.version"},
         {"name": "php_version", "json_path": "server.php.version"},
         {"name": "database_type", "json_path": "server.database.type"},
-        {"name": "database_version", "json_path": "server.database.version"}
+        {"name": "database_version", "json_path": "server.database.version"},
     ]
 
     def check(self, instance):
@@ -49,14 +49,10 @@ class NextcloudCheck(AgentCheck):
 
         try:
             self.log.debug("Checking against {}".format(url))
-            response = requests.get(
-                url, auth=auth, headers=headers(self.agentConfig)
-            )
+            response = requests.get(url, auth=auth, headers=headers(self.agentConfig))
             if response.status_code != 200:
                 self.service_check(
-                    NextcloudCheck.STATUS_CHECK,
-                    AgentCheck.CRITICAL,
-                    message="Problem requesting {}.".format(url),
+                    NextcloudCheck.STATUS_CHECK, AgentCheck.CRITICAL, message="Problem requesting {}.".format(url)
                 )
                 return
             json_response = response.json()
@@ -72,9 +68,7 @@ class NextcloudCheck(AgentCheck):
                 )
         except Exception as e:
             self.service_check(
-                NextcloudCheck.STATUS_CHECK,
-                AgentCheck.CRITICAL,
-                message="Error hitting {}. Error: {}".format(url, e),
+                NextcloudCheck.STATUS_CHECK, AgentCheck.CRITICAL, message="Error hitting {}. Error: {}".format(url, e)
             )
 
     def get_metric_display_name(self, metric_name):
