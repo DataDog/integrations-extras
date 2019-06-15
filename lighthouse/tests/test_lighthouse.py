@@ -29,8 +29,8 @@ def test_check(aggregator, instance):
     lighthouse_check.check(instance)
 
     tags = []
-    tags.append("lighthouse_url:{0}".format(instance["url"]))
-    tags.append("lighthouse_name:{0}".format(instance["name"]))
+    tags.append("url:{0}".format(instance["url"]))
+    tags.append("name:{0}".format(instance["name"]))
 
     aggregator.assert_metric(name="lighthouse.accessibility", value=86, tags=tags)
     aggregator.assert_metric(name="lighthouse.best_practices", value=79, tags=tags)

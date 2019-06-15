@@ -1,26 +1,30 @@
 init_config:
 
 instances: 
-  ## The lighthouse check can be resource intensive
-  ## and can take ~10 seconds per instance, this has only been tested
-  ## with a min collection interval of 60 seconds for a few instances
-
+    ## @param min_collection_interval - integer - required
+    ## The lighthouse check can be resource intensive
+    ## and can take ~10 seconds per instance, this has only been tested
+    ## with a min collection interval of 60 seconds for a few instances
+    #
   - min_collection_interval: 60
 
-  ## @param url - string - required
-  ## url of the website to get lighthouse metrics of
-  ## ex: "https://www.datadoghq.com"
-  
+    ## @param url - string - required
+    ## url of the website to get lighthouse metrics of
+    ## ex: "https://www.datadoghq.com"
+    #
     url: <URL_PLACEHOLDER>
 
-  ## @param name - string - required
-  ## name of your website.
-  ## ex: "datadog_homepage"
-
+    ## @param name - string - required
+    ## name of your website.
+    ## ex: "datadog_homepage"
+    #
     name: <NAME_PLACEHOLDER>
 
-  ## tags - optional
-  
-    # tags: 
-    #   - example_tag
-    #   - another_example_tag:an_example_value
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>

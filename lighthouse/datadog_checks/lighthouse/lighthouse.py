@@ -1,17 +1,7 @@
-# the following try/except block will make the custom check compatible with any Agent version
-try:
-    # first, try to import the base class from old versions of the Agent...
-    from checks import AgentCheck
-except ImportError:
-    # ...if the above failed, the check is running in Agent version 6 or later
-    from datadog_checks.checks import AgentCheck
-    from datadog_checks.errors import CheckException
-
+from datadog_checks.base import AgentCheck
+from datadog_checks.base.errors import CheckException
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 import json
-
-# content of the special variable __version__ will be shown in the Agent status page
-__version__ = "1.0.0"
 
 EXPECTED_RESPONSE_CODE = "NO_ERROR"
 
@@ -25,14 +15,14 @@ class LighthouseCheck(AgentCheck):
             self.log.error("missing instance url or name")
             raise CheckException("missing lighthouse instance url or name, please fix yaml")
 
-        cmd = ["/usr/local/bin/lighthouse",
+        cmd = ["lighthouse",
                lighthouse_url,
                "--output",
                "json",
                "--quiet",
                "--chrome-flags='--headless'"]
 
-        json_string, error_message, exit_code = self._get_lighthouse_report(cmd, self.log, False)
+        json_string, error_message, exit_code = LighthouseCheck._get_lighthouse_report(cmd, self.log, False)
 
         # check for error since we have raise_on_empty_output set to False
         if exit_code > 0:
@@ -61,16 +51,14 @@ class LighthouseCheck(AgentCheck):
                           )
             return
         # add tags
-        try:
-            tags = instance.get('tags', [])
-            if type(tags) != list:
-                self.log.warn('The tags list in the lighthouse check is not configured properly')
-                tags = []
-        except KeyError:
+
+        tags = instance.get('tags', [])
+        if type(tags) != list:
+            self.log.warn('The tags list in the lighthouse check is not configured properly')
             tags = []
 
-        tags.append("lighthouse_url:{0}".format(lighthouse_url))
-        tags.append("lighthouse_name:{0}".format(lighthouse_name))
+        tags.append("url:{0}".format(lighthouse_url))
+        tags.append("name:{0}".format(lighthouse_name))
 
         self.gauge("lighthouse.accessibility", score_accessibility, tags=tags)
         self.gauge("lighthouse.best_practices", score_best_practices, tags=tags)
@@ -78,6 +66,7 @@ class LighthouseCheck(AgentCheck):
         self.gauge("lighthouse.pwa", score_pwa, tags=tags)
         self.gauge("lighthouse.seo", score_seo, tags=tags)
 
+    @staticmethod
     def _get_lighthouse_report(command, logger, raise_on_empty=False):
         json, err_msg, exit_code = get_subprocess_output(command, logger, raise_on_empty_output=raise_on_empty)
         return json, err_msg, exit_code
