@@ -24,7 +24,7 @@ def mock_get_lighthouse_report(cmd, lgr, re=False):
 def test_check(aggregator, instance):
     instance = {'url': 'https://www.google.com', 'name': 'google'}
     lighthouse_check = LighthouseCheck('lighthouse', {}, {})
-    lighthouse_check._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     lighthouse_check.check(instance)
 
@@ -46,7 +46,7 @@ def test_missing_url_instance_check(aggregator, instance):
     # incomplete instance in yaml missing url
     incomplete_instance = {'name': 'datadoghq'}
     lighthouse_check = LighthouseCheck('lighthouse', {}, {})
-    lighthouse_check._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     with pytest.raises(CheckException):
         lighthouse_check.check(incomplete_instance)
@@ -57,7 +57,7 @@ def test_missing_name_instance_check(aggregator, instance):
     # incomplete instance in yaml missing name
     incomplete_instance = {'url': 'https://www.datadoghq.com'}
     lighthouse_check = LighthouseCheck('lighthouse', {}, {})
-    lighthouse_check._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     with pytest.raises(CheckException):
         lighthouse_check.check(incomplete_instance)
@@ -67,7 +67,7 @@ def test_malformed_url_instance_check(aggregator, instance):
     # example malformed url
     malformed_instance = {'url': 'htp://www.datadoghq.comz', 'name': 'malformed_url'}
     lighthouse_check = LighthouseCheck('lighthouse', {}, {})
-    lighthouse_check._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     with pytest.raises(CheckException):
         lighthouse_check.check(malformed_instance)
@@ -78,7 +78,7 @@ def test_invalid_response_check(aggregator, instance):
     instance = {'url': 'https://httpstat.us/404', 'name': '404 response'}
 
     lighthouse_check = LighthouseCheck('lighthouse', {}, {})
-    lighthouse_check._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     lighthouse_check.check(instance)
 

@@ -15,7 +15,7 @@ class LighthouseCheck(AgentCheck):
             self.log.error("missing instance url or name")
             raise CheckException("missing lighthouse instance url or name, please fix yaml")
 
-        cmd = ["/usr/local/bin/lighthouse",
+        cmd = ["lighthouse",
                lighthouse_url,
                "--output",
                "json",
