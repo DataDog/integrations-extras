@@ -79,7 +79,7 @@ class DockerConstant:
 	DOCKER_BLKIO_STATS_SECTORS_RECURSIVE = "sectors_recursive"
 	DOCKER_NUM_PROCS = "num_procs"
 
-class WinDocker(AgentCheck, DockerConstant):
+class WindowsDockerCheck(AgentCheck, DockerConstant):
 	def _generate_instance_key(self, instance):
 		return instance.get('url')
 
@@ -97,19 +97,29 @@ class WinDocker(AgentCheck, DockerConstant):
 		container_full_ids = []
 		container_ids = []
 		container_urls = []
+		image_lookup = {}
 
 		url = self._generate_instance_key(instance)
 		list_all_containers_url=url+self.DOCKER_LIST_ALL_CONT
 
-		session = self._generate_request_session(instance) 
+		session = self._generate_request_session(instance)
+		images_json = session.get(url+"/images/json", timeout=1).json()
+
+		for image_def in images_json:
+			_, image_id = image_def.get("Id").split(":", 1)
+			repo_tags = image_def.get("RepoTags", [])
+			image_lookup[image_id] = repo_tags
+
 		containers_response = session.get(list_all_containers_url, timeout=1).json()
 		container_count = len(containers_response)
 
 		for container in containers_response:
 			container_full_ids.append(container["Id"])
-			
+			_, image_hash = container["ImageID"].split(":", 1)
+			raw_image_tags = image_lookup.get(image_hash, [image_hash])
+
 			id_tag = self.DOCKER_WIN_TAG
-			image_tag = self.DOCKER_IMAGE_KEY + container["Image"].lower()
+			image_tags = [self.DOCKER_IMAGE_KEY + tag for tag in raw_image_tags]
 			state_tag = self.DOCKER_STATE_KEY + container["State"].lower()
 			status_tag = self.DOCKER_STATUS_KEY + container["Status"].lower()
 			name_tag = self.DOCKER_CONTAINER_NAME_KEY + container["Names"][0].lower()
@@ -119,11 +129,9 @@ class WinDocker(AgentCheck, DockerConstant):
 				"msg_title": 'Could use review from team.',
 				"alert_type": 'info',
 				"source_type_name": self.DOCKER_TYPE,
-				"tags": [self.DOCKER_WIN_TAG],
+				"tags": [self.DOCKER_WIN_TAG] + image_tags,
 				"msg_text": "Docker"
 			})
-
-				#self.gauge("docker.created", container["Created"], tags=[id_tag, image_tag, name_tag, status_tag, state_tag, self.WINDOWS_TAG])
 
 	# running containers:
 		self.gauge(self.CONTAINER_RUN_TMPL, container_count, tags=[self.WINDOWS_TAG])
