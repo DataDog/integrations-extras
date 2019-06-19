@@ -10,11 +10,12 @@ The Lighthouse check is not included in the [Datadog Agent][2] package, so you w
 
 ### Installation
 
-1. [Download the Datadog Agent][2].
-2. Download the [`lighthouse.py` file][3] for Lighthouse.
-3. Place it in the Agent's `checks.d` directory.
+To install the Lighthouse check on your host:
 
-To install the Lighthouse Check on your host:
+1. Install the [developer toolkit][11] on any machine.
+2. Run `ddev release build lighthouse` to build the package.
+3. [Download the Datadog Agent][1].
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/lighthouse/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
@@ -79,3 +80,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
