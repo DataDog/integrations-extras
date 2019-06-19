@@ -25,32 +25,35 @@ To install the Lighthouse Check on your host:
 5. Restart the Agent.
 
 ### Requirements
- 
-1. Check you have Node and npm installed:
-```
-node -v
-npm -v
-```
-Lighthouse requires Node 8 LTS (8.9) or later.
 
-If not, [install Node and npm][5].
+1. Lighthouse requires Node 8 LTS (8.9) or later. Check you have Node and npm installed:
+
+    ```
+    node -v
+    npm -v
+    ```
+
+    If not, [install Node and npm][5].
 
 2. [Install Lighthouse][6]:
-```
-npm install -g lighthouse
-```
+
+    ```
+    npm install -g lighthouse
+    ```
+
 3. Make sure Google Chrome is installed or Puppeteer (this custom Agent check runs Chrome in headless mode).
-```
-# example
-vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
-└── puppeteer@1.12.2
-```
 
-If not, install Chrome or [Puppeteer][7]:
+    ```
+    # example
+    vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
+    └── puppeteer@1.12.2
+    ```
 
-```
-npm install -g puppeteer
-```
+    If not, install Chrome or [Puppeteer][7]:
+
+    ```
+    npm install -g puppeteer
+    ```
 
 ### Validation
 
