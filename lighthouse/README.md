@@ -14,7 +14,7 @@ To install the Lighthouse check on your host:
 
 1. Install the [developer toolkit][11] on any machine.
 2. Run `ddev release build lighthouse` to build the package.
-3. [Download the Datadog Agent][1].
+3. [Download the Datadog Agent][2].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/lighthouse/dist/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
