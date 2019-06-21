@@ -1,0 +1,25 @@
+init_config:
+
+instances:
+    ## @param path - string - required
+    ## Full path to the mailq command.
+    #
+    - sendmail_command: /usr/bin/mailq
+
+    ## @param use_sudo - boolean - optional - default: false
+    ## If your environment requires sudo, please add the following line:
+    ##
+    ## dd-agent ALL=(ALL) NOPASSWD:/var/spool/mqueue
+    ##
+    ## to your sudoers file, and uncomment the option below:
+    #
+    # use_sudo: false
+
+    ## @param tags - list of key:value elements - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
