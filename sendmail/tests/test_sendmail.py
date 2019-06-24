@@ -1,8 +1,13 @@
+import mock
+import pytest
+
+
 from datadog_checks.sendmail import SendmailCheck
 
 
-def test_check(aggregator, instance):
+def test_mailqueue_output(aggregator, mock_queue_output):
     check = SendmailCheck('sendmail', {}, {})
-    check.check(instance)
+    tags = ['test:sendmail']
+    check.check({'tags': tags})
 
     aggregator.assert_all_metrics_covered()

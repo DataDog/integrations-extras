@@ -13,13 +13,13 @@ class SendmailCheck(AgentCheck):
 
     def check(self, instance):
         (
-            sendmail_command,
+            sendmail_directory,
             use_sudo,
             tags,
         ) = self._get_config(instance)
 
         try:
-            queue_size = self._get_sendmail_stats(sendmail_command, use_sudo)
+            queue_size = self._get_sendmail_stats(sendmail_directory, use_sudo)
             self.gauge('sendmail.queue.size', queue_size, tags=tags + ['queue:total'])
             self.log.debug("Sendmail queue size: {} mails".format(queue_size))
         except OSError as e:
@@ -30,46 +30,38 @@ class SendmailCheck(AgentCheck):
                                message=str(e))
 
     def _get_config(self, instance):
-        sendmail_command = instance.get('sendmail_command')
+        sendmail_directory = instance.get('sendmail_directory')
         use_sudo = instance.get('use_sudo', False)
         tags = instance.get('tags', [])
 
         return (
-            sendmail_command,
+            sendmail_directory,
             use_sudo,
             tags,
         )
 
-    def _get_sendmail_stats(self, sendmail_command, use_sudo):
+    def _get_sendmail_stats(self, sendmail_directory, use_sudo):
 
-        if not os.path.exists(sendmail_command):
-            raise Exception('{} does not exist'.format(path))
+        if not os.path.exists(sendmail_directory):
+            raise Exception('{} does not exist'.format(sendmail_directory))
 
-        # mailq sample output
-        """
-        MSP Queue status...
-        /var/spool/mqueue-client is empty
-            Total requests: 0
-        MTA Queue status...
-        /var/spool/mqueue is empty
-            Total requests: 0
-        """
-
-        command = []
+        command = ['ls', sendmail_directory]
 
         # The mailq command might require sudo access
         if use_sudo:
             test_sudo = os.system('setsid sudo -l < /dev/null')
             if test_sudo != 0:
                 raise Exception('The dd-agent user does not have sudo access')
-            command.append('sudo')
+            command.insert(0, 'sudo')
 
-        command.append(sendmail_command)
+        self.log.info(command)
 
-        sendmail_stats_output, _, _ = get_subprocess_output(command, self.log, False)
-        count = sendmail_stats_output.splitlines()
-        # Retrieve the last total number of requests
-        queue_count = int(count[-1][-1])
-        self.log.info(queue_count)
+        files, err, retcode = get_subprocess_output(command, self.log, False)
+        if not files:
+            file_count = 0
+        else:
+            self.log.info(sendmail_directory)
+            file_count = len(files.split('\n')) - 1
+            self.log.info(file_count)
 
-        return queue_count
+        return file_count
