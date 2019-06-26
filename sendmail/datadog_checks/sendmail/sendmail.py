@@ -1,6 +1,6 @@
 import os
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 
 
@@ -45,23 +45,23 @@ class SendmailCheck(AgentCheck):
         if not os.path.exists(sendmail_directory):
             raise Exception('{} does not exist'.format(sendmail_directory))
 
+        self.log.debug(sendmail_directory)
         command = ['ls', sendmail_directory]
 
-        # The mailq command might require sudo access
+        # Listing the directory might require sudo privileges
         if use_sudo:
             test_sudo = os.system('setsid sudo -l < /dev/null')
             if test_sudo != 0:
                 raise Exception('The dd-agent user does not have sudo access')
             command.insert(0, 'sudo')
 
-        self.log.info(command)
+        self.log.debug(command)
 
         files, err, retcode = get_subprocess_output(command, self.log, False)
         if not files:
             file_count = 0
         else:
-            self.log.info(sendmail_directory)
             file_count = len(files.split('\n')) - 1
-            self.log.info(file_count)
+            self.log.debug(file_count)
 
         return file_count
