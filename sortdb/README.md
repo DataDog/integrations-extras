@@ -10,9 +10,9 @@ Get metrics from [Sortdb][1] service in real time to:
 
 ## Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Sortdb check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
+If you are using Agent v6.8+ follow the instructions below to install the Sortdb check on your host. See our dedicated Agent guide about [how to install Community integration][2] to see how to install them with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
     ```
@@ -31,26 +31,26 @@ If you are using Agent v6.8+ follow the instructions below to install the Sortdb
     ddev -e release build sortdb
     ```
 
-5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
     ```
     datadog-agent integration install -w <PATH_OF_SORTDB_ARTIFACT_>/<SORTDB_ARTIFACT_NAME>.whl
     ```
 
-7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
-8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
+7. Configure your integration like [any other packaged integration][7].
+8. [Restart the Agent][8].
 
 ## Configuration
 
-1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][4] to start collecting your Sortdb [metrics](#metric-collection).
-  See the [sample sortdb.d/conf.yaml][5] for all available configuration options.
+1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Sortdb [metrics](#metric-collection).
+  See the [sample sortdb.d/conf.yaml][10] for all available configuration options.
 
-2. [Restart the Agent][6]
+2. [Restart the Agent][11]
 
 ## Validation
 
-[Run the Agent's status subcommand](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status) and look for `sortdb` under the Checks section.
+[Run the Agent's status subcommand][12] and look for `sortdb` under the Checks section.
 
 ## Compatibility
 
@@ -60,7 +60,7 @@ The SortDB check check is compatible with all major platforms
 
 ### Metrics
 
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/sortdb/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -71,9 +71,15 @@ The SortDB check does not currently include any service checks.
 The SortDB check does not currently include any events.
 
 [1]: https://github.com/jehiah/sortdb
-[2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[4]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
-[5]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/data/conf.yaml.example
-[6]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[7]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/sortdb.py
+[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[6]: https://app.datadoghq.com/account/settings#agent
+[7]: https://docs.datadoghq.com/getting_started/integrations
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
+[9]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
+[10]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/data/conf.yaml.example
+[11]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[13]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/metadata.csv

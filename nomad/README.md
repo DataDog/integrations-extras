@@ -42,4 +42,4 @@ Need help? Contact [Datadog support][3].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
-[3]: http://docs.datadoghq.com/help/
+[3]: https://docs.datadoghq.com/help

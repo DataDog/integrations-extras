@@ -45,4 +45,4 @@ Need help? Contact [Datadog support][7].
 [4]: https://cohesive.net/dnld/Cohesive-Networks_VNS3-DataDog-Container-Guide.pdf
 [5]: https://youtu.be/sTCgCG3m4vk
 [6]: https://github.com/DataDog/integrations-extras/blob/master/vns3/metadata.csv
-[7]: http://docs.datadoghq.com/help/
+[7]: https://docs.datadoghq.com/help

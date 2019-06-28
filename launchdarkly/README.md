@@ -41,5 +41,5 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [1]: https://docs.launchdarkly.com/docs/the-relay-proxy
 [2]: https://github.com/launchdarkly/ld-relay#quick-setup
 [3]: https://github.com/launchdarkly/ld-relay#exporting-metrics-and-traces
-[4]: https://docs.datadoghq.com/help/
-[5]: https://www.datadoghq.com/blog/
+[4]: https://docs.datadoghq.com/help
+[5]: https://www.datadoghq.com/blog

@@ -16,23 +16,23 @@ Setting up RBLTracker using webhooks:
 3.  Paste the Datadog **API Key**.
 4.  (optional) adjust the contact schedule for this new contact.
 
-RBLTracker will send listing and delisting alerts to your Datadog events dashboard. Click [here][4] for a full integration guide.
+RBLTracker will send listing and delisting alerts to your Datadog events dashboard. Click [here][3] for a full integration guide.
 
 ## Data Collected
 ### Metrics
 The RBLTracker check does not include any metrics.
 
 ### Events
-Push your RBLTracker listing/de-listing events into your [Datadog Event Stream][5].
+Push your RBLTracker listing/de-listing events into your [Datadog Event Stream][4].
 
 ### Service Checks
 The RBLTracker check does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][6].
+Need help? Contact [Datadog support][5].
 
-[1]: https://rbltracker.com/
+[1]: https://rbltracker.com
 [2]: https://app.datadoghq.com/account/settings#api
-[4]: https://rbltracker.com/docs/adding-a-datadog-contact-type/
-[5]: https://docs.datadoghq.com/graphing/event_stream/
-[6]: http://docs.datadoghq.com/help/
+[3]: https://rbltracker.com/docs/adding-a-datadog-contact-type
+[4]: https://docs.datadoghq.com/graphing/event_stream
+[5]: https://docs.datadoghq.com/help

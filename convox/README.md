@@ -48,4 +48,4 @@ Need help? Contact [Datadog support][4].
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
 [2]: https://docs.convox.com/external-services/datadog
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html
-[4]: http://docs.datadoghq.com/help/
+[4]: https://docs.datadoghq.com/help

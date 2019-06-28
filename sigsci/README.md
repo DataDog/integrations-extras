@@ -40,7 +40,7 @@ The Signal Sciences integration does not provide any metrics.
 
 ### Events
 
-All Signal Sciences events are sent to your [Datadog Event Stream](https://docs.datadoghq.com/graphing/event_stream/)
+All Signal Sciences events are sent to your [Datadog Event Stream][4]
 
 ### Service Checks
 
@@ -48,17 +48,18 @@ The Signal Sciences integration does not include any service checks.
 
 
 ## Troubleshooting
-Need help? Contact [Datadog support][4].
+Need help? Contact [Datadog support][5].
 
 ## Further Reading
 
-Learn more about application security, DevOps, SecOps, and all the ops on [Signal Sciences blog][5].
+Learn more about application security, DevOps, SecOps, and all the ops on [Signal Sciences blog][6].
 
-To sign up for the Signal Sciences-Datadog Monitoring Beta, a free service to see attacks against your applications, APIs, and microservices in real-time without a Signal Sciences subscription, visit our [beta registration page][6].
+To sign up for the Signal Sciences-Datadog Monitoring Beta, a free service to see attacks against your applications, APIs, and microservices in real-time without a Signal Sciences subscription, visit our [beta registration page][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
 [2]: https://app.datadoghq.com/account/settings#api
 [3]: https://dashboard.signalsciences.net
-[4]: http://docs.datadoghq.com/help/
-[5]: https://labs.signalsciences.com
-[6]: https://info.signalsciences.com/datadog-security
+[4]: https://docs.datadoghq.com/graphing/event_stream
+[5]: https://docs.datadoghq.com/help
+[6]: https://labs.signalsciences.com
+[7]: https://info.signalsciences.com/datadog-security
