@@ -11,28 +11,43 @@ Get metrics from Portworx service in real time to:
 
 ### Installation
 
-The Portworx check is **NOT** included in the [Datadog Agent][1] package.
+If you are using Agent v6.8+ follow the instructions below to install the Portworx check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
 
-To install the Portworx check on your host:
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+2. Clone the integrations-extras repository:
 
-On Agent versions <= 6.8:
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
 
-1. [Download the Datadog Agent][1].
-2. Download the [`portworx.py` file][8] for Portworx.
-3. Place it in the Agent's `checks.d` directory.
+3. Update your `ddev` config with the `integrations-extras/` path:
 
-On Agent 6.8+:
+    ```
+    ddev config set extras ./integrations-extras
+    ```
 
-1. Install the [developer toolkit][2] on any machine.
-2. Run `ddev release build portworx` to build the package.
-3. [Download the Datadog Agent][1].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/portworx/dist/<ARTIFACT_NAME>.whl`.
+4. To build the `portworx` package, run:
 
-**Note**: The `integration` command is only available for Agent 6.8+.
+    ```
+    ddev -e release build portworx
+    ```
+
+5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_PORTWORX_ARTIFACT_>/<PORTWORX_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
+8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 ### Configuration
 
-Create a file `portworx.yaml` in the Agent's `conf.d` directory.
+1. Edit the `portworx.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory) to start collecting your Portworx [metrics](#metric-collection).
+  See the [sample portworx.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example) for all available configuration options.
+
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent)
 
 #### Metric Collection
 
@@ -55,14 +70,6 @@ See the [sample portworx.yaml][3] for all available configuration options.
 ### Validation
 
 [Run the Agent's `info` subcommand][5], you should see something like the following:
-
-    Checks
-    ======
-
-      portworx
-      -----------------
-        - instance #0 [OK]
-        - Collected 60 metrics, 0 events & 0 service check
 
 ## Compatibility
 

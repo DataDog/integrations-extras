@@ -14,33 +14,43 @@ The Stardog check is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-To install the Stardog check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Stardog check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
 
-On Agent versions <= 6.8:
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+2. Clone the integrations-extras repository:
 
-1. [Download the Datadog Agent][1].
-2. Download the [`stardog.py` file][8] for Stardog.
-3. Place it in the Agent's `checks.d` directory.
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
 
-On Agent 6.8+:
+3. Update your `ddev` config with the `integrations-extras/` path:
 
+    ```
+    ddev config set extras ./integrations-extras
+    ```
 
-1. Install the [developer toolkit][2] on any machine.
-2. Run `ddev release build stardog` to build the package.
-3. [Download the Datadog Agent][1].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/stardog/dist/<ARTIFACT_NAME>.whl`.
+4. To build the `stardog` package, run:
 
-**Note**: The `integration` command is only available for Agent 6.8+.
+    ```
+    ddev -e release build stardog
+    ```
+
+5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_STARDOG_ARTIFACT_>/<STARDOG_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
+8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 ### Configuration
 
-To configure the Stardog check:
+1. Edit the `stardog.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory) to start collecting your Stardog [metrics](#metrics).
+  See the [sample stardog.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/stardog/datadog_checks/stardog/data/conf.yaml.example) for all available configuration options.
 
-1. Create a `stardog.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
-2. Create a `conf.yaml` file in the `stardog.d/` folder previously created.
-3. Consult the [sample stardog.yaml][3] file and copy its content in the `conf.yaml` file.
-4. Edit the `conf.yaml` file to point to your server and port, set the masters to monitor.
-5. [Restart the Agent][4].
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent)
 
 ## Validation
 
@@ -63,7 +73,7 @@ Need help? Contact [Datadog support][7].
 [2]: https://github.com/DataDog/integrations-extras/blob/master/stardog/check.py
 [3]: https://github.com/DataDog/integrations-extras/blob/master/stardog/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[5]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
 [6]: https://github.com/DataDog/integrations-extras/blob/master/stardog/metadata.csv
 [7]: http://docs.datadoghq.com/help/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/stardog/datadog_checks/stardog/stardog.py

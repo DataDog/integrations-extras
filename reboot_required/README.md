@@ -8,45 +8,50 @@ Linux systems that are configured to autoinstall packages may not be configured 
 
 ### Installation
 
-To install the Reboot Required check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Reboot Required check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
 
-On Agent versions <= 6.8:
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+2. Clone the integrations-extras repository:
 
-1. [Download the Datadog Agent][1].
-2. Download the [`reboot_required.py` file][7] for Reboot Required.
-3. Place it in the Agent's `checks.d` directory.
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
 
-On Agent 6.8+:
+3. Update your `ddev` config with the `integrations-extras/` path:
 
-1. Install the [developer toolkit][6] on any machine.
-2. Run `ddev release build reboot_required` to build the package.
-3. [Download the Datadog Agent][1].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/reboot_required/dist/<ARTIFACT_NAME>.whl`.
+    ```
+    ddev config set extras ./integrations-extras
+    ```
 
-**Note**: The `integration` command is only available for Agent 6.8+.
+4. To build the `reboot_required` package, run:
+
+    ```
+    ddev -e release build reboot_required
+    ```
+
+5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_REBOOT_REQUIRED_ARTIFACT_>/<REBOOT_REQUIRED_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
+8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 ### Configuration
 
-To configure the Reboot Required check:
+1. Edit the `reboot_required.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory).
+  See the [sample reboot_required.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/data/conf.yaml.example) for all available configuration options.
 
-1. Create a `reboot_required.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
-2. Create a `conf.yaml` file in the `reboot_required.d/` folder previously created.
-3. Consult the [sample reboot_required.yaml][2] file and copy its content in the `conf.yaml` file. Minimum configuration should include:
-
-    ```
-    init_config:
-    instances:
-        - reboot_signal_file: "/var/run/reboot-required"
-    ```
-
-4. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of `/var/run/dd-agent` is ideal. The snippet below should suffice.
+2. Make sure you create a dd-agent (user that runs the Datadog agent) writable directory for the agent, and used by this check. The default of `/var/run/dd-agent` is ideal. The snippet below should suffice.
 
     ```
     sudo mkdir /var/run/dd-agent
     sudo chown dd-agent:dd-agent /var/run/dd-agent
     ```
 
-5. [Restart the Agent][3].
+3. [Restart the Agent][3].
 
 ### Validation
 
@@ -80,7 +85,7 @@ Need help? Contact [Datadog support][5].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/datadog_checks/reboot_required/data/conf.yaml.example
-[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
 [4]: https://app.datadoghq.com/monitors#/create
 [5]: http://docs.datadoghq.com/help/
 [6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit

@@ -11,41 +11,47 @@ Get metrics from gnatsd_streaming service in real time to:
 
 ### Installation
 
-To install the Gnatsd_streaming check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the gnatsd_streaming check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
 
-On Agent versions <= 6.8:
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+2. Clone the integrations-extras repository:
 
-1. [Download the Datadog Agent][4].
-2. Download the [`gnatsd_streaming.py` file][5] for Gnatsd_streaming.
-3. Place it in the Agent's `checks.d` directory.
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
 
-On Agent 6.8+:
+3. Update your `ddev` config with the `integrations-extras/` path:
 
-1. Install the [developer toolkit][3] on any machine.
-2. Run `ddev release build gnatsd_streaming` to build the package.
-3. [Download the Datadog Agent][4].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/gnatsd_streaming/dist/<ARTIFACT_NAME>.whl`.
+    ```
+    ddev config set extras ./integrations-extras
+    ```
 
-**Note**: The `integration` command is only available for Agent 6.8+.
+4. To build the `gnatsd_streaming` package, run:
+
+    ```
+    ddev -e release build gnatsd_streaming
+    ```
+
+5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_GNATSD_STREAMING_ARTIFACT_>/<GNATSD_STREAMING_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
+8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 ### Configuration
 
-Edit the `gnatsd_streaming.yaml` file to point to your server and port, set the masters to monitor
+1. Edit the `gnatsd_streaming.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory) to start collecting your GnatsD streaming [metrics](#metric-collection).
+  See the [sample gnatsd_streaming.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/datadog_checks/gnatsd_streaming/data/conf.yaml.example) for all available configuration options.
 
-You can change the number of channels returned in a single HTTP request with the `pagination` parameter
-in the conf.yaml file.
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent)
 
 ### Validation
 
-When you run `datadog-agent info` you should see something like the following:
-
-    Checks
-    ======
-
-        gnatsd_streaming
-        -----------
-          - instance #0 [OK]
-          - Collected 39 metrics, 0 events & 7 service checks
+[Run the Agent's status subcommand](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status) and look for `gnatsd_streaming` under the Checks section.
 
 ## Compatibility
 

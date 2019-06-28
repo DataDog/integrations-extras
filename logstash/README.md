@@ -13,36 +13,47 @@ The Logstash check is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-To install the Logstash check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Logstash check on your host. See our dedicated Agent guide about [how to install Community integration](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/) to see how to install them with the [Agent prior v6.8](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68) or the [Docker Agent](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker):
 
-On Agent versions <= 6.8:
+1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit).
+2. Clone the integrations-extras repository:
 
-1. [Download the Datadog Agent][1].
-2. Download the [`check.py` file][15] for Logstash.
-3. Place it in the Agent's `checks.d` directory.
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
 
-On Agent 6.8+:
+3. Update your `ddev` config with the `integrations-extras/` path:
 
-1. Install the [developer toolkit][2] on any machine.
-2. Run `ddev release build logstash` to build the package.
-3. [Download the Datadog Agent][1].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/logstash/dist/<ARTIFACT_NAME>.whl`.
+    ```
+    ddev config set extras ./integrations-extras
+    ```
 
-**Note**: The `integration` command is only available for Agent 6.8+.
+4. To build the `logstash` package, run:
+
+    ```
+    ddev -e release build logstash
+    ```
+
+5. [Download and launch the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_LOGSTASH_ARTIFACT_>/<LOGSTASH_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration](https://docs.datadoghq.com/getting_started/integrations).
+8. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 ### Configuration
 
-To configure the Logstash check:
+1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory) to start collecting your Logstash [metrics](#metric-collection) and [logs](#logs-collection).
+  See the [sample logstash.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/data/conf.yaml.example) for all available configuration options.
 
-1. Create a `logstash.d/` folder in the `conf.d/` folder at the root of your Agent's directory.
-2. Create a `conf.yaml` file in the `logstash.d/` folder previously created.
-3. Consult the [sample logstash.yaml][3] file and copy its content in the `conf.yaml` file.
-4. Edit the `conf.yaml`  to start collecting your [metrics][5] or [logs][6]
-5. [Restart the Agent][7].
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent)
 
 #### Metric Collection
 
-* Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][8]:
+Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][8]:
 
 ```
 init_config:
@@ -56,7 +67,8 @@ instances:
 Configure it to point to your server and port.
 
 See the [sample conf.yaml][3] for all available configuration options.
-* [Restart the Agent][7] to begin sending Logstash metrics to Datadog.
+
+Finally, [restart the Agent][7] to begin sending Logstash metrics to Datadog.
 
 #### Log Collection
 
@@ -100,7 +112,7 @@ In order to get the best use out of your logs in Datadog, it is important to hav
 
 ##### Source
 
-Set up a Logstash filter to set the source (Datadog integration name) on your logs. 
+Set up a Logstash filter to set the source (Datadog integration name) on your logs.
 
 ```
 filter {
@@ -135,7 +147,7 @@ filter {
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.x, 6.x and 7.x versions. It also supports the new multi-pipelines metrics introduced in Logstash 6.0.  
+The Logstash check is compatible with Logstash 5.x, 6.x and 7.x versions. It also supports the new multi-pipelines metrics introduced in Logstash 6.0.
 Tested with Logstash versions 5.6.15, 6.3.0 and 7.0.0.
 
 ## Data Collected
@@ -172,7 +184,7 @@ If you need further help, contact [Datadog support][14].
 [6]: #log-collection
 [7]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [8]: #metrics
-[12]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
 [13]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [14]: http://docs.datadoghq.com/help/
 [15]: https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/logstash.py
