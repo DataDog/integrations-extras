@@ -29,7 +29,7 @@ See [metadata.csv][5] for a list of metrics provided by this check.
 
 ### Service Checks
 
-Sendmail does not include any service checks.
+`sendmail.returns.output`: Returns CRITICAL if the sendmail command does not return any output, OK otherwise.
 
 ### Events
 
