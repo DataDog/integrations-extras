@@ -6,47 +6,51 @@ from datadog_checks.utils.subprocess_output import get_subprocess_output
 
 class SendmailCheck(AgentCheck):
 
+    SERVICE_CHECK_NAME = 'sendmail.returns.output'
+
     def __init__(self, name, init_config, agentConfig, instances=None):
         if instances is not None and len(instances) > 1:
             raise ConfigurationError('Sendmail check only supports one configured instance.')
         AgentCheck.__init__(self, name, init_config, agentConfig, instances=instances)
 
     def check(self, instance):
-        (
-            sendmail_directory,
-            use_sudo,
-            tags,
-        ) = self._get_config(instance)
+        (sendmail_command, use_sudo, tags) = self._get_config(instance)
 
         try:
-            queue_size = self._get_sendmail_stats(sendmail_directory, use_sudo)
+            queue_size = self._get_sendmail_stats(sendmail_command, use_sudo)
             self.gauge('sendmail.queue.size', queue_size, tags=tags + ['queue:total'])
             self.log.debug("Sendmail queue size: {} mails".format(queue_size))
+            # Send an OK service check as well
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags, message='Sendmail OK')
         except OSError as e:
             self.log.info("Cannot get sendmail queue info".format(str(e)))
-            self.service_check(self.SERVICE_CHECK_NAME,
-                               AgentCheck.CRITICAL,
-                               tags,
-                               message=str(e))
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
     def _get_config(self, instance):
-        sendmail_directory = instance.get('sendmail_directory')
+        sendmail_command = instance.get('sendmail_command')
         use_sudo = instance.get('use_sudo', False)
         tags = instance.get('tags', [])
 
-        return (
-            sendmail_directory,
-            use_sudo,
-            tags,
-        )
+        return sendmail_command, use_sudo, tags
 
-    def _get_sendmail_stats(self, sendmail_directory, use_sudo):
+    def _get_sendmail_stats(self, sendmail_command, use_sudo):
 
-        if not os.path.exists(sendmail_directory):
-            raise Exception('{} does not exist'.format(sendmail_directory))
+        if not os.path.exists(sendmail_command):
+            raise Exception('{} does not exist'.format(sendmail_command))
 
-        self.log.debug(sendmail_directory)
-        command = ['ls', sendmail_directory]
+        self.log.debug(sendmail_command)
+
+        # mailq sample output
+        """
+        MSP Queue status...
+        /var/spool/mqueue-client is empty
+            Total requests: 0
+        MTA Queue status...
+        /var/spool/mqueue is empty
+            Total requests: 0
+        """
+
+        command = [sendmail_command]
 
         # Listing the directory might require sudo privileges
         if use_sudo:
@@ -57,11 +61,10 @@ class SendmailCheck(AgentCheck):
 
         self.log.debug(command)
 
-        files, err, retcode = get_subprocess_output(command, self.log, False)
-        if not files:
-            file_count = 0
-        else:
-            file_count = len(files.split('\n')) - 1
-            self.log.debug(file_count)
+        mail_queue, err, retcode = get_subprocess_output(command, self.log, False)
+        count = mail_queue.splitlines()
+        # Retrieve the last total number of requests
+        queue_count = int(count[-1][-1])
+        self.log.info(queue_count)
 
-        return file_count
+        return queue_count
