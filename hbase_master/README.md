@@ -9,7 +9,7 @@ Get metrics from Hbase_master service in real time to:
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Hbase_master check on your host. See our dedicated Agent guide about [how to install Community integration][1] to see how to install them with the [Agent prior v6.8][2] or the [Docker Agent][3]:
+If you are using Agent v6.8+ follow the instructions below to install the Hbase_master check on your host. See our dedicated Agent guide about [how to install Community integrations][1] to see how to install them with the [Agent prior v6.8][2] or the [Docker Agent][3]:
 
 1. Install the [developer toolkit][4].
 2. Clone the integrations-extras repository:

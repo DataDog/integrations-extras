@@ -13,7 +13,7 @@ The Neo4j check is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Neo4j check on your host. See our dedicated Agent guide about [how to install Community integration][2] to see how to install them with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the Neo4j check on your host. See our dedicated Agent guide about [how to install Community integrations][2] to see how to install them with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
