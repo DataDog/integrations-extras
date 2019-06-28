@@ -40,14 +40,13 @@ If you are using Agent v6.8+ follow the instructions below to install the Portwo
     ```
 
 7. Configure your integration like [any other packaged integration][6].
-8. [Restart the Agent][7].
 
 ### Configuration
 
-1. Edit the `portworx.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Portworx [metrics](#metric-collection).
-  See the [sample portworx.d/conf.yaml][9] for all available configuration options.
+1. Edit the `portworx.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Portworx [metrics](#metric-collection).
+  See the [sample portworx.d/conf.yaml][8] for all available configuration options.
 
-2. [Restart the Agent][10]
+2. [Restart the Agent][9]
 
 #### Metric Collection
 
@@ -63,13 +62,13 @@ instances:
 
 Configure it to point to your server and port.
 
-See the [sample portworx.yaml][11] for all available configuration options.
+See the [sample portworx.yaml][10] for all available configuration options.
 
-* [Restart the Agent][12] to begin sending Portworx metrics to Datadog.
+* [Restart the Agent][11] to begin sending Portworx metrics to Datadog.
 
 ### Validation
 
-[Run the Agent's `info` subcommand][13], you should see something like the following:
+[Run the Agent's `info` subcommand][12], you should see something like the following:
 
 ## Compatibility
 
@@ -79,7 +78,7 @@ The Portworx check is compatible with Portworx 1.4.0 and possible earlier versio
 
 ### Metrics
 
-See [metadata.csv][14] for a list of metrics provided by this integration.
+See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Events
 
@@ -100,7 +99,7 @@ Check that the `url` in `portworx.yaml` is correct.
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][15].
+Learn more about infrastructure monitoring and all our integrations on [our blog][14].
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
@@ -108,12 +107,11 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [5]: https://app.datadoghq.com/account/settings#agent
 [6]: https://docs.datadoghq.com/getting_started/integrations
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
-[9]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[11]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
-[12]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[13]: https://docs.datadoghq.com/agent/faq/agent-status-and-information
-[14]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv
-[15]: https://www.datadoghq.com/blog
+[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[8]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[10]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
+[11]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[12]: https://docs.datadoghq.com/agent/faq/agent-status-and-information
+[13]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv
+[14]: https://www.datadoghq.com/blog

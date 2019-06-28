@@ -37,23 +37,22 @@ If you are using Agent v6.8+ follow the instructions below to install the Riak-R
     ```
 
 7. Configure your integration like [any other packaged integration][7].
-8. [Restart the Agent][8].
 
 ### Configuration
 
-1. Edit the `riak_repl.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your riak_repl performance data. See the [sample riak_repl.d/conf.yaml][9] for all available configuration options.
+1. Edit the `riak_repl.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your riak_repl performance data. See the [sample riak_repl.d/conf.yaml][8] for all available configuration options.
 
-2. [Restart the Agent][10]
+2. [Restart the Agent][9]
 
 ### Validation
 
-[Run the Agent's `status` subcommand][11] and look for `riak_repl` under the Checks section.
+[Run the Agent's `status` subcommand][10] and look for `riak_repl` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][12] for a list of metrics provided by this integration.
+See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -65,7 +64,7 @@ riak_repl does not currently include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][12].
 
 [1]: https://docs.datadoghq.com/integrations/riak_repl
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
@@ -74,9 +73,8 @@ Need help? Contact [Datadog support][13].
 [5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[9]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/datadog_checks/riak_repl/data/conf.yaml.example
-[10]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[12]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/metadata.csv
-[13]: https://docs.datadoghq.com/help
+[8]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/datadog_checks/riak_repl/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[11]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/metadata.csv
+[12]: https://docs.datadoghq.com/help

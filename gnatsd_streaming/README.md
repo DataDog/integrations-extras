@@ -40,18 +40,17 @@ If you are using Agent v6.8+ follow the instructions below to install the gnatsd
     ```
 
 7. Configure your integration like [any other packaged integration][6].
-8. [Restart the Agent][7].
 
 ### Configuration
 
-1. Edit the `gnatsd_streaming.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your GnatsD streaming [metrics](#metric-collection).
-  See the [sample gnatsd_streaming.d/conf.yaml][9] for all available configuration options.
+1. Edit the `gnatsd_streaming.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your GnatsD streaming [metrics](#metric-collection).
+  See the [sample gnatsd_streaming.d/conf.yaml][8] for all available configuration options.
 
-2. [Restart the Agent][10]
+2. [Restart the Agent][9]
 
 ### Validation
 
-[Run the Agent's status subcommand][11] and look for `gnatsd_streaming` under the Checks section.
+[Run the Agent's status subcommand][10] and look for `gnatsd_streaming` under the Checks section.
 
 ## Compatibility
 
@@ -60,7 +59,7 @@ The gnatsd_streaming check is compatible with all major platforms
 ## Data Collected
 ### Metrics
 
-See [metadata.csv][12] for a list of metrics provided by this integration.
+See [metadata.csv][11] for a list of metrics provided by this integration.
 
 Nats Streaming Server metrics are tagged with names like "nss-cluster_id"
 
@@ -79,7 +78,7 @@ This gnatsd_streaming check tags all service checks it collects with:
 Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][12].
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
@@ -87,10 +86,9 @@ Need help? Contact [Datadog support][13].
 [4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [5]: https://app.datadoghq.com/account/settings#agent
 [6]: https://docs.datadoghq.com/getting_started/integrations
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
-[9]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/datadog_checks/gnatsd_streaming/data/conf.yaml.example
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[12]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
-[13]: http://docs.datadoghq.com/help
+[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[8]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/datadog_checks/gnatsd_streaming/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[11]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
+[12]: http://docs.datadoghq.com/help

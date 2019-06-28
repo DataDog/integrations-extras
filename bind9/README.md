@@ -43,18 +43,17 @@ If you are using Agent v6.8+ follow the instructions below to install the Bind9 
     ```
 
 7. Configure your integration like [any other packaged integration][7].
-8. [Restart the Agent][8].
 
 ### Configuration
 
-1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Bind9 [metrics](#metric-collection).
-  See the [sample bind9.d/conf.yaml][10] for all available configuration options.
+1. Edit the `bind9.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Bind9 [metrics](#metric-collection).
+  See the [sample bind9.d/conf.yaml][9] for all available configuration options.
 
-2. [Restart the Agent][11]
+2. [Restart the Agent][10]
 
 #### Metric Collection
 
-Add this configuration setup to your `conf.yaml` file to start gathering your [metrics][12]:
+Add this configuration setup to your `conf.yaml` file to start gathering your [metrics][11]:
 
 ```
 init_config:
@@ -65,7 +64,7 @@ instances:
 
 ### Validation
 
-[Run the Agent's `status` subcommand][13] and look for `bind9` under the Checks section.
+[Run the Agent's `status` subcommand][12] and look for `bind9` under the Checks section.
 
 ## Compatibility
 
@@ -75,7 +74,7 @@ The check is compatible with all major platforms.
 
 ### Metrics
 
-See [metadata.csv][14] for a list of metrics provided by this integration.
+See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Events
 
@@ -88,7 +87,7 @@ The bind9_check check does not include any event at this time.
 
 ## Development
 
-Please refer to the [main documentation][15] for more details about how to test and develop Agent based integrations.
+Please refer to the [main documentation][14] for more details about how to test and develop Agent based integrations.
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -97,11 +96,10 @@ Please refer to the [main documentation][15] for more details about how to test 
 [5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
 [6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [7]: https://docs.datadoghq.com/getting_started/integrations
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[12]: #metrics
-[13]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[14]: https://github.com/DataDog/cookiecutter-datadog-check/blob/master/%7B%7Bcookiecutter.check_name%7D%7D/metadata.csv
-[15]: https://docs.datadoghq.com/developers
+[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[9]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[11]: #metrics
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[13]: https://github.com/DataDog/cookiecutter-datadog-check/blob/master/%7B%7Bcookiecutter.check_name%7D%7D/metadata.csv
+[14]: https://docs.datadoghq.com/developers

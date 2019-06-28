@@ -39,18 +39,17 @@ If you are using Agent v6.8+ follow the instructions below to install the Sortdb
     ```
 
 7. Configure your integration like [any other packaged integration][7].
-8. [Restart the Agent][8].
 
 ## Configuration
 
-1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Sortdb [metrics](#metric-collection).
-  See the [sample sortdb.d/conf.yaml][10] for all available configuration options.
+1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Sortdb [metrics](#metric-collection).
+  See the [sample sortdb.d/conf.yaml][9] for all available configuration options.
 
-2. [Restart the Agent][11]
+2. [Restart the Agent][10]
 
 ## Validation
 
-[Run the Agent's status subcommand][12] and look for `sortdb` under the Checks section.
+[Run the Agent's status subcommand][11] and look for `sortdb` under the Checks section.
 
 ## Compatibility
 
@@ -60,7 +59,7 @@ The SortDB check check is compatible with all major platforms
 
 ### Metrics
 
-See [metadata.csv][13] for a list of metrics provided by this integration.
+See [metadata.csv][12] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -77,9 +76,8 @@ The SortDB check does not currently include any events.
 [5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[9]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/data/conf.yaml.example
-[11]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[13]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/metadata.csv
+[8]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
+[9]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/datadog_checks/sortdb/data/conf.yaml.example
+[10]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[12]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/metadata.csv

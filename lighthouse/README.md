@@ -39,14 +39,13 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
     ```
 
 7. Configure your integration like [any other packaged integration][8].
-8. [Restart the Agent][9].
 
 ### Configuration
 
-1. Edit the `lighthouse.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][10] to start collecting your Lighthouse [metrics](#metrics).
-  See the [sample lighthouse.d/conf.yaml][11] for all available configuration options.
+1. Edit the `lighthouse.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Lighthouse [metrics](#metrics).
+  See the [sample lighthouse.d/conf.yaml][10] for all available configuration options.
 
-2. [Restart the Agent][12]
+2. [Restart the Agent][11]
 
 ### Requirements
 
@@ -57,9 +56,9 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
     npm -v
     ```
 
-    If not, [install Node and npm][13].
+    If not, [install Node and npm][12].
 
-2. [Install Lighthouse][14]:
+2. [Install Lighthouse][13]:
 
     ```
     npm install -g lighthouse
@@ -73,7 +72,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
     └── puppeteer@1.12.2
     ```
 
-    If not, install Chrome or [Puppeteer][15]:
+    If not, install Chrome or [Puppeteer][14]:
 
     ```
     npm install -g puppeteer
@@ -81,11 +80,11 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 
 ### Validation
 
-[Run the Agent's status subcommand][16] and look for `lighthouse` under the Checks section.
+[Run the Agent's status subcommand][15] and look for `lighthouse` under the Checks section.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][17] for a list of metrics provided by this check.
+See [metadata.csv][16] for a list of metrics provided by this check.
 
 ### Events
 The Lighthouse integration does not include any events.
@@ -94,7 +93,7 @@ The Lighthouse integration does not include any events.
 The Lighthouse integration does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][18].
+Need help? Contact [Datadog support][17].
 
 [1]: https://developers.google.com/web/tools/lighthouse
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -104,13 +103,12 @@ Need help? Contact [Datadog support][18].
 [6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [7]: https://app.datadoghq.com/account/settings#agent
 [8]: https://docs.datadoghq.com/getting_started/integrations
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
-[11]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/data/conf.yaml.example
-[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[13]: https://nodejs.org/en/download
-[14]: https://github.com/GoogleChrome/lighthouse
-[15]: https://github.com/GoogleChrome/puppeteer
-[16]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[17]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
-[18]: https://docs.datadoghq.com/help
+[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[10]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/data/conf.yaml.example
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[12]: https://nodejs.org/en/download
+[13]: https://github.com/GoogleChrome/lighthouse
+[14]: https://github.com/GoogleChrome/puppeteer
+[15]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[16]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
+[17]: https://docs.datadoghq.com/help

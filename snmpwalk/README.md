@@ -43,18 +43,17 @@ If you are using Agent v6.8+ follow the instructions below to install the SNMP w
     ```
 
 7. Configure your integration like [any other packaged integration][7].
-8. [Restart the Agent][8].
 
 ### Configuration
 
-1. Edit the `snmpwalk.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your SNMP walk [metrics](#metrics).
-  See the [sample upsc.d/conf.yaml][10] for all available configuration options.
+1. Edit the `snmpwalk.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your SNMP walk [metrics](#metrics).
+  See the [sample snmpwalk.d/conf.yaml][9] for all available configuration options.
 
-2. [Restart the Agent][11]
+2. [Restart the Agent][10]
 
 ## Validation
 
-[Run the Agent's `status` subcommand][12] and look for `snmpwalk` under the Checks section.
+[Run the Agent's `status` subcommand][11] and look for `snmpwalk` under the Checks section.
 
 ## Data Collected
 ### Metrics
@@ -72,7 +71,7 @@ The check returns:
 * `CRITICAL` if check encounters an error when trying to collect metrics from `snmpwalk`.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][12].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
@@ -81,9 +80,8 @@ Need help? Contact [Datadog support][13].
 [5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent
-[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/datadog_checks/snmpwalk/data/conf.yaml.example
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[13]: http://docs.datadoghq.com/help
+[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[9]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/datadog_checks/snmpwalk/data/conf.yaml.example
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[12]: http://docs.datadoghq.com/help
