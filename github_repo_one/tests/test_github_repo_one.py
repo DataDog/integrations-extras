@@ -24,6 +24,9 @@ def test_check_invalid_configs():
     with pytest.raises(ConfigurationError):
         check.check({"repository_name": "bar"})
 
+    # check = GithubRepoOneCheck('github_repo', {'access_token': "<YOUR_TOKEN>"}, {})
+    # check.check({"repository_name": "Datadog/integrations-core"})
+
 
 def test_check_service_checks(aggregator):
     check = GithubRepoOneCheck('github_repo', {'access_token': "foo"}, {})
@@ -32,3 +35,7 @@ def test_check_service_checks(aggregator):
 
     sc = aggregator.service_checks(GithubRepoOneCheck.SERVICE_CHECK_NAME)
     assert sc[0].status == check.CRITICAL
+
+    # check = GithubRepoOneCheck('github_repo', {'access_token': "<YOUR_TOKEN>"}, {})
+    # check.check({"repository_name": "Datadog/integrations-core"})
+    # assert sc[0].status == check.OK
