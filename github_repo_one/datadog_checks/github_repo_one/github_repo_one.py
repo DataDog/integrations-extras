@@ -54,6 +54,9 @@ class GithubRepoOneCheck(AgentCheck):
                 e,
             )
 
+        # NOTE: The OK state service check must be at the end
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
+
     def handle_exception(self, msg, status, tags, e):
         self.warning(msg)
         self.log.debug("{}: {}".format(msg, e))
