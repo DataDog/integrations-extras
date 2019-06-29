@@ -40,15 +40,6 @@ Github_repo_zero does not include any events.
 Need help? Contact [Datadog support][5].
 
 
-# TODO
-- setup vistualenv
-- pip install "datadog-checks-dev[cli]"
-- pip install PyGithub
-- add __init__
-- implement check method and print log
-- add test
-- run test `ddev test github_repo_zero -dv`
-
 [1]: **LINK_TO_INTEGERATION_SITE**
 [2]: https://github.com/DataDog/integrations-core/blob/master/github_repo_zero/datadog_checks/github_repo_zero/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
