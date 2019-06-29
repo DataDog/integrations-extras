@@ -1,3 +1,7 @@
+# (C) Datadog, Inc. 2019
+# All rights reserved
+# Licensed under a 3-clause BSD style license (see LICENSE)
+
 from datetime import datetime
 from collections import Counter
 from github import Github
@@ -82,7 +86,7 @@ class GithubRepoCheck(AgentCheck):
             self.since = datetime.now()
 
             for commit in commits:
-                author = commit.author
+                author = commit.author.login
                 self.cache[author] += 1
             # self.cache["author1"] += 1
             # Submit metrics with author tag
