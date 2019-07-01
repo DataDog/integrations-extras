@@ -8,7 +8,6 @@ class GithubRepoOneCheck(AgentCheck):
     SERVICE_CHECK_NAME = "github_repo.up"
 
     def __init__(self, name, init_config, agentConfig, instances=None):
-        # NOTE: We need super to initialize self.log
         super(GithubRepoOneCheck, self).__init__(name, init_config, agentConfig, instances)
 
         # Fetch Config
