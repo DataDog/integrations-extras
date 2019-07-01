@@ -13,7 +13,7 @@ need to install it yourself.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See our dedicated Agent guide about [how to install Community integrations][3] to discover how to install them with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
+If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
 1. Install the [developer toolkit][6].
 2. Clone the integrations-extras repository:
