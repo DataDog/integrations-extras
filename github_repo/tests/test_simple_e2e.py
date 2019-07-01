@@ -71,7 +71,7 @@ def get_commits_mock():
     side_effect=get_commits_mock,
 )
 def test_check_using_mocks(stargazers_mock, watchers_mock, contributors_mock, subscribers_mock, commits_mock,
-               instance, aggregator):
+                           instance, aggregator):
     check = GithubRepoCheck('github_repo', {"access_token": "fake_access_token"}, {})
     check._ship_access_token = True
     check.check(instance)

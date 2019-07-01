@@ -9,9 +9,7 @@ import json
 
 from datadog_checks.github_repo import GithubRepoCheck
 
-from .common import FIXTURES_DIR
-
-
+FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures')
 log = logging.getLogger('test_openstack_controller')
 
 
