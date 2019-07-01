@@ -1,5 +1,5 @@
 from github import Github
-from github.GithubException import BadCredentialsException, UnknownObjectException, RateLimitExceededException
+from github.GithubException import BadCredentialsException, RateLimitExceededException, UnknownObjectException
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
@@ -34,24 +34,15 @@ class GithubRepoOneCheck(AgentCheck):
 
         except BadCredentialsException as e:
             self.handle_exception(
-                "Failed to authenticate to Github with given access_token",
-                AgentCheck.CRITICAL,
-                tags,
-                e,
+                "Failed to authenticate to Github with given access_token", AgentCheck.CRITICAL, tags, e
             )
         except UnknownObjectException as e:
             self.handle_exception(
-                "Failed to access repository. Check your repository_name config",
-                AgentCheck.CRITICAL,
-                tags,
-                e,
+                "Failed to access repository. Check your repository_name config", AgentCheck.CRITICAL, tags, e
             )
         except RateLimitExceededException as e:
             self.handle_exception(
-                "Rate limit exceeded. Make sure you provided an access_token",
-                AgentCheck.WARNING,
-                tags,
-                e,
+                "Rate limit exceeded. Make sure you provided an access_token", AgentCheck.WARNING, tags, e
             )
 
         # NOTE: The OK state service check must be at the end
