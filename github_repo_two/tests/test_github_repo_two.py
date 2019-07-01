@@ -1,37 +1,34 @@
-# (C) Datadog, Inc. 2019
-# All rights reserved
-# Licensed under a 3-clause BSD style license (see LICENSE)
 import logging
 
 import pytest
 
 from datadog_checks.base import ConfigurationError
-from datadog_checks.github_repo import GithubRepoCheck
+from datadog_checks.github_repo_two import GithubRepoTwoCheck
 
 log = logging.getLogger('test_github_repo')
 
 
 def test_check_invalid_configs():
     with pytest.raises(ConfigurationError):
-        GithubRepoCheck('github_repo', {}, {})
+        GithubRepoTwoCheck('github_repo', {}, {})
 
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
+    check = GithubRepoTwoCheck('github_repo', {'access_token': "foo"}, {})
     with pytest.raises(ConfigurationError):
         check.check({"repository_name": "bar"})
 
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
+    check = GithubRepoTwoCheck('github_repo', {'access_token': "foo"}, {})
     with pytest.raises(ConfigurationError):
         check.check({})
 
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
+    check = GithubRepoTwoCheck('github_repo', {'access_token': "foo"}, {})
     with pytest.raises(ConfigurationError):
         check.check({"repository_name": "bar"})
 
 
 def test_check_service_checks(aggregator):
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
+    check = GithubRepoTwoCheck('github_repo', {'access_token': "foo"}, {})
     with pytest.raises(ConfigurationError):
         check.check({"repository_name": "bar"})
 
-    sc = aggregator.service_checks(GithubRepoCheck.SERVICE_CHECK_NAME)
+    sc = aggregator.service_checks(GithubRepoTwoCheck.SERVICE_CHECK_NAME)
     assert sc[0].status == check.CRITICAL

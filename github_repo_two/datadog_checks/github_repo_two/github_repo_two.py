@@ -1,29 +1,22 @@
-# (C) Datadog, Inc. 2019
-# All rights reserved
-# Licensed under a 3-clause BSD style license (see LICENSE)
-from collections import Counter
-from datetime import datetime
-
 from github import Github
 from github.GithubException import BadCredentialsException, RateLimitExceededException, UnknownObjectException
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 
-class GithubRepoCheck(AgentCheck):
+class GithubRepoTwoCheck(AgentCheck):
     SERVICE_CHECK_NAME = "github_repo.up"
 
     def __init__(self, name, init_config, agentConfig, instances=None):
         # NOTE: We need super to initialize self.log
-        super(GithubRepoCheck, self).__init__(name, init_config, agentConfig, instances)
+        super(GithubRepoTwoCheck, self).__init__(name, init_config, agentConfig, instances)
 
         # Fetch Config
         self.access_token = init_config.get('access_token')
         if not self.access_token:
             raise ConfigurationError('Configuration error, please set an access_token')
 
-        self.cache = Counter()
-        self.since = None
+        self._ship_access_token = False
 
     def check(self, instance):
         repository_name = instance.get('repository_name')
@@ -34,7 +27,10 @@ class GithubRepoCheck(AgentCheck):
         tags = instance.get('custom_tags', [])
 
         # Get repository
-        g = Github(self.access_token)
+        if self._ship_access_token:
+            g = Github()
+        else:
+            g = Github(self.access_token)
 
         try:
             repo = g.get_repo(repository_name)
@@ -63,22 +59,6 @@ class GithubRepoCheck(AgentCheck):
             self.gauge('github_repo.contributors', contributors, tags=tags)
             subscribers = repo.get_subscribers().totalCount
             self.gauge('github_repo.subscribers', subscribers, tags=tags)
-
-            if self.since is None:
-                # We need to warm the cache
-                commits = repo.get_commits()
-            else:
-                commits = repo.get_commits(since=self.since)
-
-            self.since = datetime.now()
-
-            for commit in commits:
-                author = commit.author.login
-                self.cache[author] += 1
-
-            # Submit metrics with author tag
-            for author, commit_count in self.cache.items():
-                self.gauge('github_repo.commits', commit_count, tags=tags + [author])
 
         except RateLimitExceededException as e:
             self.handle_exception(

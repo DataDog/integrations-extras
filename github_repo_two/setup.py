@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'github_repo', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'github_repo_two', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -19,12 +19,12 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=4.2.0'
 
 
 setup(
-    name='datadog-github_repo',
+    name='datadog-github_repo_two',
     version=ABOUT['__version__'],
-    description='The github_repo check',
+    description='The github_repo_two check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent github_repo check',
+    keywords='datadog agent github_repo_two check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
@@ -43,7 +43,7 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.github_repo'],
+    packages=['datadog_checks.github_repo_two'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     # Extra files to ship with the wheel package

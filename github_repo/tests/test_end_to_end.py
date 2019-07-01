@@ -1,16 +1,16 @@
 # (C) Datadog, Inc. 2019
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import os
-import logging
-import mock
-
 import json
+import logging
+import os
+
+import mock
 
 from datadog_checks.github_repo import GithubRepoCheck
 
 FIXTURES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fixtures')
-log = logging.getLogger('test_openstack_controller')
+log = logging.getLogger('test_github_repo')
 
 
 def request_json_and_check(verb, url, parameters=None, headers=None, input=None):
@@ -40,15 +40,12 @@ def request_json_and_check(verb, url, parameters=None, headers=None, input=None)
         return j.get('header'), j.get('data')
 
 
-@mock.patch(
-    'github.Requester.Requester.requestJsonAndCheck',
-    side_effect=request_json_and_check,
-)
+@mock.patch('github.Requester.Requester.requestJsonAndCheck', side_effect=request_json_and_check)
 def test_check_using_fixtures(request_json_and_check_mock, instance, aggregator):
     check = GithubRepoCheck('github_repo', {"access_token": "fake_access_token"}, {})
     check.check(instance)
 
-    aggregator.assert_metric('github_repo.subscribers',  value=1.0,  tags=['Datadog/integrations-core'])
+    aggregator.assert_metric('github_repo.subscribers', value=1.0, tags=['Datadog/integrations-core'])
     aggregator.assert_metric('github_repo.stargazers', value=1.0, tags=['Datadog/integrations-core'])
     aggregator.assert_metric('github_repo.commits', value=1.0, tags=['Datadog/integrations-core', 'albertvaka'])
     aggregator.assert_metric('github_repo.commits', value=1.0, tags=['Datadog/integrations-core', 'l0k0ms'])

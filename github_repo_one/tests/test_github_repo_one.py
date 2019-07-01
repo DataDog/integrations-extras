@@ -5,7 +5,7 @@ import pytest
 from datadog_checks.base import ConfigurationError
 from datadog_checks.github_repo_one import GithubRepoOneCheck
 
-log = logging.getLogger('test_openstack_controller')
+log = logging.getLogger('test_github_repo')
 
 
 def test_check_invalid_configs():
