@@ -87,4 +87,4 @@ Need help? Contact [Datadog support][4].
 [1]: https://www.getambassador.io
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png
 [3]: https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv
-[4]: http://docs.datadoghq.com/help/
+[4]: https://docs.datadoghq.com/help

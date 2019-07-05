@@ -72,5 +72,5 @@ Learn more about infrastructure monitoring and all Datadog integrations in [our 
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/activate_datadog.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/datadog_activated.png
 [7]: https://github.com/DataDog/integrations-extras/blob/master/bonsai/metadata.csv
-[8]: http://docs.datadoghq.com/help/
-[9]: https://www.datadoghq.com/blog/
+[8]: https://docs.datadoghq.com/help
+[9]: https://www.datadoghq.com/blog

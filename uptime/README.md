@@ -41,6 +41,6 @@ The Uptime check does not include any service checks.
 Need help? Contact [Datadog support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptime/images/snapshot.png
-[2]: https://uptime.com/push-notifications/manage/
+[2]: https://uptime.com/push-notifications/manage
 [3]: https://github.com/DataDog/integrations-extras/blob/master/uptime/metadata.csv
-[4]: http://docs.datadoghq.com/help/
+[4]: https://docs.datadoghq.com/help

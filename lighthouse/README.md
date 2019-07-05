@@ -10,20 +10,42 @@ The Lighthouse check is not included in the [Datadog Agent][2] package, so you w
 
 ### Installation
 
-To install the Lighthouse check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Google Chrome Lighthouse check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
-1. Install the [developer toolkit][11] on any machine.
-2. Run `ddev release build lighthouse` to build the package.
-3. [Download the Datadog Agent][2].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/lighthouse/dist/<ARTIFACT_NAME>.whl`.
+1. Install the [developer toolkit][6].
+2. Clone the integrations-extras repository:
+
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
+
+3. Update your `ddev` config with the `integrations-extras/` path:
+
+    ```
+    ddev config set extras ./integrations-extras
+    ```
+
+4. To build the `lighthouse` package, run:
+
+    ```
+    ddev -e release build lighthouse
+    ```
+
+5. [Download and launch the Datadog Agent][7].
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_LIGHTHOUSE_ARTIFACT_>/<LIGHTHOUSE_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration][8].
 
 ### Configuration
 
-1. Create a `lighthouse.d/` folder in the `conf.d/` folder at the root of your Agent's directory. 
-2. Create a `conf.yaml` file in the `lighthouse.d/` folder previously created.
-3. Reference the example lighthouse [`conf.yaml.example` file][4] in this repository and copy it's contents into the `conf.yaml` file just created.
-4. Edit the `conf.yaml` file for your use case.  **Note**: It's unclear how resource intensive this can be, a typical lighthouse report takes 5-10 seconds to generate so it may be necessary to have a higher than usual `minimum_collection_interval`.
-5. Restart the Agent.
+1. Edit the `lighthouse.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Lighthouse [metrics](#metrics).
+  See the [sample lighthouse.d/conf.yaml][10] for all available configuration options.
+
+2. [Restart the Agent][11]
 
 ### Requirements
 
@@ -34,9 +56,9 @@ To install the Lighthouse check on your host:
     npm -v
     ```
 
-    If not, [install Node and npm][5].
+    If not, [install Node and npm][12].
 
-2. [Install Lighthouse][6]:
+2. [Install Lighthouse][13]:
 
     ```
     npm install -g lighthouse
@@ -50,7 +72,7 @@ To install the Lighthouse check on your host:
     └── puppeteer@1.12.2
     ```
 
-    If not, install Chrome or [Puppeteer][7]:
+    If not, install Chrome or [Puppeteer][14]:
 
     ```
     npm install -g puppeteer
@@ -58,11 +80,11 @@ To install the Lighthouse check on your host:
 
 ### Validation
 
-[Run the Agent's status subcommand][8] and look for `lighthouse` under the Checks section.
+[Run the Agent's status subcommand][15] and look for `lighthouse` under the Checks section.
 
 ## Data Collected
 ### Metrics
-See [metadata.csv][9] for a list of metrics provided by this check.
+See [metadata.csv][16] for a list of metrics provided by this check.
 
 ### Events
 The Lighthouse integration does not include any events.
@@ -71,16 +93,22 @@ The Lighthouse integration does not include any events.
 The Lighthouse integration does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][10].
+Need help? Contact [Datadog support][17].
 
-[1]: https://developers.google.com/web/tools/lighthouse/
+[1]: https://developers.google.com/web/tools/lighthouse
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/lighthouse.py
-[4]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/data/conf.yaml.example
-[5]: https://nodejs.org/en/download/
-[6]: https://github.com/GoogleChrome/lighthouse
-[7]: https://github.com/GoogleChrome/puppeteer
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
-[10]: https://docs.datadoghq.com/help/
-[11]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[7]: https://app.datadoghq.com/account/settings#agent
+[8]: https://docs.datadoghq.com/getting_started/integrations
+[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[10]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/data/conf.yaml.example
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[12]: https://nodejs.org/en/download
+[13]: https://github.com/GoogleChrome/lighthouse
+[14]: https://github.com/GoogleChrome/puppeteer
+[15]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[16]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
+[17]: https://docs.datadoghq.com/help

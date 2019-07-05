@@ -8,26 +8,52 @@ This check monitors [Nextcloud][1].
 
 ### Installation
 
-The Nextcloud check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself.
+If you are using Agent v6.8+ follow the instructions below to install the Nextcloud check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+
+1. Install the [developer toolkit][5].
+2. Clone the integrations-extras repository:
+
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
+
+3. Update your `ddev` config with the `integrations-extras/` path:
+
+    ```
+    ddev config set extras ./integrations-extras
+    ```
+
+4. To build the `nextcloud` package, run:
+
+    ```
+    ddev -e release build nextcloud
+    ```
+
+5. [Download and launch the Datadog Agent][6].
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_NEXTCLOUD_ARTIFACT_>/<NEXTCLOUD_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `nextcloud.d/conf.yaml` file, in the `conf.d/` folder at the root of your
-   Agent's configuration directory to start collecting your nextcloud performance data.
-   See the [sample nextcloud.d/conf.yaml][2] for all available configuration options.
+1. Edit the `nextcloud.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Nextcloud [metrics](#metrics).
+  See the [sample nextcloud.d/conf.yaml][9] for all available configuration options.
 
-2. [Restart the Agent][3]
+2. [Restart the Agent][10]
 
 ### Validation
 
-[Run the Agent's `status` subcommand][4] and look for `nextcloud` under the Checks section.
+[Run the Agent's `status` subcommand][11] and look for `nextcloud` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][5] for a list of metrics provided by this check.
+See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -45,11 +71,18 @@ Nextcloud does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][6].
+Need help? Contact [Datadog support][13].
 
-[1]: https://nextcloud.com/
-[2]: https://github.com/DataDog/integrations-core/blob/master/nextcloud/datadog_checks/nextcloud/data/conf.yaml.example
-[3]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[4]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
-[5]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/metadata.csv
-[6]: https://docs.datadoghq.com/help/
+[1]: https://nextcloud.com
+[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[6]: https://app.datadoghq.com/account/settings#agent
+[7]: https://docs.datadoghq.com/getting_started/integrations
+[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[9]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/datadog_checks/nextcloud/data/conf.yaml.example
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[12]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/metadata.csv
+[13]: https://docs.datadoghq.com/help
