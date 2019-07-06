@@ -45,35 +45,56 @@ def test_check_using_fixtures(request_json_and_check_mock, instance, aggregator)
     check = GithubRepoCheck('github_repo', {"access_token": "fake_access_token"}, {})
     check.check(instance)
 
-    aggregator.assert_metric('github_repo.subscribers', value=1.0, tags=['Datadog/integrations-extras'])
-    aggregator.assert_metric('github_repo.stargazers', value=1.0, tags=['Datadog/integrations-extras'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:albertvaka'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:l0k0ms'])
-    aggregator.assert_metric('github_repo.commits', value=7.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:FlorianVeaux'])
-    aggregator.assert_metric('github_repo.commits', value=2.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:coignetp'])
-    aggregator.assert_metric('github_repo.commits', value=2.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:dabcoder'])
-    aggregator.assert_metric('github_repo.commits', value=2.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:ofek'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:mikekatica'])
-    aggregator.assert_metric('github_repo.commits', value=2.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:therve'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:scseanchow'])
-    aggregator.assert_metric('github_repo.commits', value=7.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:hithwen'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:victorvanleeuwen'])
-    aggregator.assert_metric('github_repo.commits', value=2.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:AlexandreYang'])
-    aggregator.assert_metric('github_repo.commits', value=1.0,
-                             tags=['Datadog/integrations-extras', 'repository_name:jeffwidman'])
-    aggregator.assert_metric('github_repo.watchers', value=1.0, tags=['Datadog/integrations-extras'])
-    aggregator.assert_metric('github_repo.contributors', value=1.0, tags=['Datadog/integrations-extras'])
+    aggregator.assert_metric('github_repo.subscribers', value=1.0, tags=['repository_name:Datadog/integrations-extras'])
+    aggregator.assert_metric('github_repo.stargazers', value=1.0, tags=['repository_name:Datadog/integrations-extras'])
+    aggregator.assert_metric(
+        'github_repo.commits', value=1.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:albertvaka']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=1.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:l0k0ms']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits',
+        value=7.0,
+        tags=['repository_name:Datadog/integrations-extras', 'contributor:FlorianVeaux'],
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=2.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:coignetp']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=2.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:dabcoder']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=2.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:ofek']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=1.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:mikekatica']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=2.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:therve']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=1.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:scseanchow']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=7.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:hithwen']
+    )
+    aggregator.assert_metric(
+        'github_repo.commits',
+        value=1.0,
+        tags=['repository_name:Datadog/integrations-extras', 'contributor:victorvanleeuwen'],
+    )
+    aggregator.assert_metric(
+        'github_repo.commits',
+        value=2.0,
+        tags=['repository_name:Datadog/integrations-extras', 'contributor:AlexandreYang'],
+    )
+    aggregator.assert_metric(
+        'github_repo.commits', value=1.0, tags=['repository_name:Datadog/integrations-extras', 'contributor:jeffwidman']
+    )
+    aggregator.assert_metric('github_repo.watchers', value=1.0, tags=['repository_name:Datadog/integrations-extras'])
+    aggregator.assert_metric(
+        'github_repo.contributors', value=1.0, tags=['repository_name:Datadog/integrations-extras']
+    )
 
     aggregator.assert_all_metrics_covered()

@@ -78,7 +78,7 @@ class GithubRepoCheck(AgentCheck):
 
             # Submit metrics with author tag
             for author, commit_count in self.cache.items():
-                self.gauge('github_repo.commits', commit_count, tags=tags + [author])
+                self.gauge('github_repo.commits', commit_count, tags=tags + ["contributor:{}".format(author)])
 
         except RateLimitExceededException as e:
             self.handle_exception(
