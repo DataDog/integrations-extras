@@ -15,13 +15,13 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-CHECKS_BASE_REQ = 'datadog-checks-base>=6.6.0'
+CHECKS_BASE_REQ = 'datadog-checks-base>=4.2.0'
 
 
 setup(
     name='datadog-github_repo',
     version=ABOUT['__version__'],
-    description='The github_repo check',
+    description='The Github Repo check',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent github_repo check',

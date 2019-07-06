@@ -5,13 +5,13 @@ The logos folder should contain three images with filenames and sizes that exact
 #### `saas_logos-bot.png` (200 × 128)
 
 - Integration tile images at `/account/settings`
-- Description heading at `/account/settings#integrations/github_repo_two`
+- Description heading at `/account/settings#integrations/github_repo`
 - Integration monitor tiles and search bar results images at `/monitors#create/integration`
 
 #### `saas_logos-small.png` (120 × 60)
 
 - Integration dashboards list images at `/dash/list`
-- Some integration dashboards/screenboards at `/dash/integration/github_repo_two`
+- Some integration dashboards/screenboards at `/dash/integration/github_repo`
 
 #### `avatars-bot.png` (128 × 128)
 
