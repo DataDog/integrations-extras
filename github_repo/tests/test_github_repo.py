@@ -12,18 +12,17 @@ log = logging.getLogger('test_github_repo')
 
 
 def test_check_invalid_configs():
+    # Test missing access_token
     with pytest.raises(ConfigurationError):
         GithubRepoCheck('github_repo', {}, {})
 
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
-    with pytest.raises(ConfigurationError):
-        check.check({"repository_name": "bar"})
-
+    # Test missing repository_name
     check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
     with pytest.raises(ConfigurationError):
         check.check({})
 
-    check = GithubRepoCheck('github_repo', {'access_token': "foo"}, {})
+    # Test invalid access_token
+    check = GithubRepoCheck('github_repo', {'access_token': "invalid"}, {})
     with pytest.raises(ConfigurationError):
         check.check({"repository_name": "bar"})
 

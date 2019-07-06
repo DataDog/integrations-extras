@@ -2,18 +2,18 @@
 
 ## Overview
 
-This check monitors [Github_repo][1] through the Datadog Agent.
+This check monitors [Github Repo][1] through the Datadog Agent.
 
 ## Setup
 
 ### Installation
 
-The Github_repo check is not included in the [Datadog Agent][2] package, so you will
+The Github Repo check is not included in the [Datadog Agent][2] package, so you will
 need to install it yourself.
 
 ### Configuration
 
-1. Edit the `github_repo.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your github_repo performance data. See the [sample github_repo.d/conf.yaml][2] for all available configuration options.
+1. Edit the `github_repo.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Github Repo performance data. See the [sample github_repo.d/conf.yaml][2] for all available configuration options.
 
 2. [Restart the Agent][3].
 
@@ -25,15 +25,15 @@ need to install it yourself.
 
 ### Metrics
 
-Github_repo does not include any metrics.
+Github Repo does not include any metrics.
 
 ### Service Checks
 
-Github_repo does not include any service checks.
+Github Repo does not include any service checks.
 
 ### Events
 
-Github_repo does not include any events.
+Github Repo does not include any events.
 
 ## Troubleshooting
 
