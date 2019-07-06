@@ -38,7 +38,7 @@ class GithubRepoCheck(AgentCheck):
 
         try:
             repo = g.get_repo(repository_name)
-            self.log.debug(repo.full_name)
+            self.log.debug('Getting stats for: {}'.format(repo.full_name))
             tags.append("repository_name:{}".format(repository_name))
 
         except BadCredentialsException as e:
