@@ -1,5 +1,6 @@
 import boto3
 import json
+import six
 
 from botocore.exceptions import ClientError
 from datadog_checks.base import AgentCheck
@@ -24,7 +25,7 @@ class AwsPricingCheck(AgentCheck):
 
             missing_rate_codes = {}
 
-            for service_code, rate_codes in rate_codes_dict.items():
+            for service_code, rate_codes in six.iteritems(rate_codes_dict):
                 for rate_code in rate_codes:
                     price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
 
