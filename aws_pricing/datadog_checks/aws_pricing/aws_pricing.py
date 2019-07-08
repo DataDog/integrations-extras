@@ -4,6 +4,7 @@ from collections import defaultdict
 import boto3
 import six
 from botocore.exceptions import ClientError
+from six.moves import filter
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.errors import CheckException
@@ -95,7 +96,7 @@ def find_price_dimensions_by_rate_code(rate_code, terms):
     rate_code_parts = rate_code.split('.')
     term_code = '.'.join(rate_code_parts[:2])
 
-    term = list(filter(lambda term: term_code in term, terms))[0]
+    term = next(filter(lambda term: term_code in term, terms))
     price_dimensions = term[term_code]['priceDimensions'][rate_code]
 
     return price_dimensions
