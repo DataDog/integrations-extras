@@ -1,4 +1,5 @@
 import boto3
+from collections import defaultdict
 import json
 import six
 
@@ -23,14 +24,14 @@ class AwsPricingCheck(AgentCheck):
             if not rate_codes_dict:
                 raise CheckException('No rate codes for existing AWS services were defined, please fix conf.yaml')
 
-            missing_rate_codes = {}
+            missing_rate_codes = defaultdict(list)
 
             for service_code, rate_codes in six.iteritems(rate_codes_dict):
                 for rate_code in rate_codes:
                     price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
 
                     if price_dimensions is None:
-                        missing_rate_codes.setdefault(service_code, []).append(rate_code)
+                        missing_rate_codes[service_code].append(rate_code)
                         continue
 
                     name = 'aws.pricing.{}'.format(service_code.lower())
@@ -41,7 +42,7 @@ class AwsPricingCheck(AgentCheck):
 
             # Python dictionaries evaluate to true when not empty
             if missing_rate_codes:
-                message = 'Pricing data not found for these service rate codes: {}'.format(missing_rate_codes)
+                message = 'Pricing data not found for these service rate codes: {}'.format(dict(missing_rate_codes))
                 self.service_check('aws_pricing.status', self.WARNING, message=message)
 
             self.service_check('aws_pricing.status', self.OK)
