@@ -1,5 +1,5 @@
 import pytest
-from mock import patch, Mock
+from mock import Mock, patch
 
 from datadog_checks.aws_pricing import AwsPricingCheck
 from datadog_checks.errors import CheckException
@@ -8,21 +8,20 @@ from datadog_checks.errors import CheckException
 def test_check_ok(aggregator, pricing_client_stubber):
     # Mock client responses
     pricing_client_stubber.stub_describe_services_response(['AmazonEC2'])
-    pricing_client_stubber.stub_get_products_response([
-        {
-            'service_code': 'AmazonEC2',
-            'term_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4',
-            'rate_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7',
-            'unit': 'Hrs',
-            'price': '123'
-        }
-    ])
+    pricing_client_stubber.stub_get_products_response(
+        [
+            {
+                'service_code': 'AmazonEC2',
+                'term_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4',
+                'rate_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7',
+                'unit': 'Hrs',
+                'price': '123',
+            }
+        ]
+    )
 
     # Mock instance configuration
-    instance = {
-        'region_name': 'us-west-2',
-        'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']
-    }
+    instance = {'region_name': 'us-west-2', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
@@ -43,10 +42,7 @@ def test_check_warning(aggregator, pricing_client_stubber):
     pricing_client_stubber.stub_get_products_response([])
 
     # Mock instance configuration
-    instance = {
-        'region_name': 'us-west-2',
-        'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']
-    }
+    instance = {'region_name': 'us-west-2', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
@@ -112,10 +108,7 @@ def test_check_describe_services_clienterror(aggregator, pricing_client_stubber)
     pricing_client_stubber.stub_describe_services_error(code, message)
 
     # Mock instance configuration
-    instance = {
-        'region_name': 'us-west-2',
-        'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']
-    }
+    instance = {'region_name': 'us-west-2', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
@@ -137,10 +130,7 @@ def test_check_get_products_clienterror(aggregator, pricing_client_stubber):
     pricing_client_stubber.stub_get_products_error(code, message)
 
     # Mock instance configuration
-    instance = {
-        'region_name': 'us-west-2',
-        'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']
-    }
+    instance = {'region_name': 'us-west-2', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):

@@ -1,9 +1,10 @@
-import boto3
-from collections import defaultdict
 import json
-import six
+from collections import defaultdict
 
+import boto3
+import six
 from botocore.exceptions import ClientError
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.errors import CheckException
 
@@ -65,9 +66,7 @@ def get_rate_codes_dict_from_instance(service_codes, instance):
 
 
 def get_aws_service_codes(pricing_client):
-    response = pricing_client.describe_services(
-        FormatVersion='aws_v1'
-    )
+    response = pricing_client.describe_services(FormatVersion='aws_v1')
 
     service_codes = map(lambda service: service['ServiceCode'], response['Services'])
 
@@ -79,7 +78,7 @@ def get_aws_prices(pricing_client, service_code, rate_code):
         FormatVersion='aws_v1',
         ServiceCode=service_code,
         Filters=[{'Type': 'TERM_MATCH', 'Field': 'RateCode', 'Value': rate_code}],
-        MaxResults=1
+        MaxResults=1,
     )
 
     price_dimensions = None
@@ -103,10 +102,7 @@ def find_price_dimensions_by_rate_code(rate_code, terms):
 
 
 def get_tags_from_price_dimensions(price_dimensions):
-    return {
-        'rate_code': price_dimensions['rateCode'],
-        'unit': price_dimensions['unit']
-    }
+    return {'rate_code': price_dimensions['rateCode'], 'unit': price_dimensions['unit']}
 
 
 def get_price_from_price_dimensions(price_dimensions):

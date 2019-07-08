@@ -43,7 +43,7 @@ class PricingClientStubber:
                 'FormatVersion': 'aws_v1',
                 'ServiceCode': service_code,
                 'Filters': [{'Type': 'TERM_MATCH', 'Field': 'RateCode', 'Value': rate_code}],
-                'MaxResults': 1
+                'MaxResults': 1,
             }
 
             get_products_response = {
@@ -64,7 +64,9 @@ class PricingClientStubber:
                             }}
                         }}
                     }}
-                    '''.format(term_code, rate_code, unit, price)
+                    '''.format(
+                        term_code, rate_code, unit, price
+                    )
                 ]
             }
 

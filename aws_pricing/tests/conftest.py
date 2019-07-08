@@ -1,6 +1,5 @@
-import pytest
 import boto3
-
+import pytest
 from tests.pricing_client_stubber import PricingClientStubber
 
 
