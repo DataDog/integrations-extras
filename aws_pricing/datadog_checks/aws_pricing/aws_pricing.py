@@ -54,10 +54,7 @@ class AwsPricingCheck(AgentCheck):
 def get_rate_codes_dict_from_instance(service_codes, instance):
     rate_codes_dict = {}
     for service_code in service_codes:
-        rate_codes_string = instance.get(service_code)
-        if rate_codes_string is not None:
-            rate_codes = map(str.strip, rate_codes_string.split(','))
-            rate_codes_dict[service_code] = rate_codes
+        rate_codes_dict[service_code] = instance.get(service_code)
 
     return rate_codes_dict
 

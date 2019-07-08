@@ -5,9 +5,14 @@ instances:
     ## AWS region to run PricingService requests in.
     #
   - region_name: us-west-2
+
+    ## Below is an example of how you would configure monitoring for AmazonEC2 pricing.
+    ## This same format can be used for any other AWS service.
+
     ## @param AmazonEC2 - string - optional
     ## Rate codes to monitor for AmazonEC2 service.
     #
-  - AmazonEC2: rate_code_1,rate_code_2,rate_code_3
-    # - AmazonCloudFront: rate_code_1,rate_code_2,rate_code_3
-    # - ...
+    # - AmazonEC2:
+    #   - <RATE_CODE_1>
+    #   - <RATE_CODE_2>
+    #   - <RATE_CODE_3>
