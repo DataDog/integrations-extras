@@ -41,11 +41,11 @@ class AwsPricingCheck(AgentCheck):
                     self.gauge(name, price, tags)
 
             # Python dictionaries evaluate to true when not empty
-            if missing_rate_codes:
+            if not missing_rate_codes:
+                self.service_check('aws_pricing.status', self.OK)
+            else:
                 message = 'Pricing data not found for these service rate codes: {}'.format(dict(missing_rate_codes))
                 self.service_check('aws_pricing.status', self.WARNING, message=message)
-
-            self.service_check('aws_pricing.status', self.OK)
 
         except ClientError as client_error:
             self.service_check('aws_pricing.status', self.CRITICAL, message=str(client_error))
