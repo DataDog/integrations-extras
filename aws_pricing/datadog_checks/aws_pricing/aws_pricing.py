@@ -9,7 +9,11 @@ from datadog_checks.errors import CheckException
 class AwsPricingCheck(AgentCheck):
     def check(self, instance):
         try:
-            pricing_client = boto3.client('pricing', region_name='us-east-1')
+            region_name = instance.get('region_name')
+            if not region_name:
+                raise CheckException('No region name has been specified, please fix conf.yaml')
+
+            pricing_client = boto3.client('pricing', region_name=region_name)
 
             service_codes = get_aws_service_codes(pricing_client)
             rate_codes_dict = get_rate_codes_dict_from_instance(service_codes, instance)
