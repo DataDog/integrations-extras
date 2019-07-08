@@ -7,10 +7,11 @@ from datadog_checks.errors import CheckException
 
 
 class AwsPricingCheck(AgentCheck):
-    def check(self, instance, pricing_client=boto3.client('pricing', region_name='us-east-1')):
+    def check(self, instance):
         try:
-            service_codes = get_aws_service_codes(pricing_client)
+            pricing_client = boto3.client('pricing', region_name='us-east-1')
 
+            service_codes = get_aws_service_codes(pricing_client)
             rate_codes_dict = get_rate_codes_dict_from_instance(service_codes, instance)
 
             # Python dictionaries evaluate to false when empty

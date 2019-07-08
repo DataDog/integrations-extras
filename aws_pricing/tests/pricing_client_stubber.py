@@ -6,11 +6,14 @@ class PricingClientStubber:
         self.client = client
         self.stubber = Stubber(client)
 
-    def activate(self):
+    def __enter__(self):
         self.stubber.activate()
 
-    def deactivate(self):
+    def __exit__(self, type, value, traceback):
         self.stubber.deactivate()
+
+    def get_client(self):
+        return self.client
 
     def stub_describe_services_error(self, service_error_code='', service_message='', http_status_code=400):
         self.stubber.add_client_error('describe_services', service_error_code, service_message, http_status_code)

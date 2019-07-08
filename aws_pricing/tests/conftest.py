@@ -19,6 +19,5 @@ def pricing_client():
 @pytest.fixture()
 def pricing_client_stubber(pricing_client):
     pricing_client_stubber = PricingClientStubber(pricing_client)
-    pricing_client_stubber.activate()
 
     return pricing_client_stubber
