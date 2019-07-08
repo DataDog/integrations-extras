@@ -13,7 +13,9 @@ class AwsPricingCheck(AgentCheck):
         try:
             region_name = instance.get('region_name')
             if not region_name:
-                raise CheckException('No region name has been specified, please fix conf.yaml')
+                message = 'No region name has been specified, please fix conf.yaml'
+                self.service_check('aws_pricing.status', self.CRITICAL, message=message)
+                raise CheckException(message)
 
             pricing_client = boto3.client('pricing', region_name=region_name)
 
@@ -22,7 +24,9 @@ class AwsPricingCheck(AgentCheck):
 
             # Python dictionaries evaluate to false when empty
             if not rate_codes_dict:
-                raise CheckException('No rate codes for existing AWS services were defined, please fix conf.yaml')
+                message = 'No rate codes for existing AWS services were defined, please fix conf.yaml'
+                self.service_check('aws_pricing.status', self.CRITICAL, message=message)
+                raise CheckException(message)
 
             missing_rate_codes = defaultdict(list)
 
@@ -49,6 +53,7 @@ class AwsPricingCheck(AgentCheck):
 
         except ClientError as client_error:
             self.service_check('aws_pricing.status', self.CRITICAL, message=str(client_error))
+            raise CheckException('Pricing Service client error: {}'.format(str(client_error)))
 
 
 def get_rate_codes_dict_from_instance(service_codes, instance):

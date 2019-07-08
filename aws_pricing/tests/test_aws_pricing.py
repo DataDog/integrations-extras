@@ -70,6 +70,10 @@ def test_check_checkexception_no_region_name(aggregator, pricing_client_stubber)
         with pytest.raises(CheckException):
             check.check({})
 
+    # Validate results
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL)
+    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
+
 
 def test_check_checkexception_no_ratecodes(aggregator, pricing_client_stubber):
     # Mock client responses
@@ -81,6 +85,10 @@ def test_check_checkexception_no_ratecodes(aggregator, pricing_client_stubber):
         with pytest.raises(CheckException):
             check.check({})
 
+    # Validate results
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL)
+    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
+
 
 def test_check_checkexception(aggregator, pricing_client_stubber):
     # Mock client responses
@@ -91,6 +99,10 @@ def test_check_checkexception(aggregator, pricing_client_stubber):
         check = AwsPricingCheck('aws_pricing', {})
         with pytest.raises(CheckException):
             check.check({})
+
+    # Validate results
+    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL)
+    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
 
 
 def test_check_describe_services_clienterror(aggregator, pricing_client_stubber):
@@ -107,8 +119,9 @@ def test_check_describe_services_clienterror(aggregator, pricing_client_stubber)
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        check = AwsPricingCheck('aws_pricing', {})
-        check.check(instance)
+        with pytest.raises(CheckException):
+            check = AwsPricingCheck('aws_pricing', {})
+            check.check(instance)
 
     # Validate results
     message = 'An error occurred ({}) when calling the DescribeServices operation: {}'.format(code, message)
@@ -131,8 +144,9 @@ def test_check_get_products_clienterror(aggregator, pricing_client_stubber):
 
     # Run check
     with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        check = AwsPricingCheck('aws_pricing', {})
-        check.check(instance)
+        with pytest.raises(CheckException):
+            check = AwsPricingCheck('aws_pricing', {})
+            check.check(instance)
 
     # Validate results
     message = 'An error occurred ({}) when calling the GetProducts operation: {}'.format(code, message)
