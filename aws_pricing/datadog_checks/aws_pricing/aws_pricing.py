@@ -15,9 +15,7 @@ class AwsPricingCheck(AgentCheck):
         try:
             region_name = instance.get('region_name')
             if not region_name:
-                message = 'No region name has been specified, please fix conf.yaml'
-                self.service_check('aws_pricing.status', self.CRITICAL, message=message)
-                raise CheckException(message)
+                region_name = 'us-east-1'
 
             pricing_client = boto3.client('pricing', region_name=region_name)
 
@@ -61,7 +59,9 @@ class AwsPricingCheck(AgentCheck):
 def get_rate_codes_dict_from_instance(service_codes, instance):
     rate_codes_dict = {}
     for service_code in service_codes:
-        rate_codes_dict[service_code] = instance.get(service_code)
+        instance_rate_codes = instance.get(service_code)
+        if instance_rate_codes is not None:
+            rate_codes_dict[service_code] = instance_rate_codes
 
     return rate_codes_dict
 
