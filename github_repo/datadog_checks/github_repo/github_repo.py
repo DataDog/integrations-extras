@@ -34,7 +34,6 @@ class GithubRepoCheck(AgentCheck):
         # NOTE: custom_tags is a stretch
         tags = instance.get('custom_tags', [])
 
-        # Get repository
         g = Github(self.access_token)
 
         try:
