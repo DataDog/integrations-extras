@@ -25,11 +25,13 @@ be installed manually.
 
 ### Metrics
 
-Github Repo does not include any metrics.
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Github Repo does not include any service checks.
+`github_repo.up`:
+
+Returns CRITICAL if the Agent cannot connect to the Github API to collect metrics, WARNING if the Agent hits Github maximum API call limit, otherwise OK.
 
 ### Events
 
@@ -37,10 +39,12 @@ Github Repo does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Datadog support][6].
 
 [1]: **LINK_TO_INTEGRATION_SITE**
 [2]: https://github.com/DataDog/integrations-core/blob/master/github_repo/datadog_checks/github_repo/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
-[5]: https://docs.datadoghq.com/help
+[5]: https://github.com/DataDog/integrations-extras/blob/master/github_repo/metadata.csv
+[6]: https://docs.datadoghq.com/help
+
