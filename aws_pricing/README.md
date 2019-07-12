@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check pulls in pricing information [published by AWS][1] to make it easier to measure cost of resource utilization in within Datadog.
+This check pulls pricing information [published by AWS][1] to make it easier to measure cost of resource utilization within Datadog.
 
 Icon made by [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [www.flaticon.com](https://www.flaticon.com/) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
 
@@ -10,8 +10,7 @@ Icon made by [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [www.flati
 
 ### Installation
 
-The AWS Pricing check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself using [the official community integration installation instructions][7].
+The AWS Pricing check is not included in the [Datadog Agent][2] package, so you need to install it yourself using [the official community integration installation instructions][7].
 
 ### Configuration
 
