@@ -39,7 +39,7 @@ Enter the API Key in the API Key field.
 Click Add
 
 
-#### Need more information?
+**Need more information?**
 
 - [Here’s a video][9] that covers the agent configuration and Datadog setup
 - Read the full [Signal Sciences docs][10]
