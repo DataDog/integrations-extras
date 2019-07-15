@@ -30,13 +30,13 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 **Events Integration**
 
-- Within Datadog, [create an API key][2].
+Within Datadog, [create an API key][2].
 
-- In your [Signal Sciences Dashboard][3] on the Site navigation bar, click Manage > Integrations and click Add next to the Datadog Event integration.
+In your [Signal Sciences Dashboard][3] on the Site navigation bar, click Manage > Integrations and click Add next to the Datadog Event integration.
 
-- Enter the API Key in the API Key field.
+Enter the API Key in the API Key field.
 
-- Click Add
+Click Add
 
 
 #### Need more information?
