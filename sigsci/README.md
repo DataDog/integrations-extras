@@ -2,8 +2,6 @@
 
 Send Signal Sciences metrics and events to Datadog to monitor real-time attacks and abuse against your applications, APIs, and microservices, and to ensure Signal Sciences is functioning and inspecting traffic as expected.
 
-![image-datadog-sigsci-dashboard][11]
-
 ![image-datadog-sigsci-security][1]
 
 Get metrics and events from Signal Sciences in real-time to:
@@ -17,19 +15,8 @@ Get metrics and events from Signal Sciences in real-time to:
   - Path Scanning
   - Anomalous Traffic
   - Unknown Sources
-  - Server 400/500s
+  - Server 400 and 500s
 
-* See IPs that Signal Sciences has blocked and/or flagged as malicious from any of the following activities:
-  - OWASP Injection Attacks
-  - Application DoS
-  - Brute Force Attacks
-  - Application Abuse & Misuse
-  - Request Rate Limiting
-  - Account Takeover
-  - Bad Bots
-  - Virtual Patching
-
-* See alerts on Signal Sciences agent status
 
 ## Setup
 
@@ -43,10 +30,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 - Configure the Signal Sciences agent to use DogstatsD:
 
-    Add the following line to each agent’s agent.config file:
-    ```
-    statsd-type = "dogstatsd"
-    ```
+    Add the following line to each agent’s agent.config file: `statsd-type = "dogstatsd"`
 
     When this is done the agent’s statsd client will have tagging enabled and metrics such as `sigsci.agent.signal.<signal_type>` will be sent as `sigsci.agent.signal` and tagged with `signal_type:<signal_type>`.
 
@@ -54,10 +38,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 - Configure the SigSci agent to send metrics to the Datadog agent:
 
-  Add the following line to each agent’s agent.config file:
-  ```
-  statsd-address=<datadog agent hostname:port>
-  ```
+  Add the following line to each agent’s agent.config file: `statsd-address=<datadog agent hostname:port>`
 
 - In Datadog, verify that the “Signal Sciences - Overview” dashboard is created and starting to capture metrics
 
