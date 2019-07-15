@@ -302,7 +302,7 @@
 			"title_align": "left",
 			"time": {},
 			"requests": [{
-				"q": "top(avg:sigsci.agent.signal{*} by {signal_type}.as_count(), 10, 'sum', 'desc')",
+				"q": "avg:sigsci.agent.signal{*} by {signal_type}.as_count()",
 				"conditional_formats": [],
 				"style": {
 					"palette": "dog_classic"
@@ -520,4 +520,3 @@
 	}],
 	"layout_type": "free"
 }
-
