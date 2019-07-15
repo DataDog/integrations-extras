@@ -43,7 +43,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 - Configure the Signal Sciences agent to use DogstatsD:
 
-    Add the following line to each agent’s agent.config file:
+    Add the following line to each agent's agent.config file:
     ```
     statsd-type = "dogstatsd"
     ```
@@ -54,12 +54,12 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 - Configure the SigSci agent to send metrics to the Datadog agent:
 
-  Add the following line to each agent’s agent.config file:
+  Add the following line to each agent's agent.config file:
   ```
   statsd-address=<datadog agent hostname:port>
   ```
 
-- In Datadog, verify that the “Signal Sciences - Overview” dashboard is created and starting to capture metrics
+- In Datadog, verify that the "Signal Sciences - Overview" dashboard is created and starting to capture metrics
 
 **Events Integration**
 
