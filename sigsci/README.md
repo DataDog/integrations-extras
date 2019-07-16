@@ -121,4 +121,4 @@ To sign up for the Signal Sciences-Datadog Monitoring, a free service to see att
 [8]: https://docs.signalsciences.net/install-guides/
 [9]: https://player.vimeo.com/video/347360711
 [10]: https://docs.signalsciences.net/integrations/datadog/
-[11]: https://raw.githubusercontent.com/DataDog/integrations-extras/dhruv/sigsci_dashboard/sigsci/images/datadog-sigsci-dashboard.png
+[11]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard.png
