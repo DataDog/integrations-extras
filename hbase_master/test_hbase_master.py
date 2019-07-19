@@ -5,7 +5,6 @@
 # stdlib
 import threading
 import time
-from types import ListType
 import unittest
 import os
 import mock
@@ -91,7 +90,7 @@ class TestHbase_master(unittest.TestCase):
                 raise Exception("No metrics were received in 60 seconds")
 
         metrics = self.reporter.metrics
-        self.assertTrue(isinstance(metrics, ListType))
+        self.assertTrue(isinstance(metrics, list))
         self.assertTrue(len(metrics) > 0)
 
         self.assertTrue(

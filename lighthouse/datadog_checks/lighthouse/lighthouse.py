@@ -1,5 +1,6 @@
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
+from datadog_checks.base.utils.common import round_value
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 import json
 
@@ -38,11 +39,11 @@ class LighthouseCheck(AgentCheck):
             raise CheckException(error_message, exit_code, e)
 
         if data["runtimeError"]["code"] == EXPECTED_RESPONSE_CODE:
-            score_accessibility = round(data["categories"]["accessibility"]["score"] * 100)
-            score_best_practices = round(data["categories"]["best-practices"]["score"] * 100)
-            score_performance = round(data["categories"]["performance"]["score"] * 100)
-            score_pwa = round(data["categories"]["pwa"]["score"] * 100)
-            score_seo = round(data["categories"]["seo"]["score"] * 100)
+            score_accessibility = round_value(data["categories"]["accessibility"]["score"] * 100)
+            score_best_practices = round_value(data["categories"]["best-practices"]["score"] * 100)
+            score_performance = round_value(data["categories"]["performance"]["score"] * 100)
+            score_pwa = round_value(data["categories"]["pwa"]["score"] * 100)
+            score_seo = round_value(data["categories"]["seo"]["score"] * 100)
         else:
             err_code = data["runtimeError"]["code"]
             err_msg = data["runtimeError"]["message"]
