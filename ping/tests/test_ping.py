@@ -37,3 +37,4 @@ def test_check(aggregator, instance):
     with mock.patch.object(c, "_exec_ping", return_value=mock_exec_ping()):
         c.check(instance)
     aggregator.assert_service_check('network.ping.can_connect', AgentCheck.OK)
+    aggregator.assert_metric('network.ping.can_connect', value=1)
