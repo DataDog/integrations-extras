@@ -5,6 +5,7 @@
 from datadog_checks.checks import AgentCheck
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 from datadog_checks.errors import CheckException
+
 import platform
 import re
 import pytest
@@ -16,7 +17,6 @@ class PingCheck(AgentCheck):
 
     def _load_conf(self, instance):
         # Fetches the conf
-
         timeout = float(instance.get('timeout', 4))
         response_time = instance.get('collect_response_time', False)
         custom_tags = instance.get('tags', [])
@@ -56,11 +56,7 @@ class PingCheck(AgentCheck):
 
         try:
             lines = self._exec_ping(timeout, host)
-
             regex = re.compile(r"time=((\d|\.)*)")
-
-            length = None
-
             result = regex.findall(lines)
             if result:
                 length = result[0][0]
@@ -84,5 +80,5 @@ class PingCheck(AgentCheck):
         self.service_check(self.SERVICE_CHECK_NAME,
                            AgentCheck.OK,
                            custom_tags,
-                           "")
+                           )
         self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags)
