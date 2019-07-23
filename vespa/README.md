@@ -48,11 +48,13 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 ### Service Checks
 
 **vespa.metrics_health**:<br>
-Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][11]. Returns `WARNING` if there is a response from the Vespa [Node metrics API][11] but there was an error in processing, otherwise returns `OK`.
+Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][11]. Returns `WARNING` if there is a
+response from the Vespa [Node metrics API][11] but there was an error in processing, otherwise returns `OK`.
 
 **vespa.process_health**:<br>
-Returns `CRITICAL` if the Agent is unable to connect to the Vespa [Node metrics API][11]. Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][11] can connect to the process, but gets an error in the response), otherwise returns `OK`.
-* `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][11] fails to connect to
+For each Vespa process, returns `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][11] fails to connect to the process).
+Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][11] can connect to the process, but
+gets an error in the response), otherwise returns `OK`.
 
 ### Events
 
