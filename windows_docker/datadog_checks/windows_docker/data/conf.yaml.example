@@ -1,126 +1,152 @@
 init_config:
-  # Change the root directory to look at to get cgroup statistics. Useful when running inside a
-  # container with host directories mounted on a different folder. Default: /.
-  # Example for the datadog-agent container:
-  #docker_root: /host
 
-  # Timeout in seconds for the connection to the docker daemon
-  # Default: 5 seconds
+  ## @param docker_root - string - optional - default: /.
+  ## Change the root directory to look at to get cgroup statistics. Useful when running inside a
+  ## container with host directories mounted on a different folder.
+  ## Example for the docker-datadog-agent container:
+  ## docker_root: /host
   #
-  # timeout: 10
+  # docker_root: /
 
-  # The version of the API the client will use. Specify 'auto' to use the API version provided by the server.
+  ## @param timeout - integer - optional - default: 5
+  ## Timeout in seconds for the connection to the docker daemon
+  ## Default: 5 seconds
+  #
+  # timeout: 5
+
+  ## @param api_version - string - optional - default: auto
+  ## The version of the API the client uses.
+  ## 'auto' picks the API version provided by the server.
+  #
   # api_version: auto
 
-  # Use TLS encryption while communicating with the Docker API
+  ## @param tls - boolean - optional - default: false
+  ## Set to true to enable TLS encryption while communicating
+  ## with the Docker API
   #
-  # tls: False
-  # tls_client_cert: /path/to/client-cert.pem
-  # tls_client_key: /path/to/client-key.pem
-  # tls_cacert: /path/to/ca.pem
-  # tls_verify: True
+  # tls: false
+
+  ## @param tls_client_cert - string - optional
+  ## Path to the client certificate file (client-cert.pem).
+  #
+  # tls_client_cert: <CLIENT_CERT_PATH>
+
+  ## @param tls_client_key - string - optional
+  ## Path to the TLS client key file (client-key.pem).
+  #
+  # tls_client_key: <CLIENT_KEY_PATH>
+
+  ## @param tls_cacert - string - optional
+  ## Path to the TLS CA certificate file (ca.pem).
+  #
+  # tls_cacert: <TLS_CA_CERT_PATH>
+
+  ## @param tls_verify - boolean - optional - default: true
+  ## Set this variable to false to disable TLS verification.
+  #
+  # tls_verify: true
 
 instances:
-  - ## Daemon and system configuration
-    ##
 
-    # URL of the Docker daemon socket to reach the Docker API. HTTP/HTTPS also works.
-    # Warning: if that's a non-local daemon, we won't be able to collect performance metrics.
+    ## @param url - string - required
+    ## URL of the Docker daemon socket to reach the Docker API. HTTP/HTTPS also works.
+    ## Warning: if that's a non-local daemon, we won't be able to collect performance metrics.
     #
-    url: "http://localhost:2375"
+  - url: http://localhost:2375
 
-    ## Data collection
-    ##
-
-    # Create events whenever a container status change.
-    # Defaults to true.
+    ## @param collect_events - boolean - optional - default: true
+    ## Create events whenever a container status change.
     #
-    # collect_events: false
+    # collect_events: true
 
-    # Collect disk usage per container with docker.container.size_rw and
-    # docker.container.size_rootfs metrics.
-    # Warning: This might take time for Docker daemon to generate,
-    # ensure that `docker ps -a -q` run fast before enabling it.
-    # Defaults to false.
+    ## @param collect_container_size - boolean - optional - default: false
+    ## Collect disk usage per container with docker.container.size_rw and
+    ## docker.container.size_rootfs metrics.
+    ## Warning: This might take time for Docker daemon to generate,
+    ## ensure that `docker ps -a -q` run fast before enabling it.
     #
     # collect_container_size: false
 
-    # Collect images stats
-    # Number of available active images and intermediate images as gauges.
-    # Defaults to false.
+    ## @param collect_images_stats - boolean - optional - default: false
+    ## Collect images stats.
+    ## Number of available active images and intermediate images as gauges.
     #
     # collect_images_stats: false
 
-    # Collect disk usage per image with docker.image.size and docker.image.virtual_size metrics.
-    # The check gets this size with the `docker images` command.
-    # Requires collect_images_stats to be enabled.
-    # Defaults to false.
+    ## @param collect_image_size - boolean - optional - default: false
+    ## Collect disk usage per image with docker.image.size and docker.image.virtual_size metrics.
+    ## The check gets this size with the `docker images` command.
+    ## Requires collect_images_stats to be enabled.
     #
     # collect_image_size: false
 
-    # Collect disk metrics (total, used, free) through the docker info command for data and metadata.
-    # This is useful when these values can't be obtained by the disk check.
-    # Example: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html
-    # Note that it only works when the storage driver is devicemapper.
-    # Explanation of these metrics can be found here:
-    # https://github.com/docker/docker/blob/v1.11.1/daemon/graphdriver/devmapper/README.md
-    # Defaults to false.
+    ## @param collect_disk_stats - boolean - optional - default: false
+    ## Collect disk metrics (total, used, free) through the docker info command for data and metadata.
+    ## This is useful when these values can't be obtained by the disk check.
+    ## Example: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html
+    ## Note that it only works when the storage driver is devicemapper.
+    ## Explanation of these metrics can be found here:
+    ## https://github.com/docker/docker/blob/v1.11.1/daemon/graphdriver/devmapper/README.md
     #
-    # collect_disk_stats: true
+    # collect_disk_stats: false
 
-
-    # Exclude containers based on their tags
-    # An excluded container will be completely ignored. The rule is a regex on the tags.
-    #
-    # How it works: exclude first.
-    # If a tag matches an exclude rule, it won't be included unless it also matches an include rule.
-    # Examples:
-    # exclude all, except ubuntu and debian.
-    # exclude: [".*"]
-    # include: ["docker_image:ubuntu", "docker_image:debian"]
-    #
-    # include all, except ubuntu and debian.
-    # exclude: ["docker_image:ubuntu", "docker_image:debian"]
-    # include: []
-    #
-    # Default: include all containers
-
-
-
-    ## Tagging
+    ## @param exclude - list of key:value element - optional
+    ## Exclude containers based on their tags. The parameter value is a regex on the tags.
+    ## An excluded container will not get any individual container metric reported for it.
+    ## However it still appears in the container count since ignoring it here would give
+    ## a wrong impression about the docker daemon load.
+    ## The rule is "exclude applies first, but include overrides exclude".
+    ## Ie: If a tag matches an exclude rule, it won't be included unless it also matches an include rule.
+    ## To exclude containers use the <TAG_NAME>:<VALUE> format.
     ##
-
-    # You can add extra tags to your Docker metrics with the tags list option.
-    # Example: ["extra_tag", "env:testing"]
+    ## Example - exclude all, except Ubuntu and Debian:
+    ## exclude: ["docker_image:.*"]
+    ## include: ["docker_image:ubuntu", "docker_image:debian"]
+    ##
+    ## Default: include all containers
     #
-    # tags: []
+    # exclude:
+    #   - <TYPE>:<VALUE>
 
-    # If the agent is running in an Amazon ECS task, tags container metrics with the ECS task name and version.
-    # Default: true
+    ## @param tags - list of key:value element - optional
+    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ##
+    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
     #
-    # ecs_tags: false
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
 
-    # Custom metrics tagging
-    # Define which Docker tags to apply on metrics.
-    # Since it impacts the aggregation, modify it carefully (only if you really need it).
+    ## @param ecs_tags - boolean - optional - default: true
+    ## If the agent is running in an Amazon ECS task, tags container metrics with the ECS task name and version.
     #
-    # Tags for performance metrics.
-    # Available:
-    #   - image_name: Name of the image (example: "nginx")
-    #   - image_tag: Tag of the image (example: "latest")
-    #   - docker_image: LEGACY. The full image name:tag string (example: "nginx:latest")
-    #   - container_name: Name of the container (example: "boring_euclid")
-    #   - container_command: Command ran by the container (example: "echo 1")
-    #   - container_id: Id of the container
-    #
-    # performance_tags: ["container_name", image_name", "image_tag", "docker_image"]
+    # ecs_tags: true
 
-    # Tags for containers count metrics.
-    # Available: ["image_name", "image_tag", "docker_image", "container_command"]
+    ## @param performance_tags - list of string - optional
+    ## Define which Docker tags to apply on metrics.
+    ## Since it impacts the aggregation, modify it carefully (only if you really need it).
+    ##
+    ## Available tags for performance metrics:
+    ##   - image_name: Name of the image (example: "nginx")
+    ##   - image_tag: Tag of the image (example: "latest")
+    ##   - docker_image: LEGACY. The full image name:tag string (example: "nginx:latest")
+    ##   - container_name: Name of the container (example: "boring_euclid")
+    ##   - container_command: Command ran by the container (example: "echo 1")
+    ##   - container_id: Id of the container
+    #
+    # performance_tags: ["container_name", "image_name", "image_tag", "docker_image"]
+
+    ## @param container_tags - list of strings - optional - default: ["image_name", "image_tag", "docker_image"]
+    ## Tags for containers count metrics.
+    ## Available:
+    ##   - image_name: Name of the image (example: "nginx")
+    ##   - image_tag: Tag of the image (example: "latest")
+    ##   - docker_image: LEGACY. The full image name:tag string (example: "nginx:latest")
+    ##   - container_command: Command ran by the container (example: "echo 1")
     #
     # container_tags: ["image_name", "image_tag", "docker_image"]
 
-    # List of container label names that should be collected and sent as tags.
-    # Default to None
-    # Example:
+    ## @param collect_labels_as_tags - list of strings - optional - default: none
+    ## List of container label names that should be collected and sent as tags.
+    #
     # collect_labels_as_tags: ["com.docker.compose.service", "com.docker.compose.project"]
