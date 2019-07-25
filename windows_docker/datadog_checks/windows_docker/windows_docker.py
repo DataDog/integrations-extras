@@ -14,7 +14,8 @@ class UTC(tzinfo):
     return timedelta(0)
 
 class DockerConstant:
-# Metric Name Schema
+
+	# Metric Name Schema
 	NET_TMPL = "docker.networks.{}"
 	BLKIO_STATS_TMPL = "docker.blkio_stats.{}"
 	STORAGE_STATS_TMPL = "docker.storage_stats.{}"
@@ -25,10 +26,10 @@ class DockerConstant:
 	MEMORY_STATS_TMPL = "docker.memory_stats.{}"
 	CONTAINER_RUN_TMPL = "docker.containers.running"
 	NUM_PROCESS_TMPL = "docker.num_proces"
-#Tags
+	# Tags
 	WINDOWS_TAG = "os:windows"	
 	DOCKER_WIN_TAG = "sources:docker_win"
-#Other
+	# Other
 	DOCKER_LIST_ALL_CONT = "/containers/json"
 	DOCKER_CONTAINER = "/containers/"
 	DOCKER_STATS = "/stats"
@@ -39,7 +40,7 @@ class DockerConstant:
 	DOCKER_CONTAINER_ID_KEY = "container_id:"
 	DOCKER_GUID_KEY = "guid:"
 	DOCKER_TYPE = "docker"
-#Docker Metric Mapping
+	# Docker Metric Mapping
 	DOCKER_NETWORK = "networks"
 	DOCKER_NETWORK_RX_BYTES = "rx_bytes"
 	DOCKER_NETWORK_RX_PACKETS = "rx_packets" 
@@ -79,7 +80,9 @@ class DockerConstant:
 	DOCKER_BLKIO_STATS_SECTORS_RECURSIVE = "sectors_recursive"
 	DOCKER_NUM_PROCS = "num_procs"
 
+
 class WindowsDockerCheck(AgentCheck, DockerConstant):
+
 	def _generate_instance_key(self, instance):
 		return instance.get('url')
 
@@ -100,10 +103,10 @@ class WindowsDockerCheck(AgentCheck, DockerConstant):
 		image_lookup = {}
 
 		url = self._generate_instance_key(instance)
-		list_all_containers_url=url+self.DOCKER_LIST_ALL_CONT
+		list_all_containers_url = url + self.DOCKER_LIST_ALL_CONT
 
 		session = self._generate_request_session(instance)
-		images_json = session.get(url+"/images/json", timeout=1).json()
+		images_json = session.get(url + "/images/json", timeout=1).json()
 
 		for image_def in images_json:
 			_, image_id = image_def.get("Id").split(":", 1)
@@ -133,11 +136,11 @@ class WindowsDockerCheck(AgentCheck, DockerConstant):
 				"msg_text": "Docker"
 			})
 
-	# running containers:
+		# running containers:
 		self.gauge(self.CONTAINER_RUN_TMPL, container_count, tags=[self.WINDOWS_TAG])
 
 		for x in container_full_ids:
-			container_urls.append(url+self.DOCKER_CONTAINER+x+self.DOCKER_STATS)
+			container_urls.append(url + self.DOCKER_CONTAINER + x + self.DOCKER_STATS)
 			container_ids.append(x[:12])
 
 		for index, value in enumerate(container_urls):
@@ -145,36 +148,36 @@ class WindowsDockerCheck(AgentCheck, DockerConstant):
 			for raw_stream in cont_health_response.iter_lines():
 				short_container_id = self.DOCKER_CONTAINER_ID_KEY+container_ids[index]
 				if raw_stream:
-					#main stream
+					# main stream
 					try:
 						rs = json.loads(raw_stream)
 					except:
 						print("Error loading JSON")
 						break
-				#read:
+					# read:
 					read_date_parts = rs['read'].split('.')
 					d = datetime.datetime.strptime(read_date_parts[0], '%Y-%m-%dT%H:%M:%S')
 					microseconds = int(int(read_date_parts[1].rstrip('Z'))/1000.0)
 					d = d.replace(microsecond=microseconds, tzinfo=UTC())
 					d = calendar.timegm(d.timetuple())
-					self.gauge('docker.read_at',d,tags=[short_container_id,self.WINDOWS_TAG])
+					self.gauge('docker.read_at', d, tags=[short_container_id,self.WINDOWS_TAG])
 
-				#num_proces:
+					# num_proces:
 					num_procs=rs[self.DOCKER_NUM_PROCS]
 					self.gauge(self.NUM_PROCESS_TMPL, num_procs, tags=[short_container_id,self.WINDOWS_TAG])
 
-				#blkio_stats:
-					blkio_stats=rs[self.DOCKER_BLKIO_STATS]
+					# blkio_stats:
+					blkio_stats = rs[self.DOCKER_BLKIO_STATS]
 					for blkio_stats_prop in [self.DOCKER_BLKIO_STATS_IO_SERVICE_BYTES_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_SERVICE_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_QUEUE_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_SERVICE_TIME_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_WAIT_TIME_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_MERGED_RECURSIVE,self.DOCKER_BLKIO_STATS_IO_TIME_RECURSIVE,self.DOCKER_BLKIO_STATS_SECTORS_RECURSIVE]:
 						self.gauge(self.BLKIO_STATS_TMPL.format(blkio_stats_prop), blkio_stats[blkio_stats_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
-				#storage_stats:
-					storage_stats=rs[self.DOCKER_STORAGE_STATS]
+					# storage_stats:
+					storage_stats = rs[self.DOCKER_STORAGE_STATS]
 					for storage_stats_prop in [self.DOCKER_STORAGE_STATS_READ_COUNT_NORMALIZED,self.DOCKER_STORAGE_STATS_READ_SIZE_BYTES,self.DOCKER_STORAGE_STATS_READ_WRITE_COUNT_NORMALIZED,self.DOCKER_STORAGE_STATS_READ_WRITE_SIZE_BYTES]:
 						self.gauge(self.STORAGE_STATS_TMPL.format(storage_stats_prop), storage_stats[storage_stats_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
-				#cpu_stats:
-					cpu_usage=rs[self.DOCKER_CPU_STATS][self.DOCKER_CPU_USAGE]
+					# cpu_stats:
+					cpu_usage = rs[self.DOCKER_CPU_STATS][self.DOCKER_CPU_USAGE]
 					for cpu_stat_prop in [self.DOCKER_CPU_USAGE_TOTAL_USAGE,self.DOCKER_CPU_USAGE_USAGE_IN_KERNELMODE,self.DOCKER_CPU_USAGE_USAGE_IN_USERMODE]:
 						self.gauge(self.CPU_STATS_TMPL.format(cpu_stat_prop), cpu_usage[cpu_stat_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
@@ -182,8 +185,8 @@ class WindowsDockerCheck(AgentCheck, DockerConstant):
 					for throttling_data_prop in [self.DOCKER_THROTTLING_DATA_PERIODS,self.DOCKER_THROTTLING_DATA_THROTTLED_PERIODS,self.DOCKER_THROTTLING_DATA_THROTTLED_TIME]:
 						self.gauge(self.THROTTLING_DATA_TMPL.format(throttling_data_prop), throttling_data[throttling_data_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
-				#precpu_stats:
-					precpu_stats=rs[self.DOCKER_PRECPU_STATS][self.DOCKER_CPU_USAGE]
+					# precpu_stats:
+					precpu_stats = rs[self.DOCKER_PRECPU_STATS][self.DOCKER_CPU_USAGE]
 					for precpu_prop in [self.DOCKER_CPU_USAGE_TOTAL_USAGE,self.DOCKER_CPU_USAGE_USAGE_IN_KERNELMODE,self.DOCKER_CPU_USAGE_USAGE_IN_USERMODE]:
 						self.gauge(self.PRECPU_STATS_CPU_USAGE_TMPL.format(precpu_prop), precpu_stats[precpu_prop], tags=[short_container_id,self.WINDOWS_TAG])
 					
@@ -191,13 +194,13 @@ class WindowsDockerCheck(AgentCheck, DockerConstant):
 					for precpu_throttling_prop in [self.DOCKER_THROTTLING_DATA_PERIODS,self.DOCKER_THROTTLING_DATA_THROTTLED_PERIODS,self.DOCKER_THROTTLING_DATA_THROTTLED_TIME]:
 						self.gauge(self.PRECPU_STATS_THROTTLING_DATA_TMPL.format(precpu_throttling_prop), precpu_throttling_data[precpu_throttling_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
-				#memory_stats:
-					memory_stats=rs[self.DOCKER_MEMORY_STATS]
+					# memory_stats:
+					memory_stats = rs[self.DOCKER_MEMORY_STATS]
 					for memory_stat_prop in [self.DOCKER_MEMORY_COMMIBYTES, self.DOCKER_MEMORY_COMMITPEAKBYTES, self.DOCKER_MEMORY_PRIATEWORKINGSET]:
 						self.gauge(self.MEMORY_STATS_TMPL.format(memory_stat_prop), memory_stats[memory_stat_prop], tags=[short_container_id,self.WINDOWS_TAG])
 
-				#networks:
-					networks=rs[self.DOCKER_NETWORK]
+					# networks:
+					networks = rs[self.DOCKER_NETWORK]
 					for guid, data in networks.iteritems():
 						guid_tag = self.DOCKER_GUID_KEY+guid
 						for prop in [self.DOCKER_NETWORK_RX_BYTES,self.DOCKER_NETWORK_RX_PACKETS,self.DOCKER_NETWORK_RX_ERRORS,self.DOCKER_NETWORK_RX_DROPPED,self.DOCKER_NETWORK_TX_BYTES,self.DOCKER_NETWORK_TX_PACKETS,self.DOCKER_NETWORK_TX_ERRORS,self.DOCKER_NETWORK_TX_DROPPED]:
