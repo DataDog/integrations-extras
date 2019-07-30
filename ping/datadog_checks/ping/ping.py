@@ -24,7 +24,7 @@ class PingCheck(AgentCheck):
 
         return host, custom_tags, timeout, response_time
 
-    def _exec_ping(self, timeout, target_host): # pragma: nocover
+    def _exec_ping(self, timeout, target_host):  # pragma: nocover
         if platform.system() == "Windows":
             countOption = "-n"
             timeoutOption = "-w"
