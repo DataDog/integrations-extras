@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    yield
+    yield instance
 
 
 @pytest.fixture

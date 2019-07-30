@@ -27,7 +27,6 @@ def test_check(aggregator, instance):
     with pytest.raises(CheckException):
         c.check({'name': 'Datadog'})
 
-    test_check
     # good check
     instance = {
         'host': '127.0.0.1',
@@ -38,3 +37,4 @@ def test_check(aggregator, instance):
         c.check(instance)
     aggregator.assert_service_check('network.ping.can_connect', AgentCheck.OK)
     aggregator.assert_metric('network.ping.can_connect', value=1)
+    aggregator.assert_all_metrics_covered()
