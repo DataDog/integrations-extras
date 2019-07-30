@@ -1,9 +1,9 @@
-import pytest
 import mock
+import pytest
 
 from datadog_checks.checks import AgentCheck
-from datadog_checks.ping import PingCheck
 from datadog_checks.errors import CheckException
+from datadog_checks.ping import PingCheck
 
 
 def mock_exec_ping():
