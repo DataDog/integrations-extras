@@ -8,10 +8,7 @@ def dd_environment(instance):
 
 @pytest.fixture
 def instance():
-    instance = {
-        'host': '127.0.0.1',
-        'tags': ["ping1", "ping2"]
-    }
+    instance = {'host': '127.0.0.1', 'tags': ["ping1", "ping2"]}
     return instance
 
 

@@ -32,12 +32,15 @@ class PingCheck(AgentCheck):
             countOption = "-c"
             timeoutOption = "-W"
 
-        self.log.debug("Running: ping {} {} {} {} {}".format(
-            countOption, "1", timeoutOption, str(timeout), target_host))
+        self.log.debug(
+            "Running: ping {} {} {} {} {}".format(countOption, "1", timeoutOption, str(timeout), target_host)
+        )
 
         lines, err, retcode = get_subprocess_output(
             ["ping", countOption, "1", timeoutOption, str(int(timeout)), target_host],
-            self.log, raise_on_empty_output=True)
+            self.log,
+            raise_on_empty_output=True,
+        )
         self.log.debug("ping returned {} - {} - {}".format(retcode, lines, err))
         if retcode != 0:
             raise CheckException("ping returned {}: {}".format(retcode, err))
@@ -60,10 +63,7 @@ class PingCheck(AgentCheck):
 
         except CheckException as e:
             self.log.info("{} is DOWN ({})".format(host, str(e)))
-            self.service_check(self.SERVICE_CHECK_NAME,
-                               AgentCheck.CRITICAL,
-                               custom_tags,
-                               message=str(e))
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, custom_tags, message=str(e))
             self.gauge(self.SERVICE_CHECK_NAME, 0, custom_tags)
 
             raise e
@@ -72,8 +72,5 @@ class PingCheck(AgentCheck):
             self.gauge('network.ping.response_time', length, custom_tags)
 
         self.log.debug("{} is UP".format(host))
-        self.service_check(self.SERVICE_CHECK_NAME,
-                           AgentCheck.OK,
-                           custom_tags,
-                           )
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
         self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags)
