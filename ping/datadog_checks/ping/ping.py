@@ -37,9 +37,7 @@ class PingCheck(AgentCheck):
         )
 
         lines, err, retcode = get_subprocess_output(
-            ["ping", countOption, "1", timeoutOption, str(int(timeout)), target_host],
-            self.log,
-            raise_on_empty_output=True,
+            ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
         )
         self.log.debug("ping returned {} - {} - {}".format(retcode, lines, err))
         if retcode != 0:
