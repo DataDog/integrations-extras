@@ -50,3 +50,17 @@ def test_integration(aggregator, instance):
     aggregator.assert_service_check('network.ping.can_connect', AgentCheck.OK)
     aggregator.assert_metric('network.ping.can_connect', value=1, tags=all_tags)
     aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.usefixtures("dd_environment")
+def test_integration_response_time(aggregator, instance_response_time):
+    check = PingCheck('ping', {}, {})
+    check.check(instance_response_time)
+
+    tags = ["response_time:yes"]
+    all_tags = tags.append("target_host:127.0.0.1")
+
+    aggregator.assert_service_check('network.ping.can_connect', AgentCheck.OK)
+    aggregator.assert_metric('network.ping.can_connect', value=1, tags=all_tags)
+    aggregator.assert_metric('network.ping.response_time', tags=all_tags)
+    aggregator.assert_all_metrics_covered()
