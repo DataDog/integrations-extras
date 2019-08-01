@@ -30,7 +30,7 @@ All events are sent to the Datadog event stream.
 
 The Blue Matador integration does not include any service checks.
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/event-stream.png
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/eventstream.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/dashboard.png
 [3]: https://www.bluematador.com/monitored-events
 [4]: https://app.datadoghq.com/account/settings#api
