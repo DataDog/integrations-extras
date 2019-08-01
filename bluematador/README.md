@@ -1,10 +1,10 @@
 ## Overview
 
-Blue Matador’s Datadog integration allows you to send Blue Matador events to the event stream in Datadog.
+Blue Matador's Datadog integration allows you to send Blue Matador events to the event stream in Datadog.
 
 ![eventstream_from_blue_matador][1]
 
-You can use it to enhance your existing dashboards or to correlate with metrics you’re collecting in Datadog.
+You can use it to enhance your existing dashboards or to correlate with metrics you're collecting in Datadog.
 
 ![dashboard][2]
 
