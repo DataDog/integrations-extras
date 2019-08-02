@@ -12,7 +12,9 @@ For a full list of events and metrics that Blue Matador monitors and that you ca
 
 ## Setup
 
-To get Blue Matador events into Datadog, use a [Datadog API key][4] to create a new notification method in Blue Matador. Note: existing events will not be imported into Datadog, but you will see new events in Datadog as they occur.
+To get Blue Matador events into Datadog, use a [Datadog API key][4] to create a new notification method in Blue Matador. 
+
+**Note**: Already existing events are not imported into Datadog, but new events appear as they occur.
 
 For detailed setup instructions, see [Blue Matador's dedicated Datadog documentation][5].
 
