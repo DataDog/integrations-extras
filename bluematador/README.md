@@ -8,7 +8,7 @@ You can use it to enhance your existing dashboards or to correlate with metrics 
 
 ![dashboard][2]
 
-To see a full list of the events and metrics that Blue Matador monitors that can imported into Datadog, go [here][3].
+For a full list of events and metrics that Blue Matador monitors and that you can import into Datadog, see their [monitors page][3].
 
 ## Setup
 
