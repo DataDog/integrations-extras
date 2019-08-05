@@ -70,9 +70,7 @@ class SendmailCheck(AgentCheck):
                 os.system('setsid sudo -l < /dev/null')
                 command.insert(0, 'sudo')
             except OSError as e:
-                    self.log.exception(
-                        "trying to retrieve {} with sudo failed with return code {}".format(command, e)
-                    )
+                self.log.exception("trying to retrieve {} with sudo failed with return code {}".format(command, e))
 
         self.log.debug(command)
 
