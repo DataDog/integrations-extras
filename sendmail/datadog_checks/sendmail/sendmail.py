@@ -48,15 +48,14 @@ class SendmailCheck(AgentCheck):
 
         self.log.debug(sendmail_command)
 
-        # mailq sample output
-        """
-        MSP Queue status...
-        /var/spool/mqueue-client is empty
-            Total requests: 0
-        MTA Queue status...
-        /var/spool/mqueue is empty
-            Total requests: 0
-        """
+        # mailq sample output. sendmail output is similar.
+        ##
+        # MSP Queue status...
+        # /var/spool/mqueue-client is empty
+        #    Total requests: 0
+        # MTA Queue status...
+        # /var/spool/mqueue is empty
+        #     Total requests: 0
 
         # if we want to use sendmail, we need to append -bp to it
         # https://www.electrictoolbox.com/show-sendmail-mail-queue/
@@ -67,10 +66,13 @@ class SendmailCheck(AgentCheck):
 
         # Listing the directory might require sudo privileges
         if use_sudo:
-            test_sudo = os.system('setsid sudo -l < /dev/null')
-            if test_sudo != 0:
-                raise Exception('The dd-agent user does not have sudo access')
-            command.insert(0, 'sudo')
+            try:
+                os.system('setsid sudo -l < /dev/null')
+                command.insert(0, 'sudo')
+            except OSError as e:
+                    self.log.exception(
+                        "trying to retrieve {} with sudo failed with return code {}".format(command, e)
+                    )
 
         self.log.debug(command)
 
