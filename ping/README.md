@@ -16,33 +16,57 @@ requires root privileges, which the Agent does not have. The ping command uses t
 
 ## Setup
 
+The Filebeat check is **NOT** included in the [Datadog Agent][2] package.
+
 ### Installation
 
-To install the Ping check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Ping check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
-1. Install the [developer toolkit][2] on any machine.
-2. Run `ddev release build ping` to build the package.
-3. [Download the Datadog Agent][3].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/ping/dist/<ARTIFACT_NAME>.whl`.
+1. Install the [developer toolkit][6].
+2. Clone the integrations-extras repository:
 
+    ```
+    git clone https://github.com/DataDog/integrations-extras.git.
+    ```
+
+3. Update your `ddev` config with the `integrations-extras/` path:
+
+    ```
+    ddev config set extras ./integrations-extras
+    ```
+
+4. To build the `ping` package, run:
+
+    ```
+    ddev -e release build ping
+    ```
+
+5. [Download and launch the Datadog Agent][7].
+6. Run the following command to install the integrations wheel with the Agent:
+
+    ```
+    datadog-agent integration install -w <PATH_OF_PING_ARTIFACT_>/<PING_ARTIFACT_NAME>.whl
+    ```
+
+7. Configure your integration like [any other packaged integration][8].
 
 ### Configuration
 
 1. Edit the `ping.d/conf.yaml` file, in the `conf.d/` folder at the root of your
    Agent's configuration directory to start collecting your ping performance data.
-   See the [sample ping.d/conf.yaml][4] for all available configuration options.
+   See the [sample ping.d/conf.yaml][9] for all available configuration options.
 
-2. [Restart the Agent][5].
+2. [Restart the Agent][10].
 
 ### Validation
 
-[Run the Agent's status subcommand][6] and look for `ping` under the Checks section.
+[Run the Agent's status subcommand][11] and look for `ping` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this check.
+See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -56,13 +80,19 @@ The Ping check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][8].
+Need help? Contact [Datadog support][13].
 
 [1]: https://en.wikipedia.org/wiki/Ping_(networking_utility)
-[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[3]: https://app.datadoghq.com/account/settings#agent
-[4]: https://github.com/DataDog/integrations-core/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
-[5]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[6]: https://docs.datadoghq.com/agent/faq/agent-commands/#agent-status-and-information
-[7]: https://docs.datadoghq.com/help/
-[8]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[7]: https://app.datadoghq.com/account/settings#agent
+[8]: https://docs.datadoghq.com/getting_started/integrations
+[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[10]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[13]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
+[14]: https://docs.datadoghq.com/help
