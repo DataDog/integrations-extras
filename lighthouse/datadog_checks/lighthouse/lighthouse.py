@@ -37,7 +37,7 @@ class LighthouseCheck(AgentCheck):
             self.log.warn("lighthouse response JSON different than expected for url: {0}".format(lighthouse_url))
             raise CheckException(error_message, exit_code, e)
 
-        if data["runtimeError"]["code"] == EXPECTED_RESPONSE_CODE:
+        if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
             score_accessibility = round(data["categories"]["accessibility"]["score"] * 100)
             score_best_practices = round(data["categories"]["best-practices"]["score"] * 100)
             score_performance = round(data["categories"]["performance"]["score"] * 100)
