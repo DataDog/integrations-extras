@@ -16,7 +16,7 @@ requires root privileges, which the Agent does not have. The ping command uses t
 
 ## Setup
 
-The Filebeat check is **NOT** included in the [Datadog Agent][2] package.
+The Ping check is **NOT** included in the [Datadog Agent][2] package.
 
 ### Installation
 
@@ -45,7 +45,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 6. Run the following command to install the integrations wheel with the Agent:
 
     ```
-    datadog-agent integration install -w <PATH_OF_PING_ARTIFACT_>/<PING_ARTIFACT_NAME>.whl
+    sudo -u dd-agent datadog-agent integration install -w <PATH_OF_PING_ARTIFACT_>/<PING_ARTIFACT_NAME>.whl
     ```
 
 7. Configure your integration like [any other packaged integration][8].
@@ -94,5 +94,5 @@ Need help? Contact [Datadog support][13].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [12]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
-[13]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
+[13]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
 [14]: https://docs.datadoghq.com/help
