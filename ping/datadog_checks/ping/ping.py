@@ -28,7 +28,12 @@ class PingCheck(AgentCheck):
         if platform.system() == "Windows":  # pragma: nocover
             countOption = "-n"
             timeoutOption = "-w"
+            # The timeout option is in ms on Windows
+            # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping
+            timeout = timeout * 1000
         else:
+            # The timeout option is is seconds on Linux, leaving timeout as is
+            # https://linux.die.net/man/8/ping
             countOption = "-c"
             timeoutOption = "-W"
 
