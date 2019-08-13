@@ -16,7 +16,7 @@ Total requests: 0"""
 
 def test_bad_configuration():
     instance = {}
-    check = SendmailCheck('sendmail', {}, instance)
+    check = SendmailCheck('sendmail', {}, {})
 
     with pytest.raises(ConfigurationError):
         check.check(instance)
@@ -24,7 +24,7 @@ def test_bad_configuration():
 
 def test_bad_sendmail_command():
     instance = {'sendmail_command': 'something'}
-    check = SendmailCheck('sendmail', {}, instance)
+    check = SendmailCheck('sendmail', {}, {})
 
     with pytest.raises(ConfigurationError):
         check.check(instance)

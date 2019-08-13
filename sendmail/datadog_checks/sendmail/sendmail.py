@@ -8,11 +8,6 @@ class SendmailCheck(AgentCheck):
 
     SERVICE_CHECK_NAME = 'sendmail.returns.output'
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        if instances is not None and len(instances) > 1:
-            raise ConfigurationError('Sendmail check only supports one configured instance.')
-        AgentCheck.__init__(self, name, init_config, agentConfig, instances=instances)
-
     def check(self, instance):
         (sendmail_command, use_sudo, tags) = self._get_config(instance)
 
