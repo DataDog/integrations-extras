@@ -10,15 +10,15 @@ from datadog_checks.utils.subprocess_output import get_subprocess_output
 
 class PingCheck(AgentCheck):
 
-    SERVICE_CHECK_NAME = 'network.ping.can_connect'
+    SERVICE_CHECK_NAME = "network.ping.can_connect"
 
     def _load_conf(self, instance):
         # Fetches the conf
-        timeout = float(instance.get('timeout', 4))
-        response_time = instance.get('collect_response_time', False)
-        custom_tags = instance.get('tags', [])
+        timeout = float(instance.get("timeout", 4))
+        response_time = instance.get("collect_response_time", False)
+        custom_tags = instance.get("tags", [])
 
-        host = instance.get('host', None)
+        host = instance.get("host", None)
         if host is None:
             raise CheckException("A valid host must be specified")
 
@@ -30,6 +30,10 @@ class PingCheck(AgentCheck):
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
             # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping
+            timeout = timeout * 1000
+        elif platform.system() == "Darwin":
+            countOption = "-c"
+            timeoutOption = "-W"  # Also in ms on Mac
             timeout = timeout * 1000
         else:
             # The timeout option is is seconds on Linux, leaving timeout as is
@@ -53,7 +57,7 @@ class PingCheck(AgentCheck):
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
 
-        custom_tags.append('target_host:{}'.format(host))
+        custom_tags.append("target_host:{}".format(host))
 
         try:
             lines = self._exec_ping(timeout, host)
@@ -72,7 +76,7 @@ class PingCheck(AgentCheck):
             raise e
 
         if response_time:
-            self.gauge('network.ping.response_time', length, custom_tags)
+            self.gauge("network.ping.response_time", length, custom_tags)
 
         self.log.debug("{} is UP".format(host))
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
