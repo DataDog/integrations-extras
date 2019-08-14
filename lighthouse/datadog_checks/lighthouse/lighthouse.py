@@ -1,6 +1,6 @@
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
-from datadog_checks.base.utils.common import round_value
+from datadog_checks.base.utils.common import round_value as round
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 import json
 
@@ -39,11 +39,11 @@ class LighthouseCheck(AgentCheck):
             raise CheckException(error_message, exit_code, e)
 
         if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
-            score_accessibility = round_value(data.get("categories", {}).get("accessibility", {}).get("score", 0) * 100)
-            score_best_practices = round_value(data.get("categories", {}).get("best-practices", {}).get("score", 0) * 100)
-            score_performance = round_value(data.get("categories", {}).get("performance", {}).get("score", 0) * 100)
-            score_pwa = round_value(data.get("categories", {}).get("pwa", {}).get("score", 0) * 100)
-            score_seo = round_value(data.get("categories", {}).get("seo", {}).get("score", 0) * 100)
+            score_accessibility = round(data.get("categories", {}).get("accessibility", {}).get("score", 0) * 100)
+            score_best_practices = round(data.get("categories", {}).get("best-practices", {}).get("score", 0) * 100)
+            score_performance = round(data.get("categories", {}).get("performance", {}).get("score", 0) * 100)
+            score_pwa = round(data.get("categories", {}).get("pwa", {}).get("score", 0) * 100)
+            score_seo = round(data.get("categories", {}).get("seo", {}).get("score", 0) * 100)
         else:
             err_code = data.get("runtimeError", {}).get("code")
             err_msg = data.get("runtimeError", {}).get("message")
