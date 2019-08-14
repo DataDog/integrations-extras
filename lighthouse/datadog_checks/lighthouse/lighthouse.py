@@ -38,15 +38,15 @@ class LighthouseCheck(AgentCheck):
             self.log.warn("lighthouse response JSON different than expected for url: {0}".format(lighthouse_url))
             raise CheckException(error_message, exit_code, e)
 
-        if data["runtimeError"]["code"] == EXPECTED_RESPONSE_CODE:
-            score_accessibility = round_value(data["categories"]["accessibility"]["score"] * 100)
-            score_best_practices = round_value(data["categories"]["best-practices"]["score"] * 100)
-            score_performance = round_value(data["categories"]["performance"]["score"] * 100)
-            score_pwa = round_value(data["categories"]["pwa"]["score"] * 100)
-            score_seo = round_value(data["categories"]["seo"]["score"] * 100)
+        if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
+            score_accessibility = round_value(data.get("categories", {}).get("accessibility", {}).get("score", 0) * 100)
+            score_best_practices = round_value(data.get("categories", {}).get("best-practices", {}).get("score", 0) * 100)
+            score_performance = round_value(data.get("categories", {}).get("performance", {}).get("score", 0) * 100)
+            score_pwa = round_value(data.get("categories", {}).get("pwa", {}).get("score", 0) * 100)
+            score_seo = round_value(data.get("categories", {}).get("seo", {}).get("score", 0) * 100)
         else:
-            err_code = data["runtimeError"]["code"]
-            err_msg = data["runtimeError"]["message"]
+            err_code = data.get("runtimeError", {}).get("code")
+            err_msg = data.get("runtimeError", {}).get("message")
             self.log.warn("not collecting lighthouse metrics for url {0} runtimeError code {1} message {2}"
                           .format(lighthouse_url, err_code, err_msg)
                           )
