@@ -23,12 +23,13 @@ class VespaCheck(AgentCheck):
         self.services_up = 0
 
         instance_tags = instance.get('tags', [])
+        timeout = instance.get('timeout', 10)
         consumer = instance.get('consumer')
         if not consumer:
             raise CheckException("The consumer must be specified in the configuration.")
         url = self.URL + '?consumer=' + consumer
         try:
-            json = self._get_metrics_json(url, 10.0)
+            json = self._get_metrics_json(url, timeout)
             if 'services' not in json:
                 self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.WARNING, tags=instance_tags,
                                    message="No services in response from metrics proxy on {}".format(url))
