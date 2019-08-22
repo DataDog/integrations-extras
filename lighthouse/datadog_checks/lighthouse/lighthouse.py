@@ -1,5 +1,6 @@
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
+from datadog_checks.base.utils.common import round_value as round
 from datadog_checks.utils.subprocess_output import get_subprocess_output
 import json
 

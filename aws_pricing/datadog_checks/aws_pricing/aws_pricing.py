@@ -2,9 +2,9 @@ import json
 from collections import defaultdict
 
 import boto3
-import six
 from botocore.exceptions import ClientError
-from six.moves import filter
+from six import iteritems
+from six.moves import filter, map
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.errors import CheckException
@@ -30,7 +30,7 @@ class AwsPricingCheck(AgentCheck):
 
             missing_rate_codes = defaultdict(list)
 
-            for service_code, rate_codes in six.iteritems(rate_codes_dict):
+            for service_code, rate_codes in iteritems(rate_codes_dict):
                 for rate_code in rate_codes:
                     price_dimensions = get_aws_prices(pricing_client, service_code, rate_code)
 

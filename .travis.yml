@@ -54,9 +54,25 @@ jobs:
         - ddev test --cov
         - ddev test --bench || true
     - stage: test
+      env: CHECK=aerospike PYTHON3=true
+    - stage: test
+      env: CHECK=ambassador PYTHON3=true
+    - stage: test
+      env: CHECK=apollo_engine PYTHON3=true
+    - stage: test
       env: CHECK=aqua PYTHON3=true
     - stage: test
+      env: CHECK=aws_pricing PYTHON3=true
+    - stage: test
       env: CHECK=bind9 PYTHON3=true
+    - stage: test
+      env: CHECK=bonsai PYTHON3=true
+    - stage: test
+      env: CHECK=buddy PYTHON3=true
+    - stage: test
+      env: CHECK=concourse_ci PYTHON3=true
+    - stage: test
+      env: CHECK=convox PYTHON3=true
     - stage: test
       env: CHECK=eventstore PYTHON3=true
     - stage: test
@@ -66,11 +82,31 @@ jobs:
     - stage: test
       env: CHECK=gnatsd_streaming PYTHON3=true
     - stage: test
+      env: CHECK=gremlin PYTHON3=true
+    - stage: test
+      env: CHECK=hbase_master PYTHON3=true
+    - stage: test
+      env: CHECK=hbase_regionserver PYTHON3=true
+    - stage: test
+      env: CHECK=launchdarkly PYTHON3=true
+    - stage: test
+      env: CHECK=lighthouse PYTHON3=true
+    - stage: test
       env: CHECK=logstash PYTHON3=true
+    - stage: test
+      env: CHECK=logzio PYTHON3=true
     - stage: test
       env: CHECK=neo4j PYTHON3=true
     - stage: test
+      env: CHECK=neutrona PYTHON3=true
+    - stage: test
       env: CHECK=nextcloud PYTHON3=true
+    - stage: test
+      env: CHECK=nomad PYTHON3=true
+    - stage: test
+      env: CHECK=portworx PYTHON3=true
+    - stage: test
+      env: CHECK=rbltracker PYTHON3=true
     - stage: test
       env: CHECK=reboot_required PYTHON3=true
     - stage: test
@@ -78,9 +114,17 @@ jobs:
     - stage: test
       env: CHECK=riak_repl PYTHON3=true
     - stage: test
+      env: CHECK=rigor PYTHON3=true
+    - stage: test
+      env: CHECK=rookout PYTHON3=true
+    - stage: test
+      env: CHECK=sigsci PYTHON3=true
+    - stage: test
       env: CHECK=snmpwalk PYTHON3=true
     - stage: test
       env: CHECK=sortdb PYTHON3=true
+    - stage: test
+      env: CHECK=split PYTHON3=true
     - stage: test
       env: CHECK=stardog PYTHON3=true
     - stage: test
@@ -89,6 +133,10 @@ jobs:
       env: CHECK=traefik PYTHON3=true
     - stage: test
       env: CHECK=upsc PYTHON3=true
+    - stage: test
+      env: CHECK=uptime PYTHON3=true
+    - stage: test
+      env: CHECK=vns3 PYTHON3=true
 
 before_install:
   - PATH="$(pyenv root)/versions/3.7.1/bin:$PATH:$(pyenv root)/versions/3.6.7/bin"
