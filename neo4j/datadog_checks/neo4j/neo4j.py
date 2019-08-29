@@ -130,6 +130,8 @@ class Neo4jCheck(AgentCheck):
             if name in self.keys:
                 try:
                     self.gauge(self.display.get(name, ""), doc['row'][1], tags=tags)
+                except TypeError:
+                    continue
                 except ValueError:
                     continue
 
