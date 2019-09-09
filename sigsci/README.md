@@ -51,12 +51,14 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
     When this is done the agent's statsd client will have tagging enabled and metrics such as `sigsci.agent.signal.<signal_type>` will be sent as `sigsci.agent.signal` and tagged with `signal_type:<signal_type>`.
 
     *Example:*`sigsci.agent.signal.http404` => `sigsci.agent.signal` with tag `signal_type:http404`
+    
+    If using Kubernetes to run the Datadog agent, make sure to enable DogStatsD non local traffic as described here https://docs.datadoghq.com/agent/kubernetes/dogstatsd/
 
 - Configure the SigSci agent to send metrics to the Datadog agent:
 
   Add the following line to each agent's agent.config file:
   ```
-  statsd-address=<datadog agent hostname:port>
+  statsd-address="<datadog agent hostname:port>"
   ```
 
 - In Datadog, verify that the "Signal Sciences - Overview" dashboard is created and starting to capture metrics
