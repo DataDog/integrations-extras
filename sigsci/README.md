@@ -37,41 +37,41 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 ### Configuration
 
-**Metrics Integration**
+#### Metrics Collection
 
-1. Install the [Signal Sciences agent][8]
+1. Install the [Signal Sciences agent][8].
 
-2. Configure the Signal Sciences agent to use DogstatsD:
+2. Configure the Signal Sciences agent to use DogStatsD:
 
     Add the following line to each agent's agent.config file:
     ```
     statsd-type = "dogstatsd"
     ```
 
-    When this is done the agent's statsd client will have tagging enabled and metrics such as `sigsci.agent.signal.<signal_type>` will be sent as `sigsci.agent.signal` and tagged with `signal_type:<signal_type>`.
+    When this is done the agent's StatsD client has tagging enabled and metrics such as `sigsci.agent.signal.<SIGNAL_TYPE>` are sent as `sigsci.agent.signal` and tagged with `signal_type:<SIGNAL_TYPE>`.
 
     *Example:*`sigsci.agent.signal.http404` => `sigsci.agent.signal` with tag `signal_type:http404`
 
-3. Configure the SigSci agent to send metrics to the Datadog agent:
+3. Configure the SigSci agent to send metrics to the Datadog Agent:
 
-  Add the following line to each agent's agent.config file:
-  ```
-  statsd-address=<datadog agent hostname:port>
-  ```
+    Add the following line to each agent's `agent.config` file:
+    ```
+    statsd-address=<DATADOG_AGENT_HOSTNAME>:<DATADOG_AGENT_PORT>
+    ```
 
-4. Click the button to install the integration
+4. Click the button to install the integration.
 
-5. In Datadog, verify that the "Signal Sciences - Overview" dashboard is created and starting to capture metrics
+5. In Datadog, verify that the "Signal Sciences - Overview" dashboard is created and starting to capture metrics.
 
-**Events Integration**
+#### Events Collection
 
-- Within Datadog, [create an API key][2].
+1. Within Datadog, [create an API key][2].
 
-- In your [Signal Sciences Dashboard][3] on the Site navigation bar, click Manage > Integrations and click Add next to the Datadog Event integration.
+2. In your [Signal Sciences Dashboard][3] on the Site navigation bar, click Manage > Integrations and click Add next to the Datadog Event integration.
 
-- Enter the API Key in the API Key field.
+3. Enter the API Key in the _API Key_ field.
 
-- Click Add
+4. Click _Add_.
 
 
 **Need more information?**
