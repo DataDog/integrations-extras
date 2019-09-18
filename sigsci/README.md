@@ -52,7 +52,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
     *Example:*`sigsci.agent.signal.http404` => `sigsci.agent.signal` with tag `signal_type:http404`
     
-    If using Kubernetes to run the Datadog agent, make sure to enable DogStatsD non local traffic as described here https://docs.datadoghq.com/agent/kubernetes/dogstatsd/
+    If using Kubernetes to run the Datadog Agent, make sure to enable DogStatsD non local traffic as described in the [Kubernetes DogStatsD documentation](https://docs.datadoghq.com/agent/kubernetes/dogstatsd/).
 
 3. Configure the SigSci agent to send metrics to the Datadog Agent:
 
