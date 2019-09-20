@@ -1,10 +1,10 @@
 schedules:
-- cron: "0 5 * * *"
-  displayName: Nightly (EDT/EST)
-  always: true
-  branches:
-    include:
-    - master
+  - cron: "0 5 * * *"
+    displayName: Nightly (EDT/EST)
+    always: true
+    branches:
+      include:
+        - master
 
 trigger: none
 # Re-enable when we have enough runners
@@ -13,13 +13,161 @@ trigger: none
 #     include:
 #     - master
 
+resources:
+  repositories:
+    - repository: integrations-core
+      type: github
+      name: Datadog/integrations-core
+      ref: flo/generic_azure
+      endpoint: DataDog
 pr:
   branches:
     include:
-    - master
+      - master
 
 variables:
   DDEV_COLOR: 1
 
 jobs:
-- template: './templates/test-all.yml'
+  - template: ".azure-pipelines/templates/test-all.yml@integrations-core"
+    parameters:
+      repo: 'extras'
+      checks:
+        - checkName: aerospike
+          displayName: Aerospike
+          os: linux
+        - checkName: ambassador
+          displayName: Ambassador
+          os: linux
+        - checkName: apollo_engine
+          displayName: Apollo Engine
+          os: linux
+        - checkName: aqua
+          displayName: Aqua
+          os: linux
+        - checkName: aws_pricing
+          displayName: Aws Pricing
+          os: linux
+        - checkName: bind9
+          displayName: Bind9
+          os: linux
+        - checkName: bluematador
+          displayName: Bluematador
+          os: linux
+        - checkName: bonsai
+          displayName: Bonsai
+          os: linux
+        - checkName: buddy
+          displayName: Buddy
+          os: linux
+        - checkName: concourse_ci
+          displayName: Concourse Ci
+          os: linux
+        - checkName: convox
+          displayName: Convox
+          os: linux
+        - checkName: eventstore
+          displayName: Eventstore
+          os: linux
+        - checkName: filebeat
+          displayName: Filebeat
+          os: linux
+        - checkName: gnatsd
+          displayName: Gnatsd
+          os: linux
+        - checkName: gnatsd_streaming
+          displayName: Gnatsd Streaming
+          os: linux
+        - checkName: gremlin
+          displayName: Gremlin
+          os: linux
+        - checkName: hbase_master
+          displayName: Hbase Master
+          os: linux
+        - checkName: hbase_regionserver
+          displayName: Hbase Regionserver
+          os: linux
+        - checkName: launchdarkly
+          displayName: Launchdarkly
+          os: linux
+        - checkName: lighthouse
+          displayName: Lighthouse
+          os: linux
+        - checkName: logstash
+          displayName: Logstash
+          os: linux
+        - checkName: logzio
+          displayName: Logzio
+          os: linux
+        - checkName: neo4j
+          displayName: Neo4J
+          os: linux
+        - checkName: neutrona
+          displayName: Neutrona
+          os: linux
+        - checkName: nextcloud
+          displayName: Nextcloud
+          os: linux
+        - checkName: nomad
+          displayName: Nomad
+          os: linux
+        - checkName: ping
+          displayName: Ping
+          os: linux
+        - checkName: portworx
+          displayName: Portworx
+          os: linux
+        - checkName: rbltracker
+          displayName: Rbltracker
+          os: linux
+        - checkName: reboot_required
+          displayName: Reboot Required
+          os: linux
+        - checkName: redis_sentinel
+          displayName: Redis Sentinel
+          os: linux
+        - checkName: riak_repl
+          displayName: Riak Repl
+          os: linux
+        - checkName: rigor
+          displayName: Rigor
+          os: linux
+        - checkName: rookout
+          displayName: Rookout
+          os: linux
+        - checkName: sendmail
+          displayName: Sendmail
+          os: linux
+        - checkName: sigsci
+          displayName: Sigsci
+          os: linux
+        - checkName: snmpwalk
+          displayName: Snmpwalk
+          os: linux
+        - checkName: sortdb
+          displayName: Sortdb
+          os: linux
+        - checkName: split
+          displayName: Split
+          os: linux
+        - checkName: stardog
+          displayName: Stardog
+          os: linux
+        - checkName: storm
+          displayName: Storm
+          os: linux
+        - checkName: traefik
+          displayName: Traefik
+          os: linux
+        - checkName: unbound
+          displayName: Unbound
+          os: linux
+        - checkName: upsc
+          displayName: Upsc
+          os: linux
+        - checkName: uptime
+          displayName: Uptime
+          os: linux
+        - checkName: vns3
+          displayName: Vns3
+          os: linux
