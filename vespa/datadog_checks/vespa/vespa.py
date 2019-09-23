@@ -1,4 +1,3 @@
-import requests
 import logging
 from datadog_checks.base import AgentCheck
 from datadog_checks.errors import CheckException
@@ -23,13 +22,12 @@ class VespaCheck(AgentCheck):
         self.services_up = 0
 
         instance_tags = instance.get('tags', [])
-        timeout = instance.get('timeout', 10)
         consumer = instance.get('consumer')
         if not consumer:
             raise CheckException("The consumer must be specified in the configuration.")
         url = self.URL + '?consumer=' + consumer
         try:
-            json = self._get_metrics_json(url, timeout)
+            json = self._get_metrics_json(url)
             if 'services' not in json:
                 self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.WARNING, tags=instance_tags,
                                    message="No services in response from metrics proxy on {}".format(url))
@@ -83,11 +81,11 @@ class VespaCheck(AgentCheck):
         self.gauge(name, value, tags)
         self.metric_count += 1
 
-    def _get_metrics_json(self, url, timeout):
+    def _get_metrics_json(self, url):
         """ Send rest request to metrics api and return the response as JSON
         """
         self.log.info("Sending request to {}".format(url))
-        response = requests.get(url, timeout=timeout)
+        response = self.http.get(url)
         response.raise_for_status()
         return response.json()
 
