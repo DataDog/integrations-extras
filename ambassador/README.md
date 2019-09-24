@@ -16,11 +16,14 @@ By default, Ambassador installs a `statsd` sidecar on its pod. This sidecar forw
 
     ```
     ---
-    apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
     kind: Deployment
     metadata:
      name: statsd-sink
     spec:
+      selector:
+        matchLabels:
+          service: statsd-sink
      replicas: 1
      template:
        metadata:
