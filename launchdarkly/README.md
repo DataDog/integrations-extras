@@ -2,15 +2,15 @@
 
 ### Overview
 
-Deploying features with LaunchDarkly is great, but sometimes it's difficult to
-see the effects of these feature deployments on the customer's services or
-systems. Datadog's monitoring and analytics tools for modern DevOps teams allow
-their customers to observe the health of their systems over time. The
-LaunchDarkly integration with Datadog exposes the LaunchDarkly events in context
-with events gathered by the Datadog agents. This makes it easier to reason about
-changes to customers' systems as a result of feature deployments that took
-place. For example, if a feature gets deployed that causes a service to slow
-down, a DevOps engineer will now be able to see the cause within Datadog.
+Deploying features with LaunchDarkly is great, but it can be difficult to see
+the effects of these deployments on users' services or systems. Datadog's
+monitoring and analytics tools for modern DevOps teams allow their customers to
+observe the health of their systems over time. The LaunchDarkly integration with
+Datadog exposes LaunchDarkly events in context with events gathered by the
+Datadog agents. This makes it easier to reason about changes to customers'
+systems as a result of feature deployments. For example, if a feature gets
+deployed that causes a service to slow down, a DevOps engineer can see the cause
+within Datadog.
 
 ![LaunchDarkly events in Datadog][2]
 
@@ -24,6 +24,8 @@ the [LaunchDarkly documentation for the Datadog integration][3] to for further
 instructions on how to register the API key in LaunchDarkly.
 
 ### Data Collected
+
+The LaunchDarkly integration sends the following data to Datadog:
 
 #### Metrics
 
