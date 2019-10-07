@@ -1,6 +1,6 @@
 # LaunchDarkly Integration
 
-### Overview
+## Overview
 
 Deploying features with LaunchDarkly is great, but it can be difficult to see
 the effects of these deployments on users' services or systems. Datadog's
