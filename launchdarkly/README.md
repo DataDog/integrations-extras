@@ -16,7 +16,6 @@ within Datadog.
 
 ## Setup
 
-#### Configuration
 
 This integration will need a [Datadog API key][1]. Only Datadog admins can
 create an API key. Once you've obtained a Datadog API key, visit the
