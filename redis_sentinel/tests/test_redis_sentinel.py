@@ -3,6 +3,8 @@ import pytest
 from datadog_checks.redis_sentinel import RedisSentinelCheck
 
 METRICS = [
+    'redis.sentinel.odown_slaves',
+    'redis.sentinel.sdown_slaves',
     'redis.sentinel.ok_slaves',
     'redis.sentinel.ok_sentinels',
     'redis.sentinel.known_sentinels',
