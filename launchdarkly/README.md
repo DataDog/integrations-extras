@@ -40,7 +40,7 @@ Datadog.
 
 The LaunchDarkly integration does not include any service checks.
 
-### Troubleshooting
+## Troubleshooting
 
 Need help? Contact [LaunchDarkly Support][4].
 
