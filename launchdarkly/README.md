@@ -14,7 +14,7 @@ within Datadog.
 
 ![LaunchDarkly events in Datadog][2]
 
-### Setup
+## Setup
 
 #### Configuration
 
