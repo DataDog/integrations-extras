@@ -30,7 +30,7 @@ The LaunchDarkly integration sends the following data to Datadog:
 
 The LaunchDarkly integration does not include any metrics.
 
-#### Events
+### Events
 
 This integration sends LaunchDarkly flag, project, environment events to
 Datadog. These events can be used to correlate with other metrics available in
