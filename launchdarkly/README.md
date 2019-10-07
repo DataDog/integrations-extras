@@ -20,7 +20,9 @@ within Datadog.
 This integration will need a [Datadog API key][1]. Only Datadog admins can
 create an API key. Once you've obtained a Datadog API key, visit the
 [LaunchDarkly documentation for the Datadog integration][3] for further
-instructions on how to register the API key in LaunchDarkly.
+Visit the [LaunchDarkly documentation for the Datadog integration][3] to learn how to setup the Datadog-LaunchDarky integration.
+
+**Note**: In order to set it up, you need a valid [Datadog API key][1].
 
 ## Data Collected
 
