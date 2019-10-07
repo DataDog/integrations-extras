@@ -22,7 +22,7 @@ create an API key. Once you've obtained a Datadog API key, visit the
 [LaunchDarkly documentation for the Datadog integration][3] for further
 instructions on how to register the API key in LaunchDarkly.
 
-### Data Collected
+## Data Collected
 
 The LaunchDarkly integration sends the following data to Datadog:
 
