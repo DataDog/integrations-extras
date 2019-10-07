@@ -109,8 +109,11 @@ class RedisSentinelCheck(AgentCheck):
             }]
         """
         slaves_stats = redis_conn.sentinel_slaves(master_name)
+        old_slaves = 0
+
         for stats in slaves_stats:
             if stats['is_odown'] or stats['is_sdown']:  # sentinel keeps track of old slaves
+                old_slaves += 1
                 continue
             self.increment('redis.sentinel.ok_slaves', tags=master_tags)
             slave_tags = ['slave_ip:%s' % stats['ip']] + base_tags
@@ -129,6 +132,8 @@ class RedisSentinelCheck(AgentCheck):
                 AgentCheck.CRITICAL if stats['master-link-status'] != 'ok' else AgentCheck.OK,
                 tags=slave_tags,
             )
+
+        self.gauge('redis.sentinel.old_slaves', old_slaves, tags=master_tags)
 
     def _process_master_stats(self, redis_conn, master_name, base_tags):
         """
