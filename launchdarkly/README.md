@@ -26,7 +26,7 @@ instructions on how to register the API key in LaunchDarkly.
 
 The LaunchDarkly integration sends the following data to Datadog:
 
-#### Metrics
+### Metrics
 
 The LaunchDarkly integration does not include any metrics.
 
