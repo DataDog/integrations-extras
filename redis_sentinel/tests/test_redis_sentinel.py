@@ -1,3 +1,4 @@
+import mock
 import pytest
 
 from datadog_checks.redis_sentinel import RedisSentinelCheck
@@ -37,3 +38,23 @@ def test_check(aggregator, instance):
         aggregator.assert_service_check(svc_chk, status=RedisSentinelCheck.OK, count=1)
 
     aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.usefixtures('dd_environment')
+def test_down_slaves(aggregator, instance):
+    """
+    Testing Redis_sentinel check.
+    """
+    check = RedisSentinelCheck(CHECK_NAME, {}, {})
+
+    sentinel_slaves = []
+    for _ in range(5):
+        sentinel_slaves.append({'is_odown': True, 'is_sdown': False})
+    for _ in range(7):
+        sentinel_slaves.append({'is_odown': False, 'is_sdown': True})
+
+    with mock.patch('redis.StrictRedis.sentinel_slaves', return_value=sentinel_slaves):
+        check.check(instance)
+
+        aggregator.assert_metric('redis.sentinel.odown_slaves', 5)
+        aggregator.assert_metric('redis.sentinel.sdown_slaves', 7)
