@@ -114,14 +114,15 @@ class RiakReplCheck(AgentCheck):
         for c in connected_clusters:
 
             if stats['fullsync_enabled'] is not None:
-                for key, val in iteritems(stats['fullsync_coordinator'][c]):
-                    if key in self.FULLSYNC_COORDINATOR:
-                        self.safe_submit_metric(
-                            "riak_repl.fullsync_coordinator." + key,
-                            val,
-                            self.FULLSYNC_COORDINATOR.get(key),
-                            tags=tags + ['cluster:%s' % c],
-                        )
+                if self.exists(stats['fullsync_coordinator'], [c]):
+                    for key, val in iteritems(stats['fullsync_coordinator'][c]):
+                        if key in self.FULLSYNC_COORDINATOR:
+                            self.safe_submit_metric(
+                                "riak_repl.fullsync_coordinator." + key,
+                                val,
+                                self.FULLSYNC_COORDINATOR.get(key),
+                                tags=tags + ['cluster:%s' % c],
+                            )
 
             if stats['realtime_started'] is not None:
                 if self.exists(stats['sources'], ['source_stats', 'rt_source_connected_to']):
@@ -134,14 +135,15 @@ class RiakReplCheck(AgentCheck):
                                 tags=tags + ['cluster:%s' % c],
                             )
 
-                for key, val in iteritems(stats['realtime_queue_stats']['consumers'][c]):
-                    if key in self.REALTIME_QUEUE_STATS_CONSUMERS:
-                        self.safe_submit_metric(
-                            "riak_repl.realtime_queue_stats.consumers." + key,
-                            val,
-                            self.REALTIME_QUEUE_STATS_CONSUMERS.get(key),
-                            tags=tags + ['cluster:%s' % c],
-                        )
+                if self.exists(stats['realtime_queue_stats'], ['consumers', c]):
+                    for key, val in iteritems(stats['realtime_queue_stats']['consumers'][c]):
+                        if key in self.REALTIME_QUEUE_STATS_CONSUMERS:
+                            self.safe_submit_metric(
+                                "riak_repl.realtime_queue_stats.consumers." + key,
+                                val,
+                                self.REALTIME_QUEUE_STATS_CONSUMERS.get(key),
+                                tags=tags + ['cluster:%s' % c],
+                            )
 
             if self.exists(stats['sinks'], ['sink_stats', 'rt_sink_connected_to']):
                 for key, val in iteritems(stats['sinks']['sink_stats']['rt_sink_connected_to']):
