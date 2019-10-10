@@ -1,4 +1,5 @@
 import json
+import unicodedata
 
 import requests
 from six import iteritems
@@ -10,62 +11,51 @@ from datadog_checks.base.errors import CheckException
 class RiakReplCheck(AgentCheck):
 
     REPL_STATS = {
-        "server_bytes_sent": "gauge",
-        "server_bytes_recv": "gauge",
-        "server_connects": "gauge",
-        "server_connect_errors": "gauge",
-        "server_fullsyncs": "gauge",
-        "client_bytes_sent": "gauge",
-        "client_bytes_recv": "gauge",
-        "client_connects": "gauge",
-        "client_connect_errors": "gauge",
-        "client_redirect": "gauge",
-        "objects_dropped_no_clients": "gauge",
-        "objects_dropped_no_leader": "gauge",
-        "objects_sent": "gauge",
-        "objects_forwarded": "gauge",
-        "elections_elected": "gauge",
-        "elections_leader_changed": "gauge",
-        "rt_source_errors": "gauge",
-        "rt_sink_errors": "gauge",
-        "rt_dirty": "gauge",
-        "realtime_send_kbps": "gauge",
-        "realtime_recv_kbps": "gauge",
-        "fullsync_send_kbps": "gauge",
-        "fullsync_recv_kbps": "gauge",
+        "server_bytes_sent",
+        "server_bytes_recv",
+        "server_connects",
+        "server_connect_errors",
+        "server_fullsyncs",
+        "client_bytes_sent",
+        "client_bytes_recv",
+        "client_connects",
+        "client_connect_errors",
+        "client_redirect",
+        "objects_dropped_no_clients",
+        "objects_dropped_no_leader",
+        "objects_sent",
+        "objects_forwarded",
+        "elections_elected",
+        "elections_leader_changed",
+        "rt_source_errors",
+        "rt_sink_errors",
+        "rt_dirty",
+        "realtime_send_kbps",
+        "realtime_recv_kbps",
+        "fullsync_send_kbps",
+        "fullsync_recv_kbps",
     }
 
-    REALTIME_QUEUE_STATS = {
-        "percent_bytes_used": "gauge",
-        "bytes": "gauge",
-        "max_bytes": "gauge",
-        "overload_drops": "gauge",
-    }
+    REALTIME_QUEUE_STATS = {"percent_bytes_used", "bytes", "max_bytes", "overload_drops"}
 
-    REALTIME_QUEUE_STATS_CONSUMERS = {"pending": "gauge", "unacked": "gauge", "drops": "gauge", "errs": "gauge"}
+    REALTIME_QUEUE_STATS_CONSUMERS = {"pending", "unacked", "drops", "errs"}
 
-    REALTIME_SOURCE_CONN = {"hb_rtt": "gauge", "sent_seq": "gauge", "objects": "gauge"}
+    REALTIME_SOURCE_CONN = {"hb_rtt", "sent_seq", "objects"}
 
-    REALTIME_SINK_CONN = {
-        "deactivated": "gauge",
-        "source_drops": "gauge",
-        "expect_seq": "gauge",
-        "acked_seq": "gauge",
-        "pending": "gauge",
-    }
+    REALTIME_SINK_CONN = {"deactivated", "source_drops", "expect_seq", "acked_seq", "pending"}
 
     FULLSYNC_COORDINATOR = {
-        "queued": "gauge",
-        "in_progress": "gauge",
-        "waiting_for_retry": "gauge",
-        "starting": "gauge",
-        "successful_exits": "gauge",
-        "error_exits": "gauge",
-        "retry_exits": "gauge",
-        "soft_retry_exits": "gauge",
-        "busy_nodes": "gauge",
-        "fullsyncs_completed": "gauge",
-        "last_fullsync_duration": "gauge",
+        "queued",
+        "in_progress",
+        "waiting_for_retry",
+        "starting",
+        "successful_exits",
+        "error_exits",
+        "retry_exits",
+        "soft_retry_exits",
+        "busy_nodes",
+        "fullsyncs_completed",
+        "last_fullsync_duration",
     }
 
     def check(self, instance):
@@ -164,8 +154,15 @@ class RiakReplCheck(AgentCheck):
                 self.gauge(name, float(value), tags=tags)
                 return
             except ValueError:
-                self.log.debug("metric name {0} cannot be converted to a float: {1}".format(name, value))
-                pass
+                self.log.debug(
+                    "metric name {0} cannot be converted to a float:{1}".format(name, value)
+                )
+
+            try:
+                self.gauge(name, unicodedata.numeric(value), tags=tags)
+                return
+            except (TypeError, ValueError):
+                self.log.debug("metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value))
 
     def exists(self, obj, nest):
         _key = nest.pop(0)
