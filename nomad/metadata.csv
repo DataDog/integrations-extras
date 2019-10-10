@@ -9,11 +9,11 @@ nomad.client.allocations.migrating,gauge,,job,,Number of allocations migrating f
 nomad.client.allocations.pending,gauge,,job,,Number of allocations pending for a client,0,nomad,allocations pending
 nomad.client.allocations.running,gauge,,job,,Number of allocations running for a client,0,nomad,allocations running
 nomad.client.allocations.terminal,gauge,,job,,Number of allocations terminated for a client,0,nomad,allocations terminal
-nomad.client.consul.check_registrations,gauge,,,,DESC,0,nomad,check registration
-nomad.client.consul.checks,gauge,,,,DESC,0,nomad,check consul
-nomad.client.consul.script_checks,gauge,,,,DESC,0,nomad,consul script
-nomad.client.consul.service_registrations,gauge,,,,DESC,0,nomad,service regitration
-nomad.client.consul.services,gauge,,,,DESC,0,nomad,consul services
+nomad.client.consul.check_registrations,gauge,,,,Number of consul check registrations.,0,nomad,check registration
+nomad.client.consul.checks,gauge,,,,Number of consul checks.,0,nomad,check consul
+nomad.client.consul.script_checks,gauge,,,,Number of consul script checks.,0,nomad,consul script
+nomad.client.consul.service_registrations,gauge,,,,Number of consul service registration.,0,nomad,service regitration
+nomad.client.consul.services,gauge,,,,Number of consul services.,0,nomad,consul services
 nomad.client.host.cpu.idle,gauge,,megahertz,,Amount of CPU idle for a client,0,nomad,cpu idle
 nomad.client.host.cpu.system,gauge,,megahertz,,Amount of CPU consumed by the system for a client,0,nomad,cpu system
 nomad.client.host.cpu.total,gauge,,megahertz,,Amount of CPU total for a client,0,nomad,total cpu
@@ -33,21 +33,21 @@ nomad.client.unallocated.iops,gauge,,operation,,Number of unallocated iops for a
 nomad.client.unallocated.memory,gauge,,mebibyte,,Amount of unallocated memory for a client,0,nomad,unallocted memory
 nomad.client.unallocated.network,gauge,,mebibyte,,Unallocated bandwidth for a client,0,nomad,unallocated network
 nomad.client.uptime,gauge,,second,,Uptime of the host running the Nomad client,0,nomad,client uptime
-nomad.memberlist.gossip.95percentile,gauge,,,,DESC,0,nomad,member gossip
-nomad.memberlist.gossip.avg,gauge,,,,DESC,0,nomad,member gossip avg
-nomad.memberlist.gossip.count,gauge,,,,DESC,0,nomad,member gossip count
-nomad.memberlist.gossip.max,gauge,,,,DESC,0,nomad,gossip max
-nomad.memberlist.gossip.median,gauge,,,,DESC,0,nomad,gossip med
-nomad.memberlist.msg.alive,gauge,,,,DESC,0,nomad,member alive
-nomad.memberlist.tcp.accept,gauge,,,,DESC,0,nomad,member tcp
-nomad.nomad.blocked_evals.total_blocked,gauge,,,,DESC,0,nomad,bck eval blocked
-nomad.nomad.blocked_evals.total_escaped,gauge,,,,DESC,0,nomad,bck eval escaped
-nomad.nomad.blocked_evals.total_quota_limit,gauge,,,,DESC,0,nomad,bck eval quota
+nomad.memberlist.gossip.95percentile,gauge,,resource,,95 percentile of members in the gossip pool.,0,nomad,member gossip
+nomad.memberlist.gossip.avg,gauge,,resource,,Average number of members in the gossip pool.,0,nomad,member gossip avg
+nomad.memberlist.gossip.count,rate,10,resource,,Number of members in the gossip pool.,0,nomad,member gossip count
+nomad.memberlist.gossip.max,gauge,,resource,,Maximum number of members in the gossip pool.,0,nomad,gossip max
+nomad.memberlist.gossip.median,gauge,,resource,,Median number of members in the gossip pool.,0,nomad,gossip med
+nomad.memberlist.msg.alive,gauge,,resource,,Number of message from alive members.,0,nomad,member alive
+nomad.memberlist.tcp.accept,gauge,,resource,,Number of accepted TCP connections.,0,nomad,member tcp
+nomad.nomad.blocked_evals.total_blocked,gauge,,job,,Number of blocked evaluation.,0,nomad,bck eval blocked
+nomad.nomad.blocked_evals.total_escaped,gauge,,job,,Number of blocked evaluation that are escaped.,0,nomad,bck eval escaped
+nomad.nomad.blocked_evals.total_quota_limit,gauge,,job,,Limit quota of evaluations.,0,nomad,bck eval quot
 nomad.nomad.broker.total_blocked,gauge,,,,Evaluations that are blocked until an existing evaluation for the same job completes,0,nomad,broker blocked
 nomad.nomad.broker.total_ready,gauge,,,,Number of evaluations ready to be processed,0,nomad,broker ready
 nomad.nomad.broker.total_unacked,gauge,,,,Evaluations dispatched for processing but incomplete,0,nomad,broker unacked
 nomad.nomad.broker.total_waiting,gauge,,,,Number of evaluations waiting to be processed,0,nomad,broker waiting
-nomad.nomad.client.get_client_allocs.95percentile,gauge,,,,DESC,0,nomad,client 95p
-nomad.nomad.client.get_client_allocs.avg,gauge,,,,DESC,0,nomad,client avg
-nomad.nomad.client.get_client_allocs.count,gauge,,,,DESC,0,nomad,client count
-nomad.nomad.client.get_client_allocs.max,gauge,,,,DESC,0,nomad,client max
+nomad.nomad.client.get_client_allocs.95percentile,gauge,,,,The 95 percentile of nomad client allocated,0,nomad,client 95p
+nomad.nomad.client.get_client_allocs.avg,gauge,,,,The average number of nomad client allocated.,0,nomad,client avg
+nomad.nomad.client.get_client_allocs.count,gauge,,,,The number of nomad cient allocated.,0,nomad,client count
+nomad.nomad.client.get_client_allocs.max,gauge,,,,The maximum number of nomad client allocated.,0,nomad,client max
