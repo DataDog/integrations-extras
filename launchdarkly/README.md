@@ -2,29 +2,25 @@
 
 ## Overview
 
-This integration tracks metrics from [LaunchDarkly's relay proxy][1], such as number of proxied stream connections and proxied API route requests.
+The Datadog-LaunchDarkly integration allows you to see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you would be able to see the cause within Datadog.
+
+![LaunchDarkly events in Datadog][2]
 
 ## Setup
 
-### Configuration
+This integration will need a [Datadog API key][1]. Only Datadog admins can create an API key. Once you've obtained a Datadog API key, visit the [LaunchDarkly documentation for the Datadog integration][3] to learn how to setup the Datadog-LaunchDarky integration.
 
-After you've configured the [relay proxy][2], add the following section to your LaunchDarkly relay instance's `ld-relay.conf` file:
-
-```
-[datadog]
-enabled=true
-statsAddr="YOUR_STATS_ADDRESS"
-```
+**Note**: In order to set it up, you need a valid [Datadog API key][1].
 
 ## Data Collected
 
 ### Metrics
 
-The relay collects metrics on the number of proxied stream connections and proxied API route requests. See [relay documentation][3] for more information.
+The LaunchDarkly integration does not include any metrics.
 
 ### Events
 
-The LaunchDarkly integration does not include any events.
+The LaunchDarkly integration sends flag, project, and environment events from LaunchDarkly to Datadog.
 
 ### Service Checks
 
@@ -32,14 +28,14 @@ The LaunchDarkly integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact Datadog [Support][4].
+Need help? Contact [LaunchDarkly Support][4].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][5].
+Learn more about [LaunchDarkly][5] and this integration [here][3].
 
-[1]: https://docs.launchdarkly.com/docs/the-relay-proxy
-[2]: https://github.com/launchdarkly/ld-relay#quick-setup
-[3]: https://github.com/launchdarkly/ld-relay#exporting-metrics-and-traces
-[4]: https://docs.datadoghq.com/help
-[5]: https://www.datadoghq.com/blog
+[1]: https://app.datadoghq.com/account/settings#api
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/launchdarkly/assets/image/ld-datadog-hover.gif
+[3]: https://docs.launchdarkly.com/docs/datadog
+[4]: https://support.launchdarkly.com/hc/en-us/requests/new
+[5]: https://launchdarkly.com
