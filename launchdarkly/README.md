@@ -35,7 +35,7 @@ Need help? Contact [LaunchDarkly Support][4].
 Learn more about [LaunchDarkly][5] and this integration [here][3].
 
 [1]: https://app.datadoghq.com/account/settings#api
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/launchdarkly/assets/image/ld-datadog-hover.gif
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/launchdarkly/assets/images/ld-datadog-hover.gif
 [3]: https://docs.launchdarkly.com/docs/datadog
 [4]: https://support.launchdarkly.com/hc/en-us/requests/new
 [5]: https://launchdarkly.com
