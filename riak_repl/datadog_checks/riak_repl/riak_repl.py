@@ -87,18 +87,13 @@ class RiakReplCheck(AgentCheck):
 
         for key, val in iteritems(stats):
             if key in self.REPL_STATS:
-                self.safe_submit_metric(
-                    "riak_repl." + key, val, self.REPL_STATS.get(key), tags=tags + ['cluster:%s' % cluster]
-                )
+                self.safe_submit_metric("riak_repl." + key, val, tags=tags + ['cluster:%s' % cluster])
 
         if stats['realtime_started'] is not None:
             for key, val in iteritems(stats['realtime_queue_stats']):
                 if key in self.REALTIME_QUEUE_STATS:
                     self.safe_submit_metric(
-                        "riak_repl.realtime_queue_stats." + key,
-                        val,
-                        self.REALTIME_QUEUE_STATS.get(key),
-                        tags=tags + ['cluster:%s' % cluster],
+                        "riak_repl.realtime_queue_stats." + key, val, tags=tags + ['cluster:%s' % cluster]
                     )
 
         for c in connected_clusters:
@@ -108,10 +103,7 @@ class RiakReplCheck(AgentCheck):
                     for key, val in iteritems(stats['fullsync_coordinator'][c]):
                         if key in self.FULLSYNC_COORDINATOR:
                             self.safe_submit_metric(
-                                "riak_repl.fullsync_coordinator." + key,
-                                val,
-                                self.FULLSYNC_COORDINATOR.get(key),
-                                tags=tags + ['cluster:%s' % c],
+                                "riak_repl.fullsync_coordinator." + key, val, tags=tags + ['cluster:%s' % c]
                             )
 
             if stats['realtime_started'] is not None:
@@ -119,50 +111,38 @@ class RiakReplCheck(AgentCheck):
                     for key, val in iteritems(stats['sources']['source_stats']['rt_source_connected_to']):
                         if key in self.REALTIME_SOURCE_CONN:
                             self.safe_submit_metric(
-                                "riak_repl.realtime_source.connected." + key,
-                                val,
-                                self.REALTIME_SOURCE_CONN.get(key),
-                                tags=tags + ['cluster:%s' % c],
+                                "riak_repl.realtime_source.connected." + key, val, tags=tags + ['cluster:%s' % c]
                             )
 
                 if self.exists(stats['realtime_queue_stats'], ['consumers', c]):
                     for key, val in iteritems(stats['realtime_queue_stats']['consumers'][c]):
                         if key in self.REALTIME_QUEUE_STATS_CONSUMERS:
                             self.safe_submit_metric(
-                                "riak_repl.realtime_queue_stats.consumers." + key,
-                                val,
-                                self.REALTIME_QUEUE_STATS_CONSUMERS.get(key),
-                                tags=tags + ['cluster:%s' % c],
+                                "riak_repl.realtime_queue_stats.consumers." + key, val, tags=tags + ['cluster:%s' % c]
                             )
 
             if self.exists(stats['sinks'], ['sink_stats', 'rt_sink_connected_to']):
                 for key, val in iteritems(stats['sinks']['sink_stats']['rt_sink_connected_to']):
                     if key in self.REALTIME_SINK_CONN:
                         self.safe_submit_metric(
-                            "riak_repl.realtime_sink.connected." + key,
-                            val,
-                            self.REALTIME_SINK_CONN.get(key),
-                            tags=tags + ['cluster:%s' % c],
+                            "riak_repl.realtime_sink.connected." + key, val, tags=tags + ['cluster:%s' % c]
                         )
 
-    def safe_submit_metric(self, name, value, type, tags=None):
-        type = "gauge" if type is None else type
+    def safe_submit_metric(self, name, value, tags=None):
         tags = [] if tags is None else tags
+        try:
+            self.gauge(name, float(value), tags=tags)
+            return
+        except ValueError:
+            self.log.debug("metric name {0} cannot be converted to a float:{1}".format(name, value))
 
-        if type == "gauge":
-            try:
-                self.gauge(name, float(value), tags=tags)
-                return
-            except ValueError:
-                self.log.debug(
-                    "metric name {0} cannot be converted to a float:{1}".format(name, value)
-                )
-
-            try:
-                self.gauge(name, unicodedata.numeric(value), tags=tags)
-                return
-            except (TypeError, ValueError):
-                self.log.debug("metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value))
+        try:
+            self.gauge(name, unicodedata.numeric(value), tags=tags)
+            return
+        except (TypeError, ValueError):
+            self.log.debug(
+                "metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value)
+            )
 
     def exists(self, obj, nest):
         _key = nest.pop(0)
