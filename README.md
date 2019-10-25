@@ -1,8 +1,7 @@
 # Datadog Agent Integrations
 
 [![Build Status][1]][2]
-[![Build status][9]][10]
-[![Code style - black][11]][12]
+[![Code style - black][9]][10]
 
 Collecting data is cheap; not having it when you need it can be very expensive. So we recommend instrumenting as much of your systems and applications as possible. This integrations repository will help you do that by making it easier to create and share new integrations for [Datadog][3].
 
@@ -24,15 +23,13 @@ Once you have completed the development of your integration, submit a [pull requ
 
 For more information on integrations, please reference our [documentation][6] and [knowledge base][7]. You can also visit our [help page][8] to connect with us.
 
-[1]: https://api.travis-ci.com/DataDog/integrations-extras.svg?branch=master
-[2]: https://travis-ci.com/DataDog/integrations-extras
+[1]: https://dev.azure.com/datadoghq/integrations-extras/_apis/build/status/Master%20All?branchName=master
+[2]: https://dev.azure.com/datadoghq/integrations-extras/_build/latest?definitionId=7&branchName=master
 [3]: https://www.datadoghq.com
 [4]: https://docs.datadoghq.com/developers/integrations/
 [5]: https://github.com/DataDog/integrations-extras/compare
 [6]: http://docs.datadoghq.com
 [7]: https://help.datadoghq.com/hc/en-us
 [8]: http://docs.datadoghq.com/help/
-[9]: https://ci.appveyor.com/api/projects/status/wj8n4eijk0roy3ma?svg=true
-[10]: https://ci.appveyor.com/project/Datadog/integrations-extras
-[11]: https://img.shields.io/badge/code%20style-black-000000.svg
-[12]: https://github.com/ambv/black
+[9]: https://img.shields.io/badge/code%20style-black-000000.svg
+[10]: https://github.com/ambv/black
