@@ -4,7 +4,7 @@
 
  * [FEATURE] adds realtime_queue_stats metrics for consumers
  * [FEATURE] adds realtime source/sink connection stats
- * [FEATURE] adds fullsync_coordinator stats
+ * [UPDATE] fullsync_coordinator metrics changed from `riak_repl.fullsync_coordinator.<cluster>.<key>` to `riak_repl.fullsync_coordinator.<key>` with a cluster tag
  * [FIX] implement tests to ensure replication is enabled before expecting stats
 
 ## 0.0.2
