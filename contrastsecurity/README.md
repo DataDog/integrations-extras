@@ -32,7 +32,7 @@ ContrastSecurityLogRule %{data:data}pri=%{data:pri} src=%{ip:src} spt=%{number:s
 ```
 
 ### Import Contrast Dashboard into DataDog
-Your API key and Application keys can be found in Integrations -> APIs
+You can find your API key and application keys in *Integrations* -> *APIs*.
 
 ```bash
 api_key=YOUR_API_KEY
