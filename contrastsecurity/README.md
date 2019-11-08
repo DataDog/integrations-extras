@@ -36,7 +36,7 @@ You can find your API key and application keys in *Integrations* -> *APIs*.
 
 ```bash
 api_key=YOUR_API_KEY
-app_key=YOUR_APPLICATION_KEY
+app_key=<YOUR_APPLICATION_KEY>
 
 curl  -X POST -H "Content-type: application/json" -d @contrast_security_protect.json "https://api.datadoghq.com/api/v1/dashboard?api_key=${api_key}&application_key=${app_key}"
 ```
