@@ -8,7 +8,7 @@ logs_enabled: true
 ```
 
 * Create a new folder `java.d` in the `conf.d/` directory of DataDog configuration directory.
-* Create a new conf.yaml file.
+* Create a new `conf.yaml` file.
 * Add a custom log collection configuration group.
 ```
 logs:
