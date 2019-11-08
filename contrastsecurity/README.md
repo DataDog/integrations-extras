@@ -18,7 +18,7 @@ logs:
     source: java
 ```
 
-* Restart DataDog Agent.
+* [Restart the Datadog Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
 More info: https://docs.datadoghq.com/logs/log_collection/?tab=tailexistingfiles#getting-started-with-the-agent
 
