@@ -26,7 +26,7 @@ For more information, consult the [Logs Collection documentation](https://docs.d
 
 * Create a new pipeline in Datadog (*Logs* -> *Configuration* - > *New Pipeline*) 
 * Expand the new pipeline and click *Add Processor*.
-* Add a Grok Parser to the pipeline with the following parsing rule
+* Add a Grok parser to the pipeline with the following parsing rule:
 ```
 ContrastSecurityLogRule %{data:data}pri=%{data:pri} src=%{ip:src} spt=%{number:spt} request=%{data:request} requestMethod=%{word:requestMethod} app=%{data:app} outcome=%{word:outcome}
 ```
