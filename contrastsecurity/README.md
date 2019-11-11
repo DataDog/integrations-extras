@@ -31,7 +31,7 @@ For more information, consult the [Logs Collection documentation](https://docs.d
 ContrastSecurityLogRule %{data:data}pri=%{data:pri} src=%{ip:src} spt=%{number:spt} request=%{data:request} requestMethod=%{word:requestMethod} app=%{data:app} outcome=%{word:outcome}
 ```
 
-### Import Contrast Dashboard into DataDog
+### Import Contrast Security dashboard into Datadog
 You can find your API key and application keys in *Integrations* -> *APIs*.
 
 ```bash
