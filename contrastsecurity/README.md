@@ -13,7 +13,7 @@ Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on
 logs_enabled: true
 ```
 
-* Create a new folder `java.d` in the `conf.d/` directory of DataDog configuration directory.
+* Add this configuration block to your `contrastsecurity.d/conf.yaml` file to start collecting your Contrast Logs:
 * Create a new `conf.yaml` file.
 * Add a custom log collection configuration group.
 ```
