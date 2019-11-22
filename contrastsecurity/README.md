@@ -21,7 +21,7 @@ logs:
   - type: file
     path: /path/to/contrast/security.log
     service: contrast
-    source: java
+    source: contrastsecurity
 ```
 For more information on logs: https://docs.contrastsecurity.com/installation-setupconfig.html#log
 
