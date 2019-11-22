@@ -23,6 +23,7 @@ logs:
     service: contrast
     source: java
 ```
+For more information on logs: https://docs.contrastsecurity.com/installation-setupconfig.html#log
 
 * [Restart the Datadog Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
 
