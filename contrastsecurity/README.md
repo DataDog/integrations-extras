@@ -1,4 +1,10 @@
-## Contrast Security - Protect ScreenBoard for DataDog
+# Contrast Security Integration
+
+## Overview
+
+The Datadog-Constrant integration allows you to get your Contrast logs into Datadog.
+
+## Setup
 
 ### Set up Contrast Protect logs collection
 
