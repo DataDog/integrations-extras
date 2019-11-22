@@ -42,3 +42,17 @@ curl  -X POST -H "Content-type: application/json" -d @contrast_security_protect.
 ```
 
 For more information, refer to the [Datadog API documentation for creating a dashboard](https://docs.datadoghq.com/api/?lang=bash#create-a-dashboard).
+
+## Data Collected
+
+### Metrics
+
+The Contrast integration does not include any metrics.
+
+### Events
+
+The Contrast integration does not send any events.
+
+### Service Checks
+
+The Contrast integration does not include any service checks.
