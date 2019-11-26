@@ -38,16 +38,6 @@ For more information, consult the [Logs Collection documentation](https://docs.d
 ContrastSecurityLogRule %{data:data}pri=%{data:pri} src=%{ip:src} spt=%{number:spt} request=%{data:request} requestMethod=%{word:requestMethod} app=%{data:app} outcome=%{word:outcome}
 ```
 
-### Import Contrast Security dashboard into Datadog
-You can find your API key and application keys in *Integrations* -> *APIs*.
-
-```bash
-api_key=<YOUR_API_KEY>
-app_key=<YOUR_APPLICATION_KEY>
-
-curl  -X POST -H "Content-type: application/json" -d @contrast_security_protect.json "https://api.datadoghq.com/api/v1/dashboard?api_key=${api_key}&application_key=${app_key}"
-```
-
 For more information, refer to the [Datadog API documentation for creating a dashboard](https://docs.datadoghq.com/api/?lang=bash#create-a-dashboard).
 
 ## Data Collected
