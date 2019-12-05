@@ -141,8 +141,11 @@ class EventStoreCheck(AgentCheck):
         if es_paths is None:
             es_paths = []
 
+        if isinstance(json_obj, list):
+            json_obj = dict((str(k), v) for k, v in enumerate(json_obj))
+
         for key, value in json_obj.items():
-            if isinstance(value, dict):
+            if isinstance(value, (dict, list)):
                 # We add the instance to the path global variable to build up a map
                 p.append(key)
                 self.walk(value, p, es_paths)
@@ -203,13 +206,15 @@ class EventStoreCheck(AgentCheck):
 
     # Fill out eventstore_paths using walk of json
 
-    def get_value(self, dictionary, metric_path, index=0):
+    def get_value(self, json_obj, metric_path, index=0):
         """ Returns the value for the supplied metric path """
         split = metric_path.split('.')
         key = split[index]
+        if isinstance(json_obj, list):
+            json_obj = dict((str(k), v) for k, v in enumerate(json_obj))
         try:
-            v = dictionary[key]
-            if isinstance(v, dict):
+            v = json_obj[key]
+            if isinstance(v, (dict, list)):
                 index += 1
                 v = self.get_value(v, metric_path, index=index)
             else:
