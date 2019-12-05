@@ -25,4 +25,6 @@ def instance():
         'url': 'http://{}:{}/stats'.format(HOST, PORT),
         'name': 'testInstance',
         'json_path': ['*', '*.*', '*.*.*', '*.*.*.*'],
+        'user': 'admin',
+        'password': 'changeit',
     }

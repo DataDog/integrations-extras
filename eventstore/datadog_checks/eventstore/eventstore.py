@@ -23,8 +23,16 @@ class EventStoreCheck(AgentCheck):
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
         metric_def = copy.deepcopy(ALL_METRICS)
+
+        user = instance.get('user')
+        password = instance.get('password')
+        if user is None or password is None:
+            auth = None
+        else:
+            auth = (user, password)
+            self.log.debug('Authenticating as: {0}'.format(user))
         try:
-            r = requests.get(url, timeout=timeout)
+            r = requests.get(url, timeout=timeout, auth=auth)
         except requests.exceptions.Timeout:
             raise CheckException('URL: {0} timed out after {1} seconds.'.format(url, timeout))
         except requests.exceptions.MissingSchema as e:
