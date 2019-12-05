@@ -237,6 +237,36 @@ class EventStoreCheck(AgentCheck):
             else:
                 v = float(0)
             # Convert to MS
+        elif data_type == 'str':
+            v = self.convert_str_to_gauge(value, metric)
+        return v
+
+    def convert_str_to_gauge(self, value, metric):
+        v = None
+        match = metric.get('match')
+        mismatch = metric.get('mismatch')
+        if match and mismatch:
+            self.log.info(
+                'Only one of match or mismatch can be specified to convert the str metric to a gauge for: {0}'.format(
+                    metric['json_path'], metric['metric_name']
+                )
+            )
+        elif not match and not mismatch:
+            self.log.info(
+                'Match or mismatch should be specified to convert the str metric to a gauge for: {0}'.format(
+                    metric['json_path'], metric['metric_name']
+                )
+            )
+        else:
+            checklist = match or mismatch
+            if isinstance(checklist, (frozenset, list, set, tuple)):
+                checklist = frozenset(checklist)
+            else:
+                checklist = frozenset((checklist,))
+            if match:
+                v = 1 if value in checklist else 0
+            elif mismatch:
+                v = 0 if value in checklist else 1
         return v
 
     def convert_to_timedelta(self, string):
