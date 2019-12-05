@@ -5,6 +5,7 @@ import copy
 import datetime
 import fnmatch
 import re
+from collections import defaultdict
 
 import requests
 
@@ -69,7 +70,7 @@ class EventStoreCheck(AgentCheck):
         self.log.debug(eventstore_paths)
 
         # Flatten the self.init_config definitions into valid metric definitions
-        metric_definitions = {}
+        metric_definitions = defaultdict(list)
         for metric in metric_def:
             self.log.debug("metric {}".format(metric))
             json_path = metric.get('json_path', '')
@@ -92,7 +93,7 @@ class EventStoreCheck(AgentCheck):
                     tag_value = self.get_value(parsed_api, tag_path)
                     tag_builder.append('{}:{}'.format(tag_name, tag_value))
                 metric_builder['tag_by'] = tag_builder
-                metric_definitions[path] = metric_builder
+                metric_definitions[path].append(metric_builder)
 
         # Find metrics to check:
         metrics_to_check = {}
@@ -112,15 +113,15 @@ class EventStoreCheck(AgentCheck):
         # Get the value for a given key
         self.log.debug("parsed_api:")
         self.log.debug(parsed_api)
-        for metric in metrics_to_check.values():
-            value = self.get_value(parsed_api, metric['json_path'])
-            value = self.convert_value(value, metric)
-            if value is not None:
-                self.dispatch_metric(value, metric)
-            else:
-                # self.dispatch_metric(0, metric)
-                self.log.debug("Metric {} did not return a value, skipping".format(metric['json_path']))
-                self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
+        for path, metrics in metrics_to_check.items():
+            raw_value = self.get_value(parsed_api, path)
+            for metric in metrics:
+                metric_value = self.convert_value(raw_value, metric)
+                if metric_value is not None:
+                    self.dispatch_metric(metric_value, metric)
+                else:
+                    # self.dispatch_metric(0, metric)
+                    self.log.info("Metric {} did not return a value, skipping".format(path))
 
     @classmethod
     def format_tag(cls, name):
