@@ -23,7 +23,7 @@ def instance():
         'default_timeout': 5,
         'tag_by_url': True,
         'url': 'http://{}:{}'.format(HOST, PORT),
-        'endpoints': ['/stats', '/info', '/projections/all-non-transient'],
+        'endpoints': ['/stats', '/info', '/projections/all-non-transient', '/subscriptions'],
         'name': 'testInstance',
         'json_path': ['*', '*.*', '*.*.*', '*.*.*.*'],
         'user': 'admin',
