@@ -463,4 +463,57 @@ ALL_METRICS = {
             "tag_by": ["projection:projections.*.effectiveName"],
         },
     ],
+    # Stats on subscriptions
+    '/subscriptions': [
+        {
+            "json_path": "*.status",
+            "json_type": "str",
+            "metric_name": "eventstore.subscription.live",
+            "metric_type": "gauge",
+            "match": "Live",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.averageItemsPerSecond",
+            "json_type": "float",
+            "metric_name": "eventstore.subscription.average_items_per_second",
+            "metric_type": "histogram",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.totalItemsProcessed",
+            "json_type": "int",
+            "metric_name": "eventstore.subscription.items_processed",
+            "metric_type": "gauge",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.lastProcessedEventNumber",
+            "json_type": "int",
+            "metric_name": "eventstore.subscription.last_processed_event_number",
+            "metric_type": "gauge",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.lastKnownEventNumber",
+            "json_type": "int",
+            "metric_name": "eventstore.subscription.last_known_event_number",
+            "metric_type": "gauge",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.connectionCount",
+            "json_type": "int",
+            "metric_name": "eventstore.subscription.connections",
+            "metric_type": "gauge",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+        {
+            "json_path": "*.totalInFlightMessages",
+            "json_type": "int",
+            "metric_name": "eventstore.subscription.messages_in_flight",
+            "metric_type": "gauge",
+            "tag_by": ["*.eventStreamId", "*.groupName"],
+        },
+    ],
 }

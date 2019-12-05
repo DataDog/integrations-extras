@@ -5,3 +5,14 @@ services:
     ports:
       - "2113:2113"
       - "1113:1113"
+  subscription:
+    image: curlimages/curl:latest
+    entrypoint: /usr/bin/timeout
+    command:
+      - '10'
+      - sh
+      - /usr/local/bin/subscription.sh
+    volumes:
+      - ./subscription.sh:/usr/local/bin/subscription.sh
+    depends_on:
+      - web
