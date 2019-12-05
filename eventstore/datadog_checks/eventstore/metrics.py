@@ -3,6 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
 ALL_METRICS = {
+    # Generic stats
     '/stats': [
         {"json_path": "proc.mem", "json_type": "int", "metric_name": "eventstore.proc.mem", "metric_type": "gauge"},
         {"json_path": "proc.cpu", "json_type": "float", "metric_name": "eventstore.proc.cpu", "metric_type": "gauge"},
@@ -327,6 +328,51 @@ ALL_METRICS = {
             "json_type": "int",
             "metric_name": "eventstore.es.read_index.not_cached_trans_info",
             "metric_type": "gauge",
+        },
+    ],
+    # Node information
+    "/info": [
+        {
+            "json_path": "state",
+            "json_type": "str",
+            "metric_name": "eventstore.is_master",
+            "metric_type": "gauge",
+            "match": "Master",
+        },
+        {
+            "json_path": "state",
+            "json_type": "str",
+            "metric_name": "eventstore.is_slave",
+            "metric_type": "gauge",
+            "match": "Slave",
+        },
+        {
+            "json_path": "state",
+            "json_type": "str",
+            "metric_name": "eventstore.is_clone",
+            "metric_type": "gauge",
+            "match": "Clone",
+        },
+        {
+            "json_path": "projectionsMode",
+            "json_type": "str",
+            "metric_name": "eventstore.running_projections.none",
+            "metric_type": "gauge",
+            "match": "None",
+        },
+        {
+            "json_path": "projectionsMode",
+            "json_type": "str",
+            "metric_name": "eventstore.running_projections.system",
+            "metric_type": "gauge",
+            "mismatch": "None",
+        },
+        {
+            "json_path": "projectionsMode",
+            "json_type": "str",
+            "metric_name": "eventstore.running_projections.all",
+            "metric_type": "gauge",
+            "match": "All",
         },
     ],
 }
