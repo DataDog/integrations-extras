@@ -88,8 +88,12 @@ class EventStoreCheck(AgentCheck):
                     tag_builder.append('instance:{}'.format(url))
                 tag_builder.append('name:{}'.format(name_tag))
                 for tag in tags:
-                    tag_path = self.get_tag_path(tag, path, eventstore_paths)
-                    tag_name = self.format_tag(tag_path.split('.')[-1])
+                    if ':' in tag:
+                        tag_name, tag = tag.rsplit(':', 1)
+                        tag_path = self.get_tag_path(tag, path, eventstore_paths)
+                    else:
+                        tag_path = self.get_tag_path(tag, path, eventstore_paths)
+                        tag_name = self.format_tag(tag_path.split('.')[-1])
                     tag_value = self.get_value(parsed_api, tag_path)
                     tag_builder.append('{}:{}'.format(tag_name, tag_value))
                 metric_builder['tag_by'] = tag_builder
