@@ -57,8 +57,8 @@ def test_service_check(aggregator, instance):
 
     c.check(instance)
 
-    for metric_definitions in init_config['metric_definitions'].values():
-        for metric in metric_definitions:
+    for endpoint in instance['endpoints']:
+        for metric in init_config['metric_definitions'][endpoint]:
             aggregator.assert_metric(metric['metric_name'], tags=[])
 
     aggregator.assert_all_metrics_covered()
