@@ -22,7 +22,7 @@ class EventStoreCheck(AgentCheck):
         timeout = float(instance.get('timeout', default_timeout))
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
-        metric_def = copy.deepcopy(ALL_METRICS)
+        metric_def = copy.deepcopy(self.init_config.get('metric_definitions') or ALL_METRICS)
 
         user = instance.get('user')
         password = instance.get('password')
