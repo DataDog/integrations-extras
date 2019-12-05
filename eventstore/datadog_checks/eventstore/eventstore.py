@@ -17,12 +17,28 @@ from .metrics import ALL_METRICS
 class EventStoreCheck(AgentCheck):
     def check(self, instance):
         """ Main method """
-        url = instance.get('url', '')
+        endpoints_def = instance.get('endpoints')
+        if not endpoints_def:
+            raise CheckException('The list of metric endpoints is empty')
+        if not isinstance(endpoints_def, (list, tuple)):
+            raise CheckException('Incorrect value specified for the list of metric endpoints')
+
+        metric_def = self.init_config.get('metric_definitions') or ALL_METRICS
+        for endpoint in endpoints_def:
+            metrics = metric_def.get(endpoint)
+            if metrics is None:
+                raise CheckException('Unknown metric endpoint: {0}'.format(endpoint))
+            self.check_endpoint(instance, endpoint, metrics)
+
+    def check_endpoint(self, instance, endpoint, metrics):
+        """ Process metrics from an API endpoint """
+        base_url = instance.get('url', '')
+        url = base_url + endpoint
         default_timeout = instance.get('default_timeout', 5)
         timeout = float(instance.get('timeout', default_timeout))
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
-        metric_def = copy.deepcopy(self.init_config.get('metric_definitions') or ALL_METRICS)
+        metric_def = copy.deepcopy(metrics)
 
         user = instance.get('user')
         password = instance.get('password')

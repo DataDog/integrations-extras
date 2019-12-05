@@ -16,19 +16,35 @@ def test_config():
     with pytest.raises(CheckException):
         c.check(instance)
 
+    # empty list of metric endpoints
+    instance = {'url': 'http://foobar', 'endpoints': []}
+    with pytest.raises(CheckException, match='.+is empty$'):
+        c.check(instance)
+
+    # bad list of metric endpoints
+    instance = {'url': 'http://foobar', 'endpoints': 'baz'}
+    with pytest.raises(CheckException, match='^Incorrect value.+'):
+        c.check(instance)
+
+    # unknown metric endpoint
+    instance = {'url': 'http://foobar', 'endpoints': ['/quux']}
+    with pytest.raises(CheckException, match='^Unknown.+'):
+        c.check(instance)
+
     # Timeout
-    instance = {'url': 'http://foobar'}
-    with pytest.raises(CheckException):
+    instance = {'url': 'http://10.0.0.0', 'endpoints': ['/stats']}
+    with pytest.raises(CheckException, match='.+timed out.+'):
         c.check(instance)
 
     # Statuscode
-    instance = {'url': 'https://google.com/IwillReturnA404StatusCode'}
-    with pytest.raises(CheckException):
+    instance = {'url': 'https://google.com/IwillReturnA404StatusCode', 'endpoints': ['/stats']}
+    with pytest.raises(CheckException, match='^Invalid Status Code.+'):
         c.check(instance)
 
     # Decode Error
-    instance = {'url': 'https://google.com'}
-    with pytest.raises(CheckException):
+    c = EventStoreCheck('eventstore', {'metric_definitions': {'/': []}}, {}, None)
+    instance = {'url': 'https://google.com', 'endpoints': ['/']}
+    with pytest.raises(CheckException, match='.+unserializable.+'):
         c.check(instance)
 
 
@@ -41,7 +57,8 @@ def test_service_check(aggregator, instance):
 
     c.check(instance)
 
-    for metric in init_config['metric_definitions']:
-        aggregator.assert_metric(metric['metric_name'], tags=[])
+    for metric_definitions in init_config['metric_definitions'].values():
+        for metric in metric_definitions:
+            aggregator.assert_metric(metric['metric_name'], tags=[])
 
     aggregator.assert_all_metrics_covered()

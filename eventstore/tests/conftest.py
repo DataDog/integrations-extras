@@ -22,7 +22,8 @@ def instance():
     return {
         'default_timeout': 5,
         'tag_by_url': True,
-        'url': 'http://{}:{}/stats'.format(HOST, PORT),
+        'url': 'http://{}:{}'.format(HOST, PORT),
+        'endpoints': ['/stats'],
         'name': 'testInstance',
         'json_path': ['*', '*.*', '*.*.*', '*.*.*.*'],
         'user': 'admin',
