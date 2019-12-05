@@ -74,7 +74,7 @@ Need help? Contact [Datadog support][12].
 [6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations
 [8]: https://github.com/DataDog/integrations-extras/blob/master/sendmail/datadog_checks/sendmail/data/conf.yaml.example
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [11]: https://github.com/DataDog/integrations-extras/blob/master/sendmail/metadata.csv
 [12]: https://docs.datadoghq.com/help

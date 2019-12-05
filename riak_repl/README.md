@@ -75,6 +75,6 @@ Need help? Contact [Datadog support][12].
 [7]: https://docs.datadoghq.com/getting_started/integrations
 [8]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/datadog_checks/riak_repl/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/riak_repl/metadata.csv
 [12]: https://docs.datadoghq.com/help

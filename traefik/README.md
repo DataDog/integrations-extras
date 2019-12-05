@@ -145,5 +145,5 @@ Refer to the [main documentation][15] for more details about how to test and dev
 [11]: https://github.com/DataDog/integrations-extras/blob/master/traefik/metadata.csv
 [12]: https://docs.traefik.io/configuration/logs/#traefik-logs
 [13]: https://docs.traefik.io/configuration/logs/#clf-common-log-format
-[14]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[14]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [15]: https://docs.datadoghq.com/developers
