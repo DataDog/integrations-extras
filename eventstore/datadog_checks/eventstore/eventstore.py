@@ -248,6 +248,8 @@ class EventStoreCheck(AgentCheck):
             # Convert to MS
         elif data_type == 'str':
             v = self.convert_str_to_gauge(value, metric)
+        elif data_type == 'bool':
+            v = 1 if value else 0
         return v
 
     def convert_str_to_gauge(self, value, metric):
