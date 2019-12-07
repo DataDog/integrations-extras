@@ -4,8 +4,8 @@
 
 Get metrics from EventStore in real time to:
 
-- Visualize and monitor EventStore queues
-- Capture all available metrics within the stats API
+* Visualize and monitor EventStore queues
+* Capture all available metrics within the following API endpoints: stats, node info, non-transient projections, subscriptions, cluster gossip (the list of endpoints to scrape is configurable)
 
 ## Setup
 
