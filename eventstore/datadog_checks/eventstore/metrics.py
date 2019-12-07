@@ -516,4 +516,56 @@ ALL_METRICS = {
             "tag_by": ["*.eventStreamId", "*.groupName"],
         },
     ],
+    # Clustering stats
+    '/gossip': [
+        {
+            "json_path": "members.*.isAlive",
+            "json_type": "bool",
+            "metric_name": "eventstore.cluster.member_alive",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.lastCommitPosition",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.last_commit_position",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.writerCheckpoint",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.writer_checkpoint",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.chaserCheckpoint",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.chaser_checkpoint",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.epochPosition",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.epoch_position",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.epochNumber",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.epoch_number",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+        {
+            "json_path": "members.*.nodePriority",
+            "json_type": "int",
+            "metric_name": "eventstore.cluster.node_priority",
+            "metric_type": "gauge",
+            "tag_by": ["members.*.externalHttpIp", "members.*.externalHttpPort"],
+        },
+    ],
 }
