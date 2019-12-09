@@ -1,5 +1,5 @@
 
-**Output of the [info page](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status)**
+**Output of the [info page](https://docs.datadoghq.com/agent/guide/agent-commands/#service-status)**
 
 ```text
 (paste your output here)

@@ -69,9 +69,9 @@ Need help? Contact [Datadog support][12].
 [4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [5]: https://app.datadoghq.com/account/settings#agent
 [6]: https://docs.datadoghq.com/getting_started/integrations
-[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6#agent-configuration-directory
+[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/datadog_checks/hbase_master/data/conf.yaml.example
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#service-status
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/metadata.csv
 [12]: http://docs.datadoghq.com/help
