@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Datadog-Constrant integration allows you to get your Contrast logs into Datadog.
+The Datadog-Constant integration allows you to get your Contrast logs into Datadog.
 
 ## Setup
 
