@@ -1,17 +1,17 @@
-# Apollo Engine
+# Apollo
 
 ## Overview
 
-Apollo Engine is designed to monitor the performance of your GraphQL infrastructure. If you already have Datadog set up to monitor the rest of your stack, you can easily forward metrics collected by Engine through this integration.
+The Apollo Datadog integration allows you to forward the performance metrics that are available to you in Graph Manager to Datadog, which is convenient for teams already relying on Datadog for their monitoring. Datadog additionally supports an advanced function API, allowing teams to create sophisticated graphs and alerts for their GraphQL metrics.
 
 ![Metrics][1]
 
-The Datadog metrics provided are:
+The Datadog metrics forwarded by Graph Manager are:
 
 * `apollo.engine.operations.count` - the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
-* `apollo.engine.operations.error_count`-  the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Engine failed to connect to your server.
-* `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Engine's full query cache.
-* A histogram of GraphQL operation response times, measured in milliseconds. Due to Engine's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
+* `apollo.engine.operations.error_count` - the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Graph Manager failed to connect to your server.
+* `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Server's full query cache.
+* A histogram of GraphQL operation response times, measured in milliseconds. Due to Graph Manager's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
   * `apollo.engine.operations.latency.min`
   * `apollo.engine.operations.latency.median`
   * `apollo.engine.operations.latency.95percentile`
@@ -19,67 +19,65 @@ The Datadog metrics provided are:
   * `apollo.engine.operations.latency.max`
   * `apollo.engine.operations.latency.avg`
 
-All of Engine's Datadog metrics are tagged with the GraphQL operation name, as `operation:<query-name>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored. All of the metrics are also tagged with the Engine service ID, `service:<service-id>`, so multiple Apollo Engine services can send data to the same Datadog account.
+All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<query-name>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
 
-Engine sends metrics to Datadog in 60 second intervals. Data is forwarded with a 60 second delay to allow for reports from Engine proxies to be collected, even in the case of temporary network failures.
-Since Datadog metrics merge statistics from multiple instances of the proxy, per-host metrics are not available. Just like in Apollo Engine, each operation inside a query batch is counted individually.
+All of the metrics are also tagged with the Graph Manager graph ID as `service:<graph-id>` and the variant name as `variant:<variant-name>`, so multiple graphs from Graph Manager can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
+
+If you're reporting metrics to Graph Manager through the Engine proxy, Datadog will merge your statistics across multiple instances of the proxy (per-host metrics are not available). Just like in the Graph Manager UI, each operation inside a query batch is counted individually.
 
 ## Setup
 
 ### Configuration
 
-Getting set up with Engine's Datadog integration is as simple as providing a Datadog API key to Engine. There's no further configuration required!
+Getting set up with the Apollo Datadog integration is as simple as providing a Datadog API key to Graph Manager. There's no further configuration required!
 
-1. Copy your Datadog API key:
+1. Go to the [Datadog integrations page][2] and click on the Apollo tile. Go to the _Configuration_ tab, scroll to the bottom, and press **Install Integration**.
 
-    <span class="hidden-api-key">${api_key}</span>
+2. Go to the [Datadog APIs page][3] and create an API key.
 
-2. Navigate to the [Apollo Engine service(s)][2] you would like to enable Datadog metrics for. Go to the /settings page for that service:
+3. In [Graph Manager][4], go to the integrations page for your graph.
 
-    ![Settings][3]
+    ![IntegrationsPage][5]
 
-    ![SettingsLink][4]
+4. Toggle the Datadog integration to turn it on. Paste the API key, and press **Save**. You can use the same API key for all your graphs, since all metrics are tagged with the graph ID (`service:<graph-id>`).
 
-3. You should see an Integrations section at the bottom of the page. Toggle the Datadog integration to turn it on:
+    ![IntegrationsToggle][6]
 
-    ![Settings][5]
-
-4. Paste the API key, and press **Done**. You can use the same API key for all Apollo Engine services as all metrics are tagged with a service ID (`service:<service-id>`).
-
-5. Go to your Datadog metric explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
+5. Go to the Datadog metrics explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
 
 ### Usage
 
-Please refer to the [Apollo Engine docs][6] for more detailed usage information.
+Please refer to the [Apollo integrations docs][7] for more detailed usage information.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this integration.
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Events
 
-The Apollo Engine integration does not include any events at this time.
+The Apollo integration does not include any events at this time.
 
 ### Service Checks
 
-The Apollo Engine integration does not include any service checks at this time.
+The Apollo integration does not include any service checks at this time.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][8].
+Need help? Contact [Datadog Support][9].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][9].
+Learn more about infrastructure monitoring and all our integrations on [our blog][10].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/metrics.png
-[2]: https://engine.apollographql.com
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-toggle.png
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-link.png
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-toggle.png
-[6]: https://www.apollographql.com/docs/engine/datadog.html
-[7]: https://github.com/DataDog/integrations-extras/blob/master/apollo_engine/metadata.csv
-[8]: https://docs.datadoghq.com/help
-[9]: https://www.datadoghq.com/blog
+[2]: https://app.datadoghq.com/account/settings
+[3]: https://app.datadoghq.com/account/settings#api
+[4]: https://www.apollographql.com/docs/graph-manager/#viewing-graph-information
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-link.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-toggle.png
+[7]: https://www.apollographql.com/docs/graph-manager/integrations/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/apollo_engine/metadata.csv
+[9]: https://docs.datadoghq.com/help
+[10]: https://www.datadoghq.com/blog
