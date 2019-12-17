@@ -13,7 +13,7 @@ from .common import HERE, HOST, PORT
 
 @pytest.fixture(scope="session")
 def dd_environment():
-    with docker_run(compose_file=os.path.join(HERE, "compose", "docker-compose.yml"), sleep=20):
+    with docker_run(compose_file=os.path.join(HERE, "compose", "docker-compose.yml"), sleep=30):
         yield
 
 
