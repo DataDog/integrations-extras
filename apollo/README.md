@@ -71,13 +71,13 @@ Need help? Contact [Datadog Support][9].
 
 Learn more about infrastructure monitoring and all our integrations on [our blog][10].
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/metrics.png
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/metrics.png
 [2]: https://app.datadoghq.com/account/settings
 [3]: https://app.datadoghq.com/account/settings#api
 [4]: https://www.apollographql.com/docs/graph-manager/#viewing-graph-information
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-link.png
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo_engine/images/settings-toggle.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-link.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-toggle.png
 [7]: https://www.apollographql.com/docs/graph-manager/integrations/
-[8]: https://github.com/DataDog/integrations-extras/blob/master/apollo_engine/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/apollo/metadata.csv
 [9]: https://docs.datadoghq.com/help
 [10]: https://www.datadoghq.com/blog
