@@ -90,9 +90,8 @@ Need help? Contact [Datadog support][13].
 [6]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [7]: https://app.datadoghq.com/account/settings#agent
 [8]: https://docs.datadoghq.com/getting_started/integrations
-[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[12]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[13]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
-[14]: https://docs.datadoghq.com/help
+[9]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
+[12]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
+[13]: https://docs.datadoghq.com/help
