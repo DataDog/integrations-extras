@@ -10,11 +10,11 @@ class CertManagerCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
     HEALTH_METRIC = 'cert_manager.prometheus.health'
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        default_config = {'cert_manager': {'metrics': [METRIC_MAP]}}
+    def __init__(self, name, init_config, instances=None):
+        default_instances = {'cert_manager': {'metrics': [METRIC_MAP]}}
 
         super(CertManagerCheck, self).__init__(
-            name, init_config, agentConfig, instances, default_config, 'cert_manager'
+            name, init_config, instances, default_instances=default_instances, default_namespace='cert_manager'
         )
 
     def process(self, scraper_config, metric_transformers=None):
