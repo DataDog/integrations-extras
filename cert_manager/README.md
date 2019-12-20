@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check collects metrics from [cert-manager][1] .
+This check collects metrics from [cert-manager][1].
 
 ## Setup
 
@@ -13,7 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the cert_manager check on your host:
 
 1. Install the [developer toolkit][3].
-2. Clone the integrations-extras repository:
+2. Clone the `integrations-extras` repository:
 
     ```
     git clone https://github.com/DataDog/integrations-extras.git.
@@ -31,9 +31,9 @@ To install the cert_manager check on your host:
     ddev -e release build cert_manager
     ```
 
-5. [Download the manifest to install the Datadog agent as a Daemonset][4].
-6. Create two PersistentVolumeClaim, one for the checks code, one for the configuration.
-7. Add them as volumes to your agent pod template and use them for your checks and configuration as:
+5. [Download the manifest to install the Datadog Agent as a DaemonSet][4].
+6. Create two `PersistentVolumeClaim`s, one for the checks code, and one for the configuration.
+7. Add them as volumes to your Agent pod template and use them for your checks and configuration:
 
    ```
         env:
@@ -57,7 +57,7 @@ To install the cert_manager check on your host:
             claimName: agent-conf-claim
     ```
 
-8. Deploy the Datadog agent in your Kubernetes cluster:
+8. Deploy the Datadog Agent in your Kubernetes cluster:
 
    ```
    kubectl apply -f agent.yaml
@@ -67,18 +67,18 @@ To install the cert_manager check on your host:
 
 10. Run the following command to install the integrations wheel with the Agent:
 
-   ```
-   kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- agent integration install -w <PATH_OF_CERT_MANAGER_ARTIFACT_>/<CERT_MANAGER_ARTIFACT_NAME>.whl
-   ```
+    ```
+    kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- agent integration install -w <PATH_OF_CERT_MANAGER_ARTIFACT_>/<CERT_MANAGER_ARTIFACT_NAME>.whl
+    ```
 
 11. Run the following commands to copy the checks and configuration to the corresponding PVCs:
 
-```
-kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /opt/datadog-agent/embedded/lib/python2.7/site-packages/datadog_checks/* /checksd
-kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /etc/datadog-agent/conf.d/* /confd
-```
+    ```
+    kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /opt/datadog-agent/embedded/lib/python2.7/site-packages/datadog_checks/* /checksd
+    kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /etc/datadog-agent/conf.d/* /confd
+    ```
 
-12. Restart the Datadog agent pods
+12. Restart the Datadog Agent pods.
 
 ### Configuration
 
@@ -99,7 +99,7 @@ See [metadata.csv][8] for a list of metrics provided by this check.
 ### Service Checks
 
 `cert_manager.prometheus.health`:
-Returns CRITICAL if the Agent fails to connect to the prometheus endpoint, otherwise returns UP.
+Returns CRITICAL if the Agent fails to connect to the Prometheus endpoint, otherwise returns UP.
 
 ### Events
 
