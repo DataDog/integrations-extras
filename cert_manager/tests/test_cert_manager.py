@@ -36,10 +36,10 @@ def mock_metrics():
 @pytest.mark.unit
 def test_config():
     with pytest.raises(CheckException):
-        CertManagerCheck('cert-manager', {}, {}, [{}])
+        CertManagerCheck('cert_manager', {}, {}, [{}])
 
     # this should not fail
-    CertManagerCheck('cert-manager', {}, {}, [MOCK_INSTANCE])
+    CertManagerCheck('cert_manager', {}, {}, [MOCK_INSTANCE])
 
 
 @pytest.mark.unit
