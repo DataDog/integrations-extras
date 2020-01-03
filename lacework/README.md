@@ -51,8 +51,5 @@ Lacework can be configured to send Events.
 Need help? Contact [Datadog support][7].
 
 [1]: https://docs.datadoghq.com/integrations/lacework/
-<<<<<<< HEAD
-[8]: https://www.lacework.com/datadog/
-=======
->>>>>>> d62cc2c452afe4270a659f6ca766951364f14e43
+[2]: https://www.lacework.com/datadog/
 [7]: https://docs.datadoghq.com/help
