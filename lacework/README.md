@@ -6,7 +6,6 @@ Collect Lacework Logs or Events.
 
 ## Setup
 
-<<<<<<< HEAD
 All configuration happens on Lacework Dashboard. Find details on how to set it up in [Datadog documentation][1] or [Lacework Documentation][2]
 
 ### Installation
@@ -28,14 +27,6 @@ All configuration happens on Lacework Dashboard. Find details on how to set it u
         * Select `eu` if you use the Datadog EU region.
     * **API KEY**: Enter your [Datadog API key][1].
     * **Alert Security Level**: Select the minimum log severity level of forwarded logs
-=======
-All configuration happens on Lacework Dashboard. Find details on how to set it up in [documentation][1]
-
-### Installation
-
-No installation is needed on your server.
-
->>>>>>> d62cc2c452afe4270a659f6ca766951364f14e43
 
 ## Data Collected
 
