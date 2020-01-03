@@ -25,7 +25,7 @@ All configuration happens on Lacework Dashboard. Find details on how to set it u
     * **Datadog Site**:
         * Select `com` if you use the Datadog US region.
         * Select `eu` if you use the Datadog EU region.
-    * **API KEY**: Enter your [Datadog API key][1].
+    * **API KEY**: Enter your [Datadog API key][3].
     * **Alert Security Level**: Select the minimum log severity level of forwarded logs
 
 ## Data Collected
@@ -52,4 +52,5 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://docs.datadoghq.com/integrations/lacework/
 [2]: https://www.lacework.com/datadog/
+[3]: https://app.datadoghq.com/account/settings#api
 [7]: https://docs.datadoghq.com/help
