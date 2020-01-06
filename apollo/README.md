@@ -31,7 +31,7 @@ If you're reporting metrics to Graph Manager through the Engine proxy, Datadog w
 
 Getting set up with the Apollo Datadog integration is as simple as providing a Datadog API key to Graph Manager. There's no further configuration required.
 
-1. Go to the [Datadog integrations page][2] and click on the Apollo tile. Go to the _Configuration_ tab, scroll to the bottom, and press **Install Integration**.
+1. Go to the [Datadog integrations page][2] and click on the Apollo tile. Go to the **Configuration** tab, scroll to the bottom, and press **Install Integration**.
 
 2. Go to the [Datadog APIs page][3] and create an API key.
 
