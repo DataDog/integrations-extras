@@ -118,7 +118,7 @@ To sign up for the Signal Sciences-Datadog Monitoring, a free service to see att
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
 [2]: https://app.datadoghq.com/account/settings#api
 [3]: https://dashboard.signalsciences.net
-[4]: https://docs.datadoghq.com/graphing/event_stream
+[4]: https://docs.datadoghq.com/events
 [5]: https://docs.datadoghq.com/help
 [6]: https://labs.signalsciences.com
 [7]: https://info.signalsciences.com/datadog-security
