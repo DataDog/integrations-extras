@@ -31,6 +31,14 @@ def mock_metrics():
         yield
 
 
+@pytest.fixture()
+def error_metrics():
+    with mock.patch(
+        'requests.get', return_value=mock.MagicMock(status_code=502, headers={'Content-Type': "text/plain"}),
+    ):
+        yield
+
+
 @pytest.mark.unit
 def test_config():
     with pytest.raises(CheckException):
@@ -56,3 +64,16 @@ def test_check(aggregator, instance, mock_metrics):
         tags=['endpoint:http://fake.tld/prometheus'],
         count=1,
     )
+
+
+@pytest.mark.unit
+def test_openmetrics_error(aggregator, instance, error_metrics):
+    check = CertManagerCheck('cert_manager', {}, [MOCK_INSTANCE])
+    with pytest.raises(Exception):
+        check.check(MOCK_INSTANCE)
+        aggregator.assert_service_check(
+            'cert_manager.prometheus.health',
+            status=CertManagerCheck.CRITICAL,
+            tags=['endpoint:http://fake.tld/prometheus'],
+            count=1,
+        )
