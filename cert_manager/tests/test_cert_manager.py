@@ -21,9 +21,7 @@ def get_response(filename):
 
 @pytest.fixture()
 def mock_metrics():
-    f_name = os.path.join(os.path.dirname(__file__), 'fixtures', 'cert_manager.txt')
-    with open(f_name, 'r') as f:
-        text_data = f.read()
+    text_data = get_response('cert_manager.txt')
     with mock.patch(
         'requests.get',
         return_value=mock.MagicMock(
