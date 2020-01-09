@@ -25,7 +25,7 @@ need to install it yourself.
 
 ### Metrics
 
-Resin does not include any metrics.
+See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
