@@ -44,3 +44,4 @@ Need help? Contact [Datadog support][5].
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
 [5]: https://docs.datadoghq.com/help
+[6]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
