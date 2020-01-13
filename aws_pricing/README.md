@@ -12,7 +12,7 @@ The AWS Pricing check is not included in the [Datadog Agent][2] package, so you 
 
 ### Configuration
 
-1. Edit the `aws_pricing.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting AWS pricing data. See the [sample aws_pricing.d/conf.yaml][2] for all available configuration options.
+1. Edit the `aws_pricing.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting AWS pricing data. See the sample [aws_pricing.d/conf.yaml][2] for all available configuration options.
 
 2. [Restart the Agent][3].
 
@@ -45,7 +45,7 @@ AWS Pricing does not include any events.
 Need help? Contact [Datadog support][5].
 
 [1]: https://aws.amazon.com/pricing/
-[2]: https://github.com/DataDog/integrations-core/blob/master/aws_pricing/datadog_checks/aws_pricing/data/conf.yaml.example
+[2]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/datadog_checks/aws_pricing/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-information
 [5]: https://docs.datadoghq.com/help
