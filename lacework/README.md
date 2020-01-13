@@ -6,7 +6,7 @@ Use the Datadog-Lacework integration to forward your Lacework logs and events to
 
 ## Setup
 
-All configuration happens on Lacework Dashboard. Find details on how to set it up in [Datadog documentation][1] or [Lacework Documentation][2]
+All configuration happens on Lacework Dashboard. Find details on how to set it up in the [Lacework Documentation][2]. Datadog automatically enables the right logs processing pipeline when it detects Lacework logs.
 
 ### Installation
 
