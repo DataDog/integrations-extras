@@ -4,8 +4,6 @@
 
 This check pulls pricing information [published by AWS][1] to make it easier to measure cost of resource utilization within Datadog.
 
-Icon made by [Eucalyp](https://www.flaticon.com/authors/eucalyp) from [www.flaticon.com](https://www.flaticon.com/) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
-
 ## Setup
 
 ### Installation
