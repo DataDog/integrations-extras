@@ -2,7 +2,7 @@
 
 ## Overview
 
-Collect Lacework Logs or Events.
+Use the Datadog-Lacework integration to forward your Lacework logs and events to Datadog.
 
 ## Setup
 
