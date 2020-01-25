@@ -49,7 +49,7 @@ class AquaCheck(AgentCheck):
             token = self.get_aqua_token(instance)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=instance_tags)
         except Exception as ex:
-            self.log.error("Failed to get Aqua token, skipping check. Error: %s" % ex)
+            self.log.error("Failed to get Aqua token, skipping check. Error: %s", ex)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=instance_tags)
             return
         self._report_base_metrics(instance, token)
@@ -109,7 +109,7 @@ class AquaCheck(AgentCheck):
         # io-related exceptions (all those coming from requests are included in that) are handled.
         # All other exceptions are raised.
         except IOError as ex:
-            self.log.error("Failed to get base metrics. Some metrics will be missing. Error: %s" % ex)
+            self.log.error("Failed to get base metrics. Some metrics will be missing. Error: %s", ex)
             return
 
         # images
@@ -155,7 +155,7 @@ class AquaCheck(AgentCheck):
         # io-related exceptions (all those coming from requests are included in that) are handled.
         # All other exceptions are raised.
         except IOError as ex:
-            self.log.error("Failed to get %s metrics. Error: %s" % (metric_name, ex))
+            self.log.error("Failed to get %s metrics. Error: %s", metric_name, ex)
             return
         for status in statuses:
             self.gauge(metric_name, metrics[status], tags=instance.get('tags', []) + ['status:%s' % statuses[status]])
@@ -169,6 +169,6 @@ class AquaCheck(AgentCheck):
         # io-related exceptions (all those coming from requests are included in that) are handled.
         # All other exceptions are raised.
         except IOError as ex:
-            self.log.error("Failed to get enforcer metrics. Error: %s" % ex)
+            self.log.error("Failed to get enforcer metrics. Error: %s", ex)
             return
         self.gauge('aqua.enforcers', metrics['count'], tags=instance.get('tags', []) + ['status:all'])

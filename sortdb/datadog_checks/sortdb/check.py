@@ -74,7 +74,7 @@ class SortdbCheck(AgentCheck):
         Send rest request to address and return the response as JSON
         """
         response = None
-        self.log.debug('Sending request to "%s"' % url)
+        self.log.debug('Sending request to "%s"', url)
 
         try:
             response = requests.get(url, timeout=timeout)
@@ -131,7 +131,7 @@ class SortdbCheck(AgentCheck):
                 self._set_metric(metric_name, metric_type, value, instance_tags)
 
             else:
-                self.log.debug('Value not returned for metric: "%s" ' % (metric))
+                self.log.debug('Value not returned for metric: "%s" ', metric)
 
     def _set_metric(self, metric_name, metric_type, value, instance_tags):
         """
@@ -144,7 +144,7 @@ class SortdbCheck(AgentCheck):
             self.count(metric_name, value, tags=instance_tags)
 
         else:
-            self.log.error('Unknown Metric Type: "{}"'.format(metric_type))
+            self.log.error('Unknown Metric Type: "%s"', metric_type)
 
     def timeout_event(self, url, timeout, aggregation_key):
         self.event(

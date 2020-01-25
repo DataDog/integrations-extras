@@ -185,7 +185,7 @@ class LogstashCheck(AgentCheck):
             version = self.DEFAULT_VERSION
 
         self.service_metadata('version', version)
-        self.log.debug("Logstash version is %s" % version)
+        self.log.debug("Logstash version is %s", version)
         return version
 
     def check(self, instance):

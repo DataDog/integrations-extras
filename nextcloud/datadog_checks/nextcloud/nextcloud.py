@@ -48,7 +48,7 @@ class NextcloudCheck(AgentCheck):
         auth = (username, password)
 
         try:
-            self.log.debug("Checking against {}".format(url))
+            self.log.debug("Checking against %s", url)
             response = requests.get(url, auth=auth, headers=headers(self.agentConfig))
             if response.status_code != 200:
                 self.service_check(

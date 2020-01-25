@@ -39,7 +39,7 @@ class VespaCheck(AgentCheck):
                 for metrics in service['metrics']:
                     self._emit_metrics(service_name, metrics, instance_tags)
 
-            self.log.info("Forwarded {} metrics to hq for {} services".format(self.metric_count, self.services_up))
+            self.log.info("Forwarded %s metrics to hq for %s services", self.metric_count, self.services_up)
             self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags,
                                message="Metrics collected successfully for consumer {}".format(consumer))
         except Timeout as e:
@@ -77,14 +77,14 @@ class VespaCheck(AgentCheck):
             self._emit_metric(full_name, value, metric_tags + instance_tags)
 
     def _emit_metric(self, name, value, tags):
-        self.log.debug("Emitting metric: {}, dimensions: {}".format(name, tags))
+        self.log.debug("Emitting metric: %s, dimensions: %s", name, tags)
         self.gauge(name, value, tags)
         self.metric_count += 1
 
     def _get_metrics_json(self, url):
         """ Send rest request to metrics api and return the response as JSON
         """
-        self.log.info("Sending request to {}".format(url))
+        self.log.info("Sending request to %s", url)
         response = self.http.get(url)
         response.raise_for_status()
         return response.json()
@@ -117,8 +117,8 @@ class VespaCheck(AgentCheck):
         elif code == "down":
             self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.CRITICAL, tags=tags,
                                message="Service {} reports down: {}".format(service_name, description))
-            self.log.warning("Service {} reports down: {}".format(service_name, description))
+            self.log.warning("Service %s reports down: %s", service_name, description)
         else:
             self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.WARNING, tags=tags,
                                message="Service {} reports unknown status: {}".format(service_name, description))
-            self.log.warning("Service {} reports unknown status: {}".format(service_name, description))
+            self.log.warning("Service %s reports unknown status: %s", service_name, description)

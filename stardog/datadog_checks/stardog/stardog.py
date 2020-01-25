@@ -114,10 +114,10 @@ class StardogCheck(AgentCheck):
                             db_name = m.group(1)
                             local_tags.append("database:%s" % db_name)
                         except Exception:
-                            self.log.warn("No database name was found")
+                            self.log.warning("No database name was found")
                     values_map = convert_func(k, doc[k], db_name)
                     for report_key in values_map:
-                        self.log.debug("Sending %s=%s to Datadog" % (report_key, values_map[report_key]))
+                        self.log.debug("Sending %s=%s to Datadog", report_key, values_map[report_key])
                         self.gauge(report_key, values_map[report_key], tags=local_tags)
                     break
 
@@ -136,7 +136,7 @@ class StardogCheck(AgentCheck):
         try:
             tags = instance['tags']
             if type(tags) != list:
-                self.log.warn('The tags list in the Stardog check is not configured properly')
+                self.log.warning('The tags list in the Stardog check is not configured properly')
                 tags = []
         except KeyError:
             tags = []

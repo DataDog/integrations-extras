@@ -35,7 +35,7 @@ class LighthouseCheck(AgentCheck):
         try:
             data = json.loads(json_string)
         except Exception as e:
-            self.log.warn("lighthouse response JSON different than expected for url: {0}".format(lighthouse_url))
+            self.log.warning("lighthouse response JSON different than expected for url: %s", lighthouse_url)
             raise CheckException(error_message, exit_code, e)
 
         if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
@@ -47,7 +47,7 @@ class LighthouseCheck(AgentCheck):
         else:
             err_code = data.get("runtimeError", {}).get("code")
             err_msg = data.get("runtimeError", {}).get("message")
-            self.log.warn("not collecting lighthouse metrics for url {0} runtimeError code {1} message {2}"
+            self.log.warning("not collecting lighthouse metrics for url {0} runtimeError code {1} message {2}"
                           .format(lighthouse_url, err_code, err_msg)
                           )
             return
@@ -55,7 +55,7 @@ class LighthouseCheck(AgentCheck):
 
         tags = instance.get('tags', [])
         if type(tags) != list:
-            self.log.warn('The tags list in the lighthouse check is not configured properly')
+            self.log.warning('The tags list in the lighthouse check is not configured properly')
             tags = []
 
         tags.append("url:{0}".format(lighthouse_url))

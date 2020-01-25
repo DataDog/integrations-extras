@@ -160,7 +160,7 @@ class Neo4jCheck(AgentCheck):
             r.raise_for_status()
         stats = r.json()
         version = stats.get('neo4j_version')
-        self.log.debug("Neo4j version: {}".format(version))
+        self.log.debug("Neo4j version: %s", version)
         version = version.split('.')
         if version:
             return int(version[0])

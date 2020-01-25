@@ -140,9 +140,7 @@ class RiakReplCheck(AgentCheck):
             self.gauge(name, unicodedata.numeric(value), tags=tags)
             return
         except (TypeError, ValueError):
-            self.log.debug(
-                "metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value)
-            )
+            self.log.debug("metric name %s cannot be converted to a float even using unicode tools: %s", name, value)
 
     def exists(self, obj, nest):
         _key = nest.pop(0)

@@ -45,7 +45,7 @@ class UpscCheck(AgentCheck):
                 stats[key] = val.strip()
             return stats
         except subprocess.CalledProcessError as e:
-            self.log.error("Unable to query device %s" % name, e)
+            self.log.error("Unable to query device %s", name, e)
             return {}
 
     def convert_and_filter_stats(self, stats):

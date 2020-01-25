@@ -58,7 +58,7 @@ class UnboundCheck(AgentCheck):
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
 
         for stat in data:
-            self.log.debug('processing {}'.format(stat))
+            self.log.debug('processing %s', stat)
 
             # Some metric names from unbound make more sense to record as name + tag in datadog.
             metric_name, all_tags = self.metric_name_to_tags(stat[0], tags)
@@ -66,16 +66,16 @@ class UnboundCheck(AgentCheck):
             unbound_metric_name = 'unbound.{}'.format(metric_name)
 
             if 'histogram' in metric_name:  # dont send histogram metrics
-                self.log.debug('unbound.{}:{}'.format(unbound_metric_name, stat[1]))
+                self.log.debug('unbound.%s:%s', unbound_metric_name, stat[1])
             else:
                 if any(count in metric_name for count in ['num.', 'unwanted', '.count']):
-                    self.log.debug('count: {}'.format(stat))
+                    self.log.debug('count: %s', stat)
                     self.count(unbound_metric_name, stat[1], tags=all_tags)
                 elif 'time.' in metric_name:
-                    self.log.debug('gauge (time): {}'.format(stat))
+                    self.log.debug('gauge (time): %s', stat)
                     self.gauge(unbound_metric_name, float(stat[1]), tags=all_tags)
                 else:
-                    self.log.debug('gauge: {}'.format(stat))
+                    self.log.debug('gauge: %s', stat)
                     self.gauge(unbound_metric_name, float(stat[1]), tags=all_tags)
 
     def call_unbound_control(self, command, tags):
@@ -89,7 +89,7 @@ class UnboundCheck(AgentCheck):
             raise Exception("Unable to get unbound stats: {}".format(str(e)))
 
         for line in ub_err.splitlines():
-            self.log.debug('stderr from {}: {}'.format(command, line))
+            self.log.debug('stderr from %s: %s', command, line)
 
         # Check the return value
         if returncode != 0:
@@ -132,10 +132,8 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['query_type:' + query_type]
-        self.log.debug(
-            'translating query type metric {} to {} (query_type: {})'.format(orig_metric_name, metric_name, query_type)
-        )
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('translating query type metric %s to %s (query_type: %s)', orig_metric_name, metric_name, query_type)
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
@@ -148,12 +146,10 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['query_class:' + query_class]
-        self.log.debug(
-            'translating query class metric {} to {} (query_class: {})'.format(
+        self.log.debug('translating query class metric %s to %s (query_class: %s)', 
                 orig_metric_name, metric_name, query_class
             )
-        )
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
@@ -166,10 +162,8 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['opcode:' + opcode]
-        self.log.debug(
-            'translating query opcode metric {} to {} (opcode: {})'.format(orig_metric_name, metric_name, opcode)
-        )
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('translating query opcode metric %s to %s (opcode: %s)', orig_metric_name, metric_name, opcode)
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
@@ -182,8 +176,8 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['flag:' + flag]
-        self.log.debug('translating query flag metric {} to {} (flag: {})'.format(orig_metric_name, metric_name, flag))
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('translating query flag metric %s to %s (flag: %s)', orig_metric_name, metric_name, flag)
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
@@ -201,8 +195,8 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['rcode:' + rcode]
-        self.log.debug('translating num.answer.rcode {} to {} (rcode: {})'.format(orig_metric_name, metric_name, rcode))
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('translating num.answer.rcode %s to %s (rcode: %s)', orig_metric_name, metric_name, rcode)
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
@@ -226,10 +220,8 @@ class UnboundCheck(AgentCheck):
         # Add the thread number as a tag
         all_tags = tags + ['thread:' + thread_num]
 
-        self.log.debug(
-            'translating thread metric {} to {} (thread_num: {})'.format(orig_metric_name, metric_name, thread_num)
-        )
-        self.log.debug('all_tags: {}'.format(all_tags))
+        self.log.debug('translating thread metric %s to %s (thread_num: %s)', orig_metric_name, metric_name, thread_num)
+        self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
 
