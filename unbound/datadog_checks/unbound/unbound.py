@@ -132,7 +132,9 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['query_type:' + query_type]
-        self.log.debug('translating query type metric %s to %s (query_type: %s)', orig_metric_name, metric_name, query_type)
+        self.log.debug(
+            'translating query type metric %s to %s (query_type: %s)', orig_metric_name, metric_name, query_type
+        )
         self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags
@@ -146,9 +148,9 @@ class UnboundCheck(AgentCheck):
         metric_name = metric_name_parts[0]
 
         all_tags = tags + ['query_class:' + query_class]
-        self.log.debug('translating query class metric %s to %s (query_class: %s)', 
-                orig_metric_name, metric_name, query_class
-            )
+        self.log.debug(
+            'translating query class metric %s to %s (query_class: %s)', orig_metric_name, metric_name, query_class
+        )
         self.log.debug('all_tags: %s', all_tags)
 
         return metric_name, all_tags

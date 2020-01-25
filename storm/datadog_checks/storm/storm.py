@@ -903,6 +903,8 @@ class StormCheck(AgentCheck):
                                 tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags,
                             )
                     except Exception:  # noqa
-                        self.log.exception("unable to collect topology stats for topology_id:%s, topology_name:%s", 
-                                topology_id, topology_name
-                            )
+                        self.log.exception(
+                            "unable to collect topology stats for topology_id:%s, topology_name:%s",
+                            topology_id,
+                            topology_name,
+                        )
