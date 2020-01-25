@@ -1,8 +1,9 @@
+import json
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base.utils.common import round_value as round
 from datadog_checks.utils.subprocess_output import get_subprocess_output
-import json
 
 EXPECTED_RESPONSE_CODE = "NO_ERROR"
 
@@ -16,20 +17,15 @@ class LighthouseCheck(AgentCheck):
             self.log.error("missing instance url or name")
             raise CheckException("missing lighthouse instance url or name, please fix yaml")
 
-        cmd = ["lighthouse",
-               lighthouse_url,
-               "--output",
-               "json",
-               "--quiet",
-               "--chrome-flags='--headless'"]
+        cmd = ["lighthouse", lighthouse_url, "--output", "json", "--quiet", "--chrome-flags='--headless'"]
 
         json_string, error_message, exit_code = LighthouseCheck._get_lighthouse_report(cmd, self.log, False)
 
         # check for error since we have raise_on_empty_output set to False
         if exit_code > 0:
-            self.log.error("lighthouse subprocess error {0} exit code {1} for url: {2}"
-                           .format(error_message, exit_code, lighthouse_url)
-                           )
+            self.log.error(
+                "lighthouse subprocess error %s exit code %s for url: %s", error_message, exit_code, lighthouse_url
+            )
             raise CheckException(json_string, error_message, exit_code)
 
         try:
@@ -47,9 +43,12 @@ class LighthouseCheck(AgentCheck):
         else:
             err_code = data.get("runtimeError", {}).get("code")
             err_msg = data.get("runtimeError", {}).get("message")
-            self.log.warning("not collecting lighthouse metrics for url {0} runtimeError code {1} message {2}"
-                          .format(lighthouse_url, err_code, err_msg)
-                          )
+            self.log.warning(
+                "not collecting lighthouse metrics for url %s runtimeError code %s message %s",
+                lighthouse_url,
+                err_code,
+                err_msg,
+            )
             return
         # add tags
 
