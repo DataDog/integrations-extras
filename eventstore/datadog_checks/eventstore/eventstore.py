@@ -95,8 +95,7 @@ class EventStoreCheck(AgentCheck):
                 self.dispatch_metric(value, metric)
             else:
                 # self.dispatch_metric(0, metric)
-                self.log.debug("Metric {} did not return a value, skipping".format(metric['json_path']))
-                self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
+                self.log.debug("Metric %s did not return a value, skipping", metric['json_path'])
 
     @classmethod
     def format_tag(cls, name):

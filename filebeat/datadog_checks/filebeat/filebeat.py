@@ -263,9 +263,9 @@ class FilebeatCheck(AgentCheck):
 
                 self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
             else:
-                self.log.debug("Filebeat source %s appears to have changed", source,)
+                self.log.debug("Filebeat source %s appears to have changed", source)
         except OSError:
-            self.log.debug("Unable to get stats on filebeat source %s", source,)
+            self.log.debug("Unable to get stats on filebeat source %s", source)
 
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
