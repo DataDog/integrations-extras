@@ -257,7 +257,7 @@ def which(program, use_sudo, log):
             return stdout
 
         for line in stderr.splitlines():
-            log.debug('stderr from sudo which {}: {}'.format(program, line))
+            log.debug('stderr from sudo which %s: %s', program, line)
 
         return None
 

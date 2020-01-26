@@ -63,10 +63,10 @@ def mock_extended_stats_1_9_2():
 @pytest.fixture
 def env_setup(monkeypatch):
     log = logging.getLogger('env_setup')
-    log.debug('env_setup: before: PATH: {}'.format(os.environ['PATH']))
+    log.debug('env_setup: before: PATH: %s', os.environ['PATH'])
     no_sbin_path_list = [item for item in os.environ['PATH'].split(os.pathsep) if 'sbin' not in item]
-    log.debug('env_setup: selected items: {}'.format(no_sbin_path_list))
+    log.debug('env_setup: selected items: %s', no_sbin_path_list)
     no_sbin_path = os.pathsep.join(no_sbin_path_list)
-    log.debug('env_setup: no_sbin_path: {}'.format(no_sbin_path))
+    log.debug('env_setup: no_sbin_path: %s', no_sbin_path)
     monkeypatch.setenv('PATH', no_sbin_path)
-    log.debug('env_setup: after: PATH: {}'.format(os.environ['PATH']))
+    log.debug('env_setup: after: PATH: %s', os.environ['PATH'])
