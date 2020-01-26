@@ -179,7 +179,7 @@ class LogstashCheck(AgentCheck):
             version = data['version']
         except Exception as e:
             self.warning(
-                "Error while trying to get Logstash version " "from %s %s. Defaulting to version %s.",
+                "Error while trying to get Logstash version from %s %s. Defaulting to version %s.",
                 config.url,
                 e,
                 self.DEFAULT_VERSION,
