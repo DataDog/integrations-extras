@@ -26,7 +26,7 @@ class SendmailCheck(AgentCheck):
             # Send an OK service check as well
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags, message='Sendmail OK')
         except OSError as e:
-            self.log.info("Cannot get sendmail queue info".format(str(e)))
+            self.log.info("Cannot get sendmail queue info: %s", e)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
     def _get_config(self, instance):
