@@ -22,9 +22,11 @@ def init_user():
 @pytest.fixture(scope='session')
 def dd_environment():
     instance = NEO4J_MINIMAL_CONFIG
+    envs = {'NEO4J_VERSION': os.environ['NEO4J_VERSION']}
     with docker_run(
         os.path.join(DOCKER_DIR, 'docker-compose.yaml'),
-        log_patterns='Remote interface available at',
+        env_vars=envs,
+        log_patterns=['Remote interface available at'],
         conditions=[WaitFor(init_user)],
     ):
         yield instance
