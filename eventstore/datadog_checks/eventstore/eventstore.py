@@ -47,13 +47,13 @@ class EventStoreCheck(AgentCheck):
         # Flatten the self.init_config definitions into valid metric definitions
         metric_definitions = {}
         for metric in metric_def:
-            self.log.debug("metric {}".format(metric))
+            self.log.debug("metric %s", metric)
             json_path = metric.get('json_path', '')
-            self.log.debug("json_path {}".format(json_path))
+            self.log.debug("json_path %s", json_path)
             tags = metric.get('tag_by', {})
-            self.log.debug("tags {}".format(tags))
+            self.log.debug("tags %s", tags)
             paths = self.get_json_path(json_path, eventstore_paths)
-            self.log.debug("paths {}".format(paths))
+            self.log.debug("paths %s", paths)
             for path in paths:
                 # Deep copy needed else it will overwrite previous metric data
                 metric_builder = copy.deepcopy(metric)
@@ -73,16 +73,16 @@ class EventStoreCheck(AgentCheck):
         # Find metrics to check:
         metrics_to_check = {}
         for metric in instance['json_path']:
-            self.log.debug("metric: {}".format(metric))
+            self.log.debug("metric: %s", metric)
             paths = self.get_json_path(metric, eventstore_paths)
-            self.log.debug("paths: {}".format(paths))
+            self.log.debug("paths: %s", paths)
             for path in paths:
-                self.log.debug("path: {}".format(path))
+                self.log.debug("path: %s", path)
                 try:
                     metrics_to_check[path] = metric_definitions[path]
-                    self.log.debug("metrics_to_check: {}".format(metric_definitions[path]))
+                    self.log.debug("metrics_to_check: %s", metric_definitions[path])
                 except KeyError:
-                    self.log.info("Skipping metric: {} as it is not defined".format(path))
+                    self.log.info("Skipping metric: %s as it is not defined", path)
 
         # Now we need to get the metrics from the endpoint
         # Get the value for a given key
@@ -95,8 +95,7 @@ class EventStoreCheck(AgentCheck):
                 self.dispatch_metric(value, metric)
             else:
                 # self.dispatch_metric(0, metric)
-                self.log.debug("Metric {} did not return a value, skipping".format(metric['json_path']))
-                self.log.info("Metric {} did not return a value, skipping".format(metric['json_path']))
+                self.log.debug("Metric %s did not return a value, skipping", metric['json_path'])
 
     @classmethod
     def format_tag(cls, name):
@@ -144,32 +143,32 @@ class EventStoreCheck(AgentCheck):
             # No wildcard
             return self.get_json_path(tag, eventstore_paths)[0]
         except IndexError:
-            self.log.warn('No tag value found for {}, path {}'.format(tag, metric_json_path))
+            self.log.warning('No tag value found for %s, path %s', tag, metric_json_path)
 
     def get_json_path(self, json_path, eventstore_paths):
         """ Find all the possible keys for a given path """
-        self.log.debug("json paths: {}".format(json_path))
-        self.log.debug("eventstore_paths: {}".format(eventstore_paths))
+        self.log.debug("json paths: %s", json_path)
+        self.log.debug("eventstore_paths: %s", eventstore_paths)
         response = []
-        self.log.debug("response: {}".format(response))
+        self.log.debug("response: %s", response)
         try:
             match = eventstore_paths.index(json_path)
-            self.log.debug("match: {}".format(match))
+            self.log.debug("match: %s", match)
             if match is not None:
                 response.append(json_path)
-                self.log.debug("match json path: {}".format(json_path))
+                self.log.debug("match json path: %s", json_path)
         except ValueError:
             # Loop through all possible keys to find matches
             # Value Error means it didn't find it, so it must be
             # a wildcard
             self.log.debug("value error")
             for path in eventstore_paths:
-                self.log.debug("path: {}".format(path))
+                self.log.debug("path: %s", path)
                 match = fnmatch.fnmatch(path, json_path)
-                self.log.debug("match ve: {}".format(match))
+                self.log.debug("match ve: %s", match)
                 if match:
                     response.append(path)
-                    self.log.debug("path ve: {}".format(path))
+                    self.log.debug("path ve: %s", path)
         return response
 
     # Fill out eventstore_paths using walk of json
@@ -189,7 +188,7 @@ class EventStoreCheck(AgentCheck):
                 v = 'N/A'
             return v
         except KeyError:
-            self.log.info('No value found for Metric: {}'.format(metric_path))
+            self.log.info('No value found for Metric: %s', metric_path)
 
     def convert_value(self, value, metric):
         """ Returns the metric formatted in the specified value"""
@@ -230,9 +229,9 @@ class EventStoreCheck(AgentCheck):
             td = datetime.timedelta(days=days, seconds=secs, microseconds=subsecs, minutes=mins, hours=hours)
             return td
         except AttributeError:
-            self.log.info('Unable to convert {} to timedelta'.format(string))
+            self.log.info('Unable to convert %s to timedelta', string)
         except TypeError:
-            self.log.info('Unable to convert {} to type timedelta'.format(string))
+            self.log.info('Unable to convert %s to type timedelta', string)
 
     @classmethod
     def _regex_number_to_int(cls, number, group_index):
@@ -248,10 +247,10 @@ class EventStoreCheck(AgentCheck):
         tags = metric['tag_by']
         metric_name = metric['metric_name']
         if metric_type == 'gauge':
-            self.log.debug("Sending gauge {} v: {} t: {}".format(metric_name, value, tags))
+            self.log.debug("Sending gauge %s v: %s t: %s", metric_name, value, tags)
             self.gauge(metric_name, value, tags)
         elif metric_type == 'histogram':
-            self.log.debug("Sending histogram {} v: {} t: {}".format(metric_name, value, tags))
+            self.log.debug("Sending histogram %s v: %s t: %s", metric_name, value, tags)
             self.histogram(metric_name, value, tags)
         else:
-            self.log.info('Unable to send metric {} due to invalid metric type of {}'.format(metric_name, metric_type))
+            self.log.info('Unable to send metric %s due to invalid metric type of %s', metric_name, metric_type)

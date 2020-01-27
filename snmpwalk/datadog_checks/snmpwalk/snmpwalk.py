@@ -165,7 +165,7 @@ class SnmpwalkCheck(NetworkCheck):
                             # This is a standard tag, just use the value
                             dynamic_tags[i].append('{}:{}'.format(tag, v))
                 else:
-                    self.log.debug('unsupported metric_tag: {}'.format(metric_tag))
+                    self.log.debug('unsupported metric_tag: %s', metric_tag)
                     continue
 
             symbols = metric.get('symbols', [])

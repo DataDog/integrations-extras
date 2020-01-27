@@ -242,7 +242,7 @@ class FilebeatCheck(AgentCheck):
             with open(registry_file_path) as registry_file:
                 return json.load(registry_file)
         except IOError as ex:
-            self.log.error("Cannot read the registry log file at %s: %s" % (registry_file_path, ex))
+            self.log.error("Cannot read the registry log file at %s: %s", registry_file_path, ex)
 
             if ex.errno == errno.EACCES:
                 self.log.error(
@@ -263,9 +263,9 @@ class FilebeatCheck(AgentCheck):
 
                 self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
             else:
-                self.log.debug("Filebeat source %s appears to have changed" % (source,))
+                self.log.debug("Filebeat source %s appears to have changed", source)
         except OSError:
-            self.log.debug("Unable to get stats on filebeat source %s" % (source,))
+            self.log.debug("Unable to get stats on filebeat source %s", source)
 
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
@@ -274,7 +274,7 @@ class FilebeatCheck(AgentCheck):
         try:
             all_metrics = profiler.gather_metrics()
         except Exception as ex:
-            self.log.error("Error when fetching metrics from %s: %s" % (config.stats_endpoint, ex))
+            self.log.error("Error when fetching metrics from %s: %s", config.stats_endpoint, ex)
             return
 
         tags = ["stats_endpoint:{0}".format(config.stats_endpoint)]
