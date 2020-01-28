@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Apollo Datadog integration allows you to forward the performance metrics that are available to you in Graph Manager to Datadog, which is convenient for teams already relying on Datadog for their monitoring. Datadog additionally supports an advanced function API, allowing teams to create sophisticated graphs and alerts for their GraphQL metrics.
+The Apollo Datadog integration allows you to forward the performance metrics that are available to you in Graph Manager to Datadog. Datadog additionally supports the advanced function API, allowing teams to create graphs and alerts for their GraphQL metrics.
 
 ![Metrics][1]
 
