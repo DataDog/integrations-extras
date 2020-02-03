@@ -29,7 +29,7 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Resin does not include any service checks.
+Resin instance is running and reporting JVM metrics
 
 ### Events
 
