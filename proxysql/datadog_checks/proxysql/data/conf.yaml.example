@@ -4,7 +4,7 @@ instances:
     ## @param server - string - required
     ## Proxysql host.
     #
-  - server: "<SERVER_URL>"
+  - server: <SERVER_URL>
 
     ## @param port - integer - required
     ## ProxySQL port for the admin interface.
@@ -14,12 +14,12 @@ instances:
     ## @param user - string - required
     ## Proxysql admin user. It must be able to connect remotely.
     #
-    user: "<PROXYSQL_ADMIN_USER>"
+    user: <PROXYSQL_ADMIN_USER>
 
     ## @param pass - string - required
     ## Proxysql admin password.
     #
-    pass: "<PROXYSQL_ADMIN_PASSWORD>"
+    pass: <PROXYSQL_ADMIN_PASSWORD>
 
     ## @param connect_timeout - integer - optional - default: 10
     ## Timeout in seconds for connecting to ProxySQL.
@@ -40,37 +40,13 @@ instances:
     #   - <KEY_1>:<VALUE_1>
     #   - <KEY_2>:<VALUE_2>
 
-    ## @param options - dictionary - optional
-    ## Activate additional metrics
+    ## @param additional_metrics - list of strings - optional
+    ## List of additional metrics to collect in addition to the global ones.
+    ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)
     #
-    # options:
-    #   ## @param extra_command_counters_metrics - boolean - optional - default: true
-    #   ## Send command_counters stats.
-    #   ##
-    #   ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)#stats_mysql_commands_counters
-    #   #
-    #   extra_command_counters_metrics: true
-    #   ## @param extra_connection_pool_metrics - boolean - optional - default: true
-    #   ## Send connection_pool stats.
-    #   ##
-    #   ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)#stats_mysql_connection_pool
-    #   #
-    #   extra_connection_pool_metrics: true
-    #   ## @param extra_user_metrics - boolean - optional - default: true
-    #   ## Send user_metrics stats.
-    #   ##
-    #   ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)#stats_mysql_users
-    #   #
-    #   extra_user_metrics: true
-    #   ## @param extra_memory_metrics - boolean - optional - default: true
-    #   ## Send memory_metrics stats.
-    #   ##
-    #   ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)#stats_memory_metrics
-    #   #
-    #   extra_memory_metrics: true
-    #   ## @param extra_query_rules_metrics - boolean - optional - default: true
-    #   ## Send query_rules_metrics stats.
-    #   ##
-    #   ## Learn more about this metrics at: https://github.com/sysown/proxysql/wiki/STATS-(statistics)#stats_mysql_query_rules
-    #   #
-    #   extra_query_rules_metrics: true
+    # additional_metrics:
+    #   - command_counters_metrics
+    #   - connection_pool_metrics
+    #   - users_metrics
+    #   - memory_metrics
+    #   - query_rules_metrics

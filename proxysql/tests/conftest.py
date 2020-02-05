@@ -22,13 +22,13 @@ INSTANCE = {
     'user': PROXY_ADMIN_USER,
     'pass': PROXY_ADMIN_PASS,
     'tags': ["application:test"],
-    'options': {
-        'extra_command_counters_metrics': True,
-        'extra_connection_pool_metrics': True,
-        'extra_user_metrics': True,
-        'extra_memory_metrics': True,
-        'extra_query_rules_metrics': True,
-    },
+    'additional_metrics': [
+        'command_counters_metrics',
+        'connection_pool_metrics',
+        'users_metrics',
+        'memory_metrics',
+        'query_rules_metrics',
+    ],
 }
 
 

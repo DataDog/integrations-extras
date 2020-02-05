@@ -108,36 +108,36 @@ class ProxysqlCheck(AgentCheck):
     SERVICE_CHECK_NAME = "proxysql.can_connect"
 
     def check(self, instance):
-        host, port, user, password, tags, options, connect_timeout, read_timeout = self._get_config(instance)
+        host, port, user, password, tags, additional_metrics, connect_timeout, read_timeout = self._get_config(instance)
 
         if not host or not port or not user or not password:
             raise ConfigurationError("ProxySQL host, port, user and password are needed")
 
         with self._connect(host, port, user, password, tags, connect_timeout, read_timeout) as conn:
-            self._collect_metrics(conn, tags, options)
+            self._collect_metrics(conn, tags, additional_metrics)
 
-    def _collect_metrics(self, conn, tags, options):
+    def _collect_metrics(self, conn, tags, additional_metrics):
         """Collects all the different types of ProxySQL metrics and submits them to Datadog"""
         global_stats = self._get_global_stats(conn)
         self._send_simple_tag_metrics(global_stats, STATS_MYSQL_GLOBAL, tags)
 
-        if options.get("extra_command_counters_metrics", True):
+        if 'command_counters_metrics' in additional_metrics:
             command_counters_stats = self._get_command_counters(conn)
             self._send_extra_tag_metrics(command_counters_stats, STATS_COMMAND_COUNTERS, tags)
 
-        if options.get("extra_connection_pool_metrics", True):
+        if 'connection_pool_metrics' in additional_metrics:
             conn_pool_stats = self._get_connection_pool_stats(conn)
             self._send_extra_tag_metrics(conn_pool_stats, STATS_MYSQL_CONNECTION_POOL, tags)
 
-        if options.get("extra_memory_metrics", True):
+        if 'memory_metrics' in additional_metrics:
             memory_stats = self._get_memory_stats(conn)
             self._send_simple_tag_metrics(memory_stats, STATS_MEMORY_METRICS, tags)
 
-        if options.get("extra_user_metrics", True):
+        if 'users_metrics' in additional_metrics:
             user_stats = self._get_user_stats(conn)
             self._send_extra_tag_metrics(user_stats, STATS_MYSQL_USERS, tags)
 
-        if options.get("extra_query_rules_metrics", True):
+        if 'query_rules_metrics' in additional_metrics:
             query_rules_stats = self._get_query_rules_stats(conn)
             self._send_extra_tag_metrics(query_rules_stats, STATS_MYSQL_QUERY_RULES, tags)
 
@@ -265,10 +265,10 @@ class ProxysqlCheck(AgentCheck):
         user = instance.get("user", "")
         password = str(instance.get("pass", ""))
         tags = instance.get("tags", [])
-        options = instance.get("options", {})
+        additional_metrics = instance.get("additional_metrics", [])
         connect_timeout = instance.get("connect_timeout", 10)
         read_timeout = instance.get("read_timeout", None)
-        return host, port, user, password, tags, options, connect_timeout, read_timeout
+        return host, port, user, password, tags, additional_metrics, connect_timeout, read_timeout
 
     @contextmanager
     def _connect(self, host, port, user, password, tags, connect_timeout, read_timeout):

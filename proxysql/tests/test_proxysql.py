@@ -37,7 +37,7 @@ def test_config_ok():
     check.check({'server': 'localhost', 'port': 6032, 'user': 'admin', 'pass': 'admin'})
 
     check._connect.assert_called_once_with('localhost', 6032, 'admin', 'admin', [], 10, None)
-    check._collect_metrics.assert_called_once_with(connection_mock.__enter__(), [], {})
+    check._collect_metrics.assert_called_once_with(connection_mock.__enter__(), [], [])
 
 
 @pytest.mark.unit
@@ -182,13 +182,7 @@ def test_not_optional_metrics(aggregator, dd_environment):
     c = ProxysqlCheck('proxysql', {}, {})
 
     instance = dd_environment.copy()
-    instance['options'] = {
-        'extra_command_counters_metrics': False,
-        'extra_connection_pool_metrics': False,
-        'extra_user_metrics': False,
-        'extra_memory_metrics': False,
-        'extra_query_rules_metrics': False,
-    }
+    instance['additional_metrics'] = []
 
     c.check(instance)
 
