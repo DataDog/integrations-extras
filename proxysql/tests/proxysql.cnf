@@ -48,3 +48,14 @@ mysql_users =
 (
   { username = "proxysql", password = "pass", default_hostgroup = 0, max_connections=1000, active = 1 }
 )
+
+mysql_query_rules =
+(
+  {
+    rule_id=1
+    active=1
+    match_pattern="^SELECT .* FOR UPDATE"
+    destination_hostgroup=0
+    apply=1
+  }
+)

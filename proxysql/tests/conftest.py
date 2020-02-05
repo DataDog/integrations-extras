@@ -27,6 +27,7 @@ INSTANCE = {
         'extra_connection_pool_metrics': True,
         'extra_user_metrics': True,
         'extra_memory_metrics': True,
+        'extra_query_rules_metrics': True,
     },
 }
 

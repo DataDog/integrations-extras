@@ -98,6 +98,10 @@ STATS_MYSQL_USERS = {
     "User_Frontend_Max_Connections": ("proxysql.frontend.user_max_connections", GAUGE),
 }
 
+STATS_MYSQL_QUERY_RULES = {
+    "Query_Rule_Hits": ("proxysql.query_rules.rule_hits", RATE),
+}
+
 
 class ProxysqlCheck(AgentCheck):
 
@@ -115,55 +119,45 @@ class ProxysqlCheck(AgentCheck):
     def _collect_metrics(self, conn, tags, options):
         """Collects all the different types of ProxySQL metrics and submits them to Datadog"""
         global_stats = self._get_global_stats(conn)
-        for proxysql_metric_name, metric_details in STATS_MYSQL_GLOBAL.items():
-            metric_name, metric_type = metric_details
-            metric_tags = list(tags)
-            value = global_stats.get(proxysql_metric_name)
-            self._send_metric(metric_name, metric_type, float(global_stats.get(proxysql_metric_name)), metric_tags)
+        self._send_simple_tag_metrics(global_stats, STATS_MYSQL_GLOBAL, tags)
 
         if options.get("extra_command_counters_metrics", True):
-            command_counters = self._get_command_counters(conn)
-            for proxysql_metric_name, metric_details in STATS_COMMAND_COUNTERS.items():
-                metric_name, metric_type = metric_details
-
-                for metric in command_counters.get(proxysql_metric_name):
-                    metric_tags = list(tags)
-                    tag, value = metric
-                    if tag:
-                        metric_tags.append(tag)
-                    self._send_metric(metric_name, metric_type, float(value), metric_tags)
-                metric_tags = list(tags)
+            command_counters_stats = self._get_command_counters(conn)
+            self._send_extra_tag_metrics(command_counters_stats, STATS_COMMAND_COUNTERS, tags)
 
         if options.get("extra_connection_pool_metrics", True):
             conn_pool_stats = self._get_connection_pool_stats(conn)
-            for proxysql_metric_name, metric_details in STATS_MYSQL_CONNECTION_POOL.items():
-                metric_name, metric_type = metric_details
-
-                for metric in conn_pool_stats.get(proxysql_metric_name):
-                    metric_tags = list(tags)
-                    tag, value = metric
-                    if tag:
-                        metric_tags.append(tag)
-                    self._send_metric(metric_name, metric_type, float(value), metric_tags)
+            self._send_extra_tag_metrics(conn_pool_stats, STATS_MYSQL_CONNECTION_POOL, tags)
 
         if options.get("extra_memory_metrics", True):
             memory_stats = self._get_memory_stats(conn)
-            for proxysql_metric_name, metric_details in STATS_MEMORY_METRICS.items():
-                metric_name, metric_type = metric_details
-                metric_tags = list(tags)
-                self._send_metric(metric_name, metric_type, float(memory_stats.get(proxysql_metric_name)), metric_tags)
+            self._send_simple_tag_metrics(memory_stats, STATS_MEMORY_METRICS, tags)
 
         if options.get("extra_user_metrics", True):
             user_stats = self._get_user_stats(conn)
-            for proxysql_metric_name, metric_details in STATS_MYSQL_USERS.items():
-                metric_name, metric_type = metric_details
+            self._send_extra_tag_metrics(user_stats, STATS_MYSQL_USERS, tags)
 
-                for metric in user_stats.get(proxysql_metric_name):
-                    metric_tags = list(tags)
-                    tag, value = metric
-                    if tag:
-                        metric_tags.append(tag)
-                    self._send_metric(metric_name, metric_type, float(value), metric_tags)
+        if options.get("extra_query_rules_metrics", True):
+            query_rules_stats = self._get_query_rules_stats(conn)
+            self._send_extra_tag_metrics(query_rules_stats, STATS_MYSQL_QUERY_RULES, tags)
+
+    def _send_simple_tag_metrics(self, stats, metrics_definition, tags):
+        for proxysql_metric_name, metric_details in metrics_definition.items():
+            metric_name, metric_type = metric_details
+            metric_tags = list(tags)
+            value = stats.get(proxysql_metric_name)
+            self._send_metric(metric_name, metric_type, float(stats.get(proxysql_metric_name)), metric_tags)
+
+    def _send_extra_tag_metrics(self, stats, metrics_definition, tags):
+        for proxysql_metric_name, metric_details in metrics_definition.items():
+            metric_name, metric_type = metric_details
+
+            for metric in stats.get(proxysql_metric_name, []):
+                metric_tags = list(tags)
+                tag, value = metric
+                if tag:
+                    metric_tags.append(tag)
+                self._send_metric(metric_name, metric_type, float(value), metric_tags)
 
     def _send_metric(self, metric_name, metric_type, metric_value, metric_tags):
         if metric_value is None:
@@ -188,12 +182,12 @@ class ProxysqlCheck(AgentCheck):
 
                 if cursor.rowcount < 1:
                     self.warning("Failed to fetch records from the stats schema 'stats_mysql_global' table.")
-                    return None
+                    return {}
 
                 return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
             self.warning("ProxySQL global stats unavailable at this time: {}".format(str(e)))
-            return None
+            return {}
 
     def _get_command_counters(self, conn):
         """Fetch ProxySQL command counters stats"""
@@ -205,7 +199,7 @@ class ProxysqlCheck(AgentCheck):
 
                 if cursor.rowcount < 1:
                     self.warning("Failed to fetch records from the stats schema 'stats_mysql_commands_counters' table.")
-                    return None
+                    return {}
 
                 stats = defaultdict(list)
                 for row in cursor.fetchall():
@@ -229,7 +223,7 @@ class ProxysqlCheck(AgentCheck):
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
             self.warning("ProxySQL commands counters stats unavailable at this time: {}".format(str(e)))
-            return None
+            return {}
 
     def _get_connection_pool_stats(self, conn):
         """Fetch ProxySQL connection pool stats"""
@@ -241,7 +235,7 @@ class ProxysqlCheck(AgentCheck):
 
                 if cursor.rowcount < 1:
                     self.warning("Failed to fetch records from the stats schema 'stats_mysql_connection_pool' table.")
-                    return None
+                    return {}
 
                 stats = defaultdict(list)
                 for row in cursor.fetchall():
@@ -259,7 +253,7 @@ class ProxysqlCheck(AgentCheck):
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
             self.warning("ProxySQL connection_pool stats unavailable at this time: {}".format(str(e)))
-            return None
+            return {}
 
     def _get_memory_stats(self, conn):
         """Fetch ProxySQL mmemory stats"""
@@ -271,12 +265,12 @@ class ProxysqlCheck(AgentCheck):
 
                 if cursor.rowcount < 1:
                     self.warning("Failed to fetch records from the stats schema 'stats_memory_metrics' table.")
-                    return None
+                    return {}
 
                 return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
             self.warning("ProxySQL memory stats unavailable at this time: {}".format(str(e)))
-            return None
+            return {}
 
     def _get_user_stats(self, conn):
         """Fetch ProxySQL Users Frontend connections stats"""
@@ -302,7 +296,29 @@ class ProxysqlCheck(AgentCheck):
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
             self.warning("ProxySQL users stats unavailable at this time: {}".format(str(e)))
-            return None
+            return {}
+
+    def _get_query_rules_stats(self, conn):
+        """Fetch ProxySQL Users Frontend connections stats"""
+        query = "SELECT * FROM stats.stats_mysql_query_rules"
+
+        try:
+            with closing(conn.cursor()) as cursor:
+                cursor.execute(query)
+
+                if cursor.rowcount < 1:
+                    return {}
+
+                stats = defaultdict(list)
+                for row in cursor.fetchall():
+                    stats["Query_Rule_Hits"].append(
+                        ("proxysql_query_rule_id:%s" % row["rule_id"], row["hits"])
+                    )
+
+                return stats
+        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
+            self.warning("ProxySQL users stats unavailable at this time: {}".format(str(e)))
+            return {}
 
     def _get_config(self, instance):
         host = instance.get("server", "")

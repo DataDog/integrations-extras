@@ -129,6 +129,7 @@ def test_service_check(aggregator, dd_environment):
         'proxysql.memory.stack_memory_cluster_threads',
         'proxysql.frontend.user_connections',
         'proxysql.frontend.user_max_connections',
+        'proxysql.query_rules.rule_hits',
     )
 
     for metric in all_metrics:
@@ -148,6 +149,7 @@ def test_not_optional_metrics(aggregator, dd_environment):
         'extra_connection_pool_metrics': False,
         'extra_user_metrics': False,
         'extra_memory_metrics': False,
+        'extra_query_rules_metrics': False,
     }
 
     c.check(instance)
@@ -287,6 +289,10 @@ def test_metrics_tags(aggregator, dd_environment):
         'proxysql.frontend.user_max_connections',
     )
 
+    query_rules_tags_metrics = (
+        'proxysql.query_rules.rule_hits',
+    )
+
     for metric in simple_tag_metrics:
         aggregator.assert_metric_has_tag(metric, 'application:test', count=1)
 
@@ -301,5 +307,9 @@ def test_metrics_tags(aggregator, dd_environment):
     for metric in user_tags_metrics:
         aggregator.assert_metric_has_tag(metric, 'application:test')
         aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_mysql_user')
+
+    for metric in query_rules_tags_metrics:
+        aggregator.assert_metric_has_tag(metric, 'application:test')
+        aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_query_rule_id')
 
     aggregator.assert_all_metrics_covered()
