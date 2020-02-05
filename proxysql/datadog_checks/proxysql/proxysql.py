@@ -145,7 +145,6 @@ class ProxysqlCheck(AgentCheck):
         for proxysql_metric_name, metric_details in metrics_definition.items():
             metric_name, metric_type = metric_details
             metric_tags = list(tags)
-            value = stats.get(proxysql_metric_name)
             self._send_metric(metric_name, metric_type, float(stats.get(proxysql_metric_name)), metric_tags)
 
     def _send_extra_tag_metrics(self, stats, metrics_definition, tags):
@@ -186,7 +185,7 @@ class ProxysqlCheck(AgentCheck):
 
                 return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL global stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL global stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_command_counters(self, conn):
@@ -222,7 +221,7 @@ class ProxysqlCheck(AgentCheck):
 
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL commands counters stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL commands counters stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_connection_pool_stats(self, conn):
@@ -252,7 +251,7 @@ class ProxysqlCheck(AgentCheck):
 
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL connection_pool stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL connection_pool stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_memory_stats(self, conn):
@@ -269,7 +268,7 @@ class ProxysqlCheck(AgentCheck):
 
                 return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL memory stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL memory stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_user_stats(self, conn):
@@ -295,7 +294,7 @@ class ProxysqlCheck(AgentCheck):
 
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL users stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL users stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_query_rules_stats(self, conn):
@@ -311,13 +310,11 @@ class ProxysqlCheck(AgentCheck):
 
                 stats = defaultdict(list)
                 for row in cursor.fetchall():
-                    stats["Query_Rule_Hits"].append(
-                        ("proxysql_query_rule_id:%s" % row["rule_id"], row["hits"])
-                    )
+                    stats["Query_Rule_Hits"].append(("proxysql_query_rule_id:%s" % row["rule_id"], row["hits"]))
 
                 return stats
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL users stats unavailable at this time: {}".format(str(e)))
+            self.warning("ProxySQL users stats unavailable at this time: %s", str(e))
             return {}
 
     def _get_config(self, instance):

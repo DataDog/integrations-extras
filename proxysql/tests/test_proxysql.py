@@ -289,9 +289,7 @@ def test_metrics_tags(aggregator, dd_environment):
         'proxysql.frontend.user_max_connections',
     )
 
-    query_rules_tags_metrics = (
-        'proxysql.query_rules.rule_hits',
-    )
+    query_rules_tags_metrics = ('proxysql.query_rules.rule_hits',)
 
     for metric in simple_tag_metrics:
         aggregator.assert_metric_has_tag(metric, 'application:test', count=1)
