@@ -7,7 +7,7 @@ from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 from datadog_checks.dev.conditions import CheckDockerLogs, WaitFor
 
 DOCKER_HOST = get_docker_hostname()
-MYSQL_PORT = 3306
+MYSQL_PORT = 6612
 PROXY_PORT = 6033
 PROXY_ADMIN_PORT = 6032
 MYSQL_USER = 'proxysql'
