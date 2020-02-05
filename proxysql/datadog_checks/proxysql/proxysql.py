@@ -154,14 +154,10 @@ class ProxysqlCheck(AgentCheck):
             for metric in stats.get(proxysql_metric_name, []):
                 metric_tags = list(tags)
                 tag, value = metric
-                if tag:
-                    metric_tags.append(tag)
+                metric_tags.append(tag)
                 self._send_metric(metric_name, metric_type, float(value), metric_tags)
 
     def _send_metric(self, metric_name, metric_type, metric_value, metric_tags):
-        if metric_value is None:
-            return
-
         if metric_type == RATE:
             self.rate(metric_name, metric_value, tags=metric_tags)
         elif metric_type == GAUGE:
@@ -171,151 +167,96 @@ class ProxysqlCheck(AgentCheck):
         elif metric_type == MONOTONIC:
             self.monotonic_count(metric_name, metric_value, tags=metric_tags)
 
-    def _get_global_stats(self, conn):
-        """Fetch the global ProxySQL stats."""
-        query = "SELECT * FROM stats.stats_mysql_global"
-
+    def _fetch_stats(self, conn, query, stats_name):
         try:
             with closing(conn.cursor()) as cursor:
                 cursor.execute(query)
 
                 if cursor.rowcount < 1:
-                    self.warning("Failed to fetch records from the stats schema 'stats_mysql_global' table.")
-                    return {}
+                    self.warning("Failed to fetch records from %s.", stats_name)
+                    return []
 
-                return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
+                return cursor.fetchall()
         except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL global stats unavailable at this time: %s", str(e))
-            return {}
+            self.warning("ProxySQL %s unavailable at this time: %s", stats_name, str(e))
+            return []
+
+    def _get_global_stats(self, conn):
+        """Fetch the global ProxySQL stats."""
+        query = "SELECT * FROM stats.stats_mysql_global"
+        return {row["Variable_Name"]: row["Variable_Value"] for row in self._fetch_stats(conn, query, 'global_stats')}
 
     def _get_command_counters(self, conn):
         """Fetch ProxySQL command counters stats"""
         query = "SELECT * FROM stats.stats_mysql_commands_counters"
+        metrics = defaultdict(list)
 
-        try:
-            with closing(conn.cursor()) as cursor:
-                cursor.execute(query)
+        for row in self._fetch_stats(conn, query, 'command_counters_stats'):
+            metrics["Total_Time_ms"].append(
+                ("proxysql_command:%s" % row["Command"], str(float(row["Total_Time_us"]) / 1000))
+            )
+            metrics["Total_cnt"].append(("proxysql_command:%s" % row["Command"], row["Total_cnt"]))
+            metrics["cnt_100us"].append(("proxysql_command:%s" % row["Command"], row["cnt_100us"]))
+            metrics["cnt_500us"].append(("proxysql_command:%s" % row["Command"], row["cnt_500us"]))
+            metrics["cnt_1ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_1ms"]))
+            metrics["cnt_5ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_5ms"]))
+            metrics["cnt_10ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_10ms"]))
+            metrics["cnt_50ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_50ms"]))
+            metrics["cnt_100ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_100ms"]))
+            metrics["cnt_500ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_500ms"]))
+            metrics["cnt_1s"].append(("proxysql_command:%s" % row["Command"], row["cnt_1s"]))
+            metrics["cnt_5s"].append(("proxysql_command:%s" % row["Command"], row["cnt_5s"]))
+            metrics["cnt_10s"].append(("proxysql_command:%s" % row["Command"], row["cnt_10s"]))
+            metrics["cnt_INFs"].append(("proxysql_command:%s" % row["Command"], row["cnt_INFs"]))
 
-                if cursor.rowcount < 1:
-                    self.warning("Failed to fetch records from the stats schema 'stats_mysql_commands_counters' table.")
-                    return {}
-
-                stats = defaultdict(list)
-                for row in cursor.fetchall():
-                    stats["Total_Time_ms"].append(
-                        ("proxysql_command:%s" % row["Command"], str(float(row["Total_Time_us"]) / 1000))
-                    )
-                    stats["Total_cnt"].append(("proxysql_command:%s" % row["Command"], row["Total_cnt"]))
-                    stats["cnt_100us"].append(("proxysql_command:%s" % row["Command"], row["cnt_100us"]))
-                    stats["cnt_500us"].append(("proxysql_command:%s" % row["Command"], row["cnt_500us"]))
-                    stats["cnt_1ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_1ms"]))
-                    stats["cnt_5ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_5ms"]))
-                    stats["cnt_10ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_10ms"]))
-                    stats["cnt_50ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_50ms"]))
-                    stats["cnt_100ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_100ms"]))
-                    stats["cnt_500ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_500ms"]))
-                    stats["cnt_1s"].append(("proxysql_command:%s" % row["Command"], row["cnt_1s"]))
-                    stats["cnt_5s"].append(("proxysql_command:%s" % row["Command"], row["cnt_5s"]))
-                    stats["cnt_10s"].append(("proxysql_command:%s" % row["Command"], row["cnt_10s"]))
-                    stats["cnt_INFs"].append(("proxysql_command:%s" % row["Command"], row["cnt_INFs"]))
-
-                return stats
-        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL commands counters stats unavailable at this time: %s", str(e))
-            return {}
+        return metrics
 
     def _get_connection_pool_stats(self, conn):
         """Fetch ProxySQL connection pool stats"""
         query = "SELECT * FROM stats.stats_mysql_connection_pool"
 
-        try:
-            with closing(conn.cursor()) as cursor:
-                cursor.execute(query)
+        stats = defaultdict(list)
+        for row in self._fetch_stats(conn, query, 'connection_pool_stats'):
+            stats["Connections_used"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnUsed"]))
+            stats["Connections_free"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnFree"]))
+            stats["Connections_ok"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnOK"]))
+            stats["Connections_error"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnERR"]))
+            stats["Queries"].append(("proxysql_db_node:%s" % row["srv_host"], row["Queries"]))
+            stats["Bytes_data_sent"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_sent"]))
+            stats["Bytes_data_recv"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_recv"]))
+            stats["Latency_us"].append(("proxysql_db_node:%s" % row["srv_host"], str(float(row["Latency_us"]) / 1000)))
 
-                if cursor.rowcount < 1:
-                    self.warning("Failed to fetch records from the stats schema 'stats_mysql_connection_pool' table.")
-                    return {}
-
-                stats = defaultdict(list)
-                for row in cursor.fetchall():
-                    stats["Connections_used"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnUsed"]))
-                    stats["Connections_free"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnFree"]))
-                    stats["Connections_ok"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnOK"]))
-                    stats["Connections_error"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnERR"]))
-                    stats["Queries"].append(("proxysql_db_node:%s" % row["srv_host"], row["Queries"]))
-                    stats["Bytes_data_sent"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_sent"]))
-                    stats["Bytes_data_recv"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_recv"]))
-                    stats["Latency_us"].append(
-                        ("proxysql_db_node:%s" % row["srv_host"], str(float(row["Latency_us"]) / 1000))
-                    )
-
-                return stats
-        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL connection_pool stats unavailable at this time: %s", str(e))
-            return {}
+        return stats
 
     def _get_memory_stats(self, conn):
-        """Fetch ProxySQL mmemory stats"""
+        """Fetch ProxySQL memory stats"""
         query = "SELECT * FROM stats.stats_memory_metrics"
-
-        try:
-            with closing(conn.cursor()) as cursor:
-                cursor.execute(query)
-
-                if cursor.rowcount < 1:
-                    self.warning("Failed to fetch records from the stats schema 'stats_memory_metrics' table.")
-                    return {}
-
-                return {row["Variable_Name"]: row["Variable_Value"] for row in cursor.fetchall()}
-        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL memory stats unavailable at this time: %s", str(e))
-            return {}
+        return {row["Variable_Name"]: row["Variable_Value"] for row in self._fetch_stats(conn, query, 'memory_stats')}
 
     def _get_user_stats(self, conn):
         """Fetch ProxySQL Users Frontend connections stats"""
         query = "SELECT * FROM stats.stats_mysql_users"
+        stats = defaultdict(list)
 
-        try:
-            with closing(conn.cursor()) as cursor:
-                cursor.execute(query)
+        for row in self._fetch_stats(conn, query, 'users_stats'):
+            stats["User_Frontend_Connections"].append(
+                ("proxysql_mysql_user:%s" % row["username"], row["frontend_connections"])
+            )
+            stats["User_Frontend_Max_Connections"].append(
+                ("proxysql_mysql_user:%s" % row["username"], row["frontend_max_connections"])
+            )
 
-                if cursor.rowcount < 1:
-                    self.warning("Failed to fetch records from the stats schema 'stats_mysql_users' table.")
-                    return None
-
-                stats = defaultdict(list)
-                for row in cursor.fetchall():
-                    stats["User_Frontend_Connections"].append(
-                        ("proxysql_mysql_user:%s" % row["username"], row["frontend_connections"])
-                    )
-                    stats["User_Frontend_Max_Connections"].append(
-                        ("proxysql_mysql_user:%s" % row["username"], row["frontend_max_connections"])
-                    )
-
-                return stats
-        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL users stats unavailable at this time: %s", str(e))
-            return {}
+        return stats
 
     def _get_query_rules_stats(self, conn):
         """Fetch ProxySQL Users Frontend connections stats"""
         query = "SELECT * FROM stats.stats_mysql_query_rules"
+        stats = defaultdict(list)
 
-        try:
-            with closing(conn.cursor()) as cursor:
-                cursor.execute(query)
+        for row in self._fetch_stats(conn, query, 'query_rules_stats'):
+            stats["Query_Rule_Hits"].append(("proxysql_query_rule_id:%s" % row["rule_id"], row["hits"]))
 
-                if cursor.rowcount < 1:
-                    return {}
-
-                stats = defaultdict(list)
-                for row in cursor.fetchall():
-                    stats["Query_Rule_Hits"].append(("proxysql_query_rule_id:%s" % row["rule_id"], row["hits"]))
-
-                return stats
-        except (pymysql.err.InternalError, pymysql.err.OperationalError) as e:
-            self.warning("ProxySQL users stats unavailable at this time: %s", str(e))
-            return {}
+        return stats
 
     def _get_config(self, instance):
         host = instance.get("server", "")

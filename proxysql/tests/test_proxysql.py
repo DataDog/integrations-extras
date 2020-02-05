@@ -40,6 +40,44 @@ def test_config_ok():
     check._collect_metrics.assert_called_once_with(connection_mock.__enter__(), [], {})
 
 
+@pytest.mark.unit
+def test_fetch_stats_no_result():
+    check = ProxysqlCheck('proxysql', {}, {})
+
+    cursor_mock = mock.Mock()
+    cursor_mock.execute = mock.Mock()
+    cursor_mock.rowcount = 0
+    connection_mock = mock.Mock()
+    connection_mock.cursor = mock.Mock(return_value=cursor_mock)
+
+    check.warning = mock.Mock()
+    stats = check._fetch_stats(connection_mock, 'query', 'test_stats')
+
+    cursor_mock.execute.assert_called_once_with('query')
+    check.warning.assert_called_once_with("Failed to fetch records from %s.", 'test_stats')
+
+    assert len(stats) == 0
+
+
+@pytest.mark.unit
+def test_fetch_stats_exception():
+    check = ProxysqlCheck('proxysql', {}, {})
+
+    cursor_mock = mock.Mock()
+    cursor_mock.execute = mock.Mock(side_effect=pymysql.err.InternalError('Internal Error'))
+    cursor_mock.rowcount = 0
+    connection_mock = mock.Mock()
+    connection_mock.cursor = mock.Mock(return_value=cursor_mock)
+
+    check.warning = mock.Mock()
+    stats = check._fetch_stats(connection_mock, 'query', 'test_stats')
+
+    cursor_mock.execute.assert_called_once_with('query')
+    check.warning.assert_called_once_with("ProxySQL %s unavailable at this time: %s", 'test_stats', 'Internal Error')
+
+    assert len(stats) == 0
+
+
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 def test_service_check(aggregator, dd_environment):
