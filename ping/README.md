@@ -26,7 +26,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 2. Clone the integrations-extras repository:
 
     ```
-    git clone https://github.com/DataDog/integrations-extras.git.
+    git clone https://github.com/DataDog/integrations-extras.git
     ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
