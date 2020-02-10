@@ -21,7 +21,7 @@ class RedisSentinelCheck(AgentCheck):
             try:
                 self._process_instance_master(redis_conn, master_name, base_tags)
             except Exception as e:
-                self.warning("Error collecting metrics for master %s: %s" % (master_name, e))
+                self.warning("Error collecting metrics for master %s: %s", master_name, e)
 
     def _process_instance_master(self, redis_conn, master_name, base_tags):
         master_tags = self._process_master_stats(redis_conn, master_name, base_tags)

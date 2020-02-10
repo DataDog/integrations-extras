@@ -22,11 +22,11 @@ class SendmailCheck(AgentCheck):
         try:
             queue_size = self._get_sendmail_stats(sendmail_command, use_sudo)
             self.gauge('sendmail.queue.size', queue_size, tags=tags + ['queue:total'])
-            self.log.debug("Sendmail queue size: {} mails".format(queue_size))
+            self.log.debug("Sendmail queue size: %s mails", queue_size)
             # Send an OK service check as well
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags, message='Sendmail OK')
         except OSError as e:
-            self.log.info("Cannot get sendmail queue info".format(str(e)))
+            self.log.info("Cannot get sendmail queue info: %s", e)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
 
     def _get_config(self, instance):
@@ -65,15 +65,15 @@ class SendmailCheck(AgentCheck):
                 os.system('setsid sudo -l < /dev/null')
                 command.insert(0, 'sudo')
             except OSError as e:
-                self.log.exception("trying to retrieve {} with sudo failed with return code {}".format(command, e))
+                self.log.exception("trying to retrieve %s with sudo failed with return code %s", command, e)
 
         self.log.debug(command)
 
         mail_queue, err, retcode = get_subprocess_output(command, self.log, False)
-        self.log.debug("Error: {}".format(err))
+        self.log.debug("Error: %s", err)
         count = mail_queue.splitlines()
         # Retrieve the last total number of requests
         queue_count = int(count[-1][-1])
-        self.log.info("Number of mails in the queue: {}".format(queue_count))
+        self.log.info("Number of mails in the queue: %s", queue_count)
 
         return queue_count

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Datadog-Constant integration allows you to get your Contrast logs into Datadog.
+The Datadog-Contrast integration allows you to get your Contrast logs into Datadog.
 
 ## Setup
 
@@ -16,13 +16,13 @@ logs_enabled: true
 * Add this configuration block to your `contrastsecurity.d/conf.yaml` file to start collecting your Contrast Logs:
 * Create a new `conf.yaml` file.
 * Add a custom log collection configuration group.
-```
-logs:
-  - type: file
-    path: /path/to/contrast/security.log
-    service: contrast
-    source: contrastsecurity
-```
+
+      logs:
+        - type: file
+          path: /path/to/contrast/security.log
+          service: contrast
+          source: contrastsecurity
+
 For more information on logs: https://docs.contrastsecurity.com/installation-setupconfig.html#log
 
 * [Restart the Datadog Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).

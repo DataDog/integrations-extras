@@ -255,17 +255,17 @@ class StormCheck(AgentCheck):
             resp.encoding = 'utf-8'
             data = resp.json()
             # Log response data exluding configuration section
-            self.log.debug("Response data: %s" % json.dumps({x: data[x] for x in data if x != 'configuration'}))
+            self.log.debug("Response data: %s", json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
                 self.log.warning("Error message returned in JSON response")
                 raise Exception(data['error'])
             resp.raise_for_status()
             return data
         except requests.exceptions.ConnectionError as e:
-            self.log.error("{1} [url:{0}]".format(self.nimbus_server, "Unable to establish a connection to Storm UI"))
+            self.log.error("Unable to establish a connection to Storm UI [url:%s]", self.nimbus_server)
             raise e
         except Exception as e:
-            self.log.warning("[url:{}] {}".format(url, error_message))
+            self.log.warning("[url:%s] %s", url, error_message)
             self.log.exception(e)
             raise e
 
@@ -313,7 +313,7 @@ class StormCheck(AgentCheck):
         :return: Topology Info Response
         :rtype: dict
         """
-        self.log.debug("Retrieving Topology Info. Id: %s" % topology_id)
+        self.log.debug("Retrieving Topology Info. Id: %s", topology_id)
         params = {'window': interval}
         return self.get_request_json(
             "/api/v1/topology/{}".format(topology_id),
@@ -904,7 +904,7 @@ class StormCheck(AgentCheck):
                             )
                     except Exception:  # noqa
                         self.log.exception(
-                            "unable to collect topology stats for topology_id:{}, topology_name:{}".format(
-                                topology_id, topology_name
-                            )
+                            "unable to collect topology stats for topology_id:%s, topology_name:%s",
+                            topology_id,
+                            topology_name,
                         )

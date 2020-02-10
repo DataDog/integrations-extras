@@ -10,7 +10,7 @@ from datadog_checks.base.errors import CheckException
 
 class RiakReplCheck(AgentCheck):
 
-    REPL_STATS = [
+    REPL_STATS = {
         "server_bytes_sent",
         "server_bytes_recv",
         "server_connects",
@@ -34,11 +34,17 @@ class RiakReplCheck(AgentCheck):
         "realtime_recv_kbps",
         "fullsync_send_kbps",
         "fullsync_recv_kbps",
-    ]
+    }
 
-    REALTIME_QUEUE_STATS = ["percent_bytes_used", "bytes", "max_bytes", "overload_drops"]
+    REALTIME_QUEUE_STATS = {"percent_bytes_used", "bytes", "max_bytes", "overload_drops"}
 
-    FULLSYNC_COORDINATOR = [
+    REALTIME_QUEUE_STATS_CONSUMERS = {"pending", "unacked", "drops", "errs"}
+
+    REALTIME_SOURCE_CONN = {"hb_rtt", "sent_seq", "objects"}
+
+    REALTIME_SINK_CONN = {"deactivated", "source_drops", "expect_seq", "acked_seq", "pending"}
+
+    FULLSYNC_COORDINATOR = {
         "queued",
         "in_progress",
         "waiting_for_retry",
@@ -50,10 +56,11 @@ class RiakReplCheck(AgentCheck):
         "busy_nodes",
         "fullsyncs_completed",
         "last_fullsync_duration",
-    ]
+    }
 
     def check(self, instance):
         url = instance.get('url', '')
+        connected_clusters = instance.get('connected_clusters', '')
         default_timeout = instance.get('default_timeout', 5)
         timeout = float(instance.get('timeout', default_timeout))
         tags = instance.get('tags', [])
@@ -76,22 +83,50 @@ class RiakReplCheck(AgentCheck):
         except ValueError:
             raise CheckException('{} returned an unserializable payload'.format(url))
 
+        cluster = stats['cluster_name']
+
         for key, val in iteritems(stats):
             if key in self.REPL_STATS:
-                self.safe_submit_metric("riak_repl." + key, val, tags=tags)
+                self.safe_submit_metric("riak_repl." + key, val, tags=tags + ['cluster:%s' % cluster])
 
-        if stats['realtime_enabled'] is not None:
+        if stats['realtime_started'] is not None:
             for key, val in iteritems(stats['realtime_queue_stats']):
                 if key in self.REALTIME_QUEUE_STATS:
-                    self.safe_submit_metric("riak_repl.realtime_queue_stats." + key, val, tags=tags)
+                    self.safe_submit_metric(
+                        "riak_repl.realtime_queue_stats." + key, val, tags=tags + ['cluster:%s' % cluster]
+                    )
 
-        for c in stats['connected_clusters']:
-            cluster = c.replace("-", "_")
-            if c not in stats['fullsync_coordinator']:
-                continue
-            for key, val in iteritems(stats['fullsync_coordinator'][c]):
-                if key in self.FULLSYNC_COORDINATOR:
-                    self.safe_submit_metric("riak_repl.fullsync_coordinator." + cluster + "." + key, val, tags=tags)
+        for c in connected_clusters:
+
+            if stats['fullsync_enabled'] is not None:
+                if self.exists(stats['fullsync_coordinator'], [c]):
+                    for key, val in iteritems(stats['fullsync_coordinator'][c]):
+                        if key in self.FULLSYNC_COORDINATOR:
+                            self.safe_submit_metric(
+                                "riak_repl.fullsync_coordinator." + key, val, tags=tags + ['cluster:%s' % c]
+                            )
+
+            if stats['realtime_started'] is not None:
+                if self.exists(stats['sources'], ['source_stats', 'rt_source_connected_to']):
+                    for key, val in iteritems(stats['sources']['source_stats']['rt_source_connected_to']):
+                        if key in self.REALTIME_SOURCE_CONN:
+                            self.safe_submit_metric(
+                                "riak_repl.realtime_source.connected." + key, val, tags=tags + ['cluster:%s' % c]
+                            )
+
+                if self.exists(stats['realtime_queue_stats'], ['consumers', c]):
+                    for key, val in iteritems(stats['realtime_queue_stats']['consumers'][c]):
+                        if key in self.REALTIME_QUEUE_STATS_CONSUMERS:
+                            self.safe_submit_metric(
+                                "riak_repl.realtime_queue_stats.consumers." + key, val, tags=tags + ['cluster:%s' % c]
+                            )
+
+            if self.exists(stats['sinks'], ['sink_stats', 'rt_sink_connected_to']):
+                for key, val in iteritems(stats['sinks']['sink_stats']['rt_sink_connected_to']):
+                    if key in self.REALTIME_SINK_CONN:
+                        self.safe_submit_metric(
+                            "riak_repl.realtime_sink.connected." + key, val, tags=tags + ['cluster:%s' % c]
+                        )
 
     def safe_submit_metric(self, name, value, tags=None):
         tags = [] if tags is None else tags
@@ -99,12 +134,15 @@ class RiakReplCheck(AgentCheck):
             self.gauge(name, float(value), tags=tags)
             return
         except ValueError:
-            self.log.debug("metric name {} cannot be converted to a float: {}".format(name, value))
+            self.log.debug("metric name %s cannot be converted to a float: %s", name, value)
 
         try:
             self.gauge(name, unicodedata.numeric(value), tags=tags)
             return
         except (TypeError, ValueError):
-            self.log.debug(
-                "metric name {} cannot be converted to a float even using unicode tools: {}".format(name, value)
-            )
+            self.log.debug("metric name %s cannot be converted to a float even using unicode tools: %s", name, value)
+
+    def exists(self, obj, nest):
+        _key = nest.pop(0)
+        if _key in obj:
+            return self.exists(obj[_key], nest) if nest else obj[_key]

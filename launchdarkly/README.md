@@ -8,7 +8,7 @@ The Datadog-LaunchDarkly integration allows you to see the effects of your Launc
 
 ## Setup
 
-This integration will need a [Datadog API key][1]. Only Datadog admins can create an API key. Once you've obtained a Datadog API key, visit the [LaunchDarkly documentation for the Datadog integration][3] to learn how to setup the Datadog-LaunchDarky integration.
+This integration will need a [Datadog API key][1]. Only Datadog admins can create an API key. Once you've obtained a Datadog API key, visit the [LaunchDarkly documentation for the Datadog integration][3] to learn how to setup the Datadog-LaunchDarkly integration.
 
 **Note**: In order to set it up, you need a valid [Datadog API key][1].
 
