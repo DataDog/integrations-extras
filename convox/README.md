@@ -1,3 +1,5 @@
+# Convox Integration
+
 ## Overview
 
 Get metrics from Convox in real-time to visualize your containers' performance:
@@ -12,7 +14,7 @@ Please refer to the [Convox setup doc page][2].
 
 You can deploy the Datadog Agent as a Convox app with a very simple `docker-compose.yml` manifest:
 
-```
+```shell
 # check out the repo
 $ git clone https://github.com/convox-examples/dd-agent.git
 $ cd dd-agent
@@ -33,16 +35,21 @@ If autoscaling is enabled on your Rack, you'll need to dynamically scale the Dat
 See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 
 ## Data Collected
+
 ### Metrics
+
 The Convox check does not include any metrics.
 
 ### Events
+
 The Convox check does not include any events.
 
 ### Service Checks
+
 The Convox check does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png

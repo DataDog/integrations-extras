@@ -4,8 +4,8 @@
 
 Get metrics from EventStore in real time to:
 
-* Visualize and monitor EventStore queues
-* Capture all available metrics within the stats API
+- Visualize and monitor EventStore queues
+- Capture all available metrics within the stats API
 
 ## Setup
 
@@ -16,35 +16,35 @@ If you are using Agent v6.8+ follow the instructions below to install the EventS
 1. Install the [developer toolkit][4].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `eventstore` package, run:
 
-    ```
-    ddev -e release build eventstore
-    ```
+   ```shell
+   ddev -e release build eventstore
+   ```
 
 5. [Download and launch the Datadog Agent][5].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_EVENTSTORE_ARTIFACT_>/<EVENTSTORE_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_EVENTSTORE_ARTIFACT_>/<EVENTSTORE_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
 
 1. Edit the `eventstore.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your EventStore [metrics](#metrics).
-  See the [sample eventstore.d/conf.yaml][8] for all available configuration options.
+   See the [sample eventstore.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9].
 

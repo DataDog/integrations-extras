@@ -13,35 +13,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Nextcl
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `nextcloud` package, run:
 
-    ```
-    ddev -e release build nextcloud
-    ```
+   ```shell
+   ddev -e release build nextcloud
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_NEXTCLOUD_ARTIFACT_>/<NEXTCLOUD_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_NEXTCLOUD_ARTIFACT_>/<NEXTCLOUD_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `nextcloud.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Nextcloud [metrics](#metrics).
-  See the [sample nextcloud.d/conf.yaml][9] for all available configuration options.
+1. Edit the `nextcloud.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Nextcloud [metrics](#metrics). See the [sample nextcloud.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -61,9 +60,8 @@ See [metadata.csv][12] for a list of metrics provided by this check.
 
 The check returns:
 
-* `OK` if Nextcloud is reachable.
-* `CRITICAL` if Nextcloud is unreachable.
-
+- `OK` if Nextcloud is reachable.
+- `CRITICAL` if Nextcloud is unreachable.
 
 ### Events
 

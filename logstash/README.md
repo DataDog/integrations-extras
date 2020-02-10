@@ -4,8 +4,8 @@
 
 Get metrics from Logstash service in real time to:
 
-* Visualize and monitor Logstash states.
-* Be notified about Logstash events.
+- Visualize and monitor Logstash states.
+- Be notified about Logstash events.
 
 ## Setup
 
@@ -18,35 +18,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Logsta
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `logstash` package, run:
 
-    ```
-    ddev -e release build logstash
-    ```
+   ```shell
+   ddev -e release build logstash
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_LOGSTASH_ARTIFACT_>/<LOGSTASH_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_LOGSTASH_ARTIFACT_>/<LOGSTASH_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Logstash [metrics](#metric-collection) and [logs](#logs-collection).
-  See the [sample logstash.d/conf.yaml][9] for all available configuration options.
+1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Logstash [metrics](#metric-collection) and [logs](#logs-collection). See the [sample logstash.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -54,11 +53,12 @@ If you are using Agent v6.8+ follow the instructions below to install the Logsta
 
 Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][11]:
 
-```
+```yaml
 init_config:
 
 instances:
-  #   The URL where Logstash provides its monitoring API. This will be used to fetch various runtime metrics about Logstash.
+  # The URL where Logstash provides its monitoring API.
+  # This will be used to fetch various runtime metrics about Logstash.
   #
   - url: http://localhost:9600
 ```
@@ -75,11 +75,11 @@ Datadog has [an output plugin][14] for Logstash that takes care of sending your 
 
 To install this plugin run the following command:
 
-* `logstash-plugin install logstash-output-datadog_logs`
+- `logstash-plugin install logstash-output-datadog_logs`
 
 Then configure the `datadog_logs` plugin with your [Datadog API key][15]:
 
-```
+```conf
 output {
     datadog_logs {
         api_key => "<DATADOG_API_KEY>"
@@ -89,19 +89,19 @@ output {
 
 Additional parameters can be used to change the endpoint used in order to go through a [proxy][16]:
 
-* `host`: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
-* `port`: Proxy port when logs are not directly forwarded to Datadog (default value is `10516`)
-* `use_ssl`: If `true`, the Agent initializes a secure TCP/SSL connection to Datadog (default value is `true`)
+- `host`: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
+- `port`: Proxy port when logs are not directly forwarded to Datadog (default value is `10516`)
+- `use_ssl`: If `true`, the Agent initializes a secure TCP/SSL connection to Datadog (default value is `true`)
 
 This also can be used to send logs to **Datadog EU** by setting:
 
- ```
+```conf
 output {
-    datadog_logs {
-        api_key => "<DATADOG_API_KEY>"
-        host => "tcp-intake.logs.datadoghq.eu"
-        port => "443"
-    }
+   datadog_logs {
+       api_key => "<DATADOG_API_KEY>"
+       host => "tcp-intake.logs.datadoghq.eu"
+       port => "443"
+   }
 }
 ```
 
@@ -113,7 +113,7 @@ In order to get the best use out of your logs in Datadog, it is important to hav
 
 Set up a Logstash filter to set the source (Datadog integration name) on your logs.
 
-```
+```conf
 filter {
   mutate {
     add_field => {
@@ -129,7 +129,7 @@ This triggers the [integration automatic setup][18] in Datadog.
 
 [Host tags][19] are automatically set on your logs if there is a matching hostname in your [infrastructure list][20]. Use the `ddtags` attribute to add custom tags to your logs:
 
-```
+```conf
 filter {
   mutate {
     add_field => {
@@ -139,21 +139,22 @@ filter {
  }
 ```
 
-
 ### Validation
 
 [Run the Agent's `status` subcommand][21] and look for `logstash` under the Checks section.
 
 ## Compatibility
 
-The Logstash check is compatible with Logstash 5.x, 6.x and 7.x versions. It also supports the new multi-pipelines metrics introduced in Logstash 6.0.
-Tested with Logstash versions 5.6.15, 6.3.0 and 7.0.0.
+The Logstash check is compatible with Logstash 5.x, 6.x and 7.x versions. It also supports the new multi-pipelines metrics introduced in Logstash 6.0. Tested with Logstash versions 5.6.15, 6.3.0 and 7.0.0.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][22] for a list of metrics provided by this check.
 
 ### Events
+
 The Logstash check does not include any events.
 
 ### Service checks
@@ -165,7 +166,8 @@ Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; r
 ## Troubleshooting
 
 ### Agent cannot connect
-```
+
+```text
     logstash
     -------
       - instance #0 [ERROR]: "('Connection aborted.', error(111, 'Connection refused'))"

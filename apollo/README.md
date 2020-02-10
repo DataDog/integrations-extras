@@ -8,16 +8,17 @@ The Apollo Datadog integration allows you to forward the performance metrics tha
 
 The Datadog metrics forwarded by Graph Manager are:
 
-* `apollo.engine.operations.count` - the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
-* `apollo.engine.operations.error_count` - the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Graph Manager failed to connect to your server.
-* `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Server's full query cache.
-* A histogram of GraphQL operation response times, measured in milliseconds. Due to Graph Manager's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
-  * `apollo.engine.operations.latency.min`
-  * `apollo.engine.operations.latency.median`
-  * `apollo.engine.operations.latency.95percentile`
-  * `apollo.engine.operations.latency.99percentile`
-  * `apollo.engine.operations.latency.max`
-  * `apollo.engine.operations.latency.avg`
+- `apollo.engine.operations.count` - the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
+- `apollo.engine.operations.error_count` - the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Graph Manager failed to connect to your server.
+- `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Server's full query cache.
+- A histogram of GraphQL operation response times, measured in milliseconds. Due to Graph Manager's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
+
+  - `apollo.engine.operations.latency.min`
+  - `apollo.engine.operations.latency.median`
+  - `apollo.engine.operations.latency.95percentile`
+  - `apollo.engine.operations.latency.99percentile`
+  - `apollo.engine.operations.latency.max`
+  - `apollo.engine.operations.latency.avg`
 
 All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<query-name>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
 
@@ -37,11 +38,11 @@ Getting set up with the Apollo Datadog integration is as simple as providing a D
 
 3. In [Graph Manager][4], go to the integrations page for your graph.
 
-    ![IntegrationsPage][5]
+   ![IntegrationsPage][5]
 
 4. Toggle the Datadog integration to turn it on. Paste the API key, and press **Save**. You can use the same API key for all your graphs, since all metrics are tagged with the graph ID (`service:<graph-id>`).
 
-    ![IntegrationsToggle][6]
+   ![IntegrationsToggle][6]
 
 5. Go to the Datadog metrics explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
 
