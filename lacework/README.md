@@ -17,11 +17,11 @@ All configuration happens on Lacework Dashboard. Find details on how to set it u
    - **Name**: Enter a name for the integration. For example, `Datadog-Lacework`.
    - **Datadog Type**: Select the type of logs sent to Datadog:
 
-     | Datadog Type     | Description                                                |
-     | ---------------- | ---------------------------------------------------------- |
-     | `Logs Details`   | Sends Lacework detailed logs to the Datadog logs platform. |
-     | `Logs Summary`   | Sends a Lacework summary to the Datadog logs platform.     |
-     | `Events Summary` | Sends a Lacework summary to the Datadog Events platform.   |
+    | Datadog Type     | Description                                                |
+    | ---------------- | ---------------------------------------------------------- |
+    | `Logs Details`   | Sends Lacework detailed logs to the Datadog logs platform. |
+    | `Logs Summary`   | Sends a Lacework summary to the Datadog logs platform.     |
+    | `Events Summary` | Sends a Lacework summary to the Datadog Events platform.   |
 
    - **Datadog Site**:
      - Select `com` if you use the Datadog US region.
