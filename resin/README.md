@@ -13,9 +13,18 @@ need to install it yourself.
 
 ### Configuration
 
-1. Edit the `resin.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [sample resin.d/conf.yaml][2] for all available configuration options.
+1. Configure the [resin default server](https://www.caucho.com/resin-4.0/admin/cluster-server.xtp#JVMparameters:settingtheJVMcommandline) to enable JMX by adding the following JVM arguments:
 
-2. [Restart the Agent][3].
+```
+<server-default>
+  <jvm-arg>-Dcom.sun.management.jmxremote</jvm-arg>
+  <jvm-arg>-Dcom.sun.management.jmxremote.port=7199</jvm-arg>
+</server-default>
+```
+
+2. Edit the `resin.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [sample resin.d/conf.yaml][2] for all available configuration options.
+
+3. [Restart the Agent][3].
 
 ### Validation
 
