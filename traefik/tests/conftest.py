@@ -7,7 +7,7 @@ from . import common
 
 
 def ping_traefik():
-    response = requests.get('http://{}:{}/health'.format(common.HOST, common.PORT))
+    response = requests.get('{}://{}:{}/health'.format(common.SCHEME, common.HOST, common.PORT))
     response.raise_for_status()
 
     # Trigger a 404
