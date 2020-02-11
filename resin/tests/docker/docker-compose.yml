@@ -2,9 +2,8 @@ version: '3'
 
 services:
   resin:
-    image: expertsystems/resin:latest
+    build: .
+    container_name: dd-test-resin
     ports:
       - 8080:8080
       - 7199:7199
-    volumes:
-      - ./resin.xml:/etc/resin/resin.xml
