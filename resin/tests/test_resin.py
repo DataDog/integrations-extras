@@ -12,6 +12,7 @@ def test_e2e(dd_agent_check):
         'resin.connection_idle_count',
         'resin.connection_busy_count_total',
         #'resin.connection_create_count',
+        'resin.connection_new_count_total',
         'resin.max_connections',
         'resin.max_overflow_connections',
         'resin.max_create_connections',
