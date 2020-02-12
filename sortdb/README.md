@@ -4,9 +4,9 @@
 
 Get metrics from [Sortdb][1] service in real time to:
 
-* Visualize and monitor Sortdb stats.
-* Be notified about Sortdb failovers.
-* Check health of and get stats from multiple instances
+- Visualize and monitor Sortdb stats.
+- Be notified about Sortdb failovers.
+- Check health of and get stats from multiple instances
 
 ## Installation
 
@@ -15,35 +15,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Sortdb
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `sortdb` package, run:
 
-    ```
-    ddev -e release build sortdb
-    ```
+   ```shell
+   ddev -e release build sortdb
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_SORTDB_ARTIFACT_>/<SORTDB_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_SORTDB_ARTIFACT_>/<SORTDB_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ## Configuration
 
-1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Sortdb [metrics](#metric-collection).
-  See the [sample sortdb.d/conf.yaml][9] for all available configuration options.
+1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Sortdb [metrics](#metric-collection). See the [sample sortdb.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 

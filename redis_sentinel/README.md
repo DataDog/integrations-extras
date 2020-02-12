@@ -4,9 +4,8 @@
 
 Get metrics from Redis's Sentinel service in real time to:
 
-* Visualize and monitor sentinels states
-* Be notified about failovers
-
+- Visualize and monitor sentinels states
+- Be notified about failovers
 
 ## Setup
 
@@ -19,35 +18,35 @@ If you are using Agent v6.8+ follow the instructions below to install the Redis'
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `redis_sentinel` package, run:
 
-    ```
-    ddev -e release build redis_sentinel
-    ```
+   ```shell
+   ddev -e release build redis_sentinel
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_REDIS_SENTINEL_ARTIFACT_>/<REDIS_SENTINEL_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_REDIS_SENTINEL_ARTIFACT_>/<REDIS_SENTINEL_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
 1. Edit the `redis_sentinel.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Redis Sentinel [metrics](#metrics).
-  See the [sample upsc.d/conf.yaml][9] for all available configuration options.
+   See the [sample upsc.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -56,45 +55,47 @@ If you are using Agent v6.8+ follow the instructions below to install the Redis'
 [Run the Agent's `status` subcommand][11] and look for `redis_sentinel` under the Checks section.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Events
+
 The Redis's Sentinel check does not include any events.
 
 ### Service Checks
+
 **`redis.sentinel.master_is_down`**
 
 The check returns:
 
-* `OK` if the master is up.
-* `CRITICAL` if the master is down.
-
+- `OK` if the master is up.
+- `CRITICAL` if the master is down.
 
 **`redis.sentinel.master_is_disconnected`**
 
 The check returns:
 
-* `OK` if the master is not disconnected.
-* `CRITICAL` if the master is disconnected.
-
+- `OK` if the master is not disconnected.
+- `CRITICAL` if the master is disconnected.
 
 **`redis.sentinel.slave_master_link_down`**
 
 The check returns:
 
-* `OK` if the master link status is ok.
-* `CRITICAL` if the master link status is not ok.
-
+- `OK` if the master link status is ok.
+- `CRITICAL` if the master link status is not ok.
 
 **`redis.sentinel.slave_is_disconnected`**
 
 The check returns:
 
-* `OK` if the slave is not disconnected.
-* `CRITICAL` if the slave is disconnected.
+- `OK` if the slave is not disconnected.
+- `CRITICAL` if the slave is disconnected.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][13].
 
 [1]: https://app.datadoghq.com/account/settings#agent

@@ -4,8 +4,8 @@
 
 Get metrics from gnatsd_streaming service in real time to:
 
-* Visualize and monitor gnatsd_streaming states
-* Be notified about gnatsd_streaming failovers and events.
+- Visualize and monitor gnatsd_streaming states
+- Be notified about gnatsd_streaming failovers and events.
 
 ## Setup
 
@@ -16,35 +16,35 @@ If you are using Agent v6.8+ follow the instructions below to install the gnatsd
 1. Install the [developer toolkit][4].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `gnatsd_streaming` package, run:
 
-    ```
-    ddev -e release build gnatsd_streaming
-    ```
+   ```shell
+   ddev -e release build gnatsd_streaming
+   ```
 
 5. [Download and launch the Datadog Agent][5].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_GNATSD_STREAMING_ARTIFACT_>/<GNATSD_STREAMING_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_GNATSD_STREAMING_ARTIFACT_>/<GNATSD_STREAMING_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
 
 1. Edit the `gnatsd_streaming.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your GnatsD streaming [metrics](#metric-collection).
-  See the [sample gnatsd_streaming.d/conf.yaml][8] for all available configuration options.
+   See the [sample gnatsd_streaming.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
 
@@ -57,6 +57,7 @@ If you are using Agent v6.8+ follow the instructions below to install the gnatsd
 The gnatsd_streaming check is compatible with all major platforms
 
 ## Data Collected
+
 ### Metrics
 
 See [metadata.csv][11] for a list of metrics provided by this integration.
@@ -69,15 +70,17 @@ If you are running Nats Streaming Server in a Fault Tolerant group a Nats Stream
 when the status of a Server changes between `FT_STANDBY` and `FT_ACTIVE`
 
 ### Service Checks
+
 This gnatsd_streaming check tags all service checks it collects with:
 
-  * `server_name:<server_name_in_yaml>`
-  * `url:<host_in_yaml>`
+- `server_name:<server_name_in_yaml>`
+- `url:<host_in_yaml>`
 
 `gnatsd_streaming.can_connect`:
 Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][12].
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent

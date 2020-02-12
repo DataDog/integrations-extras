@@ -1,10 +1,12 @@
+# Bonsai Integration
+
 ## Overview
 
 Track request level metrics for your Bonsai clusters to:
 
-* Visualize the performance of your clusters
-* Correlate search performance with application performance
-* Create alerts
+- Visualize the performance of your clusters
+- Correlate search performance with application performance
+- Create alerts
 
 ![snapshot][1]
 
@@ -12,17 +14,15 @@ Track request level metrics for your Bonsai clusters to:
 
 Integrating your cluster with Datadog requires submitting your API key to the bonsai app.
 
-
 ### Step 1 - Aquire API Key
 
 In Datadog, navigate to [Integrations --> API][2] and copy your API Key.
 
 ![snapshot][3]
 
-
 ### Step 2 - Submit API Key
 
-Navigate to [Bonsai --> Clusters][4] and click the cluster you want to integrate.  Navigate to the Manage tab and scroll to the bottom of the page.
+Navigate to [Bonsai --> Clusters][4] and click the cluster you want to integrate. Navigate to the Manage tab and scroll to the bottom of the page.
 
 Under the "Datadog Integration" section paste your API key and click "Activate Datadog".
 
@@ -42,9 +42,9 @@ Within a few minutes, request metrics are available in your Datadog dashboard.
 
 See [metadata.csv][7] for a list of metrics provided by this integration.
 
-Metrics are tagged for each cluster, so you can segment based on clusters.  The tags look like:
+Metrics are tagged for each cluster, so you can segment based on clusters. The tags look like:
 
-```
+```text
 cluster:my-cluster-slug
 ```
 
@@ -63,7 +63,6 @@ Need help? Contact [Datadog Support][8].
 ## Further Reading
 
 Learn more about infrastructure monitoring and all Datadog integrations in [our blog][9].
-
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bonsai/images/snapshot.png
 [2]: https://app.datadoghq.com/account/settings#api

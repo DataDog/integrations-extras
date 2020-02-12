@@ -4,8 +4,8 @@
 
 Get metrics from Filebeat service in real time to:
 
-* Visualize and monitor Filebeat states.
-* Be notified about Filebeat failovers and events.
+- Visualize and monitor Filebeat states.
+- Be notified about Filebeat failovers and events.
 
 ## Setup
 
@@ -18,35 +18,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Filebe
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `filebeat` package, run:
 
-    ```
-    ddev -e release build filebeat
-    ```
+   ```shell
+   ddev -e release build filebeat
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_FILEBEAT_ARTIFACT_>/<FILEBEAT_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_FILEBEAT_ARTIFACT_>/<FILEBEAT_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Filebeat [metrics](#metric-collection).
-  See the [sample filebeat.d/conf.yaml][9] for all available configuration options.
+1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -55,16 +54,21 @@ If you are using Agent v6.8+ follow the instructions below to install the Filebe
 [Run the Agent's `status` subcommand][11] and look for `filebeat` under the Checks section.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Events
+
 The Filebeat check does not include any events.
 
 ### Service Checks
+
 The Filebeat check does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][13].
 
 [1]: https://app.datadoghq.com/account/settings#agent

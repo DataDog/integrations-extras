@@ -6,7 +6,7 @@ This check monitors [Unbound][1] through the Datadog Agent.
 
 Get metrics from unbound service in real time to:
 
-* Visualize and monitor unbound states
+- Visualize and monitor unbound states
 
 ## Setup
 
@@ -19,7 +19,7 @@ To install the Unbound check on your host:
 1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build unbound` to build the package.
 3. [Install the Datadog Agent][4].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/unbound/dist/<ARTIFACT_NAME>.whl`.
+4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/unbound/dist/<ARTIFACT_NAshellME>.whl`.
 
 ### Configuration
 
@@ -42,7 +42,7 @@ See [metadata.csv][8] for a list of metrics provided by this integration.
 ### Service Checks
 
 **unbound.can_get_stats**
-Returns CRITICAL if unbound-control fails or there's an error parsing its output.  Returns OK otherwise.
+Returns CRITICAL if unbound-control fails or there's an error parsing its output. Returns OK otherwise.
 
 ### Events
 

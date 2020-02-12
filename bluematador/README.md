@@ -1,3 +1,5 @@
+# Blue Matador Integration
+
 ## Overview
 
 Blue Matador's Datadog integration allows you to send Blue Matador events to the event stream in Datadog.
@@ -12,7 +14,7 @@ For a full list of events and metrics that Blue Matador monitors and that you ca
 
 ## Setup
 
-To get Blue Matador events into Datadog, use a [Datadog API key][4] to create a new notification method in Blue Matador. 
+To get Blue Matador events into Datadog, use a [Datadog API key][4] to create a new notification method in Blue Matador.
 
 **Note**: Already existing events are not imported into Datadog, but new events appear as they occur.
 

@@ -4,8 +4,8 @@
 
 Gather metrics from your [Vespa][1] system in real time to:
 
-* Visualize and monitor Vespa state and performance
-* Alert on health and availability
+- Visualize and monitor Vespa state and performance
+- Alert on health and availability
 
 ## Setup
 
@@ -18,9 +18,11 @@ To install the check on your host:
 1. Install the [developer toolkit][7] on any machine.
 2. Run `ddev release build vespa` to build the package.
 3. [Download the Datadog Agent][2].
-4. Upload the build artifact to any host with an Agent and run 
-   `datadog-agent integration install -w path/to/vespa/dist/<ARTIFACT_NAME>.whl`.
+4. Upload the build artifact to any host with an Agent and run:
 
+   ```shell
+   datadog-agent integration install -w path/to/vespa/dist/<ARTIFACT_NAME>.whl
+   ```
 
 ### Configuration
 
@@ -30,10 +32,9 @@ To configure the Vespa check:
 2. Create a `conf.yaml` file in the `vespa.d/` folder previously created.
 3. See the [sample vespa.d/conf.yaml][10] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to configure the `consumer`, which decides the set of metrics forwarded by the check:
-    * `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][9]
-                  from your Vespa application's services.xml.
+   - `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][9]
+     from your Vespa application's services.xml.
 5. [Restart the Agent][3].
-
 
 ### Validation
 
