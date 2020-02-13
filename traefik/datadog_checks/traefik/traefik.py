@@ -12,13 +12,14 @@ class TraefikCheck(AgentCheck):
         host = instance.get('host')
         port = instance.get('port', '8080')
         path = instance.get('path', '/health')
+        scheme = instance.get('scheme', 'http')
 
         if not host:
             self.warning('Configuration error, you must define `host`')
             raise ConfigurationError('Configuration error, you must define `host`')
 
         try:
-            url = 'http://{}:{}{}'.format(host, port, path)
+            url = '{}://{}:{}{}'.format(scheme, host, port, path)
             response = requests.get(url)
             response_status_code = response.status_code
 

@@ -59,6 +59,7 @@ instances:
   - host: 10.1.2.3
     port: "8080"
     path: "/health"
+    scheme: "http"
 ```
 
 Configuration Options:
@@ -66,6 +67,7 @@ Configuration Options:
 - host: Traefik endpoint to query. **Required**
 - port: API listener of Traefik endpoint. Default value `8080`. _Optional_
 - path: Path of Traefik health check endpoint. Default `/health`. _Optional_
+- scheme: Scheme of Traefik health check endpoint. Default `http`. _Optional_
 
 [Restart the Agent][10] to begin sending Traefik metrics to Datadog.
 
