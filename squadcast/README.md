@@ -25,7 +25,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 5. Copy the Datadog Webhook URL generated below and click "Save"
 
-![Squadcast Service](assets/images/datadog-Service.png)
+![Squadcast Service][1]
 
 ### Follow these steps on Datadog:
 
@@ -39,7 +39,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 5. Under the section Name and URL, enter a meaningful name and paste the Datadog Webhook URL provided by Squadcast
 
-![Squadcast Webhook](assets/images/datadog-webhook.png)
+![Squadcast Webhook][2]
 
 6. Tick the checkbox under the section Use custom payload
 Copy-paste the following JSON in the text box under the Custom Payload section:
@@ -69,7 +69,7 @@ Copy-paste the following JSON in the text box under the Custom Payload section:
 
 That's it! You are now good to go with your Datadog integration.
 
-View the [official documentation](https://support.squadcast.com/docs/datadog) from Squadcast for more details on setup.
+View the [official documentation][3] from Squadcast for more details on setup.
 
 ## Data Collected
 ### Metrics
@@ -85,4 +85,9 @@ Your Squadcast Triggered / Resolved events will appear in your Squadcast platfor
 Squadcast integration does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support](https://docs.datadoghq.com/help/).
+Need help? Contact [Datadog Support][4].
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/squadcast/squadcast/assets/images/datadog-service.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/squadcast/squadcast/assets/images/datadog-webhook.png
+[3]: https://support.squadcast.com/docs/datadog
+[4]: https://docs.datadoghq.com/help/
