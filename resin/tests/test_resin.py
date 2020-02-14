@@ -7,11 +7,9 @@ def test_e2e(dd_agent_check):
     instance = {}
     aggregator = dd_agent_check(instance)
     metrics = [
-        #'resin.connection_count',
         'resin.connection_active_count',
         'resin.connection_idle_count',
         'resin.connection_busy_count_total',
-        #'resin.connection_create_count',
         'resin.connection_new_count_total',
         'resin.max_connections',
         'resin.max_overflow_connections',
@@ -23,4 +21,6 @@ def test_e2e(dd_agent_check):
         'resin.thread_wait_count'
     ]
     for metric in metrics:
+        # The metrix are prefixed with jmx because they are the Cluster metrics which do not have an alias
         aggregator.assert_metric('jmx.' + metric)
+    # aggregator.assert_service_check('resin.can_connect') ToDo, uncoment when this is available for jmx checks

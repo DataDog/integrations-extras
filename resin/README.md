@@ -29,7 +29,8 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Resin instance is running and reporting JVM metrics
+**resin.can_connect**:<br>
+Returns `CRITICAL` if the Agent is unable to connect to and collect metrics from the monitored Resin instance. Returns `OK` otherwise.
 
 ### Events
 
