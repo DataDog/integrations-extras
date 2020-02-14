@@ -1,0 +1,88 @@
+## Overview
+
+Use the Datadog-Squadcast integration to send Datadog alerts to Squadcast and seamlessly take actions on these alerts within the Squadcast platform.
+
+Connect Squadcast to Datadog in order to:
+- Trigger and resolve incidents from Datadog
+- Tackle incidents and set up escalation policies as they occur
+- Set up a daily reminder of who is on-call
+
+## Setup
+
+**Please Note:**
+Only the users with Account Owner or Admin privileges can configure Services on Squadcast.
+At least one Escalation Policy must be configured before you can add a service.
+
+### Follow these steps on Squadcast:
+
+1. Open Services page from the sidebar
+
+2. Click on "Add Service"
+
+3. Enter a meaningful Service Name and optionally a Service Description
+
+4. Select Datadog from the Integration Type drop-down menu
+
+5. Copy the Datadog Webhook URL generated below and click "Save"
+
+![Squadcast Service](assets/images/datadog-Service.png)
+
+### Follow these steps on Datadog:
+
+1. Open Integrations page from the sidebar
+
+2. Use the search bar to search for Webhooks
+
+3. Once the Webhooks tile appears, hover and click on "Install"
+
+4. Navigate to the Configuration tab and scroll to the bottom of the page
+
+5. Under the section Name and URL, enter a meaningful name and paste the Datadog Webhook URL provided by Squadcast
+
+![Squadcast Webhook](assets/images/datadog-webhook.png)
+
+6. Tick the checkbox under the section Use custom payload
+Copy-paste the following JSON in the text box under the Custom Payload section:
+
+```
+{
+
+"alertId": "$ALERT_ID",
+"eventMessage": "$TEXT_ONLY_MSG",
+"title": "$EVENT_TITLE",
+"url": "$LINK",
+"alertTransition": "$ALERT_TRANSITION"
+
+}
+{
+
+"alertId": "$ALERT_ID",
+"eventMessage": "$TEXT_ONLY_MSG",
+"title": "$EVENT_TITLE",
+"url": "$LINK",
+"alertTransition": "$ALERT_TRANSITION"
+
+}
+```
+
+7. Click on "Install Integration" to complete the service integration
+
+That's it! You are now good to go with your Datadog integration.
+
+View the [official documentation](https://support.squadcast.com/docs/datadog) from Squadcast for more details on setup.
+
+## Data Collected
+### Metrics
+
+Squadcast integration does not include any metrics.
+
+### Events
+
+Your Squadcast Triggered / Resolved events will appear in your Squadcast platform dashboard.
+
+### Service Checks
+
+Squadcast integration does not include any service checks.
+
+## Troubleshooting
+Need help? Contact [Datadog Support](https://docs.datadoghq.com/help/).
