@@ -1,4 +1,3 @@
-
 import pytest
 
 
@@ -18,7 +17,7 @@ def test_e2e(dd_agent_check):
         'resin.thread_count',
         'resin.thread_idle_count',
         'resin.thread_max',
-        'resin.thread_wait_count'
+        'resin.thread_wait_count',
     ]
     for metric in metrics:
         # The metrix are prefixed with jmx because they are the Cluster metrics which do not have an alias
