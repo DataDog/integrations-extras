@@ -192,22 +192,21 @@ class ProxysqlCheck(AgentCheck):
         metrics = defaultdict(list)
 
         for row in self._fetch_stats(conn, query, 'command_counters_stats'):
-            metrics["Total_Time_ms"].append(
-                ("proxysql_command:%s" % row["Command"], str(float(row["Total_Time_us"]) / 1000))
-            )
-            metrics["Total_cnt"].append(("proxysql_command:%s" % row["Command"], row["Total_cnt"]))
-            metrics["cnt_100us"].append(("proxysql_command:%s" % row["Command"], row["cnt_100us"]))
-            metrics["cnt_500us"].append(("proxysql_command:%s" % row["Command"], row["cnt_500us"]))
-            metrics["cnt_1ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_1ms"]))
-            metrics["cnt_5ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_5ms"]))
-            metrics["cnt_10ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_10ms"]))
-            metrics["cnt_50ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_50ms"]))
-            metrics["cnt_100ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_100ms"]))
-            metrics["cnt_500ms"].append(("proxysql_command:%s" % row["Command"], row["cnt_500ms"]))
-            metrics["cnt_1s"].append(("proxysql_command:%s" % row["Command"], row["cnt_1s"]))
-            metrics["cnt_5s"].append(("proxysql_command:%s" % row["Command"], row["cnt_5s"]))
-            metrics["cnt_10s"].append(("proxysql_command:%s" % row["Command"], row["cnt_10s"]))
-            metrics["cnt_INFs"].append(("proxysql_command:%s" % row["Command"], row["cnt_INFs"]))
+            command_tag = "proxysql_command:%s" % row["Command"]
+            metrics["Total_Time_ms"].append((command_tag, str(float(row["Total_Time_us"]) / 1000)))
+            metrics["Total_cnt"].append((command_tag, row["Total_cnt"]))
+            metrics["cnt_100us"].append((command_tag, row["cnt_100us"]))
+            metrics["cnt_500us"].append((command_tag, row["cnt_500us"]))
+            metrics["cnt_1ms"].append((command_tag, row["cnt_1ms"]))
+            metrics["cnt_5ms"].append((command_tag, row["cnt_5ms"]))
+            metrics["cnt_10ms"].append((command_tag, row["cnt_10ms"]))
+            metrics["cnt_50ms"].append((command_tag, row["cnt_50ms"]))
+            metrics["cnt_100ms"].append((command_tag, row["cnt_100ms"]))
+            metrics["cnt_500ms"].append((command_tag, row["cnt_500ms"]))
+            metrics["cnt_1s"].append((command_tag, row["cnt_1s"]))
+            metrics["cnt_5s"].append((command_tag, row["cnt_5s"]))
+            metrics["cnt_10s"].append((command_tag, row["cnt_10s"]))
+            metrics["cnt_INFs"].append((command_tag, row["cnt_INFs"]))
 
         return metrics
 
@@ -217,14 +216,15 @@ class ProxysqlCheck(AgentCheck):
 
         stats = defaultdict(list)
         for row in self._fetch_stats(conn, query, 'connection_pool_stats'):
-            stats["Connections_used"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnUsed"]))
-            stats["Connections_free"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnFree"]))
-            stats["Connections_ok"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnOK"]))
-            stats["Connections_error"].append(("proxysql_db_node:%s" % row["srv_host"], row["ConnERR"]))
-            stats["Queries"].append(("proxysql_db_node:%s" % row["srv_host"], row["Queries"]))
-            stats["Bytes_data_sent"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_sent"]))
-            stats["Bytes_data_recv"].append(("proxysql_db_node:%s" % row["srv_host"], row["Bytes_data_recv"]))
-            stats["Latency_us"].append(("proxysql_db_node:%s" % row["srv_host"], str(float(row["Latency_us"]) / 1000)))
+            node_tag = "proxysql_db_node:%s" % row["srv_host"]
+            stats["Connections_used"].append((node_tag, row["ConnUsed"]))
+            stats["Connections_free"].append((node_tag, row["ConnFree"]))
+            stats["Connections_ok"].append((node_tag, row["ConnOK"]))
+            stats["Connections_error"].append((node_tag, row["ConnERR"]))
+            stats["Queries"].append((node_tag, row["Queries"]))
+            stats["Bytes_data_sent"].append((node_tag, row["Bytes_data_sent"]))
+            stats["Bytes_data_recv"].append((node_tag, row["Bytes_data_recv"]))
+            stats["Latency_us"].append((node_tag, str(float(row["Latency_us"]) / 1000)))
 
         return stats
 
@@ -239,12 +239,9 @@ class ProxysqlCheck(AgentCheck):
         stats = defaultdict(list)
 
         for row in self._fetch_stats(conn, query, 'users_stats'):
-            stats["User_Frontend_Connections"].append(
-                ("proxysql_mysql_user:%s" % row["username"], row["frontend_connections"])
-            )
-            stats["User_Frontend_Max_Connections"].append(
-                ("proxysql_mysql_user:%s" % row["username"], row["frontend_max_connections"])
-            )
+            user_tag = "proxysql_mysql_user:%s" % row["username"]
+            stats["User_Frontend_Connections"].append((user_tag, row["frontend_connections"]))
+            stats["User_Frontend_Max_Connections"].append((user_tag, row["frontend_max_connections"]))
 
         return stats
 

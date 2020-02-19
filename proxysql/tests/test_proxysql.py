@@ -6,6 +6,8 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.errors import ConfigurationError
 from datadog_checks.proxysql import ProxysqlCheck
 
+from . import common
+
 
 @pytest.mark.unit
 def test_wrong_config():
@@ -95,82 +97,7 @@ def test_service_check(aggregator, dd_environment):
 
     aggregator.assert_service_check('proxysql.can_connect', AgentCheck.CRITICAL)
 
-    all_metrics = (
-        'proxysql.active_transactions',
-        'proxysql.query_processor_time_nsec',
-        'proxysql.questions',
-        'proxysql.slow_queries',
-        'proxysql.sqlite3_memory_bytes',
-        'proxysql.client.connections_aborted',
-        'proxysql.client.connections_connected',
-        'proxysql.client.connections_created',
-        'proxysql.client.connections_non_idle',
-        'proxysql.server.connections_aborted',
-        'proxysql.server.connections_connected',
-        'proxysql.server.connections_created',
-        'proxysql.backend.query_time_nsec',
-        'proxysql.mysql.backend_buffers_bytes',
-        'proxysql.mysql.frontend_buffers_bytes',
-        'proxysql.mysql.session_internal_bytes',
-        'proxysql.mysql.thread_workers',
-        'proxysql.mysql.monitor_workers',
-        'proxysql.pool.conn_success',
-        'proxysql.pool.conn_failure',
-        'proxysql.pool.conn_immediate',
-        'proxysql.pool.memory_bytes',
-        'proxysql.client.statements.active_total',
-        'proxysql.client.statements.active_unique',
-        'proxysql.server.statements.active_total',
-        'proxysql.server.statements.active_unique',
-        'proxysql.statements.cached',
-        'proxysql.query_cache.entries',
-        'proxysql.query_cache.memory_bytes',
-        'proxysql.query_cache.purged',
-        'proxysql.query_cache.bytes_in',
-        'proxysql.query_cache.bytes_out',
-        'proxysql.query_cache.get.count',
-        'proxysql.query_cache.get_ok.count',
-        'proxysql.query_cache.set.count',
-        'proxysql.performance.command.total_time_ms',
-        'proxysql.performance.command.total_count',
-        'proxysql.performance.command.cnt_100us',
-        'proxysql.performance.command.cnt_500us',
-        'proxysql.performance.command.cnt_1ms',
-        'proxysql.performance.command.cnt_5ms',
-        'proxysql.performance.command.cnt_10ms',
-        'proxysql.performance.command.cnt_50ms',
-        'proxysql.performance.command.cnt_100ms',
-        'proxysql.performance.command.cnt_500ms',
-        'proxysql.performance.command.cnt_1s',
-        'proxysql.performance.command.cnt_5s',
-        'proxysql.performance.command.cnt_10s',
-        'proxysql.performance.command.cnt_INFs',
-        'proxysql.pool.connections_used',
-        'proxysql.pool.connections_free',
-        'proxysql.pool.connections_ok',
-        'proxysql.pool.connections_error',
-        'proxysql.pool.queries',
-        'proxysql.pool.bytes_data_sent',
-        'proxysql.pool.bytes_data_recv',
-        'proxysql.pool.latency_ms',
-        'proxysql.memory.sqlite3_memory',
-        'proxysql.memory.jemalloc_resident',
-        'proxysql.memory.jemalloc_active',
-        'proxysql.memory.jemalloc_allocated',
-        'proxysql.memory.jemalloc_mapped',
-        'proxysql.memory.jemalloc_metadata',
-        'proxysql.memory.jemalloc_retained',
-        'proxysql.memory.auth_memory',
-        'proxysql.memory.query_digest_memory',
-        'proxysql.memory.stack_memory_mysql_threads',
-        'proxysql.memory.stack_memory_admin_threads',
-        'proxysql.memory.stack_memory_cluster_threads',
-        'proxysql.frontend.user_connections',
-        'proxysql.frontend.user_max_connections',
-        'proxysql.query_rules.rule_hits',
-    )
-
-    for metric in all_metrics:
+    for metric in common.ALL_METRICS:
         aggregator.assert_metric(metric, at_least=0)
 
     aggregator.assert_all_metrics_covered()
@@ -186,45 +113,7 @@ def test_not_optional_metrics(aggregator, dd_environment):
 
     c.check(instance)
 
-    global_metrics = (
-        'proxysql.active_transactions',
-        'proxysql.query_processor_time_nsec',
-        'proxysql.questions',
-        'proxysql.slow_queries',
-        'proxysql.sqlite3_memory_bytes',
-        'proxysql.client.connections_aborted',
-        'proxysql.client.connections_connected',
-        'proxysql.client.connections_created',
-        'proxysql.client.connections_non_idle',
-        'proxysql.server.connections_aborted',
-        'proxysql.server.connections_connected',
-        'proxysql.server.connections_created',
-        'proxysql.backend.query_time_nsec',
-        'proxysql.mysql.backend_buffers_bytes',
-        'proxysql.mysql.frontend_buffers_bytes',
-        'proxysql.mysql.session_internal_bytes',
-        'proxysql.mysql.thread_workers',
-        'proxysql.mysql.monitor_workers',
-        'proxysql.pool.conn_success',
-        'proxysql.pool.conn_failure',
-        'proxysql.pool.conn_immediate',
-        'proxysql.pool.memory_bytes',
-        'proxysql.client.statements.active_total',
-        'proxysql.client.statements.active_unique',
-        'proxysql.server.statements.active_total',
-        'proxysql.server.statements.active_unique',
-        'proxysql.statements.cached',
-        'proxysql.query_cache.entries',
-        'proxysql.query_cache.memory_bytes',
-        'proxysql.query_cache.purged',
-        'proxysql.query_cache.bytes_in',
-        'proxysql.query_cache.bytes_out',
-        'proxysql.query_cache.get.count',
-        'proxysql.query_cache.get_ok.count',
-        'proxysql.query_cache.set.count',
-    )
-
-    for metric in global_metrics:
+    for metric in common.GLOBAL_METRICS:
         aggregator.assert_metric(metric, at_least=0)
 
     aggregator.assert_all_metrics_covered()
@@ -238,107 +127,22 @@ def test_metrics_tags(aggregator, dd_environment):
     c.check(dd_environment)
     aggregator.assert_service_check('proxysql.can_connect', AgentCheck.OK)
 
-    simple_tag_metrics = (
-        'proxysql.active_transactions',
-        'proxysql.query_processor_time_nsec',
-        'proxysql.questions',
-        'proxysql.slow_queries',
-        'proxysql.sqlite3_memory_bytes',
-        'proxysql.client.connections_aborted',
-        'proxysql.client.connections_connected',
-        'proxysql.client.connections_created',
-        'proxysql.client.connections_non_idle',
-        'proxysql.server.connections_aborted',
-        'proxysql.server.connections_connected',
-        'proxysql.server.connections_created',
-        'proxysql.backend.query_time_nsec',
-        'proxysql.mysql.backend_buffers_bytes',
-        'proxysql.mysql.frontend_buffers_bytes',
-        'proxysql.mysql.session_internal_bytes',
-        'proxysql.mysql.thread_workers',
-        'proxysql.mysql.monitor_workers',
-        'proxysql.pool.conn_success',
-        'proxysql.pool.conn_failure',
-        'proxysql.pool.conn_immediate',
-        'proxysql.pool.memory_bytes',
-        'proxysql.client.statements.active_total',
-        'proxysql.client.statements.active_unique',
-        'proxysql.server.statements.active_total',
-        'proxysql.server.statements.active_unique',
-        'proxysql.statements.cached',
-        'proxysql.query_cache.entries',
-        'proxysql.query_cache.memory_bytes',
-        'proxysql.query_cache.purged',
-        'proxysql.query_cache.bytes_in',
-        'proxysql.query_cache.bytes_out',
-        'proxysql.query_cache.get.count',
-        'proxysql.query_cache.get_ok.count',
-        'proxysql.query_cache.set.count',
-        'proxysql.memory.sqlite3_memory',
-        'proxysql.memory.jemalloc_resident',
-        'proxysql.memory.jemalloc_active',
-        'proxysql.memory.jemalloc_allocated',
-        'proxysql.memory.jemalloc_mapped',
-        'proxysql.memory.jemalloc_metadata',
-        'proxysql.memory.jemalloc_retained',
-        'proxysql.memory.auth_memory',
-        'proxysql.memory.query_digest_memory',
-        'proxysql.memory.stack_memory_mysql_threads',
-        'proxysql.memory.stack_memory_admin_threads',
-        'proxysql.memory.stack_memory_cluster_threads',
-    )
-
-    command_tags_metrics = (
-        'proxysql.performance.command.total_time_ms',
-        'proxysql.performance.command.total_count',
-        'proxysql.performance.command.cnt_100us',
-        'proxysql.performance.command.cnt_500us',
-        'proxysql.performance.command.cnt_1ms',
-        'proxysql.performance.command.cnt_5ms',
-        'proxysql.performance.command.cnt_10ms',
-        'proxysql.performance.command.cnt_50ms',
-        'proxysql.performance.command.cnt_100ms',
-        'proxysql.performance.command.cnt_500ms',
-        'proxysql.performance.command.cnt_1s',
-        'proxysql.performance.command.cnt_5s',
-        'proxysql.performance.command.cnt_10s',
-        'proxysql.performance.command.cnt_INFs',
-    )
-
-    pool_tags_metrics = (
-        'proxysql.pool.connections_used',
-        'proxysql.pool.connections_free',
-        'proxysql.pool.connections_ok',
-        'proxysql.pool.connections_error',
-        'proxysql.pool.queries',
-        'proxysql.pool.bytes_data_sent',
-        'proxysql.pool.bytes_data_recv',
-        'proxysql.pool.latency_ms',
-    )
-
-    user_tags_metrics = (
-        'proxysql.frontend.user_connections',
-        'proxysql.frontend.user_max_connections',
-    )
-
-    query_rules_tags_metrics = ('proxysql.query_rules.rule_hits',)
-
-    for metric in simple_tag_metrics:
+    for metric in common.SIMPLE_TAG_METRICS:
         aggregator.assert_metric_has_tag(metric, 'application:test', count=1)
 
-    for metric in command_tags_metrics:
+    for metric in common.COMMAND_TAGS_METRICS:
         aggregator.assert_metric_has_tag(metric, 'application:test')
         aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_command')
 
-    for metric in pool_tags_metrics:
+    for metric in common.POOL_TAGS_METRICS:
         aggregator.assert_metric_has_tag(metric, 'application:test')
         aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_db_node')
 
-    for metric in user_tags_metrics:
+    for metric in common.USER_TAGS_METRICS:
         aggregator.assert_metric_has_tag(metric, 'application:test')
         aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_mysql_user')
 
-    for metric in query_rules_tags_metrics:
+    for metric in common.QUERY_RULES_TAGS_METRICS:
         aggregator.assert_metric_has_tag(metric, 'application:test')
         aggregator.assert_metric_has_tag_prefix(metric, 'proxysql_query_rule_id')
 
