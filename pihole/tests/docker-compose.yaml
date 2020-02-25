@@ -1,0 +1,28 @@
+version: "3"
+
+# Modified version of the offical pihole docker-compose file
+# Dont use this docker-compose_file to actually deploy/use Pihole
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      # port 80 is only required for the api
+      - "80:80/tcp"
+    environment:
+      TZ: 'America/Chicago'
+      # WEBPASSWORD: 'set a secure password here or it will be random'
+    # Volumes store your data between container upgrades
+    volumes:
+      # mounting local copyies of each respective folder to avoid permission issues
+      - '/etc-pihole/:/etc/pihole/'
+      - '/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
