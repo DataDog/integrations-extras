@@ -20,9 +20,9 @@ The Datadog metrics forwarded by Graph Manager are:
   - `apollo.engine.operations.latency.max`
   - `apollo.engine.operations.latency.avg`
 
-All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<query-name>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
+All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<QUERY_NAME>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
 
-All of the metrics are also tagged with the Graph Manager graph ID as `service:<graph-id>` and the variant name as `variant:<variant-name>`, so multiple graphs from Graph Manager can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
+All of the metrics are also tagged with the Graph Manager graph ID as `service:<GRAPH_ID>` and the variant name as `variant:<VARIAN_NAME>`, so multiple graphs from Graph Manager can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
 
 If you're reporting metrics to Graph Manager through the Engine proxy, Datadog will merge your statistics across multiple instances of the proxy (per-host metrics are not available). Just like in the Graph Manager UI, each operation inside a query batch is counted individually.
 
@@ -40,7 +40,7 @@ Getting set up with the Apollo Datadog integration is as simple as providing a D
 
    ![IntegrationsPage][5]
 
-4. Toggle the Datadog integration to turn it on. Paste the API key, and press **Save**. You can use the same API key for all your graphs, since all metrics are tagged with the graph ID (`service:<graph-id>`).
+4. Toggle the Datadog integration to turn it on. Paste the API key, and press **Save**. You can use the same API key for all your graphs, since all metrics are tagged with the graph ID (`service:<GRAPH_ID>`).
 
    ![IntegrationsToggle][6]
 
