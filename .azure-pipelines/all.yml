@@ -1,29 +1,24 @@
 schedules:
-  - cron: "0 5 * * *"
-    displayName: Nightly (EDT/EST)
-    always: true
-    branches:
-      include:
-        - master
-
+- cron: 0 5 * * *
+  displayName: Nightly (EDT/EST)
+  always: true
+  branches:
+    include:
+    - master
 pr: none
-
 trigger:
   branches:
     include:
     - master
-
 resources:
   repositories:
-    - repository: integrations-core
-      type: github
-      name: Datadog/integrations-core
-      ref: master
-      endpoint: DataDog
-
+  - repository: integrations-core
+    type: github
+    name: Datadog/integrations-core
+    ref: master
+    endpoint: DataDog
 variables:
   DDEV_COLOR: 1
-
 jobs:
   - template: ".azure-pipelines/templates/test-all.yml@integrations-core"
     parameters:
@@ -67,6 +62,9 @@ jobs:
           os: linux
         - checkName: nextcloud
           displayName: Nextcloud
+          os: linux
+        - checkName: pihole
+          displayName: pihole
           os: linux
         - checkName: ping
           displayName: Ping
