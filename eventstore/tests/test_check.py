@@ -5,7 +5,8 @@
 import pytest
 
 from datadog_checks.base.errors import CheckException
-from datadog_checks.eventstore import ALL_METRICS, EventStoreCheck
+from datadog_checks.eventstore import EventStoreCheck
+from datadog_checks.eventstore.metrics import ALL_METRICS
 
 
 def test_config():
