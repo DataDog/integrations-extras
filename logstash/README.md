@@ -87,11 +87,20 @@ output {
 }
 ```
 
+By default, the plugin is configured to send logs through HTTPS (port 443) using gzip compression.
+You can change this behavior by using the following parameters:
+
+- `use_http`: Set this to `false` if you want to use TCP forwarding and update the `host` and `port` accordingly (default is `true`).
+- `use_compression`: Compression is only available for HTTP. Disable it by setting this to `false` (default is `true`).
+- `compression_level`: Set the compression level from HTTP. The range is from 1 to 9, 9 being the best ratio (default is `6`).
+
 Additional parameters can be used to change the endpoint used in order to go through a [proxy][16]:
 
-- `host`: Proxy endpoint when logs are not directly forwarded to Datadog (default value is `intake.logs.datadoghq.com`)
-- `port`: Proxy port when logs are not directly forwarded to Datadog (default value is `10516`)
-- `use_ssl`: If `true`, the Agent initializes a secure TCP/SSL connection to Datadog (default value is `true`)
+- `host`: The proxy endpoint for logs not directly forwarded to Datadog (default value: `http-intake.logs.datadoghq.com`).
+- `port`: The proxy port for logs not directly forwarded to Datadog (default value: `80`).
+- `ssl_port`: The port used for logs forwarded with a secure TCP/SSL connection to Datadog (default value: `443`).
+- `use_ssl`: Instructs the Agent to initialize a secure TCP/SSL connection to Datadog (default value: `true`).
+- `no_ssl_validation`: Disables SSL hostname validation (default value: `false`).
 
 This also can be used to send logs to **Datadog EU** by setting:
 
@@ -99,8 +108,7 @@ This also can be used to send logs to **Datadog EU** by setting:
 output {
    datadog_logs {
        api_key => "<DATADOG_API_KEY>"
-       host => "tcp-intake.logs.datadoghq.eu"
-       port => "443"
+       host => "http-intake.logs.datadoghq.eu"
    }
 }
 ```
