@@ -1,7 +1,6 @@
-from datadog_checks.base import AgentCheck
-from datadog_checks.base import ConfigurationError
-
 import requests
+
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class PiholeCheck(AgentCheck):
@@ -11,19 +10,12 @@ class PiholeCheck(AgentCheck):
         custom_tags.append("target_host:{}".format(host))
 
         if not host:  # Check if a host parameter exsists in conf.yaml
-            raise ConfigurationError('Configuration error, please fix pihole.d/conf.yaml, A host parameter is required for this integration')
+            raise ConfigurationError('Configuration error, please fix pihole.d/conf.yaml, host parameter is required')
 
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
         response = requests.get(url)
         if response.status_code == 200:  # else is after all the metrics
-            try:
-                data = response.json()  # try to decode the json response, throw generic error if its not a valid json response
-            except simplejson.errors.JSONDecodeError:
-                raise ConfigurationError('unexpected response from server, is pihole running?')
-                self.service_check('pihole.running', self.CRITICAL)
-                # Metrics:
-                # before submitting any metric, we ensure the expected key:value pair is in the decoded response
-                # if any individual metrc wasn't in the last response, we dont need to worry.
+            data = response.json()  # decode the json response
 
             if data.get("domains_being_blocked"):
                 domains_being_blocked = data["domains_being_blocked"]
@@ -94,11 +86,10 @@ class PiholeCheck(AgentCheck):
                 self.service_check('pihole.running', self.CRITICAL)
 
         else:
-            raise ConfigurationError('Unexpected response from server')  # if we dont get a response code of '200' raise server side issue
+            raise ConfigurationError('Unexpected response from server')  # if we dont get a response code of '200'
             self.service_check('pihole.running', self.CRITICAL)
-            self.log.warning("not collecting pihole metrics for url %s runtimeError response code was %s",
-                host,
-                response.status_code,
+            self.log.warning(
+                "no metrics for %s runtimeError response code: %s", host, response.status_code,
             )
 
         pass  # one run has been completed at this point !
