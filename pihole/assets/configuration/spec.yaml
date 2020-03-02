@@ -6,5 +6,17 @@ files:
     options: []
   - template: instances
     options:
+    - name: host
+      required: true
+      description: ip address of your pihole instance/localhost
+      value:
+        example: 192.168.0.1
+        type: string
     - template: instances/tags
     - template: instances/global
+  - template: logs
+    example:
+    - type: file
+      path: "/var/log/pihole.log"
+      service: "pihole"
+      source: "pihole"
