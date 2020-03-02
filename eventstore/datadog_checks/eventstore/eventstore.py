@@ -24,11 +24,11 @@ class EventStoreCheck(AgentCheck):
         if not isinstance(endpoints_def, (list, tuple)):
             raise CheckException('Incorrect value specified for the list of metric endpoints')
 
-        metric_def = self.init_config.get('metric_definitions') or ALL_METRICS
+        metric_def = self.init_config.get('metric_definitions', ALL_METRICS)
         for endpoint in endpoints_def:
             metrics = metric_def.get(endpoint)
             if metrics is None:
-                raise CheckException('Unknown metric endpoint: {0}'.format(endpoint))
+                raise CheckException('Unknown metric endpoint: {}'.format(endpoint))
             self.check_endpoint(instance, endpoint, metrics)
 
     def check_endpoint(self, instance, endpoint, metrics):
@@ -47,18 +47,18 @@ class EventStoreCheck(AgentCheck):
             auth = None
         else:
             auth = (user, password)
-            self.log.debug('Authenticating as: {0}'.format(user))
+            self.log.debug('Authenticating as: {}'.format(user))
         try:
             r = requests.get(url, timeout=timeout, auth=auth)
         except requests.exceptions.Timeout:
-            raise CheckException('URL: {0} timed out after {1} seconds.'.format(url, timeout))
+            raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
         except requests.exceptions.MissingSchema as e:
             raise CheckException(e)
         except requests.exceptions.ConnectionError as e:
             raise CheckException(e)
         # Bad HTTP code
         if r.status_code != 200:
-            raise CheckException('Invalid Status Code, {0} returned a status of {1}.'.format(url, r.status_code))
+            raise CheckException('Invalid Status Code, {} returned a status of {}.'.format(url, r.status_code))
         # Unable to deserialize the returned data
         try:
             parsed_api = r.json()
@@ -258,13 +258,13 @@ class EventStoreCheck(AgentCheck):
         mismatch = metric.get('mismatch')
         if match and mismatch:
             self.log.info(
-                'Only one of match or mismatch can be specified to convert the str metric to a gauge for: {0}'.format(
+                'Only one of match or mismatch can be specified to convert the str metric to a gauge for: {}'.format(
                     metric['json_path'], metric['metric_name']
                 )
             )
         elif not match and not mismatch:
             self.log.info(
-                'Match or mismatch should be specified to convert the str metric to a gauge for: {0}'.format(
+                'Match or mismatch should be specified to convert the str metric to a gauge for: {}'.format(
                     metric['json_path'], metric['metric_name']
                 )
             )
