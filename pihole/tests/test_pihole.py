@@ -29,5 +29,5 @@ def test_domains_being_blocked(aggregator, instance):
     c = PiholeCheck('pihole', {}, [instance])
 
     c.check(instance)
-    aggregator.assert_metric(name="pihole.domains_being_blocked", value=0)
+    aggregator.assert_metric(name="pihole.domains_being_blocked", value=125377.0)
 
