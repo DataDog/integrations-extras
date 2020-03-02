@@ -15,27 +15,27 @@ To install the cert_manager check on your host:
 1. Install the [developer toolkit][3].
 2. Clone the `integrations-extras` repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `cert_manager` package, run:
 
-    ```
-    ddev -e release build cert_manager
-    ```
+   ```shell
+   ddev -e release build cert_manager
+   ```
 
 5. [Download the Agent manifest to install the Datadog Agent as a DaemonSet][4].
 6. Create two `PersistentVolumeClaim`s, one for the checks code, and one for the configuration.
 7. Add them as volumes to your Agent pod template and use them for your checks and configuration:
 
-   ```
+   ```yaml
         env:
           - name: DD_CONFD_PATH
             value: "/confd"
@@ -43,9 +43,9 @@ To install the cert_manager check on your host:
             value: "/checksd"
       [...]
         volumeMounts:
-          - name: agent-code-storage 
+          - name: agent-code-storage
             mountPath: /checksd
-          - name: agent-conf-storage 
+          - name: agent-conf-storage
             mountPath: /confd
       [...]
       volumes:
@@ -55,11 +55,11 @@ To install the cert_manager check on your host:
         - name: agent-conf-storage
           persistentVolumeClaim:
             claimName: agent-conf-claim
-    ```
+   ```
 
 8. Deploy the Datadog Agent in your Kubernetes cluster:
 
-   ```
+   ```shell
    kubectl apply -f agent.yaml
    ```
 
@@ -67,13 +67,13 @@ To install the cert_manager check on your host:
 
 10. Run the following command to install the integrations wheel with the Agent:
 
-    ```
+    ```shell
     kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- agent integration install -w <PATH_OF_CERT_MANAGER_ARTIFACT_>/<CERT_MANAGER_ARTIFACT_NAME>.whl
     ```
 
 11. Run the following commands to copy the checks and configuration to the corresponding PVCs:
 
-    ```
+    ```shell
     kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /opt/datadog-agent/embedded/lib/python2.7/site-packages/datadog_checks/* /checksd
     kubectl exec $(kubectl get pods -l app=datadog-agent -o jsonpath='{.items[0].metadata.name}') -- cp -R /etc/datadog-agent/conf.d/* /confd
     ```

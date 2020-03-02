@@ -9,9 +9,8 @@ HERE = get_here()
 DOCKER_COMPOSE_FILE = os.path.join(HERE, 'docker', 'docker-compose.yaml')
 HOST = get_docker_hostname()
 PORT = '8080'
+SCHEME = 'http'
 
-INSTANCE = {'host': HOST, 'port': PORT}
-
-INSTANCE_BAD = {'host': 'foobar', 'port': 9000}
-
+INSTANCE = {'scheme': SCHEME, 'host': HOST, 'port': PORT}
+INSTANCE_BAD = {'scheme': 'https', 'host': 'foobar', 'port': 9000}
 INSTANCE_INVALID = {}

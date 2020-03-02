@@ -4,17 +4,17 @@
 
 Get state information regarding your VNS3 topology's IPSec endpoints/tunnels, VNS3 Peers, and overlay clients.
 
-* Peering links Status Check:
+- Peering links Status Check:
 
-    ![peering][1]
+  ![peering][1]
 
-* Overlay Clients Status Check:
+- Overlay Clients Status Check:
 
-    ![clients][2]
+  ![clients][2]
 
-* IPSec tunnels Status Check:
+- IPSec tunnels Status Check:
 
-    ![ipsec][3]
+  ![ipsec][3]
 
 ## Setup
 
@@ -27,16 +27,21 @@ Read the guide [here][4].
 Watch the video [here][5].
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Events
+
 The VNS3 check does not include any events.
 
 ### Service Checks
+
 The VNS3 check does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][7].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vns3/images/peering.png

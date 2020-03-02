@@ -1,11 +1,13 @@
+# Gremlin Integration
+
 ## Overview
 
 View, rerun, and halt Gremlin attacks directly from Datadog!
 
 Pairing Gremlin with Datadog's [Events][1] is an effective way to add failure-testing context to your Datadog workflows.
 
-* Overlay attack events on top of your dashboards to pinpoint exactly how and when Gremlin is impacting your metrics.
-* Show, Rerun, and Halt Gremlin attacks from your Datadog [Event Stream][2]
+- Overlay attack events on top of your dashboards to pinpoint exactly how and when Gremlin is impacting your metrics.
+- Show, Rerun, and Halt Gremlin attacks from your Datadog [Event Stream][2]
 
 ![snapshot][3]
 
@@ -15,7 +17,7 @@ Pairing Gremlin with Datadog's [Events][1] is an effective way to add failure-te
 
 In order to activate this integration, you will need to pass your Datadog API key to Gremlin. This is done on the [Integrations Page][4], by clicking the **Add** button on the row for **Datadog**. You will be prompted for your **Datadog API key**. Once entered, the integration will be initialized!
 
-* API key: <span class="hidden-api-key">${api_key}</span>
+- API key: <span class="hidden-api-key">\${api_key}</span>
 
 You should now start seeing events from this integration in your [Event Stream][2].
 

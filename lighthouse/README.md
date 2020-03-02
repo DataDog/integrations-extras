@@ -1,8 +1,11 @@
+# Lighthouse Integration
+
 ## Overview
 
 Get metrics from [Google Chrome Lighthouse][1] in real time to:
-* Visualize and monitor Lighthouse stats
-* Track and audit scores for your websites accessibility, best practices, performance, PWA, and SEO audit scores
+
+- Visualize and monitor Lighthouse stats.
+- Track and audit scores for your websites accessibility, best practices, performance, PWA, and SEO audit scores.
 
 ## Setup
 
@@ -15,35 +18,35 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 1. Install the [developer toolkit][6].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `lighthouse` package, run:
 
-    ```
-    ddev -e release build lighthouse
-    ```
+   ```shell
+   ddev -e release build lighthouse
+   ```
 
 5. [Download and launch the Datadog Agent][7].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_LIGHTHOUSE_ARTIFACT_>/<LIGHTHOUSE_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_LIGHTHOUSE_ARTIFACT_>/<LIGHTHOUSE_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][8].
 
 ### Configuration
 
 1. Edit the `lighthouse.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][9] to start collecting your Lighthouse [metrics](#metrics).
-  See the [sample lighthouse.d/conf.yaml][10] for all available configuration options.
+   See the [sample lighthouse.d/conf.yaml][10] for all available configuration options.
 
 2. [Restart the Agent][11]
 
@@ -51,48 +54,53 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 
 1. Lighthouse requires Node 8 LTS (8.9) or later. Check you have Node and npm installed:
 
-    ```
-    node -v
-    npm -v
-    ```
+   ```shell
+   node -v
+   npm -v
+   ```
 
     If not, [install Node and npm][12].
 
 2. [Install Lighthouse][13]:
 
-    ```
-    npm install -g lighthouse
-    ```
+   ```shell
+   npm install -g lighthouse
+   ```
 
 3. Make sure Google Chrome is installed or Puppeteer (this custom Agent check runs Chrome in headless mode).
 
-    ```
-    # example
-    vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
-    └── puppeteer@1.12.2
-    ```
+   ```shell
+   # example
+   vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
+   └── puppeteer@1.12.2
+   ```
 
     If not, install Chrome or [Puppeteer][14]:
 
-    ```
-    npm install -g puppeteer
-    ```
+   ```shell
+   npm install -g puppeteer
+   ```
 
 ### Validation
 
 [Run the Agent's status subcommand][15] and look for `lighthouse` under the Checks section.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][16] for a list of metrics provided by this check.
 
 ### Events
+
 The Lighthouse integration does not include any events.
 
 ### Service Checks
+
 The Lighthouse integration does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][17].
 
 [1]: https://developers.google.com/web/tools/lighthouse

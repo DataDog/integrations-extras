@@ -17,35 +17,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Traefi
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `traefik` package, run:
 
-    ```
-    ddev -e release build traefik
-    ```
+   ```shell
+   ddev -e release build traefik
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_TRAEFIK_ARTIFACT_>/<TRAEFIK_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_TRAEFIK_ARTIFACT_>/<TRAEFIK_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `traefik.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Traefik [metrics](#metric-collection) or [logs](#log-collection).
-  See the [sample traefik.d/conf.yaml][9] for all available configuration options.
+1. Edit the `traefik.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Traefik [metrics](#metric-collection) or [logs](#log-collection). See the [sample traefik.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -53,20 +52,22 @@ If you are using Agent v6.8+ follow the instructions below to install the Traefi
 
 Add this configuration setup to your `traefik.yaml` file to start gathering your [metrics][11]:
 
-```
+```yaml
 init_config:
 
 instances:
   - host: 10.1.2.3
     port: "8080"
     path: "/health"
+    scheme: "http"
 ```
 
 Configuration Options:
 
-- host: Traefik endpoint to query. __Required__
+- host: Traefik endpoint to query. **Required**
 - port: API listener of Traefik endpoint. Default value `8080`. _Optional_
 - path: Path of Traefik health check endpoint. Default `/health`. _Optional_
+- scheme: Scheme of Traefik health check endpoint. Default `http`. _Optional_
 
 [Restart the Agent][10] to begin sending Traefik metrics to Datadog.
 
@@ -78,7 +79,7 @@ By default [Traefik logs][12] are sent to stdout. This should not be changed for
 
 To configure Traefik to log to a file, add the following in the Traefik configuration file:
 
-```
+```conf
 [traefikLog]
   filePath = "/path/to/traefik.log"
 ```
@@ -87,24 +88,23 @@ The [common Apache Access format][13] is used by default and is supported by thi
 
 1. Collecting logs is disabled by default in the Datadog Agent. Enable it in your `datadog.yaml` file with:
 
-      ```yaml
-      logs_enabled: true
-      ```
+   ```yaml
+   logs_enabled: true
+   ```
 
+2. Add this configuration block to your `traefik.d/conf.yaml` file at the root of your [Agent's configuration directory][8] to start collecting your Traefik logs:
 
-2.  Add this configuration block to your `traefik.d/conf.yaml` file at the root of your [Agent's configuration directory][8] to start collecting your Traefik logs:
+    ```yaml
+    logs:
+      - type: file
+        path: /path/to/traefik.log
+        source: traefik
+        service: traefik
+    ```
 
-      ```yaml
-      logs:
-        - type: file
-          path: /path/to/traefik.log
-          source: traefik
-          service: traefik
-      ```
+      Change the `path` and `service` parameter values and configure them for your environment.
 
-* Change the `path` and `service` parameter values and configure them for your environment.
-
-* [Restart the Agent][10]
+3. [Restart the Agent][10]
 
 ### Validation
 

@@ -13,28 +13,28 @@ If you are using Agent v6.8+ follow the instructions below to install the Sendma
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `sendmail` package, run:
 
-    ```
-    ddev -e release build sendmail
-    ```
+   ```shell
+   ddev -e release build sendmail
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_SENDMAIL_ARTIFACT_>/<SENDMAIL_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_SENDMAIL_ARTIFACT_>/<SENDMAIL_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 

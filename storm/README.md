@@ -4,8 +4,8 @@
 
 Get metrics from Storm service in real time to:
 
-* Visualize and monitor Storm cluster and topology metrics.
-* Be notified about Storm failovers and events.
+- Visualize and monitor Storm cluster and topology metrics.
+- Be notified about Storm failovers and events.
 
 ## Setup
 
@@ -18,35 +18,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Storm 
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `storm` package, run:
 
-    ```
-    ddev -e release build storm
-    ```
+   ```shell
+   ddev -e release build storm
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_STORM_ARTIFACT_>/<STORM_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_STORM_ARTIFACT_>/<STORM_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `storm.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Storm [metrics](#metrics).
-  See the [sample storm.d/conf.yaml][9] for all available configuration options.
+1. Edit the `storm.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Storm [metrics](#metrics). See the [sample storm.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -55,21 +54,26 @@ If you are using Agent v6.8+ follow the instructions below to install the Storm 
 [Run the Agent's `status` subcommand][11] and look for `storm` under the Checks section.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Events
+
 The Storm check does not include any events.
 
 ### Service Checks
+
 **`topology_check.{TOPOLOGY NAME}`**
 
 The check returns:
 
-* `OK` if the topology is active.
-* `CRITICAL` if the topology is not active.
+- `OK` if the topology is active.
+- `CRITICAL` if the topology is not active.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][13].
 
 [1]: https://app.datadoghq.com/account/settings#agent

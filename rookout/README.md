@@ -2,8 +2,8 @@
 
 Collect custom metrics from your application with a few clicks and send it to Datadog. No need to write code, redeploy or restart your app.
 
-* Enhance monitoring and expedite production debugging with Rookout's on-demand data collection
-* Collect custom metrics ad-hoc from Rookout without the need for new instrumentation
+- Enhance monitoring and expedite production debugging with Rookout's on-demand data collection
+- Collect custom metrics ad-hoc from Rookout without the need for new instrumentation
 
 **Note: Since this integration enables you to collect custom metrics, there may be billing implications based on the number of custom metrics collected. More information on custom metrics can be [found here][1].**
 
@@ -15,13 +15,13 @@ Rookout sends data to Datadog via the DogStatsD service available from the Datad
 
 1. Install the [Datadog Agent][2] and [Rookout][3]
 
-2. Log into [Rookout's webapp][4]
+2. Log into [Rookoutshell's webapp][4]
 
 3. In the right panel (Rules) click on the menu button
 
     ![Rule actions menu][5]
 
-4. Click on *Create new template* in order to edit a new rule template
+4. Click on _Create new template_ in order to edit a new rule template
 
     ![Create new template button][6]
 
@@ -39,21 +39,20 @@ Rookout sends data to Datadog via the DogStatsD service available from the Datad
 
 You can configure the rule to use specific actions, every rule should contain these attributes in the `processing.operations` object:
 
-```
+```json
 {
-    "name": "dogstatsd",
-    "action": "<ACTION>",
-    "metric": "<METRIC_NAME>",
-    "target": {
-      "host": "<HOST_NAME>",
-      "port": 8125
-    }
+  "name": "dogstatsd",
+  "action": "<ACTION>",
+  "metric": "<METRIC_NAME>",
+  "target": {
+    "host": "<HOST_NAME>",
+    "port": 8125
+  }
 }
 ```
 
 Depending on the actions, it needs different additional attributes:
 
-```
 | Datadog Action |  Attributes |
 |----------------|-------------|
 |    increment   | value       |
@@ -63,20 +62,19 @@ Depending on the actions, it needs different additional attributes:
 |    histogram   | value       |
 |     timing     | value       |
 |  distribution  | value       |
-```
 
 For more information about these actions you can see [Dogstatsd documentation][10]
 
 Any attribute must be formatted the following way to be accepted by our rule:
 
-```
+```json
 "value": {
     "name": "calc",
     "path": "123"
 }
 ```
 
-```
+```json
 "value": {
     "name": "calc",
     "path": "\"string\""
@@ -84,11 +82,12 @@ Any attribute must be formatted the following way to be accepted by our rule:
 ```
 
 ## Data Collected
+
 You can collect custom metrics and events by creating a Datadog output in your Rookout rule. Some commonly used patterns:
 
-* Count the number of a times a method is invoked (increment)
-* Document process started in DataDog (event)
-* Record batch sizes (histogram)
+- Count the number of a times a method is invoked (increment)
+- Document process started in DataDog (event)
+- Record batch sizes (histogram)
 
 ## Troubleshooting
 

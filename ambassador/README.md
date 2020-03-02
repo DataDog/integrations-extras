@@ -1,10 +1,12 @@
+# Ambassador Integration
+
 ## Overview
 
 Get metrics from [Ambassador][1] in real time to:
 
-* Visualize the performance of your microservices
+- Visualize the performance of your microservices
 
-* Understand the impact of new versions of your services as you use Ambassador to do a canary rollout
+- Understand the impact of new versions of your services as you use Ambassador to do a canary rollout
 
 ![snapshot][2]
 
@@ -14,59 +16,59 @@ By default, Ambassador installs a `statsd` sidecar on its pod. This sidecar forw
 
 1. Create a file `datadog-statsd-sink.yaml` with the following configuration, replacing the API key below with your own API key:
 
-    ```
-    ---
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-     name: statsd-sink
-    spec:
-      selector:
-        matchLabels:
-          service: statsd-sink
-     replicas: 1
-     template:
-       metadata:
-         labels:
-           service: statsd-sink
-       spec:
-         containers:
-         - name: statsd-sink
-           image: datadog/docker-dd-agent:latest
-           ports:
-             - containerPort: 8125
-               name: dogstatsdport
-               protocol: UDP
-           env:
-             - name: API_KEY
-               value: "<YOUR_DATADOG_API_KEY>"
-             - name: KUBERNETES
-               value: "yes"
-             - name: SD_BACKEND
-               value: docker
-         restartPolicy: Always
-    status: {}
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-     labels:
-       service: statsd-sink
-     name: statsd-sink
-    spec:
-     ports:
-        - protocol: UDP
-          port: 8125
-          name: dogstatsdport
+   ```yaml
+   ---
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+    name: statsd-sink
+   spec:
      selector:
-       service: statsd-sink
-    ```
+       matchLabels:
+         service: statsd-sink
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          service: statsd-sink
+      spec:
+        containers:
+        - name: statsd-sink
+          image: datadog/docker-dd-agent:latest
+          ports:
+            - containerPort: 8125
+              name: dogstatsdport
+              protocol: UDP
+          env:
+            - name: API_KEY
+              value: "<YOUR_DATADOG_API_KEY>"
+            - name: KUBERNETES
+              value: "yes"
+            - name: SD_BACKEND
+              value: docker
+        restartPolicy: Always
+   status: {}
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+    labels:
+      service: statsd-sink
+    name: statsd-sink
+   spec:
+    ports:
+       - protocol: UDP
+         port: 8125
+         name: dogstatsdport
+    selector:
+      service: statsd-sink
+   ```
 
 2. Deploy the agent to Kubernetes:
 
-    ```
-    kubectl apply -f datadog-statsd-sink.yaml
-    ```
+   ```shell
+   kubectl apply -f datadog-statsd-sink.yaml
+   ```
 
 3. As soon as some traffic flows through Ambassador, your metrics should appear.
 
@@ -85,6 +87,7 @@ The Ambassador check does not include any events.
 The Ambassador check does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][4].
 
 [1]: https://www.getambassador.io

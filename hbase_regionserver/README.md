@@ -4,8 +4,8 @@
 
 Get metrics from the HBase RegionServer service in real time to:
 
-* Visualize and monitor HBase RegionServer states.
-* Be notified about HBase RegionServer failovers and events.
+- Visualize and monitor HBase RegionServer states.
+- Be notified about HBase RegionServer failovers and events.
 
 ## Setup
 
@@ -18,35 +18,34 @@ If you are using Agent v6.8+ follow the instructions below to install the HBase 
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git.
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `hbase_regionserver` package, run:
 
-    ```
-    ddev -e release build hbase_regionserver
-    ```
+   ```shell
+   ddev -e release build hbase_regionserver
+   ```
 
 5. [Download and launch the Datadog Agent][6].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    datadog-agent integration install -w <PATH_OF_HBASE_REGIONSERVER_ARTIFACT_>/<HBASE_REGIONSERVER_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   datadog-agent integration install -w <PATH_OF_HBASE_REGIONSERVER_ARTIFACT_>/<HBASE_REGIONSERVER_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
-1. Edit the `hbase_regionserver.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your HBase RegionServer [metrics](#metrics).
-  See the [sample hbase_regionserver.d/conf.yaml][9] for all available configuration options.
+1. Edit the `hbase_regionserver.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your HBase RegionServer [metrics](#metrics). See the [sample hbase_regionserver.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
@@ -55,16 +54,21 @@ If you are using Agent v6.8+ follow the instructions below to install the HBase 
 [Run the Agent's `status` subcommand][11] and look for `hbase_regionserver` under the Checks section.
 
 ## Data Collected
+
 ### Metrics
+
 See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Events
+
 The HBase RegionServer check does not include any events.
 
 ### Service Checks
+
 The HBase RegionServer check does not include any service checks.
 
 ## Troubleshooting
+
 Need help? Contact [Datadog support][13].
 
 [1]: https://app.datadoghq.com/account/settings#agent

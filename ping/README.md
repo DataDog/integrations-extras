@@ -3,16 +3,11 @@
 ## Overview
 
 This check uses the system [ping][1] command to test the reachability of a host.
-It also optionally measures the round-trip time for messages sent from the check to the
-destination host.
+It also optionally measures the round-trip time for messages sent from the check to the destination host.
 
-Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets
-to the target host and waiting for an ICMP echo reply.
+Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets to the target host and waiting for an ICMP echo reply.
 
-This check uses the system ping command, rather than generating the ICMP echo request
-itself, as creating an ICMP packet requires a raw socket, and creating raw sockets
-requires root privileges, which the Agent does not have. The ping command uses the
-`setuid` access flag to run with elevated privileges, avoiding this issue.
+This check uses the system ping command, rather than generating the ICMP echo request itself, as creating an ICMP packet requires a raw socket, and creating raw sockets requires root privileges, which the Agent does not have. The ping command uses the `setuid` access flag to run with elevated privileges, avoiding this issue.
 
 ## Setup
 
@@ -25,36 +20,34 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 1. Install the [developer toolkit][6].
 2. Clone the integrations-extras repository:
 
-    ```
-    git clone https://github.com/DataDog/integrations-extras.git
-    ```
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git
+   ```
 
 3. Update your `ddev` config with the `integrations-extras/` path:
 
-    ```
-    ddev config set extras ./integrations-extras
-    ```
+   ```shell
+   ddev config set extras ./integrations-extras
+   ```
 
 4. To build the `ping` package, run:
 
-    ```
-    ddev -e release build ping
-    ```
+   ```shell
+   ddev -e release build ping
+   ```
 
 5. [Download and launch the Datadog Agent][7].
 6. Run the following command to install the integrations wheel with the Agent:
 
-    ```
-    sudo -u dd-agent datadog-agent integration install -w <PATH_OF_PING_ARTIFACT_>/<PING_ARTIFACT_NAME>.whl
-    ```
+   ```shell
+   sudo -u dd-agent datadog-agent integration install -w <PATH_OF_PING_ARTIFACT_>/<PING_ARTIFACT_NAME>.whl
+   ```
 
 7. Configure your integration like [any other packaged integration][8].
 
 ### Configuration
 
-1. Edit the `ping.d/conf.yaml` file, in the `conf.d/` folder at the root of your
-   Agent's configuration directory to start collecting your ping performance data.
-   See the [sample ping.d/conf.yaml][9] for all available configuration options.
+1. Edit the `ping.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your ping performance data. See the [sample ping.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10].
 
