@@ -47,7 +47,7 @@ class EventStoreCheck(AgentCheck):
             auth = None
         else:
             auth = (user, password)
-            self.log.debug('Authenticating as: {}'.format(user))
+            self.log.debug('Authenticating as: %s', user)
         try:
             r = requests.get(url, timeout=timeout, auth=auth)
         except requests.exceptions.Timeout:
@@ -258,15 +258,15 @@ class EventStoreCheck(AgentCheck):
         mismatch = metric.get('mismatch')
         if match and mismatch:
             self.log.info(
-                'Only one of match or mismatch can be specified to convert the str metric to a gauge for: {}'.format(
-                    metric['json_path'], metric['metric_name']
-                )
+                'Only one of match or mismatch can be specified to convert the str metric to a gauge for: %s %s',
+                metric['json_path'],
+                metric['metric_name'],
             )
         elif not match and not mismatch:
             self.log.info(
-                'Match or mismatch should be specified to convert the str metric to a gauge for: {}'.format(
-                    metric['json_path'], metric['metric_name']
-                )
+                'Match or mismatch should be specified to convert the str metric to a gauge for: %s %s',
+                metric['json_path'],
+                metric['metric_name'],
             )
         else:
             checklist = match or mismatch
