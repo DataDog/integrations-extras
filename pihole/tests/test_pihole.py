@@ -29,22 +29,5 @@ def test_domains_being_blocked(aggregator, instance):
     c = PiholeCheck('pihole', {}, [instance])
 
     c.check(instance)
-    aggregator.assert_metric(name="pihole.domains_being_blocked", value=125247.0)
+    aggregator.assert_metric(name="pihole.domains_being_blocked", value=0)
 
-# Testing known metric value using docker
-@pytest.mark.integrations
-@pytest.mark.usefixtures('dd_environment')
-def test_unique_clients(aggregator, instance):
-    c = PiholeCheck('pihole', {}, [instance])
-
-    c.check(instance)
-    aggregator.assert_metric(name="pihole.unique_clients", value=1)
-
-# Testing known metric value using docker
-@pytest.mark.integrations
-@pytest.mark.usefixtures('dd_environment')
-def test_clients_ever_seen(aggregator, instance):
-    c = PiholeCheck('pihole', {}, [instance])
-
-    c.check(instance)
-    aggregator.assert_metric(name="pihole.clients_ever_seen", value=1)# Testing known metric value using docker
