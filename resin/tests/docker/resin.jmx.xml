@@ -1,0 +1,82 @@
+<!--
+- Resin 4.0 configuration file.
+-->
+<resin xmlns="http://caucho.com/ns/resin" xmlns:resin="urn:java:com.caucho.resin">
+
+    <!-- property-based Resin configuration -->
+    <resin:properties path="${__DIR__}/resin.properties" optional="true"/>
+
+    <resin:if test="${properties_import_url}">
+        <resin:properties path="${properties_import_url}" optional="true" recover="true"/>
+    </resin:if>
+
+    <log-handler name="" level="all" path="stdout:" timestamp="[%y-%m-%d %H:%M:%S.%s]" format=" {${thread}} ${log.message}"/>
+
+    <logger name="" level="${log_level?:'info'}"/>
+    <logger name="com.caucho.java" level="config"/>
+    <logger name="com.caucho.loader" level="config"/>
+
+    <resin:import path="${__DIR__}/cluster-default.xml"/>
+    <resin:import path="${__DIR__}/health.xml"/>
+
+    <resin:AdminAuthenticator>
+        <user name="${admin_user}" password="${admin_password}"/>
+
+        <resin:import path="${__DIR__}/admin-users.xml" optional="true"/>
+    </resin:AdminAuthenticator>
+
+    <cluster-system-key>${cluster_system_key}</cluster-system-key>
+    <dependency-check-interval>${dependency_check_interval?:'2s'}</dependency-check-interval>
+
+        <!-- For resin.properties dynamic cluster joining -->
+    <home-cluster>${home_cluster}</home-cluster>
+    <home-server>${home_server}</home-server>
+    <elastic-server>${elastic_server}</elastic-server>
+    <elastic-dns>${elastic_dns}</elastic-dns>
+    <system-property
+        jdk.tls.ephemeralDHKeySize="2048"
+        jdk.tls.rejectClientInitiatedRenegotiation="true"
+        sun.security.ssl.allowUnsafeRenegotiation="false"
+        sun.security.ssl.allowLegacyHelloMessages="false"/>
+
+
+    <cluster id="app">
+        <server-default>
+            <http port="8080"/>
+            <!-- INSECURE SETTINGS JUST USED FOR TESTING -->
+            <jvm-arg>-Dcom.sun.management.jmxremote</jvm-arg>
+            <jvm-arg>-Dcom.sun.management.jmxremote.port=7199</jvm-arg>
+            <jvm-arg>-Dcom.sun.management.jmxremote.ssl=false</jvm-arg>
+            <jvm-arg>-Dcom.sun.management.jmxremote.authenticate=false</jvm-arg>
+            <jvm-arg>-Dcom.sun.management.jmxremote.rmi.port=7199</jvm-arg>
+            <jvm-arg>-Djava.rmi.server.hostname=localhost</jvm-arg>
+        </server-default>
+
+        <server id="${resin.hostName}" address="localhost" port="8001"/>
+
+        <host-default>
+            <!-- creates the webapps directory for .war expansion -->
+            <web-app-deploy path="webapps"
+                expand-preserve-fileset="WEB-INF/work/**"
+                multiversion-routing="${webapp_multiversion_routing}"
+                path-suffix="${elastic_webapp?resin.id:''}"/>
+        </host-default>
+
+        <!-- auto virtual host deployment in hosts/foo.example.com/webapps -->
+        <host-deploy path="hosts">
+            <host-default>
+                <resin:import path="host.xml" optional="true"/>
+            </host-default>
+        </host-deploy>
+
+        <host id="" root-directory=".">
+            <web-app id="/" root-directory="webapps/ROOT"/>
+        </host>
+
+        <resin:if test="${resin_doc}">
+            <host id="${resin_doc_host}" root-directory="${resin_doc_host}">
+                <web-app id="/resin-doc" root-directory="${resin.root}/doc/resin-doc"/>
+            </host>
+        </resin:if>
+    </cluster>
+</resin>
