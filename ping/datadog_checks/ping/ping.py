@@ -59,7 +59,7 @@ class PingCheck(AgentCheck):
 
         try:
             lines = self._exec_ping(timeout, host)
-            regex = re.compile(r"time=((\d|\.)*)")
+            regex = re.compile(r"time[<=]((\d|\.)*)")
             result = regex.findall(lines)
             if result:
                 length = result[0][0]
