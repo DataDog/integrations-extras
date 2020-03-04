@@ -79,10 +79,6 @@ class PiholeCheck(AgentCheck):
                 reply_IP = data["reply_IP"]
                 self.gauge("pihole.reply_ip", reply_IP, custom_tags)
 
-            if data.get("privacy_level"):
-                privacy_level = data["privacy_level"]
-                self.gauge("pihole.privacy_level", privacy_level, custom_tags)
-
             if data.get("status"):
                 if data["status"] == 'enabled':
                     self.service_check('pihole.running', self.OK)
