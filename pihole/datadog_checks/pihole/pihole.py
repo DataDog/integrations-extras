@@ -4,6 +4,13 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class PiholeCheck(AgentCheck):
+    @staticmethod
+    def _collect_response(url):
+        response = requests.get(url)
+        data = response.json()
+        status_code = response.status_code
+        return data, status_code
+
     def check(self, instance):
         host = instance.get('host')
         custom_tags = instance.get("tags", [])
@@ -13,9 +20,8 @@ class PiholeCheck(AgentCheck):
             raise ConfigurationError('Configuration error, please fix pihole.d/conf.yaml, host parameter is required')
 
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
-        response = requests.get(url)
-        if response.status_code == 200:  # else is after all the metrics
-            data = response.json()  # decode the json response
+        data, status_code = PiholeCheck._collect_response(url)
+        if status_code == 200:  # else is after all the metrics
 
             if data.get("domains_being_blocked"):
                 domains_being_blocked = data["domains_being_blocked"]
@@ -89,7 +95,7 @@ class PiholeCheck(AgentCheck):
             raise ConfigurationError('Unexpected response from server')  # if we dont get a response code of '200'
             self.service_check('pihole.running', self.CRITICAL)
             self.log.warning(
-                "no metrics for %s runtimeError response code: %s", host, response.status_code,
+                "no metrics for %s runtimeError response code: %s", host, status_code,
             )
 
         pass  # one run has been completed at this point !
