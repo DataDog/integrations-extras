@@ -39,37 +39,26 @@ At least one Escalation Policy must be configured before you can add a service.
 
 5. Under the section Name and URL, enter a meaningful name and paste the Datadog Webhook URL provided by Squadcast
 
-![Squadcast Webhook][2]
+    ![Squadcast Webhook][2]
 
 6. Tick the checkbox under the section Use custom payload
 Copy-paste the following JSON in the text box under the Custom Payload section:
 
-```
-{
-
-"alertId": "$ALERT_ID",
-"eventMessage": "$TEXT_ONLY_MSG",
-"title": "$EVENT_TITLE",
-"url": "$LINK",
-"alertTransition": "$ALERT_TRANSITION"
-
-}
-{
-
-"alertId": "$ALERT_ID",
-"eventMessage": "$TEXT_ONLY_MSG",
-"title": "$EVENT_TITLE",
-"url": "$LINK",
-"alertTransition": "$ALERT_TRANSITION"
-
-}
-```
+    ```json
+    {
+        "alertId": "$ALERT_ID",
+        "eventMessage": "$TEXT_ONLY_MSG",
+        "title": "$EVENT_TITLE",
+        "url": "$LINK",
+        "alertTransition": "$ALERT_TRANSITION"
+    }
+    ```
 
 7. Click on "Install Integration" to complete the service integration
 
-That's it! You are now good to go with your Datadog integration.
+    That's it! You are now good to go with your Datadog integration.
 
-View the [official documentation][3] from Squadcast for more details on setup.
+    View the [official documentation][3] from Squadcast for more details on setup.
 
 ## Data Collected
 ### Metrics
