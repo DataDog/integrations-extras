@@ -28,25 +28,6 @@ To install the Pi-hole check on your host:
 [Run the Agent's status subcommand][5] and look for `pihole` under the Checks section.
 
 
-## Available metrics
-* Queries forwarded
-* Domains being blocked
-* Ads percentage today
-* Ads blocked today
-* DNS queries today
-* Total clients
-* Unique clients
-* Queries cached
-* Unique Domains
-* Top Queries
-* Top Ads
-* Top clients
-* Forward destinations
-* Query type
-* Reply type
-* DNS queries by host
-
-
 ### Metrics
 
 See [metadata.csv][6] for a list of metrics provided by this check.
@@ -61,14 +42,9 @@ Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns
 
 Pi-hole does not include any events.
 
-## Troubleshooting
-
-Need help? Contact [Datadog support][7].
-
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://pi-hole.net/
 [2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
-[3]: https://github.com/DataDog/integrations-core/blob/master/pihole/datadog_checks/pihole/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/master/pihole/datadog_checks/pihole/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-core/blob/master/pihole/metadata.csv
-[7]: https://docs.datadoghq.com/help
+[6]: https://github.com/DataDog/integrations-extras/master/pihole/metadata.csv

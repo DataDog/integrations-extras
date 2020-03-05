@@ -31,18 +31,23 @@ def test_positive_response(aggregator, instance_pass):
     c = PiholeCheck('pihole', {}, [instance_pass])
 
     c.check(instance_pass)
-    aggregator.assert_metric(name="pihole.domains_being_blocked", value=125230.0)
-    aggregator.assert_metric(name="pihole.ads_percent_blocked", value=41.21003)
-    aggregator.assert_metric(name="pihole.ads_blocked_today", value=5490.0)
-    aggregator.assert_metric(name="pihole.dns_queries_today", value=13322.0)
-    aggregator.assert_metric(name="pihole.unique_domains", value=928.0)
-    aggregator.assert_metric(name="pihole.reply_nxdomain", value=15.0)
-    aggregator.assert_metric(name="pihole.queries_cached", value=1130.0)
-    aggregator.assert_metric(name="pihole.queries_forwarded", value=6702.0)
-    aggregator.assert_metric(name="pihole.clients_ever_seen", value=4.0)
-    aggregator.assert_metric(name="pihole.unique_clients", value=4.0)
-    aggregator.assert_metric(name="pihole.reply_cname", value=173.0)
-    aggregator.assert_metric(name="pihole.reply_nodata", value=12.0)
-    aggregator.assert_metric(name="pihole.reply_ip", value=317.0)
+
+    METRICS = {
+        "pihole.domains_being_blocked": 125230.0,
+        "pihole.ads_percent_blocked": 41.21003,
+        "pihole.ads_blocked_today": 5490.0,
+        "pihole.dns_queries_today": 13322.0,
+        "pihole.unique_domains": 928.0,
+        "pihole.reply_nxdomain": 15.0,
+        "pihole.queries_cached": 1130.0,
+        "pihole.queries_forwarded": 6702.0,
+        "pihole.clients_ever_seen": 4.0,
+        "pihole.unique_clients": 4.0,
+        "pihole.reply_cname": 173.0,
+        "pihole.reply_nodata": 12.0,
+        "pihole.reply_ip": 317.0,
+    }
+    for metric, value in METRICS.items():
+        aggregator.assert_metric(name=metric, value=value)
 
     aggregator.assert_all_metrics_covered()
