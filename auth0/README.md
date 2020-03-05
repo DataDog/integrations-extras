@@ -6,8 +6,7 @@ Use the Datadog-Auth0 integration to view and analyze your log events from Auth0
 
 ## Setup
 
-All configuration happens on the [Auth0 Dashboard][2]. Find details on how to set it up in the [Auth0 Documentation][3]. Datadog automatically creates a dashboard when it detects Auth0 logs.
-
+All configuration happens on the [Auth0 Dashboard][2]. Find details on how to set it up in the [Auth0 Documentation][3].
  
 ### Configuration
 
@@ -32,9 +31,12 @@ All configuration happens on the [Auth0 Dashboard][2]. Find details on how to se
 View logs in Datadog:
 
 1. Navigate to **Logs** > **Livetail**.
-2. See Auth0 logs by setting `service:auth0`.
+2. See Auth0 logs by setting `source:auth0`.
 
 ## Data Collected
+
+### Logs
+Auth0 logs are collected and sent to Datadog. The types of logs that could be returned are outlined [here][5].
 
 ### Metrics
 
@@ -56,3 +58,4 @@ Need help? Contact [Datadog support][1].
 [2]: https://manage.auth0.com
 [3]: https://auth0.com/docs/logs/streams/datadog
 [4]: https://app.datadoghq.com/account/settings#api
+[5]: https://auth0.com/docs/logs/references/log-event-type-codes
