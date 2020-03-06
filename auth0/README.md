@@ -24,7 +24,8 @@ All configuration happens on the [Auth0 Dashboard][2]. Find details on how to se
 
 	
 6. Click Save.
-7. You're done! Now when Auth0 writes the next tenant log, you'll receive a copy of that log event in Datadog with the source and service set to `auth0`.
+
+When Auth0 writes the next tenant log, you'll receive a copy of that log event in Datadog with the source and service set to `auth0`.
 
 ### Validation
 
