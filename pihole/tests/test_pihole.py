@@ -46,6 +46,28 @@ def test_bad_response(aggregator):
         aggregator.assert_service_check('pihole.running', PiholeCheck.CRITICAL)
 
 
+# Testing integration status check using docker - bad "status" returned
+@pytest.mark.integrations
+@pytest.mark.usefixtures('dd_environment_pass')
+def test_bad_status(aggregator):
+    instance = {"host": "localhost:8888/bad_status"}
+    c = PiholeCheck('pihole', {}, [instance])
+    with pytest.raises(Exception):
+        c.check(instance)
+        aggregator.assert_service_check('pihole.running', PiholeCheck.CRITICAL)
+
+
+# Testing integration status check using docker - no "status" returned
+@pytest.mark.integrations
+@pytest.mark.usefixtures('dd_environment_pass')
+def test_no_status(aggregator):
+    instance = {"host": "localhost:8888/no_status"}
+    c = PiholeCheck('pihole', {}, [instance])
+    with pytest.raises(Exception):
+        c.check(instance)
+        aggregator.assert_service_check('pihole.running', PiholeCheck.CRITICAL)
+
+
 # Testing known metric value using docker - valid response
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
