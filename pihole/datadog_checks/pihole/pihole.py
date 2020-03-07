@@ -89,10 +89,10 @@ class PiholeCheck(AgentCheck):
                 self.service_check('pihole.running', self.CRITICAL)
 
         else:
-            raise Exception('Unexpected response from server')  # if we dont get a response code of '200'
             self.service_check('pihole.running', self.CRITICAL)
             self.log.warning(
                 "no metrics for %s runtimeError response code: %s", host, status_code,
             )
+            raise Exception('Unexpected response from server')  # if we dont get a response code of '200'
 
         pass  # one run has been completed at this point !
