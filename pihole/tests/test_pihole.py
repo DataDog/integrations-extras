@@ -7,11 +7,22 @@ from datadog_checks.pihole import PiholeCheck
 @pytest.mark.unit
 def test_config():
     instance = {}
-    c = PiholeCheck('pihole', {}, [instance])
 
     # empty should fail
     with pytest.raises(ConfigurationError):
+        c = PiholeCheck('pihole', {}, [instance])
         c.check(instance)
+
+
+@pytest.mark.unit
+def test_invalid_config(aggregator):
+    instance = {"host": "www.google.com"}
+
+    # Invalid should fail
+    with pytest.raises(Exception):
+        c = PiholeCheck('pihole', {}, [instance])
+        c.check(instance)
+        aggregator.assert_service_check('pihole.running', PiholeCheck.CRITICAL)
 
 
 # Testing integration status check using docker

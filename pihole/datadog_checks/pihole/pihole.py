@@ -2,6 +2,13 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class PiholeCheck(AgentCheck):
+    def __init__(self, name, init_config, instances):
+        super(PiholeCheck, self).__init__(name, init_config, instances)
+        for instance in instances:
+            host = instance.get('host')
+            if not host:  # Check if a host parameter exsists in conf.yaml
+                raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
+
     def _collect_response(self, url):
         response = self.http.get(url)
         data = response.json()
@@ -12,8 +19,6 @@ class PiholeCheck(AgentCheck):
         host = instance.get('host')
         custom_tags = instance.get("tags", [])
         custom_tags.append("target_host:{}".format(host))
-        if not host:  # Check if a host parameter exsists in conf.yaml
-            raise ConfigurationError('Configuration error, please fix pihole.d/conf.yaml, host parameter is required')
 
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
         data, status_code = self._collect_response(url)
