@@ -17,7 +17,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 1. Open **Services** page from the sidebar.
 
-2. Click on "Add Service"
+2. Click on "Add Service".
 
 3. Enter a meaningful Service Name and optionally a Service Description
 
