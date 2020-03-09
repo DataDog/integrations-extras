@@ -15,7 +15,7 @@ Rookout sends data to Datadog via the DogStatsD service available from the Datad
 
 1. Install the [Datadog Agent][2] and [Rookout][3]
 
-2. Log into [Rookoutshell's webapp][4]
+2. Log into [Rookout shell's webapp][4]
 
 3. In the right panel (Rules) click on the menu button
 
