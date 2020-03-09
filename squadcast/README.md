@@ -27,7 +27,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 ![Squadcast Service][1]
 
-### Follow these steps on Datadog:
+### Follow these steps in Datadog:
 
 1. Open Integrations page from the sidebar
 
