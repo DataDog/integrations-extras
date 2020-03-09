@@ -87,6 +87,7 @@ def test_good_response(aggregator, instance_pass):
         "pihole.queries_forwarded": 6702.0,
         "pihole.clients_ever_seen": 4.0,
         "pihole.unique_clients": 4.0,
+        "pihole.dns_queries_all_types": 13322.0,
         "pihole.reply_cname": 173.0,
         "pihole.reply_nodata": 12.0,
         "pihole.reply_ip": 317.0,

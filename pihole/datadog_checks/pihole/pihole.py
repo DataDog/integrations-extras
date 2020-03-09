@@ -66,7 +66,7 @@ class PiholeCheck(AgentCheck):
 
                     if data.get("dns_queries_all_types"):
                         dns_queries_all_types = data["dns_queries_all_types"]
-                        self.gauge("pihole.dns_queries_today", dns_queries_all_types, custom_tags)
+                        self.gauge("pihole.dns_queries_all_types", dns_queries_all_types, custom_tags)
 
                     if data.get("reply_NODATA"):
                         reply_NODATA = data["reply_NODATA"]
