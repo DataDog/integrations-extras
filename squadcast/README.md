@@ -15,7 +15,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 ### Follow these steps on Squadcast:
 
-1. Open Services page from the sidebar
+1. Open **Services** page from the sidebar.
 
 2. Click on "Add Service"
 
