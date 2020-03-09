@@ -21,7 +21,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 3. Enter a meaningful **Service Name** and optionally a **Service Description**.
 
-4. Select Datadog from the Integration Type drop-down menu
+4. Select **Datadog** from the **Integration Type** drop-down menu.
 
 5. Copy the Datadog Webhook URL generated below and click "Save"
 
