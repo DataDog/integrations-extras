@@ -22,7 +22,7 @@ The Datadog metrics forwarded by Graph Manager are:
 
 All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<QUERY_NAME>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
 
-All of the metrics are also tagged with the Graph Manager graph ID as `service:<GRAPH_ID>` and the variant name as `variant:<VARIAN_NAME>`, so multiple graphs from Graph Manager can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
+All of the metrics are also tagged with the Graph Manager graph ID as `service:<GRAPH_ID>` and the variant name as `variant:<VARIANT_NAME>`, so multiple graphs from Graph Manager can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
 
 If you're reporting metrics to Graph Manager through the Engine proxy, Datadog will merge your statistics across multiple instances of the proxy (per-host metrics are not available). Just like in the Graph Manager UI, each operation inside a query batch is counted individually.
 
@@ -78,7 +78,7 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [4]: https://www.apollographql.com/docs/graph-manager/#viewing-graph-information
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-link.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-toggle.png
-[7]: https://www.apollographql.com/docs/graph-manager/integrations/
+[7]: https://www.apollographql.com/docs/graph-manager/datadog-integration/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/apollo/metadata.csv
 [9]: https://docs.datadoghq.com/help
 [10]: https://www.datadoghq.com/blog
