@@ -19,7 +19,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 2. Click on "Add Service".
 
-3. Enter a meaningful Service Name and optionally a Service Description
+3. Enter a meaningful **Service Name** and optionally a **Service Description**.
 
 4. Select Datadog from the Integration Type drop-down menu
 
