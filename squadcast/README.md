@@ -33,7 +33,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 2. Use the search bar to search for Webhooks
 
-3. Once the Webhooks tile appears, hover and click on "Install"
+3. Once the **Webhooks** tile appears, hover and click on "Install".
 
 4. Navigate to the Configuration tab and scroll to the bottom of the page
 
