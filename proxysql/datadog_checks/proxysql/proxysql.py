@@ -14,7 +14,7 @@ MONOTONIC = "monotonic_count"
 
 STATS_MYSQL_GLOBAL = {
     "Active_Transactions": ("proxysql.active_transactions", GAUGE),
-    "Query_Processor_time_nsec": ("proxysql.query_processor_time_nsec", RATE),
+    "Query_Processor_time_nsec": ("proxysql.query_processor_time_nsec", GAUGE),
     "Questions": ("proxysql.questions", RATE),
     "Slow_queries": ("proxysql.slow_queries", RATE),
     "SQLite3_memory_bytes": ("proxysql.sqlite3_memory_bytes", GAUGE),
@@ -25,7 +25,7 @@ STATS_MYSQL_GLOBAL = {
     "Server_Connections_aborted": ("proxysql.server.connections_aborted", RATE),
     "Server_Connections_connected": ("proxysql.server.connections_connected", GAUGE),
     "Server_Connections_created": ("proxysql.server.connections_created", RATE),
-    "Backend_query_time_nsec": ("proxysql.backend.query_time_nsec", RATE),
+    "Backend_query_time_nsec": ("proxysql.backend.query_time_nsec", GAUGE),
     "mysql_backend_buffers_bytes": ("proxysql.mysql.backend_buffers_bytes", GAUGE),
     "mysql_frontend_buffers_bytes": ("proxysql.mysql.frontend_buffers_bytes", GAUGE),
     "mysql_session_internal_bytes": ("proxysql.mysql.session_internal_bytes", GAUGE),

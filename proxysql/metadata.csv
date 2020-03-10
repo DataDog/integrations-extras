@@ -1,17 +1,17 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
 proxysql.active_transactions,gauge,,transaction,,The number of client connections currently processing a transaction,0,proxysql,active_transactions
-proxysql.query_processor_time_nsec,rate,,nanosecond,,The time spent inside the query processor determining the action to take with the query (internal module),-1,proxysql,query_processor_time
-proxysql.questions,rate,,question,second,The total number of client requests / statements executed,0,proxysql,questions
-proxysql.slow_queries,rate,,query,second,"The total number of queries with an execution time greater than ""mysql-long_query_time"" milliseconds",-1,proxysql,slow_queries
+proxysql.query_processor_time_nsec,gauge,,nanosecond,,The time spent inside the query processor determining the action to take with the query (internal module),-1,proxysql,query_processor_time
+proxysql.questions,rate,,question,second,The number of client requests / statements executed per second,0,proxysql,questions
+proxysql.slow_queries,rate,,query,second,"The number of queries per second with an execution time greater than ""mysql-long_query_time"" milliseconds",-1,proxysql,slow_queries
 proxysql.sqlite3_memory_bytes,gauge,,byte,,Memory used by SQLite,0,proxysql,sqlite_memory_bytes
-proxysql.client.connections_aborted,rate,,connection,second,Client failed or improperly closed connections,-1,proxysql,client_connections_failed
+proxysql.client.connections_aborted,rate,,connection,second,Client failed or improperly closed connections per second,-1,proxysql,client_connections_failed
 proxysql.client.connections_connected,gauge,,connection,,Client connections that are currently connected,0,proxysql,client_connections_connected
-proxysql.client.connections_created,rate,,connection,second,The number of client connections created,0,proxysql,client_connections_created
+proxysql.client.connections_created,rate,,connection,second,The number of client connections created per second,0,proxysql,client_connections_created
 proxysql.client.connections_non_idle,gauge,,connection,,The number of client connections that are currently handled by the main worker threads,0,proxysql,client_connections_non_idle
-proxysql.server.connections_aborted,rate,,connection,second,Backend failed or improperly closed connections,-1,proxysql,backend_connections_failed
+proxysql.server.connections_aborted,rate,,connection,second,Backend failed or improperly closed connections per second,-1,proxysql,backend_connections_failed
 proxysql.server.connections_connected,gauge,,connection,,Backend connections that are currently connected,0,proxysql,backend_connections_connected
-proxysql.server.connections_created,rate,,connection,second,The number of backend connections created,0,proxysql,backend_connections_created
-proxysql.backend.query_time_nsec,rate,,nanosecond,,Time spent making network calls to communicate with the backends,-1,proxysql,backend_query_time
+proxysql.server.connections_created,rate,,connection,second,The number of backend connections created per second,0,proxysql,backend_connections_created
+proxysql.backend.query_time_nsec,gauge,,nanosecond,,Time spent making network calls to communicate with the backends,-1,proxysql,backend_query_time
 proxysql.mysql.backend_buffers_bytes,gauge,,byte,,Memory use of buffers related to backend connections,0,proxysql,backend_buffers_memory
 proxysql.mysql.frontend_buffers_bytes,gauge,,byte,,Memory use of buffers related to frontend connections (read/write buffers and other queues),0,proxysql,frontend_buffers_memory
 proxysql.mysql.session_internal_bytes,gauge,,byte,,Other memory used by ProxySQL to handle MySQL Sessions,0,proxysql,mysql_sessions_buffers_memory
