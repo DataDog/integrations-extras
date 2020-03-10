@@ -37,7 +37,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 4. Navigate to the Configuration tab and scroll to the bottom of the page
 
-5. Under the section Name and URL, enter a meaningful name and paste the Datadog Webhook URL provided by Squadcast
+5. Under the section **Name and URL**, enter a meaningful name and paste the **Datadog Webhook URL** provided by Squadcast.
 
     ![Squadcast Webhook][2]
 
