@@ -29,7 +29,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 ### Follow these steps in Datadog:
 
-1. Open Integrations page from the sidebar
+1. Open the **Integrations** page from the sidebar.
 
 2. Use the search bar to search for "webhooks".
 
