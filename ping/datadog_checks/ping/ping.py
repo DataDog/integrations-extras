@@ -1,5 +1,3 @@
-# Licensed under Simplified BSD License (see LICENSE)
-
 import platform
 import re
 
@@ -59,10 +57,13 @@ class PingCheck(AgentCheck):
 
         try:
             lines = self._exec_ping(timeout, host)
-            regex = re.compile(r"time=((\d|\.)*)")
+            regex = re.compile(r"time(<|=)((\d|\.)*)")
             result = regex.findall(lines)
+            self.log.error(result)
             if result:
-                length = result[0][0]
+                # With the new regex matcher results are in the form of [=,2,2] or [<,1,1]
+                length = result[0][1]
+                self.log.error(length)
             else:
                 raise CheckException("No time= found ({})".format(lines))
 
@@ -74,7 +75,11 @@ class PingCheck(AgentCheck):
             raise e
 
         if response_time:
-            self.gauge("network.ping.response_time", length, custom_tags)
+            # Send 0ms as response time for windows scenario where <1ms is returned
+            if result[0][0] == "<":
+                self.gauge("network.ping.response_time", 0, custom_tags)
+            else:
+                self.gauge("network.ping.response_time", length, custom_tags)
 
         self.log.debug("%s is UP", host)
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
