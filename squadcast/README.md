@@ -54,7 +54,7 @@ Copy-paste the following JSON in the text box under the Custom Payload section:
     }
     ```
 
-7. Click on "Install Integration" to complete the service integration
+8. Click on "Install Integration" to complete the service integration.
 
     That's it! You are now good to go with your Datadog integration.
 
