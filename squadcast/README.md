@@ -31,7 +31,7 @@ At least one Escalation Policy must be configured before you can add a service.
 
 1. Open Integrations page from the sidebar
 
-2. Use the search bar to search for Webhooks
+2. Use the search bar to search for "webhooks".
 
 3. Once the **Webhooks** tile appears, hover and click on "Install".
 
