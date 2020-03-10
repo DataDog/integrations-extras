@@ -18,15 +18,19 @@ resources:
     - repository: integrations-core
       type: github
       name: Datadog/integrations-core
-      ref: master
+      ref: florimondmanca/ci-cache-deps
       endpoint: DataDog
 
 variables:
+  PIP_CACHE_DIR: $(Pipeline.Workspace)/.cache/pip
   DDEV_COLOR: 1
 
 jobs:
   - template: ".azure-pipelines/templates/test-all.yml@integrations-core"
     parameters:
+      pip_cache_config:
+        key: 'pip | $(Agent.OS)'
+        path: $(PIP_CACHE_DIR)
       repo: 'extras'
       checks:
         - checkName: aqua

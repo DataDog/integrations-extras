@@ -6,6 +6,7 @@ pr:
     - master
 
 variables:
+  PIP_CACHE_DIR: $(Pipeline.Workspace)/.cache/pip
   DDEV_COLOR: 1
 
 resources:
@@ -13,7 +14,7 @@ resources:
     - repository: integrations-core
       type: github
       name: Datadog/integrations-core
-      ref: master
+      ref: florimondmanca/ci-cache-deps
       endpoint: DataDog
 
 jobs:
@@ -23,6 +24,9 @@ jobs:
     display: Linux
     validate: true
     repo: 'extras'
+    pip_cache_config:
+      key: 'pip | $(Agent.OS)'
+      path: $(PIP_CACHE_DIR)
 
 - template: '.azure-pipelines/templates/test-single-windows.yml@integrations-core'
   parameters:
@@ -30,3 +34,6 @@ jobs:
     check: '--changed none_yet'
     display: Windows
     repo: 'extras'
+    pip_cache_config:
+      key: 'pip | $(Agent.OS)'
+      path: $(PIP_CACHE_DIR)
