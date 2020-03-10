@@ -42,7 +42,7 @@ At least one Escalation Policy must be configured before you can add a service.
     ![Squadcast Webhook][2]
 
 6. Tick the checkbox under the section **Use custom payload**.
-Copy-paste the following JSON in the text box under the Custom Payload section:
+7. Copy-paste the following JSON in the text box under the **Custom Payload** section:
 
     ```json
     {
