@@ -56,8 +56,6 @@ At least one Escalation Policy must be configured before you can add a service.
 
 8. Click on "Install Integration" to complete the service integration.
 
-    That's it! You are now good to go with your Datadog integration.
-
     View the [official documentation][3] from Squadcast for more details on setup.
 
 ## Data Collected
