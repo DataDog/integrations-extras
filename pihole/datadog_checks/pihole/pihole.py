@@ -2,12 +2,11 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class PiholeCheck(AgentCheck):
-    def __init__(self, name, init_config, instances):
-        super(PiholeCheck, self).__init__(name, init_config, instances)
-        for instance in instances:
-            host = instance.get('host')
-            if not host:  # Check if a host parameter exsists in conf.yaml
-                raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
+    def __init__(self, name, init_config, instance):
+        super(PiholeCheck, self).__init__(name, init_config, instance)
+        host = self.instance.get('host')
+        if not host:  # Check if a host parameter exsists in conf.yaml
+            raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
 
     def _collect_response(self, url):
         response = self.http.get(url)
@@ -16,8 +15,8 @@ class PiholeCheck(AgentCheck):
         return data, status_code
 
     def check(self, instance):
-        host = instance.get('host')
-        custom_tags = instance.get("tags", [])
+        host = self.instance.get('host')
+        custom_tags = self.instance.get("tags", [])
         custom_tags.append("target_host:{}".format(host))
 
         url = 'http://' + host + '/admin/api.php'  # adding the rest of the URL to the given host parameter
@@ -89,7 +88,7 @@ class PiholeCheck(AgentCheck):
                         "Pi-hole disabled on host: %s runtimeError", host,
                     )
                     self.service_check('pihole.running', self.CRITICAL)
-                    raise Exception('Pi-hole is diabled')  # if we dont get a status parameter
+                    raise Exception('Pi-hole is disabled')  # if we dont get a status parameter
             else:
                 self.log.warning(
                     "no status returned for host: %s runtimeError", host,
@@ -102,5 +101,3 @@ class PiholeCheck(AgentCheck):
                 "no metrics for %s runtimeError response code: %s", host, status_code,
             )
             raise Exception('Unexpected response from server')  # if we dont get a response code of '200'
-
-        pass  # one run has been completed at this point !
