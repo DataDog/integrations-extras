@@ -74,7 +74,7 @@ Squadcast integration does not include any service checks.
 ## Troubleshooting
 Need help? Contact [Datadog Support][4].
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/squadcast/squadcast/images/datadog-service.png
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/squadcast/squadcast/images/datadog-webhook.png
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/squadcast/images/datadog-service.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/squadcast/images/datadog-webhook.png
 [3]: https://support.squadcast.com/docs/datadog
 [4]: https://docs.datadoghq.com/help/
