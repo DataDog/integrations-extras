@@ -12,12 +12,12 @@ from .common import HERE, HOST, PORT
 
 
 @pytest.fixture(scope="session")
-def dd_environment():
+def dd_environment(instance):
     with docker_run(compose_file=os.path.join(HERE, "compose", "docker-compose.yml"), sleep=60):
-        yield
+        yield instance
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def instance():
     return {
         'default_timeout': 5,

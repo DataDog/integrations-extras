@@ -9,6 +9,7 @@ from datadog_checks.eventstore import EventStoreCheck
 from datadog_checks.eventstore.metrics import ALL_METRICS
 
 
+@pytest.mark.unit
 def test_config():
     c = EventStoreCheck('eventstore', {}, {}, None)
 
@@ -51,7 +52,7 @@ def test_config():
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-def test_service_check(aggregator, instance):
+def test_integration(aggregator, instance):
     init_config = {'metric_definitions': ALL_METRICS}
 
     c = EventStoreCheck('eventstore', init_config, {}, None)

@@ -79,6 +79,7 @@ class EventStoreCheck(AgentCheck):
             self.log.debug("tags %s", tags)
             paths = self.get_json_path(json_path, eventstore_paths)
             self.log.debug("paths %s", paths)
+
             for path in paths:
                 # Deep copy needed else it will overwrite previous metric data
                 metric_builder = copy.deepcopy(metric)
@@ -89,9 +90,11 @@ class EventStoreCheck(AgentCheck):
                 tag_builder.append('name:{}'.format(name_tag))
                 for tag in tags:
                     if ':' in tag:
+                        # example: projection:projections.*.effectiveName
                         tag_name, tag = tag.rsplit(':', 1)
                         tag_path = self.get_tag_path(tag, path, eventstore_paths)
                     else:
+                        # example: projections.*.effectiveName
                         tag_path = self.get_tag_path(tag, path, eventstore_paths)
                         tag_name = self.format_tag(tag_path.split('.')[-1])
                     tag_value = self.get_value(parsed_api, tag_path)
