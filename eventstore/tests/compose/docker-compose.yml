@@ -1,7 +1,69 @@
-version: '2.0'
+version: '3.0'
+networks:
+  ddev-esnet:
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.30.30.0/29
 services:
   web:
-    image: eventstore/eventstore:latest
+    image: &image eventstore/eventstore:latest
+    networks:
+      ddev-esnet:
+        ipv4_address: &web-ip 172.30.30.2
     ports:
       - "2113:2113"
       - "1113:1113"
+    environment:
+      EVENTSTORE_INT_IP: *web-ip
+      EVENTSTORE_EXT_IP: *web-ip
+      EVENTSTORE_CLUSTER_SIZE: '3'
+      EVENTSTORE_DISCOVER_VIA_DNS: 'false'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.4:2112,172.30.30.5:2112
+  es0:
+    image: *image
+    networks:
+      ddev-esnet:
+        ipv4_address: &es0-ip 172.30.30.3
+    environment:
+      EVENTSTORE_INT_IP: *es0-ip
+      EVENTSTORE_EXT_IP: *es0-ip
+      EVENTSTORE_CLUSTER_SIZE: '3'
+      EVENTSTORE_DISCOVER_VIA_DNS: 'false'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.4:2112,172.30.30.5:2112
+  es1:
+    image: *image
+    networks:
+      ddev-esnet:
+        ipv4_address: &es1-ip 172.30.30.4
+    environment:
+      EVENTSTORE_INT_IP: *es1-ip
+      EVENTSTORE_EXT_IP: *es1-ip
+      EVENTSTORE_CLUSTER_SIZE: '3'
+      EVENTSTORE_DISCOVER_VIA_DNS: 'false'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.5:2112
+  es2:
+    image: *image
+    networks:
+      ddev-esnet:
+        ipv4_address: &es2-ip 172.30.30.5
+    environment:
+      EVENTSTORE_INT_IP: *es2-ip
+      EVENTSTORE_EXT_IP: *es2-ip
+      EVENTSTORE_CLUSTER_SIZE: '3'
+      EVENTSTORE_DISCOVER_VIA_DNS: 'false'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.4:2112
+  subscription:
+    image: curlimages/curl:latest
+    networks:
+      ddev-esnet:
+        ipv4_address: 172.30.30.6
+    entrypoint: /usr/bin/timeout
+    command:
+      - '60'
+      - sh
+      - /usr/local/bin/subscription.sh
+    volumes:
+      - ./subscription.sh:/usr/local/bin/subscription.sh
+    depends_on:
+      - web

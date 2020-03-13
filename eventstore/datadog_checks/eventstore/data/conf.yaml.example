@@ -5,7 +5,33 @@ instances:
     ## @param url - string - required
     ## Base URL to your event store instance.
     #
-  - url: 'http://localhost:2113/stats'
+  - url: 'http://localhost:2113'
+
+    ## @param endpoints - list of strings - required
+    ## A list of API endpoints under the base URL to scrape for metrics
+    #
+    endpoints:
+      # Generic stats
+      - '/stats'
+      # # Node information
+      # - '/info'
+      # # Stats on projections
+      # - '/projections/all-non-transient'
+      # # Stats on subscriptions
+      # - '/subscriptions'
+      # # Clustering stats (enable only when running in a cluster, otherwise the whole instance will fail)
+      # - '/gossip'
+
+    ## @param user - string - optional
+    ## A name of the user to authenticate against metric endpoints
+    ## Should be specified if you're going to scrape /info/options, /projections/* or /subscriptions
+    #
+    # user: admin
+
+    ## @param password - string - optional
+    ## A password for the specified username to authenticate against metric endpoints
+    #
+    # password: changeit
 
     ## @param name - string - optional
     ## The name to tag the instance by, eg: AppEventStore
