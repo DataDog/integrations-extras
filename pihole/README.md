@@ -46,10 +46,10 @@ Pi-hole does not include any events.
 [2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
 [3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://github.com/DataDog/integrations-extras/master/pihole/datadog_checks/pihole/data/conf.yaml.example
+[5]: https://github.com/DataDog/integrations-extras/blob/master/pihole/datadog_checks/pihole/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-extras/master/pihole/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
 
 
 
