@@ -1,0 +1,12 @@
+version: "3"
+
+# Modified version of the offical pihole docker-compose file
+# Dont use this docker-compose_file to actually deploy/use Pihole
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: monganai/fake-hole:latest
+    ports:
+      # port 80 is only required for the api
+      - "8888:8888"
