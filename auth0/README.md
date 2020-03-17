@@ -57,6 +57,5 @@ Need help? Contact [Datadog support][1].
 
 [1]: https://docs.datadoghq.com/help
 [2]: https://manage.auth0.com
-[3]: https://auth0.com/docs/logs/streams/datadog
 [4]: https://app.datadoghq.com/account/settings#api
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
