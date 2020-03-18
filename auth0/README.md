@@ -6,9 +6,7 @@ Use the Datadog-Auth0 integration to view and analyze your log events from Auth0
 
 ## Setup
 
-All configuration happens on the [Auth0 Dashboard][2]. Find details on how to set it up in the [Auth0 Documentation][3].
- 
-### Configuration
+All configuration happens on the [Auth0 Dashboard][2]. 
 
 1. Log in to the [Auth0 Dashboard][2].
 2. Navigate to **Logs** > **Streams**.
@@ -57,6 +55,5 @@ Need help? Contact [Datadog support][1].
 
 [1]: https://docs.datadoghq.com/help
 [2]: https://manage.auth0.com
-[3]: https://auth0.com/docs/logs/streams/datadog
 [4]: https://app.datadoghq.com/account/settings#api
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
