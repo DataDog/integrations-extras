@@ -26,7 +26,7 @@ class GitclientCheck(AgentCheck):
         # Check if git client can connect to remote repo
         t0 = datetime.datetime.now()
         out, err, retcode = get_subprocess_output(["git", "ls-remote"], self.log, raise_on_empty_output=True)
-        
+
         # Submit Metric
         t1 = datetime.datetime.now()
         elapsed = t1 - t0
