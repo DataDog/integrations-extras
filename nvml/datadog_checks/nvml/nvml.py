@@ -16,6 +16,7 @@ from .api_pb2_grpc import PodResourcesListerStub
 
 METRIC_PREFIX = "nvml."
 SOCKET_PATH = "/var/lib/kubelet/pod-resources/kubelet.sock"
+"""Assumed to be a UDS accessible from this running code"""
 
 
 class NvmlInit(object):
@@ -63,9 +64,13 @@ class NvmlCall(object):
 
 class NvmlCheck(AgentCheck):
     N = pynvml
+    """The pynvml package, explicitly assigned, used for easy test mocking."""
     known_tags = {}
+    """A map of GPU UUIDs to the k8s tags we should assign that GPU."""
     lock = threading.Lock()
+    """Lock for the object known_tags."""
     _thread = None
+    """Daemon thread updating k8s tag information in the background."""
 
     def add_gauge(self, name, value, tags=None):
         if tags is None:
@@ -126,14 +131,17 @@ class NvmlCheck(AgentCheck):
             consumption = NvmlCheck.N.nvmlDeviceGetTotalEnergyConsumption(handle)
             self.add_monotonic_count('total_energy_consumption', consumption, tags=tags)
 
+        # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ga5c77a2154a20d4e660221d8592d21fb
         with NvmlCall("enc_utilization"):
             encoder_util = NvmlCheck.N.nvmlDeviceGetEncoderUtilization(handle)
             self.add_gauge('enc_utilization', encoder_util[0], tags=tags)
 
+        # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g0e3420045bc9d04dc37690f4701ced8a
         with NvmlCall("dec_utilization"):
             dec_util = NvmlCheck.N.nvmlDeviceGetDecoderUtilization(handle)
             self.add_gauge('dec_utilization', dec_util[0], tags=tags)
 
+        # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1gd86f1c74f81b5ddfaa6cb81b51030c72
         with NvmlCall("pci_through"):
             tx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_TX_BYTES)
             rx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_RX_BYTES)
