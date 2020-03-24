@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [nvidia nvml][1] exposed metrics through the Datadog Agent and can corrolate them
+This check monitors [nvidia nvml][1] exposed metrics through the Datadog Agent and can correlate them
 with the [exposed kuberneties devices][8].
 
 ## Setup
@@ -11,7 +11,7 @@ This package is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Redis's Sentinel check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 1. Install the [developer toolkit][5].
 2. Clone the integrations-extras repository:
@@ -51,7 +51,7 @@ If you are using Docker, there is an example Dockerfile in the nvml repository.
 
 8. If you're using Docker and k8s, you will need to expose the environment variables NVIDIA_VISIBLE_DEVICES and NVIDIA_DRIVER_CAPABILITIES.  See the included Dockerfile for an example.
 
-9. If you want to be able to corrolate reserved k8s nvidia devices with the k8s pod using the device, you will need to mount the unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your agent's configuration.  More
+9. If you want to be able to correlate reserved k8s nvidia devices with the k8s pod using the device, you will need to mount the Unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your agent's configuration.  More
 information about this socket is on the kubernetes [website][8].  Note this device is in beta support for version 1.15.
 
 ### Configuration
