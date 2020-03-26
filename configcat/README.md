@@ -19,16 +19,6 @@ Ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 1. Open the <a href="https://app.configcat.com/product/integrations" target="_blank">integrations tab</a> on ConfigCat Dashboard.
 2. Click on DataDog's DISCONNECT button and set your DataDog API key.
 
-## DataDog filtering
-
-All configcat related events *source* property is ```configcat``` and tagged with product, config environment names to easy to setup any monitor/alert.
-
-### Example
-
-Search all events where the environment is production: ```sources:configcat production```
-
-![DataDogEvent][4]
-
 ## Data Collected
 
 ### Metrics
@@ -37,8 +27,7 @@ ConfigCat integration does not include any metrics.
 
 ### Events
 
-
-All ConfigCat related events collected appear within the Datadog Event Stream with the `source:configcat` property are  tagged with your product and config environment names. To search all ConfigCat events where the environment is production for instance, use: `sources:configcat production`
+All ConfigCat related events collected appear within the Datadog Event Stream with the `source:configcat` property are  tagged with your product, config and environment names. To search all ConfigCat events where the environment is production for instance, use: `sources:configcat production`
 
 ![DataDogEvent][4]
 
@@ -48,7 +37,7 @@ ConfigCat integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [ConfigCat][6].
+Need help? See [ConfigCat Docs][6] or contact [ConfigCat Support][7]
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_apikey.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_connect.png
@@ -56,5 +45,6 @@ Need help? Contact [ConfigCat][6].
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_filtering.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_manageproduct.png
 [6]: https://configcat.com/docs/integrations/datadog/
+[7]: https://configcat.com/support
 [7]: https://docs.datadoghq.com/account_management/api-app-keys/#api-keys
 
