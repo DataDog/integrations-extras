@@ -1,30 +1,23 @@
 # ConfigCat
 
-![DataDogEvent][3]
 
 ## Overview
 
-DataDog integration ensures that all ConfigCat settings changes send to DataDog as an Event. With this feature you can see your system behaviour when changing your settings. You can setup the DataDog integration for a products in the ConfigCat.
+Ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 
-## Setup
+![DataDogEvent][3]
 
-First of all you need DataDog subscription and [DataDog API key][7].
-![DataDogEvent][1]
+## Installation
+1. Have a <a href="https://www.datadoghq.com/" target="_blank">DataDog subscription.</a>
+2. Get a <a href="https://docs.datadoghq.com/account_management/api-app-keys/#api-keys" target="_blank">DataDog API Key.</a>![ApiKey][1]
+3. Open the <a href="https://app.configcat.com/product/integrations" target="_blank">integrations tab</a> on ConfigCat Dashboard.
+4. Click on DataDog's CONNECT button and set your DataDog API key.
+5. You're all set. Go ahead and make some changes on your feature flags then check your Events in DataDog.
 
-### 1. Navigate to product's settings page
 
-![DataDogEvent][5]
-
-### 2. Select *Integrations* tab
-
-![DataDogEvent][2]
-
-### 3. Click to DataDog's CONNECT button and set a DataDog API key
-
-## Remove
-### 1. Navigate to product's settings page
-### 2. Select *Integrations* tab
-### 3. Click to DataDog's DISCONNECT button
+## Un-installation
+1. Open the <a href="https://app.configcat.com/product/integrations" target="_blank">integrations tab</a> on ConfigCat Dashboard.
+2. Click on DataDog's DISCONNECT button and set your DataDog API key.
 
 ## DataDog filtering
 
