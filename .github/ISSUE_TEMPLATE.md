@@ -19,3 +19,6 @@
 
 
 **Additional information you deem important (e.g. issue happens only occasionally):**
+
+**Issue Checklist**
+- [ ] Issue must have an integration label (if it's about a specific integration)
