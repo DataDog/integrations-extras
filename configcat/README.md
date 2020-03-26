@@ -44,7 +44,10 @@ ConfigCat integration does not include any metrics.
 
 ### Events
 
-ConfigCat integration sends events from ConfigCat to Datadog.
+
+All ConfigCat related events collected appear within the Datadog Event Stream with the `source:configcat` property are  tagged with your product and config environment names. To search all ConfigCat events where the environment is production for instance, use: `sources:configcat production`
+
+![DataDogEvent][4]
 
 ### Service Checks
 
@@ -61,5 +64,4 @@ Need help? Contact [ConfigCat][6].
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_manageproduct.png
 [6]: https://configcat.com/docs/integrations/datadog/
 [7]: https://docs.datadoghq.com/account_management/api-app-keys/#api-keys
-
 
