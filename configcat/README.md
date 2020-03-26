@@ -27,7 +27,7 @@ ConfigCat integration does not include any metrics.
 
 ### Events
 
-All ConfigCat related events collected appear within the Datadog Event Stream with the `source:configcat` property are  tagged with your product, config and environment names.
+All ConfigCat related events collected appear within the DataDog Event Stream with the `source:configcat` property are tagged with your product, config and environment names.
 
 For example here is how to search for events that happened in the production environment: ```sources:configcat production```
 
