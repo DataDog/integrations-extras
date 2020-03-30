@@ -1,40 +1,90 @@
-# (C) Datadog, Inc. 2010-2016
-# All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
-
 import pytest
 
-from datadog_checks.errors import CheckException
-from datadog_checks.neo4j import Neo4jCheck
-
-from .common import CHECK_NAME, CONNECTION_FAILURE, NEO4J_MINIMAL_CONFIG, NEO4J_VARS
+from datadog_checks.base import ConfigurationError
+from datadog_checks.neo4j import GLOBAL_DB_NAME, NAMESPACE, Config, Neo4jCheck
 
 
+@pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-def test_minimal_config(aggregator):
-    c = Neo4jCheck(CHECK_NAME, {}, {})
-    c.check(NEO4J_MINIMAL_CONFIG)
+def test_service_check(aggregator, instance):
+    check = Neo4jCheck('neo4j', {}, {})
 
-    # Test service check
-    aggregator.assert_service_check('neo4j.can_connect', status=Neo4jCheck.OK)
+    instance['neo4j_dbs'] = ['neo4j', 'system']
 
-    # Test metrics
-    testable_metrics = NEO4J_VARS
+    check.check(instance)
 
-    for mname in testable_metrics:
-        aggregator.assert_metric('neo4j.{}'.format(mname), tags=[])
+    print(aggregator.metric_names)
 
-    aggregator.assert_all_metrics_covered()
+    if instance.get('neo4j_version') == '3.5':
+        aggregator.assert_metric(
+            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+        aggregator.assert_metric(
+            name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+    elif instance.get('neo4j_version') == '4.0':
+        aggregator.assert_metric(
+            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+    else:
+        raise Exception('unknown neo4j_version: {}'.format(instance.get('neo4j_version')))
 
 
-@pytest.mark.usefixtures('dd_environment')
-def test_connection_failure(aggregator):
-    """
-    Service check reports connection failure
-    """
-    c = Neo4jCheck(CHECK_NAME, {}, {})
+@pytest.mark.unit
+def test_get_db_for_metric():
+    check = Neo4jCheck('neo4j', {}, {})
 
-    with pytest.raises(CheckException):
-        c.check(CONNECTION_FAILURE)
+    assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='neo4j_metric_1') == 'neo4j'
+    assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='system_metric_1') == 'system'
+    assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='metric_1') is None
 
-    aggregator.assert_service_check('neo4j.can_connect', status=Neo4jCheck.CRITICAL)
+
+@pytest.mark.unit
+def test_get_config():
+    check = Neo4jCheck('neo4j', {}, {})
+
+    instance = {
+        'host': 'localhost',
+        'port': 9000,
+        'neo4j_version': '4.0',
+        'neo4j_dbs': ['neo4j', 'system'],
+        'exclude_labels': ['kube_service'],
+        'tags': ['key:value'],
+    }
+    assert check._get_config(instance) == Config(
+        host='localhost',
+        port=9000,
+        neo4j_version='4.0',
+        neo4j_dbs=['neo4j', 'system'],
+        exclude_labels=['kube_service'],
+        instance_tags=['key:value'],
+    )
+
+    instance = {
+        'host': 'localhost',
+        'neo4j_version': '3.5',
+    }
+    assert check._get_config(instance) == Config(
+        host='localhost', port=2004, neo4j_version='3.5', neo4j_dbs=[], exclude_labels=[], instance_tags=[],
+    )
+
+    instance = {}
+    with pytest.raises(ConfigurationError):
+        check._get_config(instance)
+
+    instance = {'host': 'localhost'}
+    with pytest.raises(ConfigurationError):
+        check._get_config(instance)
+
+
+@pytest.mark.unit
+def test_get_value():
+    check = Neo4jCheck('neo4j', {}, {})
+
+    with pytest.raises(ConfigurationError):
+        check._get_value({}, 'neo4j_version', required=True)
+
+    assert check._get_value({}, 'neo4j_dbs', False, ['neo4j']) == ['neo4j']
+    assert check._get_value({'neo4j_version': '3.5'}, 'neo4j_version', True)

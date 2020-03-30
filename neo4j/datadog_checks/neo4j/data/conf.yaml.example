@@ -1,53 +1,62 @@
+## All options defined here are available to all instances.
+#
 init_config:
 
-  ## @param default_timeout - string - optional - default: 5
-  ## Timeout to use as a default for all your instances.
-  #
-  # default_timeout: 5
-
+## Every instance is scheduled independent of the others.
+#
 instances:
 
-    ## @param neo4j_url - string - required
-    ## Neo4J url to connect to.
+    ## @param host - string - required
+    ## Neo4j host to connect to
     #
-  - neo4j_url: localhost
+  - host: localhost
 
-    ## @param port - integer - optional - default: 7474
-    ## Port to connect to when reaching `neo4j_url`
+    ## @param port - integer - optional - default: 2004
+    ## Port which prometheus is listening on
     #
-    # port: 7474
-
-    ## @param user - string - required
-    ## Username to use when reaching the Neo4j instance.
-    #
-    user: <USERNAME>
-
-    ## @param password - string - required
-    ## Password associated with the `user` to connect to the
-    ## Neo4j instance
-    #
-    password: <PASSWORD>
-
-    ## @param connect_timeout - integer - required
-    ## Change the timeout time in second for the Agent queries.
-    #
-    connect_timeout: 20
-
-    ## @param server_name - string - required
-    ## Name of the Neo4j server to connect to.
-    #
-    server_name: <NEO4J_SERVER_NAME>
+    # port: 2004
 
     ## @param neo4j_version - string - required
-    ## The Neo4j version to gather metric from.
+    ## The Neo4j version to gather metric from
+    ## Supported versions are 3.5, 4.0
     #
     neo4j_version: '<NEO4J_VERSION>'
 
-    ## @param tags - list of key:value elements - optional
-    ## List of tags to attach to every metric, event and service check emitted by this integration.
+    ## @param neo4j_dbs - list of strings - optional
+    ## The Neo4j databases to gather metric from.
     ##
-    ## Learn more about tagging: https://docs.datadoghq.com/tagging/
+    ## This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5
+    #
+    # neo4j_dbs:
+    #  - <DB_1>
+    #  - <DB_2>
+
+    ## @param exclude_labels - list of strings - optional
+    ## A list of prometheus labels to exclude. Those labels will just not be added
+    ## as tags when submitting the metric.
+    #
+    # exclude_labels:
+    #  - <TAG_1>
+    #  - <TAG_2>
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
     #
     # tags:
     #   - <KEY_1>:<VALUE_1>
     #   - <KEY_2>:<VALUE_2>
+
+    ## @param min_collection_interval - number - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 15
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false

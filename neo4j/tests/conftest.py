@@ -3,30 +3,37 @@ import os
 import pytest
 import requests
 
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 from datadog_checks.dev.conditions import WaitFor
-from datadog_checks.dev.docker import docker_run
 
-from .common import NEO4J_MINIMAL_CONFIG
+DOCKER_DIR = os.path.join(get_here(), 'docker')
+INSTANCE = {
+    'host': get_docker_hostname(),
+    'port': 2004,
+    'neo4j_version': os.environ['NEO4J_VERSION'],
+}
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-DOCKER_DIR = os.path.join(HERE, 'docker')
 
-
-def init_user():
-    instance = NEO4J_MINIMAL_CONFIG
-    url = '{}:{}/user/{}/password'.format(instance['neo4j_url'], instance['port'], instance['user'])
-    r = requests.post(url, json={'password': instance['password']}, auth=(instance['user'], 'neo4j'))
-    r.raise_for_status()
+def ensure_prometheus_endpoint_is_accessable():
+    instance = INSTANCE
+    url = 'http://{}:{}/metrics'.format(instance.get('host'), instance.get('port'))
+    response = requests.get(url)
+    response.raise_for_status()
 
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    instance = NEO4J_MINIMAL_CONFIG
+    instance = INSTANCE
     envs = {'NEO4J_VERSION': os.environ['NEO4J_VERSION']}
     with docker_run(
         os.path.join(DOCKER_DIR, 'docker-compose.yaml'),
         env_vars=envs,
         log_patterns=['Remote interface available at'],
-        conditions=[WaitFor(init_user)],
+        conditions=[WaitFor(ensure_prometheus_endpoint_is_accessable)],
     ):
         yield instance
+
+
+@pytest.fixture
+def instance():
+    return INSTANCE.copy()

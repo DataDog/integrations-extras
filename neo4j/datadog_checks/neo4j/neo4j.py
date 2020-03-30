@@ -1,170 +1,227 @@
-import requests
-from urllib3.util import Timeout
+from datadog_checks.base import ConfigurationError
+from datadog_checks.base.checks.prometheus.prometheus_base import PrometheusCheck
 
-from datadog_checks.base.checks import AgentCheck
-from datadog_checks.base.errors import CheckException
+GLOBAL_DB_NAME = 'global'
+NAMESPACE = 'neo4j'
 
 
-class Neo4jCheck(AgentCheck):
-    SERVICE_CHECK_NAME = 'neo4j.can_connect'
+class Config:
+    def __init__(self, host, port, neo4j_version, neo4j_dbs, exclude_labels, instance_tags):
+        self.host = host
+        self.port = port
+        self.neo4j_version = neo4j_version
+        self.neo4j_dbs = neo4j_dbs
+        self.exclude_labels = exclude_labels
+        self.instance_tags = instance_tags
 
-    # Neo4j metrics to send
-    keys = set(
-        [
-            'storecreationdate',
-            'storelogversion',
-            'kernelstarttime',
-            'lastcommittedtxid',
-            'peaknumberofconcurrenttransactions',
-            'numberofrolledbacktransactions',
-            'numberofopentransactions',
-            'numberofopenedtransactions',
-            'numberofcommittedtransactions',
-            'logicallogsize',
-            'propertystoresize',
-            'arraystoresize',
-            'totalstoresize',
-            'relationshipstoresize',
-            'stringstoresize',
-            'nodestoresize',
-            'locks',
-            'numberofaverteddeadlocks',
-            'numberofrelationshipidsinuse',
-            'numberofpropertyidsinuse',
-            'numberofnodeidsinuse',
-            'numberofrelationshiptypeidsinuse',
-            'memorypools',
-            'pins',
-            'evictions',
-            'byteswritten',
-            'filemappings',
-            'fileunmappings',
-            'bytesread',
-            'flushes',
-            'evictionexceptions',
-            'faults',
-            'ha.pull_interval',
-            'dbms.memory.pagecache.size',
-        ]
-    )
+    def __eq__(self, other):
+        return (
+            self.host == other.host
+            and self.port == other.port
+            and self.neo4j_version == self.neo4j_version
+            and self.neo4j_dbs == other.neo4j_dbs
+            and self.exclude_labels == other.exclude_labels
+            and self.instance_tags == other.instance_tags
+        )
 
-    display = {
-        'storecreationdate': 'neo4j.store.creationdate',
-        'storelogversion': 'neo4j.store.log.version',
-        'kernelstarttime': 'neo4j.kernel.starttime',
-        'lastcommittedtxid': 'neo4j.last.committed.transaction.id',
-        'peaknumberofconcurrenttransactions': 'neo4j.peak.concurrent.transactions',
-        'numberofrolledbacktransactions': 'neo4j.peak.rolledback.transactions',
-        'numberofopentransactions': 'neo4j.open.transactions',
-        'numberofopenedtransactions': 'neo4j.opened.transactions',
-        'numberofcommittedtransactions': 'neo4j.committed.transactions',
-        'logicallogsize': 'neo4j.logicallog.size',
-        'propertystoresize': 'neo4j.property.store.size',
-        'arraystoresize': 'neo4j.array.store.size',
-        'totalstoresize': 'neo4j.total.store.size',
-        'relationshipstoresize': 'neo4j.relationship.store.size',
-        'stringstoresize': 'neo4j.string.store.size',
-        'nodestoresize': 'neo4j.node.store.size',
-        'locks': 'neo4j.locks',
-        'numberofaverteddeadlocks': 'neo4j.adverted.locks',
-        'numberofrelationshipidsinuse': 'neo4j.relationship.ids.inuse',
-        'numberofpropertyidsinuse': 'neo4j.property.ids.inuse',
-        'numberofnodeidsinuse': 'neo4j.node.ids.inuse',
-        'numberofrelationshiptypeidsinuse': 'neo4j.relationshiptype.ids.inuse',
-        'memorypools': 'neo4j.memory.pools',
-        'pins': 'neo4j.page.cache.pins',
-        'evictions': 'neo4j.page.cache.evictions',
-        'byteswritten': 'neo4j.bytes.written',
-        'filemappings': 'neo4j.page.cache.file.mappings',
-        'fileunmappings': 'neo4j.page.cache.file.unmappings',
-        'bytesread': 'neo4j.bytes.read',
-        'flushes': 'neo4j.page.cache.flushes',
-        'evictionexceptions': 'neo4j.page.cache.eviction.exceptions',
-        'faults': 'neo4j.page.cache.faults',
-        'ha.pull_interval': 'neo4j.ha.pull_interval',
-        'dbms.memory.pagecache.size': 'neo4j.dbms.memory.pagecache.size',
-    }
 
+class Neo4jCheck(PrometheusCheck):
     def check(self, instance):
-        host, port, user, password, timeout, server_name = self._get_config(instance)
-        tags = instance.get('tags', [])
-        tags.append('server_name:{}'.format(server_name))
-        service_check_tags = tags + ['url:{}'.format(host)]
-        auth = (user, password)
+        self._set_whitelisted_metrics()
+        config = self._get_config(instance=instance)
+        self.exclude_labels = config.exclude_labels
 
-        # Neo specific
-        # Create payload using built-in Neo4j queryJmx stored procedure
-        payload = {
-            "statements": [
-                {
-                    "statement": "CALL dbms.queryJmx('org.neo4j:*') yield attributes with  "
-                    "keys(attributes) as k, attributes unwind k as "
-                    "row return row, attributes[row]['value'];"
-                }
-            ]
-        }
-        try:
-            version = self._get_version(host, port, timeout, auth, service_check_tags)
+        endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
+        metrics = self.scrape_metrics(endpoint=endpoint)
 
-            if version > 2:
-                check_url = "{}:{}/db/data/transaction/commit".format(host, port)
-            else:
-                check_url = "{}:{}/v1/service/metrics".format(host, port)
-            r = requests.post(check_url, auth=auth, json=payload, timeout=timeout)
-        except Exception as e:
-            msg = "Unable to fetch Neo4j stats: {}".format(e)
-            self._critical_service_check(service_check_tags, msg)
-            raise CheckException(msg)
+        for metric in metrics:
+            metric.name = metric.name.replace('neo4j_', '', 1)
+            db_name = GLOBAL_DB_NAME
+            if config.neo4j_version.startswith("4."):
+                neo4j_db = self._get_db_for_metric(dbs=config.neo4j_dbs, metric_name=metric.name)
+                if neo4j_db:
+                    db_name = neo4j_db
+                    metric.name = metric.name.replace('{}_'.format(db_name), '', 1)
 
-        if r.status_code != 200:
-            msg = "Unexpected status of {0} when fetching Neo4j stats, response: {1}"
-            msg = msg.format(r.status_code, r.text)
-            self._critical_service_check(service_check_tags, msg)
-            r.raise_for_status()
+            tags = ['db_name:{}'.format(db_name)]
+            if config.instance_tags:
+                tags.extend(config.instance_tags.copy())
+            self.process_metric(message=metric, custom_tags=tags)
 
-        stats = r.json()
-        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=service_check_tags)
-
-        for doc in stats['results'][0]['data']:
-            name = doc['row'][0].lower()
-            if name in self.keys:
-                try:
-                    self.gauge(self.display.get(name, ""), doc['row'][1], tags=tags)
-                except TypeError:
-                    continue
-                except ValueError:
-                    continue
+    def _get_db_for_metric(self, dbs, metric_name):
+        for db in dbs:
+            if metric_name.startswith('{}_'.format(db)):
+                return db
+        return None
 
     def _get_config(self, instance):
-        host = instance.get('neo4j_url', '')
-        port = int(instance.get('port', 7474))
-        user = instance.get('user', '')
-        password = str(instance.get('password', ''))
-        connect_timeout = instance.get('connect_timeout')
-        server_name = instance.get('server_name', '')
+        host = self._get_value(instance=instance, key='host', required=True)
+        port = self._get_value(instance=instance, key='port', required=False, default_value=2004)
+        neo4j_version = self._get_value(instance=instance, key='neo4j_version', required=True)
+        neo4j_dbs = self._get_value(instance=instance, key='neo4j_dbs', required=False, default_value=[])
+        exclude_labels = self._get_value(instance=instance, key='exclude_labels', required=False, default_value=[])
+        instance_tags = self._get_value(instance=instance, key='tags', required=False, default_value=[])
 
-        timeout = None
-        if connect_timeout:
-            timeout = Timeout(connect=connect_timeout)
+        if neo4j_version not in ["3.5", "4.0"]:
+            raise ConfigurationError('neo4j_version "{}" is not a valid value'.format(neo4j_version))
 
-        return host, port, user, password, timeout, server_name
+        return Config(
+            host=host,
+            port=port,
+            neo4j_version=neo4j_version,
+            neo4j_dbs=neo4j_dbs,
+            exclude_labels=exclude_labels,
+            instance_tags=instance_tags,
+        )
 
-    def _get_version(self, host, port, timeout, auth, service_check_tags):
-        version_url = '{}:{}/db/data/'.format(host, port)
-        headers_sent = {'Content-Type': 'application/json'}
-        r = requests.get(version_url, auth=auth, headers=headers_sent, timeout=timeout)
-        if r.status_code != 200:
-            msg = "unexpected status of {0} when fetching Neo4j stats, response: {1}"
-            msg = msg.format(r.status_code, r.text)
-            self._critical_service_check(service_check_tags, msg)
-            r.raise_for_status()
-        stats = r.json()
-        version = stats.get('neo4j_version')
-        self.log.debug("Neo4j version: %s", version)
-        version = version.split('.')
-        if version:
-            return int(version[0])
-        return 0
+    def _get_value(self, instance, key, required, default_value=None):
+        value = instance.get(key, default_value)
+        if required and not value:
+            raise ConfigurationError('"{}" is a required configuration'.format(key))
+        return value
 
-    def _critical_service_check(self, service_check_tags, message):
-        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=service_check_tags, message=message)
+    def _set_whitelisted_metrics(self):
+        self.NAMESPACE = NAMESPACE
+        self.metrics_mapper = Neo4jCheck.get_whitelisted_metrics()
+
+    @staticmethod
+    def get_whitelisted_metrics():
+        return {
+            # bolt metrics
+            'bolt_accumulated_processing_time_total': 'bolt.accumulated_processing_time',
+            'bolt_accumulated_queue_time_total': 'bolt.accumulated_queue_time',
+            'bolt_connections_closed_total': 'bolt.connections_closed',
+            'bolt_connections_idle': 'bolt.connections_idle',
+            'bolt_connections_opened_total': 'bolt.connections_opened',
+            'bolt_connections_running': 'bolt.connections_running',
+            'bolt_messages_done_total': 'bolt.messages_done',
+            'bolt_messages_failed_total': 'bolt.messages_failed',
+            'bolt_messages_received_total': 'bolt.messages_received',
+            'bolt_messages_started_total': 'bolt.messages_started',
+            #
+            # causal clustering metrics
+            'causal_clustering_catchup_tx_pull_requests_received_total': 'causal_clustering.catchup_tx_pull_requests_received',  # noqa: E501
+            'causal_clustering_core_append_index': 'causal_clustering.core.append_index',
+            'causal_clustering_core_commit_index': 'causal_clustering.core.commit_index',
+            'causal_clustering_core_discovery_cluster_converged': 'causal_clustering.core.discovery.cluster.converged',  # noqa: E501
+            'causal_clustering_core_discovery_cluster_members': 'causal_clustering.core.discovery.cluster.members',  # noqa: E501
+            'causal_clustering_core_discovery_cluster_unreachable': 'causal_clustering.core.discovery.cluster.unreachable',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_member_data_invisible': 'causal_clustering.core.discovery.replicated_data.member_data.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_member_data_visible': 'causal_clustering.core.discovery.replicated_data.member_data.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_member_db_state_invisible': 'causal_clustering.core.discovery.replicated_data.member_db_state.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_member_db_state_visible': 'causal_clustering.core.discovery.replicated_data.member_db_state.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_invisible': 'causal_clustering.core.discovery.replicated_data.per_db.leader_name.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_visible': 'causal_clustering.core.discovery.replicated_data.per_db.leader_name.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_invisible': 'causal_clustering.core.discovery.replicated_data.raft_id.published_by_member.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_visible': 'causal_clustering.core.discovery.replicated_data.raft_id.published_by_member.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_invisible': 'causal_clustering.core.discovery.replicated_data.cluster_id.per_db_name.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_visible': 'causal_clustering.core.discovery.replicated_data.cluster_id.per_db_name.visible',  # noqa: E501
+            'causal_clustering_core_in_flight_cache_element_count': 'causal_clustering.core.in_flight_cache_element_count',  # noqa: E501
+            'causal_clustering_core_in_flight_cache_hits_total': 'causal_clustering.core.in_flight_cache.hits',
+            'causal_clustering_core_in_flight_cache_max_bytes': 'causal_clustering.core.in_flight_cache.max_bytes',
+            'causal_clustering_core_in_flight_cache_max_elements': 'causal_clustering.core.in_flight_cache.max_elements',  # noqa: E501
+            'causal_clustering_core_in_flight_cache_misses_total': 'causal_clustering.core.in_flight_cache.misses',
+            'causal_clustering_core_in_flight_cache_total_bytes': 'causal_clustering.core.in_flight_cache.total_bytes',
+            'causal_clustering_core_is_leader': 'causal_clustering.core.is_leader',
+            'causal_clustering_core_message_processing_delay': 'causal_clustering.core.message_processing_delay',
+            'causal_clustering_core_message_processing_timer': 'causal_clustering.core.message_processing_timer',
+            'causal_clustering_core_message_processing_timer_append_entries_request': 'causal_clustering.core.message_processing_timer.append_entries_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_append_entries_response': 'causal_clustering.core.message_processing_timer.append_entries_response',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_election_timeout': 'causal_clustering.core.message_processing_timer.election_timeout',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_heartbeat': 'causal_clustering.core.message_processing_timer.heartbeat',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_heartbeat_response': 'causal_clustering.core.message_processing_timer.heartbeat_response',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_heartbeat_timeout': 'causal_clustering.core.message_processing_timer.heartbeat_timeout',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_log_compaction_info': 'causal_clustering.core.message_processing_timer.log_compaction_info',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_new_batch_request': 'causal_clustering.core.message_processing_timer.new_batch_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_new_entry_request': 'causal_clustering.core.message_processing_timer.new_entry_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_pre_vote_request': 'causal_clustering.core.message_processing_timer.pre_vote_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_pre_vote_response': 'causal_clustering.core.message_processing_timer.pre_vote_response',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_prune_request': 'causal_clustering.core.message_processing_timer.prune_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_vote_request': 'causal_clustering.core.message_processing_timer.vote_request',  # noqa: E501
+            'causal_clustering_core_message_processing_timer_vote_response': 'causal_clustering.core.message_processing_timer.vote_response',  # noqa: E501
+            'causal_clustering_core_replication_attempt_total': 'causal_clustering.core.replication_attempt',
+            'causal_clustering_core_replication_fail_total': 'causal_clustering.core.replication_fail',
+            'causal_clustering_core_replication_new_total': 'causal_clustering.core.replication_new',
+            'causal_clustering_core_replication_success_total': 'causal_clustering.core.replication_success',
+            'causal_clustering_core_term': 'causal_clustering.core.term',
+            'causal_clustering_core_tx_retries_total': 'causal_clustering.core.tx_retries',
+            #
+            # database checkpointing metrics
+            'check_point_events_total': 'check_point.events',
+            'check_point_total_time_total': 'check_point.total_time',
+            'check_point_duration': 'check_point.duration',
+            #
+            # cypher metrics
+            'cypher_replan_events_total': 'cypher.replan_events',
+            'cypher_replan_wait_time_total': 'cypher.replan_wait_time',
+            #
+            # database data metrics
+            'neo4j_count_node': 'node_count',
+            'neo4j_count_relationship': 'relationship_count',
+            'ids_in_use_node': 'ids_in_use.node',
+            'ids_in_use_property': 'ids_in_use.property',
+            'ids_in_use_relationship': 'ids_in_use.relationship',
+            'ids_in_use_relationship_type': 'ids_in_use.relationship_type',
+            #
+            # database transaction log metrics
+            'log_appended_bytes_total': 'log.appended_bytes',
+            'log_rotation_events_total': 'log.rotation_events',
+            'log_rotation_total_time_total': 'log.rotation_total_time',
+            'log_rotation_duration': 'log.rotation_duration',
+            #
+            # page cache metrics
+            'page_cache_eviction_exceptions_total': 'page_cache.eviction_exceptions',
+            'page_cache_evictions_total': 'page_cache.evictions',
+            'page_cache_flushes_total': 'page_cache.flushes',
+            'page_cache_hits_total': 'page_cache.hits',
+            'page_cache_page_faults_total': 'page_cache.page_faults',
+            'page_cache_pins_total': 'page_cache.pins',
+            'page_cache_unpins_total': 'page_cache.unpins',
+            #
+            # server metrics
+            'server_threads_jetty_all': 'server.threads.jetty.all',
+            'server_threads_jetty_idle': 'server.threads.jetty.idle',
+            #
+            # transaction metrics
+            'transaction_active': 'transaction.active',
+            'transaction_active_read': 'transaction.active_read',
+            'transaction_active_write': 'transaction.active_write',
+            'transaction_committed_read_total': 'transaction.committed_read',
+            'transaction_committed_total': 'transaction.committed',
+            'transaction_committed_write_total': 'transaction.committed_write',
+            'transaction_last_closed_tx_id_total': 'transaction.last_closed_tx_id',
+            'transaction_last_committed_tx_id_total': 'transaction.last_committed_tx_id',
+            'transaction_peak_concurrent_total': 'transaction.peak_concurrent',
+            'transaction_rollbacks_read_total': 'transaction.rollbacks_read',
+            'transaction_rollbacks_total': 'transaction.rollbacks',
+            'transaction_rollbacks_write_total': 'transaction.rollbacks_write',
+            'transaction_started_total': 'transaction.started',
+            'transaction_terminated_read_total': 'transaction.terminated_read',
+            'transaction_terminated_total': 'transaction.terminated',
+            'transaction_terminated_write_total': 'transaction.terminated_write',
+            #
+            # JVM GC metrics
+            'vm_gc_count_g1_old_generation_total': 'vm.gc.count.g1_old_generation',
+            'vm_gc_count_g1_young_generation_total': 'vm.gc.count.g1_young_generation',
+            'vm_gc_time_g1_old_generation_total': 'vm.gc.time.g1_old_generation',
+            'vm_gc_time_g1_young_generation_total': 'vm.gc.time.g1_young_generation',
+            #
+            # JVM memory buffers metrics
+            'vm_memory_buffer_direct_capacity': 'vm.memory.buffer.direct_capacity',
+            'vm_memory_buffer_direct_count': 'vm.memory.buffer.direct_count',
+            'vm_memory_buffer_direct_used': 'vm.memory.buffer.direct_used',
+            'vm_memory_buffer_mapped_capacity': 'vm.memory.buffer.mapped_capacity',
+            'vm_memory_buffer_mapped_count': 'vm.memory.buffer.mapped_count',
+            'vm_memory_buffer_mapped_used': 'vm.memory.buffer.mapped_used',
+            #
+            # JVM memory pools metrics
+            'vm_memory_pool_compressed_class_space': 'vm.memory.pool.compressed_class_space',
+            'vm_memory_pool_g1_eden_space': 'vm.memory.pool.g1_eden_space',
+            'vm_memory_pool_g1_old_gen': 'vm.memory.pool.g1_old_gen',
+            'vm_memory_pool_g1_survivor_space': 'vm.memory.pool.g1_survivor_space',
+            'vm_memory_pool_metaspace': 'vm.memory.pool.metaspace',
+            #
+            # JVM threads metrics
+            'vm_thread_count': 'vm.thread.count',
+            'vm_thread_total': 'vm.thread.total',
+        }
