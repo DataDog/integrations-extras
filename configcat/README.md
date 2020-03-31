@@ -6,7 +6,8 @@ Ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 
 ![DataDogEvent][3]
 
-## Installation
+## Setup
+
 1. Have a [DataDog subscription][8].
 2. Get a [DataDog API Key][9].
 ![DataDogEvent][1] 
