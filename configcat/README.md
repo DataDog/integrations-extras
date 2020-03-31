@@ -16,7 +16,8 @@ Ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 6. You're all set. Go ahead and make some changes on your feature flags then check your Events in DataDog.
 
 
-## Un-installation
+### Un-installation
+
 1. Open the [integrations tab][10] on ConfigCat Dashboard.
 2. Click on DataDog's DISCONNECT button and set your DataDog API key.
 
