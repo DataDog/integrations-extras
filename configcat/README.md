@@ -41,7 +41,7 @@ ConfigCat integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? See [ConfigCat Docs][6] or contact [ConfigCat Support][7]
+Need help? See the [ConfigCat documentation][6] or contact [ConfigCat support][7]
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_apikey.png
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/assets/images/datadog_event.png
