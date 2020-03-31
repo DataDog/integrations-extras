@@ -12,7 +12,7 @@ Ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 2. Get a [DataDog API Key][9].
     ![DataDogEvent][1] 
 4. Open the [integrations tab][10] on ConfigCat Dashboard.
-5. Click on DataDog's CONNECT button and set your DataDog API key.
+5. Click on DataDog's _CONNECT_ button and set your DataDog API key.
 6. You're all set. Go ahead and make some changes on your feature flags then check your Events in DataDog.
 
 
