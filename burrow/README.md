@@ -43,7 +43,7 @@ Returns CRITICAL if the Agent cannot connect to Burrow to collect metrics. Retur
 
 ### Events
 
-burrow does not include any events.
+Burrow does not include any events.
 
 ## Troubleshooting
 
