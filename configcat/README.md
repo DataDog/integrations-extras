@@ -1,10 +1,8 @@
 # ConfigCat
 
-## About
+## Overview
 
 Manage features and change your software configuration using [ConfigCat feature flags][2], without the need to re-deploy code. A [10 minute trainable Dashboard][5] allows even non-technical team members to manage features directly. Deploy anytime, release when confident. Target a specific group of users first with new ideas. Supports A/B/n testing and soft launching. Provides [open-source SDKs][11] for easy integration with any web, mobile or backend application.
-
-## Overview
 
 This integration ensures that every setting change in ConfigCat is sent to DataDog as an Event.
 
