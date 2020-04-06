@@ -21,15 +21,15 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=4.2.0'
 setup(
     name='datadog-neo4j',
     version=ABOUT['__version__'],
-    description='The Neo4j check',
+    description='The neo4j check',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent neo4j check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='@platinummonkey',
-    author_email='@platinummonkey',
+    author='Neo4j Cloud',
+    author_email='neo4j-cloud@neotechnology.com',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
