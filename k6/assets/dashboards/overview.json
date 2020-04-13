@@ -1,152 +1,156 @@
 {
-    "title": "k6 Performance Testing",
+    "notify_list": [],
     "description": "## k6 Performance Testing Dashboard\n\nA dashboard for visualizing results from the k6 load testing tool.",
+    "author_name": "k6",
+    "template_variables": [],
+    "is_read_only": false,
+    "id": "yky-bye-zcn",
+    "title": "k6 Performance Testing",
+    "url": "/dashboard/yky-bye-zcn/k6-performance-testing",
+    "created_at": "2020-04-08T18:11:44.610673+00:00",
+    "modified_at": "2020-04-09T08:54:46.035598+00:00",
+    "author_handle": "support@k6.io",
     "widgets": [
         {
-            "id": 5208396798889918,
             "definition": {
-                "type": "group",
-                "layout_type": "ordered",
                 "widgets": [
                     {
-                        "id": 8600315035873460,
                         "definition": {
+                            "title": "95th, max, avg, median",
+                            "yaxis": {
+                                "max": "auto",
+                                "include_zero": true,
+                                "scale": "linear",
+                                "min": "auto",
+                                "label": ""
+                            },
+                            "show_legend": false,
+                            "legend_size": "0",
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "q": "max:k6.http_req_duration.95percentile{*}",
-                                    "display_type": "line",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "line"
                                 },
                                 {
                                     "q": "max:k6.http_req_duration.max{*}",
-                                    "display_type": "line",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "line"
                                 },
                                 {
                                     "q": "max:k6.http_req_duration.avg{*}",
-                                    "display_type": "line",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "line"
                                 },
                                 {
                                     "q": "max:k6.http_req_duration.median{*}",
-                                    "display_type": "line",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "line"
                                 }
-                            ],
-                            "yaxis": {
-                                "label": "",
-                                "scale": "linear",
-                                "min": "auto",
-                                "max": "auto",
-                                "include_zero": true
-                            },
-                            "title": "95th, max, avg, median",
-                            "show_legend": false,
-                            "legend_size": "0"
-                        }
+                            ]
+                        },
+                        "id": 8600315035873460
                     },
                     {
-                        "id": 2789081672560294,
                         "definition": {
+                            "title": "Response timings - 95th",
+                            "yaxis": {
+                                "max": "auto",
+                                "include_zero": true,
+                                "scale": "linear",
+                                "min": "auto",
+                                "label": ""
+                            },
+                            "show_legend": false,
+                            "legend_size": "0",
                             "type": "timeseries",
                             "requests": [
                                 {
                                     "q": "avg:k6.http_req_blocked.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_sending.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_waiting.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_receiving.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_connecting.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_tls_handshaking.95percentile{*}",
-                                    "display_type": "bars",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "bars"
                                 },
                                 {
                                     "q": "avg:k6.http_req_duration.95percentile{*}",
-                                    "display_type": "line",
                                     "style": {
+                                        "line_width": "normal",
                                         "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    }
+                                        "line_type": "solid"
+                                    },
+                                    "display_type": "line"
                                 }
-                            ],
-                            "yaxis": {
-                                "label": "",
-                                "scale": "linear",
-                                "min": "auto",
-                                "max": "auto",
-                                "include_zero": true
-                            },
-                            "title": "Response timings - 95th",
-                            "show_legend": false,
-                            "legend_size": "0"
-                        }
+                            ]
+                        },
+                        "id": 2789081672560294
                     },
                     {
-                        "id": 7532582436600802,
                         "definition": {
-                            "type": "heatmap",
                             "requests": [
                                 {
                                     "q": "max:k6.http_req_duration.95percentile{*}",
@@ -155,108 +159,109 @@
                                     }
                                 }
                             ],
-                            "title": "Heat Map - 95th ",
-                            "legend_size": "0"
-                        }
+                            "type": "heatmap",
+                            "legend_size": "0",
+                            "title": "Heat Map - 95th "
+                        },
+                        "id": 7532582436600802
                     }
                 ],
+                "layout_type": "ordered",
+                "type": "group",
                 "title": "Response time"
-            }
+            },
+            "id": 5208396798889918
         },
         {
-            "id": 2343527884482874,
             "definition": {
+                "title": "Virtual Users",
+                "yaxis": {
+                    "max": "auto",
+                    "include_zero": true,
+                    "scale": "linear",
+                    "min": "auto",
+                    "label": ""
+                },
+                "show_legend": false,
+                "legend_size": "0",
                 "type": "timeseries",
                 "requests": [
                     {
                         "q": "max:k6.vus{*}",
-                        "display_type": "area",
                         "style": {
+                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        }
+                            "line_type": "solid"
+                        },
+                        "display_type": "area"
                     }
-                ],
-                "yaxis": {
-                    "label": "",
-                    "scale": "linear",
-                    "min": "auto",
-                    "max": "auto",
-                    "include_zero": true
-                },
-                "title": "Virtual Users",
-                "show_legend": false,
-                "legend_size": "0"
-            }
+                ]
+            },
+            "id": 2343527884482874
         },
         {
-            "id": 5000073342076910,
             "definition": {
+                "title": "Request per second",
+                "yaxis": {
+                    "max": "auto",
+                    "include_zero": true,
+                    "scale": "linear",
+                    "min": "auto",
+                    "label": ""
+                },
+                "show_legend": false,
+                "legend_size": "0",
                 "type": "timeseries",
                 "requests": [
                     {
                         "q": "sum:k6.http_reqs{*}.as_rate()",
-                        "display_type": "line",
                         "style": {
+                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        }
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
                     }
-                ],
-                "yaxis": {
-                    "label": "",
-                    "scale": "linear",
-                    "min": "auto",
-                    "max": "auto",
-                    "include_zero": true
-                },
-                "title": "Request per second",
-                "show_legend": false,
-                "legend_size": "0"
-            }
+                ]
+            },
+            "id": 5000073342076910
         },
         {
-            "id": 87069406641374,
             "definition": {
+                "title": "Data",
+                "yaxis": {
+                    "max": "auto",
+                    "include_zero": true,
+                    "scale": "linear",
+                    "min": "auto",
+                    "label": ""
+                },
+                "show_legend": false,
+                "legend_size": "0",
                 "type": "timeseries",
                 "requests": [
                     {
                         "q": "max:k6.data_sent{*}.as_count()",
-                        "display_type": "line",
                         "style": {
+                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        }
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
                     },
                     {
                         "q": "max:k6.data_received{*}.as_count()",
-                        "display_type": "line",
                         "style": {
+                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        }
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
                     }
-                ],
-                "yaxis": {
-                    "label": "",
-                    "scale": "linear",
-                    "min": "auto",
-                    "max": "auto",
-                    "include_zero": true
-                },
-                "title": "Data",
-                "show_legend": false,
-                "legend_size": "0"
-            }
+                ]
+            },
+            "id": 87069406641374
         }
     ],
-    "template_variables": [],
-    "layout_type": "ordered",
-    "is_read_only": false,
-    "notify_list": [],
-    "id": "yky-bye-zcn"
+    "layout_type": "ordered"
 }
