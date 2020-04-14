@@ -3,7 +3,7 @@ import json
 import requests
 from requests import RequestException
 
-from datadog_checks.base.checks import AgentCheck
+from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
 
 
