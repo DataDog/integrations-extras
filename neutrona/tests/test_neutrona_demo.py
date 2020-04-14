@@ -7,8 +7,6 @@ import pytest
 from datadog_checks.base.errors import CheckException
 from datadog_checks.neutrona import NeutronaCheck
 
-# from datadog_checks.base.checks import AgentCheck
-
 
 # def test_check(aggregator, instance):
 #     check = NeutronaCheck('neutrona', {}, {})
