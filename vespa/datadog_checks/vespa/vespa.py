@@ -1,6 +1,6 @@
 import logging
 from datadog_checks.base import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 from requests.exceptions import Timeout, HTTPError, InvalidURL, ConnectionError
 from simplejson import JSONDecodeError
 

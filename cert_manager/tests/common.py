@@ -1,7 +1,7 @@
 # (C) Datadog, Inc. 2019
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-from datadog_checks.stubs import aggregator
+from datadog_checks.base.stubs import aggregator
 
 EXPECTED_METRICS = {
     'cert_manager.certificate.ready_status': aggregator.GAUGE,

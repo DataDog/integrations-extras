@@ -2,7 +2,7 @@ import pytest
 from mock import Mock, patch
 
 from datadog_checks.aws_pricing import AwsPricingCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 
 
 def test_check_ok(aggregator, pricing_client_stubber):

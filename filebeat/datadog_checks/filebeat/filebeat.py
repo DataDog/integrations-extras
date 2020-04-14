@@ -15,7 +15,7 @@ import requests
 from six import iteritems
 
 from datadog_checks.base import AgentCheck
-from datadog_checks.utils.containers import hash_mutable
+from datadog_checks.base.utils.containers import hash_mutable
 
 EVENT_TYPE = SOURCE_TYPE_NAME = "filebeat"
 

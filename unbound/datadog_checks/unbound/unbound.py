@@ -2,7 +2,7 @@ import os
 import re
 
 from datadog_checks.base import AgentCheck, ConfigurationError, is_affirmative
-from datadog_checks.utils.subprocess_output import get_subprocess_output
+from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 EVENT_TYPE = 'unbound'
 

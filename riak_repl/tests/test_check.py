@@ -1,6 +1,6 @@
 import pytest
 
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 from datadog_checks.riak_repl import RiakReplCheck
 
 from .common import INSTANCE

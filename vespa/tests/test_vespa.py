@@ -1,5 +1,5 @@
 from datadog_checks.vespa import VespaCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 import os
 import json
 import pytest

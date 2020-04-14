@@ -3,7 +3,7 @@ import json
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base.utils.common import round_value as round
-from datadog_checks.utils.subprocess_output import get_subprocess_output
+from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 EXPECTED_RESPONSE_CODE = "NO_ERROR"
 
