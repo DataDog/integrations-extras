@@ -7,12 +7,6 @@ import pytest
 from datadog_checks.base.errors import CheckException
 from datadog_checks.neutrona import NeutronaCheck
 
-# def test_check(aggregator, instance):
-#     check = NeutronaCheck('neutrona', {}, {})
-#     check.check(instance)
-
-#     aggregator.assert_all_metrics_covered()
-
 
 def test_config():
     c = NeutronaCheck('neutrona', {}, {}, None)
