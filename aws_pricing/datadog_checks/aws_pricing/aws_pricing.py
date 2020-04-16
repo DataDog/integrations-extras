@@ -7,7 +7,7 @@ from six import iteritems
 from six.moves import filter, map
 
 from datadog_checks.base import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 
 
 class AwsPricingCheck(AgentCheck):

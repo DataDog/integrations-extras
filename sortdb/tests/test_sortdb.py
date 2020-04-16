@@ -18,14 +18,6 @@ def instance():
     return {'url': 'http://localhost:8080/stats'}
 
 
-@pytest.fixture()
-def aggregator():
-    from datadog_checks.stubs import aggregator
-
-    aggregator.reset()
-    return aggregator
-
-
 EXPECTED_VALUES = (
     ("sortdb.stats.total_requests", 2),
     ("sortdb.stats.total_seeks", 24),

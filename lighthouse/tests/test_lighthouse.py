@@ -3,7 +3,7 @@ import os
 import pytest
 from mock import MagicMock
 
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 from datadog_checks.lighthouse import LighthouseCheck
 
 HERE = os.path.dirname(os.path.abspath(__file__))

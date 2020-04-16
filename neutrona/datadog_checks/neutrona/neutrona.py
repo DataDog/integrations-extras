@@ -3,8 +3,8 @@ import json
 import requests
 from requests import RequestException
 
-from datadog_checks.checks import AgentCheck
-from datadog_checks.errors import CheckException
+from datadog_checks.base import AgentCheck
+from datadog_checks.base.errors import CheckException
 
 
 class NeutronaCheck(AgentCheck):

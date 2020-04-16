@@ -4,7 +4,7 @@
 
 import pytest
 
-from datadog_checks.errors import CheckException
+from datadog_checks.base.errors import CheckException
 from datadog_checks.neo4j import Neo4jCheck
 
 from .common import CHECK_NAME, CONNECTION_FAILURE, NEO4J_MINIMAL_CONFIG, NEO4J_VARS
