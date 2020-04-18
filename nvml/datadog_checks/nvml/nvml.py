@@ -63,6 +63,7 @@ class NvmlCall(object):
 
 
 class NvmlCheck(AgentCheck):
+    __NAMESPACE__ = "nvml"
     N = pynvml
     """The pynvml package, explicitly assigned, used for easy test mocking."""
     known_tags = {}
@@ -71,16 +72,6 @@ class NvmlCheck(AgentCheck):
     """Lock for the object known_tags."""
     _thread = None
     """Daemon thread updating k8s tag information in the background."""
-
-    def add_gauge(self, name, value, tags=None):
-        if tags is None:
-            tags = []
-        self.gauge(METRIC_PREFIX + name, value, tags)
-
-    def add_monotonic_count(self, name, value, tags=None):
-        if tags is None:
-            tags = []
-        self.monotonic_count(METRIC_PREFIX + name, value, tags)
 
     def check(self, instance):
         # Start thread once and keep it running in the background
@@ -92,12 +83,12 @@ class NvmlCheck(AgentCheck):
     def gather(self, instance):
         with NvmlCall("device_count"):
             deviceCount = NvmlCheck.N.nvmlDeviceGetCount()
+            self.gauge('device_count', deviceCount)
             for i in range(deviceCount):
                 handle = NvmlCheck.N.nvmlDeviceGetHandleByIndex(i)
                 uuid = NvmlCheck.N.nvmlDeviceGetUUID(handle)
                 # The tags used by https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter # noqa: E501
-                #    are the GPU id and the UUID of the GPU
-                tags = ["gpu:" + str(i), "uuid:%s" % uuid.decode("utf-8")]
+                tags = ["gpu:" + str(i)]
                 # Appends k8s specific tags
                 tags += self.get_tags(uuid)
                 self.gather_gpu(handle, tags)
@@ -109,44 +100,44 @@ class NvmlCheck(AgentCheck):
         # queried.  Taking names to match
         # https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter # noqa: E501
         # Documented at https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html # noqa: E501
-        with NvmlCall("device_count"):
+        with NvmlCall("util_rate"):
             util = NvmlCheck.N.nvmlDeviceGetUtilizationRates(handle)
-            self.add_gauge('gpu_utilization', util.gpu, tags=tags)
-            self.add_gauge('mem_copy_utilization', util.memory, tags=tags)
+            self.gauge('gpu_utilization', util.gpu, tags=tags)
+            self.gauge('mem_copy_utilization', util.memory, tags=tags)
 
         # See https://docs.nvidia.com/deploy/nvml-api/structnvmlMemory__t.html#structnvmlMemory__t
         with NvmlCall("mem_info"):
             mem_info = NvmlCheck.N.nvmlDeviceGetMemoryInfo(handle)
-            self.add_gauge('fb_free', mem_info.free, tags=tags)
-            self.add_gauge('fb_used', mem_info.used, tags=tags)
-            self.add_gauge('fb_total', mem_info.total, tags=tags)
+            self.gauge('fb_free', mem_info.free, tags=tags)
+            self.gauge('fb_used', mem_info.used, tags=tags)
+            self.gauge('fb_total', mem_info.total, tags=tags)
 
         # See https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g7ef7dff0ff14238d08a19ad7fb23fc87 # noqa: E501
         with NvmlCall("power"):
             power = NvmlCheck.N.nvmlDeviceGetPowerUsage(handle)
-            self.add_gauge('power_usage', power, tags=tags)
+            self.gauge('power_usage', power, tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g732ab899b5bd18ac4bfb93c02de4900a
         with NvmlCall("total_energy_consumption"):
             consumption = NvmlCheck.N.nvmlDeviceGetTotalEnergyConsumption(handle)
-            self.add_monotonic_count('total_energy_consumption', consumption, tags=tags)
+            self.monotonic_count('total_energy_consumption', consumption, tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ga5c77a2154a20d4e660221d8592d21fb
         with NvmlCall("enc_utilization"):
             encoder_util = NvmlCheck.N.nvmlDeviceGetEncoderUtilization(handle)
-            self.add_gauge('enc_utilization', encoder_util[0], tags=tags)
+            self.gauge('enc_utilization', encoder_util[0], tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g0e3420045bc9d04dc37690f4701ced8a
         with NvmlCall("dec_utilization"):
             dec_util = NvmlCheck.N.nvmlDeviceGetDecoderUtilization(handle)
-            self.add_gauge('dec_utilization', dec_util[0], tags=tags)
+            self.gauge('dec_utilization', dec_util[0], tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1gd86f1c74f81b5ddfaa6cb81b51030c72
         with NvmlCall("pci_through"):
             tx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_TX_BYTES)
             rx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_RX_BYTES)
-            self.add_monotonic_count('pcie_tx_throughput', tx_bytes, tags=tags)
-            self.add_monotonic_count('pcie_rx_throughput', rx_bytes, tags=tags)
+            self.monotonic_count('pcie_tx_throughput', tx_bytes, tags=tags)
+            self.monotonic_count('pcie_rx_throughput', rx_bytes, tags=tags)
 
     def _start_discovery(self):
         """Start daemon thread to discover which k8s pod is assigned to a GPU"""

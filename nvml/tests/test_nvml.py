@@ -68,7 +68,8 @@ def test_check(aggregator, instance):
     with mock.patch('datadog_checks.nvml.NvmlCheck.N', MockNvml):
         check = NvmlCheck('nvml', {}, [instance])
         check.check(instance)
-    expected_tags = ["gpu:0", "uuid:test-guid"]
+    expected_tags = ["gpu:0"]
+    aggregator.assert_metric('nvml.device_count', count=1)
     aggregator.assert_metric('nvml.gpu_utilization', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.mem_copy_utilization', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.total_energy_consumption', tags=expected_tags, count=1)
