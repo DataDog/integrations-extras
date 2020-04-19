@@ -1,118 +1,116 @@
 schedules:
-  - cron: "0 5 * * *"
-    displayName: Nightly (EDT/EST)
-    always: true
-    branches:
-      include:
-        - master
-
+- cron: 0 5 * * *
+  displayName: Nightly (EDT/EST)
+  always: true
+  branches:
+    include:
+    - master
 pr: none
-
 trigger:
   branches:
     include:
     - master
-
 resources:
   repositories:
-    - repository: integrations-core
-      type: github
-      name: Datadog/integrations-core
-      ref: master
-      endpoint: DataDog
-
+  - repository: integrations-core
+    type: github
+    name: Datadog/integrations-core
+    ref: master
+    endpoint: DataDog
 variables:
   DDEV_COLOR: 1
-
 jobs:
-  - template: ".azure-pipelines/templates/test-all.yml@integrations-core"
-    parameters:
-      repo: 'extras'
-      checks:
-        - checkName: aqua
-          displayName: Aqua
-          os: linux
-        - checkName: aws_pricing
-          displayName: AWS Pricing
-          os: linux
-        - checkName: bind9
-          displayName: BIND 9
-          os: linux
-        - checkName: cert_manager
-          displayName: cert-manager
-          os: linux
-        - checkName: eventstore
-          displayName: Eventstore
-          os: linux
-        - checkName: filebeat
-          displayName: Filebeat
-          os: linux
-        - checkName: gnatsd
-          displayName: Gnatsd
-          os: linux
-        - checkName: gnatsd_streaming
-          displayName: Gnatsd Streaming
-          os: linux
-        - checkName: lighthouse
-          displayName: Lighthouse
-          os: linux
-        - checkName: logstash
-          displayName: Logstash
-          os: linux
-        - checkName: neo4j
-          displayName: Neo4j
-          os: linux
-        - checkName: neutrona
-          displayName: Neutrona
-          os: linux
-        - checkName: nextcloud
-          displayName: Nextcloud
-          os: linux
-        - checkName: pihole
-          displayName: pihole
-          os: linux
-        - checkName: ping
-          displayName: Ping
-          os: linux
-        - checkName: portworx
-          displayName: Portworx
-          os: linux
-        - checkName: reboot_required
-          displayName: Reboot Required
-          os: linux
-        - checkName: redis_sentinel
-          displayName: Redis Sentinel
-          os: linux
-        - checkName: resin
-          displayName: Resin
-          os: linux
-        - checkName: riak_repl
-          displayName: Riak MDC Replication
-          os: linux
-        - checkName: sendmail
-          displayName: Sendmail
-          os: linux
-        - checkName: snmpwalk
-          displayName: Snmpwalk
-          os: linux
-        - checkName: sortdb
-          displayName: Sortdb
-          os: linux
-        - checkName: stardog
-          displayName: Stardog
-          os: linux
-        - checkName: storm
-          displayName: Storm
-          os: linux
-        - checkName: traefik
-          displayName: Traefik
-          os: linux
-        - checkName: unbound
-          displayName: Unbound
-          os: linux
-        - checkName: upsc
-          displayName: UPSC
-          os: linux
-        - checkName: vespa
-          displayName: Vespa
-          os: linux
+- template: .azure-pipelines/templates/test-all.yml@integrations-core
+  parameters:
+    repo: extras
+    checks:
+    - checkName: aqua
+      displayName: Aqua
+      os: linux
+    - checkName: aws_pricing
+      displayName: AWS Pricing
+      os: linux
+    - checkName: bind9
+      displayName: BIND 9
+      os: linux
+    - checkName: cert_manager
+      displayName: cert-manager
+      os: linux
+    - checkName: eventstore
+      displayName: Eventstore
+      os: linux
+    - checkName: filebeat
+      displayName: Filebeat
+      os: linux
+    - checkName: gnatsd
+      displayName: Gnatsd
+      os: linux
+    - checkName: gnatsd_streaming
+      displayName: Gnatsd Streaming
+      os: linux
+    - checkName: lighthouse
+      displayName: Lighthouse
+      os: linux
+    - checkName: logstash
+      displayName: Logstash
+      os: linux
+    - checkName: neo4j
+      displayName: Neo4j
+      os: linux
+    - checkName: neutrona
+      displayName: Neutrona
+      os: linux
+    - checkName: nextcloud
+      displayName: Nextcloud
+      os: linux
+    - checkName: nvml
+      displayName: nvml
+      os: linux
+    - checkName: pihole
+      displayName: pihole
+      os: linux
+    - checkName: ping
+      displayName: Ping
+      os: linux
+    - checkName: portworx
+      displayName: Portworx
+      os: linux
+    - checkName: reboot_required
+      displayName: Reboot Required
+      os: linux
+    - checkName: redis_sentinel
+      displayName: Redis Sentinel
+      os: linux
+    - checkName: resin
+      displayName: Resin
+      os: linux
+    - checkName: riak_repl
+      displayName: Riak MDC Replication
+      os: linux
+    - checkName: sendmail
+      displayName: Sendmail
+      os: linux
+    - checkName: snmpwalk
+      displayName: Snmpwalk
+      os: linux
+    - checkName: sortdb
+      displayName: Sortdb
+      os: linux
+    - checkName: stardog
+      displayName: Stardog
+      os: linux
+    - checkName: storm
+      displayName: Storm
+      os: linux
+    - checkName: traefik
+      displayName: Traefik
+      os: linux
+    - checkName: unbound
+      displayName: Unbound
+      os: linux
+    - checkName: upsc
+      displayName: UPSC
+      os: linux
+    - checkName: vespa
+      displayName: Vespa
+      os: linux
