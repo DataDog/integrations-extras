@@ -2,9 +2,10 @@
 
 ## Overview
 
-This check monitors [helm][1] through the Datadog Agent.
+This check monitors [helm][1] through the Datadog Agent.  Note that is uses library
+functions only available in python 3.2+, so you will need datadog agent 6.14+.
 
-It mirrors the output values of [helm-exporter][8].  You should expect a metric value of -1
+It mirrors the output values of [helm-exporter][8] metric `helm_chart_info`.  You should expect a metric value of -1
 if the helm chart fails to install.  Here is the complete status map:
 
 ```py
@@ -58,7 +59,7 @@ subjects:
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.  It also assumes your pod has the correct permissions to list secrets.
+It is recommended to run this check as a cluster-agent.  It also assumes your pod has the correct permissions to list secrets.
 
 ### Installation
 

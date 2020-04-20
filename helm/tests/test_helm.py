@@ -3,6 +3,7 @@ import json
 from gzip import compress
 
 import mock
+from kubernetes.client.models.v1_list_meta import V1ListMeta
 from kubernetes.client.models.v1_object_meta import V1ObjectMeta
 from kubernetes.client.models.v1_secret import V1Secret
 from kubernetes.client.models.v1_secret_list import V1SecretList
@@ -24,7 +25,7 @@ class MockClient:
     def list_secret_for_all_namespaces(self, label_selector=''):
         if label_selector != 'owner=helm':
             raise BaseException("Unexpected label")
-        return V1SecretList(items=[MockClient.example_item1(), MockClient.example_item2()])
+        return V1SecretList(items=[MockClient.example_item1(), MockClient.example_item2()], metadata=V1ListMeta())
 
     @staticmethod
     def example_item1():

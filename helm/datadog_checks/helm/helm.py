@@ -29,36 +29,53 @@ class HelmCheck(AgentCheck):
         self.v1 = client.CoreV1Api()
         AgentCheck.__init__(self, *args, **kwargs)
 
-    def check(self, instance):
-        # The command kubectl  get secret -l owner=helm --field-selector 'type=helm.sh/release.v1' -A
+    def dump_all_secrets(self):
+        # The command kubectl  get secret -l owner=helm -A
+        # https://github.com/helm/helm/blob/1911870958098b774973c6fe56bfdf4441f61596/pkg/storage/driver/secrets.go#L82
         all_releases = self.v1.list_secret_for_all_namespaces(label_selector='owner=helm')
-        self.gauge("managed_secrets", len(all_releases.items))
-        # kubectl get secrets  XYZ -o yaml | yq read - data.release |
-        #   base64 --decode | base64 --decode | gunzip | yq read - info
+        ret = []
+        while all_releases.metadata._continue is not None:
+            ret.extend(all_releases.items)
+            all_releases = self.v1.list_secret_for_all_namespaces(
+                label_selector='owner=helm', _continue=all_releases.metadata._continue
+            )
+        ret.extend(all_releases.items)
+        return ret
+
+    def build_result(self, item):
+        # Mostly reverse engineered from
+        # https://github.com/helm/helm/blob/88f42929d779e145b24dad12657d6984d755dd2c/pkg/storage/driver/util.go#L56
+        release = item.data['release']
+        # Yo dawg, I heard you like b64decode
+        decoded_release = base64.b64decode(release)
+        compressed_content = base64.b64decode(decoded_release)
+        try:
+            # Note: gzip.decompress won't exist in python 2
+            content = decompress(compressed_content)
+        except Exception:
+            # In helm, the content does not have to be gzip encoded
+            pass
+        content = json.loads(content)
+        return {
+            'chart_name': content.get('chart', {}).get('metadata', {}).get('name'),
+            'release_name': content.get('name'),
+            'release_version': int(content.get('version', -1)),
+            'status': content.get('info', {}).get('status'),
+            'namespace': item.metadata.namespace,
+            'key': "%s/%s" % (item.metadata.namespace, content.get('name')),
+        }
+
+    def check(self, instance):
+        all_releases = self.dump_all_secrets()
+        self.gauge("managed_secrets", len(all_releases))
+        # To debug a release, try this from the CLI:
+        #   kubectl get secrets  XYZ -o yaml | yq read - data.release | \
+        #     base64 --decode | base64 --decode | gunzip | yq read - info
         latest_release = {}
-        for item in all_releases.items:
-            # Mostly reverse engineered from
-            # https://github.com/helm/helm/blob/88f42929d779e145b24dad12657d6984d755dd2c/pkg/storage/driver/util.go#L56
-            release = item.data['release']
-            # Yo dawg, I heard you like b64decode
-            decoded_release = base64.b64decode(release)
-            compressed_content = base64.b64decode(decoded_release)
-            # gzip.decompress won't exist in python 2
-            try:
-                content = decompress(compressed_content)
-            except Exception:
-                # helm code has this optional
-                pass
-            content = json.loads(content)
-            res = {
-                'chart_name': content['chart']['metadata']['name'],
-                'release_name': content['name'],
-                'release_version': int(content['version']),
-                'status': content['info']['status'],
-                'namespace': item.metadata.namespace,
-                'key': "%s/%s" % (item.metadata.namespace, content['name']),
-            }
+        for item in all_releases:
+            res = self.build_result(item)
             key = res['key']
+            # https://github.com/helm/helm/blob/1911870958098b774973c6fe56bfdf4441f61596/pkg/action/list.go#L226
             if key not in latest_release:
                 latest_release[key] = res
             else:
