@@ -66,8 +66,13 @@ class HelmCheck(AgentCheck):
         }
 
     def check(self, instance):
+        custom_tags = instance.get('tags', [])
+        if custom_tags is None:
+            custom_tags = []
+        else:
+            custom_tags = list(set(custom_tags))
         all_releases = self.dump_all_secrets()
-        self.gauge("managed_secrets", len(all_releases))
+        self.gauge("managed_secrets", len(all_releases), tags=custom_tags)
         # To debug a release, try this from the CLI:
         #   kubectl get secrets  XYZ -o yaml | yq read - data.release | \
         #     base64 --decode | base64 --decode | gunzip | yq read - info
@@ -84,6 +89,7 @@ class HelmCheck(AgentCheck):
         self.gauge("total_releases", len(latest_release))
         for release in latest_release.values():
             tags = []
+            tags.extend(custom_tags)
             # kube_namespace terminology taken from other datadog metrics
             tags.append("kube_namespace:%s" % release['namespace'])
             # Unclear if I should call this 'chart_name' or just 'chart'
