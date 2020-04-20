@@ -27,7 +27,7 @@ class HelmCheck(AgentCheck):
     def __init__(self, *args, **kwargs):
         config.load_incluster_config()
         self.v1 = client.CoreV1Api()
-        AgentCheck.__init__(self, *args, **kwargs)
+        super(HelmCheck, self).__init__(*args, **kwargs)
 
     def dump_all_secrets(self):
         # The command kubectl  get secret -l owner=helm -A
