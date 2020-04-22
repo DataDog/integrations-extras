@@ -12,65 +12,18 @@ Get metrics from [Ambassador][1] in real time to:
 
 ## Setup
 
-By default, Ambassador installs a `statsd` sidecar on its pod. This sidecar forwards `statsd` metric to any Kubernetes service named `statsd-sink`.
+Enable DogStatsD on your Agent Daemonset, and set the following environment variable on your Ambassador pod:
 
-1. Create a file `datadog-statsd-sink.yaml` with the following configuration, replacing the API key below with your own API key:
+```
+name: STATSD_HOST
+valueFrom:
+  fieldRef:    
+    fieldPath: status.hostIP
+```
 
-   ```yaml
-   ---
-   apiVersion: apps/v1
-   kind: Deployment
-   metadata:
-    name: statsd-sink
-   spec:
-     selector:
-       matchLabels:
-         service: statsd-sink
-    replicas: 1
-    template:
-      metadata:
-        labels:
-          service: statsd-sink
-      spec:
-        containers:
-        - name: statsd-sink
-          image: datadog/docker-dd-agent:latest
-          ports:
-            - containerPort: 8125
-              name: dogstatsdport
-              protocol: UDP
-          env:
-            - name: API_KEY
-              value: "<YOUR_DATADOG_API_KEY>"
-            - name: KUBERNETES
-              value: "yes"
-            - name: SD_BACKEND
-              value: docker
-        restartPolicy: Always
-   status: {}
-   ---
-   apiVersion: v1
-   kind: Service
-   metadata:
-    labels:
-      service: statsd-sink
-    name: statsd-sink
-   spec:
-    ports:
-       - protocol: UDP
-         port: 8125
-         name: dogstatsdport
-    selector:
-      service: statsd-sink
-   ```
+With this setup, StatsD metrics are sent to the IP of the host, which redirects traffic to the Agent port 8125.
 
-2. Deploy the agent to Kubernetes:
-
-   ```shell
-   kubectl apply -f datadog-statsd-sink.yaml
-   ```
-
-3. As soon as some traffic flows through Ambassador, your metrics should appear.
+See the [Ambassador documentation][5] for more information.
 
 ## Data Collected
 
@@ -94,3 +47,4 @@ Need help? Contact [Datadog support][4].
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png
 [3]: https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv
 [4]: https://docs.datadoghq.com/help
+[5]: https://www.getambassador.io/docs/latest/topics/running/statistics/#exposing-statistics-via-statsd
