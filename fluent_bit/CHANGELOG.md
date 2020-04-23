@@ -1,0 +1,2 @@
+# CHANGELOG - fluent-bit
+
