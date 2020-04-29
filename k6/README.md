@@ -56,6 +56,13 @@ For the detailed instructions, follow the [k6 documentation][2].
 
     ![k6 Datadog Metrics Explorer][8]
 
+5. Add the default k6 Dashboard. 
+ 
+    In Datadog, you can install the k6 integration to add the default k6 dashboard to your [dashboard list][11].
+
+    ![k6 Datadog Dashboard][9]
+
+
 ## Data Collected
 
 ### Metrics
@@ -77,10 +84,11 @@ Need help? Read the [k6 Datadog documentation](2) or contact [k6 support][10].
 [1]: https://k6.io/open-source
 [2]: https://k6.io/docs/getting-started/results-output/datadog 
 [3]: https://app.datadoghq.com/account/settings#api
-[4]: https://github.com/k6io/integrations-extras/blob/master/k6/metadata.csv
+[4]: https://github.com/DataDog/integrations-extras/blob/master/k6/metadata.csv
 [5]: https://docs.datadoghq.com/metrics/explorer/
 [6]: https://docs.datadoghq.com/monitors/
 [7]: https://docs.datadoghq.com/graphing/dashboards/
-[8]: https://github.com/k6io/integrations-extras/blob/master/k6/images/metrics-explorer.png
-[9]: https://github.com/k6io/integrations-extras/blob/master/k6/images/k6-datadog-dashboard.png
+[8]: https://github.com/DataDog/integrations-extras/blob/master/k6/images/metrics-explorer.png
+[9]: https://github.com/k6io/integrations-extras/blob/update-k6-instructions/k6/images/k6-default-dashboard.png
 [10]: https://community.k6.io/
+[11]: https://docs.datadoghq.com/dashboards/#dashboard-list
