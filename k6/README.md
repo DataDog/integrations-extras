@@ -56,9 +56,7 @@ For the detailed instructions, follow the [k6 documentation][2].
 
     ![k6 Datadog Metrics Explorer][8]
 
-5. Add the default k6 Dashboard. 
- 
-    In Datadog, you can install the k6 integration to add the default k6 dashboard to your [dashboard list][11].
+    Additionally, the first time Datadog detects the `k6.http_reqs` metric, the k6 integration tile is installed automatically, and the default k6 dashboard is added to your [dashboard list][11].
 
     ![k6 Datadog Dashboard][9]
 
