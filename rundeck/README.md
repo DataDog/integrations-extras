@@ -79,8 +79,8 @@ The Rundeck integration does not include any events.
 Need help? Contact [Datadog support][6].
 
 [1]: https://www.rundeck.com
-[2]: ./assets/images/rundeck-setup.png
-[3]: ./assets/images/dd-search.png
-[4]: ./assets/images/webhooks-config.png
-[5]: ./assets/images/webhook-fill.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/rundeck-setup.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/dd-search.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhooks-config.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhook-fill.png
 [6]: https://docs.datadoghq.com/help
