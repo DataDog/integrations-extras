@@ -68,14 +68,14 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
    ```
 
 
-3. Ensure either Google Chrome/Chromium or Puppeteer is installed. This integration runs Chrome/Chromium in headless mode)
+3. Ensure either Google Chrome/Chromium or Puppeteer is installed.
 
    - [Chromium][18]
       + Debian/Ubuntu
       
       ```shell
       sudo apt-get update
-      sudo apt-get install -y chromium-browserf
+      sudo apt-get install -y chromium-browser
       ```
 
       + RHEL/CentOS
@@ -85,7 +85,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
       sudo yum install -y chromium
       ```
 
-      _Note_: Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
+      **Note**: This integration runs Chrome/Chromium in headless mode; Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
 
    - [Puppeteer][14]
       + Check if Puppeteer is installed.
