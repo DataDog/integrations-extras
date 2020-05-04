@@ -63,7 +63,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
    - If not, [install Node.js and npm][12].
 
 2. [Lighthouse][13]:
-   - Check if Puppeteer is installed.
+   - Check if installed.
 
    ```shell
    # example
@@ -97,7 +97,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
       **Note**: This integration runs Chrome/Chromium in headless mode; Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
 
    - [Puppeteer][14]
-      + Check if Puppeteer is installed.
+      + Check if installed.
 
       ```shell
       # example
