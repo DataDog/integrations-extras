@@ -38,7 +38,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 6. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -w <PATH_OF_LIGHTHOUSE_ARTIFACT_>/<LIGHTHOUSE_ARTIFACT_NAME>.whl
+   datadog-agent integration install -w <PATH_OF_LIGHTHOUSE_ARTIFACT>/<LIGHTHOUSE_ARTIFACT_NAME>.whl
    ```
 
 7. Configure your integration like [any other packaged integration][8].
@@ -52,33 +52,69 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 
 ### Requirements
 
-1. Lighthouse requires Node 8 LTS (8.9) or later. Check you have Node and npm installed:
+1. Node.js LTS (8.9+). 
+   - Check if Node.js and npm installed:
 
    ```shell
    node -v
    npm -v
    ```
 
-    If not, [install Node and npm][12].
+   - If not, [install Node.js and npm][12].
 
-2. [Install Lighthouse][13]:
+2. [Lighthouse][13]:
+   - Check if installed.
 
+   ```shell
+   # example
+   root@hostname:~# npm list -g --depth=0 | grep 'lighthouse'
+   └── lighthouse@5.6.0
+   ```
+
+   - Install if not (no output from above command):
    ```shell
    npm install -g lighthouse
    ```
 
-3. Make sure Google Chrome is installed or Puppeteer (this custom Agent check runs Chrome in headless mode).
+
+3. Either Google Chrome/Chromium or Puppeteer.
+
+   - [Chromium][18]
+      + Debian/Ubuntu
+      
+      ```shell
+      sudo apt-get update
+      sudo apt-get install -y chromium-browser
+      ```
+
+      + RHEL/CentOS
+      
+      ```shell
+      sudo yum install -y epel-release
+      sudo yum install -y chromium
+      ```
+
+      **Note**: This integration runs Chrome/Chromium in headless mode; Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
+
+   - [Puppeteer][14]
+      + Check if installed.
+
+      ```shell
+      # example
+      root@hostname:~# npm list -g --depth=0 | grep 'puppeteer'
+      └── puppeteer@1.12.2
+      ```
+
+      + Install if not (no output from above command):
+
+      ```shell
+      npm install -g puppeteer --unsafe-perm=true
+      ```
+
+4. Verify if `dd-agent` user is able to run the lighthouse cli.
 
    ```shell
-   # example
-   vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
-   └── puppeteer@1.12.2
-   ```
-
-    If not, install Chrome or [Puppeteer][14]:
-
-   ```shell
-   npm install -g puppeteer
+   sudo -u dd-agent lighthouse <WEB_URL> --output json --quiet --chrome-flags='--headless'
    ```
 
 ### Validation
@@ -120,3 +156,4 @@ Need help? Contact [Datadog support][17].
 [15]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [16]: https://github.com/DataDog/integrations-extras/blob/master/lighthouse/datadog_checks/lighthouse/metadata.csv
 [17]: https://docs.datadoghq.com/help
+[18]: https://www.chromium.org/
