@@ -35,11 +35,13 @@ class LighthouseCheck(AgentCheck):
             raise CheckException(error_message, exit_code, e)
 
         if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
-            score_accessibility = round(data.get("categories", {}).get("accessibility", {}).get("score", 0) * 100)
-            score_best_practices = round(data.get("categories", {}).get("best-practices", {}).get("score", 0) * 100)
-            score_performance = round(data.get("categories", {}).get("performance", {}).get("score", 0) * 100)
-            score_pwa = round(data.get("categories", {}).get("pwa", {}).get("score", 0) * 100)
-            score_seo = round(data.get("categories", {}).get("seo", {}).get("score", 0) * 100)
+            score_accessibility = round(((data.get("categories", {}).get("accessibility", {}).get("score") or 0) * 100))
+            score_best_practices = round(
+                ((data.get("categories", {}).get("best-practices", {}).get("score") or 0) * 100)
+            )
+            score_performance = round(((data.get("categories", {}).get("performance", {}).get("score") or 0) * 100))
+            score_pwa = round(((data.get("categories", {}).get("pwa", {}).get("score") or 0) * 100))
+            score_seo = round(((data.get("categories", {}).get("seo", {}).get("score") or 0) * 100))
         else:
             err_code = data.get("runtimeError", {}).get("code")
             err_msg = data.get("runtimeError", {}).get("message")
