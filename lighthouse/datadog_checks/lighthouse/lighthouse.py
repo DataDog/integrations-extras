@@ -6,18 +6,27 @@ from datadog_checks.base.utils.common import round_value as round
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 EXPECTED_RESPONSE_CODE = "NO_ERROR"
+CHROME_FLAGS = ['--headless']
 
 
 class LighthouseCheck(AgentCheck):
     def check(self, instance):
         lighthouse_url = instance.get('url')
         lighthouse_name = instance.get('name')
+        extra_chrome_flags = instance.get('extra_chrome_flags', [])
 
         if not lighthouse_url or not lighthouse_name:
             self.log.error("missing instance url or name")
             raise CheckException("missing lighthouse instance url or name, please fix yaml")
 
-        cmd = ["lighthouse", lighthouse_url, "--output", "json", "--quiet", "--chrome-flags='--headless'"]
+        cmd = [
+            "lighthouse",
+            lighthouse_url,
+            "--output",
+            "json",
+            "--quiet",
+            "--chrome-flags='{}'".format(" ".join(CHROME_FLAGS + extra_chrome_flags)),
+        ]
 
         json_string, error_message, exit_code = LighthouseCheck._get_lighthouse_report(cmd, self.log, False)
 
