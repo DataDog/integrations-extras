@@ -52,23 +52,32 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 
 ### Requirements
 
-1. Lighthouse requires Node 8 LTS (8.9) or later. Check you have Node and npm installed:
+1. Node.js LTS (8.9+). 
+   - Check if Node.js and npm installed:
 
    ```shell
    node -v
    npm -v
    ```
 
-    If not, [install Node and npm][12].
+   - If not, [install Node.js and npm][12].
 
-2. [Install Lighthouse][13]:
+2. [Lighthouse][13]:
+   - Check if Puppeteer is installed.
 
+   ```shell
+   # example
+   root@hostname:~# npm list -g --depth=0 | grep 'lighthouse'
+   └── lighthouse@5.6.0
+   ```
+
+   - Install if not (no output from above command):
    ```shell
    npm install -g lighthouse
    ```
 
 
-3. Ensure either Google Chrome/Chromium or Puppeteer is installed.
+3. Either Google Chrome/Chromium or Puppeteer.
 
    - [Chromium][18]
       + Debian/Ubuntu
@@ -92,7 +101,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
 
       ```shell
       # example
-      vagrant@web2:~$ npm list -g --depth=0 | grep 'puppeteer'
+      root@hostname:~# npm list -g --depth=0 | grep 'puppeteer'
       └── puppeteer@1.12.2
       ```
 
