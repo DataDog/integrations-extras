@@ -45,4 +45,4 @@ Need help? Contact [Datadog support][5].
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/logzio/images/dashboard.png
 [3]: https://app.datadoghq.com/account/settings#api
 [4]: http://logz.io/blog/log-correlation-datadog
-[5]: https://docs.datadoghq.com/help
+[5]: https://docs.datadoghq.com/help/

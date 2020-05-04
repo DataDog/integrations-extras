@@ -82,15 +82,15 @@ Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ end
 
 Need help? Contact [Datadog support][12].
 
-[1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
 [4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [5]: https://app.datadoghq.com/account/settings#agent
-[6]: https://docs.datadoghq.com/getting_started/integrations
+[6]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd/datadog_checks/gnatsd/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
-[12]: https://docs.datadoghq.com/help
+[12]: https://docs.datadoghq.com/help/

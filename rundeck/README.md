@@ -83,4 +83,4 @@ Need help? Contact [Datadog support][6].
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/dd-search.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhooks-config.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhook-fill.png
-[6]: https://docs.datadoghq.com/help
+[6]: https://docs.datadoghq.com/help/

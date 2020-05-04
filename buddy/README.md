@@ -57,5 +57,5 @@ Need help? Contact [Datadog support][7].
 [3]: https://app.buddy.works/login
 [4]: https://buddy.works/knowledge/deployments/what-parameters-buddy-use
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/buddy/images/snapshot.png
-[6]: https://docs.datadoghq.com/events
-[7]: https://docs.datadoghq.com/help
+[6]: https://docs.datadoghq.com/events/
+[7]: https://docs.datadoghq.com/help/

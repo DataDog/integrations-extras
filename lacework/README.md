@@ -54,4 +54,4 @@ Need help? Contact [Datadog support][7].
 [1]: https://docs.datadoghq.com/integrations/lacework/
 [2]: https://www.lacework.com/datadog/
 [3]: https://app.datadoghq.com/account/settings#api
-[7]: https://docs.datadoghq.com/help
+[7]: https://docs.datadoghq.com/help/

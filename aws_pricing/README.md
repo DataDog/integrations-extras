@@ -48,6 +48,6 @@ Need help? Contact [Datadog support][5].
 [2]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/datadog_checks/aws_pricing/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-information
-[5]: https://docs.datadoghq.com/help
+[5]: https://docs.datadoghq.com/help/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/metadata.csv
 [7]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
