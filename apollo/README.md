@@ -80,5 +80,5 @@ Learn more about infrastructure monitoring and all our integrations on [our blog
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-toggle.png
 [7]: https://www.apollographql.com/docs/graph-manager/datadog-integration/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/apollo/metadata.csv
-[9]: https://docs.datadoghq.com/help
+[9]: https://docs.datadoghq.com/help/
 [10]: https://www.datadoghq.com/blog

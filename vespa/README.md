@@ -69,7 +69,7 @@ Need help? Contact [Datadog support][5].
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[5]: https://docs.datadoghq.com/help
+[5]: https://docs.datadoghq.com/help/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/vespa/metadata.csv
 [7]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory

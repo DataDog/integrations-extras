@@ -46,5 +46,5 @@ Need help? Contact [Datadog support][4].
 [1]: https://www.getambassador.io
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png
 [3]: https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv
-[4]: https://docs.datadoghq.com/help
+[4]: https://docs.datadoghq.com/help/
 [5]: https://www.getambassador.io/docs/latest/topics/running/statistics/#exposing-statistics-via-statsd

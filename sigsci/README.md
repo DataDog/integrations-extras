@@ -128,7 +128,7 @@ To sign up for the Signal Sciences-Datadog Monitoring, a free service to see att
 [6]: https://dashboard.signalsciences.net
 [7]: https://player.vimeo.com/video/347360711
 [8]: https://docs.signalsciences.net/integrations/datadog/
-[9]: https://docs.datadoghq.com/events
-[10]: https://docs.datadoghq.com/help
+[9]: https://docs.datadoghq.com/events/
+[10]: https://docs.datadoghq.com/help/
 [11]: https://labs.signalsciences.com
 [12]: https://info.signalsciences.com/datadog-security

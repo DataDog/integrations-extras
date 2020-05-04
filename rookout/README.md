@@ -93,8 +93,8 @@ You can collect custom metrics and events by creating a Datadog output in your R
 
 If you have any questions, contact us at support@rookout.com.
 
-[1]: https://docs.datadoghq.com/getting_started/custom_metrics
-[2]: https://docs.datadoghq.com/agent
+[1]: https://docs.datadoghq.com/getting_started/custom_metrics/
+[2]: https://docs.datadoghq.com/agent/
 [3]: https://docs.rookout.com/docs/getting-started.html
 [4]: https://app.rookout.com
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_rule_action.png
@@ -102,4 +102,4 @@ If you have any questions, contact us at support@rookout.com.
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/rule-template.json
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/datadog_rule_template.png
 [9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_save.png
-[10]: https://docs.datadoghq.com/developers/dogstatsd
+[10]: https://docs.datadoghq.com/developers/dogstatsd/

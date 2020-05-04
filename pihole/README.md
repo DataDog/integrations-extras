@@ -43,7 +43,7 @@ Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns
 Pi-hole does not include any events.
 
 [1]: https://pi-hole.net/
-[2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
+[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
 [5]: https://github.com/DataDog/integrations-extras/blob/master/pihole/datadog_checks/pihole/data/conf.yaml.example

@@ -72,15 +72,15 @@ The Filebeat check does not include any service checks.
 Need help? Contact [Datadog support][13].
 
 [1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
 [4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
 [5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [6]: https://app.datadoghq.com/account/settings#agent
-[7]: https://docs.datadoghq.com/getting_started/integrations
+[7]: https://docs.datadoghq.com/getting_started/integrations/
 [8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [9]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/datadog_checks/filebeat/data/conf.yaml.example
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [12]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
-[13]: https://docs.datadoghq.com/help
+[13]: https://docs.datadoghq.com/help/
