@@ -80,7 +80,7 @@ The k6 integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Read the [k6 Datadog documentation](2) or contact [k6 support][10].
+Need help? Read the [k6 Datadog documentation][2] or contact [k6 support][10].
 
 [1]: https://k6.io/open-source
 [2]: https://k6.io/docs/results-visualization/datadog
