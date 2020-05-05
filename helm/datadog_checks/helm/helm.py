@@ -92,7 +92,6 @@ class HelmCheck(AgentCheck):
             tags.extend(custom_tags)
             # kube_namespace terminology taken from other datadog metrics
             tags.append("kube_namespace:%s" % release['namespace'])
-            # Unclear if I should call this 'chart_name' or just 'chart'
             tags.append("chart_name:%s" % release['chart_name'])
             tags.append("release_name:%s" % release['release_name'])
             status_num = STATUS_MAP.get(release['status'], 0)
