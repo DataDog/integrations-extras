@@ -2,7 +2,10 @@
 
 ## Overview
 
-Track performance metrics of [k6][1] tests to:
+[k6][1] is an open-source load testing tool that will help you to catch performance issues and performance regressions earlier.
+
+With the k6 integration, you can track performance metrics of k6 tests to:
+
 - Correlate application performance with load testing metrics.
 - Create alerts based on performance testing metrics.
 - Analyze and visualize k6 metrics using the k6 Datadog Dashboard or [Metrics Explorer][5].
@@ -80,7 +83,7 @@ The k6 integration does not include any events.
 Need help? Read the [k6 Datadog documentation](2) or contact [k6 support][10].
 
 [1]: https://k6.io/open-source
-[2]: https://k6.io/docs/getting-started/results-output/datadog 
+[2]: https://k6.io/docs/results-visualization/datadog
 [3]: https://app.datadoghq.com/account/settings#api
 [4]: https://github.com/DataDog/integrations-extras/blob/master/k6/metadata.csv
 [5]: https://docs.datadoghq.com/metrics/explorer/
