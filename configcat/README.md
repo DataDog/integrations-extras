@@ -4,25 +4,25 @@
 
 Manage features and change your software configuration using [ConfigCat feature flags][2], without the need to re-deploy code. A [10 minute trainable Dashboard][5] allows even non-technical team members to manage features directly. Deploy anytime, release when confident. Target a specific group of users first with new ideas. Supports A/B/n testing and soft launching. Provides [open-source SDKs][11] for easy integration with any web, mobile or backend application.
 
-This integration ensures that every setting change in ConfigCat is sent to DataDog as an Event.
+This integration ensures that every setting change in ConfigCat is sent to Datadog as an Event.
 
 *Example:*
-![DataDogEvent][3]
+![DatadogEvent][3]
 
 ## Setup
 
-1. Have a [DataDog subscription][8].
-2. Get a [DataDog API Key][9].
-    ![DataDogEvent][1] 
+1. Have a [Datadog subscription][8].
+2. Get a [Datadog API Key][9].
+    ![DatadogEvent][1] 
 4. Open the [integrations tab][10] on ConfigCat Dashboard.
-5. Click on DataDog's _CONNECT_ button and set your DataDog API key.
-6. You're all set. Go ahead and make some changes on your feature flags then check your Events in DataDog.
+5. Click on Datadog's _CONNECT_ button and set your Datadog API key.
+6. You're all set. Go ahead and make some changes on your feature flags then check your Events in Datadog.
 
 
 ### Un-installation
 
 1. Open the [integrations tab][10] on ConfigCat Dashboard.
-2. Click on DataDog's DISCONNECT button and set your DataDog API key.
+2. Click on Datadog's DISCONNECT button and set your Datadog API key.
 
 ## Data Collected
 
@@ -32,7 +32,7 @@ ConfigCat integration does not include any metrics.
 
 ### Events
 
-All ConfigCat related events collected appear within the DataDog Event Stream with the `source:configcat` property are tagged with your product, config and environment names.
+All ConfigCat related events collected appear within the Datadog Event Stream with the `source:configcat` property are tagged with your product, config and environment names.
 
 For example here is how to search for events that happened in the production environment: `sources:configcat production`:
 
