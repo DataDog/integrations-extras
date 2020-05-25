@@ -1,17 +1,28 @@
+## All options defined here are available to all instances.
+#
 init_config:
 
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independent of the others.
+#
 instances:
 
     ## @param registry_file_path - string - required
-    ## The absolute path to the registry file used by Filebeat
+    ## The absolute path to the registry file used by Filebeat.
+    ##
     ## See https://www.elastic.co/guide/en/beats/filebeat/current/migration-registry-file.html
     #
   - registry_file_path: /var/lib/filebeat/registry
 
     ## @param stats_endpoint - string - required
     ## If Filebeat has been started with the `--httpprof [HOST]:PORT` option, then
-    ## the DD agent can gather data about the metrics Filebeat exposes to
-    ##  http://<HOST>:<PORT>/debug/vars
+    ## the Datadog agent can gather data about the metrics Filebeat exposes to  http://<HOST>:<PORT>/debug/vars.
     ##
     ## See https://www.elastic.co/guide/en/beats/filebeat/current/command-line-options.html
     ## For autodiscovery, use http://%%host%%:%%port%%/stats
@@ -19,16 +30,39 @@ instances:
     stats_endpoint: http://localhost:2828/stats
 
     ## @param only_metrics - list of strings - required
-    ## This should be a list of regular expressions that stipulates
-    ## which variables should be reported to Datadog - a Filebeat metric
-    ## reported by the HTTP profiler will only be reported if it matches at
-    ## least one of those regexes.
+    ## This should be a list of regular expressions that stipulates which variables should be reported to 
+    ## Datadog - a Filebeat metric reported by the HTTP profiler will only be reported
+    ##  if it matches at least one of those regexes.
     #
     only_metrics:
       - ^filebeat
       - ^publish\.events$
 
-    ## @param timeout - integer - optional - default: 2
-    ## timeout in seconds for the connection to `registry_file_path`
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
     #
-    # timeout: 2
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
+    #
+    # service: <SERVICE>
+
+    ## @param min_collection_interval - number - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 15
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false

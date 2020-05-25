@@ -1,0 +1,43 @@
+name: Filebeat
+files:
+- name: filebeat.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: registry_file_path
+      required: true
+      description: |
+        The absolute path to the registry file used by Filebeat.
+
+        See https://www.elastic.co/guide/en/beats/filebeat/current/migration-registry-file.html
+      value:
+        type: string
+        example: /var/lib/filebeat/registry
+    - name: stats_endpoint
+      required: true
+      description: |
+        If Filebeat has been started with the `--httpprof [HOST]:PORT` option, then
+        the Datadog agent can gather data about the metrics Filebeat exposes to  http://<HOST>:<PORT>/debug/vars.
+
+        See https://www.elastic.co/guide/en/beats/filebeat/current/command-line-options.html
+        For autodiscovery, use http://%%host%%:%%port%%/stats
+      value: 
+        type: string
+        example: http://localhost:2828/stats
+    - name: only_metrics
+      required: true
+      description: |
+        This should be a list of regular expressions that stipulates which variables should be reported to 
+        Datadog - a Filebeat metric reported by the HTTP profiler will only be reported
+         if it matches at least one of those regexes.
+      value:
+        type: array
+        items: 
+          type: string
+        example:
+          - ^filebeat
+          - ^publish\.events$
+    - template: instances/default
