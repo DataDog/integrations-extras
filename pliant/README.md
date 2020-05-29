@@ -78,7 +78,7 @@ Copy this endpoin, starting with ***https*** and ending with the full API Key. D
 ![webhookSearch][16]
 
 
-3. Scroll to "webhooks". Click **New** to add a new webhook to link to our Pliant workflow. First, give the webhook a name in the "name" field. We will name ours *RestartHost* to corespond with our workflow.
+3. Scroll to "webhooks". Click **New** to add a new webhook to link to the Pliant workflow. First, give the webhook a name in the "name" field. This example uses the name *RestartHost*.
 ![webhooksConfig2][17]
 
 Now, we will paste the URL we copied from our workflow from step 4 of "Create a Pliant workflow to trigger from Datadog". It will resemble: 
