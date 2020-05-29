@@ -64,7 +64,7 @@ Click "cUrl" > "Temporary Bearer Token" and instead select the API key we just c
 
 ![select key][13]
 
-We will see our endpoint just after the CURL command, as the endpoint before the CURL command starting with "https". It should resemble: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
+Your endpoint looks like this: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
 
 ![endpoint][14]
 
