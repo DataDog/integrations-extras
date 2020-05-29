@@ -19,7 +19,7 @@ Examples include:
 
 ### Installation
 
-Create one or more workflows that you would like to trigger from a Datadog notification
+Create one or more workflows that you would like to trigger from a Datadog notification.
 
 ### Configuration
 
