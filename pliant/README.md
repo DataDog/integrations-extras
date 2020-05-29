@@ -59,7 +59,7 @@ In this example, the workflow is called "RestartHost" and triggers a host restar
 
 3. To get the endpoint of the Pliant workflow, used to trigger from Datadog with an HTTP request, click the "Expand" icon at the start of the workflow.
 
-Click "cUrl" > "Temporary Bearer Token" and instead select the API key we just created.
+Click "cURL" > "Temporary Bearer Token" and select the API key you just created.
 
 ![curl][12]
 
