@@ -45,7 +45,7 @@ Create one or more workflows that you would like to trigger from a Datadog notif
 
 In this example, the workflow is called "RestartHost" and triggers a host restart from the information Datadog passes to this workflow when it is triggered.
 
-  - Add Input variables which will be populated with data sent from Datadog.  Click the "Expand" icon on at the start of the workflow to open the Variable pannel.  We need to create matching **Input** variables. Set all of these input variables to equal empty quotes: `""`. By default, Datadog sends information for the following 
+  - To add Input variables which populated with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel.  To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends information for the following data:
 `body`
 `last_updated`
 `event_type`
