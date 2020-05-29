@@ -91,7 +91,7 @@ Paste this into the ***URL*** field of the webhook form.
 
 The request payload is pre-configured. Check the "ENCODE AS FORM" box and click save.
 
-Add this integration to any alert notification in Datadog by adding the recipient of `@webhook-RestartHost`. When the monitor triggers an alert, the webhook will trigger your Pliant workflow, and the input variables will be sent to Pliant from Datadog.
+Add this integration to any alert notification in Datadog by adding the recipient of `@webhook-RestartHost`. When the monitor triggers an alert, the webhook triggers your Pliant workflow, and the input variables are sent to Pliant from Datadog.
 
 ## Data Collected
 
