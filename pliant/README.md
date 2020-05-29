@@ -2,7 +2,7 @@
 
 ## Overview
 
-Pliant.io enhances Datadog notifications with low-code automated workflows, creating a true close-loop-automation solution.  This can help with troubleshooting, diagnosis and even automated remediation.  
+Pliant.io enhances Datadog notifications with low-code automated workflows, creating a true close-loop-automation solution. This can help with troubleshooting, diagnosis and automated remediation.  
 
 Larn more at [Pliant][1].
 
