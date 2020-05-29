@@ -7,6 +7,7 @@ Pliant.io enhances Datadog notifications with low-code automated workflows, crea
 For more integration information, check out the [Pliant][1] site..
 
 Examples include:
+
 - Service restart
 - Load balancer configuration
 - System provisioning
