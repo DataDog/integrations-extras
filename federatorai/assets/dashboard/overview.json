@@ -1,0 +1,229 @@
+{
+    "notify_list": [],
+    "description": "You can visualize Kafka Acceleration in ProphetStor Federator.ai Kafka Integration dashboard.[Federator.ai/version:v4.2.784]",
+    "author_name": "ProphetStor Data Services, Inc.",
+    "template_variables": [
+        {
+            "default": "*",
+            "prefix": "kube_cluster",
+            "name": "kube_cluster"
+        },
+        {
+            "default": "*",
+            "prefix": "kube_namespace",
+            "name": "kube_namespace"
+        },
+        {
+            "default": "*",
+            "prefix": "kube_deployment",
+            "name": "kube_deployment"
+        },
+        {
+            "default": "*",
+            "prefix": "topic",
+            "name": "topic"
+        },
+        {
+            "default": "*",
+            "prefix": "consumer_group",
+            "name": "consumer_group"
+        }
+    ],
+    "is_read_only": false,
+    "id": "i5f-j7k-9u5",
+    "title": "ProphetStor Federator.ai Kafka Integration",
+    "url": "/dashboard/i5f-j7k-9u5/prophetstor-federatorai-kafka-integration",
+    "created_at": "2020-06-02T14:59:31.676822+00:00",
+    "modified_at": "2020-06-04T09:01:38.540851+00:00",
+    "author_handle": "support@prophetstor.com",
+    "widgets": [
+        {
+            "definition": {
+                "yaxis": {
+                    "max": "auto",
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "include_zero": true
+                },
+                "title": "Federator.ai Recommended Replicas vs Current Replicas and Desired Replicas over Deployment",
+                "show_legend": false,
+                "time": {},
+                "requests": [
+                    {
+                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "warm",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:kubernetes_state.deployment.replicas_available{$kube_cluster,$kube_namespace,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:kubernetes_state.deployment.replicas_desired{$kube_cluster,$kube_namespace,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 4399099416442579
+        },
+        {
+            "definition": {
+                "yaxis": {
+                    "max": "auto",
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "include_zero": true
+                },
+                "title": "Production vs Consumption vs Production Prediction",
+                "show_legend": false,
+                "time": {},
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kafka.broker_offset_rate{$kube_cluster,$topic}, avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group}, avg:federatorai.prediction.kafka{source_metric:federatorai.kafka.broker_offset_rate,$kube_cluster,$topic}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 3046656989866632
+        },
+        {
+            "definition": {
+                "yaxis": {
+                    "max": "auto",
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "include_zero": true
+                },
+                "title": "Kafka Consumer Lag",
+                "show_legend": false,
+                "time": {},
+                "requests": [
+                    {
+                        "q": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "purple",
+                            "line_type": "solid"
+                        },
+                        "display_type": "bars",
+                        "metadata": [
+                            {
+                                "expression": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
+                                "alias_name": "kafka.consumer_lag_sum_by_partition"
+                            }
+                        ]
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 8086200150124610
+        },
+        {
+            "definition": {
+                "yaxis": {
+                    "include_zero": false
+                },
+                "title": "Consumer Queue Latency (msec)",
+                "show_legend": false,
+                "time": {},
+                "requests": [
+                    {
+                        "q": "(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group} by {host})/avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group})/60*1000",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 6830490632934410
+        },
+        {
+            "definition": {
+                "yaxis": {
+                    "max": "auto",
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "include_zero": true
+                },
+                "title": "Deployment Memory Usage",
+                "show_legend": false,
+                "requests": [
+                    {
+                        "q": "sum:kubernetes.memory.usage{$kube_cluster,$kube_namespace,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "area"
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 7112689027757240
+        },
+        {
+            "definition": {
+                "yaxis": {
+                    "max": "auto",
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "include_zero": true
+                },
+                "title": "Deployment CPU Usage",
+                "show_legend": false,
+                "time": {},
+                "requests": [
+                    {
+                        "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "area"
+                    }
+                ],
+                "type": "timeseries",
+                "legend_size": "0"
+            },
+            "id": 8101131862250452
+        }
+    ],
+    "layout_type": "ordered"
+}
