@@ -14,7 +14,7 @@ Examples include:
 - Load balancer configuration
 - System provisioning
 - Clear disk / reprovision storage
-- Provision aditional VMs or container nodes in response to load.
+- Provision additional VMs or container nodes in response to load
 - De-comission resources when load is low
 
 
