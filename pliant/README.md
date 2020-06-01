@@ -15,7 +15,7 @@ Examples include:
 - System provisioning
 - Clear disk / reprovision storage
 - Provision additional VMs or container nodes in response to load
-- De-comission resources when load is low
+- De-commission resources when load is low
 
 
 ## Setup
