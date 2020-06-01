@@ -4,7 +4,7 @@
 
 Pliant.io enhances Datadog notifications with low-code automated workflows, creating a true close-loop-automation solution. This can help with troubleshooting, diagnosis and automated remediation.  
 
-For more integration information, check out the [Pliant][1] site..
+For more integration information, check out the [Pliant][1] site.
 
 Examples include:
 
