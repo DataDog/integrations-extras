@@ -283,4 +283,6 @@ class FilebeatCheck(AgentCheck):
             method = getattr(self, action)
 
             for name, value in iteritems(metrics):
+                if not name.startswith('filebeat'):
+                    name = 'filebeat.' + name
                 method(name, value, tags)
