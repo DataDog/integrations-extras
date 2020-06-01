@@ -1,17 +1,276 @@
 comment:
-  layout: "files"
+  layout: files
   behavior: default
   branches: null
-
-
 coverage:
   range: 50..100
   round: down
   precision: 2
-
   status:
+    patch: false
     project:
       default:
         target: 75
         if_ci_failed: error
-    patch: off
+      AWS Pricing:
+        target: 75
+        flags:
+        - aws_pricing
+      Aqua:
+        target: 75
+        flags:
+        - aqua
+      BIND 9:
+        target: 75
+        flags:
+        - bind9
+      Eventstore:
+        target: 75
+        flags:
+        - eventstore
+      Filebeat:
+        target: 75
+        flags:
+        - filebeat
+      Gnatsd:
+        target: 75
+        flags:
+        - gnatsd
+      Gnatsd Streaming:
+        target: 75
+        flags:
+        - gnatsd_streaming
+      Lighthouse:
+        target: 75
+        flags:
+        - lighthouse
+      Logstash:
+        target: 75
+        flags:
+        - logstash
+      Neo4j:
+        target: 75
+        flags:
+        - neo4j
+      Neutrona:
+        target: 75
+        flags:
+        - neutrona
+      Nextcloud:
+        target: 75
+        flags:
+        - nextcloud
+      Ping:
+        target: 75
+        flags:
+        - ping
+      Portworx:
+        target: 75
+        flags:
+        - portworx
+      Reboot Required:
+        target: 75
+        flags:
+        - reboot_required
+      Redis Sentinel:
+        target: 75
+        flags:
+        - redis_sentinel
+      Riak MDC Replication:
+        target: 75
+        flags:
+        - riak_repl
+      Sendmail:
+        target: 75
+        flags:
+        - sendmail
+      Snmpwalk:
+        target: 75
+        flags:
+        - snmpwalk
+      Sortdb:
+        target: 75
+        flags:
+        - sortdb
+      Stardog:
+        target: 75
+        flags:
+        - stardog
+      Storm:
+        target: 75
+        flags:
+        - storm
+      Traefik:
+        target: 75
+        flags:
+        - traefik
+      UPSC:
+        target: 75
+        flags:
+        - upsc
+      Unbound:
+        target: 75
+        flags:
+        - unbound
+      Vespa:
+        target: 75
+        flags:
+        - vespa
+      cert-manager:
+        target: 75
+        flags:
+        - cert_manager
+      nvml:
+        target: 75
+        flags:
+        - nvml
+      pihole:
+        target: 75
+        flags:
+        - pihole
+flags:
+  aqua:
+    carryforward: true
+    paths:
+    - aqua/datadog_checks/aqua
+    - aqua/tests
+  aws_pricing:
+    carryforward: true
+    paths:
+    - aws_pricing/datadog_checks/aws_pricing
+    - aws_pricing/tests
+  bind9:
+    carryforward: true
+    paths:
+    - bind9/datadog_checks/bind9
+    - bind9/tests
+  cert_manager:
+    carryforward: true
+    paths:
+    - cert_manager/datadog_checks/cert_manager
+    - cert_manager/tests
+  eventstore:
+    carryforward: true
+    paths:
+    - eventstore/datadog_checks/eventstore
+    - eventstore/tests
+  filebeat:
+    carryforward: true
+    paths:
+    - filebeat/datadog_checks/filebeat
+    - filebeat/tests
+  gnatsd:
+    carryforward: true
+    paths:
+    - gnatsd/datadog_checks/gnatsd
+    - gnatsd/tests
+  gnatsd_streaming:
+    carryforward: true
+    paths:
+    - gnatsd_streaming/datadog_checks/gnatsd_streaming
+    - gnatsd_streaming/tests
+  lighthouse:
+    carryforward: true
+    paths:
+    - lighthouse/datadog_checks/lighthouse
+    - lighthouse/tests
+  logstash:
+    carryforward: true
+    paths:
+    - logstash/datadog_checks/logstash
+    - logstash/tests
+  neo4j:
+    carryforward: true
+    paths:
+    - neo4j/datadog_checks/neo4j
+    - neo4j/tests
+  neutrona:
+    carryforward: true
+    paths:
+    - neutrona/datadog_checks/neutrona
+    - neutrona/tests
+  nextcloud:
+    carryforward: true
+    paths:
+    - nextcloud/datadog_checks/nextcloud
+    - nextcloud/tests
+  nvml:
+    carryforward: true
+    paths:
+    - nvml/datadog_checks/nvml
+    - nvml/tests
+  pihole:
+    carryforward: true
+    paths:
+    - pihole/datadog_checks/pihole
+    - pihole/tests
+  ping:
+    carryforward: true
+    paths:
+    - ping/datadog_checks/ping
+    - ping/tests
+  portworx:
+    carryforward: true
+    paths:
+    - portworx/datadog_checks/portworx
+    - portworx/tests
+  reboot_required:
+    carryforward: true
+    paths:
+    - reboot_required/datadog_checks/reboot_required
+    - reboot_required/tests
+  redis_sentinel:
+    carryforward: true
+    paths:
+    - redis_sentinel/datadog_checks/redis_sentinel
+    - redis_sentinel/tests
+  riak_repl:
+    carryforward: true
+    paths:
+    - riak_repl/datadog_checks/riak_repl
+    - riak_repl/tests
+  sendmail:
+    carryforward: true
+    paths:
+    - sendmail/datadog_checks/sendmail
+    - sendmail/tests
+  snmpwalk:
+    carryforward: true
+    paths:
+    - snmpwalk/datadog_checks/snmpwalk
+    - snmpwalk/tests
+  sortdb:
+    carryforward: true
+    paths:
+    - sortdb/datadog_checks/sortdb
+    - sortdb/tests
+  stardog:
+    carryforward: true
+    paths:
+    - stardog/datadog_checks/stardog
+    - stardog/tests
+  storm:
+    carryforward: true
+    paths:
+    - storm/datadog_checks/storm
+    - storm/tests
+  traefik:
+    carryforward: true
+    paths:
+    - traefik/datadog_checks/traefik
+    - traefik/tests
+  unbound:
+    carryforward: true
+    paths:
+    - unbound/datadog_checks/unbound
+    - unbound/tests
+  upsc:
+    carryforward: true
+    paths:
+    - upsc/datadog_checks/upsc
+    - upsc/tests
+  vespa:
+    carryforward: true
+    paths:
+    - vespa/datadog_checks/vespa
+    - vespa/tests
