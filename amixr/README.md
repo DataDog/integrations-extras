@@ -13,6 +13,13 @@ Developer-friendly Alert Management with brilliant Slack integration
 ![Amixr_Interface][1]
 
 ## Setup
+
+### Installation
+
+No additional installation is needed on your server.
+
+### Configuration
+
 In Amixr:
 1. Go to **Settings->Connect New Monitorings->Datadog->How to connect**
 2. Copy DataDog webhook url
@@ -23,11 +30,6 @@ In Datadog:
 3. Enter name for the integration, e.g. amixr-alerts-prod
 4. Paste webhook url from the above step
 5. Click Save button
-
-
-### Installation
-
-### Configuration
 
 ### Validation
 
