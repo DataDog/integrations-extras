@@ -2,13 +2,13 @@
 
 ## Overview
 
-Developer-friendly Alert Management with brilliant Slack integration
+Amixr is developer-friendly alert management with brilliant Slack integration.
 
 - Collect & analyze alerts and other events from DataDog
-- Set up On-call rotations with google calendar or right in Slack
+- Set up on-call rotations with Google calendar or right in Slack
 - Configure automatic escalation chains
-- Never miss alerts with Phone Calls & SMS
-- Orchestrate the whole Incident Management with GitOps
+- Never miss alerts with phone calls & SMS
+- Orchestrate the whole incident management with GitOps
 
 ![Amixr_Interface][1]
 
@@ -21,39 +21,39 @@ No additional installation is needed on your server.
 ### Configuration
 
 In Amixr:
-1. Go to **Settings->Connect New Monitorings->Datadog->How to connect**
-2. Copy DataDog webhook url
+1. Go to *Settings > Connect New Monitorings > Datadog > How to connect*
+2. Copy DataDog webhook URL
 
 In Datadog:
-1. Go to Integrations
+1. Navigate to the **Integrations** page from the sidebar.
 2. Search for **webhook** in the search bar
-3. Enter name for the integration, e.g. amixr-alerts-prod
-4. Paste webhook url from the above step
-5. Click Save button
+3. Enter a name for the integration, for example: `amixr-alerts-prod`.
+4. Paste the webhook URL from the above step.
+5. Click the save button.
 
 ### Validation
 
 In Datadog:
-1. Go to **Events** in the sidebar
-2. Type `@webhook-<integration name>` and some text, in our example `@webhook-amixr-alerts-prod test alert`
-3. Click Post button
+1. Navigate to the **Events** page from the sidebar.
+2. Type `@webhook-<integration name><YOUR TEXT HERE>`, for example: `@webhook-amixr-alerts-prod test alert`.
+3. Click the post button.
 
 In Amixr:
-1. Go to **Incidents** in the sidebar and check if the alert was received
+1. Navigate to **Incidents** from the sidebar to check if the alert was received.
 
 ## Data Collected
 
 ### Metrics
 
-Amixr does not include any metrics.
+The Amixr integration does not include any metrics.
 
 ### Service Checks
 
-Amixr does not include any service checks.
+The Amixr integration does not include any service checks.
 
 ### Events
 
-Amixr does not include any events.
+The Amixr integration does not include any events.
 
 ## Troubleshooting
 
