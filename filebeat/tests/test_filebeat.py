@@ -29,7 +29,7 @@ def mocked_os_stat(mocked_paths_and_stats):
     return mock.patch.object(os, "stat", side_effect=internal_mock)
 
 
-def _build_instance(name, stats_endpoint=None, only_metrics=None, timeout=None):
+def _build_instance(name, stats_endpoint=None, only_metrics=None, timeout=None, normalize_metrics=None):
     instance = {"registry_file_path": registry_file_path(name)}
 
     if stats_endpoint is not None:
@@ -40,6 +40,9 @@ def _build_instance(name, stats_endpoint=None, only_metrics=None, timeout=None):
 
     if timeout is not None:
         instance["timeout"] = timeout
+
+    if normalize_metrics is not None:
+        instance["normalize_metrics"] = normalize_metrics
 
     return instance
 
@@ -437,3 +440,26 @@ def test_check(aggregator, dd_environment):
     tags = ["stats_endpoint:{}".format(dd_environment["stats_endpoint"])]
     aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, count=2, tags=tags)
     aggregator.assert_metric("libbeat.config.module.starts", metric_type=aggregator.COUNTER, count=1, tags=tags)
+
+
+def test_normalize_metrics(aggregator):
+    config = _build_instance("empty", stats_endpoint="http://localhost:9999", normalize_metrics=True)
+    check = FilebeatCheck("filebeat", {}, {})
+    tags = ["stats_endpoint:http://localhost:9999"]
+
+    with mock_request():
+        check.check(config)
+
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, tags=tags)
+
+    with mock_request({"filebeat.libbeat.logstash.published_and_acked_events": 1138956, "filebeat.harvester.running": 9}):
+        check.check(config)
+
+    aggregator.assert_metric(
+        "filebeat.libbeat.logstash.published_and_acked_events", metric_type=aggregator.COUNTER, tags=tags
+    )
+    aggregator.assert_metric(
+        "filebeat.libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, tags=tags
+    )
+    aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE,tags=tags)
+
