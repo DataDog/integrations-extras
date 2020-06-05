@@ -463,3 +463,30 @@ def test_normalize_metrics(aggregator):
     )
     aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE,tags=tags)
 
+
+def test_normalize_metrics_with_an_only_metrics_list(aggregator):
+    config = _build_instance(
+        "empty", stats_endpoint="http://localhost:9999", only_metrics=[r"^libbeat.kafka", r"truncated$"], normalize_metrics=True
+    )
+    check = FilebeatCheck("filebeat", {}, {})
+    tags = ["stats_endpoint:http://localhost:9999"]
+
+    with mock_request():
+        check.check(config)
+
+    with mock_request(
+        {"filebeat.libbeat.logstash.published_and_acked_events": 1138956, "libbeat.kafka.published_and_acked_events": 12}
+    ):
+        check.check(config)
+
+    aggregator.assert_metric(
+        "filebeat.libbeat.kafka.published_and_acked_events", metric_type=aggregator.COUNTER, value=12, tags=tags
+    )
+    aggregator.assert_metric(
+        "filebeat.libbeat.kafka.published_but_not_acked_events", metric_type=aggregator.COUNTER, value=0, tags=tags
+    )
+    aggregator.assert_metric(
+        "filebeat.libbeat.kafka.call_count.PublishEvents", metric_type=aggregator.COUNTER, value=0, tags=tags
+    )
+    aggregator.assert_metric("filebeat.harvester.files.truncated", metric_type=aggregator.COUNTER, value=0, tags=tags)
+
