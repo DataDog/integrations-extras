@@ -167,7 +167,7 @@ Federator.ai does not include any events.
 
 ## Troubleshooting
 
-Need help? Read [ProphetStor Federator.ai documentations][5] or contact Datadog support[12].
+Need help? Read [ProphetStor Federator.ai documentations][5] or contact [Datadog support][12].
 
 [1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/
 [2]: https://github.com/containers-ai/federatorai-operator/blob/master/docs/quickstart.md
