@@ -1,6 +1,6 @@
 {
     "notify_list": [],
-    "description": "You can visualize Kafka Acceleration in ProphetStor Federator.ai Kafka Integration dashboard.[Federator.ai/version:v4.2.784]",
+    "description": "You can visualize Kafka Acceleration in ProphetStor Federator.ai Kafka Integration dashboard.[Federator.ai/version:v4.2.785]",
     "author_name": "ProphetStor Data Services, Inc.",
     "template_variables": [
         {
@@ -30,23 +30,40 @@
         }
     ],
     "is_read_only": false,
-    "id": "i5f-j7k-9u5",
+    "id": "he7-v84-km5",
     "title": "ProphetStor Federator.ai Kafka Integration",
-    "url": "/dashboard/i5f-j7k-9u5/prophetstor-federatorai-kafka-integration",
-    "created_at": "2020-06-02T14:59:31.676822+00:00",
-    "modified_at": "2020-06-04T09:01:38.540851+00:00",
+    "url": "/dashboard/he7-v84-km5/prophetstor-federatorai-kafka-integration",
+    "created_at": "2020-06-08T08:25:18.979276+00:00",
+    "modified_at": "2020-06-08T09:27:24.984053+00:00",
     "author_handle": "support@prophetstor.com",
     "widgets": [
         {
             "definition": {
+                "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/assets/logos/prophetstor_logos-bot.png",
+                "sizing": "fit",
+                "margin": "small",
+                "type": "image"
+            },
+            "layout": {
+                "y": 1,
+                "x": 0,
+                "height": 13,
+                "width": 29
+            },
+            "id": 0
+        },
+        {
+            "definition": {
+                "title_size": "16",
+                "title": "Recommended Replicas vs Current/Desired Replicas",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title": "Federator.ai Recommended Replicas vs Current Replicas and Desired Replicas over Deployment",
                 "show_legend": false,
                 "time": {},
                 "requests": [
@@ -81,20 +98,27 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 4399099416442579
+            "layout": {
+                "y": 15,
+                "x": 0,
+                "height": 15,
+                "width": 47
+            },
+            "id": 1
         },
         {
             "definition": {
+                "title_size": "16",
+                "title": "Production vs Consumption vs Production Prediction",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title": "Production vs Consumption vs Production Prediction",
                 "show_legend": false,
-                "time": {},
                 "requests": [
                     {
                         "q": "avg:federatorai.kafka.broker_offset_rate{$kube_cluster,$topic}, avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group}, avg:federatorai.prediction.kafka{source_metric:federatorai.kafka.broker_offset_rate,$kube_cluster,$topic}",
@@ -109,20 +133,27 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 3046656989866632
+            "layout": {
+                "y": 15,
+                "x": 48,
+                "height": 15,
+                "width": 47
+            },
+            "id": 2
         },
         {
             "definition": {
+                "title_size": "16",
+                "title": "Kafka Consumer Lag",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title": "Kafka Consumer Lag",
                 "show_legend": false,
-                "time": {},
                 "requests": [
                     {
                         "q": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
@@ -134,8 +165,8 @@
                         "display_type": "bars",
                         "metadata": [
                             {
-                                "expression": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
-                                "alias_name": "kafka.consumer_lag_sum_by_partition"
+                                "alias_name": "kafka.consumer_lag_sum_by_partition",
+                                "expression": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})"
                             }
                         ]
                     }
@@ -143,16 +174,23 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 8086200150124610
+            "layout": {
+                "y": 31,
+                "x": 0,
+                "height": 15,
+                "width": 47
+            },
+            "id": 3
         },
         {
             "definition": {
+                "title_size": "16",
+                "title": "Consumer Queue Latency (msec)",
+                "title_align": "left",
                 "yaxis": {
                     "include_zero": false
                 },
-                "title": "Consumer Queue Latency (msec)",
                 "show_legend": false,
-                "time": {},
                 "requests": [
                     {
                         "q": "(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group} by {host})/avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group})/60*1000",
@@ -167,18 +205,26 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 6830490632934410
+            "layout": {
+                "y": 31,
+                "x": 48,
+                "height": 15,
+                "width": 47
+            },
+            "id": 4
         },
         {
             "definition": {
+                "title_size": "16",
+                "title": "Deployment Memory Usage",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title": "Deployment Memory Usage",
                 "show_legend": false,
                 "requests": [
                     {
@@ -194,20 +240,27 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 7112689027757240
+            "layout": {
+                "y": 47,
+                "x": 0,
+                "height": 15,
+                "width": 47
+            },
+            "id": 5
         },
         {
             "definition": {
+                "title_size": "16",
+                "title": "Deployment CPU Usage",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title": "Deployment CPU Usage",
                 "show_legend": false,
-                "time": {},
                 "requests": [
                     {
                         "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment}",
@@ -222,8 +275,33 @@
                 "type": "timeseries",
                 "legend_size": "0"
             },
-            "id": 8101131862250452
+            "layout": {
+                "y": 47,
+                "x": 48,
+                "height": 15,
+                "width": 47
+            },
+            "id": 6
+        },
+        {
+            "definition": {
+                "tick_pos": "50%",
+                "show_tick": false,
+                "type": "note",
+                "tick_edge": "left",
+                "text_align": "left",
+                "content": "[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.\n\n* AI-based workload prediction for Kafka or any applications\n* Resource recommendation based on workload prediction, application, Kubernetes and other related metrics\n* Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/\n[4]: https://github.com/DataDog/watermarkpodautoscaler",
+                "font_size": "14",
+                "background_color": "green"
+            },
+            "layout": {
+                "y": 1,
+                "x": 31,
+                "height": 13,
+                "width": 64
+            },
+            "id": 7
         }
     ],
-    "layout_type": "ordered"
+    "layout_type": "free"
 }

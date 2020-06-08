@@ -10,13 +10,48 @@ ProphetStor Federator.ai is an AI-based solution that helps enterprise manage, o
 * Resource recommendation based on workload prediction, application, Kubernetes and other related metrics
 * Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]
 
-![federatorai dashboard][7]
+With integration of Federator.ai, users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.
+
+* Federator.ai Dashboard Overview
+
+![dashboard_overview][7]
+
+* Recommended Replicas vs Current/Desired Replicas
+  This timeseries graph shows the recommended replicas from the Federator.ai and the desired and current replicas in the system.
+
+![dashboard_recommended_replicas][13]
+
+* Production vs Consumption vs Production Prediction
+  This timeseries graph shows the Kafka message production rate and consumption rate and the production rate predicted by Federator.ai.
+
+![dashboard_production_consumption][14]
+
+* Kafka Consumer Lag
+  This timeseries graph shows the sum of consumer lags from all partitions.
+
+![dashboard_consumer_lag][15]
+
+* Consumer Queue Latency (msec)
+  This timeseries graph shows the average latency of a message in the message queue before it is received by a consumer.
+
+![dashboard_queue_latency][16]
+
+* Deployment Memory Usage
+  This timeseries graph shows the memory usage of consumers.
+
+![dashboard_memory_usage][17]
+
+* Deployment CPU Usage
+  This timeseries graph shows the CPU usage of consumers.
+
+![dashboard_cpu_usage][18]
+
 
 ## Setup
 
 ### Installation
 
-1. Log in OpenShift/Kubernetes cluster
+1. Log in to OpenShift/Kubernetes cluster
 2. Install the Federator.ai for OpenShift/Kubernetes by the following command
 
    ```shell
@@ -56,32 +91,30 @@ ProphetStor Federator.ai is an AI-based solution that helps enterprise manage, o
 
 ### Configuration
 
-1. A Datadog account is required for connecting and using Datadog Cloud Service. If you don't have an account, visit Datadog website and sign up for a free trial account.
-   - https://www.datadoghq.com/
+1. A Datadog account is required for connecting and using Datadog. If you don't have an account, visit the [Datadog website][10] and sign up for a free trial account.
 
-2. Log in Datadog Cloud Service with your account and get an API key and Application key for using Datadog API
-   - https://docs.datadoghq.com/account_management/api-app-keys/
+2. Log in to Datadog with your account and get an [API key and Application key][11] for using Datadog API.
 
-3. Configure Federator.ai Data-Adapter
-   - Download Data-Adapter configuration script from Github
+3. Configure the Federator.ai Data-Adapter.
+   - Download the Data-Adapter configuration script from Github.
 
    ```shell
    $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/4.2-husky/deploy/federatorai-setup-for-datadog.sh -O
    ```
 
-   - Change execution permission
+   - Change the execution permission.
 
    ```shell
    $ chomd +x federatorai-setup-for-datadog.sh
    ```
 
-   - Prepare .kubeconfig (sh -c "export KUBECONFIG=.kubeconfig; oc login <K8s_LOGIN_URL>") or use existing one. For example,
+   - Prepare .kubeconfig (sh -c "export KUBECONFIG=.kubeconfig; oc login <K8s_LOGIN_URL>") or use an existing one. For example:
 
    ```shell
    $ sh -c "export KUBECONFIG=.kubeconfig; oc login https://api.ocp4.example.com:6443"
    ```
 
-   - Run configuration script and follow the steps to fill in configuration parameters
+   - Run the configuration script and follow the steps to fill in configuration parameters:
 
    ```shell
    $ ./federatorai-setup-for-datadog.sh -k .kubeconfig
@@ -121,20 +154,20 @@ ProphetStor Federator.ai is an AI-based solution that helps enterprise manage, o
 
 ### Metrics
 
-The metrics in [metadata.csv][9] will be tracked by this integration:
+See [metadata.csv][9] for a list of metrics provided by this integration.
 
 
 ### Service Checks
 
-federatorai does not include any service checks.
+Federator.ai does not include any service checks.
 
 ### Events
 
-federatorai does not include any events.
+Federator.ai does not include any events.
 
 ## Troubleshooting
 
-Need help? Read [ProphetStor Federator.ai documentations][5] or Contact ProphetStor support(<supports@prophetstor.com>).
+Need help? Read [ProphetStor Federator.ai documentations][5] or contact Datadog support[12].
 
 [1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/
 [2]: https://github.com/containers-ai/federatorai-operator/blob/master/docs/quickstart.md
@@ -142,6 +175,15 @@ Need help? Read [ProphetStor Federator.ai documentations][5] or Contact ProphetS
 [4]: https://github.com/DataDog/watermarkpodautoscaler
 [5]: https://github.com/containers-ai/federatorai-operator
 [6]: http://www.prophetstor.com/wp-content/uploads/2020/05/Federator.ai%20for%20Datadog%20-%20Installation%20and%20Configuration%20Guide.pdf
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/federatorai-dashboard.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard-overview.png
 [8]: https://docs.datadoghq.com/agent/cluster_agent/setup
 [9]: https://github.com/DataDog/integrations-extras/blob/master/federatorai/metadata.csv
+[10]: https://www.datadoghq.com/
+[11]: https://docs.datadoghq.com/account_management/api-app-keys/
+[12]: https://docs.datadoghq.com/help/
+[13]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_recommended_replicas.png
+[14]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_production_consumption.png
+[15]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_consumer_lag.png
+[16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_queue_latency.png
+[17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_memory_usage.png
+[18]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_cpu_usage.png
