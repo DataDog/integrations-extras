@@ -52,7 +52,7 @@ class NvmlCall(object):
         # Do nothing if the exception is not from pynvml or there is no exception
         if traceback is None:
             return False
-        if not isinstance(exception_type, pynvml.NVMLError):
+        if not issubclass(exception_type, pynvml.NVMLError):
             return False
 
         # Suppress pynvml exceptions so we can continue
