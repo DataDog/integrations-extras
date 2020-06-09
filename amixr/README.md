@@ -7,7 +7,7 @@ Use Amixr to manage alerts with a Slack integration:
 - Collect & analyze alerts and other events from DataDog
 - Set up on-call rotations with Google calendar or in Slack
 - Configure automatic escalation chains
-- Recieve alerts with phone calls & SMS
+- Recieve alerts with phone calls and SMS
 - Orchestrate incident management with GitOps
 
 ![Amixr_Interface][1]
