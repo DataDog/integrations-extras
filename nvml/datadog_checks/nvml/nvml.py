@@ -14,7 +14,6 @@ from datadog_checks.base import AgentCheck
 from .api_pb2 import ListPodResourcesRequest
 from .api_pb2_grpc import PodResourcesListerStub
 
-previously_printed_errors = set()
 METRIC_PREFIX = "nvml."
 SOCKET_PATH = "/var/lib/kubelet/pod-resources/kubelet.sock"
 """Assumed to be a UDS accessible from this running code"""
@@ -31,6 +30,7 @@ class NvmlInit(object):
 
 
 class NvmlCall(object):
+    previously_printed_errors = set()
     """Wraps a call and checks for an exception (of any type).
 
        Why this exists: If a graphics card doesn't support a nvml method, we don't want to spam the logs with just
@@ -56,10 +56,9 @@ class NvmlCall(object):
             return False
 
         # Suppress pynvml exceptions so we can continue
-        global previously_printed_errors
-        if self.name in previously_printed_errors:
+        if self.name in NvmlCall.previously_printed_errors:
             return True
-        previously_printed_errors.add(self.name)
+        NvmlCall.previously_printed_errors.add(self.name)
         self.log.warning("Unable to execute NVML function: %s: %s", self.name, exception_value)
         return True
 
