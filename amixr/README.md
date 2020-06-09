@@ -2,13 +2,13 @@
 
 ## Overview
 
-Amixr is developer-friendly alert management with brilliant Slack integration.
+Use Amixr to manage alerts with a Slack integration:
 
 - Collect & analyze alerts and other events from DataDog
-- Set up on-call rotations with Google calendar or right in Slack
+- Set up on-call rotations with Google calendar or in Slack
 - Configure automatic escalation chains
-- Never miss alerts with phone calls & SMS
-- Orchestrate the whole incident management with GitOps
+- Recieve alerts with phone calls and SMS
+- Orchestrate incident management with GitOps
 
 ![Amixr_Interface][1]
 
@@ -21,12 +21,14 @@ No additional installation is needed on your server.
 ### Configuration
 
 In Amixr:
+
 1. Go to *Settings > Connect New Monitorings > Datadog > How to connect*
 2. Copy DataDog webhook URL
 
 In Datadog:
+
 1. Navigate to the **Integrations** page from the sidebar.
-2. Search for **webhook** in the search bar
+2. Search for **webhook** in the search bar.
 3. Enter a name for the integration, for example: `amixr-alerts-prod`.
 4. Paste the webhook URL from the above step.
 5. Click the save button.
@@ -34,11 +36,13 @@ In Datadog:
 ### Validation
 
 In Datadog:
+
 1. Navigate to the **Events** page from the sidebar.
 2. Type `@webhook-<integration name><YOUR TEXT HERE>`, for example: `@webhook-amixr-alerts-prod test alert`.
 3. Click the post button.
 
 In Amixr:
+
 1. Navigate to **Incidents** from the sidebar to check if the alert was received.
 
 ## Data Collected
