@@ -8,7 +8,7 @@ Use Amixr to manage alerts with a Slack integration:
 - Set up on-call rotations with Google calendar or in Slack
 - Configure automatic escalation chains
 - Recieve alerts with phone calls & SMS
-- Orchestrate the whole incident management with GitOps
+- Orchestrate incident management with GitOps
 
 ![Amixr_Interface][1]
 
