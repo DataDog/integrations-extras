@@ -41,8 +41,9 @@ class NvmlCall(object):
        then that error is logged, but only logged once for this type of call
     """
 
-    def __init__(self, name):
+    def __init__(self, name, logger):
         self.name = name
+        self.log  = logger
 
     def __enter__(self):
         pass
@@ -81,7 +82,7 @@ class NvmlCheck(AgentCheck):
             self.gather(instance)
 
     def gather(self, instance):
-        with NvmlCall("device_count"):
+        with NvmlCall("device_count", self.log):
             deviceCount = NvmlCheck.N.nvmlDeviceGetCount()
             self.gauge('device_count', deviceCount)
             for i in range(deviceCount):
@@ -100,40 +101,40 @@ class NvmlCheck(AgentCheck):
         # queried.  Taking names to match
         # https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter # noqa: E501
         # Documented at https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html # noqa: E501
-        with NvmlCall("util_rate"):
+        with NvmlCall("util_rate", self.log):
             util = NvmlCheck.N.nvmlDeviceGetUtilizationRates(handle)
             self.gauge('gpu_utilization', util.gpu, tags=tags)
             self.gauge('mem_copy_utilization', util.memory, tags=tags)
 
         # See https://docs.nvidia.com/deploy/nvml-api/structnvmlMemory__t.html#structnvmlMemory__t
-        with NvmlCall("mem_info"):
+        with NvmlCall("mem_info", self.log):
             mem_info = NvmlCheck.N.nvmlDeviceGetMemoryInfo(handle)
             self.gauge('fb_free', mem_info.free, tags=tags)
             self.gauge('fb_used', mem_info.used, tags=tags)
             self.gauge('fb_total', mem_info.total, tags=tags)
 
         # See https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g7ef7dff0ff14238d08a19ad7fb23fc87 # noqa: E501
-        with NvmlCall("power"):
+        with NvmlCall("power", self.log):
             power = NvmlCheck.N.nvmlDeviceGetPowerUsage(handle)
             self.gauge('power_usage', power, tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g732ab899b5bd18ac4bfb93c02de4900a
-        with NvmlCall("total_energy_consumption"):
+        with NvmlCall("total_energy_consumption", self.log):
             consumption = NvmlCheck.N.nvmlDeviceGetTotalEnergyConsumption(handle)
             self.monotonic_count('total_energy_consumption', consumption, tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ga5c77a2154a20d4e660221d8592d21fb
-        with NvmlCall("enc_utilization"):
+        with NvmlCall("enc_utilization", self.log):
             encoder_util = NvmlCheck.N.nvmlDeviceGetEncoderUtilization(handle)
             self.gauge('enc_utilization', encoder_util[0], tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g0e3420045bc9d04dc37690f4701ced8a
-        with NvmlCall("dec_utilization"):
+        with NvmlCall("dec_utilization", self.log):
             dec_util = NvmlCheck.N.nvmlDeviceGetDecoderUtilization(handle)
             self.gauge('dec_utilization', dec_util[0], tags=tags)
 
         # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1gd86f1c74f81b5ddfaa6cb81b51030c72
-        with NvmlCall("pci_through"):
+        with NvmlCall("pci_through", self.log):
             tx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_TX_BYTES)
             rx_bytes = NvmlCheck.N.nvmlDeviceGetPcieThroughput(handle, pynvml.NVML_PCIE_UTIL_RX_BYTES)
             self.monotonic_count('pcie_tx_throughput', tx_bytes, tags=tags)
