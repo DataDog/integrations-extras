@@ -43,7 +43,7 @@ class NvmlCall(object):
 
     def __init__(self, name, logger):
         self.name = name
-        self.log  = logger
+        self.log = logger
 
     def __enter__(self):
         pass
