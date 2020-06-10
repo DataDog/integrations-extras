@@ -4,7 +4,7 @@
 
 Use Amixr to manage alerts with a Slack integration:
 
-- Collect & analyze alerts and other events from DataDog
+- Collect & analyze alerts and other events from Datadog
 - Set up on-call rotations with Google calendar or in Slack
 - Configure automatic escalation chains
 - Recieve alerts with phone calls and SMS
@@ -23,7 +23,7 @@ No additional installation is needed on your server.
 In Amixr:
 
 1. Go to *Settings > Connect New Monitorings > Datadog > How to connect*
-2. Copy DataDog webhook URL
+2. Copy Datadog webhook URL
 
 In Datadog:
 
