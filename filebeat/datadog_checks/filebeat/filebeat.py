@@ -219,7 +219,7 @@ class FilebeatCheck(AgentCheck):
         self.instance_cache = {}
 
     def check(self, instance):
-        normalize_metrics = instance.get("normalize_metrics")
+        normalize_metrics = is_affirmative(instance.get("normalize_metrics"), False)
 
         instance_key = hash_mutable(instance)
         if instance_key in self.instance_cache:
