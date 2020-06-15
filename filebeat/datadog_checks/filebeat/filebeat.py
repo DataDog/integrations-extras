@@ -14,7 +14,7 @@ import sre_constants
 import requests
 from six import iteritems
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, is_affirmative
 from datadog_checks.base.utils.containers import hash_mutable
 
 EVENT_TYPE = SOURCE_TYPE_NAME = "filebeat"
@@ -164,6 +164,7 @@ class FilebeatCheckInstanceConfig:
         self._stats_endpoint = instance.get("stats_endpoint")
 
         self._only_metrics = instance.get("only_metrics", [])
+
         if not isinstance(self._only_metrics, list):
             raise Exception(
                 "If given, filebeat's only_metrics must be a list of regexes, got %s" % (self._only_metrics,)
@@ -210,11 +211,16 @@ class FilebeatCheckInstanceConfig:
 
 
 class FilebeatCheck(AgentCheck):
+
+    METRIC_PREFIX = "filebeat."
+
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
         self.instance_cache = {}
 
     def check(self, instance):
+        normalize_metrics = is_affirmative(instance.get("normalize_metrics", False))
+
         instance_key = hash_mutable(instance)
         if instance_key in self.instance_cache:
             config = self.instance_cache[instance_key]["config"]
@@ -225,7 +231,7 @@ class FilebeatCheck(AgentCheck):
             self.instance_cache[instance_key] = {"config": config, "profiler": profiler}
 
         self._process_registry(config)
-        self._gather_http_profiler_metrics(config, profiler)
+        self._gather_http_profiler_metrics(config, profiler, normalize_metrics)
 
     def _process_registry(self, config):
         registry_contents = self._parse_registry_file(config.registry_file_path)
@@ -270,7 +276,7 @@ class FilebeatCheck(AgentCheck):
     def _is_same_file(self, stats, file_state_os):
         return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
 
-    def _gather_http_profiler_metrics(self, config, profiler):
+    def _gather_http_profiler_metrics(self, config, profiler, normalize_metrics):
         try:
             all_metrics = profiler.gather_metrics()
         except Exception as ex:
@@ -283,4 +289,6 @@ class FilebeatCheck(AgentCheck):
             method = getattr(self, action)
 
             for name, value in iteritems(metrics):
+                if not name.startswith(self.METRIC_PREFIX) and normalize_metrics:
+                    name = self.METRIC_PREFIX + name
                 method(name, value, tags)
