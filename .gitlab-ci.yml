@@ -1,0 +1,11 @@
+stages:
+  - test
+
+
+notify-slack:
+  stage: notify
+  image: alpine
+  script:
+    - echo 'success'
+  when: always
+  tags: [ "runner:main", "size:large" ]
