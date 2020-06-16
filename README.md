@@ -11,7 +11,7 @@ Collecting data is cheap; not having it when you need it can be very expensive. 
 
 For more information about how to build a new integration, please see [the guide at docs.datadoghq.com][4].
 
-Also see the [`integrations-core` developer documentation][11] for more information on guidelines, tutorials, and metadata.
+Also see the [agent integrations developer documentation][11] for more information on guidelines, tutorials, and metadata.
 
 ## Community Maintenance
 
