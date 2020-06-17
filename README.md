@@ -11,6 +11,8 @@ Collecting data is cheap; not having it when you need it can be very expensive. 
 
 For more information about how to build a new integration, please see [the guide at docs.datadoghq.com][4].
 
+Also see the [agent integrations developer documentation][11] for more information on guidelines, tutorials, and metadata.
+
 ## Community Maintenance
 
 Please note that integrations in this repository are maintained by the community. The current maintainer is listed in `manifest.json` and will address the pull requests and issues opened for that integration. Additionally, Datadog will assist on a best-effort basis, and will support the current maintainer whenever possible. When submitting a new integration, please indicate in the PR that you're willing to become the maintainer. For current maintainers, we understand circumstances change. If you're no longer able to maintain an integration, please notify us so we can find a new maintainer or mark the integration as orphaned. If you have any questions about the process, don't hesitate to contact us.
@@ -33,3 +35,4 @@ For more information on integrations, please reference our [documentation][6] an
 [8]: http://docs.datadoghq.com/help/
 [9]: https://img.shields.io/badge/code%20style-black-000000.svg
 [10]: https://github.com/ambv/black
+[11]: https://datadoghq.dev/integrations-core/
