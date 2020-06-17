@@ -175,7 +175,7 @@ Need help? Read [ProphetStor Federator.ai documentations][5] or contact [Datadog
 [4]: https://github.com/DataDog/watermarkpodautoscaler
 [5]: https://github.com/containers-ai/federatorai-operator
 [6]: http://www.prophetstor.com/wp-content/uploads/2020/05/Federator.ai%20for%20Datadog%20-%20Installation%20and%20Configuration%20Guide.pdf
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard-overview.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_overview.png
 [8]: https://docs.datadoghq.com/agent/cluster_agent/setup
 [9]: https://github.com/DataDog/integrations-extras/blob/master/federatorai/metadata.csv
 [10]: https://www.datadoghq.com/
