@@ -1,310 +1,289 @@
 {
-    "notify_list": [],
-    "description": "[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.\n\n* AI-based workload prediction for Kafka or any applications\n* Resource recommendation based on workload prediction, application, Kubernetes and other related metrics\n* Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/\n[4]: https://github.com/DataDog/watermarkpodautoscaler\n\n[Federator.ai/version:v4.2.785]",
-    "author_name": "ProphetStor Data Services, Inc.",
+    "author_info": {
+        "author_name": "Datadog"
+    },
+    "board_title": "ProphetStor Federator.ai Kafka Overview",
+    "description": "[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.\n\n* AI-based workload prediction for Kafka or any applications\n* Resource recommendation based on workload prediction, application, Kubernetes and other related metrics\n* Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/\n[4]: https://github.com/DataDog/watermarkpodautoscaler\n\n[Federator.ai/version:v4.2.790]",
     "template_variables": [
         {
             "default": "*",
-            "prefix": "kube_cluster",
-            "name": "kube_cluster"
+            "name": "kube_cluster",
+            "prefix": "kube_cluster"
         },
         {
             "default": "*",
-            "prefix": "kube_namespace",
-            "name": "kube_namespace"
+            "name": "kube_namespace",
+            "prefix": "kube_namespace"
         },
         {
             "default": "*",
-            "prefix": "kube_deployment",
-            "name": "kube_deployment"
+            "name": "kube_deployment",
+            "prefix": "kube_deployment"
         },
         {
             "default": "*",
-            "prefix": "topic",
-            "name": "topic"
+            "name": "topic",
+            "prefix": "topic"
         },
         {
             "default": "*",
-            "prefix": "consumer_group",
-            "name": "consumer_group"
+            "name": "consumer_group",
+            "prefix": "consumer_group"
         }
     ],
-    "is_read_only": false,
-    "id": "he7-v84-km5",
-    "board_title": "ProphetStor Federator.ai Kafka Overview",
-    "created_at": "2020-06-08T08:25:18.979276+00:00",
-    "modified_at": "2020-06-08T09:27:24.984053+00:00",
-    "author_handle": "support@prophetstor.com",
     "widgets": [
         {
-            "definition": {
-                "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/prophetstor_logos-bot-for-dashboard.png",
-                "sizing": "fit",
-                "margin": "small",
-                "type": "image"
-            },
-            "layout": {
-                "y": 1,
-                "x": 0,
-                "height": 13,
-                "width": 29
-            },
-            "id": 0
+            "height": 13,
+            "margin": "small",
+            "sizing": "fit",
+            "type": "image",
+            "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/prophetstor_logos-bot-for-dashboard.png",
+            "width": 29,
+            "x": 0,
+            "y": 1
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Recommended Replicas vs Current/Desired Replicas",
-                "title_align": "left",
-                "yaxis": {
-                    "max": "auto",
-                    "include_zero": true,
-                    "scale": "linear",
-                    "min": "auto",
-                    "label": ""
-                },
-                "show_legend": false,
                 "requests": [
                     {
                         "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "warm",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "line"
+                        "type": "line"
                     },
                     {
                         "q": "avg:kubernetes_state.deployment.replicas_available{$kube_cluster,$kube_namespace,$kube_deployment}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "cool",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "line"
+                        "type": "line"
                     },
                     {
                         "q": "avg:kubernetes_state.deployment.replicas_desired{$kube_cluster,$kube_namespace,$kube_deployment}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "cool",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "line"
+                        "type": "line"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
             },
-            "layout": {
-                "y": 15,
-                "x": 0,
-                "height": 15,
-                "width": 47
-            },
-            "id": 1
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Recommended Replicas vs Current/Desired Replicas",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 15
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Production vs Consumption vs Production Prediction",
-                "title_align": "left",
-                "yaxis": {
-                    "max": "auto",
-                    "include_zero": true,
-                    "scale": "linear",
-                    "min": "auto",
-                    "label": ""
-                },
-                "show_legend": false,
                 "requests": [
                     {
                         "q": "avg:federatorai.kafka.broker_offset_rate{$kube_cluster,$topic}, avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group}, avg:federatorai.prediction.kafka{source_metric:federatorai.kafka.broker_offset_rate,$kube_cluster,$topic}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "line"
+                        "type": "line"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
             },
-            "layout": {
-                "y": 15,
-                "x": 48,
-                "height": 15,
-                "width": 47
-            },
-            "id": 2
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Production vs Consumption vs Production Prediction",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 15
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Kafka Consumer Lag",
-                "title_align": "left",
-                "yaxis": {
-                    "max": "auto",
-                    "include_zero": true,
-                    "scale": "linear",
-                    "min": "auto",
-                    "label": ""
-                },
-                "show_legend": false,
                 "requests": [
                     {
+                        "metadata": {
+                            "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})": {
+                                "alias": "kafka.consumer_lag_sum_by_partition"
+                            }
+                        },
                         "q": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
                         "style": {
-                            "line_width": "normal",
                             "palette": "purple",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "bars",
-                        "metadata": [
-                            {
-                                "alias_name": "kafka.consumer_lag_sum_by_partition",
-                                "expression": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})"
-                            }
-                        ]
+                        "type": "bars"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
             },
-            "layout": {
-                "y": 31,
-                "x": 0,
-                "height": 15,
-                "width": 47
-            },
-            "id": 3
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Kafka Consumer Lag",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 31
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Consumer Queue Latency (msec)",
-                "title_align": "left",
-                "yaxis": {
-                    "include_zero": false
-                },
-                "show_legend": false,
                 "requests": [
                     {
                         "q": "(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group} by {host})/avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group})*60*1000",
                         "style": {
-                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "line"
+                        "type": "line"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": false
+                }
             },
-            "layout": {
-                "y": 31,
-                "x": 48,
-                "height": 15,
-                "width": 47
-            },
-            "id": 4
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Consumer Queue Latency (msec)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 31
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Deployment Memory Usage",
-                "title_align": "left",
-                "yaxis": {
-                    "max": "auto",
-                    "include_zero": true,
-                    "scale": "linear",
-                    "min": "auto",
-                    "label": ""
-                },
-                "show_legend": false,
                 "requests": [
                     {
                         "q": "sum:kubernetes.memory.usage{$kube_cluster,$kube_namespace,$kube_deployment}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "cool",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "area"
+                        "type": "area"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
             },
-            "layout": {
-                "y": 47,
-                "x": 0,
-                "height": 15,
-                "width": 47
-            },
-            "id": 5
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Deployment Memory Usage",
+            "type": "timeseries",
+            "width": 47,
+            "x": 0,
+            "y": 47
         },
         {
-            "definition": {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
                 "custom_links": [],
-                "title_size": "16",
-                "title": "Deployment CPU Usage",
-                "title_align": "left",
-                "yaxis": {
-                    "max": "auto",
-                    "include_zero": true,
-                    "scale": "linear",
-                    "min": "auto",
-                    "label": ""
-                },
-                "show_legend": false,
                 "requests": [
                     {
                         "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment}",
                         "style": {
-                            "line_width": "normal",
                             "palette": "dog_classic",
-                            "line_type": "solid"
+                            "type": "solid",
+                            "width": "normal"
                         },
-                        "display_type": "area"
+                        "type": "area"
                     }
                 ],
-                "type": "timeseries",
-                "legend_size": "0"
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
             },
-            "layout": {
-                "y": 47,
-                "x": 48,
-                "height": 15,
-                "width": 47
-            },
-            "id": 6
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Deployment CPU Usage",
+            "type": "timeseries",
+            "width": 47,
+            "x": 48,
+            "y": 47
         },
         {
-            "definition": {
-                "tick_pos": "50%",
-                "show_tick": false,
-                "type": "note",
-                "tick_edge": "left",
-                "text_align": "left",
-                "content": "With integration of [ProphetStor Federator.ai][1], users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/",
-                "font_size": "14",
-                "background_color": "green"
-            },
-            "layout": {
-                "y": 1,
-                "x": 31,
-                "height": 13,
-                "width": 64
-            },
-            "id": 7
+            "bgcolor": "green",
+            "font_size": "14",
+            "height": 13,
+            "html": "With integration of [ProphetStor Federator.ai][1], users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/",
+            "text_align": "left",
+            "tick": false,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 64,
+            "x": 31,
+            "y": 1
         }
     ]
 }
