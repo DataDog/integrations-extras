@@ -110,7 +110,6 @@ class SpeedtestCheck(AgentCheck):
         """
         # log for debugging, there is nothing sensitive here
         self.log.debug("speedtest output: %s", payload)
-        print(payload)
         if payload.get("type") != "result":
             raise Exception("unexpected result type found: {}".format(payload.get("type")))
 
