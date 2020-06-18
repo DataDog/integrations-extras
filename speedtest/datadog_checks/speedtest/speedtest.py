@@ -166,4 +166,4 @@ class SpeedtestCheck(AgentCheck):
         self.gauge("speedtest.upload.bytes", float(upload_data.get("bytes")), tags)
         self.gauge("speedtest.upload.elapsed", float(upload_data.get("elapsed")), tags)
 
-        self.gauge("speedtest.packet_loss", float(payload.get("packetLoss")), tags)
+        self.gauge("speedtest.packet_loss", float(payload.get("packetLoss", 0)), tags)
