@@ -2,47 +2,45 @@
 
 ## Overview
 
-This check monitors [ProphetStor Federator.ai][1].
-
-ProphetStor Federator.ai is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.
+[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.
 
 * AI-based workload prediction for Kafka or any applications
 * Resource recommendation based on workload prediction, application, Kubernetes and other related metrics
 * Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]
 
-With integration of Federator.ai, users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.
+With integration of ProphetStor Federator.ai, users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.
 
-* Federator.ai Dashboard Overview
+* **Federator.ai Dashboard Overview**
 
 ![dashboard_overview][7]
 
-* Recommended Replicas vs Current/Desired Replicas
-  This timeseries graph shows the recommended replicas from the Federator.ai and the desired and current replicas in the system.
+* **Recommended Replicas vs Current/Desired Replicas**
+   - This timeseries graph shows the recommended replicas from the Federator.ai and the desired and current replicas in the system.
 
 ![dashboard_recommended_replicas][13]
 
-* Production vs Consumption vs Production Prediction
-  This timeseries graph shows the Kafka message production rate and consumption rate and the production rate predicted by Federator.ai.
+* **Production vs Consumption vs Production Prediction**
+   - This timeseries graph shows the Kafka message production rate and consumption rate and the production rate predicted by Federator.ai.
 
 ![dashboard_production_consumption][14]
 
-* Kafka Consumer Lag
-  This timeseries graph shows the sum of consumer lags from all partitions.
+* **Kafka Consumer Lag**
+   - This timeseries graph shows the sum of consumer lags from all partitions.
 
 ![dashboard_consumer_lag][15]
 
-* Consumer Queue Latency (msec)
-  This timeseries graph shows the average latency of a message in the message queue before it is received by a consumer.
+* **Consumer Queue Latency (msec)**
+   - This timeseries graph shows the average latency of a message in the message queue before it is received by a consumer.
 
 ![dashboard_queue_latency][16]
 
-* Deployment Memory Usage
-  This timeseries graph shows the memory usage of consumers.
+* **Deployment Memory Usage**
+   - This timeseries graph shows the memory usage of consumers.
 
 ![dashboard_memory_usage][17]
 
-* Deployment CPU Usage
-  This timeseries graph shows the CPU usage of consumers.
+* **Deployment CPU Usage**
+   - This timeseries graph shows the CPU usage of consumers.
 
 ![dashboard_cpu_usage][18]
 
@@ -55,14 +53,14 @@ With integration of Federator.ai, users can easily track the Kafka message produ
 2. Install the Federator.ai for OpenShift/Kubernetes by the following command
 
    ```shell
-   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/v4.2.785/deploy/install.sh |bash
+   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/datadog/deploy/install.sh |bash
    ```
 
    ```shell
-   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/v4.2.785/deploy/install.sh |bash
+   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/datadog/deploy/install.sh |bash
    Checking environment version...
    ...Passed
-   Please input Federator.ai Operator tag: v4.2.785
+   Please input Federator.ai Operator tag: datadog
    Enter the namespace you want to install Federator.ai [default: federatorai]:
    .........
    (snipped)
@@ -76,7 +74,7 @@ With integration of Federator.ai, users can easily track the Kafka message produ
    .........
    (snipped)
    .........
-   Install Alameda v4.2.785 successfully
+   Install Alameda successfully
 
    Downloaded YAML files are located under /tmp/install-op
    ```
@@ -99,7 +97,7 @@ With integration of Federator.ai, users can easily track the Kafka message produ
    - Download the Data-Adapter configuration script from Github.
 
    ```shell
-   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/4.2-husky/deploy/federatorai-setup-for-datadog.sh -O
+   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/datadog/deploy/federatorai-setup-for-datadog.sh -O
    ```
 
    - Change the execution permission.
@@ -125,8 +123,8 @@ With integration of Federator.ai, users can easily track the Kafka message produ
    You are connecting to cluster: https://api.jc-ocp4.172-31-17-84.nip.io:6443
 
    Getting Datadog info...
-   Input a Datadog API Key []:7c8475872d97cbc155b893a8311111xx
-   Input a Datadog Application Key []:a4c3f7620db747800d3dcb7c325fcb08a11111xx
+   Input a Datadog API Key []:xxxxx9273dxxcbc155xx3a7331xxxxx
+   Input a Datadog Application Key []:xxxxx7220db1478xxxxxcb5c323fcb02a11xxxxx
 
    Getting the Kafka info... No.1
    Input Kafka consumer deployment name []: consumer
