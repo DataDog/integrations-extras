@@ -17,7 +17,7 @@ To install the Speedtest check on your host:
 3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/speedtest/dist/<ARTIFACT_NAME>.whl`.
 
-Note: For all hosts you need to also install [Speedtest CLI](https://www.speedtest.net/apps/cli) on your host and accept the agreement prior to use.
+Note: For all hosts you need to also install [Speedtest CLI](https://www.speedtest.net/apps/cli) on your host and accept the agreement as the Datadog Agent user (e.g. `sudo -u dd-agent speedtest`) prior to use.
 
 ### Configuration
 
