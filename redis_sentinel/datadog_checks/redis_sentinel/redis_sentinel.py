@@ -3,7 +3,7 @@ from collections import defaultdict
 
 import redis
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'redis_sentinel'
 
@@ -13,9 +13,33 @@ class RedisSentinelCheck(AgentCheck):
         AgentCheck.__init__(self, name, init_config, agentConfig, instances)
         self._masters = defaultdict(lambda: "")
 
+    def _load_config(self, instance):
+        host = instance.get('sentinel_host')
+        port = instance.get('sentinel_port')
+
+        if not host or not port:
+            raise ConfigurationError('Configuration error, please fix redis_sentinel configuration')
+
+        try:
+            if float(port) != int(port):
+                raise ConfigurationError('Configuration error. "sentinel_port" must be an int.')
+        except Exception:
+            raise ConfigurationError('Configuration error. "sentinel_port" must be an int.')
+
+        if instance.get('sentinel_password'):
+            passwd = instance.get('sentinel_password')
+        else:
+            passwd = None
+
+        return host, int(port), passwd
+
     def check(self, instance):
         self.log.info(instance)
-        redis_conn = redis.StrictRedis(host=instance['sentinel_host'], port=int(instance['sentinel_port']), db=0)
+
+        host, port, password = self._load_config(instance)
+
+        redis_conn = redis.StrictRedis(host=host, port=port, password=password, db=0)
+
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])
             try:
