@@ -49,8 +49,8 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://www.speedtest.net/apps/cli
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://github.com/DataDog/integrations-core/blob/master/speedtest/datadog_checks/speedtest/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/datadog_checks/speedtest/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-core/blob/master/speedtest/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/metadata.csv
 [7]: https://docs.datadoghq.com/help/
