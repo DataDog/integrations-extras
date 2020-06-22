@@ -18,7 +18,7 @@ Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, [
 Once the Datadog Agent is installed, add a Telemetry stanza to the Nomad configuration for your clients and servers:
 
 ```conf
-telemetry {shell
+telemetry {
   publish_allocation_metrics = true
   publish_node_metrics       = true
   datadog_address = "localhost:8125"
