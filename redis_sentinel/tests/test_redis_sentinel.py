@@ -1,6 +1,7 @@
 import mock
 import pytest
 
+from datadog_checks.base import ConfigurationError
 from datadog_checks.redis_sentinel import RedisSentinelCheck
 
 METRICS = [
@@ -23,6 +24,43 @@ SERVICE_CHECKS = [
 CHECK_NAME = 'redis_sentinel'
 
 
+@pytest.mark.unit
+def test_load_config():
+    instance = {}
+    c = RedisSentinelCheck('redis_sentinel', {}, instance)
+
+    # Error on empty instance
+    with pytest.raises(ConfigurationError):
+        c._load_config(instance)
+
+    # When sentinel_port is not set.
+    with pytest.raises(ConfigurationError):
+        c._load_config({'sentinel_host': 'localhost'})
+
+    # When sentinel_port is a float.
+    with pytest.raises(ConfigurationError):
+        c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123.0})
+
+    # When sentinel_port is a string
+    with pytest.raises(ConfigurationError):
+        c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port'})
+
+    # Expect to pass when port is an integer, with no password defined.
+    host, port, password = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
+    assert host == 'localhost'
+    assert port == 123
+    assert password is None
+
+    # Expect to pass when port is an integer, with password defined.
+    host, port, password = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'sentinel_password': 'password1'}
+    )
+    assert host == 'localhost'
+    assert port == 123
+    assert password == 'password1'
+
+
+@pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 def test_check(aggregator, instance):
     """
@@ -40,6 +78,7 @@ def test_check(aggregator, instance):
     aggregator.assert_all_metrics_covered()
 
 
+@pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 def test_down_slaves(aggregator, instance):
     """
