@@ -2,8 +2,8 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class PiholeCheck(AgentCheck):
-    def __init__(self, name, init_config, instance):
-        super(PiholeCheck, self).__init__(name, init_config, instance)
+    def __init__(self, name, init_config, instances):
+        super(PiholeCheck, self).__init__(name, init_config, instances)
         host = self.instance.get('host')
         if not host:  # Check if a host parameter exsists in conf.yaml
             raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
