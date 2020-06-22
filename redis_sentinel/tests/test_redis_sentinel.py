@@ -39,21 +39,21 @@ def test_load_config():
 
     # When sentinel_port is a float.
     with pytest.raises(ConfigurationError):
-        c._load_config({'sentinel_host': 'localhost', 'sentinel_port': '123.0'})
+        c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123.0})
 
     # When sentinel_port is a string
     with pytest.raises(ConfigurationError):
         c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port'})
 
     # Expect to pass when port is an integer, with no password defined.
-    host, port, password = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': '123', 'masters': 'mymaster'})
+    host, port, password = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
     assert host == 'localhost'
     assert port == 123
     assert password is None
 
     # Expect to pass when port is an integer, with password defined.
     host, port, password = c._load_config(
-        {'sentinel_host': 'localhost', 'sentinel_port': '123', 'masters': 'mymaster', 'sentinel_password': 'password1'}
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'sentinel_password': 'password1'}
     )
     assert host == 'localhost'
     assert port == 123

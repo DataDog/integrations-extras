@@ -20,18 +20,12 @@ class RedisSentinelCheck(AgentCheck):
         if not host or not port:
             raise ConfigurationError('Configuration error, please fix redis_sentinel configuration')
 
-        try:
-            if float(port) != int(port):
-                raise ConfigurationError('Configuration error. "sentinel_port" must be an int.')
-        except Exception:
+        if not isinstance(port, int):
             raise ConfigurationError('Configuration error. "sentinel_port" must be an int.')
 
-        if instance.get('sentinel_password'):
-            passwd = instance.get('sentinel_password')
-        else:
-            passwd = None
+        passwd = instance.get('sentinel_password', None)
 
-        return host, int(port), passwd
+        return host, port, passwd
 
     def check(self, instance):
         self.log.info(instance)
