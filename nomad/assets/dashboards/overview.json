@@ -1,0 +1,867 @@
+{
+    "author_info": {
+        "author_name": "Datadog"
+    },
+    "board_title": "Nomad Overview",
+    "description": null,
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "host",
+            "prefix": "host"
+        },
+        {
+            "default": "*",
+            "name": "node_id",
+            "prefix": "node_id"
+        },
+        {
+            "default": "*",
+            "name": "datacenter",
+            "prefix": "datacenter"
+        }
+    ],
+    "widgets": [
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "custom_unit": "Hrs",
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.client.uptime{$host,$node_id,$datacenter}/3600"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "Client Uptime",
+            "type": "query_value",
+            "width": 20,
+            "x": 30,
+            "y": 0
+        },
+        {
+            "height": 12,
+            "sizing": "fit",
+            "type": "image",
+            "url": "https://github.com/DataDog/integrations-extras/blob/master/nomad/assets/logos/saas_logos-bot.png?raw=true",
+            "width": 29,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.host.memory.free{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.memory.used{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.memory.available{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.memory.total{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Host memory",
+            "type": "timeseries",
+            "width": 37,
+            "x": 0,
+            "y": 19
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.allocated.memory{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.unallocated.memory{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Host memory allocation",
+            "type": "timeseries",
+            "width": 37,
+            "x": 0,
+            "y": 35
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.host.cpu.idle{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.cpu.total{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.cpu.user{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.cpu.system{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Host CPU",
+            "type": "timeseries",
+            "width": 37,
+            "x": 38,
+            "y": 19
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.allocated.cpu{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.unallocated.cpu{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Host CPU Allocation",
+            "type": "timeseries",
+            "width": 37,
+            "x": 38,
+            "y": 35
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.host.disk.available{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.disk.used{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.host.disk.size{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Host Disk",
+            "type": "timeseries",
+            "width": 37,
+            "x": 76,
+            "y": 19
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:nomad.client.allocated.disk{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:nomad.client.unallocated.disk{$host,$node_id,$datacenter}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Disk Allocation",
+            "type": "timeseries",
+            "width": 37,
+            "x": 76,
+            "y": 35
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "custom_unit": "%",
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "(avg:nomad.client.host.memory.used{$host,$node_id,$datacenter}/avg:nomad.client.host.memory.total{$host,$node_id,$datacenter})*100"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "Memory Usage",
+            "type": "query_value",
+            "width": 20,
+            "x": 51,
+            "y": 0
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "custom_unit": "%",
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "(avg:nomad.client.host.cpu.user{$host,$node_id,$datacenter}+avg:nomad.client.host.cpu.system{$host,$node_id,$datacenter})"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "CPU Usage",
+            "type": "query_value",
+            "width": 20,
+            "x": 72,
+            "y": 0
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "custom_unit": "%",
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "(avg:nomad.client.host.disk.used{$host,$node_id,$datacenter}/avg:nomad.client.host.disk.size{$host,$node_id,$datacenter})*100"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "Disk Usage",
+            "type": "query_value",
+            "width": 20,
+            "x": 93,
+            "y": 0
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 5,
+            "html": "Broker Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 18,
+            "x": 1,
+            "y": 52
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.nomad.broker.total_ready{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Brokers Ready",
+            "type": "query_value",
+            "width": 20,
+            "x": 0,
+            "y": 58
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.nomad.broker.total_blocked{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Brokers Blocked",
+            "type": "query_value",
+            "width": 20,
+            "x": 0,
+            "y": 71
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.nomad.broker.total_unacked{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Brokers Unacked",
+            "type": "query_value",
+            "width": 20,
+            "x": 0,
+            "y": 84
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 5,
+            "html": "RPC Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 18,
+            "x": 22,
+            "y": 52
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 5,
+            "html": "Consul Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 18,
+            "x": 43,
+            "y": 52
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 5,
+            "html": "Raft Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 18,
+            "x": 64,
+            "y": 52
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 5,
+            "html": "Runtime Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 18,
+            "x": 85,
+            "y": 52
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.nomad.rpc.query{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# RPC Query",
+            "type": "query_value",
+            "width": 20,
+            "x": 21,
+            "y": 58
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.nomad.rpc.request{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# RPC Requests",
+            "type": "query_value",
+            "width": 20,
+            "x": 21,
+            "y": 71
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "q": "avg:nomad.nomad.rpc.request_error{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# RPC Requests Errors",
+            "type": "query_value",
+            "width": 20,
+            "x": 21,
+            "y": 84
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.runtime.num_goroutines{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Goroutines",
+            "type": "query_value",
+            "width": 20,
+            "x": 84,
+            "y": 58
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.runtime.heap_objects{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Heap Objects",
+            "type": "query_value",
+            "width": 20,
+            "x": 84,
+            "y": 71
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.runtime.alloc_bytes{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "Mem Utilization",
+            "type": "query_value",
+            "width": 20,
+            "x": 84,
+            "y": 84
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.raft.apply{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "#Transactions",
+            "type": "query_value",
+            "width": 20,
+            "x": 63,
+            "y": 58
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.raft.appendEntries.avg{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "Transaction Time",
+            "type": "query_value",
+            "width": 20,
+            "x": 63,
+            "y": 71
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.client.consul.services{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Consul Services",
+            "type": "query_value",
+            "width": 20,
+            "x": 42,
+            "y": 58
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.client.consul.check_registrations{$host}.as_count()"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Checks Registrations",
+            "type": "query_value",
+            "width": 20,
+            "x": 42,
+            "y": 84
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.client.consul.checks{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "# Consul Checks",
+            "type": "query_value",
+            "width": 20,
+            "x": 42,
+            "y": 71
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "autoscale": true,
+                "custom_links": [],
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "q": "avg:nomad.raft.leader.lastContact.avg{$host}"
+                    }
+                ],
+                "viz": "query_value"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Time Since Contact With Leader",
+            "type": "query_value",
+            "width": 20,
+            "x": 63,
+            "y": 84
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "18",
+            "height": 5,
+            "html": "Host Metrics",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 113,
+            "x": 0,
+            "y": 13
+        }
+    ]
+}
