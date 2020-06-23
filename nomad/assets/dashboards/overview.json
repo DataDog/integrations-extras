@@ -3,7 +3,7 @@
         "author_name": "Datadog"
     },
     "board_title": "Nomad Overview",
-    "description": null,
+    "description": "",
     "template_variables": [
         {
             "default": "*",
@@ -50,7 +50,7 @@
             "height": 12,
             "sizing": "fit",
             "type": "image",
-            "url": "https://github.com/DataDog/integrations-extras/blob/master/nomad/assets/logos/saas_logos-bot.png?raw=true",
+            "url": "https://github.com/DataDog/integrations-extras/blob/734fb8f604e29036eb427beff7689ee4c0142b4b/nomad/assets/logos/saas_logos-bot.png?raw=true",
             "width": 29,
             "x": 0,
             "y": 0
@@ -59,6 +59,7 @@
             "height": 13,
             "legend": false,
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.host.memory.free{$host,$node_id,$datacenter}",
@@ -106,7 +107,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -120,6 +120,7 @@
             "height": 13,
             "legend": false,
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.allocated.memory{$host,$node_id,$datacenter}",
@@ -149,7 +150,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -164,6 +164,7 @@
             "legend": false,
             "legend_size": "0",
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.host.cpu.idle{$host,$node_id,$datacenter}",
@@ -211,7 +212,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -226,6 +226,7 @@
             "legend": false,
             "legend_size": "0",
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.allocated.cpu{$host,$node_id,$datacenter}",
@@ -255,7 +256,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -270,6 +270,7 @@
             "legend": false,
             "legend_size": "0",
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.host.disk.available{$host,$node_id,$datacenter}",
@@ -308,7 +309,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -323,6 +323,7 @@
             "legend": false,
             "legend_size": "0",
             "tile_def": {
+                "custom_links": [],
                 "requests": [
                     {
                         "q": "avg:nomad.client.allocated.disk{$host,$node_id,$datacenter}",
@@ -352,7 +353,6 @@
                     "scale": "linear"
                 }
             },
-            "time": {},
             "title": true,
             "title_align": "left",
             "title_size": 16,
@@ -435,7 +435,7 @@
             "y": 0
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "14",
             "height": 5,
             "html": "Broker Metrics",
@@ -518,7 +518,7 @@
             "y": 84
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "14",
             "height": 5,
             "html": "RPC Metrics",
@@ -532,7 +532,7 @@
             "y": 52
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "14",
             "height": 5,
             "html": "Consul Metrics",
@@ -542,11 +542,11 @@
             "tick_pos": "50%",
             "type": "note",
             "width": 18,
-            "x": 43,
+            "x": 85,
             "y": 52
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "14",
             "height": 5,
             "html": "Raft Metrics",
@@ -560,7 +560,7 @@
             "y": 52
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "14",
             "height": 5,
             "html": "Runtime Metrics",
@@ -570,7 +570,7 @@
             "tick_pos": "50%",
             "type": "note",
             "width": 18,
-            "x": 85,
+            "x": 43,
             "y": 52
         },
         {
@@ -662,7 +662,7 @@
             "title_text": "# Goroutines",
             "type": "query_value",
             "width": 20,
-            "x": 84,
+            "x": 42,
             "y": 58
         },
         {
@@ -685,7 +685,7 @@
             "title_text": "# Heap Objects",
             "type": "query_value",
             "width": 20,
-            "x": 84,
+            "x": 42,
             "y": 71
         },
         {
@@ -708,7 +708,7 @@
             "title_text": "Mem Utilization",
             "type": "query_value",
             "width": 20,
-            "x": 84,
+            "x": 42,
             "y": 84
         },
         {
@@ -777,7 +777,7 @@
             "title_text": "# Consul Services",
             "type": "query_value",
             "width": 20,
-            "x": 42,
+            "x": 84,
             "y": 58
         },
         {
@@ -788,7 +788,7 @@
                 "precision": 2,
                 "requests": [
                     {
-                        "aggregator": "avg",
+                        "aggregator": "last",
                         "q": "avg:nomad.client.consul.check_registrations{$host}.as_count()"
                     }
                 ],
@@ -800,7 +800,7 @@
             "title_text": "# Checks Registrations",
             "type": "query_value",
             "width": 20,
-            "x": 42,
+            "x": 84,
             "y": 84
         },
         {
@@ -823,7 +823,7 @@
             "title_text": "# Consul Checks",
             "type": "query_value",
             "width": 20,
-            "x": 42,
+            "x": 84,
             "y": 71
         },
         {
@@ -850,7 +850,7 @@
             "y": 84
         },
         {
-            "bgcolor": "white",
+            "bgcolor": "gray",
             "font_size": "18",
             "height": 5,
             "html": "Host Metrics",
