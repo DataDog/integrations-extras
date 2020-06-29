@@ -10,7 +10,7 @@ All configuration is done by PerimeterX. Please visit the [PerimeterX Documentat
 
 ### Installation
 
-No installation is required on your host
+No installation is required on your host.
 
 ### Configuration
 
