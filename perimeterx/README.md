@@ -6,7 +6,7 @@ This check monitors [perimeterx][1].
 
 ## Setup
 
-All configuration is done by PerimeterX. Please visit the [PerimeterX Documentation](https://docs.perimeterx.com/pxconsole/docs/data-integration-to-third-party-apps) regarding third party integrations.
+All configuration is done by PerimeterX. Please visit the [PerimeterX documentation](https://docs.perimeterx.com/pxconsole/docs/data-integration-to-third-party-apps) regarding third party integrations.
 
 ### Installation
 
