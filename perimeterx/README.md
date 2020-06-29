@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [perimeterx][1].
+This integration allows [PerimeterX][https://www.perimeterx.com/] customers to forward their PerimeterX related logs and events into Datadog.
 
 ## Setup
 
@@ -21,6 +21,13 @@ No installation is required on your host.
    - PerimeterX Application ID(s) that should be forwarded to Datadog
 
 ### Validation
+
+Once PerimeterX Support has confirmed the Datadog integration is complete, you can perform the following steps to confirm the integration is working as expected:
+
+1. Login to your Datadog portal.
+2. Navigate to Logs -> Search
+3. Perform a search with a query filter of "Source:perimeterx"
+4. Confirm you are receiving logs from PerimeterX (this may take a few minutes before logs start appearing).
 
 ## Data Collected
 
