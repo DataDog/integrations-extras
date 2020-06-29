@@ -26,7 +26,7 @@ No installation is required on your host
 
 ### Metrics
 
-perimeterx does not includes metrics for [requests](https://docs.perimeterx.com/pxconsole/docs/data-schema-metrics)
+PerimeterX does not includes metrics for [requests](https://docs.perimeterx.com/pxconsole/docs/data-schema-metrics).
 
 ### Service Checks
 
