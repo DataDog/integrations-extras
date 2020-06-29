@@ -30,7 +30,7 @@ perimeterx does not includes metrics for [requests](https://docs.perimeterx.com/
 
 ### Service Checks
 
-perimeterx does not include any service checks.
+PerimeterX does not include any service checks.
 
 ### Events
 
