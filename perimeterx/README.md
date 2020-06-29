@@ -34,7 +34,7 @@ perimeterx does not include any service checks.
 
 ### Events
 
-perimeterx does not include any events.
+PerimeterX does not include any events.
 
 ## Troubleshooting
 
