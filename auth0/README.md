@@ -2,7 +2,33 @@
 
 ## Overview
 
-Use the Datadog-Auth0 integration to view and analyze your log events from Auth0.
+Auth0, the identity platform for development teams, provides developers and enterprises with the building blocks they need to secure their applications.
+
+
+### Integration overview
+
+The integration with Datadog is enabled by Auth0’s Log Streaming. This capability works by sending batches of log events as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. Log streaming is capable of delivering 10X more logs, and guarantees delivery with error handling. Today we are also releasing a generic webhook allowing you to deliver near real-time logs to most third-party tools.
+
+
+#### The integration with Datadog provides a number of important benefits:
+
+Visualize Auth0 Data Without Extra Development Time
+One of the key benefits of using Datadog is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
+
+
+#### Identity data provides crucial insight to all of these use cases, allowing teams to better identify problems and make informed decisions.
+
+Make Informed Decisions About System Architecture and Development
+By tracking identity trends over time, teams can make informed decisions about product development or system architecture. For example, using authentication data to determine which devices to prioritize development. Likewise, by tracking peak login times and geographies that users are accessing the app from, system architecture teams can determine when and where to scale up resources.
+
+
+####  Quickly Respond to Performance and Security Incidents
+
+In addition to monitoring historical data to spot trends, it is just as important to use identity information to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
+
+By configuring thresholds, security teams can set up alerts to notify them when suspicious events take place, allowing them to more quickly respond to security incidents.
+
+
 
 ## Setup
 
