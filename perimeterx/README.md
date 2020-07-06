@@ -1,4 +1,4 @@
-# Agent Check: perimeterx
+# Agent Check: PerimeterX
 
 ## Overview
 
