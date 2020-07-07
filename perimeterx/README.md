@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration allows [PerimeterX][https://www.perimeterx.com/] customers to forward their PerimeterX related logs and events into Datadog.
+This integration allows [PerimeterX](https://www.perimeterx.com/) customers to forward their PerimeterX related logs and events into Datadog.
 
 ## Setup
 
