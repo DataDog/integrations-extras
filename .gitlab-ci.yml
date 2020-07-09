@@ -16,6 +16,7 @@ release-auto:
   script:
     - ddev --version
     - ddev config set extras .
+    - ./.gitlab/release/git-auth.sh
     # Prefix every line with a timestamp
     - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
   tags: [ "runner:main", "size:large" ]
@@ -29,6 +30,9 @@ release-manual:
   except:
   - schedules
   script:
+    - ddev --version
+    - ddev config set extras .
+    - ./.gitlab/release/git-auth.sh
     # Get tagger info
     - tagger=$(git for-each-ref refs/tags/$CI_COMMIT_TAG  --format='%(taggername) %(taggeremail)')
     # The automatic release builder will trigger this job as a side-effect of
@@ -39,5 +43,6 @@ release-manual:
           echo "Skipping, packages have already been built"
       else
           ./.gitlab/release/build-packages.sh
+          ./.gitlab/release/sign-release.sh
       fi
   tags: [ "runner:main", "size:large" ]

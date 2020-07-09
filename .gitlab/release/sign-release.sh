@@ -12,4 +12,4 @@ export IN_TOTO_SIGNING_KEY_PASSWORD=$(aws ssm get-parameter --region us-east-1 -
 set -x
 
 ddev release make all --sign-only
-git push origin master
+git push origin ${CI_COMMIT_BRANCH:-master}
