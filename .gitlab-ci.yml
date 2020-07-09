@@ -16,6 +16,7 @@ release-auto:
   script:
     - ddev --version
     - ddev config set extras .
+    - ddev config set repo extras
     - ./.gitlab/release/git-auth.sh
     # Prefix every line with a timestamp
     - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
@@ -32,6 +33,7 @@ release-manual:
   script:
     - ddev --version
     - ddev config set extras .
+    - ddev config set repo extras
     - ./.gitlab/release/git-auth.sh
     # Get tagger info
     - tagger=$(git for-each-ref refs/tags/$CI_COMMIT_TAG  --format='%(taggername) %(taggeremail)')
