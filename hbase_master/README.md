@@ -47,7 +47,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 
 2. [Restart the Agent][9]
 
-## Validation
+### Validation
 
 [Run the Agent's `status` subcommand][10] and look for `hbase_master` under the Checks section.
 
