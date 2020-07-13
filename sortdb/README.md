@@ -8,7 +8,9 @@ Get metrics from [Sortdb][1] service in real time to:
 - Be notified about Sortdb failovers.
 - Check health of and get stats from multiple instances
 
-## Installation
+## Setup 
+
+### Installation
 
 If you are using Agent v6.8+ follow the instructions below to install the Sortdb check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
@@ -40,13 +42,13 @@ If you are using Agent v6.8+ follow the instructions below to install the Sortdb
 
 7. Configure your integration like [any other packaged integration][7].
 
-## Configuration
+### Configuration
 
 1. Edit the `sortdb.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Sortdb [metrics](#metric-collection). See the [sample sortdb.d/conf.yaml][9] for all available configuration options.
 
 2. [Restart the Agent][10]
 
-## Validation
+### Validation
 
 [Run the Agent's status subcommand][11] and look for `sortdb` under the Checks section.
 
