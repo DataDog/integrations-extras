@@ -11,5 +11,5 @@ aws ssm get-parameter --region us-east-1 --name ci.integrations-core-wheels.extr
 export IN_TOTO_SIGNING_KEY_PASSWORD=$(aws ssm get-parameter --region us-east-1 --name ci.integrations-core-wheels.extras_key_password --with-decryption --query "Parameter.Value" --out text)
 set -x
 
-ddev release make all --sign-only
+ddev release make --allow-master all --sign-only
 git push origin ${CI_COMMIT_BRANCH:-master}
