@@ -11,3 +11,4 @@ set -x
 git remote set-url origin git@github.com:DataDog/integrations-extras.git
 git config --global user.email "$TAGGER_EMAIL"
 git config --global user.name "$TAGGER_NAME"
+git checkout master
