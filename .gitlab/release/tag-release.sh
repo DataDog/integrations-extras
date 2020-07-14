@@ -4,13 +4,15 @@ set -euxo pipefail
 IFS=$'\n\t'
 
 set +e
-ddev release tag all
+# Check if there are any new tag to push
+ddev release tag all --dry-run
 status=$?
 set -e
 
 # Only build packages if there were new releases
 if [[ $status -eq 0 ]]; then
     ./.gitlab/release/sign-release.sh
+    ddev release tag all
     ./.gitlab/release/build-packages.sh
 elif [[ $status -eq 2 ]]; then
     echo "No new releases, skipping the build pipeline trigger"
