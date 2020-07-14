@@ -10,7 +10,7 @@ release-auto:
   stage: release
   image: $TAGGER_IMAGE
   only:
-    - master
+    - flo/test
   except:
     - schedules
   script:
@@ -20,8 +20,15 @@ release-auto:
     # ssh-agent performed in the main script to be persisted
     - eval "$(ssh-agent -s)"
     - ./.gitlab/release/git-auth.sh
+    - git branch
+    - git status
+    - git checkout -b ci/test
+    - touch test
+    - git add test
+    - git commit -m "test"
+    - git push origin ci/test
     # Prefix every line with a timestamp
-    - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
+    # - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
   tags: [ "runner:main", "size:large" ]
 
 release-manual:
