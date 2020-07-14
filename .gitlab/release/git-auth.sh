@@ -3,9 +3,8 @@
 set -euxo pipefail
 IFS=$'\n\t'
 
-echo "Grabbing GitHub deploy key and starting ssh-agent"
+echo "Grabbing GitHub deploy key"
 set +x
-eval "$(ssh-agent -s)"
 aws ssm get-parameter --region us-east-1 --name ci.integrations-extras.github_deploy_key --with-decryption --query "Parameter.Value" --out text | ssh-add -
 set -x
 
