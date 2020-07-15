@@ -2,7 +2,9 @@
 
 ## Overview
 
-This check monitors [kernelcare][1] through the Datadog Agent.
+[KernelCare][1] is a live patching system that automatically applies security patches to Linux kernel vulnerabilities, with no reboots. It’s used on over 500,000 servers, and has been used to patch servers running for 6+ years for Dell, Zoom and other enterprise companies. It works with all major Linux distributions, such as RHEL, CentOS, Amazon Linux, and Ubuntu & interoperates with common vulnerability scanners, cloud monitoring tools & patch management solutions.
+
+This integration allows you to forward the Kernelcare metrics through the Datadog Agent.
 
 ## Setup
 
@@ -35,7 +37,9 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-kernelcare does not include any service checks.
+**`kernelcare.can_connect`**:
+
+Returns `Critical` if the Agent cannot connect to Kernelcare to collect metrics, returns `OK` otherwise.
 
 ### Events
 

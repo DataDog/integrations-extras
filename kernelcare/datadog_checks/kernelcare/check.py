@@ -1,5 +1,3 @@
-import requests
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
 
@@ -49,17 +47,26 @@ class KernelcareCheck(AgentCheck):
 
         url = self.get_url(instance)
 
-        response = requests.get(url)
-        response.raise_for_status()
+        try:
+            response = self.http.get(url)
+            response.raise_for_status()
+        except Exception as e:
+            self.service_check('kernelcare.can_connect', self.CRITICAL, message=str(e))
+            raise e
 
         for prefix in self.HTTP_RESPONSE_ERRORS:
             if response.text.startswith(prefix):
+                self.service_check('kernelcare.can_connect', self.CRITICAL, message=response.text)
                 raise CheckException(response.text)
 
         try:
             data = self._parse_nagios_response(response.text)
         except ValueError:
-            raise CheckException('Kernelcare API: Invalid Response')
+            message = 'Kernelcare API: Invalid Response'
+            self.service_check('kernelcare.can_connect', self.CRITICAL, message=message)
+            raise CheckException(message)
+
+        self.service_check('kernelcare.can_connect', self.OK)
 
         if 'uptodate' in data:
             self.gauge('kernelcare.uptodate', data['uptodate'])
