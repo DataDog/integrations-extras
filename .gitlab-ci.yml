@@ -15,8 +15,10 @@ release-auto:
     - schedules
   script:
     - ddev --version
-    - ddev config set extras .
+    - ddev config set repos.extras .
     - ddev config set repo extras
+    # ssh-agent performed in the main script to be persisted
+    - eval "$(ssh-agent -s)"
     - ./.gitlab/release/git-auth.sh
     # Prefix every line with a timestamp
     - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
@@ -32,7 +34,7 @@ release-manual:
   - schedules
   script:
     - ddev --version
-    - ddev config set extras .
+    - ddev config set repos.extras .
     - ddev config set repo extras
     - ./.gitlab/release/git-auth.sh
     # Get tagger info
@@ -44,7 +46,7 @@ release-manual:
       if [[ "$tagger" =~ "$TAGGER_NAME <$TAGGER_EMAIL>" ]]; then
           echo "Skipping, packages have already been built"
       else
-          ./.gitlab/release/build-packages.sh
           ./.gitlab/release/sign-release.sh
+          ./.gitlab/release/build-packages.sh
       fi
   tags: [ "runner:main", "size:large" ]

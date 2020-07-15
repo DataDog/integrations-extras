@@ -2,10 +2,10 @@
 # http://redsymbol.net/articles/unofficial-bash-strict-mode/
 set -euxo pipefail
 IFS=$'\n\t'
-
-if [[ -n "$DD_TEST_CMD" ]]; then
-    echo "Triggering build pipeline..."
-    eval "$DD_TEST_CMD"
-else
-    echo "Skipping, DD_TEST_CMD is not set"
-fi
+CURRENT_COMMIT=$(git rev-parse HEAD)
+curl --request POST --form "token=$CI_JOB_TOKEN" --form ref=master \
+    --form variables[ORIG_CI_BUILD_REF]=$CURRENT_COMMIT \
+    --form variables[ORIG_CI_BUILD_REF_NAME]=$CI_BUILD_REF_NAME \
+    --form variables[ROOT_LAYOUT_TYPE]=extras \
+    --form variables[REPO_NAME]=integrations-extras \
+    https://gitlab.ddbuild.io/api/v4/projects/138/trigger/pipeline
