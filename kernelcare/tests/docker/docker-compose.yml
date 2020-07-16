@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./content:/usr/share/nginx/html:ro
+    ports:
+      - "8000:80"
