@@ -19,6 +19,7 @@ One of the key benefits of using Datadog is the ability to collect and visualize
 #### Identity data provides crucial insight to all of these use cases, allowing teams to better identify problems and make informed decisions.
 
 Make Informed Decisions About System Architecture and Development
+
 By tracking identity trends over time, teams can make informed decisions about product development or system architecture. For example, using authentication data to determine which devices to prioritize development. Likewise, by tracking peak login times and geographies that users are accessing the app from, system architecture teams can determine when and where to scale up resources.
 
 
