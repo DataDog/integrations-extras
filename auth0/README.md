@@ -13,6 +13,7 @@ The integration with Datadog is enabled by Auth0’s Log Streaming. This capabil
 #### The integration with Datadog provides a number of important benefits:
 
 Visualize Auth0 Data Without Extra Development Time
+
 One of the key benefits of using Datadog is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
 
 
