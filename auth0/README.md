@@ -17,7 +17,9 @@ Visualize Auth0 Data Without Extra Development Time
 One of the key benefits of using Datadog is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
 
 
-#### Identity data provides crucial insight to all of these use cases, allowing teams to better identify problems and make informed decisions.
+#### Identity data
+
+Identity data provides crucial insight to all of these use cases, allowing teams to better identify problems and make informed decisions.
 
 Make Informed Decisions About System Architecture and Development
 
