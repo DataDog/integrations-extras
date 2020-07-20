@@ -26,7 +26,7 @@ Make Informed Decisions About System Architecture and Development
 By tracking identity trends over time, teams can make informed decisions about product development or system architecture. For example, using authentication data to determine which devices to prioritize development. Likewise, by tracking peak login times and geographies that users are accessing the app from, system architecture teams can determine when and where to scale up resources.
 
 
-####  Quickly Respond to Performance and Security Incidents
+####  Quickly respond to performance and security incidents
 
 In addition to monitoring historical data to spot trends, it is just as important to use identity information to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
 
