@@ -6,11 +6,11 @@ The Apollo Datadog integration enables you to forward Studio performance metrics
 
 ![Metrics][1]
 
-The Datadog metrics forwarded by Studio are:
+Studio forwards the following metrics to Datadog:
 
-- `apollo.engine.operations.count` - the number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
-- `apollo.engine.operations.error_count` - the number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Studio failed to connect to your server.
-- `apollo.engine.operations.cache_hit_count` - the number of GraphQL queries whose result was served from Apollo Server's full query cache.
+- `apollo.engine.operations.count` - The number of GraphQL operations that were executed. This includes queries, mutations, and operations that resulted in an error.
+- `apollo.engine.operations.error_count` - The number of GraphQL operations that resulted in an error. This includes GraphQL execution errors, and HTTP errors if Studio failed to connect to your server.
+- `apollo.engine.operations.cache_hit_count` - The number of GraphQL queries for which the result was served from Apollo Server's full query cache.
 - A histogram of GraphQL operation response times, measured in milliseconds. Due to Studio's aggregation method (logarithmic binning), these values are accurate to +/- 5%:
 
   - `apollo.engine.operations.latency.min`
@@ -20,11 +20,9 @@ The Datadog metrics forwarded by Studio are:
   - `apollo.engine.operations.latency.max`
   - `apollo.engine.operations.latency.avg`
 
-All metrics forwarded to Datadog are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<QUERY_NAME>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
+These metrics are aggregated in 60-second intervals and tagged with the GraphQL operation name as `operation:<query-name>`. Unique query signatures with the same operation name are merged, and queries without an operation name are ignored.
 
-All of the metrics are also tagged with the Studio graph ID as `service:<GRAPH_ID>` and the variant name as `variant:<VARIANT_NAME>`, so multiple graphs from Studio can send data to the same Datadog account. If you have not set a variant name, then "current" will be used.
-
-If you're reporting metrics to Studio through the Engine proxy, Datadog will merge your statistics across multiple instances of the proxy (per-host metrics are not available). Just like in the Studio UI, each operation inside a query batch is counted individually.
+These metrics are also tagged with both the associated Studio graph ID (as `service:<graph-id>`) and the associated variant name (as `variant:<variant-name>`), so multiple graphs from Studio can send data to the same Datadog account. If you haven't set a variant name, then `current` is used.
 
 ## Setup
 
