@@ -28,21 +28,25 @@ These metrics are also tagged with both the associated Studio graph ID (as `serv
 
 ### Configuration
 
-Getting set up with the Apollo Datadog integration is as simple as providing a Datadog API key to Studio. There's no further configuration required.
+Getting set up with the Apollo Datadog integration is as simple as providing a Datadog API key and region to Studio. There's no further configuration required.
 
-1. Go to the [Datadog integrations page][2] and click on the Apollo tile. Go to the **Configuration** tab, scroll to the bottom, and press **Install Integration**.
+1. Go to your [Datadog integrations page][2] and click on the Apollo tile. Then go to the **Configuration** tab and click **Install Integration** at the bottom.
 
-2. Go to the [Datadog APIs page][3] and create an API key.
+2. Go to your [Datadog APIs page][3] and create an API key.
 
-3. In [Studio][4], go to the integrations page for your graph.
+3. Determine your Datadog API region by looking at your browser's address bar:
+- If the domain name is `app.datadoghq.com`, then your API region is `US`.
+- If the domain name is `app.datadoghq.eu`, then your API region is `EU`.
+
+4. In [Studio][4], go to your graph's Integrations page:
 
    ![IntegrationsPage][5]
 
-4. Toggle the Datadog integration to turn it on. Paste the API key, and press **Save**. You can use the same API key for all your graphs, since all metrics are tagged with the graph ID (`service:<GRAPH_ID>`).
+5. In the Datadog Forwarding section, click **Configure**. Provide your API key and region, then click **Enable**. You can use the same API key for all of your graphs, because all forwarded metrics are tagged with the corresponding graph's ID (`service:<graph-id>`).
 
    ![IntegrationsToggle][6]
 
-5. Go to the Datadog metrics explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
+6. Go to the Datadog metrics explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
 
 ### Usage
 
