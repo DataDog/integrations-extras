@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Apollo Datadog integration allows you to forward the performance metrics that are available to you in Studio to Datadog. Datadog additionally supports the advanced function API, allowing teams to create graphs and alerts for their GraphQL metrics.
+The Apollo Datadog integration enables you to forward Studio performance metrics to your Datadog account. Datadog supports an advanced function API, which enables you to create sophisticated graphs and alerts for GraphQL metrics.
 
 ![Metrics][1]
 
