@@ -42,7 +42,7 @@ Getting set up with the Apollo Datadog integration is as simple as providing a D
 
    ![IntegrationsPage][5]
 
-5. In the Datadog Forwarding section, click **Configure**. Provide your API key and region, then click **Enable**. You can use the same API key for all of your graphs, because all forwarded metrics are tagged with the corresponding graph's ID (`service:<graph-id>`).
+5. In the Datadog Forwarding section, click **Configure**. Provide your API key and region, then click **Enable**. Because all forwarded metrics are tagged with the corresponding graph's ID (`service:<graph-id>`), you can use the same API key for all of your graphs.
 
    ![IntegrationsToggle][6]
 
