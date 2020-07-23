@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration allows [PerimeterX][https://www.perimeterx.com/] customers to forward their PerimeterX related logs and events into Datadog.
+This integration allows [PerimeterX][https://www.perimeterx.com/] customers to forward their PerimeterX related logs and events to Datadog.
 
 ## Setup
 
@@ -15,19 +15,19 @@ No installation is required on your host.
 ### Configuration
 
 1. Generate a new Integration API Key in your [Datadog portal](https://app.datadoghq.com/account/settings#api)
-2. Open a support ticket with PerimeterX Support and request the Datadog log export integration. Support will need the following items:
-   - Datadog Integration API Key
+2. Open a support ticket with [PerimeterX Support](mailto:support@perimeterx.com) and request the Datadog log export integration. Support will need the following information:
+   - Your Datadog Integration API Key
    - Whether you want to send metrics and/or logs
-   - PerimeterX Application ID(s) that should be forwarded to Datadog
+   - The PerimeterX Application ID(s) that should be forwarded to Datadog
 
 ### Validation
 
-Once PerimeterX Support has confirmed the Datadog integration is complete, you can perform the following steps to confirm the integration is working as expected:
+Once PerimeterX Support has confirmed the Datadog integration is complete, perform the following steps to confirm the integration is working as expected:
 
 1. Login to your Datadog portal.
 2. Navigate to Logs -> Search
 3. Perform a search with a query filter of "Source:perimeterx"
-4. Confirm you are receiving logs from PerimeterX (this may take a few minutes before logs start appearing).
+4. Confirm you are receiving logs from PerimeterX (it may take a few minutes before logs start appearing).
 
 ## Data Collected
 
