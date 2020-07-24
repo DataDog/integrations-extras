@@ -7,6 +7,8 @@ Get metrics from Hbase_master service in real time to:
 - Visualize and monitor Hbase_master states.
 - Be notified about Hbase_master failovers and events.
 
+## Setup 
+
 ### Installation
 
 If you are using Agent v6.8+ follow the instructions below to install the Hbase_master check on your host. See our dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior v6.8][2] or the [Docker Agent][3]:
@@ -45,7 +47,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 
 2. [Restart the Agent][9]
 
-## Validation
+### Validation
 
 [Run the Agent's `status` subcommand][10] and look for `hbase_master` under the Checks section.
 

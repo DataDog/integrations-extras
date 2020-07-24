@@ -1,0 +1,29 @@
+name: Kernelcare
+files:
+- name: kernelcare.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: key
+      required: false
+      description: |
+        Kernelcare license key
+      value:
+        type: string
+    - name: login
+      required: false
+      description: |
+        Kernelcare login
+      value:
+        type: string
+    - name: api_token
+      required: false
+      description: |
+        Kernelcare API security token
+      value:
+        type: string
+    - template: instances/default
+    - template: instances/http
