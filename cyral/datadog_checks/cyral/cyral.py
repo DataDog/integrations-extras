@@ -56,9 +56,9 @@ class CyralCheck(OpenMetricsBaseCheck):
         }
 
     def check(self, instance):
-        endpoint = instance.get('prometheus_endpoint')
+        endpoint = instance.get('prometheus_url')
         if endpoint is None:
-            raise CheckException("Unable to find prometheus_endpoint in config file.")
+            raise CheckException("Unable to find prometheus_url in config file.")
 
         send_buckets = instance.get('send_histograms_buckets', True)
         if send_buckets is not None and str(send_buckets).lower() == 'false':
