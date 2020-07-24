@@ -3,7 +3,7 @@
 set -euxo pipefail
 IFS=$'\n\t'
 
-export IN_TOTO_SIGNING_KEY_PATH=/tmp/key.pem
+export IN_TOTO_SIGNING_KEY_PATH=$(mktemp)
 
 echo "Grabbing robot signing key and password"
 set +x
