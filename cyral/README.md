@@ -26,7 +26,7 @@ To install the Cyral check on your host:
 
     instances:
      # url of the metrics endpoint of prometheus
-     - prometheus_endpoint: http://localhost:9018/metrics
+     - prometheus_url: http://localhost:9018/metrics
     ```
 
 2. [Restart the Agent][4].
