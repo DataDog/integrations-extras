@@ -1,10 +1,10 @@
-from datadog_checks.base.checks.prometheus.prometheus_base import PrometheusCheck
+from datadog_checks.base.checks.prometheus.prometheus_base import OpenMetricsBaseCheck
 from datadog_checks.base.errors import CheckException
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'cyral'
 
 
-class CyralCheck(PrometheusCheck):
+class CyralCheck(OpenMetricsBaseCheck):
     """
     Collect metrics from Cyral
     """
