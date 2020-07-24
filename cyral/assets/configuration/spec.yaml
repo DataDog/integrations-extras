@@ -1,0 +1,16 @@
+name: Cyral
+files:
+- name: cyral.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/default
+    - name: prometheus_endpoint
+      required: true
+      description: The Prometheus URL to check.
+      value:
+        type: string
+        example: http://localhost:9018/metrics
