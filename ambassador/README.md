@@ -40,7 +40,6 @@ The Ambassador check does not include any events.
 The Ambassador check does not include any service checks.
 
 ## Troubleshooting
-
 Need help? Contact [Datadog support][4].
 
 [1]: https://www.getambassador.io
