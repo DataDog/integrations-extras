@@ -1,16 +1,32 @@
-from datadog_checks.base.checks.prometheus.prometheus_base import PrometheusCheck
+from datadog_checks.base.checks.prometheus.prometheus_base import OpenMetricsBaseCheck
 from datadog_checks.base.errors import CheckException
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'cyral'
 
 
-class CyralCheck(PrometheusCheck):
+class CyralCheck(OpenMetricsBaseCheck):
     """
     Collect metrics from Cyral
     """
 
     def __init__(self, name, init_config, agentConfig, instances=None):
-        super(CyralCheck, self).__init__(name, init_config, agentConfig, instances)
+        instance = instances[0]
+        endpoint = instance.get('prometheus_url')
+        if endpoint is None:
+            raise ConfigurationError("Unable to find prometheus_url in config file.")
+       send_buckets = is_affirmative(instance.get('send_histograms_buckets', True))
+
+        instance.update(
+            {
+                'prometheus_url': endpoint,
+                'namespace': self.NAMESPACE,
+                'metrics': self. metrics_mapper,
+                'send_histograms_buckets': send_buckets,
+                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True) # default to True to submit _count histogram/summary as monotonic counts to Datadog
+            }
+        )
+    
+        super(CyralCheck, self).__init__(name, init_config, [instance])
         self.NAMESPACE = 'cyral'
         self.metrics_mapper = {
             'cyral_analysis_time': 'analysis_time',
@@ -40,14 +56,10 @@ class CyralCheck(PrometheusCheck):
         }
 
     def check(self, instance):
-        endpoint = instance.get('prometheus_endpoint')
+        endpoint = instance.get('prometheus_url')
         if endpoint is None:
-            raise CheckException("Unable to find prometheus_endpoint in config file.")
+            raise CheckException("Unable to find prometheus_url in config file.")
 
-        send_buckets = instance.get('send_histograms_buckets', True)
-        if send_buckets is not None and str(send_buckets).lower() == 'false':
-            send_buckets = False
-        else:
-            send_buckets = True
+        send_buckets = is_affirmative(instance.get('send_histograms_buckets', True))
 
         self.process(endpoint, send_histograms_buckets=send_buckets, instance=instance)
