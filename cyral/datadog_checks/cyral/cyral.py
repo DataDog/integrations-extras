@@ -1,4 +1,4 @@
-from datadog_checks.base.checks.prometheus.prometheus_base import OpenMetricsBaseCheck
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck, is_affirmative
 from datadog_checks.base.errors import CheckException
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'cyral'
