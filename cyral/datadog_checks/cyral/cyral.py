@@ -10,7 +10,23 @@ class CyralCheck(OpenMetricsBaseCheck):
     """
 
     def __init__(self, name, init_config, agentConfig, instances=None):
-        super(CyralCheck, self).__init__(name, init_config, agentConfig, instances)
+        instance = instances[0]
+        endpoint = instance.get('prometheus_url')
+        if endpoint is None:
+            raise ConfigurationError("Unable to find prometheus_url in config file.")
+       send_buckets = is_affirmative(instance.get('send_histograms_buckets', True))
+
+        instance.update(
+            {
+                'prometheus_url': endpoint,
+                'namespace': self.NAMESPACE,
+                'metrics': self. metrics_mapper,
+                'send_histograms_buckets': send_buckets,
+                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True) # default to True to submit _count histogram/summary as monotonic counts to Datadog
+            }
+        )
+    
+        super(CyralCheck, self).__init__(name, init_config, [instance])
         self.NAMESPACE = 'cyral'
         self.metrics_mapper = {
             'cyral_analysis_time': 'analysis_time',
