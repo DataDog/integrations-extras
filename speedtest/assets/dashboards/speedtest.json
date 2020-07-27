@@ -1,0 +1,325 @@
+{
+    "author_info": {
+        "author_name": "Datadog"
+    },
+    "board_title": "Speedtest",
+    "description": "",
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "env",
+            "prefix": "env"
+        },
+        {
+            "default": "*",
+            "name": "isp",
+            "prefix": "isp"
+        },
+        {
+            "default": "*",
+            "name": "host",
+            "prefix": "host"
+        }
+    ],
+    "widgets": [
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.ping.jitter{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Ping Jitter (ms)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 97,
+            "y": 21
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.ping.latency{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Ping Latency (ms)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 3,
+            "y": 21
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.packet_loss{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Packet Loss",
+            "type": "timeseries",
+            "width": 47,
+            "x": 50,
+            "y": 21
+        },
+        {
+            "check": "speedtest.run",
+            "group": "host:pi64",
+            "group_by": [],
+            "grouping": "check",
+            "height": 12,
+            "tags": [
+                "*"
+            ],
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Speedtest Run Status",
+            "type": "check_status",
+            "width": 16,
+            "x": 3,
+            "y": 2
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.bandwidth{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.bandwidth{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Bandwidth (MBps)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 3,
+            "y": 44
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.bytes{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.bytes{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Bytes (MB)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 50,
+            "y": 44
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.elapsed{*,*,*} by {isp}/1000",
+                        "style": {
+                            "palette": "orange",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.elapsed{*,*,*} by {isp}/1000",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Elapsed time (s)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 97,
+            "y": 44
+        },
+        {
+            "color": "#4d4d4d",
+            "font_size": "auto",
+            "height": 6,
+            "text": "Download / Upload",
+            "text_align": "left",
+            "type": "free_text",
+            "width": 24,
+            "x": 3,
+            "y": 37
+        },
+        {
+            "color": "#4d4d4d",
+            "font_size": "auto",
+            "height": 6,
+            "text": "Ping and Packet loss",
+            "text_align": "left",
+            "type": "free_text",
+            "width": 24,
+            "x": 3,
+            "y": 14
+        },
+        {
+            "height": 10,
+            "tile_def": {
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "alias": "Download (MBps)",
+                        "limit": 50,
+                        "order": "desc",
+                        "q": "avg:speedtest.download.bandwidth{*,*,*} by {isp}"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "alias": "Upload (MBps)",
+                        "q": "avg:speedtest.upload.bandwidth{*,*,*} by {isp}"
+                    }
+                ],
+                "viz": "query_table"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Bandwidth",
+            "type": "query_table",
+            "width": 47,
+            "x": 50,
+            "y": 2
+        }
+    ]
+}
