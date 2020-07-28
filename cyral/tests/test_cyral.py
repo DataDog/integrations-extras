@@ -1,17 +1,13 @@
-import mock
-import os
-from os import open
 import pytest
+
+from datadog_checks.cyral.cyral import CyralCheck
 
 CHECK_NAME = 'cyral'
 
 
-@pytest.fixture()
-def test_check_all_metrics():
-    f_name = os.path.join(os.path.dirname(__file__), 'fixtures', 'metrics.txt')
-    with open(f_name, 'r') as f:
-        text_data = f.read()
-    with mock.patch('requests.get', return_value=mock.MagicMock(
-            status_code=200, headers={"Content-Type": "text/plain"}, iter_lines=lambda **kw: text_data.split("\n")
-    )):
-        yield
+@pytest.mark.unit
+def test_check_all_metrics(aggregator, mock_agent_data):
+    instance = {'prometheus_url': 'http://localhost:9018/metrics'}
+    c = CyralCheck(CHECK_NAME, {}, [instance])
+    c.check(instance)
+    aggregator.assert_metric("cyral.analysis_time", count=1, value=2.274237)

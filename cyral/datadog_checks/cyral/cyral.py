@@ -1,5 +1,4 @@
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck, is_affirmative
-from datadog_checks.base.errors import CheckException
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'cyral'
 
@@ -9,12 +8,12 @@ class CyralCheck(OpenMetricsBaseCheck):
     Collect metrics from Cyral
     """
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
+    def __init__(self, name, init_config, instances=None):
         instance = instances[0]
         endpoint = instance.get('prometheus_url')
         if endpoint is None:
             raise ConfigurationError("Unable to find prometheus_url in config file.")
-       send_buckets = is_affirmative(instance.get('send_histograms_buckets', True))
+        send_buckets = is_affirmative(instance.get('send_histograms_buckets', True))
 
         self.NAMESPACE = 'cyral'
         self.metrics_mapper = {
@@ -48,10 +47,12 @@ class CyralCheck(OpenMetricsBaseCheck):
             {
                 'prometheus_url': endpoint,
                 'namespace': self.NAMESPACE,
-                'metrics': self. metrics_mapper,
+                'metrics': [self.metrics_mapper],
                 'send_histograms_buckets': send_buckets,
-                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True) # default to True to submit _count histogram/summary as monotonic counts to Datadog
+                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True)
+                # default to True to submit _count histogram/summary as monotonic
+                # counts to Datadog
             }
         )
-    
+
         super(CyralCheck, self).__init__(name, init_config, [instance])
