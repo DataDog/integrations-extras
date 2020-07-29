@@ -3,7 +3,6 @@
 # Licensed under Simplified BSD License (see LICENSE)
 
 # stdlib
-import collections
 import errno
 import json
 import numbers
@@ -12,10 +11,16 @@ import re
 import sre_constants
 
 import requests
+import six
 from six import iteritems
 
 from datadog_checks.base import AgentCheck, is_affirmative
 from datadog_checks.base.utils.containers import hash_mutable
+
+if six.PY3:
+    from collections.abc import MutableMapping
+else:
+    from collections import MutableMapping
 
 EVENT_TYPE = SOURCE_TYPE_NAME = "filebeat"
 
@@ -145,7 +150,7 @@ class FilebeatCheckHttpProfiler:
         items = []
         for k, v in d.items():
             new_key = parent_key + sep + k if parent_key else k
-            if isinstance(v, collections.MutableMapping):
+            if isinstance(v, MutableMapping):
                 items.extend(self.flatten(v, new_key, sep=sep).items())
             else:
                 items.append((new_key, v))
