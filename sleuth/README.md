@@ -15,11 +15,11 @@ To add the Datadog integration:
 
 > Your Datadog API Key and Application Key can be found under **Integrations** &gt; **API**. Alternatively, you can click on the **generate** link in the Sleuth dialog box (as shown below), which takes you to the API/Applications Keys area in your Datadog console. 
 
-![](/images/datadog-integration-api-key.png)
+![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration-api-key.png)
 
 > Once the Datadog integration is successful, you will see the message **Datadog is connected** displayed. 
 
-![](/images/datadog-integration.png)
+![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration.png)
 
 ### Installation
 
@@ -29,7 +29,7 @@ The Datadog Sleuth integration is installed exclusively from your Sleuth account
 
 * Click the **Add metric** dropdown and select a Sleuth project that will process incoming Datadog application metrics. All projects within your Sleuth organization are displayed in the dropdown. 
 
-![](/images/datadog-enabled-metric-pick.png)
+![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-enabled-metric-pick.png)
 
 > Integrations are made at the Sleuth organization level, and are available for all projects within that organization. Individual settings for an integration are made at the project level.  
 
