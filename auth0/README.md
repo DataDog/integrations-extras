@@ -5,7 +5,6 @@
 Auth0, the identity platform for development teams, provides developers and enterprises with the building blocks they need to secure their applications.
 
 
-### Integration overview
 
 The integration with Datadog is enabled by Auth0’s Log Streaming. This capability works by sending batches of log events as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. Log streaming is capable of delivering 10X more logs, and guarantees delivery with error handling. You can now also release a generic webhook allowing you to deliver near real-time logs to most third-party tools.
 
