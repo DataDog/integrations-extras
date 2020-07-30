@@ -1,0 +1,32 @@
+{
+	"id": 20550435,
+	"name": "Long Latency in Kafka Queue",
+	"type": "query alert",
+	"query": "avg(last_4h):anomalies(( ( sum:kafka.consumer_lag{*} by {kube_cluster,consumer_group,topic} / sum:federatorai.kafka.consumer_offset_rate{*} by {kube_cluster,consumer_group,topic} ) / sum:datadog.agent.running{*} by {kube_cluster} ) * 60 * 1000, 'basic', 2, direction='above', alert_window='last_15m', interval=60, count_default_zero='true') >= 1",
+	"message": "Messages in the Kafka topic takes longer than the usual time to be processed. The latency in the Kafka queue has been above the bounds for the last 15 minutes",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"new_host_delay": 300,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": "0",
+		"evaluation_delay": 10,
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 1,
+			"critical_recovery": 0
+		},
+		"threshold_windows": {
+			"trigger_window": "last_15m",
+			"recovery_window": "last_15m"
+		}
+	},
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when messages in the Kafka topic takes longer than the usual time to be processed."
+	}
+}
