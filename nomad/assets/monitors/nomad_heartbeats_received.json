@@ -1,0 +1,28 @@
+{
+	"id": 20568506,
+	"name": "[Nomad] Less Than 5 Nomad Client Heartbeats Received",
+	"type": "metric alert",
+	"query": "max(last_5m):max:nomad.nomad.heartbeat.active{*} < 5",
+	"message": "nomad-client is only reporting {{value}} client heartbeats active\n\nDocumentation: [Nomad client count below configured level](https://hashicorp.atlassian.net/wiki/spaces/CLOUD/pages/612466710/Nomad+server+count+below+configured+level)\n\nNotify:",
+	"tags": [
+		"service:nomad"
+	],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 60,
+		"new_host_delay": 300,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": 60,
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 5
+		}
+    },
+    "recommended_monitor_metadata": {
+		"description": "Get notified when Nomad is reporting client heartbeats below a threshold."
+	}
+}
