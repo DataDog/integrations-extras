@@ -4,7 +4,7 @@
 	"query": "avg(last_4h):anomalies(sum:sigsci.agent.signal{signal_type:loginattempt}.as_count(), 'agile', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
 	"message": "Signal Sciences Web Application Firewall has detected an unusually high number of customer login attempts. This may be indicative of a large scale account takeover/credential stuffing attack against one or more of your web properties or API endpoints. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
 	"tags": [
-    "integration":"sigsci"
+    "integration:sigsci"
   ],
 	"options": {
 		"notify_audit": false,

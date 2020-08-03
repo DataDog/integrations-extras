@@ -4,7 +4,7 @@
 	"query": "avg(last_4h):anomalies(sum:sigsci.agent.signal{signal_type:xss}.as_count(), 'agile', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
 	"message": "Signal Sciences Web Application Firewall has been detecting an unusually high number of XSS attempts. This may be indicative of an orchestrated effort to inject malicious code into one or more of your web properties or APIs. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
 	"tags": [
-    "integration":"sigsci"
+    "integration:sigsci"
   ],
 	"options": {
 		"notify_audit": false,

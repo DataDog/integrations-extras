@@ -4,7 +4,7 @@
 	"query": "avg(last_4h):anomalies(sum:sigsci.agent.signal{signal_type:http5xx}.as_count(), 'agile', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
 	"message": "Signal Sciences Web Application Firewall has been detecting a higher number of 5xx errors than normal. An increase in server errors (such as 500, 503, 504, etc.) can indicate your infrastructure is becoming overloaded or that there has been a recent code push that is causing errors. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
 	"tags": [
-    "integration":"sigsci"
+    "integration:sigsci"
   ],
 	"options": {
 		"notify_audit": false,
