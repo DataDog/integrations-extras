@@ -1,0 +1,32 @@
+{
+	"name": "SigSci - excessive http 4xx errors",
+	"type": "query alert",
+	"query": "avg(last_4h):anomalies(sum:sigsci.agent.signal{signal_type:http4xx}.as_count(), 'agile', 2, direction='both', alert_window='last_15m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
+	"message": "Signal Sciences Web Application Firewall has been detecting a higher number of 4xx errors than normal. An increase in client errors (such as 400, 403, 404 etc.) can indicate a variety of potential issues, from authentication and authorization failures to broken links to invalid request formatting. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
+	"tags": [
+    "integration":"sigsci"
+  ],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"silenced": {},
+		"include_tags": true,
+		"no_data_timeframe": null,
+		"require_full_window": true,
+		"new_host_delay": 300,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"escalation_message": "",
+		"threshold_windows": {
+			"recovery_window": "last_15m",
+			"trigger_window": "last_15m"
+		},
+		"thresholds": {
+			"critical": 1,
+			"critical_recovery": 0
+		}
+	},
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when Signal Sciences Web Application Firewall has been detecting a higher number of 4xx errors than normal."
+	}

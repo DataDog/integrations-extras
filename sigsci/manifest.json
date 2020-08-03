@@ -1,7 +1,7 @@
 {
   "integration_id": "sigsci",
   "name": "sigsci",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.1.0",
   "guid": "0c92b7cd-0736-4f9d-82ed-16f1bba8c8d0",
   "maintainer": "info@signalsciences.com",
   "display_name": "Signal Sciences",
@@ -22,8 +22,17 @@
     "security"
   ],
   "assets": {
-    "monitors": {},
-    "dashboards": {},
+    "monitors": {
+      "Excessive Login Attempts": "assets/monitors/excessivelogins.json",
+      "Excessive 5XX monitor": "assets/monitors/excessive5xx.json",
+      "Excessive 4XX monitor": "assets/monitors/excessive4xx.json",
+      "Excessive forceful browsing monitor": "assets/monitors/excessiveforcefulbrowsing.json",
+      "Excessive XSS monitor": "assets/monitors/excessivexss.json",
+      "Excessive blocked HTTP requests monitor": "assets/monitors/excessiveblockedHTTP.json"
+    },
+    "dashboards": {
+      "Signal Sciences Overview": "assets/dashboards/overview.json"
+    },
     "service_checks": "assets/service_checks.json"
   }
 }
