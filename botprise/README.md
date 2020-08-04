@@ -1,9 +1,6 @@
 ## Overview
 
-Botprise's Datadog integration allows you to send Botprise events to the event stream in Datadog. It submits Datadog events into the system over email.
-Botprise Links: 
-https://www.botprise.com/
-https://demoapp.botprise.com/botprise/maindashboard
+Botprise's Datadog integration allows you to send Botprise[7][8] events to the event stream in Datadog. It submits Datadog events into the system over email.
 
 ## Setup
 
@@ -16,7 +13,7 @@ https://demoapp.botprise.com/botprise/maindashboard
 2. After successful installation, your devices start sending data to Datadog. View the data on the [Datadog host list][3].
 3. In Datadog, create a monitor for each of the hosts. Datadog generates alerts based on the monitor rules.
 4. Configure each monitor for [metrics][4] and the respective threshold value.
-5. Modify the monitor configuration to create a ServiceNow ticket for each of the incoming alerts.
+5. Modify the monitor configuration to create a ServiceNow[6] ticket for each of the incoming alerts.
 6. Generate an [API key and an Application key][5] to call Datadog Rest APIs.
 
 
@@ -49,3 +46,6 @@ Need help? Contact [Datadog support][1].
 [3] https://app.datadoghq.com/infrastructure/map
 [4]: https://docs.datadoghq.com/metrics/
 [5]: https://docs.datadoghq.com/account_management/api-app-keys/
+[6]: https://dev83528.service-now.com/navpage.do
+[7]: https://www.botprise.com/
+[8]: https://demoapp.botprise.com/botprise/maindashboard
