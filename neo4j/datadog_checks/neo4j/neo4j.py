@@ -162,6 +162,7 @@ class Neo4jCheck(PrometheusCheck):
             'ids_in_use_property': 'ids_in_use.property',
             'ids_in_use_relationship': 'ids_in_use.relationship',
             'ids_in_use_relationship_type': 'ids_in_use.relationship_type',
+            'store_size_total': 'store.size.total',
             'store_size_database': 'store.size.database',
             #
             # database transaction log metrics
