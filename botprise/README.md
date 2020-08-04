@@ -2,16 +2,12 @@
 
 ## Overview
 
-Gather metrics from your Botprise clusters to:
-
-- Visualize and monitor cluster performance
-- Alert on cluster health and availability
+Botprise's Datadog integration allows you to send Botprise events to the event stream in Datadog. It submits Datadog events into the system over email.
 
 ## Setup
 
-### Installation
 
-Botprise emits metrics to Datadog via DogStatsD. To enable the Botprise integration, [install the Datadog Agent][1] on each client and server host.
+### Installation
 
 
 ### Configuration
@@ -19,13 +15,10 @@ Botprise emits metrics to Datadog via DogStatsD. To enable the Botprise integrat
 2. After successful installation devices will get listed on datadog host list(https://app.datadoghq.com/infrastructure/map)
 3. Create monitor for each of the host
 4. Configure monitor for metric and respective threshold value. 
-5. Once threshold value would cross for the metric alert will be generated.
-6. Modify configuration to create ServiceNow ticket for each of the incoming alert
-7. Generate API key and Application key to trigger Rest API
+5. Datadog generates alert based on the monitor rules.
+6. Modify monitor configuration to create ServiceNow ticket for each of the incoming alert
+7. Generate API key and Application key to call Datadog Rest APIs
 
-### Validation
-
-<Steps to validate integration is functioning as expected>
 
 ## Data Collected
 
@@ -39,7 +32,7 @@ The Botprise integration does not include any service checks.
 
 ### Events
 
-The Botprise integration does not include any events.
+All events are sent to the Datadog event stream.
 
 ### Configuration
 For getting datadog API invoke we need to enter API key and application key
