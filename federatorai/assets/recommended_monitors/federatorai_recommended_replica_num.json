@@ -1,0 +1,28 @@
+{
+	"id": 20747892,
+	"name": "Recommended Replica Number Reaches Max Limit",
+	"type": "query alert",
+	"query": "min(last_1h):avg:federatorai.recommendation{resource:replicas} by {kube_cluster,kube_namespace,kube_deployment,kube_stateful_set} >= 10",
+	"message": "The number of the recommended replica has reached the max limit in the past 60 minutes.",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"new_host_delay": 300,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": "0",
+		"evaluation_delay": 10,
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 10,
+			"critical_recovery": 8
+		}
+	},
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the number of the recommended replica reaches the max limit in the past 60 minutes"
+	}
+}
