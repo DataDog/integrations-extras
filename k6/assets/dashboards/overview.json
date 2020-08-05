@@ -1,339 +1,323 @@
 {
-  "board_title": "k6",
-  "read_only": true,
-  "description": "This dashboard allows visualizing some of the performance testing metrics collected by [k6](https://k6.io/). \n\nFor further information about exporting metrics from k6 OSS, read the [Datadog's k6 integration docs](https://k6.io/docs/getting-started/results-output/datadog).\n\nFor more information about the integration with the k6 Cloud, visit [Cloud APM docs](https://k6.io/docs/cloud/integrations/cloud-apm).\n\nClone this template dashboard to make changes and add other graph widgets.",
-  "created": "2020-04-18T18:12:41.589692+00:00",
-  "new_id": "n5h-2xn-956",
-  "id": 22975,
-  "modified": "2020-04-18T19:33:14.567237+00:00",
-  "created_by": {
-    "disabled": false,
-    "handle": "support@loadimpact.com",
-    "name": "k6",
-    "title": null,
-    "is_admin": true,
-    "role": null,
-    "access_role": "adm",
-    "verified": true,
-    "email": "support@loadimpact.com",
-    "icon": "https://secure.gravatar.com/avatar/6580edf56e434f4abafa24fac926002f?s=48&d=retro"
-  },
-  "template_variables": [
-    {
-      "name": "test_run_id",
-      "default": "*",
-      "prefix": "test_run_id"
-    }
-  ],
-  "widgets": [
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Virtual users",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
-        "requests": [
-          {
-            "q": "max:k6.vus{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
+    "board_title": "k6",
+    "read_only": false,
+    "description": "This dashboard allows visualizing some of the performance testing metrics collected by [k6](https://k6.io/). \n\nFor further information, read the [Datadog's k6 integration docs](https://k6.io/docs/getting-started/results-output/datadog).\n\nClone this template dashboard to make changes and add other graph widgets.",
+    "created": "2020-04-18T18:12:41.589692+00:00",
+    "new_id": "n5h-2xn-956",
+    "modified": "2020-04-18T19:33:14.567237+00:00",
+    "created_by": {
+        "disabled": false,
+        "handle": "support@loadimpact.com",
+        "name": "k6",
+        "title": null,
+        "is_admin": true,
+        "role": null,
+        "access_role": "adm",
+        "verified": true,
+        "email": "support@loadimpact.com",
+        "icon": "https://secure.gravatar.com/avatar/6580edf56e434f4abafa24fac926002f?s=48&d=retro"
+    },
+    "template_variables": [],
+    "widgets": [
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Virtual users",
+            "height": 13,
+            "tile_def": {
+                "viz": "timeseries",
+                "requests": [
+                    {
+                        "q": "max:k6.vus{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "max": "auto",
+                    "scale": "linear",
+                    "includeZero": true,
+                    "label": "",
+                    "min": "auto"
+                }
             },
-            "type": "line"
-          }
-        ],
-        "custom_links": [],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
+            "width": 47,
+            "legend": false,
+            "time": {},
+            "y": 0,
+            "x": 14,
+            "type": "timeseries",
+            "id": 2
+        },
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Request per second",
+            "height": 13,
+            "tile_def": {
+                "viz": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:k6.http_reqs{*}.as_rate()",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "max": "auto",
+                    "scale": "linear",
+                    "includeZero": true,
+                    "label": "",
+                    "min": "auto"
+                }
+            },
+            "width": 47,
+            "legend": false,
+            "time": {},
+            "y": 17,
+            "x": 14,
+            "type": "timeseries",
+            "id": 3
+        },
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Data",
+            "height": 13,
+            "tile_def": {
+                "viz": "timeseries",
+                "requests": [
+                    {
+                        "q": "max:k6.data_sent{*}.as_count()",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "max:k6.data_received{*}.as_count()",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "max": "auto",
+                    "scale": "linear",
+                    "includeZero": true,
+                    "label": "",
+                    "min": "auto"
+                }
+            },
+            "width": 47,
+            "legend": false,
+            "time": {},
+            "y": 34,
+            "x": 14,
+            "type": "timeseries",
+            "id": 4
+        },
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Response time: max, 95th, avg, median",
+            "height": 13,
+            "tile_def": {
+                "viz": "timeseries",
+                "requests": [
+                    {
+                        "q": "max:k6.http_req_duration.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "max:k6.http_req_duration.max{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "max:k6.http_req_duration.avg{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "max:k6.http_req_duration.median{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "max": "auto",
+                    "scale": "linear",
+                    "includeZero": true,
+                    "label": "",
+                    "min": "auto"
+                }
+            },
+            "width": 47,
+            "legend": false,
+            "time": {},
+            "y": 0,
+            "x": 67,
+            "type": "timeseries",
+            "id": 5
+        },
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Response timings - 95th",
+            "height": 13,
+            "tile_def": {
+                "viz": "timeseries",
+                "requests": [
+                    {
+                        "q": "max:k6.http_req_blocked.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_sending.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_waiting.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_blocked.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_receiving.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_connecting.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    },
+                    {
+                        "q": "max:k6.http_req_tls_handshaking.95percentile{*}",
+                        "style": {
+                            "width": "normal",
+                            "palette": "dog_classic",
+                            "type": "solid"
+                        },
+                        "type": "bars"
+                    }
+                ],
+                "yaxis": {
+                    "max": "auto",
+                    "scale": "linear",
+                    "includeZero": true,
+                    "label": "",
+                    "min": "auto"
+                }
+            },
+            "width": 47,
+            "legend": false,
+            "time": {},
+            "y": 17,
+            "x": 67,
+            "type": "timeseries",
+            "id": 6
+        },
+        {
+            "title_size": 16,
+            "title": true,
+            "title_align": "left",
+            "title_text": "Response time 95th - HeatMap",
+            "height": 13,
+            "tile_def": {
+                "viz": "heatmap",
+                "requests": [
+                    {
+                        "q": "max:k6.http_req_duration.95percentile{*}",
+                        "style": {
+                            "palette": "dog_classic"
+                        }
+                    }
+                ]
+            },
+            "width": 47,
+            "time": {},
+            "y": 34,
+            "x": 67,
+            "type": "heatmap",
+            "id": 7
+        },
+        {
+            "sizing": "zoom",
+            "url": "https://i.postimg.cc/J762mtP0/logo-k6.png",
+            "height": 8,
+            "width": 8,
+            "y": 0,
+            "x": 1,
+            "type": "image",
+            "id": 9
         }
-      },
-      "width": 47,
-      "y": 0,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
-    },
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Request per second",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
-        "requests": [
-          {
-            "q": "avg:k6.http_reqs{$test_run_id}.as_rate()",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
-          }
-        ],
-        "custom_links": [],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
-      },
-      "width": 47,
-      "y": 17,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
-    },
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Data sent/received",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
-        "requests": [
-          {
-            "q": "cumsum(avg:k6.data_sent{$test_run_id})",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line",
-            "metadata": {
-              "cumsum(avg:k6.data_sent{$test_run_id})": {
-                "alias": "data_sent"
-              }
-            }
-          },
-          {
-            "q": "cumsum(avg:k6.data_received{$test_run_id})",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line",
-            "metadata": {
-              "cumsum(avg:k6.data_received{$test_run_id})": {
-                "alias": "data_received"
-              }
-            }
-          }
-        ],
-        "events": [
-          {
-            "q": "tag:test_run_id:22",
-            "tags_execution": "and"
-          }
-        ],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
-      },
-      "width": 47,
-      "time": {},
-      "y": 34,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
-    },
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "HTTP request duration",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
-        "requests": [
-          {
-            "q": "max:k6.http_req_duration.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
-          },
-          {
-            "q": "max:k6.http_req_duration.max{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
-          },
-          {
-            "q": "max:k6.http_req_duration.avg{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
-          },
-          {
-            "q": "max:k6.http_req_duration.median{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
-          }
-        ],
-        "custom_links": [],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
-      },
-      "width": 47,
-      "y": 0,
-      "x": 67,
-      "type": "timeseries",
-      "legend": false
-    },
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Response timings - 95th",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
-        "requests": [
-          {
-            "q": "max:k6.http_req_blocked.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_sending.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_waiting.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_blocked.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_receiving.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_connecting.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          },
-          {
-            "q": "max:k6.http_req_tls_handshaking.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
-          }
-        ],
-        "custom_links": [],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
-      },
-      "width": 47,
-      "y": 17,
-      "x": 67,
-      "type": "timeseries",
-      "legend": false
-    },
-    {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Response time 95th - HeatMap",
-      "height": 13,
-      "tile_def": {
-        "viz": "heatmap",
-        "requests": [
-          {
-            "q": "max:k6.http_req_duration.95percentile{$test_run_id}",
-            "style": {
-              "palette": "dog_classic"
-            }
-          }
-        ],
-        "custom_links": []
-      },
-      "width": 47,
-      "y": 34,
-      "x": 67,
-      "type": "heatmap",
-      "legend": false
-    },
-    {
-      "sizing": "zoom",
-      "y": 0,
-      "width": 8,
-      "url": "https://i.postimg.cc/J762mtP0/logo-k6.png",
-      "x": 1,
-      "type": "image",
-      "height": 8
-    }
-  ]
+    ],
+    "id": 22975
 }
