@@ -4,7 +4,9 @@
 	"type": "query alert",
 	"query": "min(last_1h):avg:federatorai.recommendation{resource:replicas} by {kube_cluster,kube_namespace,kube_deployment,kube_stateful_set} >= 10",
 	"message": "The number of the recommended replica has reached the max limit in the past 60 minutes.",
-	"tags": [],
+	"tags": [
+		"integration:federatorai"
+	],
 	"options": {
 		"notify_audit": false,
 		"locked": false,
