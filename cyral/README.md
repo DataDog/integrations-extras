@@ -71,3 +71,5 @@ Need help? Contact [Datadog support][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/cyral/metadata.csv
 [7]: https://docs.datadoghq.com/help/
+[8]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[9]: https://app.datadoghq.com/account/settings#agent
