@@ -1,0 +1,12 @@
+name: Cyral
+files:
+- name: cyral.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        prometheus_url.example: http://localhost:9018/metrics

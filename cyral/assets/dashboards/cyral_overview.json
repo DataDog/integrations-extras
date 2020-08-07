@@ -1,0 +1,265 @@
+{
+    "author_info": {
+        "author_name": "Cyral"
+    },
+    "board_title": "Cyral",
+    "description": "",
+    "template_variables": [],
+    "widgets": [
+        {
+            "height": 12,
+            "sizing": "fit",
+            "type": "image",
+            "url": "https://s34378.pcdn.co/wp-content/themes/cyral20/assets/img/logo.svg?t=1592861649",
+            "width": 24,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "height": 13,
+            "legend": true,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_wire_parse_duration{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {
+                "live_span": "1h"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Wire Parse Duration",
+            "type": "timeseries",
+            "width": 30,
+            "x": 25,
+            "y": 8
+        },
+        {
+            "height": 13,
+            "legend": true,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_policy_eval_time{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {
+                "live_span": "1h"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Policy Evaluation Time",
+            "type": "timeseries",
+            "width": 30,
+            "x": 25,
+            "y": 23
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_query_duration_sum{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Query Duration Sum",
+            "type": "timeseries",
+            "width": 30,
+            "x": 25,
+            "y": 38
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "24",
+            "height": 7,
+            "html": "Durations",
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 30,
+            "x": 25,
+            "y": 0
+        },
+        {
+            "height": 13,
+            "legend": true,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_policy_violation_count{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {
+                "live_span": "1h"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Policy Violations Count",
+            "type": "timeseries",
+            "width": 30,
+            "x": 56,
+            "y": 8
+        },
+        {
+            "height": 13,
+            "legend": true,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_high_latency_query_count{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "bars"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {
+                "live_span": "1h"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "High Latency Query Count",
+            "type": "timeseries",
+            "width": 30,
+            "x": 56,
+            "y": 23
+        },
+        {
+            "height": 13,
+            "legend": true,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "avg:cyral.cyral_row_count{*}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "bars"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "time": {
+                "live_span": "1h"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Row Count",
+            "type": "timeseries",
+            "width": 30,
+            "x": 56,
+            "y": 38
+        },
+        {
+            "bgcolor": "white",
+            "font_size": "24",
+            "height": 7,
+            "html": "Security",
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 30,
+            "x": 56,
+            "y": 0
+        }
+    ]
+}
