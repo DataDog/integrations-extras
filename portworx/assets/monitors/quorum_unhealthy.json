@@ -1,0 +1,27 @@
+{
+	"name": "[Portworx] Cluster quorum unhealthy",
+	"type": "query alert",
+	"query": "avg(last_5m):max:portworx.cluster.status_cluster.quorum{*} by {cluster} > 1",
+	"message": "Portworx cluster {{cluster.name}} is out of quorum.",
+	"tags": [
+		"integration:portworx"
+	],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"new_host_delay": 300,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": "0",
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 1
+		}
+	},
+  "recommended_monitor_metadata": {
+    "description": "Get notified when your Portworx cluster quorum is unhealthy for more than 5 minutes."
+  }
+}
