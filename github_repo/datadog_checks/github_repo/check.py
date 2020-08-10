@@ -28,8 +28,6 @@ class GithubRepoCheck(AgentCheck):
             raise ConfigurationError('Configuration error, please set a repository_name')
 
         tags = []
-
-        # Get repository
         g = Github(self.access_token)
 
         try:
@@ -45,6 +43,21 @@ class GithubRepoCheck(AgentCheck):
             self.handle_exception(
                 "Failed to access repository. Check your repository_name config", AgentCheck.CRITICAL, tags, e
             )
+        except RateLimitExceededException as e:
+            self.handle_exception(
+                "Rate limit exceeded. Make sure you provided an access_token", AgentCheck.WARNING, tags, e
+            )
+
+        try:
+            stargazers = repo.get_stargazers().totalCount
+            self.gauge('github_repo.stargazers', stargazers, tags=tags)
+            watchers = repo.get_watchers().totalCount
+            self.gauge('github_repo.watchers', watchers, tags=tags)
+            contributors = repo.get_contributors().totalCount
+            self.gauge('github_repo.contributors', contributors, tags=tags)
+            subscribers = repo.get_subscribers().totalCount
+            self.gauge('github_repo.subscribers', subscribers, tags=tags)
+
         except RateLimitExceededException as e:
             self.handle_exception(
                 "Rate limit exceeded. Make sure you provided an access_token", AgentCheck.WARNING, tags, e
