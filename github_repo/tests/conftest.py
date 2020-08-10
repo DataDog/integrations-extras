@@ -11,4 +11,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {}
+    return {"repository_name": "DataDog/integrations-extras"}

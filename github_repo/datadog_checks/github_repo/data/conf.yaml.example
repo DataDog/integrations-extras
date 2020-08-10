@@ -2,6 +2,11 @@
 #
 init_config:
 
+    ## @param access_token - string - required
+    ## The Github access token to authenticate the Github API.
+    #
+    access_token: <ACCESS_TOKEN>
+
     ## @param service - string - optional
     ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
     ##
@@ -13,7 +18,11 @@ init_config:
 #
 instances:
 
-  -
+    ## @param repository_name - string - required
+    ## The Github repository name to monitor.
+    #
+  - repository_name: <REPOSITORY_NAME>
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##

@@ -1,10 +1,20 @@
 name: GitHub Repo
 files:
 - name: github_repo.yaml
-  options:
+  options:  
   - template: init_config
     options:
-    - template: init_config/default
+      - name: access_token
+        required: true
+        value:
+          type: string
+        description: The Github access token to authenticate the Github API.
+      - template: init_config/default
   - template: instances
     options:
-    - template: instances/default
+      - name: repository_name
+        required: true
+        value:
+          type: string
+        description: The Github repository name to monitor.
+      - template: instances/default
