@@ -31,6 +31,7 @@ def get_subscribers_mock():
 def test_check_using_mocks(stargazers_mock, watchers_mock, contributors_mock, subscribers_mock, instance, aggregator, dd_run_check):
     check = GithubRepoCheck('github_repo', {"access_token": "<YOUR_ACCESS_TOKEN>"}, [instance])
     dd_run_check(check)
+
     aggregator.assert_metric('github_repo.stargazers', value=1.0, tags=['repository_name:DataDog/integrations-extras'])
     aggregator.assert_metric('github_repo.watchers', value=2.0, tags=['repository_name:DataDog/integrations-extras'])
     aggregator.assert_metric(

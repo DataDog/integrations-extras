@@ -31,7 +31,9 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-GitHub Repo does not include any service checks.
+`github_repo.up`:
+
+Returns CRITICAL if the Agent cannot connect to the Github API to collect metrics, WARNING if the Agent hits Github maximum API call limit, otherwise OK.
 
 ### Events
 

@@ -13,6 +13,7 @@ class GithubRepoCheck(AgentCheck):
     SERVICE_CHECK_NAME = "github_repo.up"
 
     def __init__(self, name, init_config, instances):
+        # NOTE: We need super to initialize self.log
         super(GithubRepoCheck, self).__init__(name, init_config, instances)
 
         # Fetch Config
