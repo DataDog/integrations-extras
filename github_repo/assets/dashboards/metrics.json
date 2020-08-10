@@ -1,0 +1,249 @@
+{
+    "author_info": {
+        "author_name": "Datadog"
+    },
+    "board_title": "GitHub Repo Metrics",
+    "description": "",
+    "template_variables": [],
+    "widgets": [
+        {
+            "height": 13,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "top(avg:github_repo.commits{repository_name:datadog/datadog-agent} by {contributor}, 10, 'mean', 'desc')"
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Top contributors to datadog-agent",
+            "type": "toplist",
+            "width": 47,
+            "x": 49,
+            "y": 47
+        },
+        {
+            "height": 13,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "top(avg:github_repo.commits{repository_name:datadog/integrations-core} by {contributor}, 10, 'mean', 'desc')"
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Top contributors to integrations-core",
+            "type": "toplist",
+            "width": 47,
+            "x": 1,
+            "y": 47
+        },
+        {
+            "height": 13,
+            "tile_def": {
+                "requests": [
+                    {
+                        "q": "top(avg:github_repo.commits{repository_name:datadog/integrations-extras} by {contributor}, 10, 'mean', 'desc')"
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "time": {},
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Top contributors to integrations-extras",
+            "type": "toplist",
+            "width": 47,
+            "x": 97,
+            "y": 47
+        },
+        {
+            "height": 24,
+            "legend": true,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:github_repo.contributors{repository_name:datadog/datadog-agent}, avg:github_repo.stargazers{repository_name:datadog/datadog-agent}, avg:github_repo.watchers{repository_name:datadog/datadog-agent}, avg:github_repo.subscribers{repository_name:datadog/datadog-agent}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "datadog-agent metrics",
+            "type": "timeseries",
+            "width": 47,
+            "x": 49,
+            "y": 19
+        },
+        {
+            "height": 24,
+            "legend": true,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:github_repo.contributors{repository_name:datadog/integrations-core}, avg:github_repo.stargazers{repository_name:datadog/integrations-core}, avg:github_repo.watchers{repository_name:datadog/integrations-core}, avg:github_repo.subscribers{repository_name:datadog/integrations-core}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "integrations-core metrics",
+            "type": "timeseries",
+            "width": 47,
+            "x": 1,
+            "y": 19
+        },
+        {
+            "height": 24,
+            "legend": true,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:github_repo.contributors{repository_name:datadog/integrations-extras}, avg:github_repo.stargazers{repository_name:datadog/integrations-extras}, avg:github_repo.watchers{repository_name:datadog/integrations-extras}, avg:github_repo.subscribers{repository_name:datadog/integrations-extras}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "integrations-extras metrics",
+            "type": "timeseries",
+            "width": 47,
+            "x": 97,
+            "y": 19
+        },
+        {
+            "check": "github_repo.up",
+            "group": "repository_name:datadog/integrations-core,service:olympus,host:docker-desktop",
+            "group_by": [],
+            "grouping": "check",
+            "height": 8,
+            "tags": [
+                "*"
+            ],
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "integrations-core",
+            "type": "check_status",
+            "width": 47,
+            "x": 1,
+            "y": 10
+        },
+        {
+            "check": "github_repo.up",
+            "group": "repository_name:datadog/integrations-extras,service:olympus,host:docker-desktop",
+            "group_by": [],
+            "grouping": "check",
+            "height": 8,
+            "tags": [
+                "*"
+            ],
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "integrations-extras",
+            "type": "check_status",
+            "width": 47,
+            "x": 97,
+            "y": 10
+        },
+        {
+            "check": "github_repo.up",
+            "group": "repository_name:datadog/datadog-agent,service:olympus,host:docker-desktop",
+            "group_by": [],
+            "grouping": "check",
+            "height": 8,
+            "tags": [
+                "*"
+            ],
+            "title": true,
+            "title_align": "center",
+            "title_size": 16,
+            "title_text": "datadog-agent",
+            "type": "check_status",
+            "width": 47,
+            "x": 49,
+            "y": 10
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 7,
+            "html": "Repository Status",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 117,
+            "x": 27,
+            "y": 2
+        },
+        {
+            "height": 7,
+            "sizing": "fit",
+            "type": "image",
+            "url": "https://i0.wp.com/www.globalemancipation.ngo/wp-content/uploads/2017/09/github-logo.png?fit=2000%2C665&ssl=1",
+            "width": 25,
+            "x": 1,
+            "y": 2
+        }
+    ]
+}

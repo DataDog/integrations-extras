@@ -6,7 +6,7 @@ import pytest
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    yield
+    yield {"repository_name": "DataDog/integrations-extras"}
 
 
 @pytest.fixture
