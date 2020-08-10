@@ -10,6 +10,8 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class GithubRepoCheck(AgentCheck):
+    SERVICE_CHECK_NAME = "github_repo.up"
+
     def __init__(self, name, init_config, instances):
         super(GithubRepoCheck, self).__init__(name, init_config, instances)
 
@@ -32,17 +34,27 @@ class GithubRepoCheck(AgentCheck):
 
         try:
             repo = g.get_repo(repository_name)
-            self.log.debug('Getting stats for: {}'.format(repo.name))
+            self.log.debug('Getting stats for: {}'.format(repo.full_name))
             tags.append("repository_name:{}".format(repository_name))
 
         except BadCredentialsException as e:
-            self.handle_exception("Failed to authenticate to Github with given access_token", e)
+            self.handle_exception(
+                "Failed to authenticate to Github with given access_token", AgentCheck.CRITICAL, tags, e
+            )
         except UnknownObjectException as e:
-            self.handle_exception("Failed to access repository. Check your repository_name config", e)
+            self.handle_exception(
+                "Failed to access repository. Check your repository_name config", AgentCheck.CRITICAL, tags, e
+            )
         except RateLimitExceededException as e:
-            self.handle_exception("Rate limit exceeded. Make sure you provided an access_token", e)
+            self.handle_exception(
+                "Rate limit exceeded. Make sure you provided an access_token", AgentCheck.WARNING, tags, e
+            )
 
-    def handle_exception(self, msg, e):
+        # NOTE: The OK state service check must be at the end
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
+
+    def handle_exception(self, msg, status, tags, e):
         self.warning(msg)
         self.log.debug("{}: {}".format(msg, e))
+        self.service_check(self.SERVICE_CHECK_NAME, status, tags=tags)
         raise ConfigurationError(msg)

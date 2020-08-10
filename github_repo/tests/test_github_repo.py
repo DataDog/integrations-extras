@@ -24,3 +24,21 @@ def test_check_invalid_configs(dd_run_check, instance):
 
     check = GithubRepoCheck('github_repo', {'access_token': "<YOUR_ACCESS_TOKEN>"}, [instance])
     dd_run_check(check)
+
+
+def test_check_service_checks(instance, aggregator, dd_run_check):
+    # Test invalid access_token
+    check = GithubRepoCheck('github_repo', {'access_token': "invalid"}, [{"repository_name": "invalid"}])
+    with pytest.raises(Exception, match="Failed to authenticate to Github with given access_token"):
+        dd_run_check(check)
+
+    aggregator.assert_service_check(GithubRepoCheck.SERVICE_CHECK_NAME, status=check.CRITICAL)
+
+    # We need to reset the aggregator between tests
+    aggregator.reset()
+
+    check = GithubRepoCheck('github_repo', {'access_token': "<YOUR_ACCESS_TOKEN>"}, [instance])
+    dd_run_check(check)
+    aggregator.assert_service_check(
+        GithubRepoCheck.SERVICE_CHECK_NAME, status=check.OK, tags=['repository_name:DataDog/integrations-extras']
+    )
