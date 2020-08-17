@@ -1,0 +1,396 @@
+{
+    "author_info": {
+        "author_name": "Datadog"
+    },
+    "board_title": "Speedtest",
+    "description": "## Speedtest Dashboard\n\nThis dashboard provides quick views of the key Speedtest metrics from your integration check.\n\n- [Speedtest Integration Overview](https://github.com/DataDog/integrations-extras/blob/master/speedtest/README.md)\n- [Speedtest CLI](https://www.speedtest.net/apps/cli)",
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "env",
+            "prefix": "env"
+        },
+        {
+            "default": "*",
+            "name": "isp",
+            "prefix": "isp"
+        },
+        {
+            "default": "*",
+            "name": "host",
+            "prefix": "host"
+        }
+    ],
+    "widgets": [
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.ping.jitter{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Ping Jitter (ms)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 51,
+            "y": 21
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.ping.latency{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Ping Latency (ms)",
+            "type": "timeseries",
+            "width": 47,
+            "x": 3,
+            "y": 21
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.packet_loss{*,*,*} by {isp}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Packet Loss",
+            "type": "timeseries",
+            "width": 47,
+            "x": 100,
+            "y": 21
+        },
+        {
+            "check": "speedtest.run",
+            "group": "host:pi64",
+            "group_by": [],
+            "grouping": "check",
+            "height": 12,
+            "tags": [
+                "*"
+            ],
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Speedtest Run Status",
+            "type": "check_status",
+            "width": 16,
+            "x": 20,
+            "y": 1
+        },
+        {
+            "height": 12,
+            "sizing": "zoom",
+            "type": "image",
+            "url": "https://download.logo.wine/logo/Speedtest.net/Speedtest.net-Logo.wine.png",
+            "width": 16,
+            "x": 3,
+            "y": 1
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 5,
+            "html": "Packet Loss",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 47,
+            "x": 100,
+            "y": 15
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.bytes{*} by {isp}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.bytes{*} by {isp}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Bytes",
+            "type": "timeseries",
+            "width": 47,
+            "x": 51,
+            "y": 44
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.elapsed{*} by {isp}/1000",
+                        "style": {
+                            "palette": "orange",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.elapsed{*} by {isp}/1000",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Elapsed time",
+            "type": "timeseries",
+            "width": 47,
+            "x": 100,
+            "y": 44
+        },
+        {
+            "height": 13,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "q": "avg:speedtest.download.bandwidth{*} by {isp}",
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    },
+                    {
+                        "q": "avg:speedtest.upload.bandwidth{*} by {isp}",
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Bandwidth",
+            "type": "timeseries",
+            "width": 47,
+            "x": 3,
+            "y": 44
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 5,
+            "html": "Bandwidth and Download",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 95,
+            "x": 3,
+            "y": 38
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 5,
+            "html": "Duration",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 47,
+            "x": 100,
+            "y": 38
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 5,
+            "html": "Ping and Jitter",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 95,
+            "x": 3,
+            "y": 15
+        },
+        {
+            "height": 12,
+            "tile_def": {
+                "requests": [
+                    {
+                        "aggregator": "avg",
+                        "alias": "Avg Download",
+                        "limit": 50,
+                        "order": "desc",
+                        "q": "avg:speedtest.download.bandwidth{*} by {isp}"
+                    },
+                    {
+                        "aggregator": "avg",
+                        "alias": "Avg Upload",
+                        "q": "avg:speedtest.upload.bandwidth{*} by {isp}"
+                    },
+                    {
+                        "aggregator": "sum",
+                        "alias": "Total Download",
+                        "q": "sum:speedtest.download.bytes{*} by {isp}"
+                    },
+                    {
+                        "aggregator": "sum",
+                        "alias": "Total Upload",
+                        "q": "sum:speedtest.upload.bytes{*} by {isp}"
+                    }
+                ],
+                "viz": "query_table"
+            },
+            "time": {},
+            "title": false,
+            "type": "query_table",
+            "width": 61,
+            "x": 51,
+            "y": 1
+        },
+        {
+            "bgcolor": "gray",
+            "font_size": "18",
+            "height": 12,
+            "html": "ISP Overview",
+            "text_align": "center",
+            "tick": true,
+            "tick_edge": "right",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 38,
+            "y": 1
+        }
+    ]
+}
