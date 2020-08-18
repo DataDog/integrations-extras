@@ -1,7 +1,7 @@
 import json
 import urllib.request
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class ZabbixCheck(AgentCheck):
@@ -120,6 +120,15 @@ class ZabbixCheck(AgentCheck):
         zabbix_user = instance.get('zabbix_user')
         zabbix_pass = instance.get('zabbix_password')
         zabbix_api = instance.get('zabbix_api')
+
+        if not zabbix_user:
+            raise ConfigurationError('Configuration error, please specify zabbix_user.')
+
+        if not zabbix_pass:
+            raise ConfigurationError('Configuration error, please specify zabbix_pass.')
+
+        if not zabbix_api:
+            raise ConfigurationError('Configuration error, please specify zabbix_api.')
 
         hosts = instance.get('hosts')
         metrics = instance.get('metrics')
