@@ -32,8 +32,42 @@ class Neo4jCheck(PrometheusCheck):
         self.exclude_labels = config.exclude_labels
 
         endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
-        metrics = self.scrape_metrics(endpoint=endpoint)
+        self._check_metrics(self.scrape_metrics(endpoint=endpoint), config)
 
+    def _check_metrics(self, metrics, config):
+        # Determine if metrics.namespaces.enabled is set in the target Neo4j instance
+        # Finding this dynamically lets users roll out this feature without interrupting their metrics,
+        # as well as monitoring database fleets with mixed values for this setting.
+        is_namespaced = True
+        for metric in metrics:
+            if metric.name.startswith("neo4j_dbms_") or metric.name.startswith("neo4j_database_"):
+                continue
+            is_namespaced = False
+            break
+
+        if is_namespaced:
+            self._check_namespaced_metrics(metrics, config)
+        else:
+            self._check_legacy_metrics(metrics, config)
+
+    def _check_namespaced_metrics(self, metrics, config):
+        for metric in metrics:
+            if metric.name.startswith("neo4j_dbms_"):
+                db_name = GLOBAL_DB_NAME
+                metric.name = metric.name.replace("neo4j_dbms_", "", 1)
+            else:
+                db_name, metric_name = metric.name.replace("neo4j_database_", "", 1).split("_", 1)
+                metric.name = metric_name
+                # Exclude databases not in neo4j_dbs, if that config is set
+                if config.neo4j_dbs and db_name not in config.neo4j_dbs:
+                    continue
+
+            tags = ['db_name:{}'.format(db_name)]
+            if config.instance_tags:
+                tags.extend(config.instance_tags.copy())
+            self.process_metric(message=metric, custom_tags=tags)
+
+    def _check_legacy_metrics(self, metrics, config):
         for metric in metrics:
             metric.name = metric.name.replace('neo4j_', '', 1)
             db_name = GLOBAL_DB_NAME
