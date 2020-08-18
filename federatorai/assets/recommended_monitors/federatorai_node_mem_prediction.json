@@ -1,5 +1,4 @@
 {
-	"id": 21036017,
 	"name": "[Federator.ai] Node Memory Usage Prediction in Next 24 Hours is High on {{host.name}}",
 	"type": "query alert",
 	"query": "avg(last_1h):( avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,prediction_window:24_hours} by {host} / avg:kubernetes.memory.capacity{*} by {host} ) * 100 > 90",
