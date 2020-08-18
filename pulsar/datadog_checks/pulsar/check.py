@@ -80,7 +80,7 @@ class PulsarCheck(OpenMetricsBaseCheck):
             'pulsar_consumer_blocked_on_unacked_messages': 'pulsar_consumer_blocked_on_unacked_messages',
             'pulsar_consumer_msg_rate_out': 'pulsar_consumer_msg_rate_out',
             'pulsar_consumer_msg_rate_redeliver': 'pulsar_consumer_msg_rate_redeliver',
-            'pulsar_consumer_msg_throughput_out': 'pulsar_consumer_msg_throughput_out',
+            'pulsar_consumer_msg_throughput_out': 'consumer.msg_throughput_out',
             'pulsar_consumer_unacked_messages': 'pulsar_consumer_unacked_messages',
             'pulsar_consumers_count': 'pulsar_consumers_count',
             'pulsar_entry_size_count': 'pulsar_entry_size_count',
@@ -150,6 +150,8 @@ class PulsarCheck(OpenMetricsBaseCheck):
             'zk_write_latency': 'zk_write_latency',
             'zk_write_latency_count': 'zk_write_latency_count',
             'zk_write_latency_sum': 'zk_write_latency_sum',
+            'px_cluster_cpu_percent': 'cluster.cpu_percent',
+            'pulsar_consumer_rate_in': 'consumer.rate_in',
         }
 
         instance.update(
