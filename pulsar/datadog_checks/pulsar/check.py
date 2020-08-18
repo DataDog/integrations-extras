@@ -1,0 +1,166 @@
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
+
+EVENT_TYPE = SOURCE_TYPE_NAME = 'pulsar'
+
+
+class PulsarCheck(OpenMetricsBaseCheck):
+    """
+    PulsarCheck derives from AgentCheck that provides the required check method
+    """
+
+    def __init__(self, name, init_config, instances=None):
+        instance = instances[0]
+        url = instance.get('prometheus_url')
+        if url is None:
+            raise ConfigurationError("Unable to find prometheus_url in config file.")
+
+        # token = instance.get('token')
+
+        # tenant = instance.get('tenant')
+
+        self.NAMESPACE = 'pulsar'
+        self.metrics_mapper = {
+            'caffeine_cache_load_duration_seconds_count': 'caffeine_cache_load_duration_seconds_count',
+            'caffeine_cache_load_duration_seconds_sum': 'caffeine_cache_load_duration_seconds_sum',
+            'caffeine_cache_load_failure_total': 'caffeine_cache_load_failure_total',
+            'caffeine_cache_loads_total': 'caffeine_cache_loads_total',
+            'caffeine_cache_miss_total': 'caffeine_cache_miss_total',
+            'caffeine_cache_requests_total': 'caffeine_cache_requests_total',
+            'jetty_async_dispatches_total': 'jetty_async_dispatches_total',
+            'jetty_async_requests_total': 'jetty_async_requests_total',
+            'jetty_async_requests_waiting': 'jetty_async_requests_waiting',
+            'jetty_async_requests_waiting_max': 'jetty_async_requests_waiting_max',
+            'jetty_dispatched_active': 'jetty_dispatched_active',
+            'jetty_dispatched_active_max': 'jetty_dispatched_active_max',
+            'jetty_dispatched_time_max': 'jetty_dispatched_time_max',
+            'jetty_dispatched_time_seconds_total': 'jetty_dispatched_time_seconds_total',
+            'jetty_dispatched_total': 'jetty_dispatched_total',
+            'jetty_expires_total': 'jetty_expires_total',
+            'jetty_request_time_max_seconds': 'jetty_request_time_max_seconds',
+            'jetty_request_time_seconds_total': 'jetty_request_time_seconds_total',
+            'jetty_requests_active': 'jetty_requests_active',
+            'jetty_requests_active_max': 'jetty_requests_active_max',
+            'jetty_requests_total': 'jetty_requests_total',
+            'jetty_responses_bytes_total': 'jetty_responses_bytes_total',
+            'jetty_responses_total': 'jetty_responses_total',
+            'jetty_stats_seconds': 'jetty_stats_seconds',
+            'jvm_buffer_pool_capacity_bytes': 'jvm_buffer_pool_capacity_bytes',
+            'jvm_buffer_pool_used_buffers': 'jvm_buffer_pool_used_buffers',
+            'jvm_buffer_pool_used_bytes': 'jvm_buffer_pool_used_bytes',
+            'jvm_classes_loaded': 'jvm_classes_loaded',
+            'jvm_classes_loaded_total': 'jvm_classes_loaded_total',
+            'jvm_classes_unloaded_total': 'jvm_classes_unloaded_total',
+            'jvm_gc_collection_seconds_count': 'jvm_gc_collection_seconds_count',
+            'jvm_gc_collection_seconds_sum': 'jvm_gc_collection_seconds_sum',
+            'jvm_info': 'jvm_info',
+            'jvm_memory_bytes_committed': 'jvm_memory_bytes_committed',
+            'jvm_memory_bytes_init': 'jvm_memory_bytes_init',
+            'jvm_memory_bytes_max': 'jvm_memory_bytes_max',
+            'jvm_memory_bytes_used': 'jvm_memory_bytes_used',
+            'jvm_memory_direct_bytes_max': 'jvm_memory_direct_bytes_max',
+            'jvm_memory_direct_bytes_used': 'jvm_memory_direct_bytes_used',
+            'jvm_memory_pool_bytes_committed': 'jvm_memory_pool_bytes_committed',
+            'jvm_memory_pool_bytes_init': 'jvm_memory_pool_bytes_init',
+            'jvm_memory_pool_bytes_max': 'jvm_memory_pool_bytes_max',
+            'jvm_memory_pool_bytes_used': 'jvm_memory_pool_bytes_used',
+            'jvm_threads_current': 'jvm_threads_current',
+            'jvm_threads_daemon': 'jvm_threads_daemon',
+            'jvm_threads_deadlocked': 'jvm_threads_deadlocked',
+            'jvm_threads_deadlocked_monitor': 'jvm_threads_deadlocked_monitor',
+            'jvm_threads_peak': 'jvm_threads_peak',
+            'jvm_threads_started_total': 'jvm_threads_started_total',
+            'log4j2_appender_total': 'log4j2_appender_total',
+            'process_cpu_seconds_total': 'process_cpu_seconds_total',
+            'process_max_fds': 'process_max_fds',
+            'process_open_fds': 'process_open_fds',
+            'process_resident_memory_bytes': 'process_resident_memory_bytes',
+            'process_start_time_seconds': 'process_start_time_seconds',
+            'process_virtual_memory_bytes': 'process_virtual_memory_bytes',
+            'pulsar_consumer_available_permits': 'pulsar_consumer_available_permits',
+            'pulsar_consumer_blocked_on_unacked_messages': 'pulsar_consumer_blocked_on_unacked_messages',
+            'pulsar_consumer_msg_rate_out': 'pulsar_consumer_msg_rate_out',
+            'pulsar_consumer_msg_rate_redeliver': 'pulsar_consumer_msg_rate_redeliver',
+            'pulsar_consumer_msg_throughput_out': 'pulsar_consumer_msg_throughput_out',
+            'pulsar_consumer_unacked_messages': 'pulsar_consumer_unacked_messages',
+            'pulsar_consumers_count': 'pulsar_consumers_count',
+            'pulsar_entry_size_count': 'pulsar_entry_size_count',
+            'pulsar_entry_size_le_100_kb': 'pulsar_entry_size_le_100_kb',
+            'pulsar_entry_size_le_128': 'pulsar_entry_size_le_128',
+            'pulsar_entry_size_le_16_kb': 'pulsar_entry_size_le_16_kb',
+            'pulsar_entry_size_le_1_kb': 'pulsar_entry_size_le_1_kb',
+            'pulsar_entry_size_le_1_mb': 'pulsar_entry_size_le_1_mb',
+            'pulsar_entry_size_le_2_kb': 'pulsar_entry_size_le_2_kb',
+            'pulsar_entry_size_le_4_kb': 'pulsar_entry_size_le_4_kb',
+            'pulsar_entry_size_le_512': 'pulsar_entry_size_le_512',
+            'pulsar_entry_size_le_overflow': 'pulsar_entry_size_le_overflow',
+            'pulsar_entry_size_sum': 'pulsar_entry_size_sum',
+            'pulsar_in_bytes_total': 'pulsar_in_bytes_total',
+            'pulsar_in_messages_total': 'pulsar_in_messages_total',
+            'pulsar_msg_backlog': 'pulsar_msg_backlog',
+            'pulsar_out_bytes_total': 'pulsar_out_bytes_total',
+            'pulsar_out_messages_total': 'pulsar_out_messages_total',
+            'pulsar_producers_count': 'pulsar_producers_count',
+            'pulsar_rate_in': 'pulsar_rate_in',
+            'pulsar_rate_out': 'pulsar_rate_out',
+            'pulsar_replication_backlog': 'pulsar_replication_backlog',
+            'pulsar_replication_rate_in': 'pulsar_replication_rate_in',
+            'pulsar_replication_rate_out': 'pulsar_replication_rate_out',
+            'pulsar_replication_throughput_in': 'pulsar_replication_throughput_in',
+            'pulsar_replication_throughput_out': 'pulsar_replication_throughput_out',
+            'pulsar_storage_backlog_quota_limit': 'pulsar_storage_backlog_quota_limit',
+            'pulsar_storage_backlog_size': 'pulsar_storage_backlog_size',
+            'pulsar_storage_read_rate': 'pulsar_storage_read_rate',
+            'pulsar_storage_offloaded_size': 'pulsar_storage_offloaded_size',
+            'pulsar_storage_size': 'pulsar_storage_size',
+            'pulsar_storage_write_latency_count': 'pulsar_storage_write_latency_count',
+            'pulsar_storage_write_latency_le_0_5': 'pulsar_storage_write_latency_le_0_5',
+            'pulsar_storage_write_latency_le_1': 'pulsar_storage_write_latency_le_1',
+            'pulsar_storage_write_latency_le_10': 'pulsar_storage_write_latency_le_10',
+            'pulsar_storage_write_latency_le_100': 'pulsar_storage_write_latency_le_100',
+            'pulsar_storage_write_latency_le_1000': 'pulsar_storage_write_latency_le_1000',
+            'pulsar_storage_write_latency_le_20': 'pulsar_storage_write_latency_le_20',
+            'pulsar_storage_write_latency_le_200': 'pulsar_storage_write_latency_le_200',
+            'pulsar_storage_write_latency_le_5': 'pulsar_storage_write_latency_le_5',
+            'pulsar_storage_write_latency_le_50': 'pulsar_storage_write_latency_le_50',
+            'pulsar_storage_write_latency_overflow': 'pulsar_storage_write_latency_overflow',
+            'pulsar_storage_write_latency_sum': 'pulsar_storage_write_latency_sum',
+            'pulsar_storage_write_rate': 'pulsar_storage_write_rate',
+            'pulsar_subscription_back_log': 'pulsar_subscription_back_log',
+            'pulsar_subscription_back_log_no_delayed': 'pulsar_subscription_back_log_no_delayed',
+            'pulsar_subscription_blocked_on_unacked_messages': 'pulsar_subscription_blocked_on_unacked_messages',
+            'pulsar_subscription_delayed': 'pulsar_subscription_delayed',
+            'pulsar_subscription_msg_rate_out': 'pulsar_subscription_msg_rate_out',
+            'pulsar_subscription_msg_rate_redeliver': 'pulsar_subscription_msg_rate_redeliver',
+            'pulsar_subscription_msg_throughput_out': 'pulsar_subscription_msg_throughput_out',
+            'pulsar_subscription_unacked_messages': 'pulsar_subscription_unacked_messages',
+            'pulsar_subscriptions_count': 'pulsar_subscriptions_count',
+            'pulsar_throughput_in': 'pulsar_throughput_in',
+            'pulsar_throughput_out': 'pulsar_throughput_out',
+            'pulsar_topics_count': 'pulsar_topics_count',
+            'scrape_duration_seconds': 'scrape_duration_seconds',
+            'scrape_samples_post_metric_relabeling': 'scrape_samples_post_metric_relabeling',
+            'scrape_samples_scraped': 'scrape_samples_scraped',
+            'topic_load_times': 'topic_load_times',
+            'topic_load_times_count': 'topic_load_times_count',
+            'topic_load_times_sum': 'topic_load_times_sum',
+            'up': 'up',
+            'zk_read_latency': 'zk_read_latency',
+            'zk_read_latency_count': 'zk_read_latency_count',
+            'zk_read_latency_sum': 'zk_read_latency_sum',
+            'zk_write_latency': 'zk_write_latency',
+            'zk_write_latency_count': 'zk_write_latency_count',
+            'zk_write_latency_sum': 'zk_write_latency_sum',
+        }
+
+        instance.update(
+            {
+                'prometheus_url': url,
+                'namespace': self.NAMESPACE,
+                'metrics': [self.metrics_mapper],
+                # 'send_histograms_buckets': send_buckets,
+                # 'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True)
+                # default to True to submit _count histogram/summary as monotonic
+                # counts to Datadog
+            }
+        )
+        super(PulsarCheck, self).__init__(name, init_config, instances)

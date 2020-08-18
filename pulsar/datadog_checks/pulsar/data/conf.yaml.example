@@ -1,0 +1,29 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independent of the others.
+#
+instances:
+
+    ## @param prometheus_url - string - required
+    ## federated prometheus url
+    #
+  - prometheus_url: https://federated-useast1.gcp.kafkaesque.io:9090
+
+    ## @param token - string - optional - default: averylongtokenstring
+    ## bearer token for federated prometheus url
+    #
+    # token: averylongtokenstring
+
+    ## @param tenant - string - optional - default: tenant-name
+    ## tenant of the Pulsar cluster(optional), all metrics are pertaining to this tenant
+    #
+    # tenant: tenant-name
