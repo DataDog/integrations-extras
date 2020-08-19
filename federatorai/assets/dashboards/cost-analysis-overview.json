@@ -52,13 +52,13 @@
                                 "comparator": ">"
                             }
                         ],
-                        "q": "top(sum:kubernetes_state.node.cpu_capacity{$kube_cluster} by {host,kube_node_role,availability-zone,instance-type}, 10, 'mean', 'desc')",
+                        "q": "top(sum:kubernetes_state.node.cpu_capacity{$kube_cluster} by {host, kube_node_role, availability-zone, instance-type, size}, 10, 'mean', 'desc')",
                         "alias": "CPU Capacity",
                         "limit": 100,
                         "order": "desc"
                     },
                     {
-                        "q": "top(sum:kubernetes_state.node.memory_capacity{$kube_cluster} by {host,kube_node_role,availability-zone,instance-type}, 10, 'mean', 'desc')",
+                        "q": "top(sum:kubernetes_state.node.memory_capacity{$kube_cluster} by {host, kube_node_role, availability-zone, instance-type, size}, 10, 'mean', 'desc')",
                         "aggregator": "last",
                         "conditional_formats": [
                             {
@@ -71,7 +71,7 @@
                         "alias": "Memory Capacity"
                     },
                     {
-                        "q": "top(sum:system.disk.total{$kube_cluster} by {host,kube_node_role,availability-zone,instance-type}, 10, 'mean', 'desc')",
+                        "q": "top(sum:system.disk.total{$kube_cluster} by {host, kube_node_role, availability-zone, instance-type, size}, 10, 'mean', 'desc')",
                         "aggregator": "last",
                         "conditional_formats": [
                             {
@@ -83,10 +83,10 @@
                         ],
                         "alias": "Storage Size"
                     }
-                ],
-                "custom_links": []
+                ]
             },
             "width": 97,
+            "time": {},
             "y": 7,
             "x": 50,
             "type": "query_table"
