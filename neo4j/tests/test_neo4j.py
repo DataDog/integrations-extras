@@ -3,6 +3,12 @@ import pytest
 from datadog_checks.base import ConfigurationError
 from datadog_checks.neo4j import GLOBAL_DB_NAME, NAMESPACE, Config, Neo4jCheck
 
+from dataclasses import dataclass
+
+@dataclass
+class FakeMetric:
+    name: str
+
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
@@ -39,6 +45,30 @@ def test_get_db_for_metric():
     assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='neo4j_metric_1') == 'neo4j'
     assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='system_metric_1') == 'system'
     assert check._get_db_for_metric(dbs=['neo4j', 'system'], metric_name='metric_1') is None
+
+
+@pytest.mark.unit
+def test_check_namespaced_metrics():
+    out = []
+
+    def fake_process_metric(message, **kwargs):
+        out.append((message, kwargs))
+
+    check = Neo4jCheck('neo4j', {}, {})
+    check.process_metric = fake_process_metric
+
+    config = Config(host='localhost', port=9000, neo4j_version='4.0', neo4j_dbs=[],
+                    exclude_labels=['kube_service'], instance_tags=['key:value'])
+
+    check._check_metrics([
+        FakeMetric("neo4j_dbms_some_global_metric"),
+        FakeMetric("neo4j_database_mydb_some_local_metric"),
+    ], config=config)
+
+    assert out == [
+        (FakeMetric("some_global_metric"), {'custom_tags': ['db_name:global', 'key:value']}),
+        (FakeMetric("some_local_metric"), {'custom_tags': ['db_name:mydb', 'key:value']}),
+    ]
 
 
 @pytest.mark.unit
