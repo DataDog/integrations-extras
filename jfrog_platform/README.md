@@ -1,7 +1,7 @@
 
 
 ## Overview
-The following describes how to configure Datadog to gather metrics from JFrog Artifactory and Xray.
+The following describes how to configure Datadog to gather metrics from JFrog Artifactory and JFrog Xray.
 
 ### What is JFrog Artifactory and Xray
 JFrog Enterprise with Xray features Artifactory Enterprise and Xray. Together, they empower DevOps teams to improve their productivity to increase velocity and deliver high quality software releases with confidence. Xray scans for known open source security risks and compliance using the industry's most comprehensive intelligence, VulnDB.
@@ -10,7 +10,7 @@ Artifactory supports multiple build packages, artifacts, and metadata. It allows
 
 Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replication for geographically distributed teams allowing you to replicate between a source repository and multiple targets simultaneously and security features such as IP filtering, CNAME, and data encryption at rest.
 
-Artifactory supports Kubernetes for microservices and containerized applications. Manage your deployments and gain insight into dependencies using Artifactory as your Kubernetes registry, while Xray provides container security scanning all layers recursively, ensuring that every artifact and dependency included in your Docker image has been scanned for known risks. Enterprise meets your business model needs supporting hybrid, cloud, and multi-cloud environments.
+Artifactory supports Kubernetes for microservices and containerized applications. Manage your deployments and gain insight into dependencies using Artifactory as your Kubernetes registry. JFrog Xray provides container security scanning all layers recursively, ensuring that every artifact and dependency included in your Docker image has been scanned for known risks. Enterprise meets your business model needs supporting hybrid, cloud, and multi-cloud environments.
 
 ### JFrog Artifactory Datadog Dashboard
 
@@ -23,7 +23,7 @@ JFrog Artifactory's Datadog integration allows you to send Artifactory logs to t
 ### Requirements
 
 * Kubernetes Cluster
-* Artifactory and/or Xray installed via [JFrog Helm Charts][1]
+* JFrog Artifactory and/or JFrog Xray installed via [JFrog Helm Charts][1]
 * [Helm 3][2]
 
 ### Logs
