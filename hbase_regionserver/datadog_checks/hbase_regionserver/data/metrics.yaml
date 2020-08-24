@@ -1,0 +1,512 @@
+# Default metrics collected by this check. You should not have to modify this.
+# See hbase_regionserver metrics.yaml as an example
+# https://github.com/DataDog/integrations-extras/blob/master/hbase_regionserver/datadog_checks/hbase_regionserver/data/metrics.yaml
+
+jmx_metrics:
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=RegionServer,sub=IPC
+      attribute:
+        queueSize:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.queue_size
+        numOpenConnections:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.num_open_connections
+        numActiveHandler:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.num_active_handler
+        TotalCallTime_max:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.total_call_time.max
+        TotalCallTime_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.total_call_time.mean
+        TotalCallTime_median:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.total_call_time.median
+        TotalCallTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.ipc.total_call_time.percentile.99
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=RegionServer,sub=Regions
+      attribute:
+        numRegions:
+          metric_type: gauge
+          alias: hbase.regionserver.regions.num_regions
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=RegionServer,sub=Replication
+      attribute:
+        sink.appliedOps:
+          metric_type: gauge
+          alias: hbase.regionserver.replication.sink.applied_ops
+        sink.ageOfLastAppliedOp:
+          metric_type: gauge
+          alias: hbase.regionserver.replication.sink.age_of_last_applied_op
+        sink.appliedBatches:
+          metric_type: gauge
+          alias: hbase.regionserver.replication.sink.applied_batches
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=RegionServer,sub=Server
+      attribute:
+        regionCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.region_count
+        storeCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.store_count
+        hlogFileCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.hlog_file_count
+        hlogFileSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.hlog_file_size
+        storeFileCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.store_file_count
+        memStoreSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mem_store_size
+        storeFileSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.store_file_size
+        totalRequestCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.total_request_count
+        readRequestCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.read_request_count
+        writeRequestCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.write_request_count
+        checkMutateFailedCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.check_mutate_failed_count
+        checkMutatePassedCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.check_mutate_passed_count
+        storeFileIndexSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.store_file_index_size
+        staticIndexSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.static_index_size
+        staticBloomSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.static_bloom_size
+        mutationsWithoutWALCount:
+          metric_type: count
+          alias: hbase.regionserver.server.mutations_without_wal_count
+        mutationsWithoutWALSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutations_without_wal_size
+        percentFilesLocal:
+          metric_type: gauge
+          alias: hbase.regionserver.server.percent_files_local
+        percentFilesLocalSecondaryRegions:
+          metric_type: gauge
+          alias: hbase.regionserver.server.percent_files_local_secondary_regions
+        splitQueueLength:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_queue_length
+        compactionQueueLength:
+          metric_type: gauge
+          alias: hbase.regionserver.server.compaction_queue_length
+        flushQueueLength:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_queue_length
+        blockCacheFreeSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_free_size
+        blockCacheCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_count
+        blockCacheSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_size
+        blockCacheHitCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_hit_count
+        blockCacheHitCountPrimary:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_hit_count_primary
+        blockCacheMissCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_miss_count
+        blockCacheMissCountPrimary:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_miss_count_primary
+        blockCacheEvictionCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_eviction_count
+        blockCacheEvictionCountPrimary:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_eviction_count_primary
+        blockCacheCountHitPercent:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_hit_percent
+        blockCacheExpressHitPercent:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_express_hit_percent
+        blockCacheFailedInsertionCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.block_cache_failed_insertion_count
+        updatesBlockedTime:
+          metric_type: gauge
+          alias: hbase.regionserver.server.updates_blocked_time
+        flushedCellsCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flushed_cells_count
+        compactedCellsCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.compacted_cells_count
+        majorCompactedCellsCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.major_compacted_cells_count
+        flushedCellsSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flushed_cells_size
+        compactedCellsSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.compacted_cells_size
+        majorCompactedCellsSize:
+          metric_type: gauge
+          alias: hbase.regionserver.server.major_compacted_cells_size
+        blockedRequestCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.blocked_request_count
+        hedgedReads:
+          metric_type: gauge
+          alias: hbase.regionserver.server.hedged_read
+        hedgedReadWins:
+          metric_type: gauge
+          alias: hbase.regionserver.server.hedged_read_wins
+        PauseTimeWithGc_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc_num_ops
+        PauseTimeWithGc_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc.min
+        PauseTimeWithGc_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc.max
+        PauseTimeWithGc_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc.mean
+        PauseTimeWithGc_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc.median
+        PauseTimeWithGc_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_with_gc.percentile.99
+        Mutate_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.num_ops
+        Mutate_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.min
+        Mutate_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.max
+        Mutate_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.mean
+        Mutate_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.median
+        Mutate_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.mutate.percentile.99
+        slowAppendCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.slow_append_count
+        pauseWarnThresholdExceeded:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_warn_threshold_exceeded
+        slowDeleteCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.slow_delete_count
+        Increment_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.num_ops
+        Increment_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.min
+        Increment_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.max
+        Increment_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.mean
+        Increment_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.median
+        Increment_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.increment.percentile.99
+        Replay_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.num_ops
+        Replay_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.min
+        Replay_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.max
+        Replay_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.mean
+        Replay_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.median
+        Replay_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.replay.percentile.99
+        FlushTime_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.num_ops
+        FlushTime_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.min
+        FlushTime_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.max
+        FlushTime_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.mean
+        FlushTime_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.median
+        FlushTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.flush_time.percentile.99
+        pauseInfoThresholdExceeded:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_info_threshold_exceeded
+        Delete_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.num_ops
+        Delete_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.min
+        Delete_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.max
+        Delete_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.mean
+        Delete_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.median
+        Delete_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.delete.percentile.99
+        splitRequestCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_request_count
+        splitSuccessCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_success_count
+        slowGetCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.slow_get_count
+        Get_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.num_ops
+        Get_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.min
+        Get_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.max
+        Get_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.mean
+        Get_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.median
+        Get_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.get.percentile.99
+        ScanNext_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.num_ops
+        ScanNext_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.min
+        ScanNext_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.max
+        ScanNext_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.mean
+        ScanNext_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.median
+        ScanNext_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.scan_next.percentile.99
+        PauseTimeWithoutGc_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.num_ops
+        PauseTimeWithoutGc_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.min
+        PauseTimeWithoutGc_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.max
+        PauseTimeWithoutGc_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.mean
+        PauseTimeWithoutGc_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.median
+        PauseTimeWithoutGc_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.pause_time_without_gc.percentile.99
+        slowPutCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.slow_put_count
+        slowIncrementCount:
+          metric_type: gauge
+          alias: hbase.regionserver.server.slow_increment_count
+        SplitTime_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.num_ops
+        SplitTime_min:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.min
+        SplitTime_max:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.max
+        SplitTime_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.mean
+        SplitTime_median:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.median
+        SplitTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.server.split_time.percentile.99
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=RegionServer,sub=WAL
+      attribute:
+        AppendSize_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.num_ops
+        AppendSize_min:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.min
+        AppendSize_max:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.max
+        AppendSize_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.mean
+        AppendSize_median:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.median
+        AppendSize_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_size.percentile.99
+        SyncTime_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.num_ops
+        SyncTime_min:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.min
+        SyncTime_max:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.max
+        SyncTime_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.mean
+        SyncTime_median:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.median
+        SyncTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.sync_time.percentile.99
+        slowAppendCount:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.slow_append_count
+        rollRequest:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.roll_request
+        appendCount:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_count
+        lowReplicaRollRequest:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.low_replica_roll_request
+        AppendTime_num_ops:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.num_ops
+        AppendTime_min:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.min
+        AppendTime_max:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.max
+        AppendTime_mean:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.mean
+        AppendTime_median:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.median
+        AppendTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.regionserver.wal.append_time.percentile.99
+  - include:
+      domain: Hadoop
+      bean:
+      - Hadoop:service=HBase,name=JvmMetrics
+      attribute:
+        MemNonHeapUsedM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_non_heap_used_in_mb
+        MemNonHeapCommittedM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_non_heap_committed_in_mb
+        MemNonHeapMaxM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_non_heap_max_in_mb
+        MemHeapUsedM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_heap_used_in_mb
+        MemHeapCommittedM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_heap_committed_in_mb
+        MemHeapMaxM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_heap_max_in_mb
+        MemMaxM:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.mem_max_in_mb
+        GcCountParNew:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_count_par_new
+        GcTimeMillisParNew:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_time_millis_par_new
+        GcCountConcurrentMarkSweep:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_count_concurrent_mark_sweep
+        GcTimeMillisConcurrentMarkSweep:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_time_millis_concurrent_mark_sweep
+        GcCount:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_count
+        GcTimeMillis:
+          metric_type: gauge
+          alias: hbase.jvm_metrics.gc_time_millis

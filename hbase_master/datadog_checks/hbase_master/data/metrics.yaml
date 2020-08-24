@@ -1,97 +1,104 @@
-# Metrics definitions which this module reports to datadog
-# This is input file of _gen.rb
-# required field:
-#    bean, attribute, metric_type, alias
-# optional field:
-#    description, values(yaml in string of value converter definition. e.g. '{true: 1, false: 0}')
----
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: ritOldestAge
-  description: The age of the longest region in transition, in milliseconds
-  metric_type: gauge
-  unit_name: millisecond
-  alias: hbase.master.assignmentmanager.rit_oldest_age
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: ritCountOverThreshold
-  description: The number of regions that have been in transition longer than a threshold time
-  unit_name: ""
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.rit_count_over_threshold
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: ritCount
-  description: The number of regions in transition
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.rit_count
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: Assign_min
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.assign.min
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: Assign_max
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.assign.max
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: Assign_mean
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.assign.mean
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: Assign_median
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.assign.median
-- bean: Hadoop:service=HBase,name=Master,sub=AssignmentManger
-  attribute: Assign_99th_percentile
-  metric_type: gauge
-  alias: hbase.master.assignmentmanager.assign.percentile.99
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: queueSize
-  metric_type: gauge
-  alias: hbase.master.ipc.queue_size
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: numCallsInGeneralQueue
-  metric_type: gauge
-  alias: hbase.master.ipc.num_calls_in_general_queue
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: numCallsInReplicationQueue
-  metric_type: gauge
-  alias: hbase.master.ipc.num_calls_in_replication_queue
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: numCallsInPriorityQueue
-  metric_type: gauge
-  alias: hbase.master.ipc.num_calls_in_priority_queue
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: numOpenConnections
-  metric_type: gauge
-  alias: hbase.master.ipc.num_open_connections
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: numActiveHandler
-  metric_type: gauge
-  alias: hbase.master.ipc.num_active_handler
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: TotalCallTime_max
-  metric_type: gauge
-  alias: hbase.master.ipc.total_call_time.max
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: TotalCallTime_mean
-  metric_type: gauge
-  alias: hbase.master.ipc.total_call_time.mean
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: TotalCallTime_median
-  metric_type: gauge
-  alias: hbase.master.ipc.total_call_time.median
-- bean: Hadoop:service=HBase,name=Master,sub=IPC
-  attribute: TotalCallTime_99th_percentile
-  metric_type: gauge
-  alias: hbase.master.ipc.total_call_time.percentile.99
-- bean: Hadoop:service=HBase,name=Master,sub=Server
-  attribute: tag.isActiveMaster
-  metric_type: gauge
-  alias: hbase.master.server.tag.is_active_master
-  values: '{true: 1, false: 0, default: 0}'
-- bean: Hadoop:service=HBase,name=Master,sub=Server
-  attribute: numRegionServers
-  metric_type: gauge
-  alias: hbase.master.server.num_region_servers
-- bean: Hadoop:service=HBase,name=Master,sub=Server
-  attribute: numDeadRegionServers
-  metric_type: gauge
-  alias: hbase.master.server.num_dead_region_servers
+# Default metrics collected by this check. You should not have to modify this.
+# See hbase_master metrics.yaml as an example
+# https://github.com/DataDog/integrations-extras/blob/master/hbase_master/datadog_checks/hbase_master/data/metrics.yaml
+
+jmx_metrics:
+  - include:
+      domain: Hadoop
+      bean:
+       - Hadoop:service=HBase,name=Master,sub=AssignmentManger
+      attribute:
+        # The age of the longest region in transition, in milliseconds
+        ritOldestAge:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.rit_oldest_age
+        # The number of regions that have been in transition longer than a threshold time
+        ritCountOverThreshold:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.rit_count_over_threshold
+        # The number of regions in transition
+        ritCount:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.rit_count
+        Assign_min:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.assign.min
+        Assign_max:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.assign.max
+        Assign_mean:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.assign.mean
+        Assign_median:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.assign.median
+        Assign_99th_percentile:
+          metric_type: gauge
+          alias: hbase.master.assignmentmanager.assign.percentile.99
+
+  - include:
+      domain: Hadoop
+      bean:
+       - Hadoop:service=HBase,name=Master,sub=IPC
+      attribute:
+        # Number of bytes in the call queues.
+        queueSize:
+          metric_type: gauge
+          alias: hbase.master.ipc.queue_size
+        # Number of calls in the general call queue.
+        numCallsInGeneralQueue:
+          metric_type: gauge
+          alias: hbase.master.ipc.num_calls_in_general_queue
+        # Number of calls in the replication call queue.
+        numCallsInReplicationQueue:
+          metric_type: gauge
+          alias: hbase.master.ipc.num_calls_in_replication_queue
+        # Number of calls in the priority call queue.
+        numCallsInPriorityQueue:
+          metric_type: gauge
+          alias: hbase.master.ipc.num_calls_in_priority_queue
+        # Number of open connections.
+        numOpenConnections:
+          metric_type: gauge
+          alias: hbase.master.ipc.num_open_connections
+        # Number of active rpc handlers.
+        numActiveHandler:
+          metric_type: gauge
+          alias: hbase.master.ipc.num_active_handler
+        # total call time, including both queued and processing time.
+        TotalCallTime_max:
+          metric_type: gauge
+          alias: hbase.master.ipc.total_call_time.max
+        # total call time, including both queued and processing time.
+        TotalCallTime_mean:
+          metric_type: gauge
+          alias: hbase.master.ipc.total_call_time.mean
+        # total call time, including both queued and processing time.
+        TotalCallTime_median:
+          metric_type: gauge
+          alias: hbase.master.ipc.total_call_time.median
+        # total call time, including both queued and processing time.
+        TotalCallTime_99th_percentile:
+          metric_type: gauge
+          alias: hbase.master.ipc.total_call_time.percentile.99
+
+  - include:
+      domain: Hadoop
+      bean:
+       - Hadoop:service=HBase,name=Master,sub=Server
+      attribute:
+        # Is Active Master
+        tag.isActiveMaster:
+          metric_type: gauge
+          alias: hbase.master.server.tag.is_active_master
+          values: {true: 1, false: 0, default: 0}
+          #must wrap true and false in quotes for Agent 6
+          #values: {"true": 1, "false": 0, default: 0}
+        # Number of RegionServers
+        numRegionServers:
+          metric_type: gauge
+          alias: hbase.master.server.num_region_servers
+        # Number of dead RegionServers
+        numDeadRegionServers:
+          metric_type: gauge
+          alias: hbase.master.server.num_dead_region_servers
