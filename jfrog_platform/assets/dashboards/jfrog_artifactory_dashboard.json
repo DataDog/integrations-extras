@@ -1,50 +1,44 @@
 {
-    "board_title": "Jfrog Artifactory Overview",
+    "title": "Jfrog Artifactory Overview",
     "description": "This dashboard provides usage statistics overview of JFrog Artifactory logs. Included are also some high level views of audit, request and application logs. \n\nA detailed blog post can be found here: [Track JFrog Platform Performance with Datadog Analytics](https://jfrog.com/blog/track-jfrog-platform-performance-with-datadog-analytics/). \n\nSource code is also available in [Github](https://github.com/jfrog/log-analytics/tree/master/log-vendors/datadog)",
-    "template_variables": [
-        {
-            "default": "*",
-            "name": "repo",
-            "prefix": "@repo"
-        },
-        {
-            "default": "*",
-            "name": "username",
-            "prefix": "@username"
-        },
-        {
-            "default": "*",
-            "name": "ip_address",
-            "prefix": "@ip_address"
-        }
-    ],
+	"author_info": {
+        "name":"JFrog Platform"
+    },
     "widgets": [
         {
-            "bgcolor": "gray",
-            "font_size": "18",
-            "height": 7,
-            "html": "Audit\n",
-            "text_align": "center",
-            "tick": true,
-            "tick_edge": "bottom",
-            "tick_pos": "50%",
-            "type": "note",
-            "width": 108,
-            "x": 70,
-            "y": 0
+            "id": 0,
+            "definition": {
+                "type": "note",
+                "content": "Audit\n",
+                "background_color": "gray",
+                "font_size": "18",
+                "text_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "bottom"
+            },
+            "layout": {
+                "x": 70,
+                "y": 0,
+                "width": 108,
+                "height": 7
+            }
         },
         {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
+            "id": 1,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* $repo $ip_address $username"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@repo",
                                     "limit": 10,
@@ -53,51 +47,52 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* $repo $ip_address $username"
-                            }
+                            ]
                         },
-                        "on_right_yaxis": false,
+                        "display_type": "line",
                         "style": {
                             "palette": "dog_classic",
-                            "type": "solid",
-                            "width": "normal"
+                            "line_type": "solid",
+                            "line_width": "normal"
                         },
-                        "type": "line"
+                        "on_right_yaxis": false
                     }
                 ],
-                "viz": "timeseries",
+                "custom_links": [],
                 "yaxis": {
-                    "includeZero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Accessed Repos",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Accessed Repos",
-            "type": "timeseries",
-            "width": 108,
-            "x": 180,
-            "y": 43
+            "layout": {
+                "x": 180,
+                "y": 43,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
+            "id": 2,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* @image:* $ip_address $username $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@image",
                                     "limit": 10,
@@ -106,240 +101,246 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* @image:* $ip_address $username $repo"
-                            }
+                            ]
                         },
-                        "on_right_yaxis": false,
+                        "display_type": "line",
                         "style": {
                             "palette": "cool",
-                            "type": "solid",
-                            "width": "normal"
+                            "line_type": "solid",
+                            "line_width": "normal"
                         },
-                        "type": "line"
+                        "on_right_yaxis": false
                     }
                 ],
-                "viz": "timeseries",
+                "custom_links": [],
                 "yaxis": {
-                    "includeZero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Accessed Images",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Accessed Images",
-            "type": "timeseries",
-            "width": 108,
-            "x": 180,
-            "y": 26
+            "layout": {
+                "x": 180,
+                "y": 26,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
+            "id": 3,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "sum",
                                 "facet": "@response_content_length_2"
                             },
-                            "groupBy": [
-                                {
-                                    "facet": "@repo",
-                                    "limit": 10,
-                                    "sort": {
-                                        "aggregation": "sum",
-                                        "facet": "@response_content_length_2",
-                                        "order": "desc"
-                                    }
-                                }
-                            ],
-                            "index": "*",
                             "search": {
                                 "query": "@log_source:jfrog.rt.artifactory.request @response_content_length_2:>=0 $repo $ip_address $username"
-                            }
-                        },
-                        "on_right_yaxis": false,
-                        "style": {
-                            "palette": "purple",
-                            "type": "solid",
-                            "width": "normal"
-                        },
-                        "type": "area"
-                    }
-                ],
-                "viz": "timeseries",
-                "yaxis": {
-                    "includeZero": true,
-                    "label": "",
-                    "max": "auto",
-                    "min": "auto",
-                    "scale": "linear"
-                }
-            },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Upload Data Transfer by Repo",
-            "type": "timeseries",
-            "width": 94,
-            "x": 194,
-            "y": 77
-        },
-        {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
-                "requests": [
-                    {
-                        "log_query": {
-                            "compute": {
-                                "aggregation": "sum",
-                                "facet": "@request_content_length_2"
                             },
-                            "groupBy": [
+                            "group_by": [
                                 {
                                     "facet": "@repo",
                                     "limit": 10,
                                     "sort": {
                                         "aggregation": "sum",
-                                        "facet": "@request_content_length_2",
-                                        "order": "desc"
+                                        "order": "desc",
+                                        "facet": "@response_content_length_2"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.request $repo $ip_address $username"
-                            }
+                            ]
                         },
-                        "on_right_yaxis": false,
+                        "display_type": "area",
                         "style": {
-                            "palette": "cool",
-                            "type": "solid",
-                            "width": "normal"
+                            "palette": "purple",
+                            "line_type": "solid",
+                            "line_width": "normal"
                         },
-                        "type": "area"
+                        "on_right_yaxis": false
                     }
                 ],
-                "viz": "timeseries",
+                "custom_links": [],
                 "yaxis": {
-                    "includeZero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Upload Data Transfer by Repo",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Download Data Transfer by Repo",
-            "type": "timeseries",
-            "width": 94,
-            "x": 194,
-            "y": 60
+            "layout": {
+                "x": 194,
+                "y": 77,
+                "width": 94,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 4,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "sum",
                                 "facet": "@request_content_length_2"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request $repo $ip_address $username"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@repo",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "sum",
+                                        "order": "desc",
+                                        "facet": "@request_content_length_2"
+                                    }
+                                }
+                            ]
+                        },
+                        "display_type": "area",
+                        "style": {
+                            "palette": "cool",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "on_right_yaxis": false
+                    }
+                ],
+                "custom_links": [],
+                "yaxis": {
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Download Data Transfer by Repo",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
+            },
+            "layout": {
+                "x": 194,
+                "y": 60,
+                "width": 94,
+                "height": 16
+            }
+        },
+        {
+            "id": 5,
+            "definition": {
+                "type": "toplist",
+                "requests": [
+                    {
+                        "log_query": {
+                            "index": "*",
+                            "compute": {
+                                "aggregation": "sum",
+                                "facet": "@request_content_length_2"
+                            },
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @request_content_length_2:>0 $ip_address $username $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@remote_address",
                                     "limit": 10,
                                     "sort": {
                                         "aggregation": "sum",
-                                        "facet": "@request_content_length_2",
-                                        "order": "desc"
+                                        "order": "desc",
+                                        "facet": "@request_content_length_2"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.request @request_content_length_2:>0 $ip_address $username $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "toplist"
+                "custom_links": [],
+                "title": "Active Downloading IPs",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Active Downloading IPs",
-            "type": "toplist",
-            "width": 94,
-            "x": 180,
-            "y": 94
+            "layout": {
+                "x": 180,
+                "y": 94,
+                "width": 94,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 6,
+            "definition": {
+                "type": "toplist",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "sum",
                                 "facet": "@response_content_length_2"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @response_content_length_2:>=0 $ip_address $username $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@remote_address",
                                     "limit": 10,
                                     "sort": {
                                         "aggregation": "sum",
-                                        "facet": "@response_content_length_2",
-                                        "order": "desc"
+                                        "order": "desc",
+                                        "facet": "@response_content_length_2"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.request @response_content_length_2:>=0 $ip_address $username $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "toplist"
+                "custom_links": [],
+                "title": "Active Uploading IPs",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Active Uploading IPs",
-            "type": "toplist",
-            "width": 94,
-            "x": 180,
-            "y": 111
+            "layout": {
+                "x": 180,
+                "y": 111,
+                "width": 94,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 7,
+            "definition": {
+                "type": "toplist",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@ip",
                                     "limit": 10,
@@ -348,36 +349,37 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "toplist"
+                "custom_links": [],
+                "title": "Denied Actions by IP",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Denied Actions by IP",
-            "type": "toplist",
-            "width": 108,
-            "x": 70,
-            "y": 61
+            "layout": {
+                "x": 70,
+                "y": 61,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 8,
+            "definition": {
+                "type": "toplist",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@username",
                                     "limit": 10,
@@ -386,36 +388,37 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "toplist"
+                "custom_links": [],
+                "title": "Denied Actions by Username",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Denied Actions by Username",
-            "type": "toplist",
-            "width": 108,
-            "x": 70,
-            "y": 44
+            "layout": {
+                "x": 70,
+                "y": 44,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 9,
+            "definition": {
+                "type": "query_table",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@username",
                                     "limit": 10,
@@ -424,248 +427,286 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "query_table"
+                "custom_links": [],
+                "title": "Denied Logins By Username",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Denied Logins By Username",
-            "type": "query_table",
-            "width": 108,
-            "x": 70,
-            "y": 9
+            "layout": {
+                "x": 70,
+                "y": 9,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "tile_def": {
-                "custom_links": [],
+            "id": 10,
+            "definition": {
+                "type": "query_table",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
-                                {
-                                    "facet": "@username",
-                                    "limit": 10,
-                                    "sort": {
-                                        "aggregation": "count",
-                                        "order": "desc"
-                                    }
-                                }
-                            ],
-                            "index": "*",
                             "search": {
                                 "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DEPLOY\" $username $ip_address $repo"
-                            }
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@username",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ]
                         }
                     }
                 ],
-                "viz": "query_table"
+                "custom_links": [],
+                "title": "Accepted Deploys by Username",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Accepted Deploys by Username",
-            "type": "query_table",
-            "width": 108,
-            "x": 70,
-            "y": 78
+            "layout": {
+                "x": 70,
+                "y": 78,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
+            "id": 11,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [],
-                            "index": "*",
                             "search": {
                                 "query": "@log_source:jfrog.rt.artifactory.service @log_level:ERROR $ip_address $username $repo"
-                            }
+                            },
+                            "group_by": []
                         },
-                        "on_right_yaxis": false,
+                        "display_type": "bars",
                         "style": {
                             "palette": "warm",
-                            "type": "solid",
-                            "width": "normal"
+                            "line_type": "solid",
+                            "line_width": "normal"
                         },
-                        "type": "bars"
+                        "on_right_yaxis": false
                     }
                 ],
-                "viz": "timeseries",
+                "custom_links": [],
                 "yaxis": {
-                    "includeZero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Artifactory Errors",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Artifactory Errors",
-            "type": "timeseries",
-            "width": 108,
-            "x": 290,
-            "y": 9
+            "layout": {
+                "x": 290,
+                "y": 9,
+                "width": 108,
+                "height": 16
+            }
         },
         {
-            "height": 14,
-            "legend": false,
-            "tile_def": {
-                "custom_links": [],
+            "id": 12,
+            "definition": {
+                "type": "timeseries",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [],
-                            "index": "*",
                             "search": {
                                 "query": "@log_source:jfrog.rt.artifactory.request @return_status:5** $username $ip_address $repo"
-                            }
+                            },
+                            "group_by": []
                         },
-                        "on_right_yaxis": false,
+                        "display_type": "bars",
                         "style": {
                             "palette": "orange",
-                            "type": "solid",
-                            "width": "normal"
+                            "line_type": "solid",
+                            "line_width": "normal"
                         },
-                        "type": "bars"
+                        "on_right_yaxis": false
                     }
                 ],
-                "viz": "timeseries",
-                "yaxis": {
-                    "includeZero": true,
-                    "label": "",
-                    "max": "auto",
-                    "min": "auto",
-                    "scale": "linear"
-                }
-            },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Artifactory HTTP 500 Errors",
-            "type": "timeseries",
-            "width": 108,
-            "x": 180,
-            "y": 9
-        },
-        {
-            "bgcolor": "gray",
-            "font_size": "18",
-            "height": 7,
-            "html": "Requests",
-            "text_align": "center",
-            "tick": true,
-            "tick_edge": "bottom",
-            "tick_pos": "50%",
-            "type": "note",
-            "width": 108,
-            "x": 180,
-            "y": -1
-        },
-        {
-            "bgcolor": "gray",
-            "font_size": "18",
-            "height": 7,
-            "html": "Application",
-            "text_align": "center",
-            "tick": true,
-            "tick_edge": "bottom",
-            "tick_pos": "50%",
-            "type": "note",
-            "width": 108,
-            "x": 290,
-            "y": 0
-        },
-        {
-            "bgcolor": "blue",
-            "font_size": "16",
-            "height": 33,
-            "html": "Data Transfers By Repo",
-            "text_align": "center",
-            "tick": true,
-            "tick_edge": "right",
-            "tick_pos": "50%",
-            "type": "note",
-            "width": 12,
-            "x": 180,
-            "y": 60
-        },
-        {
-            "bgcolor": "blue",
-            "font_size": "16",
-            "height": 33,
-            "html": "Top 10 Ips By Data Volume",
-            "text_align": "center",
-            "tick": true,
-            "tick_edge": "left",
-            "tick_pos": "50%",
-            "type": "note",
-            "width": 12,
-            "x": 276,
-            "y": 94
-        },
-        {
-            "height": 15,
-            "sizing": "zoom",
-            "type": "image",
-            "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png",
-            "width": 66,
-            "x": 2,
-            "y": 0
-        },
-        {
-            "columns": "[\"@log_source\", \"@username\", \"@repo\", \"@log_level\"]",
-            "height": 96,
-            "indexes": [],
-            "message_display": "expanded-md",
-            "query": "source:fluentd $ip_address $username $repo",
-            "show_date_column": true,
-            "show_message_column": true,
-            "sort": {
-                "column": "time",
-                "order": "desc"
-            },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Logs from Fluentd",
-            "type": "log_stream",
-            "width": 66,
-            "x": 2,
-            "y": 16
-        },
-        {
-            "height": 15,
-            "tile_def": {
                 "custom_links": [],
+                "yaxis": {
+                    "label": "",
+                    "scale": "linear",
+                    "min": "auto",
+                    "max": "auto",
+                    "include_zero": true
+                },
+                "title": "Artifactory HTTP 500 Errors",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false
+            },
+            "layout": {
+                "x": 180,
+                "y": 9,
+                "width": 108,
+                "height": 16
+            }
+        },
+        {
+            "id": 13,
+            "definition": {
+                "type": "note",
+                "content": "Requests",
+                "background_color": "gray",
+                "font_size": "18",
+                "text_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "bottom"
+            },
+            "layout": {
+                "x": 180,
+                "y": -1,
+                "width": 108,
+                "height": 7
+            }
+        },
+        {
+            "id": 14,
+            "definition": {
+                "type": "note",
+                "content": "Application",
+                "background_color": "gray",
+                "font_size": "18",
+                "text_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "bottom"
+            },
+            "layout": {
+                "x": 290,
+                "y": 0,
+                "width": 108,
+                "height": 7
+            }
+        },
+        {
+            "id": 15,
+            "definition": {
+                "type": "note",
+                "content": "Data Transfers By Repo",
+                "background_color": "blue",
+                "font_size": "16",
+                "text_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "right"
+            },
+            "layout": {
+                "x": 180,
+                "y": 60,
+                "width": 12,
+                "height": 33
+            }
+        },
+        {
+            "id": 16,
+            "definition": {
+                "type": "note",
+                "content": "Top 10 Ips By Data Volume",
+                "background_color": "blue",
+                "font_size": "16",
+                "text_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left"
+            },
+            "layout": {
+                "x": 276,
+                "y": 94,
+                "width": 12,
+                "height": 33
+            }
+        },
+        {
+            "id": 17,
+            "definition": {
+                "type": "image",
+                "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png",
+                "sizing": "zoom"
+            },
+            "layout": {
+                "x": 2,
+                "y": 0,
+                "width": 66,
+                "height": 15
+            }
+        },
+        {
+            "id": 18,
+            "definition": {
+                "type": "log_stream",
+                "indexes": [],
+                "query": "source:fluentd $ip_address $username $repo",
+                "sort": {
+                    "column": "time",
+                    "order": "desc"
+                },
+                "columns": [
+                    "@log_source",
+                    "@username",
+                    "@repo",
+                    "@log_level"
+                ],
+                "show_date_column": true,
+                "show_message_column": true,
+                "message_display": "expanded-md",
+                "title": "Logs from Fluentd",
+                "title_size": "16",
+                "title_align": "left"
+            },
+            "layout": {
+                "x": 2,
+                "y": 16,
+                "width": 66,
+                "height": 96
+            }
+        },
+        {
+            "id": 19,
+            "definition": {
+                "type": "query_table",
                 "requests": [
                     {
                         "log_query": {
+                            "index": "*",
                             "compute": {
                                 "aggregation": "count"
                             },
-                            "groupBy": [
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
+                            },
+                            "group_by": [
                                 {
                                     "facet": "@ip",
                                     "limit": 10,
@@ -674,24 +715,42 @@
                                         "order": "desc"
                                     }
                                 }
-                            ],
-                            "index": "*",
-                            "search": {
-                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* $username $ip_address $repo"
-                            }
+                            ]
                         }
                     }
                 ],
-                "viz": "query_table"
+                "custom_links": [],
+                "title": "Denied Logins By IP",
+                "title_size": "16",
+                "title_align": "left"
             },
-            "title": true,
-            "title_align": "left",
-            "title_size": 16,
-            "title_text": "Denied Logins By IP",
-            "type": "query_table",
-            "width": 108,
-            "x": 70,
-            "y": 26
+            "layout": {
+                "x": 70,
+                "y": 26,
+                "width": 108,
+                "height": 17
+            }
         }
-    ]
+    ],
+    "template_variables": [
+        {
+            "name": "repo",
+            "default": "*",
+            "prefix": "@repo"
+        },
+        {
+            "name": "username",
+            "default": "*",
+            "prefix": "@username"
+        },
+        {
+            "name": "ip_address",
+            "default": "*",
+            "prefix": "@ip_address"
+        }
+    ],
+    "layout_type": "free",
+    "is_read_only": true,
+    "notify_list": [],
+    "id": 30354
 }
