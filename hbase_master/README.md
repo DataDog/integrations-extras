@@ -7,7 +7,7 @@ Get metrics from Hbase_master service in real time to:
 - Visualize and monitor Hbase_master states.
 - Be notified about Hbase_master failovers and events.
 
-## Setup 
+## Setup
 
 ### Installation
 
@@ -46,6 +46,28 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 1. Edit the `hbase_master.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Hbase_master [metrics](#metrics). See the [sample hbase_master.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
+
+### Log collection
+
+1. Collecting logs is disabled by default in the Datadog Agent, you need to enable it in `datadog.yaml`:
+
+   ```yaml
+   logs_enabled: true
+   ```
+
+2. Add this configuration block to your `hbase_master.d/conf.yaml` file to start collecting your Hbase_master Logs:
+
+   ```yaml
+   logs:
+     - type: file
+       path: /path/to/my/directory/file.log
+       source: hbase
+   ```
+
+   Change the `path` parameter value and configure it for your environment.
+   See the [sample hbase_master.d/conf.yaml][8] for all available configuration options.
+
+3. [Restart the Agent][9].
 
 ### Validation
 
