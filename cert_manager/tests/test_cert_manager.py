@@ -34,7 +34,8 @@ def mock_metrics():
 @pytest.fixture()
 def error_metrics():
     with mock.patch(
-        'requests.get', return_value=mock.MagicMock(status_code=502, headers={'Content-Type': "text/plain"}),
+        'requests.get',
+        return_value=mock.MagicMock(status_code=502, headers={'Content-Type': "text/plain"}),
     ):
         yield
 
