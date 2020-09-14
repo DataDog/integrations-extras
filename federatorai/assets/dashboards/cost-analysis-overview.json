@@ -400,7 +400,8 @@
             "definition": {
                 "type": "image",
                 "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/prophetstor_logos-bot-for-dashboard.png",
-                "sizing": "center"
+                "sizing": "fit",
+                "margin": "large"
             },
             "layout": {
                 "x": 0,
@@ -459,7 +460,7 @@
                 "type": "query_value",
                 "requests": [
                     {
-                        "q": "sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}-sum:federatorai.recommendation.instance{$kube_cluster,provider:aws,$pricing_option,$country,time_interval:30_days} by {provider,region,country}",
+                        "q": "(sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}*(count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,provider:aws,$pricing_option,$country,time_interval:30_days} by {provider,region,country})-count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,provider:aws,$pricing_option,$country,time_interval:30_days} by {provider,region,country})+1))-sum:federatorai.recommendation.instance{$kube_cluster,provider:aws,$pricing_option,$country,time_interval:30_days} by {provider,region,country}",
                         "aggregator": "last",
                         "conditional_formats": [
                             {
@@ -494,7 +495,7 @@
                 "type": "query_value",
                 "requests": [
                     {
-                        "q": "sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}-sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:azure} by {provider,region,country}",
+                        "q": "(sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}*(count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:azure} by {provider,region,country})-count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:azure} by {provider,region,country})+1))-sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:azure} by {provider,region,country}",
                         "aggregator": "last",
                         "conditional_formats": [
                             {
@@ -529,7 +530,7 @@
                 "type": "query_value",
                 "requests": [
                     {
-                        "q": "sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}-sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:gcp} by {provider,region,country}",
+                        "q": "(sum:federatorai.cost_analysis.instance.cost{$kube_cluster,time_interval:30_days}*(count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:gcp} by {provider,region,country})-count_nonzero(sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:gcp} by {provider,region,country})+1))-sum:federatorai.recommendation.instance{$kube_cluster,$pricing_option,$country,time_interval:30_days,provider:gcp} by {provider,region,country}",
                         "aggregator": "last",
                         "conditional_formats": [
                             {
