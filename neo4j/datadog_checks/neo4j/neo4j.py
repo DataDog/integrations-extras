@@ -48,9 +48,9 @@ class Neo4jCheck(PrometheusCheck):
             break
 
         if is_namespaced:
-            self._check_namespaced_metrics(metrics, config)
+            self._check_namespaced_metrics(new_metrics, config)
         else:
-            self._check_legacy_metrics(metrics, config)
+            self._check_legacy_metrics(new_metrics, config)
 
     def _check_namespaced_metrics(self, metrics, config):
         for metric in metrics:
