@@ -1,0 +1,31 @@
+{
+	"name": "[Federator.ai] Node Memory Usage Prediction in Next 24 Hours is High on {{host.name}}",
+	"type": "query alert",
+	"query": "avg(last_1h):( avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,prediction_window:24_hours} by {host} / avg:kubernetes.memory.capacity{*} by {host} ) * 100 > 90",
+	"message": "{{#is_alert}} Memory utilization prediction **{{value}}%** for **{{host.name}}** in the next 24 hours is over **{{threshold}}%**. {{/is_alert}} \n{{#is_warning}}Memory utilization prediction **{{value}}%** for **{{host.name}}** in the next 24 hours is over **{{warn_threshold}}%**. {{/is_warning}} \n{{#is_alert_recovery}} Memory utilization prediction for **{{host.name}}** in the next 24 hours is now **{{value}}%**. {{/is_alert_recovery}} \n{{#is_warning_recovery}} Memory utilization prediction for **{{host.name}}** in the next 24 hours is now **{{value}}%**. {{/is_warning_recovery}}",
+	"tags": [
+		"integration:federatorai"
+	],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"silenced": {},
+		"include_tags": true,
+		"no_data_timeframe": null,
+		"require_full_window": false,
+		"new_host_delay": 300,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"escalation_message": "",
+		"thresholds": {
+			"critical": 90,
+			"warning": 75,
+			"warning_recovery": 70,
+			"critical_recovery": 80
+		}
+	},
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the memory utilization prediction of the host in 24 hours is over the threshold"
+	}
+}
