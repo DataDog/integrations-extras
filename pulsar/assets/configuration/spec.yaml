@@ -7,12 +7,10 @@ files:
     - template: init_config/default
   - template: instances
     options:
-    - name: prometheus_url
-      required: true
-      description: federated prometheus url
-      value:
-        type: string
-        example: https://federated-useast1.gcp.kafkaesque.io:9090
+    - template: instances/openmetrics
+          overrides:
+            prometheus_url.value.example: https://federated-useast1.gcp.kafkaesque.io:9090
+            prometheus_url.display_priority: 1
     - name: token
       required: false
       description: bearer token for federated prometheus url
