@@ -39,16 +39,19 @@ class Neo4jCheck(PrometheusCheck):
         # Finding this dynamically lets users roll out this feature without interrupting their metrics,
         # as well as monitoring database fleets with mixed values for this setting.
         is_namespaced = True
-        for metric in metrics:
+        # convert the generator to a normal list
+        new_metrics = list(metrics)
+
+        for metric in new_metrics:
             if metric.name.startswith("neo4j_dbms_") or metric.name.startswith("neo4j_database_"):
                 continue
             is_namespaced = False
             break
 
         if is_namespaced:
-            self._check_namespaced_metrics(metrics, config)
+            self._check_namespaced_metrics(new_metrics, config)
         else:
-            self._check_legacy_metrics(metrics, config)
+            self._check_legacy_metrics(new_metrics, config)
 
     def _check_namespaced_metrics(self, metrics, config):
         for metric in metrics:
