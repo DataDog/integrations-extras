@@ -1,7 +1,13 @@
-Freshservice Tickets using Webhooks
+# Freshservice Tickets using Webhooks
+
+## Overview
+
 This guide shows you how to use our Webhooks integration to open new tickets in Freshservice when a monitor alerts.
 
-Setup
+## Setup
+
+### Installation
+
 To begin, open the Webhooks integration tile, go to the Configuration tab, then scroll to the bottom form to add a new Webhook.
 
 Name
@@ -41,7 +47,8 @@ To set this up in your webhook, add the following to your Headers section:
 Finishing Up
 In the Webhook integration tile, click Install Integration or Update Configuration (if you previously entered a webhook definition) to save your changes.
 
-Usage
+### Configuration
+
 You can now add the @webhook-<NAME> to your monitor message. The webhook is triggered when the monitor changes state.
 
 We recommend adding your at-mention inside of {{#is_alert}} or {{#is_warning}} conditionals, for example:
@@ -82,9 +89,30 @@ Review our Webhook integration documentation for more variables that may be usef
 "priority": 2,
 "tags": ["$HOSTNAME", "$ORG_ID"]
 }
-Troubleshooting
+
+## Data Collected
+
+### Metrics
+
+The Freshservice integration does not provide any metrics.
+
+### Service Checks
+
+The Freshservice integration does not include any service checks.
+
+### Events
+
+The Freshservice integration does not include any events.
+
+## Troubleshooting
+
+## Troubleshooting
 If your webhooks fail to send after your monitor triggers, go to your Event Stream and search for sources:webhooks status:error. This searches for events with failed webhooks that contain troubleshooting information, for example:
 
 - Reply status code was: HTTP 401
 - Reply content was:
   {"code":"invalid_credentials","message":"You have to be logged in to perform this action."}
+
+Need help? Contact [Datadog support][1].
+
+[1]: https://docs.datadoghq.com/help/
