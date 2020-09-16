@@ -135,8 +135,7 @@ class LogstashCheck(AgentCheck):
         return config
 
     def _get_data(self, url, config, send_sc=True):
-        """ Hit a given URL and return the parsed json
-        """
+        """Hit a given URL and return the parsed json"""
         auth = None
 
         # Load SSL configuration, if available.
@@ -172,8 +171,7 @@ class LogstashCheck(AgentCheck):
         return resp.json()
 
     def _get_logstash_version(self, config):
-        """ Get the running version of logstash.
-        """
+        """Get the running version of logstash."""
         try:
             data = self._get_data(config.url, config, send_sc=False)
             version = data['version']

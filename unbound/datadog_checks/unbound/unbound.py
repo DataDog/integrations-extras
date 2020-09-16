@@ -229,7 +229,7 @@ class UnboundCheck(AgentCheck):
 
     def metric_name_to_tags(self, metric_name, tags):
         """Returns a tuple (metric_name, all_tags) where all_tags are the tags provided
-            to the check, with any additional for this metric if there are any
+        to the check, with any additional for this metric if there are any
         """
         # Some metrics from unbound make more sense to handle as name + tag in
         # datadog.  If nothing else, it makes metadata.csv more compact, but

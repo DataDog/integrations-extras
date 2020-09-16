@@ -13,7 +13,7 @@ class BinaryUnavailable(Exception):
 
 
 class SnmpwalkCheck(NetworkCheck):
-    '''
+    """
     This is a work-alike for checks.d/snmp.py that makes use of snmpwalk for
     performance reasons. It's much faster than making the calls directly with
     pysnmp in our use-cases. It is not a 100% reimplementation. It only supports
@@ -21,7 +21,7 @@ class SnmpwalkCheck(NetworkCheck):
         * regex matching for dynamic tagging w/additional_tags
         * tags using "enum" values emit the human-readable form instead of the
           integer.
-    '''
+    """
 
     DEFAULT_SNMPWALK_PATH = '/usr/bin/snmpwalk'
     DEFAULT_RETRIES = 2
