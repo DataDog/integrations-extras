@@ -31,6 +31,7 @@ First, check the **Use custom payload** checkbox to use a custom JSON payload. I
 
 Next, enter a new ticket JSON payload. The following example uses only the required fields, so review Freshservice’s ticket endpoint for more options on customizing your payload:
 
+```
 {
   "email": "[email address to associate with ticket]",
   "subject": "$EVENT_TITLE",
@@ -39,8 +40,9 @@ Next, enter a new ticket JSON payload. The following example uses only the requi
   "priority": 2
 }
 
-**Notes**:
 
+**Notes**:
+```
 
 - Values such as `$EVENT_TITLE` are variables used by the Webhook integration. For a full list of these variables and their meaning, refer to the Webhook integration tile or the [Webhook integration documentation][2].
 - Manually enter an email address for the email field instead of using the variable of `$EMAIL`, which is only populated when mentioning the webhook in an Event Stream comment and not used within Monitor Alerts.
@@ -66,10 +68,13 @@ You can now add the `@webhook-<NAME>` to your monitor message. The webhook is tr
 
 It is recommend to add your at-mention inside of `{{#is_alert}}` or `{{#is_warning}}` conditionals, for example:
 
+```
 {{#is_alert}}
     {{host.name}} is down!
     @webhook-freshservice
 {{/is_alert}}
+```
+
 When your monitor triggers an alert, a new ticket appears in your Freshservice dashboard. If you choose not to use a conditional statement, a new ticket is created when the monitor recovers because the webhook is triggered again.
 
 
@@ -82,7 +87,7 @@ The Webhooks integration can only create tickets. Updating an existing ticket re
 
 The `$ALERT_STATUS` and `$PRIORITY` variables return strings (such as `ALERT` and `NORMAL`) instead of a numerical value expected by Freshservice’s API. To setup different levels of status and priorities, create duplicate webhooks with hard-coded status and priority fields. Then, `@-mention` those webhooks inside of related conditional statements, for example:
 
-
+```
 {{#is_warning}}
     Disk space usage is above 80%
     @webhook-freshservice-warning
@@ -91,6 +96,7 @@ The `$ALERT_STATUS` and `$PRIORITY` variables return strings (such as `ALERT` an
     Disk space usage is above 95%
     @webhook-freshservice-alert
 {{/is_alert}}
+```
 
 ### Tagging
 
