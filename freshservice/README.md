@@ -2,26 +2,32 @@
 
 ## Overview
 
-This guide shows you how to use our Webhooks integration to open new tickets in Freshservice when a monitor alerts.
+This guide shows you how to use the Webhooks integration to open new tickets in Freshservice when a monitor alerts.
+
 
 ## Setup
 
 ### Installation
 
-To begin, open the Webhooks integration tile, go to the Configuration tab, then scroll to the bottom form to add a new Webhook.
+To begin, open the Webhooks integration tile, go to the Configuration tab, then scroll to the bottom form to add a new webhook.
 
-Name
+
+#### Name
+
 Provide your webhook with a name. This name is used in your monitor message (see Usage) with @webhook-<NAME>. For example, if you name your webhook freshservice, you can open a ticket from your monitor by mentioning @webhook-freshservice in the monitor message.
 
-URL
+#### URL
+
 Freshservice has 2 different versions of their API. This guide uses V2, but it is possible to use V1 with slight modifications to your JSON payload.
 
 In the URL field enter the following endpoint:
 
-https://<YOUR_DOMAIN>.freshservice.com/api/v2/tickets
+`https://<YOUR_DOMAIN>.freshservice.com/api/v2/tickets`
 
-Custom Payload
-First, check the Use custom payload checkbox to use a custom JSON payload. If you don’t do this, the standard Datadog payload is sent to Freshservice resulting in a failed request.
+#### Custom Payload
+
+First, check the **Use custom payload** checkbox to use a custom JSON payload. If you don’t do this, the standard Datadog payload is sent to Freshservice resulting in a failed request.
+
 
 Next, enter a new ticket JSON payload. The following example uses only the required fields, so review Freshservice’s ticket endpoint for more options on customizing your payload:
 
@@ -32,26 +38,33 @@ Next, enter a new ticket JSON payload. The following example uses only the requi
   "status": 2,
   "priority": 2
 }
-Note:
+
+**Notes**:
+
 
 Values such as $EVENT_TITLE are variables used by our webhook integration. For a full list of these variables and their meaning, refer to the webhook integration tile or our webhook integration documentation.
-Manually enter an email address for the email field instead of using the variable of $EMAIL, which is only populated when mentioning the webhook in an Event Stream comment and not used within Monitor Alerts.
+- Manually enter an email address for the email field instead of using the variable of `$EMAIL`, which is only populated when mentioning the webhook in an Event Stream comment and not used within Monitor Alerts.
 The description field of the payload accepts HTML. Our $EVENT_MSG variable renders your monitor’s message in Markdown, which is not supported by Freshservice’s API, so $TEXT_ONLY_MSG is used instead, along with a graph snapshot.
-The status and priority fields are numbers mapped to different values. To see these values, review Freshservice’s ticket endpoint.
-Authentication
-Freshservice’s API uses Basic Access Authentication. Your Base64 encoded credentials should be sent in the Authorization request header. Accepted credentials are your username and password in username:password format, or your Freshservice API key.
+- The status and priority fields are numbers mapped to different values. To see these values, review Freshservice’s ticket endpoint.
+#### Authentication
+
+Freshservice’s API uses basic access authentication. Your Base64 encoded credentials should be sent in the Authorization request header. Accepted credentials are your username and password in `username:password` format, or your Freshservice API key.
+
 
 To set this up in your webhook, add the following to your Headers section:
 
-{"Authorization": "Basic <BASE64_ENCODED_CREDENTIALS>"}
-Finishing Up
-In the Webhook integration tile, click Install Integration or Update Configuration (if you previously entered a webhook definition) to save your changes.
+`{"Authorization": "Basic <BASE64_ENCODED_CREDENTIALS>"}`
+
+#### Finishing Up
+
+In the Webhook integration tile, click **Install Integration** or **Update Configuration** (if you previously entered a webhook definition) to save your changes.
+
 
 ### Configuration
 
-You can now add the @webhook-<NAME> to your monitor message. The webhook is triggered when the monitor changes state.
+You can now add the `@webhook-<NAME>` to your monitor message. The webhook is triggered when the monitor changes state.
 
-We recommend adding your at-mention inside of {{#is_alert}} or {{#is_warning}} conditionals, for example:
+It is recommend to add your at-mention inside of `{{#is_alert}}` or `{{#is_warning}}` conditionals, for example:
 
 {{#is_alert}}
     {{host.name}} is down!
@@ -59,12 +72,16 @@ We recommend adding your at-mention inside of {{#is_alert}} or {{#is_warning}} c
 {{/is_alert}}
 When your monitor triggers an alert, a new ticket appears in your Freshservice dashboard. If you choose not to use a conditional statement, a new ticket is created when the monitor recovers because the webhook is triggered again.
 
-Limitations
+
+### Limitations
+
 Ticket Creation
 The Webhooks integration can only create tickets. Updating an existing ticket requires a PUT method and the Webhooks integration only supports POST methods.
 
-Status and Priority
-The $ALERT_STATUS and $PRIORITY variables return strings (such as ALERT and NORMAL) instead of a numerical value expected by Freshservice’s API. To setup different levels of status and priorities, create duplicate webhooks with hard-coded status and priority fields. Then, @-mention those webhooks inside of related conditional statements, for example:
+### Status and priority
+
+The `$ALERT_STATUS` and `$PRIORITY` variables return strings (such as `ALERT` and `NORMAL`) instead of a numerical value expected by Freshservice’s API. To setup different levels of status and priorities, create duplicate webhooks with hard-coded status and priority fields. Then, `@-mention` those webhooks inside of related conditional statements, for example:
+
 
 {{#is_warning}}
     Disk space usage is above 80%
@@ -74,11 +91,13 @@ The $ALERT_STATUS and $PRIORITY variables return strings (such as ALERT and NORM
     Disk space usage is above 95%
     @webhook-freshservice-alert
 {{/is_alert}}
-Tagging
+
+### Tagging
+
 Tagging is supported in Freshservice’s API, but note the following:
 
-The tags parameter in your JSON payload must be an array. That means you cannot use the $TAGS webhook variable because it returns a comma separated list of strings.
-Tags added to your JSON payload must not contain a : character, so you may not be able to map all of your Datadog tags to Freshservice. If a : character exists in your tags, your request fails.
+- The tags parameter in your JSON payload must be an array. That means you cannot use the `$TAGS` webhook variable because it returns a comma separated list of strings.
+- Tags added to your JSON payload must not contain a `:` character, so you may not be able to map all of your Datadog tags to Freshservice. If a `:` character exists in your tags, your request fails.
 Review our [Webhook integration documentation][2] for more variables that may be useful for Freshservice tags. In the following example, `$HOSTNAME` and `$ORG_ID` are used:
 
 
@@ -105,7 +124,6 @@ The Freshservice integration does not include any service checks.
 
 The Freshservice integration does not include any events.
 
-## Troubleshooting
 
 ## Troubleshooting
 If your webhooks fail to send after your monitor triggers, go to your Event Stream and search for sources:webhooks status:error. This searches for events with failed webhooks that contain troubleshooting information, for example:
