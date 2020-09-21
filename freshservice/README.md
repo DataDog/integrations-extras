@@ -42,9 +42,9 @@ Next, enter a new ticket JSON payload. The following example uses only the requi
 **Notes**:
 
 
-Values such as $EVENT_TITLE are variables used by our webhook integration. For a full list of these variables and their meaning, refer to the webhook integration tile or our webhook integration documentation.
+- Values such as `$EVENT_TITLE` are variables used by the Webhook integration. For a full list of these variables and their meaning, refer to the Webhook integration tile or the [Webhook integration documentation][2].
 - Manually enter an email address for the email field instead of using the variable of `$EMAIL`, which is only populated when mentioning the webhook in an Event Stream comment and not used within Monitor Alerts.
-The description field of the payload accepts HTML. Our $EVENT_MSG variable renders your monitor’s message in Markdown, which is not supported by Freshservice’s API, so $TEXT_ONLY_MSG is used instead, along with a graph snapshot.
+- The description field of the payload accepts HTML. The `$EVENT_MSG` variable renders your monitor’s message in Markdown, which is not supported by Freshservice’s API, so `$TEXT_ONLY_MSG` is used instead, along with a graph snapshot.
 - The status and priority fields are numbers mapped to different values. To see these values, review Freshservice’s ticket endpoint.
 #### Authentication
 
