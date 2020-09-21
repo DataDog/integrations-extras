@@ -79,7 +79,8 @@ Tagging is supported in Freshservice’s API, but note the following:
 
 The tags parameter in your JSON payload must be an array. That means you cannot use the $TAGS webhook variable because it returns a comma separated list of strings.
 Tags added to your JSON payload must not contain a : character, so you may not be able to map all of your Datadog tags to Freshservice. If a : character exists in your tags, your request fails.
-Review our Webhook integration documentation for more variables that may be useful for Freshservice tags. In the following example, $HOSTNAME and $ORG_ID are used:
+Review our [Webhook integration documentation][2] for more variables that may be useful for Freshservice tags. In the following example, `$HOSTNAME` and `$ORG_ID` are used:
+
 
 {
 "email": "<EMAIL_ADDRESS_TO_ASSOCIATE_WITH_TICKET>",
