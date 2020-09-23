@@ -1,0 +1,59 @@
+from codecs import open  # To use a consistent encoding
+from os import path
+
+from setuptools import setup
+
+HERE = path.dirname(path.abspath(__file__))
+
+# Get version info
+ABOUT = {}
+with open(path.join(HERE, 'datadog_checks', 'cyral', '__about__.py')) as f:
+    exec(f.read(), ABOUT)
+
+# Get the long description from the README file
+with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
+
+def get_dependencies():
+    dep_file = path.join(HERE, 'requirements.in')
+    if not path.isfile(dep_file):
+        return []
+
+    with open(dep_file, encoding='utf-8') as f:
+        return f.readlines()
+
+
+CHECKS_BASE_REQ = 'datadog-checks-base>=11.0.0'
+
+
+setup(
+    name='datadog-cyral',
+    version=ABOUT['__version__'],
+    description='The Cyral check',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    keywords='datadog agent cyral check',
+    # The project's main homepage.
+    url='https://github.com/DataDog/integrations-extras',
+    # Author details
+    author='Cyral',
+    author_email='product@cyral.com',
+    # License
+    license='Apache License 2.0',
+    # See https://pypi.org/classifiers
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'Topic :: System :: Monitoring',
+        'Programming Language :: Python :: 3.8',
+    ],
+    # The package we're going to ship
+    packages=['datadog_checks.cyral'],
+    # Run-time dependencies
+    install_requires=[CHECKS_BASE_REQ],
+    extras_require={'deps': get_dependencies()},
+    # Extra files to ship with the wheel package
+    include_package_data=True,
+)

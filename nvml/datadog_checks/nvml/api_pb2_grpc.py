@@ -7,15 +7,15 @@ from . import api_pb2 as api__pb2
 
 class PodResourcesListerStub(object):
     """PodResourcesLister is a service provided by the kubelet that provides information about the
-  node resources consumed by pods and containers on the node
-  """
+    node resources consumed by pods and containers on the node
+    """
 
     def __init__(self, channel):
         """Constructor.
 
-    Args:
-      channel: A grpc.Channel.
-    """
+        Args:
+          channel: A grpc.Channel.
+        """
         self.List = channel.unary_unary(
             '/v1alpha1.PodResourcesLister/List',
             request_serializer=api__pb2.ListPodResourcesRequest.SerializeToString,
@@ -25,8 +25,8 @@ class PodResourcesListerStub(object):
 
 class PodResourcesListerServicer(object):
     """PodResourcesLister is a service provided by the kubelet that provides information about the
-  node resources consumed by pods and containers on the node
-  """
+    node resources consumed by pods and containers on the node
+    """
 
     def List(self, request, context):
         # missing associated documentation comment in .proto file

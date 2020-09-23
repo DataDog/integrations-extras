@@ -1,51 +1,51 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-riak_repl.server_bytes_sent,gauge,,byte,,Total number of bytes the primary has sent,-1,riak_repl,server bytes sent
-riak_repl.server_bytes_recv,gauge,,byte,,Total number of bytes the primary has received,-1,riak_repl,server bytes recv
-riak_repl.server_connects,gauge,,connection,,Number of times the primary connects to the client sink,-1,riak_repl,server connects
-riak_repl.server_connect_errors,gauge,,error,,The number of listener to site connection errors,-1,riak_repl,server connect errors
-riak_repl.server_fullsyncs,gauge,,occurrence,,Number of fullsync operations since the server was started,-1,riak_repl,server fullsyncs
-riak_repl.client_bytes_sent,gauge,,byte,,Total number of bytes sent to all connected secondaries,-1,riak_repl,client bytes sent
-riak_repl.client_bytes_recv,gauge,,byte,,Total number of bytes the client has received since the server has been started,-1,riak_repl,client bytes recv
-riak_repl.client_connects,gauge,,connection,,Total number of sink connections made to this node,-1,riak_repl,client connects
-riak_repl.client_connect_errors,gauge,,connection,,Total number of sink connection errors to this node,-1,riak_repl,client connect errors
-riak_repl.client_redirect,gauge,,connection,,Count of client connects to a non-leader node that are redirected to a leader node,-1,riak_repl,client redirect
-riak_repl.objects_dropped_no_clients,gauge,,object,,Total number of objects dropped from a full realtime queue,-1,riak_repl,objects dropped no clients
-riak_repl.objects_dropped_no_leader,gauge,,object,,Total number of objects dropped by a sink with no leader,-1,riak_repl,objects dropped no leader
-riak_repl.objects_sent,gauge,,object,,Total number of objects sent via realtime replication,-1,riak_repl,objects sent
-riak_repl.objects_forwarded,gauge,,object,,Total number of objects forwarded to the leader,-1,riak_repl,objects forwarded
-riak_repl.elections_elected,gauge,,occurrence,,Total number of times a new leader has been elected,-1,riak_repl,elections elected
-riak_repl.elections_leader_changed,gauge,,occurrence,,Total number of times a Riak node has surrendered leadership,-1,riak_repl,elections leader changed
-riak_repl.rt_source_errors,gauge,,error,,Total number of source errors detected on the source node,-1,riak_repl,rt source errors
-riak_repl.rt_sink_errors,gauge,,error,,Total number of sink errors detected on the source node,-1,riak_repl,rt sink errors
-riak_repl.rt_dirty,gauge,,error,,Number of errors detected that can prevent objects from being replicated via realtime,-1,riak_repl,rt dirty
-riak_repl.realtime_send_kbps,gauge,,kibibyte,second,Total number of bytes realtime has sent,-1,riak_repl,realtime send kbps
-riak_repl.realtime_recv_kbps,gauge,,kibibyte,second,Total number of bytes realtime has received,-1,riak_repl,realtime recv kbps
-riak_repl.fullsync_send_kbps,gauge,,kibibyte,second,Total number of bytes fullsync has sent,-1,riak_repl,fullsync send kbps
-riak_repl.fullsync_recv_kbps,gauge,,kibibyte,second,Total number of bytes fullsync has received,-1,riak_repl,fullsync recv kbps
-riak_repl.realtime_queue_stats.percent_bytes_used,gauge,,percent,,Percentage of realtime queue used (max_bytes/bytes),-1,riak_repl,rtq percent bytes used
-riak_repl.realtime_queue_stats.bytes,gauge,,byte,,Size in bytes of all objects currently in the realtime queue,-1,riak_repl,rtq bytes
-riak_repl.realtime_queue_stats.max_bytes,gauge,,byte,,Size in bytes of the realtime queue,-1,riak_repl,rtq max bytes
-riak_repl.realtime_queue_stats.overload_drops,gauge,,occurrence,,Number of put transfers dropped due to an overload of the message queue of the Erlang process responsible for processing outgoing transfers,-1,riak_repl,rtq overload drops
-riak_repl.realtime_queue_stats_consumers.pending,gauge,,occurrence,,Total number of objects waiting to be sent to the sink cluster,-1,riak_repl,rtq consumers pending
-riak_repl.realtime_queue_stats_consumers.unacked,gauge,,occurrence,,Total number of objects waiting to be acknowledged by a queue consumer,-1,riak_repl,rtq consumers unacked
-riak_repl.realtime_queue_stats_consumers.drops,gauge,,occurrence,,Total number of objects dropped from the realtime queue as the result of the queue being full or other errors,-1,riak_repl,rtq_consumers drops
-riak_repl.realtime_queue_stats_consumers.errs,gauge,,occurrence,,Total number of errors while pushing/popping from the realtime queue,-1,riak_repl,rtq consumers errors
-riak_repl.realtime_source_conn.hb_rtt,gauge,,millisecond,,"Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source",-1,riak_repl,rtsource conn hb_rtt
-riak_repl.realtime_source_conn.sent_seq,gauge,,item,,The last realtime queue sequence number that has been transmitted,-1,riak_repl,rtsource conn sent seq
-riak_repl.realtime_source_conn.objects,gauge,,object,,Total number of realtime replication objects that have been successfully transmitted to the sink cluster,-1,riak_repl,rtsource conn objects
-riak_repl.realtime_sink_conn.deactivated,gauge,,object,,Total number of realtime replication objects that have been deactivated,-1,riak_repl,rtsource conn deactivated
-riak_repl.realtime_sink_conn.source_drops,gauge,,object,,Total number of dropped put transfers from the perspective of the sink cluster,-1,riak_repl,rtsink conn source drops
-riak_repl.realtime_sink_conn.expected_seq,gauge,,item,,The next realtime queue sequence number that is expected,-1,riak_repl,rtsink conn expected seq
-riak_repl.realtime_sink_conn.acked_seq,gauge,,item,,The last realtime queue sequence number that has been acknowledged,-1,riak_repl,rtsink conn acked seq
-riak_repl.realtime_sink_conn.pending,gauge,,object,,Total number of objects waiting to be sent to the sink cluster,-1,riak_repl,rtsink conn pending
-riak_repl.fullsync_coordinator.queued,gauge,,occurrence,,Total number of partitions that are waiting for an available process,-1,riak_repl,fscoordinator queued
-riak_repl.fullsync_coordinator.in_progress,gauge,,occurrence,,Total number of partitions that are being synced,-1,riak_repl,fscoordinator in progress
-riak_repl.fullsync_coordinator.waiting_for_retry,gauge,,occurrence,,Total number of partitions waiting for retry,-1,riak_repl,fscoordinator waiting for retry
-riak_repl.fullsync_coordinator.starting,gauge,,occurrence,,Total number of partitions connecting to remote cluster,-1,riak_repl,fscoordinator starting
-riak_repl.fullsync_coordinator.successful_exits,gauge,,occurrence,,Total number of partitions successfully synced.,-1,riak_repl,fscoordinator successful exits
-riak_repl.fullsync_coordinator.error_exits,gauge,,occurrence,,Total number of partitions for which sync failed or was aborted,-1,riak_repl,fscoordinator error exits
-riak_repl.fullsync_coordinator.retry_exits,gauge,,occurrence,,Total number of partitions successfully synced via retry,-1,riak_repl,fscoordinator retry exits
-riak_repl.fullsync_coordinator.soft_retry_exits,gauge,,occurrence,,description,-1,riak_repl,fscoordinator soft retry exits
-riak_repl.fullsync_coordinator.busy_nodes,gauge,,node,,description,-1,riak_repl,fscoordinator busy nodes
-riak_repl.fullsync_coordinator.fullsyncs_completed,gauge,,occurrence,,Total number of fullsyncs that have been completed to the specified sink cluster,-1,riak_repl,fscoordinator fullsyncs completed
-riak_repl.fullsync_coordinator.last_fullsync_duration,gauge,,second,,The duration (in seconds) of the last completed fullsync,-1,riak_repl,fscoordinator last fullsync duration
+riak_repl.server_bytes_sent,gauge,,byte,,Total number of bytes the primary has sent,-1,riak_mdc_replication,server bytes sent
+riak_repl.server_bytes_recv,gauge,,byte,,Total number of bytes the primary has received,-1,riak_mdc_replication,server bytes recv
+riak_repl.server_connects,gauge,,connection,,Number of times the primary connects to the client sink,-1,riak_mdc_replication,server connects
+riak_repl.server_connect_errors,gauge,,error,,The number of listener to site connection errors,-1,riak_mdc_replication,server connect errors
+riak_repl.server_fullsyncs,gauge,,occurrence,,Number of fullsync operations since the server was started,-1,riak_mdc_replication,server fullsyncs
+riak_repl.client_bytes_sent,gauge,,byte,,Total number of bytes sent to all connected secondaries,-1,riak_mdc_replication,client bytes sent
+riak_repl.client_bytes_recv,gauge,,byte,,Total number of bytes the client has received since the server has been started,-1,riak_mdc_replication,client bytes recv
+riak_repl.client_connects,gauge,,connection,,Total number of sink connections made to this node,-1,riak_mdc_replication,client connects
+riak_repl.client_connect_errors,gauge,,connection,,Total number of sink connection errors to this node,-1,riak_mdc_replication,client connect errors
+riak_repl.client_redirect,gauge,,connection,,Count of client connects to a non-leader node that are redirected to a leader node,-1,riak_mdc_replication,client redirect
+riak_repl.objects_dropped_no_clients,gauge,,object,,Total number of objects dropped from a full realtime queue,-1,riak_mdc_replication,objects dropped no clients
+riak_repl.objects_dropped_no_leader,gauge,,object,,Total number of objects dropped by a sink with no leader,-1,riak_mdc_replication,objects dropped no leader
+riak_repl.objects_sent,gauge,,object,,Total number of objects sent via realtime replication,-1,riak_mdc_replication,objects sent
+riak_repl.objects_forwarded,gauge,,object,,Total number of objects forwarded to the leader,-1,riak_mdc_replication,objects forwarded
+riak_repl.elections_elected,gauge,,occurrence,,Total number of times a new leader has been elected,-1,riak_mdc_replication,elections elected
+riak_repl.elections_leader_changed,gauge,,occurrence,,Total number of times a Riak node has surrendered leadership,-1,riak_mdc_replication,elections leader changed
+riak_repl.rt_source_errors,gauge,,error,,Total number of source errors detected on the source node,-1,riak_mdc_replication,rt source errors
+riak_repl.rt_sink_errors,gauge,,error,,Total number of sink errors detected on the source node,-1,riak_mdc_replication,rt sink errors
+riak_repl.rt_dirty,gauge,,error,,Number of errors detected that can prevent objects from being replicated via realtime,-1,riak_mdc_replication,rt dirty
+riak_repl.realtime_send_kbps,gauge,,kibibyte,second,Total number of bytes realtime has sent,-1,riak_mdc_replication,realtime send kbps
+riak_repl.realtime_recv_kbps,gauge,,kibibyte,second,Total number of bytes realtime has received,-1,riak_mdc_replication,realtime recv kbps
+riak_repl.fullsync_send_kbps,gauge,,kibibyte,second,Total number of bytes fullsync has sent,-1,riak_mdc_replication,fullsync send kbps
+riak_repl.fullsync_recv_kbps,gauge,,kibibyte,second,Total number of bytes fullsync has received,-1,riak_mdc_replication,fullsync recv kbps
+riak_repl.realtime_queue_stats.percent_bytes_used,gauge,,percent,,Percentage of realtime queue used (max_bytes/bytes),-1,riak_mdc_replication,rtq percent bytes used
+riak_repl.realtime_queue_stats.bytes,gauge,,byte,,Size in bytes of all objects currently in the realtime queue,-1,riak_mdc_replication,rtq bytes
+riak_repl.realtime_queue_stats.max_bytes,gauge,,byte,,Size in bytes of the realtime queue,-1,riak_mdc_replication,rtq max bytes
+riak_repl.realtime_queue_stats.overload_drops,gauge,,occurrence,,Number of put transfers dropped due to an overload of the message queue of the Erlang process responsible for processing outgoing transfers,-1,riak_mdc_replication,rtq overload drops
+riak_repl.realtime_queue_stats_consumers.pending,gauge,,occurrence,,Total number of objects waiting to be sent to the sink cluster,-1,riak_mdc_replication,rtq consumers pending
+riak_repl.realtime_queue_stats_consumers.unacked,gauge,,occurrence,,Total number of objects waiting to be acknowledged by a queue consumer,-1,riak_mdc_replication,rtq consumers unacked
+riak_repl.realtime_queue_stats_consumers.drops,gauge,,occurrence,,Total number of objects dropped from the realtime queue as the result of the queue being full or other errors,-1,riak_mdc_replication,rtq_consumers drops
+riak_repl.realtime_queue_stats_consumers.errs,gauge,,occurrence,,Total number of errors while pushing/popping from the realtime queue,-1,riak_mdc_replication,rtq consumers errors
+riak_repl.realtime_source_conn.hb_rtt,gauge,,millisecond,,"Realtime replication heartbeat round-trip time in milliseconds, recorded on the replication source",-1,riak_mdc_replication,rtsource conn hb_rtt
+riak_repl.realtime_source_conn.sent_seq,gauge,,item,,The last realtime queue sequence number that has been transmitted,-1,riak_mdc_replication,rtsource conn sent seq
+riak_repl.realtime_source_conn.objects,gauge,,object,,Total number of realtime replication objects that have been successfully transmitted to the sink cluster,-1,riak_mdc_replication,rtsource conn objects
+riak_repl.realtime_sink_conn.deactivated,gauge,,object,,Total number of realtime replication objects that have been deactivated,-1,riak_mdc_replication,rtsource conn deactivated
+riak_repl.realtime_sink_conn.source_drops,gauge,,object,,Total number of dropped put transfers from the perspective of the sink cluster,-1,riak_mdc_replication,rtsink conn source drops
+riak_repl.realtime_sink_conn.expected_seq,gauge,,item,,The next realtime queue sequence number that is expected,-1,riak_mdc_replication,rtsink conn expected seq
+riak_repl.realtime_sink_conn.acked_seq,gauge,,item,,The last realtime queue sequence number that has been acknowledged,-1,riak_mdc_replication,rtsink conn acked seq
+riak_repl.realtime_sink_conn.pending,gauge,,object,,Total number of objects waiting to be sent to the sink cluster,-1,riak_mdc_replication,rtsink conn pending
+riak_repl.fullsync_coordinator.queued,gauge,,occurrence,,Total number of partitions that are waiting for an available process,-1,riak_mdc_replication,fscoordinator queued
+riak_repl.fullsync_coordinator.in_progress,gauge,,occurrence,,Total number of partitions that are being synced,-1,riak_mdc_replication,fscoordinator in progress
+riak_repl.fullsync_coordinator.waiting_for_retry,gauge,,occurrence,,Total number of partitions waiting for retry,-1,riak_mdc_replication,fscoordinator waiting for retry
+riak_repl.fullsync_coordinator.starting,gauge,,occurrence,,Total number of partitions connecting to remote cluster,-1,riak_mdc_replication,fscoordinator starting
+riak_repl.fullsync_coordinator.successful_exits,gauge,,occurrence,,Total number of partitions successfully synced.,-1,riak_mdc_replication,fscoordinator successful exits
+riak_repl.fullsync_coordinator.error_exits,gauge,,occurrence,,Total number of partitions for which sync failed or was aborted,-1,riak_mdc_replication,fscoordinator error exits
+riak_repl.fullsync_coordinator.retry_exits,gauge,,occurrence,,Total number of partitions successfully synced via retry,-1,riak_mdc_replication,fscoordinator retry exits
+riak_repl.fullsync_coordinator.soft_retry_exits,gauge,,occurrence,,description,-1,riak_mdc_replication,fscoordinator soft retry exits
+riak_repl.fullsync_coordinator.busy_nodes,gauge,,node,,description,-1,riak_mdc_replication,fscoordinator busy nodes
+riak_repl.fullsync_coordinator.fullsyncs_completed,gauge,,occurrence,,Total number of fullsyncs that have been completed to the specified sink cluster,-1,riak_mdc_replication,fscoordinator fullsyncs completed
+riak_repl.fullsync_coordinator.last_fullsync_duration,gauge,,second,,The duration (in seconds) of the last completed fullsync,-1,riak_mdc_replication,fscoordinator last fullsync duration

@@ -85,19 +85,23 @@ class PiholeCheck(AgentCheck):
 
                 else:
                     self.log.warning(
-                        "Pi-hole disabled on host: %s runtimeError", host,
+                        "Pi-hole disabled on host: %s runtimeError",
+                        host,
                     )
                     self.service_check('pihole.running', self.CRITICAL)
                     raise Exception('Pi-hole is disabled')  # if we dont get a status parameter
             else:
                 self.log.warning(
-                    "no status returned for host: %s runtimeError", host,
+                    "no status returned for host: %s runtimeError",
+                    host,
                 )
                 self.service_check('pihole.running', self.CRITICAL)
                 raise Exception('Unexpected response from server - No status returned')  # if we dont get a valid status
         else:
             self.service_check('pihole.running', self.CRITICAL)
             self.log.warning(
-                "no metrics for %s runtimeError response code: %s", host, status_code,
+                "no metrics for %s runtimeError response code: %s",
+                host,
+                status_code,
             )
             raise Exception('Unexpected response from server')  # if we dont get a response code of '200'
