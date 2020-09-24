@@ -1,4 +1,4 @@
-name: zabbix
+name: Zabbix
 files:
 - name: zabbix.yaml
   options:
@@ -12,4 +12,37 @@ files:
       required: true
       value:
         type: string
+        example: "<ZABBIX_USERNAME>"
+    - name: zabbix_password
+      description: Password of zabbix_user.
+      required: true
+      value:
+        type: string
+        example: "<ZABBIX_PASSWORD>"
+    - name: zabbix_api
+      description: URL for the Zabbix API.
+      required: true
+      value:
+        type: string
+        example: http://localhost/zabbix/api_jsonrpc.php
+    - name: hosts
+      description: List of hostnames for metrics to be collected. If not specified, collect metrics from all hosts.
+      required: false
+      value:
+        type: array
+        items: 
+          type: string
+        example:
+          - "<HOSTNAME_1>"
+          - "<HOSTNAME_2>"
+    - name: metrics
+      description: List of Items that collected by Zabbix. If not specified, collect all Items.
+      required: false
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - "<ITEM_1>"
+          - "<ITEM_2>"
     - template: instances/default
