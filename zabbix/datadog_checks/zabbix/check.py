@@ -164,7 +164,7 @@ class ZabbixCheck(AgentCheck):
             value_type = item['value_type']
             history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
 
-            dd_metricname = 'custom.zabbix.' + item['name'].replace(' ', '_')
+            dd_metricname = 'zabbix.' + item['name'].replace(' ', '_')
             dd_metricvalue = history[0]['value']
             dd_hostname = hostdic[hostid].replace(' ', '_')
 
