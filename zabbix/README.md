@@ -1,4 +1,4 @@
-# Agent Check: zabbix
+# Agent Check: Zabbix
 
 ## Overview
 
