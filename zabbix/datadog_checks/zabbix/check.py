@@ -1,5 +1,4 @@
 import json
-import urllib.request
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
@@ -9,15 +8,8 @@ class ZabbixCheck(AgentCheck):
         req_header = {
             'Content-Type': 'application/json-rpc',
         }
-        req = urllib.request.Request(zabbix_api, data=req_data.encode(), method='POST', headers=req_header)
-
-        try:
-            with urllib.request.urlopen(req) as response:
-                body = json.loads(response.read())
-                return body
-        except urllib.error.URLError:
-            self.log.error('request error:')
-            return "Error"
+        res = self.http.post(zabbix_api, data=req_data.encode(), headers=req_header)
+        return res.json()
 
     def login(self, zabbix_user, zabbix_pass, zabbix_api):
         req_data = json.dumps(
