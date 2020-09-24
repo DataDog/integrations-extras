@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [zabbix][1] through the Datadog Agent.
+This check monitors [Zabbix][1] through the Datadog Agent.
 
 ## Setup
 
