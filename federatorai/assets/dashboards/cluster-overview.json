@@ -4,526 +4,538 @@
 	"author_name": "Federator.ai",
     "widgets": [
         {
-            "id": 0,
             "definition": {
-                "type": "image",
                 "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/prophetstor_logos-bot-for-dashboard.png",
                 "sizing": "fit",
-                "margin": "large"
+                "margin": "large",
+                "type": "image"
             },
             "layout": {
-                "x": 1,
                 "y": 1,
+                "x": 1,
                 "width": 25,
                 "height": 18
-            }
+            },
+            "id": 0
         },
         {
-            "id": 1,
             "definition": {
-                "type": "note",
-                "content": "**Cluster Resource Usage Predictions and Recommendations **",
-                "background_color": "green",
-                "font_size": "16",
-                "text_align": "center",
                 "show_tick": true,
-                "tick_pos": "50%",
-                "tick_edge": "bottom"
+                "background_color": "green",
+                "type": "note",
+                "tick_edge": "bottom",
+                "text_align": "center",
+                "content": "**Cluster Resource Usage Predictions and Recommendations **",
+                "font_size": "16",
+                "tick_pos": "50%"
             },
             "layout": {
-                "x": 28,
                 "y": 1,
+                "x": 28,
                 "width": 93,
                 "height": 5
-            }
+            },
+            "id": 1
         },
         {
-            "id": 2,
             "definition": {
-                "type": "note",
-                "content": "**Nodes Resource Utilization History**",
-                "background_color": "green",
-                "font_size": "16",
-                "text_align": "center",
                 "show_tick": true,
-                "tick_pos": "50%",
-                "tick_edge": "bottom"
+                "background_color": "green",
+                "type": "note",
+                "tick_edge": "bottom",
+                "text_align": "center",
+                "content": "**Nodes Resource Utilization History**",
+                "font_size": "16",
+                "tick_pos": "50%"
             },
             "layout": {
-                "x": 1,
                 "y": 45,
+                "x": 1,
                 "width": 120,
                 "height": 5
-            }
+            },
+            "id": 2
         },
         {
-            "id": 3,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:3600} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,prediction_window:24_hours,$host} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
+                },
+                "title_align": "left",
+                "show_legend": true,
+                "time": {
+                    "live_span": "2d"
                 },
                 "title": "Node Current/Predicted Memory Usage (Daily)",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {
-                    "live_span": "2d"
-                },
-                "show_legend": true,
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:3600,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,prediction_window:24_hours,$host,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 1,
                 "y": 78,
+                "x": 1,
                 "width": 39,
                 "height": 24
-            }
+            },
+            "id": 3
         },
         {
-            "id": 4,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:21600} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,$host,prediction_window:7_days} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
+                },
+                "title_align": "left",
+                "show_legend": true,
+                "time": {
+                    "live_span": "1w"
                 },
                 "title": "Node Current/Predicted Memory Usage (Weekly)",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {
-                    "live_span": "1w"
-                },
-                "show_legend": true,
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:21600,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,$host,prediction_window:7_days,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 42,
                 "y": 78,
+                "x": 42,
                 "width": 39,
                 "height": 24
-            }
+            },
+            "id": 4
         },
         {
-            "id": 5,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:86400} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,$host,prediction_window:30_days} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
                 },
-                "title": "Node Current/Predicted Memory Usage (Monthly)",
-                "title_size": "16",
                 "title_align": "left",
+                "show_legend": true,
                 "time": {
                     "live_span": "1mo"
                 },
-                "show_legend": true,
+                "title": "Node Current/Predicted Memory Usage (Monthly)",
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.memory.usage.node{$kube_cluster,$host,rollup_interval:86400,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.memory.usage,$host,prediction_window:30_days,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 83,
                 "y": 78,
+                "x": 83,
                 "width": 38,
                 "height": 24
-            }
+            },
+            "id": 5
         },
         {
-            "id": 6,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:3600} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,prediction_window:24_hours,$host} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
                 },
-                "title": "Node Current/Predicted CPU Usage (Daily)",
-                "title_size": "16",
                 "title_align": "left",
+                "show_legend": true,
                 "time": {
                     "live_span": "2d"
                 },
-                "show_legend": true,
+                "title": "Node Current/Predicted CPU Usage (Daily)",
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:3600,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,prediction_window:24_hours,$host,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 1,
                 "y": 52,
+                "x": 1,
                 "width": 39,
                 "height": 24
-            }
+            },
+            "id": 6
         },
         {
-            "id": 7,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:21600} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,$host,prediction_window:7_days} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
                 },
-                "title": "Node Current/Predicted CPU Usage (Weekly)",
-                "title_size": "16",
                 "title_align": "left",
+                "show_legend": true,
                 "time": {
                     "live_span": "1w"
                 },
-                "show_legend": true,
+                "title": "Node Current/Predicted CPU Usage (Weekly)",
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:21600,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,$host,prediction_window:7_days,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 42,
                 "y": 52,
+                "x": 42,
                 "width": 39,
                 "height": 24
-            }
+            },
+            "id": 7
         },
         {
-            "id": 8,
             "definition": {
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:86400} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    },
-                    {
-                        "q": "avg:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,$host,prediction_window:30_days} by {host}",
-                        "display_type": "line",
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "dotted",
-                            "line_width": "normal"
-                        },
-                        "on_right_yaxis": false
-                    }
-                ],
                 "custom_links": [],
+                "title_size": "16",
                 "yaxis": {
+                    "max": "auto",
                     "label": "",
                     "scale": "linear",
                     "min": "auto",
-                    "max": "auto",
                     "include_zero": true
                 },
-                "title": "Node Current/Predicted CPU Usage (Monthly)",
-                "title_size": "16",
                 "title_align": "left",
+                "show_legend": true,
                 "time": {
                     "live_span": "1mo"
                 },
-                "show_legend": true,
+                "title": "Node Current/Predicted CPU Usage (Monthly)",
+                "requests": [
+                    {
+                        "q": "avg:federatorai.kubernetes.cpu.usage.total.node{$kube_cluster,$host,rollup_interval:86400,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "dog_classic",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "max:federatorai.prediction.node{$kube_cluster,source_metric:kubernetes.cpu.usage.total,$host,prediction_window:30_days,$cluster_name,$kube_cluster_name} by {host}",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "dotted"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "type": "timeseries",
                 "legend_size": "0"
             },
             "layout": {
-                "x": 83,
                 "y": 52,
+                "x": 83,
                 "width": 38,
                 "height": 24
-            }
+            },
+            "id": 8
         },
         {
-            "id": 9,
             "definition": {
-                "type": "query_table",
+                "custom_links": [],
+                "title_size": "16",
+                "title": "Cluster Resource Usage Predictions and Recommendations",
+                "title_align": "left",
+                "time": {},
                 "requests": [
                     {
-                        "q": "sum:federatorai.prediction.node.avg{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.avg{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "limit": 50,
                         "order": "desc",
                         "alias": "Avg CPU (mcores)"
                     },
                     {
-                        "q": "sum:federatorai.prediction.node.min{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.min{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "alias": "Min CPU (mcores)"
                     },
                     {
-                        "q": "sum:federatorai.prediction.node.max{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.max{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "alias": "Max CPU (mcores)"
                     },
                     {
-                        "q": "sum:federatorai.resource_planning.node{resource:cpu,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.resource_planning.node{resource:cpu,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
-                        "alias": "Rec CPU (mcores)",
                         "conditional_formats": [
                             {
-                                "comparator": ">",
-                                "value": 0,
+                                "custom_bg_color": "#5bb4f9",
                                 "palette": "white_on_gray",
-                                "custom_bg_color": "#5bb4f9"
+                                "value": 0,
+                                "comparator": ">"
                             }
-                        ]
+                        ],
+                        "alias": "Rec CPU (mcores)"
                     },
                     {
-                        "q": "sum:federatorai.prediction.node.avg{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.avg{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "alias": "Avg MEM (bytes)"
                     },
                     {
-                        "q": "sum:federatorai.prediction.node.min{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.min{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "alias": "Min MEM (bytes)"
                     },
                     {
-                        "q": "sum:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
                         "alias": "Max MEM (bytes)"
                     },
                     {
-                        "q": "sum:federatorai.resource_planning.node{resource:memory,$kube_cluster,$prediction_window} by {kube_cluster,prediction_window}",
+                        "q": "sum:federatorai.resource_planning.node{resource:memory,$kube_cluster,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, prediction_window}",
                         "aggregator": "last",
-                        "alias": "Rec MEM (bytes)",
                         "conditional_formats": [
                             {
-                                "comparator": ">",
-                                "value": 0,
+                                "custom_bg_color": "#5bb4f9",
                                 "palette": "white_on_gray",
-                                "custom_bg_color": "#5bb4f9"
+                                "value": 0,
+                                "comparator": ">"
                             }
-                        ]
+                        ],
+                        "alias": "Rec MEM (bytes)"
                     }
                 ],
-                "custom_links": [],
-                "title": "Cluster Resource Usage Predictions and Recommendations",
-                "title_size": "16",
-                "title_align": "left"
+                "type": "query_table"
             },
             "layout": {
-                "x": 28,
                 "y": 7,
+                "x": 28,
                 "width": 93,
                 "height": 12
-            }
+            },
+            "id": 9
         },
         {
-            "id": 10,
             "definition": {
-                "type": "query_table",
+                "custom_links": [],
+                "title_size": "16",
+                "title": "Cluster Node Resource Usage Predictions and Recommendations",
+                "title_align": "left",
+                "time": {},
                 "requests": [
                     {
-                        "q": "avg:federatorai.prediction.node.avg{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.avg{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "limit": 50,
                         "order": "desc",
                         "alias": "Avg CPU (mcore)"
                     },
                     {
-                        "q": "avg:federatorai.prediction.node.min{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.min{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "alias": "Min CPU (mcore)"
                     },
                     {
-                        "q": "avg:federatorai.prediction.node.max{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.max{source_metric:kubernetes.cpu.usage.total,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "alias": "Max CPU (mcore)"
                     },
                     {
-                        "q": "avg:federatorai.resource_planning.node{resource:cpu,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.resource_planning.node{resource:cpu,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
-                        "alias": "REC CPU (mcore)",
                         "conditional_formats": [
                             {
-                                "comparator": ">",
-                                "value": 0,
+                                "custom_bg_color": "#5bb4f9",
                                 "palette": "white_on_gray",
-                                "custom_bg_color": "#5bb4f9"
+                                "value": 0,
+                                "comparator": ">"
                             }
-                        ]
+                        ],
+                        "alias": "REC CPU (mcore)"
                     },
                     {
-                        "q": "avg:federatorai.prediction.node.avg{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.avg{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "alias": "Avg MEM (byte)"
                     },
                     {
-                        "q": "avg:federatorai.prediction.node.min{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.min{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "alias": "Min MEM (byte)"
                     },
                     {
-                        "q": "avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
                         "alias": "Max MEM (byte)"
                     },
                     {
-                        "q": "avg:federatorai.resource_planning.node{resource:memory,$kube_cluster,$host,$prediction_window} by {kube_cluster,host,prediction_window}",
+                        "q": "avg:federatorai.resource_planning.node{resource:memory,$kube_cluster,$host,$prediction_window,$cluster_name,$kube_cluster_name} by {kube_cluster, kube_cluster_name, cluster_name, host, prediction_window}",
                         "aggregator": "last",
-                        "alias": "REC MEM (byte)",
                         "conditional_formats": [
                             {
-                                "comparator": ">",
-                                "value": 0,
+                                "custom_bg_color": "#5bb4f9",
                                 "palette": "white_on_gray",
-                                "custom_bg_color": "#5bb4f9"
+                                "value": 0,
+                                "comparator": ">"
                             }
-                        ]
+                        ],
+                        "alias": "REC MEM (byte)"
                     }
                 ],
-                "custom_links": [],
-                "title": "Cluster Node Resource Usage Predictions and Recommendations",
-                "title_size": "16",
-                "title_align": "left"
+                "type": "query_table"
             },
             "layout": {
-                "x": 1,
                 "y": 21,
+                "x": 1,
                 "width": 120,
                 "height": 22
-            }
+            },
+            "id": 10
         }
     ],
     "template_variables": [
         {
-            "name": "kube_cluster",
             "default": "*",
-            "prefix": "kube_cluster"
+            "prefix": "kube_cluster",
+            "name": "kube_cluster"
         },
         {
-            "name": "host",
             "default": "*",
-            "prefix": "host"
+            "prefix": "kube_cluster_name",
+            "name": "kube_cluster_name"
         },
         {
-            "name": "prediction_window",
+            "default": "*",
+            "prefix": "cluster_name",
+            "name": "cluster_name"
+        },
+        {
+            "default": "*",
+            "prefix": "host",
+            "name": "host"
+        },
+        {
             "default": "24_hours",
-            "prefix": "prediction_window"
+            "prefix": "prediction_window",
+            "name": "prediction_window"
         }
     ],
     "layout_type": "free",
