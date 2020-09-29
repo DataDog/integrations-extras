@@ -1,5 +1,10 @@
 # CHANGELOG - Storm
 
+## 1.0.1 / 2020-09-29
+
+* [Fixed] Fix response parsing. See [#724](https://github.com/DataDog/integrations-extras/pull/724).
+
+
 1.0.0/ Released
 =================
 
