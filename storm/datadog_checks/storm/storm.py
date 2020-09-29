@@ -43,7 +43,7 @@ def _g(stat_map, default, func, *components):
     value = stat_map
     for component in components:
         if isinstance(component, (int, long)):
-            if isinstance(value, (list, tuple)) and len(value) >= component:
+            if isinstance(value, (list, tuple)) and len(value) > component:
                 value = value[component]
             else:
                 return default
