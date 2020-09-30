@@ -10,8 +10,9 @@ Algorithmia Insights is a feature of Algorithmia Enterprise and provides a
 metrics pipeline that can be used to instrument, measure, and monitor your
 machine learning models.
 
-This integration allows you to stream operational and inference-related metrics
-from Algorithmia Insights to the metrics API in Datadog.
+This integration allows you to stream operational metrics as well as
+user-defined, inference-related metrics from Algorithmia to the metrics API in
+Datadog.
 
 ## Setup
 
@@ -49,12 +50,12 @@ from Algorithmia Insights to the metrics API in Datadog.
 ### Metrics
 
 This integration streams metrics from Algorithmia when an model that has
-Insights enabled is queried. Each log event includes operational metrics and
+Insights enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
 
 Refer to [metadata.csv][4] for a list of operational metrics provided by this
-check. Additional metrics can include any model-inference-related metrics that
-are specified by the algorithm developer.
+check. Additional metrics can include any user-defined, inference-related
+metrics that are specified by the algorithm developer.
 
 ### Service Checks
 
