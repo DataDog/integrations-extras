@@ -49,6 +49,28 @@ If you are using Agent v6.8+ follow the instructions below to install the HBase 
 
 2. [Restart the Agent][10]
 
+### Log collection
+
+1. Collecting logs is disabled by default in the Datadog Agent, you need to enable it in `datadog.yaml`:
+
+   ```yaml
+   logs_enabled: true
+   ```
+
+2. Add this configuration block to your `hbase_regionserver.d/conf.yaml` file to start collecting your Hbase_regionserver Logs:
+
+   ```yaml
+   logs:
+     - type: file
+       path: /path/to/my/directory/file.log
+       source: hbase
+   ```
+
+   Change the `path` parameter value and configure it for your environment.
+   See the [sample hbase_regionserver.d/conf.yaml][9] for all available configuration options.
+
+3. [Restart the Agent][10].
+
 ## Validation
 
 [Run the Agent's `status` subcommand][11] and look for `hbase_regionserver` under the Checks section.
