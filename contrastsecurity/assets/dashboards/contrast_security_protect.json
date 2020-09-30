@@ -1,305 +1,288 @@
 {
-  "board_title":"Contrast Security - Protect",
-  "read_only":false,
-  "description":null,
-  "created":"2019-11-07T16:17:55.348192+00:00",
-  "new_id":"8g4-chd-xe8",
-  "modified":"2019-11-07T16:17:55.348200+00:00",
-  "created_by":{
-    "disabled":false,
-    "handle":"support@contrastsecurity.com",
-    "name":"Contrast Security",
-    "is_admin":true,
-    "role":null,
-    "access_role":"adm",
-    "verified":true,
-    "email":"support@contrastsecurity.com",
-    "icon":"https://secure.gravatar.com/avatar/d73205b1733e96eb14269e55be9f35e6?s=48&d=retro"
-  },
-  "template_variables":null,
-  "widgets":[
+  "title": "Contrast Security - Protect",
+  "description": "",
+  "author_name": "Contrast Security",
+  "widgets": [
     {
-      "logset":"17533",
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Attack logs",
-      "height":47,
-      "width":91,
-      "query":"source:contrastsecurity",
-      "time":{
-        "live_span":"1w"
+      "id": 0,
+      "definition": {
+        "type": "log_stream",
+        "query": "source:contrastsecurity",
+        "sort": {
+          "column": "time",
+          "order": "desc"
+        },
+        "columns": [
+          "core_host",
+          "core_service",
+          "log_network.source.ip",
+          "log_evt.action",
+          "log_evt.outcome"
+        ],
+        "show_date_column": true,
+        "show_message_column": true,
+        "message_display": "expanded-md",
+        "title": "Attack logs",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "live_span": "1w"
+        }
       },
-      "y":18,
-      "x":46,
-      "type":"log_stream",
-      "id":3270922425130730,
-      "columns":"[\"core_host\", \"core_service\", \"log_network.source.ip\", \"log_evt.action\", \"log_evt.outcome\"]"
+      "layout": {
+        "x": 46,
+        "y": 18,
+        "width": 91,
+        "height": 47
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Attacks by Rule",
-      "height":13,
-      "tile_def":{
-        "viz":"toplist",
-        "requests":[
+      "id": 1,
+      "definition": {
+        "type": "toplist",
+        "requests": [
           {
-            "conditional_formats":[
-
-            ],
-            "style":{
-              "palette":"dog_classic"
-            },
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"@evt.action",
-                  "limit":10
+                  "facet": "@evt.action",
+                  "limit": 10
                 }
               ]
+            },
+            "style": {
+              "palette": "dog_classic"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Attacks by Rule",
+        "title_size": "16",
+        "title_align": "left"
       },
-      "width":45,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":2,
-      "x":46,
-      "type":"toplist",
-      "id":3614430225474568
+      "layout": {
+        "x": 46,
+        "y": 2,
+        "width": 45,
+        "height": 15
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Attacks by Application",
-      "height":13,
-      "tile_def":{
-        "viz":"toplist",
-        "requests":[
+      "id": 2,
+      "definition": {
+        "type": "toplist",
+        "requests": [
           {
-            "conditional_formats":[
-
-            ],
-            "style":{
-              "palette":"dog_classic"
-            },
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"service",
-                  "limit":10
+                  "facet": "service",
+                  "limit": 10
                 }
               ]
+            },
+            "style": {
+              "palette": "dog_classic"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Attacks by Application",
+        "title_size": "16",
+        "title_align": "left"
       },
-      "width":45,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":2,
-      "x":92,
-      "type":"toplist",
-      "id":8176736338122666
+      "layout": {
+        "x": 92,
+        "y": 2,
+        "width": 45,
+        "height": 15
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Attacks by Result",
-      "height":13,
-      "tile_def":{
-        "viz":"toplist",
-        "requests":[
+      "id": 3,
+      "definition": {
+        "type": "toplist",
+        "requests": [
           {
-            "conditional_formats":[
-
-            ],
-            "style":{
-              "palette":"dog_classic"
-            },
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"@evt.outcome",
-                  "limit":10
+                  "facet": "@evt.outcome",
+                  "limit": 10
                 }
               ]
+            },
+            "style": {
+              "palette": "dog_classic"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Attacks by Result",
+        "title_size": "16",
+        "title_align": "left"
       },
-      "width":45,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":2,
-      "x":0,
-      "type":"toplist",
-      "id":2912918488546613
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 45,
+        "height": 15
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Rules",
-      "height":13,
-      "tile_def":{
-        "viz":"timeseries",
-        "requests":[
+      "id": 4,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
           {
-            "style":{
-              "width":"normal",
-              "palette":"dog_classic",
-              "type":"solid"
-            },
-            "type":"bars",
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"@evt.action",
-                  "limit":10
+                  "facet": "@evt.action",
+                  "limit": 10
                 }
               ]
+            },
+            "display_type": "bars",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Rules",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_size": "0"
       },
-      "width":45,
-      "legend":false,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":18,
-      "x":0,
-      "legend_size":"0",
-      "type":"timeseries",
-      "id":2727566696392112
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 45,
+        "height": 15
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Applications",
-      "height":13,
-      "tile_def":{
-        "viz":"timeseries",
-        "requests":[
+      "id": 5,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
           {
-            "style":{
-              "width":"normal",
-              "palette":"dog_classic",
-              "type":"solid"
-            },
-            "type":"bars",
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"service",
-                  "limit":10
+                  "facet": "service",
+                  "limit": 10
                 }
               ]
+            },
+            "display_type": "bars",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Applications",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_size": "0"
       },
-      "width":45,
-      "legend":false,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":34,
-      "x":0,
-      "legend_size":"0",
-      "type":"timeseries",
-      "id":6264513347703014
+      "layout": {
+        "x": 0,
+        "y": 34,
+        "width": 45,
+        "height": 15
+      }
     },
     {
-      "title_size":"16",
-      "title":true,
-      "title_align":"left",
-      "title_text":"Results",
-      "height":13,
-      "tile_def":{
-        "viz":"timeseries",
-        "requests":[
+      "id": 6,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
           {
-            "style":{
-              "width":"normal",
-              "palette":"dog_classic",
-              "type":"solid"
-            },
-            "type":"bars",
-            "log_query":{
+            "log_query": {
               "index": "*",
-              "search":{
-                "query":"source:contrastsecurity"
+              "compute": {
+                "aggregation": "count"
               },
-              "compute":{
-                "aggregation":"count"
+              "search": {
+                "query": "source:contrastsecurity"
               },
-              "groupBy":[
+              "group_by": [
                 {
-                  "facet":"@evt.outcome",
-                  "limit":10
+                  "facet": "@evt.outcome",
+                  "limit": 10
                 }
               ]
+            },
+            "display_type": "bars",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
             }
           }
-        ]
+        ],
+        "custom_links": [],
+        "title": "Results",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_size": "0"
       },
-      "width":45,
-      "legend":false,
-      "time":{
-        "live_span":"15d"
-      },
-      "y":50,
-      "x":0,
-      "legend_size":"0",
-      "type":"timeseries",
-      "id":1384435236113198
+      "layout": {
+        "x": 0,
+        "y": 50,
+        "width": 45,
+        "height": 15
+      }
     }
   ],
-  "id":887621
+  "template_variables": [],
+  "layout_type": "free",
+  "is_read_only": true,
+  "notify_list": [],
+  "id": 30296
 }

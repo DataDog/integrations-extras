@@ -1,0 +1,293 @@
+{
+    "title": "Cyral",
+    "description": "",
+    "author_name": "Cyral",
+    "widgets": [
+      {
+        "id": 0,
+        "definition": {
+          "type": "image",
+          "url": "https://s34378.pcdn.co/wp-content/themes/cyral20/assets/img/logo.svg?t=1592861649",
+          "sizing": "fit"
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 12
+        }
+      },
+      {
+        "id": 1,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_wire_parse_duration{*}.as_count()",
+              "display_type": "line",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Wire Parse Duration",
+          "title_size": "16",
+          "title_align": "left",
+          "time": {
+            "live_span": "1h"
+          },
+          "show_legend": true
+        },
+        "layout": {
+          "x": 25,
+          "y": 8,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 2,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_policy_eval_time{*}.as_count()",
+              "display_type": "line",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Policy Evaluation Time",
+          "title_size": "16",
+          "title_align": "left",
+          "time": {
+            "live_span": "1h"
+          },
+          "show_legend": true,
+          "legend_size": "0"
+        },
+        "layout": {
+          "x": 25,
+          "y": 23,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 3,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_query_duration_sum{*}.as_count()",
+              "display_type": "line",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Query Duration Sum",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": false
+        },
+        "layout": {
+          "x": 25,
+          "y": 38,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 4,
+        "definition": {
+          "type": "note",
+          "content": "Durations",
+          "background_color": "white",
+          "font_size": "24",
+          "text_align": "center",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left"
+        },
+        "layout": {
+          "x": 25,
+          "y": 0,
+          "width": 30,
+          "height": 7
+        }
+      },
+      {
+        "id": 5,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_policy_violation_count{*}.as_count()",
+              "display_type": "line",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Policy Violations Count",
+          "title_size": "16",
+          "title_align": "left",
+          "time": {
+            "live_span": "1h"
+          },
+          "show_legend": true,
+          "legend_size": "0"
+        },
+        "layout": {
+          "x": 56,
+          "y": 8,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 6,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_high_latency_query_count{*}.as_count()",
+              "display_type": "bars",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "High Latency Query Count",
+          "title_size": "16",
+          "title_align": "left",
+          "time": {
+            "live_span": "1h"
+          },
+          "show_legend": true,
+          "legend_size": "0"
+        },
+        "layout": {
+          "x": 56,
+          "y": 23,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 7,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "q": "avg:cyral.cyral_row_count{*}.as_count()",
+              "display_type": "bars",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Row Count",
+          "title_size": "16",
+          "title_align": "left",
+          "time": {
+            "live_span": "1h"
+          },
+          "show_legend": true,
+          "legend_size": "0"
+        },
+        "layout": {
+          "x": 56,
+          "y": 38,
+          "width": 30,
+          "height": 15
+        }
+      },
+      {
+        "id": 8,
+        "definition": {
+          "type": "note",
+          "content": "Security",
+          "background_color": "white",
+          "font_size": "24",
+          "text_align": "center",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left"
+        },
+        "layout": {
+          "x": 56,
+          "y": 0,
+          "width": 30,
+          "height": 7
+        }
+      }
+    ],
+    "template_variables": [],
+    "layout_type": "free",
+    "is_read_only": true,
+    "notify_list": [],
+    "id": 30346
+  }

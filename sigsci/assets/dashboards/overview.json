@@ -1,802 +1,597 @@
 {
-	"board_title": "Signal Sciences - Overview",
-	"read_only": false,
-	"author_info": {
-		"author_name": "Signal Sciences"
-	},
+	"title": "Signal Sciences - Overview",
 	"description": "## Exposing real time attack data across your web apps\n\nThis dashboard contains a summary of suspicious and anomalous http requests that have been detected by the Signal Sciences agent. These include those attacks identified in the OWASP top 10 [list](https://www.owasp.org/index.php/OWASP_Top_Ten_Cheat_Sheet) as well as certain events that may indicate malicious activity.\n\nIf you are a Signal Sciences customer, you can find more detail in your [dashboard](https://dashboard.signalsciences.net/). If you are not a customer, please contact Signal Sciences for a [free trial](https://info.signalsciences.com/request-a-demo).",
-	"board_bgtype": "board_graph",
-	"created": "2019-05-15T22:43:17.037850+00:00",
-	"new_id": "phg-2md-s97",
-	"modified": "2019-07-04T03:21:32.281771+00:00",
-	"originalHeight": 136,
-	"height": 136,
-	"width": 119,
+	"author_name": "Signal Sciences",
+	"widgets": [
+		{
+			"id": 0,
+			"definition": {
+				"type": "image",
+				"url": "http://dd-integrations-staging.s3.amazonaws.com/sigsci/configuration/tile/images/sigsci_logo.png",
+				"sizing": "fit",
+				"margin": "small"
+			},
+			"layout": {
+				"x": 0,
+				"y": 0,
+				"width": 21,
+				"height": 5
+			}
+		},
+		{
+			"id": 1,
+			"definition": {
+				"type": "note",
+				"content": "Contact sales@signalsciences to access the full version of Signal Sciences next-gen WAF",
+				"background_color": "gray",
+				"font_size": "14",
+				"text_align": "center",
+				"show_tick": false,
+				"tick_pos": "50%",
+				"tick_edge": "left"
+			},
+			"layout": {
+				"x": 22,
+				"y": 0,
+				"width": 63,
+				"height": 5
+			}
+		},
+		{
+			"id": 2,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.waf.allow{*}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "dog_classic",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.waf.block{*}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "dog_classic",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Total Requests",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 0,
+				"y": 19,
+				"width": 66,
+				"height": 21
+			}
+		},
+		{
+			"id": 3,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:cmdexe}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Command Execution",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 32,
+				"y": 41,
+				"width": 26,
+				"height": 14
+			}
+		},
+		{
+			"id": 4,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:noua}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:backdoor}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:traversal}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:privatefile}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:forcefulbrowsing}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Path Scanning",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 59,
+				"y": 56,
+				"width": 26,
+				"height": 15
+			}
+		},
+		{
+			"id": 5,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http403}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http404}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http429}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http4xx}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Server 400s",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": true,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 0,
+				"y": 88,
+				"width": 41,
+				"height": 15
+			}
+		},
+		{
+			"id": 6,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http500}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http5xx}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:http503}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Server 500s",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": true,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 42,
+				"y": 88,
+				"width": 43,
+				"height": 15
+			}
+		},
+		{
+			"id": 7,
+			"definition": {
+				"type": "query_value",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.waf.total{*}.as_count()",
+						"aggregator": "avg",
+						"conditional_formats": [
+							{
+								"comparator": ">",
+								"value": 0,
+								"palette": "white_on_green"
+							}
+						]
+					}
+				],
+				"custom_links": [],
+				"title": "Total Requests per Minute",
+				"title_size": "16",
+				"title_align": "left",
+				"autoscale": false,
+				"precision": 0
+			},
+			"layout": {
+				"x": 0,
+				"y": 6,
+				"width": 43,
+				"height": 12
+			}
+		},
+		{
+			"id": 8,
+			"definition": {
+				"type": "query_value",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{*}.as_count()",
+						"aggregator": "avg",
+						"conditional_formats": [
+							{
+								"comparator": ">",
+								"value": 0,
+								"palette": "white_on_red"
+							}
+						]
+					}
+				],
+				"custom_links": [],
+				"title": "Potential Attacks per Minute",
+				"title_size": "16",
+				"title_align": "left",
+				"autoscale": false,
+				"precision": 0
+			},
+			"layout": {
+				"x": 44,
+				"y": 6,
+				"width": 41,
+				"height": 12
+			}
+		},
+		{
+			"id": 9,
+			"definition": {
+				"type": "toplist",
+				"requests": [
+					{
+						"q": "top(avg:sigsci.agent.signal{*} by {signal_type}.as_count(), 10, 'sum', 'desc')",
+						"style": {
+							"palette": "dog_classic"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Top 10 Attacks Types",
+				"title_size": "16",
+				"title_align": "left"
+			},
+			"layout": {
+				"x": 0,
+				"y": 41,
+				"width": 31,
+				"height": 46
+			}
+		},
+		{
+			"id": 10,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:sqli}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "SQL Injection",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 59,
+				"y": 41,
+				"width": 26,
+				"height": 14
+			}
+		},
+		{
+			"id": 11,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:xss}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Cross Site Scripting",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 32,
+				"y": 56,
+				"width": 26,
+				"height": 15
+			}
+		},
+		{
+			"id": 12,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:noua}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:datacenter}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:tornode}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:useragent}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:scanner}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "avg:sigsci.agent.signal{signal_type:impostor}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Unknown Source",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 59,
+				"y": 72,
+				"width": 26,
+				"height": 15
+			}
+		},
+		{
+			"id": 13,
+			"definition": {
+				"type": "timeseries",
+				"requests": [
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:notutf8}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:nullbyte}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:doubleencoding}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:responsesplit}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					},
+					{
+						"q": "sum:sigsci.agent.signal{signal_type:malformed-data}.as_count()",
+						"display_type": "bars",
+						"style": {
+							"palette": "warm",
+							"line_type": "solid",
+							"line_width": "normal"
+						}
+					}
+				],
+				"custom_links": [],
+				"title": "Anomalous Traffic",
+				"title_size": "16",
+				"title_align": "left",
+				"show_legend": false,
+				"legend_size": "0"
+			},
+			"layout": {
+				"x": 32,
+				"y": 72,
+				"width": 26,
+				"height": 15
+			}
+		},
+		{
+			"id": 14,
+			"definition": {
+				"type": "note",
+				"content": "[Click to Learn More](https://info.signalsciences.com/request-a-demo). ",
+				"background_color": "blue",
+				"font_size": "18",
+				"text_align": "center",
+				"show_tick": false,
+				"tick_pos": "50%",
+				"tick_edge": "top"
+			},
+			"layout": {
+				"x": 67,
+				"y": 34,
+				"width": 18,
+				"height": 6
+			}
+		},
+		{
+			"id": 15,
+			"definition": {
+				"type": "image",
+				"url": "https://info.signalsciences.com/hubfs/SigSci-Ads-April-2019-2-300x250.png",
+				"sizing": "fit"
+			},
+			"layout": {
+				"x": 67,
+				"y": 19,
+				"width": 18,
+				"height": 15
+			}
+		}
+	],
 	"template_variables": [],
-	"isIntegration": true,
-	"disableEditing": false,
-	"originalWidth": 119,
-	"widgets": [{
-		"board_id": "hze-kr2-ejg",
-		"sizing": "fit",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1557762780000,
-			"end": 1557766380000
-		},
-		"generated_title": "",
-		"title_size": 16,
-		"title": true,
-		"url": "http://dd-integrations-staging.s3.amazonaws.com/sigsci/configuration/tile/images/sigsci_logo.png",
-		"scaleFactor": 1,
-		"title_align": "left",
-		"title_text": "",
-		"height": 5,
-		"width": 21,
-		"type": "image",
-		"y": 0,
-		"x": 0,
-		"add_timeframe": true,
-		"margin": "small",
-		"isShared": false
-	}, {
-		"height": 5,
-		"tick_pos": "50%",
-		"board_id": "hze-kr2-ejg",
-		"title_size": 16,
-		"title": true,
-		"title_align": "left",
-		"text_align": "center",
-		"bgcolor": "gray",
-		"html": "Contact sales@signalsciences to access the full version of Signal Sciences next-gen WAF",
-		"type": "note",
-		"isShared": false,
-		"refresh_every": 30000,
-		"auto_refresh": false,
-		"title_text": "",
-		"tick": false,
-		"scaleFactor": 1,
-		"add_timeframe": true,
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1557762780000,
-			"end": 1557766380000
-		},
-		"font_size": "14",
-		"generated_title": "Note",
-		"tick_edge": "left",
-		"y": 0,
-		"x": 22,
-		"width": 63
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Total Requests",
-		"height": 19,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.waf.allow{*}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.waf.block{*}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 66,
-		"time": {},
-		"error": null,
-		"y": 19,
-		"x": 0,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Command Execution",
-		"height": 12,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:cmdexe}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid",
-					"alias": "command execution"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 41,
-		"x": 32,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Path Scanning",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:noua}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:backdoor}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:traversal}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:privatefile}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:forcefulbrowsing}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 56,
-		"x": 59,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Server 400s",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:http403}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:http404}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:http429}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:http4xx}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 41,
-		"time": {},
-		"error": null,
-		"y": 88,
-		"x": 0,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": true,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Server 500s",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:http500}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:http5xx}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:http503}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 43,
-		"time": {},
-		"error": null,
-		"y": 88,
-		"x": 42,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": true,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"x": 0,
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "query_value",
-		"generated_title": "Timeseries",
-		"title_text": "Total Requests per Minute",
-		"height": 10,
-		"tile_def": {
-			"viz": "query_value",
-			"requests": [{
-				"q": "sum:sigsci.agent.waf.total{*}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": [{
-					"palette": "white_on_green",
-					"comparator": ">",
-					"value": "0"
-				}]
-			}, {
-				"q": "avg:sigsci.agent.waf.allow{appname:sigsci-demo-ddog}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "avg:sigsci.agent.waf.block{appname:sigsci-demo-ddog}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": false,
-			"precision": "0",
-			"custom_unit": null
-		},
-		"width": 43,
-		"time": {},
-		"error": null,
-		"y": 6,
-		"autoscale": true,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"x": 44,
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "query_value",
-		"generated_title": "Timeseries",
-		"title_text": "Potential Attacks per Minute",
-		"height": 10,
-		"tile_def": {
-			"viz": "query_value",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{*}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": [{
-					"palette": "white_on_red",
-					"comparator": ">",
-					"value": "0"
-				}]
-			}, {
-				"q": "avg:sigsci.agent.waf.allow{appname:sigsci-demo-ddog}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "avg:sigsci.agent.waf.block{appname:sigsci-demo-ddog}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": false,
-			"precision": "0",
-			"custom_unit": null
-		},
-		"width": 41,
-		"time": {},
-		"error": null,
-		"y": 6,
-		"autoscale": true,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "phg-2md-s97",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "toplist",
-		"generated_title": "Top List",
-		"title_text": "Top 10 Attacks Types",
-		"height": 44,
-		"tile_def": {
-			"viz": "toplist",
-			"requests": [{
-				"q": "top(avg:sigsci.agent.signal{*} by {signal_type}.as_count(), 10, 'sum', 'desc')",
-				"style": {
-					"width": "normal",
-					"palette": "dog_classic",
-					"type": "solid"
-				},
-				"type": null,
-				"conditional_formats": []
-			}]
-		},
-		"width": 31,
-		"time": {},
-		"error": null,
-		"y": 41,
-		"x": 0,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "SQL Injection",
-		"height": 12,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:sqli}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 41,
-		"x": 59,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Cross Site Scripting",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:xss}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 56,
-		"x": 32,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Unknown Source",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:noua}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:datacenter}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:tornode}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:useragent}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:scanner}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "avg:sigsci.agent.signal{signal_type:impostor}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 72,
-		"x": 59,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"board_id": "hze-kr2-ejg",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1562198651457,
-			"end": 1562202251457
-		},
-		"title_align": "left",
-		"title_size": 16,
-		"title": true,
-		"type": "timeseries",
-		"generated_title": "Timeseries",
-		"title_text": "Anomalous Traffic",
-		"height": 13,
-		"tile_def": {
-			"viz": "timeseries",
-			"requests": [{
-				"q": "sum:sigsci.agent.signal{signal_type:notutf8}.as_count()",
-				"aggregator": "avg",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars",
-				"conditional_formats": []
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:nullbyte}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:doubleencoding}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:responsesplit}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}, {
-				"q": "sum:sigsci.agent.signal{signal_type:malformed-data}.as_count()",
-				"style": {
-					"width": "normal",
-					"palette": "warm",
-					"type": "solid"
-				},
-				"type": "bars"
-			}],
-			"autoscale": true
-		},
-		"width": 26,
-		"time": {},
-		"error": null,
-		"y": 72,
-		"x": 32,
-		"legend_size": "0",
-		"isShared": false,
-		"scaleFactor": 1,
-		"legend": false,
-		"add_timeframe": true
-	}, {
-		"height": 6,
-		"tick_pos": "50%",
-		"board_id": "hze-kr2-ejg",
-		"title_size": 16,
-		"title": true,
-		"title_align": "left",
-		"text_align": "center",
-		"bgcolor": "blue",
-		"html": "[Click to Learn More](https://info.signalsciences.com/request-a-demo). ",
-		"type": "note",
-		"isShared": false,
-		"refresh_every": 30000,
-		"auto_refresh": false,
-		"title_text": "",
-		"tick": false,
-		"scaleFactor": 1,
-		"add_timeframe": true,
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1557762872784,
-			"end": 1557766472784
-		},
-		"font_size": "18",
-		"generated_title": "Note",
-		"tick_edge": "top",
-		"y": 34,
-		"x": 67,
-		"width": 18
-	}, {
-		"board_id": "phg-2md-s97",
-		"sizing": "fit",
-		"globalTimeframe": {
-			"isLive": true,
-			"start": 1559769764945,
-			"end": 1559773364945
-		},
-		"generated_title": "",
-		"title_size": 16,
-		"title": true,
-		"url": "https://info.signalsciences.com/hubfs/SigSci-Ads-April-2019-2-300x250.png",
-		"scaleFactor": 1,
-		"title_align": "left",
-		"title_text": "",
-		"height": 15,
-		"width": 18,
-		"type": "image",
-		"y": 19,
-		"x": 67,
-		"add_timeframe": true,
-		"margin": "",
-		"isShared": false
-	}],
-	"disableCog": false,
-	"id": 701572,
-	"isShared": false
+	"layout_type": "free",
+	"is_read_only": true,
+	"notify_list": [],
+	"id": "79f-7rn-h9u"
 }

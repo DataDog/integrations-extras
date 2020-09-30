@@ -1,0 +1,13 @@
+name: HBase regionserver
+files:
+- name: hbase_regionserver.yaml
+  options:
+  - template: instances
+    options:
+    - template: instances/jmx
+      overrides:
+        host.value.example: localhost
+        port.value.example: 10102
+  - template: init_config
+    options:
+    - template: init_config/jmx

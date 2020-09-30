@@ -16,7 +16,7 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'storm'
 
 
 def _g(stat_map, default, func, *components):
-    """ Helper method to return value, tag tuple from a stat map get.
+    """Helper method to return value, tag tuple from a stat map get.
 
     Note: This safely handles the odd cases where the API can return things like:
       {
@@ -43,7 +43,7 @@ def _g(stat_map, default, func, *components):
     value = stat_map
     for component in components:
         if isinstance(component, (int, long)):
-            if isinstance(value, (list, tuple)) and len(value) >= component:
+            if isinstance(value, (list, tuple)) and len(value) > component:
                 value = value[component]
             else:
                 return default
@@ -102,7 +102,7 @@ def _bool(v):
 
 
 def _get_length(stat_map, default, *components):
-    """ Helper Function to safely get the length of an array type from the map.
+    """Helper Function to safely get the length of an array type from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -114,7 +114,7 @@ def _get_length(stat_map, default, *components):
 
 
 def _get_long(stat_map, default, *components):
-    """ Helper Function to safely get the long value from the map.
+    """Helper Function to safely get the long value from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -126,7 +126,7 @@ def _get_long(stat_map, default, *components):
 
 
 def _get_float(stat_map, default, *components):
-    """ Helper Function to safely get the float value from the map.
+    """Helper Function to safely get the float value from the map.
 
     :param stat_map: stat map
     :param default: default length value
@@ -138,7 +138,7 @@ def _get_float(stat_map, default, *components):
 
 
 def _get_string(stat_map, default, *components):
-    """ Helper Function to safely get the string value from the map.
+    """Helper Function to safely get the string value from the map.
 
     :param stat_map: stat map
     :param default: default string value
@@ -150,7 +150,7 @@ def _get_string(stat_map, default, *components):
 
 
 def _get_bool(stat_map, default, *components):
-    """ Helper Function to safely get the boolean value from the map.
+    """Helper Function to safely get the boolean value from the map.
 
     :param stat_map: stat map
     :param default: default boolean value
@@ -162,7 +162,7 @@ def _get_bool(stat_map, default, *components):
 
 
 def _get_list(stat_map, *components):
-    """ Helper Function to safely get the list value from the map.
+    """Helper Function to safely get the list value from the map.
 
     :param stat_map: stat map
     :param components: components in order to traverse.
@@ -177,7 +177,7 @@ def _get_list(stat_map, *components):
 
 
 def _get_dict(stat_map, *components):
-    """ Helper Function to safely get the list value from the map.
+    """Helper Function to safely get the list value from the map.
 
     :param stat_map: stat map
     :param components: components in order to traverse.
@@ -204,7 +204,7 @@ class StormCheck(AgentCheck):
     class StormVersion(object):
         @classmethod
         def from_string(cls, version_string):
-            """ Returns a StormVersion from a given version string.
+            """Returns a StormVersion from a given version string.
 
             :param version_string: Version string, like "1.2.0-RC1" or "1.2.0"
             :type version_string: str
@@ -226,7 +226,7 @@ class StormCheck(AgentCheck):
             self.classifier = classifier
 
         def __lt__(self, other):
-            """ Check if this version is less than another version.
+            """Check if this version is less than another version.
 
             Ignores classification.
 
@@ -270,7 +270,7 @@ class StormCheck(AgentCheck):
             raise e
 
     def get_storm_cluster_summary(self):
-        """ Make the storm cluster summary metric request.
+        """Make the storm cluster summary metric request.
 
         :return: Cluster Summary Stats Response
         :rtype: dict
@@ -279,7 +279,7 @@ class StormCheck(AgentCheck):
         return self.get_request_json("/api/v1/cluster/summary", "Error retrieving Storm Cluster Summary")
 
     def get_storm_nimbus_summary(self):
-        """ Make the storm nimbus summary metric request.
+        """Make the storm nimbus summary metric request.
 
         :return: Nimbus Summary Stats Response
         :rtype: dict
@@ -288,7 +288,7 @@ class StormCheck(AgentCheck):
         return self.get_request_json("/api/v1/nimbus/summary", "Error retrieving Storm Nimbus Summary")
 
     def get_storm_supervisor_summary(self):
-        """ Make the storm supervisor summary metric request.
+        """Make the storm supervisor summary metric request.
 
         :return: Supervisor Summary Stats Response
         :rtype: dict
@@ -297,7 +297,7 @@ class StormCheck(AgentCheck):
         return self.get_request_json("/api/v1/supervisor/summary", "Error retrieving Storm Supervisor Summary")
 
     def get_storm_topology_summary(self):
-        """ Make the storm topology summary metric request.
+        """Make the storm topology summary metric request.
 
         :return: Topology Summary Stats Response
         :rtype: dict
@@ -306,7 +306,7 @@ class StormCheck(AgentCheck):
         return self.get_request_json("/api/v1/topology/summary", "Error retrieving Storm Topology Summary")
 
     def get_topology_info(self, topology_id, interval=60):
-        """ Make the topology info metric request.
+        """Make the topology info metric request.
 
         :param topology_id: Topology Id
         :type topology_id: str
@@ -322,7 +322,7 @@ class StormCheck(AgentCheck):
         )
 
     def get_topology_metrics(self, topology_id, interval=60, storm_version=None):
-        """ Make the storm topology metrics request.
+        """Make the storm topology metrics request.
 
         :param topology_id: Topology Id
         :type topology_id: str
@@ -345,7 +345,7 @@ class StormCheck(AgentCheck):
         )
 
     def process_cluster_stats(self, cluster_stats):
-        """ Process Cluster Stats Response
+        """Process Cluster Stats Response
 
         :param cluster_stats: Cluster stats response
         :type cluster_stats: dict
@@ -398,7 +398,7 @@ class StormCheck(AgentCheck):
         return StormCheck.StormVersion(0, 0, 0)
 
     def process_nimbus_stats(self, nimbus_stats):
-        """ Process Nimbus Stats Response
+        """Process Nimbus Stats Response
 
         :param nimbus_stats: Nimbus stats response
         :type nimbus_stats: dict
@@ -438,7 +438,7 @@ class StormCheck(AgentCheck):
             self.report_gauge('storm.nimbus.numOffline', numOffline, tags=tags, additional_tags=self.additional_tags)
 
     def process_supervisor_stats(self, supervisor_stats):
-        """ Process Supervisor Stats Response
+        """Process Supervisor Stats Response
 
         :param supervisor_stats: Supervisor stats response
         :type supervisor_stats: dict
@@ -468,7 +468,7 @@ class StormCheck(AgentCheck):
                     )
 
     def process_topology_stats(self, topology_stats, interval):
-        """ Process Topology Stats Response
+        """Process Topology Stats Response
 
         :param topology_stats: Supervisor stats response
         :type topology_stats: dict
@@ -750,7 +750,7 @@ class StormCheck(AgentCheck):
                     )
 
     def process_topology_metrics(self, topology_name, topology_stats, interval):
-        """ Process Topology Metrics Stats Response
+        """Process Topology Metrics Stats Response
 
         :param topology_name: Topology Name
         :type topology_name: str
@@ -796,7 +796,7 @@ class StormCheck(AgentCheck):
                                 )
 
     def report_gauge(self, metric, value, tags, additional_tags):
-        """ Report the Gauge Metric.
+        """Report the Gauge Metric.
 
         :param metric:
         :param value:
@@ -810,7 +810,7 @@ class StormCheck(AgentCheck):
         self.gauge(metric, value=value, tags=all_tags)
 
     def report_histogram(self, metric, value, tags, additional_tags):
-        """ Report the Histogram Metric.
+        """Report the Histogram Metric.
 
         :param metric:
         :param value:
@@ -824,7 +824,7 @@ class StormCheck(AgentCheck):
         self.histogram(metric, value=value, tags=all_tags)
 
     def update_from_config(self, instance):
-        """ Update Configuration tunables from instance configuration.
+        """Update Configuration tunables from instance configuration.
 
         :param instance: Agent config instance.
         :return: None
@@ -845,7 +845,7 @@ class StormCheck(AgentCheck):
         self.intervals.extend(intervals)
 
     def check(self, instance):
-        """ Perform the agent check.
+        """Perform the agent check.
 
         :param instance: Agent instance.
         :return: None

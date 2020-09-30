@@ -1,0 +1,470 @@
+{
+    "title": "PerimeterX Bot Defender Dashboard",
+    "description": "## PerimeterX Bot Defender Dashboard\n\nThis is a snapshot of data for the PerimeterX and Datadog integration. Additional details can be obtained by also visiting your [PerimeterX Portal](https://console.perimeterx.com/botDefender/dashboard)",
+    "author_name": "PerimeterX",
+    "widgets": [
+      {
+        "id": 0,
+        "definition": {
+          "type": "timeseries",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@evt.name",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              },
+              "display_type": "line",
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              }
+            }
+          ],
+          "custom_links": [],
+          "yaxis": {
+            "label": "",
+            "scale": "linear",
+            "min": "auto",
+            "max": "auto",
+            "include_zero": true
+          },
+          "title": "Traffic Over Time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": false
+        },
+        "layout": {
+          "x": 12,
+          "y": 0,
+          "width": 51,
+          "height": 14
+        }
+      },
+      {
+        "id": 1,
+        "definition": {
+          "type": "image",
+          "url": "https://console-cdn.perimeterx.com/botdefender/static/media/logo.3887ccd4.svg",
+          "sizing": "fit"
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 14
+        }
+      },
+      {
+        "id": 2,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@http.url_details.path",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Paths",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": -1,
+          "y": 55,
+          "width": 47,
+          "height": 15
+        }
+      },
+      {
+        "id": 3,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@px_app_id",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Application IDs",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 63,
+          "y": 0,
+          "width": 33,
+          "height": 14
+        }
+      },
+      {
+        "id": 4,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "cardinality",
+                  "facet": "@network.client.ip"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@network.client.geoip.country.iso_code",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "cardinality",
+                      "order": "desc",
+                      "facet": "@network.client.ip"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Countries By Number of IP Addresses",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 0,
+          "y": 35,
+          "width": 47,
+          "height": 15
+        }
+      },
+      {
+        "id": 5,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@user_agent",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top User Agents",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 49,
+          "y": 35,
+          "width": 47,
+          "height": 15
+        }
+      },
+      {
+        "id": 6,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@http.url_details.host",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Target Hosts",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 49,
+          "y": 55,
+          "width": 47,
+          "height": 15
+        }
+      },
+      {
+        "id": 7,
+        "definition": {
+          "type": "note",
+          "content": "# Client Related Data",
+          "background_color": "gray",
+          "font_size": "14",
+          "text_align": "left",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left"
+        },
+        "layout": {
+          "x": 0,
+          "y": 14,
+          "width": 96,
+          "height": 5
+        }
+      },
+      {
+        "id": 8,
+        "definition": {
+          "type": "note",
+          "content": "# Server Related Information",
+          "background_color": "gray",
+          "font_size": "14",
+          "text_align": "left",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left"
+        },
+        "layout": {
+          "x": 0,
+          "y": 50,
+          "width": 96,
+          "height": 5
+        }
+      },
+      {
+        "id": 9,
+        "definition": {
+          "type": "note",
+          "content": "# Log Stream",
+          "background_color": "gray",
+          "font_size": "18",
+          "text_align": "left",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left"
+        },
+        "layout": {
+          "x": 0,
+          "y": 70,
+          "width": 96,
+          "height": 5
+        }
+      },
+      {
+        "id": 10,
+        "definition": {
+          "type": "log_stream",
+          "indexes": [],
+          "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID",
+          "sort": {
+            "column": "time",
+            "order": "desc"
+          },
+          "columns": [
+            "@network.client.ip",
+            "@http.useragent_details.browser.family",
+            "@http.useragent_details.os.family",
+            "@network.client.geoip.country.name",
+            "@title"
+          ],
+          "show_date_column": true,
+          "show_message_column": false,
+          "message_display": "inline"
+        },
+        "layout": {
+          "x": 0,
+          "y": 75,
+          "width": 96,
+          "height": 36
+        }
+      },
+      {
+        "id": 11,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@http.useragent_details.browser.family",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Browser Types",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 49,
+          "y": 19,
+          "width": 47,
+          "height": 15
+        }
+      },
+      {
+        "id": 12,
+        "definition": {
+          "type": "toplist",
+          "requests": [
+            {
+              "log_query": {
+                "index": "*",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "search": {
+                  "query": "source:perimeterx $EventName $TrueIP $Continent $Country $Domain $ApplicationID"
+                },
+                "group_by": [
+                  {
+                    "facet": "@network.client.asn",
+                    "limit": 10,
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "custom_links": [],
+          "title": "Top Network Providers",
+          "title_size": "16",
+          "title_align": "left"
+        },
+        "layout": {
+          "x": 0,
+          "y": 19,
+          "width": 47,
+          "height": 15
+        }
+      }
+    ],
+    "template_variables": [
+      {
+        "name": "EventName",
+        "default": "*",
+        "prefix": "@evt.name"
+      },
+      {
+        "name": "TrueIP",
+        "default": "*",
+        "prefix": "@network.client.ip"
+      },
+      {
+        "name": "Continent",
+        "default": "*",
+        "prefix": "@network.client.geoip.continent.name"
+      },
+      {
+        "name": "Country",
+        "default": "*",
+        "prefix": "@network.client.geoip.country.name"
+      },
+      {
+        "name": "Domain",
+        "default": "*",
+        "prefix": "@http.url_details.host"
+      },
+      {
+        "name": "ApplicationID",
+        "default": "*",
+        "prefix": "@px_app_id"
+      }
+    ],
+    "layout_type": "free",
+    "is_read_only": true,
+    "notify_list": [],
+    "id": 30353
+  }

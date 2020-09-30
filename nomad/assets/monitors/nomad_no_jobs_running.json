@@ -1,0 +1,27 @@
+{
+	"name": "[Nomad] No Jobs Running",
+	"type": "query alert",
+	"query": "max(last_15m):max:nomad.nomad.job_status.running{*} < 1",
+	"message": "There are no Nomad jobs running.",
+	"tags": [
+		"integration:nomad"
+	],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"new_host_delay": 300,
+		"require_full_window": true,
+		"notify_no_data": false,
+		"renotify_interval": 60,
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 1
+		}
+    },
+    "recommended_monitor_metadata": {
+		"description": "Get notified when Nomad has no jobs running."
+	}
+}
