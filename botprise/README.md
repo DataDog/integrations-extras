@@ -1,9 +1,12 @@
 ## Overview
 
-Botprise's Datadog integration allows you to send [Botprise][7] events to the event stream in Datadog. It submits Datadog events into the system over email.
+Botprise's Datadog integration allows you to send generated [Botprise][7] events to Datadog using webhook. It helps to monitor your applications and to ensure Botprise is working as expected.
+
+![image-datadog-botprise-events][9]
 
 ## Setup
 
+To use the Botprise-Datadog integration, you must be a customer of Botprise. For more information about Botprise, visit us at [https://www.botprise.com/][10].
 
 ### Installation
 
@@ -32,10 +35,7 @@ The Botprise integration does not include any service checks.
 All events are sent to the Datadog event stream.
 
 ### Configuration
-To use the Datadog API, you need to enter an [API key and an application key][5]:
-
-Input a Datadog API Key []:xxxx9232ad913d1a864828a2df15xxxx
-Input a Datadog Application Key []:xxxxcb1798718f7a2da141071e7305599d60xxxx
+To use the Datadog API, you need to enter an [API key and an application key][5].
 
 ## Troubleshooting
 
@@ -46,6 +46,7 @@ Need help? Contact [Datadog support][1].
 [3]: https://app.datadoghq.com/infrastructure/map
 [4]: https://docs.datadoghq.com/metrics/
 [5]: https://docs.datadoghq.com/account_management/api-app-keys/
-[6]: https://dev83528.service-now.com/navpage.do
+[6]: https://developer.servicenow.com/dev.do#!/home
 [7]: https://www.botprise.com/
 [8]: https://demoapp.botprise.com/botprise/maindashboard
+[9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/botprise/images/datadog-botprise-events.png
