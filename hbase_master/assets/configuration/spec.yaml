@@ -1,0 +1,14 @@
+name: HBase master
+files:
+- name: hbase_master.yaml
+  options:
+  - template: instances
+    options:
+    - template: instances/jmx
+      overrides:
+        host.description: HBase Master host to connect to.
+        host.value.example: localhost
+        port.value.example: 10101
+  - template: init_config
+    options:
+    - template: init_config/jmx

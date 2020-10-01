@@ -17,7 +17,7 @@ class UpscCheck(AgentCheck):
     DEFAULT_EXCLUDED_TAGS = ['ups.vendorid', 'ups.productid', 'driver.version.internal', 'driver.version']
 
     def list_ups_devices(self):
-        """ Generate and return the list of configured devices.
+        """Generate and return the list of configured devices.
 
         :return: list of devices by name
         :rtype: list[str]
@@ -30,7 +30,7 @@ class UpscCheck(AgentCheck):
             return []
 
     def query_ups_device(self, name):
-        """ Query ups device and return results
+        """Query ups device and return results
 
         :param name: UPS device name from `list_ups_devices`
         :type name: str
@@ -49,7 +49,7 @@ class UpscCheck(AgentCheck):
             return {}
 
     def convert_and_filter_stats(self, stats):
-        """ Converts raw query stats to native python types
+        """Converts raw query stats to native python types
 
         Drops string results as well.
 
@@ -108,7 +108,7 @@ class UpscCheck(AgentCheck):
                     self.gauge('upsc.{}'.format(k), v, tags=tags)
 
     def update_from_config(self, instance):
-        """ Update Configuration tunables from instance configuration.
+        """Update Configuration tunables from instance configuration.
 
         :param instance: Agent config instance.
         :return: None

@@ -40,6 +40,8 @@ class EventStoreCheck(AgentCheck):
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
         metric_def = copy.deepcopy(metrics)
+        # Requests defaults to True, which causes Requests to use the certifi CA bundle
+        verify_bundle = instance.get('ca_bundle', True)
 
         user = instance.get('user')
         password = instance.get('password')
@@ -49,7 +51,7 @@ class EventStoreCheck(AgentCheck):
             auth = (user, password)
             self.log.debug('Authenticating as: %s', user)
         try:
-            r = requests.get(url, timeout=timeout, auth=auth)
+            r = requests.get(url, timeout=timeout, auth=auth, verify=verify_bundle)
         except requests.exceptions.Timeout:
             raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
         except requests.exceptions.MissingSchema as e:

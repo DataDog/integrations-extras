@@ -1,315 +1,295 @@
 {
-  "board_title": "k6",
-  "read_only": true,
+  "title": "k6",
   "description": "This dashboard allows visualizing some of the performance testing metrics collected by [k6](https://k6.io/). \n\nFor further information about exporting metrics from k6 OSS, read the [Datadog's k6 integration docs](https://k6.io/docs/getting-started/results-output/datadog).\n\nFor more information about the integration with the k6 Cloud, visit [Cloud APM docs](https://k6.io/docs/cloud/integrations/cloud-apm).\n\nClone this template dashboard to make changes and add other graph widgets.",
-  "created": "2020-04-18T18:12:41.589692+00:00",
-  "new_id": "n5h-2xn-956",
-  "id": 22975,
-  "modified": "2020-04-18T19:33:14.567237+00:00",
-  "created_by": {
-    "disabled": false,
-    "handle": "support@loadimpact.com",
-    "name": "k6",
-    "title": null,
-    "is_admin": true,
-    "role": null,
-    "access_role": "adm",
-    "verified": true,
-    "email": "support@loadimpact.com",
-    "icon": "https://secure.gravatar.com/avatar/6580edf56e434f4abafa24fac926002f?s=48&d=retro"
-  },
-  "template_variables": [
-    {
-      "name": "test_run_id",
-      "default": "*",
-      "prefix": "test_run_id"
-    }
-  ],
+  "author_name": "k6",
   "widgets": [
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Virtual users",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
+      "id": 0,
+      "definition": {
+        "type": "timeseries",
         "requests": [
           {
             "q": "max:k6.vus{$test_run_id}",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "custom_links": [],
         "yaxis": {
+          "label": "",
           "scale": "linear",
           "min": "auto",
           "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
+          "include_zero": true
+        },
+        "title": "Virtual users",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "y": 0,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
+      "layout": {
+        "x": 14,
+        "y": 0,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Request per second",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
+      "id": 1,
+      "definition": {
+        "type": "timeseries",
         "requests": [
           {
             "q": "avg:k6.http_reqs{$test_run_id}.as_rate()",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "custom_links": [],
         "yaxis": {
+          "label": "",
           "scale": "linear",
           "min": "auto",
           "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
+          "include_zero": true
+        },
+        "title": "Request per second",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "y": 17,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
+      "layout": {
+        "x": 14,
+        "y": 17,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Data sent/received",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
+      "id": 2,
+      "definition": {
+        "type": "timeseries",
         "requests": [
           {
             "q": "cumsum(avg:k6.data_sent{$test_run_id})",
+            "metadata": [
+              {
+                "expression": "cumsum(avg:k6.data_sent{$test_run_id})",
+                "alias_name": "data_sent"
+              }
+            ],
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line",
-            "metadata": {
-              "cumsum(avg:k6.data_sent{$test_run_id})": {
-                "alias": "data_sent"
-              }
+              "line_type": "solid",
+              "line_width": "normal"
             }
           },
           {
             "q": "cumsum(avg:k6.data_received{$test_run_id})",
+            "metadata": [
+              {
+                "expression": "cumsum(avg:k6.data_received{$test_run_id})",
+                "alias_name": "data_received"
+              }
+            ],
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line",
-            "metadata": {
-              "cumsum(avg:k6.data_received{$test_run_id})": {
-                "alias": "data_received"
-              }
+              "line_type": "solid",
+              "line_width": "normal"
             }
           }
         ],
+        "custom_links": [],
+        "yaxis": {
+          "label": "",
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto",
+          "include_zero": true
+        },
         "events": [
           {
             "q": "tag:test_run_id:22",
             "tags_execution": "and"
           }
         ],
-        "yaxis": {
-          "scale": "linear",
-          "min": "auto",
-          "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
+        "title": "Data sent/received",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "time": {},
-      "y": 34,
-      "x": 14,
-      "type": "timeseries",
-      "legend": false
+      "layout": {
+        "x": 14,
+        "y": 34,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "HTTP request duration",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
+      "id": 3,
+      "definition": {
+        "type": "timeseries",
         "requests": [
           {
             "q": "max:k6.http_req_duration.95percentile{$test_run_id}",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_duration.max{$test_run_id}",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_duration.avg{$test_run_id}",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_duration.median{$test_run_id}",
+            "display_type": "line",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "line"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "custom_links": [],
         "yaxis": {
+          "label": "",
           "scale": "linear",
           "min": "auto",
           "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
+          "include_zero": true
+        },
+        "title": "HTTP request duration",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "y": 0,
-      "x": 67,
-      "type": "timeseries",
-      "legend": false
+      "layout": {
+        "x": 67,
+        "y": 0,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Response timings - 95th",
-      "height": 13,
-      "tile_def": {
-        "viz": "timeseries",
+      "id": 4,
+      "definition": {
+        "type": "timeseries",
         "requests": [
           {
             "q": "max:k6.http_req_blocked.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_sending.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_waiting.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_blocked.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_receiving.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_connecting.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           },
           {
             "q": "max:k6.http_req_tls_handshaking.95percentile{$test_run_id}",
+            "display_type": "bars",
             "style": {
               "palette": "dog_classic",
-              "width": "normal",
-              "type": "solid"
-            },
-            "type": "bars"
+              "line_type": "solid",
+              "line_width": "normal"
+            }
           }
         ],
         "custom_links": [],
         "yaxis": {
+          "label": "",
           "scale": "linear",
           "min": "auto",
           "max": "auto",
-          "label": "",
-          "includeZero": true
-        }
+          "include_zero": true
+        },
+        "title": "Response timings - 95th",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "y": 17,
-      "x": 67,
-      "type": "timeseries",
-      "legend": false
+      "layout": {
+        "x": 67,
+        "y": 17,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "title_size": 16,
-      "title": true,
-      "title_align": "left",
-      "title_text": "Response time 95th - HeatMap",
-      "height": 13,
-      "tile_def": {
-        "viz": "heatmap",
+      "id": 5,
+      "definition": {
+        "type": "heatmap",
         "requests": [
           {
             "q": "max:k6.http_req_duration.95percentile{$test_run_id}",
@@ -318,22 +298,43 @@
             }
           }
         ],
-        "custom_links": []
+        "custom_links": [],
+        "title": "Response time 95th - HeatMap",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false
       },
-      "width": 47,
-      "y": 34,
-      "x": 67,
-      "type": "heatmap",
-      "legend": false
+      "layout": {
+        "x": 67,
+        "y": 34,
+        "width": 47,
+        "height": 15
+      }
     },
     {
-      "sizing": "zoom",
-      "y": 0,
-      "width": 8,
-      "url": "https://i.postimg.cc/J762mtP0/logo-k6.png",
-      "x": 1,
-      "type": "image",
-      "height": 8
+      "id": 6,
+      "definition": {
+        "type": "image",
+        "url": "https://i.postimg.cc/J762mtP0/logo-k6.png",
+        "sizing": "zoom"
+      },
+      "layout": {
+        "x": 1,
+        "y": 0,
+        "width": 8,
+        "height": 8
+      }
     }
-  ]
+  ],
+  "template_variables": [
+    {
+      "name": "test_run_id",
+      "default": "*",
+      "prefix": "test_run_id"
+    }
+  ],
+  "layout_type": "free",
+  "is_read_only": true,
+  "notify_list": [],
+  "id": 30318
 }
