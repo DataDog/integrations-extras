@@ -16,10 +16,14 @@ Datadog.
 
 ## Setup
 
-1. From your Algorithmia instance, configure Algorithmia Insights to connect to a Kafka broker
-2. Install and configure [Kafka Connect][2]
-3. Install the [Datadog Kafka Connector][3]
-4. Configure a Kafka Connect properties file in `./kafka/config/connect-datadog-sink.properties` with the following contents:
+1. From your Algorithmia instance, configure Algorithmia Insights to connect to
+   a Kafka broker.
+2. Install and configure [Kafka Connect][2].
+3. Install the [Datadog Kafka Connector][3].
+4. Configure a Kafka Connect properties file in
+   `<KAFKA-DIR>/config/connect-datadog-sink.properties` with the following
+   contents:
+
    ```
    name=datadog-sink
    connector.class=com.datadoghq.connect.logs.DatadogLogsSinkConnector
@@ -33,17 +37,23 @@ Datadog.
    datadog.hostname=insights-host
    datadog.tags=type:json
    ```
-   and replace `<DATADOG-API-KEY>` with your Datadog API key.
-5. Start the Kafka Connect service and include the properties file for the Datadog Kafka Connector as an argument
+
+   and replace `<KAFKA-DIR>` with the directory where Kafka is installed and
+   `<DATADOG-API-KEY>` with your Datadog API key.
+
+5. Start the Kafka Connect service and include the properties file for the
+   Datadog Kafka Connector as an argument:
+
    ```
-   ./kafka/bin/connect-standalone.sh ./kafka/config/connect-standalone.properties ./kafka/config/connect-datadog-sink.properties
+   <KAFKA-DIR>/bin/connect-standalone.sh <KAFKA-DIR>/config/connect-standalone.properties <KAFKA-DIR>/config/connect-datadog-sink.properties
    ```
 
 ### Validation
 
-1. From Algorithmia, query an algorithm that has Insights enabled
-2. In the Datadog interface, navigate to the **Logs** page
-3. Verify that the metrics are being pushed to the logs by filtering for `algorithmia-insights`
+1. From Algorithmia, query an algorithm that has Insights enabled.
+2. In the Datadog interface, navigate to the **Logs** page.
+3. Verify that the metrics are being pushed to the logs by filtering for
+   `algorithmia-insights`.
 
 ## Data Collected
 
