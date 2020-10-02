@@ -24,7 +24,7 @@ These metrics are aggregated in 60-second intervals and tagged with the GraphQL 
 
 These metrics are also tagged with both the associated Studio graph ID (as `graph:<graph-id>`) and the associated variant name (as `variant:<variant-name>`), so multiple graphs from Studio can send data to the same Datadog account. If you haven't set a variant name, then `current` is used.
 
-(Integrations set up prior to September 2020 have metric names starting with `apollo.engine.operations` instead of `apollo.operations` and use a `service` tag instead of `graph`. You can migrate to the new metric names in your graph's Integrations page in Apollo Studio.)
+(Integrations set up prior to October 2020 have metric names starting with `apollo.engine.operations` instead of `apollo.operations` and use a `service` tag instead of `graph`. You can migrate to the new metric names in your graph's Integrations page in Apollo Studio.)
 
 ## Setup
 
