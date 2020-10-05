@@ -34,7 +34,7 @@ Datadog.
    topics=insights
    datadog.api_key=<DATADOG-API-KEY>
    datadog.service=algorithmia-insights
-   datadog.hostname=insights-host
+   datadog.hostname=algorithmia-host
    datadog.tags=type:json
    ```
 
