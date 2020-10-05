@@ -85,5 +85,5 @@ Need help? Contact [Datadog support][6].
 [2]: https://docs.confluent.io/current/connect/index.html
 [3]: https://github.com/DataDog/datadog-kafka-connect-logs
 [4]: https://docs.datadoghq.com/logs/logs_to_metrics/
-[5]: https://docs.datadoghq.com/help/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
+[5]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
+[6]: https://docs.datadoghq.com/help/
