@@ -73,12 +73,8 @@ Add all attributes as facets from **Facets** > **Add** (on the left side of the 
 
 To access already existing visualizations and filters, click on Dashboards and add a new screenboard and then import [export.json][4] and overwrite the existing dashboard.
 
-## Generating Data for Testing
-The [Partner Integration Test Framework][5] can be used to generate data for metrics.
-
 
 [1]: https://github.com/jfrog/charts
 [2]: https://helm.sh/
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/dashboard.png
 [4]: https://github.com/jfrog/log-analytics/blob/master/datadog/export.json
-[5]: https://github.com/jfrog/partner-integration-tests
