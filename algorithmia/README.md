@@ -52,8 +52,8 @@ Datadog.
 
 1. From Algorithmia, query an algorithm that has Insights enabled.
 2. In the Datadog interface, navigate to the **Logs** page.
-3. Verify that the metrics are being pushed to the logs by filtering for
-   `algorithmia-insights`.
+3. Verify that the metrics from Insights are being pushed to the logs in Datadog
+   by filtering for `algorithmia`.
 4. Refer to the [Datadog documentation][4] to generate metrics from the ingested
    logs.
 
