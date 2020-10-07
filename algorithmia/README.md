@@ -14,12 +14,14 @@ This integration allows you to stream operational metrics as well as
 user-defined, inference-related metrics from Algorithmia to the metrics API in
 Datadog.
 
+![Algorithmia Insights in Datadog][2]
+
 ## Setup
 
 1. From your Algorithmia instance, configure Algorithmia Insights to connect to
    a Kafka broker.
-2. Install and configure [Kafka Connect][2].
-3. Install the [Datadog Kafka Connector][3].
+2. Install and configure [Kafka Connect][3].
+3. Install the [Datadog Kafka Connector][4].
 4. Configure a Kafka Connect properties file in
    `<KAFKA-DIR>/config/connect-datadog-sink.properties` with the following
    contents:
@@ -54,7 +56,7 @@ Datadog.
 2. In the Datadog interface, navigate to the **Logs** page.
 3. Verify that the metrics from Insights are being pushed to the logs in Datadog
    by filtering for `algorithmia`.
-4. Refer to the [Datadog documentation][4] to generate metrics from the ingested
+4. Refer to the [Datadog documentation][5] to generate metrics from the ingested
    logs.
 
 ## Data Collected
@@ -65,7 +67,7 @@ This integration streams metrics from Algorithmia when an model that has
 Insights enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
 
-Refer to [metadata.csv][5] for a list of operational metrics provided by this
+Refer to [metadata.csv][6] for a list of operational metrics provided by this
 check. Additional metrics can include any user-defined, inference-related
 metrics that are specified by the algorithm developer.
 
@@ -79,11 +81,12 @@ The Algorithmia check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][6].
+Need help? Contact [Datadog support][7].
 
 [1]: https://algorithmia.com/
-[2]: https://docs.confluent.io/current/connect/index.html
-[3]: https://github.com/DataDog/datadog-kafka-connect-logs
-[4]: https://docs.datadoghq.com/logs/logs_to_metrics/
-[5]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
-[6]: https://docs.datadoghq.com/help/
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
+[3]: https://docs.confluent.io/current/connect/index.html
+[4]: https://github.com/DataDog/datadog-kafka-connect-logs
+[5]: https://docs.datadoghq.com/logs/logs_to_metrics/
+[6]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
+[7]: https://docs.datadoghq.com/help/
