@@ -33,8 +33,8 @@ Datadog.
    value.converter.schemas.enable=false
    topics=insights
    datadog.api_key=<DATADOG-API-KEY>
-   datadog.service=algorithmia-insights
-   datadog.hostname=algorithmia-host
+   datadog.service=algorithmia
+   datadog.hostname=algorithmia
    datadog.tags=type:json
    ```
 
