@@ -4,21 +4,16 @@ files:
   options:
   - template: init_config
     options:
-    - template: init_config/openmetrics
+    - template: init_config/default
   - template: instances
     options:
     - template: instances/openmetrics
-          overrides:
-            prometheus_url.value.example: https://federated-useast1.gcp.kafkaesque.io:9090
-            prometheus_url.display_priority: 1
+      overrides:
+        prometheus_url.value.example: http://localhost:9090/metrics
+        prometheus_url.display_priority: 1
     - name: token
       required: false
       description: bearer token for federated prometheus url
-      value:
-        type: string
-    - name: tenant
-      required: false
-      description: tenant of the Pulsar cluster(optional), all metrics are pertaining to this tenant
       value:
         type: string
     # default template
