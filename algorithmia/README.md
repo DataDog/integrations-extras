@@ -67,9 +67,10 @@ This integration streams metrics from Algorithmia when an model that has
 Insights enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
 
-Refer to [metadata.csv][6] for a list of operational metrics provided by this
-check. Additional metrics can include any user-defined, inference-related
-metrics that are specified by the algorithm developer.
+See [metadata.csv][6] for a list of metrics provided by this integration.
+
+Additional metrics can include any user-defined, inference-related metrics that
+are specified in Algorithmia by the algorithm developer.
 
 ### Service Checks
 
