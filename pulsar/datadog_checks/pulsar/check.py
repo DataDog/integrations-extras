@@ -14,10 +14,6 @@ class PulsarCheck(OpenMetricsBaseCheck):
         if url is None:
             raise ConfigurationError("Unable to find prometheus_url in config file.")
 
-        # token = instance.get('token')
-
-        # tenant = instance.get('tenant')
-
         self.NAMESPACE = 'kesque.pulsar'
         self.metrics_mapper = {
             'pulsar_consumer_available_permits': 'consumer.available_permits',
