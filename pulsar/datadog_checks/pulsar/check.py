@@ -18,7 +18,7 @@ class PulsarCheck(OpenMetricsBaseCheck):
 
         # tenant = instance.get('tenant')
 
-        self.NAMESPACE = 'pulsar'
+        self.NAMESPACE = 'kesque.pulsar'
         self.metrics_mapper = {
             'pulsar_consumer_available_permits': 'consumer.available_permits',
             'pulsar_consumer_blocked_on_unacked_messages': 'consumer.blocked_on_unacked_messages',

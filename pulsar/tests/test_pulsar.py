@@ -47,6 +47,6 @@ def test_check_all_metrics(aggregator):
     with mock.patch("requests.get", return_value=response):
         check.check(instance)
 
-    aggregator.assert_metric("pulsar.consumer.msg_throughput_out", count=1, value=1.833)
+    aggregator.assert_metric("kesque.pulsar.consumer.msg_throughput_out", count=1, value=1.833)
     # aggregator.assert_metric("pulsar.cluster.cpu_percent", count=1, value=0.76)
     # aggregator.assert_metric("pulsar.consumer.rate_in", count=1, value=0.77)
