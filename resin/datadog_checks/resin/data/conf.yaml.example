@@ -99,58 +99,19 @@ init_config:
   #
   collect_default_metrics: true
 
-  ## @param conf - list of objects - required
-  ## List of metrics to be collected by the integration
+  ## @param conf - list of mappings - optional
+  ## The list of metrics to be collected by the integration
   ## Read http://docs.datadoghq.com/integrations/java/ to learn how to customize it
-  ## Agent 5: Customize all your metrics below
-  ## Agent 6: The default metrics to be collected are kept in metrics.yaml, but you can still add your own metrics here
+  ## The default metrics to be collected are kept in metrics.yaml, but you can still
+  ## add your own metrics here.
   #
-  conf:
-    - include:
-      domain: resin
-      type: ConnectionPool
-      attribute:
-        ConnectionCount:
-          alias: resin.connection_pool.connection_count
-          metric_type: gauge
-        ConnectionActiveCount:
-          alias: resin.connection_pool.connection_active_count
-          metric_type: gauge
-        ConnectionIdleCount:
-          alias: resin.connection_pool.connection_idle_count
-          metric_type: gauge
-        ConnectionCreateCount:
-          alias: resin.connection_pool.connection_create_count
-          metric_type: gauge
-        MaxConnections:
-          alias: resin.connection_pool.max_connections
-          metric_type: gauge
-        MaxOverflowConnections:
-          alias: resin.connection_pool.max_overflow_connections
-          metric_type: gauge
-        MaxCreateConnections:
-          alias: resin.connection_pool.max_create_connections
-          metric_type: gauge
-
-    - include:
-      domain: resin
-      type: ThreadPool
-      attribute:
-        ThreadActiveCount:
-          alias: resin.thread_pool.thread_active_count
-          metric_type: gauge
-        ThreadCount:
-          alias: resin.thread_pool.thread_count
-          metric_type: gauge
-        ThreadIdleCount:
-          alias: resin.thread_pool.thread_idle_count
-          metric_type: gauge
-        ThreadMax:
-          alias: resin.thread_pool.thread_max
-          metric_type: gauge
-        ThreadWaitCount:
-          alias: resin.thread_pool.thread_wait_count
-          metric_type: gauge
+  # conf:
+  #   - include:
+  #       bean: <BEAN_NAME>
+  #       attribute:
+  #         MyAttribute:
+  #           alias: my.metric.name
+  #           metric_type: gauge
 
 ## Log Section (Available for Agent >=6.0)
 ##
