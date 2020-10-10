@@ -46,6 +46,8 @@ zabbix does not include any events.
 Need help? Contact [Datadog support][6].
 
 [1]: https://www.zabbix.com/
+[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/datadog_checks/zabbix/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
