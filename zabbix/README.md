@@ -25,7 +25,7 @@ To install the Zabbix check on your host:
 
 ### Validation
 
-[Run the Agent's status subcommand][4] and look for `zabbix` under the Checks section.
+[Run the Agent's status subcommand][6] and look for `zabbix` under the Checks section.
 
 ## Data Collected
 
