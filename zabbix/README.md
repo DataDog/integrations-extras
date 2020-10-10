@@ -35,7 +35,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Service Checks
 
-zabbix does not include any service checks.
+Zabbix does not include any service checks.
 
 ### Events
 
