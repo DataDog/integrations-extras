@@ -39,7 +39,7 @@ zabbix does not include any service checks.
 
 ### Events
 
-zabbix does not include any events.
+Zabbix does not include any events.
 
 ## Troubleshooting
 
