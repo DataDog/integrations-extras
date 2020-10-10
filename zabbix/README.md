@@ -43,7 +43,7 @@ Zabbix does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][6].
+Need help? Contact [Datadog support][8].
 
 [1]: https://www.zabbix.com/
 [2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
