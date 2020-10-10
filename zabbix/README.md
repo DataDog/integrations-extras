@@ -31,7 +31,7 @@ To install the Zabbix check on your host:
 
 ### Metrics
 
-See [metadata.csv][5] for a list of metrics provided by this check.
+See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Service Checks
 
