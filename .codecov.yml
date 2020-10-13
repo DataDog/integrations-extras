@@ -72,6 +72,10 @@ coverage:
         target: 75
         flags:
         - portworx
+      Puma:
+        target: 75
+        flags:
+        - puma
       Reboot Required:
         target: 75
         flags:
@@ -236,6 +240,11 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
+  puma:
+    carryforward: true
+    paths:
+    - puma/datadog_checks/puma
+    - puma/tests
   reboot_required:
     carryforward: true
     paths:
