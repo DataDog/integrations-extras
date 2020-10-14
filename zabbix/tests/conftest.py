@@ -1,4 +1,24 @@
+import os
 import pytest
+
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
+
+HERE = get_here()
+HOST = get_docker_hostname()
+
+CONFIG = {
+    'zabbix_user': 'Admin',
+    'zabbix_password': 'zabbix',
+    'zabbix_api': 'http://{}:8090/api_jsonrpc.php'.format(HOST),
+}
+
+
+@pytest.fixture(scope="session")
+def dd_environment():
+    with docker_run(
+        compose_file=os.path.join(HERE, 'compose', 'docker-compose.yml'),
+    ):
+        yield CONFIG
 
 
 @pytest.fixture(scope="session")
