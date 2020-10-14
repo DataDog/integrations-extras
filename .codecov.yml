@@ -44,6 +44,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      Kernelcare:
+        target: 75
+        flags:
+        - kernelcare
       Lighthouse:
         target: 75
         flags:
@@ -124,14 +128,14 @@ coverage:
         target: 75
         flags:
         - vespa
+      Zabbix:
+        target: 75
+        flags:
+        - zabbix
       cert-manager:
         target: 75
         flags:
         - cert_manager
-      Kernelcare:
-        target: 75
-        flags:
-        - kernelcare
       nvml:
         target: 75
         flags:
@@ -310,3 +314,8 @@ flags:
     paths:
     - vespa/datadog_checks/vespa
     - vespa/tests
+  zabbix:
+    carryforward: true
+    paths:
+    - zabbix/datadog_checks/zabbix
+    - zabbix/tests
