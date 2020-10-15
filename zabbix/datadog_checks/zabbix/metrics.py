@@ -79,5 +79,5 @@ METRICS = {
     "CPU utilization": "cpu.used",
     "Zabbix agent availability": "agent.avail",
     "Utilization of alert syncer internal processes, in %": "process.internal.alert_sync",
-    "Memory utilization": "memory.used"
+    "Memory utilization": "memory.used",
 }

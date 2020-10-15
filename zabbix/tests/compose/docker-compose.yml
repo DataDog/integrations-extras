@@ -1,0 +1,50 @@
+version: '3.1'
+services:
+  postgres-server:    # The Postgres Database Service
+    image: postgres:latest
+    restart: always
+    environment:   # Username, password and database name variables
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+      PG_DATA: /var/lib/postgresql/data/pgdata #data storage
+
+  zabbix-server:     # The main Zabbix Server Software Service
+    image: zabbix/zabbix-server-pgsql:ubuntu-latest
+    restart: always
+    environment:   # The Postgres database value variable
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbixNew
+      ZBX_HISTORYSTORAGETYPES: log,text #Zabbix configuration variables
+      ZBX_DEBUGLEVEL: 1
+      ZBX_HOUSEKEEPINGFREQUENCY: 1
+      ZBX_MAXHOUSEKEEPERDELETE: 5000
+    ports:    # Port where Zabbix UI is available
+      - 8888:8888
+    depends_on:
+      - postgres-server
+  
+  zabbix-web:    # The main Zabbix web UI or interface 
+    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-latest
+    restart: always
+    environment:  # Postgre database variables
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbixNew
+      ZBX_SERVER_HOST: zabbix-server  # Zabbix related and Php variables
+      ZBX_POSTMAXSIZE: 64M
+      PHP_TZ: "Asia/Kolkata"  
+      ZBX_MAXEXECUTIONTIME: 500
+    depends_on:
+      - postgres-server
+      - zabbix-server
+    ports:    # Port where Zabbix UI is available
+      - 8080:8080
+  zabbix-agent:   # Zabbix agent service that tracks usage and send to zabbix server
+    image: zabbix/zabbix-agent:latest
+    privileged: true   #access mode for allowing resource access
+    network_mode: "host"
+    restart: unless-stopped
+    environment:
+      - ZBX_SERVER_HOST=127.0.0.1 #the IP/Dns of Zabbix server

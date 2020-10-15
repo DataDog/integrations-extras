@@ -1,6 +1,7 @@
 import json
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+
 from .metrics import METRICS
 
 
@@ -36,7 +37,7 @@ class ZabbixCheck(AgentCheck):
             }
         )
         self.log.debug("Logging in with params user=%s api=%s", zabbix_user, zabbix_api)
-    
+
         response = self.request(zabbix_api, req_data)
         token = response.get('result')
         return token
@@ -69,7 +70,7 @@ class ZabbixCheck(AgentCheck):
                 }
             )
         response = self.request(zabbix_api, req_data)
-            
+
         result = response.get('result')
         self.log.debug("Getting zabbix items: %s", result)
         return result
@@ -165,8 +166,6 @@ class ZabbixCheck(AgentCheck):
         else:
             zabbixitems = self.get_items(token, hostids, zabbix_api)
 
-        self.log.debug(zabbixitems)
-
         # Get metrics value
         for item in zabbixitems:
             hostid = item['hostid']
@@ -184,10 +183,11 @@ class ZabbixCheck(AgentCheck):
                     dd_metricvalue = history[0]['value']
                     dd_hostname = hostdic[hostid].replace(' ', '_')
                 except Exception as e:
-                    self.log.debug("Unable to get metric for item: %s", itemid)
+                    self.log.debug("Unable to get metric for item %s: %s", itemid, str(e))
                 else:
                     self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
 
         # Revoke token
         result = self.logout(token, zabbix_api)
+        self.log.debug("Logged out: %s", result)
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.tags)
