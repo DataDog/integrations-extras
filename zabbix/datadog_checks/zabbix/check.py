@@ -7,6 +7,10 @@ class ZabbixCheck(AgentCheck):
 
     SERVICE_CHECK_NAME = "zabbix.can_connect"
 
+    def __init__(self, name, init_config, instances):
+        super(ZabbixCheck, self).__init__(name, init_config, instances)
+        self.tags = self.instance.get('tags', [])
+
     def request(self, zabbix_api, req_data):
         req_header = {
             'Content-Type': 'application/json-rpc',
@@ -17,6 +21,7 @@ class ZabbixCheck(AgentCheck):
         except Exception as e:
             self.log.debug("Unable to get make request to api=%s with req_data=%s", zabbix_api, req_data)
             self.warning("Request failed: %s", str(e))
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=self.tags)
             raise
         return res.json()
 
@@ -33,7 +38,6 @@ class ZabbixCheck(AgentCheck):
     
         response = self.request(zabbix_api, req_data)
         token = response.get('result')
-        self.service_check()
         return token
 
     def logout(self, token, zabbix_api):
@@ -125,7 +129,6 @@ class ZabbixCheck(AgentCheck):
         zabbix_user = instance.get('zabbix_user')
         zabbix_pass = instance.get('zabbix_password')
         zabbix_api = instance.get('zabbix_api')
-        tags = instance.get('tags', [])
 
         if not zabbix_user:
             raise ConfigurationError('Configuration error, please specify zabbix_user.')
@@ -179,8 +182,9 @@ class ZabbixCheck(AgentCheck):
             except Exception as e:
                 self.log.debug("Unable to get metric")
             else:
-                self.gauge(dd_metricname, dd_metricvalue, tags=tags, hostname=dd_hostname, device_name=None)
+                self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
 
         # Revoke token
         result = self.logout(token, zabbix_api)
-        self.log.debug(result)
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.tags)
+
