@@ -254,18 +254,21 @@ class ZabbixCheck(AgentCheck):
             hostid = item['hostid']
             itemid = item['itemid']
             value_type = item['value_type']
+            item_name = item['name']
 
-            
-            history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
-            self.log.debug("Getting history for item %s: %s", itemid, history)
-            try:
-                dd_metricname = 'zabbix.' + item['name'].replace(' ', '_')
-                dd_metricvalue = history[0]['value']
-                dd_hostname = hostdic[hostid].replace(' ', '_')
-            except Exception as e:
-                self.log.debug("Unable to get metric for item: %s", itemid)
-            else:
-                self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
+            if item_name in self.METRICS:
+                history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
+                self.log.debug("Getting history for item %s: %s", itemid, history)
+                mname = self.METRICS[item_name]
+
+                try:
+                    dd_metricname = 'zabbix.' + mname
+                    dd_metricvalue = history[0]['value']
+                    dd_hostname = hostdic[hostid].replace(' ', '_')
+                except Exception as e:
+                    self.log.debug("Unable to get metric for item: %s", itemid)
+                else:
+                    self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
 
         # Revoke token
         result = self.logout(token, zabbix_api)
