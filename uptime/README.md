@@ -13,7 +13,7 @@ Get events and metrics from your app in real time to:
 
 ### Configuration
 
-In order to activate the integration of Datadog within your Uptime account, go to [Alerting>Push Notifications][2] then choose Datadog as the provider type when adding a new push notifications profile.
+In order to activate the integration of Datadog within your Uptime account, go to [Notifications>Integrtions][2] then choose Datadog as the provider type when adding a new push notifications profile.
 
 The following describes the fields shown when configuring Datadog within your Uptime account:
 shell
@@ -44,6 +44,6 @@ The Uptime check does not include any service checks.
 Need help? Contact [Datadog support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptime/images/snapshot.png
-[2]: https://uptime.com/push-notifications/manage
+[2]: https://uptime.com/integrations/manage/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/uptime/metadata.csv
 [4]: https://docs.datadoghq.com/help/
