@@ -56,7 +56,7 @@ This example workflow is called "RestartHost" and restarts a host from the data 
 `org`
 `id`
 
-This workflow can use these input variables to trigger/perform any desired infrastructure automation actions, based on the data Datadog triggers the workflow with. In this example, we restart a host via SSH if we have a certain input. 
+This workflow can use these input variables to trigger/perform any desired infrastructure automation actions, based on the data Datadog triggers the workflow with. In this example, we restart a host via SSH if we have a certain input. We also have additional output variables (`host`, `meta`, and `ip`) we have initialized. Our workflow will assign these output variables and output them on completion. We may also specify variables which are neither input nor output variables to use interally within our workflow's logic.
 
 ![Expand][11]
 
