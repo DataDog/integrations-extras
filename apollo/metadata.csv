@@ -1,10 +1,19 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-apollo.engine.operations.count,gauge,,operation,,"Number of GraphQL operations (queries and mutations) processed.",0,apollo,operation count
-apollo.engine.operations.latency.avg,gauge,,millisecond,,"Total request duration for a GraphQL operation, average.",-1,apollo,average latency
-apollo.engine.operations.latency.median,gauge,,millisecond,,"Total request duration for a GraphQL operation, median/50th percentile.",-1,apollo,median latency
-apollo.engine.operations.latency.95percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 95th percentile.",-1,apollo,p95 latency
-apollo.engine.operations.latency.99percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 99th percentile.",-1,apollo,p99 latency
-apollo.engine.operations.latency.max,gauge,,millisecond,,"Total request duration for a GraphQL operation, max/100th percentile.",-1,apollo,max latency
-apollo.engine.operations.latency.min,gauge,,millisecond,,"Total request duration for a GraphQL operation, min/0th percentile.",-1,apollo,min latency
-apollo.engine.operations.error_count,gauge,,error,,"Number of GraphQL operations that resulted in a GraphQL error, including HTTP errors from origins.",-1,apollo,error count
-apollo.engine.operations.cache_hit_count,gauge,,hit,,"Number of GraphQL queries that were served from the full response cache.",1,apollo,cache hit count
+apollo.operations.count,gauge,,operation,,"Number of GraphQL operations (queries and mutations) processed.",0,apollo_engine,operation count
+apollo.operations.latency.avg,gauge,,millisecond,,"Total request duration for a GraphQL operation, average.",-1,apollo_engine,average latency
+apollo.operations.latency.median,gauge,,millisecond,,"Total request duration for a GraphQL operation, median/50th percentile.",-1,apollo_engine,median latency
+apollo.operations.latency.95percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 95th percentile.",-1,apollo_engine,p95 latency
+apollo.operations.latency.99percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 99th percentile.",-1,apollo_engine,p99 latency
+apollo.operations.latency.max,gauge,,millisecond,,"Total request duration for a GraphQL operation, max/100th percentile.",-1,apollo_engine,max latency
+apollo.operations.latency.min,gauge,,millisecond,,"Total request duration for a GraphQL operation, min/0th percentile.",-1,apollo_engine,min latency
+apollo.operations.error_count,gauge,,error,,"Number of GraphQL operations that resulted in a GraphQL error, including HTTP errors from origins.",-1,apollo_engine,error count
+apollo.operations.cache_hit_count,gauge,,hit,,"Number of GraphQL queries that were served from the full response cache.",1,apollo_engine,cache hit count
+apollo.engine.operations.count,gauge,,operation,,"Number of GraphQL operations (queries and mutations) processed. (Legacy metric; new integrations use apollo.operations.count.)",0,apollo_engine,legacy operation count
+apollo.engine.operations.latency.avg,gauge,,millisecond,,"Total request duration for a GraphQL operation, average. (Legacy metric; new integrations use apollo.operations.latency.avg.)",-1,apollo_engine,legacy average latency
+apollo.engine.operations.latency.median,gauge,,millisecond,,"Total request duration for a GraphQL operation, median/50th percentile. (Legacy metric; new integrations use apollo.operations.latency.median.)",-1,apollo_engine,legacy median latency
+apollo.engine.operations.latency.95percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 95th percentile. (Legacy metric; new integrations use apollo.operations.latency.95percentile.)",-1,apollo_engine,legacy p95 latency
+apollo.engine.operations.latency.99percentile,gauge,,millisecond,,"Total request duration for a GraphQL operation, 99th percentile. (Legacy metric; new integrations use apollo.operations.latency.99percentile.)",-1,apollo_engine,legacy p99 latency
+apollo.engine.operations.latency.max,gauge,,millisecond,,"Total request duration for a GraphQL operation, max/100th percentile. (Legacy metric; new integrations use apollo.operations.latency.max.)",-1,apollo_engine,legacy max latency
+apollo.engine.operations.latency.min,gauge,,millisecond,,"Total request duration for a GraphQL operation, min/0th percentile. (Legacy metric; new integrations use apollo.operations.latency.min.)",-1,apollo_engine,legacy min latency
+apollo.engine.operations.error_count,gauge,,error,,"Number of GraphQL operations that resulted in a GraphQL error, including HTTP errors from origins. (Legacy metric; new integrations use apollo.operations.error_count.)",-1,apollo_engine,legacy error count
+apollo.engine.operations.cache_hit_count,gauge,,hit,,"Number of GraphQL queries that were served from the full response cache. (Legacy metric; new integrations use apollo.operations.cache_hit_count.)",1,apollo_engine,legacy cache hit count

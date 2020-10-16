@@ -1,0 +1,19 @@
+name: Puma
+files:
+- name: puma.yaml
+  options:
+  - template: init_config
+    options:
+        - template: init_config/http
+        - template: init_config/default
+
+  - template: instances
+    options:
+    - name: control_url
+      required: true
+      description: Control URL for your Puma instance
+      value:
+        example: "%%host%%:%%port_puma%%/stats?token=%%env_puma_control_token%%"
+        type: string
+    - template: instances/http
+    - template: instances/default

@@ -1,0 +1,695 @@
+{
+  "title": "Aqua - Overview",
+  "description": "",
+  "widgets": [
+    {
+      "id": 0,
+      "definition": {
+        "type": "image",
+        "url": "https://www.aquasec.com/wp-content/uploads/2016/05/aqua_logo_fullcolor.png",
+        "sizing": "fit"
+      },
+      "layout": {
+        "x": 2,
+        "y": 2,
+        "width": 19,
+        "height": 9
+      }
+    },
+    {
+      "id": 1,
+      "definition": {
+        "type": "free_text",
+        "text": "Containers",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 3,
+        "y": 12,
+        "width": 14,
+        "height": 4
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "type": "free_text",
+        "text": "Enforcers",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 34,
+        "y": 12,
+        "width": 13,
+        "height": 4
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "type": "free_text",
+        "text": "Scan Queue",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 65,
+        "y": 0,
+        "width": 23,
+        "height": 4
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.running_containers{status:all} by {host}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#31a1bf"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Running",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 3,
+        "y": 19,
+        "width": 13,
+        "height": 13
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.running_containers{status:unregistered}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_bg",
+                "custom_bg_color": "#f2545b"
+              },
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#00bda5"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Unregistered",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 17,
+        "y": 19,
+        "width": 13,
+        "height": 13
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.enforcers{status:all}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#00a4bd"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Total Enforcers",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 34,
+        "y": 19,
+        "width": 13,
+        "height": 13
+      }
+    },
+    {
+      "id": 7,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.enforcers{status:disconnected}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_bg",
+                "custom_bg_color": "#f2545b"
+              },
+              {
+                "comparator": "<=",
+                "value": 0,
+                "palette": "custom_bg",
+                "custom_bg_color": "#00bda5"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Disconnected",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 48,
+        "y": 19,
+        "width": 13,
+        "height": 13
+      }
+    },
+    {
+      "id": 8,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.scan_queue{status:pending}",
+            "aggregator": "avg"
+          }
+        ],
+        "custom_links": [],
+        "title": "Pending",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 65,
+        "y": 6,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 9,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.scan_queue{status:in_progress}",
+            "aggregator": "avg"
+          }
+        ],
+        "custom_links": [],
+        "title": "In Progress",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 79,
+        "y": 6,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 10,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.scan_queue{status:finished}",
+            "aggregator": "avg"
+          }
+        ],
+        "custom_links": [],
+        "title": "Finished",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 65,
+        "y": 13,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 11,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.scan_queue{status:failed}",
+            "aggregator": "avg"
+          }
+        ],
+        "custom_links": [],
+        "title": "Failed",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 79,
+        "y": 13,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 12,
+      "definition": {
+        "type": "free_text",
+        "text": "Total Vulnerable Images",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 3,
+        "y": 50,
+        "width": 27,
+        "height": 3
+      }
+    },
+    {
+      "id": 13,
+      "definition": {
+        "type": "free_text",
+        "text": "Total Image Vulnerabilities",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 33,
+        "y": 50,
+        "width": 28,
+        "height": 3
+      }
+    },
+    {
+      "id": 14,
+      "definition": {
+        "type": "free_text",
+        "text": "Audit Events",
+        "color": "#4d4d4d",
+        "font_size": "24",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 65,
+        "y": 36,
+        "width": 27,
+        "height": 3
+      }
+    },
+    {
+      "id": 15,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "top(avg:aqua.images{severity:low}, 10, 'mean', 'desc'), top(avg:aqua.images{severity:high}, 10, 'mean', 'desc'), top(avg:aqua.images{severity:medium}, 10, 'mean', 'desc'), top(avg:aqua.images{severity:ok}, 10, 'mean', 'desc')",
+            "display_type": "area",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 3,
+        "y": 55,
+        "width": 27,
+        "height": 22
+      }
+    },
+    {
+      "id": 16,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:aqua.vulnerabilities{severity:high}, avg:aqua.vulnerabilities{severity:medium}, avg:aqua.vulnerabilities{severity:low}, avg:aqua.vulnerabilities{severity:ok}",
+            "display_type": "area",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 34,
+        "y": 55,
+        "width": 27,
+        "height": 22
+      }
+    },
+    {
+      "id": 17,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:alert}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#ae3c42"
+              },
+              {
+                "comparator": "<",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#98acc2"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Alert",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 65,
+        "y": 41,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 18,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:detect}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#f6c26b"
+              },
+              {
+                "comparator": "<",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#98acc2"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Detected",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 65,
+        "y": 48,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 19,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:blocked}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#ae3c42"
+              },
+              {
+                "comparator": "<",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#98acc2"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Block",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 79,
+        "y": 41,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 20,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:success}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              {
+                "comparator": ">=",
+                "value": 1,
+                "palette": "custom_text",
+                "custom_fg_color": "#00bda5"
+              }
+            ]
+          }
+        ],
+        "custom_links": [],
+        "title": "Success",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 79,
+        "y": 48,
+        "width": 13,
+        "height": 6
+      }
+    },
+    {
+      "id": 21,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:all}",
+            "aggregator": "avg"
+          }
+        ],
+        "custom_links": [],
+        "title": "Total",
+        "title_size": "16",
+        "title_align": "center",
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 65,
+        "y": 55,
+        "width": 27,
+        "height": 6
+      }
+    },
+    {
+      "id": 22,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:aqua.running_containers{status:registered}, avg:aqua.running_containers{status:unregistered}",
+            "display_type": "area",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "title": "Aqua Containers",
+        "title_size": "16",
+        "title_align": "center",
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 3,
+        "y": 33,
+        "width": 27,
+        "height": 15
+      }
+    },
+    {
+      "id": 23,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:aqua.enforcers{status:disconnected}, avg:aqua.enforcers{status:all}-avg:aqua.enforcers{status:disconnected}",
+            "display_type": "area",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "title": "Aqua Enforcers",
+        "title_size": "16",
+        "title_align": "center",
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 34,
+        "y": 33,
+        "width": 27,
+        "height": 15
+      }
+    },
+    {
+      "id": 24,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:aqua.scan_queue{status:failed}, avg:aqua.scan_queue{status:finished}, avg:aqua.scan_queue{status:in_progress}, avg:aqua.scan_queue{status:pending}",
+            "display_type": "area",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "title": "Aqua Scan Queues",
+        "title_size": "16",
+        "title_align": "center",
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 65,
+        "y": 20,
+        "width": 27,
+        "height": 15
+      }
+    },
+    {
+      "id": 25,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:aqua.audit.access{status:alert}, avg:aqua.audit.access{status:blocked}, avg:aqua.audit.access{status:detect}, avg:aqua.audit.access{status:success}",
+            "display_type": "area",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "custom_links": [],
+        "title": "Audit Events",
+        "title_size": "16",
+        "title_align": "center",
+        "show_legend": false,
+        "legend_size": "0"
+      },
+      "layout": {
+        "x": 65,
+        "y": 62,
+        "width": 27,
+        "height": 13
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "free",
+  "is_read_only": true,
+  "notify_list": [],
+  "id": 246
+}

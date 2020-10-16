@@ -8,12 +8,15 @@
     "mac_os",
     "windows"
   ],
-  "manifest_version": "1.1.0",
+  "manifest_version": "1.2.0",
   "maintainer": "sachin@apollographql.com",
-  "display_name": "Apollo",
+  "display_name": "Apollo Engine",
   "short_description": "Monitor the performance of your GraphQL infrastructure",
-  "metric_prefix": "apollo.engine.",
-  "metric_to_check": "apollo.engine.operations.count",
+  "metric_prefix": "apollo.",
+  "metric_to_check": [
+    "apollo.operations.count",
+    "apollo.engine.operations.count"
+  ],
   "creates_events": false,
   "public_title": "Datadog-Apollo Integration",
   "type": "crawler",
@@ -25,7 +28,10 @@
   "assets": {
     "monitors": {},
     "dashboards": {},
-    "service_checks": "assets/service_checks.json"
+    "service_checks": "assets/service_checks.json",
+    "metrics_metadata": "metadata.csv"
   },
-  "aliases": ["/integrations/apollo_engine"]
+  "aliases": [
+    "/integrations/apollo_engine"
+  ]
 }

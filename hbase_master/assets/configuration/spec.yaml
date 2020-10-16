@@ -1,14 +1,37 @@
 name: HBase master
 files:
-- name: hbase_master.yaml
-  options:
-  - template: instances
+  - name: hbase_master.yaml
     options:
-    - template: instances/jmx
-      overrides:
-        host.description: HBase Master host to connect to.
-        host.value.example: localhost
-        port.value.example: 10101
-  - template: init_config
-    options:
-    - template: init_config/jmx
+      - template: instances
+        options:
+          - template: instances/jmx
+            overrides:
+              host.description: HBase Master host to connect to.
+              host.value.example: localhost
+              port.value.example: 10101
+      - template: init_config
+        options:
+          - template: init_config/jmx
+      - template: logs
+        example:
+          - type: file
+            path: "/var/log/hbase/hbase-hbase-master-*.log"
+            source: "hbase"
+            log_processing_rules:
+              - type: multi_line
+                name: new_log_start_with_date
+                pattern: \d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2},\d{3} 
+          - type: file
+            path: "/var/log/hbase/hbase-hbase-rest-*.log"
+            source: "hbase"
+            log_processing_rules:
+              - type: multi_line
+                name: new_log_start_with_date
+                pattern: \d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2},\d{3} 
+          - type: file
+            path: "/var/log/hbase/hbase-hbase-thrift-*.log"
+            source: "hbase"
+            log_processing_rules:
+              - type: multi_line
+                name: new_log_start_with_date
+                pattern: \d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2},\d{3} 

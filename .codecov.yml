@@ -44,6 +44,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      Kernelcare:
+        target: 75
+        flags:
+        - kernelcare
       Lighthouse:
         target: 75
         flags:
@@ -72,6 +76,10 @@ coverage:
         target: 75
         flags:
         - portworx
+      Puma:
+        target: 75
+        flags:
+        - puma
       Reboot Required:
         target: 75
         flags:
@@ -120,14 +128,14 @@ coverage:
         target: 75
         flags:
         - vespa
+      Zabbix:
+        target: 75
+        flags:
+        - zabbix
       cert-manager:
         target: 75
         flags:
         - cert_manager
-      Kernelcare:
-        target: 75
-        flags:
-        - kernelcare
       nvml:
         target: 75
         flags:
@@ -236,6 +244,11 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
+  puma:
+    carryforward: true
+    paths:
+    - puma/datadog_checks/puma
+    - puma/tests
   reboot_required:
     carryforward: true
     paths:
@@ -301,3 +314,8 @@ flags:
     paths:
     - vespa/datadog_checks/vespa
     - vespa/tests
+  zabbix:
+    carryforward: true
+    paths:
+    - zabbix/datadog_checks/zabbix
+    - zabbix/tests
