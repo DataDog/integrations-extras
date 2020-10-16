@@ -3,6 +3,7 @@ import os
 import pytest
 
 from datadog_checks.dev import docker_run, get_docker_hostname, get_here
+from datadog_checks.dev.conditions import CheckDockerLogs
 
 HERE = get_here()
 HOST = get_docker_hostname()
@@ -16,9 +17,13 @@ CONFIG = {
 
 @pytest.fixture(scope="session")
 def dd_environment():
+    compose_file = os.path.join(HERE, 'compose', 'docker-compose.yml')
     with docker_run(
-        compose_file=os.path.join(HERE, 'compose', 'docker-compose.yml'),
-        sleep=20,
+        compose_file=compose_file,
+        sleep=120,
+        conditions=[
+            CheckDockerLogs(compose_file, 'php-fpm7.4 entered RUNNING state'),
+        ],
     ):
         yield CONFIG
 
