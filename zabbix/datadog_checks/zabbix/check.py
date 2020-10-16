@@ -2,13 +2,29 @@ import json
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
+from .metrics import METRICS
+
 
 class ZabbixCheck(AgentCheck):
+
+    SERVICE_CHECK_NAME = "zabbix.can_connect"
+
+    def __init__(self, name, init_config, instances):
+        super(ZabbixCheck, self).__init__(name, init_config, instances)
+        self.tags = self.instance.get('tags', [])
+
     def request(self, zabbix_api, req_data):
         req_header = {
             'Content-Type': 'application/json-rpc',
         }
-        res = self.http.post(zabbix_api, data=req_data.encode(), headers=req_header)
+
+        try:
+            res = self.http.post(zabbix_api, data=req_data.encode(), headers=req_header)
+        except Exception as e:
+            self.log.debug("Unable to get make request to api=%s with req_data=%s", zabbix_api, req_data)
+            self.warning("Request failed: %s", str(e))
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags=self.tags)
+            raise
         return res.json()
 
     def login(self, zabbix_user, zabbix_pass, zabbix_api):
@@ -20,14 +36,16 @@ class ZabbixCheck(AgentCheck):
                 'id': 1,
             }
         )
-        response = self.request(zabbix_api, req_data)
+        self.log.debug("Logging in with params user=%s api=%s", zabbix_user, zabbix_api)
 
+        response = self.request(zabbix_api, req_data)
         token = response.get('result')
         return token
 
     def logout(self, token, zabbix_api):
         req_data = json.dumps({'jsonrpc': '2.0', 'method': 'user.logout', 'params': {}, 'auth': token, 'id': 1})
         response = self.request(zabbix_api, req_data)
+        self.log.debug("Logging out: %s", response)
         return response
 
     def get_hosts(self, token, zabbix_api, hosts=None):
@@ -51,9 +69,11 @@ class ZabbixCheck(AgentCheck):
                     'id': 1,
                 }
             )
-
         response = self.request(zabbix_api, req_data)
-        return response.get('result')
+
+        result = response.get('result')
+        self.log.debug("Getting zabbix items: %s", result)
+        return result
 
     def get_items(self, token, hostids, zabbix_api, items=None):
         if items is not None:
@@ -80,7 +100,6 @@ class ZabbixCheck(AgentCheck):
                     'id': 1,
                 }
             )
-
         response = self.request(zabbix_api, req_data)
         return response.get('result')
 
@@ -127,7 +146,6 @@ class ZabbixCheck(AgentCheck):
 
         # Get token
         token = self.login(zabbix_user, zabbix_pass, zabbix_api)
-        self.log.debug(token)
 
         # Get hosts
         if hosts is not None:
@@ -147,21 +165,29 @@ class ZabbixCheck(AgentCheck):
         else:
             zabbixitems = self.get_items(token, hostids, zabbix_api)
 
-        self.log.debug(zabbixitems)
-
         # Get metrics value
         for item in zabbixitems:
             hostid = item['hostid']
             itemid = item['itemid']
             value_type = item['value_type']
-            history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
+            item_name = item['name']
 
-            dd_metricname = 'zabbix.' + item['name'].replace(' ', '_')
-            dd_metricvalue = history[0]['value']
-            dd_hostname = hostdic[hostid].replace(' ', '_')
+            if item_name in METRICS:
+                history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
+                mname = METRICS[item_name]
 
-            self.gauge(dd_metricname, dd_metricvalue, tags=None, hostname=dd_hostname, device_name=None)
+                try:
+                    dd_metricname = 'zabbix.' + mname
+                    dd_metricvalue = history[0]['value']
+                    dd_hostname = hostdic[hostid].replace(' ', '_')
+                except Exception as e:
+                    self.log.debug("Unable to get metric for item %s: %s", itemid, str(e))
+                else:
+                    self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
+            else:
+                self.log.debug("Item name %s not found in metric mapping", item_name)
 
         # Revoke token
         result = self.logout(token, zabbix_api)
-        self.log.debug(result)
+        self.log.debug("Logged out: %s", result)
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.tags)

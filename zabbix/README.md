@@ -35,7 +35,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Service Checks
 
-Zabbix does not include any service checks.
+`zabbix.can_connect`: Returns `CRITICAL` if the Agent can't connect to the Zabbix API, OK otherwise.
 
 ### Events
 
