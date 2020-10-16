@@ -69,7 +69,7 @@ Click "cURL" > "Temporary Bearer Token" and select the API key you just created.
 
 ![select key][13]
 
-Your endpoint resemble: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
+Your endpoint is enclosed in double quotes and resembles: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
 
 ![endpoint][14]
 
