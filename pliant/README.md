@@ -46,9 +46,9 @@ Create one or more workflows that you would like to trigger from a Datadog notif
 
 This example workflow is called "RestartHost" and restarts a host from the data Datadog triggers this workflow with.
 
-Our workflow will run with its input variables initially assigned based on the request body we trigger it with. Our workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, we restart a host via SSH under certain circumstances when Datadog triggers our automation workflow with certain parameters. 
+This workflow will run with its input variables initially assigned based on the request body we trigger it with. The workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, restart a host via SSH under certain circumstances when Datadog triggers our automation workflow with certain parameters. 
 
-  - To add Input variables which populate with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel.  To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends the following data:
+  - To add Input variables which populate with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel. To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends the following data:
 `body`
 `last_updated`
 `event_type`
@@ -57,7 +57,7 @@ Our workflow will run with its input variables initially assigned based on the r
 `org`
 `id`
 
-We also have additional output variables (`host`, `meta`, and `ip`) we initialized. Our workflow will assign these output variables and output their resulting values on completion. We may also specify variables which are neither input nor output variables to use interally within our workflow's logic.
+There are also have additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow will assign these output variables and output the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
 
 ![Expand][11]
 
