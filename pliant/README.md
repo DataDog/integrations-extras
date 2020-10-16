@@ -46,7 +46,7 @@ Create one or more workflows that you would like to trigger from a Datadog notif
 
 This example workflow is called "RestartHost" and restarts a host from the data Datadog triggers this workflow with.
 
-Our workflow will be triggered with it's variables assigned to whichever inputs our workflow was triggered with. Our workflow can trigger/perform any desired infrastructure automation actions, based on the input from Datadog. In this example, we restart a host via SSH under certain circumstances. 
+Our workflow will run with its input variables initially assigned based on the request body we trigger it with. Our workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, we restart a host via SSH under certain circumstances when Datadog triggers our automation workflow with certain parameters. 
 
   - To add Input variables which populate with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel.  To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends the following data:
 `body`
