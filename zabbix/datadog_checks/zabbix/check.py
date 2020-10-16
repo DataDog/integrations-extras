@@ -146,7 +146,6 @@ class ZabbixCheck(AgentCheck):
 
         # Get token
         token = self.login(zabbix_user, zabbix_pass, zabbix_api)
-        self.log.debug(token)
 
         # Get hosts
         if hosts is not None:
@@ -175,7 +174,6 @@ class ZabbixCheck(AgentCheck):
 
             if item_name in METRICS:
                 history = self.get_history(token, hostid, itemid, value_type, zabbix_api)
-                self.log.debug("Getting history for item %s: %s", itemid, history)
                 mname = METRICS[item_name]
 
                 try:
@@ -186,6 +184,8 @@ class ZabbixCheck(AgentCheck):
                     self.log.debug("Unable to get metric for item %s: %s", itemid, str(e))
                 else:
                     self.gauge(dd_metricname, dd_metricvalue, tags=self.tags, hostname=dd_hostname, device_name=None)
+            else:
+                self.log.debug("Item name %s not found in metric mapping", item_name)
 
         # Revoke token
         result = self.logout(token, zabbix_api)
