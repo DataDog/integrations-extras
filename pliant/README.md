@@ -67,11 +67,11 @@ Click "cURL" > "Temporary Bearer Token" and select the API key you just created.
 
 ![select key][13]
 
-Your endpoint looks like this: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
+Your endpoint resemble: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
 
 ![endpoint][14]
 
-Copy this endpoin, starting with ***https*** and ending with the full API Key. Do not include any quotes.
+Copy the entire URL enclosed in the double quotes (which may include addtional querry parameters), starting with ***https***. Do not include the double quotes.
 
 #### Datadog setup
 1. Open Datadog and from the left sidebar, click to **Integrations** > **Integrations**.
