@@ -8,18 +8,20 @@ and secure machine learning and other probabilistic models in production.
 
 Algorithmia Insights is a feature of Algorithmia Enterprise and provides a
 metrics pipeline that can be used to instrument, measure, and monitor your
-machine learning models.
+machine learning models. Use cases for monitoring inference-related metrics from
+machine learning models include detecting model drift, data drift, model bias,
+etc.
 
 This integration allows you to stream operational metrics as well as
-user-defined, inference-related metrics from Algorithmia to the metrics API in
-Datadog.
+user-defined, inference-related metrics from Algorithmia to Kafka to the logs
+API in Datadog.
 
 ![Algorithmia Insights in Datadog][2]
 
 ## Setup
 
 1. From your Algorithmia instance, configure Algorithmia Insights to connect to
-   a Kafka broker.
+   a Kafka broker (external to Algorithmia).
 2. Install and configure [Kafka Connect][3].
 3. Install the [Datadog Kafka Connector][4].
 4. Configure a Kafka Connect properties file in
@@ -70,7 +72,11 @@ inference-related metrics.
 See [metadata.csv][6] for a list of metrics provided by this integration.
 
 Additional metrics can include any user-defined, inference-related metrics that
-are specified in Algorithmia by the algorithm developer.
+are specified in Algorithmia by the algorithm developer. User-defined metrics
+will depend on your specific machine learning framework and use case, but might
+include values such as prediction probabilities from a regression model in
+scikit-learn, confidence scores from an image classifier in TensorFlow, or input
+data from incoming API requests.
 
 ### Service Checks
 
