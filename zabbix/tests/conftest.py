@@ -18,6 +18,7 @@ CONFIG = {
 def dd_environment():
     with docker_run(
         compose_file=os.path.join(HERE, 'compose', 'docker-compose.yml'),
+        sleep=20,
     ):
         yield CONFIG
 
