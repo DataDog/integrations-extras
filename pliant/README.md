@@ -42,12 +42,13 @@ Create one or more workflows that you would like to trigger from a Datadog notif
 
 ![Create Flow step1-a-][10]
 
-2. Populate the flow with actions to take upon receiving the Datadog trigger. 
+2. Populate the workflow with actions to take upon receiving the Datadog trigger. 
 
+This example workflow is called "RestartHost" and restarts a host from the data Datadog triggers this workflow with.
 
-In this example, the workflow is called "RestartHost" and triggers a host restart from the information Datadog passes to this workflow when it is triggered.
+This workflow will run with its input variables initially assigned based on the request body we trigger it with. The workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, restart a host via SSH under certain circumstances when Datadog triggers our automation workflow with certain parameters. 
 
-  - To add Input variables which populated with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel.  To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends information for the following data:
+  - To add Input variables which populate with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel. To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends the following data:
 `body`
 `last_updated`
 `event_type`
@@ -56,6 +57,7 @@ In this example, the workflow is called "RestartHost" and triggers a host restar
 `org`
 `id`
 
+There are also have additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow will assign these output variables and output the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
 
 ![Expand][11]
 
@@ -67,11 +69,11 @@ Click "cURL" > "Temporary Bearer Token" and select the API key you just created.
 
 ![select key][13]
 
-Your endpoint looks like this: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
+Your endpoint is enclosed in double quotes and resembles: ***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
 
 ![endpoint][14]
 
-Copy this endpoin, starting with ***https*** and ending with the full API Key. Do not include any quotes.
+Copy the entire URL enclosed in the double quotes (which may include addtional querry parameters), starting with ***https***. Do not include the double quotes.
 
 #### Datadog setup
 1. Open Datadog and from the left sidebar, click to **Integrations** > **Integrations**.
