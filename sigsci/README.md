@@ -88,19 +88,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 ### Metrics
 
-```text
-sigsci.agent.waf.total
-sigsci.agent.waf.error
-sigsci.agent.waf.allow
-sigsci.agent.waf.block
-sigsci.agent.waf.perf.decision_time
-sigsci.agent.waf.perf.queue_time
-sigsci.agent.rpc.connections.open
-sigsci.agent.runtime.cpu_pct
-sigsci.agent.runtime.mem.sys_bytes
-sigsci.agent.runtime.uptime
-sigsci.agent.signal
-```
+See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Events
 
@@ -132,3 +120,4 @@ To sign up for the Signal Sciences-Datadog Monitoring, a free service to see att
 [10]: https://docs.datadoghq.com/help/
 [11]: https://labs.signalsciences.com
 [12]: https://info.signalsciences.com/datadog-security
+[13]: https://github.com/DataDog/integrations-extras/blob/master/sigsci/metadata.csv
