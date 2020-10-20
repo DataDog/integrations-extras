@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'resin', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'zabbix', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -28,17 +28,17 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=11.0.0'
 
 
 setup(
-    name='datadog-resin',
+    name='datadog-zabbix',
     version=ABOUT['__version__'],
-    description='The Resin check',
+    description='The zabbix check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent resin check',
+    keywords='datadog agent zabbix check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='Brent Montague',
-    author_email='brent@bmontague.com',
+    author='KosukeKamiya',
+    author_email='KosukeKamiya@users.noreply.github.com',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
@@ -49,11 +49,10 @@ setup(
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.resin'],
+    packages=['datadog_checks.zabbix'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': get_dependencies()},

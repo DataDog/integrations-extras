@@ -13,8 +13,8 @@
             "layout": {
                 "y": 1,
                 "x": 0,
-                "width": 29,
-                "height": 13
+                "height": 13,
+                "width": 29
             },
             "id": 0
         },
@@ -22,16 +22,16 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Recommended Replicas vs Current/Desired Replicas",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Recommended Replicas vs Current/Desired Replicas",
                 "requests": [
                     {
                         "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,resource:replicas}",
@@ -67,8 +67,8 @@
             "layout": {
                 "y": 15,
                 "x": 0,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 1
         },
@@ -76,16 +76,16 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Production vs Consumption vs Production Prediction",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Production vs Consumption vs Production Prediction",
                 "requests": [
                     {
                         "q": "avg:federatorai.kafka.broker_offset_rate{$kube_cluster,$topic,$kube_cluster_name,$cluster_name}, avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name}, avg:federatorai.prediction.kafka{source_metric:federatorai.kafka.broker_offset_rate,$kube_cluster,$topic,$kube_cluster_name,$cluster_name}",
@@ -103,8 +103,8 @@
             "layout": {
                 "y": 15,
                 "x": 48,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 2
         },
@@ -112,31 +112,25 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Kafka Consumer Lag",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Kafka Consumer Lag",
                 "requests": [
                     {
-                        "q": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic,$kube_cluster_name,$cluster_name}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic,$kube_cluster_name,$cluster_name} by {host})",
+                        "q": "(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic,$kube_cluster_name,$cluster_name}+abs(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic,$kube_cluster_name,$cluster_name}))/2/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic,$kube_cluster_name,$cluster_name} by {host})",
                         "style": {
                             "line_width": "normal",
                             "palette": "purple",
                             "line_type": "solid"
                         },
-                        "display_type": "bars",
-                        "metadata": [
-                            {
-                                "expression": "sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$consumer_group,$topic} by {host})",
-                                "alias_name": "kafka.consumer_lag_sum_by_partition"
-                            }
-                        ]
+                        "display_type": "bars"
                     }
                 ],
                 "type": "timeseries",
@@ -145,8 +139,8 @@
             "layout": {
                 "y": 31,
                 "x": 0,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 3
         },
@@ -154,15 +148,15 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Consumer Queue Latency (msec)",
+                "title_align": "left",
                 "yaxis": {
                     "include_zero": false
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Consumer Queue Latency (msec)",
                 "requests": [
                     {
-                        "q": "(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name}/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name} by {host})/avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name})*60*1000",
+                        "q": "((sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name}+abs(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name}))/2/count_not_null(sum:kafka.consumer_lag{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name} by {host})/avg:federatorai.kafka.consumer_offset_rate{$kube_cluster,$topic,$consumer_group,$kube_cluster_name,$cluster_name})*60*1000",
                         "style": {
                             "line_width": "normal",
                             "palette": "dog_classic",
@@ -177,8 +171,8 @@
             "layout": {
                 "y": 31,
                 "x": 48,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 4
         },
@@ -186,16 +180,16 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Deployment Memory Usage",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Deployment Memory Usage",
                 "requests": [
                     {
                         "q": "sum:kubernetes.memory.usage{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
@@ -213,8 +207,8 @@
             "layout": {
                 "y": 47,
                 "x": 0,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 5
         },
@@ -222,16 +216,16 @@
             "definition": {
                 "custom_links": [],
                 "title_size": "16",
+                "title": "Deployment CPU Usage",
+                "title_align": "left",
                 "yaxis": {
                     "max": "auto",
-                    "label": "",
+                    "include_zero": true,
                     "scale": "linear",
                     "min": "auto",
-                    "include_zero": true
+                    "label": ""
                 },
-                "title_align": "left",
                 "show_legend": false,
-                "title": "Deployment CPU Usage",
                 "requests": [
                     {
                         "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
@@ -249,27 +243,27 @@
             "layout": {
                 "y": 47,
                 "x": 48,
-                "width": 47,
-                "height": 15
+                "height": 15,
+                "width": 47
             },
             "id": 6
         },
         {
             "definition": {
+                "tick_pos": "50%",
                 "show_tick": false,
-                "background_color": "green",
                 "type": "note",
                 "tick_edge": "left",
                 "text_align": "left",
                 "content": "With integration of [ProphetStor Federator.ai][1], users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.\n\n[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/",
                 "font_size": "14",
-                "tick_pos": "50%"
+                "background_color": "green"
             },
             "layout": {
                 "y": 1,
                 "x": 31,
-                "width": 64,
-                "height": 13
+                "height": 13,
+                "width": 64
             },
             "id": 7
         }
