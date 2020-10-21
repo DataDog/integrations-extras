@@ -1,661 +1,797 @@
 {
-    "author_name": "JFrog Platform",
+    "author_info": {
+        "author_name": "JFrog"
+    },
+    "board_title": "JFrog Artifactory Dashboard",
     "description": "This dashboard provides usage statistics overview of JFrog Artifactory logs. Included are also some high level views of audit, request and application logs. \n\nA detailed blog post can be found here: [Track JFrog Platform Performance with Datadog Analytics](https://jfrog.com/blog/track-jfrog-platform-performance-with-datadog-analytics/). \n\nSource code is also available in [Github](https://github.com/jfrog/log-analytics/tree/master/log-vendors/datadog)",
-    "layout_type": "free",
     "template_variables": [
-      {
-        "default": "*",
-        "name": "ip_address",
-        "prefix": "@ip_address"
-      },
-      {
-        "default": "*",
-        "name": "username",
-        "prefix": "@user_name"
-      },
-      {
-        "default": "*",
-        "name": "repo",
-        "prefix": "@repo"
-      }
+        {
+            "default": "*",
+            "name": "ip_address",
+            "prefix": "@ip_address"
+        },
+        {
+            "default": "*",
+            "name": "username",
+            "prefix": "@user_name"
+        },
+        {
+            "default": "*",
+            "name": "repo",
+            "prefix": "@repo"
+        }
     ],
-    "title": "Jfrog Artifactory Overview",
     "widgets": [
-      {
-        "definition": {
-          "background_color": "blue",
-          "content": "Audit",
-          "font_size": "18",
-          "show_tick": false,
-          "text_align": "center",
-          "tick_edge": "bottom",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "blue",
+            "font_size": "18",
+            "height": 7,
+            "html": "Audit",
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 30,
+            "x": 0,
+            "y": 30
         },
-        "id": 0,
-        "layout": {
-          "height": 7,
-          "width": 30,
-          "x": 0,
-          "y": 30
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "line",
-              "on_right_yaxis": false,
-              "q": "count:accessed_repos{*} by {repo}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "dog_classic"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Accessed Repos",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@repo",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?*"
+                            }
+                        },
+                        "style": {
+                            "palette": "dog_classic",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Accessed Repos",
+            "type": "timeseries",
+            "width": 37,
+            "x": 32,
+            "y": 71
         },
-        "id": 1,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 71
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "line",
-              "on_right_yaxis": false,
-              "q": "count:accessed_images{*} by {image}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "cool"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Accessed Images",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@image",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* @image:*"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "cool",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "line"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Accessed Images",
+            "type": "timeseries",
+            "width": 37,
+            "x": 32,
+            "y": 56
         },
-        "id": 2,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 56
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "area",
-              "on_right_yaxis": false,
-              "q": "sum:upload_data_transfer_by_repo{*} by {repo}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "purple"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Upload Data Transfers by Repo",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "sum",
+                                "facet": "@response_content_length_2"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@repo",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "sum",
+                                        "facet": "@response_content_length_2",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @response_content_length_2:>=0 -@repo:\"\""
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "area"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Upload Data Transfers by Repo",
+            "type": "timeseries",
+            "width": 37,
+            "x": 32,
+            "y": 86
         },
-        "id": 3,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 86
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "area",
-              "on_right_yaxis": false,
-              "q": "sum:download_data_transfer_by_repo{*} by {repo}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "cool"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Download Data Transfers by Repo",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 12,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "sum",
+                                "facet": "@request_content_length_2"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@repo",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "sum",
+                                        "facet": "@request_content_length_2",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request -@repo:\"\""
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "purple",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "area"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Download Data Transfers by Repo",
+            "type": "timeseries",
+            "width": 37,
+            "x": 32,
+            "y": 101
         },
-        "id": 4,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 101
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "q": "sum:active_downloading_ips{*} by {remote_address}.as_count()"
-            }
-          ],
-          "title": "Download IP's by Data Volume",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "toplist"
+        {
+            "height": 12,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "sum",
+                                "facet": "@request_content_length_2"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@remote_address",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "sum",
+                                        "facet": "@request_content_length_2",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @request_content_length_2:>0"
+                            }
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Download IP's by Data Volume",
+            "type": "toplist",
+            "width": 37,
+            "x": 32,
+            "y": 116
         },
-        "id": 5,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 116
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "q": "sum:active_uploading_ips{*} by {remote_address}.as_count()"
-            }
-          ],
-          "title": "Upload IP's by Data Volume",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "toplist"
+        {
+            "height": 12,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "sum",
+                                "facet": "@response_content_length_2"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@remote_address",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "sum",
+                                        "facet": "@response_content_length_2",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @response_content_length_2:>=0"
+                            }
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Upload IP's by Data Volume",
+            "type": "toplist",
+            "width": 37,
+            "x": 32,
+            "y": 131
         },
-        "id": 6,
-        "layout": {
-          "height": 14,
-          "width": 37,
-          "x": 32,
-          "y": 131
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "q": "sum:denied_actions_based_on_ip{*} by {ip}.as_count()"
-            }
-          ],
-          "title": "Denied Actions by IP",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "toplist"
+        {
+            "height": 12,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@ip",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED*"
+                            }
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Denied Actions by IP",
+            "type": "toplist",
+            "width": 30,
+            "x": 0,
+            "y": 66
         },
-        "id": 7,
-        "layout": {
-          "height": 14,
-          "width": 30,
-          "x": 0,
-          "y": 66
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "aggregator": "sum",
-              "alias": "count",
-              "cell_display_mode": [
-                "bar"
-              ],
-              "limit": 10,
-              "order": "desc",
-              "q": "count:denied_logins_by_username{!username:na} by {username}.as_count()"
-            }
-          ],
-          "title": "Denied Logins By Username",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "query_table"
+        {
+            "height": 14,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "cell_display_mode": [
+                            "bar"
+                        ],
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@username"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@username",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "cardinality",
+                                        "facet": "@username",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\" -@username:\"NA \""
+                            }
+                        }
+                    }
+                ],
+                "viz": "query_table"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Denied Logins By Username",
+            "type": "query_table",
+            "width": 30,
+            "x": 0,
+            "y": 113
         },
-        "id": 9,
-        "layout": {
-          "height": 16,
-          "width": 30,
-          "x": 0,
-          "y": 113
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "aggregator": "avg",
-              "alias": "count",
-              "cell_display_mode": [
-                "bar"
-              ],
-              "limit": 10,
-              "order": "desc",
-              "q": "count:accepted_deploys_based_on_username{*} by {username}.as_count()"
-            }
-          ],
-          "title": "Accepted Deploys by Username",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "query_table"
+        {
+            "height": 12,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "cell_display_mode": [
+                            "bar"
+                        ],
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@username",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DEPLOY\""
+                            }
+                        }
+                    }
+                ],
+                "viz": "query_table"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Accepted Deploys by Username",
+            "type": "query_table",
+            "width": 30,
+            "x": 0,
+            "y": 81
         },
-        "id": 10,
-        "layout": {
-          "height": 14,
-          "width": 30,
-          "x": 0,
-          "y": 81
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "bars",
-              "on_right_yaxis": false,
-              "q": "avg:artifactory_errors{*}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "warm"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Artifactory Log Errors",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 15,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.service @log_level:ERROR"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "warm",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "bars"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Artifactory Log Errors",
+            "type": "timeseries",
+            "width": 25,
+            "x": 84,
+            "y": 38
         },
-        "id": 11,
-        "layout": {
-          "height": 17,
-          "width": 25,
-          "x": 84,
-          "y": 38
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "display_type": "bars",
-              "on_right_yaxis": false,
-              "q": "avg:artifactory_http_500_errors{*}.as_count()",
-              "style": {
-                "line_type": "solid",
-                "line_width": "normal",
-                "palette": "orange"
-              }
-            }
-          ],
-          "show_legend": false,
-          "title": "Artifactory HTTP 500 Errors",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "timeseries",
-          "yaxis": {
-            "include_zero": true,
-            "label": "",
-            "max": "auto",
-            "min": "auto",
-            "scale": "linear"
-          }
+        {
+            "height": 15,
+            "legend": false,
+            "legend_size": "0",
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.request @return_status:5**"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "orange",
+                            "type": "solid",
+                            "width": "normal"
+                        },
+                        "type": "bars"
+                    }
+                ],
+                "viz": "timeseries",
+                "yaxis": {
+                    "includeZero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Artifactory HTTP 500 Errors",
+            "type": "timeseries",
+            "width": 37,
+            "x": 32,
+            "y": 38
         },
-        "id": 12,
-        "layout": {
-          "height": 17,
-          "width": 37,
-          "x": 32,
-          "y": 38
-        }
-      },
-      {
-        "definition": {
-          "background_color": "blue",
-          "content": "Requests",
-          "font_size": "18",
-          "show_tick": false,
-          "text_align": "center",
-          "tick_edge": "bottom",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "blue",
+            "font_size": "18",
+            "height": 7,
+            "html": "Requests",
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 50,
+            "x": 32,
+            "y": 30
         },
-        "id": 13,
-        "layout": {
-          "height": 7,
-          "width": 50,
-          "x": 32,
-          "y": 30
-        }
-      },
-      {
-        "definition": {
-          "background_color": "blue",
-          "content": "Application",
-          "font_size": "18",
-          "show_tick": false,
-          "text_align": "center",
-          "tick_edge": "bottom",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "blue",
+            "font_size": "18",
+            "height": 7,
+            "html": "Application",
+            "text_align": "center",
+            "tick": false,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 38,
+            "x": 84,
+            "y": 30
         },
-        "id": 14,
-        "layout": {
-          "height": 7,
-          "width": 38,
-          "x": 84,
-          "y": 30
-        }
-      },
-      {
-        "definition": {
-          "sizing": "zoom",
-          "type": "image",
-          "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png"
+        {
+            "height": 10,
+            "sizing": "zoom",
+            "type": "image",
+            "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png",
+            "width": 26,
+            "x": 0,
+            "y": -1
         },
-        "id": 17,
-        "layout": {
-          "height": 10,
-          "width": 26,
-          "x": 0,
-          "y": -1
-        }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "aggregator": "sum",
-              "alias": "count",
-              "cell_display_mode": [
-                "bar"
-              ],
-              "limit": 10,
-              "order": "desc",
-              "q": "count:denied_logins_based_on_ip{*} by {ip}.as_count()"
-            }
-          ],
-          "title": "Denied Logins By IP",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "query_table"
+        {
+            "height": 14,
+            "tile_def": {
+                "custom_links": [],
+                "requests": [
+                    {
+                        "cell_display_mode": [
+                            "bar"
+                        ],
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@ip",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\""
+                            }
+                        }
+                    }
+                ],
+                "viz": "query_table"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Denied Logins By IP",
+            "type": "query_table",
+            "width": 30,
+            "x": 0,
+            "y": 96
         },
-        "id": 19,
-        "layout": {
-          "height": 16,
-          "width": 30,
-          "x": 0,
-          "y": 96
-        }
-      },
-      {
-        "definition": {
-          "background_color": "white",
-          "content": "This dashboard provides an overview of usage statistics of JFrog Artifactory logs. Included are also some high-level views of audit, request, and application logs.  \nA detailed blog post can be found here: [Track JFrog Platform Performance with Datadog Analytics](https://jfrog.com/blog/track-jfrog-platform-performance-with-datadog-analytics/).   \nSource code is also available in [Github](https://github.com/jfrog/log-analytics/tree/master/log-vendors/datadog)\n",
-          "font_size": "14",
-          "show_tick": false,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "white",
+            "font_size": "14",
+            "height": 10,
+            "html": "This dashboard provides an overview of usage statistics of JFrog Artifactory logs. Included are also some high-level views of audit, request, and application logs.  \nA detailed blog post can be found here: [Track JFrog Platform Performance with Datadog Analytics](https://jfrog.com/blog/track-jfrog-platform-performance-with-datadog-analytics/).   \nSource code is also available in [Github](https://github.com/jfrog/log-analytics/tree/master/log-vendors/datadog)\n",
+            "text_align": "left",
+            "tick": false,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 95,
+            "x": 27,
+            "y": 0
         },
-        "id": 3232420659105792,
-        "layout": {
-          "height": 10,
-          "width": 95,
-          "x": 27,
-          "y": 0
-        }
-      },
-      {
-        "definition": {
-          "columns": [
-            "host",
-            "service",
-            "@repo",
-            "@ip_address",
-            "@log_level",
-            "@log_source"
-          ],
-          "indexes": [],
-          "message_display": "expanded-md",
-          "query": "",
-          "show_date_column": true,
-          "show_message_column": true,
-          "sort": {
-            "column": "time",
-            "order": "desc"
-          },
-          "type": "log_stream"
+        {
+            "columns": "[\"host\", \"service\", \"@repo\", \"@ip_address\", \"@log_level\", \"@log_source\"]",
+            "height": 18,
+            "indexes": [],
+            "message_display": "expanded-md",
+            "query": "",
+            "show_date_column": true,
+            "show_message_column": true,
+            "sort": {
+                "column": "time",
+                "order": "desc"
+            },
+            "title": false,
+            "type": "log_stream",
+            "width": 122,
+            "x": 0,
+            "y": 11
         },
-        "id": 5953567353947946,
-        "layout": {
-          "height": 18,
-          "width": 122,
-          "x": 0,
-          "y": 11
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "Audit logs help you determine who is accessing your Artifactory instance and from where. These can help you track potentially malicious requests or processes (such as CI jobs) using expired credentials.",
-          "font_size": "14",
-          "show_tick": false,
-          "text_align": "left",
-          "tick_edge": "bottom",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 12,
+            "html": "Audit logs help you determine who is accessing your Artifactory instance and from where. These can help you track potentially malicious requests or processes (such as CI jobs) using expired credentials.",
+            "text_align": "left",
+            "tick": false,
+            "tick_edge": "bottom",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 30,
+            "x": 0,
+            "y": 38
         },
-        "id": 7856194180362354,
-        "layout": {
-          "height": 12,
-          "width": 30,
-          "x": 0,
-          "y": 38
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "These errors indicate Artifactory ran into an unexpected problem and was unable to properly respond to a request. They are worth investigating as they could be symptoms of an underlying bad state or bug.\n",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 17,
+            "html": "These errors indicate Artifactory ran into an unexpected problem and was unable to properly respond to a request. They are worth investigating as they could be symptoms of an underlying bad state or bug.\n",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 70,
+            "y": 38
         },
-        "id": 8114611357784684,
-        "layout": {
-          "height": 17,
-          "width": 12,
-          "x": 70,
-          "y": 38
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "These are the most widely downloaded Docker images in the past 24 hours.\n",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 14,
+            "html": "These are the most widely downloaded Docker images in the past 24 hours.\n",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 70,
+            "y": 56
         },
-        "id": 6770359606524274,
-        "layout": {
-          "height": 14,
-          "width": 12,
-          "x": 70,
-          "y": 56
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "Track the most used repositories in terms of requests.",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 14,
+            "html": "Track the most used repositories in terms of requests.",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 70,
+            "y": 71
         },
-        "id": 7384738278009420,
-        "layout": {
-          "height": 14,
-          "width": 12,
-          "x": 70,
-          "y": 71
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "Track the most used repositories in terms of uploads and downloads.\n",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 29,
+            "html": "Track the most used repositories in terms of uploads and downloads.\n",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 70,
+            "y": 86
         },
-        "id": 8555429928372726,
-        "layout": {
-          "height": 29,
-          "width": 12,
-          "x": 70,
-          "y": 86
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "Track the heaviest users based on IP\n",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 29,
+            "html": "Track the heaviest users based on IP\n",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 70,
+            "y": 116
         },
-        "id": 5388017332146884,
-        "layout": {
-          "height": 29,
-          "width": 12,
-          "x": 70,
-          "y": 116
-        }
-      },
-      {
-        "definition": {
-          "background_color": "gray",
-          "content": "This application error widget can help track bursts of application errors that may otherwise go undetected",
-          "font_size": "14",
-          "show_tick": true,
-          "text_align": "left",
-          "tick_edge": "left",
-          "tick_pos": "50%",
-          "type": "note"
+        {
+            "bgcolor": "gray",
+            "font_size": "14",
+            "height": 17,
+            "html": "This application error widget can help track bursts of application errors that may otherwise go undetected",
+            "text_align": "left",
+            "tick": true,
+            "tick_edge": "left",
+            "tick_pos": "50%",
+            "type": "note",
+            "width": 12,
+            "x": 110,
+            "y": 38
         },
-        "id": 8136550716453830,
-        "layout": {
-          "height": 17,
-          "width": 12,
-          "x": 110,
-          "y": 38
+        {
+            "height": 12,
+            "tile_def": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@username"
+                            },
+                            "groupBy": [
+                                {
+                                    "facet": "@username",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "cardinality",
+                                        "facet": "@username",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* -@username:\"NA \""
+                            }
+                        }
+                    }
+                ],
+                "viz": "toplist"
+            },
+            "title": true,
+            "title_align": "left",
+            "title_size": 16,
+            "title_text": "Denied Actions By Username",
+            "type": "toplist",
+            "width": 30,
+            "x": 0,
+            "y": 51
         }
-      },
-      {
-        "definition": {
-          "custom_links": [],
-          "requests": [
-            {
-              "q": "sum:denied_actions_by_username{!username:na} by {username}.as_count()"
-            }
-          ],
-          "title": "Denied Actions By Username",
-          "title_align": "left",
-          "title_size": "16",
-          "type": "toplist"
-        },
-        "id": 6709248351589576,
-        "layout": {
-          "height": 14,
-          "width": 30,
-          "x": 0,
-          "y": 51
-        }
-      }
     ]
 }
