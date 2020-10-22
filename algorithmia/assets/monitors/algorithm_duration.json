@@ -1,0 +1,24 @@
+{
+	"id": 24564256,
+	"name": "Excessive algorithm runtime",
+	"type": "metric alert",
+	"query": "avg(last_5m):avg:algorithmia.duration_milliseconds{*} > 10000",
+	"message": "Some algorithms queries are running for more than 10 s.\n\nReview the documentation at https://algorithmia.com/developers/algorithm-development/advanced-algorithm-development/dealing-with-bottlenecks for guidance on optimizing your algorithm's runtime.",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"locked": false,
+		"timeout_h": 0,
+		"new_host_delay": 300,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": "0",
+		"escalation_message": "",
+		"no_data_timeframe": null,
+		"include_tags": true,
+		"thresholds": {
+			"critical": 10000,
+			"warning": 5000
+		}
+	}
+}
