@@ -25,14 +25,14 @@ JFrog Artifactory's Datadog integration allows you to send Artifactory logs to t
 * Kubernetes Cluster
 * JFrog Artifactory and/or JFrog Xray installed via [JFrog Helm Charts][1]
 * [Helm 3][2]
-* Datadog's API key (you can get it from Datadog account -> Settings -> API)
+* Your [Datadog API key][4].
 
-### Step 1 Fluentd Configuration
+### Step 1 Fluentd configuration
 Datadog's Fluentd plugin can be used to forward logs directly from Fluentd to your Datadog account.
 
-Fluentd integration is done by specifying the API key as follows:
+Set up the Fluentd integration by specifying the API key as follows:
 
-_api_key_ is the API key from Datadog
+_api_key_ is your [Datadog API key][4].
 
 _dd_source_ attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in Datadog.
 
@@ -50,9 +50,9 @@ Adding proper metadata is the key to unlocking the full potential of your logs i
 </match>
 ```
 
-### Step 2 Integration Enablement
+### Step 2 Integration enablement
 
-To enable this integration, run the td-agent on `artifactory` pods
+To enable this integration, run the td-agent on `artifactory` pods:
 
 ``` 
 td-agent
@@ -62,14 +62,14 @@ The API key is configured in `td-agent`, which will start sending logs to Datado
 
 Add all attributes as facets from **Facets** > **Add** (on the left side of the screen in Logs) > **Search**.
 
-### Step 3 Install JFrog Platform Tile 
-If you have not installed the JFrog Platform tile yet, install the tile.
+### Step 3 JFrog platform tile 
+If you have not installed the JFrog platform tile yet, install the tile.
 
-### Step 4 Open JFrog Artifactory Dashboard
+### Step 4 JFrog Artifactory Dashboard
 Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard` and open it.
 
 ### Step 5 Search for logs
-Logs can be access in the UI under  **Logs** > **Search**. Select the specific source mentioned in the Fluentd configuration (`fluentd` in configuration example above) to retrieve logs.
+Access your [logs][5] in Datadog. Select the specific source mentioned in the Fluentd configuration (`fluentd` in configuration example above) to retrieve logs.
 
 
 [1]: https://github.com/jfrog/charts
