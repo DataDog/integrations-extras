@@ -6,6 +6,8 @@
 scientists, application developers, and IT operators to deploy, manage, govern,
 and secure machine learning and other probabilistic models in production.
 
+![Algorithmia Insights in Datadog][2]
+
 Algorithmia Insights is a feature of Algorithmia Enterprise and provides a
 metrics pipeline that can be used to instrument, measure, and monitor your
 machine learning models. Use cases for monitoring inference-related metrics from
@@ -13,53 +15,38 @@ machine learning models include detecting model drift, data drift, model bias,
 etc.
 
 This integration allows you to stream operational metrics as well as
-user-defined, inference-related metrics from Algorithmia to Kafka to the logs
+user-defined, inference-related metrics from Algorithmia to Kafka to the metrics
 API in Datadog.
-
-![Algorithmia Insights in Datadog][2]
 
 ## Setup
 
 1. From your Algorithmia instance, configure Algorithmia Insights to connect to
    a Kafka broker (external to Algorithmia).
-2. Install and configure [Kafka Connect][3].
-3. Install the [Datadog Kafka Connector][4].
-4. Configure a Kafka Connect properties file in
-   `<KAFKA-DIR>/config/connect-datadog-sink.properties` with the following
-   contents:
-
+2. Install Python if it's not already present on your system.
+3. Install the required Python dependencies using
    ```
-   name=datadog-sink
-   connector.class=com.datadoghq.connect.logs.DatadogLogsSinkConnector
-   tasks.max=1
-   key.converter=org.apache.kafka.connect.storage.StringConverter
-   value.converter=org.apache.kafka.connect.json.JsonConverter
-   value.converter.schemas.enable=false
-   topics=insights
-   datadog.api_key=<DATADOG-API-KEY>
-   datadog.service=algorithmia
-   datadog.hostname=algorithmia
-   datadog.tags=type:json
+   pip install -r requirements.txt
    ```
-
-   and replace `<KAFKA-DIR>` with the directory where Kafka is installed and
-   `<DATADOG-API-KEY>` with your Datadog API key.
-
-5. Start the Kafka Connect service and include the properties file for the
-   Datadog Kafka Connector as an argument:
-
+4. Define the following environment variables (required):
    ```
-   <KAFKA-DIR>/bin/connect-standalone.sh <KAFKA-DIR>/config/connect-standalone.properties <KAFKA-DIR>/config/connect-datadog-sink.properties
+   export DATADOG_API_KEY=<DATADOG-API-KEY>
+   export KAFKA_BROKER=1.2.3.4:9092
+   export KAFKA_TOPIC=insights
+   ```
+   and replace the values with your Datadog API key, Kafka broker URL and port,
+   and Kafka topic that you want to consume Insights from.
+5. Run the Python script, which will continuously forward messages from Kafka to
+   the Datadog metrics API:
+   ```
+   python src/kafka-datadog.py
    ```
 
 ### Validation
 
 1. From Algorithmia, query an algorithm that has Insights enabled.
-2. In the Datadog interface, navigate to the **Logs** page.
-3. Verify that the metrics from Insights are being pushed to the logs in Datadog
-   by filtering for `algorithmia`.
-4. Refer to the [Datadog documentation][5] to generate metrics from the ingested
-   logs.
+2. In the Datadog interface, navigate to the **Metrics** summary page.
+3. Verify that the metrics from Insights are present in Datadog by filtering for
+   `algorithmia`.
 
 ## Data Collected
 
@@ -69,7 +56,11 @@ This integration streams metrics from Algorithmia when an model that has
 Insights enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
 
-See [metadata.csv][6] for a list of metrics provided by this integration.
+See [metadata.csv][3] for a list of metrics provided by this integration.
+
+The `duration_milliseconds` metric is one of the operational metrics that is
+included in the default payload from Algorithmia. To help you get started, this
+integration also includes a dashboard and monitor for this default metric.
 
 Additional metrics can include any user-defined, inference-related metrics that
 are specified in Algorithmia by the algorithm developer. User-defined metrics
@@ -88,12 +79,9 @@ The Algorithmia check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][7].
+Need help? Contact [Datadog support][4].
 
 [1]: https://algorithmia.com/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
-[3]: https://docs.confluent.io/current/connect/index.html
-[4]: https://github.com/DataDog/datadog-kafka-connect-logs
-[5]: https://docs.datadoghq.com/logs/logs_to_metrics/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
-[7]: https://docs.datadoghq.com/help/
+[3]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
+[4]: https://docs.datadoghq.com/help/
