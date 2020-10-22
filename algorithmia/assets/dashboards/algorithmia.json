@@ -1,0 +1,73 @@
+{
+  "title": "Algorithmia",
+  "description": "Monitor metrics for machine learning models in production",
+  "widgets": [
+    {
+      "id": 789311219726922,
+      "definition": {
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:algorithmia.duration_milliseconds{*}",
+            "display_type": "line",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            }
+          }
+        ],
+        "yaxis": {
+          "label": "",
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto",
+          "include_zero": true
+        },
+        "title": "Avg of algorithmia.duration_milliseconds over *",
+        "show_legend": false,
+        "legend_size": "0"
+      }
+    },
+    {
+      "id": 33916503457686,
+      "definition": {
+        "type": "alert_graph",
+        "title": "Alert: Excessive algorithm runtime",
+        "alert_id": "24564256",
+        "viz_type": "timeseries"
+      }
+    },
+    {
+      "id": 4028176396705252,
+      "definition": {
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:algorithmia.duration_milliseconds{*}",
+            "aggregator": "avg"
+          }
+        ],
+        "title": "Avg of algorithmia.duration_milliseconds over *",
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "id": 3708367923622852,
+      "definition": {
+        "type": "alert_value",
+        "alert_id": "24564256",
+        "precision": 0,
+        "unit": "auto",
+        "text_align": "center",
+        "title": "Excessive algorithm runtime"
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "id": "9mh-uxf-chf"
+}
