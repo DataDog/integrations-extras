@@ -41,8 +41,8 @@ API in Datadog.
 
 ### Metrics
 
-This integration streams metrics from Algorithmia when an model that has
-Insights enabled is queried. Each log entry includes operational metrics and
+This integration streams metrics from Algorithmia when a model that has Insights
+enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
 
 See [metadata.csv][4] for a list of metrics provided by this integration.
