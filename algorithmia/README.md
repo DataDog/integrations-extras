@@ -70,10 +70,10 @@ The Algorithmia check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Algorithmia support][5].
 
 [1]: https://algorithmia.com/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
 [3]: https://github.com/algorithmiaio/integrations
 [4]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
-[5]: https://docs.datadoghq.com/help/
+[5]: https://algorithmia.com/contact
