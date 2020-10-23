@@ -433,11 +433,13 @@ def test_negative_timeout():
     _assert_config_raises({"port": 82, "timeout": -0.5}, "must be a positive number")
 
 
-def test_check(aggregator, dd_environment):
-    check = FilebeatCheck("filebeat", {}, {})
-    check.check(dd_environment)
-    check.check(dd_environment)
-    tags = ["stats_endpoint:{}".format(dd_environment["stats_endpoint"])]
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+def test_check(aggregator, instance):
+    check = FilebeatCheck("filebeat", {}, [instance])
+    check.check(instance)
+    check.check(instance)
+    tags = ["stats_endpoint:{}".format(instance['stats_endpoint'])]
     aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, count=2, tags=tags)
     aggregator.assert_metric("libbeat.config.module.starts", metric_type=aggregator.COUNTER, count=1, tags=tags)
 
