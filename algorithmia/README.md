@@ -22,32 +22,13 @@ API in Datadog.
 
 1. From your Algorithmia instance, configure Algorithmia Insights to connect to
    a Kafka broker (external to Algorithmia).
-2. Install Python if it's not already present on your system.
-3. Clone this repository to a machine where you will run the message forwarding
-   service provided as part of this integration.
-4. Install the required Python dependencies using
-   ```
-   pip install -r requirements.txt
-   ```
-5. Define the following environment variables (required):
-   ```
-   export DATADOG_API_KEY=<DATADOG-API-KEY>
-   export KAFKA_BROKER=1.2.3.4:9092
-   export KAFKA_TOPIC=insights
-   ```
-   and replace the values with your Datadog API key, Kafka broker URL and port,
-   and Kafka topic that you want to consume Insights from.
-6. Run the Python script provided in this repository, which will continuously
-   forward messages from Kafka to the Datadog metrics API:
-   ```
-   python src/kafka-datadog.py
-   ```
-   you can also run the Python script in the background using:
-   ```
-   python src/kafka-datadog.py &
-   ```
-   or use a process supervision tool such as [supervisord][3] to manage the log
-   forwarding service and handle starting, stopping, and restarting the service.
+
+2. Refer to the
+   [documentation in the Algorithmia integrations repository][3]
+   to install, configure, and start the Datadog message forwarding service used
+   in this integration, which will forward metrics from a Kafka topic to the
+   metrics API in Datadog.
+
 
 ### Validation
 
@@ -93,6 +74,6 @@ Need help? Contact [Datadog support][5].
 
 [1]: https://algorithmia.com/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
-[3]: http://supervisord.org/
+[3]: https://github.com/algorithmiaio/integrations
 [4]: https://github.com/DataDog/integrations-extras/blob/master/algorithmia/metadata.csv
 [5]: https://docs.datadoghq.com/help/
