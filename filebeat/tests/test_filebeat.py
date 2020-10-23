@@ -11,7 +11,7 @@ import pytest
 
 from datadog_checks.filebeat import FilebeatCheck
 
-from .common import registry_file_path
+from .common import BAD_ENDPOINT, registry_file_path
 
 mocked_file_stats = namedtuple("mocked_file_stats", ["st_size", "st_ino", "st_dev"])
 
@@ -442,6 +442,17 @@ def test_check(aggregator, instance):
     tags = ["stats_endpoint:{}".format(instance['stats_endpoint'])]
     aggregator.assert_metric("filebeat.harvester.running", metric_type=aggregator.GAUGE, count=2, tags=tags)
     aggregator.assert_metric("libbeat.config.module.starts", metric_type=aggregator.COUNTER, count=1, tags=tags)
+    aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.OK, tags=tags)
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+def test_check_fail(aggregator, instance):
+    instance['stats_endpoint'] = BAD_ENDPOINT
+    check = FilebeatCheck("filebeat", {}, [instance])
+    check.check(instance)
+    aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.CRITICAL, tags=[])
+    assert len(aggregator._metrics) == 0
 
 
 def test_normalize_metrics(aggregator):

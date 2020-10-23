@@ -65,9 +65,12 @@ The Filebeat check does not include any events.
 
 ### Service Checks
 
-The Filebeat check does not include any service checks.
+`filebeat.can_connect`:
+
+Returns `Critical` if the Agent cannot connect to Filebeat to collect metrics; returns `OK` otherwise.
 
 ## Troubleshooting
+
 
 Need help? Contact [Datadog support][13].
 

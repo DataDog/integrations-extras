@@ -8,6 +8,7 @@ HOST = get_docker_hostname()
 URL = 'http://{}:5066'.format(HOST)
 ENDPOINT = '{}/stats'.format(URL)
 FIXTURE_DIR = os.path.join(HERE, "fixtures")
+BAD_ENDPOINT = 'http://{}:1234/stats'.format(HOST)
 
 
 def registry_file_path(name):
