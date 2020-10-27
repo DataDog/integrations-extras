@@ -44,13 +44,11 @@ You can either select a specific user or the entire N2WS instance alternatively
 
 
 
-6.	Configure Datadog Dashboard, and select the desired data to monitor
-Create new Datadog dashboard. 
-Add a Timeseries graph or any other desired graph (by dragging and dropping it to the dashboard)
-Edit the desire data to be monitored in your graph
-Save the graph settings
+6.	Get N2WS dashboards
+In Datadog's UI, go to 'Integrations-> Integrations', search for 'N2WS' tile and install it. You will get 3 types of dashboards to your account:
+'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-Squaresdashboard'.
  
-Users can alternatively load a ready-made datadog template to monitor their CPM with datadog client
+Users can alternatively import the .json templates for N2WS from here:
 https://support.n2ws.com/portal/en/kb/articles/datadog-templates
 
 
