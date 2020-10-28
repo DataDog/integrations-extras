@@ -238,6 +238,8 @@ class Neo4jCheck(PrometheusCheck):
             'transaction_terminated_read_total': 'transaction.terminated_read',
             'transaction_terminated_total': 'transaction.terminated',
             'transaction_terminated_write_total': 'transaction.terminated_write',
+            'transaction_tx_size_heap': 'transaction.tx_size_heap',
+            'transaction_tx_size_native': 'transaction.tx_size_native',
             #
             # JVM GC metrics
             'vm_gc_count_g1_old_generation_total': 'vm.gc.count.g1_old_generation',
