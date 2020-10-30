@@ -75,3 +75,5 @@ Access your [logs][5] in Datadog. Select the specific source mentioned in the Fl
 [1]: https://github.com/jfrog/charts
 [2]: https://helm.sh/
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/dashboard.png
+[4]: https://app.datadoghq.com/account/settings#api
+[5]: https://app.datadoghq.com/logs
