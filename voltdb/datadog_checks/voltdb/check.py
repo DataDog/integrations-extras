@@ -65,7 +65,7 @@ class VoltDBCheck(AgentCheck):
 	# Submit actual metrics
 	def submitMetrics(self, metrics):
 		for m in metrics: 
-			self.gauge(m['name'], m['value'], tags=m['tags'], timestamp=m['timestamp'])
+			self.gauge(m['name'], m['value'], tags=m['tags'])
 
 	# Do CPU Checking
 	def submitCPU(self, url, port, username, password):
