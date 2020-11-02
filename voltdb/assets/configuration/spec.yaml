@@ -1,0 +1,33 @@
+name: voltdb
+files:
+- name: voltdb.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: The URL (without http://) to access the VoltDB API at.
+      value:
+        type: string
+        example: localhost
+    - name: port
+      required: true
+      description: The port to access the VoltDB API at.
+      value:
+        type: integer
+        example: 12345
+    - name: username
+      required: true
+      description: The username to access the VoltDB API with.
+      value:
+        type: string
+        example: username
+    - name: password
+      required: true
+      description: The password to access the VoltDB API with.
+      value:
+        type: string
+        example: password 
