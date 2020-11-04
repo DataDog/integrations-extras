@@ -54,9 +54,6 @@ CAPTURE_PROCS = [
 
 # The actual VoltDB check
 class VoltDBCheck(AgentCheck):
-    def __init__(self, *args, **kwargs):
-        super(VoltDBCheck, self).__init__(*args, **kwargs)
-        self.log = get_check_logger()
 
     # Build a pretty URL
     def getURL(self, url, port, username, password, procedure, parameters):
