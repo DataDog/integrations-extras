@@ -110,16 +110,6 @@ class VoltDBCheck(AgentCheck):
         self.submitMetrics(metrics)
         return
 
-    # Do CPU Checking
-    def submitCPU(self, url, port, username, password):
-        # get url and build data
-        results = requests.get(self.getURL(url, port, username, password, '@Statistics', '["CPU"]'))
-        results.raise_for_status()
-        data = results.json()
-        metrics = self.buildMetrics(data, "cpu")
-        self.submitMetrics(metrics)
-        return
-
     # Do the Datadog check!
     def check(self, instance):
         # Grab the config variables
