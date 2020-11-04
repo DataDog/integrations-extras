@@ -8,8 +8,6 @@ except ImportError:
     # ...if the above failed, the check is running in Agent version < 6.6.0
     from checks import AgentCheck
 
-from datadog_checks.base.log import DEFAULT_FALLBACK_LOGGER, get_check_logger, init_logging
-
 import requests
 
 # Some basics
