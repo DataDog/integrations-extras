@@ -1,23 +1,23 @@
-# Agent Check: flume
+# Agent Check: Flume
 
 ## Overview
 
-This check monitors [flume][1].
+This check monitors [Apache Flume][1].
 
 ## Setup
 
 ### Installation
 
-To install the flume check on your host:
+To install the Flume check on your host:
 
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
+1. Install the [developer toolkit][2].
+
  on any machine.
 
 2. Run `ddev release build flume` to build the package.
 
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+3. [Download the Datadog Agent][3].
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
@@ -25,7 +25,7 @@ To install the flume check on your host:
 
 ### Configuration
 
-1. Configure the flume agent to enable JMX by adding the following JVM arguments to your [flume-env.sh](https://flume.apache.org/FlumeUserGuide.html#jmx-reporting): 
+1. Configure the Flume agent to enable JMX by adding the following JVM arguments to your [flume-env.sh][4]: 
 
 ```
 export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=5445 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false”
@@ -33,25 +33,25 @@ export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremot
 ```
 
 2. Edit the `flume.d/conf.yaml` file, in the `conf.d/` folder at the root of your
-   Agent's configuration directory to start collecting your flume performance data.
-   See the [sample flume.d/conf.yaml][2] for all available configuration options.
+   Agent's configuration directory to start collecting Flume performance data.
+   See the [sample `flume.d/conf.yaml`][5] file for all available configuration options.
 
    This check has a limit of 350 metrics per instance. The number of returned metrics is indicated in the info page.
    You can specify the metrics you are interested in by editing the configuration below.
-   To learn how to customize the metrics to collect visit the [JMX Checks documentation][3] for more detailed instructions.
-   If you need to monitor more metrics, contact [Datadog support][4].
+   To learn how to customize the metrics to collect visit the [JMX Checks documentation][6] for more detailed instructions.
+   If you need to monitor more metrics, contact [Datadog support][7].
 
-2. [Restart the Agent][5]
+3. [Restart the Agent][8]
 
 ### Validation
 
-[Run the Agent's `status` subcommand][6] and look for `flume` under the Checks section.
+[Run the Agent's `status` subcommand][9] and look for `flume` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this check.
+See [metadata.csv][10] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -61,17 +61,20 @@ Returns `CRITICAL` if the Agent is unable to connect to and collect metrics from
 
 ### Events
 
-flume does not include any events.
+Flume does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][4].
+Need help? Contact [Datadog support][7].
 
 
 [1]: https://flume.apache.org/
-[2]: https://github.com/DataDog/integrations-extras/blob/master/flume/datadog_checks/flume/data/conf.yaml.example
-[3]: https://docs.datadoghq.com/integrations/java/
-[4]: https://docs.datadoghq.com/help/
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
+[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://app.datadoghq.com/account/settings#agent
+[4]: https://flume.apache.org/FlumeUserGuide.html#jmx-reporting
+[5]: https://github.com/DataDog/integrations-extras/blob/master/flume/datadog_checks/flume/data/conf.yaml.example
+[6]: https://docs.datadoghq.com/integrations/java/
+[7]: https://docs.datadoghq.com/help/
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[10]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
