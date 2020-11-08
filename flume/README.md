@@ -10,10 +10,7 @@ This check monitors [Apache Flume][1].
 
 To install the Flume check on your host:
 
-
 1. Install the [developer toolkit][2].
-
- on any machine.
 
 2. Run `ddev release build flume` to build the package.
 
