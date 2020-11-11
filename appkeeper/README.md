@@ -24,7 +24,7 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
 ![snapshot][4]
 
-1. Enter the **URL** "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
+1. Enter the **URL**: "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
 2. Enter the Instance ID and name of Services for the monitoring instance in the **Payload**
 3. Register the AppKeeper API token in the **Custom Headers** "**appkeeper-integration-token**"
 
