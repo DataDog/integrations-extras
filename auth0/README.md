@@ -2,32 +2,24 @@
 
 ## Overview
 
-Auth0, the identity platform for development teams, provides developers and enterprises with the building blocks they need to secure their applications.
+Auth0 is an identity platform for development teams which provides developers and enterprises with the building blocks they need to secure their applications.
 
 
+This integration leverages Auth0’s Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
 
-The integration with Datadog is enabled by Auth0’s Log Streaming. This capability works by sending batches of log events as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. Log streaming is capable of delivering 10X more logs, and guarantees delivery with error handling. You can now also release a generic webhook allowing you to deliver near real-time logs to most third-party tools.
+### Key use cases for the integration
 
+#### Collerate activity with identity data to surface trends
 
-#### The integration with Datadog provides a number of important benefits:
-
-Visualize Auth0 Data Without Extra Development Time
-
-One of the key benefits of using Datadog is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
-
-
-#### Identity data
-
-Identity data provides crucial insight to all of these use cases, allowing teams to better identify problems and make informed decisions.
+Identity data provides crucial insight into who performed what activity. This allows teams to better understand user behaviour across their system.
 
 #### Make Informed Decisions About System Architecture and Development
 
-By tracking identity trends over time, teams can make informed decisions about product development or system architecture. For example, using authentication data to determine which devices to prioritize development. Likewise, by tracking peak login times and geographies that users are accessing the app from, system architecture teams can determine when and where to scale up resources.
-
+By tracking identity trends over time, teams can make informed decisions about product development and system architecture. As an example teams might prioritze development based on tracking peak login times, authentication activity and geographical activity.
 
 ####  Quickly respond to performance and security incidents
 
-In addition to monitoring historical data to spot trends, it is just as important to use identity information to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
+Identity information can be used to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
 
 By configuring thresholds, security teams can set up alerts to notify them when suspicious events take place, allowing them to more quickly respond to security incidents.
 
@@ -81,8 +73,10 @@ auth0 does not include any events.
 ## Troubleshooting
 
 Need help? Contact [Datadog support][1].
+Read more about this integration in our [blog post][6].
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://manage.auth0.com
 [4]: https://app.datadoghq.com/account/settings#api
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
+[6]: https://www.datadoghq.com/blog/monitor-auth0-with-datadog/
