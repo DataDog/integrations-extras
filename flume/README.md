@@ -49,6 +49,8 @@ export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremot
 ### Metrics
 
 See [metadata.csv][10] for a list of metrics provided by this check.
+The metrics retrieved by this check will depend on the source, channel, and sink used by your Flume agent. 
+For a full list of metrics exposed by each component, please review [Available Component Metrics][11] from the Apache Flume documentation. 
 
 ### Service Checks
 
@@ -75,3 +77,4 @@ Need help? Contact [Datadog support][7].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
+[11]: https://flume.apache.org/FlumeUserGuide.html#available-component-metrics
