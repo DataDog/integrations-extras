@@ -16,33 +16,34 @@ This integration allows users to monitor and analyze the N2WS Backup and Recover
 1.	Install the [Python Integration][1]
 
 
-2.	Enable Datadog support on your N2WS instance
-Connect to your N2WS Backup and Recovery instance with SSH. Add the following lines to `/cpmdata/conf/cpmserver.cfg`. You may require `sudo` privileges to perform this action.
-`[external_monitoring]
-enabled=True`
+2.	Enable Datadog support on your N2WS instance:
+    Connect to your N2WS Backup and Recovery instance with SSH. Add the following lines to `/cpmdata/conf/cpmserver.cfg`. You may require `sudo` privileges to  perform this action.
+    `[external_monitoring]
+    enabled=True`
 
-Run `service apache2 restart`
-
-
-3.	Install the Datadog Agent on your N2WS Instance
-Login to Datadog and go to Integrations -> Agent -> Ubuntu
-Copy the agent ‘easy one-step install’ command 
-Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
+    Run `service apache2 restart`
 
 
-4.	Setup Datadog Dashboard metrics
-Go to [‘Metrics-> Explorer’][2]
+3.	Install the Datadog Agent on your N2WS Instance:
 
-**Graph**: Select your metric from the list. All N2WS metrics begin with the string ‘cpm_metric’.
+    - Login to Datadog and go to Integrations -> Agent -> Ubuntu
+    - Copy the agent ‘easy one-step install’ command 
+    - Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
 
-**Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
-You can select either a specific user or the entire N2WS instance.
+
+4.	Setup Datadog Dashboard metrics:
+    Go to [‘Metrics-> Explorer’][2]
+
+    **Graph**: Select your metric from the list. All N2WS metrics begin with the string ‘cpm_metric’.
+
+    **Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
+    You can select either a specific user or the entire N2WS instance.
 
 
 5.	Get N2WS dashboards
-In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
-    You will get 3 types of dashboards to your account:
-    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-Squaresdashboard'.
+    In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
+        You will get 3 types of dashboards to your account:
+        'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-Squaresdashboard'.
  
 Alternatively users can [import JSON templates from N2WS][4].
 
