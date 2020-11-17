@@ -6,7 +6,9 @@ SIOS AppKeeper automatically restarts failed Amazon EC2 services when
 notifications are received from Datadog such as Synthetics, removing
 the need for expensive manual intervention.
 
-When some problem occurs, Datadog can send a notice it to you, but cannot recover it. Integration with SIOS AppKeeper can improves this situation. The integration makes Datadog to call AppKeeper Recover API to restart the troubling service.
+When some problem occurs, Datadog can send a notice it to you, but cannot recover it.
+Integration with SIOS AppKeeper can improves this situation. The integration makes
+Datadog to call AppKeeper Recover API to restart the troubling service.
 
 ## Setup
 
