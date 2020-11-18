@@ -25,6 +25,27 @@ To install the php_apcu check on your host:
  run `datadog-agent integration install -w
  path/to/php_apcu/dist/<ARTIFACT_NAME>.whl`.
 
+#### APCu Setup
+
+Provide a URL to the collection program.
+
+APCu does not have a metric output by itself.
+
+Install the file obtained from the following URL
+
+* https://github.com/withgod/integrations-extras/blob/feature/apcu/php_apcu/tests/php_apcu/src/apcu-dd-handler.php
+
+It will work if you refer to it as a php file, but you may want to configure it as follows
+
+```
+Alias /apcu-status /path/to/apcu-dd-handler.php
+<Location /apcu-status>
+    Require all denied
+    Require ip 127.0.0.1
+    Require ip 10.0.
+</Location>
+```
+
 ### Configuration
 
 1. Edit the `php_apcu.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your php_apcu performance data. See the [sample php_apcu.d/conf.yaml][3] for all available configuration options.
