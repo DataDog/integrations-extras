@@ -21,8 +21,8 @@ def test_service_check(aggregator, instance):
     c = PhpApcuCheck('php_apcu', {}, [instance])
 
     c.check(instance)
-    aggregator.assert_service_check('php_apcu.can_collect', PhpApcuCheck.OK)
+    aggregator.assert_service_check('php_apcu.can_connect', PhpApcuCheck.OK)
 
     instance['url'] = instance['url'].replace('.php', '')
     c.check(instance)
-    aggregator.assert_service_check('php_apcu.can_collect', PhpApcuCheck.CRITICAL)
+    aggregator.assert_service_check('php_apcu.can_connect', PhpApcuCheck.CRITICAL)
