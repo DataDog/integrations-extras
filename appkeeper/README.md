@@ -61,8 +61,12 @@ If you set it, AppKeeper's recovery API will not be called by Webhook. Please do
 
 ![snapshot][9]
 
+6. Results of recoveries by AppKeeper are listed in AppKeeper's GUI.
 
-For more information on the AppKeeper's Integration, review the Appkeeper [documentation][10].
+![snapshot][10]
+
+
+For more information on the AppKeeper's Integration, review the Appkeeper [documentation][11].
 
 ## Data Collected
 
@@ -70,7 +74,7 @@ For more information on the AppKeeper's Integration, review the Appkeeper [docum
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][11].
+Need help? Contact [Datadog support][12].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/integration.jpg
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/integration2.jpg
@@ -81,5 +85,6 @@ Need help? Contact [Datadog support][11].
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test2.jpg
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test3.jpg
 [9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test4.jpg
-[10]: https://sioscoati.zendesk.com/hc/en-us/articles/900000978443-Integration
-[11]: https://docs.datadoghq.com/help/
+[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
+[11]: https://sioscoati.zendesk.com/hc/en-us/articles/900000978443-Integration
+[12]: https://docs.datadoghq.com/help/
