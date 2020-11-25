@@ -18,16 +18,16 @@ When Datadog finds the alerts, it restarts the Service via AppKeeper Recovery AP
 
 Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
-1. Click  the Account Information, and open the modal dialog
-2. Click Get Token
-3. Copy the Token
+1. Click **Account Information**, and open the modal dialog
+2. Click **Get Token**
+3. Copy the token
 
 ![snapshot][3]
 
 ### Step 2. Define the Webhook in the Datadog Integration Dashboard
 
-1. Click the Integration
-2. Click the Webhooks (*If you did not installed the Webhook, please install the Webhook.)
+1. Click on the Integration
+2. Click the webhooks (*If you did not install the webhook, please install the webhook.)
 
 ![snapshot][4]
 
@@ -44,20 +44,20 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 As an example, create a new synthetic test and set up the integration with AppKeeper.
 
 1. UX Monitoring – Select Synthetic Test
-2. Click the New Test for creating the Synthetics as new
+2. Click the **New Test** for creating the Synthetics as new
 
 ![snapshot][6]
 
-3. Setting the fields of monitoring. It set for the Web page
+3. Set the monitoring fields.
 
 ![snapshot][7]
 
-4. Add the Webhook that set in Step 2 and Step 3 in the Notification setting(Notify your team)
+4. Add the webhook that set in Step 2 and Step 3 in the Notification settings(Notify your team).
 
 ![snapshot][8]
 
-5. Datadog has the function to suppress notifications when an alert is raised repeatedly.
-If you set it, AppKeeper's recovery API will not be called by Webhook. Please don't set it to inhibit.
+5. Datadog has the functionality to suppress notifications when an alert is raised repeatedly.
+If you set it, AppKeeper's recovery API will not be called by webhook. **Don't set it to inhibit**.
 
 ![snapshot][9]
 
