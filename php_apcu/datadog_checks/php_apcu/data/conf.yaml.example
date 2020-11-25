@@ -16,7 +16,14 @@ instances:
     ## @param url - string - required
     ## Provide a URL to the collection program.
     ## APCu does not have a metric output by itself.
-    ## Install the file obtained from the following URL
-    ## * https://github.com/withgod/integrations-extras/blob/master/php_apcu/tests/php_apcu/src/apcu-dd-handler.php
+    ## * DD_ROOT/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
+    ## It will work if you refer to it as a php file, but you may want to configure it as follows.
+    ## ```
+    ## Alias /apcu-status /path/to/apcu-dd-handler.php
+    ## <Location /apcu-status>
+    ##     Require all denied
+    ##     Require local
+    ## </Location>
+    ## ```
     #
-  - url: http://localhost/apcu-dd-handler.php
+  - url: http://localhost/apcu-status
