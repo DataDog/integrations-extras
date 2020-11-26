@@ -31,7 +31,7 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
 ![snapshot][4]
 
-### Step 3. Define the PAYLOAD and CUSTOM HEADERS
+### Step 3. Define the payload and custom headers
 
 1. Enter the **URL**: "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
 2. Enter the Instance ID and name of Services for the monitoring instance in the **Payload**
@@ -43,7 +43,7 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
 As an example, create a new synthetic test and set up the integration with AppKeeper.
 
-1. UX Monitoring – Select Synthetic Test
+1. Navigate to UX Monitoring. Select **Synthetic Test**.
 2. Click the **New Test** for creating the Synthetics as new
 
 ![snapshot][6]
