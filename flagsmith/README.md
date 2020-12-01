@@ -30,6 +30,6 @@ Flagsmith does not include any events.
 
 ## Troubleshooting
 
-Need help? Check out our [documentation](https://docs.flagsmith.com/integrations/datadog/) or [contact us][https://www.flagsmith.com/].
+Need help? Check out the [Flagsmith documentation](https://docs.flagsmith.com/integrations/datadog/) or [contact Datadog Support][https://docs.datadoghq.com/help/].
 
 [1]: https://docs.datadoghq.com/account_management/api-app-keys/#api-keys
