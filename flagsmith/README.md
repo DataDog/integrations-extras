@@ -4,7 +4,7 @@
 
 [Flagsmith][https://www.flagsmith.com/] facilitates feature management across web, mobile, and server side applications. The Datadog Flagsmith integration enables you to view information about flag changes directly within Datadog.
 
-All flag change events are sent to Datadog, tagged with the Environment they were changed in.
+All flag change events are sent to Datadog. These events are tagged with the environment they were changed in.
 
 ## Setup
 
