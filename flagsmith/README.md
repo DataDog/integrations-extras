@@ -8,10 +8,7 @@ All flag change events are sent to Datadog. These events are tagged with the env
 
 ## Setup
 
-1. Sign up to DataDog and Flagsmith. Log into both accounts.
-2. Get your [Datadog API Key][1].
-3. In the Integrations area of Flagsmith, expand the Datadog integration and enter your API key and API URL (either [https://api.datadoghq.eu/](https://api.datadoghq.eu/) or [https://api.datadoghq.com/](https://api.datadoghq.com/)).
-4. You're done. Change a flag in the Flagsmith dashboard and see the event appear within the Datadog control panel.
+In the [Flagsmith Integration tile][https://app.datadoghq.com/account/settings#integrations/flagsmith], enter your [Datadog API Key][https://app.datadoghq.com/account/settings#api]. For API URL, enter `https://api.datadoghq.com` if you are using the US site, or `https://api.datadoghq.eu` if you are using the EU site.
 
 ## Removal
 
