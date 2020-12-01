@@ -2,7 +2,7 @@
 
 ## Overview
 
-Manage feature flags across web, mobile and server side applications. Deliver true Continuous Integration. Get builds out faster. Control who has access to new features. Integrate [Flagsmith][https://www.flagsmith.com/] with DataDog and get insights into your flag changes directly within the Datadog application.
+[Flagsmith][https://www.flagsmith.com/] facilitates feature management across web, mobile, and server side applications. The Datadog Flagsmith integration enables you to view information about flag changes directly within Datadog.
 
 All flag change events are sent to Datadog, tagged with the Environment they were changed in.
 
