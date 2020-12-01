@@ -18,7 +18,7 @@ Simply navigate to the Integration page within Flagsmith and click the trash can
 
 ### Metrics
 
-No data is collected other than the flag event information that is sent to Datadog.
+The Flagsmith integration does not include any metrics.
 
 ### Service Checks
 
