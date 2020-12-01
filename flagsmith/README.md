@@ -26,7 +26,7 @@ Flagsmith does not include any service checks.
 
 ### Events
 
-Flagsmith does not include any events.
+All events are sent to the Datadog event stream.
 
 ## Troubleshooting
 
