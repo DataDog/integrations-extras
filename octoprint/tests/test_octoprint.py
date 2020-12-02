@@ -1,7 +1,7 @@
 import pytest
 
-from datadog_checks.octoprint import OctoPrintCheck
 from datadog_checks.base import ConfigurationError
+from datadog_checks.octoprint import OctoPrintCheck
 
 
 @pytest.mark.unit
@@ -21,4 +21,4 @@ def test_config():
 @pytest.mark.usefixtures('dd_environment')
 def test_service_check(aggregator, instance):
     c = OctoPrintCheck('octoprint', {}, [instance])
-
+    c.check(instance)

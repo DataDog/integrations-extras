@@ -14,15 +14,13 @@
 # TODO:
 # - Refactor Octo HTTP API calls
 
-
+import logging
 import os
-import sys
-import json
+
 import requests
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
-import logging
-
 
 logging.basicConfig(filename="/var/log/octoprint/octoprint.log", encoding="utf8", level=logging.DEBUG)
 
@@ -44,16 +42,20 @@ tags = {}
 
 
 class OctoPrintCheck(AgentCheck):
-
     def get_rpi_core_temp(self):
         # temp = os.popen('sudo /usr/bin/vcgencmd measure_temp').readline()
-        temp, err, retcode = get_subprocess_output(["/usr/bin/vcgencmd", "measure_temp"], self.log, raise_on_empty_output=True)
+        temp, err, retcode = get_subprocess_output(
+            ["/usr/bin/vcgencmd", "measure_temp"], self.log, raise_on_empty_output=True
+        )
         # self.log.debug('rpi core temp - temp: %s', temp)
         # self.log.debug('rpi core temp - err: %s', err)
         # self.log.debug('rpi core temp - retcode: %s', retcode)
         temp = temp.replace("temp=", "").replace("'C", "")
         if temp.startswith("VCHI initialization failed"):
-            self.log.info("Unable to get rPi temp.  To resolve, add the 'video' group to the 'dd-agent' user by running `sudo usermod -aG video dd-agent`")
+            self.log.info(
+                "Unable to get rPi temp.  To resolve, add the 'video' group to the 'dd-agent' user"
+                " by running `sudo usermod -aG video dd-agent`"
+            )
             temp = 0.0
         return float(temp)
 
@@ -111,7 +113,7 @@ class OctoPrintCheck(AgentCheck):
         self.gauge("octoprint.printer_state", printer_state)
 
         # Job File Name
-        job_name = x["job"]["file"]["name"] or ""
+        # job_name = x["job"]["file"]["name"] or ""
 
         # Print Job Percent Completed and Time Estimate
         est_print_time = self.seconds_to_minutes(x["job"]["estimatedPrintTime"])
@@ -132,12 +134,8 @@ class OctoPrintCheck(AgentCheck):
             toolname = key
             current_tool_temp = y[toolname]["actual"]
             target_tool_temp = y[toolname]["target"]
-            self.gauge(
-                "octoprint." + toolname + ".current_tool_temp", current_tool_temp
-            )
-            self.gauge(
-                "octoprint." + toolname + ".target_tool_temp", target_tool_temp
-            )
+            self.gauge("octoprint." + toolname + ".current_tool_temp", current_tool_temp)
+            self.gauge("octoprint." + toolname + ".target_tool_temp", target_tool_temp)
 
         # # Bed Temperatures
         z = self.get_bed_temp(SERVER, octo_api_key, TIMEOUT)
