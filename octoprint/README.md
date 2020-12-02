@@ -60,12 +60,12 @@ OctoPrint uses it's own log format (not an object format), so making better use 
 I found it useful to layout my pipeline like so:  
 
 1. Main Pipeline: "OctoPrint"
-  1. Sub Pipeline 1: "OctoPrint Print Job"
-    1. Grok parser rule:
-      - `OctoPrint_Print_Job %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+Print\s+job\s+%{notSpace:job_status}\s+-\s+%{data::keyvalue(":"," ,")}`
-  1. Sub Pipeline 2: "General OctoPrint Log"
-    1. Grok parser rule:
-      - `generalOctoPrintLog %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
+    1. Sub Pipeline 1: "OctoPrint Print Job"
+        1. Grok parser rule:
+            - `OctoPrint_Print_Job %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+Print\s+job\s+%{notSpace:job_status}\s+-\s+%{data::keyvalue(":"," ,")}`
+    1. Sub Pipeline 2: "General OctoPrint Log"
+        1. Grok parser rule:
+            - `General_OctoPrint_Log %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
 
 For more information, see the [Datadog Log Processing documentation][9]
 
