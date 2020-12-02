@@ -90,9 +90,9 @@ class OctoPrintCheck(AgentCheck):
         octo_api_key = instance.get('octo_api_key')
         # self.log.info('octo_api_key (from config): %s', octo_api_key)
         # self.log.info('octo_server: %s', SERVER)
-
         rpi_core_temp = self.get_rpi_core_temp()
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
+
         # get api data
         x = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
 
@@ -116,15 +116,12 @@ class OctoPrintCheck(AgentCheck):
         # Print Job Percent Completed and Time Estimate
         est_print_time = self.seconds_to_minutes(x["job"]["estimatedPrintTime"])
         pct_completed = x["progress"]["completion"]
-        # print(pct_completed)
         self.gauge("octoprint.est_print_time", est_print_time)
         self.gauge("octoprint.pct_completed", pct_completed)
 
         # Print Job Elapsed and Remaining Times
         print_job_time = self.seconds_to_minutes(x["progress"]["printTime"])
         print_job_time_left = self.seconds_to_minutes(x["progress"]["printTimeLeft"])
-        # print("print_time: " + str(print_time))
-        # print("print_job_time_left: " + str(print_time_left)
         self.gauge("octoprint.print_job_time", print_job_time)
         self.gauge("octoprint.print_job_time_left", print_job_time_left)
 
@@ -132,12 +129,9 @@ class OctoPrintCheck(AgentCheck):
         y = self.get_tool_temp(SERVER, octo_api_key, TIMEOUT)
         # print(toolname)
         for key in y.keys():
-            # print(key)
             toolname = key
             current_tool_temp = y[toolname]["actual"]
             target_tool_temp = y[toolname]["target"]
-            # print("current_tool_temp: " + str(current_tool_temp))
-            # print("target_tool_temp: " + str(target_tool_temp))
             self.gauge(
                 "octoprint." + toolname + ".current_tool_temp", current_tool_temp
             )
@@ -150,10 +144,7 @@ class OctoPrintCheck(AgentCheck):
         print(z)
         for key in z.keys():
             bedname = key
-            # print(bedname)
             current_bed_temp = z[bedname]["actual"]
             target_bed_temp = z[bedname]["target"]
-            # print("current_bed_temp: " + str(current_bed_temp))
-            # print("target_bed_temp: " + str(target_bed_temp))
             self.gauge("octoprint." + bedname + ".current_bed_temp", current_bed_temp)
             self.gauge("octoprint." + bedname + ".target_bed_temp", target_bed_temp)
