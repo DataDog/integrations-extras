@@ -41,6 +41,34 @@ To install the octoprint check on your host:
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+### Logs
+
+By default this integration assumes that you are using the [OctoPi][8] image that is pre-configured to run OctoPrint from a Raspberry Pi.
+
+The logs that it collects by default (and their default locations) are:
+
+- OctoPrint App log: `/home/pi/.octoprint/logs`
+- OctoPrint Webcam log: `/var/log/webcamd.log`
+- HA Proxy log: `/var/log/haproxy.log`
+
+Any or all of these may be changed or removed by modifying the integration's `conf.yaml` file.
+
+#### Log Processing
+
+OctoPrint uses it's own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules.
+
+I found it useful to layout my pipeline like so:  
+
+1. Main Pipeline: "OctoPrint"
+  1. Sub Pipeline 1: "OctoPrint Print Job"
+    1. Grok parser rule:
+      - `OctoPrint_Print_Job %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+Print\s+job\s+%{notSpace:job_status}\s+-\s+%{data::keyvalue(":"," ,")}`
+  1. Sub Pipeline 2: "General OctoPrint Log"
+    1. Grok parser rule:
+      - `generalOctoPrintLog %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
+
+For more information, see the [Datadog Log Processing documentation][9]
+
 ### Service Checks
 
 octoprint does not include any service checks.
@@ -60,3 +88,5 @@ Need help? Contact [Datadog support][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/metadata.csv
 [7]: https://docs.datadoghq.com/help/
+[8]: https://octoprint.org/download/
+[9]: https://docs.datadoghq.com/logs/processing/
