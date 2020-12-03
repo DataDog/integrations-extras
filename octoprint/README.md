@@ -10,7 +10,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the octoprint check on your host:
+To install the OctoPrint check on your host:
 
 
 1. Install the [developer toolkit]
