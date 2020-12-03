@@ -1,4 +1,4 @@
-# Agent Check: octoprint
+# Agent Check: OctoPrint
 
 ## Overview
 
@@ -10,16 +10,16 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the octoprint check on your host:
+To install the OctoPrint check on your host:
 
 
 1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
+[3]
  on any machine.
 
 2. Run `ddev release build octoprint` to build the package.
 
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+3. [Download the Datadog Agent][4].
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
@@ -27,19 +27,19 @@ To install the octoprint check on your host:
 
 ### Configuration
 
-1. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your octoprint performance data. See the [sample octoprint.d/conf.yaml][3] for all available configuration options.
+1. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting OctoPrint performance data. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
 
-2. [Restart the Agent][4].
+2. [Restart the Agent][6].
 
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `octoprint` under the Checks section.
+[Run the Agent's status subcommand][7] and look for `octoprint` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this check.
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Logs
 
@@ -71,22 +71,24 @@ For more information, see the [Datadog Log Processing documentation][9]
 
 ### Service Checks
 
-octoprint does not include any service checks.
+OctoPrint does not include any service checks.
 
 ### Events
 
-octoprint does not include any events.
+OctoPrint does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][7].
+Need help? Contact [Datadog support][9].
 
 [1]: https://octoprint.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/datadog_checks/octoprint/data/conf.yaml.example
-[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/metadata.csv
-[7]: https://docs.datadoghq.com/help/
+[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[4]: https://app.datadoghq.com/account/settings#agent
+[5]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/datadog_checks/octoprint/data/conf.yaml.example
+[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[8]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/metadata.csv
+[9]: https://docs.datadoghq.com/help/
 [8]: https://octoprint.org/download/
 [9]: https://docs.datadoghq.com/logs/processing/
