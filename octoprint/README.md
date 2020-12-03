@@ -1,4 +1,4 @@
-# Agent Check: octoprint
+# Agent Check: OctoPrint
 
 ## Overview
 
