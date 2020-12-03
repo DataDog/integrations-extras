@@ -27,7 +27,7 @@ To install the OctoPrint check on your host:
 
 ### Configuration
 
-1. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your octoprint performance data. See the [sample octoprint.d/conf.yaml][3] for all available configuration options.
+1. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting OctoPrint performance data. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
 
 2. [Restart the Agent][4].
 
