@@ -1,5 +1,3 @@
-import requests
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 
@@ -12,7 +10,7 @@ class PhpApcuCheck(AgentCheck):
         self.log.debug('apcu check url[%s]', url)
 
         try:
-            response = requests.get(url)
+            response = self.http.get(url)
             response.raise_for_status()
         except Exception as e:
             self.service_check('php_apcu.can_connect', self.CRITICAL, message=str(e))
