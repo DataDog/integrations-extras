@@ -24,7 +24,7 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 logging.basicConfig(filename="/var/log/octoprint/octoprint.log", encoding="utf8", level=logging.DEBUG)
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 hostname = os.popen("hostname").readline().strip()
 # hostname = get_subprocess_output("hostname", self.log, True)
