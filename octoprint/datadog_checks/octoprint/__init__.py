@@ -1,4 +1,4 @@
 from .__about__ import __version__
-from .check import OctoprintCheck
+from .check import OctoPrintCheck
 
-__all__ = ['__version__', 'OctoprintCheck']
+__all__ = ['__version__', 'OctoPrintCheck']
