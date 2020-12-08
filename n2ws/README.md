@@ -2,12 +2,10 @@
 
 ## Overview
 
-N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery (DR) solution for Amazon Web Services (AWS). 
-N2WS uses cloud native technologies (e.g. EBS snapshots) to provide backup and restore capabilities in AWS.
+N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS). N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS.
 
-Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery (DR), copy to S3, alerts 
-and more by Datadog monitoring service. 
-This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
+Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts, 
+and more by Datadog monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
 
 ## Setup
 
@@ -15,6 +13,14 @@ This integration allows users to monitor and analyze the N2WS Backup and Recover
 
 1.	##### Install the [Python Integration][1]
 
+2. Enable support for Datadog on your N2WS instance:
+    - Connect to your N2WS Backup and Recovery instance with SSH.
+    - Add the lines below to `/cpmdata/conf/cpmserver.cfg`. You might need `sudo` privileges to perform this action.
+        ```
+        [external_monitoring]
+        enabled=True
+        ```
+    - Run `service apache2 restart`.
 
 2.	##### Enable Datadog support on your N2WS instance
     Connect to your N2WS Backup and Recovery instance with SSH. Add the following lines to `/cpmdata/conf/cpmserver.cfg`. You may require `sudo` privileges to perform this action.
@@ -24,12 +30,10 @@ This integration allows users to monitor and analyze the N2WS Backup and Recover
     ```
     Run ```service apache2 restart```
 
-
 3.	##### Install the Datadog Agent on your N2WS Instance.
     Login to Datadog and go to Integrations -> Agent -> Ubuntu
     Copy the agent ‘easy one-step install’ command 
     Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
-
 
 4.	##### Setup Datadog Dashboard metrics
     Go to [‘Metrics-> Explorer’][2]
@@ -50,36 +54,40 @@ This integration allows users to monitor and analyze the N2WS Backup and Recover
 
 ## Data Collected
 
-Datadog collects data about N2WS Backup & Recovery backups: number of snapshots of each type, successfull backups, failed backups, partially successful backups, 
-protected resources from any type, data about volume capacity, alerts, etc.
+Datadog collects the following data about N2WS Backup & Recovery backups:
 
+- The number of snapshots of each type
+- Successful backups
+- Failed backups
+- Partially successful backups
+- Protected resources from any type
+- Data about volume capacity, alerts, etc.
 
 ### Metrics
 
 See [metadata.csv][5] for a list of metrics provided by this check.
 
-
 ### Events
 
-Datadog collects alert messages from all the N2WS Backup & Recovery hosts.
-
+Datadog collects alert messages from all N2WS Backup & Recovery hosts.
 
 ### Service Checks
 
-N2WS Backup & Recovery doesn't have service checks.
-
+The N2WS Backup & Recovery integration does not include any service checks.
 
 ## Troubleshooting
 
-[N2WS User Guide and documentation][6]
-[N2WS Support][7] 
-
+- [N2WS user guide and documentation][6]
+- [N2WS support][7]
+- [Datadog support][8]
 
 
 [1]: https://app.datadoghq.com/account/settings#integrations/python
 [2]: https://app.datadoghq.com/metric/explorer
-[3]: https://app.datadoghq.com/account/settings#integrations
+[3]: https://app.datadoghq.com/account/settings#integrations/n2ws
 [4]: https://support.n2ws.com/portal/en/kb/articles/datadog-templates
 [5]: https://github.com/DataDog/integrations-extras/blob/master/n2ws/metadata.csv
 [6]: https://n2ws.com/support/documentation
 [7]: https://n2ws.com/support 
+[8]: https://docs.datadoghq.com/help/
+[9]: https://app.datadoghq.com/account/settings#ubuntu
