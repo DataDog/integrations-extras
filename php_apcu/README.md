@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [php_apcu][1] through the Datadog Agent.
+This check monitors [PHP APCu][1] through the Datadog Agent.
 
 ## Setup
 
@@ -10,7 +10,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the php_apcu check on your host:
+To install the `php_apcu` check on your host:
 
 
 1. Install the [developer toolkit]
