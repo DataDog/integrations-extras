@@ -22,7 +22,12 @@ import requests
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
-logging.basicConfig(filename="/var/log/octoprint/octoprint.log", encoding="utf8", level=logging.DEBUG)
+logfile = "/var/log/datadog/octoprint.log"
+logdir = os.path.dirname(logfile)
+if not os.path.exists(logfile):
+    os.makedirs(logdir)
+    open(logfile, 'w')
+logging.basicConfig(filename=logfile, encoding="utf8", level=logging.DEBUG)
 
 __version__ = "0.1.2"
 
@@ -60,7 +65,8 @@ class OctoPrintCheck(AgentCheck):
                 temp = 0.0
         else:
             self.log.info(
-                "The command typically used to get the core temperature, /usr/bin/vcgencmd, is not available on this system."
+                "The command typically used to get the core temperature, /usr/bin/vcgencmd,"
+                "is not available on this system."
             )
             temp = 0.0
         return float(temp)
