@@ -19,48 +19,33 @@ class OpaCheck(OpenMetricsBaseCheck):
             name, init_config, instances, default_instances=default_instances, default_namespace='opa'
         )
 
+
+    def _http_check(self, url, check_name):
+        try:
+            response = self.http.get(url)
+            response.raise_for_status()
+        except Exception as e:
+            self.service_check(check_name, self.CRITICAL, message=str(e))
+        else:
+            if response.status_code == 200:
+                self.service_check(check_name, self.OK)
+            else:
+                self.service_check(check_name, self.WARNING)
+
+
     def check(self, instance):
         health_url = instance.get("health_url")
-        plugins_url = health_url + "?plugins"
-        bundles_url = health_url + "?bundles"
-
         if health_url is None:
             raise ConfigurationError("Each instance must have a url to the health service")
 
+        plugins_url = health_url + "?plugins"
+        bundles_url = health_url + "?bundles"
 
         # General service health
-        try:
-            response = self.http.get(health_url)
-            response.raise_for_status()
-        except Exception as e:
-            self.service_check('opa.health', self.CRITICAL, message=str(e))
-        else:
-            if response.status_code == 200:
-                self.service_check('opa.health', self.OK)
-            else:
-                self.service_check('opa.health', self.WARNING)
-
+        self._http_check(health_url, 'opa.health')
         # Bundles activation status
-        try:
-            response = self.http.get(bundles_url)
-            response.raise_for_status()
-        except Exception as e:
-            self.service_check('opa.bundles_health', self.CRITICAL, message=str(e))
-        else:
-            if response.status_code == 200:
-                self.service_check('opa.bundles_health', self.OK)
-            else:
-                self.service_check('opa.bundles_health', self.WARNING)
-
+        self._http_check(bundles_url, 'opa.bundles_health')
         # Plugins status
-        try:
-            response = self.http.get(plugins_url)
-            response.raise_for_status()
-        except Exception as e:
-            self.service_check('opa.plugins_health', self.CRITICAL, message=str(e))
-        else:
-            if response.status_code == 200:
-                self.service_check('opa.plugins_health', self.OK)
-            else:
-                self.service_check('opa.plugins_health', self.WARNING)
+        self._http_check(plugins_url, 'opa.plugins_health')
+
         super(OpaCheck, self).check(instance)
