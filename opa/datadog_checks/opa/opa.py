@@ -7,17 +7,22 @@ METRIC_MAP = {
     'http_request_duration_seconds': 'request.duration',
 }
 
+
 class OpaCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
 
-
     def __init__(self, name, init_config, instances=None):
-        default_instances = {'opa': {'metrics': [METRIC_MAP], 'send_distribution_sums_as_monotonic': 'true', 'send_distribution_counts_as_monotonic': 'true'}}
+        default_instances = {
+            'opa': {
+                'metrics': [METRIC_MAP],
+                'send_distribution_sums_as_monotonic': 'true',
+                'send_distribution_counts_as_monotonic': 'true',
+            }
+        }
 
         super(OpaCheck, self).__init__(
             name, init_config, instances, default_instances=default_instances, default_namespace='opa'
         )
-
 
     def _http_check(self, url, check_name):
         try:
@@ -37,8 +42,7 @@ class OpaCheck(OpenMetricsBaseCheck):
         response = self.http.get(policies_url)
         policies = response.json()
 
-        self.gauge('opa.policies', len(policies['result']) , tags=[])
-
+        self.gauge('opa.policies', len(policies['result']), tags=[])
 
     def check(self, instance):
         opa_url = instance.get("opa_url")

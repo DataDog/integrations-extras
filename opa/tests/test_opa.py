@@ -9,7 +9,7 @@ import pytest
 from datadog_checks.base.errors import CheckException, ConfigurationError
 from datadog_checks.opa import OpaCheck
 
-from .common import EXPECTED_METRICS, EXPECTED_CHECKS, MOCK_INSTANCE
+from .common import EXPECTED_CHECKS, EXPECTED_METRICS, MOCK_INSTANCE
 
 
 def get_response(filename):
@@ -42,7 +42,7 @@ def error_metrics():
 
 @pytest.mark.unit
 def test_config():
-    with pytest.raises( (CheckException, ConfigurationError)):
+    with pytest.raises((CheckException, ConfigurationError)):
         OpaCheck('opa', {}, [{}])
 
     # this should not fail
@@ -74,6 +74,7 @@ def test_check(aggregator, instance, mock_metrics):
             count=1,
         )
 
+
 @pytest.mark.unit
 def test_openmetrics_error(aggregator, instance, error_metrics):
     check = OpaCheck('opa', {}, [MOCK_INSTANCE])
@@ -93,4 +94,3 @@ def test_openmetrics_error(aggregator, instance, error_metrics):
                 tags=[],
                 count=1,
             )
-
