@@ -26,8 +26,9 @@ All events are sent to the Datadog event stream.
 
 ## Troubleshooting
 
-Need help? Check out the [Flagsmith documentation](https://docs.flagsmith.com/integrations/datadog/) or [contact Datadog Support][https://docs.datadoghq.com/help/].
+Need help? Check out the [Flagsmith documentation](https://docs.flagsmith.com/integrations/datadog/) or [contact Datadog Support][4].
 
 [1]: https://www.flagsmith.com/
 [2]: https://app.datadoghq.com/account/settings#integrations/flagsmith
 [3]: https://app.datadoghq.com/account/settings#api
+[4]: https://docs.datadoghq.com/help/
