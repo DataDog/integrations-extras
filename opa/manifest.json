@@ -1,12 +1,12 @@
 {
-  "display_name": "Opa",
+  "display_name": "opa",
   "maintainer": "ara.pulido@datadoghq.com",
   "manifest_version": "1.0.0",
   "name": "opa",
   "metric_prefix": "opa.",
   "metric_to_check": "",
   "creates_events": false,
-  "short_description": "",
+  "short_description": "OPA integration",
   "guid": "a68c72bd-a16a-4fcf-8911-43575dd722b9",
   "support": "contrib",
   "supported_os": [
@@ -14,9 +14,11 @@
     "mac_os",
     "windows"
   ],
-  "public_title": "Opa",
+  "public_title": "Datadog Open-Policy-Agent Integration",
   "categories": [
-    ""
+    "security",
+    "containers",
+    "configuration & deployment"
   ],
   "type": "check",
   "is_public": false,
@@ -25,10 +27,15 @@
     "configuration": {
       "spec": "assets/configuration/spec.yaml"
     },
-    "dashboards": {},
+    "dashboards": {
+      "OPA base dashboard": "assets/dashboards/opa_overview.json"
+    },
     "monitors": {},
     "saved_views": {},
     "service_checks": "assets/service_checks.json",
-    "logs": {}
+    "metrics_metadata": "metadata.csv",
+    "logs": {
+      "source": "opa"
+    }
   }
 }
