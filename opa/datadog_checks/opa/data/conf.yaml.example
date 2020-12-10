@@ -14,31 +14,18 @@ init_config:
 instances:
 
   -
-    ## @param tags - list of strings - optional
-    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ## @param prometheus_url - string - required
+    ## Prometheus endpoint of your opa instance.
     ##
-    ## Learn more about tagging at https://docs.datadoghq.com/tagging
-    #
-    # tags:
-    #   - <KEY_1>:<VALUE_1>
-    #   - <KEY_2>:<VALUE_2>
+    # prometheus_url: http://%%host%%:8181/metrics
 
-    ## @param service - string - optional
-    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ## @param opa_url - string - required
+    ## Service endpoint of your opa instance.
     ##
-    ## Overrides any `service` defined in the `init_config` section.
-    #
-    # service: <SERVICE>
+    opa_url: http://%%host%%:8181
 
-    ## @param min_collection_interval - number - optional - default: 15
-    ## This changes the collection interval of the check. For more information, see:
-    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    ## @param health_service_check - boolean - optional - default: true
+    ## Send a service check reporting about the health of the Prometheus endpoint.
+    ## The service check is named <NAMESPACE>.prometheus.health
     #
-    # min_collection_interval: 15
-
-    ## @param empty_default_hostname - boolean - optional - default: false
-    ## This forces the check to send metrics with no hostname.
-    ##
-    ## This is useful for cluster-level checks.
-    #
-    # empty_default_hostname: false
+    # health_service_check: true

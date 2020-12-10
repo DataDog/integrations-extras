@@ -2,7 +2,6 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
-from typing import Any
 
 METRIC_MAP = {
     'http_request_duration_seconds': 'request.duration',
@@ -45,6 +44,10 @@ class OpaCheck(OpenMetricsBaseCheck):
         opa_url = instance.get("opa_url")
         if opa_url is None:
             raise ConfigurationError("Each instance must have a url to the opa service")
+
+        prometheus_url = instance.get("prometheus_url")
+        if prometheus_url is None:
+            raise ConfigurationError("Each instance must have a url to the prometheus endpoint")
 
         health_url = opa_url + "/health"
         plugins_url = health_url + "?plugins"
