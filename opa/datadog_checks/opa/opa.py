@@ -32,12 +32,21 @@ class OpaCheck(OpenMetricsBaseCheck):
             else:
                 self.service_check(check_name, self.WARNING)
 
+    def _get_policies(self, opa_url):
+
+        policies_url = opa_url + "/v1/policies"
+        response = self.http.get(policies_url)
+        policies = response.json()
+
+        self.gauge('opa.policies', len(policies['result']) , tags=[])
+
 
     def check(self, instance):
-        health_url = instance.get("health_url")
-        if health_url is None:
-            raise ConfigurationError("Each instance must have a url to the health service")
+        opa_url = instance.get("opa_url")
+        if opa_url is None:
+            raise ConfigurationError("Each instance must have a url to the opa service")
 
+        health_url = opa_url + "/health"
         plugins_url = health_url + "?plugins"
         bundles_url = health_url + "?bundles"
 
@@ -47,5 +56,7 @@ class OpaCheck(OpenMetricsBaseCheck):
         self._http_check(bundles_url, 'opa.bundles_health')
         # Plugins status
         self._http_check(plugins_url, 'opa.plugins_health')
+
+        self._get_policies(opa_url)
 
         super(OpaCheck, self).check(instance)
