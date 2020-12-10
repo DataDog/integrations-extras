@@ -65,7 +65,7 @@ class OctoPrintCheck(AgentCheck):
             temp = 0.0
         return float(temp)
 
-    def seconds_to_minutes(self, seconds) -> int:
+    def seconds_to_minutes(self, seconds):
         sec = seconds
         if not sec:
             return 0
