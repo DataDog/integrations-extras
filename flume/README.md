@@ -49,8 +49,9 @@ export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremot
 ### Metrics
 
 See [metadata.csv][10] for a list of metrics provided by this check.
-The metrics retrieved by this check will depend on the source, channel, and sink used by your Flume agent. 
-For a full list of metrics exposed by each component, please review [Available Component Metrics][11] from the Apache Flume documentation. 
+
+The metrics retrieved by this check depend on the source, channel, and sink used by your Flume agent. 
+For a full list of metrics exposed by each component, review [Available Component Metrics][11] from the Apache Flume documentation. 
 
 ### Service Checks
 
