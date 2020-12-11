@@ -5,7 +5,7 @@ class PhpApcuCheck(AgentCheck):
     def check(self, instance):
         url = instance.get('url')
         if not url:
-            raise ConfigurationError('require url.')
+            raise ConfigurationError('The `url` must be specified')
 
         self.log.debug('apcu check url[%s]', url)
 
@@ -25,3 +25,5 @@ class PhpApcuCheck(AgentCheck):
                     except ValueError:
                         continue
                     self.gauge(metric, value)
+                else:
+                    self.log.debug("Unexpected response: %s", values)
