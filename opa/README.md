@@ -81,21 +81,38 @@ To install the opa check on your Kubernetes cluster:
 
 12. Restart the Datadog Agent pods.
 
+### Logs-generated metrics
+
+The default dashboard includes some graphs related to a metric around OPA decisions, called `opa.decisions`. This metric is created based on the OPA "Decision Logs". To generate this metric and populate this part of the dashboard, you will need to create a new log-generated metric in Datadog.
+
+First, we will create a facet for the `msg` field of our OPA logs, as we will only generate metrics for the "Decision Logs" type of log entry. For that, select any of the log entries coming from OPA, click on the engine log near the `msg` field and select "Create facet for @msg":
+
+![Message Facet][6]
+
+Now we need to create two facets, one for the `input.request.kind.kind` field and one for the `result.response.allowed` field, both available in any of the log entries type "Decision Log".
+
+![Kind Facet][7]
+![Allowed Facet][8]
+
+Once you have created the facets, we are ready to generate the needed metric for the Dashboard to be complete. Click on the menu "Logs -> Generate Metrics". Click on "Add a new metric" and fill the form with the following data:
+
+![OPA Decision Metric][9]
+
 ### Configuration
 
 1. Edit the `opa/conf.yaml` file, in the `/confd` folder that you added to the Agent pod to start collecting your opa performance data. See the [sample opa/conf.yaml][5] for all available configuration options.
 
-2. [Restart the Agent][6].
+2. [Restart the Agent][10].
 
 ### Validation
 
-[Run the Agent's status subcommand][7] and look for `opa` under the Checks section.
+[Run the Agent's status subcommand][11] and look for `opa` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][8] for a list of metrics provided by this check.
+See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -117,14 +134,18 @@ opa does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][9].
+Need help? Contact [Datadog support][13].
 
 [1]: https://www.openpolicyagent.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/?tab=k8sfile
 [5]: https://github.com/DataDog/integrations-extras/blob/master/opa/datadog_checks/opa/data/conf.yaml.example
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-core/blob/master/opa/metadata.csv
-[9]: https://docs.datadoghq.com/help/
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/opa/images/msg_facet.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/opa/images/kind_facet.png
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/opa/images/allowed_facet.png
+[9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/opa/images/metric.png
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[12]: https://github.com/DataDog/integrations-core/blob/master/opa/metadata.csv
+[13]: https://docs.datadoghq.com/help/
