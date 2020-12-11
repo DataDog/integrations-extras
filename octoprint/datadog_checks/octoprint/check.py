@@ -22,13 +22,6 @@ import requests
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
-logfile = "/var/log/datadog/octoprint.log"
-logdir = os.path.dirname(logfile)
-if not os.path.exists(logfile):
-    os.makedirs(logdir)
-    open(logfile, 'w')
-logging.basicConfig(filename=logfile, encoding="utf8", level=logging.DEBUG)
-
 __version__ = "0.1.2"
 
 hostname = os.popen("hostname").readline().strip()
@@ -43,7 +36,14 @@ logging.debug('OctoSERVER: %s', SERVER)
 
 TIMEOUT = 10
 
-tags = {}
+
+def __init__():
+    logfile = "/var/log/datadog/octoprint.log"
+    logdir = os.path.dirname(logfile)
+    if not os.path.exists(logfile):
+        os.makedirs(logdir)
+        open(logfile, 'w')
+    logging.basicConfig(filename=logfile, encoding="utf8", level=logging.DEBUG)
 
 
 class OctoPrintCheck(AgentCheck):
