@@ -30,6 +30,8 @@ def test_service_check(aggregator, instance):
     aggregator.assert_service_check('php_apcu.can_connect', PhpApcuCheck.CRITICAL)
 
 
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
 def test_metrics(aggregator, instance):
     c = PhpApcuCheck('php_apcu', {}, [instance])
 
