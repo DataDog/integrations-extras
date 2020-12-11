@@ -1,24 +1,24 @@
+import mock
 import pytest
 
-from datadog_checks.base import ConfigurationError
 from datadog_checks.octoprint import OctoPrintCheck
 
 
+class MockOctoPrint:
+    @staticmethod
+    def octoprintInit():
+        pass
+
+    @staticmethod
+    def get_bed_temp():
+        return 20
+
+
 @pytest.mark.unit
-def test_config():
-    instance = {}
-    c = OctoPrintCheck('octoprint', {}, [instance])
+def test_check(aggregator, instance):
+    with mock.patch('datadog_checks.octoprint.OctoPrintCheck', MockOctoPrint):
+        check = OctoPrintCheck('octoprint', {}, [instance])
+        check.check(instance)
+    aggregator.assert_metric('octoprint.get_bed_temp', count=1)
 
-    # empty instance
-    with pytest.raises(ConfigurationError):
-        c.check(instance)
-
-    with pytest.raises(ConfigurationError):
-        c.check({'octo_api_key': 'ABC123'})
-
-
-@pytest.mark.integration
-@pytest.mark.usefixtures('dd_environment')
-def test_service_check(aggregator, instance):
-    c = OctoPrintCheck('octoprint', {}, [instance])
-    c.check(instance)
+    aggregator.assert_all_metrics_covered()
