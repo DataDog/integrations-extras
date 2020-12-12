@@ -26,11 +26,12 @@ To install the `php_apcu` check on your host:
 
 #### APCu Setup
 
-Provide a URL to the collection program.
 
-APCu does not have a metric output by itself.
+APCu does not expose metrics by default. This integration includes a metric exporter, located here:
 
-* /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
+    ```
+    /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
+    ```
 
 It will work if you refer to it as a php file, but you may want to configure it as follows
 
