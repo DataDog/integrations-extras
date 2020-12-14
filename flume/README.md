@@ -44,13 +44,15 @@ export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremot
 
 [Run the Agent's `status` subcommand][9] and look for `flume` under the Checks section.
 
+### Component metrics
+
+The metrics retrieved by this check depend on the source, channel, and sink used by your Flume agent. For a full list of metrics exposed by each component, review [Available Component Metrics][11] from the Apache Flume documentation. For a list of the metrics that you can see in Datadog, see the [Metrics](#metrics) section on this page.
+
 ## Data Collected
 
 ### Metrics
 
 See [metadata.csv][10] for a list of metrics provided by this check.
-The metrics retrieved by this check will depend on the source, channel, and sink used by your Flume agent. 
-For a full list of metrics exposed by each component, please review [Available Component Metrics][11] from the Apache Flume documentation. 
 
 ### Service Checks
 
