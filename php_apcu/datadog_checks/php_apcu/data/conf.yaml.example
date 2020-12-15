@@ -46,10 +46,9 @@ init_config:
 instances:
 
     ## @param url - string - required
-    ## Provide a URL to the collection program.
-    ## APCu does not have a metric output by itself.
-    ## * DD_ROOT/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
-    ## It will work if you refer to it as a php file, but you may want to configure it as follows.
+    ## Provide a URL to the metric exporter, either by pointing to the exporter file itself: 
+    ## `DD_ROOT/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php` 
+    ## or by configuring an alias in your web server configuration (Apache example shown):
     ## ```
     ## Alias /apcu-status /path/to/apcu-dd-handler.php
     ## <Location /apcu-status>

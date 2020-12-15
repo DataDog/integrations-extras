@@ -27,13 +27,13 @@ To install the `php_apcu` check on your host:
 #### APCu Setup
 
 
-APCu does not expose metrics by default. This integration includes a metric exporter, located here:
+APCu does not expose metrics by default so this integration includes a metric exporter, located here:
 
     ```
     /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
     ```
 
-It will work if you refer to it as a php file, but you may want to configure it as follows
+When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly. by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
 ```
 Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
@@ -46,7 +46,10 @@ Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datad
 ### Configuration
 
 1. Edit the `php_apcu.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your `php_apcu` performance data. See the [sample `php_apcu.d/conf.yaml` file][5] for all available configuration options.
-
+    ```
+    instances
+      - url: http://localhost/apcu-status
+    ```
 2. [Restart the Agent][6].
 
 ### Validation
