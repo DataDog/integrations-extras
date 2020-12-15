@@ -1,2 +1,2 @@
-# CHANGELOG - php_apcu
+# CHANGELOG - php_opcache
 

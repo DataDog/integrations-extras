@@ -1,10 +1,10 @@
 {
-    "name": "[php_apcu] Cache Full has been detected.",
+    "name": "[php_opcache] Cache Full has been detected.",
     "type": "metric alert",
-    "query": "max(last_5m):avg:php_apcu.cache.num_expunges{*} by {host} > 1",
-    "message": "APCu Cache Full has been detected. All cache purged.",
+    "query": "max(last_5m):avg:php_opcache.cache.cache_full{*} by {host} > 1",
+    "message": "OPcache Full has been detected. All cache purged.",
     "tags": [
-        "integration:php_apcu"
+        "integration:php_opcache"
     ],
     "options": {
         "notify_audit": false,
@@ -27,6 +27,6 @@
         }
     },
     "recommended_monitor_metadata": {
-        "description": "Notifies when APCu Cache Full detected"
+        "description": "Notifies when OPcache Full detected"
     }
 }

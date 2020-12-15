@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'php_apcu', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'php_opcache', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -28,12 +28,12 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=11.0.0'
 
 
 setup(
-    name='datadog-php_apcu',
+    name='datadog-php_opcache',
     version=ABOUT['__version__'],
-    description='The php_apcu check',
+    description='The php_opcache check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent php_apcu check',
+    keywords='datadog agent php_opcache check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
@@ -52,7 +52,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.php_apcu'],
+    packages=['datadog_checks.php_opcache'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': get_dependencies()},

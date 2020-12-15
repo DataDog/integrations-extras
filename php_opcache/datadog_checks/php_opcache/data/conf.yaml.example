@@ -47,17 +47,17 @@ instances:
 
     ## @param url - string - required
     ## Provide a URL to the metric exporter, either by pointing to the exporter file itself: 
-    ## `DD_ROOT/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php` 
+    ## `DD_ROOT/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php` 
     ## or by configuring an alias in your web server configuration (Apache example shown):
     ## ```
-    ## Alias /apcu-status /path/to/apcu-dd-handler.php
-    ## <Location /apcu-status>
+    ## Alias /opcache-status /path/to/opcache-dd-handler.php
+    ## <Location /opcache-status>
     ##     Require all denied
     ##     Require local
     ## </Location>
     ## ```
     #
-  - url: http://localhost/apcu-status
+  - url: http://localhost/opcache-status
 
     ## @param proxy - mapping - optional
     ## This overrides the `proxy` setting in `init_config`.
