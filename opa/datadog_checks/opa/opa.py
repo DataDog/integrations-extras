@@ -43,7 +43,7 @@ class OpaCheck(OpenMetricsBaseCheck):
             response = self.http.get(policies_url)
             policies = response.json()
         except Exception:
-            self.gauge('opa.policies', 0, tags=[])
+            pass
         else:
             self.gauge('opa.policies', len(policies['result']), tags=[])
 
