@@ -39,10 +39,13 @@ class OpaCheck(OpenMetricsBaseCheck):
     def _get_policies(self, opa_url):
 
         policies_url = opa_url + "/v1/policies"
-        response = self.http.get(policies_url)
-        policies = response.json()
-
-        self.gauge('opa.policies', len(policies['result']), tags=[])
+        try:
+            response = self.http.get(policies_url)
+            policies = response.json()
+        except Exception:
+            self.gauge('opa.policies', 0, tags=[])
+        else:
+            self.gauge('opa.policies', len(policies['result']), tags=[])
 
     def check(self, instance):
         opa_url = instance.get("opa_url")

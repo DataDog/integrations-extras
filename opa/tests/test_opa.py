@@ -94,3 +94,22 @@ def test_openmetrics_error(aggregator, instance, error_metrics):
                 tags=[],
                 count=1,
             )
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+def test_service_check(aggregator, instance):
+    c = OpaCheck('opa', {}, [instance])
+
+    # the check should send OK
+    c.check(instance)
+    aggregator.assert_service_check('opa.health', OpaCheck.OK)
+    aggregator.assert_service_check('opa.plugins_health', OpaCheck.OK)
+    aggregator.assert_service_check('opa.bundles_health', OpaCheck.OK)
+
+    # the check should send CRTICAL
+    instance['opa_url'] = 'http://fake.tld'
+    c.check(instance)
+    aggregator.assert_service_check('opa.health', OpaCheck.CRITICAL)
+    aggregator.assert_service_check('opa.plugins_health', OpaCheck.CRITICAL)
+    aggregator.assert_service_check('opa.bundles_health', OpaCheck.CRITICAL)
