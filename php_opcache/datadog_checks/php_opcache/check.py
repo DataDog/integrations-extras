@@ -13,7 +13,7 @@ class PhpOpcacheCheck(AgentCheck):
             response = self.http.get(url)
             response.raise_for_status()
         except Exception as e:
-            self.service_check('php_opcache .can_connect', self.CRITICAL, message=str(e))
+            self.service_check('php_opcache.can_connect', self.CRITICAL, message=str(e))
         else:
             self.service_check('php_opcache.can_connect', self.OK)
             for line in response.iter_lines(decode_unicode=True):
