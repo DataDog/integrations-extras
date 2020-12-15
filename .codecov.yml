@@ -72,6 +72,10 @@ coverage:
         target: 75
         flags:
         - php_apcu
+      PHP OPcache:
+        target: 75
+        flags:
+        - php_opcache
       Ping:
         target: 75
         flags:
@@ -238,6 +242,11 @@ flags:
     paths:
     - php_apcu/datadog_checks/php_apcu
     - php_apcu/tests
+  php_opcache:
+    carryforward: true
+    paths:
+    - php_opcache/datadog_checks/php_opcache
+    - php_opcache/tests
   pihole:
     carryforward: true
     paths:
