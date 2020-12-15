@@ -1,4 +1,4 @@
-name: Opa
+name: opa
 files:
 - name: opa.yaml
   options:
@@ -7,4 +7,15 @@ files:
     - template: init_config/default
   - template: instances
     options:
-    - template: instances/default
+    - name: opa_url
+      required: true
+      description: Service endpoint of your opa instance.
+      value:
+        type: string
+        example: http://%%host%%:8181
+    - name: prometheus_url
+      required: true
+      description: Prometheus endpoint of your opa instance.
+      value:
+        type: string
+        example: http://%%host%%:8181/metrics

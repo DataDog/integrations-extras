@@ -13,19 +13,12 @@ init_config:
 #
 instances:
 
-  -
-    ## @param prometheus_url - string - required
-    ## Prometheus endpoint of your opa instance.
-    ##
-    # prometheus_url: http://%%host%%:8181/metrics
-
     ## @param opa_url - string - required
     ## Service endpoint of your opa instance.
-    ##
-    opa_url: http://%%host%%:8181
-
-    ## @param health_service_check - boolean - optional - default: true
-    ## Send a service check reporting about the health of the Prometheus endpoint.
-    ## The service check is named <NAMESPACE>.prometheus.health
     #
-    # health_service_check: true
+  - opa_url: http://%%host%%:8181
+
+    ## @param prometheus_url - string - required
+    ## Prometheus endpoint of your opa instance.
+    #
+    prometheus_url: http://%%host%%:8181/metrics
