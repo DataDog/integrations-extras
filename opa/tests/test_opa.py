@@ -113,3 +113,24 @@ def test_service_check(aggregator, instance):
     aggregator.assert_service_check('opa.health', OpaCheck.CRITICAL)
     aggregator.assert_service_check('opa.plugins_health', OpaCheck.CRITICAL)
     aggregator.assert_service_check('opa.bundles_health', OpaCheck.CRITICAL)
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+def test_metrics(aggregator, instance):
+    c = OpaCheck('opa', {}, [instance])
+
+    # the check should send OK
+    c.check(instance)
+    metric_name = 'opa.policies'
+    aggregator.assert_metric(metric_name, value=0.0, tags=[], hostname='')
+
+    metric_name = 'opa.request.duration.sum'
+    aggregator.assert_metric(metric_name, tags=['code:200', 'handler:index', 'method:get'], hostname='')
+    aggregator.assert_metric(metric_name, tags=['code:200', 'handler:health', 'method:get'], hostname='')
+    aggregator.assert_metric(metric_name, tags=['code:200', 'handler:v1/policies', 'method:get'], hostname='')
+
+    metric_name = 'opa.request.duration.count'
+    aggregator.assert_metric(metric_name, hostname='')
+
+    aggregator.assert_all_metrics_covered()
