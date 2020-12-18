@@ -103,16 +103,22 @@ def test_service_check(aggregator, instance):
 
     # the check should send OK
     c.check(instance)
-    aggregator.assert_service_check('open_policy_agent.health', OpenPolicyAgentCheck.OK)
-    aggregator.assert_service_check('open_policy_agent.plugins_health', OpenPolicyAgentCheck.OK)
-    aggregator.assert_service_check('open_policy_agent.bundles_health', OpenPolicyAgentCheck.OK)
+    aggregator.assert_service_check('open_policy_agent.health', status=OpenPolicyAgentCheck.OK)
+    aggregator.assert_service_check('open_policy_agent.plugins_health', status=OpenPolicyAgentCheck.OK)
+    aggregator.assert_service_check('open_policy_agent.bundles_health', status=OpenPolicyAgentCheck.OK)
 
-    # the check should send CRTICAL
-    instance['opa_url'] = 'http://fake.tld'
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+def test_service_check_error(aggregator, instance):
+    instance.update({'opa_url': 'http://fake.tld'})
+    c = OpenPolicyAgentCheck('open_policy_agent', {}, [instance])
+
+    # the check should send CRITICAL
     c.check(instance)
-    aggregator.assert_service_check('open_policy_agent.health', OpenPolicyAgentCheck.CRITICAL)
-    aggregator.assert_service_check('open_policy_agent.plugins_health', OpenPolicyAgentCheck.CRITICAL)
-    aggregator.assert_service_check('open_policy_agent.bundles_health', OpenPolicyAgentCheck.CRITICAL)
+    aggregator.assert_service_check('open_policy_agent.health', status=OpenPolicyAgentCheck.CRITICAL)
+    aggregator.assert_service_check('open_policy_agent.plugins_health', status=OpenPolicyAgentCheck.CRITICAL)
+    aggregator.assert_service_check('open_policy_agent.bundles_health', status=OpenPolicyAgentCheck.CRITICAL)
 
 
 @pytest.mark.integration
