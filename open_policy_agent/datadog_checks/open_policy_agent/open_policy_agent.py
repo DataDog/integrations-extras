@@ -3,9 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
-METRIC_MAP = {
-    'http_request_duration_seconds': 'request.duration',
-}
+from .metrics import METRIC_MAP
 
 
 class OpenPolicyAgentCheck(OpenMetricsBaseCheck):
