@@ -102,8 +102,8 @@ class OctoPrintCheck(AgentCheck):
 
     def check(self, instance):
         octo_api_key = instance.get('octo_api_key')
-        # self.log.info('octo_api_key (from config): %s', octo_api_key)
-        # self.log.info('octo_server: %s', SERVER)
+        self.log.debug('octo_api_key (from config): %s', octo_api_key)
+        self.log.debug('octo_server: %s', SERVER)
         rpi_core_temp = self.get_rpi_core_temp()
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
 
