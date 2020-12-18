@@ -7,6 +7,7 @@ import mock
 import pytest
 
 from datadog_checks.base.errors import CheckException, ConfigurationError
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.open_policy_agent import OpenPolicyAgentCheck
 
 from .common import EXPECTED_CHECKS, EXPECTED_METRICS, MOCK_INSTANCE
@@ -58,6 +59,7 @@ def test_check(aggregator, instance, mock_metrics):
         aggregator.assert_metric(metric_name, metric_type=metric_type)
 
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
 
     aggregator.assert_service_check(
         'open_policy_agent.prometheus.health',
@@ -140,3 +142,4 @@ def test_metrics(aggregator, instance):
     aggregator.assert_metric(metric_name, hostname='')
 
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
