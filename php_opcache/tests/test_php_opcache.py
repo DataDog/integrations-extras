@@ -1,8 +1,7 @@
 import pytest
 
-from datadog_checks.dev.utils import get_metadata_metrics
-
 from datadog_checks.base import ConfigurationError
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.php_opcache import PhpOpcacheCheck
 
 from .common import EXPECTED_METRICS
