@@ -4,18 +4,35 @@ files:
   options:
   - template: init_config
     options:
-    - template: init_config/default
+    - template: init_config/openmetrics
   - template: instances
     options:
     - name: opa_url
       required: true
-      description: Service endpoint of your opa instance.
+      description: Service endpoint of your Open Policy Agent instance.
       value:
         type: string
         example: http://%%host%%:8181
-    - name: prometheus_url
+    - template: instances/openmetrics
+      overrides:
+        prometheus_url.value.example: http://%%host%%:8181/metrics
+
+- name: auto_conf.yaml
+  options:
+  - template: ad_identifiers
+    overrides:
+      value.example:
+      - opa
+  - template: init_config
+    options: []
+  - template: instances
+    options:
+    - name: opa_url
       required: true
-      description: Prometheus endpoint of your opa instance.
+      description: Health endpoint of your Open Policy Agent instance.
       value:
         type: string
-        example: http://%%host%%:8181/metrics
+        example: http://%%host%%:8181
+    - template: instances/openmetrics
+      overrides:
+        prometheus_url.value.example: http://%%host%%:8181/metrics
