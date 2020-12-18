@@ -8,20 +8,20 @@ METRIC_MAP = {
 }
 
 
-class OpaCheck(OpenMetricsBaseCheck):
+class OpenPolicyAgentCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
 
     def __init__(self, name, init_config, instances=None):
         default_instances = {
-            'opa': {
+            'open_policy_agent': {
                 'metrics': [METRIC_MAP],
                 'send_distribution_sums_as_monotonic': 'true',
                 'send_distribution_counts_as_monotonic': 'true',
             }
         }
 
-        super(OpaCheck, self).__init__(
-            name, init_config, instances, default_instances=default_instances, default_namespace='opa'
+        super(OpenPolicyAgentCheck, self).__init__(
+            name, init_config, instances, default_instances=default_instances, default_namespace='open_policy_agent'
         )
 
     def _http_check(self, url, check_name):
@@ -45,12 +45,12 @@ class OpaCheck(OpenMetricsBaseCheck):
         except Exception:
             pass
         else:
-            self.gauge('opa.policies', len(policies['result']), tags=[])
+            self.gauge('open_policy_agent.policies', len(policies['result']), tags=[])
 
     def check(self, instance):
         opa_url = instance.get("opa_url")
         if opa_url is None:
-            raise ConfigurationError("Each instance must have a url to the opa service")
+            raise ConfigurationError("Each instance must have a url to the open policy agent service")
 
         prometheus_url = instance.get("prometheus_url")
         if prometheus_url is None:
@@ -61,12 +61,12 @@ class OpaCheck(OpenMetricsBaseCheck):
         bundles_url = health_url + "?bundles"
 
         # General service health
-        self._http_check(health_url, 'opa.health')
+        self._http_check(health_url, 'open_policy_agent.health')
         # Bundles activation status
-        self._http_check(bundles_url, 'opa.bundles_health')
+        self._http_check(bundles_url, 'open_policy_agent.bundles_health')
         # Plugins status
-        self._http_check(plugins_url, 'opa.plugins_health')
+        self._http_check(plugins_url, 'open_policy_agent.plugins_health')
 
         self._get_policies(opa_url)
 
-        super(OpaCheck, self).check(instance)
+        super(OpenPolicyAgentCheck, self).check(instance)

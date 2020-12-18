@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'opa', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'open_policy_agent', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -28,12 +28,12 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=11.0.0'
 
 
 setup(
-    name='datadog-opa',
+    name='datadog-open_policy_agent',
     version=ABOUT['__version__'],
     description='The Opa check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent opa check',
+    keywords='datadog agent open_policy_agent check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
@@ -52,7 +52,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.opa'],
+    packages=['datadog_checks.open_policy_agent'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': get_dependencies()},
