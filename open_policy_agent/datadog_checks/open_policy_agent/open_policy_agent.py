@@ -35,13 +35,12 @@ class OpenPolicyAgentCheck(OpenMetricsBaseCheck):
                 self.service_check(check_name, self.WARNING)
 
     def _get_policies(self, opa_url):
-
         policies_url = opa_url + "/v1/policies"
         try:
             response = self.http.get(policies_url)
             policies = response.json()
         except Exception:
-            pass
+            self.log.warning("The policies endpoint is not available")
         else:
             self.gauge('open_policy_agent.policies', len(policies['result']), tags=[])
 
