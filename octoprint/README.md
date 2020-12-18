@@ -55,9 +55,7 @@ Any or all of these may be changed or removed by modifying the integration's `co
 
 #### Log Processing
 
-OctoPrint uses it's own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules.
-
-I found it useful to layout my pipeline like so:  
+OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
 
 1. Main Pipeline: "OctoPrint"
     1. Sub Pipeline 1: "OctoPrint Print Job"
@@ -67,7 +65,7 @@ I found it useful to layout my pipeline like so:
         1. Grok parser rule:
             - `General_OctoPrint_Log %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
 
-For more information, see the [Datadog Log Processing documentation][9]
+For more information, see the [Datadog Log Processing documentation][9].
 
 ### Service Checks
 
