@@ -107,9 +107,6 @@ class OctoPrintCheck(AgentCheck):
             printer_state = -1
         self.gauge("octoprint.printer_state", printer_state)
 
-        # Job File Name
-        # job_name = x["job"]["file"]["name"] or ""
-
         # Print Job Percent Completed and Time Estimate
         est_print_time = self.seconds_to_minutes(job_info["job"]["estimatedPrintTime"])
         pct_completed = job_info["progress"]["completion"]
