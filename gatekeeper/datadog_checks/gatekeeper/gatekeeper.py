@@ -1,9 +1,10 @@
-
 # (C) Datadog, Inc. 2020
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
+
 from .metrics import METRIC_MAP
+
 
 class GatekeeperCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0

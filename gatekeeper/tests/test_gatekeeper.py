@@ -85,8 +85,9 @@ def test_controller_metrics(aggregator, instance, mock_controller_metrics):
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
+
 @pytest.mark.unit
-def test_check(aggregator, instance, mock_metrics):
+def test_check(aggregator, instance, mock_audit_metrics):
     check = GatekeeperCheck('gatekeeper', {}, [MOCK_INSTANCE])
     check.check(MOCK_INSTANCE)
 
