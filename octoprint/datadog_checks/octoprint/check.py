@@ -121,7 +121,6 @@ class OctoPrintCheck(AgentCheck):
 
         # # Extruder Temperatures
         extruder_temps = self.get_tool_temp(SERVER, octo_api_key, TIMEOUT)
-        # print(toolname)
         for key in extruder_temps.keys():
             toolname = key
             current_tool_temp = extruder_temps[toolname]["actual"]
@@ -131,7 +130,6 @@ class OctoPrintCheck(AgentCheck):
 
         # # Bed Temperatures
         bed_temp = self.get_bed_temp(SERVER, octo_api_key, TIMEOUT)
-        print(z)
         for key in bed_temp.keys():
             bedname = key
             current_bed_temp = bed_temp[bedname]["actual"]
