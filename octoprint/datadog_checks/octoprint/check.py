@@ -108,7 +108,7 @@ class OctoPrintCheck(AgentCheck):
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
 
         # get api data
-        x = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
+        job_info = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
 
         # # Job State
         state = x["state"]
