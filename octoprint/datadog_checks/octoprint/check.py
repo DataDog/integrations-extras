@@ -1,6 +1,3 @@
-# Custom Datadog check of OctoPrint.
-# Intended to become a proper integration.
-#
 # After installing the Datadog Agent on your OctoPrint device, create an API
 # key from the OctoPrint service, and provide it.
 # Drop this file into `/etc/datadog-agent/checks.d` along with an empty file
