@@ -21,18 +21,16 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 __version__ = "0.1.2"
 
-hostname = os.popen("hostname").readline().strip()
-logging.debug('hostname: %s', hostname)
-SERVER = "http://" + hostname
-logging.debug('OctoSERVER: %s', SERVER)
-
 TIMEOUT = 10
 
 
 def __init__():
     logger = logging.getLogger('{}.{}'.format(__name__, self.name))
     self.log = CheckLoggingAdapter(logger, self)
-
+    hostname = os.popen("hostname").readline().strip()
+    self.log.debug('hostname: %s', hostname)
+    SERVER = "http://" + hostname
+    self.log.debug('OctoSERVER: %s', SERVER)
 
 class OctoPrintCheck(AgentCheck):
     def get_rpi_core_temp(self):
