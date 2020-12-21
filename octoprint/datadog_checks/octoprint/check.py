@@ -22,13 +22,8 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 __version__ = "0.1.2"
 
 hostname = os.popen("hostname").readline().strip()
-# hostname = get_subprocess_output("hostname", self.log, True)
 logging.debug('hostname: %s', hostname)
-
-if hostname:
-    SERVER = "http://" + hostname
-else:
-    SERVER = "http://localhost"
+SERVER = "http://" + hostname
 logging.debug('OctoSERVER: %s', SERVER)
 
 TIMEOUT = 10
