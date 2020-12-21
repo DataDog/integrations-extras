@@ -63,7 +63,7 @@ To install the open_policy_agent check on your Kubernetes cluster:
    kubectl apply -f agent.yaml
    ```
 
-9. Copy the integration artifact .whl file to your Kubernetes nodes or upload it to a public URL
+9. Copy the integration artifact .whl file to your Kubernetes nodes or upload it to a public URL.
 
 10. Run the following command to install the integrations wheel with the Agent:
 
@@ -83,18 +83,18 @@ To install the open_policy_agent check on your Kubernetes cluster:
 
 ### Logs-generated metrics
 
-The default dashboard includes some graphs related to a metric around OPA decisions, called `open_policy_agent.decisions`. This metric is created based on the OPA "Decision Logs". To generate this metric and populate this part of the dashboard, you will need to create a new log-generated metric in Datadog.
+The default dashboard includes some graphs related to a metric around OPA decisions, called `open_policy_agent.decisions`. This metric is created based on the OPA "Decision Logs". To generate this metric and populate this part of the dashboard, create a new log-generated metric in Datadog.
 
-First, we will create a facet for the `msg` field of our OPA logs, as we will only generate metrics for the "Decision Logs" type of log entry. For that, select any of the log entries coming from OPA, click on the engine log near the `msg` field and select "Create facet for @msg":
+First, create a facet for the `msg` field of our OPA logs, as it will only generate metrics for the "Decision Logs" type of log entry. For that, select any of the log entries coming from OPA, click on the engine log near the `msg` field and select "Create facet for @msg":
 
 ![Message Facet][6]
 
-Now we need to create two facets, one for the `input.request.kind.kind` field and one for the `result.response.allowed` field, both available in any of the log entries type "Decision Log".
+Now create two facets, one for the `input.request.kind.kind` field and one for the `result.response.allowed` field, both available in any of the log entries type "Decision Log".
 
 ![Kind Facet][7]
 ![Allowed Facet][8]
 
-Once you have created the facets, we are ready to generate the needed metric for the Dashboard to be complete. Click on the menu "Logs -> Generate Metrics". Click on "Add a new metric" and fill the form with the following data:
+Once you have created the facets, generate the needed metric for the Dashboard to be complete. Click on the menu "Logs -> Generate Metrics". Click on "Add a new metric" and fill in the form with the following data:
 
 ![OPA Decision Metric][9]
 
@@ -116,16 +116,16 @@ See [metadata.csv][12] for a list of metrics provided by this check.
 
 ### Service Checks
 
-`open_policy_agent.prometheus.health`:
+**`open_policy_agent.prometheus.health`**:<br>
 Returns CRITICAL if the Agent fails to connect to the Prometheus endpoint, otherwise returns UP.
 
-`open_policy_agent.health`
+**`open_policy_agent.health`**:<br>
 Returns `CRITICAL` if the agent fails to connect to the OPA health endpoint, `OK` if it returns 200, `WARNING` otherwise.
 
-`open_policy_agent.bundles_health`
+**`open_policy_agent.bundles_health`**:<br>
 Returns `CRITICAL` if the agent fails to connect to the OPA bundles health endpoint, `OK` if it returns 200, `WARNING` otherwise.
 
-`open_policy_agent.plugins_health`
+**`open_policy_agent.plugins_health`**:<br>
 Returns `CRITICAL` if the agent fails to connect to the OPA plugins health endpoint, `OK` if it returns 200, `WARNING` otherwise.
 
 ### Events
