@@ -8,4 +8,9 @@ METRIC_MAP = {
     'gatekeeper_violations': 'violations',
     'gatekeeper_audit_last_run_time': 'audit.last_run_time',
     'gatekeeper_audit_duration_seconds': 'audit.duration.seconds',
+    'gatekeeper_sync': 'sync',
+    'gatekeeper_sync_duration_seconds': 'sync.duration.seconds',
+    'gatekeeper_sync_last_run_time': 'sync.last_run_time',
+    'gatekeeper_watch_manager_intended_watch_gvk': 'watch.intended',
+    'gatekeeper_watch_manager_watched_gvk': 'watch.watched',
 }

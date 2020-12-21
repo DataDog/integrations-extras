@@ -13,6 +13,12 @@ EXPECTED_AUDIT_METRICS = {
     'gatekeeper.violations': aggregator.GAUGE,
     'gatekeeper.constraints': aggregator.GAUGE,
     'gatekeeper.constraint_templates': aggregator.GAUGE,
+    'gatekeeper.sync': aggregator.GAUGE,
+    'gatekeeper.sync.last_run_time': aggregator.GAUGE,
+    'gatekeeper.sync.duration.seconds.sum': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.sync.duration.seconds.count': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.watch.intended': aggregator.GAUGE,
+    'gatekeeper.watch.watched': aggregator.GAUGE,
 }
 
 EXPECTED_CONTROLLER_METRICS = {
@@ -24,6 +30,12 @@ EXPECTED_CONTROLLER_METRICS = {
     'gatekeeper.constraint_templates': aggregator.GAUGE,
     'gatekeeper.constraint_template_ingestion.count': aggregator.MONOTONIC_COUNT,
     'gatekeeper.request.count': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.sync': aggregator.GAUGE,
+    'gatekeeper.sync.last_run_time': aggregator.GAUGE,
+    'gatekeeper.sync.duration.seconds.sum': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.sync.duration.seconds.count': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.watch.intended': aggregator.GAUGE,
+    'gatekeeper.watch.watched': aggregator.GAUGE,
 }
 
 
