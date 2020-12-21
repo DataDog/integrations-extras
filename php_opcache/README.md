@@ -32,7 +32,7 @@ OPcache does not expose metrics by default so this integration includes a metric
 ```
 /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
 ```
-you can download [here](https://github.com/datadog/integrations-extras/blob/feature/opcache/php_opcache/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php).
+you can download [here][5].
 
 When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
@@ -46,22 +46,22 @@ Alias /opcache-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/da
 
 ### Configuration
 
-1. Edit the `php_opcache.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your `php_opcache` performance data. See the [sample `php_opcache.d/conf.yaml` file][5] for all available configuration options.
+1. Edit the `php_opcache.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your `php_opcache` performance data. See the [sample `php_opcache.d/conf.yaml` file][6] for all available configuration options.
     ```
     instances
       - url: http://localhost/opcache-status
     ```
-2. [Restart the Agent][6].
+2. [Restart the Agent][7].
 
 ### Validation
 
-[Run the Agent's status subcommand][7] and look for `php_opcache` under the Checks section.
+[Run the Agent's status subcommand][8] and look for `php_opcache` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][8] for a list of metrics provided by this check.
+See [metadata.csv][9] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -73,14 +73,15 @@ See [metadata.csv][8] for a list of metrics provided by this check.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][9].
+Need help? Contact [Datadog support][10].
 
 [1]: https://www.php.net/manual/en/book.opcache.php
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/datadog_checks/php_opcache/data/conf.yaml.example
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/metadata.csv
-[9]: https://docs.datadoghq.com/help/
+[5]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
+[6]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/datadog_checks/php_opcache/data/conf.yaml.example
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[9]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/metadata.csv
+[10]: https://docs.datadoghq.com/help/
