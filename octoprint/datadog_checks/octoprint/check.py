@@ -30,12 +30,8 @@ TIMEOUT = 10
 
 
 def __init__():
-    logfile = "/var/log/datadog/octoprint.log"
-    logdir = os.path.dirname(logfile)
-    if not os.path.exists(logfile):
-        os.makedirs(logdir)
-        open(logfile, 'w')
-    logging.basicConfig(filename=logfile, encoding="utf8", level=logging.DEBUG)
+    logger = logging.getLogger('{}.{}'.format(__name__, self.name))
+    self.log = CheckLoggingAdapter(logger, self)
 
 
 class OctoPrintCheck(AgentCheck):
