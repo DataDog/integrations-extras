@@ -67,7 +67,7 @@ I found it useful to layout my pipeline like so:
         1. Grok parser rule:
             - `General_OctoPrint_Log %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
 
-For more information, see the [Datadog Log Processing documentation][9]
+For more information, see the [Datadog Log Processing documentation][9].
 
 ### Service Checks
 

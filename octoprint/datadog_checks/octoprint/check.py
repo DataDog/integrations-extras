@@ -23,7 +23,6 @@ __version__ = "0.1.2"
 
 TIMEOUT = 10
 
-
 def __init__():
     logger = logging.getLogger('{}.{}'.format(__name__, self.name))
     self.log = CheckLoggingAdapter(logger, self)
@@ -86,16 +85,16 @@ class OctoPrintCheck(AgentCheck):
 
     def check(self, instance):
         octo_api_key = instance.get('octo_api_key')
-        # self.log.info('octo_api_key (from config): %s', octo_api_key)
-        # self.log.info('octo_server: %s', SERVER)
+        self.log.debug('octo_api_key (from config): %s', octo_api_key)
+        self.log.debug('octo_server: %s', SERVER)
         rpi_core_temp = self.get_rpi_core_temp()
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
 
         # get api data
-        x = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
+        job_info = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
 
         # # Job State
-        state = x["state"]
+        state = job_info["state"]
         # States: Printing, Paused, Cancelled, Operational...
         # The proper thing would be a a case/switch statement
         if state == "Operational":
@@ -112,33 +111,33 @@ class OctoPrintCheck(AgentCheck):
         # job_name = x["job"]["file"]["name"] or ""
 
         # Print Job Percent Completed and Time Estimate
-        est_print_time = self.seconds_to_minutes(x["job"]["estimatedPrintTime"])
-        pct_completed = x["progress"]["completion"]
+        est_print_time = self.seconds_to_minutes(job_info["job"]["estimatedPrintTime"])
+        pct_completed = job_info["progress"]["completion"]
         self.gauge("octoprint.est_print_time", est_print_time)
         self.gauge("octoprint.pct_completed", pct_completed)
 
         # Print Job Elapsed and Remaining Times
-        print_job_time = self.seconds_to_minutes(x["progress"]["printTime"])
-        print_job_time_left = self.seconds_to_minutes(x["progress"]["printTimeLeft"])
+        print_job_time = self.seconds_to_minutes(job_info["progress"]["printTime"])
+        print_job_time_left = self.seconds_to_minutes(job_info["progress"]["printTimeLeft"])
         self.gauge("octoprint.print_job_time", print_job_time)
         self.gauge("octoprint.print_job_time_left", print_job_time_left)
 
         # # Extruder Temperatures
-        y = self.get_tool_temp(SERVER, octo_api_key, TIMEOUT)
+        extruder_temps = self.get_tool_temp(SERVER, octo_api_key, TIMEOUT)
         # print(toolname)
-        for key in y.keys():
+        for key in extruder_temps.keys():
             toolname = key
-            current_tool_temp = y[toolname]["actual"]
-            target_tool_temp = y[toolname]["target"]
+            current_tool_temp = extruder_temps[toolname]["actual"]
+            target_tool_temp = extruder_temps[toolname]["target"]
             self.gauge("octoprint." + toolname + ".current_tool_temp", current_tool_temp)
             self.gauge("octoprint." + toolname + ".target_tool_temp", target_tool_temp)
 
         # # Bed Temperatures
-        z = self.get_bed_temp(SERVER, octo_api_key, TIMEOUT)
+        bed_temp = self.get_bed_temp(SERVER, octo_api_key, TIMEOUT)
         print(z)
-        for key in z.keys():
+        for key in bed_temp.keys():
             bedname = key
-            current_bed_temp = z[bedname]["actual"]
-            target_bed_temp = z[bedname]["target"]
+            current_bed_temp = bed_temp[bedname]["actual"]
+            target_bed_temp = bed_temp[bedname]["target"]
             self.gauge("octoprint." + bedname + ".current_bed_temp", current_bed_temp)
             self.gauge("octoprint." + bedname + ".target_bed_temp", target_bed_temp)
