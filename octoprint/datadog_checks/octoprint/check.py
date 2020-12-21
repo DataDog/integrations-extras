@@ -41,13 +41,12 @@ def __init__():
 class OctoPrintCheck(AgentCheck):
     def get_rpi_core_temp(self):
         if os.path.isfile("/usr/bin/vcgencmd"):
-            # temp = os.popen('sudo /usr/bin/vcgencmd measure_temp').readline()
             temp, err, retcode = get_subprocess_output(
                 ["/usr/bin/vcgencmd", "measure_temp"], self.log, raise_on_empty_output=True
             )
-            # self.log.debug('rpi core temp - temp: %s', temp)
-            # self.log.debug('rpi core temp - err: %s', err)
-            # self.log.debug('rpi core temp - retcode: %s', retcode)
+            self.log.debug('rpi core temp - temp: %s', temp)
+            self.log.debug('rpi core temp - err: %s', err)
+            self.log.debug('rpi core temp - retcode: %s', retcode)
             temp = temp.replace("temp=", "").replace("'C", "")
             if temp.startswith("VCHI initialization failed"):
                 self.log.info(
@@ -64,11 +63,10 @@ class OctoPrintCheck(AgentCheck):
         return float(temp)
 
     def seconds_to_minutes(self, seconds):
-        sec = seconds
-        if not sec:
+        if not seconds:
             return 0
         else:
-            return int(sec / 60)
+            return int(seconds / 60)
 
     # Get stats from REST API as json
     def get_job_info(self, server, key, timeout):
