@@ -140,6 +140,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      gatekeeper:
+        target: 75
+        flags:
+        - gatekeeper
       nvml:
         target: 75
         flags:
@@ -188,6 +192,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  gatekeeper:
+    carryforward: true
+    paths:
+    - gatekeeper/datadog_checks/gatekeeper
+    - gatekeeper/tests
   gnatsd:
     carryforward: true
     paths:
