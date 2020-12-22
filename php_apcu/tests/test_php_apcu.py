@@ -1,6 +1,7 @@
 import pytest
 
 from datadog_checks.base import ConfigurationError
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.php_apcu import PhpApcuCheck
 
 from .common import EXPECTED_METRICS
@@ -24,6 +25,7 @@ def test_service_check(aggregator, instance):
 
     c.check(instance)
     aggregator.assert_service_check('php_apcu.can_connect', PhpApcuCheck.OK)
+    aggregator.reset()
 
     instance['url'] = instance['url'].replace('.php', '')
     c.check(instance)
@@ -40,3 +42,4 @@ def test_metrics(aggregator, instance):
         aggregator.assert_metric(k, at_least=v)
 
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_submission_type=True)
