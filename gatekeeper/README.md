@@ -104,7 +104,7 @@ Returns `CRITICAL` if the agent fails to connect to the gatekeeper health endpoi
 
 ### Events
 
-gatekeeper does not include any events.
+Gatekeeper does not include any events.
 
 ## Troubleshooting
 
