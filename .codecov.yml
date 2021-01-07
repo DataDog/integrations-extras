@@ -36,6 +36,10 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Gatekeeper:
+        target: 75
+        flags:
+        - gatekeeper
       Gnatsd:
         target: 75
         flags:
@@ -196,6 +200,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  gatekeeper:
+    carryforward: true
+    paths:
+    - gatekeeper/datadog_checks/gatekeeper
+    - gatekeeper/tests
   gnatsd:
     carryforward: true
     paths:
