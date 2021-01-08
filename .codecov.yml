@@ -152,6 +152,10 @@ coverage:
         target: 75
         flags:
         - nvml
+      open_policy_agent:
+        target: 75
+        flags:
+        - open_policy_agent
       pihole:
         target: 75
         flags:
@@ -250,6 +254,11 @@ flags:
     paths:
     - nvml/datadog_checks/nvml
     - nvml/tests
+  open_policy_agent:
+    carryforward: true
+    paths:
+    - open_policy_agent/datadog_checks/open_policy_agent
+    - open_policy_agent/tests
   php_apcu:
     carryforward: true
     paths:
