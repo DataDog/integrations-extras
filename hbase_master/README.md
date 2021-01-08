@@ -45,6 +45,21 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 
 1. Edit the `hbase_master.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Hbase_master [metrics](#metrics). See the [sample hbase_master.d/conf.yaml][8] for all available configuration options.
 
+    **NOTE**: If using Agent 6, be sure to modify the [`hbase_master.d/metrics.yaml`][13] file and wrap boolean keys in quotes.
+    
+    ```yaml
+      - include:
+         domain: Hadoop
+         bean:
+         - Hadoop:service=HBase,name=Master,sub=Server
+         attribute:
+         # Is Active Master
+         tag.isActiveMaster:
+            metric_type: gauge
+            alias: hbase.master.server.tag.is_active_master
+            values: {"true": 1, "false": 0, default: 0}
+    ```
+
 2. [Restart the Agent][9]
 
 ### Log collection
@@ -103,3 +118,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/metadata.csv
 [12]: http://docs.datadoghq.com/help
+[13]: https://github.com/DataDog/integrations-extras/blob/master/hbase_master/datadog_checks/hbase_master/data/metrics.yaml
