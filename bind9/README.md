@@ -14,7 +14,7 @@ The Bind9 check is **NOT** included in the [Datadog Agent][2] package.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Bind9 check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
+If you are using Agent v6.8+ follow the instructions below to install the Bind9 check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
 
 1. [Download and launch the Datadog Agent][2].
 2. Run the following command to install the integrations wheel with the Agent:

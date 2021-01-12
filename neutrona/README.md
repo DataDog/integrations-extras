@@ -10,7 +10,7 @@ This check monitors [Neutrona][1] cloud connectivity services to:
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Neutrona check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the Neutrona check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 1. [Download and launch the Datadog Agent][5].
 2. Run the following command to install the integrations wheel with the Agent:

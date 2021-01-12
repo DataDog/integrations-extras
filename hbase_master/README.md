@@ -11,7 +11,7 @@ Get metrics from Hbase_master service in real time to:
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Hbase_master check on your host. See our dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior v6.8][2] or the [Docker Agent][3]:
+If you are using Agent v6.8+ follow the instructions below to install the Hbase_master check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior v6.8][2] or the [Docker Agent][3]:
 
 1. [Download and launch the Datadog Agent][4].
 2. Run the following command to install the integrations wheel with the Agent:

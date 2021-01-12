@@ -8,7 +8,7 @@ This check monitors [Apache Flume][1].
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Redis's Sentinel check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the Flume check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 3. [Download the Datadog Agent][5].
 

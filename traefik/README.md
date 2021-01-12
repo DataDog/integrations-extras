@@ -12,7 +12,7 @@ This integration collects data from [Traefik][1] in order to check its health an
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Traefik check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]: your `ddev` config with the `integrations-extras/` path:
+If you are using Agent v6.8+ follow the instructions below to install the Traefik check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]: your `ddev` config with the `integrations-extras/` path:
 
 1. [Download and launch the Datadog Agent][6].
 2. Run the following command to install the integrations wheel with the Agent:

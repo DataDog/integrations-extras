@@ -13,7 +13,7 @@ The HBase RegionServer check is **NOT** included in the [Datadog Agent][1] packa
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the HBase RegionServer check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the HBase RegionServer check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 1. [Download and launch the Datadog Agent][1].
 2. Run the following command to install the integrations wheel with the Agent:

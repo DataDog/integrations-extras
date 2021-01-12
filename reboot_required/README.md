@@ -8,7 +8,7 @@ Linux systems that are configured to autoinstall packages may not be configured 
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Reboot Required check on your host. See our dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior to version 6.8][2] or the [Docker Agent][3]: your `ddev` config with the `integrations-extras/` path:
+If you are using Agent v6.8+ follow the instructions below to install the Reboot Required check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior to version 6.8][2] or the [Docker Agent][3]: your `ddev` config with the `integrations-extras/` path:
 
 1. [Download and launch the Datadog Agent][4].
 2. Run the following command to install the integrations wheel with the Agent:
