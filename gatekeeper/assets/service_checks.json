@@ -1,0 +1,30 @@
+[
+    {
+        "agent_version": "7.0.0",
+        "integration": "Gatekeeper",
+        "check": "gatekeeper.prometheus.health",
+        "statuses": [
+            "ok",
+            "critical"
+        ],
+        "groups": [
+            "endpoint"
+        ],
+        "name": "gatekeeper prometheus health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the Prometheus metrics endpoint, otherwise `OK`."
+    },
+    {
+        "agent_version": "7.0.0",
+        "integration": "Gatekeeper",
+        "check": "gatekeeper.health",
+        "statuses": [
+            "ok",
+            "warning",
+            "critical"
+        ],
+        "groups": [
+        ],
+        "name": "gatekeeper health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the gatekeeper health endpoint, `OK` if it returns 200, `WARNING` otherwise."
+    }
+]

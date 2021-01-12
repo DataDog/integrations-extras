@@ -36,6 +36,10 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Gatekeeper:
+        target: 75
+        flags:
+        - gatekeeper
       Gnatsd:
         target: 75
         flags:
@@ -72,6 +76,10 @@ coverage:
         target: 75
         flags:
         - php_apcu
+      PHP OPcache:
+        target: 75
+        flags:
+        - php_opcache
       Ping:
         target: 75
         flags:
@@ -144,10 +152,18 @@ coverage:
         target: 75
         flags:
         - nvml
+      open_policy_agent:
+        target: 75
+        flags:
+        - open_policy_agent
       pihole:
         target: 75
         flags:
         - pihole
+      pulsar:
+        target: 75
+        flags:
+        - pulsar
       speedtest:
         target: 75
         flags:
@@ -188,6 +204,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  gatekeeper:
+    carryforward: true
+    paths:
+    - gatekeeper/datadog_checks/gatekeeper
+    - gatekeeper/tests
   gnatsd:
     carryforward: true
     paths:
@@ -233,11 +254,21 @@ flags:
     paths:
     - nvml/datadog_checks/nvml
     - nvml/tests
+  open_policy_agent:
+    carryforward: true
+    paths:
+    - open_policy_agent/datadog_checks/open_policy_agent
+    - open_policy_agent/tests
   php_apcu:
     carryforward: true
     paths:
     - php_apcu/datadog_checks/php_apcu
     - php_apcu/tests
+  php_opcache:
+    carryforward: true
+    paths:
+    - php_opcache/datadog_checks/php_opcache
+    - php_opcache/tests
   pihole:
     carryforward: true
     paths:
@@ -253,6 +284,11 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
+  pulsar:
+    carryforward: true
+    paths:
+    - pulsar/datadog_checks/pulsar
+    - pulsar/tests
   puma:
     carryforward: true
     paths:

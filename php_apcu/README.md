@@ -28,11 +28,12 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 
 APCu does not expose metrics by default so this integration includes a metric exporter, located here:
 
-    ```
-    /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
-    ```
+```
+/opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
+```
+You can download the exporter [here][5].
 
-When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly. by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
+When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
 ```
 Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
@@ -49,6 +50,7 @@ Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datad
     instances
       - url: http://localhost/apcu-status
     ```
+
 2. [Restart the Agent][9].
 
 ### Validation
