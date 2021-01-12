@@ -13,14 +13,7 @@ This package is **NOT** included in the [Datadog Agent][1] package.
 
 If you are using Agent v6.8+ follow the instructions below to install the check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-1. Install the [developer toolkit][5].
-2. Clone the `integrations-extras` repository:
-
-   ```shell
-   git clone https://github.com/DataDog/integrations-extras.git.
-   ```
-
-3. Update your `ddev` config with the `integrations-extras/` path:
+2. Clone the `integrations-extras` repository: your `ddev` config with the `integrations-extras/` path:
 
    ```shell
    ddev config set extras ./integrations-extras
@@ -32,8 +25,8 @@ If you are using Agent v6.8+ follow the instructions below to install the check 
    ddev -e release build nvml
    ```
 
-5. [Download and launch the Datadog Agent][6].
-6. Run the following command to install the integrations wheel with the Agent:
+1. [Download and launch the Datadog Agent][6].
+2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
    datadog-agent integration install -w <PATH_OF_NVML_ARTIFACT_>/<NVML_ARTIFACT_NAME>.whl
@@ -47,7 +40,7 @@ If you are using Docker, there is an example Dockerfile in the NVML repository.
    docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
    ```
 
-7. Configure your integration like [any other packaged integration][7].
+3. Configure your integration like [any other packaged integration][7].
 
 8. If you're using Docker and Kubernetes, you will need to expose the environment variables `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES`. See the included Dockerfile for an example.
 

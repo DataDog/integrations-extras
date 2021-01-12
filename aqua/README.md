@@ -15,35 +15,17 @@ need to install it yourself.
 
 If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
-1. Install the [developer toolkit][6].
-2. Clone the integrations-extras repository:
+1. [Download and launch the Datadog Agent][7].
+2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   git clone https://github.com/DataDog/integrations-extras.git.
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
    ```
-
-3. Update your `ddev` config with the `integrations-extras/` path:
-
-   ```shell
-   ddev config set extras ./integrations-extras
-   ```
-
-4. To build the `aqua` package, run:
-
-   ```shell
-   ddev -e release build aqua
-   ```
-
-5. [Download and launch the Datadog Agent][7].
-6. Run the following command to install the integrations wheel with the Agent:
-
-   ```shell
-   datadog-agent integration install -w <PATH_OF_AQUA_ARTIFACT>/<AQUA_ARTIFACT_NAME>.whl
-   ```
-
-7. Configure your integration like [any other packaged integration][8].
 
 ### Configuration
+
+1. Configure your integration like [any other packaged integration][8].
+2. [Restart the Agent][10]
 
 #### Metric Collection
 

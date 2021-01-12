@@ -16,7 +16,6 @@ The Unbound check is **NOT** included in the [Datadog Agent][2] package.
 
 To install the Unbound check on your host:
 
-1. Install the [developer toolkit][3] on any machine.
 2. Run `ddev release build unbound` to build the package.
 3. [Install the Datadog Agent][4].
 4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/unbound/dist/<ARTIFACT_NAshellME>.whl`.

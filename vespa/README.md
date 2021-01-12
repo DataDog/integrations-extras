@@ -15,7 +15,6 @@ The Vespa check is not included in the [Datadog Agent][2] package.
 
 To install the check on your host:
 
-1. Install the [developer toolkit][7] on any machine.
 2. Run `ddev release build vespa` to build the package.
 3. [Download the Datadog Agent][2].
 4. Upload the build artifact to any host with an Agent and run:

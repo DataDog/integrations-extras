@@ -13,8 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the `php_apcu` check on your host:
 
 
-1. Install the [developer toolkit][3].
- on any machine.
+on any machine.
 
 2. Run `ddev release build php_apcu` to build the package.
 
