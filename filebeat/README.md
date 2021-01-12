@@ -24,19 +24,19 @@ If you are using Agent v6.8+ follow the instructions below to install the Filebe
 
 ### Configuration
 
-1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][8] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][9] for all available configuration options.
+1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
 
-2. [Restart the Agent][10]
+2. [Restart the Agent][9]
 
 ## Validation
 
-[Run the Agent's `status` subcommand][11] and look for `filebeat` under the Checks section.
+[Run the Agent's `status` subcommand][10] and look for `filebeat` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][12] for a list of metrics provided by this check.
+See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Events
 
@@ -51,18 +51,17 @@ Returns `Critical` if the Agent cannot connect to Filebeat to collect metrics; r
 ## Troubleshooting
 
 
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][12].
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
 [4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[6]: https://app.datadoghq.com/account/settings#agent
-[7]: https://docs.datadoghq.com/getting_started/integrations/
-[8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
-[9]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/datadog_checks/filebeat/data/conf.yaml.example
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[12]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
-[13]: https://docs.datadoghq.com/help/
+[5]: https://app.datadoghq.com/account/settings#agent
+[6]: https://docs.datadoghq.com/getting_started/integrations/
+[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
+[8]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/datadog_checks/filebeat/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
+[11]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/metadata.csv
+[12]: https://docs.datadoghq.com/help/

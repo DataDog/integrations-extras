@@ -10,11 +10,16 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the Cyral check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Redis's Sentinel check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-2. Run `ddev release build cyral` to build the package.
-3. [Download the Datadog Agent][9].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/cyral/dist/<ARTIFACT_NAME>.whl`.
+1. [Download and launch the Datadog Agent][6].
+2. Run the following command to install the integrations wheel with the Agent:
+
+   ```shell
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
+   ```
+
+3. Configure your integration like [any other packaged integration][7].
 
 ### Configuration
 
@@ -61,7 +66,7 @@ Cyral does not include any events.
 
 Check that the `url` in `cyral.yaml` is correct.
 
-Need help? Contact [Datadog support][7].
+Need help? Contact [Datadog support][9].
 
 [1]: https://cyral.com/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -69,6 +74,6 @@ Need help? Contact [Datadog support][7].
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/cyral/metadata.csv
-[7]: https://docs.datadoghq.com/help/
-[8]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[7]: https://docs.datadoghq.com/getting_started/integrations/
+[8]: https://docs.datadoghq.com/help/
 [9]: https://app.datadoghq.com/account/settings#agent

@@ -13,15 +13,15 @@ The Vespa check is not included in the [Datadog Agent][2] package.
 
 ### Installation
 
-To install the check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
-2. Run `ddev release build vespa` to build the package.
-3. [Download the Datadog Agent][2].
-4. Upload the build artifact to any host with an Agent and run:
+1. [Download and launch the Datadog Agent][2].
+2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -w path/to/vespa/dist/<ARTIFACT_NAME>.whl
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
    ```
+3. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
 
@@ -31,7 +31,7 @@ To configure the Vespa check:
 2. Create a `conf.yaml` file in the `vespa.d/` folder previously created.
 3. See the [sample vespa.d/conf.yaml][10] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to configure the `consumer`, which decides the set of metrics forwarded by the check:
-   - `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][9]
+   - `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][11]
      from your Vespa application's services.xml.
 5. [Restart the Agent][3].
 
@@ -48,12 +48,12 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 ### Service Checks
 
 **vespa.metrics_health**:<br>
-Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][11]. Returns `WARNING` if there is a
-response from the Vespa [Node metrics API][11] but there was an error in processing, otherwise returns `OK`.
+Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][10]. Returns `WARNING` if there is a
+response from the Vespa [Node metrics API][10] but there was an error in processing, otherwise returns `OK`.
 
 **vespa.process_health**:<br>
-For each Vespa process, returns `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][11] fails to connect to the process).
-Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][11] can connect to the process, but
+For each Vespa process, returns `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][10] fails to connect to the process).
+Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][10] can connect to the process, but
 gets an error in the response), otherwise returns `OK`.
 
 ### Events
@@ -69,8 +69,8 @@ Need help? Contact [Datadog support][5].
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/help/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/vespa/metadata.csv
-[7]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[6]: https://docs.datadoghq.com/getting_started/integrations/
+[7]: https://github.com/DataDog/integrations-extras/blob/master/vespa/metadata.csv
 [8]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [9]: https://docs.vespa.ai/documentation/reference/services-admin.html#metrics
 [10]: https://github.com/DataDog/integrations-extras/blob/master/vespa/datadog_checks/vespa/data/conf.yaml.example

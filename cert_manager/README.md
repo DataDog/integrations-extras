@@ -12,7 +12,14 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To install the cert_manager check on your host:
 
-2. Clone the `integrations-extras` repository: your `ddev` config with the `integrations-extras/` path:
+1. Install the [developer toolkit][3].
+2. Clone the `integrations-extras` repository:
+
+   ```shell
+   git clone https://github.com/DataDog/integrations-extras.git.
+   ```
+
+3. Update your `ddev` config with the `integrations-extras/` path:
 
    ```shell
    ddev config set extras ./integrations-extras

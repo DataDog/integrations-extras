@@ -8,19 +8,21 @@ This check monitors [Apache Flume][1].
 
 ### Installation
 
-To install the Flume check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Redis's Sentinel check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-2. Run `ddev release build flume` to build the package.
+3. [Download the Datadog Agent][5].
 
-3. [Download the Datadog Agent][3].
+2. Run the following command to install the integrations wheel with the Agent:
 
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/flume/dist/<ARTIFACT_NAME>.whl`.
+   ```shell
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
+   ```
+   
+3. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
 
-1. Configure the Flume agent to enable JMX by adding the following JVM arguments to your [flume-env.sh][4]: 
+1. Configure the Flume agent to enable JMX by adding the following JVM arguments to your [flume-env.sh][7]: 
 
 ```
 export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=5445 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false”
@@ -29,18 +31,18 @@ export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremot
 
 2. Edit the `flume.d/conf.yaml` file, in the `conf.d/` folder at the root of your
    Agent's configuration directory to start collecting Flume performance data.
-   See the [sample `flume.d/conf.yaml`][5] file for all available configuration options.
+   See the [sample `flume.d/conf.yaml`][8] file for all available configuration options.
 
    This check has a limit of 350 metrics per instance. The number of returned metrics is indicated in the info page.
    You can specify the metrics you are interested in by editing the configuration below.
-   To learn how to customize the metrics to collect visit the [JMX Checks documentation][6] for more detailed instructions.
-   If you need to monitor more metrics, contact [Datadog support][7].
+   To learn how to customize the metrics to collect visit the [JMX Checks documentation][9] for more detailed instructions.
+   If you need to monitor more metrics, contact [Datadog support][10].
 
-3. [Restart the Agent][8]
+3. [Restart the Agent][11]
 
 ### Validation
 
-[Run the Agent's `status` subcommand][9] and look for `flume` under the Checks section.
+[Run the Agent's `status` subcommand][12] and look for `flume` under the Checks section.
 
 ### Component metrics
 
@@ -50,7 +52,7 @@ The metrics retrieved by this check depend on the source, channel, and sink used
 
 ### Metrics
 
-See [metadata.csv][10] for a list of metrics provided by this check.
+See [metadata.csv][13] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -64,17 +66,20 @@ Flume does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][7].
+Need help? Contact [Datadog support][10].
 
 
 [1]: https://flume.apache.org/
-[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[3]: https://app.datadoghq.com/account/settings#agent
-[4]: https://flume.apache.org/FlumeUserGuide.html#jmx-reporting
-[5]: https://github.com/DataDog/integrations-extras/blob/master/flume/datadog_checks/flume/data/conf.yaml.example
-[6]: https://docs.datadoghq.com/integrations/java/
-[7]: https://docs.datadoghq.com/help/
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[10]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
-[11]: https://flume.apache.org/FlumeUserGuide.html#available-component-metrics
+[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[5]: https://app.datadoghq.com/account/settings#agent
+[6]: https://docs.datadoghq.com/getting_started/integrations/
+[7]: https://flume.apache.org/FlumeUserGuide.html#jmx-reporting
+[8]: https://github.com/DataDog/integrations-extras/blob/master/flume/datadog_checks/flume/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/integrations/java/
+[10]: https://docs.datadoghq.com/help/
+[11]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[12]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[13]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
+[14]: https://flume.apache.org/FlumeUserGuide.html#available-component-metrics

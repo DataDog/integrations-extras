@@ -29,7 +29,7 @@ If you are using Agent v6.8+ follow the instructions below to install the check 
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -w <PATH_OF_NVML_ARTIFACT_>/<NVML_ARTIFACT_NAME>.whl
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
    # You may also need to install dependencies since those aren't packaged into the wheel
    sudo -u dd-agent -H /opt/datadog-agent/embedded/bin/pip3 install grpcio pynvml
    ```

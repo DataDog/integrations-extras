@@ -10,11 +10,16 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the Zabbix check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See our dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
-2. Run `ddev release build zabbix` to build the package.
-3. [Download the Datadog Agent][3].
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/zabbix/dist/<ARTIFACT_NAME>.whl`.
+1. [Download and launch the Datadog Agent][6].
+2. Run the following command to install the integrations wheel with the Agent:
+
+   ```shell
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
+   ```
+3. Configure your integration like [any other packaged integration][7].
+
 
 ### Configuration
 
@@ -45,10 +50,12 @@ Zabbix does not include any events.
 Need help? Contact [Datadog support][8].
 
 [1]: https://www.zabbix.com/
-[2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[3]: https://app.datadoghq.com/account/settings#agent
-[4]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/datadog_checks/zabbix/data/conf.yaml.example
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/metadata.csv
-[8]: https://docs.datadoghq.com/help/
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[3]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/datadog_checks/zabbix/data/conf.yaml.example
+[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[6]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/metadata.csv
+[7]: https://docs.datadoghq.com/help/

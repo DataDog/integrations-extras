@@ -14,21 +14,11 @@ This integration collects data from [Traefik][1] in order to check its health an
 
 If you are using Agent v6.8+ follow the instructions below to install the Traefik check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]: your `ddev` config with the `integrations-extras/` path:
 
-   ```shell
-   ddev config set extras ./integrations-extras
-   ```
-
-4. To build the `traefik` package, run:
-
-   ```shell
-   ddev -e release build traefik
-   ```
-
 1. [Download and launch the Datadog Agent][6].
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -w <PATH_OF_TRAEFIK_ARTIFACT_>/<TRAEFIK_ARTIFACT_NAME>.whl
+   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
    ```
 
 3. Configure your integration like [any other packaged integration][7].
@@ -127,7 +117,6 @@ Refer to the [main documentation][15] for more details about how to test and dev
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
 [4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations/
 [8]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
