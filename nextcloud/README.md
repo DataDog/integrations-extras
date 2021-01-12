@@ -10,16 +10,6 @@ This check monitors [Nextcloud][1].
 
 If you are using Agent v6.8+ follow the instructions below to install the Nextcloud check on your host. See our dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]: your `ddev` config with the `integrations-extras/` path:
 
-   ```shell
-   ddev config set extras ./integrations-extras
-   ```
-
-4. To build the `nextcloud` package, run:
-
-   ```shell
-   ddev -e release build nextcloud
-   ```
-
 1. [Download and launch the Datadog Agent][5].
 2. Run the following command to install the integrations wheel with the Agent:
 

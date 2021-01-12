@@ -13,18 +13,6 @@ This package is **NOT** included in the [Datadog Agent][1] package.
 
 If you are using Agent v6.8+ follow the instructions below to install the check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-2. Clone the `integrations-extras` repository: your `ddev` config with the `integrations-extras/` path:
-
-   ```shell
-   ddev config set extras ./integrations-extras
-   ```
-
-4. To build the `nvml` package, run:
-
-   ```shell
-   ddev -e release build nvml
-   ```
-
 1. [Download and launch the Datadog Agent][6].
 2. Run the following command to install the integrations wheel with the Agent:
 
