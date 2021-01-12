@@ -13,7 +13,6 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the cert_manager check on your host:
 
 1. Install the [developer toolkit][3].
-
 2. Clone the `integrations-extras` repository:
 
    ```shell
