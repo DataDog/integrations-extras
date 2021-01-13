@@ -67,7 +67,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 
 ### Validation
 
-[Run the Agent's `status` subcommand][11] and look for `hbase_master` under the Checks section.
+[Run the Agent's `status` subcommand][9] and look for `hbase_master` under the Checks section.
 
 ## Data Collected
 
