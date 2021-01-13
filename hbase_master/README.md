@@ -63,7 +63,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
    Change the `path` parameter value and configure it for your environment.
    See the [sample hbase_master.d/conf.yaml][9] for all available configuration options.
 
-3. [Restart the Agent][10].
+3. [Restart the Agent][8].
 
 ### Validation
 
