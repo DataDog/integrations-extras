@@ -12,7 +12,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the HBase RegionServer check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
+If you are using Agent v6.8+ follow the instructions below to install the Kernelcare check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
 
 1. [Download and launch the Datadog Agent][6].
 2. Run the following command to install the integrations wheel with the Agent:

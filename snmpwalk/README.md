@@ -13,7 +13,7 @@ The SNMP walk check is **NOT** included in the [Datadog Agent][1] package.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Sortdb check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the SNMP walk check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
 1. [Download and launch the Datadog Agent][1].
 2. Run the following command to install the integrations wheel with the Agent:

@@ -10,7 +10,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See the dedicated Agent guide for [installing community integrations][4] to install checks with the [Agent prior to version 6.8][5] or the [Docker Agent][6]:
+If you are using Agent v6.8+ follow the instructions below to install the Speedtest check on your host. See the dedicated Agent guide for [installing community integrations][4] to install checks with the [Agent prior to version 6.8][5] or the [Docker Agent][6]:
 
 1. [Download and launch the Datadog Agent][3].
 2. Run the following command to install the integrations wheel with the Agent:

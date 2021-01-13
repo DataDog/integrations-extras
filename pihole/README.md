@@ -10,7 +10,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Ping check on your host. See the dedicated Agent guide for [installing community integrations][6] to install checks with the [Agent prior to version 6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the Pi-hole check on your host. See the dedicated Agent guide for [installing community integrations][6] to install checks with the [Agent prior to version 6.8][3] or the [Docker Agent][4]:
 
 1. [Download the Datadog Agent][4].
 
@@ -54,7 +54,6 @@ Pi-hole does not include any events.
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
-
 
 
 
