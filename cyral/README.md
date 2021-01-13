@@ -12,7 +12,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 If you are using Agent v6.8+ follow the instructions below to install the Cyral check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
 
-1. [Download and launch the Datadog Agent][6].
+1. [Download and launch the Datadog Agent][9].
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
@@ -66,7 +66,7 @@ Cyral does not include any events.
 
 Check that the `url` in `cyral.yaml` is correct.
 
-Need help? Contact [Datadog support][9].
+Need help? Contact [Datadog support][8].
 
 [1]: https://cyral.com/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
