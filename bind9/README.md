@@ -75,5 +75,5 @@ Please refer to the [main documentation][12] for more details about how to test 
 [8]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[11]: https://github.com/DataDog/cookiecutter-datadog-check/blob/master/%7B%7Bcookiecutter.check_name%7D%7D/metadata.csv
+[11]: https://github.com/DataDog/integrations-extras/blob/master/bind9/metadata.csv
 [12]: https://docs.datadoghq.com/developers/
