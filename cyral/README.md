@@ -10,7 +10,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Cyral check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+If you are using Agent v6.8+ follow the instructions below to install the Cyral check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
 
 1. [Download and launch the Datadog Agent][6].
 2. Run the following command to install the integrations wheel with the Agent:
@@ -23,7 +23,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Cyral 
 
 ### Configuration
 
-1. Edit the `cyral.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your cyral performance data. See the [sample cyral.d/conf.yaml][3] for all available configuration options.
+1. Edit the `cyral.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your cyral performance data. See the [sample cyral.d/conf.yaml][8] for all available configuration options.
 
     ```yaml
     init_config:
@@ -33,17 +33,17 @@ If you are using Agent v6.8+ follow the instructions below to install the Cyral 
      - prometheus_url: http://localhost:9018/metrics
     ```
 
-2. [Restart the Agent][4].
+2. [Restart the Agent][9].
 
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `cyral` under the Checks section.
+[Run the Agent's status subcommand][10] and look for `cyral` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this check.
+See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -66,14 +66,17 @@ Cyral does not include any events.
 
 Check that the `url` in `cyral.yaml` is correct.
 
-Need help? Contact [Datadog support][9].
+Need help? Contact [Datadog support][12].
 
 [1]: https://cyral.com/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://github.com/DataDog/integrations-extras/blob/master/cyral/datadog_checks/cyral/data/conf.yaml.example
-[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-extras/blob/master/cyral/metadata.csv
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[6]: https://app.datadoghq.com/account/settings#agent
 [7]: https://docs.datadoghq.com/getting_started/integrations/
-[8]: https://docs.datadoghq.com/help/
-[9]: https://app.datadoghq.com/account/settings#agent
+[8]: https://github.com/DataDog/integrations-extras/blob/master/cyral/datadog_checks/cyral/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[11]: https://github.com/DataDog/integrations-extras/blob/master/cyral/metadata.csv
+[12]: https://docs.datadoghq.com/help/
