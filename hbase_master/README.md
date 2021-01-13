@@ -73,7 +73,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Hbase_
 
 ### Metrics
 
-See [metadata.csv][12] for a list of metrics provided by this check.
+See [metadata.csv][10] for a list of metrics provided by this check.
 
 ### Events
 
