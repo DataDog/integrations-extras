@@ -85,7 +85,7 @@ The Hbase_master check does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][11].
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
