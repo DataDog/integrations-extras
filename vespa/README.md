@@ -31,7 +31,7 @@ To configure the Vespa check:
 2. Create a `conf.yaml` file in the `vespa.d/` folder previously created.
 3. See the [sample vespa.d/conf.yaml][10] file and copy its content in the `conf.yaml` file.
 4. Edit the `conf.yaml` file to configure the `consumer`, which decides the set of metrics forwarded by the check:
-   - `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][11]
+   - `consumer`: The consumer to collect metrics for, either `default` or a [custom consumer][9]
      from your Vespa application's services.xml.
 5. [Restart the Agent][3].
 
@@ -48,12 +48,12 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 ### Service Checks
 
 **vespa.metrics_health**:<br>
-Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][10]. Returns `WARNING` if there is a
-response from the Vespa [Node metrics API][10] but there was an error in processing, otherwise returns `OK`.
+Returns `CRITICAL` if there is no response from the Vespa [Node metrics API][11]. Returns `WARNING` if there is a
+response from the Vespa [Node metrics API][11] but there was an error in processing, otherwise returns `OK`.
 
 **vespa.process_health**:<br>
-For each Vespa process, returns `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][10] fails to connect to the process).
-Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][10] can connect to the process, but
+For each Vespa process, returns `CRITICAL` if the process seems to be down (the Vespa [Node metrics API][11] fails to connect to the process).
+Returns `WARNING` if the process status is unknown (the Vespa [Node metrics API][11] can connect to the process, but
 gets an error in the response), otherwise returns `OK`.
 
 ### Events
