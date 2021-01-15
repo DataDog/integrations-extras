@@ -17,7 +17,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Pi-hol
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-      datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
+      datadog-agent integration install -t datadog-pihole==<INTEGRATION_VERSION>
    ```
 
 3. Configure your integration like [any other packaged integration][6].
@@ -63,7 +63,6 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
 [11]: https://docs.datadoghq.com/help/
-
 
 
 

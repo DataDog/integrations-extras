@@ -14,7 +14,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Sendma
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-sendmail==<INTEGRATION_VERSION>
    ```
 
 3. Configure your integration like [any other packaged integration][6].
