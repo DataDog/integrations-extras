@@ -20,25 +20,25 @@ If you are using Agent v6.8+ follow the instructions below to install the Unboun
    ```shell
    datadog-agent integration install -t datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>
    ```
-3. Configure your integration like [any other packaged integration][5].
+3. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
 
 1. Edit the `unbound.d/conf.yaml` file, in the `conf.d/` folder at the root of
    your Agent's configuration directory to start collecting unbound metrics. See
-   the [sample unbound.d/conf.yaml][6] for all available configuration options.
+   the [sample unbound.d/conf.yaml][7] for all available configuration options.
 
-2. [Restart the Agent][7].
+2. [Restart the Agent][8].
 
 ### Validation
 
-[Run the Agent's status subcommand][8] and look for `unbound` under the Checks section.
+[Run the Agent's status subcommand][9] and look for `unbound` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][9] for a list of metrics provided by this integration.
+See [metadata.csv][10] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -51,7 +51,7 @@ The Unbound check does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][10].
+Need help? Contact [Datadog support][11].
 
 [1]: https://nlnetlabs.nl/documentation/unbound/unbound-control/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -59,9 +59,8 @@ Need help? Contact [Datadog support][10].
 [4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
 [5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
 [6]: https://docs.datadoghq.com/getting_started/integrations/
-[5]: https://app.datadoghq.com/account/settings#agent
-[6]: https://github.com/DataDog/integrations-extras/blob/master/unbound/datadog_checks/unbound/data/conf.yaml.example
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-extras/blob/master/unbound/metadata.csv
-[10]: https://docs.datadoghq.com/help/
+[7]: https://github.com/DataDog/integrations-extras/blob/master/unbound/datadog_checks/unbound/data/conf.yaml.example
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[10]: https://github.com/DataDog/integrations-extras/blob/master/unbound/metadata.csv
+[11]: https://docs.datadoghq.com/help/
