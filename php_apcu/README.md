@@ -10,19 +10,18 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the `php_apcu` check on your host:
+If you are using Agent v6.8+ follow the instructions below to install the `php_apcu` check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
 
+1. [Download the Datadog Agent][6].
 
-1. Install the [developer toolkit][3].
- on any machine.
+2. Run the following command to install the integrations wheel with the Agent:
 
-2. Run `ddev release build php_apcu` to build the package.
+   ```shell
+      datadog-agent integration install -t datadog-php_apcu==<INTEGRATION_VERSION>
+   ```
 
-3. [Download the Datadog Agent][4].
+3. Configure your integration like [any other packaged integration][7].
 
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/php_apcu/dist/<ARTIFACT_NAME>.whl`.
 
 #### APCu Setup
 
@@ -46,22 +45,23 @@ Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datad
 
 ### Configuration
 
-1. Edit the `php_apcu.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your `php_apcu` performance data. See the [sample `php_apcu.d/conf.yaml` file][6] for all available configuration options.
+1. Edit the `php_apcu.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your `php_apcu` performance data. See the [sample `php_apcu.d/conf.yaml` file][8] for all available configuration options.
     ```
     instances
       - url: http://localhost/apcu-status
     ```
-2. [Restart the Agent][7].
+
+2. [Restart the Agent][9].
 
 ### Validation
 
-[Run the Agent's status subcommand][8] and look for `php_apcu` under the Checks section.
+[Run the Agent's status subcommand][10] and look for `php_apcu` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][9] for a list of metrics provided by this check.
+See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -73,15 +73,17 @@ See [metadata.csv][9] for a list of metrics provided by this check.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][10].
+Need help? Contact [Datadog support][12].
 
 [1]: https://www.php.net/manual/en/book.apcu.php
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
-[6]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/datadog_checks/php_apcu/data/conf.yaml.example
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/metadata.csv
-[10]: https://docs.datadoghq.com/help/
+[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[6]: https://app.datadoghq.com/account/settings#agent
+[7]: https://docs.datadoghq.com/getting_started/integrations/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/datadog_checks/php_apcu/data/conf.yaml.example
+[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[11]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/metadata.csv
+[12]: https://docs.datadoghq.com/help/
