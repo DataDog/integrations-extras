@@ -1,6 +1,6 @@
 {
     "name": "[php_apcu] Detected High Cache Usage.",
-    "type": "metric alert",
+    "type": "query alert",
     "query": "avg(last_15m):( avg:php_apcu.cache.mem_size{*} / avg:php_apcu.sma.seg_size{*} ) * 100 > 90",
     "message": "APCu Detected High Cache Usage.",
     "tags": [
