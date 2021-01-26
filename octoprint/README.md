@@ -13,9 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the OctoPrint check on your host:
 
 
-1. Install the [developer toolkit]
-[3]
- on any machine.
+1. Install the [developer toolkit][3] on any machine.
 
 2. Run `ddev release build octoprint` to build the package.
 
@@ -55,9 +53,7 @@ Any or all of these may be changed or removed by modifying the integration's `co
 
 #### Log Processing
 
-OctoPrint uses it's own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules.
-
-I found it useful to layout my pipeline like so:  
+OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
 
 1. Main Pipeline: "OctoPrint"
     1. Sub Pipeline 1: "OctoPrint Print Job"
