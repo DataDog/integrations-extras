@@ -62,23 +62,8 @@ class OctoPrintCheck(AgentCheck):
             return int(seconds / 60)
 
     # Get stats from REST API as json
-    def get_job_info(self, server, key, timeout):
-        PATH = "/api/job"
-        url = server + PATH
-        headers = {"X-Api-Key": key, "content-type": "application/json"}
-        req = requests.get(url, timeout=timeout, headers=headers)
-        return req.json()
-
-    def get_tool_temp(self, server, key, timeout):
-        PATH = "/api/printer/tool"
-        url = server + PATH
-        headers = {"X-Api-Key": key, "content-type": "application/json"}
-        req = requests.get(url, timeout=timeout, headers=headers)
-        return req.json()
-
-    def get_bed_temp(self, server, key, timeout):
-        PATH = "/api/printer/bed"
-        url = server + PATH
+    def get_api_info(self, server, key, timeout, path):
+        url = server + path
         headers = {"X-Api-Key": key, "content-type": "application/json"}
         req = requests.get(url, timeout=timeout, headers=headers)
         return req.json()
@@ -90,8 +75,9 @@ class OctoPrintCheck(AgentCheck):
         rpi_core_temp = self.get_rpi_core_temp()
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
 
-        # get api data
-        job_info = self.get_job_info(SERVER, octo_api_key, TIMEOUT)
+        # get job data
+        job_path = "/api/job"
+        job_info = self.get_api_info(SERVER, octo_api_key, TIMEOUT, job_path)
 
         # # Job State
         state = job_info["state"]
@@ -120,7 +106,8 @@ class OctoPrintCheck(AgentCheck):
         self.gauge("octoprint.print_job_time_left", print_job_time_left)
 
         # # Extruder Temperatures
-        extruder_temps = self.get_tool_temp(SERVER, octo_api_key, TIMEOUT)
+        extruder_temp_path = "/api/printer/tool"
+        extruder_temps = self.get_api_info(SERVER, octo_api_key, TIMEOUT, extruder_temp_path)
         for key in extruder_temps.keys():
             toolname = key
             current_tool_temp = extruder_temps[toolname]["actual"]
@@ -129,7 +116,8 @@ class OctoPrintCheck(AgentCheck):
             self.gauge("octoprint." + toolname + ".target_tool_temp", target_tool_temp)
 
         # # Bed Temperatures
-        bed_temp = self.get_bed_temp(SERVER, octo_api_key, TIMEOUT)
+        bed_temp_path = "/api/printer/bed"
+        bed_temp = self.get_api_info(SERVER, octo_api_key, TIMEOUT, bed_temp_path)
         for key in bed_temp.keys():
             bedname = key
             current_bed_temp = bed_temp[bedname]["actual"]
