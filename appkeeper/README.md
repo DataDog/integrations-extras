@@ -2,89 +2,63 @@
 
 ## Overview
 
-SIOS AppKeeper automatically restarts failed Amazon EC2 services when
-notifications are received from Datadog such as Synthetics, removing
-the need for expensive manual intervention.
-
-When Datadog finds the alerts, it restarts the Service via AppKeeper Recovery API.
-
-![snapshot][1]
-
-![snapshot][2]
+SIOS AppKeeper automatically restarts failed Amazon EC2 services when notifications are received from Datadog, removing the need for expensive manual intervention. When Datadog triggers an alert, it restarts the EC2 service via the AppKeeper Recovery API.
 
 ## Setup
 
-### Step 1. Get the SIOS AppKeeper API Key
+### Get the SIOS AppKeeper API key
 
-Get the SIOS AppKeeper API Key from AppKeeper GUI.
+Get the SIOS AppKeeper API key from AppKeeper GUI.
 
-1. Click **Account Information**, and open the modal dialog
-2. Click **Get Token**
-3. Copy the token
+1. Click **Account Information**, and open the modal dialog.
+2. Click **Get Token**.
+3. Copy the token.
+
+![snapshot][1]
+
+### Install and configure the Webhooks integration
+
+1. In the Datadog app, navigate to the [Webhooks integration][2] and install the integration.
+2. Select the **Configuration** tab.
+3. Under the **Webhooks** header, click **New**.
+4. Enter the following URL: "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
+5. Enter the `id` and name of `name` for the monitoring instance in the **Payload** section.
+3. Register the AppKeeper API token in the **Custom Headers** section.
 
 ![snapshot][3]
 
-### Step 2. Define the Webhook in the Datadog Integration Dashboard
+### Integrate with Datadog monitoring
 
-1. Click on the Integration
-2. Click the webhooks (*If you did not install the webhook, please install the webhook.)
-
-![snapshot][4]
-
-### Step 3. Define the payload and custom headers
-
-1. Enter the **URL**: "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
-2. Enter the Instance ID and name of Services for the monitoring instance in the **Payload**
-3. Register the AppKeeper API token in the **Custom Headers** "**appkeeper-integration-token**"
+1. Create a new Datadog [Synthetic test][4]. Click **New Test** in the top right corner.
+2. In the **Define requests** step, enter the URL you want to monitor.
+3. In the **Define assertions** step, click **New Assertion** and add the following parameters: When `status code` is `200`. This will trigger an alert when the status code is **not** 200. If the request requires notification based on a different status, replace 200 with your status code.
+4. Click **New Assertion** again and add a second set of parameters: And `response time` is less than `2000` ms. This will trigger an alert when the response time is longer than 2000ms. If you require a longer or shorter duration, replace `2000` with your duration.
+5. In the **Notify your team** step, add the webhook, formatted as `@webhook-name_of_the_webhook`. Include a message for the notification. **Note**: The minimum monitoring interval for the **renotify if the monitor has not been resolved** setting in this step is `Every 10 Minutes`. Setting to **Never** inhibits the webhook to call on AppKeeper's recovery API.
 
 ![snapshot][5]
 
-### Step 4. Integrate with Datadog monitoring
-
-As an example, create a new synthetic test and set up the integration with AppKeeper.
-
-1. Navigate to UX Monitoring. Select **Synthetic Test**.
-2. Click the **New Test** for creating the Synthetics as new
+Results of recoveries by AppKeeper are listed in AppKeeper's GUI.
 
 ![snapshot][6]
 
-3. Set the monitoring fields.
-
-![snapshot][7]
-
-4. Add the webhook that set in Step 2 and Step 3 in the Notification settings(Notify your team).
-
-![snapshot][8]
-
-5. Datadog has the functionality to suppress notifications when an alert is raised repeatedly.
-If you set it, AppKeeper's recovery API will not be called by webhook. **Don't set it to inhibit**.
-
-![snapshot][9]
-
-6. Results of recoveries by AppKeeper are listed in AppKeeper's GUI.
-
-![snapshot][10]
-
-
-For more information on the AppKeeper's Integration, review the Appkeeper [documentation][11].
+For more information on the AppKeeper's Integration, review the AppKeeper [documentation][7].
 
 ## Data Collected
 
 ### Metrics
 
+See [metadata.csv][8] for a list of metrics provided by this integration.
+
 ## Troubleshooting
 
-Need help? Contact [Datadog support][12].
+Need help? Contact [Datadog support][9].
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/integration.jpg
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/integration2.jpg
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/get_token.jpg
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/datadog_webhook.jpg
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/payload_header.jpg
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test.jpg
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test2.jpg
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test3.jpg
-[9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test4.jpg
-[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
-[11]: https://sioscoati.zendesk.com/hc/en-us/articles/900000978443-Integration
-[12]: https://docs.datadoghq.com/help/
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/get_token.jpg
+[2]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/payload_header.jpg
+[4]: https://app.datadoghq.com/synthetics/list
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test_params.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
+[7]: https://sioscoati.zendesk.com/hc/en-us/articles/900000978443-Integration
+[8]: https://github.com/DataDog/integrations-extras/blob/master/appkeeper/metadata.csv
+[9]: https://docs.datadoghq.com/help/
