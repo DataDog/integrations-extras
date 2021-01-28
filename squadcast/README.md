@@ -15,9 +15,9 @@ At least one Escalation Policy must be configured before you can add a service.
 
 ### Follow these steps in Squadcast:
 
-1. Open **Services** page from the sidebar.
+1. Open the **Services** page from the sidebar.
 
-2. You can choose to use an existing service, or create a new service by clicking on "Add Service" 
+2. Choose an existing service, or create a new service by clicking on **Add Service**.
 
 3. Click on **Alert Sources** and select **Datadog** from the drop down.
 
