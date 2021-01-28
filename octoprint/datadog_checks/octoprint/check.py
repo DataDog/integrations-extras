@@ -46,7 +46,12 @@ class OctoPrintCheck(AgentCheck):
                     "Unable to get rPi temp.  To resolve, add the 'video' group to the 'dd-agent' user"
                     " by running `sudo usermod -aG video dd-agent`"
                 )
-                temp = 0.0
+            temp = 0.0
+        elif os.path.isfile("/usr/bin/vcgencmd"):
+            temp, err, retcode = get_subprocess_output(
+                ["cat", "/sys/class/thermal/thermal_zone0/temp"], self.log, raise_on_empty_output=True
+            )
+            temp = temp / 1000
         else:
             self.log.info(
                 "The command typically used to get the core temperature, /usr/bin/vcgencmd,"
