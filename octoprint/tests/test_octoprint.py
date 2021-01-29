@@ -1,8 +1,11 @@
+from typing import Any, Dict
+
 import mock
 import pytest
 
-from datadog_checks.base import ConfigurationError
+
 from datadog_checks.base.stubs.aggregator import AggregatorStub
+from datadog_checks.octoprint import OctoPrintCheck
 
 MOCK_RESPONSE = {
     "rpi_core_temp": 0.0,
