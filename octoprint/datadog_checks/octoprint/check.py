@@ -47,7 +47,7 @@ class OctoPrintCheck(AgentCheck):
                     " by running `sudo usermod -aG video dd-agent`"
                 )
             temp = 0.0
-        elif os.path.isfile("/usr/bin/vcgencmd"):
+        elif os.path.isfile("/sys/class/thermal/thermal_zone0/temp"):
             temp, err, retcode = get_subprocess_output(
                 ["cat", "/sys/class/thermal/thermal_zone0/temp"], self.log, raise_on_empty_output=True
             )
