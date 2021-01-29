@@ -3,7 +3,8 @@ files:
 - name: pihole.yaml
   options:
   - template: init_config
-    options: []
+    options:
+    - template: init_config/default
   - template: instances
     options:
     - name: host
@@ -12,9 +13,8 @@ files:
       value:
         example: localhost
         type: string
-    - template: instances/tags
+    - template: instances/default
     - template: instances/http
-    - template: instances/global
   - template: logs
     example:
     - type: file

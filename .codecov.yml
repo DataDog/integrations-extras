@@ -12,7 +12,7 @@ coverage:
       default:
         target: 75
         if_ci_failed: error
-      AWS Pricing:
+      AWS_Pricing:
         target: 75
         flags:
         - aws_pricing
@@ -20,7 +20,7 @@ coverage:
         target: 75
         flags:
         - aqua
-      BIND 9:
+      BIND_9:
         target: 75
         flags:
         - bind9
@@ -36,11 +36,15 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Gatekeeper:
+        target: 75
+        flags:
+        - gatekeeper
       Gnatsd:
         target: 75
         flags:
         - gnatsd
-      Gnatsd Streaming:
+      Gnatsd_Streaming:
         target: 75
         flags:
         - gnatsd_streaming
@@ -68,10 +72,14 @@ coverage:
         target: 75
         flags:
         - nextcloud
-      PHP APCu:
+      PHP_APCu:
         target: 75
         flags:
         - php_apcu
+      PHP_OPcache:
+        target: 75
+        flags:
+        - php_opcache
       Ping:
         target: 75
         flags:
@@ -84,15 +92,15 @@ coverage:
         target: 75
         flags:
         - puma
-      Reboot Required:
+      Reboot_Required:
         target: 75
         flags:
         - reboot_required
-      Redis Sentinel:
+      Redis_Sentinel:
         target: 75
         flags:
         - redis_sentinel
-      Riak MDC Replication:
+      Riak_MDC_Replication:
         target: 75
         flags:
         - riak_repl
@@ -148,10 +156,18 @@ coverage:
         target: 75
         flags:
         - octoprint
+      open_policy_agent:
+        target: 75
+        flags:
+        - open_policy_agent
       pihole:
         target: 75
         flags:
         - pihole
+      pulsar:
+        target: 75
+        flags:
+        - pulsar
       speedtest:
         target: 75
         flags:
@@ -192,6 +208,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  gatekeeper:
+    carryforward: true
+    paths:
+    - gatekeeper/datadog_checks/gatekeeper
+    - gatekeeper/tests
   gnatsd:
     carryforward: true
     paths:
@@ -242,11 +263,21 @@ flags:
     paths:
     - octoprint/datadog_checks/octoprint
     - octoprint/tests
+  open_policy_agent:
+    carryforward: true
+    paths:
+    - open_policy_agent/datadog_checks/open_policy_agent
+    - open_policy_agent/tests
   php_apcu:
     carryforward: true
     paths:
     - php_apcu/datadog_checks/php_apcu
     - php_apcu/tests
+  php_opcache:
+    carryforward: true
+    paths:
+    - php_opcache/datadog_checks/php_opcache
+    - php_opcache/tests
   pihole:
     carryforward: true
     paths:
@@ -262,6 +293,11 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
+  pulsar:
+    carryforward: true
+    paths:
+    - pulsar/datadog_checks/pulsar
+    - pulsar/tests
   puma:
     carryforward: true
     paths:
