@@ -1,16 +1,3 @@
-# After installing the Datadog Agent on your OctoPrint device, create an API
-# key from the OctoPrint service, and provide it.
-# Drop this file into `/etc/datadog-agent/checks.d` along with an empty file
-# named `octoprint.yaml` in `/etc/datadog-agent/conf.d`.  Pass in your
-# OctoPrint API key as an instance value like so:
-# ```
-# instances:
-#   - octo_api_key: APIKEYGOESHERE
-# ```
-
-# TODO:
-# - Refactor Octo HTTP API calls
-
 import logging
 import os
 
@@ -87,7 +74,6 @@ class OctoPrintCheck(AgentCheck):
         # # Job State
         state = job_info["state"]
         # States: Printing, Paused, Cancelled, Operational...
-        # The proper thing would be a a case/switch statement
         if state == "Operational":
             printer_state = 0
         elif state == "Paused":

@@ -19,7 +19,7 @@ MOCK_RESPONSE = {
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-@mock.patch('datadog_checks.octoprint.OctoPrintCheck._call_command')
+@mock.patch('datadog_checks.octoprint.OctoPrintCheck.get_api_info')
 def test_check(mock_cmd, aggregator, instance):
     # type: (mock.MagicMock, AggregatorStub, Dict[str, Any]) -> None
     mock_cmd.return_value = MOCK_RESPONSE
@@ -40,7 +40,7 @@ def test_check(mock_cmd, aggregator, instance):
 
 
 @pytest.mark.unit
-@mock.patch('datadog_checks.octoprint.OctoPrintCheck._call_command')
+@mock.patch('datadog_checks.octoprint.OctoPrintCheck.get_api_info')
 def test_config(mock_cmd, *args, **kwargs):
     mock_cmd.return_value = MOCK_RESPONSE
 
