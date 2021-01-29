@@ -10,15 +10,25 @@ __version__ = "0.1.2"
 
 TIMEOUT = 10
 
-def __init__():
-    logger = logging.getLogger('{}.{}'.format(__name__, self.name))
-    self.log = CheckLoggingAdapter(logger, self)
-    hostname = os.popen("hostname").readline().strip()
-    self.log.debug('hostname: %s', hostname)
-    SERVER = "http://" + hostname
-    self.log.debug('OctoSERVER: %s', SERVER)
+
+# def __init__():
+#     logger = logging.getLogger('{}.{}'.format(__name__, self.name))
+#     self.log = CheckLoggingAdapter(logger, self)
+#     hostname = os.popen("hostname").readline().strip()
+#     self.log.debug('hostname: %s', hostname)
+#     SERVER = "http://" + hostname
+#     self.log.debug('OctoSERVER: %s', SERVER)
+
 
 class OctoPrintCheck(AgentCheck):
+
+    def __init__(self, name, init_config, instances):
+        super(OctoPrintCheck, self).__init__(name, init_config, instances)
+        octo_api_key = instance.get('octo_api_key')
+        self.log.debug('OctoPrint monitoring starting on %s', self.hostname)
+        # self.log.debug('octo_api_key (from config): %s', octo_api_key)
+        self.log.debug('octo_server: %s', SERVER)
+
     def get_rpi_core_temp(self):
         if os.path.isfile("/usr/bin/vcgencmd"):
             temp, err, retcode = get_subprocess_output(
@@ -61,9 +71,6 @@ class OctoPrintCheck(AgentCheck):
         return req.json()
 
     def check(self, instance):
-        octo_api_key = instance.get('octo_api_key')
-        self.log.debug('octo_api_key (from config): %s', octo_api_key)
-        self.log.debug('octo_server: %s', SERVER)
         rpi_core_temp = self.get_rpi_core_temp()
         self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
 
