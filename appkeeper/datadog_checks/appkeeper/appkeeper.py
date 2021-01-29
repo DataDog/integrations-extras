@@ -1,5 +1,7 @@
 import json
 import requests
+from datetime import datetime, timedelta, timezone
+from dateutil.parser import parse
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base import AgentCheck, ConfigurationError
 
@@ -41,9 +43,34 @@ class AppKeeperCheck(AgentCheck):
         except Exception as e:
             raise CheckException('Failed to get API key by {}'.format(e))
 
-        return response.text
+        if response.status_code != 200:
+            raise ConfigurationError('Failed to events. status_code={}'.format(response.status_code))
+
+        try:
+            eventsJson = json.loads(response.text)
+            events = eventsJson['events']
+        except Exception as e:
+            raise CheckException('Failed to get events by {}'.format(e))
+
+        # filter events
+        # get the number of events form 'api' in the last 1 hours
+        # recover_count = get_recover_count(events)
+        # return recover_count
+
+        return isInLastOneHour(events[0])
+
         #
         # self.log.info(response)
         # self.gauge('appkeeper.api_recover_count', 0)
         # self.gauge('appkeeper.integrated_instances', 1)
         # self.gauge('appkeeper.all_instances', 3)
+
+def get_recover_count(events):
+    hoge = list(filter(lambda x: x['requester'] == 'api', events))
+    fuga = list(filter(isInLastOneHour(), events))
+    return hoge
+
+def isInLastOneHour(event, now=datetime.now(timezone.utc)):
+    oneHourAgo = now - timedelta(hours=1)
+    eventHour = parse(event['startTime'])
+    return oneHourAgo < eventHour
