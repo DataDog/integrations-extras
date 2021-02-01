@@ -34,58 +34,48 @@ class AppKeeperCheck(AgentCheck):
             token = tokenJson['accessToken']
         except Exception as e:
             raise CheckException('Failed to get API key by {}'.format(e))
-        
-        # Get Recovery Events
-        try:
-            headers = {'Authorization' :'Bearer {}'.format(token)}
-            response = requests.get(EVENT_API_URL.format(account), headers=headers)
-        except requests.exceptions.Timeout:
-            raise CheckException('Failed to get events by timeout')
-        except Exception as e:
-            raise CheckException('Failed to get events by {}'.format(e))
 
-        if response.status_code != 200:
-            raise ConfigurationError('Failed to get events. status_code={}'.format(response.status_code))
-
-        try:
-            eventsJson = json.loads(response.text)
-            events = eventsJson['events']
-        except Exception as e:
-            raise CheckException('Failed to get events by {}'.format(e))
-
-        # filter events
-        # get the number of events form 'api' in the last 1 hours
+        # events
+        events = call_events_api(account, token)
         recover_count = get_recover_count(events)
 
-        # Get Instances
-        try:
-            headers = {'Authorization' :'Bearer {}'.format(token)}
-            response = requests.get(INSTANCES_API_URL.format(account), headers=headers)
-        except requests.exceptions.Timeout:
-            raise CheckException('Failed to get instances by timeout')
-        except Exception as e:
-            raise CheckException('Failed to get instances by {}'.format(e))
-
-        if response.status_code != 200:
-            raise ConfigurationError('Failed to get instances. status_code={}'.format(response.status_code))
-
-        try:
-            instancesJson = json.loads(response.text)
-            instances = instancesJson['instances']
-        except Exception as e:
-            raise CheckException('Failed to get instances by {}'.format(e))
-
-        # get the number of all instances
-        all_instances = len(instances)
-
-        # filter instances
-        # get the number of monitored instances
-        monitored_instances = get_instances_number(instances)
+        # instances
+        instances = call_instances_api(account, token)
+        number_of_all_instances = len(instances)
+        number_of_monitored_instances = get_instances_number(instances)
 
         # send data
         # self.gauge('appkeeper.api_recover_count', recover_count)
         # self.gauge('appkeeper.integrated_instances', 1)
         # self.gauge('appkeeper.all_instances', 3)
+
+def call_events_api(account, token):
+    eventsJson = call_api_get(EVENT_API_URL.format(account), token)
+    return eventsJson['events']
+
+def call_instances_api(account, token):
+    instancesJson = call_api_get(INSTANCES_API_URL.format(account), token)
+    return instancesJson['instances']
+
+def call_api_get(url, token):
+    try:
+        headers = {'Authorization' :'Bearer {}'.format(token)}
+        response = requests.get(url, headers=headers)
+    except requests.exceptions.Timeout:
+        raise CheckException('Failed to get {} by timeout'.format(key))
+    except Exception as e:
+        raise CheckException('Failed to get {} by {}'.format(key, e))
+
+    if response.status_code != 200:
+        raise ConfigurationError('Failed to get {}. status_code={}'.format(key, response.status_code))
+
+    try:
+        resultsJson = json.loads(response.text)
+    except Exception as e:
+        raise CheckException('Failed to get {} by {}'.format(key, e))
+
+    return resultsJson
+
 
 def get_recover_count(events):
     filtered_api = list(filter(lambda x: x['requester'] == 'api', events))
