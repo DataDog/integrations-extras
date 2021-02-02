@@ -1,6 +1,6 @@
 # Agent Check: Nomad
 
-[!Nomad Dashboard][4]
+![Nomad Dashboard][4]
 
 ## Overview
 
