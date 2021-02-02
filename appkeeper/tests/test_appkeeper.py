@@ -5,8 +5,6 @@ from datadog_checks.appkeeper.appkeeper import AppKeeperCheck
 from datadog_checks.base import ConfigurationError
 from datadog_checks.base.errors import CheckException
 
-
-@pytest.mark.unit
 def test_config():
     c = AppKeeperCheck()
 
@@ -25,19 +23,18 @@ def test_config():
         instance = {'account': '000000000000'}
         c.check(instance)
 
-EXPECTED_VALUES = (
-    ("appkeeper.all_instances", 3),
-    ("appkeeper.monitored_instances", 1),
-    ("appkeeper.api_recover_count", 2),
-)
 
-@pytest.mark.unit
-def test_check(aggregator):
+def test_check(aggregator, instance):
+    EXPECTED_VALUES = (
+        ("appkeeper.all_instances", 3),
+        ("appkeeper.monitored_instances", 1),
+        ("appkeeper.api_recover_count", 2),
+    )
+
     c = AppKeeperCheck()
     c.get_token = Mock(return_value='xxx')
     c.get_events = Mock(side_effect=mock_call_events_api)
     c.get_instances = Mock(side_effect=mock_call_instances_api)
-    instance = {'account': '000000000000', 'integrationToken': 'xxx'}
     now = datetime(2021, 1, 25, 1, 10, tzinfo=timezone.utc)
     c.check(instance, now)
 
