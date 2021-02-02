@@ -5,7 +5,7 @@ from dateutil.parser import parse
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-API_URL = 'https://api.dev.appkeeper.sios.com/v2/'
+API_URL = 'https://api.appkeeper.sios.com/v2/'
 AUTH_API_URL = API_URL + 'authorize'
 EVENT_API_URL = API_URL + '{}/events'
 INSTANCES_API_URL = API_URL + '{}/instances'
