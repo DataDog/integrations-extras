@@ -11,7 +11,7 @@ EVENT_API_URL = API_URL + '{}/events'
 INSTANCES_API_URL = API_URL + '{}/instances'
 
 class AppKeeperCheck(AgentCheck):
-    def check(self, instance):
+    def check(self, instance, now=None):
         account = instance.get('account')
         integrationToken = instance.get('integrationToken')
 
@@ -22,7 +22,9 @@ class AppKeeperCheck(AgentCheck):
 
         # events
         events = self.get_events(account, token)
-        recover_count = get_recover_count(events)
+        if now == None:
+            now = datetime.now(timezone.utc)
+        recover_count = get_recover_count(events, now)
 
         # instances
         instances = self.get_instances(account, token)
@@ -92,16 +94,15 @@ def call_api_get(url, token):
 
     return resultsJson
 
-
-def get_recover_count(events):
-    filtered_api = list(filter(lambda x: x['requester'] == 'api', events))
-    filtered = list(filter(isInLastOneHour, filtered_api))
+def get_recover_count(events, now):
+    filtered_api = [event for event in events if event['requester'] == 'api']
+    filtered = [event for event in filtered_api if isInLastOneHour(event, now) is True]
     return len(filtered)
 
-def isInLastOneHour(event, now=datetime.now(timezone.utc)):
+def isInLastOneHour(event, now):
     oneHourAgo = now - timedelta(hours=1)
     eventHour = parse(event['startTime'])
     return oneHourAgo < eventHour
 
 def get_monitoring_instances_number(instances):
-    return len(list(filter(lambda x: x['state'] == 'monitoring', instances)))
+    return len([instance for instance in instances if instance['state'] == 'monitoring'])
