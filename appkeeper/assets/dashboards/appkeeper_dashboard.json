@@ -1,0 +1,123 @@
+{
+  "title": "AppKeeper dashboard",
+  "description": "",
+  "widgets": [
+    {
+      "id": 1,
+      "definition": {
+        "title": "The number of recovery in the last 1 hour",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:appkeeper.api_recover_count{*}",
+            "aggregator": "sum"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "id": 2,
+      "definition": {
+        "title": "Recovery alert",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "alert_value",
+        "alert_id": "1",
+        "unit": "auto",
+        "text_align": "center",
+        "precision": 0
+      }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "The number of recovery",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:appkeeper.api_recover_count{*}",
+            "on_right_yaxis": false,
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 4,
+      "definition": {
+        "type": "note",
+        "content": "To see the recovery history:\n\nhttps://appkeeper.sios.com/console/#/",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 5,
+      "definition": {
+        "title": "The number of monitoring instances",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:appkeeper.monitored_instances{*}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "id": 6,
+      "definition": {
+        "title": "The number of all instances",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "avg:appkeeper.all_instances{*}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "var",
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "id": "f8g-dvw-6d9"
+}
