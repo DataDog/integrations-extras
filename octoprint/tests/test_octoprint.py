@@ -3,7 +3,6 @@ from typing import Any, Dict
 import mock
 import pytest
 
-
 from datadog_checks.base.stubs.aggregator import AggregatorStub
 from datadog_checks.octoprint import OctoPrintCheck
 
@@ -17,7 +16,7 @@ MOCK_RESPONSE = {
     "target_tool_temp": 190.0,
     "current_bed_temp": 68.0,
     "target_bed_temp": 70,
-    "octo_api_key": "ABC123"
+    "octo_api_key": "ABC123",
 }
 
 
