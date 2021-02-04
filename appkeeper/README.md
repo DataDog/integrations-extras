@@ -68,9 +68,25 @@ If you set it, AppKeeper's recovery API will not be called by webhook. **Don't s
 
 For more information on the AppKeeper's Integration, review the Appkeeper [documentation][11].
 
+### Agent Installation
+
+The AppKeeper check is not included in the [Datadog Agent][14] package, so you need to install it yourself.
+See [the official community integration installation instructions][15].
+
+### Agent Configuration
+
+1. Edit the `appkeeper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.
+   Change the parameter values as follows:
+   * account: your AWS account
+   * integrationToken: The token you got in Setup step.1 above.
+     
+2. [Restart the Agent][16].
+
 ## Data Collected
 
 ### Metrics
+
+See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ## Troubleshooting
 
@@ -88,3 +104,7 @@ Need help? Contact [Datadog support][12].
 [10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
 [11]: https://sioscoati.zendesk.com/hc/en-us/articles/900000978443-Integration
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/appkeeper/metadata.csv
+[14]: https://app.datadoghq.com/account/settings#agent
+[15]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[16]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
