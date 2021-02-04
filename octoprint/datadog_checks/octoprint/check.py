@@ -1,4 +1,3 @@
-import logging
 import os
 
 import requests
@@ -6,28 +5,25 @@ import requests
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
-__version__ = "0.1.2"
-
 TIMEOUT = 10
 
-
-# def __init__():
-#     logger = logging.getLogger('{}.{}'.format(__name__, self.name))
-#     self.log = CheckLoggingAdapter(logger, self)
-#     hostname = os.popen("hostname").readline().strip()
-#     self.log.debug('hostname: %s', hostname)
-#     SERVER = "http://" + hostname
-#     self.log.debug('OctoSERVER: %s', SERVER)
+hostname = ""
+server = ""
+octo_api_key = ""
 
 
 class OctoPrintCheck(AgentCheck):
-
-    def __init__(self, name, init_config, instances):
-        super(OctoPrintCheck, self).__init__(name, init_config, instances)
-        octo_api_key = instance.get('octo_api_key')
+    def __init__(self, name, init_config, instance):
+        super(OctoPrintCheck, self).__init__(name, init_config, instance)
+        global hostname
+        hostname = os.popen("hostname").readline().strip()
+        global server
+        server = "http://" + hostname
         self.log.debug('OctoPrint monitoring starting on %s', self.hostname)
-        # self.log.debug('octo_api_key (from config): %s', octo_api_key)
-        self.log.debug('octo_server: %s', SERVER)
+        self.log.debug('octo_server: %s', server)
+        global octo_api_key
+        octo_api_key = self.instance.get('octo_api_key')
+        self.log.debug('octo_api_key (from config): %s', octo_api_key)
 
     def get_rpi_core_temp(self):
         if os.path.isfile("/usr/bin/vcgencmd"):
@@ -64,6 +60,7 @@ class OctoPrintCheck(AgentCheck):
             return int(seconds / 60)
 
     # Get stats from REST API as json
+    # def get_api_info(self, server, key, timeout, path):
     def get_api_info(self, server, key, timeout, path):
         url = server + path
         headers = {"X-Api-Key": key, "content-type": "application/json"}
@@ -76,7 +73,7 @@ class OctoPrintCheck(AgentCheck):
 
         # get job data
         job_path = "/api/job"
-        job_info = self.get_api_info(SERVER, octo_api_key, TIMEOUT, job_path)
+        job_info = self.get_api_info(server, octo_api_key, TIMEOUT, job_path)
 
         # # Job State
         state = job_info["state"]
@@ -105,7 +102,7 @@ class OctoPrintCheck(AgentCheck):
 
         # Extruder Temperatures
         extruder_temp_path = "/api/printer/tool"
-        extruder_temps = self.get_api_info(SERVER, octo_api_key, TIMEOUT, extruder_temp_path)
+        extruder_temps = self.get_api_info(server, octo_api_key, TIMEOUT, extruder_temp_path)
         for key in extruder_temps.keys():
             toolname = key
             current_tool_temp = extruder_temps[toolname]["actual"]
@@ -115,7 +112,7 @@ class OctoPrintCheck(AgentCheck):
 
         # Bed Temperatures
         bed_temp_path = "/api/printer/bed"
-        bed_temp = self.get_api_info(SERVER, octo_api_key, TIMEOUT, bed_temp_path)
+        bed_temp = self.get_api_info(server, octo_api_key, TIMEOUT, bed_temp_path)
         for key in bed_temp.keys():
             bedname = key
             current_bed_temp = bed_temp[bedname]["actual"]

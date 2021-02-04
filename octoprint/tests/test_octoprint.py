@@ -16,7 +16,8 @@ MOCK_RESPONSE = {
     "current_tool_temp": 50.0,
     "target_tool_temp": 190.0,
     "current_bed_temp": 68.0,
-    "target_bed_temp": 70
+    "target_bed_temp": 70,
+    "octo_api_key": "ABC123"
 }
 
 
