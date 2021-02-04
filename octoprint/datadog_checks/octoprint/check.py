@@ -103,7 +103,7 @@ class OctoPrintCheck(AgentCheck):
         self.gauge("octoprint.print_job_time", print_job_time)
         self.gauge("octoprint.print_job_time_left", print_job_time_left)
 
-        # # Extruder Temperatures
+        # Extruder Temperatures
         extruder_temp_path = "/api/printer/tool"
         extruder_temps = self.get_api_info(SERVER, octo_api_key, TIMEOUT, extruder_temp_path)
         for key in extruder_temps.keys():
@@ -113,7 +113,7 @@ class OctoPrintCheck(AgentCheck):
             self.gauge("octoprint." + toolname + ".current_tool_temp", current_tool_temp)
             self.gauge("octoprint." + toolname + ".target_tool_temp", target_tool_temp)
 
-        # # Bed Temperatures
+        # Bed Temperatures
         bed_temp_path = "/api/printer/bed"
         bed_temp = self.get_api_info(SERVER, octo_api_key, TIMEOUT, bed_temp_path)
         for key in bed_temp.keys():
