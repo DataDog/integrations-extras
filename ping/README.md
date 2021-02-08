@@ -56,7 +56,7 @@ The Ping check does not include any events.
 
 Need help? Contact [Datadog support][11].
 
-[1]: https://en.wikipedia.org/wiki/Ping_(networking_utility)
+[1]: https://en.wikipedia.org/wiki/Ping_(networking_utility%29
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
