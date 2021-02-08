@@ -23,7 +23,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
    ```shell
       datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
    ```
-
+   <INTEGRATION_VERSION> is the version of the integration. The first version of datadog-ping is 1.0.0 and other versions can be found in [CHANGELOG][12].
 3. Configure your integration like [any other packaged integration][6].
 
 ### Configuration
@@ -67,3 +67,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
 [11]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md
