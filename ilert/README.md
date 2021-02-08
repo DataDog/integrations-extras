@@ -1,6 +1,6 @@
 ## Overview
 
-Use the Datadog-iLert integration to send Datadog alerts to iLert and seamlessly take actions on these alerts within the iLert platform.
+The [iLert][1] integration sends Datadog alerts to iLert and seamlessly take actions on these alerts within the iLert platform.
 
 Integrate with iLert to:
 
@@ -20,20 +20,20 @@ Integrate with iLert to:
 
 3. Select **Datadog** in the Integration type field and save.
 
-   ![iLert Alert Source New][1]
+   ![iLert Alert Source New][2]
 
 4. On the next page a **Webhook URL** is generated. You will need this URL at the bottom of the setup in Datadog.
 
-   ![iLert Alert Source View][2]
+   ![iLert Alert Source View][3]
 
 ### In Datadog
 
 #### Add iLert Webhook as alerting channel
 
-1. Go to Datadog integrations page and **install Webhooks integration**: https://app.datadoghq.com/account/settings#integrations
+1. Go to Datadog integrations page and [**install Webhooks integration**][8]:
 2. Click an Webhooks integration, scroll to bottom and add a new webhook:
 
-   ![Datadog Webhook New][3]
+   ![Datadog Webhook New][4]
 
 3. Enter a name, the **Datadog webhook URL** from iLert alert source and **template payload**:
 
@@ -55,12 +55,12 @@ Integrate with iLert to:
    }
    ```
 
-   ![Datadog Webhook View][4]
+   ![Datadog Webhook View][5]
 
 4. Click save button
 5. The integration is now set up!
 
-   View the [official documentation][5] from iLert for more details on setup.
+   View the [official documentation][6] from iLert for more details on setup.
 
 ## Data Collected
 
@@ -78,11 +78,13 @@ iLert integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][6].
+Need help? Contact [Datadog Support][7].
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-new.png
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-view.png
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-webhook-new.png
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-webhook-view.png
-[5]: https://docs.ilert.com/integrations/datadog
-[6]: https://docs.datadoghq.com/help/
+[1]: https://www.ilert.com
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-new.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-view.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-webhook-new.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-webhook-view.png
+[6]: https://docs.ilert.com/integrations/datadog
+[7]: https://docs.datadoghq.com/help/
+[8]: https://app.datadoghq.com/account/settings#integrations
