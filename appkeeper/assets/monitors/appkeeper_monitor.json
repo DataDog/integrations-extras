@@ -1,10 +1,10 @@
 {
   "id": 1,
   "name": "[AppKeeper] recovery",
-  "type": "metric alert",
+  "type": "query alert",
   "query": "max(last_1h):avg:appkeeper.api_recover_count{*} > 1",
   "message": "Recovery has been executed more than twice in the last hour.",
-  "tags": [],
+  "tags": ["integration:appkeeper"],
   "options": {
     "notify_audit": false,
     "locked": false,
@@ -20,5 +20,5 @@
       "critical": 1
     }
   },
-  "priority": null
+  "priority": null,
 }

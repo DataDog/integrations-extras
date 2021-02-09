@@ -48,7 +48,7 @@ class AppKeeperCheck(AgentCheck):
 def call_auth_api(integrationToken):
     # Get API key
     try:
-        response = requests.get(AUTH_API_URL + '?token=' + integrationToken)
+        response = self.http.get(AUTH_API_URL + '?token=' + integrationToken)
     except requests.exceptions.Timeout:
         raise CheckException('Failed to get API key by timeout')
     except Exception as e:
@@ -85,7 +85,7 @@ def call_instances_api(account, token):
 
 def call_api_get(url, token):
     headers = {'Authorization' :'Bearer {}'.format(token)}
-    response = requests.get(url, headers=headers)
+    response = self.http.get(url, headers=headers)
 
     if response.status_code != 200:
         raise ConfigurationError('Failed to get {}. status_code={}'.format(key, response.status_code))

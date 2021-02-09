@@ -14,7 +14,22 @@ When Datadog finds the alerts, it restarts the Service via AppKeeper Recovery AP
 
 ## Setup
 
-### Step 1. Get the SIOS AppKeeper API Key
+### Agent Installation
+
+The AppKeeper check is not included in the [Datadog Agent][14] package, so you need to install it yourself.
+See [the official community integration installation instructions][15].
+
+### Agent Configuration
+
+1. Edit the `appkeeper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.
+   Change the parameter values as follows:
+   * account: your AWS account
+   * integrationToken: The token you got in Setup step.1 above.
+
+2. [Restart the Agent][16].
+
+### AppKeeper Setting
+#### Step 1. Get the SIOS AppKeeper API Key
 
 Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
@@ -24,14 +39,14 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
 ![snapshot][3]
 
-### Step 2. Define the Webhook in the Datadog Integration Dashboard
+#### Step 2. Define the Webhook in the Datadog Integration Dashboard
 
 1. Click on the Integration
 2. Click the webhooks (*If you did not install the webhook, please install the webhook.)
 
 ![snapshot][4]
 
-### Step 3. Define the payload and custom headers
+#### Step 3. Define the payload and custom headers
 
 1. Enter the **URL**: "https://api.appkeeper.sios.com/v2/integration/{AWS_account_ID}/actions/recover"
 2. Enter the Instance ID and name of Services for the monitoring instance in the **Payload**
@@ -39,7 +54,7 @@ Get the SIOS AppKeeper API Key from AppKeeper GUI.
 
 ![snapshot][5]
 
-### Step 4. Integrate with Datadog monitoring
+#### Step 4. Integrate with Datadog monitoring
 
 As an example, create a new synthetic test and set up the integration with AppKeeper.
 
@@ -67,20 +82,6 @@ If you set it, AppKeeper's recovery API will not be called by webhook. **Don't s
 
 
 For more information on the AppKeeper's Integration, review the Appkeeper [documentation][11].
-
-### Agent Installation
-
-The AppKeeper check is not included in the [Datadog Agent][14] package, so you need to install it yourself.
-See [the official community integration installation instructions][15].
-
-### Agent Configuration
-
-1. Edit the `appkeeper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.
-   Change the parameter values as follows:
-   * account: your AWS account
-   * integrationToken: The token you got in Setup step.1 above.
-     
-2. [Restart the Agent][16].
 
 ## Data Collected
 
