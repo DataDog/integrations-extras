@@ -1,4 +1,5 @@
 import os
+from copy import copy
 
 import requests
 
@@ -6,24 +7,20 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 TIMEOUT = 10
-
-hostname = ""
-server = ""
-octo_api_key = ""
+JOB_URL = "/api/job"
+EXTRUDER_URL = "/api/printer/tool"
+BED_URL = "/api/printer/bed"
 
 
 class OctoPrintCheck(AgentCheck):
     def __init__(self, name, init_config, instance):
         super(OctoPrintCheck, self).__init__(name, init_config, instance)
-        global hostname
-        hostname = os.popen("hostname").readline().strip()
-        global server
-        server = "http://" + hostname
-        self.log.debug('OctoPrint monitoring starting on %s', self.hostname)
-        self.log.debug('octo_server: %s', server)
-        global octo_api_key
-        octo_api_key = self.instance.get('octo_api_key')
-        self.log.debug('octo_api_key (from config): %s', octo_api_key)
+
+        self.url = self.instance.get('url')
+        self.octo_api_key = self.instance.get('octo_api_key')
+        self.tags = self.instance.get('tags', [])
+
+        self.log.debug('OctoPrint monitoring starting on %s', self.url)
 
     def get_rpi_core_temp(self):
         if os.path.isfile("/usr/bin/vcgencmd"):
@@ -60,20 +57,21 @@ class OctoPrintCheck(AgentCheck):
             return int(seconds / 60)
 
     # Get stats from REST API as json
-    # def get_api_info(self, server, key, timeout, path):
-    def get_api_info(self, server, key, timeout, path):
-        url = server + path
+    def get_api_info(self, path):
+        url = self.url + path
+        key = self.octo_api_key
         headers = {"X-Api-Key": key, "content-type": "application/json"}
-        req = requests.get(url, timeout=timeout, headers=headers)
+        req = requests.get(url, timeout=TIMEOUT, headers=headers)
         return req.json()
 
     def check(self, instance):
+        tags = copy(self.tags)
+
         rpi_core_temp = self.get_rpi_core_temp()
-        self.gauge("octoprint.rpi_core_temp", rpi_core_temp)
+        self.gauge("octoprint.rpi_core_temp", rpi_core_temp, tags=tags)
 
         # get job data
-        job_path = "/api/job"
-        job_info = self.get_api_info(server, octo_api_key, TIMEOUT, job_path)
+        job_info = self.get_api_info(JOB_URL)
 
         # # Job State
         state = job_info["state"]
@@ -86,36 +84,36 @@ class OctoPrintCheck(AgentCheck):
             printer_state = 2
         else:
             printer_state = -1
-        self.gauge("octoprint.printer_state", printer_state)
+        self.gauge("octoprint.printer_state", printer_state, tags=tags)
 
-        # Print Job Percent Completed and Time Estimate
+        # Print Job Percent Completed and Time Estimate if Job Active
         est_print_time = self.seconds_to_minutes(job_info["job"]["estimatedPrintTime"])
-        pct_completed = job_info["progress"]["completion"]
-        self.gauge("octoprint.est_print_time", est_print_time)
-        self.gauge("octoprint.pct_completed", pct_completed)
+        if est_print_time > 0:
+            pct_completed = job_info["progress"]["completion"]
+            print('type of est print time: {}'.format(type(est_print_time)))
+            self.gauge("octoprint.est_print_time", est_print_time, tags=tags)
+            self.gauge("octoprint.pct_completed", pct_completed, tags=tags)
 
-        # Print Job Elapsed and Remaining Times
-        print_job_time = self.seconds_to_minutes(job_info["progress"]["printTime"])
-        print_job_time_left = self.seconds_to_minutes(job_info["progress"]["printTimeLeft"])
-        self.gauge("octoprint.print_job_time", print_job_time)
-        self.gauge("octoprint.print_job_time_left", print_job_time_left)
+            # Print Job Elapsed and Remaining Times
+            print_job_time = self.seconds_to_minutes(job_info["progress"]["printTime"])
+            print_job_time_left = self.seconds_to_minutes(job_info["progress"]["printTimeLeft"])
+            self.gauge("octoprint.print_job_time", print_job_time, tags=tags)
+            self.gauge("octoprint.print_job_time_left", print_job_time_left, tags=tags)
 
         # Extruder Temperatures
-        extruder_temp_path = "/api/printer/tool"
-        extruder_temps = self.get_api_info(server, octo_api_key, TIMEOUT, extruder_temp_path)
+        extruder_temps = self.get_api_info(EXTRUDER_URL)
         for key in extruder_temps.keys():
-            toolname = key
-            current_tool_temp = extruder_temps[toolname]["actual"]
-            target_tool_temp = extruder_temps[toolname]["target"]
-            self.gauge("octoprint." + toolname + ".current_tool_temp", current_tool_temp)
-            self.gauge("octoprint." + toolname + ".target_tool_temp", target_tool_temp)
+            tooltags = tags + ['toolname:' + key]
+            current_tool_temp = extruder_temps[key]["actual"]
+            target_tool_temp = extruder_temps[key]["target"]
+            self.gauge("octoprint.current_tool_temp", current_tool_temp, tags=tooltags)
+            self.gauge("octoprint.target_tool_temp", target_tool_temp, tags=tooltags)
 
         # Bed Temperatures
-        bed_temp_path = "/api/printer/bed"
-        bed_temp = self.get_api_info(server, octo_api_key, TIMEOUT, bed_temp_path)
+        bed_temp = self.get_api_info(BED_URL)
         for key in bed_temp.keys():
-            bedname = key
-            current_bed_temp = bed_temp[bedname]["actual"]
-            target_bed_temp = bed_temp[bedname]["target"]
-            self.gauge("octoprint." + bedname + ".current_bed_temp", current_bed_temp)
-            self.gauge("octoprint." + bedname + ".target_bed_temp", target_bed_temp)
+            bedtags = tags + ['bedname:' + key]
+            current_bed_temp = bed_temp[key]["actual"]
+            target_bed_temp = bed_temp[key]["target"]
+            self.gauge("octoprint.current_bed_temp", current_bed_temp, tags=bedtags)
+            self.gauge("octoprint.target_bed_temp", target_bed_temp, tags=bedtags)
