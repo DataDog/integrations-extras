@@ -7,6 +7,8 @@ Connect SIGNL4 to Datadog in order to:
 - Tackle incidents and set up escalation policies as they occur
 - Set up a daily reminder of who is on-call
 
+![SIGNL4 App][2]
+
 ## Setup
 
 ### Follow these steps in SIGNL4:
@@ -31,9 +33,9 @@ Connect SIGNL4 to Datadog in order to:
 https://connect.signl4.com/webhook/<team-secret>?ExtIDParam=alertId&ExtStatusParam=alertTransition&ResolvedStatus=Recovered
 ```
 
-Replace <team-secret> with your SIGNL4 team secret here.
+Replace \<team-secret\> with your SIGNL4 team secret here.
 
-    ![SIGNL4 Webhook][2]
+![SIGNL4 Webhook][3]
 
 6. Copy-paste the following JSON in the text box under the **Payload** section:
 
@@ -82,7 +84,7 @@ SIGNL4 integration does not include any service checks.
 Need help? Contact [SIGNL4 Support][5].
 
 [1]: https://www.signl4.com
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/signl4/images/datadog-webhook.png
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/signl4/images/signl4-phone.png
+[2]: images/signl4-phone.png
+[3]: images/datadog-webhook.png
 [4]: https://www.signl4.com/blog/portfolio_item/datadog_mobile_alerting/
 [5]: mailto:success@signl4.com
