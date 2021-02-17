@@ -60,9 +60,7 @@ Replace \<team-secret\> with your SIGNL4 team secret here.
 	}
     ```
 
-7. As **Custom Header** you might want to use "Content-Type: application/json".
-
-8. Click on **Save** to complete the service integration.
+7. Click on **Save** to complete the service integration.
 
     You can find additional information about this integration [here][4].
 
