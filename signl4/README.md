@@ -39,7 +39,7 @@ Replace \<team-secret\> with your SIGNL4 team secret here.
 
 ![SIGNL4 Webhook][3]
 
-6. Copy-paste the following JSON in the text box under the **Payload** section:
+4. Copy-paste the following JSON in the `Payload` text box:
 
     ```json
 	{
