@@ -66,7 +66,7 @@ Replace \<team-secret\> with your SIGNL4 team secret here.
 
 5. Click on **Save** to complete the service integration.
 
-    You can find additional information about this integration [here][4].
+For more details, see [Mobile alerting with tracking & escalation for Datadog][4].
 
 ## Data Collected
 
