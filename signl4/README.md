@@ -90,3 +90,4 @@ Need help? Contact [SIGNL4 Support][5].
 [3]: images/datadog-webhook.png
 [4]: https://www.signl4.com/blog/portfolio_item/datadog_mobile_alerting/
 [5]: mailto:success@signl4.com
+[6]: https://app.datadoghq.com/account/settings#integrations/webhooks
