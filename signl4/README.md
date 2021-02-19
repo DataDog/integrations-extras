@@ -80,7 +80,7 @@ SIGNL4 triggered and resolved events appear in your SIGNL4 app and web portal.
 
 ### Service Checks
 
-SIGNL4 integration does not include any service checks.
+The SIGNL4 integration does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [SIGNL4 Support][5].
