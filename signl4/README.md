@@ -11,7 +11,9 @@ Connect SIGNL4 to Datadog in order to:
 
 ## Setup
 
-### Follow these steps in SIGNL4:
+### SIGNL4
+
+Follow these steps in SIGNL4:
 
 1. If not already done you can create your SIGNL4 account at [signl4.com][1].
 
