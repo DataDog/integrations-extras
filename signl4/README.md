@@ -19,7 +19,9 @@ Follow these steps in SIGNL4:
 
 2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under *Settings -> APIs*.
 
-### Follow these steps in Datadog:
+### Datadog
+
+Follow these steps in Datadog:
 
 1. Open the **Integrations** page from the sidebar.
 
