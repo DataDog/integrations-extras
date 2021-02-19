@@ -23,7 +23,7 @@ Follow these steps in SIGNL4:
 
 Follow these steps in Datadog:
 
-1. Open the **Integrations** page from the sidebar.
+1. Navigate to the [Webhooks Integration tile][6].
 
 2. Use the search bar to search for "webhooks".
 
