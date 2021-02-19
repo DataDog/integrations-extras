@@ -72,7 +72,7 @@ For more details, see [Mobile alerting with tracking & escalation for Datadog][4
 
 ### Metrics
 
-SIGNL4 integration does not include any metrics.
+The SIGNL4 integration does not include any metrics.
 
 ### Events
 
