@@ -27,7 +27,7 @@ Follow these steps in Datadog:
 
 
 
-4. Scrol down and then click **New** to create a new webhook.
+2. On the **Configuration** tab, scroll down and click **New**.
 
 5. Under the section **Name** and **URL**, enter a meaningful name and paste the **SIGNL4 Webhook URL** including your team secret. The URL looks like follows:
 
