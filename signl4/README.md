@@ -15,7 +15,7 @@ Connect SIGNL4 to Datadog in order to:
 
 Follow these steps in SIGNL4:
 
-1. If not already done you can create your SIGNL4 account at [signl4.com][1].
+1. Use your existing account or create a SIGNL4 account at [signl4.com][1].
 
 2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under Settings -> APIs.
 
