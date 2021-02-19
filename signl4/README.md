@@ -17,7 +17,7 @@ Follow these steps in SIGNL4:
 
 1. Use your existing account or create a SIGNL4 account at [signl4.com][1].
 
-2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under Settings -> APIs.
+2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under *Settings -> APIs*.
 
 ### Follow these steps in Datadog:
 
