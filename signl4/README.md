@@ -25,7 +25,6 @@ Follow these steps in Datadog:
 
 1. Navigate to the [Webhooks Integration tile][6].
 
-2. Use the search bar to search for "webhooks".
 
 3. Once the **Webhooks** tile appears, hover and click on "Install".
 
