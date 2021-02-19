@@ -76,7 +76,7 @@ SIGNL4 integration does not include any metrics.
 
 ### Events
 
-Your SIGNL4 Triggered / Resolved events will appear in your SIGNL4 app and web portal.
+SIGNL4 triggered and resolved events appear in your SIGNL4 app and web portal.
 
 ### Service Checks
 
