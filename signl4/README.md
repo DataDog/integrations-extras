@@ -11,33 +11,35 @@ Connect SIGNL4 to Datadog in order to:
 
 ## Setup
 
-### Follow these steps in SIGNL4:
+### SIGNL4
 
-1. If not already done you can create your SIGNL4 account at [signl4.com][1].
+Follow these steps in SIGNL4:
 
-2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under Settings -> APIs.
+1. Use your existing account or create a SIGNL4 account at [signl4.com][1].
 
-### Follow these steps in Datadog:
+2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under *Settings -> APIs*.
 
-1. Open the **Integrations** page from the sidebar.
+### Datadog
 
-2. Use the search bar to search for "webhooks".
+Follow these steps in Datadog:
 
-3. Once the **Webhooks** tile appears, hover and click on "Install".
+1. Navigate to the [Webhooks Integration tile][6].
 
-4. Scrol down and then click **New** to create a new webhook.
 
-5. Under the section **Name** and **URL**, enter a meaningful name and paste the **SIGNL4 Webhook URL** including your team secret. The URL looks like follows:
+
+2. On the **Configuration** tab, scroll down and click **New**.
+
+3. Under **New Webhook**, enter a meaningful `Name` and use the SIGNL4 Webhook `URL` (created above) including your team secret, for example:
 
 ```
 https://connect.signl4.com/webhook/<team-secret>?ExtIDParam=alertId&ExtStatusParam=alertTransition&ResolvedStatus=Recovered
 ```
 
-Replace \<team-secret\> with your SIGNL4 team secret here.
+Replace `<team-secret>` with your SIGNL4 team secret here.
 
 ![SIGNL4 Webhook][3]
 
-6. Copy-paste the following JSON in the text box under the **Payload** section:
+4. Copy-paste the following JSON in the `Payload` text box:
 
     ```json
 	{
@@ -60,23 +62,23 @@ Replace \<team-secret\> with your SIGNL4 team secret here.
 	}
     ```
 
-7. Click on **Save** to complete the service integration.
+5. Click on **Save** to complete the service integration.
 
-    You can find additional information about this integration [here][4].
+For more details, see [Mobile alerting with tracking & escalation for Datadog][4].
 
 ## Data Collected
 
 ### Metrics
 
-SIGNL4 integration does not include any metrics.
+The SIGNL4 integration does not include any metrics.
 
 ### Events
 
-Your SIGNL4 Triggered / Resolved events will appear in your SIGNL4 app and web portal.
+SIGNL4 triggered and resolved events appear in your SIGNL4 app and web portal.
 
 ### Service Checks
 
-SIGNL4 integration does not include any service checks.
+The SIGNL4 integration does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [SIGNL4 Support][5].
@@ -86,3 +88,4 @@ Need help? Contact [SIGNL4 Support][5].
 [3]: images/datadog-webhook.png
 [4]: https://www.signl4.com/blog/portfolio_item/datadog_mobile_alerting/
 [5]: mailto:success@signl4.com
+[6]: https://app.datadoghq.com/account/settings#integrations/webhooks
