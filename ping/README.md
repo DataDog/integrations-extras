@@ -19,9 +19,13 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 
 1. [Download and launch the Datadog Agent][2].
 2. Run the following command to install the integrations wheel with the Agent:
-
+   **`Linux`**:
    ```shell
       datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
+   ```
+   **`Windows`**:
+   ```shell
+      agent.exe integration install -t datadog-ping==<INTEGRATION_VERSION>
    ```
    <INTEGRATION_VERSION> is the version of the integration. The first version of datadog-ping is 1.0.0 and other versions can be found in [CHANGELOG][12].
 3. Configure your integration like [any other packaged integration][6].
