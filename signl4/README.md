@@ -84,8 +84,8 @@ The SIGNL4 integration does not include any service checks.
 Need help? Contact [SIGNL4 Support][5].
 
 [1]: https://www.signl4.com
-[2]: images/signl4-phone.png
-[3]: images/datadog-webhook.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/signl4/images/signl4-phone.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/signl4/images/datadog-webhook.png
 [4]: https://www.signl4.com/blog/portfolio_item/datadog_mobile_alerting/
 [5]: mailto:success@signl4.com
 [6]: https://app.datadoghq.com/account/settings#integrations/webhooks
