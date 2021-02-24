@@ -8,7 +8,24 @@ nomad.client.allocations.blocked,gauge,,job,,Number of allocations blocked for a
 nomad.client.allocations.migrating,gauge,,job,,Number of allocations migrating for a client.,0,nomad,allocations migrating
 nomad.client.allocations.pending,gauge,,job,,Number of allocations pending for a client.,0,nomad,allocations pending
 nomad.client.allocations.running,gauge,,job,,Number of allocations running for a client.,0,nomad,allocations running
+nomad.client.allocations.start,gauge,,job,,Number of allocations starting.,0,nomad,allocations start
 nomad.client.allocations.terminal,gauge,,job,,Number of allocations terminated for a client.,0,nomad,allocations terminal
+nomad.client.allocs.cpu.allocated,gauge,,megahertz,,Total CPU resources allocated by the task across all cores.,0,nomad,allocations cpu allocated
+nomad.client.allocs.cpu.system,gauge,,percent,,Total CPU resources consumed by the task in system space.,0,nomad,allocations cpu consumed
+nomad.client.allocs.cpu.throttled_periods,gauge,,nanosecond,,Total number of CPU periods that the task was throttled.,0,nomad,allocations cpu throttled
+nomad.client.allocs.cpu.throttled_time,gauge,,nanosecond,,Total time that the task was throttled.,0,nomad,allocations throttled time
+nomad.client.allocs.cpu.total_percent,gauge,,percent,,Total CPU resources consumed by the task across all cores.,0,nomad,allocations cpu total
+nomad.client.allocs.cpu.total_ticks,gauge,,,,CPU ticks consumed by the process in the last collection interval.,0,nomad,allocations cpu ticks
+nomad.client.allocs.cpu.user,gauge,,percent,,Total CPU resources consumed by the task in the user space.,0,nomad,allocations cpu user
+nomad.client.allocs.memory.allocated,gauge,,bytes,,Amount of memory allocated by the task.,0,nomad,allocations memory
+nomad.client.allocs.memory.cache,gauge,,bytes,,Amount of memory cached by the task.,0,nomad,allocations cache
+nomad.client.allocs.memory.kernel_max_usage,gauge,,byte,,Maximum amount of memory ever used by the kernel for this task.,0,nomad,allocations kernel max
+nomad.client.allocs.memory.kernel_usage,gauge,,byte,,Amount of memory used by the kernel for this task,0,nomad,allocations kernel
+nomad.client.allocs.memory.max_usage,gauge,,byte,,Maximum amount of memory ever used by the task.,0,nomad,allocations mem max
+nomad.client.allocs.memory.rss,gauge,,byte,,Amount of RSS memory consumed by the task.,0,nomad,allocations rss
+nomad.client.allocs.memory.swap,gauge,,byte,,Amount of memory swapped by the task.,0,nomad,allocations swap
+nomad.client.allocs.memory.usage,gauge,,byte,,Total amount of memory used by the task.,0,nomad,allocations memory
+nomad.client.allocs.oom_killed,gauge,,job,,Number of allocations OOM killed.,0,nomad,allocations killed
 nomad.client.consul.check_registrations,gauge,,,,Number of consul check registrations.,0,nomad,check registration
 nomad.client.consul.checks,gauge,,,,Number of consul checks.,0,nomad,check consul
 nomad.client.consul.script_checks,gauge,,,,Number of consul script checks.,0,nomad,consul script
@@ -28,9 +45,9 @@ nomad.client.host.memory.free,gauge,,byte,,Amount of memory free for a client.,0
 nomad.client.host.memory.total,gauge,,byte,,Total amount of memory for a client.,0,nomad,total host memory
 nomad.client.host.memory.used,gauge,,byte,,Amount of memory used for a client.,0,nomad,memory used
 nomad.client.unallocated.cpu,gauge,,megahertz,,Amount of unallocated CPU for a client.,0,nomad,unallocated cpu
-nomad.client.unallocated.disk,gauge,,,,Amount of unallocated disk for a client.,0,nomad,unallocated disk
+nomad.client.unallocated.disk,gauge,,megabyte,,Amount of unallocated disk for a client.,0,nomad,unallocated disk
 nomad.client.unallocated.iops,gauge,,operation,,Number of unallocated iops for a client.,0,nomad,unallocated iops
-nomad.client.unallocated.memory,gauge,,,,Amount of unallocated memory for a client.,0,nomad,unallocted memory
+nomad.client.unallocated.memory,gauge,,byte,,Amount of unallocated memory for a client.,0,nomad,unallocted memory
 nomad.client.unallocated.network,gauge,,,,Unallocated bandwidth for a client.,0,nomad,unallocated network
 nomad.client.uptime,gauge,,second,,Uptime of the host running the Nomad client.,0,nomad,client uptime
 nomad.memberlist.gossip.95percentile,gauge,,resource,,95 percentile of members in the gossip pool.,0,nomad,member gossip
@@ -40,14 +57,216 @@ nomad.memberlist.gossip.max,gauge,,resource,,Maximum number of members in the go
 nomad.memberlist.gossip.median,gauge,,resource,,Median number of members in the gossip pool.,0,nomad,gossip med
 nomad.memberlist.msg.alive,gauge,,resource,,Number of message from alive members.,0,nomad,member alive
 nomad.memberlist.tcp.accept,gauge,,resource,,Number of accepted TCP connections.,0,nomad,member tcp
+nomad.nomad.acl.bootstrap,gauge,,nanosecond,,Time elapsed for ACL.Bootstrap RPC call.,0,nomad,acl bootstrap
+nomad.nomad.acl.delete_policies,gauge,,nanosecond,,Time elapsed for ACL.DeletePolicies RPC call.,0,nomad,acl delete policies
+nomad.nomad.acl.delete_tokens,gauge,,nanosecond,,Time elapsed for ACL.DeleteTokens RPC call.,0,nomad,acl delete tokens
+nomad.nomad.acl.get_policies,gauge,,nanosecond,,Time elapsed for ACL.GetPolicies RPC call.,0,nomad,acl get policies
+nomad.nomad.acl.get_policy,gauge,,nanosecond,,Time elapsed for ACL.GetPolicy RPC call.,0,nomad,acl get policy
+nomad.nomad.acl.get_token,gauge,,nanosecond,,Time elapsed for ACL.GetToken RPC call.,0,nomad,acl get token
+nomad.nomad.acl.get_tokens,gauge,,nanosecond,,Time elapsed for ACL.GetTokens RPC call.,0,nomad,acl get tokens
+nomad.nomad.acl.list_policies,gauge,,nanosecond,,Time elapsed for ACL.ListPolicies RPC call.,0,nomad,acl list policies
+nomad.nomad.acl.list_tokens,gauge,,nanosecond,,Time elapsed for ACL.ListTokens RPC call.,0,nomad,acl list tokens
+nomad.nomad.acl.resolve_token,gauge,,nanosecond,,Time elapsed for ACL.ResolveToken RPC call.,0,nomad,acl resolve token
+nomad.nomad.acl.upsert_policies,gauge,,nanosecond,,Time elapsed for ACL.UpsertPolicies RPC call.,0,nomad,acl upsert policies
+nomad.nomad.acl.upsert_tokens,gauge,,nanosecond,,Time elapsed for ACL.UpsertTokens RPC call.,0,nomad,acl upsert tokens
+nomad.nomad.alloc.exec,gauge,,nanosecond,,Time elapsed to establish alloc exec.,0,nomad,alloc exec
+nomad.nomad.alloc.get_alloc,gauge,,nanosecond,,Time elapsed for Alloc.GetAlloc RPC call.,0,nomad,alloc get alloc
+nomad.nomad.alloc.get_allocs,gauge,,nanosecond,,Time elapsed for Alloc.GetAllocs RPC call.,0,nomad,alloc get allocs
+nomad.nomad.alloc.list,gauge,,nanosecond,,Time elapsed for Alloc.List RPC call.,0,nomad,alloc list
+nomad.nomad.alloc.stop,gauge,,nanosecond,,Time elapsed for Alloc.Stop RPC call.,0,nomad,alloc stop
+nomad.nomad.alloc.update_desired_transition,gauge,,nanosecond,,Time elapsed for Alloc.UpdateDesiredTransition RPC call.,0,nomad,alloc update desired
 nomad.nomad.blocked_evals.total_blocked,gauge,,job,,Number of blocked evaluation.,0,nomad,bck eval blocked
 nomad.nomad.blocked_evals.total_escaped,gauge,,job,,Number of blocked evaluation that are escaped.,0,nomad,bck eval escaped
 nomad.nomad.blocked_evals.total_quota_limit,gauge,,job,,Limit quota of evaluations.,0,nomad,bck eval quot
+nomad.nomad.broker.batch_ready,gauge,,job,,Count of batch evals ready to be scheduled.,0,nomad,broker ready
+nomad.nomad.broker.batch_unacked,gauge,,job,,Count of unacknowledged batch evals.,0,nomad,broker unacked
+nomad.nomad.broker.service_ready,gauge,,job,,Count of service evals ready to be scheduled.,0,nomad,broker ready
+nomad.nomad.broker.service_unacked,gauge,,job,,Count of unacknowledged service evals.,0,nomad,broker unacked
+nomad.nomad.broker.system_ready,gauge,,job,,Count of system evals ready to be scheduled.,0,nomad,system ready
+nomad.nomad.broker.system_unacked,gauge,,job,,Count of unacknowledged system evals.,0,nomad,system unacked
 nomad.nomad.broker.total_blocked,gauge,,,,Evaluations that are blocked until an existing evaluation for the same job completes.,0,nomad,broker blocked
 nomad.nomad.broker.total_ready,gauge,,,,Number of evaluations ready to be processed.,0,nomad,broker ready
 nomad.nomad.broker.total_unacked,gauge,,,,Evaluations dispatched for processing but incomplete.,0,nomad,broker unacked
 nomad.nomad.broker.total_waiting,gauge,,,,Number of evaluations waiting to be processed.,0,nomad,broker waiting
+nomad.nomad.client.batch_deregister,gauge,,nansecond,,Time elapsed for Node.BatchDeregister RPC call.,0,nomad,client batch deregister
+nomad.nomad.client.deregister,gauge,,nanosecond,,Time elapsed for Node.Deregister RPC call.,0,nomad,client deregister
+nomad.nomad.client.derive_si_token,gauge,,nanosecond,,Time elapsed for Node.DeriveSIToken RPC call.,0,nomad,client si token
+nomad.nomad.client.derive_vault_token,gauge,,nanosecond,,Time elapsed for Node.DeriveVaultToken RPC call.,0,nomad,client derive vault token
+nomad.nomad.client.emit_events,gauge,,nanosecond,,Time elapsed for Node.EmitEvents RPC call.,0,nomad,client emit events
+nomad.nomad.client.evaluate,gauge,,nanosecond,,Time elapsed for Node.Evaluate RPC call.,0,nomad,client evaluate
 nomad.nomad.client.get_client_allocs.95percentile,gauge,,,,The 95 percentile of nomad client allocated.,0,nomad,client 95p
 nomad.nomad.client.get_client_allocs.avg,gauge,,,,The average number of nomad client allocated.,0,nomad,client avg
 nomad.nomad.client.get_client_allocs.count,gauge,,,,The number of nomad client allocated.,0,nomad,client count
 nomad.nomad.client.get_client_allocs.max,gauge,,,,The maximum number of nomad client allocated.,0,nomad,client max
+nomad.nomad.client.get_node,gauge,,nanosecond,,Time elapsed for Node.GetNode RPC call.,0,nomad,client get node
+nomad.nomad.client.list,gauge,,nanosecond,,Time elapsed for Node.List RPC call.,0,nomad,client list
+nomad.nomad.client.register,gauge,,nanosecond,,Time elapsed for Node.Register RPC call.,0,nomad,client register
+nomad.nomad.client.stats,gauge,,nanosecond,,Time elapsed for Client.Stats RPC call.,nomad,client stats
+nomad.nomad.client.update_alloc,gauge,,nanosecond,,Time elapsed for Node.UpdateAlloc RPC call.,0,nomad,client update alloc
+nomad.nomad.client.update_drain,gauge,,nanosecond,,Time elapsed for Node.UpdateDrain RPC call.,0,nomad,client update drain
+nomad.nomad.client.update_eligibility,gauge,,nanosecond,,Time elapsed for Node.UpdateEligibility RPC call.,0,nomad,client update elegibility
+nomad.nomad.client.update_status,gauge,,nanosecond,,Time elapsed for Node.UpdateStatus RPC call.,0,nomad,client update status
+nomad.nomad.client_allocations.garbage_collect_all,gauge,,nanosecond,,Time elapsed for ClientAllocations.GarbageCollectAll RPC call.,0,nomad,client gc all
+nomad.nomad.client_allocations.garbage_collect,gauge,,nanosecond,,Time elapsed for ClientAllocations.GarbageCollect RPC call.,0,nomad,client gc
+nomad.nomad.client_allocations.restart,gauge,,nanosecond,,Time elapsed for ClientAllocations.Restart RPC call.,0,nomad,client restart
+nomad.nomad.client_allocations.signal,gauge,,nanosecond,,Time elapsed for ClientAllocations.Signal RPC call.,0,nomad,client signal
+nomad.nomad.client_allocations.stats,gauge,,nanosecond,,Time elapsed for ClientAllocations.Stats RPC call.,0,nomad,client stats
+nomad.nomad.client_csi_controller.attach_volume,gauge,,nanosecond,,Time elapsed for Controller.AttachVolume RPC call.,0,nomad,controller attach
+nomad.nomad.client_csi_controller.detach_volume,gauge,,nanosecond,,Time elapsed for Controller.DetachVolume RPC call.,0,nomad,controller detach
+nomad.nomad.client_csi_controller.validate_volume,gauge,,nanosecond,,Time elapsed for Controller.ValidateVolume RPC call.,0,nomad,controller validate
+nomad.nomad.client_csi_node.detach_volume,gauge,,nanosecond,,Time elapsed for Node.DetachVolume RPC call.,0,nomad,node detach
+nomad.nomad.deployment.allocations,gauge,,nanosecond,,Time elapsed for Deployment.Allocations RPC call.,0,nomad,deployment allocs
+nomad.nomad.deployment.cancel,gauge,,nanosecond,,Time elapsed for Deployment.Cancel RPC call.,0,nomad,deployment cancel
+nomad.nomad.deployment.fail,gauge,,nanosecond,,Time elapsed for Deployment.Fail RPC call.,0,nomad,deployment fail
+nomad.nomad.deployment.get_deployment,gauge,,nanosecond,,Time elapsed for Deployment.GetDeployment RPC call,0,nomad,deployment get
+nomad.nomad.deployment.list,gauge,,nanosecond,,Time elapsed for Deployment.List RPC call.,0,nomad,deployment list
+nomad.nomad.deployment.pause,gauge,,nanosecond,,Time elapsed for Deployment.Pause RPC call.,0,nomad,deployment promote
+nomad.nomad.deployment.reap,gauge,,nanosecond,,Time elapsed for Deployment.Reap RPC call.,0,nomad,deployment reap
+nomad.nomad.deployment.run,gauge,,nanosecond,,Time elapsed for Deployment.Run RPC call.,0,nomad,deploymnet run
+nomad.nomad.deployment.set_alloc_health,gauge,,nanosecond,,Time elapsed for Deployment.SetAllocHealth RPC call.,0,nomad,deployment set health
+nomad.nomad.deployment.unblock,gauge,,nanosecond,,Time elapsed for Deployment.Unblock RPC call.,0,nomad,deployment unblock
+nomad.nomad.eval.ack,gauge,,nanosecond,,Time elapsed for Eval.Ack RPC call.,0,nomad,eval ack
+nomad.nomad.eval.allocations,gauge,,nanosecond,,Time elapsed for Eval.Allocations RPC call.,0,nomad,eval allocations
+nomad.nomad.eval.create,gauge,,nanosecond,,Time elapsed for Eval.Create RPC call.,0,nomad,eval create
+nomad.nomad.eval.dequeue,gauge,,nanosecond,,Time elapsed for Eval.Dequeue RPC call.,0,nomad,eval dequeue
+nomad.nomad.eval.get_eval,gauge,,nanosecond,,Time elapsed for Eval.GetEval RPC call.,0,nomad,eval get eval
+nomad.nomad.eval.list,gauge,,nanosecond,,Time elapsed for Eval.List RPC call.,0,nomad,eval list
+nomad.nomad.eval.nack,gauge,,nanosecond,,Time elapsed for Eval.Nack RPC call.,0,nomad,eval nack
+nomad.nomad.eval.reap,gauge,,nanosecond,,Time elapsed for Eval.Reap RPC call.,0,nomad,eval reap
+nomad.nomad.eval.reblock,gauge,,nanosecond,,Time elapsed for Eval.Reblock RPC call.,0,nomad,eval reblock
+nomad.nomad.eval.update,gauge,,nanosecond,,Time elapsed for Eval.Update RPC call.,0,nomad,eval update
+nomad.nomad.file_system.list,gauge,,nanosecond,,Time elapsed for FileSystem.List RPC call.,0,nomad,fs list
+nomad.nomad.file_system.logs,gauge,,nanosecond,,Time elapsed to establish FileSystem.Logs RPC.,0,nomad,fs logs
+nomad.nomad.file_system.stat,gauge,,nanosecond,,Time elapsed for FileSystem.Stat RPC call.,0,nomad,fs stat
+nomad.nomad.file_system.stream,gauge,,nanosecond,,Time elapsed to establish FileSystem.Stream RPC.,0,nomad,fs stream
+nomad.nomad.fsm.alloc_client_update,gauge,,nanosecond,,Time elapsed to apply AllocClientUpdate raft entry.,0,nomad,fsl client update
+nomad.nomad.fsm.alloc_update_desired_transition,gauge,,nanosecond,,Time elapsed to apply AllocUpdateDesiredTransition raft entry.,0,nomad,fsm update desired
+nomad.nomad.fsm.alloc_update,gauge,,nanosecond,,Time elapsed to apply AllocUpdate raft entry.,0,nomad,fsm alloc update
+nomad.nomad.fsm.apply_acl_policy_delete,gauge,,nanosecond,,Time elapsed to apply ApplyACLPolicyDelete raft entry.,0,nomad,acl policy delete
+nomad.nomad.fsm.apply_acl_policy_upsert,gauge,,nanosecond,,Time elapsed to apply ApplyACLPolicyUpsert raft entry.,0,nomad,acl policy upsert
+nomad.nomad.fsm.apply_acl_token_bootstrap,gauge,,nanosecond,,Time elapsed to apply ApplyACLTokenBootstrap raft entry.,0,nomad,acl policy bootstrap
+nomad.nomad.fsm.apply_acl_token_delete,gauge,,nanosecond,,Time elapsed to apply ApplyACLTokenDelete raft entry.,0,nomad,acl token delete
+nomad.nomad.fsm.apply_acl_token_upsert,gauge,,nanosecond,,Time elapsed to apply ApplyACLTokenUpsert raft entry.,0,nomad,acl token upsert
+nomad.nomad.fsm.apply_csi_plugin_delete,gauge,,nanosecond,,Time elapsed to apply ApplyCSIPluginDelete raft entry.,0,nomad,csi plugin delete
+nomad.nomad.fsm.apply_csi_volume_batch_claim,gauge,,nanosecond,,Time elapsed to apply ApplyCSIVolumeBatchClaim raft entry.,0,nomad,csi volume batch claim
+nomad.nomad.fsm.apply_csi_volume_claim,gauge,,nanosecond,,Time elapsed to apply ApplyCSIVolumeClaim raft entry.,0,nomad,csi volume claim
+nomad.nomad.fsm.apply_csi_volume_deregister,gauge,,nanosecond,,Time elapsed to apply ApplyCSIVolumeDeregister raft entry.,0,nomad,csi volume deregister
+nomad.nomad.fsm.apply_csi_volume_register,gauge,,nanosecond,,Time elapsed to apply ApplyCSIVolumeRegister raft entry.,0,nomad,csi volume register
+nomad.nomad.fsm.apply_deployment_alloc_health,gauge,,nanosecond,,Time elapsed to apply ApplyDeploymentAllocHealth raft entry.,0,nomad,fsm deployment health
+nomad.nomad.fsm.apply_deployment_delete,gauge,,nanosecond,,Time elapsed to apply ApplyDeploymentDelete raft entry.,0,nomad,fsm deployment delete
+nomad.nomad.fsm.apply_deployment_promotion,gauge,,nanosecond,,Time elapsed to apply ApplyDeploymentPromotion raft entry.,0,nomad,fsm deployment promotion
+nomad.nomad.fsm.apply_deployment_status_update,gauge,,nanosecond,,Time elapsed to apply ApplyDeploymentStatusUpdate raft entry.,0,nomad,fsm deployment update
+nomad.nomad.fsm.apply_job_stability,gauge,,nanosecond,,Time elapsed to apply ApplyJobStability raft entry.,0,nomad,fsm job stability
+nomad.nomad.fsm.apply_namespace_delete,gauge,,nanosecond,,Time elapsed to apply ApplyNamespaceDelete raft entry.,0,nomad,fsm namespace delete
+nomad.nomad.fsm.apply_namespace_upsert,gauge,,nanosecond,,Time elapsed to apply ApplyNamespaceUpsert raft entry.,0,nomad,fsn namespace upsert
+nomad.nomad.fsm.apply_plan_results,gauge,,nanosecond,,Time elapsed to apply ApplyPlanResults raft entry.,0,nomad,fsm plan results
+nomad.nomad.fsm.apply_scheduler_config,gauge,,nanosecond,,Time elapsed to apply ApplySchedulerConfig raft entry.,0,nomad,fsm scheduler config
+nomad.nomad.fsm.autopilot,gauge,,nanosecond,,Time elapsed to apply Autopilot raft entry.,0,nomad,fsm autopilot
+nomad.nomad.fsm.batch_deregister_job,gauge,,nanosecond,,Time elapsed to apply BatchDeregisterJob raft entry.,0,nomad,fsm batch job deregister
+nomad.nomad.fsm.batch_deregister_node,gauge,,nanosecond,,Time elapsed to apply BatchDeregisterNode raft entry.,0,nomad,fsm batch node deregister
+nomad.nomad.fsm.batch_node_drain_update,gauge,,nanosecond,,Time elapsed to apply BatchNodeDrainUpdate raft entry.,0,nomad,fsm batch node update
+nomad.nomad.fsm.cluster_meta,gauge,,nanosecond,,Time elapsed to apply ClusterMeta raft entry.,0,nomad,fsm cluster meta
+nomad.nomad.fsm.delete_eval,gauge,,nanosecond,,Time elapsed to apply DeleteEval raft entry.,0,nomad,fsm delete eval
+nomad.nomad.fsm.deregister_job,gauge,,nanosecond,,Time elapsed to apply DeregisterJob raft entry.,0,nomad,fsm deregister job
+nomad.nomad.fsm.deregister_node,gauge,,nanosecond,,Time elapsed to apply DeregisterNode raft entry.,0,nomad,fsm deregister node
+nomad.nomad.fsm.deregister_si_accessor,gauge,,nanosecond,,Time elapsed to apply DeregisterSITokenAccessor raft entry.,0,nomad,fsm deregister si
+nomad.nomad.fsm.deregister_vault_accessor,gauge,,nanosecond,,Time elapsed to apply DeregisterVaultAccessor raft entry.,0,nomad,fsm deregister vault
+nomad.nomad.fsm.node_drain_update,gauge,,nanosecond,,Time elapsed to apply NodeDrainUpdate raft entry.,0,nomad,fsm node drain
+nomad.nomad.fsm.node_eligibility_update,gauge,,nanosecond,,Time elapsed to apply NodeEligibilityUpdate raft entry.,0,nomad,fsm node elegibility
+nomad.nomad.fsm.node_status_update,gauge,,nanosecond,,Time elapsed to apply NodeStatusUpdate raft entry.,0,nomad,fsm node status
+nomad.nomad.fsm.persist,gauge,,nanosecond,,Time elapsed to apply Persist raft entry.,0,nomad,fsm persist
+nomad.nomad.fsm.register_job,gauge,,nanosecond,,Time elapsed to apply RegisterJob raft entry.,0,nomad,fsm register job
+nomad.nomad.fsm.register_node,gauge,,nanosecond,,Time elapsed to apply RegisterNode raft entry.,0,nomad,fsm register node
+nomad.nomad.fsm.update_eval,gauge,,nanosecond,,Time elapsed to apply UpdateEval raft entry.,0,nomad,fsm update eval
+nomad.nomad.fsm.upsert_node_events,gauge,,nanosecond,,Time elapsed to apply UpsertNodeEvents raft entry.,0,nomad,fsm upsert events
+nomad.nomad.fsm.upsert_scaling_event,gauge,,nanosecond,,Time elapsed to apply UpsertScalingEvent raft entry.,0,nomad,fsm upsert scaling
+nomad.nomad.fsm.upsert_si_accessor,gauge,,nanosecond,,Time elapsed to apply UpsertSITokenAccessors raft entry.,0,nomad,fsm upsert si
+nomad.nomad.fsm.upsert_vault_accessor,gauge,,nanosecond,,Time elapsed to apply UpsertVaultAccessor raft entry.,0,nomad,fsm upsert vault
+nomad.nomad.job.allocations,gauge,,nanosecond,,Time elapsed for Job.Allocations RPC call.,0,nomad,job allocations
+nomad.nomad.job.batch_deregister,gauge,,nanosecond,,Time elapsed for Job.BatchDeregister RPC call.,0,nomad,job batch deregister
+nomad.nomad.job.deployments,gauge,,nanosecond,,Time elapsed for Job.Deployments RPC call.,0,nomad,job deplotments
+nomad.nomad.job.deregister,gauge,,nanosecond,,Time elapsed for Job.Deregister RPC call.,0,nomad,job deregister
+nomad.nomad.job.dispatch,gauge,,nanosecond,,Time elapsed for Job.Dispatch RPC call.,0,nomad,job dispatch
+nomad.nomad.job.evaluate,gauge,,nanosecond,,Time elapsed for Job.Evaluate RPC call.,0,nomad,job evaluatie
+nomad.nomad.job.evaluations,gauge,,nanosecond,,Time elapsed for Job.Evaluations RPC call.,0,nomad,job evaluations
+nomad.nomad.job.get_job_versions,gauge,,nanosecond,,Time elapsed for Job.GetJobVersions RPC call.,0,nomad,job versions
+nomad.nomad.job.get_job,gauge,,nanosecond,,Time elapsed for Job.GetJob RPC call.,0,nomad,get job
+nomad.nomad.job.latest_deployment,gauge,,nanosecond,,Time elapsed for Job.LatestDeployment RPC call.,0,nomad,job latest
+nomad.nomad.job.list,gauge,,nanosecond,,Time elapsed for Job.List RPC call.,0,nomad,job list
+nomad.nomad.job.plan,gauge,,nanosecond,,Time elapsed for Job.Plan RPC call.,0,nomad,job plan
+nomad.nomad.job.register,gauge,,nanosecond,,Time elapsed for Job.Register RPC call.,0,nomad,job register
+nomad.nomad.job.revert,gauge,,nanosecond,,Time elapsed for Job.Revert RPC call.,0,nomad,job revert
+nomad.nomad.job.scale_status,gauge,,nanosecond,,Time elapsed for Job.ScaleStatus RPC call.,0,nomad,job scale status
+nomad.nomad.job.scale,gauge,,nanosecond,,Time elapsed for Job.Scale RPC call.,0,nomad,job scale
+nomad.nomad.job.stable,gauge,,nanosecond,,Time elapsed for Job.Stable RPC call.,0,nomad,job stable,
+nomad.nomad.job.validate,gauge,,nanosecond,,Time elapsed for Job.Validate RPC call.,0,nomad,job validate
+nomad.nomad.job_summary.get_job_summary,gauge,,nanosecond,,Time elapsed for Job.Summary RPC call.,0,nomad,job summary
+nomad.nomad.job_summary.complete,gauge,,task,,Number of complete allocations for a job.,0,nomad,job complete
+nomad.nomad.job_summary.failed,gauge,,task,,Number of failed allocations for a job.,0,nomad,job failed
+nomad.nomad.job_summary.lost,gauge,,task,,Number of lost allocations for a job.,0,nomad,job lost
+nomad.nomad.job_summary.queued,gauge,,task,,Number of queued allocations for a job.,0,nomad,job queued
+nomad.nomad.job_summary.running,gauge,,task,,Number of running allocations for a job.,0,job,job running
+nomad.nomad.job_summary.starting,gauge,,task,,Number of starting allocations for a job.,0,job starting
+nomad.nomad.job_status.dead,gauge,,task,,Number of dead jobs.,0,nomad,job dead
+nomad.nomad.job_status.pending,gauge,,task,,Number of pending jobs.,0,nomad,job pending
+nomad.nomad.job_status.running,gauge,,task,,Number of running jobs.,0,nomad,job running
+nomad.nomad.leader.barrier,gauge,,nanosecond,,Time elapsed to establish a raft barrier during leader transition.,0,nomad,
+nomad.nomad.leader.reconcileMember,gauge,,nanosecond,,Time elapsed to reconcile a serf peer with state store.,0,nomad,
+nomad.nomad.leader.reconcile,gauge,,nanosecond,,Time elapsed to reconcile all serf peers with state store.,0,nomad,
+nomad.nomad.namespace.delete_namespaces,gauge,,nanosecond,,Time elapsed for Namespace.DeleteNamespaces.,0,nomad,
+nomad.nomad.namespace.get_namespace,gauge,,nanosecond,,Time elapsed for Namespace.GetNamespace.,0,nomad,
+nomad.nomad.namespace.get_namespaces,gauge,,nanosecond,,Time elapsed for Namespace.GetNamespaces.,0,nomad,
+nomad.nomad.namespace.list_namespace,gauge,,nanosecond,,Time elapsed for Namespace.ListNamespaces.,0,nomad,
+nomad.nomad.namespace.upsert_namespaces,gauge,,nanosecond,,Time elapsed for Namespace.UpsertNamespaces.,0,nomad,
+nomad.nomad.periodic.force,gauge,,nanosecond,,Time elapsed for Periodic.Force RPC call.,0,nomad,
+nomad.nomad.plan.apply,gauge,,nanosecond,,Time elapsed to apply a plan.,0,nomad,
+nomad.nomad.plan.evaluate,gauge,,nanosecond,,Time elapsed to evaluate a plan.,0,nomad,
+nomad.nomad.plan.queue_depth	Count of evals in the plan queue	Integer	Gauge	host
+nomad.nomad.plan.submit,gauge,,nanosecond,,Time elapsed for Plan.Submit RPC call.,0,nomad,
+nomad.nomad.plan.wait_for_index,gauge,,nanosecond,,Time elapsed for the planner to obtain a snapshot.,0,nomad,
+nomad.nomad.plugin.delete,gauge,,nanosecond,,Time elapsed for CSIPlugin.Delete RPC call.,0,nomad,
+nomad.nomad.plugin.get,gauge,,nanosecond,,Time elapsed for CSIPlugin.Get RPC call.,0,nomad,
+nomad.nomad.plugin.list,gauge,,nanosecond,,Time elapsed for CSIPlugin.List RPC call.,0,nomad,
+nomad.nomad.scaling.get_policy,gauge,,nanosecond,,Time elapsed for Scaling.GetPolicy RPC call.,0,nomad,
+nomad.nomad.scaling.list_policies,gauge,,nanosecond,,Time elapsed for Scaling.ListPolicies RPC call.,0,nomad,
+nomad.nomad.search.prefix_search,gauge,,nanosecond,,Time elapsed for Search.PrefixSearch RPC call.,0,nomad,
+nomad.nomad.vault.create_token,gauge,,nanosecond,,Time elapsed to create Vault token.,0,nomad,	Gauge	host
+nomad.nomad.vault.distributed_tokens_revoked	Count of revoked tokens	Integer	Gauge	host
+nomad.nomad.vault.lookup_token,gauge,,nanosecond,,Time elapsed to lookup Vault token.,0,nomad,	Gauge	host
+nomad.nomad.vault.renew_failed	Count of failed attempts to renew Vault token	Integer	Gauge	host
+nomad.nomad.vault.renew,gauge,,nanosecond,,Time elapsed to renew Vault token.,0,nomad,	Gauge	host
+nomad.nomad.vault.revoke_tokens,gauge,,nanosecond,,Time elapsed to revoke Vault tokens.,0,nomad,	Gauge	host
+nomad.nomad.vault.token_ttl	Time to live for Vault token	Integer	Gauge	host
+nomad.nomad.vault.undistributed_tokens_abandoned	Count of abandoned tokens	Integer	Gauge	host
+nomad.nomad.volume.claim,gauge,,nanosecond,,Time elapsed for CSIVolume.Claim RPC call.,0,nomad,
+nomad.nomad.volume.deregister,gauge,,nanosecond,,Time elapsed for CSIVolume.Deregister RPC call.,0,nomad,
+nomad.nomad.volume.get,gauge,,nanosecond,,Time elapsed for CSIVolume.Get RPC call.,0,nomad,
+nomad.nomad.volume.list,gauge,,nanosecond,,Time elapsed for CSIVolume.List RPC call.,0,nomad,
+nomad.nomad.volume.register,gauge,,nanosecond,,Time elapsed for CSIVolume.Register RPC call.,0,nomad,
+nomad.nomad.volume.unpublish,gauge,,nanosecond,,Time elapsed for CSIVolume.Unpublish RPC call.,0,nomad,
+nomad.nomad.worker.create_eval,gauge,,nanosecond,,Time elapsed for worker to create an eval.,0,nomad,
+nomad.nomad.worker.dequeue_eval,gauge,,nanosecond,,Time elapsed for worker to dequeue an eval.,0,nomad,
+nomad.nomad.worker.invoke_scheduler_service,gauge,,nanosecond,,Time elapsed for worker to invoke the scheduler.,0,nomad,
+nomad.nomad.worker.send_ack,gauge,,nanosecond,,Time elapsed for worker to send acknowledgement.,0,nomad,
+nomad.nomad.worker.submit_plan,gauge,,nanosecond,,Time elapsed for worker to submit plan.,0,nomad,
+nomad.nomad.worker.update_eval,gauge,,nanosecond,,Time elapsed for worker to submit updated eval.,0,nomad,
+nomad.nomad.worker.wait_for_index,gauge,,nanosecond,,Time elapsed for worker get snapshot.,0,nomad,
+nomad.raft.appliedIndex	Current index applied to FSM	Integer	Gauge	host
+nomad.raft.barrier	Count of blocking raft API calls	Integer	Counter	host
+nomad.raft.commitNumLogs	Count of logs enqueued	Integer	Gauge	host
+nomad.raft.commitTime,gauge,,nanosecond,,Time elapsed to commit writes.,0,nomad,
+nomad.raft.fsm.apply,gauge,,nanosecond,,Time elapsed to apply write to FSM.,0,nomad,
+nomad.raft.fsm.enqueue,gauge,,nanosecond,,Time elapsed to enqueue write to FSM.,0,nomad,
+nomad.raft.lastIndex	Most recent index seen	Integer	Gauge	host
+nomad.raft.leader.dispatchLog,gauge,,nanosecond,,Time elapsed to write log, mark in flight, and start replication.,0,nomad,
+nomad.raft.leader.dispatchNumLogs	Count of logs dispatched	Integer	Gauge	host
+nomad.raft.replication.appendEntries	Raft transaction commit time	ms / Raft Log Append	Timer
+nomad.runtime.free_count	Count of objects freed from heap by go runtime GC	Integer	Gauge	host
+nomad.runtime.gc_pause_ns,gauge,,nanosecond,,Go runtime GC pause times.,0,nomad,
+nomad.runtime.sys_bytes	Go runtime GC metadata size	# of bytes	Gauge	host
+nomad.runtime.total_gc_pause_ns,gauge,,nanosecond,,Total elapsed go runtime GC pause times.,0,nomad,	Gauge	host
+nomad.runtime.total_gc_runs	Count of go runtime GC runs	Integer	Gauge	host
+nomad.serf.queue.Event	Count of memberlist events received	Integer
+nomad.serf.queue.Intent	Count of memberlist changes	Integer
+nomad.serf.queue.Query	Count of memberlist queries	Integer
+nomad.state.snapshotIndex	Current snapshot index	Integer	Gauge
