@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nats_primary:
-    image: nats-streaming:latest
+    image: nats-streaming:0.16.0
     command:
      - "-m"
      - "8222"
@@ -23,7 +23,7 @@ services:
     volumes:
      - ${TEMP_DIR}:/usr/share/nats/data
   nats_secondary:
-    image: nats-streaming:latest
+    image: nats-streaming:0.16.0
     depends_on:
      - nats_primary
     command:

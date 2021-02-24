@@ -15,7 +15,7 @@ def dd_environment():
     with TempDir() as nats_dir:
         env_vars = {'TEMP_DIR': nats_dir}
         with docker_run(
-            os.path.join(DOCKER_DIR, 'docker-compose.yml'), env_vars=env_vars, log_patterns='test.channel3'
+            os.path.join(DOCKER_DIR, 'docker-compose.yml'), env_vars=env_vars, log_patterns='Server is active'
         ):
             yield
 
