@@ -31,13 +31,13 @@ Follow these steps in Datadog:
 
 3. Under **New Webhook**, enter a meaningful `Name` and use the SIGNL4 Webhook `URL` (created above) including your team secret, for example:
 
-```
-https://connect.signl4.com/webhook/<team-secret>?ExtIDParam=alertId&ExtStatusParam=alertTransition&ResolvedStatus=Recovered
-```
+    ```
+    https://connect.signl4.com/webhook/<team-secret>?ExtIDParam=alertId&ExtStatusParam=alertTransition&ResolvedStatus=Recovered
+    ```
 
-Replace `<team-secret>` with your SIGNL4 team secret here.
+    Replace `<team-secret>` with your SIGNL4 team secret here.
 
-![SIGNL4 Webhook][3]
+    ![SIGNL4 Webhook][3]
 
 4. Copy-paste the following JSON in the `Payload` text box:
 
