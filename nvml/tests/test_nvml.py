@@ -11,6 +11,10 @@ from datadog_checks.nvml import NvmlCheck
 
 class MockNvml:
     @staticmethod
+    def is_nvml_library_available(i):
+        return True
+
+    @staticmethod
     def nvmlInit():
         pass
 
