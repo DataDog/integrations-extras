@@ -13,8 +13,8 @@ BED_URL = "/api/printer/bed"
 
 
 class OctoPrintCheck(AgentCheck):
-    def __init__(self, name, init_config, instance):
-        super(OctoPrintCheck, self).__init__(name, init_config, instance)
+    def __init__(self, name, init_config, instances):
+        super(OctoPrintCheck, self).__init__(name, init_config, instances)
 
         self.url = self.instance.get('url')
         self.octo_api_key = self.instance.get('octo_api_key')
