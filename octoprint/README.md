@@ -33,12 +33,6 @@ To install the OctoPrint check on your host:
 
 [Run the Agent's status subcommand][7] and look for `octoprint` under the Checks section.
 
-## Data Collected
-
-### Metrics
-
-See [metadata.csv][8] for a list of metrics provided by this integration.
-
 ### Logs
 
 By default this integration assumes that you are using the [OctoPi][8] image that is pre-configured to run OctoPrint from a Raspberry Pi.
@@ -64,6 +58,12 @@ OctoPrint uses its own log format (not an object format), so making better use o
             - `General_OctoPrint_Log %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
 
 For more information, see the [Datadog Log Processing documentation][9].
+
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Service Checks
 
