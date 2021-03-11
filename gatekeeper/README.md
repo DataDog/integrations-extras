@@ -4,15 +4,17 @@
 
 This check collects metrics from [OPA Gatekeeper][1].
 
+![Gatekeeper Overview Dashboard][2]
+
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a Kubernetes cluster. See also the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
+Follow the instructions below to install and configure this check for an Agent running on a Kubernetes cluster. See also the [Autodiscovery Integration Templates][3] for guidance on applying these instructions.
 
 ### Installation
 
 To install the gatekeeper check on your Kubernetes cluster:
 
-1. Install the [developer toolkit][3].
+1. Install the [developer toolkit][4].
 2. Clone the `integrations-extras` repository:
 
    ```shell
@@ -31,7 +33,7 @@ To install the gatekeeper check on your Kubernetes cluster:
    ddev -e release build gatekeeper
    ```
 
-5. [Download the Agent manifest to install the Datadog Agent as a DaemonSet][4].
+5. [Download the Agent manifest to install the Datadog Agent as a DaemonSet][5].
 6. Create two `PersistentVolumeClaim`s, one for the checks code, and one for the configuration.
 7. Add them as volumes to your Agent pod template and use them for your checks and configuration:
 
@@ -83,19 +85,19 @@ To install the gatekeeper check on your Kubernetes cluster:
 
 ### Configuration
 
-1. Edit the `gatekeeper/conf.yaml` file, in the `/confd` folder that you added to the Agent pod to start collecting your gatekeeper performance data. See the [sample gatekeeper/conf.yaml][5] for all available configuration options.
+1. Edit the `gatekeeper/conf.yaml` file, in the `/confd` folder that you added to the Agent pod to start collecting your gatekeeper performance data. See the [sample gatekeeper/conf.yaml][6] for all available configuration options.
 
-2. [Restart the Agent][6].
+2. [Restart the Agent][7].
 
 ### Validation
 
-[Run the Agent's status subcommand][7] and look for `gatekeeper` under the Checks section.
+[Run the Agent's status subcommand][8] and look for `gatekeeper` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][8] for a list of metrics provided by this check.
+See [metadata.csv][9] for a list of metrics provided by this check.
 
 ### Service Checks
 
@@ -108,14 +110,15 @@ Gatekeeper does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support[9].
+Need help? Contact [Datadog support][10].
 
 [1]: https://github.com/open-policy-agent/gatekeeper
-[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[4]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/?tab=k8sfile
-[5]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/datadog_checks/gatekeeper/data/conf.yaml.example
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-core/blob/master/gatekeeper/metadata.csv
-[9]: https://docs.datadoghq.com/help/
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gatekeeper/images/gatekeeper_dashboard.png
+[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[5]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/?tab=k8sfile
+[6]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/datadog_checks/gatekeeper/data/conf.yaml.example
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[9]: https://github.com/DataDog/integrations-core/blob/master/gatekeeper/metadata.csv
+[10]: https://docs.datadoghq.com/help/
