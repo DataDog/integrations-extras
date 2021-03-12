@@ -35,7 +35,7 @@ To install the OctoPrint check on your host:
 
 ### Logs
 
-By default this integration assumes that you are using the [OctoPi][8] image that is pre-configured to run OctoPrint from a Raspberry Pi.
+By default this integration assumes that you are using the [OctoPi][10] image that is pre-configured to run OctoPrint from a Raspberry Pi.
 
 The logs that it collects by default (and their default locations) are:
 
@@ -57,7 +57,7 @@ OctoPrint uses its own log format (not an object format), so making better use o
         1. Grok parser rule:
             - `General_OctoPrint_Log %{date("yyyy-MM-dd HH:mm:ss,SSS"):date}\s+-\s+%{notSpace:source}\s+-\s+%{word:level}\s+-\s+%{data:message}`
 
-For more information, see the [Datadog Log Processing documentation][9].
+For more information, see the [Datadog Log Processing documentation][11].
 
 ## Data Collected
 
@@ -86,5 +86,5 @@ Need help? Contact [Datadog support][9].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/metadata.csv
 [9]: https://docs.datadoghq.com/help/
-[8]: https://octoprint.org/download/
-[9]: https://docs.datadoghq.com/logs/processing/
+[10]: https://octoprint.org/download/
+[11]: https://docs.datadoghq.com/logs/processing/
