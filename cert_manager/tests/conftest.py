@@ -20,6 +20,8 @@ PORT = 9402
 
 
 def setup_cert_manager():
+
+    # Deploy Cert Manager
     run_command(
         [
             "kubectl",
@@ -32,7 +34,10 @@ def setup_cert_manager():
         ["kubectl", "wait", "deployments", "--all", "--for=condition=Available", "-n", "cert-manager", "--timeout=300s"]
     )
     run_command(["kubectl", "wait", "pods", "-n", "cert-manager", "--all", "--for=condition=Ready", "--timeout=300s"])
-    config = os.path.join(HERE, 'kubernetes', 'test-resources.yaml')
+
+
+    # Issue self-signed certs
+    config = os.path.join(HERE, 'kubernetes', 'selfsigned.yaml')
     run_command(["kubectl", "create", "-f", config])
     run_command(
         [
@@ -47,6 +52,28 @@ def setup_cert_manager():
         ]
     )
 
+    # Deploy Pebble
+    config = os.path.join(HERE, 'kubernetes', 'pebble.yaml')
+    run_command(["kubectl", "create", "-f", config])
+    run_command(
+        ["kubectl", "wait", "deployments", "--all", "--for=condition=Available", "--timeout=300s"]
+    )
+
+    # Issue acme certs
+    config = os.path.join(HERE, 'kubernetes', 'acme.yaml')
+    run_command(["kubectl", "create", "-f", config])
+    run_command(
+        [
+            "kubectl",
+            "wait",
+            "certificates",
+            "-n",
+            "acme-test",
+            "--all",
+            "--for=condition=Ready",
+            "--timeout=300s",
+        ]
+    )
 
 @pytest.fixture(scope='session')
 def dd_environment():
