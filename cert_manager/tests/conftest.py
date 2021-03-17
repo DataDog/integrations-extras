@@ -55,6 +55,12 @@ def setup_cert_manager():
     # Deploy Pebble
     config = os.path.join(HERE, 'kubernetes', 'pebble.yaml')
     run_command(["kubectl", "create", "-f", config])
+
+    # Deploy Nginx
+    config = os.path.join(HERE, 'kubernetes', 'nginx.yaml')
+    run_command(["kubectl", "create", "-f", config])
+
+    # Wait for deployments
     run_command(
         ["kubectl", "wait", "deployments", "--all", "--for=condition=Available", "--timeout=300s"]
     )
