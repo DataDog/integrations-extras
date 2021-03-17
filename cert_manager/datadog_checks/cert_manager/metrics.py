@@ -12,6 +12,6 @@ CONTROLLER_METRICS = {
 }
 
 ACME_METRICS = {
-    'certmanager_http_acme_client_request_count': 'acme_client.request.count',
-    'certmanager_http_acme_client_request_duration_seconds': 'acme_client.request.duration',
+    'certmanager_http_acme_client_request_count': 'http_acme_client.request.count',
+    'certmanager_http_acme_client_request_duration_seconds': 'http_acme_client.request.duration',
 }
