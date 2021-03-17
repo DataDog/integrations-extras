@@ -35,7 +35,6 @@ def setup_cert_manager():
     )
     run_command(["kubectl", "wait", "pods", "-n", "cert-manager", "--all", "--for=condition=Ready", "--timeout=300s"])
 
-
     # Issue self-signed certs
     config = os.path.join(HERE, 'kubernetes', 'selfsigned.yaml')
     run_command(["kubectl", "create", "-f", config])
@@ -61,9 +60,7 @@ def setup_cert_manager():
     run_command(["kubectl", "create", "-f", config])
 
     # Wait for deployments
-    run_command(
-        ["kubectl", "wait", "deployments", "--all", "--for=condition=Available", "--timeout=300s"]
-    )
+    run_command(["kubectl", "wait", "deployments", "--all", "--for=condition=Available", "--timeout=300s"])
 
     # Issue acme certs
     config = os.path.join(HERE, 'kubernetes', 'acme.yaml')
@@ -80,6 +77,7 @@ def setup_cert_manager():
             "--timeout=300s",
         ]
     )
+
 
 @pytest.fixture(scope='session')
 def dd_environment():
