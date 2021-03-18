@@ -1,0 +1,52 @@
+name: RedisEnterprise
+files:
+- name: redisenterprise.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/default
+    - name: host
+      required: true
+      description: The RedisEnterprise host
+      value:
+        type: string
+        example: myrediscluster.example.com
+    - name: user
+      required: true
+      description: The RedisEnterprise API user
+      value:
+        type: string
+        example: redisadmin@example.com
+    - name: password
+      required: true
+      description: The RedisEnterprise API credential
+      value:
+        type: string
+        example: mySecretPassword
+    - name: port
+      required: false
+      description: The RedisEnterprise API port - default 9443
+      value:
+        type: integer
+        example: 9443
+    - name: verifyssl
+      required: false
+      description: Verify the SSL certificate - default false
+      value:
+        type: boolean
+        example: false
+    - name: timeout
+      required: false
+      description: Connect timeout in seconds - default 10
+      value:
+        type: integer
+        example: 10
+    - name: event_limit
+      required: false
+      description: Number of events to fetch - default 50
+      value:
+        type: integer
+        example: 50
