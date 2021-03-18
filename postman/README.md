@@ -52,5 +52,5 @@ Need help? Contact [Postman Support][2].
 [1]: https://www.postman.com/
 [2]: https://www.postman.com/support/
 [3]: https://learning.postman.com/docs/integrations/available-integrations/datadog/
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/postman/images/add-integration-datadog.jpg
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/postman/images/add-integration-datadog.jpeg
 [5]: https://github.com/DataDog/integrations-extras/blob/master/postman/metadata.csv
