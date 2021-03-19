@@ -16,8 +16,10 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To use an integration from `integrations-extra` with the Docker Agent, Datadog recommends building the Agent with the integration installed. Use the following Dockerfile to build an updated version of the Agent that includes the `cert_manager` integration from `integrations-extras`:
 
+```
 FROM gcr.io/datadoghq/agent:latest
 RUN agent integration install -r -t datadog-cert_manager==<INTEGRATION_VERSION>
+```
 
 #### Agent versions <7.26.0 or <6.26.0
 
