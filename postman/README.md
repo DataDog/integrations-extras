@@ -22,7 +22,7 @@ For detailed instructions, follow the [Postman documentation][3].
 3. Go to Home > Integrations > Browse All Integrations
 4. Click on the Datadog Integration
 5. Choose the Postman Monitor for the metrics that you want to be analyzed.
-6. Choose if you want to send metric, events or both
+6. Choose if you want to send metrics, events or both.
 7. Complete other details and add the Integration to complete the configuration
 
 ![Configure Integration][4]
