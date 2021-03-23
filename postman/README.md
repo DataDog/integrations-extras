@@ -17,7 +17,7 @@ For detailed instructions, follow the [Postman documentation][3].
 
 ### Configuration
 
-1. Generate an API key from the Datadog Integrations> API tab
+1. Generate an API key from the Datadog Integrations > API tab.
 2. Log into your Postman account.
 3. Go to Home > Integrations > Browse All Integrations
 4. Click on the Datadog Integration
