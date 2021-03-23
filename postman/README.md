@@ -44,7 +44,7 @@ Postman does not include any service checks.
 ### Events
 
 An event is generated each time a monitor runs in Postman. The severity of the event is "Low" if all the tests in the Postman 
-Monitor pass and Normal in case a few of them fail or if there is error in execution of any  event.
+Monitor pass and "Normal" if some of them fail, or if there is an error in execution of any event.
 
 ## Troubleshooting
 
