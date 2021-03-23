@@ -10,7 +10,7 @@ This Integration helps you:
 
 ## Setup
 
-For the detailed instructions, follow the [Postman documentation][3].
+For detailed instructions, follow the [Postman documentation][3].
 
 ### Installation
 
