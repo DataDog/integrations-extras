@@ -7,6 +7,7 @@ Postman's features simplify each step of building an API and streamline collabor
 This Integration helps you:
 1. Analyze the metric from the Postman Monitor runs in Datadog
 2. Generate events on each monitor run and failure for you to remain on top of your monitor health
+
 ## Setup
 
 For the detailed instructions, follow the [Postman documentation][3].
