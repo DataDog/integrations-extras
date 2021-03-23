@@ -143,16 +143,21 @@ class Neo4jCheck(PrometheusCheck):
             'causal_clustering_core_discovery_cluster_converged': 'causal_clustering.core.discovery.cluster.converged',  # noqa: E501
             'causal_clustering_core_discovery_cluster_members': 'causal_clustering.core.discovery.cluster.members',  # noqa: E501
             'causal_clustering_core_discovery_cluster_unreachable': 'causal_clustering.core.discovery.cluster.unreachable',  # noqa: E501
+            # causal clustering replicated data metrics (4.3)
             'causal_clustering_core_discovery_replicated_data_member_data_invisible': 'causal_clustering.core.discovery.replicated_data.member_data.invisible',  # noqa: E501
             'causal_clustering_core_discovery_replicated_data_member_data_visible': 'causal_clustering.core.discovery.replicated_data.member_data.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_invisible': 'causal_clustering.core.discovery.replicated_data.raft_id_published_by_member.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_visible': 'causal_clustering.core.discovery.replicated_data.raft_id_published_by_member.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_invisible': 'causal_clustering.core.discovery.replicated_data.per_db_leader_name.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_visible': 'causal_clustering.core.discovery.replicated_data.per_db_leader_name.visible',  # noqa: E501
             'causal_clustering_core_discovery_replicated_data_member_db_state_invisible': 'causal_clustering.core.discovery.replicated_data.member_db_state.invisible',  # noqa: E501
             'causal_clustering_core_discovery_replicated_data_member_db_state_visible': 'causal_clustering.core.discovery.replicated_data.member_db_state.visible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_invisible': 'causal_clustering.core.discovery.replicated_data.per_db.leader_name.invisible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_per_db_leader_name_visible': 'causal_clustering.core.discovery.replicated_data.per_db.leader_name.visible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_invisible': 'causal_clustering.core.discovery.replicated_data.raft_id.published_by_member.invisible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_visible': 'causal_clustering.core.discovery.replicated_data.raft_id.published_by_member.visible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_invisible': 'causal_clustering.core.discovery.replicated_data.cluster_id.per_db_name.invisible',  # noqa: E501
-            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_visible': 'causal_clustering.core.discovery.replicated_data.cluster_id.per_db_name.visible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_member_mapping_invisible': 'causal_clustering.core.discovery.replicated_data.raft_member_mapping.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_raft_member_mapping_visible': 'causal_clustering.core.discovery.replicated_data.raft_member_mapping.visible',  # noqa: E501
+            # causal clustering replicated data metrics (3.6)
+            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_invisible': 'causal_clustering.core.discovery.replicated_data.cluster_id_per_db_name.invisible',  # noqa: E501
+            'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_visible': 'causal_clustering.core.discovery.replicated_data.cluster_id_per_db_name.visible',  # noqa: E501
+            # end causal clustering replicated data metrics
             'causal_clustering_core_in_flight_cache_element_count': 'causal_clustering.core.in_flight_cache_element_count',  # noqa: E501
             'causal_clustering_core_in_flight_cache_hits_total': 'causal_clustering.core.in_flight_cache.hits',
             'causal_clustering_core_in_flight_cache_max_bytes': 'causal_clustering.core.in_flight_cache.max_bytes',
