@@ -8,7 +8,24 @@ nomad.client.allocations.blocked,gauge,,job,,Number of allocations blocked for a
 nomad.client.allocations.migrating,gauge,,job,,Number of allocations migrating for a client.,0,nomad,allocations migrating
 nomad.client.allocations.pending,gauge,,job,,Number of allocations pending for a client.,0,nomad,allocations pending
 nomad.client.allocations.running,gauge,,job,,Number of allocations running for a client.,0,nomad,allocations running
+nomad.client.allocations.start,gauge,,job,,Number of allocations starting,0,nomad,allocations start
 nomad.client.allocations.terminal,gauge,,job,,Number of allocations terminated for a client.,0,nomad,allocations terminal
+nomad.client.allocs.cpu.allocated,gauge,,megahertz,,Total CPU resources allocated by the task across all cores.,0,nomad,allocs cpu allocated
+nomad.client.allocs.cpu.system,gauge,,percent,,Total CPU resources consumed by the task in system space.,0,nomad,allocs cpu system
+nomad.client.allocs.cpu.throttled_periods,gauge,,nanosecond,,Total number of CPU periods that the task was throttled.,0,nomad,allocs cpu throttled p
+nomad.client.allocs.cpu.throttled_time,gauge,,nanosecond,,Total time that the task was throttled.,0,nomad,allocs cpu throttled time
+nomad.client.allocs.cpu.total_percent,gauge,,percent,,Total CPU resources consumed by the task across all cores.,0,nomad,allocs cpu tot percent
+nomad.client.allocs.cpu.total_ticks,gauge,,,,CPU ticks consumed by the process in the last collection interval.,0,nomad,allocs cpu tot ticks
+nomad.client.allocs.cpu.user,gauge,,percent,,Total CPU resources consumed by the task in the user space.,0,nomad,allocs cpu user
+nomad.client.allocs.memory.allocated,gauge,,byte,,Amount of memory allocated by the task.,0,nomad,allocs mem allocated
+nomad.client.allocs.memory.cache,gauge,,byte,,Amount of memory cached by the task.,0,nomad,allocs mem cache
+nomad.client.allocs.memory.kernel_max_usage,gauge,,byte,,Maximum amount of memory ever used by the kernel for this task.,0,nomad,allocs mem kernel max
+nomad.client.allocs.memory.kernel_usage,gauge,,byte,,Amount of memory used by the kernel for this task.,0,nomad,allocs mem kernel
+nomad.client.allocs.memory.max_usage,gauge,,byte,,Maximum amount of memory ever used by the task.,0,nomad,allocs mem usage
+nomad.client.allocs.memory.rss,gauge,,byte,,Amount of RSS memory consumed by the task.,0,nomad,allocs mem rss
+nomad.client.allocs.memory.swap,gauge,,byte,,Amount of memory swapped by the task.,0,nomad,allocs mem swap
+nomad.client.allocs.memory.usage,gauge,,byte,,Total amount of memory used by the task.,0,nomad,allocs mem usage
+nomad.client.allocs.oom_killed,gauge,,,,Number of allocations OOM killed.,0,nomad,allocs oom killed
 nomad.client.consul.check_registrations,gauge,,,,Number of consul check registrations.,0,nomad,check registration
 nomad.client.consul.checks,gauge,,,,Number of consul checks.,0,nomad,check consul
 nomad.client.consul.script_checks,gauge,,,,Number of consul script checks.,0,nomad,consul script
@@ -51,3 +68,31 @@ nomad.nomad.client.get_client_allocs.95percentile,gauge,,,,The 95 percentile of 
 nomad.nomad.client.get_client_allocs.avg,gauge,,,,The average number of nomad client allocated.,0,nomad,client avg
 nomad.nomad.client.get_client_allocs.count,gauge,,,,The number of nomad client allocated.,0,nomad,client count
 nomad.nomad.client.get_client_allocs.max,gauge,,,,The maximum number of nomad client allocated.,0,nomad,client max
+nomad.nomad.job_summary.complete,gauge,,,,Total CPU resources consumed by the task in the user space.,0,nomad,job summary complete
+nomad.nomad.job_summary.failed,gauge,,,,Number of failed allocations for a job.,0,nomad,job summary failed
+nomad.nomad.job_summary.lost,gauge,,,,Number of lost allocations for a job.,0,nomad,job summary lost
+nomad.nomad.job_summary.queued,gauge,,,,Number of queued allocations for a job.,0,nomad,job summary queued
+nomad.nomad.job_summary.running,gauge,,,,Number of running allocations for a job.,0,nomad,job summary running
+nomad.nomad.job_summary.starting,gauge,,,,Number of starting allocations for a job.,0,nomad,job summary starting
+nomad.nomad.job_status.dead,gauge,,job,,Number of dead jobs.,0,nomad,job status dead
+nomad.nomad.job_status.pending,gauge,,job,,Number of pending jobs.,0,nomad,job status pending
+nomad.nomad.job_status.running,gauge,,job,,Number of running jobs.,0,nomad,job status running
+nomad.nomad.acl.bootstrap,gauge,,nanosecond,,Time elapsed for ACL.Bootstrap RPC call.,0,nomad,acl bootstrap
+nomad.nomad.acl.delete_policies,gauge,,nanosecond,,Time elapsed for ACL.DeletePolicies RPC call.,0,nomad,acl del policies
+nomad.nomad.acl.delete_tokens,gauge,,nanosecond,,Time elapsed for ACL.DeleteTokens RPC call.,0,nomad,acl del token
+nomad.nomad.acl.get_policies,gauge,,nanosecond,,Time elapsed for ACL.GetPolicies RPC call.,0,nomad,acl get policies
+nomad.nomad.acl.get_policy,gauge,,nanosecond,,Time elapsed for ACL.GetPolicy RPC call.,0,nomad,acl get policy
+nomad.nomad.acl.get_token,gauge,,nanosecond,,Time elapsed for ACL.GetToken RPC call.,0,nomad,acl get token
+nomad.nomad.acl.get_tokens,gauge,,nanosecond,,Time elapsed for ACL.GetTokens RPC call.,0,nomad,acl get tokens
+nomad.nomad.acl.list_policies,gauge,,nanosecond,,Time elapsed for ACL.ListPolicies RPC call.,0,nomad,acl list policies
+nomad.nomad.acl.list_tokens,gauge,,nanosecond,,Time elapsed for ACL.ListTokens RPC call.,0,nomad,acl list tokens
+nomad.nomad.rpc.query,gauge,,,,Number of RPC queries.,0,nomad,rpc query
+nomad.nomad.rpc.request,gauge,,,,Number of RPC requests being handled.,0,nomad,rpc request
+nomad.runtime.alloc_bytes,gauge,,byte,,Memory utilization.,0,nomad,runtime alloc bytes
+nomad.runtime.free_count,gauge,,,,Count of objects freed from heap by go runtime GC.,0,nomad,runtime gc free
+nomad.runtime.gc_pause_ns,gauge,,nanosecond,,Go runtime GC pause times.,0,nomad,runtime gc pause
+nomad.runtime.heap_objects,gauge,,,,Number of objects on the heap. General memory pressure indicator.,0,nomad,runtime heap obj
+nomad.runtime.num_goroutines,gauge,,,,Number of goroutines and general load pressure indicator.,0,nomad,runtime goroutines
+nomad.runtime.sys_bytes,gauge,,byte,,Go runtime GC metadata size.,0,nomad,runtime sys bytes
+nomad.runtime.total_gc_pause_ns,gauge,,nanosecond,,Total elapsed go runtime GC pause times.,0,nomad,runtime total gc pause
+nomad.runtime.total_gc_runs,gauge,,,,Count of go runtime GC runs.,0,nomad,runtime total gc runs
