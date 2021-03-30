@@ -25,6 +25,8 @@ With this setup, StatsD metrics are sent to the IP of the host, which redirects 
 
 See the [Ambassador documentation][5] for more information.
 
+You can also send tracing data from Ambassador to Datadog APM. See the [Ambassador Datadog APM Tracing documentation][6] for more information.
+
 ## Data Collected
 
 ### Metrics
@@ -48,3 +50,4 @@ Need help? Contact [Datadog support][4].
 [3]: https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv
 [4]: https://docs.datadoghq.com/help/
 [5]: https://www.getambassador.io/docs/latest/topics/running/statistics/#exposing-statistics-via-statsd
+[6]: https://www.getambassador.io/docs/latest/howtos/tracing-datadog/
