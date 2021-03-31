@@ -1,15 +1,14 @@
+import pytest
 
-from typing import Any, Dict
-
-from datadog_checks.base.stubs.aggregator import AggregatorStub
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.jfrog_metrics import JfrogMetricsCheck
 
+CHECK_NAME = 'jfrog_metrics'
 
-def test_check(aggregator, instance):
-    # type: (AggregatorStub, Dict[str, Any]) -> None
-    check = JfrogMetricsCheck('jfrog_metrics', {}, [instance])
-    check.check(instance)
 
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+@pytest.mark.unit
+def test_check_all_metrics(aggregator, mock_agent_data):
+    instance = {'prometheus_url': 'http://localhost:9018/metrics'}
+    c = JfrogMetricsCheck(CHECK_NAME, {}, [instance])
+    c.check(instance)
+    aggregator.assert_metric("jfrog_artifactory.jfrt_runtime_heap_processors_total", count=1, value=6)
+    aggregator.assert_metric("jfrog_artifactory.jfrt_db_connections_active_total", count=1, value=2)

@@ -1,4 +1,3 @@
-
 from codecs import open  # To use a consistent encoding
 from os import path
 
@@ -26,7 +25,6 @@ def get_dependencies():
 
 
 CHECKS_BASE_REQ = 'datadog-checks-base>=11.2.0'
-
 
 setup(
     name='datadog-jfrog_metrics',
