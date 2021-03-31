@@ -1,6 +1,7 @@
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
-EVENT_TYPE = SOURCE_TYPE_NAME = 'jfrog_artifactory'
+from .art_metrics import ART_METRIC_MAP
+from .xray_metrics import XRAY_METRIC_MAP
 
 
 class JfrogMetricsCheck(OpenMetricsBaseCheck):
@@ -8,30 +9,42 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
     Collect metrics from JFrog
     """
 
-    def __init__(self, name, init_config, instances=None):
-        instance = instances[0]
-        endpoint = instance.get('prometheus_url')
-        if endpoint is None:
-            raise ConfigurationError("Unable to find prometheus_url in config file.")
+    def __init__(self, name, init_config, instancetype, instances=None):
 
-        self.NAMESPACE = 'jfrog_artifactory'
-        self.metrics_mapper = {
-            'app_disk_free_bytes': 'app_disk_free_bytes',
-            'app_disk_total_bytes': 'app_disk_total_bytes',
-            'sys_memory_free_bytes': 'sys_memory_free_bytes',
-            'sys_memory_used_bytes': 'sys_memory_used_bytes',
-            'jfrt_runtime_heap_processors_total': 'jfrt_runtime_heap_processors_total',
-            'jfrt_db_connections_active_total': 'jfrt_db_connections_active_total',
-        }
+        if instancetype == 'art':
+            instance = instances[0]
+            endpoint = instance.get('prometheus_url')
+            if endpoint is None:
+                raise ConfigurationError("Unable to find prometheus_url in config file.")
 
-        instance.update(
-            {
-                'prometheus_url': endpoint,
-                'namespace': self.NAMESPACE,
-                'metrics': [self.metrics_mapper],
-                'send_distribution_counts_as_monotonic': instance.get('send_distribution_counts_as_monotonic', True),
-                'send_distribution_sums_as_monotonic': instance.get('send_distribution_sums_as_monotonic', True),
-            }
-        )
+            instance.update(
+                {
+                    'prometheus_url': endpoint,
+                    'namespace': 'jfrog_artifactory',
+                    'metrics': [ART_METRIC_MAP],
+                    'send_distribution_counts_as_monotonic': instance.get(
+                        'send_distribution_counts_as_monotonic', True
+                    ),
+                    'send_distribution_sums_as_monotonic': instance.get('send_distribution_sums_as_monotonic', True),
+                }
+            )
+
+        if instancetype == 'xray':
+            instance = instances[0]
+            endpoint = instance.get('prometheus_url')
+            if endpoint is None:
+                raise ConfigurationError("Unable to find prometheus_url in config file.")
+
+            instance.update(
+                {
+                    'prometheus_url': endpoint,
+                    'namespace': 'jfrog_xray',
+                    'metrics': [XRAY_METRIC_MAP],
+                    'send_distribution_counts_as_monotonic': instance.get(
+                        'send_distribution_counts_as_monotonic', True
+                    ),
+                    'send_distribution_sums_as_monotonic': instance.get('send_distribution_sums_as_monotonic', True),
+                }
+            )
 
         super(JfrogMetricsCheck, self).__init__(name, init_config, [instance])
