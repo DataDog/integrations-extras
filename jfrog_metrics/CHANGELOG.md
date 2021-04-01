@@ -1,2 +1,0 @@
-# CHANGELOG - jfrog_metrics
-
