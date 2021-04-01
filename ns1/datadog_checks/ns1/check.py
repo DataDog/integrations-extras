@@ -9,6 +9,8 @@ from datadog_checks.base import AgentCheck
 
 
 class Ns1Check(AgentCheck):
+    NS1_SERVICE_CHECK = "ns1.can_connect"
+
     def __init__(self, name, init_config, instances):
         # super(Ns1Check, self).__init__(name, init_config, instances)
 
@@ -31,7 +33,7 @@ class Ns1Check(AgentCheck):
         # The following are useful bits of code to help new users get started.
 
         # Use self.instance to read the check configuration
-        # url = self.instance.get("url")
+        url = self.instance.get("url")
 
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
@@ -40,40 +42,12 @@ class Ns1Check(AgentCheck):
         #     response.raise_for_status()
         #     response_json = response.json()
 
-        # except Timeout as e:
-        #     self.service_check(
-        #         "ns1.can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request timeout: {}, {}".format(url, e),
-        #     )
-        #     raise
-
-        # except (HTTPError, InvalidURL, ConnectionError) as e:
-        #     self.service_check(
-        #         "ns1.can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request failed: {}, {}".format(url, e),
-        #     )
-        #     raise
-
-        # except JSONDecodeError as e:
-        #     self.service_check(
-        #         "ns1.can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="JSON Parse failed: {}, {}".format(url, e),
-        #     )
-        #     raise
-
-        # except ValueError as e:
-        #     self.service_check(
-        #         "ns1.can_connect", AgentCheck.CRITICAL, message=str(e)
-        #     )
-        #     raise
+        
 
         # This is how you submit metrics
         # There are different types of metrics that you can submit (gauge, event).
         # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge("test", 1.23, tags=['foo:bar'])
+        self.gauge("test", 1.23, tags=['foo:bar'])
 
         # Perform database queries using the Query Manager
         # self._query_manager.execute()
@@ -90,3 +64,47 @@ class Ns1Check(AgentCheck):
         # self.service_check("ns1.can_connect", AgentCheck.OK)
 
         pass
+
+    def getStats(self, url):
+        try:
+            response = self.http.get(url)
+            response.raise_for_status()
+            response_json = response.json()
+        except Timeout as e:
+            self.service_check(
+                self.NS1_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                message="Request timeout: {}, {}".format(url, e),
+            )
+            raise
+
+        except (HTTPError, InvalidURL, ConnectionError) as e:
+            self.service_check(
+                self.NS1_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                message="Request failed: {}, {}".format(url, e),
+            )
+            raise
+
+        except JSONDecodeError as e:
+            self.service_check(
+                self.NS1_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                message="JSON Parse failed: {}, {}".format(url, e),
+            )
+            raise
+
+        except ValueError as e:
+            self.service_check(
+                self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e)
+            )
+            raise
+        except Exception:
+            self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message = "Error getting stats frmo NS1 DNS")
+            raise
+
+        
+        return response_json
+
+    def SendMetrics(self, metricName, metricValue):
+        self.gauge('ns1.{}'.format(metricName), metricValue)
