@@ -8,12 +8,12 @@ This integration makes it easy for customers to monitor the health and operation
 
 ### Installation
 
-JFrog Metrics Integration uses OpenMetrics check which is included in the [Datadog Agent] [1] package. So, a separate installation is not required
+JFrog Metrics Integration uses OpenMetrics check which is included in the [Datadog Agent][1] package. So, a separate installation is not required
 
 ### Artifactory and Xray Setup
 
-1. [Enable Metrics for Artifactory] [2]
-2. [Create admin access tokens for Artifactory and Xray] [3]
+1. [Enable Metrics for Artifactory][2]
+2. [Create admin access tokens for Artifactory and Xray][3]
 
 ### Datadog Configuration
 
@@ -28,7 +28,7 @@ XRAY_ADMIN_TOKEN              -> Admin token for Xray
 ### Host
 To configure this check for an Agent running on a host:
 
-1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory] [4] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][5] for all available configuration options
+1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory][4] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][5] for all available configuration options
     ```text
     instances:
       - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/artifactory/api/v1/metrics
@@ -54,7 +54,7 @@ To configure this check for an Agent running on a host:
           - queue*
           - sys*
     ```
-2. [Restart the Agent] [6]
+2. [Restart the Agent][6]
 
 ### Containerized
 For containerized environments, see the [Autodiscovery Integration Templates][7] for guidance on applying the parameters specified above.
