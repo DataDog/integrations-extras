@@ -20,7 +20,7 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
             instance.update(
                 {
                     'prometheus_url': endpoint,
-                    'namespace': 'jfrog_artifactory',
+                    'namespace': 'jfrog.artifactory',
                     'metrics': [ART_METRIC_MAP],
                     'send_distribution_counts_as_monotonic': instance.get(
                         'send_distribution_counts_as_monotonic', True
@@ -38,7 +38,7 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
             instance.update(
                 {
                     'prometheus_url': endpoint,
-                    'namespace': 'jfrog_xray',
+                    'namespace': 'jfrog.xray',
                     'metrics': [XRAY_METRIC_MAP],
                     'send_distribution_counts_as_monotonic': instance.get(
                         'send_distribution_counts_as_monotonic', True
