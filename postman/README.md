@@ -2,28 +2,33 @@
 
 ## Overview
 
-[Postman][1] is a collaboration platform for API development. 
-Postman's features simplify each step of building an API and streamline collaboration so you can create better APIs—faster.
-This Integration helps you:
-1. Analyze the metric from the Postman Monitor runs in Datadog
-2. Generate events on each monitor run and failure for you to remain on top of your monitor health
+[Postman][1] is a collaboration platform for API development. It simplifies the steps of building an API and streamlines 
+collaboration so you can create better APIs—faster.
 
+This integration helps you stay on top of your monitors' health. It enables you to:
+
+- Analyze the metrics of Postman Monitor runs in Datadog
+
+- Generate events for successful and failed monitor runs.
 ## Setup
 
 For detailed instructions, follow the [Postman documentation][3].
 
-### Installation
+
 
 
 ### Configuration
 
-1. Generate an API key from the Datadog Integrations > API tab.
-2. Log into your Postman account.
-3. Go to Home > Integrations > Browse All Integrations.
-4. Click on the Datadog Integration.
-5. Choose the Postman Monitor for the metrics that you want to be analyzed.
-6. Choose if you want to send metrics, events or both.
-7. Complete other details and add the Integration to complete the configuration.
+1. Generate a Datadog [API key][6].
+2. Sign in to your Postman account and navigate to the [Datadog integration][7].
+3. Select “Add Integration.”
+4. To send your monitor metrics and events to Datadog:
+- Name your new integration.
+- Select the monitor whose data you would like to send to Datadog.
+- Enter your Datadog API key.
+- Select the Datadog region you would like to use.
+- Optionally choose if you want to send events, metrics or both for each run.
+5. Then select “Add Integration” to finish setting up the integration.
 
 ![Configure Integration][4]
 
@@ -55,3 +60,5 @@ Need help? Contact [Postman Support][2].
 [3]: https://learning.postman.com/docs/integrations/available-integrations/datadog/
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/postman/images/add-integration-datadog.jpeg
 [5]: https://github.com/DataDog/integrations-extras/blob/master/postman/metadata.csv
+[6]: https://app.datadoghq.com/account/settings#api
+[7]: https://getpostman.postman.co/integrations/service/datadog
