@@ -33,4 +33,6 @@ def test_version(aggregator, instance):
     aggregator.assert_metric('redisenterprise.cache_hit_rate', 0.0)
     aggregator.assert_metric('redisenterprise.license_shards', 4.0)
     aggregator.assert_metric('redisenterprise.total_shards_used', 1.0)
+    aggregator.assert_metric('redisenterprise.total_node_count', 1.0)
+    aggregator.assert_metric('redisenterprise.total_active_nodes', 1.0)
     assert len(aggregator._events) > 3
