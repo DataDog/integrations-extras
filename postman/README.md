@@ -3,7 +3,7 @@
 ## Overview
 
 [Postman][1] is a collaboration platform for API development. It simplifies the steps of building an API and streamlines 
-collaboration so you can create better APIs—faster.
+collaboration so you can create better APIs-faster.
 
 This integration helps you stay on top of your monitors' health. It enables you to:
 
