@@ -14,8 +14,11 @@ This integration provides [Redis Enterprise][1] monitoring and metrics for Datad
 
 Redis Enterprise's Datadog integration provides a templated view across your clusters and databases allowing for operational insight unavailable in other products.  Understand usage patterns and plan for growth armed with the data necessary to make informed decisions.
 
-#### Overview
+#### Database Overview
 ![overview](./images/dashboard.png)
+
+#### Cluster Overview
+![overview](./images/datadog_cluster_top_view.png)
 
 #### Redis on Flash
 ![rofdash](./images/ROF_dashboard.png)
