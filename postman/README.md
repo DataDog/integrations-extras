@@ -61,4 +61,4 @@ Need help? Contact [Postman Support][2].
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/postman/images/add-integration-datadog.jpeg
 [5]: https://github.com/DataDog/integrations-extras/blob/master/postman/metadata.csv
 [6]: https://app.datadoghq.com/account/settings#api
-[7]: https://getpostman.postman.co/integrations/service/datadog
+[7]: https://go.postman.co/integrations/service/datadog
