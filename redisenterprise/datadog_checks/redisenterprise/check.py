@@ -53,9 +53,13 @@ class RedisenterpriseCheck(AgentCheck):
             fqdn = self._get_fqdn(host, port, timeout, auth, verifyssl, service_check_tags)
             service_check_tags.append('cluster:{}'.format(fqdn))
 
+            # collect the license data
+            fqdn = self._get_license(host, port, timeout, auth, verifyssl, service_check_tags)
+
             # grab the DBD ID to name mapping
             bdb_dict = self._get_bdb_dict(host, port, timeout, auth, verifyssl, service_check_tags)
             self._get_bdb_stats(host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags)
+            self._shard_usage(bdb_dict, service_check_tags, host)
 
             # collect the events from the API - we set the timeout higher here
             self._get_events(host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags, event_limit)
@@ -85,6 +89,7 @@ class RedisenterpriseCheck(AgentCheck):
         return False
 
     def _api_fetch_json(self, host, port, timeout, auth, verifyssl, endpoint, service_check_tags, params=None):
+        """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/{}'.format(host, port, endpoint)
         r = requests.get(url, auth=auth, headers=headers_sent, timeout=timeout, verify=verifyssl, params=params)
@@ -96,6 +101,7 @@ class RedisenterpriseCheck(AgentCheck):
         return info
 
     def _get_fqdn(self, host, port, timeout, auth, verifyssl, service_check_tags):
+        """ Get the cluster FQDN back from the endpoints """
         info = self._api_fetch_json(host, port, timeout, auth, verifyssl, "cluster", service_check_tags)
         fqdn = info.get('name')
         if fqdn:
@@ -113,14 +119,22 @@ class RedisenterpriseCheck(AgentCheck):
         bdb_dict = {}
         bdbs = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bdbs", service_check_tags)
         for i in bdbs:
+
+            # collect the number of shards and multiply by 2 if replicated
+            shards_used = i['shards_count']
+            if i['replication']:
+                shards_used = shards_used * 2
+
             bdb_dict[i['uid']] = {
                 'name': i['name'],
                 'limit': i['memory_size'],
+                'shards_used': shards_used,
                 'endpoints': len(i['endpoints'][-1]['addr']),
             }
         return bdb_dict
 
     def _get_events(self, host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags, event_limit):
+        """ Scrape the LOG endpoint and put all log entries into Datadog events """
         evnts = self._api_fetch_json(
             host,
             port,
@@ -156,6 +170,7 @@ class RedisenterpriseCheck(AgentCheck):
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
 
     def _get_bdb_stats(self, host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags):
+        """ Collect Enterprise database related stats """
         gauges = [
             'avg_latency',
             'avg_latency_max',
@@ -246,10 +261,12 @@ class RedisenterpriseCheck(AgentCheck):
                 if stats[i]['bigstore_objs_flash'] > 0:
                     self.gauge(
                         'redisenterprise.bigstore_objs_percent',
-                        100 * stats[i]['bigstore_objs_ram'] / (stats[i]['bigstore_objs_ram'] + stats[i]['bigstore_objs_flash']),
+                        100
+                        * stats[i]['bigstore_objs_ram']
+                        / (stats[i]['bigstore_objs_ram'] + stats[i]['bigstore_objs_flash']),
                         tags=tgs + service_check_tags,
                         hostname=host,
-                     )
+                    )
 
             for j in stats[i].keys():
                 if j in gauges:
@@ -257,3 +274,31 @@ class RedisenterpriseCheck(AgentCheck):
                         'redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags, hostname=host
                     )
         return 0
+
+    def _get_license(self, host, port, timeout, auth, verifyssl, service_check_tags):
+        """ Collect Enterprise License Information """
+        stats = self._api_fetch_json(host, port, timeout, auth, verifyssl, "license", service_check_tags)
+        expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
+        now = datetime.now()
+        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags, hostname=host)
+
+        # Check the time remaining on the license as a service check
+        license_check = RedisenterpriseCheck.OK
+        if stats['expired']:
+            license_check = RedisenterpriseCheck.CRITICAL
+        elif (expire - now).days < 7:
+            license_check = RedisenterpriseCheck.WARNING
+        self.service_check(
+            'redisenterprise.license_status',
+            license_check,
+            tags=service_check_tags,
+            hostname=host,
+        )
+
+    def _shard_usage(self, bdb_dict, service_check_tags, host):
+        """ Sum up the number of shards """
+        used = 0
+        for x in bdb_dict.values():
+            used += x['shards_used']
+        self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags, hostname=host)
