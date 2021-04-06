@@ -21,7 +21,7 @@ For detailed instructions, follow the [Postman documentation][3].
 
 1. Generate a Datadog [API key][6].
 2. Sign in to your Postman account and navigate to the [Datadog integration][7].
-3. Select “Add Integration.”
+3. Select "Add Integration."
 4. To send your monitor metrics and events to Datadog:
 - Name your new integration.
 - Select the monitor whose data you would like to send to Datadog.
