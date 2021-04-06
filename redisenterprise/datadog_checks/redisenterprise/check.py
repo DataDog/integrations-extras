@@ -57,7 +57,7 @@ class RedisenterpriseCheck(AgentCheck):
             fqdn = self._get_license(host, port, timeout, auth, verifyssl, service_check_tags)
 
             # collect the node data
-            fqdn = self._get_nodes(host, port, timeout, auth, verifyssl, service_check_tags)
+            self._get_nodes(host, port, timeout, auth, verifyssl, service_check_tags)
 
             # grab the DBD ID to name mapping
             bdb_dict = self._get_bdb_dict(host, port, timeout, auth, verifyssl, service_check_tags)
@@ -310,9 +310,13 @@ class RedisenterpriseCheck(AgentCheck):
         """ Collect Enterprise Node Information """
         stats = self._api_fetch_json(host, port, timeout, auth, verifyssl, "nodes", service_check_tags)
         res = {'total_node_cores': 0, 'total_node_memory': 0, 'total_node_count': 0, 'total_active_nodes': 0}
+
         for i in stats:
             res['total_node_cores'] += i['cores']
             res['total_node_memory'] += i['total_memory']
             res['total_node_count'] += 1
             if i['status'] == "active":
                 res['total_active_nodes'] += 1
+
+        for x in res.keys():
+            self.gauge('redisenterprise.{}'.format(x), res[x], tags=service_check_tags, hostname=host)
