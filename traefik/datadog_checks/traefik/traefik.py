@@ -42,6 +42,11 @@ class TraefikCheck(AgentCheck):
                 else:
                     self.log.warning('Field total_count not found in response.')
 
+                if 'average_response_time_sec' in payload:
+                    self.gauge('traefik.average_response_time_sec', payload['average_response_time_sec'])
+                else:
+                    self.log.warning('Field average_response_time_sec not found in response.')
+
             else:
                 self.service_check(
                     'traefik.health', self.CRITICAL, message='Traefik health check return code is not 200'
