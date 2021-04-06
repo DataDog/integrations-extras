@@ -28,7 +28,7 @@ For detailed instructions, follow the [Postman documentation][3].
 - Enter your Datadog API key.
 - Select the Datadog region you would like to use.
 - Optionally choose if you want to send events, metrics or both for each run.
-5. Then select “Add Integration” to finish setting up the integration.
+5. Then select "Add Integration" to finish setting up the integration.
 
 ![Configure Integration][4]
 
