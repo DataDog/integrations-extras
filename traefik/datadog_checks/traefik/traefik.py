@@ -35,17 +35,17 @@ class TraefikCheck(AgentCheck):
                         self.gauge('traefik.total_status_code_count', count, ['status_code:{}'.format(status_code)])
 
                 else:
-                    self.log.warning('Field total_status_code_count not found in response.')
+                    self.log.debug('Field total_status_code_count not found in response.')
 
                 if 'total_count' in payload:
                     self.gauge('traefik.total_count', payload['total_count'])
                 else:
-                    self.log.warning('Field total_count not found in response.')
+                    self.log.debug('Field total_count not found in response.')
 
                 if 'average_response_time_sec' in payload:
                     self.gauge('traefik.average_response_time_sec', payload['average_response_time_sec'])
                 else:
-                    self.log.warning('Field average_response_time_sec not found in response.')
+                    self.log.debug('Field average_response_time_sec not found in response.')
 
             else:
                 self.service_check(
