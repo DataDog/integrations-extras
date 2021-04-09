@@ -7,4 +7,22 @@ files:
     - template: init_config/default
   - template: instances
     options:
+    - name: api_endpoint
+      required: true
+      description: The URL to check.
+      value:
+        type: string
+        example: https://example.org
+    - name: api_key
+      required: true
+      description: The api authentication key.
+      value:
+        type: string
+        example: test_key_123 
+    - name: metrics
+      required: true
+      description: List of metrics to report to Datadog
+      value:
+        type: string
+        example: qps
     - template: instances/default
