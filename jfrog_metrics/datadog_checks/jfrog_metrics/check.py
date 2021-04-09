@@ -1,8 +1,5 @@
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
-from .art_metrics import ART_METRIC_MAP
-from .xray_metrics import XRAY_METRIC_MAP
-
 
 class JfrogMetricsCheck(OpenMetricsBaseCheck):
     """
@@ -11,7 +8,7 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
 
     def __init__(self, name, init_config, instancetype, instances=None):
 
-        if instancetype == 'art':
+        if instancetype == 'artifactory':
             instance = instances[0]
             endpoint = instance.get('prometheus_url')
             if endpoint is None:
@@ -21,7 +18,7 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
                 {
                     'prometheus_url': endpoint,
                     'namespace': 'jfrog.artifactory',
-                    'metrics': [ART_METRIC_MAP],
+                    'metrics': ['sys*', 'jfrt*', 'app*'],
                     'send_distribution_counts_as_monotonic': instance.get(
                         'send_distribution_counts_as_monotonic', True
                     ),
@@ -39,7 +36,7 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
                 {
                     'prometheus_url': endpoint,
                     'namespace': 'jfrog.xray',
-                    'metrics': [XRAY_METRIC_MAP],
+                    'metrics': ['app*', 'db*', 'go*', 'queue*', 'sys*', 'jfxr*'],
                     'send_distribution_counts_as_monotonic': instance.get(
                         'send_distribution_counts_as_monotonic', True
                     ),

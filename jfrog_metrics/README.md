@@ -53,6 +53,7 @@ To configure this check for an Agent running on a host:
           - go*
           - queue*
           - sys*
+          - jfxr*
     ```
 2. [Restart the Agent][6]
 
