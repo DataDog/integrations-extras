@@ -2,17 +2,17 @@
 
 ## Overview
 
-[Postman][1] is a collaboration platform for API development. It simplifies the steps of building an API and streamlines 
+[Postman][1] is an API platform that simplifies the steps of building an API and streamlines 
 collaboration so you can create better APIs-faster.
 
 This integration helps you stay on top of your monitors' health. It enables you to:
 
-- Analyze the metrics of Postman Monitor runs in Datadog
+- Analyze the metrics of Postman Monitoring runs in Datadog
 
-- Generate events for successful and failed monitor runs.
+- Generate events for successful and failed monitoring runs.
 ## Setup
 
-For detailed instructions, follow the [Postman documentation][3].
+You can find detailed instructions on [Postman's documentation page][3].
 
 
 
