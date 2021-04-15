@@ -1,14 +1,14 @@
-
 from typing import Any
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import OpenMetricsBaseCheck
+
 
 # from datadog_checks.base.utils.db import QueryManager
 # from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 # from json import JSONDecodeError
 
 
-class TidbCheck(AgentCheck):
+class TidbCheck(OpenMetricsBaseCheck):
     def __init__(self, name, init_config, instances):
         # super(TidbCheck, self).__init__(name, init_config, instances)
 
