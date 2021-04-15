@@ -1,5 +1,4 @@
-
 from .__about__ import __version__
-from .check import TidbCheck
+from .check import TiDBCheck
 
-__all__ = ['__version__', 'TidbCheck']
+__all__ = ['__version__', 'TiDBCheck']
