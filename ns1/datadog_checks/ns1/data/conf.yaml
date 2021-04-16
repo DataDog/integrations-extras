@@ -21,8 +21,8 @@ instances:
     ## @param api_key - string - required
     ## The api authentication key.
     #
-    #api_key: svgRdvxF6XpWtqXGBJi7
-    api_key: BgSRwbMc7oiYBf9F9HUi
+    api_key: svgRdvxF6XpWtqXGBJi7
+    #api_key: BgSRwbMc7oiYBf9F9HUi
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
@@ -60,6 +60,18 @@ instances:
     #
     metrics:
       pulsar:
+      # app_id:job_id
+      pulsar_by_app:        
+        - 1xy4sn3: 1xtvhvx
+      # record: record type
+      pulsar_by_record:        
+        - www.dloc1.com: A
+      pulsar_params:
+        period: 30d
+        geo: *
+        asn: *
+        agg: avg        
+
       ddi:
       qps: 
         - dragan.com:
@@ -78,3 +90,16 @@ instances:
           - mail: A
           - test: A
         - dragan2.com:
+      usage_params:
+        period: 30d
+        expand: false
+        networks: *
+        agg: avg
+
+      account:
+        - plan:
+        - zones:
+          - dragan.com
+          - dragan1.com
+          - dragan2.com
+
