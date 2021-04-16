@@ -1,7 +1,5 @@
-
 from codecs import open  # To use a consistent encoding
 from os import path
-
 from setuptools import setup
 
 HERE = path.dirname(path.abspath(__file__))
