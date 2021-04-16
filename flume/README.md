@@ -25,7 +25,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Flume 
 1. Configure the Flume agent to enable JMX by adding the following JVM arguments to your [flume-env.sh][7]: 
 
 ```
-export JAVA_OPTS=”-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=5445 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false”
+export JAVA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=5445 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 
 ```
 
