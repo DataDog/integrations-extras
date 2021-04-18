@@ -17,57 +17,23 @@ def test_config():
 
 
 @pytest.mark.unit
-def test_tidb_metrics(aggregator, instance, mock_audit_metrics):
+def test_metrics(aggregator):
     check = TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
     check.check(MOCK_INSTANCE)
 
-    for metric_name, metric_type in EXPECTED_TIDB_METRICS.items():
+    expected_metrics = dict(EXPECTED_TIDB_METRICS)
+    expected_metrics.update(EXPECTED_PD_METRICS)
+    expected_metrics.update(EXPECTED_TIKV_METRICS)
+
+    for metric_name, metric_type in expected_metrics.items():
         aggregator.assert_metric(metric_name, metric_type=metric_type)
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
-# @pytest.mark.unit
-# def test_pd_metrics(aggregator, instance, mock_controller_metrics):
-#     check = GatekeeperCheck('gatekeeper', {}, [MOCK_INSTANCE])
-#     check.check(MOCK_INSTANCE)
-#
-#     for metric_name, metric_type in EXPECTED_CONTROLLER_METRICS.items():
-#         aggregator.assert_metric(metric_name, metric_type=metric_type)
-#
-#     aggregator.assert_all_metrics_covered()
-#     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#
-#
-# @pytest.mark.unit
-# def test_tikv_metrics(aggregator, instance, mock_controller_metrics):
-#     check = GatekeeperCheck('gatekeeper', {}, [MOCK_INSTANCE])
-#     check.check(MOCK_INSTANCE)
-#
-#     for metric_name, metric_type in EXPECTED_CONTROLLER_METRICS.items():
-#         aggregator.assert_metric(metric_name, metric_type=metric_type)
-#
-#     aggregator.assert_all_metrics_covered()
-#     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-
-
 @pytest.mark.unit
-def test_check(aggregator, instance, mock_audit_metrics):
-    check = TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
-    check.check(MOCK_INSTANCE)
-
-    for check_name in EXPECTED_CHECKS:
-        aggregator.assert_service_check(
-            check_name,
-            status=TiDBCheck.OK,
-            tags=[],
-            count=1,
-        )
-
-
-@pytest.mark.unit
-def test_openmetrics_error(aggregator, instance, error_instance):
+def test_openmetrics_error(aggregator):
     check = TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
     with pytest.raises(Exception):
         check.check(MOCK_INSTANCE)

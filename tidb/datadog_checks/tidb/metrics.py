@@ -21,7 +21,7 @@ PD_METRICS = {
     'pd_regions_status': 'pd.regions_status',
     'pd_hotspot_status': 'pd.hotspot_status',
     'pd_scheduler_region_heartbeat': 'pd.scheduler_region_heartbeat',
-    'pd_scheduler_region_heartbeat_latency_seconds': 'pd.scheduler_region_heartbeat',
+    'pd_scheduler_region_heartbeat_latency_seconds': 'pd.scheduler_region_heartbeat_latency_seconds',
 }
 
 TIKV_METRICS = {

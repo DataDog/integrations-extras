@@ -80,7 +80,27 @@ EXPECTED_TIDB_METRICS = {
     'tidb.tikv_client_backoff_seconds': aggregator.HISTOGRAM,
 }
 
+EXPECTED_PD_METRICS = {
+    'pd.tso_events': aggregator.GAUGE,
+    'pd.cluster_status': aggregator.GAUGE,
+    'pd.grpc_server_handling_seconds': aggregator.HISTOGRAM,
+    'pd.regions_status': aggregator.GAUGE,
+    'pd.hotspot_status': aggregator.GAUGE,
+    'pd.scheduler_region_heartbeat': aggregator.GAUGE,
+    'pd.scheduler_region_heartbeat_latency_seconds': aggregator.HISTOGRAM,
+}
+
+EXPECTED_TIKV_METRICS = {
+    'tikv.raft_store_region_count': aggregator.COUNTER,
+    'tikv.thread_cpu_seconds_total': aggregator.COUNTER,
+    'tikv.engine_size_bytes': aggregator.COUNTER,
+    'tikv.channel_full_total': aggregator.COUNTER,
+    'tikv.server_report_failure_msg_total': aggregator.COUNTER,
+    'tikv.scheduler_context_total': aggregator.COUNTER,
+    'tikv.coprocessor_executor_count': aggregator.COUNTER,
+    'tikv.coprocessor_request_duration_seconds': aggregator.COUNTER,
+}
+
 EXPECTED_CHECKS = {
-    'tidb_cluster.health',
     'tidb_cluster.prometheus.health',
 }
