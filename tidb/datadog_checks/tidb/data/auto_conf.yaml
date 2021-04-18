@@ -1,0 +1,42 @@
+## @param ad_identifiers - list of strings - required
+## A list of container identifiers that are used by Autodiscovery to identify
+## which container the check should be run against. For more information, see:
+## https://docs.datadoghq.com/agent/guide/ad_identifiers/
+#
+ad_identifiers:
+  - pingcap/pd
+  - pingcap/tikv
+  - pingcap/tidb
+  - pingcap/tiflash
+  - pingcap/tidb-binlog
+  - pingcap/ticdc
+  - pingcap/dm
+
+## All options defined here are available to all instances.
+#
+init_config:
+
+## Every instance is scheduled independent of the others.
+#
+instances:
+    ## PD
+    ## @param prometheus_url - string - required
+    ## The URL where your application metrics are exposed by Prometheus.
+    #
+  - prometheus_url: http://%%host%%:2379/metrics
+    # TiDB
+  - prometheus_url: http://%%host%%:10080/metrics
+    # TiKV
+  - prometheus_url: http://%%host%%:20180/metrics
+    # TiFlash Proxy
+  - prometheus_url: http://%%host%%:20292/metrics
+    # TiFlash
+  - prometheus_url: http://%%host%%:8234/metrics
+    # TiCDC
+  - prometheus_url: http://%%host%%:8301/metrics
+    # DM master
+  - prometheus_url: http://%%host%%:8261/metrics
+    # DM worker
+  - prometheus_url: http://%%host%%:8262/metrics
+    # Pump(tidb-binlog)
+  - prometheus_url: http://%%host%%:8250/metrics

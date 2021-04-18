@@ -40,3 +40,9 @@ GO_RUNTIME_METRICS = {
     'process_resident_memory_bytes': 'process_resident_memory_bytes',
     'go_memstats_heap_inuse_bytes': 'go_memstats_heap_inuse_bytes',
 }
+
+# TODO: collect metrics for other components
+TIFLASH_METRICS = {}
+TIDCD_METRICS = {}
+DM_METRICS = {}
+PUMP_METRICS = {}

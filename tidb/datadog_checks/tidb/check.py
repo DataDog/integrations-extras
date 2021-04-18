@@ -1,13 +1,13 @@
-from datadog_checks.base import OpenMetricsBaseCheck
+from datadog_checks.base import OpenMetricsBaseCheck, ConfigurationError
 
 from .metrics import TIDB_METRICS, PD_METRICS, TIKV_METRICS, GO_RUNTIME_METRICS
 
 
 class TiDBCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
+    default_ns = "tidb_cluster"
 
     def __init__(self, name, init_config, instances=None):
-        default_ns = "tidb_cluster"
 
         default_metric_mappers = dict(TIDB_METRICS)
         default_metric_mappers.update(PD_METRICS)
@@ -26,8 +26,9 @@ class TiDBCheck(OpenMetricsBaseCheck):
             'pump': {'prometheus_url': 'http://localhost:8250/metrics'},
         }
 
-        for name, instance in default_instances.iteritems():
+        for name, instance in default_instances.items():
             default_conf = {
+                'namespace': self.default_ns,
                 'metrics': [default_metric_mappers],
                 'send_distribution_sums_as_monotonic': True,
                 'send_distribution_counts_as_monotonic': True,
@@ -36,5 +37,12 @@ class TiDBCheck(OpenMetricsBaseCheck):
             default_instances[name] = instance.update(default_conf)
 
         super(TiDBCheck, self).__init__(
-            name, init_config, instances, default_instances=default_instances, default_namespace=default_ns
+            name, init_config, instances, default_instances=default_instances, default_namespace=self.default_ns
         )
+
+    def check(self, instance):
+        endpoint = instance.get('prometheus_url')
+        if endpoint is None:
+            raise ConfigurationError("Unable to find prometheus_url in config file.")
+
+        self.process(instance)
