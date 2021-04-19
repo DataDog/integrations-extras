@@ -1,3 +1,23 @@
 metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-tidb.pd_client_request_handle_requests_duration_seconds_count,count,,,,Latency of pd client request in seconds,1,gatekeeper,gk.audit_duration.sum
-,,,,,,,,
+tidb.executor_statement_total,count,,,,The total number of statements executed,1,gatekeeper,gk.audit_duration.sum
+tidb.server_query_total,count,,,,The total number of queries,1,gatekeeper,gk.audit_duration.sum
+tidb.server_execute_error_total,count,,,,The total number of execution errors,1,gatekeeper,gk.audit_duration.sum
+tidb.server_connections,gauge,,,,Current number of connections in TiDB server,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_region_err_total,count,,,,The total number of region errors for TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_lock_resolver_actions_total,count,,,,The total number of lock resolver actions for TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.server_handle_query_duration_seconds.count,count,,,,The total number of handled queries in server,1,gatekeeper,gk.audit_duration.sum
+tidb.server_handle_query_duration_seconds.sum,count,,,,The sum of handled query duration in server,1,gatekeeper,gk.audit_duration.sum
+tidb.session_transaction_duration_seconds.count,count,,,,The total number of transactions among every session,1,gatekeeper,gk.audit_duration.sum
+tidb.session_transaction_duration_seconds.sum,count,,,,The sum of transactions duration among every session,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_txn_cmd_duration_seconds.count,count,,,,The total number of transaction commands from TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_txn_cmd_duration_seconds.sum,count,,,,The sum of transaction command duration from TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_backoff_seconds.count,count,,,,The total number of backoffs from TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.tikv_client_backoff_seconds.sum,count,,,,The sum of backoff duration from TiKV client,1,gatekeeper,gk.audit_duration.sum
+tidb.pd_client_request_handle_requests_duration_seconds.count,count,,,,The total number of requests from PD client,1,gatekeeper,gk.audit_duration.sum
+tidb.pd_client_request_handle_requests_duration_seconds.sum,count,,,,The sum of request duration from PD client,1,gatekeeper,gk.audit_duration.sum
+tidb.pd_client_cmd_handle_cmds_duration_seconds.count,count,,,,The total number of commands from PD client,1,gatekeeper,gk.audit_duration.sum
+tidb.pd_client_cmd_handle_cmds_duration_seconds.sum,count,,,,The sum of command duration from PD client,1,gatekeeper,gk.audit_duration.sum
+tidb.domain_load_schema_duration_seconds.count,count,,,,The total number of domain loaded schemas,1,gatekeeper,gk.audit_duration.sum
+tidb.domain_load_schema_duration_seconds.sum,count,,,,The sum of domain schema loading duration,1,gatekeeper,gk.audit_duration.sum
+tidb.go_memstats_heap_inuse_bytes,count,,,,Go runtime inuse memory,1,gatekeeper,gk.audit_duration.sum
+tidb.process_resident_memory_bytes,count,,,,Go runtime process resident memory,1,gatekeeper,gk.audit_duration.sum

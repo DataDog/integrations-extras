@@ -2,6 +2,7 @@ import os
 
 import mock
 import pytest
+
 from datadog_checks.dev import get_docker_hostname, get_here
 
 HERE = get_here()
@@ -14,11 +15,12 @@ TEST_CHECK_NAME = 'tidb_check_test'
 @pytest.fixture()
 def mock_tidb_metrics():
     with mock.patch(
-            'requests.get',
-            return_value=mock.MagicMock(
-                status_code=200, iter_lines=lambda **kwargs: get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
-                headers={'Content-Type': "text/plain"}
-            ),
+        'requests.get',
+        return_value=mock.MagicMock(
+            status_code=200,
+            iter_lines=lambda **kwargs: get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
+            headers={'Content-Type': "text/plain"},
+        ),
     ):
         yield
 
@@ -26,11 +28,12 @@ def mock_tidb_metrics():
 @pytest.fixture()
 def mock_pd_metrics():
     with mock.patch(
-            'requests.get',
-            return_value=mock.MagicMock(
-                status_code=200, iter_lines=lambda **kwargs: get_mock_metrics("mock_pd_metrics.txt").split("\n"),
-                headers={'Content-Type': "text/plain"}
-            ),
+        'requests.get',
+        return_value=mock.MagicMock(
+            status_code=200,
+            iter_lines=lambda **kwargs: get_mock_metrics("mock_pd_metrics.txt").split("\n"),
+            headers={'Content-Type': "text/plain"},
+        ),
     ):
         yield
 
@@ -38,11 +41,12 @@ def mock_pd_metrics():
 @pytest.fixture()
 def mock_tikv_metrics():
     with mock.patch(
-            'requests.get',
-            return_value=mock.MagicMock(
-                status_code=200, iter_lines=lambda **kwargs: get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
-                headers={'Content-Type': "text/plain"}
-            ),
+        'requests.get',
+        return_value=mock.MagicMock(
+            status_code=200,
+            iter_lines=lambda **kwargs: get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
+            headers={'Content-Type': "text/plain"},
+        ),
     ):
         yield
 
