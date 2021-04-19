@@ -49,7 +49,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
    ```shell
    # example
    root@hostname:~# npm list -g --depth=0 | grep 'lighthouse'
-   └── lighthouse@5.6.0
+   |_ lighthouse@5.6.0
    ```
 
    - Install if not (no output from above command):
@@ -83,7 +83,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Google
       ```shell
       # example
       root@hostname:~# npm list -g --depth=0 | grep 'puppeteer'
-      └── puppeteer@1.12.2
+      |_ puppeteer@1.12.2
       ```
 
       + Install if not (no output from above command):
