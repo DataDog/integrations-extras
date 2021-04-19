@@ -12,7 +12,7 @@ coverage:
       default:
         target: 75
         if_ci_failed: error
-      AWS Pricing:
+      AWS_Pricing:
         target: 75
         flags:
         - aws_pricing
@@ -20,14 +20,14 @@ coverage:
         target: 75
         flags:
         - aqua
-      BIND 9:
+      BIND_9:
         target: 75
         flags:
         - bind9
       Cyral:
         target: 75
         flags:
-          - cyral
+        - cyral
       Eventstore:
         target: 75
         flags:
@@ -40,7 +40,7 @@ coverage:
         target: 75
         flags:
         - gnatsd
-      Gnatsd Streaming:
+      Gnatsd_Streaming:
         target: 75
         flags:
         - gnatsd_streaming
@@ -80,15 +80,15 @@ coverage:
         target: 75
         flags:
         - puma
-      Reboot Required:
+      Reboot_Required:
         target: 75
         flags:
         - reboot_required
-      Redis Sentinel:
+      Redis_Sentinel:
         target: 75
         flags:
         - redis_sentinel
-      Riak MDC Replication:
+      Riak_MDC_Replication:
         target: 75
         flags:
         - riak_repl
@@ -136,6 +136,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      jfrog_metrics:
+        target: 75
+        flags:
+        - jfrog_metrics
       nvml:
         target: 75
         flags:
@@ -172,8 +176,8 @@ flags:
   cyral:
     carryforward: true
     paths:
-      - cyral/datadog_checks/cyral
-      - cyral/tests
+    - cyral/datadog_checks/cyral
+    - cyral/tests
   eventstore:
     carryforward: true
     paths:
@@ -194,6 +198,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  jfrog_metrics:
+    carryforward: true
+    paths:
+    - jfrog_metrics/datadog_checks/jfrog_metrics
+    - jfrog_metrics/tests
   kernelcare:
     carryforward: true
     paths:
