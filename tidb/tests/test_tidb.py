@@ -1,42 +1,46 @@
+import pytest
 from datadog_checks.base.errors import CheckException, ConfigurationError
 from datadog_checks.dev.utils import get_metadata_metrics
 
 from datadog_checks.tidb import TiDBCheck
-from .common import *
-
-TEST_CHECK_NAME = 'tidb_check_test'
+from .conftest import TEST_CHECK_NAME
+from .expected import (
+    EXPECTED_TIDB_METRICS,
+    EXPECTED_PD_METRICS,
+    EXPECTED_TIKV_METRICS,
+    EXPECTED_CHECKS,
+)
 
 
 @pytest.mark.unit
-def test_config():
+def test_config(instance):
     with pytest.raises((CheckException, ConfigurationError)):
         TiDBCheck(TEST_CHECK_NAME, {}, [{}])
 
     # this should not fail
-    TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
+    TiDBCheck(TEST_CHECK_NAME, {}, [instance])
 
 
 @pytest.mark.unit
-def test_metrics(aggregator):
-    check = TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
-    check.check(MOCK_INSTANCE)
-
-    expected_metrics = dict(EXPECTED_TIDB_METRICS)
-    expected_metrics.update(EXPECTED_PD_METRICS)
-    expected_metrics.update(EXPECTED_TIKV_METRICS)
-
-    for metric_name, metric_type in expected_metrics.items():
-        aggregator.assert_metric(metric_name, metric_type=metric_type)
-
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+def test_tidb_metrics(aggregator, instance, mock_tidb_metrics):
+    _test_metrics(aggregator, instance, EXPECTED_TIDB_METRICS)
 
 
 @pytest.mark.unit
-def test_openmetrics_error(aggregator):
-    check = TiDBCheck(TEST_CHECK_NAME, {}, [MOCK_INSTANCE])
+def test_pd_metrics(aggregator, instance, mock_pd_metrics):
+    _test_metrics(aggregator, instance, EXPECTED_PD_METRICS)
+
+
+@pytest.mark.unit
+def test_tikv_metrics(aggregator, instance, mock_tikv_metrics):
+    _test_metrics(aggregator, instance, EXPECTED_TIKV_METRICS)
+
+
+@pytest.mark.unit
+def test_openmetrics_error(aggregator, instance):
+    check = TiDBCheck(TEST_CHECK_NAME, {}, [instance])
     with pytest.raises(Exception):
-        check.check(MOCK_INSTANCE)
+        check.check(instance)
 
         for check_name in EXPECTED_CHECKS:
             aggregator.assert_service_check(
@@ -45,3 +49,15 @@ def test_openmetrics_error(aggregator):
                 tags=[],
                 count=1,
             )
+
+
+def _test_metrics(aggregator, instance, expected_metrics):
+    check = TiDBCheck(TEST_CHECK_NAME, {}, [instance])
+    check.check(instance)
+
+    for metric in expected_metrics:
+        aggregator.assert_metric(metric)
+
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_service_check('tidb_cluster.prometheus.health', count=1)
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
