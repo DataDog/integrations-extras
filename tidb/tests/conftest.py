@@ -7,9 +7,9 @@ from datadog_checks.dev import get_docker_hostname, get_here
 
 HERE = get_here()
 HOST = get_docker_hostname()
-TIDB_INSTANCE_PORT = 10080
-INSTANCE_URL = "http://{}:{}/metrics".format(HOST, TIDB_INSTANCE_PORT)
-TEST_CHECK_NAME = 'tidb_check_test'
+TIDB_PORT = 10080
+TIKV_PORT = 20180
+PD_PORT = 2379
 
 
 @pytest.fixture()
@@ -52,8 +52,18 @@ def mock_tikv_metrics():
 
 
 @pytest.fixture(scope="session")
-def instance():
-    return {'prometheus_url': INSTANCE_URL}
+def tidb_instance():
+    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT), 'namespace': 'tidb'}
+
+
+@pytest.fixture(scope="session")
+def tikv_instance():
+    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT), 'namespace': 'tikv'}
+
+
+@pytest.fixture(scope="session")
+def pd_instance():
+    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, PD_PORT), 'namespace': 'pd'}
 
 
 def get_mock_metrics(filename):
