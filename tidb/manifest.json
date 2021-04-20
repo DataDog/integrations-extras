@@ -1,9 +1,9 @@
 {
-  "display_name": "tidb",
+  "display_name": "TiDB",
   "maintainer": "xuyifan02@pingcap.com",
   "manifest_version": "1.0.0",
   "name": "tidb",
-  "metric_prefix": "tidb.",
+  "metric_prefix": "",
   "metric_to_check": "",
   "creates_events": false,
   "short_description": "",
@@ -16,20 +16,29 @@
   ],
   "public_title": "tidb",
   "categories": [
-    ""
+    "data store",
+    "log collection",
+    "autodiscovery"
   ],
   "type": "check",
-  "is_public": false,
+  "is_public": true,
   "integration_id": "tidb",
   "assets": {
     "configuration": {
       "spec": "assets/configuration/spec.yaml"
     },
-    "dashboards": {},
-    "monitors": {},
+    "dashboards": {
+      "tidb_overview":"assets/dashboards/tidb_overview.json"
+    },
+    "monitors": {
+      "test_01": "assets/monitors/monitor_deployments_replicas.json",
+      "test_02": "assets/monitors/monitor_statefulset_replicas.json"
+    },
     "saved_views": {},
     "service_checks": "assets/service_checks.json",
-    "logs": {},
+    "logs": {
+      "source": "tidb"
+    },
     "metrics_metadata": "metadata.csv"
   }
 }

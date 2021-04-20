@@ -1,10 +1,63 @@
-name: tidb
+name: TiDB
 files:
-- name: tidb.yaml
-  options:
-  - template: init_config
+  - name: tidb.yaml
     options:
-    - template: init_config/default
-  - template: instances
+      - template: init_config
+        options:
+          - template: init_config/openmetrics_legacy
+      - template: instances
+        options:
+          - template: instances/openmetrics_legacy
+            overrides:
+              prometheus_url.value.example: http://localhost:2379/metrics
+              namespace.value.example: pd
+#          - template: instances/openmetrics_legacy
+#            overrides:
+#              prometheus_url.value.example: http://localhost:20180/metrics
+#              namespace.value.example: tikv
+#          - template: instances/openmetrics_legacy
+#            overrides:
+#              prometheus_url.value.example: http://localhost:10080/metrics
+#              namespace.value.example: tidb
+      - template: logs
+        example:
+          - type: file
+            path: <LOG_FILE_PATH>
+            source: tidb
+            service: tidb
+          - type: file
+            path: <LOG_FILE_PATH>
+            source: tidb
+            service: pd
+          - type: file
+            path: <LOG_FILE_PATH>
+            source: tidb
+            service: tikv
+  - name: auto_conf.yaml
     options:
-    - template: instances/default
+      - template: ad_identifiers
+        overrides:
+          value.example:
+            - pingcap/pd
+            - pingcap/tikv
+            - pingcap/tidb
+            - pingcap/tiflash
+            - pingcap/tidb-binlog
+            - pingcap/ticdc
+            - pingcap/dm
+      - template: init_config
+        options: [ ]
+      - template: instances
+        options:
+          - template: instances/openmetrics_legacy
+            overrides:
+              prometheus_url.value.example: http://%%host%%:2379/metrics
+              namespace.value.example: pd
+#          - template: instances/openmetrics_legacy
+#            overrides:
+#              prometheus_url.value.example: http://%%host%%:20180/metrics
+#              namespace.value.example: tikv
+#          - template: instances/openmetrics_legacy
+#            overrides:
+#              prometheus_url.value.example: http://%%host%%:10080/metrics
+#              namespace.value.example: tidb
