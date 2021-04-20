@@ -1,0 +1,32 @@
+{
+    "name": "[php_apcu] Detected High Cache Usage.",
+    "type": "query alert",
+    "query": "avg(last_15m):( avg:php_apcu.cache.mem_size{*} / avg:php_apcu.sma.seg_size{*} ) * 100 > 90",
+    "message": "APCu Detected High Cache Usage.",
+    "tags": [
+        "integration:php_apcu"
+    ],
+    "options": {
+        "notify_audit": false,
+        "locked": false,
+        "timeout_h": 0,
+        "new_host_delay": 300,
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "no_data_timeframe": null,
+        "include_tags": true,
+        "thresholds": {
+            "critical": 90,
+            "warning": 80
+        },
+        "threshold_windows": {
+            "trigger_window": "last_15m",
+            "recovery_window": "last_15m"
+        }
+    },
+    "recommended_monitor_metadata": {
+        "description": "Notifies when APCu Detected High Cache Usage"
+    }
+}

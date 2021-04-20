@@ -1,0 +1,136 @@
+{
+    "author_name": "Datadog",
+    "description": "Monitor metrics for machine learning models in production\n\n",
+    "layout_type": "free",
+    "template_variables": [],
+    "title": "Algorithmia",
+    "widgets": [
+        {
+            "definition": {
+                "margin": "small",
+                "sizing": "fit",
+                "type": "image",
+                "url": "/static/images/logos/algorithmia_avatar.svg"
+            },
+            "id": 4922266392096314,
+            "layout": {
+                "height": 12,
+                "width": 12,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "[Algorithmia](https://algorithmia.com/) is an MLOps platform that includes capabilities for data scientists, application developers, and IT operators to deploy, manage, govern, and secure machine learning and other probabilistic models in production.",
+                "font_size": "14",
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 4548784397274440,
+            "layout": {
+                "height": 12,
+                "width": 32,
+                "x": 14,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "Algorithmia Insights is a feature of Algorithmia Enterprise and provides a metrics pipeline that can be used to instrument, measure, and monitor your machine learning models. Use cases for monitoring inference-related metrics from machine learning models include detecting model drift, data drift, model bias, etc.\n\nThis integration allows you to stream **operational metrics** as well as user-defined, **inference-related metrics** from Algorithmia to Kafka to the metrics API in Datadog.",
+                "font_size": "14",
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 1612553724893226,
+            "layout": {
+                "height": 18,
+                "width": 46,
+                "x": 0,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "alert_id": "24564256",
+                "precision": 0,
+                "text_align": "center",
+                "title": "Alert on Algorithm Runtime",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "alert_value",
+                "unit": "auto"
+            },
+            "id": 7822360696272246,
+            "layout": {
+                "height": 18,
+                "width": 50,
+                "x": 48,
+                "y": 19
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "## Inference Metrics\n\nAdditional metrics can include **any user-defined, inference-related metrics** that are specified in Algorithmia by the algorithm developer. User-defined metrics will depend on your specific machine learning framework and use case, but might include values such as prediction probabilities from a regression model in scikit-learn, confidence scores from an image classifier in TensorFlow, or input data from incoming API requests.\n\nInference metrics will appear in Datadog with the prefix `algorithmia.` and can be used in dashboards and monitors.",
+                "font_size": "14",
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "top",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 1385907240436956,
+            "layout": {
+                "height": 22,
+                "width": 46,
+                "x": 0,
+                "y": 32
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "## Operational Metric: Duration of Algorithm Runtime\n\nThe `algorithmia.duration_milliseconds` metric shown above is the amount of compute time that was used by an algorithm run. This is one of the operational metrics included in the default payload from Algorithmia. To help you get started, this integration includes a dashboard and monitor that uses this default metric.",
+                "font_size": "14",
+                "show_tick": true,
+                "text_align": "left",
+                "tick_edge": "top",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 5649788228838550,
+            "layout": {
+                "height": 14,
+                "width": 50,
+                "x": 48,
+                "y": 40
+            }
+        },
+        {
+            "definition": {
+                "alert_id": "24564256",
+                "title": "Duration of Algorithm Runtime",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "alert_graph",
+                "viz_type": "timeseries"
+            },
+            "id": 504676622724550,
+            "layout": {
+                "height": 17,
+                "width": 50,
+                "x": 48,
+                "y": 0
+            }
+        }
+    ]
+}

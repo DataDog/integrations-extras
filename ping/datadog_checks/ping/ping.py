@@ -14,7 +14,7 @@ class PingCheck(AgentCheck):
 
     def _load_conf(self, instance):
         # Fetches the conf
-        timeout = float(instance.get("timeout", 4))
+        timeout = int(instance.get("timeout", 4))
         response_time = instance.get("collect_response_time", False)
         custom_tags = instance.get("tags", [])
 

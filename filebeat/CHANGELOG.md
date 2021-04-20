@@ -1,5 +1,12 @@
 # CHANGELOG - Filebeat Integration
 
+0.3.0
+=====
+
+### Add service check
+
+* [FEATURE] Add [Service check](https://docs.datadoghq.com/developers/service_checks/agent_service_checks_submission/)
+
 0.2.0
 =====
 

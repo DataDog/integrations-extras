@@ -217,6 +217,8 @@ class FilebeatCheckInstanceConfig:
 
 class FilebeatCheck(AgentCheck):
 
+    SERVICE_CHECK_NAME = 'filebeat.can_connect'
+
     METRIC_PREFIX = "filebeat."
 
     def __init__(self, *args, **kwargs):
@@ -282,13 +284,17 @@ class FilebeatCheck(AgentCheck):
         return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
 
     def _gather_http_profiler_metrics(self, config, profiler, normalize_metrics):
+        tags = ["stats_endpoint:{0}".format(config.stats_endpoint)]
         try:
             all_metrics = profiler.gather_metrics()
         except Exception as ex:
             self.log.error("Error when fetching metrics from %s: %s", config.stats_endpoint, ex)
+            self.service_check(
+                self.SERVICE_CHECK_NAME,
+                AgentCheck.CRITICAL,
+                message="Error {0} when hitting {1}".format(ex, config.stats_endpoint),
+            )
             return
-
-        tags = ["stats_endpoint:{0}".format(config.stats_endpoint)]
 
         for action, metrics in iteritems(all_metrics):
             method = getattr(self, action)
@@ -297,3 +303,4 @@ class FilebeatCheck(AgentCheck):
                 if not name.startswith(self.METRIC_PREFIX) and normalize_metrics:
                     name = self.METRIC_PREFIX + name
                 method(name, value, tags)
+        self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
