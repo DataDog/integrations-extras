@@ -16,13 +16,13 @@ JFrog Xray is a continuous security and universal artifact analysis solution tha
 
 JFrog Artifactory’s Metrics API integration with Datadog allows you to send metrics from the Artifactory’s Open Metrics API endpoint to Datadog.  With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory.  Upon setting up the configuration, these metrics are made available as out-of-the-box dashboards within the Datadog UI and may be used to enhance existing dashboards within Datadog.
 
-![artifactory](./images/Artifactory_dashboard.png)
+![artifactory][11]
 
 ### JFrog Xray Metrics API Dashboard
 
 JFrog Xray Metrics API integration with Datadog allows you to send metrics from the Xray Metrics API to Datadog.  With this integration, you can gain insights into JFrog Xray’s system performance, as well as, insights into the count and type of artifacts and components scanned by Xray.  Upon setting up the configuration, these metrics are made available as out-of-the-box dashboards within the Datadog UI and may be used to enhance existing dashboards within Datadog.
 
-![xray](./images/xray_dashboard.png)
+![xray][12]
 
 ## Setup
 
@@ -104,3 +104,5 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_metrics/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_metrics/images/Artifactory_dashboard.png
+[12]:  https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_metrics/images/xray_dashboard.png
