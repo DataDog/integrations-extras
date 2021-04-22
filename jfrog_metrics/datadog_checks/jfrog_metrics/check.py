@@ -6,10 +6,11 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
     Collect metrics from JFrog
     """
 
-    def __init__(self, name, init_config, instancetype, instances=None):
+    def __init__(self, name, init_config, instances=None):
 
+        instance = instances[0]
+        instancetype = instance.get('instance_type')
         if instancetype == 'artifactory':
-            instance = instances[0]
             endpoint = instance.get('prometheus_url')
             if endpoint is None:
                 raise ConfigurationError("Unable to find prometheus_url in config file.")
@@ -27,7 +28,6 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
             )
 
         if instancetype == 'xray':
-            instance = instances[0]
             endpoint = instance.get('prometheus_url')
             if endpoint is None:
                 raise ConfigurationError("Unable to find prometheus_url in config file.")

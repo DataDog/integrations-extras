@@ -7,6 +7,12 @@ files:
           - template: init_config/openmetrics_legacy
       - template: instances
         options:
+          - name: instance_type
+            description: instance type to use for artifactory or xray
+            required: true
+            value:
+              type: string
+              example: artifactory
           - template: instances/openmetrics_legacy
             overrides:
               prometheus_url.value.example: http://localhost:80/artifactory/api/v1/metrics
