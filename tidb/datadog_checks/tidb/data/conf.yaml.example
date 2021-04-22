@@ -45,15 +45,23 @@ init_config:
 #
 instances:
 
+    ## PD instance
+  - prometheus_url: http://localhost:2379/metrics
+    namespace: pd
+
+    ## TiKV instance
+  - prometheus_url: http://localhost:20180/metrics
+    namespace: tikv
+
     ## @param prometheus_url - string - required
     ## The URL where your application metrics are exposed by Prometheus.
     #
-  - prometheus_url: http://localhost:2379/metrics
+  - prometheus_url: http://localhost:10080/metrics
 
-    ## @param prometheus_metrics_prefix - string - optional
-    ## Removes a given <PREFIX> from exposed Prometheus metrics.
+    ## @param namespace - string - required
+    ## The namespace to be prepended to all metrics. Could be tidb/pd/tikv/tiflash/ticdc, etc.
     #
-    # prometheus_metrics_prefix: <PREFIX>_
+    namespace: tidb
 
     ## @param health_service_check - boolean - optional - default: true
     ## Send a service check reporting about the health of the Prometheus endpoint.
@@ -98,7 +106,6 @@ instances:
 
     ## @param send_distribution_buckets - boolean - optional - default: false
     ## Set `send_distribution_buckets` to `true` to send histograms as Datadog distribution metrics.
-    ##
     ## Learn more about distribution metrics: https://docs.datadoghq.com/developers/metrics/distributions/
     #
     # send_distribution_buckets: false
