@@ -2,7 +2,7 @@
 
 ## Overview
 
-N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS) and Microsoft Azure. N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS and Azure.
+N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS). N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS.
 
 Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts, 
 and more by Datadog monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
@@ -38,9 +38,8 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 5.	##### Get N2WS dashboards
     In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
-    You will get 5 types of dashboards to your account, 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.0 (includes Azure):
-    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for version 3.2.1
-	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0' and 'N2WSBackup&Recovery-GraphicalVersionV4.0' for version 4.0
+    You will get 3 types of dashboards to your account:
+    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-Squaresdashboard'.
  
     Alternatively users can [import JSON templates from N2WS][4].
 
@@ -50,11 +49,11 @@ and more by Datadog monitoring service. This integration allows users to monitor
 Datadog collects the following data about N2WS Backup & Recovery backups:
 
 - The number of snapshots of each type
-- Successful backups (AWS only)
-- Failed backups (AWS only)
-- Partially successful backups (AWS only)
+- Successful backups
+- Failed backups
+- Partially successful backups
 - Protected resources from any type
-- Data about volume capacity (AWS only), alerts, etc.
+- Data about volume capacity, alerts, etc.
 
 ### Metrics
 
