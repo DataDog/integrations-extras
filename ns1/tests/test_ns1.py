@@ -1,17 +1,93 @@
-from typing import Any, Dict
+import json
+
 import pytest
-from datadog_checks.base.stubs.aggregator import AggregatorStub
-from datadog_checks.dev.utils import get_metadata_metrics
-from datadog_checks.ns1 import Ns1Check
+
 from datadog_checks.base import ConfigurationError
+from datadog_checks.ns1 import Ns1Check
 
 
-def test_check(aggregator, instance_empty):
-    # type: (AggregatorStub, Dict[str, Any]) -> None
+def test_empty_instance(aggregator, instance_empty):
     check = Ns1Check('ns1', {}, [instance_empty])
-    # check.check(instance)
     with pytest.raises(ConfigurationError):
-        check.check(instance_empty)
+        check.checkConfig()
 
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+def test_config(aggregator, instance):
+    check = Ns1Check('ns1', {}, [instance])
+    check.checkConfig()
+    assert check.api_endpoint is not None
+
+
+def test_no_metrics(aggregator, instance_nometrics):
+    check = Ns1Check('ns1', {}, [instance_nometrics])
+    with pytest.raises(ConfigurationError):
+        check.checkConfig()
+
+    # aggregator.assert_all_metrics_covered()
+    # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+
+def test_parse_metrics(aggregator, instance):
+    check = Ns1Check('ns1', {}, [instance])
+    check.checkConfig()
+    metric = instance["metrics"]
+    print(metric)
+    assert len(metric) > 0
+    assert check.api_endpoint is not None
+    # raise AssertionError("not error")
+
+
+def test_url_gen(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    checkUrl = check.createUrl(check.metrics)
+
+    assert len(checkUrl) > 0
+    assert check.api_endpoint is not None
+
+
+USAGE_RESULT = """
+[
+    {
+        "jobs": 1,
+        "graph": [
+            [
+                1619217000,
+                1408
+            ],
+            [
+                1619218800,
+                1410
+            ],
+            [
+                1619220600,
+                758
+            ]
+        ],
+        "period": "1h",
+        "zones": 8,
+        "records": 23,
+        "queries": 3576,
+        "feeds": 3
+    }
+]
+"""
+
+
+def test_usage_count(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    # checkUrl = check.createUrl(check.metrics)
+    check.usage_count = {"test": [0, 0]}
+    usage = check.extractUsageCount("test", json.loads(USAGE_RESULT))
+
+    assert usage == 758
+    assert check.usage_count["test"] == [1619220600, 758]
+
+
+def test_read_prev_usage_count(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    check.getUsageCount()
+
+    assert check.usage_count["usage"] == [0, 0]

@@ -58,6 +58,16 @@ instances:
     ## Datadog - a Filebeat metric reported by the HTTP profiler will only be reported
     ## if it matches at least one of those regexes.
     #
+    metrics_query_params:
+      usage:
+        period: 1h
+        expand: False
+        networks: "*"
+      pulsar:
+        period: 30d
+        geo: "*"
+        asn: "*"
+        agg: avg 
     metrics:
       pulsar:
       # app_id:job_id
@@ -66,40 +76,22 @@ instances:
       # record: record type
       pulsar_by_record:        
         - www.dloc1.com: A
-      pulsar_params:
-        period: 30d
-        geo: *
-        asn: *
-        agg: avg        
-
       ddi:
       qps: 
-        - dragan.com:
+        - dloc.com:
           - www: A
-          - mail: A
-          - test: A
-        - dragan1.com:
+        - dloc1.com:
           - www: A
-          - mail: A
-          - test: A
-        - dragan2.com:
+        - dloc2.com:
       usage: 
-        - dragan.com:
-        - dragan1.com:
+        - dloc.com:
+        - dloc1.com:
           - www: A
-          - mail: A
-          - test: A
-        - dragan2.com:
-      usage_params:
-        period: 30d
-        expand: false
-        networks: *
-        agg: avg
-
+        - dloc2.com:
       account:
         - plan:
         - zones:
-          - dragan.com
-          - dragan1.com
-          - dragan2.com
+          - dloc.com
+          - dloc1.com
+          - dloc2.com
 

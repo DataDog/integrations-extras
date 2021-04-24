@@ -1,15 +1,20 @@
 # from typing import Any
-from datadog_checks.base import AgentCheck, ConfigurationError
-from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+import errno
 import json
+import os
+
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+
+from datadog_checks.base import AgentCheck, ConfigurationError
 
 
 class Ns1Check(AgentCheck):
     NS1_SERVICE_CHECK = "ns1.can_connect"
 
     # def __init__(self, name, init_config, instances):
+    #     super(Ns1Check, self).__init__(name, init_config, instances)
+    # def __init__(self, name, init_config, instances):
     # super(Ns1Check, self).__init__(name, init_config, instances)
-
     # If the check is going to perform SQL queries you should define a query manager here.
     # More info at
     # https://datadoghq.dev/integrations-core/base/databases/#datadog_checks.base.utils.db.core.QueryManager
@@ -22,74 +27,95 @@ class Ns1Check(AgentCheck):
     # }
     # self._query_manager = QueryManager(self, self.execute_query, queries=[sample_query])
     # self.check_initializations.append(self._query_manager.compile_queries)
-
     # pass
+    def checkConfig(self):
+        self.api_endpoint = self.instance.get("api_endpoint")
+        if not self.api_endpoint:
+            raise ConfigurationError('NS1 API endpoint must be specified in configuration')
+        self.api_key = self.instance.get("api_key")
+        if not self.api_key:
+            raise ConfigurationError('NS1 API key must be specified in configuration')
+        self.headers = {"X-NSONE-Key": self.api_key}
+
+        self.metrics = self.instance.get("metrics")
+        if not self.metrics or len(self.metrics) == 0:
+            raise ConfigurationError('Invalid metrics config!')
 
     def check(self, instance):
         # Use self.instance to read the check configuration
+        self.checkConfig()
+        self.getUsageCount()
 
-        self.api_endpoint = self.instance.get("api_endpoint")
-        if not self.api_endpoint:
-            raise ConfigurationError('NS1 API endpoint must be sepcified in configuration')
-        self.api_key = self.instance.get("api_key")
-        self.headers = {"X-NSONE-Key": self.api_key}
+        # create URLs to query API for all configured metrics
+        checkUrl = self.createUrl(self.metrics)
 
-        metrics = self.instance.get("metrics")
-        if len(metrics) == 0 or len(metrics) < 4:
-            raise ConfigurationError('Invalid metrics config!')
-
-        checkUrl = {}
-        for key, val in metrics.items():
-            if key == "qps":
-                checkUrl.update(self.getStatsUrl(key, val))  # append dictionary
-            elif key == "usage":
-                checkUrl.update(self.getStatsUrl(key, val))  # append dictionary
-            elif key == "account":
-                checkUrl.update(self.getZonesUrl(key, val))  # append dictionary
-                checkUrl.update(self.getPlanUrl(key, val))  # append dictionary
-            elif key == "pulsar_by_app":
-                checkUrl.update(self.getPulsarAppUrl(key, val))  # append dictionary
-            elif key == "pulsar_by_record":
-                checkUrl.update(self.getPulsarRecordUrl(key, val))  # append dictionary
-
-        # QPS and Usage stats
+        # Query API to get metrics
         for k, v in checkUrl.items():
-            # for u in checkUrl:
             try:
                 res = self.getStats(v)
                 if res:
+                    # extract metric from API result
                     val = self.extractMetric(k, res)
-                else:
-                    # should maybe throw exception?
-                    val = 0.0
-                self.sendMetrics(k, val)
+
+                    # send metric to datadog
+                    self.sendMetrics(k, val)
             except Exception:
                 raise
+        self.setUsageCount()
 
-        # account limits and zone info
-        accUrl = {}
+    def getUsageCount(self):
+        try:
+            fpath = "/opt/datadog-agent/log"
+            os.makedirs(fpath)
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+        fname = 'ns1_usage_count.txt'
+        fullname = os.path.join(fpath, fname)
+
+        self.usage_count = {"usage": [0, 0]}
+        if os.path.isfile(fullname):
+            with open(fullname, 'r+') as f:
+                self.usage_count = json.load(f)
+        else:
+            with open(fullname, 'w+') as f:
+                json.dump(self.usage_count, f)
+
+    def setUsageCount(self):
+
+        fullname = '/opt/datadog-agent/log/ns1_usage_count.txt'
+
+        if os.path.isfile(fullname):
+            with open(fullname, 'w+') as f:
+                json.dump(self.usage_count, f)
+
+    def createUrl(self, metrics):
+        # create dictionary with metrics name and url to check for all configured metrics in conf.yaml file
+        checkUrl = {}
         for key, val in metrics.items():
-            if key == "account":
-                accUrl.update(self.getZonesUrl(key, val))  # append dictionary
-                accUrl.update(self.getPlanUrl(key, val))  # append dictionary
-        # pulsar
-        # DDI
+            if key == "qps":
+                checkUrl.update(self.getStatsUrl(key, val))
+            elif key == "usage":
+                checkUrl.update(self.getStatsUrl(key, val))
+            elif key == "account":
+                checkUrl.update(self.getZoneInfoUrl(key, val))
+                checkUrl.update(self.getPlanDetailsUrl(key, val))
+            # elif key == "pulsar_by_app":
+            #     checkUrl.update(self.getPulsarAppUrl(key, val))
+            # elif key == "pulsar_by_record":
+            #     checkUrl.update(self.getPulsarRecordUrl(key, val))
 
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check("ns1.can_connect", AgentCheck.OK)
-
-        # pass
+        return checkUrl
 
     def extractMetric(self, key, result):
-        # APis are returning different data structures, extract values depending on which API was called
+        # Various NS1 APis are returning different data structures, extract values depending on which API was called
         try:
             if "qps" in key:
                 qps = result["qps"]
                 return qps
             elif "usage" in key:
-                queries = result[0]["queries"]
+                # result[0]["queries"]
+                queries = self.extractUsageCount(key, result)
                 return queries
             elif "plan" in key:
                 queries = result["included"]["any"]["queries"]
@@ -105,7 +131,29 @@ class Ns1Check(AgentCheck):
                 return queries
         except Exception:
             raise
-            # return None
+
+    def extractUsageCount(self, key, jsonResult):
+        graph = jsonResult[0]["graph"]
+        # usage api will return array of dictionaries, we want to get 'graph' object
+        # which in turh is list of lists, each element being [timestamp, query_count]
+        # so, get last query count from result. Sort by timestamp descending order to make sure we get latest
+        res = sorted(graph, key=lambda x: x[0], reverse=True)
+        print(res)
+        curr_timestamp = res[0][0]
+        curr_count = res[0][1]
+        # find this metric in usage count
+        if key in self.usage_count:
+            prev_timestamp = self.usage_count[key][0]
+            prev_count = self.usage_count[key][1]
+            if curr_timestamp == prev_timestamp:
+                self.usage_count[key] = [prev_timestamp, curr_count]
+                return curr_count - prev_count
+            else:
+                self.usage_count[key] = [curr_timestamp, curr_count]
+                return curr_count
+        else:
+            self.usage_count[key] = [curr_timestamp, curr_count]
+            return curr_count
 
     def extractRecordsTtl(self, jsonResult):
         zoneTtl = {}
@@ -113,21 +161,18 @@ class Ns1Check(AgentCheck):
             zoneTtl[zone["domain"]] = zone["ttl"]
         return zoneTtl
 
+    # generate url for QPS and usages statistics
+    # returns dictionary in form of <metric name>:<metric url>}
     def getStatsUrl(self, key, val):
-        urlList = {}  # dictionary in form of <metric name>:<metric url>}
-        suffix = ""
-        if key == "qps":
-            suffix = ""
-        elif key == "usage":
-            suffix = "?period=1h&expand=false&networks=*"
-        elif key == "pulsar":
-            suffix = ""
-        elif key == "ddi":
-            suffix = ""
+        urlList = {}
 
-        # just get account wide stats
-        # url = "%s/v1/stats/%s%s" % (self.api_endpoint, key, suffix)
-        url = "{apiendpoint}/v1/stats/{key}{suffix}".format(apiendpoint=self.api_endpoint, key=key, suffix=suffix)
+        if key == "usage":
+            query_string = "?period=1h&expand=false&networks=*"
+        else:
+            query_string = ""
+
+        # first get account wide stats
+        url = "{apiendpoint}/v1/stats/{key}{suffix}".format(apiendpoint=self.api_endpoint, key=key, suffix=query_string)
         urlList[key] = url
 
         if val:
@@ -135,11 +180,9 @@ class Ns1Check(AgentCheck):
                 # zone is again dictionary, with zone name as key and records as list of objects
                 for domain, records in zoneDict.items():
                     # here, domain is zone name, records is list of records and record types
-                    # url = "%s/v1/stats/%s/%s%s" % (self.api_endpoint, key, domain, suffix)
                     url = "{apiendpoint}/v1/stats/{key}/{domain}{suffix}".format(
-                        apiendpoint=self.api_endpoint, key=key, domain=domain, suffix=suffix
+                        apiendpoint=self.api_endpoint, key=key, domain=domain, suffix=query_string
                     )
-                    # urlList["%s.%s" % (key, domain)] = url
                     urlList["{key}.{domain}".format(key=key, domain=domain)] = url
 
                     if records:
@@ -151,7 +194,7 @@ class Ns1Check(AgentCheck):
                                     domain=domain,
                                     record=r + "." + domain,
                                     rectype=t,
-                                    suffix=suffix,
+                                    suffix=query_string,
                                 )
                                 urlkey = "{key}.{domain}.{record}.{rectype}".format(
                                     key=key, domain=domain, record=r, rectype=t
@@ -159,7 +202,7 @@ class Ns1Check(AgentCheck):
                                 urlList[urlkey] = url
         return urlList
 
-    def getZonesUrl(self, key, val):
+    def getZoneInfoUrl(self, key, val):
         urlList = {}  # dictionary in form of <metric name>:<metric url>}
 
         if val:
@@ -174,8 +217,8 @@ class Ns1Check(AgentCheck):
                             urlList["{key}.zones.{domain}".format(key=key, domain=domain)] = url
         return urlList
 
-    def getPlanUrl(self, key, val):
-        urlList = {}  # dictionary in form of <metric name>:<metric url>}
+    def getPlanDetailsUrl(self, key, val):
+        urlList = {}
 
         # just get account plan limits
         url = "{apiendpoint}/v1/account/plan".format(apiendpoint=self.api_endpoint)
@@ -185,10 +228,43 @@ class Ns1Check(AgentCheck):
 
     def getPulsarAppUrl(self, key, val):
 
-        urlList = {}  # dictionary in form of <metric name>:<metric url>}
+        urlList = {}
 
-        # just get account plan limits
-        url = "{apiendpoint}/v1/account/plan".format(apiendpoint=self.api_endpoint)
+        # pulsar aggregate performance data
+        # https://{{api_url}}/v1/pulsar/apps/{{pulsar_app_id}}/jobs/{{pulsar_job_id}}/data?period=30s
+        url = "{apiendpoint}/v1/pulsar/apps/{pulsar_app_id}/jobs/{pulsar_job_id}/data".format(
+            apiendpoint=self.api_endpoint, pulsar_app_id=0, pulsar_job_id=0
+        )
+        # pulsar availability data
+        # https://{{api_url}}/v1/pulsar/apps/{{pulsar_app_id}}/jobs/{{pulsar_job_id}}/availability?period=3s&agg=p50&expand=true
+        url = "{apiendpoint}/v1/pulsar/apps/{pulsar_app_id}/jobs/{pulsar_job_id}/availability".format(
+            apiendpoint=self.api_endpoint, pulsar_app_id=0, pulsar_job_id=0
+        )
+
+        # pulsar decisions account wide
+        # https://{{api_url}}/v1/pulsar/query/decision/customer?period=3d
+        url = "{apiendpoint}/v1/pulsar/query/decision/customer".format(apiendpoint=self.api_endpoint)
+
+        # pulsar insufficient decision data for account
+        # https://{{api_url}}/v1/pulsar/query/decision/customer/undetermined?period=3d
+        url = "{apiendpoint}/v1/pulsar/query/decision/customer/undetermined".format(apiendpoint=self.api_endpoint)
+
+        # pulsar decisions for record
+        # https://{{api_url}}/v1/pulsar/query/decision/record/{{record_name}}/{{record_type}}?period=30d
+        url = "{apiendpoint}/v1/pulsar/query/decision/record/{pulsar_record}/{record_type}".format(
+            apiendpoint=self.api_endpoint, pulsar_record=0, record_type=0
+        )
+
+        # pulsar all route maps
+        # https://{{api_url}}/v1/pulsar/query/routemap/hit/customer?period=30d
+        url = "{apiendpoint}/v1/pulsar/query/routemap/hit/customer".format(apiendpoint=self.api_endpoint)
+
+        # View route map misses by record
+        # https://{{api_url}}/v1/pulsar/query/routemap/miss/record/{{record_name}}/{{record_type}}?period=30d
+        url = "{apiendpoint}/v1/pulsar/query/routemap/miss/record/{record_name}/{record_type}".format(
+            apiendpoint=self.api_endpoint, record_name=0, record_type=0
+        )
+
         urlList["{key}.plan".format(key=key)] = url
 
         return urlList
