@@ -41,6 +41,9 @@ class Ns1Check(AgentCheck):
         if not self.metrics or len(self.metrics) == 0:
             raise ConfigurationError('Invalid metrics config!')
 
+        self.usage_count_path = "/opt/datadog-agent/log"
+        self.usage_count_fname = 'ns1_usage_count.txt'
+
     def check(self, instance):
         # Use self.instance to read the check configuration
         self.checkConfig()
@@ -49,29 +52,32 @@ class Ns1Check(AgentCheck):
         # create URLs to query API for all configured metrics
         checkUrl = self.createUrl(self.metrics)
 
-        # Query API to get metrics
         for k, v in checkUrl.items():
             try:
-                res = self.getStats(v)
+                url = v[0]
+                name = v[1]
+                tags = v[2]
+                # Query API to get metrics
+                res = self.getStats(url)
                 if res:
                     # extract metric from API result
                     val = self.extractMetric(k, res)
 
                     # send metric to datadog
-                    self.sendMetrics(k, val)
+                    # self.sendMetrics(k, val)
+                    self.sendMetrics(name, val, tags)
             except Exception:
                 raise
         self.setUsageCount()
 
     def getUsageCount(self):
+
         try:
-            fpath = "/opt/datadog-agent/log"
-            os.makedirs(fpath)
+            os.makedirs(self.usage_count_path)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
-        fname = 'ns1_usage_count.txt'
-        fullname = os.path.join(fpath, fname)
+        fullname = os.path.join(self.usage_count_path, self.usage_count_fname)
 
         self.usage_count = {"usage": [0, 0]}
         if os.path.isfile(fullname):
@@ -97,9 +103,9 @@ class Ns1Check(AgentCheck):
                 checkUrl.update(self.getStatsUrl(key, val))
             elif key == "usage":
                 checkUrl.update(self.getStatsUrl(key, val))
-            elif key == "account":
-                checkUrl.update(self.getZoneInfoUrl(key, val))
-                checkUrl.update(self.getPlanDetailsUrl(key, val))
+            # elif key == "account":
+            #     checkUrl.update(self.getZoneInfoUrl(key, val))
+            #     checkUrl.update(self.getPlanDetailsUrl(key, val))
             # elif key == "pulsar_by_app":
             #     checkUrl.update(self.getPulsarAppUrl(key, val))
             # elif key == "pulsar_by_record":
@@ -168,24 +174,35 @@ class Ns1Check(AgentCheck):
 
         if key == "usage":
             query_string = "?period=1h&expand=false&networks=*"
+            metric_name = "usage"
+            metric_zone = "usage.zone"
+            metric_record = "usage.record"
         else:
             query_string = ""
+            metric_name = "qps"
+            metric_zone = "qps.zone"
+            metric_record = "qps.record"
 
         # first get account wide stats
         url = "{apiendpoint}/v1/stats/{key}{suffix}".format(apiendpoint=self.api_endpoint, key=key, suffix=query_string)
-        urlList[key] = url
+        # tags=["env:dev","metric_submission_type:count"]
+        tags = ["network:*"]
+        urlList[key] = [url, metric_name, tags]
 
         if val:
             for zoneDict in val:
                 # zone is again dictionary, with zone name as key and records as list of objects
+                # metric_name=metric_name + ".zone"
                 for domain, records in zoneDict.items():
                     # here, domain is zone name, records is list of records and record types
                     url = "{apiendpoint}/v1/stats/{key}/{domain}{suffix}".format(
                         apiendpoint=self.api_endpoint, key=key, domain=domain, suffix=query_string
                     )
-                    urlList["{key}.{domain}".format(key=key, domain=domain)] = url
+                    tags = ["network:*", "zone:{zone}".format(zone=domain)]
+                    urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags]
 
                     if records:
+                        # metric_name=metric_name + ".record"
                         for rec in records:
                             for r, t in rec.items():
                                 url = "{apiendpoint}/v1/stats/{key}/{domain}/{record}/{rectype}{suffix}".format(
@@ -196,10 +213,15 @@ class Ns1Check(AgentCheck):
                                     rectype=t,
                                     suffix=query_string,
                                 )
+                                tags = [
+                                    "network:*",
+                                    "zone:{zone}".format(zone=domain),
+                                    "record:{record}".format(record=r),
+                                ]
                                 urlkey = "{key}.{domain}.{record}.{rectype}".format(
                                     key=key, domain=domain, record=r, rectype=t
                                 )
-                                urlList[urlkey] = url
+                                urlList[urlkey] = [url, metric_record, tags]
         return urlList
 
     def getZoneInfoUrl(self, key, val):
@@ -341,11 +363,11 @@ class Ns1Check(AgentCheck):
             self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats frmo NS1 DNS")
             raise
 
-    def sendMetrics(self, metricName, metricValue):
+    def sendMetrics(self, metricName, metricValue, tags):
         if isinstance(metricValue, dict):
             for k, v in metricValue.items():
                 # urlList["{key}.zones.{domain}"] = url
                 # zoneTtl[zone["domain"]] = zone["ttl"]
                 self.gauge('ns1.{name}.{record}'.format(name=metricName, record=k), v)
         else:
-            self.gauge('ns1.{}'.format(metricName), metricValue)
+            self.gauge('ns1.{}'.format(metricName), metricValue, tags)

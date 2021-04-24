@@ -44,6 +44,8 @@ def test_url_gen(aggregator, instance_1):
 
     assert len(checkUrl) > 0
     assert check.api_endpoint is not None
+    assert checkUrl["qps"][0] == "https://my.nsone.net/v1/stats/qps"
+    assert checkUrl["qps.test.com"][0] == "https://my.nsone.net/v1/stats/qps/test.com"
 
 
 USAGE_RESULT = """
@@ -88,6 +90,8 @@ def test_usage_count(aggregator, instance_1):
 def test_read_prev_usage_count(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     check.checkConfig()
+    check.usage_count_path = "./log"
+    check.usage_count_fname = 'ns1_usage_count.txt'
     check.getUsageCount()
 
     assert check.usage_count["usage"] == [0, 0]
