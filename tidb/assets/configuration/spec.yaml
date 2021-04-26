@@ -7,19 +7,69 @@ files:
           - template: init_config/openmetrics_legacy
       - template: instances
         options:
-          - name: prometheus_url
+          - name: pd_metric_url
             required: true
-            description: The URL where your application metrics are exposed by Prometheus.
+            description: The URL where PD metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:2379/metrics
+          - name: pd_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default PD metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all PD metrics, add `pd*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tidb_metric_url
+            required: true
+            description: The URL where TiDB metrics are exposed by Prometheus.
             value:
               type: string
               example: http://localhost:10080/metrics
-          - name: namespace
+          - name: tidb_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default TiDB metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all TiDB metrics, add `tidb*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tikv_metric_url
             required: true
-            description: The namespace to be prepended to all metrics. Could be tidb/pd/tikv/tiflash/ticdc, etc.
+            description: The URL where TiKV metrics are exposed by Prometheus.
             value:
               type: string
-              example: tidb
-          - name: metrics
+              example: http://localhost:20180/metrics
+          - name: tikv_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default TiKV metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all TiKV metrics, add `tikv*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tiflash_proxy_metric_url
+            description: The URL where TiFlash Proxy metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:20292/metrics
+          - name: tiflash_proxy_customized_metrics
             hidden: true
             description: |
               List of metrics to be fetched from the prometheus endpoint, if there's a
@@ -27,9 +77,87 @@ files:
             value:
               type: array
               example:
-                - processor:cpu
-                - memory:mem
-                - io
+                - tiflash*
+              items:
+                type: string
+          - name: tiflash_metric_url
+            description: The URL where TiFlash metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:8234/metrics
+          - name: tiflash_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - tiflash*
+              items:
+                type: string
+          - name: ticdc_metric_url
+            description: The URL where TiCDC Proxy metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:8301/metrics
+          - name: ticdc_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - ticdc*
+              items:
+                type: string
+          - name: dm_master_metric_url
+            description: The URL where DM master metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:8261/metrics
+          - name: dm_master_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - dm*
+              items:
+                type: string
+          - name: dm_worker_metric_url
+            description: The URL where DM worker metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:8262/metrics
+          - name: dm_worker_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - dm*
+              items:
+                type: string
+          - name: pump_metric_url
+            description: The URL where Pump metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://localhost:8250/metrics
+          - name: pump_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - binlog*
               items:
                 type: string
           - name: prometheus_metrics_prefix
@@ -205,19 +333,69 @@ files:
         options: [ ]
       - template: instances
         options:
-          - name: prometheus_url
+          - name: pd_metric_url
             required: true
-            description: The URL where your application metrics are exposed by Prometheus.
+            description: The URL where PD metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:2379/metrics
+          - name: pd_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default PD metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all PD metrics, add `pd*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tidb_metric_url
+            required: true
+            description: The URL where TiDB metrics are exposed by Prometheus.
             value:
               type: string
               example: http://%%host%%:10080/metrics
-          - name: namespace
+          - name: tidb_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default TiDB metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all TiDB metrics, add `tidb*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tikv_metric_url
             required: true
-            description: The namespace to be prepended to all metrics. Could be tidb/pd/tikv/tiflash/ticdc, etc.
+            description: The URL where TiKV metrics are exposed by Prometheus.
             value:
               type: string
-              example: tidb
-          - name: metrics
+              example: http://%%host%%:20180/metrics
+          - name: tikv_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint in addition to default TiKV metrcis, if there's a
+              value it'll be renamed. This list should contain at least one metric. To collect all TiKV metrics, add `tikv*`.
+            value:
+              type: array
+              example:
+                - processor:cpu
+                - memory:mem
+                - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+              items:
+                type: string
+          - name: tiflash_proxy_metric_url
+            description: The URL where TiFlash Proxy metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:20292/metrics
+          - name: tiflash_proxy_customized_metrics
             hidden: true
             description: |
               List of metrics to be fetched from the prometheus endpoint, if there's a
@@ -225,9 +403,87 @@ files:
             value:
               type: array
               example:
-                - processor:cpu
-                - memory:mem
-                - io
+                - tiflash*
+              items:
+                type: string
+          - name: tiflash_metric_url
+            description: The URL where TiFlash metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:8234/metrics
+          - name: tiflash_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - tiflash*
+              items:
+                type: string
+          - name: ticdc_metric_url
+            description: The URL where TiCDC Proxy metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:8301/metrics
+          - name: ticdc_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - ticdc*
+              items:
+                type: string
+          - name: dm_master_metric_url
+            description: The URL where DM master metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:8261/metrics
+          - name: dm_master_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - dm*
+              items:
+                type: string
+          - name: dm_worker_metric_url
+            description: The URL where DM worker metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:8262/metrics
+          - name: dm_worker_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - dm*
+              items:
+                type: string
+          - name: pump_metric_url
+            description: The URL where Pump metrics are exposed by Prometheus.
+            value:
+              type: string
+              example: http://%%host%%:8250/metrics
+          - name: pump_customized_metrics
+            hidden: true
+            description: |
+              List of metrics to be fetched from the prometheus endpoint, if there's a
+              value it'll be renamed. This list should contain at least one metric.
+            value:
+              type: array
+              example:
+                - binlog*
               items:
                 type: string
           - name: prometheus_metrics_prefix

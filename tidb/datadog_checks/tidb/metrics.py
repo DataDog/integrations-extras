@@ -12,6 +12,8 @@ TIDB_METRICS = {
     'tidb_session_transaction_duration_seconds': 'session_transaction_duration_seconds',
     'tidb_tikvclient_txn_cmd_duration_seconds': 'tikv_client_txn_cmd_duration_seconds',
     'tidb_tikvclient_backoff_seconds': 'tikv_client_backoff_seconds',
+    'process_resident_memory_bytes': 'process_resident_memory_bytes',
+    'go_memstats_heap_inuse_bytes': 'go_memstats_heap_inuse_bytes',
 }
 
 PD_METRICS = {
@@ -36,13 +38,7 @@ TIKV_METRICS = {
     'tikv_coprocessor_request_duration_seconds': 'coprocessor_request_duration_seconds',
 }
 
-GO_RUNTIME_METRICS = {
-    'process_resident_memory_bytes': 'process_resident_memory_bytes',
-    'go_memstats_heap_inuse_bytes': 'go_memstats_heap_inuse_bytes',
-}
-
-# TODO: collect metrics for other components
-TIFLASH_METRICS = {}
-TIDCD_METRICS = {}
-DM_METRICS = {}
-PUMP_METRICS = {}
+TIFLASH_METRICS = ['tiflash*']
+TICDC_METRICS = ['ticdc*']
+DM_METRICS = ['dm*']
+PUMP_METRICS = ['binlog*']

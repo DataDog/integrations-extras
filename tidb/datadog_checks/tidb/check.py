@@ -1,74 +1,62 @@
-from datadog_checks.base import OpenMetricsBaseCheck
+from copy import deepcopy
 
-from .metrics import GO_RUNTIME_METRICS, PD_METRICS, TIDB_METRICS, TIKV_METRICS
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
+
+from .instances import DEFAULT_INSTANCES
 
 
 class TiDBCheck(OpenMetricsBaseCheck):
     DEFAULT_METRIC_LIMIT = 0
 
     def __init__(self, name, init_config, instances=None):
-        default_metrics = dict(TIDB_METRICS)
-        default_metrics.update(PD_METRICS)
-        default_metrics.update(TIKV_METRICS)
-        default_metrics.update(GO_RUNTIME_METRICS)
 
-        tidb_metrics = dict(TIDB_METRICS)
-        tidb_metrics.update(GO_RUNTIME_METRICS)
+        # A tidb check instance represents a standalone tidb cluster.
+        # There may be several components in the tidb cluster, such as tikv, tidb, pd, ticdc, etc.
+        # Each component maps to a openmetrics check instance.
+        #
+        # expand tidb check instances to openmetrics check instances
+        openmetrics_instances = []
+        for i, instance in enumerate(instances):
 
-        pd_metrics = dict(PD_METRICS)
+            def _required_instance(component):
+                new_instance = deepcopy(instance)
+                url = new_instance.get(component + "_metric_url")
+                if url is None:
+                    raise ConfigurationError("`" + component + "_metric_url` parameter is required.")
+                customized_metrics = new_instance.get(component + "_customized_metrics")
+                new_instance.update({
+                    'prometheus_url': url,
+                    'namespace': component,
+                    'metrics': customized_metrics
+                })
+                openmetrics_instances.append(new_instance)
 
-        tikv_metrics = dict(TIKV_METRICS)
+            def _optional_instance(component):
+                new_instance = deepcopy(instance)
+                url = new_instance.get(component + "_metric_url")
+                if url is not None:
+                    customized_metrics = new_instance.get(component + "_customized_metrics")
+                    new_instance.update({
+                        'prometheus_url': url,
+                        'namespace': component,
+                        'metrics': customized_metrics
+                    })
+                    openmetrics_instances.append(new_instance)
 
-        default_instances = {
-            'pd': {
-                'prometheus_url': 'http://localhost:2379/metrics',
-                'namespace': "pd",
-                'metrics': [pd_metrics],
-            },
-            'tidb': {
-                'prometheus_url': 'http://localhost:10080/metrics',
-                'namespace': "tidb",
-                'metrics': [tidb_metrics],
-            },
-            'tikv': {
-                'prometheus_url': 'http://localhost:20180/metrics',
-                'namespace': "tikv",
-                'metrics': [tikv_metrics],
-            },
-            'tiflash_proxy': {
-                'prometheus_url': 'http://localhost:20292/metrics',
-                'namespace': "tiflash_proxy",
-                'metrics': [default_metrics],
-            },
-            'tiflash': {
-                'prometheus_url': 'http://localhost:8234/metrics',
-                'namespace': "tiflash",
-                'metrics': [default_metrics],
-            },
-            'ticdc': {
-                'prometheus_url': 'http://localhost:8301/metrics',
-                'namespace': "ticdc",
-                'metrics': [default_metrics],
-            },
-            'dm_master': {
-                'prometheus_url': 'http://localhost:8261/metrics',
-                'namespace': "dm_master",
-                'metrics': [default_metrics],
-            },
-            'dm_worker': {
-                'prometheus_url': 'http://localhost:8262/metrics',
-                'namespace': "dm_worker",
-                'metrics': [default_metrics],
-            },
-            'pump': {
-                'prometheus_url': 'http://localhost:8250/metrics',
-                'namespace': "pump",
-                'metrics': [default_metrics],
-            },
-        }
+            # required
+            _required_instance("tidb")
+            _required_instance("pd")
+            _required_instance("tikv")
+
+            # optional
+            _optional_instance("tiflash")
+            _optional_instance("tiflash_proxy")
+            _optional_instance("ticdc")
+            _optional_instance("dm_master")
+            _optional_instance("dm_worker")
+            _optional_instance("pump")
 
         # For the usage of instances and namespace,
         # see datadog_`checks.base.checks.openmetrics.mixins.OpenMetricsScraperMixin.create_scraper_configuration`
         super(TiDBCheck, self).__init__(
-            name, init_config, instances, default_instances=default_instances, default_namespace="tidb"
-        )
+            name, init_config, instances, default_instances=DEFAULT_INSTANCES)
