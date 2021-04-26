@@ -16,31 +16,23 @@ class TiDBCheck(OpenMetricsBaseCheck):
         #
         # expand tidb check instances to openmetrics check instances
         openmetrics_instances = []
-        for i, instance in enumerate(instances):
+        for _, instance in enumerate(instances):
 
             def _required_instance(component):
                 new_instance = deepcopy(instance)
                 url = new_instance.get(component + "_metric_url")
                 if url is None:
                     raise ConfigurationError("`" + component + "_metric_url` parameter is required.")
-                customized_metrics = new_instance.get(component + "_customized_metrics")
-                new_instance.update({
-                    'prometheus_url': url,
-                    'namespace': component,
-                    'metrics': customized_metrics
-                })
+                customized_metrics = new_instance.get(component + "_customized_metrics", [])
+                new_instance.update({'prometheus_url': url, 'namespace': component, 'metrics': customized_metrics})
                 openmetrics_instances.append(new_instance)
 
             def _optional_instance(component):
                 new_instance = deepcopy(instance)
                 url = new_instance.get(component + "_metric_url")
                 if url is not None:
-                    customized_metrics = new_instance.get(component + "_customized_metrics")
-                    new_instance.update({
-                        'prometheus_url': url,
-                        'namespace': component,
-                        'metrics': customized_metrics
-                    })
+                    customized_metrics = new_instance.get(component + "_customized_metrics", [])
+                    new_instance.update({'prometheus_url': url, 'namespace': component, 'metrics': customized_metrics})
                     openmetrics_instances.append(new_instance)
 
             # required
@@ -58,5 +50,4 @@ class TiDBCheck(OpenMetricsBaseCheck):
 
         # For the usage of instances and namespace,
         # see datadog_`checks.base.checks.openmetrics.mixins.OpenMetricsScraperMixin.create_scraper_configuration`
-        super(TiDBCheck, self).__init__(
-            name, init_config, instances, default_instances=DEFAULT_INSTANCES)
+        super(TiDBCheck, self).__init__(name, init_config, openmetrics_instances, default_instances=DEFAULT_INSTANCES)

@@ -1,4 +1,4 @@
-from .metrics import *
+from .metrics import DM_METRICS, PD_METRICS, PUMP_METRICS, TICDC_METRICS, TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
 
 DEFAULT_INSTANCES = {
     'pd': {
