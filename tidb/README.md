@@ -10,14 +10,9 @@ TiDB check monitors the overall health and performance of a [TiDB][1] cluster.
 
 Since TiDB check has not been added to [Datadog Agent][8] yet, users need to manually install TiDB check.
 
-1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
+1. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
 
-2. Run `ddev release build tidb` to build the package.
-
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
-
-4. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -w path/to/tidb/dist/<ARTIFACT_NAME>.whl`.
+2. Upload the build artifact to any host with an Agent and run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
 
 ### Configuration
 
@@ -128,22 +123,21 @@ _Available for Agent versions >6.0_
 
 For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying the parameters below.
 
-| Parameter            | Value                                                    |
-| -------------------- | -------------------------------------------------------- |
-| `<INTEGRATION_NAME>` | `tidb`                                                   |
-| `<INIT_CONFIG>`      | blank or `{}`                                            |
-| `<INSTANCE_CONFIG>`  | `{"prometheus_url":"http://%%host%%:8080/_status/vars"}` |
-| `<LOG_CONFIG>     `  | blank or `{}`                                            |
+| Parameter            | Value                                                                                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `<INTEGRATION_NAME>` | `tidb`                                                                                                                                                       |
+| `<INIT_CONFIG>`      | blank or `{}`                                                                                                                                                |
+| `<INSTANCE_CONFIG>`  | `{"pd_metric_url": "http://%%host%%:2379/metrics", "tidb_metric_url": "http://%%host%%:10080/metrics", "tikv_metric_url": "http://%%host%%:20180/metrics}"}` |
 
 ##### Log collection
 
 _Available for Agent versions >6.0_
 
-Collecting logs is disabled by default in the Datadog Agent. To enable it, see [Kubernetes log collection documentation][10].
+Collecting logs is disabled by default in the Datadog Agent. To enable it, see [Kubernetes log collection documentation][9].
 
 | Parameter      | Value                                                  |
 | -------------- | ------------------------------------------------------ |
-| `<LOG_CONFIG>` | `{"source": "cassandra", "service": "<SERVICE_NAME>"}` |
+| `<LOG_CONFIG>` | `{"source": "tidb", "service": "tidb_cluster"}` |
 
 <!-- xxz tab xxx -->
 <!-- xxz tabs xxx -->
@@ -178,3 +172,4 @@ Need help? Contact [Datadog support][7].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/tidb/metadata.csv
 [7]: https://docs.datadoghq.com/help/
 [8]: https://app.datadoghq.com/account/settings#agent
+[9]: https://docs.datadoghq.com/agent/kubernetes/log/

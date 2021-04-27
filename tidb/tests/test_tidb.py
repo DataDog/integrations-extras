@@ -81,5 +81,5 @@ def _test_metrics(aggregator, instance, expected_metrics):
         aggregator.assert_metric(metric)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check(instance['namespace'] + '.prometheus.health', count=1)
+    aggregator.assert_service_check(check.__NAMESPACE__ + '.' + instance['namespace'] + '.prometheus.health', count=1)
     aggregator.assert_metrics_using_metadata(get_metadata_metrics(), check_metric_type=False)
