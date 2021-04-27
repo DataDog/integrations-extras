@@ -14,6 +14,7 @@ TIDB_METRICS = {
     'tidb_tikvclient_backoff_seconds': 'tikv_client_backoff_seconds',
     'process_resident_memory_bytes': 'process_resident_memory_bytes',
     'go_memstats_heap_inuse_bytes': 'go_memstats_heap_inuse_bytes',
+    'tidb_session_parse_duration_seconds': 'session_parse_duration_seconds',
 }
 
 PD_METRICS = {

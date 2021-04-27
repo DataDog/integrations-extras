@@ -4,7 +4,7 @@
   "manifest_version": "1.0.0",
   "name": "tidb",
   "metric_prefix": "tidb",
-  "metric_to_check": "tidb.server_connections",
+  "metric_to_check": "tidb_cluster.tidb.server_connections",
   "creates_events": false,
   "short_description": "The integration for TiDB cluster",
   "guid": "4b34acac-39ce-4ec4-9329-c68cc4e61279",
@@ -14,7 +14,7 @@
     "mac_os",
     "windows"
   ],
-  "public_title": "tidb",
+  "public_title": "TiDB",
   "categories": [
     "data store",
     "log collection",
@@ -28,16 +28,15 @@
       "spec": "assets/configuration/spec.yaml"
     },
     "dashboards": {
-      "tidb_overview":"assets/dashboards/tidb_overview.json"
+      "overview":"assets/dashboards/one-screen-overview.json"
     },
     "monitors": {
-      "test_01": "assets/monitors/monitor_tidb_health.json",
-      "test_02": "assets/monitors/monitor_tidb_pd_health.json"
+      "deployment": "assets/monitors/monitor_tidb_health.json"
     },
     "saved_views": {},
     "service_checks": "assets/service_checks.json",
     "logs": {
-      "source": "tidb"
+      "service": "tidb"
     },
     "metrics_metadata": "metadata.csv"
   }

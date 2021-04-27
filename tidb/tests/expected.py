@@ -21,6 +21,8 @@ EXPECTED_TIDB_METRICS = {
     'tidb_cluster.tidb.domain_load_schema_duration_seconds.sum',
     'tidb_cluster.tidb.go_memstats_heap_inuse_bytes',
     'tidb_cluster.tidb.process_resident_memory_bytes',
+    'tidb_cluster.tidb.session_parse_duration_seconds.count',
+    'tidb_cluster.tidb.session_parse_duration_seconds.sum',
 }
 
 EXPECTED_PD_METRICS = {
