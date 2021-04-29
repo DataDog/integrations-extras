@@ -17,9 +17,9 @@ To set up this integration, you must have a Cortex account, along with Datadog A
 
 ### Validation
 
-1. Go to the [Cortex homepage][5]
-2. Click on an existing service or [create a new service][6]
-3. On the sidebar under "INTEGRATIONS", click "See all" and choose "Datadog"
+1. Go to the [Cortex homepage][5].
+2. Click on an existing service or [create a new service][6].
+3. On the sidebar under "INTEGRATIONS", click "See all" and choose "Datadog".
 4. Click the red "Trigger Incident" button above "Incidents".
 5. Fill in information in the form and click green "Trigger Incident" button.
 6. You should get a message on screen that says: "Incident has been triggered! Click here to see it in Datadog."
