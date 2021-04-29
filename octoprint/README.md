@@ -13,6 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the OctoPrint check on your host:
 
 1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
+    - VERSION is currently `1.0.0`.  This may be verified in `./datadog_checks/octoprint/__about__.py`.
 
 #### (Optional) Install From Source
 
