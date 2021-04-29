@@ -12,6 +12,9 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To install the OctoPrint check on your host:
 
+1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
+
+#### (Optional) Install From Source
 
 1. Install the [developer toolkit][3] on any machine.
 
@@ -25,9 +28,11 @@ To install the OctoPrint check on your host:
 
 ### Configuration
 
-1. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting OctoPrint performance data. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
+1. From the OctoPrint web interface, create an API key for use with Datadog.  This can be found within Settings --> Application Keys.
 
-2. [Restart the Agent][6].
+2. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.  Paste the OctoPrint API key as the value for `octo_api_key`. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
+
+3. [Restart the Agent][6].
 
 ### Validation
 
