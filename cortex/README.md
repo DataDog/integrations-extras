@@ -25,6 +25,20 @@ To set up this integration, you must have a Cortex account, along with Datadog A
 6. You should get a message on screen that says: "Incident has been triggered! Click here to see it in Datadog."
 7. Additionally, the new incident should be displayed under "Incidents".
 
+## Data Collected
+
+### Metrics
+
+cortex does not include any metrics.
+
+### Service Checks
+
+cortex does not include any service checks.
+
+### Events
+
+cortex does not include any events.
+
 ## Troubleshooting
 
 Need help? Contact [support@getcortexapp.com](mailto:support@getcortexapp.com).
