@@ -58,5 +58,28 @@ Copy the [sample configuration][2] and update the required sections to collect d
 
 See the full example file for other optional settings available to match your cluster configuration.
 
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][3] for a list of metrics provided by this integration and the description of each.
+
+### Service Checks
+
+RedisEnterprise does not provide any service checks
+
+### Events
+
+All [Redis Enterprise events][4] are collected.
+
+## Troubleshooting
+
+Contact the [Redis Enterprise Support Team][5]
+
+
 [1]: http://www.redislabs.com
 [2]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/datadog_checks/redisenterprise/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/metadata.csv
+[4]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
+[5]: https://redislabs.com/deployment/support/
+
