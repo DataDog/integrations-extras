@@ -16,7 +16,7 @@ CONFIG_NOMETRICS = {
     'metrics': None,
 }
 
-CONFIG_1 = """{
+CONFIG_2 = """{
     "api_endpoint": "https://my.nsone.net",
     "api_key": "svgRdvxF6XpWtqXGBJi7",
     "metrics": {
@@ -38,9 +38,122 @@ CONFIG_1 = """{
       }
     ],
     "pulsar": null,
-    "ddi": null
+    "ddi": null,
+    "account":[
+        {"billing": null},
+        {"ttl": ["dloc.com", "dloc1.com", "dloc2.com"]}
+    ]
   }
 }"""
+
+CONFIG_1 = """
+{
+  "api_endpoint": "https://my.nsone.net",
+  "api_key": "svgRdvxF6XpWtqXGBJi7",
+  "min_collection_interval": 15,
+  "query_params": {
+    "usage_networks": "*",
+    "pulsar_period": "1m",
+    "pulsar_geo": "*",
+    "pulsar_asn": "*",
+    "pulsar_agg": "avg"
+  },
+  "metrics": {
+    "pulsar": null,
+    "pulsar_by_app": [
+      {
+        "1xy4sn3": "1xtvhvx"
+      }
+    ],
+    "pulsar_by_record": [
+      {
+        "www.dloc1.com": "A"
+      }
+    ],
+    "ddi": [
+      13,
+      14,
+      15
+    ],
+    "qps": [
+      {
+        "dloc.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      },
+      {
+        "dloc1.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      },
+      {
+        "dloc2.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      }
+    ],
+    "usage": [
+      {
+        "dloc.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      },
+      {
+        "dloc1.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      },
+      {
+        "dloc2.com": [
+          {
+            "www": "A"
+          },
+          {
+            "email": "A"
+          }
+        ]
+      }
+    ],
+    "account": [
+      {
+        "billing": null
+      },
+      {
+        "ttl": [
+          "dloc.com",
+          "dloc1.com",
+          "dloc2.com"
+        ]
+      }
+    ]
+  }
+}
+"""
 
 
 @pytest.fixture(scope='session')
