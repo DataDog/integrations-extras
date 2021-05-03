@@ -68,6 +68,9 @@ CONFIG_1 = """
     "pulsar_by_record": [
       {
         "www.dloc1.com": "A"
+      },
+      {
+        "www.dloc2.com": "A"
       }
     ],
     "ddi": [

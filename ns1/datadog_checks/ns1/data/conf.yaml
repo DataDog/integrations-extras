@@ -36,13 +36,16 @@ instances:
     query_params:
       usage_networks: "*"
       # ‘30m’, ‘1h’, ‘30d’
-      pulsar_period: 1m 
+      # for pulsar, period should be at leas 1 hour to make sure we get some data
+      # as they might be agrgregated ofer discrete time periods
+      pulsar_period: 1h
       # ‘US’, ‘FR’, ‘GR’, ‘JP’, ‘US_NY’
       pulsar_geo: "*"
       # Specifies an Autonomous System Number to filter for
       pulsar_asn: "*"
       # one of: ‘avg’, ‘max’, ‘min’, ‘p50’, ‘p75’, ‘p90’, ‘p95’, ‘p99’, ‘p999’
-      pulsar_agg: avg 
+      pulsar_agg: avg
+      pulsar_map_id: 0
     
       # metrics to collect
     metrics:      
@@ -50,9 +53,15 @@ instances:
       # app_id:job_id
       pulsar_by_app:        
         - 1xy4sn3: 1xtvhvx
+        - 1xy4sn3: 1uy3acz
+        - 1xy4sn3: 1uzovn7
+        - 1xy4sn3: 1uzt3cj
+        - 1xy4sn3: 1uzknxv        
       # record: record type
       pulsar_by_record:        
+        - www.dloc.com: A
         - www.dloc1.com: A
+        - www.dloc2.com: A
       
         # ddi to query lease stats. if you want specific scope groups, enter as array of scope group id's
       ddi:

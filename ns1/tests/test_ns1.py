@@ -37,6 +37,18 @@ def test_parse_metrics(aggregator, instance):
     assert check.api_endpoint is not None
 
 
+def test_print_url(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    aggregator.assert_all_metrics_covered()
+
+    checkUrl = check.createUrl(check.metrics, check.query_params)
+    print(checkUrl)
+    # fail test so that e can see printout on console
+    # assert False
+    assert True
+
+
 def test_url_gen(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     check.checkConfig()
@@ -56,17 +68,29 @@ def test_url_gen(aggregator, instance_1):
 
     assert len(checkUrl) > 0
     assert check.api_endpoint is not None
+    # qps
     assert checkUrl["qps"][0] == "https://my.nsone.net/v1/stats/qps"
     assert checkUrl["qps.dloc.com"][0] == "https://my.nsone.net/v1/stats/qps/dloc.com"
+    # usage
+
+    # ttl
     assert checkUrl["account.ttl.dloc.com"][0] == "https://my.nsone.net/v1/zones/dloc.com"
     assert checkUrl["account.ttl.dloc.com"][2] == ["record:dloc.com"]
 
-    expect = "https://my.nsone.net/v1/pulsar/query/decision/customer?period=1m&geo=*&asn=*&agg=avg"
+    # pulsar
+    expect = "https://my.nsone.net/v1/pulsar/query/decision/customer?period=2d&geo=*&asn=*"
     assert checkUrl["pulsar.decisions"][0] == expect
-    expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/data?period=1m&geo=*&asn=*"
+    # pulsar by app
+    expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/data?period=1m"
     assert checkUrl["pulsar.performance.1xy4sn3.1xtvhvx"][0] == expect
-    expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/availability?period=1m&geo=*&asn=*"
+    expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/availability?period=1m"
     assert checkUrl["pulsar.availability.1xy4sn3.1xtvhvx"][0] == expect
+
+    # pulsar by record
+    expect = "https://my.nsone.net/v1/pulsar/query/decision/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
+    assert checkUrl["pulsar.decisions.www.dloc1.com.A"][0] == expect
+    expect = "https://my.nsone.net/v1/pulsar/query/routemap/hit/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
+    assert checkUrl["pulsar.routemap.hit.www.dloc1.com.A"][0] == expect
 
 
 def test_get_pulsar_app(aggregator, instance_1):
@@ -113,6 +137,153 @@ USAGE_RESULT = """
     }
 ]
 """
+PULSAR_RESULT_DECISIONS = """
+{
+    "graphs": [
+        {
+            "graph": [
+                [
+                    1619740800,
+                    1890.0
+                ],
+                [
+                    1619784000,
+                    4090.0
+                ],
+                [
+                    1619827200,
+                    1644.0
+                ],
+                [
+                    1619870400,
+                    3275.0
+                ]
+            ],
+            "tags": {
+                "asn": "16509",
+                "result": "OK",
+                "jobid": "1b1o94j"
+            }
+        },
+        {
+            "graph": [
+                [
+                    1619740800,
+                    2955.0
+                ],
+                [
+                    1619784000,
+                    2064.0
+                ],
+                [
+                    1619827200,
+                    7167.0
+                ],
+                [
+                    1619870400,
+                    1901.0
+                ]
+            ],
+            "tags": {
+                "asn": "16509",
+                "result": "OK",
+                "jobid": "1xtvhvx"
+            }
+        },
+        {
+            "graph": [
+                [
+                    1619740800,
+                    5293.0
+                ],
+                [
+                    1619784000,
+                    3022.0
+                ],
+                [
+                    1619827200,
+                    969.0
+                ],
+                [
+                    1619870400,
+                    2976.0
+                ]
+            ],
+            "tags": {
+                "asn": "16509",
+                "result": "OK",
+                "jobid": "1xtsor1"
+            }
+        }
+    ],
+    "end_ts": 1619908667,
+    "start_ts": 1619735867
+}
+"""
+
+PULSAR_RESULT_PERFORMANCE = """
+{
+    "agg": "p50",
+    "graph": {
+        "*": {
+            "*": [
+                [
+                    1619827200,
+                    48.32
+                ],
+                [
+                    1619870400,
+                    48.094
+                ],
+                [
+                    1619913600,
+                    48.255
+                ],
+                [
+                    1619956800,
+                    46.605
+                ]
+            ]
+        }
+    },
+    "end_ts": 1619986378,
+    "start_ts": 1619813578,
+    "jobid": "1xtvhvx",
+    "appid": "1xy4sn3"
+}
+"""
+
+PULSAR_RESULT_AVAILABILITY = """
+{
+    "graphs": [
+        {
+            "graph": [
+                [
+                    1619827200,
+                    1.0
+                ],
+                [
+                    1619870400,
+                    1.0
+                ],
+                [
+                    1619913600,
+                    1.0
+                ],
+                [
+                    1619956800,
+                    0.975
+                ]
+            ],
+            "tags": {
+                "instid": "1"
+            }
+        }
+    ],
+    "end_ts": 1619987103,
+    "start_ts": 1619814303
+}
+"""
 
 
 def test_usage_count(aggregator, instance_1):
@@ -120,10 +291,43 @@ def test_usage_count(aggregator, instance_1):
     check.checkConfig()
     # checkUrl = check.createUrl(check.metrics)
     check.usage_count = {"test": [0, 0]}
-    usage = check.extractUsageCount("test", json.loads(USAGE_RESULT))
+    usage, status = check.extractUsageCount("test", json.loads(USAGE_RESULT))
 
     assert usage == 758
     assert check.usage_count["test"] == [1619220600, 758]
+
+
+def test_pulsar_count(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    # checkUrl = check.createUrl(check.metrics)
+    check.usage_count = {"test": [0, 0]}
+    usage, status = check.extractPulsarCount("test", json.loads(PULSAR_RESULT_DECISIONS))
+
+    assert usage == 8152
+    assert status
+    assert check.usage_count["test"] == [1619870400, 8152]
+
+    check.usage_count = {"test": [1619870400, 5000]}
+    usage, status = check.extractPulsarCount("test", json.loads(PULSAR_RESULT_DECISIONS))
+    assert usage == 3152
+    assert check.usage_count["test"] == [1619870400, 8152]
+
+
+def test_extractPulsarResponseTime(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    rtime, status = check.extractPulsarResponseTime(json.loads(PULSAR_RESULT_PERFORMANCE))
+    assert rtime == 46.605
+    assert status
+
+
+def test_extractPulsarAvailabilityPercent(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    check.checkConfig()
+    up_percent, status = check.extractPulsarAvailability(json.loads(PULSAR_RESULT_AVAILABILITY))
+    assert up_percent == 0.975
+    assert status
 
 
 def test_read_prev_usage_count(aggregator, instance_1):

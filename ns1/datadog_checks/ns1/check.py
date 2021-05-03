@@ -29,20 +29,22 @@ class Ns1Check(AgentCheck):
     # self.check_initializations.append(self._query_manager.compile_queries)
     # pass
     def checkConfig(self):
+        # Use self.instance to read the check configuration
         self.api_endpoint = self.instance.get("api_endpoint")
         if not self.api_endpoint:
             raise ConfigurationError('NS1 API endpoint must be specified in configuration')
+
         self.api_key = self.instance.get("api_key")
         if not self.api_key:
             raise ConfigurationError('NS1 API key must be specified in configuration')
+
         self.headers = {"X-NSONE-Key": self.api_key}
 
         self.metrics = self.instance.get("metrics")
-        self.query_params = self.instance.get("query_params")
-
         if not self.metrics or len(self.metrics) == 0:
             raise ConfigurationError('Invalid metrics config!')
 
+        self.query_params = self.instance.get("query_params")
         self.usage_count_path = "/opt/datadog-agent/log"
         self.usage_count_fname = 'ns1_usage_count.txt'
 
@@ -57,8 +59,10 @@ class Ns1Check(AgentCheck):
         return apps
 
     def check(self, instance):
-        # Use self.instance to read the check configuration
+
         self.checkConfig()
+
+        # get counters from previous run
         self.getUsageCount()
 
         # create URLs to query API for all configured metrics
@@ -66,21 +70,20 @@ class Ns1Check(AgentCheck):
 
         for k, v in checkUrl.items():
             try:
-                url = v[0]
-                name = v[1]
-                tags = v[2]
-                metric_type = v[3]
+                url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.getStats(url)
                 if res:
-                    # extract metric from API result
-                    val = self.extractMetric(k, res)
+                    # extract metric from API result.
+                    val, status = self.extractMetric(k, res)
 
-                    # send metric to datadog
-                    # self.sendMetrics(k, val)
-                    self.sendMetrics(name, val, tags, metric_type)
+                    # send metric to datadog if extraction was sucessful
+                    if status:
+                        self.sendMetrics(name, val, tags, metric_type)
+
             except Exception:
                 raise
+        # save counters for next run
         self.setUsageCount()
 
     def getUsageCount(self):
@@ -136,61 +139,165 @@ class Ns1Check(AgentCheck):
         # Various NS1 APis are returning different data structures, extract values depending on which API was called
         try:
             if "qps" in key:
-                qps = result["qps"]
-                return qps
+                res = result["qps"]
+                status = True
             elif "usage" in key:
                 # result[0]["queries"]
-                queries = self.extractUsageCount(key, result)
-                return queries
+                res, status = self.extractUsageCount(key, result)
             elif "billing" in key:
-                billing = self.extractBilling(result)
-                return billing
+                res, status = self.extractBilling(result)
             elif "ttl" in key:
-                zonesTtl = self.extractRecordsTtl(result)
-                return zonesTtl
-            elif "pulsar_by_app" in key:
-                queries = result[0]["queries"]
-                return queries
+                res, status = self.extractRecordsTtl(result)
+            elif "pulsar.performance" in key:
+                res, status = self.extractPulsarResponseTime(result)
+            elif "pulsar.availability" in key:
+                res, status = self.extractPulsarAvailability(result)
+            elif "pulsar" in key:
+                res, status = self.extractPulsarCount(key, result)
             elif "ddi" in key:
-                queries = result[0]["queries"]
-                return queries
-        except Exception:
-            raise
+                res, status = result[0]["queries"]
+                status = True
 
-    def extractUsageCount(self, key, jsonResult):
-        graph = jsonResult[0]["graph"]
-        # usage api will return array of dictionaries, we want to get 'graph' object
-        # which in turn is list of lists, each element being [timestamp, query_count]
-        # so, get last query count from result. Sort by timestamp descending order to make sure we get latest
-        res = sorted(graph, key=lambda x: x[0], reverse=True)
-        print(res)
-        curr_timestamp = res[0][0]
-        curr_count = res[0][1]
-        # find this metric in usage count
-        if key in self.usage_count:
-            prev_timestamp = self.usage_count[key][0]
-            prev_count = self.usage_count[key][1]
-            if curr_timestamp == prev_timestamp:
-                self.usage_count[key] = [prev_timestamp, curr_count]
-                return curr_count - prev_count
+            return res, status
+        except Exception:
+            return None, False
+            # raise
+
+    def extractPulsarCount(self, key, jsonResult):
+        try:
+            graphs = jsonResult["graphs"]
+            # this is called for each url in checkUrl dictionary
+            # get last timestamp and count from self.usage_count
+            # make sure decisions are queried with period of 2d in order to get sumarry per 12 hours,
+            # so then we can just take last bucket and check count
+            curr_timestamp = 0
+            curr_count = 0
+
+            # sum count for all elements in array, make sure last time stamp is the same
+            # if timestamp is not the same, skip this submission, it's right at the time 
+            # buckets are being closed so reporting might be off for a few seconds, 
+            # will pick it up on next run
+            index = 0
+            for element in graphs:
+                graph = element["graph"]
+                # sort graph array
+                # find last timestamp that is >= last time stamp saved in file
+                res = sorted(graph, key=lambda x: x[0], reverse=True)
+                if res and len(res) > 0:
+                    if index == 0:
+                        # get timestamp fropm first element to compare with others
+                        curr_timestamp = res[0][0]
+                        index = -1
+
+                    if curr_timestamp != res[0][0]:
+                        # last timestamps in elements are different, we'll just skip submitting this value
+                        # and wait for all buckets to come to the same timestamp as otherwise numbers get messed up
+                        # just bail out
+                        return None, False
+
+                    # result is split accross pulsar jobs, we need sum for all jobs, so sum last count from all arrays
+                    curr_count = curr_count + res[0][1]
+
+            # find this metric in usage count
+            if key in self.usage_count:
+                prev_timestamp = self.usage_count[key][0]
+                prev_count = self.usage_count[key][1]
+                if curr_timestamp == prev_timestamp:
+                    self.usage_count[key] = [prev_timestamp, curr_count]
+                    result = curr_count - prev_count
+                else:
+                    self.usage_count[key] = [curr_timestamp, curr_count]
+                    result = curr_count
             else:
                 self.usage_count[key] = [curr_timestamp, curr_count]
-                return curr_count
-        else:
-            self.usage_count[key] = [curr_timestamp, curr_count]
-            return curr_count
+                result = curr_count
+
+            return result, True
+        except Exception:
+            return None, False
+
+    def extractPulsarResponseTime(self, jsonResult):
+        try:
+            geo = "*"
+            asn = "*"
+            if self.query_params:
+                if "pulsar_geo" in self.query_params:
+                    geo = self.query_params["pulsar_geo"]
+                if "pulsar_asn" in self.query_params:
+                    asn = self.query_params["pulsar_asn"]
+
+            graph = jsonResult["graph"]
+            data = graph[geo][asn]
+            res = sorted(data, key=lambda x: x[0], reverse=True)
+            response_time = res[0][1]
+            return response_time, True
+        except Exception:
+            return None, False
+
+    def extractPulsarAvailability(self, jsonResult):
+        try:
+            graphs = jsonResult["graphs"]
+            index = 0
+            for element in graphs:
+                graph = element["graph"]
+                # sort graph array
+                # find last timestamp that is >= last time stamp saved in file
+                res = sorted(graph, key=lambda x: x[0], reverse=True)
+                if res and len(res) > 0:
+                    percent_available = res[0][1]
+                    return percent_available, True
+                else:
+                    return None, False
+        except Exception:
+            return None, False
+
+    def extractUsageCount(self, key, jsonResult):
+
+        try:
+            graph = jsonResult[0]["graph"]
+            # usage api will return array of dictionaries, we want to get 'graph' object
+            # which in turn is list of lists, each element being [timestamp, query_count]
+            # so, get last query count from result. Sort by timestamp descending order to make sure we get latest
+            res = sorted(graph, key=lambda x: x[0], reverse=True)
+
+            curr_timestamp = res[0][0]
+            curr_count = res[0][1]
+            # find this metric in usage count
+            if key in self.usage_count:
+                prev_timestamp = self.usage_count[key][0]
+                prev_count = self.usage_count[key][1]
+                if curr_timestamp == prev_timestamp:
+                    self.usage_count[key] = [prev_timestamp, curr_count]
+                    result = curr_count - prev_count
+                else:
+                    self.usage_count[key] = [curr_timestamp, curr_count]
+                    result = curr_count
+            else:
+                self.usage_count[key] = [curr_timestamp, curr_count]
+                result = curr_count
+
+            return result, True
+        except Exception:
+            return None, False
 
     def extractRecordsTtl(self, jsonResult):
-        zoneTtl = {}
-        for zone in jsonResult["records"]:
-            zoneTtl[zone["domain"]] = zone["ttl"]
-        return zoneTtl
+        try:
+            zoneTtl = {}
+            for zone in jsonResult["records"]:
+                zoneTtl[zone["domain"]] = zone["ttl"]
+            return zoneTtl, True
+        except Exception:
+            return None, False
 
     def extractBilling(self, jsonResult):
-        billing = {}
-        billing["usage"] = jsonResult["totals"]["queries"]
-        billing["limit"] = jsonResult["totals"]["query_credit"]
-        return billing
+        try:
+
+            billing = {}
+            billing["usage"] = jsonResult["totals"]["queries"]
+            billing["limit"] = jsonResult["totals"]["query_credit"]
+            return billing, True
+        except Exception:
+            return None, False
 
     # generate url for QPS and usages statistics
     # returns dictionary in form of <metric name>:<metric url>}
@@ -199,10 +306,8 @@ class Ns1Check(AgentCheck):
 
         if key == "usage":
             network_id = "*"
-            if query_params:
-                for k, v in query_params.items():
-                    if k == "usage_networks":
-                        network_id = v
+            if query_params and "usage_networks" in query_params:
+                network_id = query_params["usage_networks"]
             query_string = "?period=1h&expand=false&networks={networks}".format(networks=network_id)
             metric_name = "usage"
             metric_zone = "usage.zone"
@@ -359,25 +464,32 @@ class Ns1Check(AgentCheck):
     def getPulsarAppUrl(self, key, val, query_params, pulsar_apps):
 
         urlList = {}
-        # pulsar_period: 30d
-        # pulsar_geo: "*" e.g: 'US', 'FR', 'GR','JP','US_NY'
-        # # Specifies an Autonomous System Number to filter for
-        # pulsar_asn: "*"
-        # pulsar_agg: avg - enum, one of avg, max, min, p50, p75, p90, p99, p999
         query_string = "?"
         if query_params:
             if "pulsar_period" in query_params:
                 query_string = query_string + "period=" + query_params["pulsar_period"] + "&"
             if "pulsar_geo" in query_params:
-                query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+                if query_params["pulsar_geo"] != "*":
+                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
             if "pulsar_asn" in query_params:
-                query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+                if query_params["pulsar_asn"] != "*":
+                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
         query_string = query_string[:-1]
 
         # pulsar general account wide
         if key == "pulsar":
-            if query_params and "pulsar_agg" in query_params:
-                query_string = query_string + "&agg=" + query_params["pulsar_agg"]
+            query_string = "?"
+            # for "pulsar" group of endpoints, override settings and always use period = 2d
+            # to get properly sumarized stats
+            query_string = query_string + "period=2d&"
+            if query_params:
+                if "pulsar_geo" in query_params:
+                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+                if "pulsar_asn" in query_params:
+                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+                # if "pulsar_agg" in query_params:
+                #     query_string = query_string + "agg=" + query_params["pulsar_agg"] + "&"
+            query_string = query_string[:-1]
 
             tags = [""]
             metric_record = "pulsar.decisions"
@@ -442,15 +554,23 @@ class Ns1Check(AgentCheck):
                             metric_record = "pulsar.availability"
                             k = "pulsar.availability.{app_id}.{job_id}".format(app_id=appid, job_id=jobid)
                             urlList[k] = [url, metric_record, tags, metric_type]
-                            if query_string == "":
-                                raise Exception("qs is empty")
+
         elif key == "pulsar_by_record":
+            query_string = "?period=2d&"
+            if query_params:
+                if "pulsar_geo" in query_params:
+                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+                if "pulsar_asn" in query_params:
+                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+                # if "pulsar_agg" in query_params:
+                #     query_string = query_string + "agg=" + query_params["pulsar_agg"] + "&"
+            query_string = query_string[:-1]
 
             for record in val:
                 for domain, rectype in record.items():
                     tags = ["record:{record}".format(record=domain)]
                     metric_type = "count"
-                    metric_record = "pulsar.decisions"
+                    metric_record = "pulsar.decisions.record"
                     # pulsar decisions for record
                     # /v1/pulsar/query/decision/record/{{record_name}}/{{record_type}}?period=30d
                     url = "{apiendpoint}/v1/pulsar/query/decision/record/{rec_name}/{rec_type}{query}".format(
@@ -459,7 +579,7 @@ class Ns1Check(AgentCheck):
                     k = "pulsar.decisions.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
                     urlList[k] = [url, metric_record, tags, metric_type]
 
-                    metric_record = "pulsar.routemap.hit"
+                    metric_record = "pulsar.routemap.hit.record"
                     # View route map hits by record
                     # /v1/pulsar/query/routemap/miss/record/{{record_name}}/{{record_type}}
                     url = "{apiendpoint}/v1/pulsar/query/routemap/hit/record/{rec_name}/{rec_type}{query}".format(
@@ -467,7 +587,7 @@ class Ns1Check(AgentCheck):
                     )
                     k = "pulsar.routemap.hit.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
                     urlList[k] = [url, metric_record, tags, metric_type]
-                    metric_record = "pulsar.routemap.miss"
+                    metric_record = "pulsar.routemap.miss.record"
                     # View route map misses by record
                     # /v1/pulsar/query/routemap/miss/record/{{record_name}}/{{record_type}}?period=30d
                     url = "{apiendpoint}/v1/pulsar/query/routemap/miss/record/{rec_name}/{rec_type}{query}".format(
