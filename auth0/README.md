@@ -9,7 +9,7 @@ This integration leverages Auth0's Log Streaming to send logs directly to Datado
 
 ### Key use cases for the integration
 
-#### Collerate activity with identity data to surface trends
+#### Correlate activity with identity data to surface trends
 
 Identity data provides crucial insight into who performed what activity. This allows teams to better understand user behaviour across their system.
 
