@@ -31,7 +31,7 @@ See [metadata.csv][4] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Hasura Cloud Integration check does not include any service checks.
+The Hasura Cloud integration does not include any service checks.
 
 ### Events
 
