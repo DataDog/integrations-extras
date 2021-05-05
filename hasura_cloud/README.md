@@ -10,7 +10,7 @@ your Hasura Cloud project's operation logs and metrics to your Datadog dashboard
 
 ## Setup
 
-Getting set up with the Hasura Cloud Datadog integration for your Hasura Cloud project is as simple as providing a Datadog API key and region to Hasura Cloud. 
+To set up the Hasura Cloud Datadog integration for your Hasura Cloud project, provide a Datadog API key and region to Hasura Cloud.
 
 Refer to the [Hasura Cloud documentation][3] to configure the Datadog Integration for your Hasura Cloud project. 
 
