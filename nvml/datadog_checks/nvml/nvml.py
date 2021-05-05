@@ -73,11 +73,30 @@ class NvmlCheck(AgentCheck):
     """Lock for the object known_tags."""
     _thread = None
     """Daemon thread updating k8s tag information in the background."""
+    should_run = False
+    """Whether libnvml can be found and the check can thus run."""
+
+    def __init__(self, name, init_config, instances):
+        super(NvmlCheck, self).__init__(name, init_config, instances)
+        # self.N = pynvml
+        if self.is_nvml_library_available():
+            # Start thread once and keep it running in the background
+            self._start_discovery()
+            self.should_run = True
+
+    def is_nvml_library_available(self):
+        try:
+            self.N.nvmlInit()
+            self.N.nvmlShutdown()
+            return True
+        except pynvml.nvml.NVMLError_LibraryNotFound:
+            self.log.warning("Can't open NVML, is this a GPU host? Turning check off.")
+            return False
 
     def check(self, instance):
-        # Start thread once and keep it running in the background
-        if self._thread is None:
-            self._start_discovery()
+        if not self.should_run:
+            # No kubelet socket or no NVML library, skip the check
+            return
         with NvmlInit():
             self.gather(instance)
 
