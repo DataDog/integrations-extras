@@ -45,3 +45,5 @@ Need help? Reach out to Hasura Cloud support at support@hasura.io  or login to y
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
 [3]: https://hasura.io/docs/latest/graphql/cloud/metrics/integrations/datadog.html
 [4]: https://docs.datadoghq.com/logs/explorer/facets/#create-facets
+[5]: http://app.datadoghq.com/logs
+[6]: https://docs.datadoghq.com/help/
