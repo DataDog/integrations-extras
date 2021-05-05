@@ -3,7 +3,7 @@
 ## Overview
 
 [Hasura Cloud][1] provides a scalable, highly available, globally distributed,
-secure production ready GraphQL API instantly over your data sources.
+secure, production-ready GraphQL API over your data sources.
 
 The Datadog integration is an observability feature of Hasura Cloud that exports
 your Hasura Cloud project's operation logs and metrics to your Datadog dashboard. 
