@@ -39,7 +39,7 @@ The Hasura Cloud integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Reach out to Hasura Cloud support at support@hasura.io  or login to your Hasura Cloud account and use the live chat widget.
+Need help? Contact [Datadog support][6].
 
 [1]: https://hasura.io/cloud/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/algorithmia/images/algorithmia-insights-datadog.png
