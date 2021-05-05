@@ -68,7 +68,23 @@ See [metadata.csv][4] for a list of metrics provided by this integration and the
 
 ### Service Checks
 
-RedisEnterprise does not provide any service checks
+**`redisenterprise.running`**
+
+The check returns:
+
+- `OK` if the RedisEnterprise cluster API is properly responding to commands
+- `CRITICAL` if the API is not properly responding
+
+**`redisenterprise.license_check`**
+
+The check returns:
+
+- `OK` if the cluster license is valid for longer than 1 week.
+- `WARNING` if cluster license will expire in < 7 days.
+- `CRITICAL` if the cluster license has expired.
+
+*NOTE:* The cluster will continue to operate as normal with an expired license, however, no configuration changes can be made during this time.  Contact your sales representative for a renewal.
+
 
 ### Events
 
