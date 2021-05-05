@@ -35,7 +35,7 @@ The Hasura Cloud integration does not include any service checks.
 
 ### Events
 
-Hasura Cloud Integration check does not include any events.
+The Hasura Cloud integration does not include any events.
 
 ## Troubleshooting
 
