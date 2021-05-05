@@ -21,7 +21,7 @@ Once the above is done, go to the [Logs section][5] in Datadog and create facets
 * `error_code`
 * `is_error`
 
-Read [Datadog docs][4] on how to create facets from logs. 
+Read the [Datadog Log Facets documentation][4] for information regarding creating facets from logs. 
 
 ## Data Collected
 
