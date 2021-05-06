@@ -1,22 +1,22 @@
 schedules:
-  - cron: 0 5 * * *
-    displayName: Nightly (EDT/EST)
-    always: true
-    branches:
-      include:
-        - master
+- cron: 0 5 * * *
+  displayName: Nightly (EDT/EST)
+  always: true
+  branches:
+    include:
+    - master
 pr: none
 trigger:
   branches:
     include:
-      - master
+    - master
 resources:
   repositories:
-    - repository: integrations-core
-      type: github
-      name: Datadog/integrations-core
-      ref: master
-      endpoint: DataDog
+  - repository: integrations-core
+    type: github
+    name: Datadog/integrations-core
+    ref: master
+    endpoint: DataDog
 variables:
   DDEV_COLOR: 1
 jobs:
@@ -59,6 +59,9 @@ jobs:
       os: linux
     - checkName: jfrog_metrics
       displayName: jfrog_metrics
+      os: linux
+    - checkName: jfrog_platform
+      displayName: JFrog Platform
       os: linux
     - checkName: kernelcare
       displayName: Kernelcare
