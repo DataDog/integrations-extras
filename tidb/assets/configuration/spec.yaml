@@ -35,7 +35,7 @@ files:
           - name: tidb_customized_metrics
             hidden: true
             description: |
-              List of metrics to be fetched from the prometheus endpoint in addition to default TiDB metrcis, if there's a
+              List of metrics to be fetched from the prometheus endpoint in addition to default TiDB metrcis. If there's a
               value it'll be renamed. This list should contain at least one metric. To collect all TiDB metrics, add `tidb*`.
             value:
               type: array
@@ -561,7 +561,7 @@ files:
               type: boolean
           - name: send_monotonic_with_gauge
             description: |
-              Set send_monotonic_with_gauge to true to send counters as both monotonic counters and gauges.
+              Set `send_monotonic_with_gauge` to `true` to send counters as both monotonic counters and gauges.
               This option only works when `send_monotonic_counter` is False.
             hidden: true
             value:
@@ -588,14 +588,14 @@ files:
           - name: bearer_token_auth
             description: |
               If set to true, adds a bearer token authentication header.
-              Note: If bearer_token_path is not set, the default path is /var/run/secrets/kubernetes.io/serviceaccount/token.
+              Note: If `bearer_token_path` is not set, the default path is /var/run/secrets/kubernetes.io/serviceaccount/token.
             value:
               example: false
               type: boolean
           - name: bearer_token_path
             description: |
               The path to a Kubernetes service account bearer token file. Make sure the file exists and is mounted correctly.
-              Note: bearer_token_auth should be set to true to enable adding the token to HTTP headers for authentication.
+              Note: `bearer_token_auth` should be set to true to enable adding the token to HTTP headers for authentication.
             value:
               example: <TOKEN_PATH>
               type: string
