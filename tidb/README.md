@@ -8,7 +8,7 @@ TiDB check monitors the overall health and performance of a [TiDB][1] cluster.
 
 ### Installation
 
-Since TiDB check has not been added to [Datadog Agent][8] yet, users need to manually install TiDB check.
+Manually install the TiDB check:
 
 1. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
 
@@ -20,7 +20,7 @@ Since TiDB check has not been added to [Datadog Agent][8] yet, users need to man
 
 ##### Metric Collection
 
-1. Edit the `tidb.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your tidb performance data. See the [sample tidb.d/conf.yaml][3] for all available configuration options.
+1. Edit the `tidb.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your TiDB performance data. See the [sample tidb.d/conf.yaml][3] for all available configuration options.
 
 2. [Restart the Agent][4].
 
@@ -34,7 +34,7 @@ _Available for Agent versions >6.0_
    logs_enabled: true
    ```
 
-2. Add this configuration block to your `tidb.d/conf.yaml` file to start collecting your tidb logs:
+2. Add this configuration block to your `tidb.d/conf.yaml` file to start collecting your TiDB logs:
 
    ```yaml
      logs:

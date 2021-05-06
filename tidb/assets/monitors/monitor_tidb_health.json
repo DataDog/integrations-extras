@@ -2,7 +2,7 @@
 	"name": "TiDB Deployment Health",
 	"type": "query alert",
 	"query": "avg(last_15m):avg:kubernetes_state.deployment.replicas_desired{*} by {deployment} - avg:kubernetes_state.deployment.replicas_ready{*} by {deployment} >= 2",
-	"message": "More than one Deployments Replica's pods are down.",
+	"message": "More than one Deployment's pod Replicas are down.",
 	"tags": [
 		"integration:kubernetes"
 	],
@@ -21,6 +21,6 @@
 		}
 	},
 	"recommended_monitor_metadata": {
-		"description": "Notify your team when more than one replica pod is down for your Kubernetes integration."
+		"description": "Notify your team when more than one Pod replica is down for your Kubernetes integration."
 	}
 }
