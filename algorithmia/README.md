@@ -36,16 +36,12 @@ API in Datadog.
 2. In the Datadog interface, navigate to the **Metrics** summary page.
 3. Verify that the metrics from Insights are present in Datadog by filtering for
    `algorithmia`.
-
-## Data Collected
-
-### Metrics
+   
+### Streaming metrics
 
 This integration streams metrics from Algorithmia when a model that has Insights
 enabled is queried. Each log entry includes operational metrics and
 inference-related metrics.
-
-See [metadata.csv][4] for a list of metrics provided by this integration.
 
 The `duration_milliseconds` metric is one of the operational metrics that is
 included in the default payload from Algorithmia. To help you get started, this
@@ -59,6 +55,12 @@ scikit-learn, confidence scores from an image classifier in TensorFlow, or input
 data from incoming API requests. Note that the message forwarding script
 provided in this integration will also prefix user-defined metrics with
 `algorithmia.` in Datadog.
+
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][4] for a list of metrics provided by this integration.
 
 ### Service Checks
 

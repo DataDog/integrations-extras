@@ -7,11 +7,11 @@ Sleuth is a deployment tracking tool that enables you to track software deployme
 To add the Datadog integration:
 
 1. Login to your [Sleuth account](https://app.sleuth.io/accounts/login/). 
-1. Click **Integrations** in the sidebar.
-2. Click the _Metric Trackers_ tab, then **enable** in the Datadog card.
-3. Enter your Datadog API Key and Application Key in the corresponding fields. 
-4. If your Datadog servers' are in the EU, enable the _My Datadog servers are in the EU_ checkbox. Leave this unchecked if you are unsure.  
-5. Press **Save**. 
+2. Click **Integrations** in the sidebar.
+3. Click the _Metric Trackers_ tab, then **enable** in the Datadog card.
+4. Enter your Datadog API Key and Application Key in the corresponding fields. 
+5. If your Datadog servers' are in the EU, enable the _My Datadog servers are in the EU_ checkbox. Leave this unchecked if you are unsure.  
+6. Press **Save**. 
 
 > Your Datadog API Key and Application Key can be found under **Integrations** &gt; **API**. Alternatively, you can click on the **generate** link in the Sleuth dialog box (as shown below), which takes you to the API/Applications Keys area in your Datadog console. 
 
@@ -33,7 +33,7 @@ The Datadog Sleuth integration is installed exclusively from your Sleuth account
 
 > Integrations are made at the Sleuth organization level, and are available for all projects within that organization. Individual settings for an integration are made at the project level.  
 
-That’s it—Sleuth will start displaying Datadog metrics in your deploys. Read [**Dashboard**](https://help.sleuth.io/dashboard) for more information on how metrics are communicated in Sleuth's deploy cards. 
+That's it-Sleuth will start displaying Datadog metrics in your deploys. Read [**Dashboard**](https://help.sleuth.io/dashboard) for more information on how metrics are communicated in Sleuth's deploy cards. 
 
 
 ## Data Collected

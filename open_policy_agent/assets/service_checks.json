@@ -1,0 +1,58 @@
+[
+    {
+        "agent_version": "7.0.0",
+        "integration": "open_policy_agent",
+        "check": "open_policy_agent.prometheus.health",
+        "statuses": [
+            "ok",
+            "critical"
+        ],
+        "groups": [
+            "endpoint"
+        ],
+        "name": "open policy agent prometheus health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the Prometheus endpoint, otherwise `OK`."
+    },
+    {
+        "agent_version": "7.0.0",
+        "integration": "open_policy_agent",
+        "check": "open_policy_agent.health",
+        "statuses": [
+            "ok",
+            "warning",
+            "critical"
+        ],
+        "groups": [
+        ],
+        "name": "open policy agent health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the OPA health endpoint, `OK` if it returns 200, `WARNING` otherwise."
+    },
+    {
+        "agent_version": "7.0.0",
+        "integration": "open_policy_agent",
+        "check": "open_policy_agent.bundles_health",
+        "statuses": [
+            "ok",
+            "warning",
+            "critical"
+        ],
+        "groups": [
+        ],
+        "name": "open_policy_agent bundles health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the OPA bundles health endpoint, `OK` if it returns 200, `WARNING` otherwise."
+    },
+    {
+        "agent_version": "7.0.0",
+        "integration": "open_policy_agent",
+        "check": "open_policy_agent.plugins_health",
+        "statuses": [
+            "ok",
+            "warning",
+            "critical"
+        ],
+        "groups": [
+        ],
+        "name": "open_policy_agent plugins health",
+        "description": "Returns `CRITICAL` if the agent fails to connect to the OPA plugins health point, `OK` if it returns 200, `WARNING` otherwise."
+    }
+]

@@ -1,22 +1,22 @@
 schedules:
-- cron: 0 5 * * *
-  displayName: Nightly (EDT/EST)
-  always: true
-  branches:
-    include:
-    - master
+  - cron: 0 5 * * *
+    displayName: Nightly (EDT/EST)
+    always: true
+    branches:
+      include:
+        - master
 pr: none
 trigger:
   branches:
     include:
-    - master
+      - master
 resources:
   repositories:
-  - repository: integrations-core
-    type: github
-    name: Datadog/integrations-core
-    ref: master
-    endpoint: DataDog
+    - repository: integrations-core
+      type: github
+      name: Datadog/integrations-core
+      ref: master
+      endpoint: DataDog
 variables:
   DDEV_COLOR: 1
 jobs:
@@ -45,6 +45,12 @@ jobs:
     - checkName: filebeat
       displayName: Filebeat
       os: linux
+    - checkName: flume
+      displayName: flume
+      os: linux
+    - checkName: gatekeeper
+      displayName: Gatekeeper
+      os: linux
     - checkName: gnatsd
       displayName: Gnatsd
       os: linux
@@ -72,6 +78,18 @@ jobs:
     - checkName: nvml
       displayName: nvml
       os: linux
+    - checkName: octoprint
+      displayName: OctoPrint
+      os: linux
+    - checkName: open_policy_agent
+      displayName: open_policy_agent
+      os: linux
+    - checkName: php_apcu
+      displayName: PHP APCu
+      os: linux
+    - checkName: php_opcache
+      displayName: PHP OPcache
+      os: linux
     - checkName: pihole
       displayName: pihole
       os: linux
@@ -80,6 +98,9 @@ jobs:
       os: linux
     - checkName: portworx
       displayName: Portworx
+      os: linux
+    - checkName: pulsar
+      displayName: pulsar
       os: linux
     - checkName: puma
       displayName: Puma
