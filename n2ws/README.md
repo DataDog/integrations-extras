@@ -2,7 +2,7 @@
 
 ## Overview
 
-N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS). N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS.
+N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS) and Microsoft Azure. N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS and Azure.
 
 Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts, 
 and more by Datadog monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
@@ -11,7 +11,7 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 ### Installation
 
-1. Install the [Python integration][1].
+1.	##### Install the [Python Integration][1]
 
 2. Enable support for Datadog on your N2WS instance:
     - Connect to your N2WS Backup and Recovery instance with SSH.
@@ -20,34 +20,41 @@ and more by Datadog monitoring service. This integration allows users to monitor
         [external_monitoring]
         enabled=True
         ```
-    - Run `service apache2 restart`.
+    - Run ```service apache2 restart```.
 
-3. Install the Datadog Agent on your N2WS instance:
-    - Login to Datadog and navigate to [Integrations -> Agent -> Ubuntu][9].
-    - Copy the Agent one-step install command.
-    - Connect to your N2WS Backup and Recovery instance with SSH. You might need `sudo` privileges to perform this action.
+3.	##### Install the Datadog Agent on your N2WS Instance.
+    Login to Datadog and go to Integrations -> Agent -> Ubuntu
+    Copy the agent ‘easy one-step install’ command 
+    Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
 
-4. Visualize N2WS metrics in Datadog:
-    - Navigate to [Metrics -> Explorer][2].
-    - **Graph**: Select your metric from the list. All N2WS metrics begin with the string `cpm_metric`.
-    - **Over**: Select data from the list. All N2WS user data begins with the string `cpm:user:<USER_NAME>`. You can select a specific user or the entire N2WS instance.
+4.	##### Setup Datadog Dashboard metrics
+    Go to [‘Metrics-> Explorer’][2]
+
+    **Graph**: Select your metric from the list. All N2WS metrics begin with the string ‘cpm_metric’.
+
+    **Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
+              You can select either a specific user or the entire N2WS instance.
 
 
-5. Add N2WS dashboards to your Datadog account:
-    - Navigate to the [N2WS tile][3] and install the integration.
-    - Clicking the install button adds the dashboards: `N2WSBackup&Recovery-Graphicalversion`, `N2WSBackup&Recovery-Graphicalversion-areas`, and `N2WSBackup&Recovery-Squaresdashboard`.
-    - Alternatively, users can [import JSON templates from N2WS][4].
+5.	##### Get N2WS dashboards
+    In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
+    You will get 5 types of dashboards to your account, 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.0 (includes Azure):
+    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for version 3.2.1
+	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0' and 'N2WSBackup&Recovery-GraphicalVersionV4.0' for version 4.0
+ 
+    Alternatively users can [import JSON templates from N2WS][4].
+
 
 ## Data Collected
 
 Datadog collects the following data about N2WS Backup & Recovery backups:
 
 - The number of snapshots of each type
-- Successful backups
-- Failed backups
-- Partially successful backups
+- Successful backups (AWS only)
+- Failed backups (AWS only)
+- Partially successful backups (AWS only)
 - Protected resources from any type
-- Data about volume capacity, alerts, etc.
+- Data about volume capacity (AWS only), alerts, etc.
 
 ### Metrics
 
