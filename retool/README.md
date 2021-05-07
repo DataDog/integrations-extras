@@ -5,7 +5,7 @@ Monitoring and analytics offer mission-critical insights, but developers often h
 
 Retool helps developers create custom apps that embed directly into a Datadog dashboard, giving you the ability to take action and automate workflows without having to leave Datadog. 
 
-![Screenshot1](https://raw.githubusercontent.com/DataDog/integrations-extras/alexvetras/master/retool/images/1.png)
+![Screenshot1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/retool/images/1.png)
 
 ### Metrics
 Datadog’s embedded Retool app for Elasticsearch Management combines existing visibility into key Elasticsearch metrics and logs with the power to manage clusters, accounts, and more without leaving your Datadog dashboard.
