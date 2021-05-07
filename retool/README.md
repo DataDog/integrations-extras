@@ -19,7 +19,16 @@ Retool built an embedded app for Elasticsearch Management. You can already monit
 ## Setup
 You can set this up as your default dashboard by cloning the dashboard and then clicking the iframe to sign up for Retool. You'll be prompted to connect to your ElasticSearch cluster and in less than 5 clicks you'll be up and running with a fully functioning app.
 
-## Support
-If you need help with Retool, are curious to learn more about the product or want to deploy Retool on-premise, please email support@retool.com or visit [retool.com][1].
+## Data Collected
 
-[1]: https://retool.com/
+### Metrics
+The Retool integration does not include any metrics at this time.
+
+### Events
+The Retool integration does not include any events at this time.
+
+### Service Checks
+The Retool does not include any service checks at this time.
+
+## Troubleshooting
+Need help? Contact [Datadog support](https://docs.datadoghq.com/help/)
