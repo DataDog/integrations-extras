@@ -14,7 +14,7 @@ The Datadog Altostra integration is built-in. No installation is required.
 
 ### Configuration
 
-The Datadog Altostra integration is available under [integrations](https://app.altostra.com/team/settings/integrations/logging) on the account settings page.
+The Datadog integration is available in the Altostra Web Console under [integrations](https://app.altostra.com/team/settings/integrations/logging) on the account settings page.
 
 1. Go to the [Integrations](https://app.altostra.com/team/settings/integrations/logging) section in your Altostra account settings.
 2. Click on **Connect** for the **Datadog** integration.
@@ -27,9 +27,9 @@ The Datadog Altostra integration is available under [integrations](https://app.a
 
 ### Validation
 
-1. Deploy any project that contains Lambda functions to any environment you've configured for log shipping to Datadog.
+1. Deploy an Altostra project that contains a Lambda function to any environment you've configured for log shipping to Datadog.
 2. Invoke the Lambda function.
-3. Look at the logs on your Datadog account, it should show the logs collected from the Lambda function shortly after.
+3. You should see the Lambda function logs appear in the _Logs_ view in Datadog.
 
 ## Troubleshooting
 
