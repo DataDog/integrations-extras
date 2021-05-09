@@ -28,7 +28,7 @@ JFrog Xray Metrics API integration with Datadog allows you to send metrics from 
 
 ### Installation
 
-JFrog Metrics Integration uses OpenMetrics check which is included in the [Datadog Agent][1] package. So, a separate installation is not required
+JFrog Metrics Integration uses OpenMetrics check which is included in the [Datadog Agent][1] package. So, a separate installation is not required.
 
 ### Artifactory and Xray Setup
 
