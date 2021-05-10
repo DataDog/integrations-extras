@@ -1,7 +1,7 @@
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
 
-class JfrogMetricsCheck(OpenMetricsBaseCheck):
+class JfrogPlatformCheck(OpenMetricsBaseCheck):
     """
     Collect metrics from JFrog
     """
@@ -44,4 +44,4 @@ class JfrogMetricsCheck(OpenMetricsBaseCheck):
                 }
             )
 
-        super(JfrogMetricsCheck, self).__init__(name, init_config, [instance])
+        super(JfrogPlatformCheck, self).__init__(name, init_config, [instance])

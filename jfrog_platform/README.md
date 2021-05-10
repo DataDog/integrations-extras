@@ -151,9 +151,9 @@ Need help? Contact [Datadog support][15].
 [7]: https://github.com/jfrog/metrics#setup
 [8]: https://www.jfrog.com/confluence/display/JFROG/Access+Tokens#AccessTokens-GeneratingAdminTokens
 [9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6v7#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_metrics/datadog_checks/jfrog_metrics/data/conf.yaml.example
+[10]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/datadog_checks/jfrog_platform/data/conf.yaml.example
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#restart-the-agent
 [12]: https://docs.datadoghq.com/agent/kubernetes/integrations/?tab=kubernetes
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[14]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_metrics/metadata.csv
+[14]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
 [15]: https://docs.datadoghq.com/help/
