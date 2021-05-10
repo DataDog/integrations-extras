@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'jfrog_metrics', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'jfrog_platform', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -27,12 +27,12 @@ def get_dependencies():
 CHECKS_BASE_REQ = 'datadog-checks-base>=11.2.0'
 
 setup(
-    name='datadog-jfrog_metrics',
+    name='datadog-jfrog_platform',
     version=ABOUT['__version__'],
-    description='The jfrog_metrics check',
+    description='The jfrog_platform check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent jfrog_metrics check',
+    keywords='datadog agent jfrog_platform check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
@@ -51,7 +51,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.jfrog_metrics'],
+    packages=['datadog_checks.jfrog_platform'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': get_dependencies()},
