@@ -139,9 +139,6 @@ Collecting logs is disabled by default in the Datadog Agent. To enable it, see [
 | -------------- | ------------------------------------------------------ |
 | `<LOG_CONFIG>` | `{"source": "tidb", "service": "tidb_cluster"}` |
 
-<!-- xxz tab xxx -->
-<!-- xxz tabs xxx -->
-
 ### Validation
 
 [Run the Agent's status subcommand][5] and look for `tidb` under the Checks section.
