@@ -28,9 +28,6 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
             )
 
         if instancetype == 'xray':
-            endpoint = instance.get('prometheus_url')
-            if endpoint is None:
-                raise ConfigurationError("Unable to find prometheus_url in config file.")
 
             instance.update(
                 {
