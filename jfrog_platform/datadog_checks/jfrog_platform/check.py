@@ -27,7 +27,7 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
                 }
             )
 
-        if instancetype == 'xray':
+        elif instancetype == 'xray':
 
             instance.update(
                 {
