@@ -40,5 +40,7 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
                     'send_distribution_sums_as_monotonic': instance.get('send_distribution_sums_as_monotonic', True),
                 }
             )
+        else:
+            raise ConfigurationError("Unable to recognize instance_type.")
 
         super(JfrogPlatformCheck, self).__init__(name, init_config, [instance])
