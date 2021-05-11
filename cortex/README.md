@@ -29,7 +29,7 @@ To set up this integration, you must have a Cortex account, along with Datadog A
 
 ### Metrics
 
-cortex does not include any metrics.
+Cortex does not include any metrics.
 
 ### Service Checks
 
