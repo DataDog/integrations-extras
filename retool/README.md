@@ -5,7 +5,7 @@ Monitoring and analytics offer mission-critical insights, but developers often h
 
 Retool helps developers create custom apps that embed directly into a Datadog dashboard, giving you the ability to take action and automate workflows without having to leave Datadog. 
 
-![Screenshot1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/retool/images/1.png)
+![Screenshot1][1]
 
 ### Metrics
 Datadog’s embedded Retool app for Elasticsearch Management combines existing visibility into key Elasticsearch metrics and logs with the power to manage clusters, accounts, and more without leaving your Datadog dashboard.
@@ -36,4 +36,7 @@ The Retool integration does not include any events at this time.
 The Retool does not include any service checks at this time.
 
 ## Troubleshooting
-Need help? Contact [Datadog support](https://docs.datadoghq.com/help/)
+Need help? Contact [Datadog support][2]
+
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/retool/images/1.png
+[2]: https://docs.datadoghq.com/help/
