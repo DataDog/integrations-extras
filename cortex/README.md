@@ -33,7 +33,7 @@ Cortex does not include any metrics.
 
 ### Service Checks
 
-cortex does not include any service checks.
+Cortex does not include any service checks.
 
 ### Events
 
