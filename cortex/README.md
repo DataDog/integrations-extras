@@ -37,7 +37,7 @@ Cortex does not include any service checks.
 
 ### Events
 
-cortex does not include any events.
+Cortex does not include any events.
 
 ## Troubleshooting
 
