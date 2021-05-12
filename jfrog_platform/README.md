@@ -122,15 +122,15 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     #### Containerized
     For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above.
 
-    ####Validation
+    #### Validation
 
     [Run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
 
-###JFrog platform tile 
+### JFrog platform tile 
 
 If you have not installed the JFrog platform tile yet, install the tile.
 
-###JFrog Artifactory Dashboard
+### JFrog Artifactory Dashboard
 
 Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics` and explore it.
 
