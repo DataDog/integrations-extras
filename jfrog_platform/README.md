@@ -127,9 +127,11 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     [Run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
 
 ###JFrog platform tile 
+
 If you have not installed the JFrog platform tile yet, install the tile.
 
 ###JFrog Artifactory Dashboard
+
 Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics` and explore it.
 
 ### Data Collected
