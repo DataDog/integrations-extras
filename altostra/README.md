@@ -33,4 +33,6 @@ The Datadog integration is available in the Altostra Web Console under [integrat
 
 ## Troubleshooting
 
-Need help? Contact Altostra [support@altostra.com](mailto:support@altostra.com).
+Need help? Contact [Datadog Support][1].
+
+[1]: /help
