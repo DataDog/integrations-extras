@@ -1,8 +1,6 @@
 import sys
 from datetime import datetime, timedelta
 
-import requests
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 # from typing import Any
@@ -86,7 +84,7 @@ class RedisenterpriseCheck(AgentCheck):
             return False
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/cluster'.format(host, port)
-        r = requests.get(url, auth=auth, headers=headers_sent, timeout=timeout, verify=verifyssl)
+        r = self.http.get(url, auth=auth, headers=headers_sent, timeout=timeout, verify=verifyssl)
         if r.status_code != 307:
             return True
         return False
@@ -95,7 +93,7 @@ class RedisenterpriseCheck(AgentCheck):
         """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/{}'.format(host, port, endpoint)
-        r = requests.get(url, auth=auth, headers=headers_sent, timeout=timeout, verify=verifyssl, params=params)
+        r = self.http.get(url, auth=auth, headers=headers_sent, timeout=timeout, verify=verifyssl, params=params)
         if r.status_code != 200:
             msg = "unexpected status of {0} when fetching stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
