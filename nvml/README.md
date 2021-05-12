@@ -1,4 +1,4 @@
-# Agent Check: NVML
+# Agent Check: Nvidia NVML
 
 ## Overview
 
@@ -22,7 +22,7 @@ If you are using Agent v6.8+ follow the instructions below to install the check 
    sudo -u dd-agent -H /opt/datadog-agent/embedded/bin/pip3 install grpcio pynvml
    ```
 
-If you are using Docker, there is an example Dockerfile in the NVML repository.
+If you are using Docker, there is an [example Dockerfile](https://github.com/DataDog/integrations-extras/blob/dhruv/nvml/nvml/tests/Dockerfile) in the NVML repository.
 
    ```shell
    docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
