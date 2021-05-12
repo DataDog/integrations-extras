@@ -4,7 +4,7 @@
 
 Altostra integrates with cloud computing services to provide your development teams with end-to-end workflows.
 
-With the Altostra Datadog integration, you can automatically instrument your Altostra projects during deployment to send logs and metrics to your Datadog account. Control the integration configuration as policy per deployment-environment and free your engineering teams from manual instrumentation.
+The Datadog Altostra integration enables you to automatically instrument your Altostra projects during deployment to send logs and metrics to your Datadog account. Control the integration configuration per deployment environment.
 
 ## Setup
 
