@@ -2,7 +2,6 @@ from time import sleep
 
 import pytest
 
-from datadog_checks.base import ConfigurationError
 from datadog_checks.redisenterprise import RedisenterpriseCheck
 
 # from datadog_checks.dev.utils import get_metadata_metrics
@@ -11,10 +10,6 @@ from datadog_checks.redisenterprise import RedisenterpriseCheck
 @pytest.mark.unit
 def test_check(aggregator, instance):
     check = RedisenterpriseCheck('redisenterprise', {}, [instance])
-
-    with pytest.raises(ConfigurationError):
-        check.check({})
-
     check.check({'host': 'localhost', 'user': 'chris@example.com', 'password': 'thePasswerd', 'is_mock': True})
 
 
