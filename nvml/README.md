@@ -22,7 +22,7 @@ If you are using Agent v6.8+ follow the instructions below to install the check 
    sudo -u dd-agent -H /opt/datadog-agent/embedded/bin/pip3 install grpcio pynvml
    ```
 
-If you are using Docker, there is an [example Dockerfile](https://github.com/DataDog/integrations-extras/blob/dhruv/nvml/nvml/tests/Dockerfile) in the NVML repository.
+If you are using Docker, there is an [example Dockerfile][15] in the NVML repository.
 
    ```shell
    docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
@@ -79,3 +79,4 @@ Need help? Contact [Datadog support][11].
 [12]: https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources
 [13]: https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html
 [14]:https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter
+[15]: https://github.com/DataDog/integrations-extras/blob/master/nvml/tests/Dockerfile
