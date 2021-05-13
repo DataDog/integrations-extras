@@ -1,0 +1,49 @@
+{
+  "timerange": {
+    "interval_ms": 86400000
+  },
+  "query": "source:sqreen @evt.name:sq.dd0.threat.attack",
+  "name": "Sqreen | Attacks (In-App WAF)",
+  "visible_facets": [
+    "@network.client.ip",
+    "@http.useragent_details.os.family",
+    "@http.useragent_details.browser.family",
+    "@http.url_details.path",
+    "@userIdentity.session_name",
+    "@sqreen.payload.protection",
+    "@http.useragent_details.device.family",
+    "@error.kind",
+    "@network.client.geoip.city.name",
+    "@eventSource",
+    "@http.method",
+    "@usr.account_id",
+    "@usr.email",
+    "@network.client.geoip.subdivision.name",
+    "@userIdentity.arn",
+    "@http.referer",
+    "@http.request_id",
+    "@sqreen.payload.ruleset",
+    "@evt.name",
+    "@http.status_code",
+    "@usr.name",
+    "@userIdentity.assumed_role",
+    "@usr.id",
+    "@aws.s3.bucket",
+    "@network.client.geoip.country.name",
+    "@duration"
+  ],
+  "page": "stream",
+  "type": "logs",
+  "options": {
+    "show_date_column": true,
+    "message_display": "inline",
+    "show_message_column": true,
+    "show_timeline": true,
+    "columns": [
+      "@env",
+      "service",
+      "@sqreen.context.http.response.blocked",
+      "@sqreen.payload.ruleset"
+    ]
+  }
+}

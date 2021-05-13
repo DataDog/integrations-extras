@@ -2,7 +2,7 @@
 
 ## Overview
 
-Rundeck further enhances Datadog notifications with automated workflow capabilities to help diagnose issues—and, optionally, to remediate them. 
+Rundeck further enhances Datadog notifications with automated workflow capabilities to help diagnose issues-and, optionally, to remediate them. 
 
 Learn more about automating your runbooks to reduce incident time [on the Rundeck website][1].
 
