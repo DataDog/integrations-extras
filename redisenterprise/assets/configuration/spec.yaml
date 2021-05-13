@@ -5,11 +5,8 @@ files:
   - template: init_config
     options:
     - template: init_config/default
-    - template: init_config/http
   - template: instances
     options:
-    - template: instances/default
-    - template: instances/http
     - name: host
       required: true
       description: The RedisEnterprise host
@@ -22,12 +19,6 @@ files:
       value:
         type: string
         example: redisadmin@example.com
-    - name: password
-      required: true
-      description: The RedisEnterprise API credential
-      value:
-        type: string
-        example: mySecretPassword
     - name: port
       required: false
       description: The RedisEnterprise API port - default 9443
@@ -40,15 +31,11 @@ files:
       value:
         type: boolean
         example: false
-    - name: timeout
-      required: false
-      description: Connect timeout in seconds - default 10
-      value:
-        type: integer
-        example: 10
     - name: event_limit
       required: false
       description: Number of events to fetch - default 50
       value:
         type: integer
         example: 50
+    - template: instances/http
+    - template: instances/default
