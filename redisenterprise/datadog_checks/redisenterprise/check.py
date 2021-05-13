@@ -26,15 +26,15 @@ class RedisenterpriseCheck(AgentCheck):
             return int(date.timestamp())
 
     def check(self, instance):
-        host = instance.get('host')
-        port = instance.get('port', 9443)
-        event_limit = instance.get('event_limit', 100)
-        user = instance.get('user')
-        password = instance.get('password')
-        timeout = instance.get('timeout', 10)
-        verifyssl = instance.get('verify_ssl', False)
-        is_mock = instance.get('is_mock', False)
-        service_check_tags = instance.get('tags', [])
+        host = self.instance.get('host')
+        port = self.instance.get('port', 9443)
+        event_limit = self.instance.get('event_limit', 100)
+        user = self.instance.get('user')
+        password = self.instance.get('password')
+        timeout = self.instance.get('timeout', 10)
+        verifyssl = self.instance.get('verify_ssl', False)
+        is_mock = self.instance.get('is_mock', False)
+        service_check_tags = self.instance.get('tags', [])
         auth = (user, password)
 
         if not host or not user or not password:
