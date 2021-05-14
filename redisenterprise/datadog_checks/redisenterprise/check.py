@@ -110,7 +110,7 @@ class RedisenterpriseCheck(AgentCheck):
             return self.OK
         return self.CRITICAL
 
-    def _get_bdb_dict(self, host, port, timeout, auth, verifyssl, service_check_tags):
+    def _get_bdb_dict(self, host, port, service_check_tags):
         bdb_dict = {}
         bdbs = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bdbs", service_check_tags)
         for i in bdbs:
