@@ -69,7 +69,7 @@ class RedisenterpriseCheck(AgentCheck):
             )
         except Exception as e:
             self.service_check(
-                'redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags, hostname=host
+                'redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags
             )
 
         pass
