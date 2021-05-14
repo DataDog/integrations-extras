@@ -104,7 +104,7 @@ class RedisenterpriseCheck(AgentCheck):
         return "unknown"
 
     def _get_version(self, host, port, service_check_tags):
-        info = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bootstrap", service_check_tags)
+        info = self._api_fetch_json(host, port, "bootstrap", service_check_tags)
         version = info['local_node_info']['software_version']
         if version:
             return self.OK
