@@ -277,8 +277,8 @@ class RedisenterpriseCheck(AgentCheck):
         stats = self._api_fetch_json(host, port, timeout, auth, verifyssl, "license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.now()
-        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags, hostname=host)
-        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags)
+        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags)
 
         # Check the time remaining on the license as a service check
         license_check = RedisenterpriseCheck.OK
