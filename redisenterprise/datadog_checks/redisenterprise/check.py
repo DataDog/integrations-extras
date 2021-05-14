@@ -72,7 +72,7 @@ class RedisenterpriseCheck(AgentCheck):
 
         pass
 
-    def _check_follower(self, host, port, timeout, auth, verifyssl, is_mock):
+    def _check_follower(self, host, port, timeout, is_mock):
         """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
         if is_mock:
             return False
