@@ -133,9 +133,6 @@ class RedisenterpriseCheck(AgentCheck):
         evnts = self._api_fetch_json(
             host,
             port,
-            timeout,
-            auth,
-            verifyssl,
             "logs",
             service_check_tags,
             params={
