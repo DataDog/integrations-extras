@@ -268,7 +268,7 @@ class RedisenterpriseCheck(AgentCheck):
             for j in stats[i].keys():
                 if j in gauges:
                     self.gauge(
-                        'redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags, hostname=host
+                        'redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags
                     )
         return 0
 
