@@ -128,7 +128,7 @@ class RedisenterpriseCheck(AgentCheck):
             }
         return bdb_dict
 
-    def _get_events(self, host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags, event_limit):
+    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
         """ Scrape the LOG endpoint and put all log entries into Datadog events """
         evnts = self._api_fetch_json(
             host,
