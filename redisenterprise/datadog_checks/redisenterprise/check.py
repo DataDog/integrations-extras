@@ -53,7 +53,7 @@ class RedisenterpriseCheck(AgentCheck):
             self._get_nodes(host, port, service_check_tags)
 
             # grab the DBD ID to name mapping
-            bdb_dict = self._get_bdb_dict(host, port, timeout, auth, verifyssl, service_check_tags)
+            bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
             self._get_bdb_stats(host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags)
             self._shard_usage(bdb_dict, service_check_tags, host)
 
