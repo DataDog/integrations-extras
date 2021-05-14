@@ -112,7 +112,7 @@ class RedisenterpriseCheck(AgentCheck):
 
     def _get_bdb_dict(self, host, port, service_check_tags):
         bdb_dict = {}
-        bdbs = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bdbs", service_check_tags)
+        bdbs = self._api_fetch_json(host, port, "bdbs", service_check_tags)
         for i in bdbs:
 
             # collect the number of shards and multiply by 2 if replicated
