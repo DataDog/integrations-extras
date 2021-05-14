@@ -54,7 +54,7 @@ class RedisenterpriseCheck(AgentCheck):
 
             # grab the DBD ID to name mapping
             bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
-            self._get_bdb_stats(host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags)
+            self._get_bdb_stats(host, port, bdb_dict, service_check_tags)
             self._shard_usage(bdb_dict, service_check_tags, host)
 
             # collect the events from the API - we set the timeout higher here
