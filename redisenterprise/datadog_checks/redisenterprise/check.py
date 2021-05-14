@@ -266,7 +266,7 @@ class RedisenterpriseCheck(AgentCheck):
                     )
         return 0
 
-    def _get_license(self, host, port, timeout, auth, verifyssl, service_check_tags):
+    def _get_license(self, host, port, service_check_tags):
         """ Collect Enterprise License Information """
         stats = self._api_fetch_json(host, port, timeout, auth, verifyssl, "license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
