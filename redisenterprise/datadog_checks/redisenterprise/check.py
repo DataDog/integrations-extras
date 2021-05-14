@@ -95,7 +95,7 @@ class RedisenterpriseCheck(AgentCheck):
         info = r.json()
         return info
 
-    def _get_fqdn(self, host, port, timeout, auth, verifyssl, service_check_tags):
+    def _get_fqdn(self, host, port, service_check_tags):
         """ Get the cluster FQDN back from the endpoints """
         info = self._api_fetch_json(host, port, timeout, auth, verifyssl, "cluster", service_check_tags)
         fqdn = info.get('name')
