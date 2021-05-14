@@ -202,7 +202,7 @@ class RedisenterpriseCheck(AgentCheck):
             'big_del_ram',
             'big_del_flash',
         ]
-        stats = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bdbs/stats/last", service_check_tags)
+        stats = self._api_fetch_json(host, port, "bdbs/stats/last", service_check_tags)
         self.gauge('redisenterprise.database_count', len(stats), tags=service_check_tags, hostname=host)
         for i in stats:
             tgs = []
