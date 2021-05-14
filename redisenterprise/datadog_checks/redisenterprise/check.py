@@ -43,7 +43,7 @@ class RedisenterpriseCheck(AgentCheck):
                 pass
 
             # add the cluster FQDN to the tags
-            fqdn = self._get_fqdn(host, port, timeout, auth, verifyssl, service_check_tags)
+            fqdn = self._get_fqdn(host, port, service_check_tags)
             service_check_tags.append('cluster:{}'.format(fqdn))
 
             # collect the license data
