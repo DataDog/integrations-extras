@@ -1,0 +1,575 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides an overview of the system performance and operational insights associated with JFrog Artifactory.  Included also, are some high level statistics on storage consumption and garbage collection details\n\nExample configuration and setup is also available at [Github](https://github.com/jfrog/metrics/tree/main/datadog)",
+    "layout_type": "free",
+    "template_variables": [],
+    "title": "Artifactory Metrics",
+    "widgets": [
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Idle Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_db_connections_idle_total{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_db_connections_idle_total{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "thick",
+                            "palette": "purple"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Active Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_db_connections_active_total{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_db_connections_active_total{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "thick",
+                            "palette": "orange"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Min Reserved Idle Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_db_connections_min_idle_total{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_db_connections_min_idle_total{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "thin",
+                            "palette": "grey"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Max Allowed Active Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_db_connections_max_active_total{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_db_connections_max_active_total{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Artifactory DB Connections",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 4035779743739664,
+            "layout": {
+                "height": 28,
+                "width": 108,
+                "x": 0,
+                "y": 100
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Max HTTP Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_http_connections_max_total{*}.as_count()"
+                            }
+                        ],
+                        "q": "sum:jfrog.artifactory.jfrt_http_connections_max_total{*}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Leased HTTP Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_http_connections_leased_total{*}.as_count()"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_http_connections_leased_total{*}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Pending HTTP Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_http_connections_pending_total{*}.as_count()"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_http_connections_pending_total{*}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Available HTTP Connections",
+                                "expression": "sum:jfrog.artifactory.jfrt_http_connections_available_total{*}.as_count()"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.artifactory.jfrt_http_connections_available_total{*}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "purple"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Artifactory HTTP Connections",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 2377485048256252,
+            "layout": {
+                "height": 28,
+                "width": 108,
+                "x": 0,
+                "y": 129
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "horizontal",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Free Memory",
+                                "expression": "avg:jfrog.artifactory.jfrt_runtime_heap_freememory_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_runtime_heap_freememory_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "purple"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Max Configured Memory",
+                                "expression": "avg:jfrog.artifactory.jfrt_runtime_heap_maxmemory_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_runtime_heap_maxmemory_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "orange"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Total Memory",
+                                "expression": "avg:jfrog.artifactory.jfrt_runtime_heap_totalmemory_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_runtime_heap_totalmemory_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "grey"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Used Memory",
+                                "expression": "avg:jfrog.artifactory.jfrt_runtime_heap_totalmemory_bytes{*}-avg:jfrog.artifactory.jfrt_runtime_heap_freememory_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_runtime_heap_totalmemory_bytes{*}-avg:jfrog.artifactory.jfrt_runtime_heap_freememory_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "# of Processors",
+                                "expression": "sum:jfrog.artifactory.jfrt_runtime_heap_processors_total{*}.as_count()"
+                            }
+                        ],
+                        "on_right_yaxis": true,
+                        "q": "sum:jfrog.artifactory.jfrt_runtime_heap_processors_total{*}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "right_yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                },
+                "show_legend": true,
+                "title": "Artifactory JVM Memory",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7356867538450466,
+            "layout": {
+                "height": 28,
+                "width": 108,
+                "x": 0,
+                "y": 42
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [
+                    {
+                        "display_type": "error dashed",
+                        "value": "y = 0"
+                    }
+                ],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "metadata": [
+                            {
+                                "alias_name": "Total Size Freed By Full",
+                                "expression": "avg:jfrog.artifactory.jfrt_artifacts_gc_size_cleaned_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_artifacts_gc_size_cleaned_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    },
+                    {
+                        "display_type": "bars",
+                        "metadata": [
+                            {
+                                "alias_name": "Total Size Freed By Binaries",
+                                "expression": "avg:jfrog.artifactory.jfrt_artifacts_gc_binaries_total{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.jfrt_artifacts_gc_binaries_total{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "orange"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "GC Execution Time",
+                                "expression": "avg:jfrog.artifactory.jfrt_artifacts_gc_duration_seconds{*}"
+                            }
+                        ],
+                        "on_right_yaxis": true,
+                        "q": "avg:jfrog.artifactory.jfrt_artifacts_gc_duration_seconds{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "right_yaxis": {
+                    "include_zero": true,
+                    "label": "Duration",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                },
+                "show_legend": true,
+                "title": "Artifactory Garbage Collection",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "Size",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 1837102601350984,
+            "layout": {
+                "height": 28,
+                "width": 108,
+                "x": 0,
+                "y": 71
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Disk Free Size",
+                                "expression": "avg:jfrog.artifactory.app_disk_free_bytes{*}"
+                            }
+                        ],
+                        "q": "avg:jfrog.artifactory.app_disk_free_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Disk Used Size",
+                                "expression": "avg:jfrog.artifactory.app_disk_used_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.app_disk_used_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys Memory Free Size",
+                                "expression": "avg:jfrog.artifactory.sys_memory_free_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.sys_memory_free_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys Memory Used Size",
+                                "expression": "avg:jfrog.artifactory.sys_memory_used_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.artifactory.sys_memory_used_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "purple"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys CPU Ratio",
+                                "expression": "avg:jfrog.artifactory.sys_cpu_ratio{*}"
+                            }
+                        ],
+                        "on_right_yaxis": true,
+                        "q": "avg:jfrog.artifactory.sys_cpu_ratio{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "orange"
+                        }
+                    }
+                ],
+                "right_yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                },
+                "show_legend": true,
+                "title": "Artifactory System Metrics",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6320888637646166,
+            "layout": {
+                "height": 28,
+                "width": 108,
+                "x": 0,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "margin": "md",
+                "sizing": "contain",
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/ART.png"
+            },
+            "id": 2323408631504518,
+            "layout": {
+                "height": 12,
+                "width": 23,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "This dashboard provides an overview of the system metrics, JVM statistics, storage consumption, garbage collection, and other operational insights associated with JFrog Artifactory",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "top"
+            },
+            "id": 190527421265012,
+            "layout": {
+                "height": 12,
+                "width": 84,
+                "x": 24,
+                "y": 0
+            }
+        }
+    ]
+}
