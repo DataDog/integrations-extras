@@ -161,7 +161,7 @@ class RedisenterpriseCheck(AgentCheck):
             if ts > self.last_event_timestamp_seen:
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
 
-    def _get_bdb_stats(self, host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags):
+    def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
         """ Collect Enterprise database related stats """
         gauges = [
             'avg_latency',
