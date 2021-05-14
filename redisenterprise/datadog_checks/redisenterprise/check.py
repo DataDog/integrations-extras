@@ -62,7 +62,7 @@ class RedisenterpriseCheck(AgentCheck):
 
             self.service_check(
                 'redisenterprise.running',
-                self._get_version(host, port, timeout, auth, verifyssl, service_check_tags),
+                self._get_version(host, port, service_check_tags),
                 tags=service_check_tags
             )
         except Exception as e:
