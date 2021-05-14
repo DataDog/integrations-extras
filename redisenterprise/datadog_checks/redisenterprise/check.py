@@ -50,7 +50,7 @@ class RedisenterpriseCheck(AgentCheck):
             fqdn = self._get_license(host, port, service_check_tags)
 
             # collect the node data
-            self._get_nodes(host, port, timeout, auth, verifyssl, service_check_tags)
+            self._get_nodes(host, port, service_check_tags)
 
             # grab the DBD ID to name mapping
             bdb_dict = self._get_bdb_dict(host, port, timeout, auth, verifyssl, service_check_tags)
