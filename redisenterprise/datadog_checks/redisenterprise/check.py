@@ -103,7 +103,7 @@ class RedisenterpriseCheck(AgentCheck):
             return fqdn
         return "unknown"
 
-    def _get_version(self, host, port, timeout, auth, verifyssl, service_check_tags):
+    def _get_version(self, host, port, service_check_tags):
         info = self._api_fetch_json(host, port, timeout, auth, verifyssl, "bootstrap", service_check_tags)
         version = info['local_node_info']['software_version']
         if version:
