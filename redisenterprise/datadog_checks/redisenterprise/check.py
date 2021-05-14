@@ -58,7 +58,7 @@ class RedisenterpriseCheck(AgentCheck):
             self._shard_usage(bdb_dict, service_check_tags, host)
 
             # collect the events from the API - we set the timeout higher here
-            self._get_events(host, port, timeout, auth, verifyssl, bdb_dict, service_check_tags, event_limit)
+            self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
 
             self.service_check(
                 'redisenterprise.running',
