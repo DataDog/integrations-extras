@@ -262,7 +262,6 @@ class RedisenterpriseCheck(AgentCheck):
                         * stats[i]['bigstore_objs_ram']
                         / (stats[i]['bigstore_objs_ram'] + stats[i]['bigstore_objs_flash']),
                         tags=tgs + service_check_tags,
-                        hostname=host,
                     )
 
             for j in stats[i].keys():
