@@ -38,7 +38,7 @@ class RedisenterpriseCheck(AgentCheck):
         try:
 
             # noop if we are not the cluser master
-            if self._check_follower(host, port, timeout, auth, verifyssl, is_mock):
+            if self._check_follower(host, port, is_mock):
                 self.last_timestamp_seen = datetime.utcnow()
                 pass
 
