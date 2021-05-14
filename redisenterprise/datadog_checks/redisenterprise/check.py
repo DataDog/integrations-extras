@@ -31,7 +31,6 @@ class RedisenterpriseCheck(AgentCheck):
         event_limit = self.instance.get('event_limit', 100)
         is_mock = self.instance.get('is_mock', False)
         service_check_tags = self.instance.get('tags', [])
-        auth = (user, password)
 
         if not host or not user or not password:
             raise ConfigurationError('Configuration error, please fix redisenterprise.yaml')
