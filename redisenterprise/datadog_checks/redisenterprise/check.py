@@ -284,7 +284,6 @@ class RedisenterpriseCheck(AgentCheck):
             'redisenterprise.license_status',
             license_check,
             tags=service_check_tags,
-            hostname=host,
         )
 
     def _shard_usage(self, bdb_dict, service_check_tags, host):
