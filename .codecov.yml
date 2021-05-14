@@ -107,6 +107,10 @@ coverage:
         target: 75
         flags:
         - reboot_required
+      RedisEnterprise:
+        target: 75
+        flags:
+        - redisenterprise
       Redis_Sentinel:
         target: 75
         flags:
@@ -334,6 +338,11 @@ flags:
     paths:
     - redis_sentinel/datadog_checks/redis_sentinel
     - redis_sentinel/tests
+  redisenterprise:
+    carryforward: true
+    paths:
+    - redisenterprise/datadog_checks/redisenterprise
+    - redisenterprise/tests
   riak_repl:
     carryforward: true
     paths:
