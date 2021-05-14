@@ -47,7 +47,7 @@ class RedisenterpriseCheck(AgentCheck):
             service_check_tags.append('cluster:{}'.format(fqdn))
 
             # collect the license data
-            fqdn = self._get_license(host, port, timeout, auth, verifyssl, service_check_tags)
+            fqdn = self._get_license(host, port, service_check_tags)
 
             # collect the node data
             self._get_nodes(host, port, timeout, auth, verifyssl, service_check_tags)
