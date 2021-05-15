@@ -1,28 +1,37 @@
 import json
 
 import pytest
+import requests
+import requests_mock
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
 
 
+def test_url(requests_mock):
+    requests_mock.get('http://test.com', text='data')
+    assert 'data' == requests.get('http://test.com').text
+
+
 def test_empty_instance(aggregator, instance_empty):
-    check = Ns1Check('ns1', {}, [instance_empty])
     with pytest.raises(ConfigurationError):
-        check.checkConfig()
+        check = Ns1Check('ns1', {}, [instance_empty])
+        if check.api_endpoint:
+            raise ConfigurationError('api_endpoint has value but should be None!')
 
 
 def test_config(aggregator, instance):
     check = Ns1Check('ns1', {}, [instance])
-    check.checkConfig()
     assert check.api_endpoint is not None
     aggregator.assert_all_metrics_covered()
 
 
 def test_no_metrics(aggregator, instance_nometrics):
-    check = Ns1Check('ns1', {}, [instance_nometrics])
+
     with pytest.raises(ConfigurationError):
-        check.checkConfig()
+        check = Ns1Check('ns1', {}, [instance_nometrics])
+        if check.metrics:
+            raise ConfigurationError('metrics has value but should be None!')
 
     # aggregator.assert_all_metrics_covered()
     # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
@@ -30,7 +39,6 @@ def test_no_metrics(aggregator, instance_nometrics):
 
 def test_parse_metrics(aggregator, instance):
     check = Ns1Check('ns1', {}, [instance])
-    check.checkConfig()
     metric = instance["metrics"]
 
     assert len(metric) > 0
@@ -39,10 +47,9 @@ def test_parse_metrics(aggregator, instance):
 
 def test_print_url(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
     aggregator.assert_all_metrics_covered()
 
-    checkUrl = check.createUrl(check.metrics, check.query_params)
+    checkUrl = check.create_url(check.metrics, check.query_params)
     print(checkUrl)
     # fail test so that e can see printout on console
     # assert False
@@ -51,10 +58,9 @@ def test_print_url(aggregator, instance_1):
 
 def test_url_gen_ddi(aggregator, instance_ddi):
     check = Ns1Check('ns1', {}, [instance_ddi])
-    check.checkConfig()
     aggregator.assert_all_metrics_covered()
 
-    checkUrl = check.createUrl(check.metrics, check.query_params)
+    checkUrl = check.create_url(check.metrics, check.query_params)
 
     assert len(checkUrl) > 0
     assert check.api_endpoint is not None
@@ -68,10 +74,9 @@ def test_url_gen_ddi(aggregator, instance_ddi):
 
 def test_url_gen(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
     aggregator.assert_all_metrics_covered()
 
-    checkUrl = check.createUrl(check.metrics, check.query_params)
+    checkUrl = check.create_url(check.metrics, check.query_params)
 
     if check.query_params:
         query_params = check.query_params
@@ -109,11 +114,42 @@ def test_url_gen(aggregator, instance_1):
     expect = "https://my.nsone.net/v1/pulsar/query/routemap/hit/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
     assert checkUrl["pulsar.routemap.hit.www.dloc1.com.A"][0] == expect
 
-
-def test_get_pulsar_app(aggregator, instance_1):
-    check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
-    pulsar_apps = check.getPulsarApplications()
+# instance_nometrics
+# def test_get_pulsar_app(aggregator, instance_1, requests_mock):
+def test_get_pulsar_app(aggregator, instance, requests_mock):
+    check = Ns1Check('ns1', {}, [instance])
+    url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=check.api_endpoint)    
+    appres='''
+    [
+        {
+            "customer": 1000,
+            "name": "Pulsar community",
+            "community": true,
+            "appid": "1xy4sn3",
+            "active": true,
+            "jobs_per_transaction": 2
+        }
+    ]
+    '''
+    jobres='''
+    [    
+        {
+            "customer": 1000,
+            "typeid": "latency",
+            "name": "CDN Latency - Cloudflare",
+            "community": true,
+            "jobid": "1xtvhvx",
+            "appid": "1xy4sn3",
+            "active": true
+        }
+    ]
+    '''
+    
+    requests_mock.get(url, text=appres)
+    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)    
+    requests_mock.get(url1, text=jobres)
+    
+    pulsar_apps = check.get_pulsar_applications()
     print(pulsar_apps)
 
     assert len(pulsar_apps) > 0
@@ -305,10 +341,8 @@ PULSAR_RESULT_AVAILABILITY = """
 
 def test_usage_count(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
-    # checkUrl = check.createUrl(check.metrics)
     check.usage_count = {"test": [0, 0]}
-    usage, status = check.extractUsageCount("test", json.loads(USAGE_RESULT))
+    usage, status = check.extract_usage_count("test", json.loads(USAGE_RESULT))
 
     assert usage == 758
     assert status
@@ -317,43 +351,38 @@ def test_usage_count(aggregator, instance_1):
 
 def test_pulsar_count(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
-    # checkUrl = check.createUrl(check.metrics)
     check.usage_count = {"test": [0, 0]}
-    usage, status = check.extractPulsarCount("test", json.loads(PULSAR_RESULT_DECISIONS))
+    usage, status = check.extract_pulsar_count("test", json.loads(PULSAR_RESULT_DECISIONS))
 
     assert usage == 8152
     assert status
     assert check.usage_count["test"] == [1619870400, 8152]
 
     check.usage_count = {"test": [1619870400, 5000]}
-    usage, status = check.extractPulsarCount("test", json.loads(PULSAR_RESULT_DECISIONS))
+    usage, status = check.extract_pulsar_count("test", json.loads(PULSAR_RESULT_DECISIONS))
     assert usage == 3152
     assert check.usage_count["test"] == [1619870400, 8152]
 
 
 def test_extractPulsarResponseTime(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
-    rtime, status = check.extractPulsarResponseTime(json.loads(PULSAR_RESULT_PERFORMANCE))
+    rtime, status = check.extract_pulsar_response_time(json.loads(PULSAR_RESULT_PERFORMANCE))
     assert rtime == 46.605
     assert status
 
 
 def test_extractPulsarAvailabilityPercent(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
-    up_percent, status = check.extractPulsarAvailability(json.loads(PULSAR_RESULT_AVAILABILITY))
+    up_percent, status = check.extract_pulsar_availability(json.loads(PULSAR_RESULT_AVAILABILITY))
     assert up_percent == 0.975
     assert status
 
 
 def test_read_prev_usage_count(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    check.checkConfig()
     check.usage_count_path = "./log"
     check.usage_count_fname = 'ns1_usage_count.txt'
-    check.getUsageCount()
+    check.get_usage_count()
     assert check.usage_count["usage"] == [0, 0]
 
 

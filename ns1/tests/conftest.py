@@ -48,7 +48,7 @@ CONFIG_2 = """{
 CONFIG_DDI = """
 {
   "api_endpoint": "https://localhost",
-  "api_key": "OZojRnrR9MhdeNscWPpa",
+  "api_key": "zVzFcQti79eTzrMv511t",
   "min_collection_interval": 15,
   "metrics": {
     "ddi": [
