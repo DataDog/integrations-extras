@@ -1,6 +1,7 @@
 # from typing import Any
 import errno
 import json
+import logging
 import os
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
@@ -48,6 +49,27 @@ class Ns1Check(AgentCheck):
         self.usage_count_path = "/opt/datadog-agent/log"
         self.usage_count_fname = 'ns1_usage_count.txt'
 
+    def setLogger(self, logfile):
+        logging.basicConfig(
+            filename=logfile, encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s'
+        )
+        # formatter = json_log_formatter.JSONFormatter()
+        # json_handler = logging.FileHandler(filename=logfile)
+        # json_handler.setFormatter(formatter)
+        # self.logger = logging.getLogger('ns1_json')
+        # self.logger.addHandler(json_handler)
+        # self.logger.setLevel(logging.INFO)
+
+    def getDdiScopeGroups(self):
+        url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=self.api_endpoint)
+        res = self.getStats(url)
+        scopegroups = {}
+        for group in res:
+            group_id = group["id"]
+            group_name = group["name"]
+            scopegroups[group_id] = group_name
+        return scopegroups
+
     def getPulsarApplications(self):
         url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=self.api_endpoint)
         res = self.getStats(url)
@@ -58,9 +80,20 @@ class Ns1Check(AgentCheck):
             apps[app["appid"]] = [app["name"], jobs]
         return apps
 
+    def getPulsarJobNameFromId(self, pulsar_job_id):
+        for _, v in self.pulsar_apps.items():
+            for job in v[1]:
+                jobid = job["jobid"]
+                if jobid == pulsar_job_id:
+                    jobname = job["name"]
+                    return jobname
+        return ""
+
     def check(self, instance):
 
         self.checkConfig()
+        self.setLogger('/opt/datadog-agent/log/ns1.log')
+        logging.info('Startup', extra={'data': 'all good'})
 
         # get counters from previous run
         self.getUsageCount()
@@ -72,7 +105,10 @@ class Ns1Check(AgentCheck):
             try:
                 url, name, tags, metric_type = v
                 # Query API to get metrics
+                # self.logger.info('call', extra={'data': url})
                 res = self.getStats(url)
+                logging.info('result', extra={'result': res})
+                logging.info(json.dumps(res))
                 if res:
                     # extract metric from API result.
                     val, status = self.extractMetric(k, res)
@@ -123,8 +159,8 @@ class Ns1Check(AgentCheck):
             elif key == "account":
                 checkUrl.update(self.getZoneInfoUrl(key, val))
                 checkUrl.update(self.getPlanDetailsUrl(key, val))
-            # elif key == "ddi":
-            #     checkUrl.update(self.getDdiUrl(key, val))
+            elif key == "ddi":
+                checkUrl.update(self.getDdiUrl(key, val))
             elif key == "pulsar":
                 checkUrl.update(self.getPulsarAppUrl(key, val, query_params, None))
             elif key == "pulsar_by_app":
@@ -141,8 +177,8 @@ class Ns1Check(AgentCheck):
             if "qps" in key:
                 res = result["qps"]
                 status = True
-            elif "usage" in key:
-                # result[0]["queries"]
+            elif "usage" in key or "leases" in key:
+                # usage and leases api result have same structure
                 res, status = self.extractUsageCount(key, result)
             elif "billing" in key:
                 res, status = self.extractBilling(result)
@@ -152,16 +188,59 @@ class Ns1Check(AgentCheck):
                 res, status = self.extractPulsarResponseTime(result)
             elif "pulsar.availability" in key:
                 res, status = self.extractPulsarAvailability(result)
+            elif "pulsar.decisions" == key:
+                res, status = self.extractPulsarCountByJob(key, result)
             elif "pulsar" in key:
                 res, status = self.extractPulsarCount(key, result)
-            elif "ddi" in key:
-                res, status = result[0]["queries"]
-                status = True
+            elif "peak_lps" in key:
+                # usage, leases and lps api result have same structure
+                res, status = self.extractPeakLps(result)
 
             return res, status
         except Exception:
             return None, False
-            # raise
+
+    def extractPulsarCountByJob(self, key, jsonResult):
+        try:
+            graphs = jsonResult["graphs"]
+            # this is called for each url in checkUrl dictionary
+            # get last timestamp and count from self.usage_count
+            # make sure decisions are queried with period of 2d in order to get sumarry per 12 hours,
+            # so then we can just take last bucket and check count
+            curr_timestamp = 0
+            curr_count = 0
+            result = {}
+
+            for element in graphs:
+                graph = element["graph"]
+                jobtags = element["tags"]
+                jobid = jobtags["jobid"]
+                # sort graph array
+                # find last timestamp that is >= last time stamp saved in file
+                res = sorted(graph, key=lambda x: x[0], reverse=True)
+                if res and len(res) > 0:
+
+                    curr_timestamp = res[0][0]
+                    curr_count = res[0][1]
+
+                    # find this metric in usage count
+                    jobkey = key + "." + jobid
+                    if jobkey in self.usage_count:
+                        prev_timestamp = self.usage_count[jobkey][0]
+                        prev_count = self.usage_count[jobkey][1]
+                        if curr_timestamp == prev_timestamp:
+                            self.usage_count[jobkey] = [prev_timestamp, curr_count]
+                            result[jobkey] = curr_count - prev_count
+                        else:
+                            self.usage_count[jobkey] = [curr_timestamp, curr_count]
+                            result[jobkey] = curr_count
+                    else:
+                        self.usage_count[jobkey] = [curr_timestamp, curr_count]
+                        result[jobkey] = curr_count
+
+            return result, True
+        except Exception:
+            return None, False
 
     def extractPulsarCount(self, key, jsonResult):
         try:
@@ -174,8 +253,8 @@ class Ns1Check(AgentCheck):
             curr_count = 0
 
             # sum count for all elements in array, make sure last time stamp is the same
-            # if timestamp is not the same, skip this submission, it's right at the time 
-            # buckets are being closed so reporting might be off for a few seconds, 
+            # if timestamp is not the same, skip this submission, it's right at the time
+            # buckets are being closed so reporting might be off for a few seconds,
             # will pick it up on next run
             index = 0
             for element in graphs:
@@ -237,7 +316,6 @@ class Ns1Check(AgentCheck):
     def extractPulsarAvailability(self, jsonResult):
         try:
             graphs = jsonResult["graphs"]
-            index = 0
             for element in graphs:
                 graph = element["graph"]
                 # sort graph array
@@ -249,6 +327,19 @@ class Ns1Check(AgentCheck):
                 else:
                     return None, False
         except Exception:
+            return None, False
+
+    def extractPeakLps(self, jsonResult):
+        try:
+            graph = jsonResult[0]["graph"]
+            res = sorted(graph, key=lambda x: x[0], reverse=True)
+            curr_lps = res[0][1]
+            logmsg = 'extractPeakLps:{lps}'.format(lps=curr_lps)
+            logging.info(logmsg)
+            return curr_lps, True
+
+        except Exception as e:
+            logging.info(e)
             return None, False
 
     def extractUsageCount(self, key, jsonResult):
@@ -294,7 +385,7 @@ class Ns1Check(AgentCheck):
 
             billing = {}
             billing["usage"] = jsonResult["totals"]["queries"]
-            billing["limit"] = jsonResult["totals"]["query_credit"]
+            billing["limit"] = jsonResult["any"]["query_credit"]
             return billing, True
         except Exception:
             return None, False
@@ -362,67 +453,51 @@ class Ns1Check(AgentCheck):
                                 urlList[urlkey] = [url, metric_record, tags, metric_type]
         return urlList
 
-    # generate url for DDI
-    # returns dictionary in form of <metric name>:<metric url>}
+    # generate url for DDI lease ans lps statistics
     def getDdiUrl(self, key, val):
         urlList = {}
         metric_lease = "leases"
-        metric_lps = "lps"
-        metric_type_count = "gauge"
+        metric_lps = "peak_lps"
+        metric_type_count = "count"
         metric_type_gauge = "gauge"
-        # first get account lease stats
-        # https://{{api_url}}/v1/stats/leases?period=24h
-        # Returns the sum of all leases - new and renewals - for the entire account
-        # Period parameter supported values: 24h (default) or 30d
 
-        # View lease statistics by scope group
-        # https://{{api_url}}/v1/stats/leases/{{scope_group_ID}}?period=24h
-        # Period parameter supported values: 24h (default) or 30d
-
-        # View account-wide peak LPS
-        # https://localhost/v1/stats/lps?period=24h
-        # Returns current leases per second (LPS) for all scope groups. Optionally,
-        # you can specify a period of time by which to filter results.
-        # Peak LPS is the maximum number of average leases calculated at 30-minute intervals
-        # in a 24-hour period and at 12-hour intervals in a 30-day period.
-        # 90th percentile markers: shows 90% of the time, the usage is below this amount
-        # 95th percentile markers: shows 95% of the time, the usage is below this amount
-        # Period parameter supported values: 24h (default) or 30d
-
-        # View peak LPS by scope group
-        # within the specified time range.
-        # https://{{api_url}}/v1/stats/lps/{{scope_group_ID}}?period=24h
-        # Period parameter supported values: 24h (default) or 30d
-
-        tags = [""]
+        # first get account-wide lease and lps stats
+        tags = ["scope_group:account_wide"]
         url = "{apiendpoint}/v1/stats/leases?period=24h".format(apiendpoint=self.api_endpoint)
         urlList["leases"] = [url, metric_lease, tags, metric_type_count]
 
         url = "{apiendpoint}/v1/stats/lps?period=24h".format(apiendpoint=self.api_endpoint)
-        urlList["lps"] = [url, metric_lps, tags, metric_type_gauge]
+        urlList["peak_lps"] = [url, metric_lps, tags, metric_type_gauge]
 
+        # if scope groups are specified, get stats for those requested
         if val:
-            for scope in val:
-                # here, domain is zone name, records is list of records and record types
-                url = "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h".format(
-                    apiendpoint=self.api_endpoint, scope_group_id=scope
-                )
-                tags = ["scope_group:{scope_group_id}".format(scope_group_id=scope)]
-                urlList["leases.{scope_group_id}".format(scope_group_id=scope)] = [
-                    url,
-                    metric_lease,
-                    tags,
-                    metric_type_count,
-                ]
-                url = "{apiendpoint}/v1/stats/lps/{scope_group_id}?period=24h".format(
-                    apiendpoint=self.api_endpoint, scope_group_id=scope
-                )
-                urlList["lps.{scope_group_id}".format(scope_group_id=scope)] = [
-                    url,
-                    metric_lps,
-                    tags,
-                    metric_type_gauge,
-                ]
+            # get scope group names to use them as tags so that we can separate metrics in dashboard
+            scopegroups = self.getDdiScopeGroups()
+
+            for scope_id in val:
+                if scope_id in scopegroups:
+
+                    tags = ["scope_group:{scope_name}".format(scope_name=scopegroups[scope_id])]
+
+                    url = "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h".format(
+                        apiendpoint=self.api_endpoint, scope_group_id=scope_id
+                    )
+                    urlList["leases.{scope_group_id}".format(scope_group_id=scope_id)] = [
+                        url,
+                        metric_lease,
+                        tags,
+                        metric_type_count,
+                    ]
+
+                    url = "{apiendpoint}/v1/stats/lps/{scope_group_id}?period=24h".format(
+                        apiendpoint=self.api_endpoint, scope_group_id=scope_id
+                    )
+                    urlList["peak_lps.{scope_group_id}".format(scope_group_id=scope_id)] = [
+                        url,
+                        metric_lps,
+                        tags,
+                        metric_type_gauge,
+                    ]
 
         return urlList
 
@@ -501,6 +576,8 @@ class Ns1Check(AgentCheck):
             url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
             urlList["pulsar.decisions"] = [url, metric_record, tags, metric_type]
 
+            tags = [""]
+
             # pulsar insufficient decision data for account
             # url = "/v1/pulsar/query/decision/customer/undetermined"
             urlpath = "/v1/pulsar/query/decision/customer/undetermined"
@@ -534,8 +611,8 @@ class Ns1Check(AgentCheck):
                         jobid = job["jobid"]
                         if jobid == v:
                             tags = [
-                                "pulsar_app:{pulsar_app_name}".format(pulsar_app_name=app_name),
-                                "pulsar_job:{job_name}".format(job_name=job["name"]),
+                                "app:{pulsar_app_name}".format(pulsar_app_name=app_name),
+                                "resource:{job_name}".format(job_name=job["name"]),
                             ]
                             # pulsar aggregate performance data
                             # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/data?period=30s
@@ -603,7 +680,7 @@ class Ns1Check(AgentCheck):
         # More info at https://datadoghq.dev/integrations-core/base/http/
         try:
             # response = self.http.get(self._build_url(url), headers=self.headers)
-            response = self.http.get(url, headers=self.headers)
+            response = self.http.get(url, headers=self.headers, verify=False)
             response.raise_for_status()
             response_json = response.json()
 
@@ -640,9 +717,14 @@ class Ns1Check(AgentCheck):
             self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats frmo NS1 DNS")
             raise
 
-    def sendMetrics(self, metricName, metricValue, tags, metric_type):
-        if metricName == "billing":
-            for k, v in metricValue.items():
+    def remove_prefix(self, text, prefix):
+        if text.startswith(prefix):
+            return text[len(prefix) :]
+        return text
+
+    def sendMetrics(self, metric_name, metric_value, tags, metric_type):
+        if metric_name == "billing":
+            for k, v in metric_value.items():
                 # {"usage": 1234, "limit": 500000}
                 # tag as either usage or limit
                 tags = ["billing:{btype}".format(btype=k)]
@@ -650,20 +732,25 @@ class Ns1Check(AgentCheck):
                     self.gauge('ns1.billing', v, tags)
                 elif metric_type == "count":
                     self.count('ns1.billing', v, tags)
-        elif isinstance(metricValue, dict):
-            for k, v in metricValue.items():
-                # urlList["{key}.zones.{domain}"] = url
-                # zoneTtl[zone["domain"]] = zone["ttl"]
-                # self.count('ns1.{name}.{record}'.format(name=metricName, record=k), v)
-                # we need tags on domain level, not zone level, override supplied values
-                # {"usage": 1234, "limit": 500000}
+        elif metric_name == "pulsar.decisions":
+            for k, v in metric_value.items():
+                pulsar_job_id = self.remove_prefix(k, "pulsar.decisions.")
+                tags = ["resource:{jobname}".format(jobname=self.getPulsarJobNameFromId(pulsar_job_id))]
+                if metric_type == "gauge":
+                    self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
+                elif metric_type == "count":
+                    self.count('ns1.{name}'.format(name=metric_name), v, tags)
+        elif isinstance(metric_value, dict):
+            for k, v in metric_value.items():
+                # All by record metric will have result as dictionsry
+                # add tab by DNS record
                 tags = ["record:{domain}".format(domain=k)]
                 if metric_type == "gauge":
-                    self.gauge('ns1.{name}'.format(name=metricName), v, tags)
+                    self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
                 elif metric_type == "count":
-                    self.count('ns1.{name}.{record}'.format(name=metricName, record=k), v, tags)
+                    self.count('ns1.{name}.{record}'.format(name=metric_name, record=k), v, tags)
         else:
             if metric_type == "gauge":
-                self.gauge('ns1.{}'.format(metricName), metricValue, tags)
+                self.gauge('ns1.{}'.format(metric_name), metric_value, tags)
             elif metric_type == "count":
-                self.count('ns1.{}'.format(metricName), metricValue, tags)
+                self.count('ns1.{}'.format(metric_name), metric_value, tags)

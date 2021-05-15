@@ -2,13 +2,21 @@
 #
 init_config:
 
+
 ## Every instance is scheduled independent of the others.
 #
 instances:
 
-    ## @param api_endpoint - string - required
-    ## The base NS1 API url to get statistics.
-    #
+  # DDI setup
+  - api_endpoint: https://localhost
+    api_key: OZojRnrR9MhdeNscWPpa
+    min_collection_interval: 15
+    metrics:
+      # ddi to query lease stats. if you want specific scope groups, enter as array of scope group id's
+      ddi:
+        - 2
+
+    # Managed DNS setup
   - api_endpoint: https://my.nsone.net
 
     ## @param api_key - string - required
@@ -22,7 +30,7 @@ instances:
     # https://demo.nsone.net/#/account/settings
     # JCyLfTuBg2df63WM51F9
     # api key for locall ddi instalation
-    # 2NX92PvXzsguAUhqkrJ2
+    # OZojRnrR9MhdeNscWPpa
 
 
     ## @param min_collection_interval - number - optional - default: 15
@@ -48,26 +56,21 @@ instances:
       pulsar_map_id: 0
     
       # metrics to collect
-    metrics:      
+    metrics:
       pulsar:
       # app_id:job_id
       pulsar_by_app:        
-        - 1xy4sn3: 1xtvhvx
+        - 1xy4sn3: 1b1o94j
         - 1xy4sn3: 1uy3acz
         - 1xy4sn3: 1uzovn7
-        - 1xy4sn3: 1uzt3cj
-        - 1xy4sn3: 1uzknxv        
+        - 1xy4sn3: 1xtsor1
+        - 1xy4sn3: 1xtvhvx        
       # record: record type
       pulsar_by_record:        
         - www.dloc.com: A
         - www.dloc1.com: A
         - www.dloc2.com: A
-      
-        # ddi to query lease stats. if you want specific scope groups, enter as array of scope group id's
-      ddi:
-        - 13
-        - 14
-        - 15
+
       qps: 
         - dloc.com:
           - www: A
@@ -94,4 +97,11 @@ instances:
           - dloc.com
           - dloc1.com
           - dloc2.com
+
+logs:
+  - type: file
+    path: /var/log/datadog/ns1.log
+    service: "ns1"
+    source: python
+    sourcecategory: sourcecode
 

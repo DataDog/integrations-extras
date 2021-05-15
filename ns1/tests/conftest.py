@@ -45,7 +45,18 @@ CONFIG_2 = """{
     ]
   }
 }"""
-
+CONFIG_DDI = """
+{
+  "api_endpoint": "https://localhost",
+  "api_key": "OZojRnrR9MhdeNscWPpa",
+  "min_collection_interval": 15,
+  "metrics": {
+    "ddi": [
+      2
+    ]
+  }
+}
+"""
 CONFIG_1 = """
 {
   "api_endpoint": "https://my.nsone.net",
@@ -72,11 +83,6 @@ CONFIG_1 = """
       {
         "www.dloc2.com": "A"
       }
-    ],
-    "ddi": [
-      13,
-      14,
-      15
     ],
     "qps": [
       {
@@ -182,3 +188,8 @@ def instance_empty():
 @pytest.fixture
 def instance_1():
     return json.loads(CONFIG_1)
+
+
+@pytest.fixture
+def instance_ddi():
+    return json.loads(CONFIG_DDI)

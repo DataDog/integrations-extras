@@ -49,6 +49,23 @@ def test_print_url(aggregator, instance_1):
     assert True
 
 
+def test_url_gen_ddi(aggregator, instance_ddi):
+    check = Ns1Check('ns1', {}, [instance_ddi])
+    check.checkConfig()
+    aggregator.assert_all_metrics_covered()
+
+    checkUrl = check.createUrl(check.metrics, check.query_params)
+
+    assert len(checkUrl) > 0
+    assert check.api_endpoint is not None
+    # leases
+    assert checkUrl["leases"][0] == "https://localhost/v1/stats/leases?period=24h"
+    assert checkUrl["leases.2"][0] == "https://localhost/v1/stats/leases/2?period=24h"
+    # lps
+    assert checkUrl["peak_lps"][0] == "https://localhost/v1/stats/lps?period=24h"
+    assert checkUrl["peak_lps.2"][0] == "https://localhost/v1/stats/lps/2?period=24h"
+
+
 def test_url_gen(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     check.checkConfig()
@@ -294,6 +311,7 @@ def test_usage_count(aggregator, instance_1):
     usage, status = check.extractUsageCount("test", json.loads(USAGE_RESULT))
 
     assert usage == 758
+    assert status
     assert check.usage_count["test"] == [1619220600, 758]
 
 
@@ -336,5 +354,13 @@ def test_read_prev_usage_count(aggregator, instance_1):
     check.usage_count_path = "./log"
     check.usage_count_fname = 'ns1_usage_count.txt'
     check.getUsageCount()
-
     assert check.usage_count["usage"] == [0, 0]
+
+
+# def test_logger(aggregator, instance_1):
+#     check = Ns1Check('ns1', {}, [instance_1])
+#     check.checkConfig()
+#     check.setLogger("./log/ns1.log")
+#     check.logger.info("test", extra={'test':'test'})
+
+#     assert check.logger is not None
