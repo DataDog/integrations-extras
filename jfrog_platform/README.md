@@ -12,11 +12,15 @@ Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replicatio
 
 JFrog Xray is a continuous security and universal artifact analysis solution that provides multi-layered analysis of your containers and software artifacts for vulnerabilities and license compliance issues.  It is the only Software Composition Analysis solution that natively integrates with JFrog Artifactory for optimized scanning and unified operation. Supports all major package types, understands how to unpack them, and uses recursive scanning to see into all of the underlying layers and dependencies, even those packaged in Docker images, and zip files.
 
-### JFrog Artifactory Datadog Dashboard
+### JFrog Artifactory and Xray logs Datadog Dashboard
 
-JFrog Datadog integration allows you to send Artifactory logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into Artifactory's usage statistics.
+JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into Artifactory's usage statistics or xray's scanned components details.
 
 ![dashboard][1]
+
+![dashboard][16]
+
+![dashboard][17]
 
 ### JFrog Artifactory and Xray Metrics API Dashboard
 
@@ -159,3 +163,6 @@ Need help? Contact [Datadog support][15].
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [14]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
 [15]: https://docs.datadoghq.com/help/
+[16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_logs.png
+[17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_violations.png
+
