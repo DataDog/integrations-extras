@@ -2,7 +2,6 @@ import json
 
 import pytest
 import requests
-import requests_mock
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
@@ -56,10 +55,54 @@ def test_print_url(aggregator, instance_1):
     assert True
 
 
-def test_url_gen_ddi(aggregator, instance_ddi):
+def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()
-
+    url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=check.api_endpoint)
+    ddiresponse = '''
+    [
+        {
+            "dhcp_service_id": 3,
+            "name": "scope1",
+            "client_class_ids": [],
+            "dhcpv4": {
+                "enabled": true,
+                "options": [
+                    {
+                        "name": "dhcpv4/example-single-type",
+                        "value": "markmpeterson.xyz"
+                    }
+                ],
+                "rebind_timer_secs": 43200,
+                "renew_timer_secs": 21600,
+                "valid_lifetime_secs": 86400,
+                "echo_client_id": true,
+                "match_client_id": true,
+                "synthesize_dns_records": {
+                    "enabled": true
+                }
+            },
+            "dhcpv6": {
+                "enabled": false,
+                "options": [],
+                "synthesize_dns_records": {}
+            },
+            "blocked_tags": [],
+            "local_tags": [
+                "Site Code",
+                "auth:Security Lvl"
+            ],
+            "tags": {
+                "Site Code": "DO",
+                "auth:Security Lvl": "2"
+            },
+            "id": 2,
+            "network_id": 1,
+            "template_config": []
+        }
+    ]
+    '''
+    requests_mock.get(url, text=ddiresponse)
     checkUrl = check.create_url(check.metrics, check.query_params)
 
     assert len(checkUrl) > 0
@@ -114,12 +157,11 @@ def test_url_gen(aggregator, instance_1):
     expect = "https://my.nsone.net/v1/pulsar/query/routemap/hit/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
     assert checkUrl["pulsar.routemap.hit.www.dloc1.com.A"][0] == expect
 
-# instance_nometrics
-# def test_get_pulsar_app(aggregator, instance_1, requests_mock):
+
 def test_get_pulsar_app(aggregator, instance, requests_mock):
     check = Ns1Check('ns1', {}, [instance])
-    url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=check.api_endpoint)    
-    appres='''
+    url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=check.api_endpoint)
+    appres = '''
     [
         {
             "customer": 1000,
@@ -131,8 +173,8 @@ def test_get_pulsar_app(aggregator, instance, requests_mock):
         }
     ]
     '''
-    jobres='''
-    [    
+    jobres = '''
+    [
         {
             "customer": 1000,
             "typeid": "latency",
@@ -144,13 +186,11 @@ def test_get_pulsar_app(aggregator, instance, requests_mock):
         }
     ]
     '''
-    
+
     requests_mock.get(url, text=appres)
-    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)    
+    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)
     requests_mock.get(url1, text=jobres)
-    
     pulsar_apps = check.get_pulsar_applications()
-    print(pulsar_apps)
 
     assert len(pulsar_apps) > 0
     key = next(iter(pulsar_apps))
@@ -190,6 +230,7 @@ USAGE_RESULT = """
     }
 ]
 """
+
 PULSAR_RESULT_DECISIONS = """
 {
     "graphs": [
