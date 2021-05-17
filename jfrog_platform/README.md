@@ -40,31 +40,87 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 * Your [Datadog API key][6].
 
 ### Logs Collection
-1. Fluentd configuration : Datadog's Fluentd plugin can be used to forward logs directly from Fluentd to your Datadog account.
 
-    Set up the Fluentd integration by specifying the API key as follows:
+1. Fluentd installation :
 
-    _api_key_ is your [Datadog API key][6].
-
-    _dd_source_ attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in Datadog.
-
-    _include_tag_key_ defaults to false and it will add fluentd tag in the JSON record if set to true
-
-    Adding proper metadata is the key to unlocking the full potential of your logs in Datadog. By default, the hostname and timestamp fields should be remapped.
-
+    Please follow the detailed steps for Fluentd instllation based on your installation type and defining the environment variable correctly [here][18]  
+ 
+2. Fluentd configuration : 
+        
+    #### Artifactory Configuration
+    Download the artifactory fluentd configuration file to a directory the user has permissions to write, such as the $JF_PRODUCT_DATA_INTERNAL locations discussed in step 1.
+    
+    ````text
+    cd $JF_PRODUCT_DATA_INTERNAL
+    wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.rt
+    ````
+    
+    Override the match directive(last section) of the downloaded `fluent.conf.rt` with the details given below
+    
     ```
     <match jfrog.**>
-    @type datadog
-    @id datadog_agent_artifactory
-    api_key <api_key>
-    include_tag_key true
-    dd_source fluentd
+      @type datadog
+      @id datadog_agent_jfrog_artifactory
+      api_key API_KEY
+      include_tag_key true
+      dd_source fluentd
     </match>
     ```
+   _**required**_: _API_KEY_ is the apiKey from [Datadog][6].
+   
+   _dd_source_ attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
+   
+   _include_tag_key_ defaults to false and it will add fluentd tag in the json record if set to true
+    
+    #### Xray Configuration
+    
+    Download the Xray fluentd configuration file to a directory the user has permissions to write, such as the $JF_PRODUCT_DATA_INTERNAL locations discussed in step 1.
+    
+    ````text
+    cd $JF_PRODUCT_DATA_INTERNAL
+    wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.xray
+    ````
+    
+    Fill in the JPD_URL, USER, JFROG_API_KEY fields in the source directive of the downloaded `fluent.conf.xray` with the details given below
+    
+    ```text
+    <source>
+      @type jfrog_siem
+      tag jfrog.xray.siem.vulnerabilities
+      jpd_url JPD_URL
+      username USER
+      apikey JFROG_API_KEY
+      pos_file "#{ENV['JF_PRODUCT_DATA_INTERNAL']}/log/jfrog_siem.log.pos"
+    </source>
+    ```
+    
+    _**required**_: _JPD_URL_ is the Artifactory JPD URL of the format `http://<ip_address>` with is used to pull Xray Violations
+    
+    _**required**_: _USER_ is the Artifactory username for authentication
+    
+    _**required**_: _JFROG_API_KEY_ is the [Artifactory API Key][19] for authentication
+    
+    Override the match directive(last section) of the downloaded `fluent.conf.xray` with the details given below
+    
+    ```
+    <match jfrog.**>
+      @type datadog
+      @id datadog_agent_jfrog_xray
+      api_key API_KEY
+      include_tag_key true
+      dd_source fluentd
+    </match>
+    ```
+    
+    _**required**_: _API_KEY_ is the apiKey from Datadog
+    
+    _dd_source_ attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
+    
+    _include_tag_key_ defaults to false and it will add fluentd tag in the json record if set to true
 
-2. Integration enablement
+3. Integration enablement
 
-    To enable this integration, run the td-agent on `artifactory` pods:
+    To enable this integration, run the td-agent on `artifactory`\ `xray` pods:
 
     ``` 
     td-agent
@@ -136,7 +192,7 @@ If you have not installed the JFrog platform tile yet, install the tile.
 
 ### JFrog Artifactory Dashboard
 
-Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics` and explore it.
+Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics`, `Xray Logs`, `` and explore it.
 
 ### Data Collected
 
@@ -165,4 +221,5 @@ Need help? Contact [Datadog support][15].
 [15]: https://docs.datadoghq.com/help/
 [16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_logs.png
 [17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_violations.png
-
+[18]: https://github.com/jfrog/log-analytics-datadog/blob/67e45e4ae7227f2d6ffb353774a1777582b64449/README.md
+[19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
