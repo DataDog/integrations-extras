@@ -251,7 +251,7 @@ class StormCheck(AgentCheck):
             self.log.debug("Fetching url %s", url)
             if params:
                 self.log.debug("Request params: %s", params)
-            resp = requests.get(url, params=params)
+            resp = self.http.get(url, params=params)
             resp.encoding = 'utf-8'
             data = resp.json()
             # Log response data exluding configuration section
