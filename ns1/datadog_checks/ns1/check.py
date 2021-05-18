@@ -273,8 +273,9 @@ class Ns1Check(AgentCheck):
                 prev_timestamp = self.usage_count[key][0]
                 prev_count = self.usage_count[key][1]
                 if curr_timestamp == prev_timestamp:
-                    self.usage_count[key] = [prev_timestamp, curr_count]
-                    result = curr_count - prev_count
+                    if curr_count > prev_count:
+                        self.usage_count[key] = [prev_timestamp, curr_count]
+                        result = curr_count - prev_count
                 else:
                     self.usage_count[key] = [curr_timestamp, curr_count]
                     result = curr_count
