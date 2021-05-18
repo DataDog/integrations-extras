@@ -1,3 +1,4 @@
+# NS1 API endpoints that will be queried to retrieve statistics
 NS1_ENDPOINTS = {
     # qps and usage stats account wide
     "qps.usage": "{apiendpoint}/v1/stats/{key}{query}",

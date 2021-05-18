@@ -34,11 +34,11 @@ class Ns1Url:
         if val:
             for zoneDict in val:
                 # zone is again dictionary, with zone name as key and records as list of objects
-                # metric_name=metric_name + ".zone"
                 for domain, records in zoneDict.items():
                     # here, domain is zone name, records is list of records and record types
-                    url = NS1_ENDPOINTS["qps.usage.zone"]
-                    url = url.format(apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string)
+                    url = NS1_ENDPOINTS["qps.usage.zone"].format(
+                        apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
+                    )
                     if key == "usage":
                         tags = ["network:{network}".format(network=network_id), "zone:{zone}".format(zone=domain)]
                     else:
@@ -46,16 +46,15 @@ class Ns1Url:
                     urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags, metric_type]
 
                     if records:
-                        # metric_name=metric_name + ".record"
                         for rec in records:
                             for r, t in rec.items():
-                                url = "{apiendpoint}/v1/stats/{key}/{domain}/{record}/{rectype}{suffix}".format(
+                                url = NS1_ENDPOINTS["qps.usage.record"].format(
                                     apiendpoint=self.api_endpoint,
                                     key=key,
                                     domain=domain,
                                     record=r + "." + domain,
                                     rectype=t,
-                                    suffix=query_string,
+                                    query=query_string,
                                 )
                                 tags = [
                                     "record:{record}.{zone}".format(record=r, zone=domain),
@@ -76,35 +75,31 @@ class Ns1Url:
 
         # first get account-wide lease and lps stats
         tags = ["scope_group:account_wide"]
-        url = "{apiendpoint}/v1/stats/leases?period=24h".format(apiendpoint=self.api_endpoint)
+        url = NS1_ENDPOINTS["ddi.leases"].format(apiendpoint=self.api_endpoint)
         urlList["leases"] = [url, metric_lease, tags, metric_type_count]
 
-        url = "{apiendpoint}/v1/stats/lps?period=24h".format(apiendpoint=self.api_endpoint)
+        url = NS1_ENDPOINTS["ddi.lps"].format(apiendpoint=self.api_endpoint)
         urlList["peak_lps"] = [url, metric_lps, tags, metric_type_gauge]
 
         # if scope groups are specified, get stats for those requested
         if val:
-            # get scope group names to use them as tags so that we can separate metrics in dashboard
-            # scopegroups = self.get_ddi_scope_groups()
-
             for scope_id in val:
                 if scope_id in scopegroups:
 
                     tags = ["scope_group:{scope_name}".format(scope_name=scopegroups[scope_id])]
-
-                    url = "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h".format(
+                    url = NS1_ENDPOINTS["ddi.leases.scope"].format(
                         apiendpoint=self.api_endpoint, scope_group_id=scope_id
                     )
+                    # url = "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h".format(
+                    #     apiendpoint=self.api_endpoint, scope_group_id=scope_id
+                    # )
                     urlList["leases.{scope_group_id}".format(scope_group_id=scope_id)] = [
                         url,
                         metric_lease,
                         tags,
                         metric_type_count,
                     ]
-
-                    url = "{apiendpoint}/v1/stats/lps/{scope_group_id}?period=24h".format(
-                        apiendpoint=self.api_endpoint, scope_group_id=scope_id
-                    )
+                    url = NS1_ENDPOINTS["ddi.lps.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
                     urlList["peak_lps.{scope_group_id}".format(scope_group_id=scope_id)] = [
                         url,
                         metric_lps,
@@ -115,20 +110,17 @@ class Ns1Url:
         return urlList
 
     def get_zone_info_url(self, key, val):
-        urlList = {}  # dictionary in form of <metric name>:<metric url>}
+        urlList = {}
 
         if val:
             for accDict in val:
-                # account section is dictionary, with 2 entries: 'plan' and 'zones'. zones object is list of zones
                 for _, domainList in accDict.items():
-                    # here, zones object contains list of zones
-                    # if there is no list of objects, then ignore, that is 'plan' entry
                     metric_record = "ttl"
                     metric_type = "gauge"
                     if domainList:
                         for domain in domainList:
                             tags = ["record:{zone}".format(zone=domain)]
-                            url = "{apiendpoint}/v1/zones/{domain}".format(apiendpoint=self.api_endpoint, domain=domain)
+                            url = NS1_ENDPOINTS["ttl"].format(apiendpoint=self.api_endpoint, domain=domain)
                             urlList["{key}.ttl.{domain}".format(key=key, domain=domain)] = [
                                 url,
                                 metric_record,
@@ -140,7 +132,7 @@ class Ns1Url:
     def get_plan_details_url(self, key, val):
         urlList = {}
 
-        # just get account plan limits
+        # get account plan limits
         url = "{apiendpoint}/v1/account/billataglance".format(apiendpoint=self.api_endpoint)
         tags = [""]
         metric_record = "billing"
@@ -149,9 +141,48 @@ class Ns1Url:
 
         return urlList
 
-    def get_pulsar_app_url(self, key, val, query_params, pulsar_apps):
-
+    def get_pulsar_by_record_url(self, val, query_params):
         urlList = {}
+        query_string = "?period=2d&"
+        if query_params:
+            if "pulsar_geo" in query_params:
+                query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+            if "pulsar_asn" in query_params:
+                query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+        query_string = query_string[:-1]
+
+        for record in val:
+            for domain, rectype in record.items():
+                tags = ["record:{record}".format(record=domain)]
+                metric_type = "count"
+                metric_record = "pulsar.decisions.record"
+                # pulsar decisions for record
+                url = "{apiendpoint}/v1/pulsar/query/decision/record/{rec_name}/{rec_type}{query}".format(
+                    apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
+                )
+                k = "pulsar.decisions.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
+                urlList[k] = [url, metric_record, tags, metric_type]
+
+                metric_record = "pulsar.routemap.hit.record"
+                # route map hits by record
+                url = "{apiendpoint}/v1/pulsar/query/routemap/hit/record/{rec_name}/{rec_type}{query}".format(
+                    apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
+                )
+                k = "pulsar.routemap.hit.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
+                urlList[k] = [url, metric_record, tags, metric_type]
+                metric_record = "pulsar.routemap.miss.record"
+                # route map misses by record
+                url = "{apiendpoint}/v1/pulsar/query/routemap/miss/record/{rec_name}/{rec_type}{query}".format(
+                    apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
+                )
+                k = "pulsar.routemap.miss.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
+                urlList[k] = [url, metric_record, tags, metric_type]
+        return urlList
+
+    def get_pulsar_by_app_url(self, val, pulsar_apps, query_params):
+        # pulsar by app
+        urlList = {}
+        metric_type = "gauge"
         query_string = "?"
         if query_params:
             if "pulsar_period" in query_params:
@@ -164,123 +195,77 @@ class Ns1Url:
                     query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
         query_string = query_string[:-1]
 
-        # pulsar general account wide
-        if key == "pulsar":
-            query_string = "?"
-            # for "pulsar" group of endpoints, override settings and always use period = 2d
-            # to get properly sumarized stats
-            query_string = query_string + "period=2d&"
-            if query_params:
-                if "pulsar_geo" in query_params:
-                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-                if "pulsar_asn" in query_params:
-                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
-                # if "pulsar_agg" in query_params:
-                #     query_string = query_string + "agg=" + query_params["pulsar_agg"] + "&"
-            query_string = query_string[:-1]
+        for app in val:
+            # apps[app["appid"]] = [app["name"],jobs]
+            for appid, v in app.items():
+                app_name = pulsar_apps[appid][0]
+                for job in pulsar_apps[appid][1]:
+                    jobid = job["jobid"]
+                    if jobid == v:
+                        tags = [
+                            "app:{pulsar_app_name}".format(pulsar_app_name=app_name),
+                            "resource:{job_name}".format(job_name=job["name"]),
+                        ]
+                        # pulsar aggregate performance data
+                        # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/data?period=30s
+                        url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/data{query}".format(
+                            apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
+                        )
+                        metric_record = "pulsar.performance"
+                        k = "pulsar.performance.{app_id}.{job_id}".format(app_id=appid, job_id=jobid)
+                        urlList[k] = [url, metric_record, tags, metric_type]
 
-            tags = [""]
-            metric_record = "pulsar.decisions"
-            metric_type = "count"
+                        # pulsar availability data
+                        # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/availability?period=30s
+                        url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/availability{query}".format(
+                            apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
+                        )
+                        metric_record = "pulsar.availability"
+                        k = "pulsar.availability.{app_id}.{job_id}".format(app_id=appid, job_id=jobid)
+                        urlList[k] = [url, metric_record, tags, metric_type]
+        return urlList
 
-            # pulsar decisions account wide
-            # url = "/v1/pulsar/query/decision/customer"
-            urlpath = "/v1/pulsar/query/decision/customer"
-            url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-            urlList["pulsar.decisions"] = [url, metric_record, tags, metric_type]
+    def get_pulsar_url(self, query_params):
+        urlList = {}
+        query_string = "?"
+        # for "pulsar" group of endpoints, override settings and always use period = 2d
+        # to get properly sumarized stats
+        query_string = query_string + "period=2d&"
+        if query_params:
+            if "pulsar_geo" in query_params:
+                query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+            if "pulsar_asn" in query_params:
+                query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+        query_string = query_string[:-1]
 
-            tags = [""]
+        tags = [""]
+        metric_record = "pulsar.decisions"
+        metric_type = "count"
 
-            # pulsar insufficient decision data for account
-            # url = "/v1/pulsar/query/decision/customer/undetermined"
-            urlpath = "/v1/pulsar/query/decision/customer/undetermined"
-            metric_record = "pulsar.decisions.insufficient"
-            url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-            urlList["pulsar.decisions.insufficient"] = [url, metric_record, tags, metric_type]
+        # pulsar decisions account wide
+        urlpath = "/v1/pulsar/query/decision/customer"
+        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
+        urlList["pulsar.decisions"] = [url, metric_record, tags, metric_type]
 
-            # pulsar all route map hits
-            # url = "/v1/pulsar/query/routemap/hit/customer"
-            urlpath = "/v1/pulsar/query/routemap/hit/customer"
-            metric_record = "pulsar.routemap.hit"
-            url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-            urlList["pulsar.routemap.hit"] = [url, metric_record, tags, metric_type]
+        tags = [""]
 
-            # pulsar all route map misses
-            # url = "/v1/pulsar/query/routemap/miss/customer"
-            metric_record = "pulsar.routemap.miss"
-            urlpath = "/v1/pulsar/query/routemap/miss/customer"
-            url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-            urlList["pulsar.routemap.miss"] = [url, metric_record, tags, metric_type]
+        # pulsar insufficient decision data for account
+        urlpath = "/v1/pulsar/query/decision/customer/undetermined"
+        metric_record = "pulsar.decisions.insufficient"
+        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
+        urlList["pulsar.decisions.insufficient"] = [url, metric_record, tags, metric_type]
 
-        elif key == "pulsar_by_app":
-            metric_type = "gauge"
-            # pulsar by app
+        # pulsar all route map hits
+        # url = "/v1/pulsar/query/routemap/hit/customer"
+        urlpath = "/v1/pulsar/query/routemap/hit/customer"
+        metric_record = "pulsar.routemap.hit"
+        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
+        urlList["pulsar.routemap.hit"] = [url, metric_record, tags, metric_type]
 
-            for app in val:
-                # apps[app["appid"]] = [app["name"],jobs]
-                for appid, v in app.items():
-                    app_name = pulsar_apps[appid][0]
-                    for job in pulsar_apps[appid][1]:
-                        jobid = job["jobid"]
-                        if jobid == v:
-                            tags = [
-                                "app:{pulsar_app_name}".format(pulsar_app_name=app_name),
-                                "resource:{job_name}".format(job_name=job["name"]),
-                            ]
-                            # pulsar aggregate performance data
-                            # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/data?period=30s
-                            url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/data{query}".format(
-                                apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
-                            )
-                            metric_record = "pulsar.performance"
-                            k = "pulsar.performance.{app_id}.{job_id}".format(app_id=appid, job_id=jobid)
-                            urlList[k] = [url, metric_record, tags, metric_type]
-
-                            # pulsar availability data
-                            # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/availability?period=30s
-                            url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/availability{query}".format(
-                                apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
-                            )
-                            metric_record = "pulsar.availability"
-                            k = "pulsar.availability.{app_id}.{job_id}".format(app_id=appid, job_id=jobid)
-                            urlList[k] = [url, metric_record, tags, metric_type]
-
-        elif key == "pulsar_by_record":
-            query_string = "?period=2d&"
-            if query_params:
-                if "pulsar_geo" in query_params:
-                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-                if "pulsar_asn" in query_params:
-                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
-                # if "pulsar_agg" in query_params:
-                #     query_string = query_string + "agg=" + query_params["pulsar_agg"] + "&"
-            query_string = query_string[:-1]
-
-            for record in val:
-                for domain, rectype in record.items():
-                    tags = ["record:{record}".format(record=domain)]
-                    metric_type = "count"
-                    metric_record = "pulsar.decisions.record"
-                    # pulsar decisions for record
-                    url = "{apiendpoint}/v1/pulsar/query/decision/record/{rec_name}/{rec_type}{query}".format(
-                        apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
-                    )
-                    k = "pulsar.decisions.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
-                    urlList[k] = [url, metric_record, tags, metric_type]
-
-                    metric_record = "pulsar.routemap.hit.record"
-                    # route map hits by record
-                    url = "{apiendpoint}/v1/pulsar/query/routemap/hit/record/{rec_name}/{rec_type}{query}".format(
-                        apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
-                    )
-                    k = "pulsar.routemap.hit.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
-                    urlList[k] = [url, metric_record, tags, metric_type]
-                    metric_record = "pulsar.routemap.miss.record"
-                    # route map misses by record
-                    url = "{apiendpoint}/v1/pulsar/query/routemap/miss/record/{rec_name}/{rec_type}{query}".format(
-                        apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
-                    )
-                    k = "pulsar.routemap.miss.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
-                    urlList[k] = [url, metric_record, tags, metric_type]
-
+        # pulsar all route map misses
+        # url = "/v1/pulsar/query/routemap/miss/customer"
+        metric_record = "pulsar.routemap.miss"
+        urlpath = "/v1/pulsar/query/routemap/miss/customer"
+        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
+        urlList["pulsar.routemap.miss"] = [url, metric_record, tags, metric_type]
         return urlList

@@ -1,22 +1,14 @@
 import json
 
 import pytest
-import requests
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
 
 
-def test_url(requests_mock):
-    requests_mock.get('http://test.com', text='data')
-    assert 'data' == requests.get('http://test.com').text
-
-
 def test_empty_instance(aggregator, instance_empty):
     with pytest.raises(ConfigurationError):
-        check = Ns1Check('ns1', {}, [instance_empty])
-        if check.api_endpoint:
-            raise ConfigurationError('api_endpoint has value but should be None!')
+        _ = Ns1Check('ns1', {}, [instance_empty])
 
 
 def test_config(aggregator, instance):
@@ -25,15 +17,15 @@ def test_config(aggregator, instance):
     aggregator.assert_all_metrics_covered()
 
 
+def test_no_key(aggregator, instance_nokey):
+    with pytest.raises(ConfigurationError):
+        _ = Ns1Check('ns1', {}, [instance_nokey])
+
+
 def test_no_metrics(aggregator, instance_nometrics):
 
     with pytest.raises(ConfigurationError):
-        check = Ns1Check('ns1', {}, [instance_nometrics])
-        if check.metrics:
-            raise ConfigurationError('metrics has value but should be None!')
-
-    # aggregator.assert_all_metrics_covered()
-    # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+        _ = Ns1Check('ns1', {}, [instance_nometrics])
 
 
 def test_parse_metrics(aggregator, instance):
@@ -42,17 +34,6 @@ def test_parse_metrics(aggregator, instance):
 
     assert len(metric) > 0
     assert check.api_endpoint is not None
-
-
-def test_print_url(aggregator, instance_1):
-    check = Ns1Check('ns1', {}, [instance_1])
-    aggregator.assert_all_metrics_covered()
-
-    checkUrl = check.create_url(check.metrics, check.query_params)
-    print(checkUrl)
-    # fail test so that e can see printout on console
-    # assert False
-    assert True
 
 
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
@@ -115,21 +96,54 @@ def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     assert checkUrl["peak_lps.2"][0] == "https://localhost/v1/stats/lps/2?period=24h"
 
 
-def test_url_gen(aggregator, instance_1):
+def test_url_gen(aggregator, instance_1, requests_mock):
     check = Ns1Check('ns1', {}, [instance_1])
     aggregator.assert_all_metrics_covered()
 
+    url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=check.api_endpoint)
+    appres = '''
+    [
+        {
+            "customer": 1000,
+            "name": "Pulsar community",
+            "community": true,
+            "appid": "1xy4sn3",
+            "active": true,
+            "jobs_per_transaction": 2
+        }
+    ]
+    '''
+    jobres = '''
+    [
+        {
+            "customer": 1000,
+            "typeid": "latency",
+            "name": "CDN Latency - Cloudflare",
+            "community": true,
+            "jobid": "1xtvhvx",
+            "appid": "1xy4sn3",
+            "active": true
+        }
+    ]
+    '''
+
+    requests_mock.get(url, text=appres)
+    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)
+    requests_mock.get(url1, text=jobres)
+    check.get_pulsar_applications()
+
     checkUrl = check.create_url(check.metrics, check.query_params)
 
-    if check.query_params:
-        query_params = check.query_params
-        query_string = "?"
-        query_string = query_string + "period=" + query_params["pulsar_period"] + "&"
-        query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-        query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
-        query_string = query_string[:-1]
-        assert query_string == "?period=1m&geo=*&asn=*"
-        assert check.query_params["pulsar_period"] == "1m"
+    assert check.get_pulsar_job_name_from_id("1xtvhvx") == "CDN Latency - Cloudflare"
+    # if check.query_params:
+    query_params = check.query_params
+    query_string = "?"
+    query_string = query_string + "period=" + query_params["pulsar_period"] + "&"
+    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+    query_string = query_string[:-1]
+    assert query_string == "?period=1m&geo=*&asn=*"
+    assert check.query_params["pulsar_period"] == "1m"
 
     assert len(checkUrl) > 0
     assert check.api_endpoint is not None
@@ -197,11 +211,7 @@ def test_get_pulsar_app(aggregator, instance, requests_mock):
     assert pulsar_apps[key][0] == "Pulsar community"
     assert pulsar_apps["1xy4sn3"][0] == "Pulsar community"
     jobs = pulsar_apps[key][1]
-    found = False
-    for job in jobs:
-        if job["jobid"] == "1xtvhvx":
-            found = True
-    assert found
+    assert jobs[0]["jobid"] == "1xtvhvx"
 
 
 USAGE_RESULT = """
@@ -427,10 +437,7 @@ def test_read_prev_usage_count(aggregator, instance_1):
     assert check.usage_count["usage"] == [0, 0]
 
 
-# def test_logger(aggregator, instance_1):
-#     check = Ns1Check('ns1', {}, [instance_1])
-#     check.checkConfig()
-#     check.setLogger("./log/ns1.log")
-#     check.logger.info("test", extra={'test':'test'})
-
-#     assert check.logger is not None
+def test_remove_prefix(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    assert check.remove_prefix("prefix_text", "prefix_") == "text"
+    assert check.remove_prefix("text", "noprefix_") == "text"

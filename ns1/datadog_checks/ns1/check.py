@@ -39,22 +39,12 @@ class Ns1Check(AgentCheck):
             message='Configuration check for NS1 API endpoint %s was successful' % self.api_endpoint,
         )
         self.ns1 = Ns1Url(self.api_endpoint)
-
-    #     super(Ns1Check, self).__init__(name, init_config, instances)
-    # def __init__(self, name, init_config, instances):
-    # super(Ns1Check, self).__init__(name, init_config, instances)
-    # If the check is going to perform SQL queries you should define a query manager here.
+        self.pulsar_apps = {}
 
     def set_logger(self, logfile):
         logging.basicConfig(
             filename=logfile, encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s'
         )
-        # formatter = json_log_formatter.JSONFormatter()
-        # json_handler = logging.FileHandler(filename=logfile)
-        # json_handler.setFormatter(formatter)
-        # self.logger = logging.getLogger('ns1_json')
-        # self.logger.addHandler(json_handler)
-        # self.logger.setLevel(logging.INFO)
 
     def get_pulsar_job_name_from_id(self, pulsar_job_id):
         for _, v in self.pulsar_apps.items():
@@ -116,12 +106,12 @@ class Ns1Check(AgentCheck):
                     scopegroups = None
                 checkUrl.update(self.ns1.get_ddi_url(key, val, scopegroups))
             elif key == "pulsar":
-                checkUrl.update(self.ns1.get_pulsar_app_url(key, val, query_params, None))
+                checkUrl.update(self.ns1.get_pulsar_url(query_params))
             elif key == "pulsar_by_app":
                 self.pulsar_apps = self.get_pulsar_applications()
-                checkUrl.update(self.ns1.get_pulsar_app_url(key, val, query_params, self.pulsar_apps))
+                checkUrl.update(self.ns1.get_pulsar_by_app_url(val, self.pulsar_apps, query_params))
             elif key == "pulsar_by_record":
-                checkUrl.update(self.ns1.get_pulsar_app_url(key, val, query_params, None))
+                checkUrl.update(self.ns1.get_pulsar_by_record_url(val, query_params))
 
         return checkUrl
 
@@ -228,8 +218,10 @@ class Ns1Check(AgentCheck):
                         prev_timestamp = self.usage_count[jobkey][0]
                         prev_count = self.usage_count[jobkey][1]
                         if curr_timestamp == prev_timestamp:
-                            self.usage_count[jobkey] = [prev_timestamp, curr_count]
-                            result[jobkey] = curr_count - prev_count
+                            # don't submit count if it didn't increase
+                            if curr_count > prev_count:
+                                self.usage_count[jobkey] = [prev_timestamp, curr_count]
+                                result[jobkey] = curr_count - prev_count
                         else:
                             self.usage_count[jobkey] = [curr_timestamp, curr_count]
                             result[jobkey] = curr_count
@@ -381,7 +373,6 @@ class Ns1Check(AgentCheck):
 
     def extract_billing(self, jsonResult):
         try:
-
             billing = {}
             billing["usage"] = jsonResult["totals"]["queries"]
             billing["limit"] = jsonResult["any"]["query_credit"]
@@ -457,7 +448,7 @@ class Ns1Check(AgentCheck):
         elif isinstance(metric_value, dict):
             for k, v in metric_value.items():
                 # All by record metric will have result as dictionsry
-                # add tab by DNS record
+                # add tag by DNS record
                 tags = ["record:{domain}".format(domain=k)]
                 if metric_type == "gauge":
                     self.gauge('ns1.{name}'.format(name=metric_name), v, tags)

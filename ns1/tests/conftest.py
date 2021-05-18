@@ -5,7 +5,7 @@ import pytest
 CONFIG = {
     'api_endpoint': 'https://my.nsone.net',
     # The api authentication key.
-    'api_key': 'svgRdvxF6XpWtqXGBJi7',
+    'api_key': 'testkey',
     'metrics': {'qps': [{"test.com": None}], 'usage': [{"test.com": None}], 'pulsar': None, 'ddi': None},
 }
 
@@ -16,9 +16,16 @@ CONFIG_NOMETRICS = {
     'metrics': None,
 }
 
+CONFIG_NOKEY = {
+    'api_endpoint': 'https://test.com',
+    # The api authentication key.
+    'api_key': None,
+    'metrics': None,
+}
+
 CONFIG_2 = """{
     "api_endpoint": "https://my.nsone.net",
-    "api_key": "svgRdvxF6XpWtqXGBJi7",
+    "api_key": "testkey",
     "metrics": {
     "qps": [
       {
@@ -48,7 +55,7 @@ CONFIG_2 = """{
 CONFIG_DDI = """
 {
   "api_endpoint": "https://localhost",
-  "api_key": "zVzFcQti79eTzrMv511t",
+  "api_key": "testkey",
   "min_collection_interval": 15,
   "metrics": {
     "ddi": [
@@ -60,7 +67,7 @@ CONFIG_DDI = """
 CONFIG_1 = """
 {
   "api_endpoint": "https://my.nsone.net",
-  "api_key": "svgRdvxF6XpWtqXGBJi7",
+  "api_key": "testkey",
   "min_collection_interval": 15,
   "query_params": {
     "usage_networks": "*",
@@ -165,14 +172,19 @@ CONFIG_1 = """
 """
 
 
-@pytest.fixture(scope='session')
-def dd_environment():
-    yield
+# @pytest.fixture(scope='session')
+# def dd_environment():
+#     yield
 
 
 @pytest.fixture
 def instance():
     return CONFIG
+
+
+@pytest.fixture
+def instance_nokey():
+    return CONFIG_NOKEY
 
 
 @pytest.fixture
