@@ -219,7 +219,7 @@ class Ns1Check(AgentCheck):
                         prev_count = self.usage_count[jobkey][1]
                         if curr_timestamp == prev_timestamp:
                             # don't submit count if it didn't increase
-                            if curr_count > prev_count:
+                            if curr_count >= prev_count:
                                 self.usage_count[jobkey] = [prev_timestamp, curr_count]
                                 result[jobkey] = curr_count - prev_count
                         else:
@@ -273,7 +273,7 @@ class Ns1Check(AgentCheck):
                 prev_timestamp = self.usage_count[key][0]
                 prev_count = self.usage_count[key][1]
                 if curr_timestamp == prev_timestamp:
-                    if curr_count > prev_count:
+                    if curr_count >= prev_count:
                         self.usage_count[key] = [prev_timestamp, curr_count]
                         result = curr_count - prev_count
                 else:
