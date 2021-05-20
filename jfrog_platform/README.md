@@ -33,10 +33,6 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 ## Setup
 
 ### Requirements
-
-* Kubernetes Cluster
-* JFrog Artifactory and/or JFrog Xray installed via [JFrog Helm Charts][4]
-* [Helm 3][5]
 * Your [Datadog API key][6].
 
 ### Logs Collection
@@ -190,9 +186,9 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 
 If you have not installed the JFrog platform tile yet, install the tile.
 
-### JFrog Artifactory Dashboard
+### JFrog Dashboards
 
-Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics`, `Xray Logs`, `` and explore it.
+Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
 
 ### Data Collected
 
