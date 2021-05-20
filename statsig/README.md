@@ -24,7 +24,7 @@ The Statsig integration does not collect any data from Datadog.
 
 ### Metrics
 
-See [metadata.csv][] for a list of metrics provided by this integration and the description of each.
+See [metadata.csv][2] for a list of metrics provided by this integration and the description of each.
 
 ### Service Checks
 
@@ -36,7 +36,8 @@ The Statsig integration sends configuration change events on Statsig to Datadog.
 
 ## Troubleshooting
 
-Need help? Contact Statsig Support at support@statsig.com or [contact us here][2]
+Need help? Contact Statsig Support at support@statsig.com or [contact us here][3]
 
 [1]: https://console.statsig.com
-[2]: https://www.statsig.com/contact
+[2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
+[3]: https://www.statsig.com/contact
