@@ -2,7 +2,7 @@
 All changes to the JFrog platform integration will be documented in this file.
 
 ## [1.2.0] - May 21, 2021
-* [Addedd] Add Jfrog Xray and vulnerability dashboards dashboards
+* [Addedd] Add Jfrog Xray Logs and vulnerability dashboards
 
 ## [1.1.0] - May 14, 2021
 * [Addedd] Add Jfrog Artifactory and Xray Metrics openmetrics checks and dashboards
