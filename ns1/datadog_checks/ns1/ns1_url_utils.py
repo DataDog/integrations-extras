@@ -133,7 +133,7 @@ class Ns1Url:
         urlList = {}
 
         # get account plan limits
-        url = "{apiendpoint}/v1/account/billataglance".format(apiendpoint=self.api_endpoint)
+        url = NS1_ENDPOINTS["billing"].format(apiendpoint=self.api_endpoint)
         tags = [""]
         metric_record = "billing"
         metric_type = "gauge"
@@ -157,7 +157,7 @@ class Ns1Url:
                 metric_type = "count"
                 metric_record = "pulsar.decisions.record"
                 # pulsar decisions for record
-                url = "{apiendpoint}/v1/pulsar/query/decision/record/{rec_name}/{rec_type}{query}".format(
+                url = NS1_ENDPOINTS["pulsar.decisions.record"].format(
                     apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
                 )
                 k = "pulsar.decisions.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
@@ -165,14 +165,14 @@ class Ns1Url:
 
                 metric_record = "pulsar.routemap.hit.record"
                 # route map hits by record
-                url = "{apiendpoint}/v1/pulsar/query/routemap/hit/record/{rec_name}/{rec_type}{query}".format(
+                url = NS1_ENDPOINTS["pulsar.routemap.hit.record"].format(
                     apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
                 )
                 k = "pulsar.routemap.hit.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
                 urlList[k] = [url, metric_record, tags, metric_type]
                 metric_record = "pulsar.routemap.miss.record"
                 # route map misses by record
-                url = "{apiendpoint}/v1/pulsar/query/routemap/miss/record/{rec_name}/{rec_type}{query}".format(
+                url = NS1_ENDPOINTS["pulsar.routemap.miss.record"].format(
                     apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
                 )
                 k = "pulsar.routemap.miss.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
@@ -207,8 +207,7 @@ class Ns1Url:
                             "resource:{job_name}".format(job_name=job["name"]),
                         ]
                         # pulsar aggregate performance data
-                        # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/data?period=30s
-                        url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/data{query}".format(
+                        url = NS1_ENDPOINTS["pulsar.performance"].format(
                             apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
                         )
                         metric_record = "pulsar.performance"
@@ -216,8 +215,7 @@ class Ns1Url:
                         urlList[k] = [url, metric_record, tags, metric_type]
 
                         # pulsar availability data
-                        # /v1/pulsar/apps/{{app_id}}/jobs/{{job_id}}/availability?period=30s
-                        url = "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/availability{query}".format(
+                        url = NS1_ENDPOINTS["pulsar.availability"].format(
                             apiendpoint=self.api_endpoint, app_id=appid, job_id=jobid, query=query_string
                         )
                         metric_record = "pulsar.availability"
@@ -240,32 +238,30 @@ class Ns1Url:
 
         tags = [""]
         metric_record = "pulsar.decisions"
+        keyname = "pulsar.decisions"
         metric_type = "count"
 
         # pulsar decisions account wide
-        urlpath = "/v1/pulsar/query/decision/customer"
-        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-        urlList["pulsar.decisions"] = [url, metric_record, tags, metric_type]
+        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        urlList[keyname] = [url, metric_record, tags, metric_type]
 
         tags = [""]
 
         # pulsar insufficient decision data for account
-        urlpath = "/v1/pulsar/query/decision/customer/undetermined"
         metric_record = "pulsar.decisions.insufficient"
-        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-        urlList["pulsar.decisions.insufficient"] = [url, metric_record, tags, metric_type]
+        keyname = "pulsar.decisions.insufficient"
+        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        urlList[keyname] = [url, metric_record, tags, metric_type]
 
         # pulsar all route map hits
-        # url = "/v1/pulsar/query/routemap/hit/customer"
-        urlpath = "/v1/pulsar/query/routemap/hit/customer"
         metric_record = "pulsar.routemap.hit"
-        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-        urlList["pulsar.routemap.hit"] = [url, metric_record, tags, metric_type]
+        keyname = "pulsar.routemap.hit"
+        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        urlList[keyname] = [url, metric_record, tags, metric_type]
 
         # pulsar all route map misses
-        # url = "/v1/pulsar/query/routemap/miss/customer"
         metric_record = "pulsar.routemap.miss"
-        urlpath = "/v1/pulsar/query/routemap/miss/customer"
-        url = "{apiendpoint}{path}{query}".format(apiendpoint=self.api_endpoint, path=urlpath, query=query_string)
-        urlList["pulsar.routemap.miss"] = [url, metric_record, tags, metric_type]
+        keyname = "pulsar.routemap.miss"
+        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        urlList[keyname] = [url, metric_record, tags, metric_type]
         return urlList

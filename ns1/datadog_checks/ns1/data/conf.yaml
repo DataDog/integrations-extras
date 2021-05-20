@@ -12,15 +12,15 @@ instances:
     api_key: zVzFcQti79eTzrMv511t
     min_collection_interval: 15
     metrics:
-      # ddi to query lease stats. if you want specific scope groups, enter as array of scope group id's
+      # ddi to query lease stats. 
+      # If you want specific scope groups, enter as array of scope group id's
       ddi:
         - 2
 
-    # Managed DNS setup
+  # Managed DNS setup
   - api_endpoint: https://my.nsone.net
 
-    ## @param api_key - string - required
-    ## The api authentication key.
+    ## @param api_key - string - required - The NS1 API authentication key.
     # account with pulsar
     api_key: svgRdvxF6XpWtqXGBJi7
     # dragan's account
@@ -44,16 +44,16 @@ instances:
     query_params:
       usage_networks: "*"
       # ‘30m’, ‘1h’, ‘30d’
-      # for pulsar, period should be at leas 1 hour to make sure we get some data
-      # as they might be agrgregated ofer discrete time periods
+      # for pulsar, period should be at least 1 hour to make sure we get some data
+      # as they will be aggregated over discrete time periods
       pulsar_period: 1h
-      # ‘US’, ‘FR’, ‘GR’, ‘JP’, ‘US_NY’
+      # ‘US’, ‘FR’, ‘GR’, ‘JP’, ‘US_NY’ ...
       pulsar_geo: "*"
       # Specifies an Autonomous System Number to filter for
       pulsar_asn: "*"
-      # one of: ‘avg’, ‘max’, ‘min’, ‘p50’, ‘p75’, ‘p90’, ‘p95’, ‘p99’, ‘p999’
+      # How to aggregate pulsar values - one of: 
+      # ‘avg’, ‘max’, ‘min’, ‘p50’, ‘p75’, ‘p90’, ‘p95’, ‘p99’, ‘p999’
       pulsar_agg: avg
-      pulsar_map_id: 0
     
       # metrics to collect
     metrics:
@@ -97,11 +97,4 @@ instances:
           - dloc.com
           - dloc1.com
           - dloc2.com
-
-logs:
-  - type: file
-    path: /var/log/datadog/ns1.log
-    service: "ns1"
-    source: python
-    sourcecategory: sourcecode
 

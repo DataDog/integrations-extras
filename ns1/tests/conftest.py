@@ -172,11 +172,6 @@ CONFIG_1 = """
 """
 
 
-# @pytest.fixture(scope='session')
-# def dd_environment():
-#     yield
-
-
 @pytest.fixture
 def instance():
     return CONFIG

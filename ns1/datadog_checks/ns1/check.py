@@ -1,4 +1,3 @@
-# from typing import Any
 import errno
 import json
 import logging
@@ -41,24 +40,10 @@ class Ns1Check(AgentCheck):
         self.ns1 = Ns1Url(self.api_endpoint)
         self.pulsar_apps = {}
 
-    def set_logger(self, logfile):
-        logging.basicConfig(
-            filename=logfile, encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s'
-        )
-
-    def get_pulsar_job_name_from_id(self, pulsar_job_id):
-        for _, v in self.pulsar_apps.items():
-            for job in v[1]:
-                jobid = job["jobid"]
-                if jobid == pulsar_job_id:
-                    jobname = job["name"]
-                    return jobname
-        return ""
-
     def check(self, instance):
 
         self.set_logger('/opt/datadog-agent/log/ns1.log')
-        logging.info('Startup', extra={'data': 'all good'})
+        logging.info('Startup')
 
         # get counters from previous run
         self.get_usage_count()
@@ -70,9 +55,8 @@ class Ns1Check(AgentCheck):
             try:
                 url, name, tags, metric_type = v
                 # Query API to get metrics
-                # self.logger.info('call', extra={'data': url})
                 res = self.get_stats(url)
-                logging.info('result', extra={'result': res})
+                logging.info('NS1 API result', extra={'result': res})
                 logging.info(json.dumps(res))
                 if res:
                     # extract metric from API result.
@@ -86,6 +70,20 @@ class Ns1Check(AgentCheck):
                 raise
         # save counters for next run
         self.set_usage_count()
+
+    def set_logger(self, logfile):
+        logging.basicConfig(
+            filename=logfile, encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s'
+        )
+
+    def get_pulsar_job_name_from_id(self, pulsar_job_id):
+        for _, v in self.pulsar_apps.items():
+            for job in v[1]:
+                jobid = job["jobid"]
+                if jobid == pulsar_job_id:
+                    jobname = job["name"]
+                    return jobname
+        return ""
 
     def create_url(self, metrics, query_params):
         # create dictionary with metrics name and url to check for all configured metrics in conf.yaml file
@@ -222,6 +220,8 @@ class Ns1Check(AgentCheck):
                             if curr_count >= prev_count:
                                 self.usage_count[jobkey] = [prev_timestamp, curr_count]
                                 result[jobkey] = curr_count - prev_count
+                            else:
+                                result[jobkey] = 0
                         else:
                             self.usage_count[jobkey] = [curr_timestamp, curr_count]
                             result[jobkey] = curr_count
@@ -236,10 +236,7 @@ class Ns1Check(AgentCheck):
     def extract_pulsar_count(self, key, jsonResult):
         try:
             graphs = jsonResult["graphs"]
-            # this is called for each url in checkUrl dictionary
             # get last timestamp and count from self.usage_count
-            # make sure decisions are queried with period of 2d in order to get sumarry per 12 hours,
-            # so then we can just take last bucket and check count
             curr_timestamp = 0
             curr_count = 0
 
@@ -255,17 +252,10 @@ class Ns1Check(AgentCheck):
                 res = sorted(graph, key=lambda x: x[0], reverse=True)
                 if res and len(res) > 0:
                     if index == 0:
-                        # get timestamp fropm first element to compare with others
                         curr_timestamp = res[0][0]
                         index = -1
-
                     if curr_timestamp != res[0][0]:
-                        # last timestamps in elements are different, we'll just skip submitting this value
-                        # and wait for all buckets to come to the same timestamp as otherwise numbers get messed up
-                        # just bail out
                         return None, False
-
-                    # result is split accross pulsar jobs, we need sum for all jobs, so sum last count from all arrays
                     curr_count = curr_count + res[0][1]
 
             # find this metric in usage count
@@ -276,6 +266,8 @@ class Ns1Check(AgentCheck):
                     if curr_count >= prev_count:
                         self.usage_count[key] = [prev_timestamp, curr_count]
                         result = curr_count - prev_count
+                    else:
+                        result = 0
                 else:
                     self.usage_count[key] = [curr_timestamp, curr_count]
                     result = curr_count
@@ -310,8 +302,6 @@ class Ns1Check(AgentCheck):
             graphs = jsonResult["graphs"]
             for element in graphs:
                 graph = element["graph"]
-                # sort graph array
-                # find last timestamp that is >= last time stamp saved in file
                 res = sorted(graph, key=lambda x: x[0], reverse=True)
                 if res and len(res) > 0:
                     percent_available = res[0][1]
@@ -340,7 +330,8 @@ class Ns1Check(AgentCheck):
             graph = jsonResult[0]["graph"]
             # usage api will return array of dictionaries, we want to get 'graph' object
             # which in turn is list of lists, each element being [timestamp, query_count]
-            # so, get last query count from result. Sort by timestamp descending order to make sure we get latest
+            # so, get last query count from result.
+            # Sort by timestamp descending order to make sure we get latest
             res = sorted(graph, key=lambda x: x[0], reverse=True)
 
             curr_timestamp = res[0][0]
@@ -350,8 +341,11 @@ class Ns1Check(AgentCheck):
                 prev_timestamp = self.usage_count[key][0]
                 prev_count = self.usage_count[key][1]
                 if curr_timestamp == prev_timestamp:
-                    self.usage_count[key] = [prev_timestamp, curr_count]
-                    result = curr_count - prev_count
+                    if curr_count >= prev_count:
+                        self.usage_count[key] = [prev_timestamp, curr_count]
+                        result = curr_count - prev_count
+                    else:
+                        result = 0
                 else:
                     self.usage_count[key] = [curr_timestamp, curr_count]
                     result = curr_count
@@ -456,6 +450,7 @@ class Ns1Check(AgentCheck):
                 elif metric_type == "count":
                     self.count('ns1.{name}.{record}'.format(name=metric_name, record=k), v, tags)
         else:
+            # scalar value, just submit
             if metric_type == "gauge":
                 self.gauge('ns1.{}'.format(metric_name), metric_value, tags)
             elif metric_type == "count":

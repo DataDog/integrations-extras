@@ -1,4 +1,4 @@
-name: ns1
+name: NS1
 files:
 - name: ns1.yaml
   options:
@@ -21,8 +21,18 @@ files:
         example: test_key_123 
     - name: metrics
       required: true
-      description: List of metrics to report to Datadog
+      description: "List of metrics to report to Datadog _
+      description: desc second line"
       value:
-        type: string
-        example: qps
+        type: object              
+        example:
+          pulsar:
+          ddi:
+            - 2
+          qps:
+            - test.com:
+              - www: A
+          usage:
+            - test.com:
+              - www: A
     - template: instances/default

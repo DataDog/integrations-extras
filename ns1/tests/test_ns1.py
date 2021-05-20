@@ -36,6 +36,14 @@ def test_parse_metrics(aggregator, instance):
     assert check.api_endpoint is not None
 
 
+def test_log(instance, tmp_path):
+    check = Ns1Check('ns1', {}, [instance])
+    d = tmp_path / "log"
+    d.mkdir()
+    check.set_logger(tmp_path / "log/ns1.log")
+    assert len(list(tmp_path.iterdir())) == 1
+
+
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()
@@ -212,6 +220,11 @@ def test_get_pulsar_app(aggregator, instance, requests_mock):
     assert pulsar_apps["1xy4sn3"][0] == "Pulsar community"
     jobs = pulsar_apps[key][1]
     assert jobs[0]["jobid"] == "1xtvhvx"
+    check.pulsar_apps = pulsar_apps
+    jobname = check.get_pulsar_job_name_from_id("1xtvhvx")
+    assert jobname == "CDN Latency - Cloudflare"
+    jobname = check.get_pulsar_job_name_from_id("xxx")
+    assert jobname == ""
 
 
 USAGE_RESULT = """
@@ -414,11 +427,196 @@ def test_pulsar_count(aggregator, instance_1):
     assert usage == 3152
     assert check.usage_count["test"] == [1619870400, 8152]
 
+    check.usage_count = {"test.1b1o94j": [0, 0]}
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
+    assert jobs["test.1b1o94j"] == 3275
+
+    check.usage_count = {"test.1b1o94j": [1619870400, 1000]}
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
+    assert jobs["test.1b1o94j"] == 2275
+
+    check.usage_count = {"test.1b1o94j": [1619870400, 1000]}
+    # should throw exception due to wrong data
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(USAGE_RESULT))
+    assert status is False
+
 
 def test_extractPulsarResponseTime(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     rtime, status = check.extract_pulsar_response_time(json.loads(PULSAR_RESULT_PERFORMANCE))
     assert rtime == 46.605
+    assert status
+
+
+def test_extract_peak_lps(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    lsp_result = """
+    [
+        {
+            "graph": [
+            [
+                1600171200,
+                4
+            ],
+            [
+                1600173000,
+                1
+            ]
+            ],
+            "period": "24h",
+            "aggregation": "peak"
+        }
+    ]
+    """
+    lps, status = check.extract_peak_lps(json.loads(lsp_result))
+    assert lps == 1
+    assert status
+
+
+def test_extract_records_ttl(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    zone_result = """
+    {
+        "nx_ttl": 3600,
+        "retry": 7200,
+        "zone": "dloc.com",
+        "dnssec": false,
+        "network_pools": [
+            "p07"
+        ],
+        "serial": 1620336094,
+        "primary": {
+            "enabled": false,
+            "secondaries": []
+        },
+        "refresh": 43200,
+        "expiry": 1209600,
+        "disabled": false,
+        "records": [
+            {
+                "domain": "dloc.com",
+                "ttl": 3600,
+                "tier": 1,
+                "type": "NS",
+                "id": "60663db6c44e5500b9d9ec02",
+                "short_answers": [
+                    "dns1.p07.nsone.net",
+                    "dns2.p07.nsone.net",
+                    "dns3.p07.nsone.net",
+                    "dns4.p07.nsone.net",
+                    "dnstest01.p07.nsone.net"
+                ]
+            },
+            {
+                "domain": "email.dloc.com",
+                "ttl": 3600,
+                "tier": 1,
+                "type": "A",
+                "id": "6086eee91e2d0a00b464c2ec",
+                "short_answers": [
+                    "3.3.3.3"
+                ]
+            },
+            {
+                "domain": "www.dloc.com",
+                "ttl": 3600,
+                "tier": 3,
+                "type": "A",
+                "id": "60663de2a4ab1700b1cb826e",
+                "short_answers": [
+                    "104.26.3.224",
+                    "172.67.70.52",
+                    "104.26.2.224"
+                ]
+            }
+        ],
+        "link": null,
+        "primary_master": "dns1.p07.nsone.net",
+        "ttl": 3600,
+        "id": "60663db6c44e5500b9d9ebfd",
+        "dns_servers": [
+            "dns1.p07.nsone.net",
+            "dns2.p07.nsone.net",
+            "dns3.p07.nsone.net",
+            "dns4.p07.nsone.net"
+        ],
+        "hostmaster": "hostmaster@nsone.net",
+        "networks": [
+            0
+        ],
+        "pool": "p07"
+    }
+    """
+    zonettl, status = check.extract_records_ttl(json.loads(zone_result))
+    assert zonettl["dloc.com"] == 3600
+    assert status
+
+
+def test_extract_billing(aggregator, instance_1):
+    check = Ns1Check('ns1', {}, [instance_1])
+    billing_result = """
+    {
+        "last_invoice": 1620086400,
+        "dynamic": {
+            "access_charge": "0.0",
+            "records": 0,
+            "query_credit": 0,
+            "query_cost": "0.00",
+            "query_rate_per_million": "0",
+            "queries": 0,
+            "record_credit": 0,
+            "record_cost": "0.00",
+            "record_rate": "0"
+        },
+        "period": "monthly",
+        "next_invoice": 1622764800,
+        "static": {
+            "access_charge": "0.0",
+            "records": 30,
+            "query_credit": 8,
+            "query_cost": "8.07",
+            "query_rate_per_million": "8",
+            "queries": 1509129,
+            "record_credit": 0,
+            "record_cost": "0.00",
+            "record_rate": "0"
+        },
+        "plan": "starter",
+        "next_base_invoice": 1622764800,
+        "recurring_cost": "0.00",
+        "any": {
+            "record_credit": 50,
+            "query_credit": 500000,
+            "overage_order": "ascending"
+        },
+        "bill": "20.87",
+        "recurring_cost_next_invoice": "0.00",
+        "totals": {
+            "query_cost": "8.07",
+            "access_charge": "0.00",
+            "records": 31,
+            "query_credit": 500000,
+            "queries": 1509129,
+            "record_credit": 31,
+            "record_cost": "0.00"
+        },
+        "balance": 12.8,
+        "intelligent": {
+            "access_charge": "0.0",
+            "records": 1,
+            "query_credit": 0,
+            "query_cost": "0.00",
+            "query_rate_per_million": "0",
+            "queries": 0,
+            "record_credit": 0,
+            "record_cost": "0.00",
+            "record_rate": "0"
+        }
+    }
+    """
+    billing, status = check.extract_billing(json.loads(billing_result))
+    assert billing["usage"] == 1509129
+    assert billing["limit"] == 500000
     assert status
 
 
