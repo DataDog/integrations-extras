@@ -31,6 +31,8 @@ See the dedicated Agent guide for [installing community integrations][3]:
 
 2. [Restart the Agent][7].
 
+For detailed explanation of all collected performance data see the [NS1 + Datadog Integration][12] article in NS1 help center.
+
 ### Validation
 
 [Run the Agent's status subcommand][8] and look for `ns1` under the Checks section.
@@ -79,3 +81,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [10]: https://docs.datadoghq.com/developers/
 [11]: https://docs.datadoghq.com/help/
+[12]: https://help.ns1.com/hc/en-us/articles/360020473994-NS1-Datadog-Integration
