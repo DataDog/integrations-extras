@@ -12,7 +12,7 @@ JFrog Xray is a continuous security and universal artifact analysis solution tha
 
 ### JFrog Artifactory and Xray logs Datadog Dashboard
 
-JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into Artifactory's usage statistics or xray's scanned components details.
+JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into JFrog Artifactory's usage statistics or JFrog Xray's scanned components details.
 
 ![dashboard][1]
 
