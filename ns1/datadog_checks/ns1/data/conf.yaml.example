@@ -31,85 +31,90 @@ instances:
     ## qps, usage, account, ddi, pulsar, pulsar_by_app, pulsar_by_record
     #
     metrics:
-      ## @param pulsar - boolean - optional
-      ## if parameter is present following will be repoted account-wide:
-      ## number of decisions, number of undetermined decisions, route map hits and misses
-      #
-      # pulsar:
+    ## @param pulsar - boolean - optional
+    ## if parameter is present following will be repoted account-wide:
+    ## number of decisions, number of undetermined decisions, route map hits and misses
+    #
+    #   pulsar:
 
-      ## @param pulsar_by_record - array - optional
-      ## if parameter is present following will be repoted on per record basis:
-      ## number of decisions, route map hits and misses
-      ## enter list of dns records in form:
-      ## - <record name>: <record type>
-      #
-      # pulsar_by_record:        
-      #   - www.test.com: A
-      #   - www.test1.com: A
+    ## @param pulsar_by_record - list - optional
+    ## if parameter is present following will be repoted on per record basis:
+    ## number of decisions, route map hits and misses
+    ## enter list of dns records in form:
+    ## - <record name>: <record type>
+    #
+    #   pulsar_by_record:        
+    #     - www.test.com: A
+    #     - www.test1.com: A
 
-      ## @param pulsar_by_app - array - optional
-      ## if parameter is present aggregate performance data
-      ## and pulsar availability data will be reported
-      ## enter list of pulsar application id's and job id's in form:
-      ## - <app_id>: <job_id>
-      #
-      # pulsar_by_app:        
-      #   - 1xy4sn3: 1b1o94j
-      #   - 1xy4sn3: 1uy3acz
+    ## @param pulsar_by_app - list - optional
+    ## if parameter is present aggregate performance data
+    ## and pulsar availability data will be reported
+    ## enter list of pulsar application id's and job id's in form:
+    ## - <app_id>: <job_id>
+    #
+    #   pulsar_by_app:        
+    #     - 1xy4sn3: 1b1o94j
+    #     - 1xy4sn3: 1uy3acz
 
-      ## @param ddi - array - optional
-      ## if parameter is present, lease statistics will be reported account-wide
-      ## you can specify array of scope groups ID's to additionally 
-      ## report leases for each scope
-      #
-      # ddi:
-      #   - 1
-      #   - 2
+    ## @param ddi - list - optional
+    ## if parameter is present, lease statistics will be reported account-wide
+    ## you can specify array of scope groups ID's to additionally 
+    ## report leases for each scope
+    #
+    #   ddi:
+    #     - 1
+    #     - 2
       
-      ## @param qps - array - optional (Queries per second)
-      ## if parameter is present, QPS statistics will be reported account-wide
-      ## you can specify in array of domain names to additionally 
-      ## report qps for each domain separatelly
-      ## if sub-array of records within domain is specified, 
-      ## qps will be reported for each record separatelly
-      #
-      # qps:
-      #   - test.com:
-      #     - www: A
+    ## @param qps - list - optional
+    ## (Queries per second)
+    ## if parameter is present, QPS statistics will be reported account-wide
+    ## you can specify in array of domain names to additionally 
+    ## report qps for each domain separatelly
+    ## if sub-array of records within domain is specified, 
+    ## qps will be reported for each record separatelly
+    #
+    #   qps:
+    #     - test.com:
+    #       - www: A
 
-      ## @param usage - array - optional (Number of queries)
-      ## if parameter is present, usage statistics will be reported account-wide
-      ## you can specify array of domain names to additionally 
-      ## report usage for each domain separatelly
-      ## if sub-array of records within domain is specified, 
-      ## usage will be reported for each record separatelly      
-      # usage:
-      #   - test.com:
-      #     - www: A
+    ## @param usage - list - optional
+    ## (Number of queries)
+    ## if parameter is present, usage statistics will be reported account-wide
+    ## you can specify array of domain names to additionally 
+    ## report usage for each domain separatelly
+    ## if sub-array of records within domain is specified, 
+    ## usage will be reported for each record separatelly
+    #
+    #   usage:
+    #     - test.com:
+    #       - www: A
 
-      ## @param account - array - optional (billing and ttl)
-      ## if 'billing' element is present, account query limit and current number of queries
-      ## will be reported.
-      ## If ttl element is present, TTL will be reported for each of the domains
-      ## specified in sub-array
-      # account:
-      #   - billing:
-      #   - ttl:
-      #     - test.com
-      #     - test1.com
+    ## @param account - list - optional
+    ## (billing and ttl)
+    ## if 'billing' element is present, account query limit and current number of queries
+    ## will be reported.
+    ## If ttl element is present, TTL will be reported for each of the domains
+    ## specified in sub-array
+    #
+    #   account:
+    #     - billing:
+    #     - ttl:
+    #       - test.com
+    #       - test1.com
 
     ## @param query_parameters - dictionary - optional
     ## Usage and Pulsar API endpoints can have query string parameters 
     ## For pulsar, period should be at least 1 hour
     #
     # query_params:
-      # usage_networks: "*"
-      # pulsar_period: 1h
-      # pulsar_geo: "*"
-      # pulsar_asn: "*"
-      # pulsar_agg: avg
+    #   usage_networks: "*"
+    #   pulsar_period: 1h
+    #   pulsar_geo: "*"
+    #   pulsar_asn: "*"
+    #   pulsar_agg: avg
 
-    ## @param min_collection_interval - number - optional - default: 15
+    ## @param min_collection_interval - integer - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
     #
