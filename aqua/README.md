@@ -52,12 +52,10 @@ To collect Aqua audit logs:
 1. Connect to your Aqua account
 2. Go to the `Log Management` Section of the `Integration` Page
 3. Activate the Webhook integration
-4. Enable it and add the following endpoint: `https://http-intake.logs.datadoghq.com/v1/input/<DATADOG_API_KEY>?ddsource=aqua`
-
+4. Enable it and add the following endpoint: `{{< region-param key="http_endpoint" code="true" >}}/v1/input/<DATADOG_API_KEY>?ddsource=aqua`
    - Replace `<DATADOG_API_KEY>` by your [Datadog API Key][10].
-   - _Note_: For the EU region, replace `.com` by `.eu` in the endpoint.
 
-    For the Aqua Enforcer logs: **Available for Agent >6.0**
+For the Aqua Enforcer logs: **Available for Agent >6.0**
 
 5. Collecting logs is disabled by default in the Datadog Agent. Enable it in your [daemonset configuration][11]:
 
