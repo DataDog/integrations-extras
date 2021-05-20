@@ -33,7 +33,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Bind9 
    init_config:
 
    instances:
-     - URL: "<BIND_9_STATS_URL>"
+     - url: "<BIND_9_STATS_URL>"
    ```
 
 2. [Restart the Agent][9]
