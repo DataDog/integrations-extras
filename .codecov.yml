@@ -47,6 +47,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      JFrog_Platform:
+        target: 75
+        flags:
+        - jfrog_platform
       Kernelcare:
         target: 75
         flags:
@@ -127,6 +131,10 @@ coverage:
         target: 75
         flags:
         - storm
+      TiDB:
+        target: 75
+        flags:
+        - tidb
       Traefik:
         target: 75
         flags:
@@ -222,6 +230,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  jfrog_platform:
+    carryforward: true
+    paths:
+    - jfrog_platform/datadog_checks/jfrog_platform
+    - jfrog_platform/tests
   kernelcare:
     carryforward: true
     paths:
@@ -347,6 +360,11 @@ flags:
     paths:
     - storm/datadog_checks/storm
     - storm/tests
+  tidb:
+    carryforward: true
+    paths:
+    - tidb/datadog_checks/tidb
+    - tidb/tests
   traefik:
     carryforward: true
     paths:

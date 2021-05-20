@@ -123,7 +123,7 @@ class StardogCheck(AgentCheck):
 
     def check(self, instance):
         try:
-            auth_token = base64.b64encode(ensure_bytes(instance['username'] + ":" + instance['password']))
+            auth_token = base64.b64encode(ensure_bytes(instance["username"] + ":" + instance["password"])).decode()
             response = requests.get(
                 instance['stardog_url'] + '/admin/status', headers={'Authorization': 'Basic {}'.format(auth_token)}
             )
