@@ -198,7 +198,7 @@ Need help? Contact [Datadog support][7].
 [1]: https://docs.pingcap.com/tidb/stable
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/tidb/datadog_checks/tidb/data/conf.yaml.example
-[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/tidb/metadata.csv
 [7]: https://docs.datadoghq.com/help/
