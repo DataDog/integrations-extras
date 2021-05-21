@@ -3,7 +3,6 @@ from collections import namedtuple
 from distutils.version import LooseVersion
 
 # 3rd party
-import requests
 from six import iteritems
 from six.moves.urllib.parse import urljoin, urlparse
 
@@ -154,7 +153,7 @@ class LogstashCheck(AgentCheck):
             cert = None
 
         try:
-            resp = requests.get(
+            resp = self.http.get(
                 url, timeout=config.timeout, headers=headers(self.agentConfig), auth=auth, verify=verify, cert=cert
             )
             resp.raise_for_status()
