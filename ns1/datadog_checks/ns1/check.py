@@ -401,14 +401,6 @@ class Ns1Check(AgentCheck):
             )
             raise
 
-        except json.JSONDecodeError as e:
-            self.service_check(
-                self.NS1_SERVICE_CHECK,
-                AgentCheck.CRITICAL,
-                message="JSON Parse failed: {}, {}".format(url, e),
-            )
-            raise
-
         except ValueError as e:
             self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e))
             raise
