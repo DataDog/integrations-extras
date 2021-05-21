@@ -4,7 +4,7 @@
 
 This check monitors [ns1][1] through the Datadog Agent.
 
-![Snap](images/overview.png)
+![Snap](https://raw.githubusercontent.com/DataDog/integrations-extras/master/ns1/images/overview.png)
 
 ## Setup
 
