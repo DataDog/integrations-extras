@@ -379,7 +379,7 @@ class Ns1Check(AgentCheck):
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
         try:
-            response = self.http.get(self._build_url(url), headers=self.headers)            
+            response = self.http.get(url, headers=self.headers)
             response.raise_for_status()
             response_json = response.json()
 
