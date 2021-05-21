@@ -2,19 +2,22 @@
 
 ## Overview
 
-Connect [TiDB][1] Cluster to Datadog in order to:
+Connect [TiDB][1] cluster to Datadog in order to:
 
 - Collect key TiDB metrics of your cluster.
 - Collect logs of your cluster, such as TiDB/TiKV/TiFlash logs and slow query logs.
 - Visualize cluster performance on the provided dashboard.
 
-> Note: TiDB 4.0+ is required for this integration. Integration of TiDB Cloud with Datadog is not available now.
+> **Note:** 
+>
+> - TiDB 4.0+ is required for this integration. 
+> - Integration of TiDB Cloud with Datadog is not available now.
 
 ## Setup
 
 ### Installation
 
-First, [Download and launch the Datadog Agent][8].
+First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
 
@@ -26,7 +29,7 @@ Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
 
 #### Containerized
 
-The best way to use an integration from integrations-extra with the Docker Agent is to build the Agent with this integration installed. Use the following Dockerfile to build an updated version of the Agent:
+The best way to use this integration with the Docker Agent is to build the Agent with this integration installed. Use the following Dockerfile to build an updated version of the Agent:
 
 ```dockerfile
 FROM gcr.io/datadoghq/agent:latest
@@ -36,9 +39,9 @@ ARG INTEGRATION_VERSION=1.0.0
 RUN agent integration install -r -t datadog-tidb==${INTEGRATION_VERSION}
 ```
 
-Build the image and push it to your private docker registry.
+Build the image and push it to your private Docker registry.
 
-Then, upgrade the Datadog agent container image. If the Helm chart is used, modify the `agents.image` section in the `values.yaml` to replace the default agent image:
+Then, upgrade the Datadog Agent container image. If the Helm chart is used, modify the `agents.image` section in the `values.yaml` to replace the default agent image:
 
 ```yaml
 agents:
@@ -48,7 +51,7 @@ agents:
     repository: <YOUR_PRIVATE_REPOSITORY>/<AGENT_NAME>
 ```
 
-Use the new `values.yaml` to upgrade agent:
+Use the new `values.yaml` to upgrade the Agent:
 
 ```shell
 helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
@@ -117,7 +120,7 @@ _Available for Agent versions >6.0_
 
    Change the `path` and `service` according to your cluster's configuration. 
    
-   You can use these commands to show all log path:
+   Use these commands to show all log path:
    
    ```shell
    # show deploying directories
@@ -132,11 +135,11 @@ _Available for Agent versions >6.0_
 
 ##### Metric collection
 
-For containerized environments, after the installation of TiDB integration to Datadog agent image, auto-discovery is configured.
+For containerized environments, after the TiDB check is integrated in the Datadog Agent image, Autodiscovery is configured by default.
 
-Thus, metrics is automatically collected to Datadog server.
+Thus, metrics are automatically collected to Datadog's server.
 
-If you need to override default auto-discovery behavior, add Datadog annotations to TiDB Pods:
+If you need to override the default Autodiscovery behavior, add Datadog annotations to TiDB Pods:
 
 ```yaml
 apiVersion: v1
