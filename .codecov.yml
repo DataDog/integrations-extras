@@ -131,6 +131,10 @@ coverage:
         target: 75
         flags:
         - storm
+      TiDB:
+        target: 75
+        flags:
+        - tidb
       Traefik:
         target: 75
         flags:
@@ -356,6 +360,11 @@ flags:
     paths:
     - storm/datadog_checks/storm
     - storm/tests
+  tidb:
+    carryforward: true
+    paths:
+    - tidb/datadog_checks/tidb
+    - tidb/tests
   traefik:
     carryforward: true
     paths:
