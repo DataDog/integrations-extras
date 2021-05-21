@@ -36,14 +36,6 @@ def test_parse_metrics(aggregator, instance):
     assert check.api_endpoint is not None
 
 
-def test_log(instance, tmp_path):
-    check = Ns1Check('ns1', {}, [instance])
-    d = tmp_path / "log"
-    d.mkdir()
-    check.set_logger(tmp_path / "log/ns1.log")
-    assert len(list(tmp_path.iterdir())) == 1
-
-
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()

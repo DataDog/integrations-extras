@@ -1,6 +1,5 @@
 import errno
 import json
-import logging
 import os
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
@@ -32,18 +31,11 @@ class Ns1Check(AgentCheck):
         self.query_params = self.instance.get("query_params")
         self.usage_count_path = "/opt/datadog-agent/log"
         self.usage_count_fname = 'ns1_usage_count.txt'
-        self.service_check(
-            self.NS1_SERVICE_CHECK,
-            AgentCheck.OK,
-            message='Configuration check for NS1 API endpoint %s was successful' % self.api_endpoint,
-        )
         self.ns1 = Ns1Url(self.api_endpoint)
         self.pulsar_apps = {}
 
     def check(self, instance):
-
-        self.set_logger('/opt/datadog-agent/log/ns1.log')
-        logging.info('Startup')
+        self.log.info('Startup')
 
         # get counters from previous run
         self.get_usage_count()
@@ -56,25 +48,20 @@ class Ns1Check(AgentCheck):
                 url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.get_stats(url)
-                logging.info('NS1 API result', extra={'result': res})
-                logging.info(json.dumps(res))
+                self.log.info('NS1 API result', extra={'result': res})
+                self.log.info(json.dumps(res))
                 if res:
                     # extract metric from API result.
                     val, status = self.extract_metric(k, res)
-
                     # send metric to datadog if extraction was sucessful
                     if status:
                         self.send_metrics(name, val, tags, metric_type)
-
             except Exception:
                 raise
         # save counters for next run
         self.set_usage_count()
-
-    def set_logger(self, logfile):
-        logging.basicConfig(
-            filename=logfile, encoding='utf-8', level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s'
-        )
+        msg = 'NS1 metrics check run for NS1 API endpoint %s was successful' % self.api_endpoint
+        self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.OK, message=msg)
 
     def get_pulsar_job_name_from_id(self, pulsar_job_id):
         for _, v in self.pulsar_apps.items():
@@ -316,12 +303,9 @@ class Ns1Check(AgentCheck):
             graph = jsonResult[0]["graph"]
             res = sorted(graph, key=lambda x: x[0], reverse=True)
             curr_lps = res[0][1]
-            logmsg = 'extract_peak_lps:{lps}'.format(lps=curr_lps)
-            logging.info(logmsg)
             return curr_lps, True
 
-        except Exception as e:
-            logging.info(e)
+        except Exception:
             return None, False
 
     def extract_usage_count(self, key, jsonResult):
@@ -379,7 +363,7 @@ class Ns1Check(AgentCheck):
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
         try:
-            response = self.http.get(url, headers=self.headers)
+            response = self.http.get(url, extra_headers=self.headers)
             response.raise_for_status()
             response_json = response.json()
 

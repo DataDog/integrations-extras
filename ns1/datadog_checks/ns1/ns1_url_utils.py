@@ -31,38 +31,39 @@ class Ns1Url:
         tags = [""]
         urlList[key] = [url, metric_name, tags, metric_type]
 
-        if val:
-            for zoneDict in val:
-                # zone is again dictionary, with zone name as key and records as list of objects
-                for domain, records in zoneDict.items():
-                    # here, domain is zone name, records is list of records and record types
-                    url = NS1_ENDPOINTS["qps.usage.zone"].format(
-                        apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
-                    )
-                    if key == "usage":
-                        tags = ["network:{network}".format(network=network_id), "zone:{zone}".format(zone=domain)]
-                    else:
-                        tags = ["zone:{zone}".format(zone=domain)]
-                    urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags, metric_type]
+        if not val:
+            return urlList
+        for zoneDict in val:
+            # zone is again dictionary, with zone name as key and records as list of objects
+            for domain, records in zoneDict.items():
+                # here, domain is zone name, records is list of records and record types
+                url = NS1_ENDPOINTS["qps.usage.zone"].format(
+                    apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
+                )
+                if key == "usage":
+                    tags = ["network:{network}".format(network=network_id), "zone:{zone}".format(zone=domain)]
+                else:
+                    tags = ["zone:{zone}".format(zone=domain)]
+                urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags, metric_type]
 
-                    if records:
-                        for rec in records:
-                            for r, t in rec.items():
-                                url = NS1_ENDPOINTS["qps.usage.record"].format(
-                                    apiendpoint=self.api_endpoint,
-                                    key=key,
-                                    domain=domain,
-                                    record=r + "." + domain,
-                                    rectype=t,
-                                    query=query_string,
-                                )
-                                tags = [
-                                    "record:{record}.{zone}".format(record=r, zone=domain),
-                                ]
-                                urlkey = "{key}.{domain}.{record}.{rectype}".format(
-                                    key=key, domain=domain, record=r, rectype=t
-                                )
-                                urlList[urlkey] = [url, metric_record, tags, metric_type]
+                if records:
+                    for rec in records:
+                        for r, t in rec.items():
+                            url = NS1_ENDPOINTS["qps.usage.record"].format(
+                                apiendpoint=self.api_endpoint,
+                                key=key,
+                                domain=domain,
+                                record=r + "." + domain,
+                                rectype=t,
+                                query=query_string,
+                            )
+                            tags = [
+                                "record:{record}.{zone}".format(record=r, zone=domain),
+                            ]
+                            urlkey = "{key}.{domain}.{record}.{rectype}".format(
+                                key=key, domain=domain, record=r, rectype=t
+                            )
+                            urlList[urlkey] = [url, metric_record, tags, metric_type]
         return urlList
 
     # generate url for DDI lease and lps statistics
@@ -82,51 +83,49 @@ class Ns1Url:
         urlList["peak_lps"] = [url, metric_lps, tags, metric_type_gauge]
 
         # if scope groups are specified, get stats for those requested
-        if val:
-            for scope_id in val:
-                if scope_id in scopegroups:
+        if not val:
+            return urlList
 
-                    tags = ["scope_group:{scope_name}".format(scope_name=scopegroups[scope_id])]
-                    url = NS1_ENDPOINTS["ddi.leases.scope"].format(
-                        apiendpoint=self.api_endpoint, scope_group_id=scope_id
-                    )
-                    # url = "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h".format(
-                    #     apiendpoint=self.api_endpoint, scope_group_id=scope_id
-                    # )
-                    urlList["leases.{scope_group_id}".format(scope_group_id=scope_id)] = [
-                        url,
-                        metric_lease,
-                        tags,
-                        metric_type_count,
-                    ]
-                    url = NS1_ENDPOINTS["ddi.lps.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
-                    urlList["peak_lps.{scope_group_id}".format(scope_group_id=scope_id)] = [
-                        url,
-                        metric_lps,
-                        tags,
-                        metric_type_gauge,
-                    ]
+        for scope_id in val:
+            if scope_id in scopegroups:
+
+                tags = ["scope_group:{scope_name}".format(scope_name=scopegroups[scope_id])]
+                url = NS1_ENDPOINTS["ddi.leases.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
+                urlList["leases.{scope_group_id}".format(scope_group_id=scope_id)] = [
+                    url,
+                    metric_lease,
+                    tags,
+                    metric_type_count,
+                ]
+                url = NS1_ENDPOINTS["ddi.lps.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
+                urlList["peak_lps.{scope_group_id}".format(scope_group_id=scope_id)] = [
+                    url,
+                    metric_lps,
+                    tags,
+                    metric_type_gauge,
+                ]
 
         return urlList
 
     def get_zone_info_url(self, key, val):
         urlList = {}
 
-        if val:
-            for accDict in val:
-                for _, domainList in accDict.items():
-                    metric_record = "ttl"
-                    metric_type = "gauge"
-                    if domainList:
-                        for domain in domainList:
-                            tags = ["record:{zone}".format(zone=domain)]
-                            url = NS1_ENDPOINTS["ttl"].format(apiendpoint=self.api_endpoint, domain=domain)
-                            urlList["{key}.ttl.{domain}".format(key=key, domain=domain)] = [
-                                url,
-                                metric_record,
-                                tags,
-                                metric_type,
-                            ]
+        if not val:
+            return urlList
+        for accDict in val:
+            for _, domainList in accDict.items():
+                metric_record = "ttl"
+                metric_type = "gauge"
+                if domainList:
+                    for domain in domainList:
+                        tags = ["record:{zone}".format(zone=domain)]
+                        url = NS1_ENDPOINTS["ttl"].format(apiendpoint=self.api_endpoint, domain=domain)
+                        urlList["{key}.ttl.{domain}".format(key=key, domain=domain)] = [
+                            url,
+                            metric_record,
+                            tags,
+                            metric_type,
+                        ]
         return urlList
 
     def get_plan_details_url(self, key, val):
