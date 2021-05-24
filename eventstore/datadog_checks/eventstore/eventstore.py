@@ -27,7 +27,7 @@ class EventStoreCheck(AgentCheck):
         },
         'user': {
             'name': 'username',
-        }
+        },
     }
 
     def check(self, instance):
