@@ -16,6 +16,20 @@ from .metrics import ALL_METRICS
 
 
 class EventStoreCheck(AgentCheck):
+
+    HTTP_CONFIG_REMAPPER = {
+        'ca_bundle': {
+            'name': 'tls_ca_cert',
+        },
+        'default_timeout': {
+            'name': 'timeout',
+            'default': 5,
+        },
+        'user': {
+            'name': 'username',
+        }
+    }
+
     def check(self, instance):
         """ Main method """
         endpoints_def = instance.get('endpoints')
@@ -35,25 +49,14 @@ class EventStoreCheck(AgentCheck):
         """ Process metrics from an API endpoint """
         base_url = instance.get('url', '')
         url = base_url + endpoint
-        default_timeout = instance.get('default_timeout', 5)
-        timeout = float(instance.get('timeout', default_timeout))
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
         metric_def = copy.deepcopy(metrics)
-        # Requests defaults to True, which causes Requests to use the certifi CA bundle
-        verify_bundle = instance.get('ca_bundle', True)
 
-        user = instance.get('user')
-        password = instance.get('password')
-        if user is None or password is None:
-            auth = None
-        else:
-            auth = (user, password)
-            self.log.debug('Authenticating as: %s', user)
         try:
-            r = requests.get(url, timeout=timeout, auth=auth, verify=verify_bundle)
+            r = self.http.get(url)
         except requests.exceptions.Timeout:
-            raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
+            raise CheckException('URL: {} timed out after {} seconds.'.format(url, self.http.options['timeout'][0]))
         except requests.exceptions.MissingSchema as e:
             raise CheckException(e)
         except requests.exceptions.ConnectionError as e:
