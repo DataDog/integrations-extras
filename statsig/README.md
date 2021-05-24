@@ -37,6 +37,6 @@ The Statsig integration sends configuration change events on Statsig to Datadog.
 
 Need help? Contact Statsig Support at support@statsig.com or [contact us here][3]
 
-[1]: https://console.statsig.com/statsig
+[1]: https://console.statsig.com/integration
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
 [3]: https://www.statsig.com/contact
