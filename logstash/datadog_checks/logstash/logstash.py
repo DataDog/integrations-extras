@@ -16,12 +16,11 @@ LogstashInstanceConfig = namedtuple('LogstashInstanceConfig', ['service_check_ta
 
 class LogstashCheck(AgentCheck):
     DEFAULT_VERSION = '1.0.0'
-    DEFAULT_TIMEOUT = 5
     SERVICE_CHECK_CONNECT_NAME = 'logstash.can_connect'
 
     HTTP_CONFIG_REMAPPER = {
         'ssl_cert': {
-            'name': 'tls_ca_cert',
+            'name': 'tls_cert',
         },
         'ssl_key': {
             'name': 'tls_private_key',
@@ -110,10 +109,6 @@ class LogstashCheck(AgentCheck):
 
     def __init__(self, name, init_config, instances):
         super(LogstashCheck, self).__init__(name, init_config, instances)
-
-        if not ('read_timeout' in self.instance or 'connect_timeout' in self.instance):
-            timeout = self.instance.get('timeout', self.DEFAULT_TIMEOUT)
-            self.http.options['timeout'] = (timeout, timeout)
 
     def get_instance_config(self, instance):
         url = instance.get('url')
