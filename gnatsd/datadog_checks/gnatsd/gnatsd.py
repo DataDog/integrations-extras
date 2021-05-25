@@ -2,8 +2,6 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 
-import requests
-
 from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'gnatsd'
@@ -83,7 +81,7 @@ class GnatsdCheckInvocation:
 
     def _status_check(self):
         try:
-            response = requests.get(self.config.url)
+            response = self.checker.http.get(self.config.url)
 
             if response.status_code == 200:
                 self.checker.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.service_check_tags)
@@ -97,7 +95,7 @@ class GnatsdCheckInvocation:
             raise e
 
     def _check_endpoint(self, endpoint, metrics):
-        data = requests.get('{}/{}'.format(self.config.url, endpoint)).json()
+        data = self.checker.http.get('{}/{}'.format(self.config.url, endpoint)).json()
         self._track_metrics(endpoint, metrics, data)
 
     def _track_metrics(self, namespace, metrics, data, tags=None):
