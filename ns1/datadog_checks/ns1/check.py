@@ -1,6 +1,4 @@
-import errno
 import json
-import os
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
