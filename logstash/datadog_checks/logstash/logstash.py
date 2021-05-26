@@ -107,9 +107,6 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.plugins.filters.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
     }
 
-    def __init__(self, name, init_config, instances):
-        super(LogstashCheck, self).__init__(name, init_config, instances)
-
     def get_instance_config(self, instance):
         url = instance.get('url')
         if url is None:
