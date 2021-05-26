@@ -10,10 +10,13 @@ from .ns1_url_utils import Ns1Url
 
 
 class Ns1Check(AgentCheck):
+    NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
+        self.usage_count = {"usage": [0, 0]}
+        self.set_usage_count()
         self.api_endpoint = self.instance.get("api_endpoint")
         if not self.api_endpoint:
             raise ConfigurationError('NS1 API endpoint must be specified in configuration')
@@ -29,8 +32,6 @@ class Ns1Check(AgentCheck):
             raise ConfigurationError('Invalid metrics config!')
 
         self.query_params = self.instance.get("query_params")
-        self.usage_count_path = "/opt/datadog-agent/log"
-        self.usage_count_fname = 'ns1_usage_count.txt'
         self.ns1 = Ns1Url(self.api_endpoint)
         self.pulsar_apps = {}
 
@@ -111,29 +112,10 @@ class Ns1Check(AgentCheck):
         return scopegroups
 
     def get_usage_count(self):
-
-        try:
-            os.makedirs(self.usage_count_path)
-        except OSError as e:
-            if e.errno != errno.EEXIST:
-                raise
-        fullname = os.path.join(self.usage_count_path, self.usage_count_fname)
-
-        self.usage_count = {"usage": [0, 0]}
-        if os.path.isfile(fullname):
-            with open(fullname, 'r+') as f:
-                self.usage_count = json.load(f)
-        else:
-            with open(fullname, 'w+') as f:
-                json.dump(self.usage_count, f)
+        self.usage_count = json.loads(self.read_persistent_cache(self.NS1_CACHE_KEY))
 
     def set_usage_count(self):
-
-        fullname = '/opt/datadog-agent/log/ns1_usage_count.txt'
-
-        if os.path.isfile(fullname):
-            with open(fullname, 'w+') as f:
-                json.dump(self.usage_count, f)
+        self.write_persistent_cache(self.NS1_CACHE_KEY, json.dumps(self.usage_count))
 
     def extract_metric(self, key, result):
         # Various NS1 APis are returning different data structures, extract values depending on which API was called

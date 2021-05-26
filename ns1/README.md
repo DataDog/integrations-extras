@@ -53,7 +53,7 @@ ns1 does not include any events.
 
 ### Development
 
-Please refer to the [main documentation][10] for more details about how to test and develop Agent based integrations.
+See the [Datadog developer documentation][10] for more information about how to test and develop Agent based integrations.
 
 To install the ns1 check on your host:
 
