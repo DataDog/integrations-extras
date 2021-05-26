@@ -149,8 +149,8 @@ class GnatsdStreamingCheckInvocation:
 
 
 class GnatsdStreamingCheck(AgentCheck):
-    def __init__(self, name, init_config, instances=None):
-        AgentCheck.__init__(self, name, init_config, instances)
+    def __init__(self, name, init_config, instances):
+        super(GnatsdStreamingCheck, self).__init__(name, init_config, instances)
         self.counts = {}
         self.ft_status = None
 
