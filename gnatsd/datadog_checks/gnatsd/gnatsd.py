@@ -143,8 +143,8 @@ class GnatsdCheckInvocation:
 
 
 class GnatsdCheck(AgentCheck):
-    def __init__(self, name, init_config, instances=None):
-        AgentCheck.__init__(self, name, init_config, instances)
+    def __init__(self, name, init_config, instances):
+        super(GnatsdCheck, self).__init__(name, init_config, instances)
         self.counts = {}
 
     def check(self, instance):
