@@ -91,9 +91,9 @@ class Neo4jCheck(AgentCheck):
         'dbms.memory.pagecache.size': 'neo4j.dbms.memory.pagecache.size',
     }
 
-    def check(self, instance):
-        host, port, server_name = self._get_config(instance)
-        tags = instance.get('tags', [])
+    def check(self, _):
+        host, port, server_name = self._get_config(self.instance)
+        tags = self.instance.get('tags', [])
         tags.append('server_name:{}'.format(server_name))
         service_check_tags = tags + ['url:{}'.format(host)]
 
