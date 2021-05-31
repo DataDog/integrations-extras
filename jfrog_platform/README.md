@@ -35,21 +35,16 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 
 ### Logs Collection
 
-1. Fluentd installation :
-
-    Please follow the detailed steps for Fluentd instllation based on your installation type and defining the environment variable correctly [here][18]  
+1. [Install Fluentd using the jFrog documentation][18] based on your installation type, and define the environment variable.  
  
-2. Fluentd configuration : 
-        
-    a. Artifactory Configuration
-    Download the artifactory fluentd configuration file to a directory the user has permissions to write, such as the `$JF_PRODUCT_DATA_INTERNAL` locations discussed above in the [Environment Configuration](#environment-configuration) section.
+2. Configure Fluentd with Artifactory by downloading the Artifactory Fluentd configuration file to a directory you have permissions to write in, such as `$JF_PRODUCT_DATA_INTERNAL` locations.
     
-    ````text
+    ```text
     cd $JF_PRODUCT_DATA_INTERNAL
     wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.rt
-    ````
+    ```
     
-    Override the match directive(last section) of the downloaded `fluent.conf.rt` with the details given below:
+    Override the match directive (last section) of the downloaded `fluent.conf.rt` with the details given below:
     
     ```
     <match jfrog.**>
@@ -61,20 +56,16 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     </match>
     ```
     
-    _**required**_: ```API_KEY``` is the apiKey from [Datadog][4]
+    * `API_KEY` (required) is the API key from [Datadog][4].
+    * `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
+    * `include_tag_key` defaults to false and it will add `fluentd` tag in the JSON record if set to true.
+
+3. Configure Fluentd with Xray by downloading the Xray Fluentd configuration file to a directory you have permissions to write, such as the `$JF_PRODUCT_DATA_INTERNAL` locations.
     
-    ```dd_source``` attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
-    
-    ```include_tag_key``` defaults to false and it will add fluentd tag in the json record if set to true
-    
-    b. Xray Configuration
-    
-    Download the Xray fluentd configuration file to a directory the user has permissions to write, such as the `$JF_PRODUCT_DATA_INTERNAL` locations discussed above in the [Environment Configuration](#environment-configuration) section.
-    
-    ````text
+    ```text
     cd $JF_PRODUCT_DATA_INTERNAL
     wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.xray
-    ````
+    ```
     
     Fill in the `JPD_URL`, `USER`, `JFROG_API_KEY` fields in the source directive of the downloaded `fluent.conf.xray` with the details given below:
     
@@ -89,13 +80,11 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     </source>
     ```
     
-    _**required**_: ```JPD_URL``` is the Artifactory JPD URL of the format `http://<ip_address>` with is used to pull Xray Violations
+    * `JPD_URL` (required) is the Artifactory JPD URL of the format `http://<ip_address>`, which is used to pull Xray Violations.
+    * `USER` (required) is the Artifactory username for authentication.
+    * `JFROG_API_KEY` (required) is the [Artifactory API Key][19] for authentication.
     
-    _**required**_: ```USER``` is the Artifactory username for authentication
-    
-    _**required**_: ```JFROG_API_KEY``` is the [Artifactory API Key][19] for authentication
-    
-    Override the match directive(last section) of the downloaded `fluent.conf.xray` with the details given below:
+    Override the match directive (last section) of the downloaded `fluent.conf.xray` with the details given below:
     
     ```
     <match jfrog.**>
@@ -107,27 +96,23 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     </match>
     ```
     
-    _**required**_: ```API_KEY``` is the apiKey from [Datadog][4]
+    * `API_KEY`  (required) is the API key from [Datadog][4].
+    * `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in Datadog.
+    * `include_tag_key` defaults to false and it will add `fluentd` tag in the json record if set to true.
     
-    ```dd_source``` attribute is set to the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
-    
-    ```include_tag_key``` defaults to false and it will add fluentd tag in the json record if set to true
-    
-3. Integration enablement
-
-    To enable this integration, run the td-agent on `artifactory`\ `xray` instances:
+4. Enable the integration by running `td-agent` on `artifactory` and `xray` instances:
 
     ``` 
     td-agent
     ```
 
-    The API key is configured in `td-agent`, which will start sending logs to Datadog. For other types of installation, see the [JFrog documentation][18]
+    The API key is configured in `td-agent`, which starts sending logs to Datadog. For other types of installation, see the [JFrog documentation][18].
 
     Add all attributes as facets from **Facets** > **Add** (on the left side of the screen in Logs) > **Search**.
 
 ### Metrics Collection
 
-1. Enable Metrics for Artifactory and Xray
+1. Enable Metrics for Artifactory and Xray:
 
     1. [Enable Metrics for Artifactory][7]
     2. [Create admin access tokens for Artifactory and Xray][8]
@@ -142,7 +127,6 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
     ARTIFACTORY_ADMIN_TOKEN       -> Admin token for Artifactory
     XRAY_ADMIN_TOKEN              -> Admin token for Xray
     ```
-    #### Host
     To configure this check for an Agent running on a host:
 
     1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory][9] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][10] for all available configuration options
@@ -172,14 +156,7 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
                  - sys*
                  - jfxr*
         ```
-    2. [Restart the Agent][11]
-
-    #### Containerized
-    For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above.
-
-    #### Validation
-
-    [Run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
+    2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
 
 ### JFrog platform tile 
 
@@ -187,7 +164,7 @@ If you have not installed the JFrog platform tile yet, install the tile.
 
 ### JFrog Dashboards
 
-Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Atifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
+Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Artifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
 
 ### Data Collected
 
