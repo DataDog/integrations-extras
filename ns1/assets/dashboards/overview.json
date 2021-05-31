@@ -1,0 +1,1683 @@
+{
+    "title": "NS1 Screenboard",
+    "description": "",
+    "widgets": [
+        {
+            "id": 2826116243848232,
+            "layout": {
+                "x": 0,
+                "y": 10,
+                "width": 72,
+                "height": 16
+            },
+            "definition": {
+                "title": "DNS - Usage Weekly Past Year",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "1y"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count().rollup(sum, 2419200)",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.usage{*}.as_count().rollup(sum, 2419200)",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    },
+                    {
+                        "q": "avg:ns1.billing{billing:limit}",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "avg:ns1.billing{billing:limit}",
+                                "alias_name": "Limit"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 865288641815752,
+            "layout": {
+                "x": 72,
+                "y": 0,
+                "width": 36,
+                "height": 10
+            },
+            "definition": {
+                "title": "Biiling - Queries monthly Limit ",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "2d"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "avg:ns1.billing{billing:limit}",
+                        "aggregator": "last"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 8748386128874256,
+            "layout": {
+                "x": 108,
+                "y": 0,
+                "width": 36,
+                "height": 10
+            },
+            "definition": {
+                "title": "Billing - Queries current billing period",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "2d"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "avg:ns1.billing{billing:usage}",
+                        "aggregator": "last"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 2790663648749100,
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 24,
+                "height": 10
+            },
+            "definition": {
+                "title": "DNS - Queries Past 30 days",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 8068746265672554,
+            "layout": {
+                "x": 84,
+                "y": 94,
+                "width": 44,
+                "height": 30
+            },
+            "definition": {
+                "title": "Usage - Top 10 Records",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.usage.record{*} by {record}.as_count(), 10, 'sum', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8108678363712242,
+            "layout": {
+                "x": 42,
+                "y": 94,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "Usage - Top 10 Zones",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.usage.zone{*} by {zone}.as_count(), 10, 'sum', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 1228780491681136,
+            "layout": {
+                "x": 0,
+                "y": 94,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "Usage - Top Networks",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.usage{*} by {network}.as_count(), 10, 'sum', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2429598828996256,
+            "layout": {
+                "x": 24,
+                "y": 0,
+                "width": 24,
+                "height": 10
+            },
+            "definition": {
+                "title": "DNS - Queries past 24h",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 6498872942703888,
+            "layout": {
+                "x": 48,
+                "y": 0,
+                "width": 24,
+                "height": 10
+            },
+            "definition": {
+                "title": "DNS - Queries Past Hour",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 6279648092796976,
+            "layout": {
+                "x": -1,
+                "y": 43,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Queries over past 1 day",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "1d"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count()",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.usage{*}.as_count()",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 1538709075173170,
+            "layout": {
+                "x": 0,
+                "y": 26,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Queries per day over past Month (with trend lines - hour/day/week/week before)",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage{*}.as_count().rollup(sum, 86400)",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.usage{*}.as_count().rollup(sum, 86400)",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "thick"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 86400))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 86400))",
+                                "alias_name": "Trend Day"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "dashed",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 604800))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 604800))",
+                                "alias_name": "Trend Week"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "dashed",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 3600))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.usage{*}.as_count().rollup(sum, 3600))",
+                                "alias_name": "Trend Hour"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "week_before(sum:ns1.usage{*}.as_count().rollup(sum, 86400))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "week_before(sum:ns1.usage{*}.as_count().rollup(sum, 86400))",
+                                "alias_name": "Week Before"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4809612126677234,
+            "layout": {
+                "x": 84,
+                "y": 124,
+                "width": 44,
+                "height": 30
+            },
+            "definition": {
+                "title": "TTL - Top Records Values and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1m"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "top(max:ns1.ttl{*} by {record}, 10, 'mean', 'desc')",
+                        "order_by": "change",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "change_type": "absolute",
+                        "show_present": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4531432124666512,
+            "layout": {
+                "x": 42,
+                "y": 154,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "QPS - Top Records Values and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1m"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.qps.record{*} by {record}, 10, 'mean', 'desc')",
+                        "order_by": "change",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "change_type": "absolute",
+                        "show_present": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 7142835381156060,
+            "layout": {
+                "x": 72,
+                "y": 26,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Avg. QPS for past Month (with trend lines hour/day/week/ week before)",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.qps{*}.rollup(avg, 86400)",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.qps{*}.rollup(avg, 86400)",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "thick"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.qps{*}.rollup(avg, 3600))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.qps{*}.rollup(avg, 3600))",
+                                "alias_name": "Trend Hour"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "dashed",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.qps{*}.rollup(avg, 86400))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.qps{*}.rollup(avg, 86400))",
+                                "alias_name": "Trend Day"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "dashed",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "robust_trend(sum:ns1.qps{*}.rollup(avg, 604800))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "robust_trend(sum:ns1.qps{*}.rollup(avg, 604800))",
+                                "alias_name": "Trend Week"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "dashed",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "week_before(sum:ns1.qps{*}.rollup(avg, 86400))",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "week_before(sum:ns1.qps{*}.rollup(avg, 86400))",
+                                "alias_name": "Week Before"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 8782260286529288,
+            "layout": {
+                "x": 72,
+                "y": 43,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Avg. QPS - Past Day",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "1d"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.qps{*}",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.qps{*}",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 3209129900966280,
+            "layout": {
+                "x": 42,
+                "y": 124,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "QPS - Top Zones Values and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.qps.zone{*} by {zone}, 10, 'mean', 'desc')",
+                        "change_type": "absolute",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "order_by": "change",
+                        "show_present": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6558365155339560,
+            "layout": {
+                "x": 72,
+                "y": 10,
+                "width": 72,
+                "height": 16
+            },
+            "definition": {
+                "title": "Billing - Queries Limit vs Actual Past Quarter",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {
+                    "live_span": "3mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.billing{billing:usage}.as_count()",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.billing{billing:usage}.as_count()",
+                                "alias_name": "Usage"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    },
+                    {
+                        "q": "avg:ns1.billing{billing:limit}",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "avg:ns1.billing{billing:limit}",
+                                "alias_name": "Limit"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4123958961144896,
+            "layout": {
+                "x": -1,
+                "y": 124,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "Usage - Top Zones Values and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage.zone{*} by {zone}",
+                        "order_by": "change",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "change_type": "absolute"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 7187904350360930,
+            "layout": {
+                "x": -1,
+                "y": 154,
+                "width": 42,
+                "height": 30
+            },
+            "definition": {
+                "title": "Usage - Top Records Values and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage.record{*} by {record}",
+                        "order_by": "change",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "change_type": "absolute"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4839536112304212,
+            "layout": {
+                "x": 0,
+                "y": 77,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Queries per record - top 10 Records",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.usage.record{*} by {record}.as_count()",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 3088108281573108,
+            "layout": {
+                "x": 0,
+                "y": 60,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Queries per zone - top 10 Zones",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.usage.zone{*} by {zone}.as_count(), 10, 'mean', 'desc')",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 5280320763505118,
+            "layout": {
+                "x": 72,
+                "y": 60,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Avg. QPS - top 10 Zones",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.qps.zone{*} by {zone}, 10, 'mean', 'desc')",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4365336642591150,
+            "layout": {
+                "x": 72,
+                "y": 77,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Avg. QPS - top 10 Records",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.qps.record{*} by {record}, 10, 'mean', 'desc')",
+                        "on_right_yaxis": false,
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4681612262565020,
+            "layout": {
+                "x": 149,
+                "y": 10,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Decisions by Resources Account Wide",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.decisions{*} by {resource}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.decisions{*} by {resource}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Decisions"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "sum:ns1.pulsar.decisions.insufficient{*}.as_count()",
+                        "on_right_yaxis": false,
+                        "metadata": [
+                            {
+                                "expression": "sum:ns1.pulsar.decisions.insufficient{*}.as_count()",
+                                "alias_name": "*Insufficiencies"
+                            }
+                        ],
+                        "style": {
+                            "palette": "grey",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 5410863817112008,
+            "layout": {
+                "x": 245,
+                "y": 44,
+                "width": 48,
+                "height": 32
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Decisions by Record",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.decisions.record{*} by {record}.as_count(), 10, 'mean', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2748101444402114,
+            "layout": {
+                "x": 221,
+                "y": 27,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Performances by App and Resource",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.pulsar.performance{*} by {resource,app}, 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(avg:ns1.pulsar.performance{*} by {resource,app}, 10, 'mean', 'desc')",
+                                "alias_name": "Performance"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 8856377374433326,
+            "layout": {
+                "x": 149,
+                "y": 44,
+                "width": 48,
+                "height": 32
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Performances by App and Resource",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.pulsar.performance{*} by {resource,app}, 10, 'mean', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 7692473292774138,
+            "layout": {
+                "x": 221,
+                "y": 10,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Availabilities by App and Resources",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.pulsar.availability{*} by {app,resource}, 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(avg:ns1.pulsar.availability{*} by {app,resource}, 10, 'mean', 'desc')",
+                                "alias_name": "Availability"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 3000886140987854,
+            "layout": {
+                "x": 197,
+                "y": 44,
+                "width": 48,
+                "height": 32
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Availabilities by App and Resource",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:ns1.pulsar.availability{*} by {app,resource}, 10, 'mean', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4522255297791064,
+            "layout": {
+                "x": 298,
+                "y": 10,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "DDI - Number of Leases by Scope Group",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.leases{*} by {scope_group}.as_count()",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 3990507278657890,
+            "layout": {
+                "x": 370,
+                "y": 10,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "DDI - Peak LPS by Scope Group",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "sum:ns1.peak_lps{*} by {scope_group}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 3497162660247620,
+            "layout": {
+                "x": 149,
+                "y": 27,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Top 10 Decisions by Record",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.decisions.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.decisions.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Decisions"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4327167836994308,
+            "layout": {
+                "x": 149,
+                "y": 76,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Routemap Top 10 Hits and Misses",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.routemap.hit{*}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.routemap.hit{*}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Hits"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "top(sum:ns1.pulsar.routemap.miss{*}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.routemap.miss{*}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Misses"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 7177279124867112,
+            "layout": {
+                "x": 221,
+                "y": 76,
+                "width": 72,
+                "height": 17
+            },
+            "definition": {
+                "title": "Pulsar - Routemap Top 10 Hits and Misses by Record",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.routemap.hit.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.routemap.hit.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Hits"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "top(sum:ns1.pulsar.routemap.miss.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                        "metadata": [
+                            {
+                                "expression": "top(sum:ns1.pulsar.routemap.miss.record{*} by {record}.as_count(), 10, 'mean', 'desc')",
+                                "alias_name": "Misses"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 2734643999318176,
+            "layout": {
+                "x": 177,
+                "y": 0,
+                "width": 28,
+                "height": 10
+            },
+            "definition": {
+                "title": "Pulsar - Total Decisions Past Hour",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.pulsar.decisions{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 3867571129479680,
+            "layout": {
+                "x": 149,
+                "y": 0,
+                "width": 28,
+                "height": 10
+            },
+            "definition": {
+                "title": "Pulsar - Total Decisions Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.pulsar.decisions{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 5591910435308666,
+            "layout": {
+                "x": 149,
+                "y": 93,
+                "width": 48,
+                "height": 32
+            },
+            "definition": {
+                "title": "Pulsar - Routemap Top 10 Hits by Record",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:ns1.pulsar.routemap.hit.record{*} by {record}.as_count(), 10, 'mean', 'desc')"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4472862841988336,
+            "layout": {
+                "x": 298,
+                "y": 0,
+                "width": 28,
+                "height": 10
+            },
+            "definition": {
+                "title": "DDI - Total Leases Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.leases{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 3699636007408762,
+            "layout": {
+                "x": 326,
+                "y": 0,
+                "width": 27,
+                "height": 10
+            },
+            "definition": {
+                "title": "DDI - Total Leases Past Hour",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.leases{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 6807467896593536,
+            "layout": {
+                "x": 353,
+                "y": 0,
+                "width": 29,
+                "height": 10
+            },
+            "definition": {
+                "title": "DDI - Max Leases in 1 Hour Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1mo"
+                },
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.leases{*}.as_count().rollup(sum, 3600)",
+                        "aggregator": "max"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 8364600177097712,
+            "layout": {
+                "x": 298,
+                "y": 27,
+                "width": 48,
+                "height": 32
+            },
+            "definition": {
+                "title": "DDI - Number of Leases and Changes",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1h"
+                },
+                "type": "change",
+                "requests": [
+                    {
+                        "q": "avg:ns1.leases{*} by {scope_group}",
+                        "order_by": "change",
+                        "order_dir": "desc",
+                        "compare_to": "hour_before",
+                        "increase_good": true,
+                        "change_type": "absolute"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4623326850641064,
+            "layout": {
+                "x": 205,
+                "y": 0,
+                "width": 28,
+                "height": 10
+            },
+            "definition": {
+                "title": "Pulsar - Total Decisions",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "sum:ns1.pulsar.decisions{*}.as_count()",
+                        "aggregator": "sum"
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "free",
+    "is_read_only": false,
+    "notify_list": [],
+    "id": "6kw-568-xy8"
+}
