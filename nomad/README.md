@@ -1,11 +1,15 @@
 # Agent Check: Nomad
 
+![Nomad Dashboard][4]
+
 ## Overview
 
 Gather metrics from your Nomad clusters to:
 
 - Visualize and monitor cluster performance
 - Alert on cluster health and availability
+
+Recommended monitors are available to get notified on different Nomad events.
 
 ## Setup
 
@@ -50,3 +54,4 @@ Need help? Contact [Datadog support][3].
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
 [3]: https://docs.datadoghq.com/help/
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nomad/images/dashboard_overview.png

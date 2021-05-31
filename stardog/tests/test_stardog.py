@@ -60,6 +60,9 @@ class HttpServerThread(threading.Thread):
                 if self.path != '/admin/status':
                     self.send_response(404)
                     return
+                if self.headers["Authorization"] != "Basic YWRtaW46YWRtaW4=":
+                    self.send_response(401)
+                    return
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
                 self.end_headers()
