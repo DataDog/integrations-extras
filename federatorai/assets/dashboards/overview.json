@@ -33,7 +33,7 @@
                 "show_legend": false,
                 "requests": [
                     {
-                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,resource:replicas}",
+                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,resource:replicas,$kube_stateful_set,resource:replicas,metric_source:kafka}",
                         "style": {
                             "line_width": "normal",
                             "palette": "warm",
@@ -42,7 +42,7 @@
                         "display_type": "line"
                     },
                     {
-                        "q": "avg:kubernetes_state.deployment.replicas_available{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
+                        "q": "avg:kubernetes_state.deployment.replicas_available{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,$kube_stateful_set}",
                         "style": {
                             "line_width": "normal",
                             "palette": "cool",
@@ -51,7 +51,25 @@
                         "display_type": "line"
                     },
                     {
-                        "q": "avg:kubernetes_state.deployment.replicas_desired{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
+                        "q": "avg:kubernetes_state.deployment.replicas_desired{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,$kube_stateful_set}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:kubernetes_state.statefulset.replicas_current{$kube_cluster,$kube_namespace,$kube_cluster_name,$cluster_name,$kube_stateful_set,$kube_deployment}",
+                        "style": {
+                            "line_width": "normal",
+                            "palette": "cool",
+                            "line_type": "solid"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:kubernetes_state.statefulset.replicas_desired{$kube_cluster,$kube_namespace,$kube_cluster_name,$cluster_name,$kube_stateful_set,$kube_deployment}",
                         "style": {
                             "line_width": "normal",
                             "palette": "cool",
@@ -191,7 +209,7 @@
                 "show_legend": false,
                 "requests": [
                     {
-                        "q": "sum:kubernetes.memory.usage{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
+                        "q": "sum:kubernetes.memory.usage{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,$kube_stateful_set}",
                         "style": {
                             "line_width": "normal",
                             "palette": "cool",
@@ -227,7 +245,7 @@
                 "show_legend": false,
                 "requests": [
                     {
-                        "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name}",
+                        "q": "sum:kubernetes.cpu.usage.total{$kube_cluster,$kube_namespace,$kube_deployment,$kube_cluster_name,$cluster_name,$kube_stateful_set}",
                         "style": {
                             "line_width": "normal",
                             "palette": "dog_classic",
@@ -292,6 +310,11 @@
             "default": "*",
             "prefix": "kube_deployment",
             "name": "kube_deployment"
+        },
+        {
+            "default": "*",
+            "prefix": "kube_stateful_set",
+            "name": "kube_stateful_set"
         },
         {
             "default": "*",
