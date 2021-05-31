@@ -13,10 +13,9 @@ No installation is required to setup the Statsig integration.
 ### Configuration
 
 1. Copy your Datadog API key.
-2. [Navigate to your Statsig console][1].
-3. Navigate to the Integrations tab in the left-hand column.
-4. Click on the Datadog card.
-5. Paste in your API key in the top field and click Confirm.
+2. [Navigate to the Integrations tab in the Statsig console][1].
+3. Click on the Datadog card.
+4. Paste in your API key in the top field and click Confirm.
 
 ## Data Collected
 
@@ -38,6 +37,6 @@ The Statsig integration sends configuration change events on Statsig to Datadog.
 
 Need help? Contact Statsig Support at support@statsig.com or [contact us here][3]
 
-[1]: https://console.statsig.com
+[1]: https://console.statsig.com/integration
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
 [3]: https://www.statsig.com/contact
