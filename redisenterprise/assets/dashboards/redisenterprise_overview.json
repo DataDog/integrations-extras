@@ -7,8 +7,8 @@
     "template_variables": [
         {
             "default": "*",
-            "name": "cluster",
-            "prefix": "cluster"
+            "name": "redis_cluster",
+            "prefix": "redis_cluster"
         },
         {
             "default": "*",
@@ -22,7 +22,7 @@
             "definition": {
                 "color": "#4d4d4d",
                 "font_size": "56",
-                "text": "$cluster",
+                "text": "$redis_cluster",
                 "text_align": "right",
                 "type": "free_text"
             },
@@ -74,7 +74,7 @@
                                 "value": 999
                             }
                         ],
-                        "q": "max:redisenterprise.conns{$cluster,$database}"
+                        "q": "max:redisenterprise.conns{$redis_cluster,$database}"
                     }
                 ],
                 "title": "Connections",
@@ -115,7 +115,7 @@
                                 "value": 500000
                             }
                         ],
-                        "q": "max:redisenterprise.avg_latency{$cluster,$database}"
+                        "q": "max:redisenterprise.avg_latency{$redis_cluster,$database}"
                     }
                 ],
                 "time": {},
@@ -151,7 +151,7 @@
                                 "value": 0
                             }
                         ],
-                        "q": "max:redisenterprise.total_req{$cluster,$database}"
+                        "q": "max:redisenterprise.total_req{$redis_cluster,$database}"
                     }
                 ],
                 "title": "Ops/Second",
@@ -181,7 +181,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.total_req{$cluster,$database}",
+                        "q": "sum:redisenterprise.total_req{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -190,7 +190,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.read_req{$cluster,$database}",
+                        "q": "sum:redisenterprise.read_req{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -199,7 +199,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.write_req{$cluster,$database}",
+                        "q": "sum:redisenterprise.write_req{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -208,7 +208,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.other_req{$cluster,$database}",
+                        "q": "sum:redisenterprise.other_req{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -251,7 +251,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.avg_read_latency{$cluster,$database}",
+                        "q": "sum:redisenterprise.avg_read_latency{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -260,7 +260,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.avg_write_latency{$cluster,$database}",
+                        "q": "sum:redisenterprise.avg_write_latency{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -269,7 +269,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.avg_latency{$cluster,$database}",
+                        "q": "sum:redisenterprise.avg_latency{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -312,7 +312,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "avg:redisenterprise.used_memory{$cluster,$database}",
+                        "q": "avg:redisenterprise.used_memory{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -321,7 +321,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "avg:redisenterprise.memory_limit{$cluster,$database}",
+                        "q": "avg:redisenterprise.memory_limit{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -365,7 +365,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.evicted_objects{$cluster,$database}",
+                        "q": "sum:redisenterprise.evicted_objects{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -374,7 +374,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.expired_objects{$cluster,$database}",
+                        "q": "sum:redisenterprise.expired_objects{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -417,7 +417,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.no_of_keys{$cluster,$database}",
+                        "q": "sum:redisenterprise.no_of_keys{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -460,7 +460,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.ingress_bytes{$cluster,$database}",
+                        "q": "sum:redisenterprise.ingress_bytes{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -469,7 +469,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.egress_bytes{$cluster,$database}",
+                        "q": "sum:redisenterprise.egress_bytes{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -513,7 +513,7 @@
                                 "value": 0
                             }
                         ],
-                        "q": "sum:redisenterprise.cache_hit_rate{$cluster,$database}"
+                        "q": "sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}"
                     }
                 ],
                 "time": {},
@@ -555,7 +555,7 @@
                                 "value": 85
                             }
                         ],
-                        "q": "avg:redisenterprise.used_memory_percent{$cluster,$database}"
+                        "q": "avg:redisenterprise.used_memory_percent{$redis_cluster,$database}"
                     }
                 ],
                 "time": {},
@@ -586,7 +586,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.read_hits{$cluster,$database}",
+                        "q": "sum:redisenterprise.read_hits{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -595,7 +595,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.read_misses{$cluster,$database}",
+                        "q": "sum:redisenterprise.read_misses{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -604,7 +604,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.write_hits{$cluster,$database}",
+                        "q": "sum:redisenterprise.write_hits{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -613,7 +613,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.write_misses{$cluster,$database}",
+                        "q": "sum:redisenterprise.write_misses{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -657,7 +657,7 @@
                 "requests": [
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.cache_hit_rate{$cluster,$database}",
+                        "q": "sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
@@ -666,7 +666,7 @@
                     },
                     {
                         "display_type": "line",
-                        "q": "sum:redisenterprise.used_memory_percent{$cluster,$database}",
+                        "q": "sum:redisenterprise.used_memory_percent{$redis_cluster,$database}",
                         "style": {
                             "line_type": "solid",
                             "line_width": "normal",
