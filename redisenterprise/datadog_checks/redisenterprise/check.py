@@ -1,6 +1,8 @@
 import sys
 from datetime import datetime, timedelta
 
+from requests.auth import HTTPBasicAuth
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 # from typing import Any
@@ -27,7 +29,12 @@ class RedisenterpriseCheck(AgentCheck):
 
     def check(self, instance):
         host = self.instance.get('host')
+        user = self.instance.get('user')
+        password = self.instance.get('password')
+        timeout = self.instance.get('timeout')
         port = self.instance.get('port', 9443)
+        # This can differ by cluster so we need to configure on a per check basis
+        verifyssl = self.instance.get('verifyssl', False)
         event_limit = self.instance.get('event_limit', 100)
         is_mock = self.instance.get('is_mock', False)
         service_check_tags = self.instance.get('tags', [])
@@ -38,56 +45,54 @@ class RedisenterpriseCheck(AgentCheck):
         try:
 
             # noop if we are not the cluser master
-            if self._check_follower(host, port, is_mock):
+            if self._check_follower(host, port, user, password, timeout, verifyssl, is_mock):
                 self.last_timestamp_seen = datetime.utcnow()
                 pass
 
             # add the cluster FQDN to the tags
-            fqdn = self._get_fqdn(host, port, service_check_tags)
-            service_check_tags.append('cluster:{}'.format(fqdn))
+            fqdn = self._get_fqdn(host, port, user, password, service_check_tags)
+            service_check_tags.append('redis_cluster:{}'.format(fqdn))
 
             # collect the license data
-            fqdn = self._get_license(host, port, service_check_tags)
+            fqdn = self._get_license(host, port, user, password, service_check_tags)
 
             # collect the node data
-            self._get_nodes(host, port, service_check_tags)
+            self._get_nodes(host, port, user, password, service_check_tags)
 
             # grab the DBD ID to name mapping
-            bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
-            self._get_bdb_stats(host, port, bdb_dict, service_check_tags)
+            bdb_dict = self._get_bdb_dict(host, port, user, password, service_check_tags)
+            self._get_bdb_stats(host, port, user, password, bdb_dict, service_check_tags)
             self._shard_usage(bdb_dict, service_check_tags, host)
 
             # collect the events from the API - we set the timeout higher here
-            self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
+            self._get_events(host, port, user, password, bdb_dict, service_check_tags, event_limit)
 
             self.service_check(
                 'redisenterprise.running',
-                self._get_version(host, port, service_check_tags),
-                tags=service_check_tags
+                self._get_version(host, port, user, password, service_check_tags),
+                tags=service_check_tags,
             )
         except Exception as e:
-            self.service_check(
-                'redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags
-            )
+            self.service_check('redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags)
 
         pass
 
-    def _check_follower(self, host, port, timeout, is_mock):
+    def _check_follower(self, host, port, user, password, timeout, verifyssl, is_mock):
         """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
         if is_mock:
             return False
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/cluster'.format(host, port)
-        r = self.http.get(url, extra_headers=headers_sent)
+        r = self.http.get(url, extra_headers=headers_sent, verify=verifyssl, auth=HTTPBasicAuth(user, password))
         if r.status_code != 307:
             return True
         return False
 
-    def _api_fetch_json(self, host, port, endpoint, service_check_tags, params=None):
+    def _api_fetch_json(self, host, port, user, password, endpoint, service_check_tags, params=None):
         """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/{}'.format(host, port, endpoint)
-        r = self.http.get(url, extra_headers=headers_sent)
+        r = self.http.get(url, extra_headers=headers_sent, auth=HTTPBasicAuth(user, password))
         if r.status_code != 200:
             msg = "unexpected status of {0} when fetching stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
@@ -95,24 +100,24 @@ class RedisenterpriseCheck(AgentCheck):
         info = r.json()
         return info
 
-    def _get_fqdn(self, host, port, service_check_tags):
+    def _get_fqdn(self, host, port, user, password, service_check_tags):
         """ Get the cluster FQDN back from the endpoints """
-        info = self._api_fetch_json(host, port, "cluster", service_check_tags)
+        info = self._api_fetch_json(host, port, user, password, "cluster", service_check_tags)
         fqdn = info.get('name')
         if fqdn:
             return fqdn
         return "unknown"
 
-    def _get_version(self, host, port, service_check_tags):
-        info = self._api_fetch_json(host, port, "bootstrap", service_check_tags)
+    def _get_version(self, host, port, user, password, service_check_tags):
+        info = self._api_fetch_json(host, port, user, password, "bootstrap", service_check_tags)
         version = info['local_node_info']['software_version']
         if version:
             return self.OK
         return self.CRITICAL
 
-    def _get_bdb_dict(self, host, port, service_check_tags):
+    def _get_bdb_dict(self, host, port, user, password, service_check_tags):
         bdb_dict = {}
-        bdbs = self._api_fetch_json(host, port, "bdbs", service_check_tags)
+        bdbs = self._api_fetch_json(host, port, user, password, "bdbs", service_check_tags)
         for i in bdbs:
 
             # collect the number of shards and multiply by 2 if replicated
@@ -128,11 +133,13 @@ class RedisenterpriseCheck(AgentCheck):
             }
         return bdb_dict
 
-    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
+    def _get_events(self, host, port, user, password, bdb_dict, service_check_tags, event_limit):
         """ Scrape the LOG endpoint and put all log entries into Datadog events """
         evnts = self._api_fetch_json(
             host,
             port,
+            user,
+            password,
             "logs",
             service_check_tags,
             params={
@@ -161,7 +168,7 @@ class RedisenterpriseCheck(AgentCheck):
             if ts > self.last_event_timestamp_seen:
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
 
-    def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
+    def _get_bdb_stats(self, host, port, user, password, bdb_dict, service_check_tags):
         """ Collect Enterprise database related stats """
         gauges = [
             'avg_latency',
@@ -202,7 +209,7 @@ class RedisenterpriseCheck(AgentCheck):
             'big_del_ram',
             'big_del_flash',
         ]
-        stats = self._api_fetch_json(host, port, "bdbs/stats/last", service_check_tags)
+        stats = self._api_fetch_json(host, port, user, password, "bdbs/stats/last", service_check_tags)
         self.gauge('redisenterprise.database_count', len(stats), tags=service_check_tags, hostname=host)
         for i in stats:
             tgs = []
@@ -261,14 +268,12 @@ class RedisenterpriseCheck(AgentCheck):
 
             for j in stats[i].keys():
                 if j in gauges:
-                    self.gauge(
-                        'redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags
-                    )
+                    self.gauge('redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags)
         return 0
 
-    def _get_license(self, host, port, service_check_tags):
+    def _get_license(self, host, port, user, password, service_check_tags):
         """ Collect Enterprise License Information """
-        stats = self._api_fetch_json(host, port, "license", service_check_tags)
+        stats = self._api_fetch_json(host, port, user, password, "license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.now()
         self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags)
@@ -293,9 +298,9 @@ class RedisenterpriseCheck(AgentCheck):
             used += x['shards_used']
         self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags, hostname=host)
 
-    def _get_nodes(self, host, port, service_check_tags):
+    def _get_nodes(self, host, port, user, password, service_check_tags):
         """ Collect Enterprise Node Information """
-        stats = self._api_fetch_json(host, port, "nodes", service_check_tags)
+        stats = self._api_fetch_json(host, port, user, password, "nodes", service_check_tags)
         res = {'total_node_cores': 0, 'total_node_memory': 0, 'total_node_count': 0, 'total_active_nodes': 0}
 
         for i in stats:
