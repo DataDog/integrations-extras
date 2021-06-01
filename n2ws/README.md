@@ -13,7 +13,7 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 1.	##### Install the [Python Integration][1]
 
-2. Enable support for Datadog on your N2WS instance:
+2.  ##### Enable support for Datadog on your N2WS instance:
     - Connect to your N2WS Backup and Recovery instance with SSH.
     - Add the lines below to `/cpmdata/conf/cpmserver.cfg`. You might need `sudo` privileges to perform this action.
         ```
