@@ -1,0 +1,32 @@
+name: Neo4j
+files:
+- name: neo4j.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/http
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: neo4j_url
+      required: true
+      description: |
+        Neo4J url to connect to.
+      value:
+        type: string
+        example: localhost
+    - name: port
+      description: |
+        Port to connect to when reaching `neo4j_url`
+      value:
+        type: integer
+        example: 7474
+        display_default: 7474
+    - name: server_name
+      required: true
+      description: |
+        Name of the Neo4j server to connect to.
+      value:
+        type: string
+    - template: instances/http
+    - template: instances/default
