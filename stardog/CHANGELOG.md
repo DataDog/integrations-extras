@@ -1,7 +1,10 @@
 # CHANGELOG - Stardog
 
-0.1.0/ Unreleased
-==================
+## 1.0.1
+
+* [FIXED] formatting issue with auth header in python 3
+
+## 1.0.0
 
 ### Changes
 

@@ -1,0 +1,32 @@
+{
+    "name": "[php_opcache] Cache Full has been detected.",
+    "type": "query alert",
+    "query": "max(last_5m):avg:php_opcache.cache.cache_full{*} by {host} > 1",
+    "message": "OPcache Full has been detected. All cache purged.",
+    "tags": [
+        "integration:php_opcache"
+    ],
+    "options": {
+        "notify_audit": false,
+        "locked": false,
+        "timeout_h": 0,
+        "new_host_delay": 300,
+        "require_full_window": false,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": "",
+        "no_data_timeframe": null,
+        "include_tags": true,
+        "thresholds": {
+            "critical": 1,
+            "critical_recovery": 0
+        },
+        "threshold_windows": {
+            "trigger_window": "last_15m",
+            "recovery_window": "last_15m"
+        }
+    },
+    "recommended_monitor_metadata": {
+        "description": "Notifies when OPcache Full detected"
+    }
+}

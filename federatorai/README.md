@@ -138,23 +138,48 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 2. Install the Federator.ai for OpenShift/Kubernetes by the following command
 
    ```shell
-   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/master/deploy/federatorai-launcher.sh | bash
+   $ curl https://raw.githubusercontent.com/containers-ai/prophetstor/master/deploy/federatorai-launcher.sh | bash
    ```
 
    ```shell
-   curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/master/deploy/federatorai-launcher.sh | bash
-   Please input Federator.ai version tag: datadog
+   $ curl https://raw.githubusercontent.com/containers-ai/prophetstor/master/deploy/federatorai-launcher.sh | bash
+   ...
+   Please enter Federator.ai version tag [default: latest]:
+   Please enter the path of Federator.ai directory [default: /opt]:
    
-   Downloading scripts ...
+   Downloading v4.5.1-b1562 tgz file ...
    Done
-   Do you want to use private repository URL? [default: n]:
-   Do you want to launch Federator.ai installation script? [default: y]:
+   Do you want to use a private repository URL? [default: n]:
+   Do you want to launch the Federator.ai installation script? [default: y]:
    
    Executing install.sh ...
    Checking environment version...
    ...Passed
    Enter the namespace you want to install Federator.ai [default: federatorai]:
    .........
+   Downloading Federator.ai alamedascaler sample files ...
+   Done
+   ========================================
+   Which storage type you would like to use? ephemeral or persistent?
+   [default: persistent]:
+   Specify log storage size [e.g., 2 for 2GB, default: 2]:
+   Specify AI engine storage size [e.g., 10 for 10GB, default: 10]:
+   Specify InfluxDB storage size [e.g., 100 for 100GB, default: 100]:
+   Specify storage class name: managed-nfs-storage
+   Do you want to expose dashboard and REST API services for external access? [default: y]:
+   
+   ----------------------------------------
+   install_namespace = federatorai
+   storage_type = persistent
+   log storage size = 2 GB
+   AI engine storage size = 10 GB
+   InfluxDB storage size = 100 GB
+   storage class name = managed-nfs-storage
+   expose service = y
+   ----------------------------------------
+   Is the above information correct [default: y]:
+   Processing...
+   
    (snipped)
    .........
    All federatorai pods are ready.
@@ -164,19 +189,19 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
    Default login credential is admin/admin
    
    Also, you can start to apply alamedascaler CR for the target you would like to monitor.
-   Review administration guide for further details.Review administration guide for further details.
+   Review administration guide for further details. 
    ========================================
-   .........
-   (snipped)
-   .........
-   Install Federator.ai successfully
-   Do you want to monitor this cluster? [default: y]:
-   Use "cluster-demo" as cluster name and DD_TAGS
-   Applying file alamedascaler_federatorai.yaml ...
-   alamedascaler.autoscaling.containers.ai/clusterscaler created
-   Done
+   ========================================
+   You can now access Federatorai REST API through https://<YOUR IP>:31011
+   The default login credential is admin/admin
+   The REST API online document can be found in https://<YOUR IP>:31011/apis/v1/swagger/index.html
+   ========================================
    
-   Downloaded YAML files are located under /tmp/install-op 
+   Install Federator.ai v4.5.1-b1562 successfully
+   
+   Downloaded YAML files are located under /opt/federatorai/installation
+   
+   Downloaded files are located under /opt/federatorai/repo/v4.5.1-b1562
    ```
 
 3. Verify Federator.ai pods are running properly
@@ -193,63 +218,13 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 
 2. Log in to Datadog with your account and get an [API key and Application key][11] for using Datadog API.
 
-3. Configure the Federator.ai Data-Adapter.
-   - Data-Adapter configuration script should already be downloaded in /tmp/federatorai-scripts/datadog/ directory. If not, re-run the federatorai-launcher.sh script described in the installation step 2 without launching Federator.ai installation script again.
-
-   ```shell
-   $ curl https://raw.githubusercontent.com/containers-ai/federatorai-operator/master/deploy/federatorai-launcher.sh | bash
-   Please input Federator.ai version tag: datadog
-   
-   Downloading scripts ...
-   Done
-   Do you want to use private repository URL? [default: n]:
-   Do you want to launch Federator.ai installation script? [default: y]: n
-   ```
-
-   - Change the execution permission.
-
-   ```shell
-   $ chomd +x /tmp/federatorai-scripts/datadog/federatorai-setup-for-datadog.sh
-   ```
-
-   - Run the configuration script and follow the steps to fill in configuration parameters:
-
-   ```shell
-   $ ./federatorai-setup-for-datadog.sh -k .kubeconfig
-   Checking environment version...
-   ...Passed
-   You are connecting to cluster: https://<YOUR IP>:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
-   Getting Datadog info...
-   Input a Datadog API Key []:xxxxx9273dxxcbc155xx3a7331xxxxx
-   Input a Datadog Application Key []:xxxxx7220db1478xxxxxcb5c323fcb02a11xxxxx
-   
-   Getting Kafka info... No.1
-   
-   You can use command "kubectl get cm cluster-info -n <namespace> --template={{.metadata.uid}}" to get cluster name
-   Where '<namespace>' is either 'default' or 'kube-public' or 'kube-service-catalog'.
-   If multiple cluster-info exist, pick either one would work as long as you always use the same one to configure Datadog Agent/Cluster Agent/WPA and other data source agents.
-   Input cluster name []: cluster-demo
-   Input Kafka exporter namespace []: myproject
-   Input Kafka consumer group kind (Deployment/DeploymentConfig/StatefulSet) []: Deployment
-   Input Kafka consumer group kind name []: consumer1-topic0001-group-0001
-   Input Kafka consumer group namespace []: myproject
-   Input Kafka consumer topic name []: topic0001
-   
-   You can use Kafka command-line tool 'kafka-consumer-group.sh' (download separately or enter into a broker pod, in /bin directory) to list consumer groups.
-   e.g.: "/bin/kafka-consumer-groups.sh --bootstrap-server <kafka-bootstrap-service>:9092 --describe --all-groups --members"
-   The first column of output is the 'kafkaConsumerGroupId'.
-   Input Kafka consumer group id []: group0001
-   Input Kafka consumer minimum replica number []: 1
-   Input Kafka consumer maximum replica number []: 20
-   
-   Do you want to input another set? [default: n]: 
-   .........
-   (snipped)
-   .........
-   ```
+3. Configure Federator.ai for the metrics data source per cluster.
+    - Launch Federator.ai GUI->Configuration->Clusters->Click ![plus_icon][17] "Add Cluster"
+    - Put API Key & Application Key
     
-4. Please refer to [Federator.ai and Datadog Integration - Installation and Configuration Guide][6] for more details.
+	![add_cluster_window][18] 
+    
+4. Please refer to [Federator.ai - Installation and Configuration Guide][6] & [User Guide][16] for more details. 
 
 
 ## Data Collected
@@ -276,7 +251,7 @@ Need help? Read [ProphetStor Federator.ai documentations][5] or contact [Datadog
 [3]: https://docs.datadoghq.com/integrations/kafka/
 [4]: https://github.com/DataDog/watermarkpodautoscaler
 [5]: https://github.com/containers-ai/federatorai-operator
-[6]: http://www.prophetstor.com/wp-content/uploads/2020/05/Federator.ai%20for%20Datadog%20-%20Installation%20and%20Configuration%20Guide.pdf
+[6]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20Installation%20Guide.pdf
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_overview.png
 [8]: https://docs.datadoghq.com/agent/cluster_agent/setup
 [9]: https://github.com/DataDog/integrations-extras/blob/master/federatorai/metadata.csv
@@ -286,3 +261,6 @@ Need help? Read [ProphetStor Federator.ai documentations][5] or contact [Datadog
 [13]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cluster_overview_dashboard.png
 [14]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/application_overview_dashboard.png
 [15]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cost_analysis_overview.png
+[16]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20User%20Guide.pdf
+[17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/plus_icon.png
+[18]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png

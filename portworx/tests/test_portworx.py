@@ -10,7 +10,7 @@ px_cluster_cpu_percent{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d
 px_cluster_disk_available_bytes{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 1.3470091182e+11
 px_cluster_disk_total_bytes{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 1.37438953472e+11
 px_cluster_disk_utilized_bytes{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 2.738041652e+09
-px_cluster_memory_utilized_percent"{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 24
+px_cluster_memory_utilized_percent{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 24
 px_cluster_pendingio{cluster="clusterpaul",node="devbox",node_id="f5a046be5c3d"} 0"""
 
 

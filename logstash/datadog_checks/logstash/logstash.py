@@ -3,25 +3,33 @@ from collections import namedtuple
 from distutils.version import LooseVersion
 
 # 3rd party
-import requests
 from six import iteritems
 from six.moves.urllib.parse import urljoin, urlparse
 
 # project
 from datadog_checks.base import AgentCheck
-from datadog_checks.base.utils.headers import headers
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'logstash'
 
-LogstashInstanceConfig = namedtuple(
-    'LogstashInstanceConfig', ['service_check_tags', 'tags', 'timeout', 'url', 'ssl_verify', 'ssl_cert', 'ssl_key']
-)
+LogstashInstanceConfig = namedtuple('LogstashInstanceConfig', ['service_check_tags', 'tags', 'url'])
 
 
 class LogstashCheck(AgentCheck):
     DEFAULT_VERSION = '1.0.0'
-    DEFAULT_TIMEOUT = 5
     SERVICE_CHECK_CONNECT_NAME = 'logstash.can_connect'
+
+    HTTP_CONFIG_REMAPPER = {
+        'ssl_cert': {
+            'name': 'tls_cert',
+        },
+        'ssl_key': {
+            'name': 'tls_private_key',
+        },
+        'ssl_verify': {
+            'name': 'tls_verify',
+            'default': False,
+        },
+    }
 
     STATS_METRICS = {
         "logstash.process.open_file_descriptors": ("gauge", "process.open_file_descriptors"),
@@ -121,42 +129,17 @@ class LogstashCheck(AgentCheck):
         tags = ['url:%s' % url]
         tags.extend(custom_tags)
 
-        timeout = instance.get('timeout') or self.DEFAULT_TIMEOUT
-
         config = LogstashInstanceConfig(
             service_check_tags=service_check_tags,
-            ssl_cert=instance.get('ssl_cert'),
-            ssl_key=instance.get('ssl_key'),
-            ssl_verify=instance.get('ssl_verify', False),
             tags=tags,
-            timeout=timeout,
             url=url,
         )
         return config
 
     def _get_data(self, url, config, send_sc=True):
         """Hit a given URL and return the parsed json"""
-        auth = None
-
-        # Load SSL configuration, if available.
-        # ssl_verify can be a bool or a string
-        # (http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification)
-        if isinstance(config.ssl_verify, (bool, str)):
-            verify = config.ssl_verify
-        else:
-            self.log.error("ssl_verify in the configuration file must be a bool or a string.")
-            verify = None
-        if config.ssl_cert and config.ssl_key:
-            cert = (config.ssl_cert, config.ssl_key)
-        elif config.ssl_cert:
-            cert = config.ssl_cert
-        else:
-            cert = None
-
         try:
-            resp = requests.get(
-                url, timeout=config.timeout, headers=headers(self.agentConfig), auth=auth, verify=verify, cert=cert
-            )
+            resp = self.http.get(url)
             resp.raise_for_status()
         except Exception as e:
             if send_sc:

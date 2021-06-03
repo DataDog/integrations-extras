@@ -7,7 +7,7 @@ init_config:
     #
     is_jmx: true
 
-    ## @param collect_default_metrics - boolean - required
+    ## @param collect_default_metrics - boolean - optional - default: false
     ## Whether or not the check should collect all default metrics.
     #
     collect_default_metrics: true
@@ -142,6 +142,11 @@ instances:
     ## will give up on that connection and retry.
     #
     # rmi_client_timeout: 15000
+
+    ## @param collect_default_jvm_metrics - boolean - optional - default: true
+    ## Configures the collection of default JVM metrics.
+    #
+    # collect_default_jvm_metrics: true
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
