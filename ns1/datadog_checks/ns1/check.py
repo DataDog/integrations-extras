@@ -13,8 +13,9 @@ class Ns1Check(AgentCheck):
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
-        self.usage_count = {"usage": [0, 0]}
-        self.set_usage_count()
+
+        self.get_usage_count()
+
         self.api_endpoint = self.instance.get("api_endpoint")
         if not self.api_endpoint:
             raise ConfigurationError('NS1 API endpoint must be specified in configuration')
@@ -110,7 +111,12 @@ class Ns1Check(AgentCheck):
         return scopegroups
 
     def get_usage_count(self):
-        self.usage_count = json.loads(self.read_persistent_cache(self.NS1_CACHE_KEY))
+        cashedata = self.read_persistent_cache(self.NS1_CACHE_KEY)
+        if cashedata:
+            self.usage_count = json.loads(cashedata)
+        else:
+            self.usage_count = {"usage": [0, 0]}
+            self.set_usage_count()
 
     def set_usage_count(self):
         self.write_persistent_cache(self.NS1_CACHE_KEY, json.dumps(self.usage_count))
@@ -149,8 +155,8 @@ class Ns1Check(AgentCheck):
         res = self.get_stats(url)
         apps = {}
         for app in res:
-            url = url + "/{app_id}/jobs".format(app_id=app["appid"])
-            jobs = self.get_stats(url)
+            joburl = url + "/{app_id}/jobs".format(app_id=app["appid"])
+            jobs = self.get_stats(joburl)
             apps[app["appid"]] = [app["name"], jobs]
         return apps
 
@@ -343,7 +349,7 @@ class Ns1Check(AgentCheck):
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
         try:
-            response = self.http.get(url, extra_headers=self.headers)
+            response = self.http.get(url, extra_headers=self.headers, timeout=60)
             response.raise_for_status()
             response_json = response.json()
 
