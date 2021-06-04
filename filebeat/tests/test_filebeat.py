@@ -438,6 +438,7 @@ def test_negative_timeout():
     _assert_config_raises({"port": 82, "timeout": 0}, "must be a positive number")
     _assert_config_raises({"port": 82, "timeout": -0.5}, "must be a positive number")
 
+
 @pytest.mark.parametrize(
     'init_config, instance, expected_timeout',
     [
@@ -449,6 +450,7 @@ def test_negative_timeout():
 def test_default_timeout(init_config, instance, expected_timeout):
     check = FilebeatCheck("filebeat", init_config, [instance])
     assert check.http.options['timeout'] == expected_timeout
+
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
