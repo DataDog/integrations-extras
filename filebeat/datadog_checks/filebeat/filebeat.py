@@ -5,12 +5,10 @@
 # stdlib
 import errno
 import json
-import numbers
 import os
 import re
 import sre_constants
 
-import requests
 import six
 from six import iteritems
 
@@ -88,8 +86,9 @@ class FilebeatCheckHttpProfiler:
 
     VARS_ROUTE = "debug/vars"
 
-    def __init__(self, config):
+    def __init__(self, config, http):
         self._config = config
+        self._http = http
         self._previous_increment_values = {}
         # regex matching ain't free, let's cache this
         self._should_keep_metrics = {}
@@ -104,7 +103,7 @@ class FilebeatCheckHttpProfiler:
 
     def _make_request(self):
 
-        response = requests.get(self._config.stats_endpoint, timeout=self._config.timeout)
+        response = self._http.get(self._config.stats_endpoint)
         response.raise_for_status()
 
         return self.flatten(response.json())
@@ -175,10 +174,6 @@ class FilebeatCheckInstanceConfig:
                 "If given, filebeat's only_metrics must be a list of regexes, got %s" % (self._only_metrics,)
             )
 
-        self._timeout = instance.get("timeout", 2)
-        if not isinstance(self._timeout, numbers.Real) or self._timeout <= 0:
-            raise Exception("If given, filebeats timeout must be a positive number, got %s" % (self._timeout,))
-
     @property
     def registry_file_path(self):
         return self._registry_file_path
@@ -186,10 +181,6 @@ class FilebeatCheckInstanceConfig:
     @property
     def stats_endpoint(self):
         return self._stats_endpoint
-
-    @property
-    def timeout(self):
-        return self._timeout
 
     def should_keep_metric(self, metric_name):
 
@@ -234,7 +225,7 @@ class FilebeatCheck(AgentCheck):
             profiler = self.instance_cache[instance_key]["profiler"]
         else:
             config = FilebeatCheckInstanceConfig(instance)
-            profiler = FilebeatCheckHttpProfiler(config)
+            profiler = FilebeatCheckHttpProfiler(config, self.http)
             self.instance_cache[instance_key] = {"config": config, "profiler": profiler}
 
         self._process_registry(config)
