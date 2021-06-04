@@ -208,9 +208,9 @@ class FilebeatCheckInstanceConfig:
 
 class FilebeatCheck(AgentCheck):
 
-    SERVICE_CHECK_NAME = 'filebeat.can_connect'
+    SERVICE_CHECK_NAME = 'can_connect'
 
-    METRIC_PREFIX = "filebeat."
+    __NAMESPACE__ = "filebeat"
 
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
@@ -265,7 +265,7 @@ class FilebeatCheck(AgentCheck):
             if self._is_same_file(stats, item["FileStateOS"]):
                 unprocessed_bytes = stats.st_size - offset
 
-                self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
+                self.gauge("registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
             else:
                 self.log.debug("Filebeat source %s appears to have changed", source)
         except OSError:
@@ -291,7 +291,8 @@ class FilebeatCheck(AgentCheck):
             method = getattr(self, action)
 
             for name, value in iteritems(metrics):
-                if not name.startswith(self.METRIC_PREFIX) and normalize_metrics:
-                    name = self.METRIC_PREFIX + name
-                method(name, value, tags)
+                if not name.startswith(self.__NAMESPACE__) and normalize_metrics:
+                    method(name, value, tags)
+                else:
+                    method(name, value, tags, raw=True)
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)
