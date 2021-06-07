@@ -301,4 +301,9 @@ class Neo4jCheck(PrometheusCheck):
             # JVM threads metrics
             'vm_thread_count': 'vm.thread.count',
             'vm_thread_total': 'vm.thread.total',
+            #
+            # query execution metrics
+            'db_query_execution_success_total': 'db.query.execution.success.total',
+            'db_query_execution_failure_total': 'db.query.execution.failure.total',
+            'db_query_execution_latency_millis': 'db.query.execution.latency.millis',
         }
