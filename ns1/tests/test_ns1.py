@@ -104,6 +104,14 @@ def test_url_gen(aggregator, instance_1, requests_mock):
     appres = '''
     [
         {
+            "customer": 16774,
+            "name": "Leandro's app",
+            "community": false,
+            "appid": "ejgrgw",
+            "active": true,
+            "jobs_per_transaction": 2
+        },
+        {
             "customer": 1000,
             "name": "Pulsar community",
             "community": true,
@@ -126,10 +134,24 @@ def test_url_gen(aggregator, instance_1, requests_mock):
         }
     ]
     '''
-
+    jobres1 = '''
+    [
+        {
+            "customer": 1000,
+            "typeid": "latency",
+            "name": "CDN Latency - Cloudflare",
+            "community": true,
+            "jobid": "1xtvhvx",
+            "appid": "ejgrgw",
+            "active": true
+        }
+    ]
+    '''
     requests_mock.get(url, text=appres)
     url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)
+    url2 = "{apiendpoint}/v1/pulsar/apps/ejgrgw/jobs".format(apiendpoint=check.api_endpoint)
     requests_mock.get(url1, text=jobres)
+    requests_mock.get(url2, text=jobres1)
     check.get_pulsar_applications()
 
     checkUrl = check.create_url(check.metrics, check.query_params)
@@ -164,6 +186,7 @@ def test_url_gen(aggregator, instance_1, requests_mock):
     assert checkUrl["pulsar.performance.1xy4sn3.1xtvhvx"][0] == expect
     expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/availability?period=1m"
     assert checkUrl["pulsar.availability.1xy4sn3.1xtvhvx"][0] == expect
+    assert "pulsar.availability.ejgrgw.1xtvhvx" not in checkUrl
 
     # pulsar by record
     expect = "https://my.nsone.net/v1/pulsar/query/decision/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
