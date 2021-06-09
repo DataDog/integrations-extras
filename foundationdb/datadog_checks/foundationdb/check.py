@@ -5,12 +5,17 @@ from datadog_checks.base import AgentCheck
 
 # from datadog_checks.base.utils.db import QueryManager
 # from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
+import json
 
+from datadog_checks.base.utils.subprocess_output import get_subprocess_output, SubprocessOutputEmptyError
 
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
-        # super(FoundationdbCheck, self).__init__(name, init_config, instances)
+        super(FoundationdbCheck, self).__init__(name, init_config, instances)
+
+    def fdb_status_data(self):
+        return get_subprocess_output(['fdbcli', '--exec', 'status json'], self.log)
+
 
         # If the check is going to perform SQL queries you should define a query manager here.
         # More info at
@@ -24,9 +29,32 @@ class FoundationdbCheck(AgentCheck):
         # }
         # self._query_manager = QueryManager(self, self.execute_query, queries=[sample_query])
         # self.check_initializations.append(self._query_manager.compile_queries)
-        pass
 
     def check(self, _):
+        try:
+            status = self.fdb_status_data()
+        except SubprocessOutputEmptyError as e:
+            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Did not receive a response from `status json`")
+            raise
+
+        if status[2] != 0:
+            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="`fdbcli` returned non-zero error code")
+            raise ValueError("Fdbcli failed")
+
+        try:
+            data = json.loads(status[0])
+        except Exception as e:
+            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Could not parse `status json`")
+            raise
+
+        try:
+            self.gauge("foundationdb.degraded_processes", data["cluster"]["degraded_processes"])
+        except KeyError as e:
+            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Bogus data")
+            raise ValueError("No cluster.degraded_processes key")
+
+        self.service_check("foundationdb.can_connect", AgentCheck.OK)
+
         # type: (Any) -> None
         # The following are useful bits of code to help new users get started.
 
@@ -88,5 +116,3 @@ class FoundationdbCheck(AgentCheck):
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
         # self.service_check("foundationdb.can_connect", AgentCheck.OK)
-
-        pass
