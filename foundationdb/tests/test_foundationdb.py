@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 from datadog_checks.base.stubs.aggregator import AggregatorStub
 from datadog_checks.dev.utils import get_metadata_metrics
+from datadog_checks.base import AgentCheck
 from datadog_checks.foundationdb import FoundationdbCheck
 
 
@@ -11,5 +12,7 @@ def test_check(aggregator, instance):
     check = FoundationdbCheck('foundationdb', {}, [instance])
     check.check(instance)
 
+    aggregator.assert_metric('foundationdb.degraded_processes')
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
