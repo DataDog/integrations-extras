@@ -18,7 +18,7 @@ See the dedicated Agent guide for [installing community integrations][3]:
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -t datadog-ns1==0.0.1
+   datadog-agent integration install -t datadog-ns1==0.0.2
    ```
    
 3. Configure your integration like [any other packaged integration][5].
