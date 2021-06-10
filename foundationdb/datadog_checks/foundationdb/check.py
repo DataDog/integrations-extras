@@ -9,13 +9,13 @@ import json
 
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output, SubprocessOutputEmptyError
 
+
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FoundationdbCheck, self).__init__(name, init_config, instances)
 
     def fdb_status_data(self):
         return get_subprocess_output(['fdbcli', '--exec', 'status json'], self.log)
-
 
         # If the check is going to perform SQL queries you should define a query manager here.
         # More info at
@@ -49,9 +49,36 @@ class FoundationdbCheck(AgentCheck):
 
         try:
             self.gauge("foundationdb.degraded_processes", data["cluster"]["degraded_processes"])
+            self.gauge("foundationdb.machines", len(data["cluster"]["machines"]))
+            self.gauge("foundationdb.processes", len(data["cluster"]["processes"]))
+
+            self.gauge("foundationdb.data.system_kv_size_bytes", data["cluster"]["data"]["system_kv_size_bytes"])
+            self.gauge("foundationdb.data.total_disk_used_bytes", data["cluster"]["data"]["total_disk_used_bytes"])
+            self.gauge("foundationdb.data.total_kv_size_bytes", data["cluster"]["data"]["total_kv_size_bytes"])
+
+            self.gauge("foundationdb.data.least_operating_space_bytes_log_server", data["cluster"]["data"]["least_operating_space_bytes_log_server"])
+
+            self.gauge("foundationdb.data.moving_data.in_flight_bytes", data["cluster"]["data"]["moving_data"]["in_flight_bytes"])
+            self.gauge("foundationdb.data.moving_data.in_queue_bytes", data["cluster"]["data"]["moving_data"]["in_queue_bytes"]) 
+            self.gauge("foundationdb.data.moving_data.total_written_bytes", data["cluster"]["data"]["moving_data"]["total_written_bytes"]) 
+
+            self.gauge("foundationdb.datacenter_lag.seconds", data["cluster"]["datacenter_lag"]["seconds"])
+
+            self.count("foundationdb.instances", sum(map(lambda p: len(p["roles"]), data["cluster"]["processes"].values())))
+
+            for k, v in data["cluster"]["workload"]["transactions"].items():
+                self.gauge("foundationdb.workload.transactions." + k + ".hz", v["hz"])
+                self.count("foundationdb.workload.transactions." + k + ".counter", v["counter"])
+
+            for k, v in data["cluster"]["workload"]["operations"].items():
+                self.gauge("foundationdb.workload.operations." + k + ".hz", v["hz"])
+                self.count("foundationdb.workload.operations." + k + ".counter", v["counter"])
+
+            for k, v in data["cluster"]["latency_probe"].items():
+                self.gauge("foundationdb.latency_probe." + k, v)
         except KeyError as e:
             self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Bogus data")
-            raise ValueError("No cluster.degraded_processes key")
+            raise
 
         self.service_check("foundationdb.can_connect", AgentCheck.OK)
 
