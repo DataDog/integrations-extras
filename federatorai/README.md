@@ -2,83 +2,87 @@
 
 ## Overview
 
-[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprise manage, optimize, auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.
+[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprises manage, optimize, and auto-scale resources for any applications on Kubernetes. Using advanced machine learning algorithms to predict application workload, Federator.ai scales the right amount of resources at the right time for optimized application performance.
 
-* AI-based workload prediction for Kafka or any applications
-* Resource recommendation based on workload prediction, application, Kubernetes and other related metrics
-* Automatic scaling of application containers through [Datadog Watermark Pod Autoscaler (WPA)][4]
+* AI-based workload prediction for containerized applications in Kubernetes clusters and VMs in VMware clusters 
+* Resource recommendations based on workload prediction, application, Kubernetes, and other related metrics 
+* Automatic scaling of application containers 
+* Multicloud cost analysis and recommendations based on workload predictions for Kubernetes clusters and VM clusters 
+* Actual cost and potential savings based on recommendations for clusters, Kubernetes applications, VMs, and Kubernetes namespaces
 
-With integration of ProphetStor Federator.ai, users can easily track the Kafka message production/consumption rate, as well as the prediction of message production rate from Federator.ai dashboard. Based on the prediction or message production rate, Federator.ai automatically scales Kafka consumer replicas to handle the workload. This can be visualized from Federator.ai dashboard where the recommended consumer replicas and the current number of consumer replicas are shown. Additionally, overall consumer lags as well as the average latency in the queue before a message is received by a consumer are also shown on the dashboard for better performance monitoring.
+By integrating with ProphetStor Federator.ai, you can track and predict the resource usages of Kubernetes containers, namespaces, and cluster nodes and make the right recommendations to prevent costly over-provisioning or performance-impacting under-provisioning. Utilizing application workload predictions, Federator.ai auto-scales application containers at the right time and optimizes performance with the right number of container replicas through Kubernetes HPA or [Datadog Watermark Pod Autoscaling (WPA)][3].
+
+Additional information on Federator.ai, please visit [ProphetStor Federator.ai Feature Demo][2] and [ProphetStor Federator.ai for Datadog][14] videos.
 
 
 **ProphetStor Federator.ai Cluster Overview**
 
-![cluster_overview_dashboard][13]
+![cluster_overview_dashboard][11]
 
 * Cluster Resource Usage Predictions and Recommendations
-   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from the Federator.ai for the cluster resource planning.
+   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from Federator.ai for cluster resource planning.
 
 * Cluster Node Resource Usage Predictions and Recommendations
-   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from the Federator.ai for the node resource planning.
+   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from Federator.ai for node resource planning.
 
 * Node Current/Predicted Memory Usage (Daily)
-   - This graph shows daily predicted memory usage from the Federator.ai and the memory usage of the nodes.
+   - This graph shows daily predicted memory usage from Federator.ai and the memory usage of the nodes.
 
 * Node Current/Predicted Memory Usage (Weekly)
-   - This graph shows weekly predicted memory usage from the Federator.ai and the memory usage of the nodes.
+   - This graph shows weekly predicted memory usage from Federator.ai and the memory usage of the nodes.
 
 * Node Current/Predicted Memory Usage (Monthly)
-   - This graph shows monthly predicted memory usage from the Federator.ai and the memory usage of the nodes.
+   - This graph shows monthly predicted memory usage from Federator.ai and the memory usage of the nodes.
 
 * Node Current/Predicted CPU Usage (Daily)
-   - This graph shows daily predicted CPU usage from the Federator.ai and the CPU usage of the nodes.
+   - This graph shows daily predicted CPU usage from Federator.ai and the CPU usage of the nodes.
 
 * Node Current/Predicted CPU Usage (Weekly)
-   - This graph shows weekly predicted CPU usage from the Federator.ai and the CPU usage of the nodes.
+   - This graph shows weekly predicted CPU usage from Federator.ai and the CPU usage of the nodes.
 
 * Node Current/Predicted CPU Usage (Monthly)
-   - This graph shows monthly predicted CPU usage from the Federator.ai and the CPU usage of the nodes.
+   - This graph shows monthly predicted CPU usage from Federator.ai and the CPU usage of the nodes.
 
 
 **ProphetStor Federator.ai Application Overview**
 
-![application_overview_dashboard][14]
+![application_overview_dashboard][12]
 
 * Workload Prediction for Next 24 Hours
-   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from the Federator.ai for the controller resource planning in the next 24 hours.
+   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from Federator.ai for the controller resource planning in the next 24 hours.
 
 * Workload Prediction for Next 7 Days
-   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from the Federator.ai for the controller resource planning in the next 7 days.
+   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from Federator.ai for the controller resource planning in the next 7 days.
 
 * Workload Prediction for Next 30 Days
-   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from the Federator.ai for the controller resource planning in the next 30 days.
+   - This table shows the maximum/minimum/average value of the CPU/memory workload prediction and the recommended CPU/memory resource usage from Federator.ai for the controller resource planning in the next 30 days.
 
 * Current/Predicted CPU Usage (Daily)
-   - This graph shows daily predicted CPU usage from the Federator.ai and the CPU usage of the controllers.
+   - This graph shows daily predicted CPU usage from Federator.ai and the CPU usage of the controllers.
 
 * Current/Predicted CPU Usage (Weekly)
-   - This graph shows weekly predicted CPU usage from the Federator.ai and the CPU usage of the controllers.
+   - This graph shows weekly predicted CPU usage from Federator.ai and the CPU usage of the controllers.
 
 * Current/Predicted CPU Usage (Monthly)
-   - This graph shows monthly predicted CPU usage from the Federator.ai and the CPU usage of the controllers.
+   - This graph shows monthly predicted CPU usage from Federator.ai and the CPU usage of the controllers.
 
 * Current/Predicted Memory Usage (Daily)
-   - This graph shows daily predicted memory usage from the Federator.ai and the memory usage of the controllers.
+   - This graph shows daily predicted memory usage from Federator.ai and the memory usage of the controllers.
 
 * Current/Predicted Memory Usage (Weekly)
-   - This graph shows weekly predicted memory usage from the Federator.ai and the memory usage of the controllers.
+   - This graph shows weekly predicted memory usage from Federator.ai and the memory usage of the controllers.
 
 * Current/Predicted Memory Usage (Monthly)
-   - This graph shows monthly predicted memory usage from the Federator.ai and the memory usage of the controllers.
+   - This graph shows monthly predicted memory usage from Federator.ai and the memory usage of the controllers.
 
 * Current/Desired/Recommended Replicas
-   - This graph shows the recommended replicas from the Federator.ai and the desired and current replicas of the controllers.
+   - This graph shows the recommended replicas from Federator.ai and the desired and current replicas of the controllers.
 
 * Memory Usage/Request/Limit vs Rec Memory Limit
-   - This graph shows the recommended memory limit from the Federator.ai and the requested, limited and current memory usage of the controllers.
+   - This graph shows the recommended memory limit from Federator.ai and the requested, limited and current memory usage of the controllers.
 
 * CPU Usage/Request/Limit vs Rec CPU Limit
-   - This graph shows the recommended CPU limit from the Federator.ai and the requested, limited and current CPU usage of the controllers.
+   - This graph shows the recommended CPU limit from Federator.ai and the requested, limited and current CPU usage of the controllers.
 
 * CPU Usage/Limit Utilization
    - This graph shows the CPU utilization of the controller and visualizes if the CPU utilization is over the limit or under the limit.
@@ -89,7 +93,7 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 ![dashboard_overview][7]
 
 * Recommended Replicas vs Current/Desired Replicas
-   - This timeseries graph shows the recommended replicas from the Federator.ai and the desired and current replicas in the system.
+   - This timeseries graph shows the recommended replicas from Federator.ai and the desired and current replicas in the system.
 
 * Production vs Consumption vs Production Prediction
    - This timeseries graph shows the Kafka message production rate and consumption rate and the production rate predicted by Federator.ai.
@@ -109,7 +113,7 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 
 **ProphetStor Federator.ai Cost Analysis Overview**
 
-![cost_analysis_overview][15]
+![cost_analysis_overview][13]
 
 * Current Cluster Cost and Current Cluster Configuration
    - These tables show the current cost and the environment configuration of the clusters.
@@ -132,10 +136,12 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 
 ## Setup
 
+* Follow the instructions below to download and set up Federator.ai.
+
 ### Installation
 
-1. Log in to OpenShift/Kubernetes cluster
-2. Install the Federator.ai for OpenShift/Kubernetes by the following command
+1. Log in to your OpenShift/Kubernetes cluster
+2. Install Federator.ai for OpenShift/Kubernetes by the following command
 
    ```shell
    $ curl https://raw.githubusercontent.com/containers-ai/prophetstor/master/deploy/federatorai-launcher.sh | bash
@@ -150,7 +156,7 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
    Downloading v4.5.1-b1562 tgz file ...
    Done
    Do you want to use a private repository URL? [default: n]:
-   Do you want to launch the Federator.ai installation script? [default: y]:
+   Do you want to launch Federator.ai installation script? [default: y]:
    
    Executing install.sh ...
    Checking environment version...
@@ -204,7 +210,7 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
    Downloaded files are located under /opt/federatorai/repo/v4.5.1-b1562
    ```
 
-3. Verify Federator.ai pods are running properly
+3. Verify Federator.ai pods are running properly.
 
    ```shell
    $ kubectl get pod -n federatorai
@@ -214,24 +220,22 @@ With integration of ProphetStor Federator.ai, users can easily track the Kafka m
 
 ### Configuration
 
-1. A Datadog account is required for connecting and using Datadog. If you don't have an account, visit the [Datadog website][10] and sign up for a free trial account.
+1. Log in to Datadog with your account and get an [API key and application key][9] for using the Datadog API.
 
-2. Log in to Datadog with your account and get an [API key and Application key][11] for using Datadog API.
-
-3. Configure Federator.ai for the metrics data source per cluster.
-    - Launch Federator.ai GUI->Configuration->Clusters->Click ![plus_icon][17] "Add Cluster"
-    - Put API Key & Application Key
+2. Configure Federator.ai for the metrics data source per cluster.
+    - Launch Federator.ai GUI->Configuration->Clusters->Click "Add Cluster"
+    - Enter API key and application key
     
-	![add_cluster_window][18] 
+	![add_cluster_window][4] 
     
-4. Please refer to [Federator.ai - Installation and Configuration Guide][6] & [User Guide][16] for more details. 
+3. Refer to the [Federator.ai - Installation and Configuration Guide][6] and [User Guide][5] for more details. 
 
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][9] for a list of metrics provided by this integration.
+See [metadata.csv][8] for a list of metrics provided by this integration.
 
 
 ### Service Checks
@@ -244,23 +248,19 @@ Federator.ai does not include any events.
 
 ## Troubleshooting
 
-Need help? Read [ProphetStor Federator.ai documentations][5] or contact [Datadog support][12].
+Need help? Read [Federator.ai - Installation and Configuration Guide][6] or contact [Datadog support][10] 
 
-[1]: https://www.prophetstor.com/federator-ai-for-aiops/federator-ai-datadog-integration/
-[2]: https://github.com/containers-ai/federatorai-operator/blob/master/docs/quickstart.md
-[3]: https://docs.datadoghq.com/integrations/kafka/
-[4]: https://github.com/DataDog/watermarkpodautoscaler
-[5]: https://github.com/containers-ai/federatorai-operator
+[1]: https://prophetstor.com/federator-ai-2/
+[2]: https://www.youtube.com/watch?v=IooFJnB8bb8&t=1s
+[3]: https://github.com/DataDog/watermarkpodautoscaler
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png
+[5]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20User%20Guide.pdf
 [6]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20Installation%20Guide.pdf
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/dashboard_overview.png
-[8]: https://docs.datadoghq.com/agent/cluster_agent/setup
-[9]: https://github.com/DataDog/integrations-extras/blob/master/federatorai/metadata.csv
-[10]: https://www.datadoghq.com/
-[11]: https://docs.datadoghq.com/account_management/api-app-keys/
-[12]: https://docs.datadoghq.com/help/
-[13]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cluster_overview_dashboard.png
-[14]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/application_overview_dashboard.png
-[15]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cost_analysis_overview.png
-[16]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20User%20Guide.pdf
-[17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/plus_icon.png
-[18]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png
+[8]: https://github.com/DataDog/integrations-extras/blob/master/federatorai/metadata.csv
+[9]: https://docs.datadoghq.com/account_management/api-app-keys/
+[10]: https://docs.datadoghq.com/help/
+[11]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cluster_overview_dashboard.png
+[12]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/application_overview_dashboard.png
+[13]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/cost_analysis_overview.png
+[14]: https://www.youtube.com/watch?v=qX_HF_zZ4BA&t=21s
