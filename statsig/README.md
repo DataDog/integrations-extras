@@ -23,7 +23,7 @@ The Statsig integration does not collect any data from Datadog.
 
 ### Metrics
 
-See [metadata.csv][2] for a list of metrics provided by this integration and the description of each.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Service Checks
 
