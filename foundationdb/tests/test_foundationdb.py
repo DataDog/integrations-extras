@@ -1,4 +1,6 @@
 
+import os
+import json
 from typing import Any, Dict
 
 from datadog_checks.base.stubs.aggregator import AggregatorStub
@@ -52,7 +54,28 @@ METRICS = [
     "foundationdb.instances",
 ]
 
-def test_check(aggregator, instance):
+current_dir = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/'
+def test_partial(aggregator, instance):
+    with open(current_dir + 'partial.json', 'r') as f:
+        data = json.loads(f.read())
+        check = FoundationdbCheck('foundationdb', {}, [instance])
+        check.check(instance)
+        aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
+
+def test_full(aggregator, instance):
+    with open(current_dir + 'full.json', 'r') as f:
+        data = json.loads(f.read())
+        check = FoundationdbCheck('foundationdb', {}, [instance])
+        check.check_metrics(data)
+
+        for metric in METRICS:
+            aggregator.assert_metric(metric)
+        aggregator.assert_all_metrics_covered()
+        aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+        aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
+
+
+def test_integ(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
     check = FoundationdbCheck('foundationdb', {}, [instance])
     check.check(instance)

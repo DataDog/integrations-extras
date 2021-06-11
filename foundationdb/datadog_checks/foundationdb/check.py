@@ -39,7 +39,7 @@ class FoundationdbCheck(AgentCheck):
 
         if status[2] != 0:
             self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="`fdbcli` returned non-zero error code")
-            raise ValueError("Fdbcli failed")
+            raise ValueError("`fdbcli --exec 'status json'` failed")
 
         try:
             data = json.loads(status[0])
@@ -47,40 +47,62 @@ class FoundationdbCheck(AgentCheck):
             self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Could not parse `status json`")
             raise
 
-        try:
-            self.gauge("foundationdb.degraded_processes", data["cluster"]["degraded_processes"])
-            self.gauge("foundationdb.machines", len(data["cluster"]["machines"]))
-            self.gauge("foundationdb.processes", len(data["cluster"]["processes"]))
+        self.check_metrics(data)
 
-            self.gauge("foundationdb.data.system_kv_size_bytes", data["cluster"]["data"]["system_kv_size_bytes"])
-            self.gauge("foundationdb.data.total_disk_used_bytes", data["cluster"]["data"]["total_disk_used_bytes"])
-            self.gauge("foundationdb.data.total_kv_size_bytes", data["cluster"]["data"]["total_kv_size_bytes"])
+    def check_metrics(self, status):
+        if not "cluster" in status:
+            raise ValueError("JSON Status data doesn't include cluster data")
 
-            self.gauge("foundationdb.data.least_operating_space_bytes_log_server", data["cluster"]["data"]["least_operating_space_bytes_log_server"])
+        cluster = status["cluster"]
+        if "degraded_processes" in cluster:
+            self.gauge("foundationdb.degraded_processes", cluster["degraded_processes"])
+        if "machines" in cluster:
+            self.gauge("foundationdb.machines", len(cluster["machines"]))
+        if "processes" in cluster:
+            self.gauge("foundationdb.processes", len(cluster["processes"]))
 
-            self.gauge("foundationdb.data.moving_data.in_flight_bytes", data["cluster"]["data"]["moving_data"]["in_flight_bytes"])
-            self.gauge("foundationdb.data.moving_data.in_queue_bytes", data["cluster"]["data"]["moving_data"]["in_queue_bytes"]) 
-            self.gauge("foundationdb.data.moving_data.total_written_bytes", data["cluster"]["data"]["moving_data"]["total_written_bytes"]) 
+            self.count("foundationdb.instances", sum(map(lambda p: len(p["roles"]) if "roles" in p else 0, cluster["processes"].values())))
 
-            self.gauge("foundationdb.datacenter_lag.seconds", data["cluster"]["datacenter_lag"]["seconds"])
+        if "data" in cluster:
+            data = cluster["data"]
+            self.maybe_gauge("foundationdb.data.system_kv_size_bytes", data, "system_kv_size_bytes")
+            self.maybe_gauge("foundationdb.data.total_disk_used_bytes", data, "total_disk_used_bytes")
+            self.maybe_gauge("foundationdb.data.total_kv_size_bytes", data, "total_kv_size_bytes")
+            self.maybe_gauge("foundationdb.data.least_operating_space_bytes_log_server", data, "least_operating_space_bytes_log_server")
 
-            self.count("foundationdb.instances", sum(map(lambda p: len(p["roles"]), data["cluster"]["processes"].values())))
+            if "moving_data" in data:
+                self.maybe_gauge("foundationdb.data.moving_data.in_flight_bytes", data["moving_data"], "in_flight_bytes")
+                self.maybe_gauge("foundationdb.data.moving_data.in_queue_bytes", data["moving_data"], "in_queue_bytes")
+                self.maybe_gauge("foundationdb.data.moving_data.total_written_bytes", data["moving_data"], "total_written_bytes")
 
-            for k, v in data["cluster"]["workload"]["transactions"].items():
-                self.gauge("foundationdb.workload.transactions." + k + ".hz", v["hz"])
-                self.count("foundationdb.workload.transactions." + k + ".counter", v["counter"])
+        if "datacenter_lag" in cluster:
+            self.gauge("foundationdb.datacenter_lag.seconds", cluster["datacenter_lag"]["seconds"])
 
-            for k, v in data["cluster"]["workload"]["operations"].items():
-                self.gauge("foundationdb.workload.operations." + k + ".hz", v["hz"])
-                self.count("foundationdb.workload.operations." + k + ".counter", v["counter"])
+        if "workload" in cluster:
+            workload = cluster["workload"]
+            if "transactions" in workload:
+                for k, v in workload["transactions"].items():
+                    self.maybe_gauge("foundationdb.workload.transactions." + k + ".hz", v, "hz")
+                    self.maybe_count("foundationdb.workload.transactions." + k + ".counter", v, "counter")
 
-            for k, v in data["cluster"]["latency_probe"].items():
+            if "operations" in workload:
+                for k, v in workload["operations"].items():
+                    self.maybe_gauge("foundationdb.workload.operations." + k + ".hz", v, "hz")
+                    self.maybe_count("foundationdb.workload.operations." + k + ".counter", v, "counter")
+
+        if "latency_probe" in cluster:
+            for k, v in cluster["latency_probe"].items():
                 self.gauge("foundationdb.latency_probe." + k, v)
-        except KeyError as e:
-            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Bogus data")
-            raise
 
         self.service_check("foundationdb.can_connect", AgentCheck.OK)
+
+    def maybe_gauge(self, metric, obj, key):
+        if key in obj:
+            self.gauge(metric, obj[key])
+
+    def maybe_count(self, metric, obj, key):
+        if key in obj:
+            self.count(metric, obj[key])
 
         # type: (Any) -> None
         # The following are useful bits of code to help new users get started.
