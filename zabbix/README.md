@@ -30,7 +30,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Zabbix
 
 2. [Restart the Agent][8].
 
-#### Send Zabbix Alerts into the Event Stream
+#### Event collection
 
 ##### Create Datadog media type 
 

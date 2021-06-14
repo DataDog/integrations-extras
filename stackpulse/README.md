@@ -8,7 +8,7 @@ The [StackPulse][1] integration enables you to trigger automatic playbooks in re
 
 To set up this integration, you must have an active [StackPulse account][2] and an Account Owner role in that account. You must also have proper admin permissions in Datadog.
 
-### In StackPulse
+### StackPulse
 
 1. On the **Integrations** page under **Monitoring**, locate the **Datadog** card and click [**New**][2].
 
@@ -18,7 +18,7 @@ To set up this integration, you must have an active [StackPulse account][2] and 
 
 3. **Copy** the newly created webhook endpoint.
 
-### In Datadog
+### Datadog
 
 1. Navigate to **Integrations** and choose the [**Webhooks**][5] card.
 
@@ -73,7 +73,7 @@ To set up this integration, you must have an active [StackPulse account][2] and 
 
 6. Navigate to **Integrations -> APIs** and choose the **API Keys** card. Under **New API Key**, input a meaningful name for the new key and click **Create API Key**, then **Copy** the new key.
 
-### Back In StackPulse
+### Back to StackPulse
 
 1. On the **Integrations** page under **Secrets**, locate the **Datadog API Keys** card and click [**Add**][8].
 

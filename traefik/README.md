@@ -29,7 +29,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Traefi
 
 2. [Restart the Agent][9]
 
-#### Metric Collection
+#### Metric collection
 
 Add this configuration setup to your `traefik.yaml` file to start gathering your [metrics][10]:
 
@@ -52,7 +52,7 @@ Configuration Options:
 
 [Restart the Agent][9] to begin sending Traefik metrics to Datadog.
 
-#### Log Collection
+#### Log collection
 
 **Available for Agent >6.0**
 

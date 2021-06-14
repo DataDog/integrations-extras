@@ -22,9 +22,7 @@ If you are using Agent v6.8+ follow the instructions below to install the `php_a
 
 3. Configure your integration like [any other packaged integration][7].
 
-
-#### APCu Setup
-
+#### APCu
 
 APCu does not expose metrics by default so this integration includes a metric exporter, located here:
 
@@ -65,11 +63,11 @@ See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Service Checks
 
-`php_apcu` does not include any service checks.
+The PHP APCu integration does not include any service checks.
 
 ### Events
 
-`php_apcu` does not include any events.
+The PHP APCu integration does not include any events.
 
 ## Troubleshooting
 

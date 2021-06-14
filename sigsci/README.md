@@ -39,7 +39,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 ### Configuration
 
-#### Metrics Collection
+#### Metrics collection
 
 1. Install the [Signal Sciences agent][3].
 
@@ -69,7 +69,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 5. In Datadog, verify that the "Signal Sciences - Overview" dashboard is created and starting to capture metrics.
 
-#### Events Collection
+#### Events collection
 
 1. Within Datadog, [create an API key][5].
 

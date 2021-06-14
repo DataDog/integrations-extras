@@ -61,13 +61,13 @@ helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
 
 #### Host
 
-##### Metric Collection
+##### Metric collection
 
 1. Edit the `tidb.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your TiDB performance data. See the [sample tidb.d/conf.yaml][3] for all available configuration options.
 
 2. [Restart the Agent][4].
 
-##### Log Collection
+##### Log collection
 
 _Available for Agent versions >6.0_
 

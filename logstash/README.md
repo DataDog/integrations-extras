@@ -30,7 +30,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Logsta
 
 2. [Restart the Agent][9]
 
-#### Metric Collection
+#### Metric collection
 
 Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][10]:
 
@@ -50,7 +50,7 @@ See the [sample conf.yaml][11] for all available configuration options.
 
 Finally, [restart the Agent][12] to begin sending Logstash metrics to Datadog.
 
-#### Log Collection
+#### Log collection
 
 Datadog has [an output plugin][13] for Logstash that takes care of sending your logs to your Datadog platform.
 
