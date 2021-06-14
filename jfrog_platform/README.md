@@ -1,7 +1,7 @@
 ## Overview
 The following describes how to configure Datadog to gather Metrics and Logs from JFrog Artifactory and JFrog Xray.
 
-### What is JFrog Artifactory and Xray
+### JFrog Artifactory and Xray
 JFrog Enterprise with Xray features Artifactory Enterprise and Xray. Together, they empower DevOps teams to improve their productivity to increase velocity and deliver high quality software releases with confidence. 
 
 Artifactory supports multiple build packages, artifacts, and metadata. It allows DevOps teams to have the freedom of choice of build packages like Bower, Chef, CocoaPods, Conan, Conda, CRAN, Debian, Docker, Golang, Gradle, Git LFS, Helm, Ivy, Maven, npm, NuGet, Opkg, P2, PHP Composer, Puppet, PyPI, RPM, RubyGems, SBT, Vagrant & VCS, CI/CD platforms, and devops tools.
@@ -10,7 +10,7 @@ Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replicatio
 
 JFrog Xray is a continuous security and universal artifact analysis solution that provides multi-layered analysis of your containers and software artifacts for vulnerabilities and license compliance issues.  It is the only Software Composition Analysis solution that natively integrates with JFrog Artifactory for optimized scanning and unified operation. Supports all major package types, understands how to unpack them, and uses recursive scanning to see into all of the underlying layers and dependencies, even those packaged in Docker images, and zip files.
 
-### JFrog Artifactory and Xray logs Datadog Dashboard
+### JFrog Artifactory and Xray logs Datadog dashboard
 
 JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into JFrog Artifactory's usage statistics or JFrog Xray's scanned components details.
 
@@ -20,9 +20,9 @@ JFrog Datadog integration allows you to send Artifactory/Xray logs to the log st
 
 ![dashboard][17]
 
-### JFrog Artifactory and Xray Metrics API Dashboard
+### JFrog Artifactory and Xray metrics API dashboard
 
-JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to send metrics from the Artifactory’s/Xray's Open Metrics API endpoint to Datadog.  With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory/Xray, as well as, insights into the count and type of artifacts and components scanned by Xray.  Upon setting up the configuration, these metrics are made available as out-of-the-box dashboards within the Datadog UI and may be used to enhance existing dashboards within Datadog.
+JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to send metrics from the Artifactory's/Xray's OpenMetrics API endpoint to Datadog.  With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory/Xray, as well as, insights into the count and type of artifacts and components scanned by Xray.  Upon setting up the configuration, these metrics are made available as out-of-the-box dashboards within the Datadog UI and may be used to enhance existing dashboards within Datadog.
 
 ![artifactory][2]
 
@@ -33,7 +33,7 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 ### Requirements
 * Your [Datadog API key][6].
 
-### Logs Collection
+### Logs collection
 
 1. [Install Fluentd using the jFrog documentation][18] based on your installation type, and define the environment variable.  
  
@@ -110,7 +110,7 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 
     Add all attributes as facets from **Facets** > **Add** (on the left side of the screen in Logs) > **Search**.
 
-### Metrics Collection
+### Metrics collection
 
 1. Enable Metrics for Artifactory and Xray:
 
@@ -162,7 +162,7 @@ JFrog Artifactory’s/Xray's Metrics API integration with Datadog allows you to 
 
 If you have not installed the JFrog platform tile yet, install the tile.
 
-### JFrog Dashboards
+### JFrog dashboards
 
 Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Artifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
 

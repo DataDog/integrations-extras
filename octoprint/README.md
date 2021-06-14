@@ -15,7 +15,7 @@ To install the OctoPrint check on your host:
 1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
     - VERSION is currently `1.0.0`.  This may be verified in `./datadog_checks/octoprint/__about__.py`.
 
-#### (Optional) Install From Source
+#### Install from source (optional)
 
 1. Install the [developer toolkit][3] on any machine.
 
@@ -51,7 +51,7 @@ The logs that it collects by default (and their default locations) are:
 
 Any or all of these may be changed or removed by modifying the integration's `conf.yaml` file.
 
-#### Log Processing
+#### Log processing
 
 OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
 
