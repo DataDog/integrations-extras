@@ -33,7 +33,7 @@ JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to se
 ### Requirements
 * Your [Datadog API key][6].
 
-### Logs collection
+### Log collection
 
 1. [Install Fluentd using the jFrog documentation][18] based on your installation type, and define the environment variable.  
  

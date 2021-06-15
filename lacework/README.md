@@ -39,7 +39,7 @@ This Lacework integration does not not collect metrics
 
 This Lacework intgeration does not include any service checks.
 
-### Logs
+### Log collection
 
 Lacework can be configured to send Logs.
 

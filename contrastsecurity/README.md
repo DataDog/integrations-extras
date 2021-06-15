@@ -6,7 +6,7 @@ The Datadog-Contrast integration allows you to get your Contrast logs into Datad
 
 ## Setup
 
-### Logs collection
+### Log Collection
 
 Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][1] for the location of your configuration file:
 
