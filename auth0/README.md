@@ -53,7 +53,7 @@ View logs in Datadog:
 
 ## Data Collected
 
-### Logs
+### Log Collection
 Auth0 logs are collected and sent to Datadog. The types of logs that could be returned are outlined [here][5].
 
 ### Metrics
