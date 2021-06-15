@@ -79,4 +79,4 @@ Need help? Contact [Datadog support][12].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
 [11]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
-[11]: https://docs.datadoghq.com/help/
+[12]: https://docs.datadoghq.com/help/
