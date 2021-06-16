@@ -13,9 +13,12 @@ from datadog_checks.base.utils.subprocess_output import get_subprocess_output, S
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FoundationdbCheck, self).__init__(name, init_config, instances)
+        self.fdb_status = init_config.get('fdbstatus_path')
 
     def fdb_status_data(self):
-        return get_subprocess_output(['fdbcli', '--exec', 'status json'], self.log)
+        fdb_args = self.fdb_status[:] # do a copy not to pollute original list
+        fdb_args.append('status json')
+        return get_subprocess_output(fdb_args, self.log)
 
         # If the check is going to perform SQL queries you should define a query manager here.
         # More info at

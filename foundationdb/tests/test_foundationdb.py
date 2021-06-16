@@ -3,10 +3,14 @@ import os
 import json
 from typing import Any, Dict
 
+import pytest
+
 from datadog_checks.base.stubs.aggregator import AggregatorStub
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.base import AgentCheck
 from datadog_checks.foundationdb import FoundationdbCheck
+
+from .common import E2E_INIT_CONFIG
 
 METRICS = [
     "foundationdb.latency_probe.batch_priority_transaction_start_seconds",
@@ -55,17 +59,20 @@ METRICS = [
 ]
 
 current_dir = dir_path = os.path.dirname(os.path.realpath(__file__)) + '/'
+
+@pytest.mark.usefixtures("dd_environment")
 def test_partial(aggregator, instance):
     with open(current_dir + 'partial.json', 'r') as f:
         data = json.loads(f.read())
-        check = FoundationdbCheck('foundationdb', {}, [instance])
+        check = FoundationdbCheck('foundationdb', E2E_INIT_CONFIG, [instance])
         check.check(instance)
         aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
 
+@pytest.mark.usefixtures("dd_environment")
 def test_full(aggregator, instance):
     with open(current_dir + 'full.json', 'r') as f:
         data = json.loads(f.read())
-        check = FoundationdbCheck('foundationdb', {}, [instance])
+        check = FoundationdbCheck('foundationdb', E2E_INIT_CONFIG, [instance])
         check.check_metrics(data)
 
         for metric in METRICS:
@@ -74,10 +81,10 @@ def test_full(aggregator, instance):
         aggregator.assert_metrics_using_metadata(get_metadata_metrics())
         aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
 
-
+@pytest.mark.usefixtures("dd_environment")
 def test_integ(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
-    check = FoundationdbCheck('foundationdb', {}, [instance])
+    check = FoundationdbCheck('foundationdb', E2E_INIT_CONFIG, [instance])
     check.check(instance)
 
     for metric in METRICS:
