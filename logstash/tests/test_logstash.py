@@ -55,6 +55,7 @@ STATS_METRICS = {
 }
 
 PIPELINE_METRICS = {
+    "logstash.pipeline.dead_letter_queue.queue_size_in_bytes": ("gauge", "dead_letter_queue.queue_size_in_bytes"),
     "logstash.pipeline.events.duration_in_millis": ("gauge", "pipeline.events.duration_in_millis"),
     "logstash.pipeline.events.in": ("gauge", "pipeline.events.in"),
     "logstash.pipeline.events.out": ("gauge", "pipeline.events.out"),
