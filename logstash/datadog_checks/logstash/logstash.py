@@ -79,6 +79,7 @@ class LogstashCheck(AgentCheck):
     }
 
     PIPELINE_METRICS = {
+        "logstash.pipeline.dead_letter_queue.queue_size_in_bytes": ("gauge", "dead_letter_queue.queue_size_in_bytes"),
         "logstash.pipeline.events.duration_in_millis": ("gauge", "events.duration_in_millis"),
         "logstash.pipeline.events.in": ("gauge", "events.in"),
         "logstash.pipeline.events.out": ("gauge", "events.out"),

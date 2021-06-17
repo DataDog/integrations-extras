@@ -2,7 +2,9 @@ version: "3"
 
 services:
   logstash:
+    volumes:
+      - ./logstash.yml:/etc/logstash/logstash.yml
     image: logstash:5.6.15
-    command: "logstash -e 'input { stdin { id => 'dummy_input' } } filter { json { id => 'dummy_filter' source => 'message' } } output { stdout { id => 'dummy_output' } }' --http.host 0.0.0.0"
+    command: "logstash -e 'input { stdin { id => 'dummy_input' } beats { id => 'beat_dummy' port => 5044} } filter { json { id => 'dummy_filter' source => 'message' } } output { stdout { id => 'dummy_output' } }' --http.host 0.0.0.0 --log.level debug"
     ports:
       - 9600:9600
