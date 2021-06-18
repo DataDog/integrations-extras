@@ -29,10 +29,16 @@ def create_database():
         run_command('docker exec fdb-0 fdbcli --exec "configure new single memory"', capture=True, check=True)
     i = 0
     is_healthy = False
+    has_latency_stats = False
     # Wait for 1 minute for the database to become available for testing
-    while i < 60 and not is_healthy:
+    while i < 60 and not (is_healthy and has_latency_stats):
         time.sleep(1)
         base_status = run_command('docker exec fdb-0 fdbcli --exec "status json"', capture=True, check=True)
         status = json.loads(base_status.stdout)
         is_healthy = status.get('cluster').get('data').get('state').get('name') == 'healthy'
+        has_latency_stats = False
+        for _, process in status.get('cluster').get('processes').items():
+            for role in process.get('roles'):
+                if "commit_latency_statistics" in role:
+                    has_latency_stats = True
         i += 1
