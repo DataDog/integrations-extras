@@ -42,3 +42,43 @@ instances:
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
+
+    ## @param base_command - list of strings - required
+    ## The command to run in order to execute a query using the FoundationDB CLI.
+    ## Typically this will invoke a locally installed `fdbcli` executable.
+    ## However may be tweaked to run it inside of a container if a containerized deployment
+    ## is being used and the Datadog agent runs outside of the container.
+    #
+    base_command:
+      - fdbcli
+
+    ## @param cluster_file - string - optional
+    ## The path to the cluster file of the FoundationDB instance, passed as an option to `fdbcli`.
+    ## Not need if the cluster file is in the standard location (`/etc/foundationdb/fdb.cluster`).
+    #
+    # cluster_file: <CLUSTER_FILE>
+
+    ## @param tls_certificate_file - string - optional
+    ## Path to the file from which the local certificates can be loaded
+    #
+    # tls_certificate_file: <TLS_CERTIFICATE_FILE>
+
+    ## @param tls_key_file - string - optional
+    ## Path to the file from which to load the private key
+    #
+    # tls_key_file: <TLS_KEY_FILE>
+
+    ## @param tls_verify_peers - string - optional
+    ## The byte-string for the verification of peer certificates and sessions
+    #
+    # tls_verify_peers: <TLS_VERIFY_PEERS>
+
+    ## @param tls_password - string - optional
+    ## The byte-string representing the passcode for unencrypting the private key
+    #
+    # tls_password: <TLS_PASSWORD>
+
+    ## @param tls_ca_file - string - optional
+    ## Path to the file containing the CA certificates to trust
+    #
+    # tls_ca_file: <TLS_CA_FILE>

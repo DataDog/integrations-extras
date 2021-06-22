@@ -6,16 +6,34 @@ from typing import Any
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FoundationdbCheck, self).__init__(name, init_config, instances)
-        self.fdb_status = init_config.get('fdbstatus_path')
 
-    def fdb_status_data(self):
-        fdb_args = self.fdb_status[:] # do a copy not to pollute original list
+    def construct_cli_base(self, instance):
+        # do a copy not to pollute original list
+        fdb_args = (instance.get('base_command')[:]
+                if 'base_command' in instance
+                else ['fdbcli'])
+
+        if 'cluster_file' in instance:
+            fdb_args.append('-C')
+            fdb_args.append(instance.get('cluster_file'))
+
+        # TLS options
+        tls_keys = ['tls_certificate_file', 'tls_key_file', 'tls_verify_peers', 'tls_password', 'tls_ca_file']
+        for key in tls_keys:
+            if key in instance:
+                fdb_args.append('--' + key)
+                fdb_args.append(instance.get(key))
+        return fdb_args
+
+    def fdb_status_data(self, instance):
+        fdb_args = self.construct_cli_base(instance)
+        fdb_args.append('--exec')
         fdb_args.append('status json')
         return get_subprocess_output(fdb_args, self.log)
 
-    def check(self, _):
+    def check(self, instance):
         try:
-            status = self.fdb_status_data()
+            status = self.fdb_status_data(instance)
         except SubprocessOutputEmptyError as e:
             self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Did not receive a response from `status json`")
             raise
