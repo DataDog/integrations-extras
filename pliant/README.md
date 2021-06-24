@@ -8,8 +8,6 @@ For more integration information, check out the [Pliant][1] site.
 
 Examples include:
 
-
-
 - Service restart
 - Load balancer configuration
 - System provisioning
@@ -17,18 +15,15 @@ Examples include:
 - Provision additional VMs or container nodes in response to load
 - De-commission resources when load is low
 
-
 ## Setup
-
 ### Installation
 
 Create one or more workflows that you would like to trigger from a Datadog notification.
 
 ### Configuration
+#### Pliant
 
-#### Pliant Setup
-**Create a Pliant API Key.**
-1. Log in to Pliant and click on your username at the top right of the screen to reveal a menu. Click "API Keys".
+1. **Create a Pliant API key** - Log in to Pliant and click on your username at the top right of the screen to reveal a menu. Click "API Keys".
 
 ![API Key Menu step1][8]
 

@@ -30,7 +30,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Logsta
 
 2. [Restart the Agent][9]
 
-#### Metric Collection
+#### Metric collection
 
 Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][10]:
 
@@ -50,7 +50,7 @@ See the [sample conf.yaml][11] for all available configuration options.
 
 Finally, [restart the Agent][12] to begin sending Logstash metrics to Datadog.
 
-#### Log Collection
+#### Log collection
 
 Datadog has [an output plugin][13] for Logstash that takes care of sending your logs to your Datadog platform.
 
@@ -83,7 +83,7 @@ Additional parameters can be used to change the endpoint used in order to go thr
 - `use_ssl`: Instructs the Agent to initialize a secure TCP/SSL connection to Datadog (default value: `true`).
 - `no_ssl_validation`: Disables SSL hostname validation (default value: `false`).
 
-This also can be used to send logs to **Datadog EU** by setting:
+**Note**: Set `host` and `port` to your region {{< region-param key="http_endpoint" code="true" >}} {{< region-param key="http_port" code="true" >}}.
 
 ```conf
 output {

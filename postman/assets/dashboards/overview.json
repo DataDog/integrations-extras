@@ -1,0 +1,692 @@
+{
+  "title": "Postman Monitor Overview",
+  "description": "## Postman Monitor Dashboard\n\nPostman integration with Datadog lets you dive deeper into your monitoring runs, helping you stay on top of your API's performance, availability, resiliency and more.",
+  "widgets": [
+    {
+      "id": 0,
+      "layout": {
+        "x": 2,
+        "y": 0,
+        "width": 20,
+        "height": 21
+      },
+      "definition": {
+        "type": "image",
+        "url": "/static/images/logos/postman_large.svg",
+        "sizing": "center"
+      }
+    },
+    {
+      "id": 1,
+      "layout": {
+        "x": 2,
+        "y": 24,
+        "width": 20,
+        "height": 28
+      },
+      "definition": {
+        "type": "note",
+        "content": "To get metrics on a specific monitor, select the monitor name in the monitor_name variable at the top. \n\nTo make changes and add your own graph widgets, make a clone of this template dashboard.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 2,
+      "layout": {
+        "x": 26,
+        "y": 0,
+        "width": 95,
+        "height": 5
+      },
+      "definition": {
+        "type": "note",
+        "content": "Monitor Metrics",
+        "background_color": "vivid_blue",
+        "font_size": "18",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 3,
+      "layout": {
+        "x": 26,
+        "y": 23,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Latency",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.total_latency{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 4,
+      "layout": {
+        "x": 26,
+        "y": 39,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Failed Test",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.failed_tests{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 5,
+      "layout": {
+        "x": 74,
+        "y": 39,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Passed Test",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.passed_tests{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 6,
+      "layout": {
+        "x": 74,
+        "y": 62,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "HTTP Respond Code 5XX",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.http_status_5xx{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 7,
+      "layout": {
+        "x": 26,
+        "y": 78,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "HTTP Respond Code 4XX",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.http_status_4xx{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 8,
+      "layout": {
+        "x": 74,
+        "y": 78,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "HTTP Respond Code 2XX",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.http_status_2xx{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 9,
+      "layout": {
+        "x": 126,
+        "y": 0,
+        "width": 47,
+        "height": 5
+      },
+      "definition": {
+        "type": "note",
+        "content": "Request Metrics",
+        "background_color": "vivid_blue",
+        "font_size": "18",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 10,
+      "layout": {
+        "x": 126,
+        "y": 23,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Request Latency",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.request.latency{$monitor_name} by {request_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 11,
+      "layout": {
+        "x": 126,
+        "y": 39,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Request Bytes",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.request.bytes{$monitor_name} by {request_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 12,
+      "layout": {
+        "x": 126,
+        "y": 55,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Request Failed Test",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.request.failed_tests{$monitor_name} by {request_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 13,
+      "layout": {
+        "x": 126,
+        "y": 71,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Request Passed Test",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.request.passed_tests{$monitor_name} by {request_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 14,
+      "layout": {
+        "x": 74,
+        "y": 7,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Error",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.errors{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 15,
+      "layout": {
+        "x": 74,
+        "y": 23,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "title": "Request Count",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "avg:postman.monitor.run.request_count{$monitor_name}",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 16,
+      "layout": {
+        "x": 26,
+        "y": 7,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "type": "note",
+        "content": "These metrics show you how an individual monitor and its associated APIs are performing overall.",
+        "background_color": "gray",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 17,
+      "layout": {
+        "x": 26,
+        "y": 56,
+        "width": 95,
+        "height": 5
+      },
+      "definition": {
+        "type": "note",
+        "content": "HTTP status codes",
+        "background_color": "blue",
+        "font_size": "18",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 18,
+      "layout": {
+        "x": 26,
+        "y": 62,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "type": "note",
+        "content": "These metrics give you information about the HTTP status codes received during a monitoring run.",
+        "background_color": "gray",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 19,
+      "layout": {
+        "x": 126,
+        "y": 7,
+        "width": 47,
+        "height": 15
+      },
+      "definition": {
+        "type": "note",
+        "content": "These metrics give you information about the requests sent during a monitoring run.",
+        "background_color": "gray",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "monitor_name",
+      "default": "*",
+      "prefix": "monitor_name"
+    }
+  ],
+  "layout_type": "free",
+  "is_read_only": true,
+  "notify_list": [],
+  "id": "3rk-5wh-5pd"
+}

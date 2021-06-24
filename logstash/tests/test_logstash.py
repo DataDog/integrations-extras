@@ -5,7 +5,7 @@ import requests
 
 from datadog_checks.logstash import LogstashCheck
 
-from .common import HOST, URL
+from .common import BAD_INSTANCE, BAD_PORT, GOOD_INSTANCE, HOST, PORT, TAGS, URL
 
 STATS_METRICS = {
     "logstash.process.open_file_descriptors": ("gauge", "process.open_file_descriptors"),
@@ -55,6 +55,7 @@ STATS_METRICS = {
 }
 
 PIPELINE_METRICS = {
+    "logstash.pipeline.dead_letter_queue.queue_size_in_bytes": ("gauge", "dead_letter_queue.queue_size_in_bytes"),
     "logstash.pipeline.events.duration_in_millis": ("gauge", "pipeline.events.duration_in_millis"),
     "logstash.pipeline.events.in": ("gauge", "pipeline.events.in"),
     "logstash.pipeline.events.out": ("gauge", "pipeline.events.out"),
@@ -87,26 +88,25 @@ CHECK_NAME = 'logstash'
 
 
 @pytest.mark.usefixtures('dd_environment')
-def test_check(aggregator):
-    port = 9600
-    bad_port = 9405
-    url = URL
-    bad_url = 'http://{}:{}'.format(HOST, bad_port)
+def test_failed_connection(aggregator):
+    bad_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(BAD_PORT)]
 
-    tags = [u"foo:bar", u"baz"]
-
-    bad_instance = {'url': bad_url}
-    good_instance = {'url': url, 'tags': tags}
-
-    check = LogstashCheck(CHECK_NAME, {}, {})
-
+    check = LogstashCheck(CHECK_NAME, {}, [BAD_INSTANCE])
     with pytest.raises(requests.exceptions.ConnectionError):
-        check.check(bad_instance)
+        check.check(BAD_INSTANCE)
 
-    check.check(good_instance)
+    aggregator.assert_service_check('logstash.can_connect', tags=bad_sc_tags, status=LogstashCheck.CRITICAL)
+
+
+@pytest.mark.usefixtures('dd_environment')
+def test_check(aggregator):
+
+    check = LogstashCheck(CHECK_NAME, {}, [GOOD_INSTANCE])
+
+    check.check(GOOD_INSTANCE)
     default_tags = ["url:{}".format(URL)]
 
-    instance_config = check.get_instance_config(good_instance)
+    instance_config = check.get_instance_config(GOOD_INSTANCE)
 
     logstash_version = check._get_logstash_version(instance_config)
     is_multi_pipeline = logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version)
@@ -125,15 +125,14 @@ def test_check(aggregator):
     expected_metrics.update(PIPELINE_OUTPUTS_METRICS)
     expected_metrics.update(PIPELINE_FILTERS_METRICS)
 
-    good_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(port)]
-    bad_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(bad_port)]
+    good_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(PORT)]
 
     pipeline_metrics = dict(PIPELINE_METRICS, **PIPELINE_INPUTS_METRICS)
     pipeline_metrics.update(PIPELINE_FILTERS_METRICS)
     pipeline_metrics.update(PIPELINE_OUTPUTS_METRICS)
 
     for m_name, desc in expected_metrics.items():
-        m_tags = tags + default_tags
+        m_tags = TAGS + default_tags
         if m_name in PIPELINE_INPUTS_METRICS:
             m_tags = m_tags + input_tag
         if m_name in PIPELINE_OUTPUTS_METRICS:
@@ -149,5 +148,4 @@ def test_check(aggregator):
             else:
                 aggregator.assert_metric(m_name, count=1, tags=m_tags)
 
-    aggregator.assert_service_check('logstash.can_connect', tags=good_sc_tags + tags, status=LogstashCheck.OK)
-    aggregator.assert_service_check('logstash.can_connect', tags=bad_sc_tags, status=LogstashCheck.CRITICAL)
+    aggregator.assert_service_check('logstash.can_connect', tags=good_sc_tags + TAGS, status=LogstashCheck.OK)

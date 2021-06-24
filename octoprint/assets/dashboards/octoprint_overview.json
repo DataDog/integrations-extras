@@ -1,0 +1,473 @@
+{
+    "description": "## OctoPrint\n\nDashboard for monitoring [OctoPrint](https://octoprint.org), a web interface for managing 3d printers.\n\nUseful links:\n\n- [OctoPrint Docs](https://docs.octoprint.org/)\n\n- [OctoPrint Repo](https://github.com/OctoPrint/OctoPrint)",
+    "id": "v37-99w-rzh",
+    "is_read_only": false,
+    "layout_type": "free",
+    "notify_list": [],
+    "template_variables": [],
+    "title": "OctoPrint",
+    "widgets": [
+        {
+            "definition": {
+                "no_group_hosts": true,
+                "no_metric_hosts": true,
+                "node_type": "host",
+                "requests": {
+                    "fill": {
+                        "q": "avg:system.cpu.user{field:apps:octoprint} by {host}"
+                    }
+                },
+                "scope": [
+                    "field:apps:octoprint"
+                ],
+                "style": {
+                    "palette": "green_to_orange",
+                    "palette_flip": false
+                },
+                "title": "OctoPrint Hosts",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "hostmap"
+            },
+            "id": 4820009584698044,
+            "layout": {
+                "height": 25,
+                "width": 35,
+                "x": 63,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "autoscale": false,
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_red",
+                                "value": -1
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "black_on_light_green",
+                                "value": 0
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_yellow",
+                                "value": 1
+                            },
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_green",
+                                "value": 2
+                            }
+                        ],
+                        "q": "avg:octoprint.printer_state{*}"
+                    }
+                ],
+                "title": "OctoPrint Status",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 9004590754652258,
+            "layout": {
+                "height": 25,
+                "width": 16,
+                "x": 29,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "legend_size": "0",
+                "markers": [
+                    {
+                        "display_type": "error dashed",
+                        "value": "y = 0"
+                    },
+                    {
+                        "display_type": "ok dashed",
+                        "value": "y = 100"
+                    }
+                ],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "avg:octoprint.pct_completed{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": false,
+                "time": {},
+                "title": "Print % Completed",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "max": "100",
+                    "min": "0"
+                }
+            },
+            "id": 1034773896158056,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 2,
+                "y": 52
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "## OctoPrint Statuses\n2: Printing\n\n1: Paused\n\n0: Operational\n\n-1: Other (Cancelled, Error, Offline)",
+                "font_size": "14",
+                "show_tick": true,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 1821796793876358,
+            "layout": {
+                "height": 25,
+                "width": 16,
+                "x": 45,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "margin": "small",
+                "sizing": "fit",
+                "type": "image",
+                "url": "https://octoprint.org/assets/img/logo.png"
+            },
+            "id": 5884144385843244,
+            "layout": {
+                "height": 25,
+                "width": 25,
+                "x": 2,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "legend_size": "0",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.tool0.current_tool_temp{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.tool0.target_tool_temp{*}",
+                        "style": {
+                            "line_type": "dashed",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": false,
+                "time": {},
+                "title": "Extruder Temperature (Celsius)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7815930316157030,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 2,
+                "y": 69
+            }
+        },
+        {
+            "definition": {
+                "legend_size": "0",
+                "markers": [
+                    {
+                        "display_type": "error dashed",
+                        "label": "y = 75",
+                        "value": "y = 75"
+                    }
+                ],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.bed.current_bed_temp{*}",
+                        "style": {
+                            "line_type": "dashed",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.bed.target_bed_temp{*}",
+                        "style": {
+                            "line_type": "dashed",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": false,
+                "time": {},
+                "title": "Bed Temperature (Celsius)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 8934409404731568,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 51,
+                "y": 69
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "q": "avg:octoprint.print_job_time_left{*}"
+                    }
+                ],
+                "time": {
+                    "live_span": "1m"
+                },
+                "title": "Print time remaining (Minutes)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 8648336032761254,
+            "layout": {
+                "height": 21,
+                "width": 28,
+                "x": 21,
+                "y": 29
+            }
+        },
+        {
+            "definition": {
+                "legend_size": "0",
+                "markers": [
+                    {
+                        "display_type": "warning dashed",
+                        "label": "y = 50",
+                        "value": "y = 50"
+                    },
+                    {
+                        "display_type": "error dashed",
+                        "label": "y = 60",
+                        "value": "y = 60"
+                    }
+                ],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.rpi_core_temp{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    }
+                ],
+                "show_legend": false,
+                "time": {},
+                "title": "Raspberry Pi Core Temp (Celsius)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6191373911162322,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 2,
+                "y": 86
+            }
+        },
+        {
+            "definition": {
+                "legend_size": "0",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "metadata": [
+                            {
+                                "alias_name": "time elapsed+remaining",
+                                "expression": "avg:octoprint.print_job_time_left{*}+max:octoprint.print_job_time{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:octoprint.print_job_time_left{*}+max:octoprint.print_job_time{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "orange"
+                        }
+                    },
+                    {
+                        "display_type": "area",
+                        "on_right_yaxis": false,
+                        "q": "max:octoprint.print_job_time{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "on_right_yaxis": false,
+                        "q": "max:octoprint.est_print_time{*}",
+                        "style": {
+                            "line_type": "dashed",
+                            "line_width": "normal",
+                            "palette": "purple"
+                        }
+                    }
+                ],
+                "show_legend": false,
+                "time": {},
+                "title": "Print Job Times (Elapsed + Remaining, vs Estimated) in Minutes)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 5486967558765312,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 51,
+                "y": 52
+            }
+        },
+        {
+            "definition": {
+                "autoscale": false,
+                "custom_unit": "%",
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "black_on_light_green",
+                                "value": 99
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_green",
+                                "value": 100
+                            }
+                        ],
+                        "q": "avg:octoprint.pct_completed{*}"
+                    }
+                ],
+                "time": {},
+                "title": "Print Job Completion %",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 8132412568393692,
+            "layout": {
+                "height": 21,
+                "width": 17,
+                "x": 2,
+                "y": 29
+            }
+        },
+        {
+            "definition": {
+                "columns": [
+                    "host",
+                    "@path",
+                    "@job_status"
+                ],
+                "indexes": [],
+                "message_display": "inline",
+                "query": "octoprint.printer.standard.job",
+                "show_date_column": true,
+                "show_message_column": false,
+                "sort": {
+                    "column": "time",
+                    "order": "desc"
+                },
+                "time": {
+                    "live_span": "1w"
+                },
+                "title": "Print Events",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "log_stream"
+            },
+            "id": 5958659340626972,
+            "layout": {
+                "height": 21,
+                "width": 47,
+                "x": 51,
+                "y": 29
+            }
+        }
+    ]
+}

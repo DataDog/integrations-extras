@@ -47,10 +47,26 @@ Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns
 
 Pi-hole does not include any events.
 
+### Log Collection
+
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][11] for the location of your configuration file:
+
+```yaml
+logs_enabled: true
+```
+
+- Enable this configuration block to your `pihole.d/conf.yaml` file to start collecting Logs:
+    ```yaml
+    logs:
+      - type: file
+        path: /var/log/pihole.log
+        source: pihole
+    ```
+
 ## Troubleshooting
 
 
-Need help? Contact [Datadog support][11].
+Need help? Contact [Datadog support][12].
 
 [1]: https://pi-hole.net/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -62,7 +78,5 @@ Need help? Contact [Datadog support][11].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
-[11]: https://docs.datadoghq.com/help/
-
-
-
+[11]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
+[12]: https://docs.datadoghq.com/help/

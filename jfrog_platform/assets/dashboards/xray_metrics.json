@@ -1,0 +1,257 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides an overview of the system performance of JFrog Xray.  Included also, are some high level statistics on the number and type of artifacts and components that are scanned by Xray.\n\nExample configuration and setup is also available at [Github](https://github.com/jfrog/metrics/tree/main/datadog)",
+    "layout_type": "free",
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "PackageType",
+            "prefix": "package_type"
+        }
+    ],
+    "title": "Xray Metrics",
+    "widgets": [
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Disk Free Size",
+                                "expression": "avg:jfrog.xray.app_disk_free_bytes{*}"
+                            }
+                        ],
+                        "q": "avg:jfrog.xray.app_disk_free_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Disk Used Size",
+                                "expression": "avg:jfrog.xray.app_disk_used_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.xray.app_disk_used_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys Memory Free Size",
+                                "expression": "avg:jfrog.xray.sys_memory_free_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.xray.sys_memory_free_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys Memory Used Size",
+                                "expression": "avg:jfrog.xray.sys_memory_used_bytes{*}"
+                            }
+                        ],
+                        "on_right_yaxis": false,
+                        "q": "avg:jfrog.xray.sys_memory_used_bytes{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "purple"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "metadata": [
+                            {
+                                "alias_name": "Sys CPU Ratio",
+                                "expression": "avg:jfrog.xray.sys_cpu_ratio{*}"
+                            }
+                        ],
+                        "on_right_yaxis": true,
+                        "q": "avg:jfrog.xray.sys_cpu_ratio{*}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "orange"
+                        }
+                    }
+                ],
+                "right_yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                },
+                "show_legend": true,
+                "title": "Xray System Metrics",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 5598058711878380,
+            "layout": {
+                "height": 30,
+                "width": 108,
+                "x": -3,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "on_right_yaxis": false,
+                        "q": "sum:jfrog.xray.jfxr_data_components_total{$PackageType} by {package_type}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Xray Scanned Components Data Metrics",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7617532773060648,
+            "layout": {
+                "height": 30,
+                "width": 108,
+                "x": 0,
+                "y": 77
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:jfrog.xray.jfxr_data_artifacts_total{$PackageType} by {package_type}.as_count()",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Xray Scanned Artifacts Data Metrics",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 4710270725792214,
+            "layout": {
+                "height": 30,
+                "width": 108,
+                "x": 0,
+                "y": 46
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "This dashboard provides an overview of the system performance of JFrog Xray.  Included also, are some high level statistics on the number and type of artifacts and components that are scanned by Xray.",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "top"
+            },
+            "id": 3673044030871898,
+            "layout": {
+                "height": 12,
+                "width": 78,
+                "x": 29,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "sizing": "cover",
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/xray.png"
+            },
+            "id": 3579529804067270,
+            "layout": {
+                "height": 12,
+                "width": 28,
+                "x": 0,
+                "y": 0
+            }
+        }
+    ]
+}

@@ -13,7 +13,7 @@ CONNECTION_FAILURE = {'host': 'http://totally_not_locallhost', 'port': 8222}
 
 
 def test_connection_failure(aggregator):
-    c = GnatsdCheck(CHECK_NAME, {}, {})
+    c = GnatsdCheck(CHECK_NAME, {}, [CONNECTION_FAILURE])
 
     with pytest.raises(Exception):
         c.check(CONNECTION_FAILURE)
@@ -23,7 +23,7 @@ def test_connection_failure(aggregator):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_metrics(aggregator, instance):
-    c = GnatsdCheck(CHECK_NAME, {}, {})
+    c = GnatsdCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
 
     aggregator.assert_service_check('gnatsd.can_connect', status=GnatsdCheck.OK, count=1)
@@ -67,7 +67,7 @@ def test_metrics(aggregator, instance):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_metric_tags(aggregator, instance):
-    c = GnatsdCheck(CHECK_NAME, {}, {})
+    c = GnatsdCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
 
     aggregator.assert_metric_has_tag_prefix('gnatsd.varz.connections', 'gnatsd-server_id', at_least=1)
@@ -89,7 +89,7 @@ def test_metric_tags(aggregator, instance):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_deltas(aggregator, instance):
-    c = GnatsdCheck(CHECK_NAME, {}, {})
+    c = GnatsdCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
 
     aggregator.assert_metric('gnatsd.connz.connections.foo-sub.out_msgs', metric_type=aggregator.COUNT)
