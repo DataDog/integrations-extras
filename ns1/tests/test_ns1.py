@@ -36,6 +36,13 @@ def test_parse_metrics(aggregator, instance):
     assert check.api_endpoint is not None
 
 
+def test_get_zone_info_url(aggregator, instance_ddi, requests_mock):
+    check = Ns1Check('ns1', {}, [instance_ddi])
+    aggregator.assert_all_metrics_covered()
+    checkUrl = check.ns1.get_zone_info_url("test", None)
+    assert len(checkUrl.items()) == 0  # is None
+
+
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()
@@ -179,7 +186,7 @@ def test_url_gen(aggregator, instance_1, requests_mock):
     assert checkUrl["account.ttl.dloc.com"][2] == ["record:dloc.com"]
 
     # pulsar
-    expect = "https://my.nsone.net/v1/pulsar/query/decision/customer?period=2d&geo=*&asn=*"
+    expect = "https://my.nsone.net/v1/pulsar/query/decisions?period=1h&agg=jobid"
     assert checkUrl["pulsar.decisions"][0] == expect
     # pulsar by app
     expect = "https://my.nsone.net/v1/pulsar/apps/1xy4sn3/jobs/1xtvhvx/data?period=1m"
@@ -189,9 +196,9 @@ def test_url_gen(aggregator, instance_1, requests_mock):
     assert "pulsar.availability.ejgrgw.1xtvhvx" not in checkUrl
 
     # pulsar by record
-    expect = "https://my.nsone.net/v1/pulsar/query/decision/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
+    expect = "https://my.nsone.net/v1/pulsar/query/decisions?period=1h&agg=jobid&record=www.dloc1.com_A"
     assert checkUrl["pulsar.decisions.www.dloc1.com.A"][0] == expect
-    expect = "https://my.nsone.net/v1/pulsar/query/routemap/hit/record/www.dloc1.com/A?period=2d&geo=*&asn=*"
+    expect = "https://my.nsone.net/v1/pulsar/query/routemap/hit/record/www.dloc1.com/A?period=1h"
     assert checkUrl["pulsar.routemap.hit.www.dloc1.com.A"][0] == expect
 
 
@@ -285,10 +292,6 @@ PULSAR_RESULT_DECISIONS = """
                 [
                     1619827200,
                     1644.0
-                ],
-                [
-                    1619870400,
-                    3275.0
                 ]
             ],
             "tags": {
@@ -433,22 +436,22 @@ def test_pulsar_count(aggregator, instance_1):
     check.usage_count = {"test": [0, 0]}
     usage, status = check.extract_pulsar_count("test", json.loads(PULSAR_RESULT_DECISIONS))
 
-    assert usage == 8152
+    assert usage == 4877
     assert status
-    assert check.usage_count["test"] == [1619870400, 8152]
+    assert check.usage_count["test"] == [1619870400, 4877]
 
     check.usage_count = {"test": [1619870400, 5000]}
     usage, status = check.extract_pulsar_count("test", json.loads(PULSAR_RESULT_DECISIONS))
-    assert usage == 3152
-    assert check.usage_count["test"] == [1619870400, 8152]
+    assert usage == 0
+    assert check.usage_count["test"] == [1619870400, 5000]
 
     check.usage_count = {"test.1b1o94j": [0, 0]}
     jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
-    assert jobs["test.1b1o94j"] == 3275
+    assert jobs["test.1b1o94j"] == 1644
 
-    check.usage_count = {"test.1b1o94j": [1619870400, 1000]}
+    check.usage_count = {"test.1b1o94j": [1619827200, 1000]}
     jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
-    assert jobs["test.1b1o94j"] == 2275
+    assert jobs["test.1b1o94j"] == 644
 
     check.usage_count = {"test.1b1o94j": [1619870400, 1000]}
     # should throw exception due to wrong data

@@ -19,9 +19,9 @@ NS1_ENDPOINTS = {
     # account plan limits
     "billing": "{apiendpoint}/v1/account/billataglance",
     # pulsar decisions account wide
-    "pulsar.decisions": "{apiendpoint}/v1/pulsar/query/decision/customer{query}",
+    "pulsar.decisions": "{apiendpoint}/v1/pulsar/query/decisions{query}",
     # pulsar insufficient decision data for account
-    "pulsar.decisions.insufficient": "{apiendpoint}/v1/pulsar/query/decision/customer/undetermined{query}",
+    "pulsar.decisions.insufficient": "{apiendpoint}/v1/pulsar/query/decisions{query}",
     # pulsar all route map hits
     "pulsar.routemap.hit": "{apiendpoint}/v1/pulsar/query/routemap/hit/customer{query}",
     # pulsar all route map misses
@@ -31,7 +31,7 @@ NS1_ENDPOINTS = {
     # pulsar availability data
     "pulsar.availability": "{apiendpoint}/v1/pulsar/apps/{app_id}/jobs/{job_id}/availability{query}",
     # pulsar decisions for record
-    "pulsar.decisions.record": "{apiendpoint}/v1/pulsar/query/decision/record/{rec_name}/{rec_type}{query}",
+    "pulsar.decisions.record": "{apiendpoint}/v1/pulsar/query/decisions{query}",
     # View route map hits by record
     "pulsar.routemap.hit.record": "{apiendpoint}/v1/pulsar/query/routemap/hit/record/{rec_name}/{rec_type}{query}",
     # View route map misses by record

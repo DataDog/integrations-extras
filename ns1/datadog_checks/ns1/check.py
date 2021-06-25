@@ -48,8 +48,10 @@ class Ns1Check(AgentCheck):
                 url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.get_stats(url)
-                self.log.info('NS1 API result', extra={'result': res})
-                self.log.info(json.dumps(res))
+                msg = 'NS1 API Query URL: {url}'.format(url=url)
+                self.log.info(msg)
+                msg = 'NS1 API result: {result}'.format(result=json.dumps(res))
+                self.log.info(msg)
                 if res:
                     # extract metric from API result.
                     val, status = self.extract_metric(k, res)
@@ -227,9 +229,11 @@ class Ns1Check(AgentCheck):
                     if index == 0:
                         curr_timestamp = res[0][0]
                         index = -1
-                    if curr_timestamp != res[0][0]:
-                        return None, False
-                    curr_count = curr_count + res[0][1]
+                    if curr_timestamp != res[0][0] and curr_timestamp < res[0][0]:
+                        curr_timestamp = res[0][0]
+                        curr_count = res[0][1]
+                    else:
+                        curr_count = curr_count + res[0][1]
 
             # find this metric in usage count
             if key in self.usage_count:
