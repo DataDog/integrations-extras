@@ -43,7 +43,7 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-FoundationDB does not include any service checks.
+FoundationDB has a `can_connect` service check.
 
 ### Events
 
@@ -52,6 +52,39 @@ FoundationDB does not include any events.
 ## Troubleshooting
 
 Need help? Contact [Datadog support][7].
+
+## Logging
+
+1. FoundationDB has XML logs by default, to get JSON logs, add a `trace_format` key to your `foundationdb.conf`'s `fdbserver` section:
+
+```
+[fdbserver]
+...
+logdir = /var/log/foundationdb
+trace_format = json
+```
+
+Then restart your server.
+
+2. Enable log collection in the Datadog Agent, in your `datadog.yaml` file:
+
+```yaml
+logs_enabled: true
+```
+
+3. Add this configuration block to your foundationdb.d/conf.yaml file to start collecting your FoundationDB logs:
+
+```yaml
+logs:
+  - type: file
+    path: /usr/local/foundationdb/logs/*.json
+    service: foundationdb
+    source: foundationdb
+```
+
+The `path` here is the `logdir` in your configuration file. Make sure the datadog agent has the privileges required to list the directory and read its files.
+
+4. Restart the agent
 
 [1]: **LINK_TO_INTEGRATION_SITE**
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
