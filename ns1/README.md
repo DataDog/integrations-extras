@@ -27,9 +27,8 @@ When running the installation process, make sure to do so using the following va
 
 ## Configuration
 
-To configure and activate the NS1 integration, follow the steps [here][4]. 
+To configure and activate the NS1 integration, see the [Getting started with Integrations][4] information on configuring Agent integrations. 
 
-See the [sample ns1.d/conf.yaml][5] for all available configuration options.
 
 
 ### Validation
