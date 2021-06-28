@@ -15,7 +15,7 @@ Download and install the [Datadog Agent](https://app.datadoghq.com/account/setti
 
 Refer to Datadog’s [community integrations installation](https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentabovev68) page for the specific steps to install the NS1 integration as an add-on, since it is not packaged and built into the Datadog Agent. 
 
-Note that the minimum Agent version required for supporting integrations is 7.21.0. NS1 recommends using the latest version of the Datadog Agent.
+**Note**: The minimum Agent version required for supporting integrations is 7.21.0. NS1 recommends using the latest version of the Datadog Agent.
 
 When running the installation process, make sure to do so using the following variables specific to the NS1 integration:
 
