@@ -1,4 +1,4 @@
-# NS1 + Datadog Integration
+# NS1 Integration
 
 ## Overview
 
