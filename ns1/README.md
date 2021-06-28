@@ -27,7 +27,7 @@ When running the installation process, make sure to do so using the following va
 
 ## Configuration
 
-To configure and activate the NS1 integration, follow the steps [here](https://docs.datadoghq.com/getting_started/integrations/#configuring-agent-integrations). 
+To configure and activate the NS1 integration, see the [Getting started with Integrations][4] information on configuring Agent integrations. 
 
 See the [sample ns1.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/ns1/datadog_checks/ns1/data/conf.yaml.example) for all available configuration options.
 
