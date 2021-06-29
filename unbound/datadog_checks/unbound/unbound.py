@@ -1,5 +1,6 @@
 import os
 import re
+import socket
 
 from datadog_checks.base import AgentCheck, ConfigurationError, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
@@ -17,7 +18,7 @@ class UnboundCheck(AgentCheck):
         use_sudo = is_affirmative(instance.get('use_sudo', False))
         unbound_control = instance.get('unbound_control', 'unbound-control')
         stats_command = instance.get('stats_command', 'stats')
-        host = instance.get('host')
+        host = resolve_host(instance.get('host'))
         config_file = instance.get('config_file')
         tags = instance.get('tags', [])
 
@@ -272,3 +273,8 @@ def which(program, use_sudo, log):
                 return exe_file
 
     return None
+
+def resolve_host(host):
+    strs = host.split("@")
+    ip_address = socket.gethostbyname(strs[0])
+    return ip_address+'@'+strs[1]
