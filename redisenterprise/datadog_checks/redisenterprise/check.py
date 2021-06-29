@@ -110,7 +110,7 @@ class RedisenterpriseCheck(AgentCheck):
 
     def _get_version(self, host, port, user, password, service_check_tags):
         info = self._api_fetch_json(host, port, user, password, "bootstrap", service_check_tags)
-        version = info['local_node_info']['software_version']
+        version = info.get('local_node_info').get('software_version')
         if version:
             return self.OK
         return self.CRITICAL
