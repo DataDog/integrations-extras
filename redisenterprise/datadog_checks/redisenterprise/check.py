@@ -29,7 +29,7 @@ class RedisenterpriseCheck(AgentCheck):
 
     def check(self, instance):
         host = self.instance.get('host')
-        user = self.instance.get('user')
+        user = self.instance.get('username')
         password = self.instance.get('password')
         timeout = self.instance.get('timeout')
         port = self.instance.get('port', 9443)
