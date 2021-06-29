@@ -142,12 +142,12 @@ class Ns1Url:
 
     def get_pulsar_by_record_url(self, val, query_params):
         urlList = {}
-        query_string = "?period=2d&"
+        query_string = "?period=1h&"
         if query_params:
-            if "pulsar_geo" in query_params:
+            if "pulsar_geo" in query_params and query_params["pulsar_geo"] != "*":
                 query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-            if "pulsar_asn" in query_params:
-                query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+                if "pulsar_asn" in query_params and query_params["pulsar_asn"] != "*":
+                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
         query_string = query_string[:-1]
 
         for record in val:
@@ -157,7 +157,7 @@ class Ns1Url:
                 metric_record = "pulsar.decisions.record"
                 # pulsar decisions for record
                 url = NS1_ENDPOINTS["pulsar.decisions.record"].format(
-                    apiendpoint=self.api_endpoint, rec_name=domain, rec_type=rectype, query=query_string
+                    apiendpoint=self.api_endpoint, query=query_string + "&agg=jobid&record=" + domain + "_" + rectype
                 )
                 k = "pulsar.decisions.{rec_name}.{rec_type}".format(rec_name=domain, rec_type=rectype)
                 urlList[k] = [url, metric_record, tags, metric_type]
@@ -186,11 +186,9 @@ class Ns1Url:
         if query_params:
             if "pulsar_period" in query_params:
                 query_string = query_string + "period=" + query_params["pulsar_period"] + "&"
-            if "pulsar_geo" in query_params:
-                if query_params["pulsar_geo"] != "*":
-                    query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-            if "pulsar_asn" in query_params:
-                if query_params["pulsar_asn"] != "*":
+            if "pulsar_geo" in query_params and query_params["pulsar_geo"] != "*":
+                query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
+                if "pulsar_asn" in query_params and query_params["pulsar_asn"] != "*":
                     query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
         query_string = query_string[:-1]
 
@@ -225,14 +223,14 @@ class Ns1Url:
     def get_pulsar_url(self, query_params):
         urlList = {}
         query_string = "?"
-        # for "pulsar" group of endpoints, override settings and always use period = 2d
+        # for "pulsar" group of endpoints, override settings and always use period = 1h
         # to get properly sumarized stats
-        query_string = query_string + "period=2d&"
+        query_string = query_string + "period=1h&"
         if query_params:
-            if "pulsar_geo" in query_params:
+            if "pulsar_geo" in query_params and query_params["pulsar_geo"] != "*":
                 query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
-            if "pulsar_asn" in query_params:
-                query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
+                if "pulsar_asn" in query_params and query_params["pulsar_asn"] != "*":
+                    query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
         query_string = query_string[:-1]
 
         tags = [""]
@@ -241,7 +239,7 @@ class Ns1Url:
         metric_type = "count"
 
         # pulsar decisions account wide
-        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string + "&agg=jobid")
         urlList[keyname] = [url, metric_record, tags, metric_type]
 
         tags = [""]
@@ -249,7 +247,9 @@ class Ns1Url:
         # pulsar insufficient decision data for account
         metric_record = "pulsar.decisions.insufficient"
         keyname = "pulsar.decisions.insufficient"
-        url = NS1_ENDPOINTS[keyname].format(apiendpoint=self.api_endpoint, query=query_string)
+        url = NS1_ENDPOINTS[keyname].format(
+            apiendpoint=self.api_endpoint, query=query_string + "&agg=jobid&result=ERR_INSUF"
+        )
         urlList[keyname] = [url, metric_record, tags, metric_type]
 
         # pulsar all route map hits

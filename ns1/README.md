@@ -1,84 +1,73 @@
-# Agent Check: ns1
+# NS1 Integration
 
 ## Overview
 
-This check monitors [ns1][1] through the Datadog Agent.
+This integration monitors [NS1][1] services through the Datadog Agent
 
 ![Snap](https://raw.githubusercontent.com/DataDog/integrations-extras/master/ns1/images/overview.png)
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
-
-### Installation
-
-See the dedicated Agent guide for [installing community integrations][3]:
-
-1. [Download and launch the Datadog Agent][4].
-2. Run the following command to install the integrations wheel with the Agent:
-
-   ```shell
-   datadog-agent integration install -t datadog-ns1==0.0.2
-   ```
-   
-3. Configure your integration like [any other packaged integration][5].
+Download and install the [Datadog Agent][2], then follow the instructions below to install and configure this integration for an Agent running on a host.
 
 
+## Installation
 
-### Configuration
+Refer to Datadog’s [community integrations installation][3] page for the specific steps to install the NS1 integration as an add-on, since it is not packaged and built into the Datadog Agent. 
 
-1. Edit the `ns1.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your ns1 performance data. See the [sample ns1.d/conf.yaml](datadog_checks/ns1/data/conf.yaml.example) for all available configuration options.
+**Note**: The minimum Agent version required for supporting integrations is 7.21.0. NS1 recommends using the latest version of the Datadog Agent.
 
-2. [Restart the Agent][7].
+When running the installation process, make sure to do so using the following variables specific to the NS1 integration:
 
-For detailed explanation of all collected performance data see the [NS1 + Datadog Integration][12] article in NS1 help center.
+
+* <INTEGRATION_NAME>:  NS1
+* <INTEGRATION_VERSION>:  0.0.3
+
+
+
+## Configuration
+
+To configure and activate the NS1 integration, see the [Getting started with Integrations][4] information on configuring Agent integrations. 
+
+See the [sample ns1.d/conf.yaml][5] for all available configuration options.
+
 
 ### Validation
 
-[Run the Agent's status subcommand][8] and look for `ns1` under the Checks section.
+To validate your Agent and integration configuration, [run the Agent's status subcommand][6] and look for ns1 under the Checks section.
+
 
 ## Data Collected
 
-### Metrics
+## Metrics
 
-See [metadata.csv](metadata.csv) for a list of metrics provided by this check.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
-### Service Checks
+## Service Checks
 
-ns1 does not include any service checks.
+The NS1 integration sends the following service check after each run:
 
-### Events
+`ns1.can_connect` returns CRITICAL if the Agent fails to receive a 200 response code from the NS1 API endpoint or returns OK if all endpoints respond properly.
 
-ns1 does not include any events.
 
-### Development
+## Events
 
-See the [Datadog developer documentation][10] for more information about how to test and develop Agent based integrations.
+The NS1 integration does not include any events.
 
-To install the ns1 check on your host:
-
-1. Install the [developer toolkit](https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit) on any machine.
-
-2. Run `ddev release build ns1` to build the package.
-
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w path/to/ns1/dist/<ARTIFACT_NAME>.whl`.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][11].
+Need help? Contact [Datadog support][8].
+
+For more details about this integration, see the [NS1 + Datadog Integration][9] article in the NS1 Help Center.
 
 [1]: https://ns1.com/
-[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[2]: https://app.datadoghq.com/account/settings#agent/overview
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentabovev68
-[4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://docs.datadoghq.com/getting_started/integrations/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/ns1/datadog_checks/ns1/data/conf.yaml.example
-[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
-[10]: https://docs.datadoghq.com/developers/
-[11]: https://docs.datadoghq.com/help/
-[12]: https://help.ns1.com/hc/en-us/articles/360020473994-NS1-Datadog-Integration
+[4]: https://docs.datadoghq.com/getting_started/integrations/#configuring-agent-integrations
+[5]: https://github.com/DataDog/integrations-extras/blob/master/ns1/datadog_checks/ns1/data/conf.yaml.example
+[7]: hhttps://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
+[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[7]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
+[8]: https://docs.datadoghq.com/help/
+[9]: https://help.ns1.com/hc/en-us/articles/4402752547219
