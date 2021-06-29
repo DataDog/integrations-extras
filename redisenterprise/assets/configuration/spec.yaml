@@ -1,4 +1,4 @@
-name: RedisEnterprise
+name: Redis Enterprise
 files:
 - name: redisenterprise.yaml
   options:
@@ -29,5 +29,9 @@ files:
     - template: instances/http
       overrides:
           username.description: The RedisEnterprise API user
+          username.required: true
           username.value.example: redisadmin@example.com
+          password.required: true
+          password.description: The RedisEnterprise API user password
+          tls_verify.value.default: false
     - template: instances/default
