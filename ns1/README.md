@@ -66,7 +66,6 @@ For more details about this integration, see the [NS1 + Datadog Integration][9] 
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentabovev68
 [4]: https://docs.datadoghq.com/getting_started/integrations/#configuring-agent-integrations
 [5]: https://github.com/DataDog/integrations-extras/blob/master/ns1/datadog_checks/ns1/data/conf.yaml.example
-[7]: hhttps://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [8]: https://docs.datadoghq.com/help/
