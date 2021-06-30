@@ -1,6 +1,6 @@
 # Redis Enterprise
 
-![img](./images/redis-enterprise.jpg)
+![img](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/redis-enterprise.jpg)
 
 ## Overview
 
