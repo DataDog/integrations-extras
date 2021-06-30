@@ -15,21 +15,21 @@ This integration provides [Redis Enterprise][1] monitoring and metrics for Datad
 Redis Enterprise's Datadog integration provides a templated view across your clusters and databases allowing for operational insight unavailable in other products.  Understand usage patterns and plan for growth armed with the data necessary to make informed decisions.
 
 #### Database Overview
-![overview](./images/dashboard.png)
+![overview](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/dashboard.png)
 
 #### Cluster Overview
-![overview](./images/datadog_cluster_top_view.png)
+![overview](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/datadog_cluster_top_view.png)
 
 #### Redis on Flash
-![rofdash](./images/ROF_dashboard.png)
+![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/ROF_dashboard.png)
 
 #### Redis Enterprise Events
-![events](./images/events.png)
+![events](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/events.png)
 
 
 ### Provider
 
-![dashboard](./images/redislabs-logo.png)
+![dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/redislabs-logo.png)
 
 This integration is provided by Redis Labs.
 
@@ -48,7 +48,7 @@ Copy the [sample configuration][2] and update the required sections to collect d
     ## @param user - string - required
     ## The RedisEnterprise API user
     #
-    user: redisadmin@example.com
+    username: redisadmin@example.com
 
     ## @param password - string - required
     ## The RedisEnterprise API credential
