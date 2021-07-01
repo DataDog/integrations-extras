@@ -1,19 +1,29 @@
-# Agent Check: Vercel
+# Vercel
+
+![datadog-integration][1]
 
 ## Overview
 
-[Vercel][1] is a deployment and collaboration platform that enables frontend developers to build high-performance websites and applications. Vercel is also the creator of Next.js, a React framework developed in collaboration with engineers at Google and Facebook in 2016. Vercel users can leverage a built-in deployment tool that manages the build and rendering process, as well as a proprietary [Edge Network][2] that caches their sites for fast retrieval. Additionally, Vercel offers [serverless functions][3], which allow users to deploy serverless code to accomplish essential backend processes like user authentication, form submission, and database queries.
+[Vercel][2] is a deployment and collaboration platform that enables frontend developers to build high-performance websites and applications. Vercel is also the creator of Next.js, a React framework developed in collaboration with engineers at Google and Facebook in 2016. Vercel users can leverage a built-in deployment tool that manages the build and rendering process, as well as a proprietary [Edge Network][3] that caches their sites for fast retrieval. Additionally, Vercel offers [Serverless Functions][4], which allow users to deploy serverless code to accomplish essential backend processes like user authentication, form submission, and database queries.
 
 Integrate Vercel with Datadog to:
 
-* View and parse your application logs using [Datadog’s Log Management][4]
+* View and parse your application logs using [Datadog’s Log Management][5]
 * See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
-* Monitor frontend performance with [Datadog Synthetics][5]
+* Monitor frontend performance with [Datadog Synthetics][6]
 
 ## Setup
 
-* Generate a [Datadog API key][6].
-* Configure the logs integration through the [Vercel Marketplace][7].
+To set up the Vercel-Datadog integration:
+
+* Generate a [Datadog API key][7]
+* Configure the logs integration through the [Vercel Marketplace][8]
+
+
+### Installation
+
+To install the Vercel check on your host:
+
 
 ## Data Collected
 
@@ -34,11 +44,12 @@ The Vercel integration does not include any events.
 Need help? Contact [Datadog support][8].
 
 
-[1]: https://vercel.com/
-[2]: https://vercel.com/docs/edge-network/overview
-[3]: https://vercel.com/docs/serverless-functions/introduction
-[4]: /logs/
-[5]: /synthetics/
-[6]: https://app.datadoghq.com/account/settings#api
-[7]: https://vercel.com/integrations/datadog-logs
-[8]: /help/
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png
+[2]: https://vercel.com/
+[3]: https://vercel.com/docs/edge-network/overview
+[4]: https://vercel.com/docs/serverless-functions/introduction
+[5]: /logs/
+[6]: /synthetics/
+[7]: https://app.datadoghq.com/account/settings#api
+[8]: https://vercel.com/integrations/datadog-logs
+[9]: /help/
