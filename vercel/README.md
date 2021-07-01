@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Vercel][1] is a deployment and collaboration platform that enables frontend developers to build high-performance websites and applications. Vercel is also the creator of Next.js, a React framework developed in collaboration with engineers at Google and Facebook in 2016. Vercel users can leverage a built-in deployment tool that manages the build and rendering process, as well as a proprietary [Edge Network][2] that caches their sites for fast retrieval. Additionally, Vercel offers [Serverless Functions][3], which allow users to deploy serverless code to accomplish essential backend processes like user authentication, form submission, and database queries.
+[Vercel][1] is a deployment and collaboration platform that enables frontend developers to build high-performance websites and applications. Vercel is also the creator of Next.js, a React framework developed in collaboration with engineers at Google and Facebook in 2016. Vercel users can leverage a built-in deployment tool that manages the build and rendering process, as well as a proprietary [Edge Network][2] that caches their sites for fast retrieval. Additionally, Vercel offers [serverless functions][3], which allow users to deploy serverless code to accomplish essential backend processes like user authentication, form submission, and database queries.
 
 Integrate Vercel with Datadog to:
 
@@ -12,10 +12,9 @@ Integrate Vercel with Datadog to:
 
 ## Setup
 
-To set up the Vercel-Datadog integration:
 
-* Generate a [Datadog API key][6]
-* Configure the logs integration through the [Vercel Marketplace][7]
+* Generate a [Datadog API key][6].
+* Configure the logs integration through the [Vercel Marketplace][7].
 
 
 ### Installation
