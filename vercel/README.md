@@ -14,7 +14,6 @@ Integrate Vercel with Datadog to:
 
 ## Setup
 
-To set up the Vercel-Datadog integration:
 
 * Generate a [Datadog API key][7]
 * Configure the logs integration through the [Vercel Marketplace][8]
