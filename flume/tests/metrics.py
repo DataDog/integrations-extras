@@ -1,4 +1,4 @@
-from datadog_checks.dev.jmx import JVM_E2E_METRICS
+from datadog_checks.dev.jmx import JVM_E2E_METRICS_NEW
 
 METRICS = [
     'flume.channel.capacity',
@@ -37,4 +37,4 @@ METRICS = [
     'flume.source.kafka_commit_timer',
     'flume.source.kafka_empty_count',
     'flume.source.kafka_event_get_timer',
-] + JVM_E2E_METRICS
+] + JVM_E2E_METRICS_NEW
