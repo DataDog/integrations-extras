@@ -1,6 +1,6 @@
 import pytest
 
-from datadog_checks.dev.jmx import JVM_E2E_METRICS_NEW
+from datadog_checks.dev.jmx import JVM_E2E_METRICS
 from datadog_checks.dev.utils import get_metadata_metrics
 
 
@@ -22,10 +22,10 @@ def test_e2e(dd_agent_check):
         'resin.connection_pool.max_create_connections',
         'resin.connection_pool.max_overflow_connections',
     ]
-    for metric in metrics + JVM_E2E_METRICS_NEW:
+    for metric in metrics + JVM_E2E_METRICS:
         aggregator.assert_metric(metric)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), exclude=JVM_E2E_METRICS_NEW)
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), exclude=JVM_E2E_METRICS)
 
     # aggregator.assert_service_check('resin.can_connect') ToDo, uncoment when this is available for jmx checks
