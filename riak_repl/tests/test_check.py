@@ -1,7 +1,6 @@
 import pytest
 
 from datadog_checks.base.errors import CheckException
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.riak_repl import RiakReplCheck
 
 from .common import INSTANCE
@@ -94,4 +93,4 @@ def test_check(aggregator, dd_environment):
     # Assert coverage for this check on this instance
     aggregator.assert_all_metrics_covered()
     # TODO: there are metrics missing in metadata.csv
-    #aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
