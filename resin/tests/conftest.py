@@ -4,6 +4,7 @@ import time
 import pytest
 
 from datadog_checks.dev import docker_run
+from datadog_checks.dev.conditions import CheckDockerLogs
 from datadog_checks.dev.utils import load_jmx_config
 
 from .common import HERE
@@ -11,7 +12,8 @@ from .common import HERE
 
 @pytest.fixture(scope="session")
 def dd_environment():
-    with docker_run(os.path.join(HERE, 'docker', 'docker-compose.yml')):
+    compose_file = os.path.join(HERE, 'docker', 'docker-compose.yml')
+    with docker_run(compose_file, conditions=[CheckDockerLogs(compose_file, 'Resin/4.0.62 started -server')]):
         instance = load_jmx_config()
-        time.sleep(15)  # TODO: use better strategy, e.g. waiting for specific logs
+        time.sleep(15)  # There are no more logs to check
         yield instance, {'use_jmx': True}
