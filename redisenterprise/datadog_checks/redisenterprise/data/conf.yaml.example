@@ -252,17 +252,17 @@ instances:
     #
     # aws_service: <AWS_SERVICE>
 
-    ## @param tls_verify - boolean - optional - default: true
+    ## @param tls_verify - boolean - optional - default: false
     ## Instructs the check to validate the TLS certificate of services.
     #
-    # tls_verify: true
+    # tls_verify: false
 
     ## @param tls_use_host_header - boolean - optional - default: false
     ## If a `Host` header is set, this enables its use for SNI (matching against the TLS certificate CN or SAN).
     #
     # tls_use_host_header: false
 
-    ## @param tls_ignore_warning - boolean - optional - default: false
+    ## @param tls_ignore_warning - boolean - optional - default: true
     ## If `tls_verify` is disabled, security warnings are logged by the check.
     ## Disable those by setting `tls_ignore_warning` to true.
     ##
@@ -270,7 +270,7 @@ instances:
     ## If enabled for multiple instances, spurious warnings might still appear even if `tls_ignore_warning` is set
     ## to true.
     #
-    # tls_ignore_warning: false
+    # tls_ignore_warning: true
 
     ## @param tls_cert - string - optional
     ## The path to a single file in PEM format containing a certificate as well as any
