@@ -6,8 +6,7 @@ from datadog_checks.dev.utils import get_metadata_metrics
 
 @pytest.mark.e2e
 def test_e2e(dd_agent_check):
-    instance = {
-    }
+    instance = {}
     aggregator = dd_agent_check(instance)
     metrics = [
         'resin.thread_pool.thread_active_count',
