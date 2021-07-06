@@ -1,4 +1,5 @@
 import os
+import time
 
 import pytest
 
@@ -14,4 +15,5 @@ def dd_environment():
     compose_file = os.path.join(HERE, 'docker', 'docker-compose.yml')
     with docker_run(compose_file, conditions=[CheckDockerLogs(compose_file, 'Resin/4.0.62 started -server')]):
         instance = load_jmx_config()
+        time.sleep(15)  # There are no more logs to check
         yield instance, {'use_jmx': True}

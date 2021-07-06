@@ -26,13 +26,13 @@ def test_e2e(dd_agent_check):
         aggregator.assert_metric(metric, at_least=0)
 
     # needed because https://github.com/DataDog/integrations-core/pull/9501
-    jvm_e2_e_metrics_new = list(JVM_E2E_METRICS)
-    jvm_e2_e_metrics_new.remove('jvm.gc.cms.count')
-    jvm_e2_e_metrics_new.remove('jvm.gc.parnew.time')
-    for metric in jvm_e2_e_metrics_new:
+    jvm_e2e_metrics_new = list(JVM_E2E_METRICS)
+    jvm_e2e_metrics_new.remove('jvm.gc.cms.count')
+    jvm_e2e_metrics_new.remove('jvm.gc.parnew.time')
+    for metric in jvm_e2e_metrics_new:
         aggregator.assert_metric(metric)
 
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), exclude=jvm_e2_e_metrics_new)
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics(), exclude=jvm_e2e_metrics_new)
 
     # aggregator.assert_service_check('resin.can_connect') ToDo, uncoment when this is available for jmx checks
