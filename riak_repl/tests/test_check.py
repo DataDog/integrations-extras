@@ -1,6 +1,7 @@
 import pytest
 
 from datadog_checks.base.errors import CheckException
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.riak_repl import RiakReplCheck
 
 from .common import INSTANCE
@@ -31,7 +32,7 @@ def test_config():
 
 
 @pytest.mark.integration
-def test_service_check(aggregator, dd_environment):
+def test_check(aggregator, dd_environment):
     init_config = {
         'keys': [
             "riak_repl.server_bytes_sent",
@@ -88,7 +89,8 @@ def test_service_check(aggregator, dd_environment):
     c.check(INSTANCE)
 
     for key in init_config['keys']:
-        aggregator.assert_metric(key, tags=[])
+        aggregator.assert_metric(key, tags=[], at_least=0)
 
     # Assert coverage for this check on this instance
     aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
