@@ -8,7 +8,7 @@ This integration provides [Redis Enterprise][1] monitoring and metrics for Datad
 
 ### What is Redis Enterprise?
 
-[Redis Enterprise][1] is the fully supported mission critical ready version of Redis, the most loved database in the world.  In addition to the core open source Redis feature set, Redis Enterprise adds active-active geo-distribution, multi-model database features, enhanced observability and easier multi-tenancy management for higher uptimes.
+[Redis Enterprise][1] is the fully supported enterprise version of Redis.  In addition to the core open source Redis feature set, Redis Enterprise adds active-active geo-distribution, multi-model database features, enhanced observability and easier multi-tenancy management for higher uptimes.
 
 ### Redis Enterprise Datadog Dashboard
 
@@ -101,4 +101,3 @@ Contact the [Redis Enterprise Support Team][6]
 [4]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/metadata.csv
 [5]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
 [6]: https://redislabs.com/deployment/support/
-
