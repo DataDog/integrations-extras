@@ -83,7 +83,7 @@ The check returns:
 - `WARNING` if cluster license will expire in < 7 days.
 - `CRITICAL` if the cluster license has expired.
 
-*NOTE:* The cluster will continue to operate as normal with an expired license, however, no configuration changes can be made during this time.  Contact your sales representative for a renewal.
+**Note:** The cluster will continue to operate as normal with an expired license, however, no configuration changes can be made during this time.  Contact your sales representative for a renewal.
 
 
 ### Events
