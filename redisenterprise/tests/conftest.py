@@ -82,6 +82,4 @@ def instance():
         'port': 9443,
         'username': BOOTSTRAP['credentials']['username'],
         'password': BOOTSTRAP['credentials']['password'],
-        'tls_verify': False,
-        'tls_ignore_warning': True,
     }
