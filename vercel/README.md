@@ -36,6 +36,9 @@ The Vercel integration does not include any events.
 
 Need help? Contact [Datadog support][8].
 
+## Further Reading
+
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png
 [2]: https://vercel.com/
