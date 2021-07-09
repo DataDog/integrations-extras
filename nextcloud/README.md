@@ -35,22 +35,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Nextcl
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
-### Service Checks
-
-**`nextcloud.can_connect`**
-
-The check returns:
-
-- `OK` if Nextcloud is reachable.
-- `CRITICAL` if Nextcloud is unreachable.
-
 ### Events
 
 Nextcloud does not include any events.
 
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][12].
+
 
 [1]: https://nextcloud.com
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -64,3 +60,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/metadata.csv
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/nextcloud/assets/service_checks.json

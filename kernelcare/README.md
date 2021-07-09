@@ -38,19 +38,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Kernel
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
-### Service Checks
-
-**`kernelcare.can_connect`**:
-
-Returns `Critical` if the Agent cannot connect to Kernelcare to collect metrics, returns `OK` otherwise.
-
 ### Events
 
 kernelcare does not include any events.
 
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][12].
+
 
 [1]: https://www.kernelcare.com
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -64,3 +63,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [11]: https://github.com/DataDog/integrations-extras/blob/master/kernelcare/metadata.csv
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/kernelcare/assets/service_checks.json

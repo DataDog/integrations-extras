@@ -52,17 +52,12 @@ when the status of a Server changes between `FT_STANDBY` and `FT_ACTIVE`
 
 ### Service Checks
 
-This gnatsd_streaming check tags all service checks it collects with:
-
-- `server_name:<server_name_in_yaml>`
-- `url:<host_in_yaml>`
-
-`gnatsd_streaming.can_connect`:
-Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
@@ -75,3 +70,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [11]: http://docs.datadoghq.com/help
+[12]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd_streaming/assets/service_checks.json

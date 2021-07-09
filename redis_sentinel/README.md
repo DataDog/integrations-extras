@@ -47,37 +47,12 @@ The Redis's Sentinel check does not include any events.
 
 ### Service Checks
 
-**`redis.sentinel.master_is_down`**
-
-The check returns:
-
-- `OK` if the master is up.
-- `CRITICAL` if the master is down.
-
-**`redis.sentinel.master_is_disconnected`**
-
-The check returns:
-
-- `OK` if the master is not disconnected.
-- `CRITICAL` if the master is disconnected.
-
-**`redis.sentinel.slave_master_link_down`**
-
-The check returns:
-
-- `OK` if the master link status is ok.
-- `CRITICAL` if the master link status is not ok.
-
-**`redis.sentinel.slave_is_disconnected`**
-
-The check returns:
-
-- `OK` if the slave is not disconnected.
-- `CRITICAL` if the slave is disconnected.
+See [service_checks.json][13] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][13].
+Need help? Contact [Datadog support][12].
+
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -91,3 +66,4 @@ Need help? Contact [Datadog support][13].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/metadata.csv
 [12]: http://docs.datadoghq.com/help
+[13]: https://github.com/DataDog/integrations-extras/blob/master/redis_sentinel/assets/service_checks.json

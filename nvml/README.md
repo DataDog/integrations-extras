@@ -53,17 +53,18 @@ See [metadata.csv][10] for a list of metrics provided by this check.  The author
 
 There is an attempt to, when possible, match metric names with NVIDIA's [Data Center GPU Manager (DCGM) exporter][14].
 
-### Service Checks
-
-NVML does not include any service checks.
-
 ### Events
 
 NVML does not include any events.
 
+### Service Checks
+
+See [service_checks.json][16] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://pypi.org/project/pynvml/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -80,3 +81,4 @@ Need help? Contact [Datadog support][11].
 [13]: https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html
 [14]:https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter
 [15]: https://github.com/DataDog/integrations-extras/blob/master/nvml/tests/Dockerfile
+[16]: https://github.com/DataDog/integrations-extras/blob/master/nvml/assets/service_checks.json

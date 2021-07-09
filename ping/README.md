@@ -46,19 +46,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Ping c
 
 See [metadata.csv][10] for a list of metrics provided by this check.
 
-### Service Checks
-
-**`network.ping.can_connect`**:
-
-Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns `OK` if the ping is successful.
-
 ### Events
 
 The Ping check does not include any events.
 
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://en.wikipedia.org/wiki/Ping_(networking_utility%29
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -72,3 +71,4 @@ Need help? Contact [Datadog support][11].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
 [11]: https://docs.datadoghq.com/help/
 [12]: https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md
+[13]: https://github.com/DataDog/integrations-extras/blob/master/ping/assets/service_checks.json

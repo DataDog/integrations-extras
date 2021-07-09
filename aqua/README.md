@@ -84,19 +84,18 @@ For the Aqua Enforcer logs: **Available for Agent >6.0**
 
 See [metadata.csv][14] for a list of metrics provided by this integration.
 
-### Service Checks
-
-**aqua.can_connect**:
-
-Returns CRITICAL if the Agent cannot connect to Aqua to collect metrics. Returns OK otherwise.
-
 ### Events
 
 Aqua does not include any events.
 
+### Service Checks
+
+See [service_checks.json][16] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][15].
+
 
 [1]: https://www.aquasec.com
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -113,3 +112,4 @@ Need help? Contact [Datadog support][15].
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [14]: https://github.com/DataDog/integrations-extras/blob/master/aqua/metadata.csv
 [15]: https://docs.datadoghq.com/help/
+[16]: https://github.com/DataDog/integrations-extras/blob/master/aqua/assets/service_checks.json

@@ -26,23 +26,18 @@ The AWS Pricing check is not included in the [Datadog Agent][2] package, so you 
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
-### Service Checks
-
-`aws_pricing.status`:
-
-Returns `CRITICAL` if the Agent encounters an error when using the Boto3 pricing client to collect metrics.
-
-Returns `WARNING` if a rate code was defined in `aws_pricing.d/conf.yaml` which couldn't be found using the Boto3 pricing client.
-
-Returns `OK` if no errors were encountered and all desired service rate code pricing data was collected.
-
 ### Events
 
 AWS Pricing does not include any events.
 
+### Service Checks
+
+See [service_checks.json][8] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][5].
+
 
 [1]: https://aws.amazon.com/pricing/
 [2]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/datadog_checks/aws_pricing/data/conf.yaml.example
@@ -51,3 +46,4 @@ Need help? Contact [Datadog support][5].
 [5]: https://docs.datadoghq.com/help/
 [6]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/metadata.csv
 [7]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/aws_pricing/assets/service_checks.json

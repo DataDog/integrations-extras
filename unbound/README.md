@@ -40,18 +40,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Unboun
 
 See [metadata.csv][10] for a list of metrics provided by this integration.
 
-### Service Checks
-
-**unbound.can_get_stats**
-Returns CRITICAL if unbound-control fails or there's an error parsing its output. Returns OK otherwise.
-
 ### Events
 
 The Unbound check does not include any events.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://nlnetlabs.nl/documentation/unbound/unbound-control/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -64,3 +64,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/unbound/metadata.csv
 [11]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/unbound/assets/service_checks.json

@@ -54,16 +54,16 @@ See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Events
 
-The bind9_check check does not include any event at this time.
+The bind9_check check does not include any events.
 
 ### Service Checks
 
-`bind9_check.BIND_SERVICE_CHECK` : Returns `OK` If Statistics-channel URL of DNS is present in Instance.
-`bind9_check.BIND_SERVICE_CHECK` : Returns `CRITICAL` If URL Errors occurs.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
-## Development
+## Troubleshooting
 
-Please refer to the [main documentation][12] for more details about how to test and develop Agent based integrations.
+Need help? Contact [Datadog support][13].
+
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -76,4 +76,5 @@ Please refer to the [main documentation][12] for more details about how to test 
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/bind9/metadata.csv
-[12]: https://docs.datadoghq.com/developers/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/bind9/assets/service_checks.json
+[13]: https://docs.datadoghq.com/help

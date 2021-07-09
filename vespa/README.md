@@ -60,9 +60,14 @@ gets an error in the response), otherwise returns `OK`.
 
 The Vespa integration does not include any events.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][5].
+
 
 [1]: https://vespa.ai/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -75,3 +80,4 @@ Need help? Contact [Datadog support][5].
 [9]: https://docs.vespa.ai/documentation/reference/services-admin.html#metrics
 [10]: https://github.com/DataDog/integrations-extras/blob/master/vespa/datadog_checks/vespa/data/conf.yaml.example
 [11]: https://docs.vespa.ai/documentation/reference/metrics.html#node-metrics-api
+[12]: https://github.com/DataDog/integrations-extras/blob/master/vespa/assets/service_checks.json

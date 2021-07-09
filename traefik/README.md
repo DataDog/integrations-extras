@@ -107,11 +107,12 @@ The Traefik check does not include any events.
 
 ### Service Checks
 
-Query Traefik and expect `200` as return status code.
+See [service_checks.json][14] for a list of service checks provided by this integration.
 
-## Development
+## Troubleshooting
 
-Refer to the [main documentation][14] for more details about how to test and develop Agent based integrations.
+Need help? Contact [Datadog support][15].
+
 
 [1]: https://traefik.io
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -126,4 +127,5 @@ Refer to the [main documentation][14] for more details about how to test and dev
 [11]: https://docs.traefik.io/configuration/logs/#traefik-logs
 [12]: https://docs.traefik.io/configuration/logs/#clf-common-log-format
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[14]: https://docs.datadoghq.com/developers/
+[14]: https://github.com/DataDog/integrations-extras/blob/master/traefik/assets/service_checks.json
+[15]: https://docs.datadoghq.com/help

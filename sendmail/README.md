@@ -35,17 +35,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Sendma
 
 See [metadata.csv][10] for a list of metrics provided by this check.
 
-### Service Checks
-
-`sendmail.returns.output`: Returns CRITICAL if the sendmail command does not return any output, OK otherwise.
-
 ### Events
 
 Sendmail does not include any events.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://www.proofpoint.com/us/open-source-email-solution
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -58,3 +59,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/sendmail/metadata.csv
 [11]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/sendmail/assets/service_checks.json

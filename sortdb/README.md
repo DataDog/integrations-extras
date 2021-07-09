@@ -45,11 +45,12 @@ See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-The SortDB check does not currently include any service checks.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
-### Events
+## Troubleshooting
 
 The SortDB check does not currently include any events.
+
 
 [1]: https://github.com/jehiah/sortdb
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -62,3 +63,4 @@ The SortDB check does not currently include any events.
 [9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/metadata.csv
+[12]: https://github.com/DataDog/integrations-extras/blob/master/sortdb/assets/service_checks.json

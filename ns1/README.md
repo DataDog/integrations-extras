@@ -43,23 +43,20 @@ To validate your Agent and integration configuration, [run the Agent's status su
 
 See [metadata.csv][7] for a list of metrics provided by this integration.
 
-## Service Checks
-
-The NS1 integration sends the following service check after each run:
-
-`ns1.can_connect` returns CRITICAL if the Agent fails to receive a 200 response code from the NS1 API endpoint or returns OK if all endpoints respond properly.
-
-
 ## Events
 
 The NS1 integration does not include any events.
 
+### Service Checks
+
+See [service_checks.json][10] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][8].
 
 For more details about this integration, see the [NS1 + Datadog Integration][9] article in the NS1 Help Center.
+
 
 [1]: https://ns1.com/
 [2]: https://app.datadoghq.com/account/settings#agent/overview
@@ -70,3 +67,4 @@ For more details about this integration, see the [NS1 + Datadog Integration][9] 
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [8]: https://docs.datadoghq.com/help/
 [9]: https://help.ns1.com/hc/en-us/articles/4402752547219
+[10]: https://github.com/DataDog/integrations-extras/blob/master/ns1/assets/service_checks.json

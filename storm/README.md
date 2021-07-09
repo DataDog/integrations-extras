@@ -46,16 +46,12 @@ The Storm check does not include any events.
 
 ### Service Checks
 
-**`topology_check.{TOPOLOGY NAME}`**
-
-The check returns:
-
-- `OK` if the topology is active.
-- `CRITICAL` if the topology is not active.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -68,3 +64,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/integrations-extras/blob/master/storm/metadata.csv
 [11]: http://docs.datadoghq.com/help
+[12]: https://github.com/DataDog/integrations-extras/blob/master/storm/assets/service_checks.json

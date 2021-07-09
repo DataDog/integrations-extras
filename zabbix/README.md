@@ -85,17 +85,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Zabbix
 
 See [metadata.csv][10] for a list of metrics provided by this check.
 
-### Service Checks
-
-`zabbix.can_connect`: Returns `CRITICAL` if the Agent can't connect to the Zabbix API, OK otherwise.
-
 ### Events
 
 Zabbix alerts are collected as events in the Datadog event stream.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://www.zabbix.com/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -108,3 +109,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [10]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/metadata.csv
 [11]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/zabbix/assets/service_checks.json
