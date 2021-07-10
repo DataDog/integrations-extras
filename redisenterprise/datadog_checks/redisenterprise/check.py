@@ -36,7 +36,7 @@ class RedisenterpriseCheck(AgentCheck):
 
     def check(self, instance):
         host = self.instance.get('host')
-        user = self.instance.get('username')
+        user = self.instance.get('user')
         password = self.instance.get('password')
         timeout = self.instance.get('timeout')
         port = self.instance.get('port', 9443)
@@ -45,7 +45,9 @@ class RedisenterpriseCheck(AgentCheck):
         service_check_tags = self.instance.get('tags', [])
 
         if not host or not user or not password:
-            raise ConfigurationError('Configuration error, please fix redisenterprise.yaml')
+            raise ConfigurationError(
+                'Configuration Error: host, user, or password is not set in redisenterprise.d/conf.yaml',
+            )
 
         try:
 
@@ -96,7 +98,7 @@ class RedisenterpriseCheck(AgentCheck):
     def _api_fetch_json(self, endpoint, service_check_tags, params=None):
         host = self.instance.get('host')
         port = self.instance.get('port')
-        user = self.instance.get('username')
+        user = self.instance.get('user')
         password = self.instance.get('password')
         """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}

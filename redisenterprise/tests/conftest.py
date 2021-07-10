@@ -80,6 +80,6 @@ def instance():
     return {
         'host': get_docker_hostname(),
         'port': 9443,
-        'username': BOOTSTRAP['credentials']['username'],
+        'user': BOOTSTRAP['credentials']['username'],
         'password': BOOTSTRAP['credentials']['password'],
     }
