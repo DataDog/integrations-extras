@@ -10,7 +10,7 @@ from datadog_checks.redisenterprise import RedisenterpriseCheck
 @pytest.mark.unit
 def test_check(aggregator, instance):
     check = RedisenterpriseCheck('redisenterprise', {}, [instance])
-    check.check({'host': 'localhost', 'user': 'chris@example.com', 'password': 'thePasswerd', 'is_mock': True})
+    check.check({'host': 'localhost', 'username': 'chris@example.com', 'password': 'thePasswerd', 'is_mock': True})
 
 
 @pytest.mark.integration
