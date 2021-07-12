@@ -36,8 +36,6 @@ class RedisenterpriseCheck(AgentCheck):
 
     def check(self, instance):
         host = self.instance.get('host')
-        user = self.instance.get('user')
-        password = self.instance.get('password')
         timeout = self.instance.get('timeout')
         port = self.instance.get('port', 9443)
         event_limit = self.instance.get('event_limit', 100)
