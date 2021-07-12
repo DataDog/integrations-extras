@@ -96,8 +96,6 @@ class RedisenterpriseCheck(AgentCheck):
     def _api_fetch_json(self, endpoint, service_check_tags, params=None):
         host = self.instance.get('host')
         port = self.instance.get('port')
-        user = self.instance.get('user')
-        password = self.instance.get('password')
         """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/{}'.format(host, port, endpoint)
