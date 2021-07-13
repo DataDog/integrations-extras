@@ -39,17 +39,18 @@ If you are using Agent v6.8+ follow the instructions below to install the Puma c
 
 See [metadata.csv][12] for a list of metrics provided by this check.
 
-### Service Checks
-
-**puma.connection**: Returns `CRITICAL` if the Agent is unable to connect to the monitored Puma instance. Returns `OK` otherwise.
-
 ### Events
 
 Puma does not include any events.
 
+### Service Checks
+
+See [service_checks.json][14] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][13].
+
 
 [1]: https://puma.io/
 [2]: https://github.com/puma/puma#controlstatus-server
@@ -64,3 +65,4 @@ Need help? Contact [Datadog support][13].
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [12]: https://github.com/DataDog/integrations-extras/blob/master/puma/metadata.csv
 [13]: https://docs.datadoghq.com/help/
+[14]: https://github.com/DataDog/integrations-extras/blob/master/puma/assets/service_checks.json

@@ -146,11 +146,9 @@ See [metadata.csv][21] for a list of metrics provided by this check.
 
 The Logstash check does not include any events.
 
-### Service checks
+### Service Checks
 
-`logstash.can_connect`:
-
-Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; returns `OK` otherwise.
+See [service_checks.json][23] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
@@ -166,6 +164,7 @@ Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; r
 Check that the `url` in `conf.yaml` is correct.
 
 If you need further help, contact [Datadog support][22].
+
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -189,3 +188,4 @@ If you need further help, contact [Datadog support][22].
 [20]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [21]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [22]: http://docs.datadoghq.com/help
+[23]: https://github.com/DataDog/integrations-extras/blob/master/logstash/assets/service_checks.json

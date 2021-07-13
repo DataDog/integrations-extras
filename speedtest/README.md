@@ -38,17 +38,18 @@ Note: For all hosts you need to also install [Speedtest CLI][1] on your host and
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
-### Service Checks
-
-Speedtest does not include any service checks.
-
 ### Events
 
 Speedtest does not include any events.
 
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][12].
+
 
 [1]: https://www.speedtest.net/apps/cli
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -62,3 +63,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [11]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/metadata.csv
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/assets/service_checks.json

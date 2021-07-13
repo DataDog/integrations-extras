@@ -46,16 +46,12 @@ The SNMP walk check does not include any events.
 
 ### Service Checks
 
-**`snmpwalk.can_check`**
-
-The check returns:
-
-- `OK` if the check can collect metrics from `snmpwalk`.
-- `CRITICAL` if check encounters an error when trying to collect metrics from `snmpwalk`.
+See [service_checks.json][11] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
+
 
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
@@ -67,3 +63,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: http://docs.datadoghq.com/help
+[11]: https://github.com/DataDog/integrations-extras/blob/master/snmpwalk/assets/service_checks.json

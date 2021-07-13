@@ -32,21 +32,6 @@ If you are using Agent v6.8+ follow the instructions below to install the Pi-hol
 
 [Run the Agent's status subcommand][9] and look for `pihole` under the Checks section.
 
-
-### Metrics
-
-See [metadata.csv][10] for a list of metrics provided by this check.
-
-### Service Checks
-
-**`pihole.running`**:
-
-Returns `CRITICAL` if the Agent cannot communicate with the target host. Returns `OK` if the connection to Pi-hole is successful.
-
-### Events
-
-Pi-hole does not include any events.
-
 ### Log Collection
 
 Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][11] for the location of your configuration file:
@@ -63,10 +48,24 @@ logs_enabled: true
         source: pihole
     ```
 
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][10] for a list of metrics provided by this check.
+
+### Events
+
+Pi-hole does not include any events.
+
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
-
 Need help? Contact [Datadog support][12].
+
 
 [1]: https://pi-hole.net/
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -80,3 +79,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://github.com/DataDog/integrations-extras/blob/master/pihole/metadata.csv
 [11]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/pihole/assets/service_checks.json

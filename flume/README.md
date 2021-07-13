@@ -54,15 +54,13 @@ The metrics retrieved by this check depend on the source, channel, and sink used
 
 See [metadata.csv][13] for a list of metrics provided by this check.
 
-### Service Checks
-
-**flume.can_connect**:
-
-Returns `CRITICAL` if the Agent is unable to connect to and collect metrics from the monitored Flume instance. Returns `OK` otherwise.
-
 ### Events
 
 Flume does not include any events.
+
+### Service Checks
+
+See [service_checks.json][15] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
@@ -83,3 +81,4 @@ Need help? Contact [Datadog support][10].
 [12]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [13]: https://github.com/DataDog/integrations-extras/blob/master/flume/metadata.csv
 [14]: https://flume.apache.org/FlumeUserGuide.html#available-component-metrics
+[15]: https://github.com/DataDog/integrations-extras/blob/master/flume/assets/service_checks.json

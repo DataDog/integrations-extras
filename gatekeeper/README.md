@@ -99,18 +99,18 @@ To install the gatekeeper check on your Kubernetes cluster:
 
 See [metadata.csv][9] for a list of metrics provided by this check.
 
-### Service Checks
-
-`gatekeeper.health`
-Returns `CRITICAL` if the agent fails to connect to the gatekeeper health endpoint, `OK` if it returns 200, `WARNING` otherwise.
-
 ### Events
 
 Gatekeeper does not include any events.
 
+### Service Checks
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
+
 
 [1]: https://github.com/open-policy-agent/gatekeeper
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gatekeeper/images/gatekeeper_dashboard.png
@@ -122,3 +122,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-core/blob/master/gatekeeper/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/assets/service_checks.json

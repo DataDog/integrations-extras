@@ -46,21 +46,14 @@ No metrics are collected.
 
 The reboot_required check does not include any events.
 
-## Service Checks
+### Service Checks
 
-To create alert conditions on these service checks in Datadog, select 'Custom Check' on the [Create Monitor][10] page, not 'Integration'.
-
-**`system.reboot_required`**
-
-The check returns:
-
-- `OK` if the system does not require a reboot or for less than `days_warning` or `days_critical`.
-- `WARNING` if the system has required a reboot for longer than `days_warning` days.
-- `CRITICAL` if the system has required a reboot for longer than `days_critical` days.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
+
 
 [1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
 [2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
@@ -73,3 +66,4 @@ Need help? Contact [Datadog support][11].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://app.datadoghq.com/monitors#/create
 [11]: http://docs.datadoghq.com/help
+[12]: https://github.com/DataDog/integrations-extras/blob/master/reboot_required/assets/service_checks.json

@@ -71,17 +71,18 @@ For more information, see the [Datadog Log Processing documentation][11].
 
 See [metadata.csv][8] for a list of metrics provided by this integration.
 
-### Service Checks
-
-OctoPrint does not include any service checks.
-
 ### Events
 
 OctoPrint does not include any events.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][9].
+
 
 [1]: https://octoprint.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -94,3 +95,4 @@ Need help? Contact [Datadog support][9].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://octoprint.org/download/
 [11]: https://docs.datadoghq.com/logs/processing/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/assets/service_checks.json
