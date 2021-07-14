@@ -153,7 +153,7 @@ Additional information on Federator.ai, please visit [ProphetStor Federator.ai F
    ```shell
    $ curl https://raw.githubusercontent.com/containers-ai/prophetstor/master/deploy/federatorai-launcher.sh | bash
    ...
-   Please enter Federator.ai version tag [default: latest]:
+   Please enter Federator.ai version tag [default: latest]:latest
    Please enter the path of Federator.ai directory [default: /opt]:
    
    Downloading v4.5.1-b1562 tgz file ...
