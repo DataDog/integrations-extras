@@ -1,8 +1,6 @@
 import sys
 from datetime import datetime, timedelta
 
-from requests.auth import HTTPBasicAuth
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 # from typing import Any
@@ -42,39 +40,39 @@ class RedisenterpriseCheck(AgentCheck):
         is_mock = self.instance.get('is_mock', False)
         service_check_tags = self.instance.get('tags', [])
 
-        if not host or not user or not password:
+        if not host:
             raise ConfigurationError(
-                'Configuration Error: host, user, or password is not set in redisenterprise.d/conf.yaml',
+                'Configuration Error: host is not set in redisenterprise.d/conf.yaml',
             )
 
         try:
 
             # noop if we are not the cluser master
-            if self._check_follower(host, port, user, password, timeout, is_mock):
+            if self._check_follower(host, port, timeout, is_mock):
                 self.last_timestamp_seen = datetime.utcnow()
                 pass
 
             # add the cluster FQDN to the tags
-            fqdn = self._get_fqdn(host, port, user, password, service_check_tags)
+            fqdn = self._get_fqdn(host, port, service_check_tags)
             service_check_tags.append('redis_cluster:{}'.format(fqdn))
 
             # collect the license data
-            fqdn = self._get_license(host, port, user, password, service_check_tags)
+            fqdn = self._get_license(host, port, service_check_tags)
 
             # collect the node data
-            self._get_nodes(host, port, user, password, service_check_tags)
+            self._get_nodes(host, port, service_check_tags)
 
             # grab the DBD ID to name mapping
-            bdb_dict = self._get_bdb_dict(host, port, user, password, service_check_tags)
-            self._get_bdb_stats(host, port, user, password, bdb_dict, service_check_tags)
+            bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
+            self._get_bdb_stats(host, port, bdb_dict, service_check_tags)
             self._shard_usage(bdb_dict, service_check_tags, host)
 
             # collect the events from the API - we set the timeout higher here
-            self._get_events(host, port, user, password, bdb_dict, service_check_tags, event_limit)
+            self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
 
             self.service_check(
                 'redisenterprise.running',
-                self._get_version(host, port, user, password, service_check_tags),
+                self._get_version(host, port, service_check_tags),
                 tags=service_check_tags,
             )
         except Exception as e:
@@ -82,7 +80,7 @@ class RedisenterpriseCheck(AgentCheck):
 
         pass
 
-    def _check_follower(self, host, port, user, password, timeout, is_mock):
+    def _check_follower(self, host, port, timeout, is_mock):
         """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
         if is_mock:
             return False
@@ -107,7 +105,7 @@ class RedisenterpriseCheck(AgentCheck):
         info = r.json()
         return info
 
-    def _get_fqdn(self, host, port, user, password, service_check_tags):
+    def _get_fqdn(self, host, port, service_check_tags):
         """ Get the cluster FQDN back from the endpoints """
         info = self._api_fetch_json("cluster", service_check_tags)
         fqdn = info.get('name')
@@ -115,14 +113,14 @@ class RedisenterpriseCheck(AgentCheck):
             return fqdn
         return "unknown"
 
-    def _get_version(self, host, port, user, password, service_check_tags):
+    def _get_version(self, host, port, service_check_tags):
         info = self._api_fetch_json("bootstrap", service_check_tags)
         version = info.get('local_node_info').get('software_version')
         if version:
             return self.OK
         return self.CRITICAL
 
-    def _get_bdb_dict(self, host, port, user, password, service_check_tags):
+    def _get_bdb_dict(self, host, port, service_check_tags):
         bdb_dict = {}
         bdbs = self._api_fetch_json("bdbs", service_check_tags)
         for i in bdbs:
@@ -140,7 +138,7 @@ class RedisenterpriseCheck(AgentCheck):
             }
         return bdb_dict
 
-    def _get_events(self, host, port, user, password, bdb_dict, service_check_tags, event_limit):
+    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
         """ Scrape the LOG endpoint and put all log entries into Datadog events """
         evnts = self._api_fetch_json(
             "logs",
@@ -171,7 +169,7 @@ class RedisenterpriseCheck(AgentCheck):
             if ts > self.last_event_timestamp_seen:
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
 
-    def _get_bdb_stats(self, host, port, user, password, bdb_dict, service_check_tags):
+    def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
         """ Collect Enterprise database related stats """
         gauges = [
             'avg_latency',
@@ -274,7 +272,7 @@ class RedisenterpriseCheck(AgentCheck):
                     self.gauge('redisenterprise.{}'.format(j), stats[i][j], tags=tgs + service_check_tags)
         return 0
 
-    def _get_license(self, host, port, user, password, service_check_tags):
+    def _get_license(self, host, port, service_check_tags):
         """ Collect Enterprise License Information """
         stats = self._api_fetch_json("license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
@@ -301,7 +299,7 @@ class RedisenterpriseCheck(AgentCheck):
             used += x['shards_used']
         self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags, hostname=host)
 
-    def _get_nodes(self, host, port, user, password, service_check_tags):
+    def _get_nodes(self, host, port, service_check_tags):
         """ Collect Enterprise Node Information """
         stats = self._api_fetch_json("nodes", service_check_tags)
         res = {'total_node_cores': 0, 'total_node_memory': 0, 'total_node_count': 0, 'total_active_nodes': 0}
