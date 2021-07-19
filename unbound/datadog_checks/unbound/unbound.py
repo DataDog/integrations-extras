@@ -18,7 +18,7 @@ class UnboundCheck(AgentCheck):
         use_sudo = is_affirmative(instance.get('use_sudo', False))
         unbound_control = instance.get('unbound_control', 'unbound-control')
         stats_command = instance.get('stats_command', 'stats')
-        host = resolve_host(instance.get('host'))
+        host = instance.get('host')
         config_file = instance.get('config_file')
         tags = instance.get('tags', [])
 
@@ -34,7 +34,7 @@ class UnboundCheck(AgentCheck):
 
         command.extend((unbound_control, stats_command))
         if host:
-            command.extend(('-s', host))
+            command.extend(('-s', hostname_to_ip(host)))
         if config_file:
             command.extend(('-c', config_file))
 
@@ -274,7 +274,9 @@ def which(program, use_sudo, log):
 
     return None
 
-def resolve_host(host):
+
+def hostname_to_ip(host):
     strs = host.split("@")
     ip_address = socket.gethostbyname(strs[0])
-    return ip_address+'@'+strs[1]
+
+    return ip_address + '@' + strs[1]
