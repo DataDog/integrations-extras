@@ -77,8 +77,10 @@ class RedisenterpriseCheck(AgentCheck):
                 tags=service_check_tags,
             )
         except Exception as e:
-            self.service_check('redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags)
-            raise CheckException(str(e))
+            # if we have issues we want to know when not running in mock
+            if not is_mock:
+                self.service_check('redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags)
+                raise CheckException(str(e))
 
         pass
 
