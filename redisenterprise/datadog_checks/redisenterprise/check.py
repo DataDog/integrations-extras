@@ -2,6 +2,7 @@ import sys
 from datetime import datetime, timedelta
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.base.errors import CheckException
 
 # from typing import Any
 
@@ -77,6 +78,7 @@ class RedisenterpriseCheck(AgentCheck):
             )
         except Exception as e:
             self.service_check('redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags)
+            raise CheckException(str(e))
 
         pass
 
