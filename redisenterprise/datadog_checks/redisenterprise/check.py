@@ -88,7 +88,7 @@ class RedisenterpriseCheck(AgentCheck):
             return False
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/cluster'.format(host, port)
-        r = self.http.get(url, extra_headers=headers_sent, auth=HTTPBasicAuth(user, password))
+        r = self.http.get(url, extra_headers=headers_sent)
         if r.status_code != 307:
             return True
         return False
