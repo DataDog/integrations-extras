@@ -1,0 +1,513 @@
+{
+    "title": "Redis Enterprise On Flash",
+    "description": "Redis Enterprise Overview",
+    "widgets": [
+        {
+            "id": 6100693990363604,
+            "layout": {
+                "x": -1,
+                "y": -4,
+                "width": 24,
+                "height": 6
+            },
+            "definition": {
+                "type": "free_text",
+                "text": "$redis_cluster",
+                "color": "#4d4d4d",
+                "font_size": "56",
+                "text_align": "right"
+            }
+        },
+        {
+            "id": 7867105637084078,
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 24,
+                "height": 6
+            },
+            "definition": {
+                "type": "free_text",
+                "text": "$database",
+                "color": "#4d4d4d",
+                "font_size": "56",
+                "text_align": "left"
+            }
+        },
+        {
+            "id": 3857843370396150,
+            "layout": {
+                "x": 0,
+                "y": 13,
+                "width": 49,
+                "height": 15
+            },
+            "definition": {
+                "title": "% of objects in RAM",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "max:redisenterprise.bigstore_objs_percent{$redis_cluster,$database}",
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_red",
+                                "value": 95
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 91
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 90
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 1
+            }
+        },
+        {
+            "id": 3503442180394160,
+            "layout": {
+                "x": 98,
+                "y": 13,
+                "width": 47,
+                "height": 15
+            },
+            "definition": {
+                "title": "Avg Latency",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "max:redisenterprise.avg_latency{$redis_cluster,$database}",
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 1000000
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 500000
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 500000
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": false,
+                "custom_unit": "\u03bcs",
+                "precision": 0
+            }
+        },
+        {
+            "id": 5836795418439482,
+            "layout": {
+                "x": 145,
+                "y": 13,
+                "width": 48,
+                "height": 15
+            },
+            "definition": {
+                "title": "Ops/Second",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "max:redisenterprise.total_req{$redis_cluster,$database}",
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_yellow",
+                                "value": 0.0001
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 0
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 0
+            }
+        },
+        {
+            "id": 4816392752373508,
+            "layout": {
+                "x": 49,
+                "y": 13,
+                "width": 49,
+                "height": 15
+            },
+            "definition": {
+                "title": "Memory Usage",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.used_memory_percent{$redis_cluster,$database}",
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 95
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 90
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 85
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 1
+            }
+        },
+        {
+            "id": 295447236530492,
+            "layout": {
+                "x": 0,
+                "y": 29,
+                "width": 98,
+                "height": 15
+            },
+            "definition": {
+                "title": "Throughput Bytes/Sec",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.bigstore_throughput{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 7075243474768740,
+            "layout": {
+                "x": 98,
+                "y": 29,
+                "width": 95,
+                "height": 15
+            },
+            "definition": {
+                "title": "Percent of Objects in RAM",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.bigstore_objs_percent{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4707823684036616,
+            "layout": {
+                "x": 0,
+                "y": 45,
+                "width": 98,
+                "height": 15
+            },
+            "definition": {
+                "title": "Flash I/O",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.bigstore_io_reads{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:redisenterprise.bigstore_io_writes{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 5785486977861478,
+            "layout": {
+                "x": 98,
+                "y": 45,
+                "width": 95,
+                "height": 15
+            },
+            "definition": {
+                "title": "Object Count",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.bigstore_objs_flash{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:redisenterprise.bigstore_objs_ram{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 4285166419876402,
+            "layout": {
+                "x": 0,
+                "y": 61,
+                "width": 98,
+                "height": 15
+            },
+            "definition": {
+                "title": "RAM Del/Writes",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.big_del_ram{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:redisenterprise.big_write_ram{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        },
+        {
+            "id": 6314737205722812,
+            "layout": {
+                "x": 98,
+                "y": 61,
+                "width": 95,
+                "height": 15
+            },
+            "definition": {
+                "title": "Flash Del/Writes",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "q": "avg:redisenterprise.big_del_flash{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "q": "avg:redisenterprise.big_write_flash{$redis_cluster,$database}",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "label": "",
+                    "include_zero": true,
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers": []
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "redis_cluster",
+            "default": "*",
+            "prefix": "redis_cluster"
+        },
+        {
+            "name": "database",
+            "default": "*",
+            "prefix": "database"
+        }
+    ],
+    "layout_type": "free",
+    "is_read_only": false,
+    "notify_list": [],
+    "id": "c8e-m3a-hkp"
+}

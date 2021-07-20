@@ -1,0 +1,40 @@
+name: Redis Enterprise
+files:
+- name: redisenterprise.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/http 
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: host
+      required: true
+      description: The RedisEnterprise host
+      value:
+        type: string
+        example: myrediscluster.example.com
+    - name: port
+      required: false
+      description: The RedisEnterprise API port - default 9443
+      value:
+        type: integer
+        example: 9443
+    - name: event_limit
+      required: false
+      description: Number of events to fetch - default 50
+      value:
+        type: integer
+        example: 50
+    - template: instances/http
+      overrides:
+          username.description: The RedisEnterprise API user
+          username.required: true
+          username.value.example: redisadmin@example.com
+          password.required: true
+          password.description: The RedisEnterprise API user password
+          tls_verify.value.default: false
+          tls_verify.value.example: false
+          tls_ignore_warning.value.default: true
+          tls_ignore_warning.value.example: true
+    - template: instances/default
