@@ -39,7 +39,7 @@ Need help? Contact Statsig Support at support@statsig.com or [contact us here][3
 
 ## Further Reading
 
-Learn more about [Statsig here][4]
+[Learn more about Statsig][4].
 
 [1]: https://console.statsig.com/integrations
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
