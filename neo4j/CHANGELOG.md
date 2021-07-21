@@ -1,2 +1,2 @@
-# CHANGELOG - Neo4j2
+# CHANGELOG - neo4j
 
