@@ -12,10 +12,7 @@ This integration helps you stay on top of your monitors' health. It enables you 
 - Generate events for successful and failed monitoring runs.
 ## Setup
 
-You can find detailed instructions on [Postman's documentation page][3].
-
-
-
+You can find detailed instructions on [Postman's documentation page][3]. Postman Integrations require a Postman [Team, Business, or Enterprise plan][8].
 
 ### Configuration
 
@@ -62,3 +59,4 @@ Need help? Contact [Postman Support][2].
 [5]: https://github.com/DataDog/integrations-extras/blob/master/postman/metadata.csv
 [6]: https://app.datadoghq.com/account/settings#api
 [7]: https://go.postman.co/integrations/service/datadog
+[8]: https://www.postman.com/pricing/
