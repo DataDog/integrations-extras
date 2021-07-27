@@ -34,6 +34,24 @@ def test_service_check(aggregator, instance):
         )
         aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
         aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+    elif instance.get('neo4j_version') == '4.1':
+        aggregator.assert_metric(
+            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+    elif instance.get('neo4j_version') == '4.2':
+        aggregator.assert_metric(
+            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+    elif instance.get('neo4j_version') == '4.3':
+        aggregator.assert_metric(
+            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+        )
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
     else:
         raise Exception('unknown neo4j_version: {}'.format(instance.get('neo4j_version')))
 
