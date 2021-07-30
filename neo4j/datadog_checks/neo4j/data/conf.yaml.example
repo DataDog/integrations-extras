@@ -9,18 +9,23 @@ instances:
     ## @param host - string - required
     ## Neo4j host to connect to
     #
-  - host: localhost
+    # host: localhost
 
     ## @param port - integer - optional - default: 2004
     ## Port which prometheus is listening on
     #
     # port: 2004
 
+    ## @param https - string - optional - default: false
+    ## Use https to connect to prometheus
+    #
+    # https: false
+
     ## @param neo4j_version - string - required
     ## The Neo4j version to gather metric from
     ## Supported versions are 3.5, 4.0, 4.1, 4.2, 4.3
     #
-    neo4j_version: '4.3'
+    # neo4j_version: '4.3'
 
     ## @param neo4j_dbs - list of strings - optional
     ## The Neo4j databases to gather metric from.
@@ -30,10 +35,7 @@ instances:
     # neo4j_dbs:
     #  - <DB_1>
     #  - <DB_2>
-    neo4j_dbs: neo4j,
-    graph.db,
-    movies
-
+ 
     ## @param exclude_labels - list of strings - optional
     ## A list of prometheus labels to exclude. Those labels will just not be added
     ## as tags when submitting the metric.

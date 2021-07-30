@@ -6,10 +6,11 @@ NAMESPACE = 'neo4j'
 
 
 class Config:
-    def __init__(self, host, port, neo4j_version, neo4j_dbs, exclude_labels, instance_tags):
+    def __init__(self, host, port, neo4j_version, https, neo4j_dbs, exclude_labels, instance_tags):
         self.host = host
         self.port = port
         self.neo4j_version = neo4j_version
+        self.https = https
         self.neo4j_dbs = neo4j_dbs
         self.exclude_labels = exclude_labels
         self.instance_tags = instance_tags
@@ -19,6 +20,7 @@ class Config:
             self.host == other.host
             and self.port == other.port
             and self.neo4j_version == self.neo4j_version
+            and self.https == self.https
             and self.neo4j_dbs == other.neo4j_dbs
             and self.exclude_labels == other.exclude_labels
             and self.instance_tags == other.instance_tags
@@ -30,8 +32,10 @@ class Neo4jCheck(PrometheusCheck):
         self._set_whitelisted_metrics()
         config = self._get_config(instance=instance)
         self.exclude_labels = config.exclude_labels
-
-        endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
+        if (config.https.lower()=='false'):
+            endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
+        else:
+            endpoint = 'https://{}:{}/metrics'.format(config.host, config.port)
         self._check_metrics(self.scrape_metrics(endpoint=endpoint), config)
 
     def _check_metrics(self, metrics, config):
@@ -95,10 +99,11 @@ class Neo4jCheck(PrometheusCheck):
         host = self._get_value(instance=instance, key='host', required=True)
         port = self._get_value(instance=instance, key='port', required=False, default_value=2004)
         neo4j_version = self._get_value(instance=instance, key='neo4j_version', required=True)
+        https = self._get_value(instance=instance, key='https', required=False, default_value='false')
         neo4j_dbs = self._get_value(instance=instance, key='neo4j_dbs', required=False, default_value=[])
         exclude_labels = self._get_value(instance=instance, key='exclude_labels', required=False, default_value=[])
         instance_tags = self._get_value(instance=instance, key='tags', required=False, default_value=[])
-
+        
         if neo4j_version not in ["3.5", "4.0", "4.1", "4.2", "4.3","4.4"]:
             raise ConfigurationError('neo4j_version "{}" is not a valid value'.format(neo4j_version))
 
@@ -106,6 +111,7 @@ class Neo4jCheck(PrometheusCheck):
             host=host,
             port=port,
             neo4j_version=neo4j_version,
+            https=https,
             neo4j_dbs=neo4j_dbs,
             exclude_labels=exclude_labels,
             instance_tags=instance_tags,
