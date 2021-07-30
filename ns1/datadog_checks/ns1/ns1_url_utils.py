@@ -2,32 +2,120 @@ from .ns1_api_url import NS1_ENDPOINTS
 
 
 class Ns1Url:
-    def __init__(self, api_endpoint):
+    def __init__(self, api_endpoint, check):
+        self.check = check
         self.api_endpoint = api_endpoint
 
     # generate url for QPS and usages statistics
     # returns dictionary in form of <metric name>:<metric url>}
-    def get_stats_url(self, key, val, query_params):
+    def get_stats_url_usage(self, key, val, networknames):
         urlList = {}
+        query_string = ""
 
-        if key == "usage":
-            network_id = "*"
-            if query_params and "usage_networks" in query_params:
-                network_id = query_params["usage_networks"]
-            query_string = "?period=1h&expand=false&networks={networks}".format(networks=network_id)
-            metric_name = "usage"
-            metric_zone = "usage.zone"
-            metric_record = "usage.record"
-            metric_type = "count"
-        else:
-            query_string = ""
-            metric_name = "qps"
-            metric_zone = "qps.zone"
-            metric_record = "qps.record"
-            metric_type = "gauge"
-
-        # get account wide stats
+        metric_name = "usage"
+        metric_zone = "usage.zone"
+        metric_record = "usage.record"
+        metric_type = "count"
+        query_string = "?period=1h&expand=false"
         url = NS1_ENDPOINTS["qps.usage"].format(apiendpoint=self.api_endpoint, key=key, query=query_string)
+        # get account wide stats
+        tags = [""]
+        urlList[key] = [url, metric_name, tags, metric_type]
+
+        # if list of networks is supplied, query account-wide for each network as well
+        if networknames and len(networknames) > 0:
+            for k, v in networknames.items():
+                query_string = "?period=1h&expand=false&networks={networks}".format(networks=k)
+                url = NS1_ENDPOINTS["qps.usage"].format(apiendpoint=self.api_endpoint, key=key, query=query_string)
+                tags = ["network:{network}".format(network=v)]
+                urlList["{key}.{netid}".format(key=key, netid=k)] = [url, metric_name, tags, metric_type]
+
+        if not val:
+            return urlList
+
+        for zoneDict in val:
+            # zone is again dictionary, with zone name as key and records as list of objects
+            for domain, records in zoneDict.items():
+                # here, domain is zone name, records is list of records and record types
+                # if list of networks is supplied, query zone for each network as well
+                if networknames and len(networknames) > 0:
+                    for k, v in networknames.items():
+                        query_string = "?period=1h&expand=false&networks={networks}".format(networks=k)
+                        url = NS1_ENDPOINTS["qps.usage.zone"].format(
+                            apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
+                        )
+                        tags = ["network:{network}".format(network=v), "zone:{zone}".format(zone=domain)]
+                        urlkey = "{key}.{domain}.{netid}".format(key=key, domain=domain, netid=k)
+                        urlList[urlkey] = [url, metric_name, tags, metric_type]
+                else:
+                    query_string = "?period=1h&expand=false"
+                    url = NS1_ENDPOINTS["qps.usage.zone"].format(
+                        apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
+                    )
+                    tags = ["zone:{zone}".format(zone=domain)]
+
+                    urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags, metric_type]
+
+                if not records:
+                    # if records are not specified, get all records for the zone, then build url for each record
+                    records = self.check.get_zone_records(domain)
+
+                # for each record, either specified or queried from zone
+                if records:
+                    for rec in records:
+                        for rname, rtype in rec.items():
+                            if networknames and len(networknames) > 0:
+                                for k, v in networknames.items():
+                                    query_string = "?period=1h&expand=false&networks={networks}".format(networks=k)
+                                    url = NS1_ENDPOINTS["qps.usage.record"].format(
+                                        apiendpoint=self.api_endpoint,
+                                        key=key,
+                                        domain=domain,
+                                        record=rname,
+                                        rectype=rtype,
+                                        query=query_string,
+                                    )
+                                    tags = [
+                                        "network:{network}".format(network=v),
+                                        "zone:{zone}".format(zone=domain),
+                                        "record:{record}".format(record=rname),
+                                        "type:{rectype}".format(rectype=rtype),
+                                    ]
+                                    urlkey = "{key}.{record}.{rectype}.{netid}".format(
+                                        key=key, record=rname, rectype=rtype, netid=k
+                                    )
+                                    urlList[urlkey] = [url, metric_record, tags, metric_type]
+                            else:
+                                query_string = "?period=1h&expand=false"
+                                url = NS1_ENDPOINTS["qps.usage.record"].format(
+                                    apiendpoint=self.api_endpoint,
+                                    key=key,
+                                    domain=domain,
+                                    record=rname,
+                                    rectype=rtype,
+                                    query=query_string,
+                                )
+                                tags = [
+                                    "zone:{zone}".format(zone=domain),
+                                    "record:{record}".format(record=rname),
+                                    "type:{rectype}".format(rectype=rtype),
+                                ]
+                                urlkey = "{key}.{record}.{rectype}".format(key=key, record=rname, rectype=rtype)
+                                urlList[urlkey] = [url, metric_record, tags, metric_type]
+
+        return urlList
+
+    # generate url for QPS statistics
+    # returns dictionary in form of <metric name>:<metric url>}
+    def get_stats_url_qps(self, key, val):
+        urlList = {}
+        query_string = ""
+        metric_name = "qps"
+        metric_zone = "qps.zone"
+        metric_record = "qps.record"
+        metric_type = "gauge"
+        url = NS1_ENDPOINTS["qps.usage"].format(apiendpoint=self.api_endpoint, key="qps", query=query_string)
+        # get account wide stats
         tags = [""]
         urlList[key] = [url, metric_name, tags, metric_type]
 
@@ -40,30 +128,36 @@ class Ns1Url:
                 url = NS1_ENDPOINTS["qps.usage.zone"].format(
                     apiendpoint=self.api_endpoint, key=key, domain=domain, query=query_string
                 )
-                if key == "usage":
-                    tags = ["network:{network}".format(network=network_id), "zone:{zone}".format(zone=domain)]
-                else:
-                    tags = ["zone:{zone}".format(zone=domain)]
+                tags = ["zone:{zone}".format(zone=domain)]
                 urlList["{key}.{domain}".format(key=key, domain=domain)] = [url, metric_zone, tags, metric_type]
+
+                if not records:
+                    # if records are not specified, get all records for the zone, then build url for each record
+                    records = self.check.get_zone_records(domain)
+                    for rec in records:
+                        for k, v in rec.items():
+                            print("{k} = {v}".format(k=k, v=v))
 
                 if records:
                     for rec in records:
-                        for r, t in rec.items():
+                        for rname, rtype in rec.items():
                             url = NS1_ENDPOINTS["qps.usage.record"].format(
                                 apiendpoint=self.api_endpoint,
                                 key=key,
                                 domain=domain,
-                                record=r + "." + domain,
-                                rectype=t,
+                                record=rname,
+                                rectype=rtype,
                                 query=query_string,
                             )
                             tags = [
-                                "record:{record}.{zone}".format(record=r, zone=domain),
+                                "zone:{zone}".format(zone=domain),
+                                "record:{record}".format(record=rname),
+                                "type:{rectype}".format(rectype=rtype),
                             ]
-                            urlkey = "{key}.{domain}.{record}.{rectype}".format(
-                                key=key, domain=domain, record=r, rectype=t
-                            )
+                            urlkey = "{key}.{record}.{rectype}".format(key=key, record=rname, rectype=rtype)
                             urlList[urlkey] = [url, metric_record, tags, metric_type]
+                else:
+                    urlList[urlkey] = [url, metric_record, tags, metric_type]
         return urlList
 
     # generate url for DDI lease and lps statistics

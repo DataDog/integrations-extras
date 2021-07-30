@@ -108,11 +108,22 @@ instances:
     ## For pulsar, period should be at least 1 hour
     #
     # query_params:
-    #   usage_networks: "*"
     #   pulsar_period: 1h
     #   pulsar_geo: "*"
     #   pulsar_asn: "*"
     #   pulsar_agg: avg
+
+    ## @param networks - list - optional
+    ## If present, Usage stats will be queried and reported by network.
+    ## Each network stats will be tagged with network name
+    ## If omitted, Usage stats will be reported account wide
+    ## If list of network Id's is supplied only those networks will be queried
+    ## and reported. If list of id's is ommited, all networks will be queried
+    #
+    # networks:
+    #   - 0
+    #   - 5
+    #   - 80
 
     ## @param min_collection_interval - integer - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
