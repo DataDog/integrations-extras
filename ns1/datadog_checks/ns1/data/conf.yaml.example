@@ -23,22 +23,35 @@ instances:
     #
     api_key: test_key_123
 
+    ## @param networks - list - optional
+    ## If present, usage stats will be queried and reported by network.
+    ## Each network's stats will be tagged with network name.
+    ## If omitted, usage stats will be reported only account wide.
+    ## If list of network id's is supplied only those networks will be queried.
+    ## If parameter is present without list of network id's,
+    ## all available networks will be queried.
+    #
+    # networks:
+    #   - 0
+    #   - 5
+    #   - 80
+
     ## @param metrics - dictionary - required
     ## List of metrics to report to Datadog
-    ## Each individual entry within metric dictionary is optional,
+    ## Each individual entry within the metric dictionary is optional,
     ## however at least one has to be present
-    ## i.e. you must specify at least one of following:
+    ## i.e. you must specify at least one of the following:
     ## qps, usage, account, ddi, pulsar, pulsar_by_app, pulsar_by_record
     #
     metrics:
     ## @param pulsar - boolean - optional
-    ## if parameter is present following will be repoted account-wide:
+    ## if parameter is present following will be reported account-wide:
     ## number of decisions, number of undetermined decisions, route map hits and misses
     #
     #   pulsar:
 
     ## @param pulsar_by_record - list - optional
-    ## if parameter is present following will be repoted on per record basis:
+    ## if parameter is present, the following will be reported on per record basis:
     ## number of decisions, route map hits and misses
     ## enter list of dns records in form:
     ## - <record name>: <record type>
@@ -48,7 +61,7 @@ instances:
     #     - www.test1.com: A
 
     ## @param pulsar_by_app - list - optional
-    ## if parameter is present aggregate performance data
+    ## if parameter is present, aggregate performance data
     ## and pulsar availability data will be reported
     ## enter list of pulsar application id's and job id's in form:
     ## - <app_id>: <job_id>
@@ -69,14 +82,14 @@ instances:
     ## @param qps - list - optional
     ## (Queries per second)
     ## if parameter is present, QPS statistics will be reported account-wide
-    ## you can specify in array of domain names to additionally 
-    ## report qps for each domain separatelly
+    ## you can specify an array of domain names to additionally 
+    ## report qps for each domain separately
     ## if sub-array of records within domain is specified, 
     ## qps will be reported for each record separatelly
     #
     #   qps:
     #     - test.com:
-    #       - www: A
+    #       - www.test.com: A
 
     ## @param usage - list - optional
     ## (Number of queries)
@@ -88,7 +101,7 @@ instances:
     #
     #   usage:
     #     - test.com:
-    #       - www: A
+    #       - www.test.com: A
 
     ## @param account - list - optional
     ## (billing and ttl)
@@ -104,7 +117,7 @@ instances:
     #       - test1.com
 
     ## @param query_parameters - dictionary - optional
-    ## Usage and Pulsar API endpoints can have query string parameters 
+    ## Pulsar API endpoints can have query string parameters 
     ## For pulsar, period should be at least 1 hour
     #
     # query_params:
@@ -112,18 +125,6 @@ instances:
     #   pulsar_geo: "*"
     #   pulsar_asn: "*"
     #   pulsar_agg: avg
-
-    ## @param networks - list - optional
-    ## If present, Usage stats will be queried and reported by network.
-    ## Each network stats will be tagged with network name
-    ## If omitted, Usage stats will be reported account wide
-    ## If list of network Id's is supplied only those networks will be queried
-    ## and reported. If list of id's is ommited, all networks will be queried
-    #
-    # networks:
-    #   - 0
-    #   - 5
-    #   - 80
 
     ## @param min_collection_interval - integer - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
