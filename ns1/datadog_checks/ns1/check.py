@@ -122,6 +122,11 @@ class Ns1Check(AgentCheck):
     def get_networks(self, networks):
         url = "{apiendpoint}/v1/networks".format(apiendpoint=self.api_endpoint)
         res = self.get_stats(url)
+        msg = 'Get networks API Query URL: {url}'.format(url=url)
+        self.log.info(msg)
+        msg = 'Get Networks API result: {result}'.format(result=json.dumps(res))
+        self.log.info(msg)
+
         nets = {}
         for net in res:
             network_id = net["network_id"]
