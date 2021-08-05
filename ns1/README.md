@@ -20,9 +20,8 @@ Refer to Datadog’s [community integrations installation][3] page for the speci
 When running the installation process, make sure to do so using the following variables specific to the NS1 integration:
 
 
-* <INTEGRATION_NAME>:  NS1
-* <INTEGRATION_VERSION>:  0.0.3
-
+* <INTEGRATION_NAME>:  ns1
+* <INTEGRATION_VERSION>:  0.0.4
 
 
 ## Configuration
