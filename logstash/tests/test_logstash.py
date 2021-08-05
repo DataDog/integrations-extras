@@ -158,7 +158,7 @@ def test_check(aggregator):
         if desc[0] == "gauge":
             if is_multi_pipeline and is_pipeline_metric:
                 aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:main'])
-
+                aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:second_pipeline'])
             else:
                 aggregator.assert_metric(m_name, count=1, tags=m_tags)
 
