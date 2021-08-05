@@ -80,7 +80,7 @@ class RedisenterpriseCheck(AgentCheck):
             # if we have issues we want to know when not running in mock
             if not is_mock:
                 self.service_check('redisenterprise.running', self.CRITICAL, message=str(e), tags=service_check_tags)
-                raise CheckException(str(e))
+                raise CheckException(e)
 
         pass
 
@@ -214,7 +214,16 @@ class RedisenterpriseCheck(AgentCheck):
             'big_del_ram',
             'big_del_flash',
         ]
-        stats = self._api_fetch_json("bdbs/stats/last", service_check_tags)
+
+        # If there are no databases created the following link will 404, so we need to handle this
+        try:
+            stats = self._api_fetch_json("bdbs/stats/last", service_check_tags)
+        except Exception as e:
+            if e.response.status_code == 404:
+                self.gauge('redisenterprise.database_count', 0, tags=service_check_tags, hostname=host)
+                return 0
+            else:
+                raise e
         self.gauge('redisenterprise.database_count', len(stats), tags=service_check_tags, hostname=host)
         for i in stats:
             tgs = []
