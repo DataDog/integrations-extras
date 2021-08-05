@@ -64,6 +64,16 @@ PIPELINE_METRICS = {
     "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
 }
 
+PIPELINE_METRICS_LOGSTASH_6_PLUS = {
+    "logstash.pipeline.queue.events": ("gauge", "queue.events"),
+    "logstash.pipeline.queue.capacity.max_queue_size_in_bytes": ("gauge", "queue.capacity.max_queue_size_in_bytes"),
+    "logstash.pipeline.queue.capacity.queue_size_in_bytes": ("gauge", "queue.capacity.queue_size_in_bytes"),
+    "logstash.pipeline.queue.capacity.max_unread_events": ("gauge", "queue.capacity.max_unread_events"),
+    "logstash.pipeline.queue.capacity.page_capacity_in_bytes": ("gauge", "queue.capacity.page_capacity_in_bytes"),
+    "logstash.pipeline.reloads.successes": ("gauge", "reloads.successes"),
+    "logstash.pipeline.reloads.failures": ("gauge", "reloads.failures"),
+}
+
 PIPELINE_INPUTS_METRICS = {
     "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
     "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
@@ -114,7 +124,7 @@ def test_check(aggregator):
     input_tag = [u"plugin_conf_id:dummy_input"]
     output_tag = [u"plugin_conf_id:dummy_output", u"output_name:stdout"]
     filter_tag = [u"plugin_conf_id:dummy_filter", u"filter_name:json"]
-    if logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version):
+    if is_multi_pipeline:
         input_tag.append(u"input_name:beats")
     else:
         input_tag.append(u"input_name:stdin")
@@ -124,12 +134,16 @@ def test_check(aggregator):
     expected_metrics.update(PIPELINE_INPUTS_METRICS)
     expected_metrics.update(PIPELINE_OUTPUTS_METRICS)
     expected_metrics.update(PIPELINE_FILTERS_METRICS)
+    if is_multi_pipeline:
+        expected_metrics.update(PIPELINE_METRICS_LOGSTASH_6_PLUS)
 
     good_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(PORT)]
 
     pipeline_metrics = dict(PIPELINE_METRICS, **PIPELINE_INPUTS_METRICS)
     pipeline_metrics.update(PIPELINE_FILTERS_METRICS)
     pipeline_metrics.update(PIPELINE_OUTPUTS_METRICS)
+    if is_multi_pipeline:
+        pipeline_metrics.update(PIPELINE_METRICS_LOGSTASH_6_PLUS)
 
     for m_name, desc in expected_metrics.items():
         m_tags = TAGS + default_tags
@@ -144,7 +158,7 @@ def test_check(aggregator):
         if desc[0] == "gauge":
             if is_multi_pipeline and is_pipeline_metric:
                 aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:main'])
-                aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:second_pipeline'])
+
             else:
                 aggregator.assert_metric(m_name, count=1, tags=m_tags)
 
