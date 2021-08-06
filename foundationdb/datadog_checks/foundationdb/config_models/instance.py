@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 from typing import Optional, Sequence
@@ -15,10 +14,17 @@ class InstanceConfig(BaseModel):
     class Config:
         allow_mutation = False
 
+    base_command: Sequence[str]
+    cluster_file: Optional[str]
     empty_default_hostname: Optional[bool]
     min_collection_interval: Optional[float]
     service: Optional[str]
     tags: Optional[Sequence[str]]
+    tls_ca_file: Optional[str]
+    tls_certificate_file: Optional[str]
+    tls_key_file: Optional[str]
+    tls_password: Optional[str]
+    tls_verify_peers: Optional[str]
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):
