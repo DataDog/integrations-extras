@@ -1,11 +1,10 @@
 {
-	"id": 0,
 	"name": "FoundationDB Low Disk Space",
-	"type": "metric alert",
+	"type": "event alert",
 	"query": "avg(last_5m):min:foundationdb.process.disk.free_bytes{*} by {fdb_process} < 200000000",
 	"message": "A FoundationDB process is running very low on disk space. This may soon impact its ability to process new transactions.",
 	"tags": [
-		"fdb"
+		"integration:fdb"
 	],
 	"options": {
 		"notify_audit": false,
@@ -23,5 +22,8 @@
 			"warning": 500000000
 		}
 	},
-	"priority": null
+	"priority": null,
+	"recommended_monitor_metadata": {
+		"description": "Get notified when the FoundationDB process is running very low on disk space."
+	}
 }

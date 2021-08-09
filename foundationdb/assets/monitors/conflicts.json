@@ -1,11 +1,10 @@
 {
-	"id": 0,
 	"name": "FoundationDB High Level of Conflicted Transactions",
-	"type": "metric alert",
+	"type": "event alert",
 	"query": "avg(last_5m):100 * ( avg:foundationdb.workload.transactions.conflicted.hz{*} / avg:foundationdb.workload.transactions.started.hz{*} ) > 10",
 	"message": "A significant proportion of transactions started are ending up in a conflicted state. This may indicate a query design problem.",
 	"tags": [
-		"fdb"
+		"integration:fdb"
 	],
 	"options": {
 		"notify_audit": false,
@@ -23,5 +22,8 @@
 			"warning": 5
 		}
 	},
-	"priority": null
+	"priority": null,
+	"recommended_monitor_metadata": {
+		"description": "Get notified when a significant portion of transactions started are ending up in a conflicted state."
+	}
 }

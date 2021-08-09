@@ -1,10 +1,10 @@
 {
 	"name": "FoundationDB Errors Logged",
-	"type": "log alert",
+	"type": "event alert",
 	"query": "logs(\"service:foundationdb @Severity:>=40\").index(\"*\").rollup(\"count\").by(\"host\").last(\"10m\") > 3",
 	"message": "FoundationDB has logged errors. This indicates an one of the assumptions of the database has been violated; such situations are generally caused by hardware failures.",
 	"tags": [
-		"fdb"
+		"integration:fdb"
 	],
 	"options": {
 		"thresholds": {
@@ -47,5 +47,8 @@
 		"escalation_message": "",
 		"groupby_simple_monitor": false,
 		"renotify_interval": 0
+	},
+	"recommended_monitor_metadata": {
+		"description": "Get notified when there is an error logged"
 	}
 }

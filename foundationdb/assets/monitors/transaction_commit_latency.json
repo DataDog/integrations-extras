@@ -1,11 +1,10 @@
 {
-	"id": 0,
 	"name": "FoundationDB Transaction Commit Latency Probe",
-	"type": "metric alert",
+	"type": "event alert",
 	"query": "avg(last_5m):avg:foundationdb.latency_probe.commit_seconds{*} > 5",
 	"message": "{{#is_alert}}\nA transaction performed on the FoundationDB cluster to measure current latency took a long time to commit.\n{{/is_alert}} \n{{#is_warning}}\nA transaction performed on the FoundationDB cluster to measure current latency took a longer time to commit than would normally be expected.\n{{/is_warning}}",
 	"tags": [
-		"fdb"
+		"integration:fdb"
 	],
 	"options": {
 		"notify_audit": false,
@@ -23,5 +22,8 @@
 			"warning": 2
 		}
 	},
-	"priority": null
+	"priority": null,
+	"recommended_monitor_metadata": {
+		"description": "Get notified when a transaction performed on the FoundationDB cluster to measure current latency took a long time to commit."
+	}
 }
