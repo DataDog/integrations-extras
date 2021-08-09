@@ -63,8 +63,6 @@ METRICS = [
     "foundationdb.process.role.total_queries.counter",
     "foundationdb.process.role.bytes_queried.hz",
     "foundationdb.process.role.bytes_queried.counter",
-    "foundationdb.process.role.durable_bytes.hz",
-    "foundationdb.process.role.durable_bytes.counter",
     "foundationdb.process.role.finished_queries.hz",
     "foundationdb.process.role.finished_queries.counter",
     "foundationdb.process.role.keys_queried.hz",
