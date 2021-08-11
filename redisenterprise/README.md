@@ -61,6 +61,10 @@ Copy the [sample configuration][7] and update the required sections to collect d
     #
     host: myrediscluster.example.com
 
+    ## @param port - integer - optional - default: 9443
+    #
+    port: 9443
+
     ## @param user - string - required
     ## The RedisEnterprise API user
     #
