@@ -39,7 +39,7 @@ This integration is provided by Redis Labs.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
+If you are using Agent v7.21+ / v6.21+ follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior < v7.21 / v6.21][4] or the [Docker Agent][5]:
 
 1. [Download and launch the Datadog Agent][2].
 2. Run the following command to install the integrations wheel with the Agent:
@@ -113,9 +113,9 @@ Contact the [Redis Enterprise Support Team][11]
 
 [1]: http://www.redislabs.com
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentv721v621
+[4]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentearlierversions
+[5]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 [6]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/datadog_checks/redisenterprise/data/conf.yaml.example
 [8]: https://docs.redislabs.com/latest/rc/security/database-security/passwords-users-roles/
