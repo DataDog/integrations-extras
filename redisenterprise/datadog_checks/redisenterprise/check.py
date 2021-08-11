@@ -73,9 +73,6 @@ class RedisenterpriseCheck(AgentCheck):
                 # collect the events from the API - we set the timeout higher here
                 self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
 
-                # grab the master version
-                version = (self._get_version(host, port, service_check_tags),)
-
                 # update the timestamp if everything else passes
                 self.last_timestamp_seen = datetime.utcnow()
 
@@ -136,7 +133,7 @@ class RedisenterpriseCheck(AgentCheck):
             if fqdn:
                 return fqdn
             return "unknown"
-        except:
+        except Exception:
             return "unknown"
 
     def _get_version(self, host, port, service_check_tags):
