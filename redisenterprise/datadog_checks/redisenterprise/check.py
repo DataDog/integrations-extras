@@ -1,10 +1,12 @@
 import sys
 from datetime import datetime, timedelta
 
+# We need requests because the self.http does not allow us to ignore redirects - confirmed with @sarah-witt
+import requests
+from requests.auth import HTTPBasicAuth
+
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
-
-# from typing import Any
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'redisenterprise'
 
@@ -37,6 +39,8 @@ class RedisenterpriseCheck(AgentCheck):
         host = self.instance.get('host')
         timeout = self.instance.get('timeout')
         port = self.instance.get('port', 9443)
+        username = self.instance.get('username')
+        password = self.instance.get('password')
         event_limit = self.instance.get('event_limit', 100)
         is_mock = self.instance.get('is_mock', False)
         service_check_tags = self.instance.get('tags', [])
@@ -48,34 +52,42 @@ class RedisenterpriseCheck(AgentCheck):
 
         try:
 
-            # noop if we are not the cluser master
-            if self._check_follower(host, port, timeout, is_mock):
+            # check everything if we are the cluster master
+            if self._check_follower(host, port, username, password, timeout, is_mock):
+
+                # add the cluster FQDN to the tags
+                fqdn = self._get_fqdn(host, port, service_check_tags)
+                service_check_tags.append('redis_cluster:{}'.format(fqdn))
+
+                # collect the license data
+                fqdn = self._get_license(host, port, service_check_tags)
+
+                # collect the node data
+                self._get_nodes(host, port, service_check_tags)
+
+                # grab the DBD ID to name mapping
+                bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
+                self._get_bdb_stats(host, port, bdb_dict, service_check_tags)
+                self._shard_usage(bdb_dict, service_check_tags, host)
+
+                # collect the events from the API - we set the timeout higher here
+                self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
+
+                # grab the master version
+                version = (self._get_version(host, port, service_check_tags),)
+
+                # update the timestamp if everything else passes
                 self.last_timestamp_seen = datetime.utcnow()
-                pass
 
-            # add the cluster FQDN to the tags
-            fqdn = self._get_fqdn(host, port, service_check_tags)
-            service_check_tags.append('redis_cluster:{}'.format(fqdn))
+                # Only run the service check if we are master
+                self.service_check(
+                    'redisenterprise.running',
+                    self._get_version(host, port, service_check_tags),
+                    tags=service_check_tags,
+                )
 
-            # collect the license data
-            fqdn = self._get_license(host, port, service_check_tags)
+            self.last_timestamp_seen = datetime.utcnow()
 
-            # collect the node data
-            self._get_nodes(host, port, service_check_tags)
-
-            # grab the DBD ID to name mapping
-            bdb_dict = self._get_bdb_dict(host, port, service_check_tags)
-            self._get_bdb_stats(host, port, bdb_dict, service_check_tags)
-            self._shard_usage(bdb_dict, service_check_tags, host)
-
-            # collect the events from the API - we set the timeout higher here
-            self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
-
-            self.service_check(
-                'redisenterprise.running',
-                self._get_version(host, port, service_check_tags),
-                tags=service_check_tags,
-            )
         except Exception as e:
             # if we have issues we want to know when not running in mock
             if not is_mock:
@@ -84,13 +96,20 @@ class RedisenterpriseCheck(AgentCheck):
 
         pass
 
-    def _check_follower(self, host, port, timeout, is_mock):
+    def _check_follower(self, host, port, username, password, timeout, is_mock):
         """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
         if is_mock:
             return False
-        headers_sent = {'Content-Type': 'application/json'}
-        url = 'https://{}:{}/v1/cluster'.format(host, port)
-        r = self.http.get(url, extra_headers=headers_sent)
+
+        # We are using requests specifically because we do not want to follow redirects
+        r = requests.get(
+            'https://{}:{}/v1/cluster'.format(host, port),
+            auth=HTTPBasicAuth(username, password),
+            headers={'Content-Type': 'application/json'},
+            allow_redirects=False,
+            verify=False,
+        )
+
         if r.status_code != 307:
             return True
         return False
@@ -111,11 +130,14 @@ class RedisenterpriseCheck(AgentCheck):
 
     def _get_fqdn(self, host, port, service_check_tags):
         """ Get the cluster FQDN back from the endpoints """
-        info = self._api_fetch_json("cluster", service_check_tags)
-        fqdn = info.get('name')
-        if fqdn:
-            return fqdn
-        return "unknown"
+        try:
+            info = self._api_fetch_json("cluster", service_check_tags)
+            fqdn = info.get('name')
+            if fqdn:
+                return fqdn
+            return "unknown"
+        except:
+            return "unknown"
 
     def _get_version(self, host, port, service_check_tags):
         info = self._api_fetch_json("bootstrap", service_check_tags)
