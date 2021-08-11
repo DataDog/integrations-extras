@@ -88,7 +88,7 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.reloads.failures": ("gauge", "reloads.failures"),
     }
 
-    PIPELINE_METRICS_LOGSTASH_6_PLUS = {
+    PIPELINE_QUEUE_METRICS = {
         "logstash.pipeline.queue.events": ("gauge", "queue.events"),
         "logstash.pipeline.queue.capacity.max_queue_size_in_bytes": ("gauge", "queue.capacity.max_queue_size_in_bytes"),
         "logstash.pipeline.queue.capacity.queue_size_in_bytes": ("gauge", "queue.capacity.queue_size_in_bytes"),
@@ -182,9 +182,7 @@ class LogstashCheck(AgentCheck):
 
     def _is_multi_pipeline(self, version):
         """ Reusable version checker """
-        if version and LooseVersion(version) < LooseVersion("6.0.0"):
-            return False
-        return True
+        return version and LooseVersion(version) >= LooseVersion("6.0.0")
 
     def check(self, instance):
         config = self.get_instance_config(instance)
@@ -236,7 +234,7 @@ class LogstashCheck(AgentCheck):
         """
         pipeline_metrics = self.PIPELINE_METRICS
         if self._is_multi_pipeline(logstash_version):
-            pipeline_metrics.update(self.PIPELINE_METRICS_LOGSTASH_6_PLUS)
+            pipeline_metrics.update(self.PIPELINE_QUEUE_METRICS)
         for metric, metric_desc in iteritems(pipeline_metrics):
             self._process_metric(pipeline_data, metric, *metric_desc, tags=tags)
 
