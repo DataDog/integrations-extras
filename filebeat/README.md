@@ -23,6 +23,8 @@ If you are using Agent v6.8+ follow the instructions below to install the Filebe
    ```
 3. Configure your integration like [any other packaged integration][6].
 
+See the [Changelog](https://github.com/DataDog/integrations-extras/blob/master/filebeat/CHANGELOG.md) for the available integration versions.
+
 ### Configuration
 
 1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
