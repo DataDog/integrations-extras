@@ -12,6 +12,17 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
+#### Agent versions >=7.26.0 or >=6.26.0
+
+To use an integration from `integrations-extra` with the Docker Agent, Datadog recommends building the Agent with the integration installed. Use the following Dockerfile to build an updated version of the Agent that includes the `gatekeeper` integration from `integrations-extras`:
+
+```
+FROM gcr.io/datadoghq/agent:latest
+RUN agent integration install -r -t datadog-gatekeeper==<INTEGRATION_VERSION>
+```
+
+#### Agent versions <7.26.0 or <6.26.0
+
 To install the gatekeeper check on your Kubernetes cluster:
 
 1. Install the [developer toolkit][4].
