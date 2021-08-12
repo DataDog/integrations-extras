@@ -1,0 +1,14 @@
+name: calico
+files:
+  - name: calico.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/default
+      - template: instances
+        options:
+          - prometheus_url: http://localhost:54127//metrics
+            name: felix
+            namespace: calico
+            description: Prometheus url and metrics to check
+            metrics: ["felix_active_local_endpoints"]
