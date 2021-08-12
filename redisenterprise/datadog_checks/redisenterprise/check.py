@@ -2,7 +2,7 @@ import sys
 from datetime import datetime, timedelta
 
 # We need requests because the self.http does not allow us to ignore redirects - confirmed with @sarah-witt
-import requests
+import requests  # SKIP_HTTP_VALIDATION
 from requests.auth import HTTPBasicAuth
 
 from datadog_checks.base import AgentCheck, ConfigurationError
@@ -53,7 +53,7 @@ class RedisenterpriseCheck(AgentCheck):
         try:
 
             # check everything if we are the cluster master
-            if self._check_follower(host, port, username, password, timeout, is_mock):
+            if self._check_not_follower(host, port, username, password, timeout, is_mock):
 
                 # add the cluster FQDN to the tags
                 fqdn = self._get_fqdn(host, port, service_check_tags)
@@ -93,7 +93,7 @@ class RedisenterpriseCheck(AgentCheck):
 
         pass
 
-    def _check_follower(self, host, port, username, password, timeout, is_mock):
+    def _check_not_follower(self, host, port, username, password, timeout, is_mock):
         """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
         if is_mock:
             return False

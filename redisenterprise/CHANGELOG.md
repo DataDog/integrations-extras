@@ -1,7 +1,7 @@
 # CHANGELOG - RedisEnterprise
 
 
-0.4.8
+0.4.9
 =====
 
 ### Fix redirect error on cluster follower
