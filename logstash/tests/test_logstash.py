@@ -140,8 +140,6 @@ def test_check(aggregator):
     pipeline_metrics = dict(PIPELINE_METRICS, **PIPELINE_INPUTS_METRICS)
     pipeline_metrics.update(PIPELINE_FILTERS_METRICS)
     pipeline_metrics.update(PIPELINE_OUTPUTS_METRICS)
-    if is_multi_pipeline:
-        pipeline_queue_metrics = dict(PIPELINE_QUEUE_METRICS)
 
     for metric_name, desc in expected_metrics.items():
         metric_tags = TAGS + default_tags
