@@ -1,7 +1,6 @@
 import sys
 from datetime import datetime, timedelta
 
-# We need requests because the self.http does not allow us to ignore redirects - confirmed with @sarah-witt
 import requests  # SKIP_HTTP_VALIDATION
 from requests.auth import HTTPBasicAuth
 
