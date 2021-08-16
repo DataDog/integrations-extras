@@ -7,6 +7,7 @@ files:
           - template: init_config/default
       - template: instances
         options:
+          - template: instances/default
           - name: prometheus_url
             required: true
             description: Prometheus url and metrics to check
@@ -46,10 +47,3 @@ files:
             value:
               type: string
               example: calico
-          - name: tags
-            required: false
-            description: "Tags that will be given to every metric."
-            value:
-              type: object
-              example:
-                integration: calico
