@@ -1,0 +1,26 @@
+{
+  "id": 1852165,
+  "name": "Calico error with IPsets",
+  "type": "metric alert",
+  "query": "sum(last_5m):avg:calico.felix_ipset_errors{*}.as_count() > 1",
+  "message": "{{#is_alert}}\nIt looks like Calico encountered a problem applying IP sets to {{host.name}}\n{{/is_alert}}",
+  "tags": [],
+  "options": {
+    "notify_audit": false,
+    "locked": false,
+    "timeout_h": 0,
+    "new_host_delay": 300,
+    "require_full_window": false,
+    "notify_no_data": true,
+    "renotify_interval": "0",
+    "evaluation_delay": 10,
+    "escalation_message": "",
+    "no_data_timeframe": 10,
+    "include_tags": true,
+    "thresholds": {
+      "critical": 1,
+      "warning": 0
+    }
+  },
+  "priority": null
+}
