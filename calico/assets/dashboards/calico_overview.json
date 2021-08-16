@@ -208,7 +208,7 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 11 }
     },
     {
       "id": 4808370589500869,
@@ -228,20 +228,19 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_ipset_calls{host:MacBook-Pro-de-Max.local}.as_count()"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_ipset_calls{host:MacBook-Pro-de-Max.local}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -264,20 +263,19 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_iptables_chains{host:MacBook-Pro-de-Max.local}"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_iptables_chains{host:MacBook-Pro-de-Max.local}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "purple",
                     "line_type": "solid",
@@ -300,20 +298,19 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_ipset_errors{host:MacBook-Pro-de-Max.local}.as_count()"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_ipset_errors{host:MacBook-Pro-de-Max.local}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -330,32 +327,31 @@
           {
             "id": 5751107302077524,
             "definition": {
-              "title": "Number of IP tables restore errors",
+              "title": "Number of IP tables rules",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_iptables_restore_errors{host:MacBook-Pro-de-Max.local}.as_count()"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_iptables_rules{host:MacBook-Pro-de-Max.local}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "bars"
+                  "display_type": "line"
                 }
               ],
               "yaxis": { "min": "0" },
@@ -372,20 +368,19 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_ipsets_calico{*}"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_ipsets_calico{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "cool",
                     "line_type": "solid",
@@ -395,8 +390,8 @@
                 }
               ],
               "yaxis": {
-                "scale": "linear",
                 "include_zero": true,
+                "scale": "linear",
                 "label": "",
                 "min": "auto",
                 "max": "auto"
@@ -411,25 +406,24 @@
               "title": "IPtables restore calls",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "limit": { "count": 10, "order": "desc" },
-                      "formula": "query1"
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
+                      "query": "sum:calico.felix_iptables_restore_calls{*}.as_count()",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:calico.felix_iptables_restore_calls{*}.as_count()",
                       "aggregator": "sum"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -441,7 +435,6 @@
               "title": "IPtables restore errors",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -451,15 +444,15 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
+                      "query": "sum:calico.felix_iptables_restore_errors{*}.as_count()",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:calico.felix_iptables_restore_errors{*}.as_count()",
                       "aggregator": "sum"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -474,20 +467,19 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:calico.felix_ipsets_total{*}"
-                    }
-                  ],
                   "response_format": "timeseries",
                   "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "query": "sum:calico.felix_ipsets_total{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
                   "style": {
                     "palette": "cool",
                     "line_type": "solid",
@@ -497,8 +489,8 @@
                 }
               ],
               "yaxis": {
-                "scale": "linear",
                 "include_zero": true,
+                "scale": "linear",
                 "label": "",
                 "min": "auto",
                 "max": "auto"
@@ -513,7 +505,6 @@
               "title": "IPtables save calls",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -523,15 +514,15 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
+                      "query": "sum:calico.felix_iptables_save_calls{*}.as_count()",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:calico.felix_iptables_save_calls{*}.as_count()",
                       "aggregator": "sum"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -543,7 +534,6 @@
               "title": "IPtables save errors",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -553,15 +543,15 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
+                      "query": "sum:calico.felix_iptables_save_errors{*}.as_count()",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:calico.felix_iptables_save_errors{*}.as_count()",
                       "aggregator": "sum"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -569,7 +559,39 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 1, "width": 12, "height": 1 }
+      "layout": { "x": 0, "y": 11, "width": 12, "height": 1 }
+    },
+    {
+      "id": 7461713444584281,
+      "definition": {
+        "title": "IPsets Logs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "log_stream",
+        "query": "felix\\/ipsets.go",
+        "sort": { "column": "time", "order": "desc" },
+        "columns": ["host", "service"],
+        "show_date_column": false,
+        "show_message_column": true,
+        "message_display": "inline"
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+    },
+    {
+      "id": 7040464684329393,
+      "definition": {
+        "title": "Dataplane Logs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "log_stream",
+        "query": "felix\\/int_dataplane.go",
+        "sort": { "column": "time", "order": "desc" },
+        "columns": ["host", "service"],
+        "show_date_column": false,
+        "show_message_column": true,
+        "message_display": "inline"
+      },
+      "layout": { "x": 0, "y": 4, "width": 12, "height": 4 }
     }
   ],
   "template_variables": [],
