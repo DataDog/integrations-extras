@@ -6,8 +6,11 @@ from requests.exceptions import ConnectionError
 from datadog_checks.base import ConfigurationError
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base.stubs.aggregator import AggregatorStub
+from datadog_checks.base import ConfigurationError
 from datadog_checks.calico import CalicoCheck
 from datadog_checks.dev.utils import get_metadata_metrics
+from requests.exceptions import ConnectionError
+import pytest
 
 
 @pytest.mark.unit
