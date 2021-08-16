@@ -69,8 +69,12 @@ CONFIG_1 = """
   "api_endpoint": "https://my.nsone.net",
   "api_key": "testkey",
   "min_collection_interval": 15,
+  "networks":[
+    0,
+    5,
+    80
+  ],
   "query_params": {
-    "usage_networks": "*",
     "pulsar_period": "1m",
     "pulsar_geo": "*",
     "pulsar_asn": "*",
@@ -95,30 +99,23 @@ CONFIG_1 = """
       {
         "dloc.com": [
           {
-            "www": "A"
+            "www.dloc.com": "A"
           },
           {
-            "email": "A"
+            "email.dloc.com": "A"
           }
         ]
       },
       {
-        "dloc1.com": [
-          {
-            "www": "A"
-          },
-          {
-            "email": "A"
-          }
-        ]
+        "dloc1.com": null
       },
       {
         "dloc2.com": [
           {
-            "www": "A"
+            "www.dloc2.com": "A"
           },
           {
-            "email": "A"
+            "email.dloc2.com": "A"
           }
         ]
       }
@@ -127,30 +124,23 @@ CONFIG_1 = """
       {
         "dloc.com": [
           {
-            "www": "A"
+            "www.dloc.com": "A"
           },
           {
-            "email": "A"
+            "email.dloc.com": "A"
           }
         ]
       },
       {
-        "dloc1.com": [
-          {
-            "www": "A"
-          },
-          {
-            "email": "A"
-          }
-        ]
+        "dloc1.com": null
       },
       {
         "dloc2.com": [
           {
-            "www": "A"
+            "www.dloc2.com": "A"
           },
           {
-            "email": "A"
+            "email.dloc2.com": "A"
           }
         ]
       }

@@ -30,8 +30,12 @@ class Ns1Check(AgentCheck):
         if not self.metrics or len(self.metrics) == 0:
             raise ConfigurationError('Invalid metrics config!')
 
+        self.networks = self.instance.get("networks")
+        if self.networks and len(self.networks) == 0:
+            raise ConfigurationError('Invalid networks config!')
+
         self.query_params = self.instance.get("query_params")
-        self.ns1 = Ns1Url(self.api_endpoint)
+        self.ns1 = Ns1Url(self.api_endpoint, self)
         self.pulsar_apps = {}
 
     def check(self, instance):
@@ -41,7 +45,7 @@ class Ns1Check(AgentCheck):
         self.get_usage_count()
 
         # create URLs to query API for all configured metrics
-        checkUrl = self.create_url(self.metrics, self.query_params)
+        checkUrl = self.create_url(self.metrics, self.query_params, self.networks)
 
         for k, v in checkUrl.items():
             try:
@@ -74,15 +78,18 @@ class Ns1Check(AgentCheck):
                     return jobname
         return ""
 
-    def create_url(self, metrics, query_params):
+    def create_url(self, metrics, query_params, networks):
         # create dictionary with metrics name and url to check for all configured metrics in conf.yaml file
         checkUrl = {}
 
         for key, val in metrics.items():
             if key == "qps":
-                checkUrl.update(self.ns1.get_stats_url(key, val, query_params))
+                checkUrl.update(self.ns1.get_stats_url_qps(key, val))
             elif key == "usage":
-                checkUrl.update(self.ns1.get_stats_url(key, val, query_params))
+                networknames = None
+                if networks and len(networks) > 0:
+                    networknames = self.get_networks(networks)
+                checkUrl.update(self.ns1.get_stats_url_usage(key, val, networknames))
             elif key == "account":
                 checkUrl.update(self.ns1.get_zone_info_url(key, val))
                 checkUrl.update(self.ns1.get_plan_details_url(key, val))
@@ -111,6 +118,37 @@ class Ns1Check(AgentCheck):
             group_name = group["name"]
             scopegroups[group_id] = group_name
         return scopegroups
+
+    def get_networks(self, networks):
+        url = "{apiendpoint}/v1/networks".format(apiendpoint=self.api_endpoint)
+        res = self.get_stats(url)
+        msg = 'Get networks API Query URL: {url}'.format(url=url)
+        self.log.info(msg)
+        msg = 'Get Networks API result: {result}'.format(result=json.dumps(res))
+        self.log.info(msg)
+
+        nets = {}
+        for net in res:
+            network_id = net["network_id"]
+            if network_id in networks:
+                network_name = net["name"]
+                nets[network_id] = network_name
+        return nets
+
+    def get_zone_records(self, zonename):
+        url = "{apiendpoint}/v1/zones/{zone}".format(apiendpoint=self.api_endpoint, zone=zonename)
+        res = self.get_stats(url)
+        records = res["records"]
+        recmap = {}
+        result = []
+        for r in records:
+            domain = r["domain"]
+            rtype = r["type"]
+            if rtype != "NS":
+                recmap[domain] = rtype
+        if recmap and len(recmap) > 0:
+            result.append(recmap)
+        return result
 
     def get_usage_count(self):
         cashedata = self.read_persistent_cache(self.NS1_CACHE_KEY)
