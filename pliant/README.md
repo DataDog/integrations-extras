@@ -68,7 +68,7 @@ Your endpoint is enclosed in double quotes and resembles: ***https://<YOUR_PLIAN
 
 ![endpoint][14]
 
-Copy the entire URL enclosed in the double quotes (which may include addtional querry parameters), starting with ***https***. Do not include the double quotes.
+Copy the entire URL enclosed in the double quotes (which may include additional querry parameters), starting with ***https***. Do not include the double quotes.
 
 #### Datadog setup
 1. Open Datadog and from the left sidebar, click to **Integrations** > **Integrations**.

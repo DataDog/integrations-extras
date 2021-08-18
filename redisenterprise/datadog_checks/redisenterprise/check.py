@@ -287,7 +287,7 @@ class RedisenterpriseCheck(AgentCheck):
                     tags=tgs + service_check_tags,
                     hostname=host,
                 )
-            # derive flash object percentage being sure that the key esists and is not 0
+            # derive flash object percentage being sure that the key exists and is not 0
             if 'bigstore_objs_flash' in stats[i].keys():
                 if stats[i]['bigstore_objs_flash'] > 0:
                     self.gauge(
