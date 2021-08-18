@@ -291,7 +291,7 @@ class EventStoreCheck(AgentCheck):
     def convert_to_timedelta(self, string):
         """
         Returns a time delta for strings in a format of: 0:00:00:00.0000
-        Using RegEx to not introduce a dependancy on another package
+        Using RegEx to not introduce a dependency on another package
         """
         dt_re = re.compile(r'^(\d+):(\d\d):(\d\d):(\d\d).(\d+)$')
         tmp = dt_re.match(string)
