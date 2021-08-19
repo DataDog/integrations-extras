@@ -11,7 +11,7 @@ This integration monitors [NS1][1] services through the Datadog Agent
 Download and install the [Datadog Agent][2], then follow the instructions below to install and configure this integration for an Agent running on a host.
 
 
-## Installation
+### Installation
 
 Refer to Datadog’s [community integrations installation][3] page for the specific steps to install the NS1 integration as an add-on, since it is not packaged and built into the Datadog Agent. 
 
@@ -24,7 +24,7 @@ When running the installation process, make sure to do so using the following va
 * <INTEGRATION_VERSION>:  0.0.4
 
 
-## Configuration
+### Configuration
 
 To configure and activate the NS1 integration, see the [Getting started with Integrations][4] information on configuring Agent integrations. 
 
@@ -38,11 +38,11 @@ To validate your Agent and integration configuration, [run the Agent's status su
 
 ## Data Collected
 
-## Metrics
+### Metrics
 
 See [metadata.csv][7] for a list of metrics provided by this integration.
 
-## Events
+### Events
 
 The NS1 integration does not include any events.
 

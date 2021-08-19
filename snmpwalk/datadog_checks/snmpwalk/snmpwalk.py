@@ -126,7 +126,7 @@ class SnmpwalkCheck(NetworkCheck):
         # both for values and tags. So you can add a symbol in the 1st metric
         # that pulls data from the 2nd. Same applies to tag lookups. Seems like
         # symbols should have been at the instance level rather than
-        # per-metric... That way the bahavior would match up with schema, but oh
+        # per-metric... That way the behavior would match up with schema, but oh
         # well.
 
         # Time to emit metrics

@@ -59,7 +59,7 @@ class Ns1Check(AgentCheck):
                 if res:
                     # extract metric from API result.
                     val, status = self.extract_metric(k, res)
-                    # send metric to datadog if extraction was sucessful
+                    # send metric to datadog if extraction was successful
                     if status:
                         self.send_metrics(name, val, tags, metric_type)
             except Exception:
