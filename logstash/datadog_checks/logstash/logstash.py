@@ -88,6 +88,14 @@ class LogstashCheck(AgentCheck):
         "logstash.pipeline.reloads.failures": ("gauge", "reloads.failures"),
     }
 
+    PIPELINE_QUEUE_METRICS = {
+        "logstash.pipeline.queue.events": ("gauge", "queue.events"),
+        "logstash.pipeline.queue.capacity.max_queue_size_in_bytes": ("gauge", "queue.capacity.max_queue_size_in_bytes"),
+        "logstash.pipeline.queue.capacity.queue_size_in_bytes": ("gauge", "queue.capacity.queue_size_in_bytes"),
+        "logstash.pipeline.queue.capacity.max_unread_events": ("gauge", "queue.capacity.max_unread_events"),
+        "logstash.pipeline.queue.capacity.page_capacity_in_bytes": ("gauge", "queue.capacity.page_capacity_in_bytes"),
+    }
+
     PIPELINE_INPUTS_METRICS = {
         "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
         "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
@@ -172,10 +180,14 @@ class LogstashCheck(AgentCheck):
         self.log.debug("Logstash version is %s", version)
         return version
 
+    def _is_multi_pipeline(self, version):
+        """ Reusable version checker """
+        return version and LooseVersion(version) >= LooseVersion("6.0.0")
+
     def check(self, instance):
         config = self.get_instance_config(instance)
 
-        version = self._get_logstash_version(config)
+        logstash_version = self._get_logstash_version(config)
 
         stats_url = urljoin(config.url, '/_node/stats')
         stats_data = self._get_data(stats_url, config)
@@ -183,8 +195,8 @@ class LogstashCheck(AgentCheck):
         for metric, desc in iteritems(self.STATS_METRICS):
             self._process_metric(stats_data, metric, *desc, tags=config.tags)
 
-        if version and LooseVersion(version) < LooseVersion("6.0.0"):
-            self._process_pipeline_data(stats_data['pipeline'], config.tags)
+        if not self._is_multi_pipeline(logstash_version):
+            self._process_pipeline_data(stats_data['pipeline'], config.tags, logstash_version)
         elif 'pipelines' in stats_data:
             for pipeline_name, pipeline_data in iteritems(stats_data['pipelines']):
                 if pipeline_name.startswith('.'):
@@ -192,7 +204,7 @@ class LogstashCheck(AgentCheck):
                     continue
                 metric_tags = list(config.tags)
                 metric_tags.append(u'pipeline_name:{}'.format(pipeline_name))
-                self._process_pipeline_data(pipeline_data, metric_tags)
+                self._process_pipeline_data(pipeline_data, metric_tags, logstash_version)
 
         self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK, tags=config.service_check_tags)
 
@@ -200,9 +212,12 @@ class LogstashCheck(AgentCheck):
         for metric, desc in iteritems(stats_metrics):
             self._process_metric(data, metric, *desc, tags=config.tags)
 
-    def _process_pipeline_data(self, pipeline_data, tags):
-        for metric, metric_desc in iteritems(self.PIPELINE_METRICS):
-            self._process_metric(pipeline_data, metric, *metric_desc, tags=tags)
+    def _process_pipeline_data(self, pipeline_data, tags, logstash_version):
+        """
+        Simple interface to run multiple metric submissions for pipeline top level,
+        plugin inputs, outputs, and filters
+        """
+        self._process_top_level_pipeline_data(pipeline_data, tags, logstash_version)
         self._process_pipeline_plugins_data(
             pipeline_data['plugins'], self.PIPELINE_INPUTS_METRICS, tags, 'inputs', 'input_name'
         )
@@ -212,6 +227,16 @@ class LogstashCheck(AgentCheck):
         self._process_pipeline_plugins_data(
             pipeline_data['plugins'], self.PIPELINE_FILTERS_METRICS, tags, 'filters', 'filter_name'
         )
+
+    def _process_top_level_pipeline_data(self, pipeline_data, tags, logstash_version):
+        """
+        If multipipeline, also process metrics associated with multi-pipeline versions.
+        """
+        pipeline_metrics = self.PIPELINE_METRICS
+        if self._is_multi_pipeline(logstash_version):
+            pipeline_metrics.update(self.PIPELINE_QUEUE_METRICS)
+        for metric, metric_desc in iteritems(pipeline_metrics):
+            self._process_metric(pipeline_data, metric, *metric_desc, tags=tags)
 
     def _process_pipeline_plugins_data(
         self, pipeline_plugins_data, pipeline_plugins_metrics, tags, plugin_type, tag_name, pipeline_name=None
