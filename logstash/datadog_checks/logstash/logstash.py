@@ -31,6 +31,7 @@ class LogstashCheck(AgentCheck):
         },
     }
 
+
     STATS_METRICS = {
         "logstash.process.open_file_descriptors": ("gauge", "process.open_file_descriptors"),
         "logstash.process.peak_open_file_descriptors": ("gauge", "process.peak_open_file_descriptors"),
