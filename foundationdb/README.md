@@ -3,22 +3,22 @@
 ## Overview
 
 This check monitors [FoundationDB][1] through the Datadog Agent. Aside from
-checking the FoundationDB cluster is healthy, it also collects numerous metrics
+checking that the FoundationDB cluster is healthy, it also collects numerous metrics
 and, optionally, FoundationDB transaction logs.
 
 ## Setup
 
 Both the check and the metrics apply to the FoundationDB cluster as a whole,
-and so should only be installed on one host (which need not be one that is
+and so should only be installed on one host (which doesn't need to be one that is
 running FoundationDB, but just one with access to it). The host chosen to
 collect the metrics is required to have the [FoundationDB client][8]
-installed. It is possible to monitor multiple FoundationDB clusters if
-desired, by adding multiple instances in the configuration file.
+installed. It is possible to monitor multiple FoundationDB clusters
+by adding multiple instances in the configuration file.
 
-By contrast, logs are written on each machine, and thus for collecting logs it
-is necesary to configure FoundationDB log collection on every host.
+Since logs are written on each machine, to collect logs, configure FoundationDB
+log collection on every host.
 
-Follow the instructions below to install and configure this check or log
+Follow the instructions below to install and configure the check or log
 collection. For containerized environments, see the [Autodiscovery
 Integration Templates][2] for guidance on applying these instructions.
 
@@ -53,7 +53,7 @@ section. Some hints:
 
 * The `base_command` is correct by default if the `fdbcli` command is in
   your `PATH` and the FoundationDB instance is on the current machine.
-  If you have `fdbcli` installed in a container, then you could modify
+  If you have `fdbcli` installed in a container, then modify
   this command to execute it inside of the container.
 * The `cluster_file` is where `fdbcli` finds the cluster connection
   details. If this is not specified, then it will be searched for in
@@ -61,7 +61,7 @@ section. Some hints:
   that location, and set this property if it is located elsewhere.
 
 To check more than one FoundationDB cluster, add an extra item to the
-`instances` list. In this sitaution, at least one of the instances must
+`instances` list. In this situation, at least one of the instances must
 specify a `cluster_file` property.
 
 If the cluster is [configured to use TLS][1], further properties should
@@ -80,39 +80,39 @@ FoundationDB itself first.
    or change the key `trace_format` to have the value `json`. Also make a
    note of the `logdir`.
 
-```
-[fdbserver]
-...
-logdir = /var/log/foundationdb
-trace_format = json
-```
+    ```
+    [fdbserver]
+    ...
+    logdir = /var/log/foundationdb
+    trace_format = json
+    ```
 
 2. Restart the FoundationDB server so the changes take effect. Verify that
    logs in the logdir are now being written in JSON.
 
-2. Ensure that log collection in the Datadog Agent is enabled. In your
+3. Ensure that log collection in the Datadog Agent is enabled. In your
    `datadog.yaml` file, make sure this appears:
 
-```yaml
-logs_enabled: true
-```
+    ```yaml
+    logs_enabled: true
+    ```
 
-3. In the `foundationdb.d/conf.yaml` file, uncomment the `logs` section
+4. In the `foundationdb.d/conf.yaml` file, uncomment the `logs` section
    and set the path to that found in your FoundationDB configuration file,
    appending `*.json`.
 
-```yaml
-logs:
-  - type: file
-    path: /var/log/foundationdb/*.json
-    service: foundationdb
-    source: foundationdb
-```
+    ```yaml
+    logs:
+      - type: file
+        path: /var/log/foundationdb/*.json
+        service: foundationdb
+        source: foundationdb
+    ```
 
-4. Make sure the Datadog agent has the privileges required to list the
+5. Make sure the Datadog Agent has the privileges required to list the
    directory and read its files.
 
-5. Restart the Datadog agent.
+5. Restart the Datadog Agent.
 
 ### Validation
 
