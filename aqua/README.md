@@ -8,20 +8,19 @@ The Aqua check will alert the user if total high-severity vulnerability is reach
 
 ## Setup
 
-The Aqua check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself.
+The Aqua check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Aqua check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Aqua check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][2].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-aqua==<INTEGRATION_VERSION>
    ```
-3. Configure your integration like [any other packaged integration][6].
+
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -99,10 +98,8 @@ Need help? Contact [Datadog support][15].
 
 [1]: https://www.aquasec.com
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/aqua/datadog_checks/aqua/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
