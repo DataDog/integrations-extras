@@ -62,17 +62,25 @@ To install the calico check on your host:
 4. Upload the build artifact to any host with an Agent and
    run `datadog-agent integration install -w path/to/calico/dist/<ARTIFACT_NAME>.whl`.
 
+5. Follow [Calico doc](https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics) until you have felix-metrics-svc running using `kubectl get all --all-namespaces`
+
+6. If you are using minikube, you have to use `kubectl port-forward` to forward port 9091 to felix-metrics-svc. (Your command should look like `kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system`)
+
+7. If you're not using minikube, you can check that felix-metrics-svc has an external IP. If not, you may change its type from ClusterIP to LoadBalancer.
+
+8. You can now configure the integration
+
 ### Configuration for host based setup
 
 1. Edit the `calico.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your calico performance data. See the [sample calico.d/conf.yaml][3] for all available configuration options.
 
-2. [Restart the Agent][4].
+2. If you're using minikube, use 'http://localhost:9091/metrics' as prometheus url. Else, you can use "http://<FELIX-METRICS-SVC-EXTERNAL-IP>:<PORT>/metrics" as prometheus url.
+
+3. [Restart the Agent][4].
 
 ### Validation
 
 [Run the Agent's status subcommand][5] and look for `calico` under the Checks section.
-
-## Data Collected
 
 ### Metrics
 
