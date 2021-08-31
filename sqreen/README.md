@@ -25,9 +25,9 @@ Sqreen streams your services security activity to Datadog as logs.
 To set it up:
 
 1. Go to the [Sqreen Dashboard > Organization settings > Integrations][3].
-2. Connect a new Datadog accounts
-3. Choose the corresponding intake server URL. For Datadog US: `http-intake.logs.datadoghq.com`. For Datadog EU: `http-intake.logs.datadoghq.eu`.
-4. In the "API Key" field, provide a [Datadog API key][4] used to stream the Sqreen data as logs.
+2. Connect a new Datadog account.
+3. Choose the corresponding intake server URL. For Datadog US, use `http-intake.logs.datadoghq.com`. For Datadog EU, use `http-intake.logs.datadoghq.eu`.
+4. In the **API Key** field, provide a [Datadog API key][4] which streams the Sqreen data as logs.
 
 After a few seconds, logs with `source:sqreen` should begin to appear. 
 
@@ -39,7 +39,7 @@ The assets bundled in this integration are deployed into your Datadog account.
 
 For support, reach out to [Datadog Support](/help).
 
-## Payload reference documentation
+## Payload reference
 
 The log format is fully documented in the [Sqreen documentation][6].
 
