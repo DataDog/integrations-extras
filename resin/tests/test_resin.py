@@ -19,7 +19,7 @@ def test_e2e(dd_agent_check):
         attempts -= 1
         aggregator = dd_agent_check(instance)
     if not aggregator.metric_names:
-        pytest.fail("Resin has failed to emmit metrics after 75s")
+        pytest.fail("Resin has failed to emit metrics after 75s")
 
     metrics = [
         'resin.thread_pool.thread_active_count',

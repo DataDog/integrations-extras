@@ -169,6 +169,8 @@ class FilebeatCheckInstanceConfig:
 
         self._only_metrics = instance.get("only_metrics", [])
 
+        self._ignore_registry = instance.get("ignore_registry", False)
+
         if not isinstance(self._only_metrics, list):
             raise Exception(
                 "If given, filebeat's only_metrics must be a list of regexes, got %s" % (self._only_metrics,)
@@ -181,6 +183,10 @@ class FilebeatCheckInstanceConfig:
     @property
     def stats_endpoint(self):
         return self._stats_endpoint
+
+    @property
+    def ignore_registry(self):
+        return self._ignore_registry
 
     def should_keep_metric(self, metric_name):
 
@@ -233,7 +239,9 @@ class FilebeatCheck(AgentCheck):
             profiler = FilebeatCheckHttpProfiler(config, self.http)
             self.instance_cache[instance_key] = {"config": config, "profiler": profiler}
 
-        self._process_registry(config)
+        if not config.ignore_registry:
+            self._process_registry(config)
+
         self._gather_http_profiler_metrics(config, profiler, normalize_metrics)
 
     def _process_registry(self, config):

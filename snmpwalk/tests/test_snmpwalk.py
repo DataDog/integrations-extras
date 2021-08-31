@@ -67,10 +67,10 @@ def test_unavailable_binary(caplog):
     """
     Should log exception if binary is unavailable.
     """
-    config = {'binary': '/path/to/nonexistant/snmpwalk'}
+    config = {'binary': '/path/to/nonexistent/snmpwalk'}
     instance = generate_instance_config({}, TABULAR_OBJECTS)
 
     check = SnmpwalkCheck(CHECK_NAME, config, {})
     check.check(instance)
 
-    assert 'Cannot find executable: /path/to/nonexistant/snmpwalk' in caplog.text
+    assert 'Cannot find executable: /path/to/nonexistent/snmpwalk' in caplog.text
