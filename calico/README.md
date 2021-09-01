@@ -1,20 +1,20 @@
-# Agent Check: calico
+# Agent Check: Calico
 
 ## Overview
 
-This check monitors [calico][1] through the Datadog Agent.
+This check monitors [Calico][1] through the Datadog Agent.
 
-The Calico check will send metrics concerning network and security within a kubernetes cluster set up with calico.
+The Calico check sends metrics concerning network and security in a Kubernetes cluster set up with Calico.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions. There will also be a setup below using Autodiscovery Integration.
+Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions. A setup using Autodiscovery Integration is also below.
 
-### Installation with kubernetes cluster based agent
+### Installation with a Kubernetes cluster-based Agent
 
-Using kubernetes cluster based agent, using annotations :
+Using annotations:
 
-1. Check that you have a cluster with calico set up on it.
+1. Set up Calico on your cluster if you have not already.
 
 2. Enable prometheus metrics following [Calico doc](https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics)
    You should have a felix-metrics-svc service running in your cluster, as well as a prometheus-pod.
@@ -43,9 +43,9 @@ metadata:
     [....]
 ```
 
-You can find <FELIX-SERVICE-IP> && <FELIX-SERVICE-PORT> using kubectl get all —all-namespaces.
+You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by running `kubectl get all —all-namespaces`.
 
-### Installation with OS based agent
+### Installation with an OS-based Agent
 
 Using OS based DD Agent :
 
@@ -88,11 +88,10 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Events
 
-The calico integration does not include any events.
+The Calico integration does not include any events.
 
 ### Service Checks
 
-The calico integration does not include any service checks.
 
 See [service_checks.json][7] for a list of service checks provided by this integration.
 
@@ -114,3 +113,6 @@ Need help? Contact [Datadog support][8].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/calico/metadata.csv
 [7]: https://github.com/DataDog/integrations-core/blob/master/calico/assets/service_checks.json
 [8]: https://docs.datadoghq.com/help/
+[9]: https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics
+[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[11]: https://app.datadoghq.com/account/settings#agent
