@@ -43,7 +43,7 @@ metadata:
     [....]
 ```
 
-You can find <FELIX-SERVICE-IP> && <FELIX-SERVICE-PORT> using kubectl get all —all-namespaces.
+You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by running `kubectl get all —all-namespaces`.
 
 ### Installation with OS based agent
 
