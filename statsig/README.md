@@ -31,17 +31,19 @@ The Statsig integration does not include any service checks.
 
 ### Events
 
-The Statsig integration sends configuration change events on Statsig to Datadog. For instance new or updated feature gates or new integrations enabled.
+The Statsig integration sends configuration change events on Statsig to Datadog. For instance, updated feature gates or new integrations.
 
 ## Troubleshooting
 
-Need help? Contact Statsig Support at support@statsig.com or [contact us here][3]
+Need help? Contact Statsig Support at support@statsig.com or [contact us here][3].
 
 ## Further Reading
 
-[Learn more about Statsig][4].
+Additional helpful documentation, links, and articles:
+
+- [Monitor feature releases with Statsig's offering in the Datadog Marketplace][4]
 
 [1]: https://console.statsig.com/integrations
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
 [3]: https://www.statsig.com/contact
-[4]: https://www.statsig.com
+[4]: https://www.datadoghq.com/blog/feature-monitoring-statsig-datadog-marketplace/
