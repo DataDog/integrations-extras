@@ -1,6 +1,6 @@
 {
   "id": 1852165,
-  "name": "Calico error with IPsets",
+  "name": "Calico error with ipsets",
   "type": "metric alert",
   "query": "sum(last_5m):avg:calico.felix_ipset_errors{*}.as_count() > 1",
   "message": "{{#is_alert}}\nIt looks like Calico encountered a problem applying IP sets to {{host.name}}\n{{/is_alert}}",
