@@ -92,7 +92,6 @@ The Calico integration does not include any events.
 
 ### Service Checks
 
-The calico integration does not include any service checks.
 
 See [service_checks.json][7] for a list of service checks provided by this integration.
 
