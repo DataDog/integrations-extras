@@ -12,7 +12,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation with a Kubernetes cluster-based Agent
 
-Using kubernetes cluster based agent, using annotations :
+Using annotations:
 
 1. Check that you have a cluster with calico set up on it.
 
