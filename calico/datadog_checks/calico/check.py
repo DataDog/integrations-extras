@@ -2,7 +2,7 @@ from typing import Any
 
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
-class CalicoCheck(OpenMetricsBaseCheck):
+class CalicoCheck(OpenMetricsBaseCheckV2):
     def __init__(self, name, init_config, instances=None):
         METRICS_MAP = {'felix_active_local_endpoints': 'felix_active_local_endpoints'}
 
