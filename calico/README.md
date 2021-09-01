@@ -16,12 +16,10 @@ Using annotations:
 
 1. Set up Calico on your cluster if you have not already.
 
-2. Enable prometheus metrics following [Calico doc](https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics)
-   You should have a felix-metrics-svc service running in your cluster, as well as a prometheus-pod.
+2. Enable Prometheus metrics using the instructions in Calico's [Monitor Calico Component Metrics documentation][9].
+   Once enabled, you should have a `felix-metrics-svc` service running in your cluster, as well as a `prometheus-pod`.
 
-To use autodiscovery, we are going to modify prometheus-pod.
-
-3. Add the following snippet to your prometheus yaml file :
+3. To use Autodiscovery, modify `prometheus-pod`. Add the following snippet to your Prometheus YAML configuration file:
 
 ```
 metadata:
@@ -47,34 +45,33 @@ You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by runni
 
 ### Installation with an OS-based Agent
 
-Using OS based DD Agent :
 
-To install the calico check on your host:
+To install the Calico check on your host:
 
-1. Install the [developer toolkit]
-   (https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
-   on any machine.
+1. Install Datadog's [developer toolkit][10] on your machine.
 
 2. Run `ddev release build calico` to build the package.
 
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+3. [Download the Datadog Agent][11].
 
 4. Upload the build artifact to any host with an Agent and
    run `datadog-agent integration install -w path/to/calico/dist/<ARTIFACT_NAME>.whl`.
 
-5. Follow [Calico doc](https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics) until you have felix-metrics-svc running using `kubectl get all --all-namespaces`
+5. Follow Calico's [Monitor Calico Component Metrics documentation][9] until you have a `felix-metrics-svc` service running using `kubectl get all --all-namespaces`.
 
-6. If you are using minikube, you have to use `kubectl port-forward` to forward port 9091 to felix-metrics-svc. (Your command should look like `kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system`)
+6. If you are using minikube, you must forward port 9091 to `felix-metrics-svc`. 
+   Run `kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system`.
 
-7. If you're not using minikube, you can check that felix-metrics-svc has an external IP. If not, you may change its type from ClusterIP to LoadBalancer.
+   If you are not using minikube, check that `felix-metrics-svc` has an external IP. If the service does not have an external IP, use `kubectl edit svc` to change its type from `ClusterIP` to `LoadBalancer`.
 
-8. You can now configure the integration
+Once installation is complete, you can continue to configuration (see below).
 
 ### Configuration for host based setup
 
-1. Edit the `calico.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your calico performance data. See the [sample calico.d/conf.yaml][3] for all available configuration options.
+1. Edit the `calico.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Calico performance data. See the [sample calico.d/conf.yaml][3] for all available configuration options.
 
-2. If you're using minikube, use 'http://localhost:9091/metrics' as prometheus url. Else, you can use "http://<FELIX-METRICS-SVC-EXTERNAL-IP>:<PORT>/metrics" as prometheus url.
+2. If you are using minikube, use 'http://localhost:9091/metrics' as your Prometheus URL. 
+   If you are not using minikube, use `http://<FELIX-METRICS-SVC-EXTERNAL-IP>:<PORT>/metrics` as your Prometheus URL.
 
 3. [Restart the Agent][4].
 
