@@ -114,3 +114,6 @@ Need help? Contact [Datadog support][8].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/calico/metadata.csv
 [7]: https://github.com/DataDog/integrations-core/blob/master/calico/assets/service_checks.json
 [8]: https://docs.datadoghq.com/help/
+[9]: https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics
+[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[11]: https://app.datadoghq.com/account/settings#agent
