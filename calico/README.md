@@ -10,7 +10,7 @@ The Calico check sends metrics concerning network and security in a Kubernetes c
 
 Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions. A setup using Autodiscovery Integration is also below.
 
-### Installation with kubernetes cluster based agent
+### Installation with a Kubernetes cluster-based Agent
 
 Using kubernetes cluster based agent, using annotations :
 
