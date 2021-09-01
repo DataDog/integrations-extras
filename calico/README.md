@@ -14,7 +14,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 Using annotations:
 
-1. Check that you have a cluster with calico set up on it.
+1. Set up Calico on your cluster if you have not already.
 
 2. Enable prometheus metrics following [Calico doc](https://docs.projectcalico.org/maintenance/monitor/monitor-component-metrics)
    You should have a felix-metrics-svc service running in your cluster, as well as a prometheus-pod.
