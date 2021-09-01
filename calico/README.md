@@ -45,7 +45,7 @@ metadata:
 
 You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by running `kubectl get all —all-namespaces`.
 
-### Installation with OS based agent
+### Installation with an OS-based Agent
 
 Using OS based DD Agent :
 
