@@ -96,7 +96,6 @@
               "title": "Active endpoints per host",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -106,6 +105,7 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "query": "max:calico.felix_active_local_endpoints{*} by {host}",
@@ -113,8 +113,7 @@
                       "name": "query1",
                       "aggregator": "max"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -126,7 +125,6 @@
               "title": "Active local policies per host",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -136,6 +134,7 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "query": "max:calico.felix_active_local_policies{*} by {host}",
@@ -143,8 +142,7 @@
                       "name": "query1",
                       "aggregator": "max"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -156,7 +154,6 @@
               "title": "Active selectors per host",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -166,6 +163,7 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "query": "max:calico.felix_active_local_selectors{*} by {host}",
@@ -173,8 +171,7 @@
                       "name": "query1",
                       "aggregator": "max"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -186,7 +183,6 @@
               "title": "Active tags per host",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -196,6 +192,7 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
+                  "response_format": "scalar",
                   "queries": [
                     {
                       "query": "max:calico.felix_active_local_tags{*} by {host}",
@@ -203,8 +200,7 @@
                       "name": "query1",
                       "aggregator": "max"
                     }
-                  ],
-                  "response_format": "scalar"
+                  ]
                 }
               ]
             },
@@ -239,7 +235,7 @@
                   "formulas": [{ "formula": "query1" }],
                   "queries": [
                     {
-                      "query": "sum:calico.felix_ipset_calls{host:MacBook-Pro-de-Max.local}.as_count()",
+                      "query": "sum:calico.felix_ipset_calls.count{host:MacBook-Pro-de-Max.local}",
                       "data_source": "metrics",
                       "name": "query1"
                     }
@@ -260,7 +256,7 @@
             "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
           },
           {
-            "id": 8043890025239495,
+            "id": 5489213612306292,
             "definition": {
               "title": "Number of active IP tables chain",
               "title_size": "16",
@@ -268,11 +264,12 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "on_right_yaxis": false,
                   "queries": [
                     {
                       "query": "sum:calico.felix_iptables_chains{host:MacBook-Pro-de-Max.local}",
@@ -280,8 +277,6 @@
                       "name": "query1"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "on_right_yaxis": false,
                   "style": {
                     "palette": "purple",
                     "line_type": "solid",
@@ -304,25 +299,26 @@
               "show_legend": true,
               "legend_layout": "auto",
               "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [{ "formula": "query1" }],
-                  "response_format": "timeseries",
-                  "on_right_yaxis": false,
                   "queries": [
                     {
-                      "query": "sum:calico.felix_ipset_errors{host:MacBook-Pro-de-Max.local}.as_count()",
+                      "query": "sum:calico.felix_ipset_errors.count{host:MacBook-Pro-de-Max.local}",
                       "data_source": "metrics",
                       "name": "query1"
                     }
                   ],
+                  "response_format": "timeseries",
+                  "on_right_yaxis": false,
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "bars"
+                  "display_type": "line"
                 }
               ],
               "yaxis": { "min": "0" },
@@ -412,6 +408,7 @@
               "title": "IPtables restore calls",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -421,15 +418,15 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
-                  "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:calico.felix_iptables_restore_calls{*}.as_count()",
+                      "query": "sum:calico.felix_iptables_restore_calls.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "sum"
                     }
-                  ]
+                  ],
+                  "response_format": "scalar"
                 }
               ]
             },
@@ -438,7 +435,7 @@
           {
             "id": 6370937267148846,
             "definition": {
-              "title": "Iptables restore errors",
+              "title": "IPtables restore errors",
               "title_size": "16",
               "title_align": "left",
               "time": {},
@@ -453,7 +450,7 @@
                   ],
                   "queries": [
                     {
-                      "query": "sum:calico.felix_iptables_restore_errors{*}.as_count()",
+                      "query": "sum:calico.felix_iptables_restore_errors.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "max"
@@ -509,7 +506,7 @@
           {
             "id": 7805418918236989,
             "definition": {
-              "title": "Iptables save calls",
+              "title": "IPtables save calls",
               "title_size": "16",
               "title_align": "left",
               "time": {},
@@ -524,7 +521,7 @@
                   ],
                   "queries": [
                     {
-                      "query": "sum:calico.felix_iptables_save_calls{*}.as_count()",
+                      "query": "sum:calico.felix_iptables_save_calls.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "sum"
@@ -539,9 +536,10 @@
           {
             "id": 8886576624693546,
             "definition": {
-              "title": "Iptables save errors",
+              "title": "IPtables save errors",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "toplist",
               "requests": [
                 {
@@ -551,15 +549,15 @@
                       "limit": { "count": 10, "order": "desc" }
                     }
                   ],
-                  "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:calico.felix_iptables_save_errors{*}.as_count()",
+                      "query": "sum:calico.felix_iptables_save_errors.count{*}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "sum"
                     }
-                  ]
+                  ],
+                  "response_format": "scalar"
                 }
               ]
             },
@@ -570,36 +568,49 @@
       "layout": { "x": 0, "y": 1, "width": 12, "height": 1 }
     },
     {
-      "id": 7461713444584281,
+      "id": 2472312726446081,
       "definition": {
-        "title": "Ipsets Logs",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "log_stream",
-        "query": "felix\\/ipsets.go",
-        "sort": { "column": "time", "order": "desc" },
-        "columns": ["host", "service"],
-        "show_date_column": false,
-        "show_message_column": true,
-        "message_display": "inline"
+        "title": "Logs",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7040464684329393,
+            "definition": {
+              "title": "Dataplane Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "log_stream",
+              "query": "felix\\/int_dataplane.go",
+              "sort": { "column": "time", "order": "desc" },
+              "columns": ["host", "service"],
+              "show_date_column": false,
+              "show_message_column": true,
+              "message_display": "inline"
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+          },
+          {
+            "id": 7461713444584281,
+            "definition": {
+              "title": "IPsets Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "log_stream",
+              "query": "felix\\/ipsets.go",
+              "sort": { "column": "time", "order": "desc" },
+              "columns": ["host", "service"],
+              "show_date_column": false,
+              "show_message_column": true,
+              "message_display": "inline"
+            },
+            "layout": { "x": 0, "y": 4, "width": 12, "height": 4 }
+          }
+        ]
       },
-      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
-    },
-    {
-      "id": 7040464684329393,
-      "definition": {
-        "title": "Dataplane Logs",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "log_stream",
-        "query": "felix\\/int_dataplane.go",
-        "sort": { "column": "time", "order": "desc" },
-        "columns": ["host", "service"],
-        "show_date_column": false,
-        "show_message_column": true,
-        "message_display": "inline"
-      },
-      "layout": { "x": 0, "y": 4, "width": 12, "height": 4 }
+      "layout": { "x": 0, "y": 2, "width": 12, "height": 1 }
     }
   ],
   "template_variables": [],
