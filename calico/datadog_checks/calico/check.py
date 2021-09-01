@@ -20,10 +20,3 @@ class CalicoCheck(OpenMetricsBaseCheckV2):
             default_namespace='kube-system',
         )
 
-    def check(self, instance):
-        endpoint = instance.get('prometheus_url')
-        if endpoint is None:
-            raise ConfigurationError("Unable to find prometheus_url in config file.")
-        config = self.create_scraper_configuration(instance)
-        self.process(config)
-        pass
