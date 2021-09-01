@@ -1,4 +1,4 @@
-# Agent Check: calico
+# Agent Check: Calico
 
 ## Overview
 
