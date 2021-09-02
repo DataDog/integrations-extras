@@ -45,7 +45,6 @@ You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by runni
 
 ### Installation with an OS-based Agent
 
-
 To install the Calico check on your host:
 
 1. Install Datadog's [developer toolkit][10] on your machine.
@@ -59,7 +58,7 @@ To install the Calico check on your host:
 
 5. Follow Calico's [Monitor Calico Component Metrics documentation][9] until you have a `felix-metrics-svc` service running using `kubectl get all --all-namespaces`.
 
-6. If you are using minikube, you must forward port 9091 to `felix-metrics-svc`. 
+6. If you are using minikube, you must forward port 9091 to `felix-metrics-svc`.
    Run `kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system`.
 
    If you are not using minikube, check that `felix-metrics-svc` has an external IP. If the service does not have an external IP, use `kubectl edit svc` to change its type from `ClusterIP` to `LoadBalancer`.
@@ -68,10 +67,10 @@ Once installation is complete, you can continue to configuration (see below).
 
 ### Configuration for host based setup
 
-1. Edit the `calico.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Calico performance data. See the [sample calico.d/conf.yaml][3] for all available configuration options.
+1. Edit the `calico.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Calico performance data. The only required parameter is the `openmetrics_endpoint` URL. See the [sample calico.d/conf.yaml][3] for all available configuration options.
 
-2. If you are using minikube, use 'http://localhost:9091/metrics' as your Prometheus URL. 
-   If you are not using minikube, use `http://<FELIX-METRICS-SVC-EXTERNAL-IP>:<PORT>/metrics` as your Prometheus URL.
+2. If you are using minikube, use 'http://localhost:9091/metrics' as your `openmetrics_endpoint` URL.
+   If you are not using minikube, use `http://<FELIX-METRICS-SVC-EXTERNAL-IP>:<PORT>/metrics` as your `openmetrics_endpoint` URL.
 
 3. [Restart the Agent][4].
 
@@ -89,14 +88,12 @@ The Calico integration does not include any events.
 
 ### Service Checks
 
-
 See [service_checks.json][7] for a list of service checks provided by this integration.
 
 ## Concerning logs
 
 Since Calico structure is setup in a kubernetes cluster, it is built with deployments, pods, service.
-Kubernetes makes a great job at fetching logs from the corresponding services, and therefore, by using Kubernetes integration
-along with calico, logs are automatically available in datadoghq Log section.
+Kubernetes integration makes a great job at fetching logs from containers Therefore, when Kubernetes integration is setup, calico logs are automatically available in datadoghq Log section. You should proceed this way.
 
 ## Troubleshooting
 
