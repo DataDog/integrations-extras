@@ -72,7 +72,7 @@
               "type": "hostmap",
               "requests": {
                 "fill": {
-                  "q": "avg:process.stat.container.cpu.total_pct{kube_container_name:cert-manager} by {host}"
+                  "q": "avg:process.stat.container.cpu.total_pct{kube_container_name:cert-manager,$cluster_name} by {host}"
                 }
               },
               "node_type": "container",
@@ -135,7 +135,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cert_manager.certificate.ready_status{condition:true}",
+                      "query": "sum:cert_manager.certificate.ready_status{condition:true,$cluster_name}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "last"
@@ -170,7 +170,7 @@
                   "response_format": "scalar",
                   "queries": [
                     {
-                      "query": "sum:cert_manager.certificate.ready_status{condition:false}",
+                      "query": "sum:cert_manager.certificate.ready_status{condition:false,$cluster_name}",
                       "data_source": "metrics",
                       "name": "query1",
                       "aggregator": "max"
@@ -228,7 +228,7 @@
                   "response_format": "timeseries",
                   "queries": [
                     {
-                      "query": "sum:cert_manager.http_acme_client.request.count{*} by {host,method}.as_count()",
+                      "query": "sum:cert_manager.http_acme_client.request.count{$cluster_name} by {host,method}.as_count()",
                       "data_source": "metrics",
                       "name": "query1"
                     }
@@ -275,7 +275,7 @@
               "type": "timeseries",
               "requests": [
                 {
-                  "q": "avg:cert_manager.http_acme_client.request.duration.quantile{*} by {quantile}",
+                  "q": "avg:cert_manager.http_acme_client.request.duration.quantile{$cluster_name} by {quantile}",
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -318,7 +318,7 @@
               "type": "timeseries",
               "requests": [
                 {
-                  "q": "sum:cert_manager.http_acme_client.request.count{status:400 OR s} by {status}.as_count()",
+                  "q": "sum:cert_manager.http_acme_client.request.count{(status:400 OR s) AND $cluster_name} by {status}.as_count()",
                   "on_right_yaxis": false,
                   "style": {
                     "palette": "warm",
@@ -380,7 +380,7 @@
               "type": "timeseries",
               "requests": [
                 {
-                  "q": "sum:cert_manager.controller.sync_call.count{*} by {controller}.as_count()",
+                  "q": "sum:cert_manager.controller.sync_call.count{$cluster_name} by {controller}.as_count()",
                   "on_right_yaxis": false,
                   "style": {
                     "palette": "dog_classic",
@@ -433,7 +433,7 @@
               "title_align": "left",
               "type": "log_stream",
               "indexes": [],
-              "query": "service:cert-manager*",
+              "query": "service:cert-manager* $cluster_name",
               "sort": {
                 "column": "time",
                 "order": "desc"
