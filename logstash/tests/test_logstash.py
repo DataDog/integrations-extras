@@ -64,6 +64,14 @@ PIPELINE_METRICS = {
     "logstash.pipeline.reloads.failures": ("gauge", "pipeline.reloads.failures"),
 }
 
+PIPELINE_QUEUE_METRICS = {
+    "logstash.pipeline.queue.events": ("gauge", "queue.events"),
+    "logstash.pipeline.queue.capacity.max_queue_size_in_bytes": ("gauge", "queue.capacity.max_queue_size_in_bytes"),
+    "logstash.pipeline.queue.capacity.queue_size_in_bytes": ("gauge", "queue.capacity.queue_size_in_bytes"),
+    "logstash.pipeline.queue.capacity.max_unread_events": ("gauge", "queue.capacity.max_unread_events"),
+    "logstash.pipeline.queue.capacity.page_capacity_in_bytes": ("gauge", "queue.capacity.page_capacity_in_bytes"),
+}
+
 PIPELINE_INPUTS_METRICS = {
     "logstash.pipeline.plugins.inputs.events.out": ("gauge", "events.out"),
     "logstash.pipeline.plugins.inputs.events.queue_push_duration_in_millis": (
@@ -114,7 +122,7 @@ def test_check(aggregator):
     input_tag = [u"plugin_conf_id:dummy_input"]
     output_tag = [u"plugin_conf_id:dummy_output", u"output_name:stdout"]
     filter_tag = [u"plugin_conf_id:dummy_filter", u"filter_name:json"]
-    if logstash_version and LooseVersion("6.0.0") <= LooseVersion(logstash_version):
+    if is_multi_pipeline:
         input_tag.append(u"input_name:beats")
     else:
         input_tag.append(u"input_name:stdin")
@@ -124,6 +132,8 @@ def test_check(aggregator):
     expected_metrics.update(PIPELINE_INPUTS_METRICS)
     expected_metrics.update(PIPELINE_OUTPUTS_METRICS)
     expected_metrics.update(PIPELINE_FILTERS_METRICS)
+    if is_multi_pipeline:
+        expected_metrics.update(PIPELINE_QUEUE_METRICS)
 
     good_sc_tags = ['host:{}'.format(HOST), 'port:{}'.format(PORT)]
 
@@ -131,21 +141,26 @@ def test_check(aggregator):
     pipeline_metrics.update(PIPELINE_FILTERS_METRICS)
     pipeline_metrics.update(PIPELINE_OUTPUTS_METRICS)
 
-    for m_name, desc in expected_metrics.items():
-        m_tags = TAGS + default_tags
-        if m_name in PIPELINE_INPUTS_METRICS:
-            m_tags = m_tags + input_tag
-        if m_name in PIPELINE_OUTPUTS_METRICS:
-            m_tags = m_tags + output_tag
-        if m_name in PIPELINE_FILTERS_METRICS:
-            m_tags = m_tags + filter_tag
+    for metric_name, desc in expected_metrics.items():
+        metric_tags = TAGS + default_tags
+        if metric_name in PIPELINE_INPUTS_METRICS:
+            metric_tags = metric_tags + input_tag
+        if metric_name in PIPELINE_OUTPUTS_METRICS:
+            metric_tags = metric_tags + output_tag
+        if metric_name in PIPELINE_FILTERS_METRICS:
+            metric_tags = metric_tags + filter_tag
+        is_pipeline_queue_metric = metric_name in PIPELINE_QUEUE_METRICS
 
-        is_pipeline_metric = m_name in pipeline_metrics
+        is_pipeline_metric = metric_name in pipeline_metrics
+
         if desc[0] == "gauge":
             if is_multi_pipeline and is_pipeline_metric:
-                aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:main'])
-                aggregator.assert_metric(m_name, count=1, tags=m_tags + [u'pipeline_name:second_pipeline'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:main'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:second_pipeline'])
+            elif is_multi_pipeline and is_pipeline_queue_metric:
+                aggregator.assert_metric(metric_name, count=0, tags=metric_tags + [u'pipeline_name:main'])
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags + [u'pipeline_name:second_pipeline'])
             else:
-                aggregator.assert_metric(m_name, count=1, tags=m_tags)
+                aggregator.assert_metric(metric_name, count=1, tags=metric_tags)
 
     aggregator.assert_service_check('logstash.can_connect', tags=good_sc_tags + TAGS, status=LogstashCheck.OK)

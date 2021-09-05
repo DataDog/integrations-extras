@@ -9,8 +9,8 @@ class PortworxCheck(PrometheusCheck):
     Collect px metrics from Portworx
     """
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        super(PortworxCheck, self).__init__(name, init_config, agentConfig, instances)
+    def __init__(self, name, init_config, instances=None):
+        super(PortworxCheck, self).__init__(name, init_config, instances)
         self.NAMESPACE = 'portworx'
         self.metrics_mapper = {
             'px_cluster_cpu_percent': 'cluster.cpu_percent',

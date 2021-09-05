@@ -33,7 +33,7 @@ class SnmpwalkCheck(NetworkCheck):
     # regex for parsing the output of snmp walk
     output_re = re.compile(r'([\w\-]+)::(?P<symbol>\w+)\.(?P<index>\d+) = ' r'(?P<type>\w+): (?P<value>.*)$')
 
-    def __init__(self, name, init_config, agentConfig, instances=None):
+    def __init__(self, name, init_config, instances=None):
         self.binary = None
         self.expected_bin = init_config.get('binary', self.DEFAULT_SNMPWALK_PATH)
         if os.path.isfile(self.expected_bin):
@@ -49,7 +49,7 @@ class SnmpwalkCheck(NetworkCheck):
                     instance['name'] = self._get_instance_addr(instance)
                 instance['skip_event'] = True
 
-        NetworkCheck.__init__(self, name, init_config, agentConfig, instances)
+        super(SnmpwalkCheck, self).__init__(name, init_config, instances)
 
     def _get_instance_addr(self, instance):
         host = instance.get('host', None)
@@ -126,7 +126,7 @@ class SnmpwalkCheck(NetworkCheck):
         # both for values and tags. So you can add a symbol in the 1st metric
         # that pulls data from the 2nd. Same applies to tag lookups. Seems like
         # symbols should have been at the instance level rather than
-        # per-metric... That way the bahavior would match up with schema, but oh
+        # per-metric... That way the behavior would match up with schema, but oh
         # well.
 
         # Time to emit metrics

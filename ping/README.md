@@ -11,24 +11,23 @@ This check uses the system ping command, rather than generating the ICMP echo re
 
 ## Setup
 
-The Ping check is **NOT** included in the [Datadog Agent][2] package.
+The ping check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Ping check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the ping check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][2].
-2. Run the following command to install the integrations wheel with the Agent:
-   **`Linux`**:
+1. Run the one following commands to install the Agent integration:
+
    ```shell
-      datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
+   # Linux
+   datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
+   
+   # Windows
+   agent.exe integration install -t datadog-ping==<INTEGRATION_VERSION>
    ```
-   **`Windows`**:
-   ```shell
-      agent.exe integration install -t datadog-ping==<INTEGRATION_VERSION>
-   ```
-   <INTEGRATION_VERSION> is the version of the integration. The first version of datadog-ping is 1.0.0 and other versions can be found in [CHANGELOG][12].
-3. Configure your integration like [any other packaged integration][6].
+
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -59,16 +58,13 @@ See [service_checks.json][13] for a list of service checks provided by this inte
 Need help? Contact [Datadog support][11].
 
 
-[1]: https://en.wikipedia.org/wiki/Ping_(networking_utility%29
+[1]: https://en.wikipedia.org/wiki/Ping_%28networking_utility%29
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ping/metadata.csv
 [11]: https://docs.datadoghq.com/help/
-[12]: https://github.com/DataDog/integrations-extras/blob/master/ping/CHANGELOG.md
 [13]: https://github.com/DataDog/integrations-extras/blob/master/ping/assets/service_checks.json

@@ -254,7 +254,7 @@ class StormCheck(AgentCheck):
             resp = self.http.get(url, params=params)
             resp.encoding = 'utf-8'
             data = resp.json()
-            # Log response data exluding configuration section
+            # Log response data excluding configuration section
             self.log.debug("Response data: %s", json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
                 self.log.warning("Error message returned in JSON response")
