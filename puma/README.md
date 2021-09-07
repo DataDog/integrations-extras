@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Puma][1] through the Datadog Agent via the Puma metrics endpoint provided by the [control/status][5] server.
+This check monitors [Puma][1] through the Datadog Agent with the Puma metrics endpoint provided by the [control and status][5] server.
 
 ## Setup
 
