@@ -1,10 +1,9 @@
 {
-  "id": 1852165,
   "name": "Calico error with ipsets",
-  "type": "metric alert",
+  "type": "query alert",
   "query": "sum(last_5m):avg:calico.felix_ipset_errors{*}.as_count() > 1",
-  "message": "{{#is_alert}}\nIt looks like Calico encountered a problem applying IP sets to {{host.name}}\n{{/is_alert}}",
-  "tags": [],
+  "message": "Calico encountered a problem applying netwroking rules using ipset.",
+  "tags": ["integration:calico"],
   "options": {
     "notify_audit": false,
     "locked": false,
@@ -22,5 +21,8 @@
       "warning": 0
     }
   },
-  "priority": null
+  "priority": null,
+  "recommended_monitor_metadata": {
+    "description": "Get notified when Calico fails to apply networking rules using ipset."
+  }
 }
