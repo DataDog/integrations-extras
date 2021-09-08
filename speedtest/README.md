@@ -20,7 +20,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Speedtes
 
 2. Configure your integration similar to core [integrations][4].
 
-**Note**: For all hosts you need to also install [Speedtest CLI][1] on your host and accept the agreement as the Datadog Agent user prior to use, for example: `sudo -u dd-agent speedtest`.
+**Note**: For all hosts, you need to also install the [Speedtest CLI][1] and accept the agreement as the Datadog Agent user prior to use, for example: `sudo -u dd-agent speedtest`.
 
 ### Configuration
 
