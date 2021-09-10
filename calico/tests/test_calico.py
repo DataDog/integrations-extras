@@ -5,6 +5,7 @@ from datadog_checks.dev.utils import get_metadata_metrics
 
 
 @pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
 def test_check(aggregator, instance, dd_run_check):
     check = CalicoCheck('calico', {}, [instance])
     dd_run_check(check)
@@ -26,6 +27,7 @@ def test_check(aggregator, instance, dd_run_check):
     aggregator.assert_metric("calico.felix_iptables_restore_errors.count", metric_type=aggregator.MONOTONIC_COUNT)
     aggregator.assert_metric("calico.felix_iptables_save_calls.count", metric_type=aggregator.MONOTONIC_COUNT)
     aggregator.assert_metric("calico.felix_iptables_save_errors.count", metric_type=aggregator.MONOTONIC_COUNT)
+    aggregator.assert_metric("calico.felix_int_dataplane_failures.count", metric_type=aggregator.MONOTONIC_COUNT)
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
