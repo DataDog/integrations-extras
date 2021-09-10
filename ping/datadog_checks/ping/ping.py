@@ -26,25 +26,28 @@ class PingCheck(AgentCheck):
 
     def _exec_ping(self, timeout, target_host):
         if platform.system() == "Windows":  # pragma: nocover
+            precmd = ["cmd", "/c", "chcp 437 &"] # Set code page to English for non-US Windows
             countOption = "-n"
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
             # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping
             timeout = timeout * 1000
         elif platform.system() == "Darwin":
+            precmd = []
             countOption = "-c"
             timeoutOption = "-W"  # Also in ms on Mac
             timeout = timeout * 1000
         else:
             # The timeout option is is seconds on Linux, leaving timeout as is
             # https://linux.die.net/man/8/ping
+            precmd = []
             countOption = "-c"
             timeoutOption = "-W"
 
         self.log.debug("Running: ping %s %s %s %s %s", countOption, "1", timeoutOption, timeout, target_host)
 
         lines, err, retcode = get_subprocess_output(
-            ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
+            precmd + ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
         )
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:
