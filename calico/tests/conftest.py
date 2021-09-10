@@ -47,6 +47,9 @@ def setup_calico():
 def dd_environment():
 
     with kind.kind_run(conditions=[setup_calico], kind_config=path.join(HERE, 'kind-calico.yaml')):
+        # Wait for pods
+        run_command(["kubectl", "wait", "--for=condition=Ready", "pods", "--all", "--all-namespaces", "--timeout=300s"])
+
         # Activate Felix
         run_command(
             """kubectl exec -i -n kube-system calicoctl -- /calicoctl patch felixConfiguration
@@ -54,7 +57,7 @@ def dd_environment():
         )
 
         # Port forward felix service since Kind does not expose external IP for its service
-        run_command("""kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system &""")
+        run_command("""kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system \x26""")
 
         yield INSTANCE
 
