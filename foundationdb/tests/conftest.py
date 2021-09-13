@@ -9,8 +9,8 @@ from datadog_checks.dev import WaitFor, docker_run, run_command
 dirname = os.path.dirname(__file__)
 
 INSTANCE = { 'cluster_file'         : os.path.join(dirname, 'fdb.cluster'),
-             'tls_certificate_file' : os.path.join(dirname, 'fdb.pem'),
-             'tls_key_file'         : os.path.join(dirname, 'private.key'),
+             'tls_certificate_file' : os.path.join(dirname, 'docker/tls/fdb.pem'),
+             'tls_key_file'         : os.path.join(dirname, 'docker/tls/private.key'),
              'tls_verify_peers'     : 'Check.Valid=0'
             }
 CONFIG = {'init_config': {}, 'instances': [INSTANCE]}
