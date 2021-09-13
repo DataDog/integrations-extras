@@ -167,8 +167,9 @@ def test_integ(aggregator, instance):
 @pytest.mark.usefixtures("dd_tls_environment")
 def test_tls_integ(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
-    # Update command to specify exactly TLS container
-    instance['base_command'] = ['docker', 'exec', 'fdb-coordinator', 'fdbcli']
+    # Update cluster file to specify the TLS container
+    cur_dir = os.path.dirname(__file__)
+    instance['cluster_file'] = os.path.join(cur_dir, 'fdb-tls.cluster')
     check = FoundationdbCheck('foundationdb', {}, [instance])
     check.check(instance)
 

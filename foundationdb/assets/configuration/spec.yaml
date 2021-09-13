@@ -8,25 +8,14 @@ files:
   - template: instances
     options:
     - template: instances/default
-    - name: base_command
-      description: |
-        The command to run in order to execute a query using the FoundationDB CLI.
-        Typically this will invoke a locally installed `fdbcli` executable.
-        However may be tweaked to run it inside of a container if a containerized deployment
-        is being used and the Datadog agent runs outside of the container.
-      required: true
-      value:
-        example:
-          - "fdbcli"
-        type: array
-        items:
-          type: string
     - name: cluster_file
       description: |
-        The path to the cluster file of the FoundationDB instance, passed as an option to `fdbcli`.
-        Not need if the cluster file is in the standard location (`/etc/foundationdb/fdb.cluster`).
+        A path to the cluster file specifing connection to the FoundationDB.
+        If it is not passed, the check will rely on the binding library to find
+        the file using standard locations (e.g. `/etc/foundationdb/fdb.cluster` or
+        `/etc/foundationdb/fdb.cluster`).
       value:
-        exmaple: /var/lib/foundationdb/fdb.cluster
+        example: /var/lib/foundationdb/fdb.cluster
         type: string
     - name: tls_certificate_file
       description: Path to the file from which the local certificates can be loaded

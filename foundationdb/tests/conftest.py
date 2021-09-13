@@ -6,11 +6,12 @@ import pytest
 
 from datadog_checks.dev import WaitFor, docker_run, run_command
 
-INSTANCE = { 'base_command' : ['docker', 'exec', 'fdb-0', 'fdbcli'],
-             'cluster_file' : '/var/fdb/fdb.cluster',
-             'tls_certificate_file' : '/var/fdb/fdb.pem',
-             'tls_key_file' : '/var/fdb/private.key',
-             'tls_verify_peers' : 'Check.Valid=0'
+dirname = os.path.dirname(__file__)
+
+INSTANCE = { 'cluster_file'         : os.path.join(dirname, 'fdb.cluster'),
+             'tls_certificate_file' : os.path.join(dirname, 'fdb.pem'),
+             'tls_key_file'         : os.path.join(dirname, 'private.key'),
+             'tls_verify_peers'     : 'Check.Valid=0'
             }
 CONFIG = {'init_config': {}, 'instances': [INSTANCE]}
 HERE = os.path.dirname(os.path.abspath(__file__))

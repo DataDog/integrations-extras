@@ -6,7 +6,7 @@ def shared_service(field, value):
 
 
 def instance_cluster_file(field, value):
-    return get_default_field_value(field, value)
+    return '/var/lib/foundationdb/fdb.cluster'
 
 
 def instance_empty_default_hostname(field, value):

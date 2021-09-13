@@ -1,49 +1,42 @@
 from datadog_checks.base import AgentCheck
-from datadog_checks.base.utils.subprocess_output import get_subprocess_output, SubprocessOutputEmptyError
 import json
 from typing import Any
+import fdb
+
+fdb.api_version(600)
 
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FoundationdbCheck, self).__init__(name, init_config, instances)
+        self.hasDB = False
 
-    def construct_cli_base(self, instance):
-        # do a copy not to pollute original list
-        fdb_args = (instance.get('base_command')[:]
-                if 'base_command' in instance
-                else ['fdbcli'])
+    def construct_database(self, instance):
+        if self.hasDB:
+            return self.db
+
+        self.hasDB = True
+
+        # TLS options. Each option has a different function name, so we cannot be smart with it without ugly code
+        if 'tls_certificate_file' in instance:
+            fdb.options.set_tls_cert_path(instance.get('tls_certificate_file'))
+        if 'tls_key_file' in instance:
+            fdb.options.set_tls_key_path(instance.get('tls_key_file'))
+        if 'tls_verify_peers' in instance:
+            fdb.options.set_tls_verify_peers(instance.get('tls_verify_peers').encode('latin-1'))
 
         if 'cluster_file' in instance:
-            fdb_args.append('-C')
-            fdb_args.append(instance.get('cluster_file'))
-
-        # TLS options
-        tls_keys = ['tls_certificate_file', 'tls_key_file', 'tls_verify_peers', 'tls_password', 'tls_ca_file']
-        for key in tls_keys:
-            if key in instance:
-                fdb_args.append('--' + key)
-                fdb_args.append(instance.get(key))
-        return fdb_args
+            self.db = fdb.open(cluster_file=instance.get('cluster_file'))
+        else:
+            self.db = fdb.open()
 
     def fdb_status_data(self, instance):
-        fdb_args = self.construct_cli_base(instance)
-        fdb_args.append('--exec')
-        fdb_args.append('status json')
-        return get_subprocess_output(fdb_args, self.log)
+        self.construct_database(instance)
+        return self.db['\xff\xff/status/json'.encode('latin-1')]
 
     def check(self, instance):
+        status_data = self.fdb_status_data(instance)
         try:
-            status = self.fdb_status_data(instance)
-        except SubprocessOutputEmptyError as e:
-            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Did not receive a response from `status json`")
-            raise
-
-        if status[2] != 0:
-            self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="`fdbcli` returned non-zero error code")
-            raise ValueError("`fdbcli --exec 'status json'` failed")
-
-        try:
-            data = json.loads(status[0])
+            data = json.loads(status_data)
         except Exception as e:
             self.service_check("foundationdb.can_connect", AgentCheck.CRITICAL, message="Could not parse `status json`")
             raise

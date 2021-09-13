@@ -14,7 +14,6 @@ class InstanceConfig(BaseModel):
     class Config:
         allow_mutation = False
 
-    base_command: Sequence[str]
     cluster_file: Optional[str]
     empty_default_hostname: Optional[bool]
     min_collection_interval: Optional[float]
