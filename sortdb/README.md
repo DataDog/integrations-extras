@@ -36,7 +36,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Sortdb c
 
 ## Compatibility
 
-The SortDB check check is compatible with all major platforms
+The SortDB check is compatible with all major platforms.
 
 ## Data Collected
 
