@@ -25,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the UPSC che
 
 ### Configuration
 
-1. Edit the `upsc.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your UPSC [metrics](#metric-collection). See the [sample upsc.d/conf.yaml][7] for all available configuration options.
+1. Edit the `upsc.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your UPSC [metrics](#metrics). See the [sample upsc.d/conf.yaml][7] for all available configuration options.
 
 2. [Restart the Agent][8]
 
