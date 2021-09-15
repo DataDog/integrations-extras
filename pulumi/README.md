@@ -2,34 +2,41 @@
 
 ## Overview
 
-This check monitors [Pulumi][1].
+[Pulumi][1] is a modern infrastructure as code platform that enables cloud engineering teams to define, deploy and manage cloud resources on any cloud using their favorite programming languages.
+The Datadog provider for Pulumi can be used to provision any of the cloud resources available in Datadog. The Datadog provider must be configured with credentials to deploy and update resources in Datadog.
 
 ## Setup
 
 ### Installation
 
-To install the Pulumi check on your host:
-
-
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
-
-2. Run `ddev release build pulumi` to build the package.
-
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/pulumi/dist/<ARTIFACT_NAME>.whl`.
+The [Pulumi Datadog provider][2] uses the Datadog SDK to manage and provision resources.
 
 ### Configuration
 
-1. <List of steps to setup this Integration>
+1. [Sign-up for a free or commercial Pulumi account][3]
 
-### Validation
+2. [Install Pulumi][4]
 
-<Steps to validate integration is functioning as expected>
+3. Once obtained, there are two ways to communicate your Datadog authorization tokens to Pulumi:
+
+
+- Set the environment variables `DATADOG_API_KEY` and `DATADOG_APP_KEY`:
+
+```
+export DATADOG_API_KEY=XXXXXXXXXXXXXX && export DATADOG_APP_KEY=YYYYYYYYYYYYYY
+```
+
+- Or, set them using configuration if you prefer that they be stored alongside your Pulumi stack for easy multi-user access:
+
+```
+pulumi config set datadog:apiKey XXXXXXXXXXXXXX --secret && pulumi config set datadog:appKey YYYYYYYYYYYYYY --secret
+```
+
+Remember to pass `--secret` when setting `datadog:apiKey` and `datadog:appKey` so that they are properly encrypted.
+
+4. Run `pulumi new` to initialize a project directory for your infrastructure stack and follow the [API documentation][5] to define new Metrics, Monitors, Dashboards or other resources.
+
+5. Once you have defined your cloud resources in code, run `pulumi up` to create the new resources defined in your Pulumi program. 
 
 ## Data Collected
 
@@ -47,7 +54,11 @@ Pulumi does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][2].
+Need help? Contact [Datadog support][6].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
-[2]: https://docs.datadoghq.com/help/
+[1]: https://pulumi.com
+[2]: https://www.pulumi.com/docs/intro/cloud-providers/datadog/
+[3]: https://www.pulumi.com/pricing/
+[4]: https://www.pulumi.com/docs/get-started/
+[5]: https://www.pulumi.com/docs/reference/pkg/datadog/
+[6]: https://docs.datadoghq.com/help/
