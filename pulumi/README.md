@@ -1,4 +1,4 @@
-# Agent Check: Pulumi
+# Pulumi
 
 ## Overview
 
