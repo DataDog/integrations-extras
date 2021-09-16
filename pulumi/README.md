@@ -10,7 +10,7 @@ The Pulumi integration is used to provision any of the cloud resources available
 
 ### Installation
 
-The [Pulumi Datadog provider][2] uses the Datadog SDK to manage and provision resources.
+The [Pulumi Datadog integration][2] uses the Datadog SDK to manage and provision resources.
 
 ### Configuration
 
