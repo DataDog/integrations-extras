@@ -33,7 +33,7 @@ Or, set them using configuration if you prefer that they be stored alongside you
 pulumi config set datadog:apiKey XXXXXXXXXXXXXX --secret && pulumi config set datadog:appKey YYYYYYYYYYYYYY --secret
 ```
 
-Remember to pass `--secret` when setting `datadog:apiKey` and `datadog:appKey` so that they are properly encrypted.
+**Note**: Pass `--secret` when setting `datadog:apiKey` and `datadog:appKey` so that they are properly encrypted.
 
 4. Run `pulumi new` to initialize a project directory for your infrastructure stack and follow the [API documentation][5] to define new Metrics, Monitors, Dashboards or other resources.
 
