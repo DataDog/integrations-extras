@@ -27,7 +27,7 @@ Set the environment variables `DATADOG_API_KEY` and `DATADOG_APP_KEY`:
 export DATADOG_API_KEY=XXXXXXXXXXXXXX && export DATADOG_APP_KEY=YYYYYYYYYYYYYY
 ```
 
-- Or, set them using configuration if you prefer that they be stored alongside your Pulumi stack for easy multi-user access:
+Or, set them using configuration if you prefer that they be stored alongside your Pulumi stack for easier multi-user access:
 
 ```
 pulumi config set datadog:apiKey XXXXXXXXXXXXXX --secret && pulumi config set datadog:appKey YYYYYYYYYYYYYY --secret
