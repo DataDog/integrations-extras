@@ -18,7 +18,7 @@ The [Pulumi Datadog integration][2] uses the Datadog SDK to manage and provision
 
 2. [Install Pulumi][4]
 
-3. Once obtained, there are two ways to communicate your Datadog authorization tokens to Pulumi:
+3. Once obtained, there are two ways to set your Datadog authorization tokens for Pulumi:
 
 
 - Set the environment variables `DATADOG_API_KEY` and `DATADOG_APP_KEY`:
