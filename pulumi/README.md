@@ -3,6 +3,7 @@
 ## Overview
 
 [Pulumi][1] is a modern infrastructure as code platform that enables cloud engineering teams to define, deploy and manage cloud resources on any cloud using their favorite programming languages.
+
 The Datadog provider for Pulumi can be used to provision any of the cloud resources available in Datadog. The Datadog provider must be configured with credentials to deploy and update resources in Datadog.
 
 ## Setup
