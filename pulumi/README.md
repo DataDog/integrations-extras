@@ -14,7 +14,7 @@ The [Pulumi Datadog integration][2] uses the Datadog SDK to manage and provision
 
 ### Configuration
 
-1. [Sign-up for a free or commercial Pulumi account][3]
+1. [Sign up for a free or commercial Pulumi account][3]
 
 2. [Install Pulumi][4]
 
