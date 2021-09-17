@@ -25,6 +25,7 @@ class PingCheck(AgentCheck):
         return host, custom_tags, timeout, response_time
 
     def _exec_ping(self, timeout, target_host):
+        precmd = []
         if platform.system() == "Windows":  # pragma: nocover
             precmd = ["cmd", "/c", "chcp 437 &"]  # Set code page to English for non-US Windows
             countOption = "-n"
@@ -33,14 +34,12 @@ class PingCheck(AgentCheck):
             # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/ping
             timeout = timeout * 1000
         elif platform.system() == "Darwin":
-            precmd = []
             countOption = "-c"
             timeoutOption = "-W"  # Also in ms on Mac
             timeout = timeout * 1000
         else:
             # The timeout option is is seconds on Linux, leaving timeout as is
             # https://linux.die.net/man/8/ping
-            precmd = []
             countOption = "-c"
             timeoutOption = "-W"
 
