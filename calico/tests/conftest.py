@@ -2,7 +2,13 @@ from os import path
 
 import pytest
 
-from datadog_checks.dev import kind, run_command
+from datadog_checks.dev.kind import kind_run
+from datadog_checks.dev.subprocess   import run_command
+from datadog_checks.dev.kube_port_forward import port_forward
+try:
+    from contextlib import ExitStack
+except ImportError:
+    from contextlib2 import ExitStack
 
 URL = "http://localhost:9091/metrics"
 NAMESPACE = "calico"
@@ -46,7 +52,7 @@ def setup_calico():
 @pytest.fixture(scope='session')
 def dd_environment():
 
-    with kind.kind_run(conditions=[setup_calico], kind_config=path.join(HERE, 'kind-calico.yaml')):
+    with kind_run(conditions=[setup_calico], kind_config=path.join(HERE, 'kind-calico.yaml')) as kubeconfig:
         # Wait for pods
         run_command(["kubectl", "wait", "--for=condition=Ready", "pods", "--all", "--all-namespaces", "--timeout=300s"])
 
@@ -57,9 +63,10 @@ def dd_environment():
         )
 
         # Port forward felix service since Kind does not expose external IP for its service
-        run_command("""kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system \x26""")
-
-        yield INSTANCE
+        with ExitStack() as stack:
+            calico_host, calico_port = stack.enter_context(port_forward(kubeconfig, 'kube-system', 9091, 'service', 'felix-metrics-svc'))
+            instance = {"openmetrics_endpoint": 'http://{}:{}/metrics'.format(calico_host, calico_port), "namespace": NAMESPACE, "extra_metrics": EXTRA_METRICS}
+            yield instance
 
 
 @pytest.fixture
