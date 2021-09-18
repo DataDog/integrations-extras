@@ -16,8 +16,7 @@ EXTRA_METRICS = [
     "felix_iptables_restore_errors",
     "felix_iptables_save_calls",
     "felix_iptables_save_errors",
-    "felix_int_dataplane_failures.count"
-
+    "felix_int_dataplane_failures.count",
 ]
 
 FORMATTED_EXTRA_METRICS = [
