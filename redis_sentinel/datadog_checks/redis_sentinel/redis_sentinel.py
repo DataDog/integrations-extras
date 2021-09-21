@@ -9,8 +9,8 @@ EVENT_TYPE = SOURCE_TYPE_NAME = 'redis_sentinel'
 
 
 class RedisSentinelCheck(AgentCheck):
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        AgentCheck.__init__(self, name, init_config, agentConfig, instances)
+    def __init__(self, name, init_config, instances=None):
+        super(RedisSentinelCheck, self).__init__(name, init_config, instances)
         self._masters = defaultdict(lambda: "")
 
     def _load_config(self, instance):

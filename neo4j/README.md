@@ -6,6 +6,7 @@ This check monitors [neo4j][1] through the Datadog Agent.
 
 ## Setup
 
+
 Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
 
 ### Installation
@@ -20,6 +21,7 @@ To install the neo4j check on your host:
    ```shell
    datadog-agent integration install -t datadog-neo4j==<INTEGRATION_VERSION>
    ```
+
 
 ### Configuration
 
@@ -46,6 +48,7 @@ neo4j does not include any service checks.
 neo4j does not include any events.
 
 ## Troubleshooting
+
 
 Need help? Contact [Datadog support][7].
 
