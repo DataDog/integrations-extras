@@ -1,0 +1,29 @@
+name: Cloudsmith
+files:
+- name: cloudsmith.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: The URL to check
+      value:
+        type: string
+        example: https://api.cloudsmith.io/v1
+    - name: cloudsmith_api_key
+      required: true
+      description: The API key for Cloudsmith
+      secret: true
+      value:
+        type: string
+        example: ABC123
+    - name: organization
+      required: true
+      description: Repository organization.
+      value:
+        type: string
+        example: Example CloudsmithOrg1
+    - template: instances/default

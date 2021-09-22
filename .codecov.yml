@@ -23,6 +23,10 @@ coverage:
         target: 75
         flags:
         - bind9
+      Cloudsmith:
+        target: 75
+        flags:
+        - cloudsmith
       Cyral:
         target: 75
         flags:
@@ -72,7 +76,7 @@ coverage:
         flags:
         - neo4j
       Neutrona:
-        target: 75
+        target: 60
         flags:
         - neutrona
       Nextcloud:
@@ -132,7 +136,7 @@ coverage:
         flags:
         - sortdb
       Stardog:
-        target: 75
+        target: 70
         flags:
         - stardog
       Storm:
@@ -160,7 +164,7 @@ coverage:
         flags:
         - vespa
       Zabbix:
-        target: 75
+        target: 50
         flags:
         - zabbix
       cert-manager:
@@ -208,6 +212,11 @@ flags:
     paths:
     - cert_manager/datadog_checks/cert_manager
     - cert_manager/tests
+  cloudsmith:
+    carryforward: true
+    paths:
+    - cloudsmith/datadog_checks/cloudsmith
+    - cloudsmith/tests
   cyral:
     carryforward: true
     paths:
