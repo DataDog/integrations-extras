@@ -8,13 +8,11 @@ fdb.api_version(600)
 class FoundationdbCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FoundationdbCheck, self).__init__(name, init_config, instances)
-        self.hasDB = False
+        self._db = None
 
     def construct_database(self, instance):
-        if self.hasDB:
-            return self.db
-
-        self.hasDB = True
+        if self._db is not None:
+            return self._db
 
         # TLS options. Each option has a different function name, so we cannot be smart with it without ugly code
         if 'tls_certificate_file' in instance:
@@ -25,13 +23,13 @@ class FoundationdbCheck(AgentCheck):
             fdb.options.set_tls_verify_peers(instance.get('tls_verify_peers').encode('latin-1'))
 
         if 'cluster_file' in instance:
-            self.db = fdb.open(cluster_file=instance.get('cluster_file'))
+            self._db = fdb.open(cluster_file=instance.get('cluster_file'))
         else:
-            self.db = fdb.open()
+            self._db = fdb.open()
 
     def fdb_status_data(self, instance):
         self.construct_database(instance)
-        return self.db[u'\xff\xff/status/json'.encode(u'latin-1')]
+        return self._db[u'\xff\xff/status/json'.encode(u'latin-1')]
 
     def check(self, instance):
         status_data = self.fdb_status_data(instance)
