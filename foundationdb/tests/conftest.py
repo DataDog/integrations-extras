@@ -8,13 +8,14 @@ from datadog_checks.dev import WaitFor, docker_run, run_command
 
 dirname = os.path.dirname(__file__)
 
-INSTANCE = { 'cluster_file'         : os.path.join(dirname, 'fdb.cluster'),
-             'tls_certificate_file' : os.path.join(dirname, 'docker/tls/fdb.pem'),
-             'tls_key_file'         : os.path.join(dirname, 'docker/tls/private.key'),
-             'tls_verify_peers'     : 'Check.Valid=0'
-            }
+INSTANCE = {
+    'cluster_file': os.path.join(dirname, 'fdb.cluster'),
+    'tls_certificate_file': os.path.join(dirname, 'docker/tls/fdb.pem'),
+    'tls_key_file': os.path.join(dirname, 'docker/tls/private.key'),
+    'tls_verify_peers': 'Check.Valid=0'}
 CONFIG = {'init_config': {}, 'instances': [INSTANCE]}
 HERE = os.path.dirname(os.path.abspath(__file__))
+
 
 @pytest.fixture(scope='session')
 def dd_environment():
@@ -22,26 +23,39 @@ def dd_environment():
     with docker_run(compose_file=compose_file, conditions=[WaitFor(create_database)]):
         yield CONFIG
 
+
 @pytest.fixture(scope='session')
 def dd_tls_environment():
     compose_file = os.path.join(HERE, 'docker', 'docker-compose-tls.yaml')
     with docker_run(compose_file=compose_file, conditions=[WaitFor(create_tls_database)]):
         yield CONFIG
 
+
 @pytest.fixture
 def instance():
     return INSTANCE
 
+
 def create_tls_database():
     create_database(True)
 
+
 def create_database(tls=False):
-    compose_file = os.path.join(HERE, 'docker', 'docker-compose.yaml' if not tls else 'docker-compose-tls.yaml')
-    status_command = 'docker exec fdb-0 fdbcli --exec "status json"' if not tls else 'docker exec fdb-coordinator fdbcli -C /var/fdb/fdb.cluster --tls_certificate_file /var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 --exec "status json"'
+    if tls:
+        status_command = ('docker exec fdb-coordinator fdbcli -C /var/fdb/fdb.cluster --tls_certificate_file '
+                          '"/var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 '
+                          '--exec "status json"')
+    else:
+        status_command = 'docker exec fdb-0 fdbcli --exec "status json"'
     base_status = run_command(status_command, capture=True, check=True)
     status = json.loads(base_status.stdout)
     if not status.get('client').get('database_status').get('available'):
-        command = 'docker exec fdb-0 fdbcli --exec "configure new single memory"' if not tls else 'docker exec fdb-coordinator fdbcli -C /var/fdb/fdb.cluster --tls_certificate_file /var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 --exec "configure new single memory"'
+        if tls:
+            command = ('docker exec fdb-coordinator fdbcli -C /var/fdb/fdb.cluster --tls_certificate_file '
+                       '/var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 '
+                       '--exec "configure new single memory"')
+        else:
+            command = 'docker exec fdb-0 fdbcli --exec "configure new single memory"'
         run_command(command, capture=True, check=True)
     i = 0
     is_healthy = False
