@@ -11,9 +11,9 @@ and, optionally, FoundationDB transaction logs.
 Both the check and the metrics apply to the FoundationDB cluster as a whole,
 and so should only be installed on one host (which doesn't need to be one that is
 running FoundationDB, but just one with access to it). The host chosen to
-collect the metrics is required to have the [FoundationDB client][8]
-installed. It is possible to monitor multiple FoundationDB clusters
-by adding multiple instances in the configuration file.
+collect the metrics is required to have the [FoundationDB client][8] installed.
+It is possible to monitor multiple FoundationDB clusters by adding multiple
+instances in the configuration file.
 
 Since logs are written on each machine, to collect logs, configure FoundationDB
 log collection on every host.
@@ -48,25 +48,17 @@ the root of your Agent's configuration directory to start collecting
 FoundationDB metrics. See the [sample foundationdb.d/conf.yaml][3] for
 all available configuration options.
 
-The details of the cluster to check are found under the `instances`
-section. Some hints:
-
-* The `base_command` is correct by default if the `fdbcli` command is in
-  your `PATH` and the FoundationDB instance is on the current machine.
-  If you have `fdbcli` installed in a container, then modify
-  this command to execute it inside of the container.
-* The `cluster_file` is where `fdbcli` finds the cluster connection
-  details. If this is not specified, then it will be searched for in
-  the [default location][10]. Ensure that your cluster file is in
-  that location, and set this property if it is located elsewhere.
+The cluster to check will be determined by searching for a cluster file
+in the [default location][10]. If the cluster file is located elsewhere,
+set the `cluster_file` property.
 
 To check more than one FoundationDB cluster, add an extra item to the
 `instances` list. In this situation, at least one of the instances must
 specify a `cluster_file` property.
 
 If the cluster is [configured to use TLS][1], further properties should
-be set in the configuration. These properties follow the names of the
-options given to `fdbcli` to connect to such a cluster.
+be set in the configuration. These properties follow the names of the TLS
+related options given to `fdbcli` to connect to such a cluster.
 
 Be sure to **[restart the Agent][4]** after changing the configuration.
 
