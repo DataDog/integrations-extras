@@ -1,7 +1,7 @@
 {
-  "name": "Calico error with iptables save",
+  "name": "[Calico] error with iptables save",
   "type": "query alert",
-  "query": "sum(last_5m):avg:calico.felix_iptables_save_errors{*}.as_count() > 1",
+  "query": "sum(last_5m):avg:calico.felix.iptables.save_errors{*}.as_count() > 1",
   "message": "Calico encountered a problem while saving iptables rules.",
   "tags": ["integration:calico"],
   "options": {

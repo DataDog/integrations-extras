@@ -1,7 +1,7 @@
 {
-  "name": "Calico error with ipsets",
+  "name": "[Calico] error with ipsets",
   "type": "query alert",
-  "query": "sum(last_5m):avg:calico.felix_ipset_errors{*}.as_count() > 1",
+  "query": "sum(last_5m):avg:calico.felix.ipset.errors{*}.as_count() > 1",
   "message": "Calico encountered a problem applying networking rules using ipset.",
   "tags": ["integration:calico"],
   "options": {
