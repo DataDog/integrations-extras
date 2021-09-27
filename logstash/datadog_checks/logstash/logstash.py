@@ -181,7 +181,7 @@ class LogstashCheck(AgentCheck):
         return version
 
     def _is_multi_pipeline(self, version):
-        """ Reusable version checker """
+        """Reusable version checker"""
         return version and LooseVersion(version) >= LooseVersion("6.0.0")
 
     def check(self, instance):
