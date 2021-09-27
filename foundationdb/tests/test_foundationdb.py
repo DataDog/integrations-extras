@@ -168,11 +168,34 @@ def test_integ(aggregator, instance):
     aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
 
 
+@pytest.mark.usefixtures("dd_environment")
+def test_custom_metrics(aggregator, instance):
+    # type: (AggregatorStub, Dict[str, Any]) -> None
+    instance['custom_queries'] = [
+        {'metric_prefix': 'custom',
+        'query_key': 'basket_size',
+        'query_type': 'count',
+        'tags': ['query:custom'],
+         },
+        {'metric_prefix': 'another_custom_one',
+        'query_key': 'temperature',
+        'query_type': 'gauge',
+        'tags': ['query:another_custom_one'],
+        }
+    ]
+    check = FoundationdbCheck('foundationdb', {}, [instance])
+    check.check(instance)
+    aggregator.assert_metric('custom.basket_size')
+    aggregator.assert_metric('another_custom_one.temperature')
+    del instance['custom_queries']
+
+
 @pytest.mark.usefixtures("dd_tls_environment")
 def test_tls_integ(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
     # Update cluster file to specify the TLS container
     cur_dir = os.path.dirname(__file__)
+    old_cluster = instance['cluster_file']
     instance['cluster_file'] = os.path.join(cur_dir, 'fdb-tls.cluster')
     check = FoundationdbCheck('foundationdb', {}, [instance])
     check.check(instance)
@@ -182,3 +205,4 @@ def test_tls_integ(aggregator, instance):
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
     aggregator.assert_service_check("foundationdb.can_connect", AgentCheck.OK)
+    instance['cluster_file'] = old_cluster

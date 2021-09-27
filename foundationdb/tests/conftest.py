@@ -43,7 +43,7 @@ def create_tls_database():
 def create_database(tls=False):
     if tls:
         status_command = ('docker exec fdb-coordinator fdbcli -C /var/fdb/fdb.cluster --tls_certificate_file '
-                          '"/var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 '
+                          '/var/fdb/fdb.pem --tls_key_file /var/fdb/private.key --tls_verify_peers Check.Valid=0 '
                           '--exec "status json"')
     else:
         status_command = 'docker exec fdb-0 fdbcli --exec "status json"'
@@ -72,3 +72,7 @@ def create_database(tls=False):
                 if "commit_latency_statistics" in role:
                     has_latency_stats = True
         i += 1
+    if not tls:
+        test_data_fill_command = 'docker exec fdb-0 fdbcli --exec "writemode on; set basket_size 10; set temperature 37; writemode off"'
+        data_committed = run_command(test_data_fill_command, capture=True, check=True)
+        assert 'Committed' in data_committed.stdout

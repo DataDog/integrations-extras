@@ -40,6 +40,43 @@ class FoundationdbCheck(AgentCheck):
             raise
 
         self.check_metrics(data)
+        self.check_custom_queries(instance)
+
+    def check_custom_queries(self, instance):
+        if 'custom_queries' not in instance:
+            return
+
+        custom_queries = instance['custom_queries']
+        for query in custom_queries:
+            metric_prefix = query['metric_prefix']
+            if not metric_prefix:
+                self.log.error("custom query field `metric_prefix` is required")
+                continue
+            query_key = query['query_key']
+            if not query_key:
+                self.log.error("custom query field `query_key` is required for metric_prefix `%s`", metric_prefix)
+                continue
+            query_type = query['query_type']
+            if not query_type:
+                self.log.error("custom query field `query_type` is required for metric_prefix `%s`", metric_prefix)
+                continue
+            query_tags = query['tags']
+            if not query_tags:
+                self.log.error("custom query field `tags` is required for metric_prefix `%s`", metric_prefix)
+                continue
+            result = self._db[query_key.encode('UTF-8')]
+            if not result:
+                raise ValueError("No result for " + query_key)
+            if not hasattr(self, query_type):
+                self.log.error(
+                    "invalid submission method `%s` for column `%s` of metric_prefix `%s`",
+                    column_type,
+                    name,
+                    metric_prefix,
+                )
+                break
+            else:
+                getattr(self, query_type)(metric_prefix + '.' + query_key, float(result), tags=set(query_tags))
 
     def report_process(self, process):
         if "address" not in process:
