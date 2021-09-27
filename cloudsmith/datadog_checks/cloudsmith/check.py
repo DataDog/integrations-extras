@@ -230,11 +230,15 @@ class CloudsmithCheck(AgentCheck):
         self.service_check(
             'storage',
             usage_info['storage_mark'],
-            message="Percentage storage used: {}%".format(usage_info['storage_used']),
+            message="Percentage storage used: {}%".format(usage_info['storage_used'])
+            if usage_info['storage_used'] != AgentCheck.OK
+            else "",
         )
 
         self.service_check(
             'bandwidth',
             usage_info['bandwidth_mark'],
-            message="Percentage bandwidth used: {}%".format(usage_info['bandwidth_used']),
+            message="Percentage bandwidth used: {}%".format(usage_info['bandwidth_used'])
+            if usage_info['bandwidth_mark'] != AgentCheck.OK
+            else "",
         )
