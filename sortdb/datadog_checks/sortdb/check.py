@@ -59,12 +59,7 @@ class SortdbCheck(AgentCheck):
         # deduplicating the tags
         instance_tags = list(set(instance_tags))
         # service check
-        self.service_check(
-            self.SORTDB_SERVICE_CHECK,
-            AgentCheck.OK,
-            tags=instance_tags,
-            message='Connection to %s was successful' % sortdb_url,
-        )
+        self.service_check(self.SORTDB_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags)
 
         # get and set metrics
         self._get_sortdb_metrics(sortdb_url, SORTDB_METRICS, instance_tags)
