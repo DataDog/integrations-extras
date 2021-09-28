@@ -1,12 +1,14 @@
 {
-  "display_name": "Datadog-tyk-integration",
-  "public_title": "Datadog-tyk integration",
-  "author": "Martin Buhr",
+  "display_name": "Tyk",
+  "public_title": "Datadog-tyk Integration",
+  "integration_id": "tyk",
+  "is_public": true,
+  "author": "Tyk Technologies",
   "maintainer": "yaara@tyk.io",
   "manifest_version": "1.0.0",
   "name": "tyk",
   "metric_prefix": "tyk.",
-  "metric_to_check": "",
+  "metric_to_check": "tyk.request_time.95percentile, tyk.request_time.count, tyk.request_time.avg, tyk.request_time.max, tyk.request_time.median",
   "creates_events": false,
   "short_description": "Datadog-tyk integration",
   "description": "Datadog-tyk integration using StatsdogD",
@@ -26,8 +28,6 @@
     "web"
   ],
   "type": "check",
-  "is_public": true,
-  "integration_id": "tyk",
   "assets": {
     "dashboards": {
       "Tyk Analytics Canvas": "assets/dashboards/tyk_analytics_canvas.json"
