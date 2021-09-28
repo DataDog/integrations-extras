@@ -896,15 +896,10 @@ class StormCheck(AgentCheck):
                         if topology_status is None:
                             topology_status = _get_string(stats, 'unknown', 'status').upper()
                             check_status = AgentCheck.CRITICAL if topology_status != 'ACTIVE' else AgentCheck.OK
-
-                            if check_status == AgentCheck.OK:
-                                message = None
-                            else:
-                                message = ('{} topology status marked as: {}'.format(topology_name, topology_status),)
                             self.service_check(
                                 'topology_check.{}'.format(topology_name),
                                 status=check_status,
-                                message=message,
+                                message='{} topology status marked as: {}'.format(topology_name, topology_status),
                                 tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags,
                             )
                     except Exception:  # noqa

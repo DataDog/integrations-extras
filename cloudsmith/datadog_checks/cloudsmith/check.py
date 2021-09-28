@@ -227,18 +227,14 @@ class CloudsmithCheck(AgentCheck):
         self.gauge("token_bandwidth_total", entitlement_info['token_bandwidth_total'], tags=self.tags)
         self.gauge("token_download_total", entitlement_info['token_download_total'], tags=self.tags)
 
-        if usage_info['storage_mark'] == self.OK:
-            message = None
-        else:
-            message = ("Percentage storage used: {}%".format(usage_info['storage_used']),)
         self.service_check(
             'storage',
             usage_info['storage_mark'],
-            message=message,
+            message="Percentage storage used: {}%".format(usage_info['storage_used']),
         )
 
-        if usage_info['bandwidth_mark'] == self.OK:
-            message = None
-        else:
-            message = message = ("Percentage bandwidth used: {}%".format(usage_info['bandwidth_used']),)
-        self.service_check('bandwidth', usage_info['bandwidth_mark'], message=message)
+        self.service_check(
+            'bandwidth',
+            usage_info['bandwidth_mark'],
+            message="Percentage bandwidth used: {}%".format(usage_info['bandwidth_used']),
+        )

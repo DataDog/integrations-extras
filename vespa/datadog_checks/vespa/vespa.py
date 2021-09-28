@@ -40,7 +40,8 @@ class VespaCheck(AgentCheck):
                     self._emit_metrics(service_name, metrics, instance_tags)
 
             self.log.info("Forwarded %s metrics to hq for %s services", self.metric_count, self.services_up)
-            self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags)
+            self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags,
+                               message="Metrics collected successfully for consumer {}".format(consumer))
         except Timeout as e:
             self._report_metrics_error("Timed out connecting to Vespa's node metrics api: {}".format(e),
                                        AgentCheck.CRITICAL, instance_tags)
@@ -110,7 +111,8 @@ class VespaCheck(AgentCheck):
 
         tags = tags + instance_tags
         if code == "up":
-            self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.OK, tags=tags)
+            self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.OK, tags=tags,
+                               message="Service {} returns up".format(service_name))
             self.services_up += 1
         elif code == "down":
             self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.CRITICAL, tags=tags,
