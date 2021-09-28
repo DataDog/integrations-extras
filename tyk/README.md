@@ -6,51 +6,52 @@
 
 ![tyk-in-action][5]
 
-Datadog can collect and display errors response time, duration, latency and monitor performance of the api traffic
+Datadog can collect and display errors response time, duration, latency and monitor performance of the API traffic
 in [tyk][1] to easily discover issues in your APIs or your consumers.
 
 
 Tyk has a built-in Datadog integration that collects metrics from [Tyk API gateway][7].
-Tyk API gateway records for you all the traffic that it's processing and can send it for you to Datadog and build 
+Tyk API gateway records all the traffic that it's processing. It sends that information to Datadog and builds
 dashboards around it.
 
 ### How does it work behind the scenes
 
-[Tyk][1] wrote custom application metrics and gets them into Datadog by sending them to [DogStatsD][9], 
+[Tyk pump][23] writes custom application metrics and sends them into Datadog by sending them to [DogStatsD][9],
 a metrics aggregation service bundled with the Datadog Agent. DogStatsD implements the StatsD 
-protocol and adds a few Datadog-specific extensions including the Histogram metric type, that is 
+protocol which adds a few Datadog-specific extensions including the Histogram metric type, that is
 in use by `Tyk-gateway`.
 
-`Tyk-gateway` is using `Tyk-pump` to send the analytics it generated to Datadog.
-When running the Datadog Agent, StatsDogD gets `request_time` metric from `Tyk-pump` in real time, per request, 
-so you can understand the usage of your apis and get the flexibility of aggregating by various parameters such 
+`Tyk-gateway` uses `Tyk-pump` to send the analytics it generated to Datadog.
+When running the Datadog Agent, DogstatsD gets the `request_time` metric from `Tyk-pump` in real time, per request,
+so you can understand the usage of your APIs and get the flexibility of aggregating by various parameters such
 as date, version, returned code, method etc.
 The custom metric Tyk is using is of type [DD_HISTOGRAM_AGGREGATES][12]
 
 ## Setup
 
-As explain above, Tyk's integration is included in the `tyk-pump` package, so you only need to set 
-configuration in the `pump.conf` (and no need to install anything on your Tyk platform) 
+Tyk's integration is included in the `tyk-pump` package, so you only need to set
+configuration in the `pump.conf` (and there's no need to install anything on your Tyk platform)
 
 ### Installation
 
-#### **Install tyk**: 
+#### Install tyk: 
 For this integration you need to have a running Tyk installation. You can install 
 [Tyk self managed][14] or [Tyk OSS][15]. Both options include the `tyk-pump`.
 
-#### **Install Datadog Agent**: 
+#### Install Datadog Agent: 
 Install the [Datadog Agent][16] in your environment. 
-You can run Datadog [agent][17] in your k8s cluster, as a docker container, on your mac or any other way you 
-choose as long as `Tyk pump` will be able to access it. For containerized environments, see the 
-[Autodiscovery Integration Templates][2] for the complete guidance.
+You can run Datadog [agent][17] in your k8s cluster, as a docker container, on your mac, or any other way you
+choose as long as `Tyk pump` is be able to access it.
+For containerized environments, see the [Autodiscovery Integration Templates][2] for more guidance.
 To validate that the changes are applied, [run the Agent's status subcommands][13]
 
 
 ### Configuration
 
-#### Setup *Tyk-pump*: 
-To set a Datadog pump follow the instructions in this [link][18]
-Here is an example of Datadog pump configuration in `pump.conf`. 
+#### Setup Tyk-pump:
+To set a Datadog pump follow the instructions in [the DogstatsD section][18] of the pump README.
+
+The following is an example of Datadog pump configuration in `pump.conf`:
 
 ``` json
 pump.conf:
@@ -80,36 +81,40 @@ pump.conf:
     },
 ```
 This [example][19] was taken from [Tyk-demo][20] project, an open source project that spins up a full tyk platform in
-one command and offers ready-made examples, among which is the Datadog example.
-To run this integration do `up.sh analytics-datadog`
+one command and offers ready-made examples, including the Datadog example.
+To run this integration, use `up.sh analytics-datadog`
 
 
-#### **Setup Datadog Agent**: 
-Tyk's integration makes use of StatsdogD. `Tyk-pump` writes over UDP to StatsdogD that is part of the agent.
-Please set up the following Datadog environment variables in your environment:
+#### Setup Datadog Agent:
 
-| DD Environment variable   |  Value           | Description |
-|---------------------------|:-------------:|------:|
-| DD_API_KEY | {your-datadog-api-key} | For the DD agent to connect the DD portal. Use this [link][22] to get the key |
-| DD_ENV |    tyk-demo-env   |   To set environment name |
-| DD_DOGSTATSD_TAGS | "env:tyk-demo" |  Additional tags to append to all metrics, events, and service checks received by this DogStatsD server |
-| DD_LOGS_ENABLED | true | For the DD agent to enable logs collection |
-| DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL | true | To skip the DD logs |
-| DD_DOGSTATSD_SOCKET | /var/run/docker.sock | Path to the Unix socket to listen to.  Docker compose mounts this path |
-| DD_DOGSTATSD_ORIGIN_DETECTION | true | Enable container detection and tagging for unix socket metrics |
-| DD_DOGSTATSD_NON_LOCAL_TRAFFIC | true | Listen to DogStatsD packets from other containers (required to send custom metrics) |
-| DD_AGENT_HOST | dd-agent | Name of the agent host in docker |
-| DD_AC_EXCLUDE | redis | To exclude DD redis checks |
-| DD_CONTAINER_EXCLUDE | true | To exclude docker checks for the DD agent|
+Tyk's integration uses [DogstatsD][21]. It is a metrics aggregation service bundled with the Datadog Agent.
+DogStatsD implements the `StatsD` protocol and adds a few Datadog-specific extensions.
+Tyk is using `Histogram metric type`.
 
-This is the [doc][21] to set up the agent.
+Please set up the following Datadog and DogStatsD environment variables in your environment:
 
-[Restart the Agent][4] after setting the environment variables
+| DD Environment variable | Value | Description |
+|---------------------------|-------------|------|
+| DD_API_KEY | {your-datadog-api-key} | For the Datadog Agent to connect the DD portal. Your API key can be found in [Account Settings][22]. |
+| DD_ENV |    tyk-demo-env   |   Sets the environment name. |
+| DD_DOGSTATSD_TAGS | "env:tyk-demo" |  Additional tags to append to all metrics, events, and service checks received by this DogStatsD server. |
+| DD_LOGS_ENABLED | true | Enables log collection for the Datadog Agent. |
+| DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL | true | Collects logs from containers.. |
+| DD_DOGSTATSD_SOCKET | /var/run/docker.sock | Path to the Unix socket to listen to.  Docker compose mounts this path. |
+| DD_DOGSTATSD_ORIGIN_DETECTION | true | Enables container detection and tagging for Unix socket metrics. |
+| DD_DOGSTATSD_NON_LOCAL_TRAFFIC | true | Listens for DogStatsD packets from other containers. (Required to send custom metrics). |
+| DD_AGENT_HOST | dd-agent | Name of the agent host in docker. |
+| DD_AC_EXCLUDE | redis | Excludes Datadog redis checks. (Optional) |
+| DD_CONTAINER_EXCLUDE | true | Excludes docker checks for the Datadog Agent. |
+
+After setting environment variables listed above, set up the agent [with DogstatsD][24]
+
+[Restart the Agent][4] after setup.
 
 ### Validation
 
-Create a dashboard (or import our sample[]) and add a widget. In the section `Graph your data` under the `metric`
-option, start typing the namespace you chose for the pump in the config `pump.conf` under `dogstatsd.namespace`. 
+Create a dashboard (or import [the sample][11]) and add a widget. In the section **Graph your data** under the
+**metric** option, start typing the namespace you chose for the pump in the config `pump.conf` under `dogstatsd.namespace`.
 In the example above it was `tyk`. Once you start typing you will see all the available metrics - `tyk.request_time.avg` etc.
 
 ## Data Collected
@@ -120,8 +125,7 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Dashboards
 
-With Datadog, you can easily create nice dashboards that displays statistics about your API services and
-their consumption.
+With Datadog, you can create dashboards that display statistics about your API services and their consumption.
 
 Here's an example for such a dashboard:
 ![Tyk Analytics dashboard example][10]
@@ -151,8 +155,8 @@ Need help? Contact [Datadog support][8].
 [7]: https://github.com/TykTechnologies/tyk
 [8]: https://docs.datadoghq.com/help/
 [9]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#pagetitle
-[10]: ./images/datadog-tyk-analytics-dashboard.jpg
-[11]: ./assets/dashboards/tyk_analytics_canvas.json
+[10]: https://github.com/DataDog/integrations-extras/blob/master/tyk/images/datadog-tyk-analytics-dashboard.jpg
+[11]: https://github.com/DataDog/integrations-extras/blob/master/tyk/assets/dashboards/tyk_analytics_canvas.json
 [12]: https://docs.datadoghq.com/agent/docker/?tab=standard#dogstatsd-custom-metrics
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information
 [14]: https://tyk.io/docs/tyk-self-managed/install/
@@ -164,3 +168,5 @@ Need help? Contact [Datadog support][8].
 [20]: https://github.com/TykTechnologies/tyk-demo/tree/master/deployments/analytics-datadog
 [21]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#setup
 [22]: https://app.datadoghq.com/account/settings#api
+[23]: https://tyk.io/docs/tyk-pump/
+[24]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#how-it-works
