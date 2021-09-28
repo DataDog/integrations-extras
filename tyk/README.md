@@ -14,7 +14,7 @@ Tyk has a built-in Datadog integration that collects metrics from [Tyk API gatew
 Tyk API gateway records all the traffic that it's processing. It sends that information to Datadog and builds
 dashboards around it.
 
-### How does it work behind the scenes
+### How it works
 
 [Tyk pump][23] writes custom application metrics and sends them into Datadog by sending them to [DogStatsD][9],
 a metrics aggregation service bundled with the Datadog Agent. DogStatsD implements the StatsD 
@@ -135,7 +135,7 @@ Here's an example for such a dashboard:
 
 ### Events
 
-The tyk integration does not include any events ATM but you can add them on your own.
+The tyk integration does not include any events.
 
 ### Service Checks
 
