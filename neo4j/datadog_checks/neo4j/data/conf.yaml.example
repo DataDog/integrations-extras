@@ -27,36 +27,24 @@ instances:
     #
     neo4j_version: '4.3'
 
-    ## @param neo4j_dbs - string - optional - default: <DB_1>
-<DB_2>
-
+    ## @param neo4j_dbs - string - optional
     ## The Neo4j databases to gather metric from. 
     ## This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5.
     #
-    # neo4j_dbs: '<DB_1>
-    # 
-    #   <DB_2>
-    # 
-    #   '
+    # neo4j_dbs: <DB_1>
 
     ## @param exclude_labels - string - optional
     ## A list of prometheus labels to exclude. Those labels will just not be added 
     ## as tags when submitting the metric.
     #
-    # exclude_labels: <TAG_1>,<TAG_2>
+    # exclude_labels: <TAG_1>
 
-    ## @param tags - string - optional - default: <KEY_1>:<VALUE_1>
-<KEY_2>:<VALUE_2>
-
+    ## @param tags - string - optional
     ## A list of tags to attach to every metric and service check emitted by this instance. 
     ##
     ## Learn more about tagging at https://docs.datadoghq.com/getting_started/agent/
     #
-    # tags: '<KEY_1>:<VALUE_1>
-    # 
-    #   <KEY_2>:<VALUE_2>
-    # 
-    #   '
+    # tags: <KEY_1>:<VALUE_1>
 
     ## @param min_collection_interval - integer - optional - default: 15
     ## This changes the collection interval of the check.
