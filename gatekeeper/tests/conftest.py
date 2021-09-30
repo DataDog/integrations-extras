@@ -57,7 +57,9 @@ def dd_environment():
         with ExitStack() as stack:
             ip_ports_metrics = [
                 stack.enter_context(
-                    port_forward(kubeconfig, 'gatekeeper-system', 'gatekeeper-controller-manager', METRICS_PORT)
+                    port_forward(
+                        kubeconfig, 'gatekeeper-system', METRICS_PORT, 'deployment', 'gatekeeper-controller-manager'
+                    )
                 )
             ]
             ip_ports_health = [
