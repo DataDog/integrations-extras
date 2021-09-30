@@ -59,7 +59,7 @@ class RedisenterpriseCheck(AgentCheck):
                 service_check_tags.append('redis_cluster:{}'.format(fqdn))
 
                 # collect the license data
-                fqdn = self._get_license(host, port, service_check_tags)
+                self._get_license(host, port, service_check_tags)
 
                 # collect the node data
                 self._get_nodes(host, port, service_check_tags)
@@ -70,7 +70,7 @@ class RedisenterpriseCheck(AgentCheck):
                 self._shard_usage(bdb_dict, service_check_tags, host)
 
                 # collect the events from the API - we set the timeout higher here
-                self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
+                self._get_events(host, port, username, password, bdb_dict, service_check_tags, event_limit)
 
                 # update the timestamp if everything else passes
                 self.last_timestamp_seen = datetime.utcnow()
@@ -160,17 +160,28 @@ class RedisenterpriseCheck(AgentCheck):
             }
         return bdb_dict
 
-    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
-        """Scrape the LOG endpoint and put all log entries into Datadog events"""
-        evnts = self._api_fetch_json(
-            "logs",
-            service_check_tags,
+    def _get_events(self, host, port, username, password, bdb_dict, service_check_tags, event_limit):
+        """ Scrape the LOG endpoint and put all log entries into Datadog events """
+
+        # We need to use requests to send the get params since the http wrapper does not allow this
+        r = requests.get(
+            'https://{}:{}/v1/logs'.format(host, port),
+            auth=HTTPBasicAuth(username, password),
+            headers={'Content-Type': 'application/json'},
+            allow_redirects=False,
+            verify=False,
             params={
                 "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "order": "desc",
                 "limit": event_limit,
             },
         )
+        if r.status_code != 200:
+            msg = 'RedisEnterprise: Unable to fetch logs from endpoint: HTTP Status {}'.format(r.status_code)
+            self.log.info(msg)
+
+        evnts = r.json()
+
         for evnt in evnts:
             msg = {k: v for k, v in evnt.items() if k not in ['time', 'severity']}
             self.event(
