@@ -64,7 +64,9 @@ def dd_environment():
             ]
             ip_ports_health = [
                 stack.enter_context(
-                    port_forward(kubeconfig, 'gatekeeper-system', HEALTH_PORT, 'deployment', 'gatekeeper-controller-manager')
+                    port_forward(
+                        kubeconfig, 'gatekeeper-system', HEALTH_PORT, 'deployment', 'gatekeeper-controller-manager'
+                    )
                 )
             ]
 
