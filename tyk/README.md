@@ -2,9 +2,9 @@
 
 ## Overview
 
-![tyk][3]
+![tyk logo][3]
 
-![tyk-in-action][5]
+![Illustration of Tyk in a lab][5]
 
 Datadog can collect and display errors response time, duration, latency and monitor performance of the API traffic
 in [tyk][1] to easily discover issues in your APIs or your consumers.
@@ -150,8 +150,8 @@ Need help? Contact [Datadog support][8].
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://tyk.io/wp-content/uploads/2021/07/tyk_logo_no_bg.png
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[5]: ./images/tyk-in-lab.png?raw=true "Tyk's Lab"
-[6]: ./metadata.csv
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk-in-lab.png
+[6]: https://github.com/DataDog/integrations-extras/blob/master/tyk/metadata.csv
 [7]: https://github.com/TykTechnologies/tyk
 [8]: https://docs.datadoghq.com/help/
 [9]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#pagetitle
