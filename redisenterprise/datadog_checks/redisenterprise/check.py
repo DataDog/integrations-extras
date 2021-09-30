@@ -161,7 +161,7 @@ class RedisenterpriseCheck(AgentCheck):
         return bdb_dict
 
     def _get_events(self, host, port, username, password, bdb_dict, service_check_tags, event_limit):
-        """ Scrape the LOG endpoint and put all log entries into Datadog events """
+        """Scrape the LOG endpoint and put all log entries into Datadog events"""
 
         # We need to use requests to send the get params since the http wrapper does not allow this
         r = requests.get(
