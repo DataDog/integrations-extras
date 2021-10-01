@@ -5,6 +5,7 @@ from datadog_checks.neo4j import GLOBAL_DB_NAME, NAMESPACE, Config, Neo4jCheck
 
 from dataclasses import dataclass
 
+
 @dataclass
 class FakeMetric:
     name: str
@@ -75,7 +76,7 @@ def test_check_namespaced_metrics():
     check = Neo4jCheck('neo4j', {}, {})
     check.process_metric = fake_process_metric
 
-    config = Config(host='localhost', port=9000, neo4j_version='4.0', neo4j_dbs=[],
+    config = Config(host='localhost', port=9000, neo4j_version='4.0', https='false', neo4j_dbs=[],
                     exclude_labels=['kube_service'], instance_tags=['key:value'])
 
     check._check_metrics([
@@ -115,7 +116,8 @@ def test_get_config():
         'neo4j_version': '3.5',
     }
     assert check._get_config(instance) == Config(
-        host='localhost', port=2004, neo4j_version='3.5', neo4j_dbs=[], exclude_labels=[], instance_tags=[],
+        host='localhost', port=2004, neo4j_version='3.5', https='false', neo4j_dbs=[],
+        exclude_labels=[], instance_tags=[],
     )
 
     instance = {}

@@ -32,7 +32,7 @@ class Neo4jCheck(PrometheusCheck):
         self._set_whitelisted_metrics()
         config = self._get_config(instance=instance)
         self.exclude_labels = config.exclude_labels
-        if (config.https.lower()=='false'):
+        if (config.https.lower() == 'false'):
             endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
         else:
             endpoint = 'https://{}:{}/metrics'.format(config.host, config.port)
@@ -103,8 +103,8 @@ class Neo4jCheck(PrometheusCheck):
         neo4j_dbs = self._get_value(instance=instance, key='neo4j_dbs', required=False, default_value=[])
         exclude_labels = self._get_value(instance=instance, key='exclude_labels', required=False, default_value=[])
         instance_tags = self._get_value(instance=instance, key='tags', required=False, default_value=[])
-        
-        if neo4j_version not in ["3.5", "4.0", "4.1", "4.2", "4.3","4.4"]:
+
+        if neo4j_version not in ["3.5", "4.0", "4.1", "4.2", "4.3", "4.4"]:
             raise ConfigurationError('neo4j_version "{}" is not a valid value'.format(neo4j_version))
 
         return Config(
