@@ -137,13 +137,14 @@ instances:
     # bearer_token_path: <TOKEN_PATH>
 
     ## @param ignore_metrics - list of strings - optional
-    ## A list of metrics to ignore, the "*" wildcard can be used to match multiple metric names.
-    ## The wildcard matching is done via fnmatch, it locates a match anywhere in the string.
+    ## A list of metrics to ignore, use the "*" wildcard can be used to match multiple metric names.
     #
     # ignore_metrics:
     #   - <IGNORED_METRIC_NAME>
-    #   - <SUBSTRING_*>
-    #   - <*_SUBSTRING>
+    #   - <PREFIX_*>
+    #   - <*_SUFFIX>
+    #   - <PREFIX_*_SUFFIX>
+    #   - <*_SUBSTRING_*>
 
     ## @param ignore_metrics_by_labels - mapping - optional
     ## A mapping of labels where metrics with matching label key and values are ignored.
