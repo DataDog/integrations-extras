@@ -1,0 +1,48 @@
+{
+    "manifest_version": "2.0.0",
+    "app_uuid": "d95c6f4f-7f99-4a29-9198-6921809efad6",
+    "app_id": "fairwinds-insights",
+    "classifier_tags": [
+        "Supported OS::Linux",
+        "Supported OS::Mac OS",
+        "Supported OS::Windows"
+    ],
+    "display_on_public_website": false,
+    "tile": {
+        "overview": "README.md#Overview",
+        "configuration": "README.md#Setup",
+        "support": "README.md#Support",
+        "changelog": "CHANGELOG.md",
+        "description": "View issues in your Kubernetes cluster discovered by Fairwinds Insights",
+        "title": "Fairwinds Insights",
+        "media": [
+            {
+                "media_type": "image",
+                "caption": "UI App",
+                "image_url": "images/fairwinds-insights-datadog.png"
+            }
+        ]
+    },
+    "author": {
+        "support_email": "insights@fairwinds.com"
+    },
+    "oauth": {},
+    "assets": {
+        "integration": {
+            "source_type_name": "Fairwinds Insights",
+            "configuration": {},
+            "events": {
+                "creates_events": false
+            },
+            "metrics": {
+                "prefix": "fairwinds_insights.",
+                "check": "",
+                "metadata_path": "metadata.csv"
+            },
+            "service_checks": {
+                "metadata_path": "assets/service_checks.json"
+            }
+        },
+        "logs": {}
+    }
+}
