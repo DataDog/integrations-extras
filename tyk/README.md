@@ -146,16 +146,16 @@ The tyk integration does not include any service checks.
 Need help? Contact [Datadog support][8].
 
 
-[1]: https://tyk.io/
-[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://tyk.io/wp-content/uploads/2021/07/tyk_logo_no_bg.png
-[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk-in-lab.png
-[6]: https://github.com/DataDog/integrations-extras/blob/master/tyk/metadata.csv
-[7]: https://github.com/TykTechnologies/tyk
-[8]: https://docs.datadoghq.com/help/
-[9]: https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#pagetitle
-[10]: https://github.com/DataDog/integrations-extras/blob/master/tyk/images/datadog-tyk-analytics-dashboard.jpg
+[1]:  https://tyk.io/
+[2]:  https://docs.datadoghq.com/agent/kubernetes/integrations/
+[3]:  https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk_logo_no_bg.png
+[4]:  https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[5]:  https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk-in-lab.png
+[6]:  https://github.com/DataDog/integrations-extras/blob/master/tyk/metadata.csv
+[7]:  https://github.com/TykTechnologies/tyk
+[8]:  https://docs.datadoghq.com/help/
+[9]:  https://docs.datadoghq.com/developers/dogstatsd/?tab=hostagent#pagetitle
+[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/datadog-tyk-analytics-dashboard.jpg
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tyk/assets/dashboards/tyk_analytics_canvas.json
 [12]: https://docs.datadoghq.com/agent/docker/?tab=standard#dogstatsd-custom-metrics
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information
