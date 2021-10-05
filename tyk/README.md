@@ -1,4 +1,4 @@
-# Agent Check: tyk
+# Agent Check: Tyk
 
 ## Overview
 
