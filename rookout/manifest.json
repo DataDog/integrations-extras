@@ -1,34 +1,56 @@
 {
-  "display_name": "Rookout for Datadog",
-  "maintainer": "support@rookout.com",
-  "manifest_version": "1.0.0",
-  "name": "rookout",
-  "metric_prefix": "rookout.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Collect metrics from your code running live in production using Rookout",
-  "guid": "20d03aac-77a0-430f-a2ed-d5b62f884c1c",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
+  "manifest_version": "2.0.0",
+  "app_uuid": "a82a4f89-0690-48cf-bad0-9603fb652f44",
+  "app_id": "rookout",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows"
   ],
-  "public_title": "Rookout for Datadog",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "rookout",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect metrics from your code running live in production using Rookout",
+    "title": "Rookout for Datadog",
+    "media": [
+      {
+        "caption": "Rookout Debugger",
+        "image_ref": "images/app1.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Rookout Debug Session Configuration",
+        "image_ref": "images/app2.png",
+        "media_type": "image"
+      }
+    ]
+  },
+  "author": {
+    "support_email": "support@rookout.com"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {
-        "rookout_overview": "assets/dashboards/rookout_overview.json"
+    "integration": {
+      "source_type_name": "Rookout for Datadog",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rookout.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "dashboards": {
+      "rookout_overview": "assets/dashboards/rookout_overview.json"
+    },
+    "logs": {}
   }
 }
