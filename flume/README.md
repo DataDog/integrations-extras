@@ -6,19 +6,19 @@ This check monitors [Apache Flume][1].
 
 ## Setup
 
+The Flume check is not included in the [Datadog Agent][2] package, so you need to install it.
+
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Flume check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Flume check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-3. [Download the Datadog Agent][5].
-
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-flume==<INTEGRATION_VERSION>
    ```
-   
-3. Configure your integration like [any other packaged integration][6].
+
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -68,11 +68,9 @@ Need help? Contact [Datadog support][10].
 
 
 [1]: https://flume.apache.org/
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://app.datadoghq.com/account/settings#agent
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://flume.apache.org/FlumeUserGuide.html#jmx-reporting
 [8]: https://github.com/DataDog/integrations-extras/blob/master/flume/datadog_checks/flume/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/integrations/java/

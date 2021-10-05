@@ -52,6 +52,13 @@ instances:
     #
   - registry_file_path: /var/lib/filebeat/registry
 
+    ## @param ignore_registry - boolean - optional - default: false
+    ## Whether to ignore the registry file check. 
+    ##
+    ## Useful if you only need the http service check.
+    #
+    # ignore_registry: false
+
     ## @param stats_endpoint - string - required
     ## If Filebeat has been started with the `--httpprof [HOST]:PORT` option, then
     ## the Datadog agent can gather data about the metrics Filebeat exposes to  http://<HOST>:<PORT>/debug/vars.
@@ -372,6 +379,11 @@ instances:
     #
     # read_timeout: <READ_TIMEOUT>
 
+    ## @param request_size - number - optional - default: 16
+    ## The number of kibibytes (KiB) to read from streaming HTTP responses at a time.
+    #
+    # request_size: 16
+
     ## @param log_requests - boolean - optional - default: false
     ## Whether or not to debug log the HTTP(S) requests made, including the method and URL.
     #
@@ -381,3 +393,8 @@ instances:
     ## Whether or not to persist cookies and use connection pooling for increased performance.
     #
     # persist_connections: false
+
+    ## @param allow_redirects - boolean - optional - default: true
+    ## Whether or not to allow URL redirection.
+    #
+    # allow_redirects: true

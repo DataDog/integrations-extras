@@ -25,7 +25,9 @@ class PingCheck(AgentCheck):
         return host, custom_tags, timeout, response_time
 
     def _exec_ping(self, timeout, target_host):
+        precmd = []
         if platform.system() == "Windows":  # pragma: nocover
+            precmd = ["cmd", "/c", "chcp 437 &"]  # Set code page to English for non-US Windows
             countOption = "-n"
             timeoutOption = "-w"
             # The timeout option is in ms on Windows
@@ -44,7 +46,9 @@ class PingCheck(AgentCheck):
         self.log.debug("Running: ping %s %s %s %s %s", countOption, "1", timeoutOption, timeout, target_host)
 
         lines, err, retcode = get_subprocess_output(
-            ["ping", countOption, "1", timeoutOption, str(timeout), target_host], self.log, raise_on_empty_output=True
+            precmd + ["ping", countOption, "1", timeoutOption, str(timeout), target_host],
+            self.log,
+            raise_on_empty_output=True,
         )
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
         if retcode != 0:

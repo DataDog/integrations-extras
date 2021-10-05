@@ -9,25 +9,23 @@ Get metrics from Filebeat service in real time to:
 
 ## Setup
 
-The Filebeat check is **NOT** included in the [Datadog Agent][1] package.
+The Filebeat check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Filebeat check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior to version 6.8][3] or the [Docker Agent][4]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Filebeat check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][1].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-filebeat==<INTEGRATION_VERSION>
    ```
-3. Configure your integration like [any other packaged integration][6].
 
-See the [Changelog](https://github.com/DataDog/integrations-extras/blob/master/filebeat/CHANGELOG.md) for the available integration versions.
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
-1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
+1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metrics). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
 
@@ -54,12 +52,9 @@ See [service_checks.json][13] for a list of service checks provided by this inte
 Need help? Contact [Datadog support][12].
 
 
-[1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://app.datadoghq.com/account/settings#agent
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/filebeat/datadog_checks/filebeat/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent

@@ -29,8 +29,13 @@ def mocked_os_stat(mocked_paths_and_stats):
     return mock.patch.object(os, "stat", side_effect=internal_mock)
 
 
-def _build_instance(name, stats_endpoint=None, only_metrics=None, timeout=None, normalize_metrics=None):
+def _build_instance(
+    name, ignore_registry=None, stats_endpoint=None, only_metrics=None, timeout=None, normalize_metrics=None
+):
     instance = {"registry_file_path": registry_file_path(name)}
+
+    if ignore_registry is not None:
+        instance["ignore_registry"] = ignore_registry
 
     if stats_endpoint is not None:
         instance["stats_endpoint"] = stats_endpoint
@@ -99,6 +104,30 @@ def test_missing_registry_file(aggregator):
     # tests that it simply silently ignores it
     check.check(config)
     aggregator.assert_metric("filebeat.registry.unprocessed_bytes", count=0)
+
+
+@pytest.mark.usefixtures('dd_environment')
+def test_ignore_registry(aggregator, instance):
+    instance['registry_file_path'] = "malformed_json"
+    instance["ignore_registry"] = True
+    check = FilebeatCheck("filebeat", {}, [instance])
+    # test that it silently ignores the registry file
+    # and does the http check
+    check.check(instance)
+    tags = ["stats_endpoint:{}".format(instance['stats_endpoint'])]
+    aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.OK, tags=tags)
+
+
+@pytest.mark.usefixtures('dd_environment')
+def test_instance_tags(aggregator, instance):
+    instance['registry_file_path'] = "happy_path"
+    instance['tags'] = ["foo:bar"]
+    check = FilebeatCheck("filebeat", {}, [instance])
+    # test that it uses both the instance tags and the
+    # `stats_endpoint` tag generated
+    check.check(instance)
+    tags = instance['tags'] + ["stats_endpoint:{}".format(instance['stats_endpoint'])]
+    aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.OK, tags=tags)
 
 
 def test_missing_source_file(aggregator):

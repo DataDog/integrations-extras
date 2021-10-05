@@ -2,19 +2,17 @@
 
 ## Overview
 
-This check monitors [NVIDIA Management Library (NVML)][1] exposed metrics through the Datadog Agent and can correlate them
-with the [exposed Kubernetes devices][12].
+This check monitors [NVIDIA Management Library (NVML)][1] exposed metrics through the Datadog Agent and can correlate them with the [exposed Kubernetes devices][12].
 
 ## Setup
 
-This package is **NOT** included in the [Datadog Agent][2] package.
+The NVML check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the NVML check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][2].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-nvml==<INTEGRATION_VERSION>
@@ -22,22 +20,21 @@ If you are using Agent v6.8+ follow the instructions below to install the check 
    sudo -u dd-agent -H /opt/datadog-agent/embedded/bin/pip3 install grpcio pynvml
    ```
 
+2. Configure your integration similar to core [integrations][4].
+
 If you are using Docker, there is an [example Dockerfile][15] in the NVML repository.
 
    ```shell
    docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
    ```
 
-3. Configure your integration like [any other packaged integration][6].
+If you're using Docker and Kubernetes, you need to expose the environment variables `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES`. See the included Dockerfile for an example.
 
-8. If you're using Docker and Kubernetes, you will need to expose the environment variables `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES`. See the included Dockerfile for an example.
-
-9. If you want to be able to correlate reserved Kubernetes NVIDIA devices with the Kubernetes pod using the device, mount the Unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your Agent's configuration. More
-information about this socket is on the [Kubernetes website][12].  Note this device is in beta support for version 1.15.
+If you want to be able to correlate reserved Kubernetes NVIDIA devices with the Kubernetes pod using the device, mount the Unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your Agent's configuration. More information about this socket is on the [Kubernetes website][12]. **Note**: This device is in beta support for version 1.15.
 
 ### Configuration
 
-1. Edit the `nvml.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your NVML performance data. See the [sample nvml.d/conf.yaml][3] for all available configuration options.
+1. Edit the `nvml.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your NVML performance data. See the [sample nvml.d/conf.yaml][7] for all available configuration options.
 
 2. [Restart the Agent][8].
 
@@ -68,10 +65,8 @@ Need help? Contact [Datadog support][11].
 
 [1]: https://pypi.org/project/pynvml/
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[6]: https://docs.datadoghq.com/agent/autodiscovery/integrations
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/nvml/datadog_checks/nvml/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
