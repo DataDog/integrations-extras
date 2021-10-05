@@ -63,7 +63,6 @@ class SortdbCheck(AgentCheck):
             self.SORTDB_SERVICE_CHECK,
             AgentCheck.OK,
             tags=instance_tags,
-            message='Connection to %s was successful' % sortdb_url,
         )
 
         # get and set metrics

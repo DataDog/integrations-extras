@@ -83,7 +83,9 @@ def setup_cert_manager():
 def dd_environment():
     with kind_run(conditions=[setup_cert_manager]) as kubeconfig:
         with ExitStack() as stack:
-            ip_ports = [stack.enter_context(port_forward(kubeconfig, 'cert-manager', 'cert-manager', PORT))]
+            ip_ports = [
+                stack.enter_context(port_forward(kubeconfig, 'cert-manager', PORT, 'deployment', 'cert-manager'))
+            ]
         instances = {
             'instances': [
                 {'prometheus_url': 'http://{}:{}/metrics'.format(*ip_ports[0])},
