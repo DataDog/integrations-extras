@@ -1,0 +1,33 @@
+name: Redpanda
+files:
+- name: redpanda.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics_legacy
+  - template: instances
+    options:
+    - name: metric_groups
+      description: List of additional scylla metric groups to collect in addition to the default
+      value:
+        type: array
+        items:
+          type: string
+        example:
+        - redpanda.alien
+        - redpanda.internal_rpc
+        - redpanda.io_queue
+        - redpanda.memory
+        - redpanda.raft
+        - redpanda.rpc_client
+        - redpanda.scheduler
+        - redpanda.stall
+    - template: instances/openmetrics_legacy
+      overrides:
+        prometheus_url.value.example: http://localhost:9644/metrics
+        prometheus_url.display_priority: 1
+        send_histograms_buckets.hidden: true
+  - template: logs
+    example:
+    - type: journald
+      source: redpanda

@@ -123,6 +123,10 @@ coverage:
         target: 75
         flags:
         - redis_sentinel
+      Redpanda:
+        target: 75
+        flags:
+        - redpanda
       Riak_MDC_Replication:
         target: 75
         flags:
@@ -361,6 +365,11 @@ flags:
     paths:
     - redisenterprise/datadog_checks/redisenterprise
     - redisenterprise/tests
+  redpanda:
+    carryforward: true
+    paths:
+    - redpanda/datadog_checks/redpanda
+    - redpanda/tests
   riak_repl:
     carryforward: true
     paths:

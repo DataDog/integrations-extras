@@ -1,0 +1,168 @@
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
+redpanda.alien.receive_batch_queue_length,gauge,,,,alien receive batch queue length,0,redpanda,Current receive batch queue length
+redpanda.alien.total_received_messages,count,,,,alien total received messages,0,redpanda,Total number of received messages
+redpanda.alien.total_sent_messages,count,,,,alien total sent messages,0,redpanda,Total number of sent messages
+redpanda.application.build,gauge,,,,application build,0,redpanda,Redpanda build information
+redpanda.application.uptime,gauge,,,,application uptime,0,redpanda,Redpanda uptime in milliseconds
+redpanda.cluster.partition_committed_offset,gauge,,,,cluster partition committed offset,0,redpanda,Partition commited offset. i.e. safely persisted on majority of replicas
+redpanda.cluster.partition_end_offset,gauge,,,,cluster partition end offset,0,redpanda,Last offset stored by current partition on this node
+redpanda.cluster.partition_high_watermark,gauge,,,,cluster partition high watermark,0,redpanda,Partion high watermark i.e. highest consumable offset
+redpanda.cluster.partition_last_stable_offset,gauge,,,,cluster partition last stable offset,0,redpanda,Last stable offset
+redpanda.cluster.partition_leader,gauge,,,,cluster partition leader,0,redpanda,Flag indicating if this partition instance is a leader
+redpanda.cluster.partition_leader_id,gauge,,,,cluster partition leader id,0,redpanda,Id of current partition leader
+redpanda.cluster.partition_records_fetched,count,,,,cluster partition records fetched,0,redpanda,Total number of records fetched
+redpanda.cluster.partition_records_produced,count,,,,cluster partition records produced,0,redpanda,Total number of records produced
+redpanda.cluster.partition_under_replicated_replicas,gauge,,,,cluster partition under replicated replicas,0,redpanda,Number of under replicated replicas
+redpanda.httpd.connections_current,gauge,,,,httpd connections current,0,redpanda,The current number of open  connections
+redpanda.httpd.connections_total,count,,,,httpd connections total,0,redpanda,The total number of connections opened
+redpanda.httpd.read_errors,count,,,,httpd read errors,0,redpanda,The total number of errors while reading http requests
+redpanda.httpd.reply_errors,count,,,,httpd reply errors,0,redpanda,The total number of errors while replying to http
+redpanda.httpd.requests_served,count,,,,httpd requests served,0,redpanda,The total number of http requests served
+redpanda.internal.rpc_active_connections,gauge,,,,internal rpc active connections,0,redpanda,internal_rpc: Currently active connections
+redpanda.internal.rpc_connection_close_errors,count,,,,internal rpc connection close errors,0,redpanda,internal_rpc: Number of errors when shutting down the connection
+redpanda.internal.rpc_connects,count,,,,internal rpc connects,0,redpanda,internal_rpc: Number of accepted connections
+redpanda.internal.rpc_consumed_mem_bytes,count,,byte,,internal rpc consumed mem bytes,0,redpanda,internal_rpc: Memory consumed by request processing
+redpanda.internal.rpc_corrupted_headers,count,,,,internal rpc corrupted headers,0,redpanda,internal_rpc: Number of requests with corrupted headers
+redpanda.internal.rpc_dispatch_handler_latency.count,count,,,,internal rpc dispatch handler latency,-1,redpanda,internal_rpc: Latency 
+redpanda.internal.rpc_dispatch_handler_latency.sum,gauge,,,,internal rpc dispatch handler latency,-1,redpanda,internal_rpc: Latency 
+redpanda.internal.rpc_latency.count,count,,,,internal rpc latency,-1,redpanda,Internal RPC service latency
+redpanda.internal.rpc_latency.sum,gauge,,,,internal rpc latency,-1,redpanda,Internal RPC service latency
+redpanda.internal.rpc_max_service_mem_bytes,count,,byte,,internal rpc max service mem bytes,0,redpanda,internal_rpc: Maximum memory allowed for RPC
+redpanda.internal.rpc_method_not_found_errors,count,,,,internal rpc method not found errors,0,redpanda,internal_rpc: Number of requests with not available RPC method
+redpanda.internal.rpc_received_bytes,count,,byte,,internal rpc received bytes,0,redpanda,internal_rpc: Number of bytes received from the clients in valid requests
+redpanda.internal.rpc_requests_blocked_memory,count,,,,internal rpc requests blocked memory,0,redpanda,internal_rpc: Number of requests blocked in memory backpressure
+redpanda.internal.rpc_requests_completed,count,,,,internal rpc requests completed,0,redpanda,internal_rpc: Number of successful requests
+redpanda.internal.rpc_requests_pending,gauge,,,,internal rpc requests pending,0,redpanda,internal_rpc: Number of requests being processed by server
+redpanda.internal.rpc_sent_bytes,count,,byte,,internal rpc sent bytes,0,redpanda,internal_rpc: Number of bytes sent to clients
+redpanda.internal.rpc_service_errors,count,,,,internal rpc service errors,0,redpanda,internal_rpc: Number of service errors
+redpanda.io.queue_delay,gauge,,,,io queue delay,0,redpanda,random delay time in the queue
+redpanda.io.queue_disk_queue_length,gauge,,,,io queue disk queue length,0,redpanda,Number of requests in the disk
+redpanda.io.queue_queue_length,gauge,,,,io queue queue length,0,redpanda,Number of requests in the queue
+redpanda.io.queue_shares,gauge,,,,io queue shares,0,redpanda,current amount of shares
+redpanda.io.queue_total_bytes,count,,byte,,io queue total bytes,0,redpanda,Total bytes passed in the queue
+redpanda.io.queue_total_delay_sec,count,,,,io queue total delay sec,0,redpanda,Total time spent in the queue
+redpanda.io.queue_total_exec_sec,count,,,,io queue total exec sec,0,redpanda,Total time spent in disk
+redpanda.io.queue_total_operations,count,,byte,,io queue total operations,0,redpanda,Total bytes passed in the queue
+redpanda.kafka.fetch_sessions_cache_mem_usage_bytes,gauge,,byte,,kafka fetch sessions cache mem usage bytes,0,redpanda,Fetch sessions cache memory usage in bytes
+redpanda.kafka.fetch_sessions_cache_sessions_count,gauge,,,,kafka fetch sessions cache sessions count,0,redpanda,Total number of fetch sessions
+redpanda.kafka.latency_fetch_latency_us.count,count,,,,kafka latency fetch latency us,-1,redpanda,Fetch Latency
+redpanda.kafka.latency_fetch_latency_us.sum,gauge,,,,kafka latency fetch latency us,-1,redpanda,Fetch Latency
+redpanda.kafka.latency_produce_latency_us.count,count,,,,kafka latency produce latency us,-1,redpanda,Produce Latency
+redpanda.kafka.latency_produce_latency_us.sum,gauge,,,,kafka latency produce latency us,-1,redpanda,Produce Latency
+redpanda.kafka.rpc_active_connections,gauge,,,,kafka rpc active connections,0,redpanda,kafka_rpc: Currently active connections
+redpanda.kafka.rpc_connection_close_errors,count,,,,kafka rpc connection close errors,0,redpanda,kafka_rpc: Number of errors when shutting down the connection
+redpanda.kafka.rpc_connects,count,,,,kafka rpc connects,0,redpanda,kafka_rpc: Number of accepted connections
+redpanda.kafka.rpc_consumed_mem_bytes,count,,byte,,kafka rpc consumed mem bytes,0,redpanda,kafka_rpc: Memory consumed by request processing
+redpanda.kafka.rpc_corrupted_headers,count,,,,kafka rpc corrupted headers,0,redpanda,kafka_rpc: Number of requests with corrupted headers
+redpanda.kafka.rpc_dispatch_handler_latency.count,count,,,,kafka rpc dispatch handler latency,-1,redpanda,kafka_rpc: Latency 
+redpanda.kafka.rpc_dispatch_handler_latency.sum,gauge,,,,kafka rpc dispatch handler latency,-1,redpanda,kafka_rpc: Latency 
+redpanda.kafka.rpc_max_service_mem_bytes,count,,byte,,kafka rpc max service mem bytes,0,redpanda,kafka_rpc: Maximum memory allowed for RPC
+redpanda.kafka.rpc_method_not_found_errors,count,,,,kafka rpc method not found errors,0,redpanda,kafka_rpc: Number of requests with not available RPC method
+redpanda.kafka.rpc_received_bytes,count,,byte,,kafka rpc received bytes,0,redpanda,kafka_rpc: Number of bytes received from the clients in valid requests
+redpanda.kafka.rpc_requests_blocked_memory,count,,,,kafka rpc requests blocked memory,0,redpanda,kafka_rpc: Number of requests blocked in memory backpressure
+redpanda.kafka.rpc_requests_completed,count,,,,kafka rpc requests completed,0,redpanda,kafka_rpc: Number of successful requests
+redpanda.kafka.rpc_requests_pending,gauge,,,,kafka rpc requests pending,0,redpanda,kafka_rpc: Number of requests being processed by server
+redpanda.kafka.rpc_sent_bytes,count,,byte,,kafka rpc sent bytes,0,redpanda,kafka_rpc: Number of bytes sent to clients
+redpanda.kafka.rpc_service_errors,count,,,,kafka rpc service errors,0,redpanda,kafka_rpc: Number of service errors
+redpanda.leader.balancer_leader_transfer_error,count,,,,leader balancer leader transfer error,0,redpanda,Number of errors attempting to transfer leader
+redpanda.leader.balancer_leader_transfer_no_improvement,count,,,,leader balancer leader transfer no improvement,0,redpanda,Number of times no balance improvement was found
+redpanda.leader.balancer_leader_transfer_succeeded,count,,,,leader balancer leader transfer succeeded,0,redpanda,Number of successful leader transfers
+redpanda.leader.balancer_leader_transfer_timeout,count,,,,leader balancer leader transfer timeout,0,redpanda,Number of timeouts attempting to transfer leader
+redpanda.memory.allocated_memory,count,,byte,,memory allocated memory,0,redpanda,Allocated memeory size in bytes
+redpanda.memory.cross_cpu_free_operations,count,,,,memory cross cpu free operations,0,redpanda,Total number of cross cpu free
+redpanda.memory.free_memory,count,,byte,,memory free memory,0,redpanda,Free memeory size in bytes
+redpanda.memory.free_operations,count,,,,memory free operations,0,redpanda,Total number of free operations
+redpanda.memory.malloc_live_objects,gauge,,,,memory malloc live objects,0,redpanda,Number of live objects
+redpanda.memory.malloc_operations,count,,,,memory malloc operations,0,redpanda,Total number of malloc operations
+redpanda.memory.reclaims_operations,count,,,,memory reclaims operations,0,redpanda,Total reclaims operations
+redpanda.memory.total_memory,count,,byte,,memory total memory,0,redpanda,Total memeory size in bytes
+redpanda.pandaproxy.request_latency.count,count,,,,pandaproxy request latency,-1,redpanda,Request latency
+redpanda.pandaproxy.request_latency.sum,gauge,,,,pandaproxy request latency,-1,redpanda,Request latency
+redpanda.raft.done_replicate_requests,count,,,,raft done replicate requests,0,redpanda,Number of finished replicate requests
+redpanda.raft.group_count,gauge,,,,raft group count,0,redpanda,Number of raft groups
+redpanda.raft.heartbeat_requests_errors,count,,,,raft heartbeat requests errors,0,redpanda,Number of failed heartbeat requests
+redpanda.raft.leader_for,gauge,,,,raft leader for,0,redpanda,Number of groups for which node is a leader
+redpanda.raft.leadership_changes,count,,,,raft leadership changes,0,redpanda,Number of leadership changes
+redpanda.raft.log_flushes,count,,,,raft log flushes,0,redpanda,Number of log flushes
+redpanda.raft.log_truncations,count,,,,raft log truncations,0,redpanda,Number of log truncations
+redpanda.raft.received_append_requests,count,,,,raft received append requests,0,redpanda,Number of append requests received
+redpanda.raft.received_vote_requests,count,,,,raft received vote requests,0,redpanda,Number of vote requests received
+redpanda.raft.recovery_requests_errors,count,,,,raft recovery requests errors,0,redpanda,Number of failed recovery requests
+redpanda.raft.replicate_ack_all_requests,count,,,,raft replicate ack all requests,0,redpanda,Number of replicate requests with quorum ack consistency
+redpanda.raft.replicate_ack_leader_requests,count,,,,raft replicate ack leader requests,0,redpanda,Number of replicate requests with leader ack consistency
+redpanda.raft.replicate_ack_none_requests,count,,,,raft replicate ack none requests,0,redpanda,Number of replicate requests with no ack consistency
+redpanda.raft.replicate_request_errors,count,,,,raft replicate request errors,0,redpanda,Number of failed replicate requests
+redpanda.raft.sent_vote_requests,count,,,,raft sent vote requests,0,redpanda,Number of vote requests sent
+redpanda.reactor.abandoned_failed_futures,count,,,,reactor abandoned failed futures,0,redpanda,Total number of abandoned failed futures futures destroyed while still containing an exception
+redpanda.reactor.aio_bytes_read,count,,byte,,reactor aio bytes read,0,redpanda,Total aio-reads bytes
+redpanda.reactor.aio_bytes_write,count,,byte,,reactor aio bytes write,0,redpanda,Total aio-writes bytes
+redpanda.reactor.aio_errors,count,,,,reactor aio errors,0,redpanda,Total aio errors
+redpanda.reactor.aio_reads,count,,,,reactor aio reads,0,redpanda,Total aio-reads operations
+redpanda.reactor.aio_writes,count,,,,reactor aio writes,0,redpanda,Total aio-writes operations
+redpanda.reactor.cpp_exceptions,count,,,,reactor cpp exceptions,0,redpanda,Total number of C++ exceptions
+redpanda.reactor.cpu_busy_ms,count,,,,reactor cpu busy ms,0,redpanda,Total cpu busy time in milliseconds
+redpanda.reactor.cpu_steal_time_ms,count,,,,reactor cpu steal time ms,0,redpanda,Total steal time the time in which some other process was running while Seastar was not trying to run (not sleeping).Because this is in userspace some time that could be legitimally thought as steal time is not accounted as such. For example if we are sleeping and can wake up but the kernel hasn't woken us up yet.
+redpanda.reactor.fstream_read_bytes,count,,byte,,reactor fstream read bytes,0,redpanda,Counts bytes read from disk file streams.  A high rate indicates high disk activity. Divide by fstream_reads to determine average read size.
+redpanda.reactor.fstream_read_bytes_blocked,count,,byte,,reactor fstream read bytes blocked,0,redpanda,Counts the number of bytes read from disk that could not be satisfied from read-ahead buffers and had to block. Indicates short streams or incorrect read ahead configuration.
+redpanda.reactor.fstream_reads,count,,,,reactor fstream reads,0,redpanda,Counts reads from disk file streams.  A high rate indicates high disk activity. Contrast with other fstream_read* counters to locate bottlenecks.
+redpanda.reactor.fstream_reads_ahead_bytes_discarded,count,,byte,,reactor fstream reads ahead bytes discarded,0,redpanda,Counts the number of buffered bytes that were read ahead of time and were discarded because they were not needed wasting disk bandwidth. Indicates over-eager read ahead configuration.
+redpanda.reactor.fstream_reads_aheads_discarded,count,,,,reactor fstream reads aheads discarded,0,redpanda,Counts the number of times a buffer that was read ahead of time and was discarded because it was not needed wasting disk bandwidth. Indicates over-eager read ahead configuration.
+redpanda.reactor.fstream_reads_blocked,count,,,,reactor fstream reads blocked,0,redpanda,Counts the number of times a disk read could not be satisfied from read-ahead buffers and had to block. Indicates short streams or incorrect read ahead configuration.
+redpanda.reactor.fsyncs,count,,,,reactor fsyncs,0,redpanda,Total number of fsync operations
+redpanda.reactor.io_threaded_fallbacks,count,,,,reactor io threaded fallbacks,0,redpanda,Total number of io-threaded-fallbacks operations
+redpanda.reactor.logging_failures,count,,,,reactor logging failures,0,redpanda,Total number of logging failures
+redpanda.reactor.polls,count,,,,reactor polls,0,redpanda,Number of times pollers were executed
+redpanda.reactor.tasks_pending,gauge,,,,reactor tasks pending,0,redpanda,Number of pending tasks in the queue
+redpanda.reactor.tasks_processed,count,,,,reactor tasks processed,0,redpanda,Total tasks processed
+redpanda.reactor.timers_pending,count,,,,reactor timers pending,0,redpanda,Number of tasks in the timer-pending queue
+redpanda.reactor.utilization,gauge,,,,reactor utilization,0,redpanda,CPU utilization
+redpanda.rpc.client_active_connections,gauge,,,,rpc client active connections,0,redpanda,Currently active connections
+redpanda.rpc.client_client_correlation_errors,count,,,,rpc client client correlation errors,0,redpanda,Number of errors in client correlation id
+redpanda.rpc.client_connection_errors,count,,,,rpc client connection errors,0,redpanda,Number of connection errors
+redpanda.rpc.client_connects,count,,,,rpc client connects,0,redpanda,Connection attempts
+redpanda.rpc.client_corrupted_headers,count,,,,rpc client corrupted headers,0,redpanda,Number of responses with corrupted headers
+redpanda.rpc.client_in_bytes,count,,byte,,rpc client in bytes,0,redpanda,Total number of bytes sent (including headers)
+redpanda.rpc.client_out_bytes,count,,byte,,rpc client out bytes,0,redpanda,Total number of bytes received
+redpanda.rpc.client_read_dispatch_errors,count,,,,rpc client read dispatch errors,0,redpanda,Number of errors while dispatching responses
+redpanda.rpc.client_request_errors,count,,,,rpc client request errors,0,redpanda,Number or requests errors
+redpanda.rpc.client_request_timeouts,count,,,,rpc client request timeouts,0,redpanda,Number or requests timeouts
+redpanda.rpc.client_requests,count,,,,rpc client requests,0,redpanda,Number of requests
+redpanda.rpc.client_requests_blocked_memory,count,,,,rpc client requests blocked memory,0,redpanda,Number of requests that are blocked because of insufficient memory
+redpanda.rpc.client_requests_pending,gauge,,,,rpc client requests pending,0,redpanda,Number of requests pending
+redpanda.rpc.client_server_correlation_errors,count,,,,rpc client server correlation errors,0,redpanda,Number of responses with wrong correlation id
+redpanda.scheduler.queue_length,gauge,,,,scheduler queue length,0,redpanda,Size of backlog on this queue in tasks; indicates whether the queue is busy and/or contended
+redpanda.scheduler.runtime_ms,count,,,,scheduler runtime ms,0,redpanda,Accumulated runtime of this task queue; an increment rate of 1000ms per second indicates full utilization
+redpanda.scheduler.shares,gauge,,,,scheduler shares,0,redpanda,Shares allocated to this queue
+redpanda.scheduler.starvetime_ms,count,,,,scheduler starvetime ms,0,redpanda,Accumulated starvation time of this task queue; an increment rate of 1000ms per second indicates the scheduler feels really bad
+redpanda.scheduler.tasks_processed,count,,,,scheduler tasks processed,0,redpanda,Count of tasks executing on this queue; indicates together with runtime_ms indicates length of tasks
+redpanda.scheduler.time_spent_on_task_quota_violations_ms,count,,,,scheduler time spent on task quota violations ms,0,redpanda,Total amount in milliseconds we were in violation of the task quota
+redpanda.scheduler.waittime_ms,count,,,,scheduler waittime ms,0,redpanda,Accumulated waittime of this task queue; an increment rate of 1000ms per second indicates queue is waiting for something (e.g. IO)
+redpanda.stall.detector_reported,count,,,,stall detector reported,0,redpanda,Total number of reported stalls look in the traces for the exact reason
+redpanda.storage.compaction_backlog_controller_backlog_size,gauge,,,,storage compaction backlog controller backlog size,0,redpanda,controller backlog
+redpanda.storage.compaction_backlog_controller_error,gauge,,,,storage compaction backlog controller error,0,redpanda,current controller error i.e difference between set point and backlog size
+redpanda.storage.compaction_backlog_controller_shares,gauge,,,,storage compaction backlog controller shares,0,redpanda,controller output i.e. number of shares
+redpanda.storage.kvstore_cached_bytes,count,,byte,,storage kvstore cached bytes,0,redpanda,Size of the database in memory
+redpanda.storage.kvstore_entries_fetched,count,,,,storage kvstore entries fetched,0,redpanda,Number of entries fetched
+redpanda.storage.kvstore_entries_removed,count,,,,storage kvstore entries removed,0,redpanda,Number of entries removaled
+redpanda.storage.kvstore_entries_written,count,,,,storage kvstore entries written,0,redpanda,Number of entries written
+redpanda.storage.kvstore_key_count,count,,,,storage kvstore key count,0,redpanda,Number of keys in the database
+redpanda.storage.kvstore_segments_rolled,count,,,,storage kvstore segments rolled,0,redpanda,Number of segments rolled
+redpanda.storage.log_batch_parse_errors,count,,,,storage log batch parse errors,0,redpanda,Number of batch parsing (reading) errors
+redpanda.storage.log_batch_write_errors,count,,,,storage log batch write errors,0,redpanda,Number of batch write errors
+redpanda.storage.log_batches_read,count,,,,storage log batches read,0,redpanda,Total number of batches read
+redpanda.storage.log_batches_written,count,,,,storage log batches written,0,redpanda,Total number of batches written
+redpanda.storage.log_cache_hits,count,,,,storage log cache hits,0,redpanda,Reader cache hits
+redpanda.storage.log_cache_misses,count,,,,storage log cache misses,0,redpanda,Reader cache misses
+redpanda.storage.log_cached_batches_read,count,,,,storage log cached batches read,0,redpanda,Total number of cached batches read
+redpanda.storage.log_cached_read_bytes,count,,byte,,storage log cached read bytes,0,redpanda,Total number of cached bytes read
+redpanda.storage.log_compacted_segment,count,,,,storage log compacted segment,0,redpanda,Number of compacted segments
+redpanda.storage.log_compaction_ratio,count,,,,storage log compaction ratio,0,redpanda,Average segment compaction ratio
+redpanda.storage.log_corrupted_compaction_indices,count,,,,storage log corrupted compaction indices,0,redpanda,Number of times we had to re-construct the .compaction index on a segment
+redpanda.storage.log_log_segments_active,count,,,,storage log log segments active,0,redpanda,Number of active log segments
+redpanda.storage.log_log_segments_created,count,,,,storage log log segments created,0,redpanda,Number of created log segments
+redpanda.storage.log_log_segments_removed,count,,,,storage log log segments removed,0,redpanda,Number of removed log segments
+redpanda.storage.log_partition_size,gauge,,byte,,storage log partition size,0,redpanda,Current size of partition in bytes
+redpanda.storage.log_read_bytes,count,,byte,,storage log read bytes,0,redpanda,Total number of bytes read
+redpanda.storage.log_readers_added,count,,,,storage log readers added,0,redpanda,Number of readers added to cache
+redpanda.storage.log_readers_evicted,count,,,,storage log readers evicted,0,redpanda,Number of readers evicted from cache
+redpanda.storage.log_written_bytes,count,,byte,,storage log written bytes,0,redpanda,Total number of bytes written
