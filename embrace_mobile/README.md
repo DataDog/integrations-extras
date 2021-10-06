@@ -4,12 +4,12 @@
 
 ### What is Embrace?
 
-[Embrace][1] is a mobile observability and data platform that empowers mobile teams to deliver optimal user experiences via 
+[Embrace][1] is a mobile observability and data platform that empowers mobile teams to deliver optimal user experiences for 
 performance optimization, issue prioritization and remediation, and monitoring across features, releases, and custom 
 segments. At its core, Embrace turns complex mobile data into action. By collecting comprehensive session-level data for
 each and every user experience, Embrace extracts powerful insights to fuel your growth.
 
-Post integration, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect 
+After integration installation, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect 
 the full details of every affected user session without having to manually reproduce it. 
 
 ### Embrace Datadog Dashboard
@@ -26,7 +26,8 @@ user session details within Embrace.
 ![Crashes Side Panel][3]
 
 #### Networking
-Embrace collects every network call, even the ones that never make it to the servers. You will see all errors on your
+
+Embrace collects every network call, even the ones that never make it to the servers. See all errors on your
 endpoints, including 4xxs, 5xxs, timeouts, and connection errors.
 
 ![Network Side Panel][4]
@@ -37,29 +38,34 @@ From Datadog, immediately navigate to the actionable data and insights needed to
 Embrace platform. These include:
 
 #### User Session Replays
+
 Experience any user session without the hassle of reproducing. Replay all the technical and behavioral details in one
 traversable visual so that any team member can immediately answer any question or complaint.
 
 ![Embrace Session Timeline][5]
 
 #### App Performance
-Understand every cause of broken experiences to correctly measure and improve mobile app health. Beyond crashes,
+
+Understand the cause of a broken user experience to correctly measure and improve mobile app health. Beyond crashes,
 optimize performance to remove slow or frozen areas that lead to force quits and abandonment of key user flows. 
 
 ![Embrace App Performance][6]
 
 #### Dashboards
+
 Track adoption, performance, stability, engagement, and monetization with real-time dashboards for the metrics that 
 matter to your business. Create individual or team dashboards to hone in on the features or experiments they care about.
 
 ![Embrace Dashboard][7]
 
 #### Error Logging
-Set session and log properties to allow powerful filtering to isolate the root cause. Easily uncover patterns across 
+
+Set session and log properties to allow powerful filtering to isolate the root cause. Uncover patterns across 
 device, version, OS, region, user segment, and event attributes so that your team knows the business impact and 
 remediation priority of issues. 
 
 #### Proactive Alerting
+
 Be the first to know about regressions in the performance and stability of your features and releases. Whether the 
 failure is in your code, your backend, or a bad actor third-party SDK or vendor, Embrace notifies you in real-time
 so you can take action before your users complain.
@@ -67,12 +73,12 @@ so you can take action before your users complain.
 ## Setup
 
 1. Start a free trial with Embrace and follow our [documentation here][8]. **You’ll need to 
-   complete a basic integration before seeing metrics within Datadog.**
-1. After completion of the Embrace integration, you can come back to Datadog to connect both platforms.
-1. Create a “New Dashboard” in Datadog and select the Embrace widget.
+   follow this documentation before seeing metrics in Datadog.**
+1. After completing setup of the Embrace integration, navigate back to Datadog to connect both platforms.
+1. Create a New Dashboard in Datadog and select the Embrace widget.
 1. Authenticate and connect your Embrace account to Datadog by simply logging in with your credentials.
 1. Create your new widget within Datadog to display Embrace data with crash or networking metrics and give it a title.
-1. Watch the magic happen! You can click into “Details” to dive deeper into Embrace from Datadog.
+1. Click into “Details” to dive deeper into Embrace from Datadog.
 
 ## Troubleshooting
 For support or questions, please contact Embrace via: 
