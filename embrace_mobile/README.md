@@ -75,9 +75,8 @@ so you can take action before your users complain.
 1. Start a free trial with Embrace and follow our [documentation here][8]. **You’ll need to 
    follow this documentation before seeing metrics in Datadog.**
 1. After completing setup of the Embrace integration, navigate back to Datadog to connect both platforms.
-1. Create a New Dashboard in Datadog and select the Embrace widget.
 1. Authenticate and connect your Embrace account to Datadog by simply logging in with your credentials.
-1. Create your new widget within Datadog to display Embrace data with crash or networking metrics and give it a title.
+1. Create a New Dashboard in Datadog. Select the Embrace widget to display Embrace data with crash or networking metrics.
 1. Click into “Details” to dive deeper into Embrace from Datadog.
 
 ## Troubleshooting
