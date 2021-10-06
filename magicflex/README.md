@@ -13,13 +13,13 @@ Follow the instructions below to install and configure this integration for a Da
 
 To install the MagicFlex integration on your host:
 
-1. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+1. [Download the Datadog Agent][3].
 
 2. Install the Datadog Agent on a host with connectivity to the MagicFlex Appliance.
 
 ### Configuration
 
-1. Check which port DogStatsD is listening. You can check it here: [Datadog Agent DogStatsD Settings](https://docs.datadoghq.com/developers/dogstatsd/)
+1. Check which port DogStatsD is listening. You can check it here: [Datadog Agent DogStatsD Settings][4]
 
 2. In the MagicFlex appliance Admin Configuration panel, in the Datadog Section, please add the Datadog Agent hostname and DogStatsD port and enable interaction by checking the checkbox.
 ![MagicFlex Configuration](images/dstat_cfg.png)
@@ -45,3 +45,5 @@ Need help? Contact [MagicFlex Support][2].
 
 [1]: http://https://www.magicflexsoftware.com/
 [2]: https://www.magicflexsoftware.com/how-to-contact-support
+[3]: https://app.datadoghq.com/account/settings#agent
+[4]: https://docs.datadoghq.com/developers/dogstatsd/
