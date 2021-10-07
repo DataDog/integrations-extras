@@ -1,6 +1,8 @@
-from datadog_checks.base import AgentCheck
 import json
+
 import fdb
+
+from datadog_checks.base import AgentCheck
 
 fdb.api_version(600)
 
@@ -69,9 +71,9 @@ class FoundationdbCheck(AgentCheck):
                 raise ValueError("No result for " + query_key)
             if not hasattr(self, query_type):
                 self.log.error(
-                    "invalid submission method `%s` for column `%s` of metric_prefix `%s`",
-                    column_type,
-                    name,
+                    "invalid submission method `%s` for query key `%s` of metric_prefix `%s`",
+                    query_type,
+                    query_key,
                     metric_prefix,
                 )
                 break
@@ -99,21 +101,25 @@ class FoundationdbCheck(AgentCheck):
             memory = process["memory"]
             self.maybe_gauge("foundationdb.process.memory.available_bytes", memory, "available_bytes", tags)
             self.maybe_gauge("foundationdb.process.memory.limit_bytes", memory, "limit_bytes", tags)
-            self.maybe_gauge("foundationdb.process.memory.unused_allocated_memory", memory,
-                             "unused_allocated_memory", tags)
+            self.maybe_gauge(
+                "foundationdb.process.memory.unused_allocated_memory", memory, "unused_allocated_memory", tags
+            )
             self.maybe_gauge("foundationdb.process.memory.used_bytes", memory, "used_bytes", tags)
         if "network" in process:
             network = process["network"]
             self.maybe_gauge("foundationdb.process.network.current_connections", network, "current_connections", tags)
             self.maybe_hz_counter("foundationdb.process.network.connection_errors", network, "connection_errors", tags)
-            self.maybe_hz_counter("foundationdb.process.network.connections_closed", network,
-                                  "connections_closed", tags)
-            self.maybe_hz_counter("foundationdb.process.network.connections_established", network,
-                                  "connections_established", tags)
+            self.maybe_hz_counter(
+                "foundationdb.process.network.connections_closed", network, "connections_closed", tags
+            )
+            self.maybe_hz_counter(
+                "foundationdb.process.network.connections_established", network, "connections_established", tags
+            )
             self.maybe_hz_counter("foundationdb.process.network.megabits_received", network, "megabits_received", tags)
             self.maybe_hz_counter("foundationdb.process.network.megabits_sent", network, "megabits_sent", tags)
-            self.maybe_hz_counter("foundationdb.process.network.tls_policy_failures", network,
-                                  "tls_policy_failures", tags)
+            self.maybe_hz_counter(
+                "foundationdb.process.network.tls_policy_failures", network, "tls_policy_failures", tags
+            )
 
         if "roles" in process:
             for role in process["roles"]:
@@ -149,17 +155,24 @@ class FoundationdbCheck(AgentCheck):
         if "data_lag" in role:
             self.maybe_gauge("foundationdb.process.role.data_lag.seconds", role["data_lag"], "seconds", tags)
         if "durability_lag" in role:
-            self.maybe_gauge("foundationdb.process.role.durability_lag.seconds", role["durability_lag"],
-                             "seconds", tags)
+            self.maybe_gauge(
+                "foundationdb.process.role.durability_lag.seconds", role["durability_lag"], "seconds", tags
+            )
 
         if "grv_latency_statistics" in role:
-            self.report_statistics("foundationdb.process.role.grv_latency_statistics.default",
-                                   role["grv_latency_statistics"], "default", tags)
+            self.report_statistics(
+                "foundationdb.process.role.grv_latency_statistics.default",
+                role["grv_latency_statistics"],
+                "default",
+                tags,
+            )
 
-        self.report_statistics("foundationdb.process.role.read_latency_statistics", role,
-                               "read_latency_statistics", tags)
-        self.report_statistics("foundationdb.process.role.commit_latency_statistics", role,
-                               "commit_latency_statistics", tags)
+        self.report_statistics(
+            "foundationdb.process.role.read_latency_statistics", role, "read_latency_statistics", tags
+        )
+        self.report_statistics(
+            "foundationdb.process.role.commit_latency_statistics", role, "commit_latency_statistics", tags
+        )
 
     def report_statistics(self, metric, obj, key, tags=None):
         if key in obj:
@@ -182,8 +195,10 @@ class FoundationdbCheck(AgentCheck):
         if "processes" in cluster:
             self.gauge("foundationdb.processes", len(cluster["processes"]))
 
-            self.count("foundationdb.instances", sum(map(lambda p: len(p["roles"]) if "roles" in p else 0,
-                                                         cluster["processes"].values())))
+            self.count(
+                "foundationdb.instances",
+                sum(map(lambda p: len(p["roles"]) if "roles" in p else 0, cluster["processes"].values())),
+            )
 
             role_counts = dict()
             for process_key in cluster["processes"]:
@@ -206,16 +221,20 @@ class FoundationdbCheck(AgentCheck):
             self.maybe_gauge("foundationdb.data.system_kv_size_bytes", data, "system_kv_size_bytes")
             self.maybe_gauge("foundationdb.data.total_disk_used_bytes", data, "total_disk_used_bytes")
             self.maybe_gauge("foundationdb.data.total_kv_size_bytes", data, "total_kv_size_bytes")
-            self.maybe_gauge("foundationdb.data.least_operating_space_bytes_log_server", data,
-                             "least_operating_space_bytes_log_server")
+            self.maybe_gauge(
+                "foundationdb.data.least_operating_space_bytes_log_server",
+                data,
+                "least_operating_space_bytes_log_server",
+            )
 
             if "moving_data" in data:
-                self.maybe_gauge("foundationdb.data.moving_data.in_flight_bytes", data["moving_data"],
-                                 "in_flight_bytes")
-                self.maybe_gauge("foundationdb.data.moving_data.in_queue_bytes", data["moving_data"],
-                                 "in_queue_bytes")
-                self.maybe_gauge("foundationdb.data.moving_data.total_written_bytes", data["moving_data"],
-                                 "total_written_bytes")
+                self.maybe_gauge(
+                    "foundationdb.data.moving_data.in_flight_bytes", data["moving_data"], "in_flight_bytes"
+                )
+                self.maybe_gauge("foundationdb.data.moving_data.in_queue_bytes", data["moving_data"], "in_queue_bytes")
+                self.maybe_gauge(
+                    "foundationdb.data.moving_data.total_written_bytes", data["moving_data"], "total_written_bytes"
+                )
 
         if "datacenter_lag" in cluster:
             self.gauge("foundationdb.datacenter_lag.seconds", cluster["datacenter_lag"]["seconds"])

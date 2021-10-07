@@ -1,15 +1,13 @@
-
-import os
 import json
+import os
 from typing import Any, Dict
 
 import pytest
 
+from datadog_checks.base import AgentCheck
 from datadog_checks.base.stubs.aggregator import AggregatorStub
 from datadog_checks.dev.utils import get_metadata_metrics
-from datadog_checks.base import AgentCheck
 from datadog_checks.foundationdb import FoundationdbCheck
-
 
 METRICS = [
     "foundationdb.latency_probe.batch_priority_transaction_start_seconds",
@@ -172,16 +170,18 @@ def test_integ(aggregator, instance):
 def test_custom_metrics(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
     instance['custom_queries'] = [
-        {'metric_prefix': 'custom',
-        'query_key': 'basket_size',
-        'query_type': 'count',
-        'tags': ['query:custom'],
-         },
-        {'metric_prefix': 'another_custom_one',
-        'query_key': 'temperature',
-        'query_type': 'gauge',
-        'tags': ['query:another_custom_one'],
-        }
+        {
+            'metric_prefix': 'custom',
+            'query_key': 'basket_size',
+            'query_type': 'count',
+            'tags': ['query:custom'],
+        },
+        {
+            'metric_prefix': 'another_custom_one',
+            'query_key': 'temperature',
+            'query_type': 'gauge',
+            'tags': ['query:another_custom_one'],
+        },
     ]
     check = FoundationdbCheck('foundationdb', {}, [instance])
     check.check(instance)
