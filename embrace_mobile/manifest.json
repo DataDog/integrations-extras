@@ -1,34 +1,56 @@
 {
-  "display_name": "Embrace Mobile",
-  "maintainer": "support@embrace.io",
-  "manifest_version": "1.0.0",
-  "name": "embrace_mobile",
-  "metric_prefix": "embrace_mobile.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Mobile observability for iOS, Android, React Native, and Unity",
-  "guid": "745d1d31-cce9-49b3-ae99-937209967741",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
+  "manifest_version": "2.0.0",
+  "app_uuid": "86988058-9b89-45a8-b92f-5473a96e4a36",
+  "app_id": "embrace-mobile",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows",
+    "Category::Monitoring",
+    "Category::Network",
+    "Category::Exceptions",
+    "Category::Marketplace",
+    "Category::Metrics",
+    "Category::Alerting",
+    "Category::Issue Tracking"
   ],
-  "public_title": "Embrace Mobile",
-  "categories": [
-    "monitoring", "network", "exceptions", "marketplace", "metrics", "alerting", "issue tracking"
-  ],
-  "type": "check",
-  "is_public": false,
-  "integration_id": "embrace-mobile",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Mobile observability for iOS, Android, React Native, and Unity",
+    "title": "Embrace Mobile",
+    "media": []
+  },
+  "author": {
+    "support_email": "support@embrace.io"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Embrace Mobile",
+      "configuration": {
+        "spec": "TODO Please Fill In"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "embrace_mobile.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Embrace Overview": "assets/dashboards/embrace_mobile_overview.json"
     },
-    "saved_views": {},
     "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "saved_views": {},
+    "logs": {}
   }
 }
