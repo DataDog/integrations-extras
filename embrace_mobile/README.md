@@ -14,23 +14,17 @@ the full details of every affected user session without having to manually repro
 
 ### Embrace Datadog Dashboard
 
-The Datadog dashboard connects client-side Embrace data for crashes and networking to your server-side data. 
-
-![Embrace Datadog Dashboard][2]
+The Datadog dashboard connects client-side Embrace data for crashes and networking to your server-side data.
 
 #### Crashes
 
 Monitor crash trends and inspect stack traces for every crash directly within Datadog. For more context, review full
 user session details within Embrace.
 
-![Crashes Side Panel][3]
-
 #### Networking
 
 Embrace collects every network call, even the ones that never make it to the servers. See all errors on your
 endpoints, including 4xxs, 5xxs, timeouts, and connection errors.
-
-![Network Side Panel][4]
 
 ---
 
@@ -42,21 +36,15 @@ Embrace platform. These include:
 Experience any user session without the hassle of reproducing. Replay all the technical and behavioral details in one
 traversable visual so that any team member can immediately answer any question or complaint.
 
-![Embrace Session Timeline][5]
-
 #### App Performance
 
 Understand the cause of a broken user experience to correctly measure and improve mobile app health. Beyond crashes,
-optimize performance to remove slow or frozen areas that lead to force quits and abandonment of key user flows. 
-
-![Embrace App Performance][6]
+optimize performance to remove slow or frozen areas that lead to force quits and abandonment of key user flows.
 
 #### Dashboards
 
 Track adoption, performance, stability, engagement, and monetization with real-time dashboards for the metrics that 
 matter to your business. Create individual or team dashboards to hone in on the features or experiments they care about.
-
-![Embrace Dashboard][7]
 
 #### Error Logging
 
@@ -72,7 +60,7 @@ so you can take action before your users complain.
  
 ## Setup
 
-1. Start a free trial with Embrace and follow our [documentation here][8]. **You’ll need to 
+1. Start a free trial with Embrace and follow our [documentation here][2]. **You’ll need to 
    follow this documentation before seeing metrics in Datadog.**
 1. After completing setup of the Embrace integration, navigate back to Datadog to connect both platforms.
 1. Authenticate and connect your Embrace account to Datadog by simply logging in with your credentials.
@@ -84,13 +72,7 @@ For support or questions, please contact Embrace via:
 
 Email: datadogsupport@embrace.io 
 
-Documentation is available [here][8].
+Documentation is available [here][2].
 
 [1]: https://embrace.io
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/datadog_dashboard.jpeg
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/datadog_side_panel.png
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/datadog_network_panel.png
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/embrace_session.png
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/embrace_app_performance.png
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/embrace_mobile/images/embrace_dashboard.png
-[8]: https://embrace.io/docs/
+[2]: https://embrace.io/docs/
