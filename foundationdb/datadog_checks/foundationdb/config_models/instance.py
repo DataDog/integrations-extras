@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Optional, Sequence
+from typing import Any, Mapping, Optional, Sequence
 
 from pydantic import BaseModel, root_validator, validator
 
@@ -15,6 +15,8 @@ class InstanceConfig(BaseModel):
         allow_mutation = False
 
     cluster_file: Optional[str]
+    custom_queries: Optional[Sequence[Mapping[str, Any]]]
+    disable_generic_tags: Optional[bool]
     empty_default_hostname: Optional[bool]
     min_collection_interval: Optional[float]
     service: Optional[str]
