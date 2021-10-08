@@ -6,6 +6,7 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 from .ns1_url_utils import Ns1Url
 
+
 class Ns1Check(AgentCheck):
     NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
@@ -426,8 +427,9 @@ class Ns1Check(AgentCheck):
         return text
 
     def send_metrics(self, metric_name, metric_value, tags, metric_type):
-        msg = '{prefix} Metric: {name}, Value: {value}, Tag: {tag}, Type: {type}'.format(prefix=self.LOG_MSG_PREFIX, 
-                name=metric_name, value=metric_value, tag=tags, type=metric_type)
+        msg = '{prefix} Metric: {name}, Value: {value}, Tag: {tag}, Type: {type}'.format(
+            prefix=self.LOG_MSG_PREFIX, name=metric_name, value=metric_value, tag=tags, type=metric_type
+        )
         self.log.info(msg)
         if metric_name == "billing":
             for k, v in metric_value.items():
