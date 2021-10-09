@@ -8,30 +8,95 @@ Redpanda is a Kafka API compatible streaming platform for mission-critical workl
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
-
 ### Installation
 
-To install the redpanda check on your host:
+First, [download and launch the Datadog Agent][9].
 
+Then, manually install the Redpanda check. [Instructions vary depending on the environment][10].
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
+> Current Redpanda integration version: `1.0.0`
 
-2. Run `ddev release build redpanda` to build the package.
+#### Host
 
-3. [Download the Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+Run `datadog-agent integration install -t datadog-redpanda==<INTEGRATION_VERSION>`.
 
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/redpanda/dist/<ARTIFACT_NAME>.whl`.
+#### Containerized
+
+The best way to use this integration with the Docker Agent is to build the Agent with this integration installed. Use the following Dockerfile to build an updated version of the Agent:
+
+```dockerfile
+FROM gcr.io/datadoghq/agent:latest
+
+ARG INTEGRATION_VERSION=1.0.0
+
+RUN agent integration install -r -t datadog-redpanda==${INTEGRATION_VERSION}
+```
+
+Build the image and push it to your private Docker registry.
+
+Then, upgrade the Datadog Agent container image. If the Helm chart is used, modify the `agents.image` section in the `values.yaml` to replace the default agent image:
+
+```yaml
+agents:
+  enabled: true
+  image:
+    tag: <NEW_TAG>
+    repository: <YOUR_PRIVATE_REPOSITORY>/<AGENT_NAME>
+```
+
+Use the new `values.yaml` to upgrade the Agent:
+
+```shell
+helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
+```
 
 ### Configuration
 
-1. Edit the `redpanda.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your redpanda performance data. See the [sample redpanda.d/conf.yaml][3] for all available configuration options.
+#### Host
+
+##### Metric collection
+
+1. Edit the `redpanda.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Redpanda performance data. See the sample [redpanda.d/conf.yaml.example][3] for all available configuration options.
 
 2. [Restart the Agent][4].
+
+##### Log collection
+
+_Available for Agent versions >6.0_
+
+1. Collecting logs is disabled by default in the Datadog Agent, enable it in your `datadog.yaml` file:
+
+   ```yaml
+   logs_enabled: true
+   ```
+
+2. Add this configuration block to your `redpanda.d/conf.yaml` file to start collecting your Redpanda logs:
+
+   ```yaml
+    logs:
+    - type: journald
+      source: redpanda
+    ```
+
+#### Containerized
+
+##### Metric collection
+
+For containerized environments, after the Redpanda check is integrated in the Datadog Agent image, Autodiscovery is configured by default.
+
+Thus, metrics are automatically collected to Datadog's server.
+
+See the [Autodiscovery Integration Templates][2] for the complete guidance.
+
+##### Log collection
+
+_Available for Agent versions >6.0_
+
+Collecting logs is disabled by default in the Datadog Agent. To enable it, see [Kubernetes log collection documentation][9].
+
+| Parameter      | Value                                                  |
+| -------------- | ------------------------------------------------------ |
+| `<LOG_CONFIG>` | `{"source": "redpanda", "service": "redpanda_cluster"}` |
 
 ### Validation
 
@@ -57,7 +122,6 @@ See [service_checks.json][7] for a list of service checks provided by this integ
 
 Need help? Contact [Datadog support][8].
 
-
 [1]: https://vectorized.io
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/datadog_checks/redpanda/data/conf.yaml.example
@@ -66,3 +130,5 @@ Need help? Contact [Datadog support][8].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/metadata.csv
 [7]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/assets/service_checks.json
 [8]: https://docs.datadoghq.com/help/
+[9]: https://app.datadoghq.com/account/settings#agent
+[10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
