@@ -47,8 +47,6 @@ PagerDuty without having to context switch between tools.
 #### Requirements
 - Available to all PagerDuty customers
 
-## Description
-
 ## Setup
 
 ## Support
