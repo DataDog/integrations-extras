@@ -4,7 +4,7 @@ from copy import deepcopy
 import mock
 import pytest
 
-from datadog_checks.dev import get_docker_hostname, get_here
+from datadog_checks.dev import get_docker_hostname, get_here, docker_run
 
 HERE = get_here()
 HOST = get_docker_hostname()
@@ -71,7 +71,7 @@ def get_mock_metrics(filename):
 # tidb check instance
 
 
-required_instance = {
+required_instances = {
     'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
     'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
     'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
@@ -79,24 +79,8 @@ required_instance = {
 
 
 @pytest.fixture(scope="session")
-def full_instance():
-    base = deepcopy(required_instance)
-    base.update(
-        {
-            "tiflash_metric_url": "http://{}:{}/metrics".format(HOST, TIFLASH_PORT),
-            "tiflash_proxy_metric_url": "http://{}:{}/metrics".format(HOST, TIFLASH_PROXY_PORT),
-            "ticdc_metric_url": "http://{}:{}/metrics".format(HOST, TICDC_PORT),
-            "dm_master_metric_url": "http://{}:{}/metrics".format(HOST, DM_MASTER_PORT),
-            "dm_worker_metric_url": "http://{}:{}/metrics".format(HOST, DM_WORKER_PORT),
-            "pump_metric_url": "http://{}:{}/metrics".format(HOST, PUMP_PORT),
-        }
-    )
-    return base
-
-
-@pytest.fixture(scope="session")
 def customized_metric_instance():
-    base = deepcopy(required_instance)
+    base = deepcopy(required_instances)
     base.update({"tidb_customized_metrics": [{"tidb_tikvclient_rawkv_cmd_seconds": "tikvclient_rawkv_cmd_seconds"}]})
     return base
 
@@ -104,16 +88,22 @@ def customized_metric_instance():
 # openmetrics check instances
 
 
-@pytest.fixture(scope="session")
-def tidb_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT), 'namespace': 'tidb'}
+tidb_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT), 'namespace': 'tidb'}
+tikv_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT), 'namespace': 'tikv'}
+pd_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, PD_PORT), 'namespace': 'pd'}
 
 
-@pytest.fixture(scope="session")
-def tikv_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT), 'namespace': 'tikv'}
+# integration test env
 
 
-@pytest.fixture(scope="session")
-def pd_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, PD_PORT), 'namespace': 'pd'}
+@pytest.fixture(scope='session')
+def dd_environment():
+    compose_file = os.path.join(get_here(), 'compose', 'docker-compose.yml')
+
+    # This does 3 things:
+    #
+    # 1. Spins up the services defined in the compose file
+    # 2. Waits for the url to be available before running the tests
+    # 3. Tears down the services when the tests are finished
+    with docker_run(compose_file, endpoints=list(required_instances.values())):
+        yield

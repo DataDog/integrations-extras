@@ -42,7 +42,6 @@ class TiDBCheck(OpenMetricsBaseCheck):
 
             # optional
             _optional_instance("tiflash")
-            _optional_instance("tiflash_proxy")
             _optional_instance("ticdc")
             _optional_instance("dm_master")
             _optional_instance("dm_worker")
@@ -63,11 +62,6 @@ class TiDBCheck(OpenMetricsBaseCheck):
                 'prometheus_url': 'http://localhost:20180/metrics',
                 'namespace': "tikv",
                 'metrics': [TIKV_METRICS],
-            },
-            'tiflash_proxy': {
-                'prometheus_url': 'http://localhost:20292/metrics',
-                'namespace': "tiflash_proxy",
-                'metrics': [TIFLASH_METRICS],
             },
             'tiflash': {
                 'prometheus_url': 'http://localhost:8234/metrics',
