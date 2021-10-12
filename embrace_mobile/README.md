@@ -23,11 +23,11 @@ the full details of every affected user session without having to manually repro
 1. Click into “Details” to dive deeper into Embrace from Datadog.
 
 ## Troubleshooting
-For support or questions, please contact Embrace via: 
+For support or questions, contact [Datadog support][3].
 
-Email: datadogsupport@embrace.io 
 
-Documentation is available [here][2].
+Additional Embrace documentation is available [here][2].
 
 [1]: https://embrace.io
 [2]: https://embrace.io/docs/
+[3]: https://www.datadoghq.com/support/
