@@ -14,8 +14,8 @@ No installation is required on your host.
 
 ### Configuration
 
-1. Generate a new Integration API Key in your [Datadog portal][4]
-2. Open a support ticket with [PerimeterX Support][5] and request the Datadog log export integration. Support will need the following information:
+1. Generate a new Integration API Key in your [Datadog portal][4].
+2. Open a support ticket with [PerimeterX Support][5] and request the Datadog log export integration. Support needs the following information:
    - Your Datadog Integration API Key
    - Whether you want to send metrics and/or logs
    - The PerimeterX Application ID(s) that should be forwarded to Datadog
@@ -33,7 +33,7 @@ Once PerimeterX Support has confirmed the Datadog integration is complete, perfo
 
 ### Metrics
 
-PerimeterX does not includes metrics for [requests][6].
+PerimeterX does not include metrics for [requests][6].
 
 ### Service Checks
 
