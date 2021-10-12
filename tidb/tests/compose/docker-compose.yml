@@ -4,9 +4,7 @@ services:
   pd:
     image: pingcap/pd:nightly
     ports:
-      - "2379"
-    volumes:
-      - ./pd-nightly-tiflash.toml:/pd.toml:ro
+      - "2379:2379"
     command:
       - --name=pd
       - --client-urls=http://0.0.0.0:2379
@@ -14,19 +12,16 @@ services:
       - --advertise-client-urls=http://pd:2379
       - --advertise-peer-urls=http://pd:2380
       - --initial-cluster=pd=http://pd:2380
-      - --data-dir=/data/pd
-      - --config=/pd.toml
-      - --log-file=/logs/pd.log
     restart: on-failure
   tikv:
     image: pingcap/tikv:nightly
+    ports:
+      - "20180:20180"
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv:20160
-      - --status-addr=tikv:20180
-      - --data-dir=/data/tikv
+      - --status-addr=0.0.0.0:20180
       - --pd=pd:2379
-      - --log-file=/logs/tikv.log
     depends_on:
       - "pd"
     restart: on-failure
@@ -36,22 +31,10 @@ services:
       - "4000:4000"
       - "10080:10080"
     command:
-      - --status=10080
+      - --host=0.0.0.0
       - --advertise-address=tidb
       - --store=tikv
       - --path=pd:2379
-      - --log-file=/logs/tidb.log
     depends_on:
       - "tikv"
-    restart: on-failure
-  tiflash:
-    image: pingcap/tiflash:nightly
-    volumes:
-      - ./tiflash-nightly.toml:/tiflash.toml:ro
-      - ./tiflash-learner-nightly.toml:/tiflash-learner.toml:ro
-    command:
-      - --config=/tiflash.toml
-    depends_on:
-      - "tikv"
-      - "tidb"
     restart: on-failure
