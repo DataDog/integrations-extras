@@ -183,13 +183,19 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 ### Service Checks
 
 Service Checks are based on `tidb_cluster.prometheus.health` metrics. This check is controlled by the `health_service_check` config and default to `true`.
-You can modify is in config `tidb.yml` file.
+You can modify this behavior in `tidb.yml` file.
 
 ### Events
 
 TiDB check does not include any events.
 
 ## Troubleshooting
+
+> **Note:**
+> Someone may encounter a problem with missing some metrics. This is because TiDB has a large number of metrics, but integration collects up to 2000 metrics by default and discards the rest.
+> You can add a configuration in `tidb.yml` file to fix this problem:
+> 
+> `max_returned_metrics: 99999`
 
 Need help? Contact [Datadog support][7].
 
