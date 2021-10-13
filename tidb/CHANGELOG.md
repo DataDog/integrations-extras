@@ -2,8 +2,6 @@
 
 ## 1.1.0 / 2021-Oct-13
 
-* [Added] Add a service check.
-
 * [Improvement] Make the one screen dashboard batter.
 * [Improvement] Added integration tests.
 * [Improvement] Refactored unit tests.
