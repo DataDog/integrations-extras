@@ -182,7 +182,8 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-TiDB check does not include any service checks.
+Service Checks are based on `tidb_cluster.prometheus.health` metrics. This check is controlled by the `health_service_check` config and default to `true`.
+You can modify is in config `tidb.yml` file.
 
 ### Events
 

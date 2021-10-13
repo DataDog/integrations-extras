@@ -4,7 +4,7 @@ from copy import deepcopy
 import mock
 import pytest
 
-from datadog_checks.dev import get_docker_hostname, get_here, docker_run
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
 HERE = get_here()
 HOST = get_docker_hostname()
@@ -28,7 +28,7 @@ def mock_tidb_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
@@ -41,7 +41,7 @@ def mock_pd_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_pd_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_pd_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
@@ -54,14 +54,14 @@ def mock_tikv_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
         yield
 
 
-def get_mock_metrics(filename):
+def _get_mock_metrics(filename):
     f_name = os.path.join(os.path.dirname(__file__), 'fixtures', filename)
     with open(f_name, 'r') as f:
         text_data = f.read()
@@ -71,7 +71,7 @@ def get_mock_metrics(filename):
 # tidb check instance
 
 
-required_instances = {
+_instance = {
     'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
     'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
     'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
@@ -79,21 +79,17 @@ required_instances = {
 
 
 @pytest.fixture(scope="session")
+def required_instances():
+    base = deepcopy(_instance)
+    base.update({'max_returned_metrics': 99999})
+    return base
+
+
+@pytest.fixture(scope="session")
 def customized_metric_instance():
     base = deepcopy(required_instances)
     base.update({"tidb_customized_metrics": [{"tidb_tikvclient_rawkv_cmd_seconds": "tikvclient_rawkv_cmd_seconds"}]})
     return base
-
-
-# openmetrics check instances
-
-
-tidb_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT), 'namespace': 'tidb'}
-tikv_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT), 'namespace': 'tikv'}
-pd_instance = {'prometheus_url': "http://{}:{}/metrics".format(HOST, PD_PORT), 'namespace': 'pd'}
-
-
-# integration test env
 
 
 @pytest.fixture(scope='session')
@@ -105,5 +101,5 @@ def dd_environment():
     # 1. Spins up the services defined in the compose file
     # 2. Waits for the url to be available before running the tests
     # 3. Tears down the services when the tests are finished
-    with docker_run(compose_file, endpoints=list(required_instances.values())):
+    with docker_run(compose_file, endpoints=list(_instance.values()), sleep=3):
         yield

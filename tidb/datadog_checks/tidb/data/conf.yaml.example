@@ -48,116 +48,52 @@ instances:
     ## @param pd_metric_url - string - required
     ## The URL where PD metrics are exposed by Prometheus.
     #
-  - pd_metric_url: http://localhost:2379/metrics
-
-    ## @param pd_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint in addition to default PD metrics, if there's a
-    ## value it'll be renamed. This list should contain at least one metric. To collect all PD metrics, add `pd*`.
-    #
-    # pd_customized_metrics:
-    #   - processor:cpu
-    #   - memory:mem
-    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+  - pd_metric_url: http://%%host%%:2379/metrics
 
     ## @param tidb_metric_url - string - required
     ## The URL where TiDB metrics are exposed by Prometheus.
     #
-    tidb_metric_url: http://localhost:10080/metrics
-
-    ## @param tidb_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint in addition to default TiDB metrics. If there's a
-    ## value it'll be renamed. This list should contain at least one metric. To collect all TiDB metrics, add `tidb*`.
-    #
-    # tidb_customized_metrics:
-    #   - processor:cpu
-    #   - memory:mem
-    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+    tidb_metric_url: http://%%host%%:10080/metrics
 
     ## @param tikv_metric_url - string - required
     ## The URL where TiKV metrics are exposed by Prometheus.
     #
-    tikv_metric_url: http://localhost:20180/metrics
+    tikv_metric_url: http://%%host%%:20180/metrics
 
-    ## @param tikv_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint in addition to default TiKV metrics, if there's a
-    ## value it'll be renamed. This list should contain at least one metric. To collect all TiKV metrics, add `tikv*`.
-    #
-    # tikv_customized_metrics:
-    #   - processor:cpu
-    #   - memory:mem
-    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
-
-    ## @param tiflash_proxy_metric_url - string - optional - default: http://localhost:20292/metrics
-    ## The URL where TiFlash Proxy metrics are exposed by Prometheus.
-    #
-    # tiflash_proxy_metric_url: http://localhost:20292/metrics
-
-    ## @param tiflash_proxy_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
-    #
-    # tiflash_proxy_customized_metrics:
-    #   - tiflash*
-
-    ## @param tiflash_metric_url - string - optional - default: http://localhost:8234/metrics
+    ## @param tiflash_metric_url - string - optional - default: http://%%host%%:8234/metrics
     ## The URL where TiFlash metrics are exposed by Prometheus.
     #
-    # tiflash_metric_url: http://localhost:8234/metrics
+    # tiflash_metric_url: http://%%host%%:8234/metrics
 
-    ## @param tiflash_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
-    #
-    # tiflash_customized_metrics:
-    #   - tiflash*
-
-    ## @param ticdc_metric_url - string - optional - default: http://localhost:8301/metrics
+    ## @param ticdc_metric_url - string - optional - default: http://%%host%%:8301/metrics
     ## The URL where TiCDC Proxy metrics are exposed by Prometheus.
     #
-    # ticdc_metric_url: http://localhost:8301/metrics
+    # ticdc_metric_url: http://%%host%%:8301/metrics
 
-    ## @param ticdc_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
-    #
-    # ticdc_customized_metrics:
-    #   - ticdc*
-
-    ## @param dm_master_metric_url - string - optional - default: http://localhost:8261/metrics
+    ## @param dm_master_metric_url - string - optional - default: http://%%host%%:8261/metrics
     ## The URL where DM master metrics are exposed by Prometheus.
     #
-    # dm_master_metric_url: http://localhost:8261/metrics
+    # dm_master_metric_url: http://%%host%%:8261/metrics
 
-    ## @param dm_master_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
-    #
-    # dm_master_customized_metrics:
-    #   - dm*
-
-    ## @param dm_worker_metric_url - string - optional - default: http://localhost:8262/metrics
+    ## @param dm_worker_metric_url - string - optional - default: http://%%host%%:8262/metrics
     ## The URL where DM worker metrics are exposed by Prometheus.
     #
-    # dm_worker_metric_url: http://localhost:8262/metrics
+    # dm_worker_metric_url: http://%%host%%:8262/metrics
 
-    ## @param dm_worker_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
-    #
-    # dm_worker_customized_metrics:
-    #   - dm*
-
-    ## @param pump_metric_url - string - optional - default: http://localhost:8250/metrics
+    ## @param pump_metric_url - string - optional - default: http://%%host%%:8250/metrics
     ## The URL where Pump metrics are exposed by Prometheus.
     #
-    # pump_metric_url: http://localhost:8250/metrics
+    # pump_metric_url: http://%%host%%:8250/metrics
 
-    ## @param pump_customized_metrics - list of strings - optional
-    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
-    ## value it'll be renamed. This list should contain at least one metric.
+    ## @param prometheus_url - string - required
+    ## The URL where your application metrics are exposed by Prometheus.
     #
-    # pump_customized_metrics:
-    #   - binlog*
+    prometheus_url: <PROMETHEUS_URL>
+
+    ## @param prometheus_metrics_prefix - string - optional
+    ## Removes a given <PREFIX> from exposed Prometheus metrics.
+    #
+    # prometheus_metrics_prefix: <PREFIX>_
 
     ## @param health_service_check - boolean - optional - default: true
     ## Send a service check reporting about the health of the Prometheus endpoint.
@@ -202,6 +138,7 @@ instances:
 
     ## @param send_distribution_buckets - boolean - optional - default: false
     ## Set `send_distribution_buckets` to `true` to send histograms as Datadog distribution metrics.
+    ##
     ## Learn more about distribution metrics: https://docs.datadoghq.com/developers/metrics/distributions/
     #
     # send_distribution_buckets: false
@@ -240,14 +177,13 @@ instances:
     # bearer_token_path: <TOKEN_PATH>
 
     ## @param ignore_metrics - list of strings - optional
-    ## A list of metrics to ignore, use the "*" wildcard can be used to match multiple metric names.
+    ## A list of metrics to ignore, the "*" wildcard can be used to match multiple metric names.
+    ## The wildcard matching is done via fnmatch, it locates a match anywhere in the string.
     #
     # ignore_metrics:
     #   - <IGNORED_METRIC_NAME>
-    #   - <PREFIX_*>
-    #   - <*_SUFFIX>
-    #   - <PREFIX_*_SUFFIX>
-    #   - <*_SUBSTRING_*>
+    #   - <SUBSTRING_*>
+    #   - <*_SUBSTRING>
 
     ## @param ignore_metrics_by_labels - mapping - optional
     ## A mapping of labels where metrics with matching label key and values are ignored.
@@ -259,6 +195,14 @@ instances:
     #   - <LABEL_2>
     #   <KEY_2>:
     #   - '*'
+
+    ## @param ignore_tags - list of strings - optional
+    ## A list of regular expressions used to ignore tags added by autodiscovery and entries in the `tags` option.
+    #
+    # ignore_tags:
+    #   - <FULL:TAG>
+    #   - <TAG_PREFIX:.*>
+    #   - <TAG_SUFFIX$>
 
     ## @param proxy - mapping - optional
     ## This overrides the `proxy` setting in `init_config`.
@@ -528,10 +472,10 @@ instances:
     #
     # read_timeout: <READ_TIMEOUT>
 
-    ## @param request_size - number - optional - default: 16
+    ## @param request_size - number - optional - default: 10
     ## The number of kibibytes (KiB) to read from streaming HTTP responses at a time.
     #
-    # request_size: 16
+    # request_size: 10
 
     ## @param log_requests - boolean - optional - default: false
     ## Whether or not to debug log the HTTP(S) requests made, including the method and URL.
@@ -576,32 +520,3 @@ instances:
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
-
-## Log Section
-##
-## type - required - Type of log input source (tcp / udp / file / windows_event)
-## port / path / channel_path - required - Set port if type is tcp or udp.
-##                                         Set path if type is file.
-##                                         Set channel_path if type is windows_event.
-## source  - required - Attribute that defines which integration sent the logs.
-## encoding - optional - For file specifies the file encoding, default is utf-8, other
-##                       possible values are utf-16-le and utf-16-be.
-## service - optional - The name of the service that generates the log.
-##                      Overrides any `service` defined in the `init_config` section.
-## tags - optional - Add tags to the collected logs.
-##
-## Discover Datadog log collection: https://docs.datadoghq.com/logs/log_collection/
-#
-# logs:
-#   - type: file
-#     path: <LOG_FILE_PATH>
-#     source: tidb
-#     service: tidb
-#   - type: file
-#     path: <LOG_FILE_PATH>
-#     source: tidb
-#     service: pd
-#   - type: file
-#     path: <LOG_FILE_PATH>
-#     source: tidb
-#     service: tikv
