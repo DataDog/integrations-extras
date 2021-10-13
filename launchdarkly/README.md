@@ -24,7 +24,7 @@ The LaunchDarkly integration sends flag, project, and environment events from La
 
 The LaunchDarkly integration does not include any service checks.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Datadog Support][4].
 
