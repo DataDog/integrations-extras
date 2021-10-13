@@ -2,7 +2,7 @@
 
 ## Overview
 
-Harness delivers intelligent cloud cost management, providing complete cost transparency across Infrastructure, Engineering, and Finance teams with robust business intelligence, and the ability to reduce wasted cloud costs by up to 75% with Intelligent Cloud AutoStopping and ML-based recommendations.
+Harness provides cloud cost management and transparency across Infrastructure, Engineering, and Finance teams with robust business intelligence, and the ability to reduce wasted cloud costs with Intelligent Cloud AutoStopping and machine learning-based recommendations.
 
 With Datadog and Harness, you can:
 
@@ -11,27 +11,31 @@ With Datadog and Harness, you can:
 - Get recommendations for resource rightsizing
 - Review top spending resources
 
-Additionally, within the main [Harness app](https://app.harness.io) you have access to:
-
-- Cloud cost spike detection
-- Setting budgets for teams and projects
-- Custom cloud cost business intelligence
-- Auto-stopping idle resources
-- Full spot instance orchestration
 
 ## Setup
 
-Setup instructions for Harness Cloud Cost Management
+1. If you have not yet started using Harness Cloud Cost Management, [sign up][1] for a 14 day trial.
 
-If you have not yet started utilizing Harness Cloud Cost Management, first [sign up](https://app.harness.io/auth/#/signup/) for a risk-free 14 day trial.
+2. Install the integration.
+3. Go to the Harness Cloud Cost Management Dashboard and connect in any of the widgets by logging in with your Harness user ID. This will authenticate you for all the widgets
 
-For existing Harness customers all that is required is
-to complete these steps:
+## Data Collected
 
-- Install the integration
-- Go to the Harness Cloud Cost Management Dashboard and connect in any of the widgets. This will authenticate you for all the widgets
-- Log in with your Harness user
+### Metrics
 
-## Support
+See [metadata.csv][3] for a list of metrics provided by this check.
 
-You can reach out to us at support@harness.io
+### Events
+
+The Ambassador check does not include any events.
+
+### Service Checks
+
+The Ambassador check does not include any service checks.
+
+## Troubleshooting
+
+Need help? Contact [Datadog support][2].
+
+[1]: https://app.harness.io/auth/#/signup/
+[2]: https://docs.datadoghq.com/help/
