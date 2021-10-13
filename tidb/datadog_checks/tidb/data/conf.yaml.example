@@ -85,6 +85,11 @@ instances:
     #
     # pump_metric_url: http://localhost:8250/metrics
 
+    ## @param max_returned_metrics - number - required
+    ## The maximum number of metrics sent for each scraping.
+    #
+    max_returned_metrics: 10000
+
     ## @param prometheus_metrics_prefix - string - optional
     ## Removes a given <PREFIX> from exposed Prometheus metrics.
     #
@@ -131,12 +136,12 @@ instances:
     #
     # send_histograms_buckets: true
 
-    ## @param send_distribution_buckets - boolean - optional - default: false
+    ## @param send_distribution_buckets - boolean - required
     ## Set `send_distribution_buckets` to `true` to send histograms as Datadog distribution metrics.
     ##
     ## Learn more about distribution metrics: https://docs.datadoghq.com/developers/metrics/distributions/
     #
-    # send_distribution_buckets: false
+    send_distribution_buckets: true
 
     ## @param send_monotonic_counter - boolean - optional - default: true
     ## Set send_monotonic_counter to true to send counters as monotonic counter.

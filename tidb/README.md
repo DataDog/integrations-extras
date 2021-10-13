@@ -21,7 +21,7 @@ First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
 
-> Current TiDB integration version: `1.0.0`
+> The current version is shown below the title of this page.
 
 #### Host
 
@@ -191,11 +191,16 @@ TiDB check does not include any events.
 
 ## Troubleshooting
 
-> **Note:**
-> Someone may encounter a problem with missing some metrics. This is because TiDB has a large number of metrics, but integration collects up to 2000 metrics by default and discards the rest.
-> You can add a configuration in `tidb.yml` file to fix this problem:
-> 
-> `max_returned_metrics: 99999`
+### Too many metrics
+
+TiDB checks enables Datadog’s `distribution` by default. This part of data is quite large and may consume lots of resources. You can modify this behavior in `tidb.yml` file:
+
+- `send_distribution_buckets: false`
+
+
+Since there are many important metrics in a TiDB cluster, TiDB checks set `max_returned_metrics` to `10000` by default. You can decrease `max_returned_metrics` in `tidb.yml` file if necessary:
+
+- `max_returned_metrics: 1000`
 
 Need help? Contact [Datadog support][7].
 
