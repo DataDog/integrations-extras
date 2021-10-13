@@ -40,7 +40,7 @@ You will need the API and Application keys of your Datadog account.\
 
 ![integration_example]
 
-## Troubleshooting
+## Support
 
 For support or requests, please contact Shoreline through the following channels:
 
