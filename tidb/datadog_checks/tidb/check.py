@@ -43,6 +43,7 @@ class TiDBCheck(OpenMetricsBaseCheck):
             _build_instance("pd")
             _build_instance("tikv")
             _build_instance("tiflash")
+            _build_instance("tiflash_proxy")
             _build_instance("ticdc")
             _build_instance("dm_master")
             _build_instance("dm_worker")
