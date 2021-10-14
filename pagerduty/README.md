@@ -48,5 +48,31 @@ PagerDuty without having to context switch between tools.
 - Available to all PagerDuty customers
 
 ## Setup
+Configuration Walkthrough
+
+In PagerDuty
+
+
+1. In order to use the Datadog Status Dashboard Widget, you will need to have 
+a Status Dashboard configured in your PagerDuty account.
+
+In Datadog
+
+2. In your Datadog account, navigate to **Dashboards**. Select the **dashboard** that you would like 
+to add the Status Dashboard widget to, or create a new dashboard.
+
+3. In the dashboard, click **+Add Widgets** to the right of the dashboard title. Scroll to the right through
+the widgets, and then drag and drop the Status Dashboard widget into your desired position on your 
+dashboard.
+
+4. In the Custom Widget Editor modal, click Connect. Select your service region and then log in to your 
+PagerDuty account. You will be redirected to the Custom Widget Editor where you will see a preview of
+how the widget will appear. Below the preview, under Widget options you may optionally select which
+Status Dashboard view that you would like the dashboard to default to. You may also optionally enter 
+a Widget title, if desired. Click Done to add the widget to your dashboard. The integration is now 
+complete.
 
 ## Support
+
+This integration is only available on Business plans. Please 
+[contact our Sales Team](https://www.pagerduty.com/contact-us/) if you would like to upgrade to a plan including the status dashboard feature.
