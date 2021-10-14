@@ -17,7 +17,7 @@ Follow the steps below to configure the integration:
 2. Configure Datadog integration from Shoreline
 
 
-#### Install agent
+#### Install Shoreline agent
 
 Agents must be installed on every host you want Shoreline to monitor and act upon. There are a few recommended methods for installing Agents:
 
