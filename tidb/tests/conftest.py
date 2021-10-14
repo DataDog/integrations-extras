@@ -81,7 +81,7 @@ _instance = {
 @pytest.fixture(scope="session")
 def required_instances():
     base = deepcopy(_instance)
-    base.update({'max_returned_metrics': 99999})
+    base.update({'max_returned_metrics': "10000"})
     return base
 
 

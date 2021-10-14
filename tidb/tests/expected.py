@@ -3,7 +3,7 @@ EXPECTED_TIDB_METRICS = {
 }
 
 EXPECTED_PD_METRICS = {
-    'tidb_cluster.pd_cluster_health_status',
+    'tidb_cluster.pd_cluster_tso',
 }
 
 EXPECTED_TIKV_METRICS = {
