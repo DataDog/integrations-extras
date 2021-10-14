@@ -1,23 +1,23 @@
-# Agent Check: hcp_vault
+# HCPVault Integration
 
 ## Overview
 
-This check monitors [hcp_vault][1].
+The HCP Vault integration provides an overview of your Vault clusters so you can monitor its performance and cluster health.
 
 ## Setup
 
 ### Installation
 
-The hcp_vault check is included in the [Datadog Agent][2] package.
-No additional installation is needed on your server.
+Placeholder text
 
 ### Configuration
 
-1. <List of steps to setup this Integration>
+1. Placeholder text
+2. Placeholder text
 
 ### Validation
 
-<Steps to validate integration is functioning as expected>
+Placeholder text
 
 ## Data Collected
 
@@ -35,7 +35,6 @@ hcp_vault does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][2].
+Need help? Contact [Datadog support][1].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
-[2]: https://docs.datadoghq.com/help/
+[1]: https://docs.datadoghq.com/help/
