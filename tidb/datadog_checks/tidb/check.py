@@ -31,9 +31,7 @@ class TiDBCheck(OpenMetricsBaseCheck):
                     {
                         'namespace': "tidb_cluster",
                         'labels_mapper': LABEL_MAPPERS,
-                        'tags': {
-                            '__component__': component,
-                        },
+                        'tags': ['tidb_cluster_component:' + component],
                     }
                 )
                 url = new_instance.get(component + "_metric_url")
