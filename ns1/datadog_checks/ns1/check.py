@@ -10,7 +10,7 @@ from .ns1_url_utils import Ns1Url
 class Ns1Check(AgentCheck):
     NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
-    LOG_MSG_PREFIX = "NS1 API "
+    LOG_MSG_PREFIX = "NS1 API"
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
