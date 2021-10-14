@@ -1,13 +1,16 @@
 [
   {
-    "agent_version": "7.0.0",
+    "agent_version": "6.0.0",
     "integration": "TiDB",
     "check": "tidb_cluster.prometheus.health",
     "statuses": [
       "ok",
       "critical"
     ],
-    "groups": [],
+    "groups": [
+      "endpoint",
+      "__component__"
+    ],
     "name": "Prometheus endpoints of TiDB cluster components",
     "description": "Returns `CRITICAL` if agent cannot fetch prometheus metrics, otherwise returns `OK`."
   }
