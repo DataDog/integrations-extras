@@ -2,7 +2,18 @@ import pytest
 
 from datadog_checks.tidb import TiDBCheck
 
-from .expected import EXPECTED_PD_METRICS, EXPECTED_TIDB_METRICS, EXPECTED_TIKV_METRICS
+EXPECTED_TIDB_METRICS = {
+    'tidb_cluster.tidb_executor_statement_total': ['tidb_cluster_component:tidb', 'type:Use'],
+}
+
+EXPECTED_PD_METRICS = {
+    'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso'],
+}
+
+EXPECTED_TIKV_METRICS = {
+    'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata'],
+}
+
 
 # test transforming tidb check config to openmetrics check config
 
@@ -78,8 +89,8 @@ def test_cluster_metrics(aggregator, required_instances):
 
 def _check_and_assert(agg, ins, expected, c):
     c.check(ins)
-    for metric in expected:
-        agg.assert_metric(metric)
+    for name, tags in expected.items():
+        agg.assert_metric(name, tags=tags)
 
     agg.assert_service_check(ins['namespace'] + '.prometheus.health')
 
