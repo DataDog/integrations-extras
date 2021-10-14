@@ -2,16 +2,29 @@ import pytest
 
 from datadog_checks.tidb import TiDBCheck
 
-EXPECTED_TIDB_METRICS = {
-    'tidb_cluster.tidb_executor_statement_total': ['tidb_cluster_component:tidb', 'type:Use'],
+EXPECTED_TIDB = {
+    'metrics': {
+        'tidb_cluster.tidb_executor_statement_total': ['tidb_cluster_component:tidb', 'type:Use'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:10080/metrics', 'tidb_cluster_component:tidb'],
+    },
 }
-
-EXPECTED_PD_METRICS = {
-    'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso'],
+EXPECTED_PD = {
+    'metrics': {
+        'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:2379/metrics', 'tidb_cluster_component:pd'],
+    },
 }
-
-EXPECTED_TIKV_METRICS = {
-    'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata'],
+EXPECTED_TIKV = {
+    'metrics': {
+        'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:20180/metrics', 'tidb_cluster_component:tikv'],
+    },
 }
 
 
@@ -41,7 +54,7 @@ def test_tidb_mock_metrics(aggregator, mock_tidb_metrics, required_instances):
     for instance in check.instances:
         if instance.get("prometheus_url") == "http://localhost:10080/metrics":
             ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_TIDB_METRICS, check)
+    _check_and_assert(aggregator, ins, EXPECTED_TIDB, check, 'tidb')
 
 
 @pytest.mark.unit
@@ -51,7 +64,7 @@ def test_pd_mock_metrics(aggregator, mock_pd_metrics, required_instances):
     for instance in check.instances:
         if instance.get("prometheus_url") == "http://localhost:2379/metrics":
             ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_PD_METRICS, check)
+    _check_and_assert(aggregator, ins, EXPECTED_PD, check, 'pd')
 
 
 @pytest.mark.unit
@@ -61,7 +74,7 @@ def test_tikv_mock_metrics(aggregator, mock_tikv_metrics, required_instances):
     for instance in check.instances:
         if instance.get("prometheus_url") == "http://localhost:20180/metrics":
             ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_TIKV_METRICS, check)
+    _check_and_assert(aggregator, ins, EXPECTED_TIKV, check, 'tikv')
 
 
 @pytest.mark.integration
@@ -74,25 +87,25 @@ def test_cluster_metrics(aggregator, required_instances):
     for instance in check.instances:
         # ensure correctness for 3 components (tidb, pd, tikv)
         if instance.get("prometheus_url") == "http://localhost:10080/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_TIDB_METRICS, check)
+            _check_and_assert(aggregator, instance, EXPECTED_TIDB, check, 'tidb')
             ensure_tidb = True
         elif instance.get("prometheus_url") == "http://localhost:2379/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_PD_METRICS, check)
+            _check_and_assert(aggregator, instance, EXPECTED_PD, check, 'pd')
             ensure_tikv = True
         elif instance.get("prometheus_url") == "http://localhost:20180/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_TIKV_METRICS, check)
+            _check_and_assert(aggregator, instance, EXPECTED_TIKV, check, 'tikv')
             ensure_pd = True
         else:
             pass
     assert ensure_tidb and ensure_tikv and ensure_pd, "each 3 components must be covered!"
 
 
-def _check_and_assert(agg, ins, expected, c):
+def _check_and_assert(agg, ins, expected, c, comp):
     c.check(ins)
-    for name, tags in expected.items():
+    for name, tags in expected['metrics'].items():
         agg.assert_metric(name, tags=tags)
-
-    agg.assert_service_check(ins['namespace'] + '.prometheus.health')
+    for name, tags in expected['service_check'].items():
+        agg.assert_service_check(name, status=TiDBCheck.OK, tags=tags)
 
     # since tidb cluster metrics cannot be listed thoroughly, we disable all completeness assertions here
     # agg.assert_all_metrics_covered()
