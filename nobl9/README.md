@@ -39,7 +39,7 @@ All configuration happens on the Nobl9 SLO Platform.
 2. Enter a **Project** name. This field is intended for use in situations
 where multiple users are spread across multiple teams or projects. When the
 field is left blank, a default value appears.
-3. The Display Name appears automatically when a name is entered into the
+3. The **Display Name** appears automatically when a name is entered into the
 **Name** field.
 4. Enter a name for your data source (required). Names are required because metadata names are
 unique within each project and are validated against some RFC and DNS names.
