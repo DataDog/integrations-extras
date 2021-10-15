@@ -1,5 +1,4 @@
 import os
-from copy import deepcopy
 
 import mock
 import pytest
@@ -71,25 +70,28 @@ def _get_mock_metrics(filename):
 # tidb check instance
 
 
-_instance = {
-    'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
-    'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
-    'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
-}
+@pytest.fixture(scope="session")
+def tidb_instance():
+    return {
+        'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
+        'max_returned_metrics': "10000",
+    }
 
 
 @pytest.fixture(scope="session")
-def required_instances():
-    base = deepcopy(_instance)
-    base.update({'max_returned_metrics': "10000"})
-    return base
+def pd_instance():
+    return {
+        'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
+        'max_returned_metrics': "10000",
+    }
 
 
 @pytest.fixture(scope="session")
-def customized_metric_instance():
-    base = deepcopy(required_instances)
-    base.update({"tidb_customized_metrics": [{"tidb_tikvclient_rawkv_cmd_seconds": "tikvclient_rawkv_cmd_seconds"}]})
-    return base
+def tikv_instance():
+    return {
+        'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
+        'max_returned_metrics': "10000",
+    }
 
 
 @pytest.fixture(scope='session')
@@ -101,5 +103,13 @@ def dd_environment():
     # 1. Spins up the services defined in the compose file
     # 2. Waits for the url to be available before running the tests
     # 3. Tears down the services when the tests are finished
-    with docker_run(compose_file, endpoints=list(_instance.values()), sleep=3):
+    with docker_run(
+        compose_file,
+        endpoints=[
+            "http://{}:{}/metrics".format(HOST, TIDB_PORT),
+            "http://{}:{}/metrics".format(HOST, TIKV_PORT),
+            "http://{}:{}/metrics".format(HOST, PD_PORT),
+        ],
+        sleep=3,
+    ):
         yield

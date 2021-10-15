@@ -1,68 +1,63 @@
 from copy import deepcopy
 
 from datadog_checks.base import OpenMetricsBaseCheck
+from datadog_checks.base.utils.tagging import GENERIC_TAGS
 
-from .metrics import (
-    DM_METRICS,
-    LABEL_MAPPERS,
-    PD_METRICS,
-    PUMP_METRICS,
-    TICDC_METRICS,
-    TIDB_METRICS,
-    TIFLASH_METRICS,
-    TIKV_METRICS,
-)
+from .metrics import DM_METRICS, PD_METRICS, PUMP_METRICS, TICDC_METRICS, TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
 
 
+# A check object is mapped to a single instance in integration config.
 class TiDBCheck(OpenMetricsBaseCheck):
     def __init__(self, name, init_config, instances=None):
 
-        # A tidb check instance represents a standalone tidb cluster.
-        # There may be several components in the tidb cluster, such as tikv, tidb, pd, ticdc, etc.
-        # Each component maps to a openmetrics check instance.
-        #
-        # expand tidb check instances to openmetrics check instances
-        openmetrics_instances = []
-        for _, instance in enumerate(instances):
+        # Expand tidb check instance to openmetrics check instance
+        openmetrics_instance = deepcopy(instances[0])
 
-            def _build_instance(component):
-                new_instance = deepcopy(instance)
-                new_instance.update(
-                    {
-                        'namespace': "tidb_cluster",
-                        'labels_mapper': LABEL_MAPPERS,
-                        'tags': ['tidb_cluster_component:' + component],
-                    }
-                )
-                url = new_instance.get(component + "_metric_url")
-                if url is not None:
-                    new_instance.update({'prometheus_url': url})
-                    openmetrics_instances.append(new_instance)
-
-            _build_instance("tidb")
-            _build_instance("pd")
-            _build_instance("tikv")
-            _build_instance("tiflash")
-            _build_instance("tiflash_proxy")
-            _build_instance("ticdc")
-            _build_instance("dm_master")
-            _build_instance("dm_worker")
-            _build_instance("pump")
+        _build_check("tidb", openmetrics_instance)
+        _build_check("pd", openmetrics_instance)
+        _build_check("tikv", openmetrics_instance)
+        _build_check("tiflash", openmetrics_instance)
+        _build_check("tiflash_proxy", openmetrics_instance)
+        _build_check("ticdc", openmetrics_instance)
+        _build_check("dm_master", openmetrics_instance)
+        _build_check("dm_worker", openmetrics_instance)
+        _build_check("pump", openmetrics_instance)
 
         default_instances = {
-            'tidb_cluster': {
-                'prometheus_url': 'http://localhost:2379/metrics',
-                'namespace': "tidb_cluster",
-                'metrics': DM_METRICS
-                + PD_METRICS
-                + PUMP_METRICS
-                + TICDC_METRICS
-                + TIDB_METRICS
-                + TIFLASH_METRICS
-                + TIKV_METRICS,
-            },
+            'tidb_cluster': _build_check(
+                "pd",
+                {
+                    'pd_metric_url': 'http://localhost:2379/metrics',
+                    'metrics': DM_METRICS
+                    + PD_METRICS
+                    + PUMP_METRICS
+                    + TICDC_METRICS
+                    + TIDB_METRICS
+                    + TIFLASH_METRICS
+                    + TIKV_METRICS,
+                },
+            )
         }
 
-        # For the usage of instances and namespace,
-        # see datadog_`checks.base.checks.openmetrics.mixins.OpenMetricsScraperMixin.create_scraper_configuration`
-        super(TiDBCheck, self).__init__(name, init_config, openmetrics_instances, default_instances=default_instances)
+        super(TiDBCheck, self).__init__(name, init_config, [openmetrics_instance], default_instances=default_instances)
+
+
+def _build_check(component, instance):
+    url = instance.get(component + "_metric_url")
+    if url is not None:
+        instance.update(
+            {
+                'prometheus_url': url,
+                'namespace': "tidb_cluster",
+                'labels_mapper': _labels_mapper(),
+                'tags': ['tidb_cluster_component:' + component],
+            }
+        )
+    return instance
+
+
+def _labels_mapper():
+    m = {}
+    for label in GENERIC_TAGS:
+        m.update({label: label + '_in_app'})
+    return m

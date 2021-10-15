@@ -14,13 +14,11 @@ files:
               type: string
               example: http://localhost:2379/metrics
           - name: tidb_metric_url
-            required: true
             description: The URL where TiDB metrics are exposed by Prometheus.
             value:
               type: string
               example: http://localhost:10080/metrics
           - name: tikv_metric_url
-            required: true
             description: The URL where TiKV metrics are exposed by Prometheus.
             value:
               type: string
@@ -67,81 +65,4 @@ files:
               prometheus_url.hidden: true
               send_distribution_buckets.required: true
               send_distribution_buckets.value.example: true
-
-  - name: auto_conf.yaml
-    options:
-      - template: ad_identifiers
-        overrides:
-          value.example:
-            - pd
-            - tikv
-            - tidb
-            - tiflash
-            - tidb-binlog
-            - ticdc
-            - dm
-      - template: init_config
-        options: [ ]
-      - template: instances
-        options:
-          - name: pd_metric_url
-            required: true
-            description: The URL where PD metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:2379/metrics
-          - name: tidb_metric_url
-            required: true
-            description: The URL where TiDB metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:10080/metrics
-          - name: tikv_metric_url
-            required: true
-            description: The URL where TiKV metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:20180/metrics
-          - name: tiflash_metric_url
-            description: The URL where TiFlash metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:8234/metrics
-          - name: tiflash_proxy_metric_url
-            description: The URL where TiFlash Proxy metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:20292/metrics
-          - name: ticdc_metric_url
-            description: The URL where TiCDC Proxy metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:8301/metrics
-          - name: dm_master_metric_url
-            description: The URL where DM master metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:8261/metrics
-          - name: dm_worker_metric_url
-            description: The URL where DM worker metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:8262/metrics
-          - name: pump_metric_url
-            description: The URL where Pump metrics are exposed by Prometheus.
-            value:
-              type: string
-              example: http://%%host%%:8250/metrics
-          - name: max_returned_metrics
-            description: The maximum number of metrics sent for each scraping.
-            required: true
-            value:
-              type: number
-              example: 10000
-          - template: instances/openmetrics_legacy
-            overrides:
-              prometheus_url.required: false
-              prometheus_url.hidden: true
-              send_distribution_buckets.required: true
-              send_distribution_buckets.value.example: true
-
+      - template: logs

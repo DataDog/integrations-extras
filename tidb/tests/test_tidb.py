@@ -1,5 +1,6 @@
 import pytest
 
+from datadog_checks.base.utils.tagging import GENERIC_TAGS
 from datadog_checks.tidb import TiDBCheck
 
 EXPECTED_TIDB = {
@@ -32,76 +33,47 @@ EXPECTED_TIKV = {
 
 
 @pytest.mark.unit
-def test_create_check_instance_transform(required_instances):
-    check = TiDBCheck("test_config_transform", {}, [required_instances])
-    ensure_tidb = False
-    ensure_tikv = False
-    ensure_pd = False
-    for i in check.instances:
-        if i.get("prometheus_url") == "http://localhost:10080/metrics":
-            ensure_tidb = True
-        if i.get("prometheus_url") == "http://localhost:20180/metrics":
-            ensure_tikv = True
-        if i.get("prometheus_url") == "http://localhost:2379/metrics":
-            ensure_pd = True
-    assert ensure_tidb and ensure_tikv and ensure_pd, "transforming config failed."
+def test_create_check_instance_transform(tidb_instance):
+    check = TiDBCheck("test_config_transform", {}, [tidb_instance])
+    assert check.instance.get('prometheus_url') == 'http://localhost:10080/metrics'
+    assert check.instance.get('namespace') == 'tidb_cluster'
+    assert check.instance.get('tags') == ['tidb_cluster_component:tidb']
+    mapper = check.instance.get('labels_mapper')
+    for label in GENERIC_TAGS:
+        assert mapper.get(label) == label + "_in_app"
 
 
 @pytest.mark.unit
-def test_tidb_mock_metrics(aggregator, mock_tidb_metrics, required_instances):
-    check = TiDBCheck("test_tidb_mock_metrics", {}, [required_instances])
-    ins = {}
-    for instance in check.instances:
-        if instance.get("prometheus_url") == "http://localhost:10080/metrics":
-            ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_TIDB, check, 'tidb')
+def test_tidb_mock_metrics(aggregator, mock_tidb_metrics, tidb_instance):
+    check = TiDBCheck("test_tidb_mock_metrics", {}, [tidb_instance])
+    _check_and_assert(aggregator, EXPECTED_TIDB, check)
 
 
 @pytest.mark.unit
-def test_pd_mock_metrics(aggregator, mock_pd_metrics, required_instances):
-    check = TiDBCheck("test_pd_mock_metrics", {}, [required_instances])
-    ins = {}
-    for instance in check.instances:
-        if instance.get("prometheus_url") == "http://localhost:2379/metrics":
-            ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_PD, check, 'pd')
+def test_pd_mock_metrics(aggregator, mock_pd_metrics, pd_instance):
+    check = TiDBCheck("test_pd_mock_metrics", {}, [pd_instance])
+    _check_and_assert(aggregator, EXPECTED_PD, check)
 
 
 @pytest.mark.unit
-def test_tikv_mock_metrics(aggregator, mock_tikv_metrics, required_instances):
-    check = TiDBCheck("test_tidb_mock_metrics", {}, [required_instances])
-    ins = {}
-    for instance in check.instances:
-        if instance.get("prometheus_url") == "http://localhost:20180/metrics":
-            ins = instance
-    _check_and_assert(aggregator, ins, EXPECTED_TIKV, check, 'tikv')
+def test_tikv_mock_metrics(aggregator, mock_tikv_metrics, tikv_instance):
+    check = TiDBCheck("test_tidb_mock_metrics", {}, [tikv_instance])
+    _check_and_assert(aggregator, EXPECTED_TIKV, check)
 
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-def test_cluster_metrics(aggregator, required_instances):
-    check = TiDBCheck("test_cluster_metrics", {}, [required_instances])
-    ensure_tidb = False
-    ensure_tikv = False
-    ensure_pd = False
-    for instance in check.instances:
-        # ensure correctness for 3 components (tidb, pd, tikv)
-        if instance.get("prometheus_url") == "http://localhost:10080/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_TIDB, check, 'tidb')
-            ensure_tidb = True
-        elif instance.get("prometheus_url") == "http://localhost:2379/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_PD, check, 'pd')
-            ensure_tikv = True
-        elif instance.get("prometheus_url") == "http://localhost:20180/metrics":
-            _check_and_assert(aggregator, instance, EXPECTED_TIKV, check, 'tikv')
-            ensure_pd = True
-        else:
-            pass
-    assert ensure_tidb and ensure_tikv and ensure_pd, "each 3 components must be covered!"
+def test_cluster_metrics(aggregator, pd_instance, tikv_instance, tidb_instance):
+    check = TiDBCheck("test_cluster_metrics", {}, [tidb_instance])
+    _check_and_assert(aggregator, EXPECTED_TIDB, check)
+    check = TiDBCheck("test_cluster_metrics", {}, [pd_instance])
+    _check_and_assert(aggregator, EXPECTED_PD, check)
+    check = TiDBCheck("test_cluster_metrics", {}, [tikv_instance])
+    _check_and_assert(aggregator, EXPECTED_TIKV, check)
 
 
-def _check_and_assert(agg, ins, expected, c, comp):
-    c.check(ins)
+def _check_and_assert(agg, expected, c):
+    c.check(c.instance)
     for name, tags in expected['metrics'].items():
         agg.assert_metric(name, tags=tags)
     for name, tags in expected['service_check'].items():

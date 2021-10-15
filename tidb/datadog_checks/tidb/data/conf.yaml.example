@@ -50,15 +50,15 @@ instances:
     #
   - pd_metric_url: http://localhost:2379/metrics
 
-    ## @param tidb_metric_url - string - required
+    ## @param tidb_metric_url - string - optional - default: http://localhost:10080/metrics
     ## The URL where TiDB metrics are exposed by Prometheus.
     #
-    tidb_metric_url: http://localhost:10080/metrics
+    # tidb_metric_url: http://localhost:10080/metrics
 
-    ## @param tikv_metric_url - string - required
+    ## @param tikv_metric_url - string - optional - default: http://localhost:20180/metrics
     ## The URL where TiKV metrics are exposed by Prometheus.
     #
-    tikv_metric_url: http://localhost:20180/metrics
+    # tikv_metric_url: http://localhost:20180/metrics
 
     ## @param tiflash_metric_url - string - optional - default: http://localhost:8234/metrics
     ## The URL where TiFlash metrics are exposed by Prometheus.
@@ -525,3 +525,20 @@ instances:
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
+
+## Log Section
+##
+## type - required - Type of log input source (tcp / udp / file / windows_event)
+## port / path / channel_path - required - Set port if type is tcp or udp.
+##                                         Set path if type is file.
+##                                         Set channel_path if type is windows_event.
+## source  - required - Attribute that defines which integration sent the logs.
+## encoding - optional - For file specifies the file encoding, default is utf-8, other
+##                       possible values are utf-16-le and utf-16-be.
+## service - optional - The name of the service that generates the log.
+##                      Overrides any `service` defined in the `init_config` section.
+## tags - optional - Add tags to the collected logs.
+##
+## Discover Datadog log collection: https://docs.datadoghq.com/logs/log_collection/
+#
+# logs: {}
