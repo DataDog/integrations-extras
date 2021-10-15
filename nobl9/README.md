@@ -36,7 +36,7 @@ error budget.
 All configuration happens on the Nobl9 SLO Platform.
 
 1. Add the Datadog API endpoint to connect to your data source (required).
-2. Enter a Project name. The Project field is intended for use in situations
+2. Enter a **Project** name. This field is intended for use in situations
 where multiple users are spread across multiple teams or projects. When the
 Project field is left blank the typical default value appears.
 3. The Display Name appears automatically when a name is entered into the
