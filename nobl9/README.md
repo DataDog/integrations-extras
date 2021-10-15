@@ -1,22 +1,15 @@
 # Nobl9
 
 ## Overview
-Nobl9 helps you set and understand reliability goals. Nobl9 integrates with
-Datadog and other data sources to collect SLI metrics and measure them against
-SLO targets. Nobl9 provides real-time and historical SLO reports against the
-SLIs, thereby allowing customers to uncover bottlenecks, errors, and issues
-faster. Since Nobl9 calculates error budgets of acceptable thresholds, it can
-trigger workflows and alerts when the error burn rate is too high or has been
-exceeded.
+Nobl9 is an SLO platform that provides real-time and historical SLO reports.
+Nobl9 integrates with Datadog to collect SLI metrics and measure them against
+SLO targets. Since Nobl9 calculates error budgets of acceptable thresholds, it
+can trigger workflows and alerts when the error burn rate is too high or has
+been exceeded.
 
-
-Benefits include:
-- **Business Alignment**: Add business context to monitoring data that
-optimizes reliability and cost.
-- **Standardize Practices**: Define reliability goals, measure those goals,
-and improve services.
-- **Enable Teams**: Align activities against the priorities set by the
-error budget.
+Use the Datadog Nobl9 integration to pass business context to monitoring data,
+define and measure reliability goals, and align activities against the
+priorities set by the error budget.
 
 ### SLO Grid View
 ![SLO Grid View](images/grid_view.jpg)
@@ -30,12 +23,11 @@ error budget.
 ### Service Health Dashboard
 ![Service Health Dashboard](images/service_health.png)
 
-### Dashboards
-
 ## Setup
 All configuration happens on the Nobl9 SLO Platform.
 
-1. Add the Datadog API endpoint to connect to your data source (required).
+1. Add the Datadog API endpoint to connect to your data source, either
+https://api.datadoghq.com/ or https://api.datadoghq.eu/ (required).
 2. Enter a **Project** name. This field is intended for use in situations
 where multiple users are spread across multiple teams or projects. When the
 field is left blank, a default value appears.
@@ -58,4 +50,3 @@ Need help? Contact [Nobl9 Support][2] or [Datadog Support][3].
 [1]: https://nobl9.github.io/techdocs_User_Guide/#service-level-objectives-38
 [2]: https://nobl9.com/about/#contact
 [3]: https://docs.datadoghq.com/help/
-
