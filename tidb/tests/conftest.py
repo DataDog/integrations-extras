@@ -18,7 +18,7 @@ DM_WORKER_PORT = 8262
 PUMP_PORT = 8250
 
 
-# mock metrics
+# Mock metrics
 
 
 @pytest.fixture()
@@ -67,7 +67,7 @@ def _get_mock_metrics(filename):
     return text_data
 
 
-# tidb check instance
+# TiDB check instances for different components
 
 
 @pytest.fixture(scope="session")
@@ -75,6 +75,7 @@ def tidb_instance():
     return {
         'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
         'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
     }
 
 
@@ -83,6 +84,7 @@ def pd_instance():
     return {
         'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
         'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
     }
 
 
@@ -91,7 +93,58 @@ def tikv_instance():
     return {
         'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
         'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
     }
+
+
+# Excepted results
+
+
+EXPECTED_TIDB = {
+    'metrics': {
+        'tidb_cluster.tidb_executor_statement_total': [
+            'tidb_cluster_component:tidb',
+            'type:Use',
+            'tidb_cluster_name:test',
+        ],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:10080/metrics',
+            'tidb_cluster_component:tidb',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+EXPECTED_PD = {
+    'metrics': {
+        'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso', 'tidb_cluster_name:test'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:2379/metrics',
+            'tidb_cluster_component:pd',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+EXPECTED_TIKV = {
+    'metrics': {
+        'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata', 'tidb_cluster_name:test'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:20180/metrics',
+            'tidb_cluster_component:tikv',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+
+# Integration test docker-compose environment
 
 
 @pytest.fixture(scope='session')

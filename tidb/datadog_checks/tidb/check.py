@@ -45,12 +45,15 @@ class TiDBCheck(OpenMetricsBaseCheck):
 def _build_check(component, instance):
     url = instance.get(component + "_metric_url")
     if url is not None:
+        user_tags = instance.get('tags', [])
+        user_labels_mapper = instance.get('labels_mapper', {})
+        user_labels_mapper.update(_labels_mapper())
         instance.update(
             {
                 'prometheus_url': url,
                 'namespace': "tidb_cluster",
-                'labels_mapper': _labels_mapper(),
-                'tags': ['tidb_cluster_component:' + component],
+                'labels_mapper': user_labels_mapper,
+                'tags': user_tags + ['tidb_cluster_component:' + component],
             }
         )
     return instance

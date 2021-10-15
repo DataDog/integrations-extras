@@ -1,35 +1,10 @@
 import pytest
 
+# test transforming tidb check config to openmetrics check config
+from tests.conftest import EXPECTED_PD, EXPECTED_TIDB, EXPECTED_TIKV
+
 from datadog_checks.base.utils.tagging import GENERIC_TAGS
 from datadog_checks.tidb import TiDBCheck
-
-EXPECTED_TIDB = {
-    'metrics': {
-        'tidb_cluster.tidb_executor_statement_total': ['tidb_cluster_component:tidb', 'type:Use'],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:10080/metrics', 'tidb_cluster_component:tidb'],
-    },
-}
-EXPECTED_PD = {
-    'metrics': {
-        'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso'],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:2379/metrics', 'tidb_cluster_component:pd'],
-    },
-}
-EXPECTED_TIKV = {
-    'metrics': {
-        'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata'],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': ['endpoint:http://localhost:20180/metrics', 'tidb_cluster_component:tikv'],
-    },
-}
-
-
-# test transforming tidb check config to openmetrics check config
 
 
 @pytest.mark.unit
@@ -37,7 +12,7 @@ def test_create_check_instance_transform(tidb_instance):
     check = TiDBCheck("test_config_transform", {}, [tidb_instance])
     assert check.instance.get('prometheus_url') == 'http://localhost:10080/metrics'
     assert check.instance.get('namespace') == 'tidb_cluster'
-    assert check.instance.get('tags') == ['tidb_cluster_component:tidb']
+    assert check.instance.get('tags') == ['tidb_cluster_name:test', 'tidb_cluster_component:tidb']
     mapper = check.instance.get('labels_mapper')
     for label in GENERIC_TAGS:
         assert mapper.get(label) == label + "_in_app"
