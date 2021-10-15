@@ -49,9 +49,13 @@ example: `my-datadog-data-source`
 the purpose of creating this specific data source. Adding a description can
 provide immediate context for any team member.
 
-More information about creating SLOs on the Nobl9 platform can be found
-[here](https://nobl9.github.io/techdocs_User_Guide/#service-level-objectives-38)
+See Nobl9's [User Guide][1] for more information about creating SLOs on the Nobl9 platform.
 
-## Support
-- Email support@nobl9.com
-- Website: https://nobl9.com/about/#contact
+## Troubleshooting
+
+Need help? Contact [Nobl9 Support][2] or [Datadog Support][3].
+
+[1]: https://nobl9.github.io/techdocs_User_Guide/#service-level-objectives-38
+[2]: https://nobl9.com/about/#contact
+[3]: https://docs.datadoghq.com/help/
+
