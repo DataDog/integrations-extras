@@ -45,7 +45,7 @@ field is left blank, a default value appears.
 unique within each project and are validated against some RFC and DNS names.
 The name must contain only lowercase alphanumeric characters and dashes. For
 example: `my-datadog-data-source`
-5. Enter a Description (optional). Add the team or owner details and explain
+5. Enter a description (optional). Add the team or owner details and explain
 the purpose of creating this specific data source. Adding a description can
 provide immediate context for any team member
 
