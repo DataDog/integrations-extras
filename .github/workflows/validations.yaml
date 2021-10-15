@@ -31,6 +31,14 @@ jobs:
         ddev config set repos.extras .
         ddev config set repo extras
 
+    - name: Run CI validation
+      run: |
+        ddev validate ci
+
+    - name: Run codeowners validation
+      run: |
+        ddev validate codeowners
+
     - name: Run configuration validation
       run: |
         ddev validate config
@@ -43,14 +51,26 @@ jobs:
 #      run: |
 #        ddev validate http
 
+    - name: Run imports validation
+      run: |
+        ddev validate imports
+        
     - name: Run JMX metrics validation
       run: |
         ddev validate jmx-metrics
 
+    - name: Run manifest validation
+      run: |
+        ddev validate manifest
+        
     - name: Run metadata validation
       run: |
         ddev validate metadata
 
+    - name: Run models validation
+      run: |
+        ddev validate models
+  
     - name: Run legacy signature validation
       run: |
         ddev validate legacy-signature
@@ -71,6 +91,10 @@ jobs:
       run: |
         ddev validate package
 
+    - name: Run saved views validation
+      run: |
+        ddev validate saved-views
+        
     - name: Run service checks validation
       run: |
         ddev validate service-checks
