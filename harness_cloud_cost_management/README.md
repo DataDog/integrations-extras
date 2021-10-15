@@ -19,12 +19,6 @@ With Datadog and Harness, you can:
 2. Install the integration.
 3. Go to the Harness Cloud Cost Management Dashboard and connect in any of the widgets by logging in with your Harness user ID. This will authenticate you for all the widgets
 
-## Data Collected
-
-### Metrics
-
-See [metadata.csv][3] for a list of metrics provided by this check.
-
 ### Events
 
 The Ambassador check does not include any events.
@@ -33,7 +27,7 @@ The Ambassador check does not include any events.
 
 The Ambassador check does not include any service checks.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Datadog support][2].
 
