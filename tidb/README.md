@@ -43,22 +43,32 @@ Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
     - pd_metric_url: http://localhost:2379/metrics
       max_returned_metrics: 10000
       send_distribution_buckets: true
+      tags:
+        - tidb_cluster_name:cluster01
   
     - tidb_metric_url: http://localhost:10080/metrics
       max_returned_metrics: 10000
       send_distribution_buckets: true
+      tags:
+        - tidb_cluster_name:cluster01
   
     - tikv_metric_url: http://localhost:20180/metrics
       max_returned_metrics: 10000
       send_distribution_buckets: true
+      tags:
+        - tidb_cluster_name:cluster01
   
     - tiflash_metric_url: http://localhost:8234/metrics
       max_returned_metrics: 10000
       send_distribution_buckets: true
+      tags:
+        - tidb_cluster_name:cluster01
   
     - tiflash_proxy_metric_url: http://localhost:20292/metrics
       max_returned_metrics: 10000
       send_distribution_buckets: true
+      tags:
+        - tidb_cluster_name:cluster01
   ```
 
 3. [Restart the Agent][4].
