@@ -47,7 +47,7 @@ The name must contain only lowercase alphanumeric characters and dashes. For
 example: `my-datadog-data-source`
 5. Enter a description (optional). Add the team or owner details and explain
 the purpose of creating this specific data source. Adding a description can
-provide immediate context for any team member
+provide immediate context for any team member.
 
 More information about creating SLOs on the Nobl9 platform can be found
 [here](https://nobl9.github.io/techdocs_User_Guide/#service-level-objectives-38)
