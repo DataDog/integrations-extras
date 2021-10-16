@@ -12,9 +12,15 @@ Connect Datadog with [Redpanda][1] to view key metrics and add additional metric
 1. [Download and launch the Datadog Agent][9].
 2. Manually install the Redpanda integration. See [Use Community Integrations][10] for more details based on the environment.
 
+<!-- xxx tabs xxx -->
+<!-- xx tab "Host" xxx -->
+
 #### Host
 
 To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-redpanda==<INTEGRATION_VERSION>`.
+
+<!-- xxz tab xxx -->
+<!-- xxx tab "Containerized" xxx -->
 
 #### Containerized
 
@@ -50,7 +56,13 @@ agents:
 helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
 ```
 
+<!-- xxz tab xxx -->
+<!-- xxz tabs xxx -->
+
 ### Configuration
+
+<!-- xxx tabs xxx -->
+<!-- xxx tab "Host" xxx -->
 
 #### Host
 
@@ -80,6 +92,9 @@ By default, collecting logs is disabled in the Datadog Agent. Log collection is 
       source: redpanda
     ```
 
+<!-- xxz tab xxx -->
+<!-- xxx tab "Containerized" xxx -->
+
 #### Containerized
 
 ##### Metric collection
@@ -97,6 +112,9 @@ To enable logs, see the [Kubernetes log collection documentation][9].
 | Parameter      | Value                                                  |
 | -------------- | ------------------------------------------------------ |
 | `<LOG_CONFIG>` | `{"source": "redpanda", "service": "redpanda_cluster"}` |
+
+<!-- xxz tab xxx -->
+<!-- xxz tabs xxx -->
 
 ### Validation
 
