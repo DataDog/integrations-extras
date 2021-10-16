@@ -1,28 +1,28 @@
-# Agent Check: Redpanda
 
 ## Overview
 
-This Datadog-[Redpanda][1] integration collects key metrics from Redpanda by default. It can also be configured to add additional metric groups based on specific user needs.
+Redpanda is a Kafka API-compatible streaming platform for mission-critical workloads.
 
-Redpanda is a Kafka API compatible streaming platform for mission-critical workloads.
+Connect Datadog with [Redpanda][1] to view key metrics and add additional metric groups based on specific user needs.
 
 ## Setup
 
 ### Installation
 
-First, [download and launch the Datadog Agent][9].
-
-Then, manually install the Redpanda check. [Instructions vary depending on the environment][10].
-
-> Current Redpanda integration version: `1.0.0`
+1. [Download and launch the Datadog Agent][9].
+2. Manually install the Redpanda integration. See [Use Community Integrations][10] for more details based on the environment.
 
 #### Host
 
-Run `datadog-agent integration install -t datadog-redpanda==<INTEGRATION_VERSION>`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-redpanda==<INTEGRATION_VERSION>`.
 
 #### Containerized
 
-The best way to use this integration with the Docker Agent is to build the Agent with this integration installed. Use the following Dockerfile to build an updated version of the Agent:
+For containerized environments, the best way to use this integration with the Docker Agent is to build the Agent with the Redpanda integration installed. 
+
+To build an updated version of the Agent:
+
+1. Use the following Dockerfile:
 
 ```dockerfile
 FROM gcr.io/datadoghq/agent:latest
@@ -32,9 +32,9 @@ ARG INTEGRATION_VERSION=1.0.0
 RUN agent integration install -r -t datadog-redpanda==${INTEGRATION_VERSION}
 ```
 
-Build the image and push it to your private Docker registry.
+2. Build the image and push it to your private Docker registry.
 
-Then, upgrade the Datadog Agent container image. If the Helm chart is used, modify the `agents.image` section in the `values.yaml` to replace the default agent image:
+3. Upgrade the Datadog Agent container image. If you are using a Helm chart, modify the `agents.image` section in the `values.yaml` file to replace the default agent image:
 
 ```yaml
 agents:
@@ -44,7 +44,7 @@ agents:
     repository: <YOUR_PRIVATE_REPOSITORY>/<AGENT_NAME>
 ```
 
-Use the new `values.yaml` to upgrade the Agent:
+4. Use the new `values.yaml` file to upgrade the Agent:
 
 ```shell
 helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
@@ -56,21 +56,23 @@ helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
 
 ##### Metric collection
 
-1. Edit the `redpanda.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Redpanda performance data. See the sample [redpanda.d/conf.yaml.example][3] for all available configuration options.
+To start collecting your Redpanda performance data:
+
+1. Edit the `redpanda.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][11]. See the sample [redpanda.d/conf.yaml.example][3] file for all available configuration options.
 
 2. [Restart the Agent][4].
 
 ##### Log collection
 
-_Available for Agent versions >6.0_
+By default, collecting logs is disabled in the Datadog Agent. Log collection is available for Agent v6.0+.
 
-1. Collecting logs is disabled by default in the Datadog Agent, enable it in your `datadog.yaml` file:
+1. To enable logs, add the following in your `datadog.yaml` file:
 
    ```yaml
    logs_enabled: true
    ```
 
-2. Add this configuration block to your `redpanda.d/conf.yaml` file to start collecting your Redpanda logs:
+2. Add the following in your `redpanda.d/conf.yaml` file to start collecting your Redpanda logs:
 
    ```yaml
     logs:
@@ -82,17 +84,15 @@ _Available for Agent versions >6.0_
 
 ##### Metric collection
 
-For containerized environments, after the Redpanda check is integrated in the Datadog Agent image, Autodiscovery is configured by default.
+For containerized environments, Autodiscovery is configured by default after the Redpanda check integrates in the Datadog Agent image.
 
-Thus, metrics are automatically collected to Datadog's server.
-
-See the [Autodiscovery Integration Templates][2] for the complete guidance.
+Metrics are automatically collected in Datadog's server. For more information, see [Autodiscovery Integration Templates][2].
 
 ##### Log collection
 
-_Available for Agent versions >6.0_
+By default, log collection is disabled in the Datadog Agent. Log collection is available for Agent v6.0+.
 
-Collecting logs is disabled by default in the Datadog Agent. To enable it, see [Kubernetes log collection documentation][9].
+To enable logs, see the [Kubernetes log collection documentation][9].
 
 | Parameter      | Value                                                  |
 | -------------- | ------------------------------------------------------ |
@@ -110,11 +110,10 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Events
 
-The redpanda integration does not include any events.
+The Redpanda integration does not include any events.
 
 ### Service Checks
 
-The redpanda integration does not include any service checks.
 
 See [service_checks.json][7] for a list of service checks provided by this integration.
 
@@ -132,3 +131,4 @@ Need help? Contact [Datadog support][8].
 [8]: https://docs.datadoghq.com/help/
 [9]: https://app.datadoghq.com/account/settings#agent
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[11]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
