@@ -13,7 +13,7 @@ To get started, [visit][visit] ![link_icon] to set up a trial account.
 
 Follow the steps below to configure the integration:
 
-1. Install agent
+1. Install Shoreline agent
 2. Configure Datadog integration from Shoreline
 
 
