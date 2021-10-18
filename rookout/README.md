@@ -48,7 +48,7 @@ Rookout does not include any service checks.
 
 Rookout does not include any events.
 
-## Troubleshooting
+## Support
 
 Feel free to contact us at [support@rookout.com][2]
 
