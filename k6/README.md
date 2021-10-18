@@ -48,7 +48,7 @@ For the detailed instructions, follow the [k6 documentation][2].
     Once the Datadog Agent service is running, run the k6 test and send the metrics to the Agent with:
 
     ```shell
-    k6 run --out datadog script.js
+    K6_STATSD_ENABLE_TAGS=true k6 run --out statsd script.js
     ```
 
 4. Visualize the k6 metrics in Datadog.
