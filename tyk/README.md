@@ -2,10 +2,6 @@
 
 ## Overview
 
-![tyk logo][3]
-
-![Illustration of Tyk in a lab][5]
-
 Datadog can collect and display errors response time, duration, latency and monitor performance of the API traffic in [Tyk][1] to easily discover issues in your APIs or your consumers.
 
 Tyk has a built-in Datadog integration that collects metrics from [Tyk API gateway][7].
@@ -76,7 +72,7 @@ pump.conf:
     },
 ```
 
-This [example][19] was taken from [Tyk-demo][20] project, an open source project that spins up a full tyk platform in one command and offers ready-made examples, including the Datadog example. To run this integration, use `up.sh analytics-datadog`.
+This [example][19] was taken from [Tyk-demo][20] project, an open source project that spins up a full Tyk platform in one command and offers ready-made examples, including the Datadog example. To run this integration, use `up.sh analytics-datadog`.
 
 #### Setup Datadog Agent
 
@@ -126,11 +122,11 @@ Here's an example for such a dashboard:
 
 ### Events
 
-The tyk integration does not include any events.
+The Tyk integration does not include any events.
 
 ### Service Checks
 
-The tyk integration does not include any service checks.
+The Tyk integration does not include any service checks.
 
 ## Troubleshooting
 
@@ -138,9 +134,7 @@ Need help? Contact [Datadog support][8].
 
 [1]: https://tyk.io/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk_logo_no_bg.png
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/tyk/images/tyk-in-lab.png
 [6]: https://github.com/DataDog/integrations-extras/blob/master/tyk/metadata.csv
 [7]: https://github.com/TykTechnologies/tyk
 [8]: https://docs.datadoghq.com/help/
