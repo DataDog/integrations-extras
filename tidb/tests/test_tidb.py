@@ -1,10 +1,10 @@
 import pytest
 
 # test transforming tidb check config to openmetrics check config
-from tests.conftest import EXPECTED_PD, EXPECTED_TIDB, EXPECTED_TIKV
-
 from datadog_checks.base.utils.tagging import GENERIC_TAGS
 from datadog_checks.tidb import TiDBCheck
+
+from .conftest import EXPECTED_PD, EXPECTED_TIDB, EXPECTED_TIKV
 
 
 @pytest.mark.unit
