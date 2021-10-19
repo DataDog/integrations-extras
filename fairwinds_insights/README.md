@@ -8,7 +8,7 @@ Fairwinds Insights uncovers issues in your Kubernetes clusters related to Securi
 
 ## Setup
 
-You'll need to have an account at insights.fairwinds.com to use this integration. You can also sign up for Fairwinds
+You'll need to have an account at insights.fairwinds.com to use this App. You can also sign up for Fairwinds
 Insights in the Datadog Marketplace.
 
 Once your account is set up, you can add this UI App to any Datadog dashboard.
