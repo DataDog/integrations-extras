@@ -1,5 +1,9 @@
 # CHANGELOG - cert_manager
 
+## 2.1.0 / 2021-10-19
+
+* [Added] cert_manager: add 'certmanager_clock_time_seconds' metric collection. See [#1031](https://github.com/DataDog/integrations-extras/pull/1031). Thanks [albertrdixon](https://github.com/albertrdixon).
+
 ## 2.0.0 / 2021-03-25
 
 * [Added] Overview Dashboard
