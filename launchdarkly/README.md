@@ -6,7 +6,7 @@ LaunchDarkly provides the following integrations with Datadog:
 
 ### Events integration
 
-The [LaunchDarkly][1] app for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog. 
+The [LaunchDarkly][1] events integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog. 
 
 ### Dashboard widget
 
