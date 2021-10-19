@@ -50,21 +50,11 @@ PagerDuty without having to context switch between tools.
 ## Setup
 Configuration Walkthrough
 
-1. In your Datadog account, navigate to Dashboards.
-Select the dashboard that you would like to add the Status Dashboard widget to, 
-or [create a new dashboard](https://docs.datadoghq.com/dashboards/#new-dashboard).
+1. In your Datadog account, navigate to Dashboards. Select the dashboard that you would like to add the Status Dashboard widget to, or [create a new dashboard](https://docs.datadoghq.com/dashboards/#new-dashboard).
 
-2. In the dashboard, click **+Add Widgets** to the right of the dashboard title. 
-Scroll to the right through the widgets, and then drag and drop the **PagerDuty** widget(s) 
-into your desired position on your dashboard.
+2. In the dashboard, click **+Add Widgets** to the right of the dashboard title. Scroll to the right through the widgets, and then drag and drop the **PagerDuty** widget(s) into your desired position on your dashboard.
 
-3. In the Custom Widget Editor modal, 
-click **Connect**. Select your **service region** and then **log in** to your PagerDuty account.
-You will be redirected to the Custom Widget Editor where you will see a preview of
-how the widget will appear. Below the preview, under **Widget options** you may optionally 
-select which additional capabilities that you would like the dashboard to default to. 
-You may also optionally change the **Widget title**, if desired. Click **Done** to add the 
-widget to your dashboard. The integration is now complete.
+3. In the Custom Widget Editor modal, click **Connect**. Select your **service region** and then **log in** to your PagerDuty account.You will be redirected to the Custom Widget Editor where you will see a preview of how the widget will appear. Below the preview, under **Widget options** you may optionally select which additional capabilities that you would like the dashboard to default to. You may also optionally change the **Widget title**, if desired. Click **Done** to add the widget to your dashboard. The integration is now complete.
 
 ## Support
 
