@@ -4,7 +4,7 @@
 
 Fairwinds Insights protects and optimizes your mission-critical Kubernetes applications.
 
-Fairwinds Insights uncovers issues in your Kubernetes clusters related to Security, Efficiency, and Reliability. This integration allows you to see your newest Action Items directly within the Datadog dashboard, where you can assign them to other members of your organization or mark them as resolved.
+Fairwinds Insights uncovers issues in your Kubernetes clusters related to Security, Efficiency, and Reliability. This App allows you to see your newest Action Items directly within the Datadog dashboard, where you can assign them to other members of your organization or mark them as resolved.
 
 ## Setup
 
