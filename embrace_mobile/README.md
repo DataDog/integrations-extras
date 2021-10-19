@@ -9,7 +9,7 @@ performance optimization, issue prioritization and remediation, and monitoring a
 segments. At its core, Embrace turns complex mobile data into action. By collecting comprehensive session-level data for
 each and every user experience, Embrace extracts powerful insights to fuel your growth.
 
-After integration installation, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect 
+After app installation, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect 
 the full details of every affected user session without having to manually reproduce it. 
 
  
