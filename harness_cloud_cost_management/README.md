@@ -21,11 +21,11 @@ With Datadog and Harness, you can:
 
 ### Events
 
-The Ambassador check does not include any events.
+The Harness Cloud Cost Management check does not include any events.
 
 ### Service Checks
 
-The Ambassador check does not include any service checks.
+The Harness Cloud Cost Management  check does not include any service checks.
 
 ## Support
 
