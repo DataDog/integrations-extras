@@ -1,10 +1,16 @@
-# Shoreline Web Service Integration
+# Shoreline.io
 
 ## Overview
 
-Shoreline incident automation enables DevOps engineers to interactively **debug at scale** and quickly **build remediations** to eliminate repetitive work.
+Shoreline incident automation enables DevOps and Site reliability engineers (SREs) to interactively **debug at scale** and quickly **build remediations** to eliminate repetitive work.
 
 **The debug and repair feature** allows engineers to execute commands in real-time, across their server farm without having to SSH into the servers individually. You can execute anything that can be typed at the Linux command prompt, including Linux commands, shell scripts, calls to their cloud provider APIs, etc. Then, quickly turn these debug sessions into automations connected to Datadog monitors. The Shoreline app will automatically execute that automation whenever the monitor is triggered. This greatly reduces Mean Time To Repair (MTTR) and manual work.
+
+Shoreline helps everyone on call to be as good as your best SRE.  Shoreline
+arms your entire on-call team with best practice debugging tools and
+approved remediation actions.  This helps the whole team find and fix
+incidents more quickly with fewer escalations.  It also ensures that incidents
+are fixed correctly the first time with fewer mistakes.
 
 To get started, [visit][visit] ![link_icon] to set up a trial account.
 ## Setup
@@ -13,13 +19,13 @@ To get started, [visit][visit] ![link_icon] to set up a trial account.
 
 Follow the steps below to configure the integration:
 
-1. Install Shoreline agent
+1. Install the Shoreline agent
 2. Configure Datadog integration from Shoreline
 
 
-#### Install Shoreline agent
+#### Install the Shoreline agent
 
-Agents must be installed on every host you want Shoreline to monitor and act upon. There are a few recommended methods for installing Agents:
+Shoreline Agents must be installed on every host you want Shoreline to monitor and act upon. There are a few recommended methods for installing Agents:
 
 1. [Kubernetes][installation_kubernetis] ![link_icon]
 2. [Kubernetes via Helm][installation_via_helm] ![link_icon]
@@ -44,13 +50,12 @@ You will need the API and Application keys of your Datadog account.\
 
 For support or requests, please contact Shoreline through the following channels:
 
-Email: [support@shoreline.io][support_email]
-
+Email: [support@shoreline.io][support_email]\
 Documentation is available [here][docs].
 
 [integration_example]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
 [support_email]: support@shoreline.io
-[visit]: https://shoreline.io/datadog
+[visit]: https://shoreline.io/datadog?source=DatadogIntTile
 [learn_more]: https://docs.shoreline.io/integrations/datadog
 [installation_kubernetis]: https://docs.shoreline.io/installation/kubernetes
 [installation_via_helm]: https://docs.shoreline.io/installation/kubernetes#install-with-helm
