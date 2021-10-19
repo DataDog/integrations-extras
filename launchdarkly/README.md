@@ -57,7 +57,7 @@ The LaunchDarkly Relay Proxy can be configured to send the following metrics are
 
 ### Events
 
-The LaunchDarkly integration sends flag, project, and environment events from LaunchDarkly to Datadog.
+The LaunchDarkly events integration sends flag, project, and environment events from LaunchDarkly to Datadog.
 
 ### Service Checks
 
