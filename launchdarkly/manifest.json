@@ -1,30 +1,58 @@
 {
-  "integration_id": "launchdarkly",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
+  "manifest_version": "2.0.0",
+  "app_uuid": "7144d0c5-42f2-4cc5-b562-5f77debc0c52",
+  "app_id": "launchdarkly",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows",
+    "Category::Notification"
   ],
-  "categories": [
-    "notification"
-  ],
-  "creates_events": true,
-  "display_name": "LaunchDarkly",
-  "guid": "a1441ba8-be33-4123-8808-5a87cd696b64",
-  "is_public": true,
-  "maintainer": "support@launchdarkly",
-  "manifest_version": "1.0.0",
-  "name": "launchdarkly",
-  "public_title": "Datadog-LaunchDarkly Integration",
-  "short_description": "Monitor LaunchDarkly changes in Datadog",
-  "support": "contrib",
-  "type": "crawler",
-  "metric_prefix": "launchdarkly_relay.",
-  "metric_to_check": "launchdarkly_relay.connections_env_platformCategory_userAgent",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "description": "Control your feature releases and infrastructure changes with confidence.",
+    "title": "LaunchDarkly",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "The LaunchDarkly dashboard configured with the LaunchDarkly flags widget and events integration.",
+        "image_url": "images/dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The LaunchDarkly dashboard with a the flag change side panel open.",
+        "image_url": "images/toggle-flag.png"
+      }
+    ]
+  },
+  "author": {
+    "name": "LaunchDarkly",
+    "homepage": "https://launchdarkly.com",
+    "support_email": "support@launchdarkly.com",
+    "sales_email": "sales@launchdarkly.com"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "LaunchDarkly",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "launchdarkly_relay.",
+        "check": "launchdarkly_relay.connections_env_platformCategory_userAgent",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "dashboards": {
+    "launchdarkly": "dashboards/launchdarkly.json"
   }
 }
