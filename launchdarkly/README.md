@@ -26,7 +26,7 @@ The LaunchDarkly events integration uses a [Datadog API key][3], which can be cr
 
 1. In Datadog, navigate to an existing dashboard or create a new one.
 2. Press the **Add Widgets** button to expose the widget drawer.
-3. Search for **LaunchDarkly** to find the LaunchDarkly widget in the \*Apps\*\* section of the widget drawer.
+3. Search for **LaunchDarkly** to find the LaunchDarkly widget in the **Apps** section of the widget drawer.
 4. Click or drag the LaunchDarkly widget icon to add it your your dashboard and open the **LaunchDarkly editor** modal.
 5. Press the **Connect** button to connect your LaunchDarkly account. A new window opens prompting you to authorize Datadog.
 6. Click **Authorize**. You are returned to Datadog.
