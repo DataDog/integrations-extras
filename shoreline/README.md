@@ -2,63 +2,80 @@
 
 ## Overview
 
-Shoreline incident automation enables DevOps and Site reliability engineers (SREs) to interactively **debug at scale** and quickly **build remediations** to eliminate repetitive work.
+Shoreline incident automation enables DevOps and Site Reliability Engineers (SREs) to interactively **debug at scale** and quickly **build remediations** to eliminate repetitive work.
 
-**The debug and repair feature** allows engineers to execute commands in real-time, across their server farm without having to SSH into the servers individually. You can execute anything that can be typed at the Linux command prompt, including Linux commands, shell scripts, calls to their cloud provider APIs, etc. Then, quickly turn these debug sessions into automations connected to Datadog monitors. The Shoreline app will automatically execute that automation whenever the monitor is triggered. This greatly reduces Mean Time To Repair (MTTR) and manual work.
+The debug and repair feature allows you to execute commands in real-time across your server farm without needing to SSH into the servers individually. You can execute anything that can be typed at the Linux command prompt such as Linux commands, shell scripts, and calls to cloud provider APIs, and turn these debug sessions into automations connected to Datadog monitors. 
 
-Shoreline helps everyone on call to be as good as your best SRE.  Shoreline
-arms your entire on-call team with best practice debugging tools and
-approved remediation actions.  This helps the whole team find and fix
-incidents more quickly with fewer escalations.  It also ensures that incidents
-are fixed correctly the first time with fewer mistakes.
+The Shoreline app automatically executes the automation when the monitor is triggered, significantly reducing Mean Time To Repair (MTTR) and manual work.
 
-To get started, [visit][visit] ![link_icon] to set up a trial account.
+Shoreline helps everyone on call be as good as your best SRE. Shoreline arms your on-call team with debugging tools and approved remediation actions, helping you fix incidents faster with fewer escalations and ensuring that incidents are fixed correctly the first time with fewer mistakes.
+
+To get started, set up a trial account on [Shoreline][3].
 ## Setup
 
 ### Installation
 
 Follow the steps below to configure the integration:
 
-1. Install the Shoreline agent
-2. Configure Datadog integration from Shoreline
+1. Download the Shoreline Agent.
+2. Install the integration with the [Datadog Shoreline integration tile][10]. 
 
 
-#### Install the Shoreline agent
+#### Shoreline Agent
 
-Shoreline Agents must be installed on every host you want Shoreline to monitor and act upon. There are a few recommended methods for installing Agents:
+An Agent is an efficient, non-intrusive process running in the background of your monitored hosts. Agents collect, aggregate, and send data from the host and all connected pods and containers to Shoreline's backend, which uses the data to create metrics.
 
-1. [Kubernetes][installation_kubernetis] ![link_icon]
-2. [Kubernetes via Helm][installation_via_helm] ![link_icon]
-3. [Virtual Machines][installation_virtual_machines] ![link_icon]
+Agents serve as the secure link between Shoreline and your environment's resources. Agents can execute actions on your behalf, from simple Linux commands to remediation playbooks. Operational language statements pass an API request through Shoreline's backend and to the relevant Agents which execute the command across targeted resources.
 
-**About Shoreline Agents**\
-An Agent is an efficient and non-intrusive process running in the background of all your monitored hosts. Agents constantly collect data from both the host and all connected pods and containers. This aggregated data is periodically sent to Shoreline's backend and is used to create Metrics.
+Agents receive commands from Shoreline's backend and take automatic remediation steps based on the alarms, actions, and bots you configure. These objects work in tandem to monitor your fleet and dispatch the appropriate response if something goes wrong.
 
-Agents are also the secure link between Shoreline and your environment's Resources. Agents can execute actions on your behalf -- everything from simple Linux commands to remediation playbooks. Many Op Language statements pass an API request through Shoreline's backend and onto the relevant Agents, which then execute that command across all targeted Resources.
+Install Shoreline Agents on every host you want Shoreline to monitor and act upon. 
 
-Since Agents receive commands from Shoreline's backend, they also take automatic remediation steps based on the Alarms, Actions, and Bots you have configured. These objects work in tandem to monitor your fleet and dispatch the appropriate response if something goes wrong.
+To install the Shoreline Agent, follow one of three methods:
 
-#### Configure Datadog integration from Shoreline
+1. [Kubernetes][5] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
+2. [Kubernetes via Helm][6] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
+3. [Virtual Machines][7] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
 
-Log into your Shoreline account and configure your Datadog integration. 
-You will need the API and Application keys of your Datadog account.\
-[Learn more][learn_more] ![link_icon]. 
 
-![integration_example]
+#### Shoreline
+
+To configure the Datadog-Shoreline integration in Shoreline, you need your Datadog API and Application Keys. 
+For more information, see the [example image][4] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg). 
+
+
+For example:
+
+![integration_example](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png)
+
+## Data Collected
+
+### Metrics
+
+The Shoreline integration does not include any metrics.
+
+### Events
+
+The Shoreline integration does not include any events.
+
+### Service Checks
+
+The Shoreline integration does not include any service checks.
 
 ## Support
 
-For support or requests, please contact Shoreline through the following channels:
+Contact Shoreline through email for support and requests.
 
-Email: [support@shoreline.io][support_email]\
-Documentation is available [here][docs].
+Email: [support@shoreline.io][2]
+For more information, see the [Shoreline documentation][9].
 
-[integration_example]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
-[support_email]: support@shoreline.io
-[visit]: https://shoreline.io/datadog?source=DatadogIntTile
-[learn_more]: https://docs.shoreline.io/integrations/datadog
-[installation_kubernetis]: https://docs.shoreline.io/installation/kubernetes
-[installation_via_helm]: https://docs.shoreline.io/installation/kubernetes#install-with-helm
-[installation_virtual_machines]: https://docs.shoreline.io/installation/virtual-machines
-[link_icon]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg
-[docs]: https://docs.shoreline.io/
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
+[2]: support@shoreline.io
+[3]: https://shoreline.io/datadog?source=DatadogIntTile
+[4]: https://docs.shoreline.io/integrations/datadog
+[5]: https://docs.shoreline.io/installation/kubernetes
+[6]: https://docs.shoreline.io/installation/kubernetes#install-with-helm
+[7]: https://docs.shoreline.io/installation/virtual-machines
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg
+[9]: https://docs.shoreline.io/
+[10]: https://app.datadoghq.com/account/settings#integrations/shoreline
