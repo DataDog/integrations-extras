@@ -1,28 +1,57 @@
 {
-  "integration_id": "rookout",
-  "name": "rookout",
-  "manifest_version": "1.0.0",
-  "maintainer": "support@rookout.com",
-  "display_name": "Rookout",
-  "short_description": "Production debugging, logging and alerting",
-  "creates_events": true,
-  "public_title": "Datadog-Rookout Integration",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
+  "manifest_version": "2.0.0",
+  "app_uuid": "a82a4f89-0690-48cf-bad0-9603fb652f44",
+  "app_id": "rookout",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows",
+    "Offering::UI Extension"
   ],
-  "support": "contrib",
-  "guid": "ad342dd9-4fe8-44e6-8bee-1e1cc64b1d28",
-  "type": "crawler",
-  "categories": [
-    "exceptions"
-  ],
-  "is_public": true,
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "description": "Collect metrics from your code running live in production using Rookout",
+    "title": "Rookout Live Debugging",
+    "media": [
+      {
+        "caption": "Rookout Debugger",
+        "image_url": "images/app1.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Rookout Debug Session Configuration",
+        "image_url": "images/app2.png",
+        "media_type": "image"
+      }
+    ]
+  },
+  "author": {
+    "homepage": "https://rookout.com",
+    "name": "Rookout",
+    "support_email": "support@rookout.com"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Rookout for Datadog",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rookout.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "rookout_overview": "assets/dashboards/rookout_overview.json"
+    }
   }
 }

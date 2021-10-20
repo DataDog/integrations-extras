@@ -1,0 +1,186 @@
+{
+  "title": "PagerDuty for Datadog",
+  "description": "PagerDuty’s widgets allow you to view critical incident context all in the same place while working on incident resolution\nPerform incident actions from the widgets: -Acknowledge and Resolve incidents\n\n\nIncident discovery and action: Arms responders with knowledge of ongoing incidents within PagerDuty and gives them the ability to perform key actions such as acknowledge, resolve without having to context switch\nIdentify probable origin for incidents: Pinpoints which incidents were the likely origin of an issue to quickly narrow down search space. Recommendations are determined through past patterns.\nRapid root-cause identification: Proven AI-powered analysis quickly identifies recent suspicious changes, and related incidents, help responders hone in on the root-cause\n\nTeams can view the service status dashboard directly from Datadog to get a quick, real-time view of their team’s system health. \nUsers can manually trigger an incident from the PagerDuty Datadog Marketplace if they identify an issue that they know the engineering team will want to look at right away.\nThe Widget displays the current status of key business services and their impacting business services to get complete context while working on incidents.\nImproves communication between response teams and stakeholders during incidents.\n",
+  "widgets": [
+    {
+      "id": 8279613473711232,
+      "definition": {
+        "type": "image",
+        "url": "https://pd-platform-plugins.s3.us-west-2.amazonaws.com/AIPOs-Screenshot.jpg",
+        "sizing": "contain",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 5482133332880786,
+      "definition": {
+        "type": "image",
+        "url": "https://pd-static-assets.pagerduty.com/logos/main.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 5,
+        "height": 2
+      }
+    },
+    {
+      "id": 7970259328823780,
+      "definition": {
+        "type": "note",
+        "content": "**Our 3-part blog series**\n\n\n[AIOps: Supercharging IT and DevOps Teams;:arrow_upper_right:](https://www.pagerduty.com/use-cases/aiops/)\n\n[Orchestrate the Right Response for Every Incident;:arrow_upper_right:](https://www.pagerduty.com/platform/modern-incident-response/)\n\n[What's New;:arrow_upper_right:](https://www.pagerduty.com/whats-new/)",
+        "background_color": "white",
+        "font_size": "16",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 9,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 8721080098868916,
+      "definition": {
+        "title": "Business Service Impact",
+        "type": "group",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3664702403527974,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "custom",
+              "app_id": "fbbb4a11-4a8f-4911-bdf7-bd867d9bdfb2",
+              "custom_widget_key": "pagerduty-service-dashboard",
+              "options": {
+                "status_dashboard_id": "business_status_summary"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 8883152648215544,
+            "definition": {
+              "type": "note",
+              "content": "# Increase Visibility\n\nProvide real-time updates regarding your services to responders and stakeholders as well as eliminate silos between teams.",
+              "background_color": "blue",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 7793040981401168,
+      "definition": {
+        "title": "Incident Response",
+        "type": "group",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3762739990375788,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "custom",
+              "app_id": "fbbb4a11-4a8f-4911-bdf7-bd867d9bdfb2",
+              "custom_widget_key": "incidents_widget"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 4
+            }
+          },
+          {
+            "id": 121082423925692,
+            "definition": {
+              "type": "note",
+              "content": "# Resolve Issues Faster\n\nStay tuned for future enhancements to PagerDuty’s Datadog Incident Response widget — including powerful Event Intelligence features that help responders reduce their time-to-resolution by identifying active incidents alongside root-cause recommendations.",
+              "background_color": "blue",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 8,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 7
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "ehn-una-j8c"
+}

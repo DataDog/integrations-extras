@@ -1,0 +1,169 @@
+{
+  "title": "Rookout for Datadog",
+  "description": "",
+  "widgets": [
+    {
+      "id": 6721914379566250,
+      "definition": {
+        "type": "image",
+        "url": "https://docs.rookout.com/img/logos/bird.svg",
+        "url_dark_theme": "https://docs.rookout.com/img/logos/bird.svg",
+        "sizing": "scale-down",
+        "margin": "sm",
+        "has_background": true,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": 6994824907338098,
+      "definition": {
+        "type": "free_text",
+        "text": "Welcome to the \"Rookout for Datadog\" app dashboard",
+        "color": "#000",
+        "font_size": "auto",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 6,
+        "height": 1
+      }
+    },
+    {
+      "id": 6824763342699896,
+      "definition": {
+        "type": "free_text",
+        "text": "Metric points you set in Rookout should appear in the widgets below",
+        "color": "#000",
+        "font_size": "auto",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 3,
+        "y": 1,
+        "width": 6,
+        "height": 1
+      }
+    },
+    {
+      "id": 2746460150669888,
+      "definition": {
+        "type": "free_text",
+        "text": "To set a metric point, add a breakpoint within Rookout and set its target to \"Datadog Metrics\"",
+        "color": "#000",
+        "font_size": "auto",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 3,
+        "y": 2,
+        "width": 6,
+        "height": 1
+      }
+    },
+    {
+      "id": 3349826678285218,
+      "definition": {
+        "title": "Rookout Metric Points",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "timeseries",
+            "on_right_yaxis": false,
+            "queries": [
+              {
+                "query": "avg:rookout{*} by {location}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 9,
+        "height": 3
+      }
+    },
+    {
+      "id": 1233344163350370,
+      "definition": {
+        "type": "free_text",
+        "text": "Metric Points:",
+        "color": "#4d4d4d",
+        "font_size": "auto",
+        "text_align": "left"
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 738263641575948,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "custom",
+        "app_id": "a82a4f89-0690-48cf-bad0-9603fb652f44",
+        "custom_widget_key": "Rookout"
+      },
+      "layout": {
+        "x": 4,
+        "y": 6,
+        "width": 5,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "z4s-i55-ntn"
+}
