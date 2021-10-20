@@ -10,6 +10,7 @@ from .ns1_url_utils import Ns1Url
 class Ns1Check(AgentCheck):
     NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
+    LOG_MSG_PREFIX = "NS1 API"
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
@@ -52,9 +53,9 @@ class Ns1Check(AgentCheck):
                 url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.get_stats(url)
-                msg = 'NS1 API Query URL: {url}'.format(url=url)
+                msg = '{prefix} Query URL: {url}'.format(prefix=self.LOG_MSG_PREFIX, url=url)
                 self.log.info(msg)
-                msg = 'NS1 API result: {result}'.format(result=json.dumps(res))
+                msg = '{prefix} result: {result}'.format(prefix=self.LOG_MSG_PREFIX, result=json.dumps(res))
                 self.log.info(msg)
                 if res:
                     # extract metric from API result.
@@ -426,6 +427,10 @@ class Ns1Check(AgentCheck):
         return text
 
     def send_metrics(self, metric_name, metric_value, tags, metric_type):
+        msg = '{prefix} Metric: {name}, Value: {value}, Tag: {tag}, Type: {type}'.format(
+            prefix=self.LOG_MSG_PREFIX, name=metric_name, value=metric_value, tag=tags, type=metric_type
+        )
+        self.log.info(msg)
         if metric_name == "billing":
             for k, v in metric_value.items():
                 # {"usage": 1234, "limit": 500000}
