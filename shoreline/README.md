@@ -65,4 +65,4 @@ For more information, see the [Shoreline documentation][9].
 [7]: https://docs.shoreline.io/installation/virtual-machines
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg
 [9]: https://docs.shoreline.io/
-[10]: https://app.datadoghq.com/account/settings#integrations/shoreline
+[10]: /account/settings#integrations/shoreline
