@@ -44,7 +44,7 @@ To install the Shoreline Agent, follow one of three methods:
 To configure the Datadog-Shoreline App in Shoreline, you need your Datadog API and Application Keys. 
 
 For example:
-
+![integration_example](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png)
 
 For in-depth instructions on configuring the app, please see the [Datadog-Shoreline documentation][4]
 
