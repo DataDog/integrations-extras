@@ -1,0 +1,104 @@
+{
+  "title": "LaunchDarkly",
+  "description": "The LaunchDarkly integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog. Additionally you can use the LaunchDarkly flags dashboard widget to seamlessly monitor and perform a feature go-live from a single window.",
+  "widgets": [
+    {
+      "id": 6051850329724523,
+      "definition": {
+        "type": "image",
+        "url": "https://static.launchdarkly.com/integrations/datadog/dashboard/header_light.png",
+        "url_dark_theme": "https://static.launchdarkly.com/integrations/datadog/dashboard/header.png",
+        "sizing": "cover",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
+    },
+    {
+      "id": 3385727926662895,
+      "definition": {
+        "title": "LaunchDarkly",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "custom",
+        "app_id": "7144d0c5-42f2-4cc5-b562-5f77debc0c52",
+        "custom_widget_key": "launchdarkly",
+        "options": {
+          "dashboardURL": "https://app.launchdarkly.com/default/production/features",
+          "envTemplateVar": "ld-environment"
+        }
+      },
+      "layout": { "x": 0, "y": 2, "width": 5, "height": 7 }
+    },
+    {
+      "id": 3140411049621601,
+      "definition": {
+        "title": "LaunchDarkly feature flag events",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "event_stream",
+        "query": "sources:launchdarkly tags:environment_key:$ld-environment",
+        "tags_execution": "and",
+        "event_size": "l"
+      },
+      "layout": { "x": 5, "y": 2, "width": 7, "height": 7 }
+    },
+    {
+      "id": 5250128683109816,
+      "definition": {
+        "type": "note",
+        "content": "Customize the LaunchDarkly flags widget to show a subset feature flags that are relevant to your team, project, or service.\n\nOptionally, you can utilize a Datadog [template variable](https://docs.datadoghq.com/dashboards/template_variables) to dynamically override the **Launchdarkly environment** setting as you change dashboard views.",
+        "background_color": "gray",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "top",
+        "has_padding": true
+      },
+      "layout": { "x": 0, "y": 9, "width": 5, "height": 3 }
+    },
+    {
+      "id": 1261236294436942,
+      "definition": {
+        "type": "note",
+        "content": "Enable LaunchDarkly's [Datadog events integration](https://docs.launchdarkly.com/integrations/datadog/events) to send feature flag change events to Datadog. Events are displayed in a list or as markers on your charts. These events help you correlate and understand how changes to your features in LaunchDarkly impact your app and infrastructure metrics.",
+        "background_color": "gray",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "top",
+        "has_padding": true
+      },
+      "layout": { "x": 5, "y": 9, "width": 7, "height": 3 }
+    },
+    {
+      "id": 4318688676203407,
+      "definition": {
+        "type": "image",
+        "url": "https://static.launchdarkly.com/integrations/datadog/dashboard/footer_light.png",
+        "url_dark_theme": "https://static.launchdarkly.com/integrations/datadog/dashboard/footer.png",
+        "sizing": "cover",
+        "horizontal_align": "right"
+      },
+      "layout": { "x": 0, "y": 12, "width": 12, "height": 1 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "ld-environment",
+      "default": "*",
+      "available_values": ["production", "test"]
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "9nj-iid-76x"
+}
