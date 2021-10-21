@@ -24,8 +24,7 @@ To install the `php_opcache` check on your host:
  run `datadog-agent integration install -w
  path/to/php_opcache/dist/<ARTIFACT_NAME>.whl`.
 
-#### OPcache Setup
-
+#### OPcache
 
 OPcache does not expose metrics by default so this integration includes a metric exporter, located here:
 
@@ -63,17 +62,18 @@ Alias /opcache-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/da
 
 See [metadata.csv][9] for a list of metrics provided by this check.
 
-### Service Checks
-
-`php_opcache` does not include any service checks.
-
 ### Events
 
-`php_opcache` does not include any events.
+The PHP OPcache integration does not include any events.
+
+### Service Checks
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
+
 
 [1]: https://www.php.net/manual/en/book.opcache.php
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -85,3 +85,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/assets/service_checks.json

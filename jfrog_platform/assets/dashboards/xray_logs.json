@@ -1,0 +1,280 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides a summary of access, service, and traffic log volumes associated with Xray. Additionally, customers are also able to track various HTTP response codes, HTTP 500 errors, and log errors for greater operational insight\n\nSource code is also available in [Github](https://github.com/jfrog/log-analytics-datadog)\n\n",
+    "layout_type": "free",
+    "template_variables": [],
+    "title": "Xray Logs",
+    "widgets": [
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@log_source",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.* host:xray-0"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Log Volume",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 1322847789608144,
+            "layout": {
+                "height": 25,
+                "width": 108,
+                "x": 0,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@return_status",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "host:xray-0 @log_source:jfrog.xray.xray.request"
+                            }
+                        },
+                        "style": {
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "HTTP Response Codes",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 4340280841552919,
+            "layout": {
+                "height": 24,
+                "width": 54,
+                "x": 54,
+                "y": 63
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "host:xray-0 @return_status:500"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "HTTP 500 Errors",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6154399056908282,
+            "layout": {
+                "height": 24,
+                "width": 53,
+                "x": 0,
+                "y": 63
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "area",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@log_level",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "host:xray-0 @log_source:jfrog.xray.*.service @log_level:\"INFO \""
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "warm"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Log Errors",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 5395304232705292,
+            "layout": {
+                "height": 23,
+                "width": 108,
+                "x": 0,
+                "y": 39
+            }
+        },
+        {
+            "definition": {
+                "sizing": "cover",
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/xray.png"
+            },
+            "id": 2240306719227518,
+            "layout": {
+                "height": 12,
+                "width": 25,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "white",
+                "content": "This dashboard provides a summary of access, service, and traffic log volumes associated with Xray. Additionally, customers are also able to track various HTTP response codes, HTTP 500 errors, and log errors for greater operational insight\n\nSource code is also available in [Github](https://github.com/jfrog/log-analytics-datadog)",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "top"
+            },
+            "id": 8221389548028398,
+            "layout": {
+                "height": 12,
+                "width": 82,
+                "x": 26,
+                "y": 0
+            }
+        }
+    ]
+}

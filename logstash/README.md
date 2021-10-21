@@ -9,28 +9,27 @@ Get metrics from Logstash service in real time to:
 
 ## Setup
 
-The Logstash check is **NOT** included in the [Datadog Agent][1] package.
+The Logstash check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Logstash check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Logstash check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][5].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-logstash==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][6].
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
-1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Logstash [metrics](#metric-collection) and [logs](#logs-collection). See the [sample logstash.d/conf.yaml][8] for all available configuration options.
+1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Logstash [metrics](#metric-collection) and [logs](#log-collection). See the [sample logstash.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
 
-#### Metric Collection
+#### Metric collection
 
 Add this configuration setup to your `conf.yaml` file to start gathering your [Logstash metrics][10]:
 
@@ -50,7 +49,7 @@ See the [sample conf.yaml][11] for all available configuration options.
 
 Finally, [restart the Agent][12] to begin sending Logstash metrics to Datadog.
 
-#### Log Collection
+#### Log collection
 
 Datadog has [an output plugin][13] for Logstash that takes care of sending your logs to your Datadog platform.
 
@@ -146,11 +145,9 @@ See [metadata.csv][21] for a list of metrics provided by this check.
 
 The Logstash check does not include any events.
 
-### Service checks
+### Service Checks
 
-`logstash.can_connect`:
-
-Returns `Critical` if the Agent cannot connect to Logstash to collect metrics; returns `OK` otherwise.
+See [service_checks.json][23] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
@@ -167,12 +164,10 @@ Check that the `url` in `conf.yaml` is correct.
 
 If you need further help, contact [Datadog support][22].
 
-[1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://app.datadoghq.com/account/settings#agent
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
@@ -189,3 +184,4 @@ If you need further help, contact [Datadog support][22].
 [20]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [21]: https://github.com/DataDog/integrations-extras/blob/master/logstash/metadata.csv
 [22]: http://docs.datadoghq.com/help
+[23]: https://github.com/DataDog/integrations-extras/blob/master/logstash/assets/service_checks.json

@@ -21,7 +21,7 @@ and more by Datadog monitoring service. This integration allows users to monitor
         [external_monitoring]
         enabled=True
         ```
-    - Run `service apache2 restart`.
+    - Run `service apache2 restart`
 
 3.	##### Install the Datadog Agent on your N2WS Instance.
     Login to Datadog and go to Integrations -> Agent -> Ubuntu

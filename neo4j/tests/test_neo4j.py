@@ -12,7 +12,7 @@ from .common import CHECK_NAME, CONNECTION_FAILURE, NEO4J_MINIMAL_CONFIG, NEO4J_
 
 @pytest.mark.usefixtures('dd_environment')
 def test_minimal_config(aggregator):
-    c = Neo4jCheck(CHECK_NAME, {}, {})
+    c = Neo4jCheck(CHECK_NAME, {}, [NEO4J_MINIMAL_CONFIG])
     c.check(NEO4J_MINIMAL_CONFIG)
 
     # Test service check
@@ -32,7 +32,7 @@ def test_connection_failure(aggregator):
     """
     Service check reports connection failure
     """
-    c = Neo4jCheck(CHECK_NAME, {}, {})
+    c = Neo4jCheck(CHECK_NAME, {}, [CONNECTION_FAILURE])
 
     with pytest.raises(CheckException):
         c.check(CONNECTION_FAILURE)

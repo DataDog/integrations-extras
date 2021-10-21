@@ -14,13 +14,13 @@ Track request level metrics for your Bonsai clusters to:
 
 Integrating your cluster with Datadog requires submitting your API key to the bonsai app.
 
-### Step 1 - Aquire API Key
+### Acquire API key
 
 In Datadog, navigate to [Integrations --> API][2] and copy your API Key.
 
 ![snapshot][3]
 
-### Step 2 - Submit API Key
+### Submit API key
 
 Navigate to [Bonsai --> Clusters][4] and click the cluster you want to integrate. Navigate to the Manage tab and scroll to the bottom of the page.
 
@@ -28,7 +28,7 @@ Under the "Datadog Integration" section paste your API key and click "Activate D
 
 ![snapshot][5]
 
-### Step 3 - Verify
+### Verify
 
 If your key is valid, you should see the integration as active.
 

@@ -10,7 +10,7 @@ Integrate with iLert to:
 
 ## Setup
 
-### In iLert
+### iLert
 
 #### Create Datadog alert source
 
@@ -26,7 +26,7 @@ Integrate with iLert to:
 
    ![iLert Alert Source View][3]
 
-### In Datadog
+### Datadog
 
 #### Add iLert Webhook as alerting channel
 

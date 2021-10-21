@@ -1,0 +1,140 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independent of the others.
+#
+instances:
+
+    ## @param api_endpoint - string - required
+    ## The URL to check.
+    #
+  - api_endpoint: https://example.org
+
+    ## @param api_key - string - required
+    ## The api authentication key.
+    #
+    api_key: test_key_123
+
+    ## @param networks - list - optional
+    ## If present, usage stats are queried and reported by the network.
+    ## Each network's stats are tagged with network name.
+    ## If omitted, usage stats are reported only account wide.
+    ## If a list of network IDs is supplied, only those networks are queried.
+    ## If the parameter is present without a list of network IDs,
+    ## all available networks are queried.
+    #
+    # networks:
+    #   - 0
+    #   - 5
+    #   - 80
+
+    ## @param metrics - dictionary - required
+    ## List of metrics to report to Datadog
+    ## Each individual entry within the metric dictionary is optional,
+    ## however at least one has to be present
+    ## i.e. you must specify at least one of the following:
+    ## qps, usage, account, ddi, pulsar, pulsar_by_app, pulsar_by_record
+    #
+    metrics:
+    ## @param pulsar - boolean - optional
+    ## if parameter is present, the following is reported account-wide:
+    ## number of decisions, number of undetermined decisions, route map hits and misses
+    #
+    #   pulsar:
+
+    ## @param pulsar_by_record - list - optional
+    ## if parameter is present, the following is reported on per record basis:
+    ## number of decisions, route map hits and misses
+    ## enter list of dns records in form:
+    ## - <record name>: <record type>
+    #
+    #   pulsar_by_record:        
+    #     - www.test.com: A
+    #     - www.test1.com: A
+
+    ## @param pulsar_by_app - list - optional
+    ## if parameter is present, aggregate performance data
+    ## and pulsar availability data is reported.
+    ## Enter a list of pulsar application IDs and job IDs in form:
+    ## - <app_id>: <job_id>
+    #
+    #   pulsar_by_app:        
+    #     - 1xy4sn3: 1b1o94j
+    #     - 1xy4sn3: 1uy3acz
+
+    ## @param ddi - list - optional
+    ## if parameter is present, lease statistics will be reported account-wide
+    ## you can specify array of scope groups ID's to additionally 
+    ## report leases for each scope
+    #
+    #   ddi:
+    #     - 1
+    #     - 2
+      
+    ## @param qps - list - optional
+    ## (Queries per second)
+    ## if parameter is present, QPS statistics will be reported account-wide
+    ## you can specify an array of domain names to additionally 
+    ## report qps for each domain separately
+    ## if sub-array of records within domain is specified, 
+    ## qps will be reported for each record separatelly
+    #
+    #   qps:
+    #     - test.com:
+    #       - www.test.com: A
+
+    ## @param usage - list - optional
+    ## (Number of queries)
+    ## if parameter is present, usage statistics will be reported account-wide
+    ## you can specify array of domain names to additionally 
+    ## report usage for each domain separatelly
+    ## if sub-array of records within domain is specified, 
+    ## usage will be reported for each record separatelly
+    #
+    #   usage:
+    #     - test.com:
+    #       - www.test.com: A
+
+    ## @param account - list - optional
+    ## (billing and ttl)
+    ## if 'billing' element is present, account query limit and current number of queries
+    ## will be reported.
+    ## If ttl element is present, TTL will be reported for each of the domains
+    ## specified in sub-array
+    #
+    #   account:
+    #     - billing:
+    #     - ttl:
+    #       - test.com
+    #       - test1.com
+
+    ## @param query_parameters - dictionary - optional
+    ## Pulsar API endpoints can have query string parameters 
+    ## For pulsar, period should be at least 1 hour
+    #
+    # query_params:
+    #   pulsar_period: 1h
+    #   pulsar_geo: "*"
+    #   pulsar_asn: "*"
+    #   pulsar_agg: avg
+
+    ## @param min_collection_interval - integer - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    min_collection_interval: 60
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false

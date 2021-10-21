@@ -9,11 +9,12 @@ Connect Squadcast to Datadog in order to:
 
 ## Setup
 
-**Note**:
-Only the users with Account Owner or Admin privileges can configure services on Squadcast.
+**Note**: Only the users with Account Owner or Admin privileges can configure services on Squadcast.
 At least one Escalation Policy must be configured before you can add a service.
 
-### Follow these steps in Squadcast:
+### Squadcast
+
+Follow these steps in Squadcast:
 
 1. Open the **Services** page from the sidebar.
 
@@ -23,7 +24,9 @@ At least one Escalation Policy must be configured before you can add a service.
 
 5. Copy the **Datadog Webhook URL** shown and click **Done**.
 
-### Follow these steps in Datadog:
+### Datadog
+
+Follow these steps in Datadog:
 
 1. Open the **Integrations** page from the sidebar.
 

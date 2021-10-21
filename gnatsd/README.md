@@ -9,18 +9,19 @@ Get metrics from Gnatsd service in real time to:
 
 ## Setup
 
+The Gnatsd check is not included in the [Datadog Agent][2] package, so you need to install it.
+
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Gnatsd check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior to version 6.8][2] or the [Docker Agent][3]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Gnatsd check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][4].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-gnatsd==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][5].
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -51,26 +52,20 @@ The gnatsd check does not include any events.
 
 ### Service Checks
 
-This gnatsd check tags all service checks it collects with:
-
-- `server_name:<server_name_in_yaml>`
-- `url:<host_in_yaml>`
-
-`gnatsd.can_connect`:
-Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][11].
 
-[1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://docs.datadoghq.com/getting_started/integrations/
+
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [7]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd/datadog_checks/gnatsd/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [10]: https://github.com/DataDog/datadog-sdk-testing/blob/master/lib/config/metadata.csv
 [11]: https://docs.datadoghq.com/help/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/gnatsd/assets/service_checks.json

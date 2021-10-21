@@ -12,7 +12,7 @@ CONNECTION_FAILURE = {'host': 'http://totally_not_locallhost', 'port': 8222}
 
 
 def test_connection_failure(aggregator):
-    c = GnatsdStreamingCheck(CHECK_NAME, {}, {})
+    c = GnatsdStreamingCheck(CHECK_NAME, {}, [CONNECTION_FAILURE])
 
     with pytest.raises(Exception):
         c.check(CONNECTION_FAILURE)
@@ -22,7 +22,7 @@ def test_connection_failure(aggregator):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_metrics(aggregator, instance):
-    c = GnatsdStreamingCheck(CHECK_NAME, {}, {})
+    c = GnatsdStreamingCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
 
     aggregator.assert_service_check('gnatsd_streaming.can_connect', status=GnatsdStreamingCheck.OK, count=1)
@@ -47,7 +47,7 @@ def test_metrics(aggregator, instance):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_metric_tags(aggregator, instance):
-    c = GnatsdStreamingCheck(CHECK_NAME, {}, {})
+    c = GnatsdStreamingCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
 
     aggregator.assert_metric_has_tag_prefix('gnatsd.streaming.serverz.clients', 'nss-cluster_id', at_least=1)
@@ -64,7 +64,7 @@ def test_metric_tags(aggregator, instance):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_failover_event(aggregator, instance):
-    c = GnatsdStreamingCheck(CHECK_NAME, {}, {})
+    c = GnatsdStreamingCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
     c.ft_status = 'FT_STANDBY'
     c.check(instance)
@@ -73,7 +73,7 @@ def test_failover_event(aggregator, instance):
 
 @pytest.mark.usefixtures('dd_environment')
 def test_deltas(aggregator, instance):
-    c = GnatsdStreamingCheck(CHECK_NAME, {}, {})
+    c = GnatsdStreamingCheck(CHECK_NAME, {}, [instance])
     c.check(instance)
     aggregator.assert_metric(
         'gnatsd.streaming.channelsz.channels.test_channel1.msgs', metric_type=aggregator.COUNT, value=10

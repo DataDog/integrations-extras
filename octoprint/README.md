@@ -15,7 +15,7 @@ To install the OctoPrint check on your host:
 1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
     - VERSION is currently `1.0.0`.  This may be verified in `./datadog_checks/octoprint/__about__.py`.
 
-#### (Optional) Install From Source
+#### Install from source (optional)
 
 1. Install the [developer toolkit][3] on any machine.
 
@@ -51,7 +51,7 @@ The logs that it collects by default (and their default locations) are:
 
 Any or all of these may be changed or removed by modifying the integration's `conf.yaml` file.
 
-#### Log Processing
+#### Log processing
 
 OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
 
@@ -71,17 +71,18 @@ For more information, see the [Datadog Log Processing documentation][11].
 
 See [metadata.csv][8] for a list of metrics provided by this integration.
 
-### Service Checks
-
-OctoPrint does not include any service checks.
-
 ### Events
 
 OctoPrint does not include any events.
 
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][9].
+
 
 [1]: https://octoprint.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -94,3 +95,4 @@ Need help? Contact [Datadog support][9].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://octoprint.org/download/
 [11]: https://docs.datadoghq.com/logs/processing/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/assets/service_checks.json

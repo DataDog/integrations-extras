@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   postgres-server:    # The Postgres Database Service
-    image: postgres:latest
+    image: postgres:12.4-alpine
     restart: always
     environment:   # Username, password and database name variables
       POSTGRES_USER: zabbix
@@ -10,7 +10,7 @@ services:
       PG_DATA: /var/lib/postgresql/data/pgdata #data storage
 
   zabbix-server:     # The main Zabbix Server Software Service
-    image: zabbix/zabbix-server-pgsql:ubuntu-latest
+    image: zabbix/zabbix-server-pgsql:ubuntu-5.2.0
     restart: always
     environment:   # The Postgres database value variable
       POSTGRES_USER: zabbix
@@ -26,7 +26,7 @@ services:
       - postgres-server
   
   zabbix-web:    # The main Zabbix web UI or interface 
-    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-latest
+    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-5.2.0
     restart: always
     environment:  # Postgre database variables
       POSTGRES_USER: zabbix
@@ -42,7 +42,7 @@ services:
     ports:    # Port where Zabbix UI is available
       - 8080:8080
   zabbix-agent:   # Zabbix agent service that tracks usage and send to zabbix server
-    image: zabbix/zabbix-agent:latest
+    image: zabbix/zabbix-agent:ubuntu-5.0.4
     privileged: true   #access mode for allowing resource access
     network_mode: "host"
     restart: unless-stopped

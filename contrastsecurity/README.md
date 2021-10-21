@@ -6,9 +6,9 @@ The Datadog-Contrast integration allows you to get your Contrast logs into Datad
 
 ## Setup
 
-### Set up Contrast Protect logs collection
+### Log Collection
 
-Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide](https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6) for the location of your configuration file:
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][1] for the location of your configuration file:
 
 ```yaml
 logs_enabled: true
@@ -26,13 +26,13 @@ logs_enabled: true
         source: contrastsecurity
     ```
 
-For more information on logs: https://docs.contrastsecurity.com/installation-setupconfig.html#log
+For more information on logs, see the [Contrast Security documentation][2].
 
-- [Restart the Datadog Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#restart-the-agent).
+- [Restart the Datadog Agent][3].
 
-For more information, consult the [Logs Collection documentation](https://docs.datadoghq.com/logs/log_collection/?tab=tailexistingfiles#getting-started-with-the-agent).
-
-For more information, refer to the [Datadog API documentation for creating a dashboard](https://docs.datadoghq.com/api/?lang=bash#create-a-dashboard).
+For more information, see the:
+- [Datadog Logs documentation][4]
+- [Datadog API documentation for creating a dashboard][5]
 
 ## Data Collected
 
@@ -47,3 +47,10 @@ The Contrast integration does not send any events.
 ### Service Checks
 
 The Contrast integration does not include any service checks.
+
+
+[1]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
+[2]: https://docs.contrastsecurity.com/installation-setupconfig.html#log
+[3]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
+[4]: https://docs.datadoghq.com/logs/log_collection/#getting-started-with-the-agent
+[5]: https://docs.datadoghq.com/api/#create-a-dashboard

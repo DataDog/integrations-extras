@@ -28,7 +28,7 @@ $ convox scale agent --count=3 --cpu=10 --memory=128
 
 Use a `count` that matches the `InstanceCount` parameter of your Rack.
 
-### Auto Scaling
+### Auto scaling
 
 If autoscaling is enabled on your Rack, you'll need to dynamically scale the Datadog agent count to match the Rack instance count.
 

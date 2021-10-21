@@ -114,27 +114,18 @@ Once you have created the facets, generate the needed metric for the Dashboard t
 
 See [metadata.csv][12] for a list of metrics provided by this check.
 
-### Service Checks
-
-**`open_policy_agent.prometheus.health`**:<br>
-Returns CRITICAL if the Agent fails to connect to the Prometheus endpoint, otherwise returns UP.
-
-**`open_policy_agent.health`**:<br>
-Returns `CRITICAL` if the agent fails to connect to the OPA health endpoint, `OK` if it returns 200, `WARNING` otherwise.
-
-**`open_policy_agent.bundles_health`**:<br>
-Returns `CRITICAL` if the agent fails to connect to the OPA bundles health endpoint, `OK` if it returns 200, `WARNING` otherwise.
-
-**`open_policy_agent.plugins_health`**:<br>
-Returns `CRITICAL` if the agent fails to connect to the OPA plugins health endpoint, `OK` if it returns 200, `WARNING` otherwise.
-
 ### Events
 
 open_policy_agent does not include any events.
 
+### Service Checks
+
+See [service_checks.json][14] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][13].
+
 
 [1]: https://www.openpolicyagent.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -149,3 +140,4 @@ Need help? Contact [Datadog support][13].
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [12]: https://github.com/DataDog/integrations-core/blob/master/open_policy_agent/metadata.csv
 [13]: https://docs.datadoghq.com/help/
+[14]: https://github.com/DataDog/integrations-extras/blob/master/open_policy_agent/assets/service_checks.json

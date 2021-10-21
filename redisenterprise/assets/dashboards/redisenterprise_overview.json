@@ -1,0 +1,700 @@
+{
+    "description": "Redis Enterprise Database Overview",
+    "id": "cn4-k6q-xze",
+    "is_read_only": false,
+    "layout_type": "free",
+    "notify_list": [],
+    "template_variables": [
+        {
+            "default": "*",
+            "name": "redis_cluster",
+            "prefix": "redis_cluster"
+        },
+        {
+            "default": "*",
+            "name": "database",
+            "prefix": "database"
+        }
+    ],
+    "title": "Redis Enterprise Database Overview",
+    "widgets": [
+        {
+            "definition": {
+                "color": "#4d4d4d",
+                "font_size": "56",
+                "text": "$redis_cluster",
+                "text_align": "right",
+                "type": "free_text"
+            },
+            "id": 6100693990363604,
+            "layout": {
+                "height": 6,
+                "width": 24,
+                "x": -1,
+                "y": -4
+            }
+        },
+        {
+            "definition": {
+                "color": "#4d4d4d",
+                "font_size": "56",
+                "text": "$database",
+                "text_align": "left",
+                "type": "free_text"
+            },
+            "id": 7867105637084078,
+            "layout": {
+                "height": 6,
+                "width": 24,
+                "x": 0,
+                "y": 6
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 5000
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 1000
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 999
+                            }
+                        ],
+                        "q": "max:redisenterprise.conns{$redis_cluster,$database}"
+                    }
+                ],
+                "title": "Connections",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 3857843370396150,
+            "layout": {
+                "height": 15,
+                "width": 38,
+                "x": 0,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "autoscale": false,
+                "custom_unit": "\u03bcs",
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 1000000
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 500000
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 500000
+                            }
+                        ],
+                        "q": "max:redisenterprise.avg_latency{$redis_cluster,$database}"
+                    }
+                ],
+                "time": {},
+                "title": "Avg Latency",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 3503442180394160,
+            "layout": {
+                "height": 15,
+                "width": 38,
+                "x": 38,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 0,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_yellow",
+                                "value": 0.0001
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 0
+                            }
+                        ],
+                        "q": "max:redisenterprise.total_req{$redis_cluster,$database}"
+                    }
+                ],
+                "title": "Ops/Second",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 5836795418439482,
+            "layout": {
+                "height": 15,
+                "width": 38,
+                "x": 76,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.total_req{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.read_req{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.write_req{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.other_req{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Ops/Second",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6445884343972416,
+            "layout": {
+                "height": 27,
+                "width": 95,
+                "x": 0,
+                "y": 28
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.avg_read_latency{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.avg_write_latency{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.avg_latency{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Latency(\u03bcs)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 5135262273637414,
+            "layout": {
+                "height": 27,
+                "width": 95,
+                "x": 95,
+                "y": 28
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "avg:redisenterprise.used_memory{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "avg:redisenterprise.memory_limit{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "time": {},
+                "title": "MemoryUsage",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 4617536949351524,
+            "layout": {
+                "height": 23,
+                "width": 67,
+                "x": 0,
+                "y": 55
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.evicted_objects{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.expired_objects{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Objects",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 2497208256453044,
+            "layout": {
+                "height": 15,
+                "width": 55,
+                "x": 133,
+                "y": 78
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.no_of_keys{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Key Count",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 8828963420651834,
+            "layout": {
+                "height": 15,
+                "width": 67,
+                "x": 0,
+                "y": 78
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.ingress_bytes{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.egress_bytes{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Network Traffic",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7599979706340942,
+            "layout": {
+                "height": 15,
+                "width": 66,
+                "x": 67,
+                "y": 78
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 2,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 0
+                            }
+                        ],
+                        "q": "sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}"
+                    }
+                ],
+                "time": {},
+                "title": "Cache Hit Rate",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 8518327600405510,
+            "layout": {
+                "height": 15,
+                "width": 38,
+                "x": 114,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 1,
+                "requests": [
+                    {
+                        "aggregator": "last",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 95
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 90
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 85
+                            }
+                        ],
+                        "q": "avg:redisenterprise.used_memory_percent{$redis_cluster,$database}"
+                    }
+                ],
+                "time": {},
+                "title": "Memory Usage",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 4816392752373508,
+            "layout": {
+                "height": 15,
+                "width": 38,
+                "x": 152,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.read_hits{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.read_misses{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.write_hits{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.write_misses{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "time": {},
+                "title": "Cache",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6542226268424464,
+            "layout": {
+                "height": 23,
+                "width": 62,
+                "x": 67,
+                "y": 55
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "vertical",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "display_type": "line",
+                        "q": "sum:redisenterprise.used_memory_percent{$redis_cluster,$database}",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "time": {},
+                "title": "Percentages",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 3978155350332000,
+            "layout": {
+                "height": 23,
+                "width": 59,
+                "x": 129,
+                "y": 55
+            }
+        }
+    ]
+}

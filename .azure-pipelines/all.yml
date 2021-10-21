@@ -1,22 +1,22 @@
 schedules:
-  - cron: 0 5 * * *
-    displayName: Nightly (EDT/EST)
-    always: true
-    branches:
-      include:
-        - master
+- cron: 0 5 * * *
+  displayName: Nightly (EDT/EST)
+  always: true
+  branches:
+    include:
+    - master
 pr: none
 trigger:
   branches:
     include:
-      - master
+    - master
 resources:
   repositories:
-    - repository: integrations-core
-      type: github
-      name: Datadog/integrations-core
-      ref: master
-      endpoint: DataDog
+  - repository: integrations-core
+    type: github
+    name: Datadog/integrations-core
+    ref: master
+    endpoint: DataDog
 variables:
   DDEV_COLOR: 1
 jobs:
@@ -33,8 +33,14 @@ jobs:
     - checkName: bind9
       displayName: BIND 9
       os: linux
+    - checkName: calico
+      displayName: Calico
+      os: linux
     - checkName: cert_manager
       displayName: cert-manager
+      os: linux
+    - checkName: cloudsmith
+      displayName: Cloudsmith
       os: linux
     - checkName: cyral
       displayName: Cyral
@@ -57,6 +63,9 @@ jobs:
     - checkName: gnatsd_streaming
       displayName: Gnatsd Streaming
       os: linux
+    - checkName: jfrog_platform
+      displayName: JFrog Platform
+      os: linux
     - checkName: kernelcare
       displayName: Kernelcare
       os: linux
@@ -74,6 +83,9 @@ jobs:
       os: linux
     - checkName: nextcloud
       displayName: Nextcloud
+      os: linux
+    - checkName: ns1
+      displayName: NS1
       os: linux
     - checkName: nvml
       displayName: nvml
@@ -110,6 +122,9 @@ jobs:
       os: linux
     - checkName: redis_sentinel
       displayName: Redis Sentinel
+      os: linux
+    - checkName: redisenterprise
+      displayName: Redis Enterprise
       os: linux
     - checkName: resin
       displayName: Resin

@@ -5,12 +5,10 @@
 # stdlib
 import errno
 import json
-import numbers
 import os
 import re
 import sre_constants
 
-import requests
 import six
 from six import iteritems
 
@@ -88,8 +86,9 @@ class FilebeatCheckHttpProfiler:
 
     VARS_ROUTE = "debug/vars"
 
-    def __init__(self, config):
+    def __init__(self, config, http):
         self._config = config
+        self._http = http
         self._previous_increment_values = {}
         # regex matching ain't free, let's cache this
         self._should_keep_metrics = {}
@@ -104,7 +103,7 @@ class FilebeatCheckHttpProfiler:
 
     def _make_request(self):
 
-        response = requests.get(self._config.stats_endpoint, timeout=self._config.timeout)
+        response = self._http.get(self._config.stats_endpoint)
         response.raise_for_status()
 
         return self.flatten(response.json())
@@ -170,14 +169,12 @@ class FilebeatCheckInstanceConfig:
 
         self._only_metrics = instance.get("only_metrics", [])
 
+        self._ignore_registry = instance.get("ignore_registry", False)
+
         if not isinstance(self._only_metrics, list):
             raise Exception(
                 "If given, filebeat's only_metrics must be a list of regexes, got %s" % (self._only_metrics,)
             )
-
-        self._timeout = instance.get("timeout", 2)
-        if not isinstance(self._timeout, numbers.Real) or self._timeout <= 0:
-            raise Exception("If given, filebeats timeout must be a positive number, got %s" % (self._timeout,))
 
     @property
     def registry_file_path(self):
@@ -188,8 +185,8 @@ class FilebeatCheckInstanceConfig:
         return self._stats_endpoint
 
     @property
-    def timeout(self):
-        return self._timeout
+    def ignore_registry(self):
+        return self._ignore_registry
 
     def should_keep_metric(self, metric_name):
 
@@ -217,13 +214,21 @@ class FilebeatCheckInstanceConfig:
 
 class FilebeatCheck(AgentCheck):
 
-    SERVICE_CHECK_NAME = 'filebeat.can_connect'
+    SERVICE_CHECK_NAME = 'can_connect'
 
-    METRIC_PREFIX = "filebeat."
+    __NAMESPACE__ = "filebeat"
 
     def __init__(self, *args, **kwargs):
         AgentCheck.__init__(self, *args, **kwargs)
         self.instance_cache = {}
+        self.tags = []
+
+        if self.instance:
+            self.tags = self.instance.get('tags', [])
+            # preserve backwards compatible default timeouts
+            if self.instance.get('timeout') is None:
+                if self.init_config.get('timeout') is None:
+                    self.instance['timeout'] = 2
 
     def check(self, instance):
         normalize_metrics = is_affirmative(instance.get("normalize_metrics", False))
@@ -234,10 +239,12 @@ class FilebeatCheck(AgentCheck):
             profiler = self.instance_cache[instance_key]["profiler"]
         else:
             config = FilebeatCheckInstanceConfig(instance)
-            profiler = FilebeatCheckHttpProfiler(config)
+            profiler = FilebeatCheckHttpProfiler(config, self.http)
             self.instance_cache[instance_key] = {"config": config, "profiler": profiler}
 
-        self._process_registry(config)
+        if not config.ignore_registry:
+            self._process_registry(config)
+
         self._gather_http_profiler_metrics(config, profiler, normalize_metrics)
 
     def _process_registry(self, config):
@@ -267,6 +274,7 @@ class FilebeatCheck(AgentCheck):
     def _process_registry_item(self, item):
         source = item["source"]
         offset = item["offset"]
+        tags = self.tags + ["source:{0}".format(source)]
 
         try:
             stats = os.stat(source)
@@ -274,7 +282,7 @@ class FilebeatCheck(AgentCheck):
             if self._is_same_file(stats, item["FileStateOS"]):
                 unprocessed_bytes = stats.st_size - offset
 
-                self.gauge("filebeat.registry.unprocessed_bytes", unprocessed_bytes, tags=["source:{0}".format(source)])
+                self.gauge("registry.unprocessed_bytes", unprocessed_bytes, tags=tags)
             else:
                 self.log.debug("Filebeat source %s appears to have changed", source)
         except OSError:
@@ -284,7 +292,7 @@ class FilebeatCheck(AgentCheck):
         return stats.st_dev == file_state_os["device"] and stats.st_ino == file_state_os["inode"]
 
     def _gather_http_profiler_metrics(self, config, profiler, normalize_metrics):
-        tags = ["stats_endpoint:{0}".format(config.stats_endpoint)]
+        tags = self.tags + ["stats_endpoint:{0}".format(config.stats_endpoint)]
         try:
             all_metrics = profiler.gather_metrics()
         except Exception as ex:
@@ -300,7 +308,8 @@ class FilebeatCheck(AgentCheck):
             method = getattr(self, action)
 
             for name, value in iteritems(metrics):
-                if not name.startswith(self.METRIC_PREFIX) and normalize_metrics:
-                    name = self.METRIC_PREFIX + name
-                method(name, value, tags)
+                if not name.startswith(self.__NAMESPACE__) and normalize_metrics:
+                    method(name, value, tags)
+                else:
+                    method(name, value, tags, raw=True)
         self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=tags)

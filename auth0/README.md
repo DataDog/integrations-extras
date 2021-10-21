@@ -7,23 +7,21 @@ Auth0 is an identity platform for development teams which provides developers an
 
 This integration leverages Auth0's Log Streaming to send logs directly to Datadog. The logs are sent in real time as they are generated in Auth0, giving customers up-to-date information about their Auth0 tenant. One of the key benefits of using using this integration is the ability to collect and visualize data in order to identify trends. Engineering teams use it to visualize error rates and traffic data. Security teams use it to visualize authorization traffic and set up alerts for high-risk actions.
 
-### Key use cases for the integration
+### Key use cases
 
 #### Correlate activity with identity data to surface trends
 
 Identity data provides crucial insight into who performed what activity. This allows teams to better understand user behaviour across their system.
 
-#### Make Informed Decisions About System Architecture and Development
+#### Decisions about system architecture and development
 
-By tracking identity trends over time, teams can make informed decisions about product development and system architecture. As an example teams might prioritze development based on tracking peak login times, authentication activity and geographical activity.
+By tracking identity trends over time, teams can make informed decisions about product development and system architecture. As an example teams might prioritize development based on tracking peak login times, authentication activity and geographical activity.
 
 ####  Quickly respond to performance and security incidents
 
 Identity information can be used to quickly identify security and performance incidents. For instance, massive spikes in unsuccessful login attempts could indicate an ongoing credential stuffing attack, one of the most common threats targeting identity systems.
 
 By configuring thresholds, security teams can set up alerts to notify them when suspicious events take place, allowing them to more quickly respond to security incidents.
-
-
 
 ## Setup
 
@@ -55,7 +53,7 @@ View logs in Datadog:
 
 ## Data Collected
 
-### Logs
+### Log Collection
 Auth0 logs are collected and sent to Datadog. The types of logs that could be returned are outlined [here][5].
 
 ### Metrics

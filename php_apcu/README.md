@@ -6,25 +6,21 @@ This check monitors [PHP APCu][1] through the Datadog Agent.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
+The PHP APCu check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the `php_apcu` check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior to version 6.8][4] or the [Docker Agent][5]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the PHP APCu check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download the Datadog Agent][6].
-
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
-      datadog-agent integration install -t datadog-php_apcu==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-php_apcu==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][7].
+2. Configure your integration similar to core [integrations][4].
 
-
-#### APCu Setup
-
+#### APCu
 
 APCu does not expose metrics by default so this integration includes a metric exporter, located here:
 
@@ -63,27 +59,27 @@ Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datad
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
-### Service Checks
-
-`php_apcu` does not include any service checks.
-
 ### Events
 
-`php_apcu` does not include any events.
+The PHP APCu integration does not include any events.
+
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][12].
 
+
 [1]: https://www.php.net/manual/en/book.apcu.php
-[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[6]: https://app.datadoghq.com/account/settings#agent
-[7]: https://docs.datadoghq.com/getting_started/integrations/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/datadog_checks/php_apcu/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [11]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/metadata.csv
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/assets/service_checks.json

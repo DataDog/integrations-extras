@@ -50,45 +50,114 @@ instances:
     #
   - pd_metric_url: http://localhost:2379/metrics
 
+    ## @param pd_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint in addition to default PD metrics, if there's a
+    ## value it'll be renamed. This list should contain at least one metric. To collect all PD metrics, add `pd*`.
+    #
+    # pd_customized_metrics:
+    #   - processor:cpu
+    #   - memory:mem
+    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+
     ## @param tidb_metric_url - string - required
     ## The URL where TiDB metrics are exposed by Prometheus.
     #
     tidb_metric_url: http://localhost:10080/metrics
+
+    ## @param tidb_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint in addition to default TiDB metrics. If there's a
+    ## value it'll be renamed. This list should contain at least one metric. To collect all TiDB metrics, add `tidb*`.
+    #
+    # tidb_customized_metrics:
+    #   - processor:cpu
+    #   - memory:mem
+    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
 
     ## @param tikv_metric_url - string - required
     ## The URL where TiKV metrics are exposed by Prometheus.
     #
     tikv_metric_url: http://localhost:20180/metrics
 
+    ## @param tikv_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint in addition to default TiKV metrics, if there's a
+    ## value it'll be renamed. This list should contain at least one metric. To collect all TiKV metrics, add `tikv*`.
+    #
+    # tikv_customized_metrics:
+    #   - processor:cpu
+    #   - memory:mem
+    #   - process_resident_memory_bytes: go_runtime.process_resident_memory.bytes
+
     ## @param tiflash_proxy_metric_url - string - optional - default: http://localhost:20292/metrics
     ## The URL where TiFlash Proxy metrics are exposed by Prometheus.
     #
     # tiflash_proxy_metric_url: http://localhost:20292/metrics
+
+    ## @param tiflash_proxy_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # tiflash_proxy_customized_metrics:
+    #   - tiflash*
 
     ## @param tiflash_metric_url - string - optional - default: http://localhost:8234/metrics
     ## The URL where TiFlash metrics are exposed by Prometheus.
     #
     # tiflash_metric_url: http://localhost:8234/metrics
 
+    ## @param tiflash_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # tiflash_customized_metrics:
+    #   - tiflash*
+
     ## @param ticdc_metric_url - string - optional - default: http://localhost:8301/metrics
     ## The URL where TiCDC Proxy metrics are exposed by Prometheus.
     #
     # ticdc_metric_url: http://localhost:8301/metrics
+
+    ## @param ticdc_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # ticdc_customized_metrics:
+    #   - ticdc*
 
     ## @param dm_master_metric_url - string - optional - default: http://localhost:8261/metrics
     ## The URL where DM master metrics are exposed by Prometheus.
     #
     # dm_master_metric_url: http://localhost:8261/metrics
 
+    ## @param dm_master_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # dm_master_customized_metrics:
+    #   - dm*
+
     ## @param dm_worker_metric_url - string - optional - default: http://localhost:8262/metrics
     ## The URL where DM worker metrics are exposed by Prometheus.
     #
     # dm_worker_metric_url: http://localhost:8262/metrics
 
+    ## @param dm_worker_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # dm_worker_customized_metrics:
+    #   - dm*
+
     ## @param pump_metric_url - string - optional - default: http://localhost:8250/metrics
     ## The URL where Pump metrics are exposed by Prometheus.
     #
     # pump_metric_url: http://localhost:8250/metrics
+
+    ## @param pump_customized_metrics - list of strings - optional
+    ## List of metrics to be fetched from the Prometheus endpoint, if there's a
+    ## value it'll be renamed. This list should contain at least one metric.
+    #
+    # pump_customized_metrics:
+    #   - binlog*
 
     ## @param health_service_check - boolean - optional - default: true
     ## Send a service check reporting about the health of the Prometheus endpoint.
@@ -459,6 +528,11 @@ instances:
     #
     # read_timeout: <READ_TIMEOUT>
 
+    ## @param request_size - number - optional - default: 16
+    ## The number of kibibytes (KiB) to read from streaming HTTP responses at a time.
+    #
+    # request_size: 16
+
     ## @param log_requests - boolean - optional - default: false
     ## Whether or not to debug log the HTTP(S) requests made, including the method and URL.
     #
@@ -468,6 +542,11 @@ instances:
     ## Whether or not to persist cookies and use connection pooling for increased performance.
     #
     # persist_connections: false
+
+    ## @param allow_redirects - boolean - optional - default: true
+    ## Whether or not to allow URL redirection.
+    #
+    # allow_redirects: true
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
@@ -504,7 +583,7 @@ instances:
 ## port / path / channel_path - required - Set port if type is tcp or udp.
 ##                                         Set path if type is file.
 ##                                         Set channel_path if type is windows_event.
-## source  - required - Attribute that defines which Integration sent the logs.
+## source  - required - Attribute that defines which integration sent the logs.
 ## encoding - optional - For file specifies the file encoding, default is utf-8, other
 ##                       possible values are utf-16-le and utf-16-be.
 ## service - optional - The name of the service that generates the log.

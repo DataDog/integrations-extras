@@ -55,7 +55,7 @@ def test_config():
 def test_integration(aggregator, instance):
     init_config = {'metric_definitions': ALL_METRICS}
 
-    c = EventStoreCheck('eventstore', init_config, {}, None)
+    c = EventStoreCheck('eventstore', init_config, [instance])
 
     c.check(instance)
 

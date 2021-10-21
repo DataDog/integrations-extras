@@ -23,7 +23,7 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 
 ### Configuration
 
-#### Rundeck Setup
+#### Rundeck
 
 1. In your Rundeck Project, click the **Webhooks** navigation option.
 2. Click **Add**.
@@ -41,19 +41,18 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 1. Open Datadog and go to **Integrations** > **Integrations**.
 2. Search for "webhooks".
 
-![search-dd][3]
-
+    ![search-dd][3]
 
 3. Click on the webhooks entry shown above. It opens the configuration window.
 
-![webhooks-config][4]
+    ![webhooks-config][4]
 
 4. Click the **New** button and fill out the form:
   - Give the webhook a name. (a)
   - Paste the URL from your Rundeck webhook in the URL line. This corresponds to Step 7 in the section above. (b)
   - Click **Save**. (c)
 
-![webhook-fill][5]
+    ![webhook-fill][5]
 
 Add this integration to any alert notification in Datadog by adding the recipient of `@webhook-Rundeck_Restart_Service`. The name varies based on what you name the webhook in step 4a. When the monitor triggers an alert, the webhook runs the associated job.
 

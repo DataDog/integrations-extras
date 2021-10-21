@@ -30,29 +30,46 @@ need to install it yourself.
 
 [Run the Agent's status subcommand][4] and look for `resin` under the Checks section.
 
+### Log Collection
+
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][6] for the location of your configuration file:
+
+```yaml
+logs_enabled: true
+```
+
+- Enable this configuration block to your `resin.d/conf.yaml` file to start collecting Logs:
+    ```yaml
+    logs:
+      - type: file
+        path: /var/opt/resin/log/*.log
+        source: resin
+    ```
+
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this integration.
-
-### Service Checks
-
-**resin.can_connect**:
-
-Returns `CRITICAL` if the Agent is unable to connect to and collect metrics from the monitored Resin instance. Returns `OK` otherwise.
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Events
 
 Resin does not include any events.
 
+### Service Checks
+
+See [service_checks.json][8] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Datadog support][7].
+
 
 [1]: https://caucho.com/
 [2]: https://github.com/DataDog/integrations-core/blob/master/resin/datadog_checks/resin/data/conf.yaml.example
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
-[5]: https://docs.datadoghq.com/help/
-[6]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
+[5]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
+[6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
+[7]: https://docs.datadoghq.com/help/
+[8]: https://github.com/DataDog/integrations-extras/blob/master/resin/assets/service_checks.json
