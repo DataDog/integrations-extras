@@ -50,20 +50,6 @@ For example:
 For in-depth instructions on configuring the app, please see the [Datadog-Shoreline documentation][4]
 
 
-## Data Collected
-
-### Metrics
-
-The Shoreline App does not include any metrics.
-
-### Events
-
-The Shoreline App does not include any events.
-
-### Service Checks
-
-The Shoreline App does not include any service checks.
-
 ## Support
 
 Contact Shoreline through email for support and requests.
