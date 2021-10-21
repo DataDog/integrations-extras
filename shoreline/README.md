@@ -34,9 +34,9 @@ Install Shoreline Agents on every host you want Shoreline to monitor and act upo
 
 To install the Shoreline Agent, follow one of three methods:
 
-1. [Kubernetes][5] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
-2. [Kubernetes via Helm][6] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
-3. [Virtual Machines][7] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg)
+1. [Kubernetes][5]
+2. [Kubernetes via Helm][6]
+3. [Virtual Machines][7]
 
 
 #### Configuring the Datadog App
@@ -47,7 +47,7 @@ For example:
 
 ![integration_example](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png)
 
-For in-depth instructions on configuring the app, please see the [Datadog-Shoreline documentation][4] ![link_icon](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg) 
+For in-depth instructions on configuring the app, please see the [Datadog-Shoreline documentation][4]
 
 
 ## Data Collected
