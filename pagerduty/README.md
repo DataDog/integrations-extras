@@ -54,13 +54,11 @@ PagerDuty without having to context switch between tools.
 
 ## Support
 
-- The Incident widget is available for all PagerDuty Customers.
 [Contact the PagerDuty Sales Team][2] if you would like to become a 
 PagerDuty customer or [Datadog Support][3] for any troubleshooting. 
 
-- The status dashboard widget is only available on Business plans and up. 
 [Contact the Pagerduty Sales Team](https://www.pagerduty.com/contact-sales/) if you would like to
-upgrade to a plan including the status dashboard feature and incidents by Pagerduty.
+upgrade to a plan including the status dashboard feature and Incidents by Pagerduty.
 
 [1]: https://docs.datadoghq.com/dashboards/#new-dashboard
 [2]: https://www.pagerduty.com/contact-sales/
