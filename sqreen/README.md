@@ -64,6 +64,6 @@ No events are collected in this integration.
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sqreen/images/sqreen_dashboard.png
 [2]: https://app.datadoghq.com/security/configuration/rules?sort=rule&query=source%3Asqreen
 [3]: https://my.sqreen.com/profile/organization/integrations
-[4]: https://app.datadoghq.com/account/settings#api 
+[4]: https://app.datadoghq.com/organization-settings/api-keys 
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sqreen/images/sqreen_datadog_configuration.png
 [6]: https://docs.sqreen.com/integrations/datadog-integration/

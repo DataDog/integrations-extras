@@ -30,5 +30,5 @@ Need help? Check out the [Flagsmith documentation](https://docs.flagsmith.com/in
 
 [1]: https://www.flagsmith.com/
 [2]: https://app.datadoghq.com/account/settings#integrations/flagsmith
-[3]: https://app.datadoghq.com/account/settings#api
+[3]: https://app.datadoghq.com/organization-settings/api-keys
 [4]: https://docs.datadoghq.com/help/
