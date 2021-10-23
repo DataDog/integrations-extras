@@ -19,4 +19,3 @@ APPLICATION_METRICS = {
     'argocd_redis_request_duration_sum': 'redis_request_duration_sum',
     'argocd_redis_request_duration_count': 'redis_request_duration_count',
 }
-

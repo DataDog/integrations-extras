@@ -2,6 +2,7 @@ from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
 from .metrics import APPLICATION_METRICS
 
+
 class ArgoCdCheck(OpenMetricsBaseCheck):
     """
     Collect Argocd metrics from Prometheus endpoint
