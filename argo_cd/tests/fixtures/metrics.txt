@@ -1,0 +1,214 @@
+# HELP argocd_app_info Information about application.
+# TYPE argocd_app_info gauge
+argocd_app_info{dest_namespace="namespace1",dest_server="https://kubernetes.default.svc",health_status="Healthy",name="appname1",namespace="argocd",operation="",project="default",repo="git@github.com/myorg/repo-gitops",sync_status="Synced"} 1
+argocd_app_info{dest_namespace="namespace2",dest_server="https://kubernetes.default.svc",health_status="Healthy",name="appname2",namespace="argocd",operation="",project="default",repo="git@github.com/myorg/repo-gitops",sync_status="Synced"} 1
+argocd_app_info{dest_namespace="namespace3",dest_server="https://kubernetes.default.svc",health_status="Healthy",name="appname3",namespace="argocd",operation="",project="default",repo="git@github.com/myorg/repo-gitops",sync_status="Synced"} 1
+argocd_app_info{dest_namespace="namespace4",dest_server="https://kubernetes.default.svc",health_status="Healthy",name="appname4",namespace="argocd",operation="",project="default",repo="git@github.com/myorg/repo-gitops",sync_status="Synced"} 1
+# HELP argocd_app_k8s_request_total Number of kubernetes requests executed during application reconciliation.
+# TYPE argocd_app_k8s_request_total counter
+argocd_app_k8s_request_total{name="appname1",namespace="argocd",project="default",resource_kind="api",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 21
+argocd_app_k8s_request_total{name="appname1",namespace="argocd",project="default",resource_kind="apps",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 21
+argocd_app_k8s_request_total{name="appname1",namespace="argocd",project="default",resource_kind="autoscaling",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 18
+argocd_app_k8s_request_total{name="appname2",namespace="argocd",project="default",resource_kind="api",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 2
+argocd_app_k8s_request_total{name="appname2",namespace="argocd",project="default",resource_kind="apps",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 2
+argocd_app_k8s_request_total{name="appname2",namespace="argocd",project="default",resource_kind="autoscaling",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 2
+argocd_app_k8s_request_total{name="appname3",namespace="argocd",project="default",resource_kind="api",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 17
+argocd_app_k8s_request_total{name="appname3",namespace="argocd",project="default",resource_kind="apps",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 6
+argocd_app_k8s_request_total{name="appname3",namespace="argocd",project="default",resource_kind="namespaces",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 2
+argocd_app_k8s_request_total{name="appname3",namespace="argocd",project="default",resource_kind="networking.k8s.io",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 6
+argocd_app_k8s_request_total{name="appname3",namespace="argocd",project="default",resource_kind="serviceaccounts",resource_namespace="appname3",response_code="200",server="https://172.20.0.1:443",verb="Delete"} 1
+argocd_app_k8s_request_total{name="appname4",namespace="argocd",project="default",resource_kind="api",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 20
+argocd_app_k8s_request_total{name="appname4",namespace="argocd",project="default",resource_kind="apps",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 10
+argocd_app_k8s_request_total{name="appname4",namespace="argocd",project="default",resource_kind="networking.k8s.io",resource_namespace="",response_code="200",server="https://172.20.0.1:443",verb="Get"} 10
+argocd_app_reconcile_sum{dest_server="https://kubernetes.default.svc",namespace="argocd"} 19040.166576686872
+argocd_app_reconcile_count{dest_server="https://kubernetes.default.svc",namespace="argocd"} 72799
+# HELP argocd_app_sync_total Number of application syncs.
+# TYPE argocd_app_sync_total counter
+argocd_app_sync_total{dest_server="https://kubernetes.default.svc",name="appname1",namespace="argocd",phase="Failed",project="default"} 1
+argocd_app_sync_total{dest_server="https://kubernetes.default.svc",name="appname1",namespace="argocd",phase="Succeeded",project="default"} 20
+argocd_app_sync_total{dest_server="https://kubernetes.default.svc",name="appname2",namespace="argocd",phase="Succeeded",project="default"} 2
+argocd_app_sync_total{dest_server="https://kubernetes.default.svc",name="appname3",namespace="argocd",phase="Succeeded",project="default"} 6
+argocd_app_sync_total{dest_server="https://kubernetes.default.svc",name="appname4",namespace="argocd",phase="Succeeded",project="default"} 10
+# HELP argocd_cluster_api_resource_objects Number of k8s resource objects in the cache.
+# TYPE argocd_cluster_api_resource_objects gauge
+argocd_cluster_api_resource_objects{server="https://kubernetes.default.svc"} 1077
+# HELP argocd_cluster_api_resources Number of monitored kubernetes API resources.
+# TYPE argocd_cluster_api_resources gauge
+argocd_cluster_api_resources{server="https://kubernetes.default.svc"} 89
+# HELP argocd_cluster_cache_age_seconds Cluster cache age in seconds.
+# TYPE argocd_cluster_cache_age_seconds gauge
+argocd_cluster_cache_age_seconds{server="https://kubernetes.default.svc"} 16003
+# HELP argocd_cluster_events_total Number of processes k8s resource events.
+# TYPE argocd_cluster_events_total counter
+argocd_cluster_events_total{group="",kind="ConfigMap",server="https://kubernetes.default.svc"} 4.775711e+06
+argocd_cluster_events_total{group="",kind="Endpoints",server="https://kubernetes.default.svc"} 2605
+argocd_cluster_events_total{group="",kind="Namespace",server="https://kubernetes.default.svc"} 9
+argocd_cluster_events_total{group="",kind="Node",server="https://kubernetes.default.svc"} 120939
+argocd_cluster_events_total{group="",kind="PersistentVolume",server="https://kubernetes.default.svc"} 43
+argocd_cluster_events_total{group="",kind="PersistentVolumeClaim",server="https://kubernetes.default.svc"} 53
+argocd_cluster_events_total{group="",kind="Pod",server="https://kubernetes.default.svc"} 12364
+argocd_cluster_events_total{group="",kind="Secret",server="https://kubernetes.default.svc"} 726
+argocd_cluster_events_total{group="",kind="Service",server="https://kubernetes.default.svc"} 31
+argocd_cluster_events_total{group="",kind="ServiceAccount",server="https://kubernetes.default.svc"} 60
+argocd_cluster_events_total{group="admissionregistration.k8s.io",kind="MutatingWebhookConfiguration",server="https://kubernetes.default.svc"} 92
+argocd_cluster_events_total{group="admissionregistration.k8s.io",kind="ValidatingWebhookConfiguration",server="https://kubernetes.default.svc"} 40
+argocd_cluster_events_total{group="apiextensions.k8s.io",kind="CustomResourceDefinition",server="https://kubernetes.default.svc"} 40
+argocd_cluster_events_total{group="apiregistration.k8s.io",kind="APIService",server="https://kubernetes.default.svc"} 182
+argocd_cluster_events_total{group="apps",kind="ControllerRevision",server="https://kubernetes.default.svc"} 88
+argocd_cluster_events_total{group="apps",kind="DaemonSet",server="https://kubernetes.default.svc"} 1295
+argocd_cluster_events_total{group="apps",kind="Deployment",server="https://kubernetes.default.svc"} 3249
+argocd_cluster_events_total{group="apps",kind="ReplicaSet",server="https://kubernetes.default.svc"} 3589
+argocd_cluster_events_total{group="apps",kind="StatefulSet",server="https://kubernetes.default.svc"} 441
+argocd_cluster_events_total{group="argoproj.io",kind="Application",server="https://kubernetes.default.svc"} 49685
+argocd_cluster_events_total{group="autoscaling",kind="HorizontalPodAutoscaler",server="https://kubernetes.default.svc"} 22486
+argocd_cluster_events_total{group="certificates.k8s.io",kind="CertificateSigningRequest",server="https://kubernetes.default.svc"} 123
+argocd_cluster_events_total{group="crd.projectcalico.org",kind="BlockAffinity",server="https://kubernetes.default.svc"} 131
+argocd_cluster_events_total{group="crd.projectcalico.org",kind="IPAMBlock",server="https://kubernetes.default.svc"} 897
+argocd_cluster_events_total{group="crd.projectcalico.org",kind="IPAMHandle",server="https://kubernetes.default.svc"} 1223
+argocd_cluster_events_total{group="discovery.k8s.io",kind="EndpointSlice",server="https://kubernetes.default.svc"} 2733
+argocd_cluster_events_total{group="elbv2.k8s.aws",kind="TargetGroupBinding",server="https://kubernetes.default.svc"} 56
+argocd_cluster_events_total{group="extensions",kind="Ingress",server="https://kubernetes.default.svc"} 38
+argocd_cluster_events_total{group="networking.k8s.io",kind="Ingress",server="https://kubernetes.default.svc"} 38
+argocd_cluster_events_total{group="policy",kind="PodDisruptionBudget",server="https://kubernetes.default.svc"} 333
+argocd_cluster_events_total{group="rbac.authorization.k8s.io",kind="ClusterRole",server="https://kubernetes.default.svc"} 24
+argocd_cluster_events_total{group="rbac.authorization.k8s.io",kind="ClusterRoleBinding",server="https://kubernetes.default.svc"} 23
+argocd_cluster_events_total{group="rbac.authorization.k8s.io",kind="Role",server="https://kubernetes.default.svc"} 6
+argocd_cluster_events_total{group="rbac.authorization.k8s.io",kind="RoleBinding",server="https://kubernetes.default.svc"} 6
+argocd_cluster_events_total{group="storage.k8s.io",kind="CSIDriver",server="https://kubernetes.default.svc"} 24
+argocd_cluster_events_total{group="storage.k8s.io",kind="CSINode",server="https://kubernetes.default.svc"} 84
+argocd_cluster_events_total{group="storage.k8s.io",kind="StorageClass",server="https://kubernetes.default.svc"} 9
+# HELP argocd_cluster_info Information about cluster.
+# TYPE argocd_cluster_info gauge
+argocd_cluster_info{k8s_version="1.21+",server="https://kubernetes.default.svc"} 1
+# HELP argocd_kubectl_exec_pending Number of pending kubectl executions
+# TYPE argocd_kubectl_exec_pending gauge
+argocd_kubectl_exec_pending{command="apply",hostname="argocd-application-controller-76b4484b8f-wwr47"} 0
+# HELP argocd_kubectl_exec_total Number of kubectl executions
+# TYPE argocd_kubectl_exec_total counter
+argocd_kubectl_exec_total{command="apply",hostname="argocd-application-controller-76b4484b8f-wwr47"} 255
+# HELP argocd_redis_request_duration Redis requests duration.
+# TYPE argocd_redis_request_duration histogram
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="0.01"} 545855
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="0.05"} 546205
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="0.1"} 550936
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="0.25"} 551128
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="0.5"} 551129
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="1"} 551130
+argocd_redis_request_duration_bucket{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller",le="+Inf"} 551142
+argocd_redis_request_duration_sum{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller"} 972.2889096980276
+argocd_redis_request_duration_count{hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller"} 551142
+# HELP argocd_redis_request_total Number of kubernetes requests executed during application reconciliation.
+# TYPE argocd_redis_request_total counter
+argocd_redis_request_total{failed="false",hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller"} 551106
+argocd_redis_request_total{failed="true",hostname="argocd-application-controller-76b4484b8f-wwr47",initiator="argocd-application-controller"} 36
+# HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
+# TYPE go_gc_duration_seconds summary
+go_gc_duration_seconds{quantile="0"} 4.5382e-05
+go_gc_duration_seconds{quantile="0.25"} 6.798e-05
+go_gc_duration_seconds{quantile="0.5"} 7.66e-05
+go_gc_duration_seconds{quantile="0.75"} 0.000103199
+go_gc_duration_seconds{quantile="1"} 0.09733301
+go_gc_duration_seconds_sum 215.610202161
+go_gc_duration_seconds_count 91052
+# HELP go_goroutines Number of goroutines that currently exist.
+# TYPE go_goroutines gauge
+go_goroutines 1177
+# HELP go_info Information about the Go environment.
+# TYPE go_info gauge
+go_info{version="go1.16"} 1
+# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+# TYPE go_memstats_alloc_bytes gauge
+go_memstats_alloc_bytes 4.0365152e+07
+# HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
+# TYPE go_memstats_alloc_bytes_total counter
+go_memstats_alloc_bytes_total 2.26455091072e+12
+# HELP go_memstats_buck_hash_sys_bytes Number of bytes used by the profiling bucket hash table.
+# TYPE go_memstats_buck_hash_sys_bytes gauge
+go_memstats_buck_hash_sys_bytes 1.4623662e+07
+# HELP go_memstats_frees_total Total number of frees.
+# TYPE go_memstats_frees_total counter
+go_memstats_frees_total 1.3582850021e+10
+# HELP go_memstats_gc_cpu_fraction The fraction of this program's available CPU time used by the GC since the program started.
+# TYPE go_memstats_gc_cpu_fraction gauge
+go_memstats_gc_cpu_fraction 0.0006037467403262719
+# HELP go_memstats_gc_sys_bytes Number of bytes used for garbage collection system metadata.
+# TYPE go_memstats_gc_sys_bytes gauge
+go_memstats_gc_sys_bytes 1.3505944e+07
+# HELP go_memstats_heap_alloc_bytes Number of heap bytes allocated and still in use.
+# TYPE go_memstats_heap_alloc_bytes gauge
+go_memstats_heap_alloc_bytes 4.0365152e+07
+# HELP go_memstats_heap_idle_bytes Number of heap bytes waiting to be used.
+# TYPE go_memstats_heap_idle_bytes gauge
+go_memstats_heap_idle_bytes 2.00720384e+08
+# HELP go_memstats_heap_inuse_bytes Number of heap bytes that are in use.
+# TYPE go_memstats_heap_inuse_bytes gauge
+go_memstats_heap_inuse_bytes 6.1259776e+07
+# HELP go_memstats_heap_objects Number of allocated objects.
+# TYPE go_memstats_heap_objects gauge
+go_memstats_heap_objects 285483
+# HELP go_memstats_heap_released_bytes Number of heap bytes released to OS.
+# TYPE go_memstats_heap_released_bytes gauge
+go_memstats_heap_released_bytes 1.92503808e+08
+# HELP go_memstats_heap_sys_bytes Number of heap bytes obtained from system.
+# TYPE go_memstats_heap_sys_bytes gauge
+go_memstats_heap_sys_bytes 2.6198016e+08
+# HELP go_memstats_last_gc_time_seconds Number of seconds since 1970 of last garbage collection.
+# TYPE go_memstats_last_gc_time_seconds gauge
+go_memstats_last_gc_time_seconds 1.6344663937837164e+09
+# HELP go_memstats_lookups_total Total number of pointer lookups.
+# TYPE go_memstats_lookups_total counter
+go_memstats_lookups_total 0
+# HELP go_memstats_mallocs_total Total number of mallocs.
+# TYPE go_memstats_mallocs_total counter
+go_memstats_mallocs_total 1.3583135504e+10
+# HELP go_memstats_mcache_inuse_bytes Number of bytes in use by mcache structures.
+# TYPE go_memstats_mcache_inuse_bytes gauge
+go_memstats_mcache_inuse_bytes 4800
+# HELP go_memstats_mcache_sys_bytes Number of bytes used for mcache structures obtained from system.
+# TYPE go_memstats_mcache_sys_bytes gauge
+go_memstats_mcache_sys_bytes 16384
+# HELP go_memstats_mspan_inuse_bytes Number of bytes in use by mspan structures.
+# TYPE go_memstats_mspan_inuse_bytes gauge
+go_memstats_mspan_inuse_bytes 844560
+# HELP go_memstats_mspan_sys_bytes Number of bytes used for mspan structures obtained from system.
+# TYPE go_memstats_mspan_sys_bytes gauge
+go_memstats_mspan_sys_bytes 1.359872e+06
+# HELP go_memstats_next_gc_bytes Number of heap bytes when next garbage collection will take place.
+# TYPE go_memstats_next_gc_bytes gauge
+go_memstats_next_gc_bytes 6.26044e+07
+# HELP go_memstats_other_sys_bytes Number of bytes used for other system allocations.
+# TYPE go_memstats_other_sys_bytes gauge
+go_memstats_other_sys_bytes 896754
+# HELP go_memstats_stack_inuse_bytes Number of bytes in use by the stack allocator.
+# TYPE go_memstats_stack_inuse_bytes gauge
+go_memstats_stack_inuse_bytes 6.455296e+06
+# HELP go_memstats_stack_sys_bytes Number of bytes obtained from system for stack allocator.
+# TYPE go_memstats_stack_sys_bytes gauge
+go_memstats_stack_sys_bytes 6.455296e+06
+# HELP go_memstats_sys_bytes Number of bytes obtained from system.
+# TYPE go_memstats_sys_bytes gauge
+go_memstats_sys_bytes 2.98838072e+08
+# HELP go_threads Number of OS threads created.
+# TYPE go_threads gauge
+go_threads 16
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 31443.12
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1.048576e+06
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 13
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 1.54984448e+08
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.63050832769e+09
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 1.012224e+09
+# HELP process_virtual_memory_max_bytes Maximum amount of virtual memory available in bytes.
+# TYPE process_virtual_memory_max_bytes gauge
+process_virtual_memory_max_bytes -1

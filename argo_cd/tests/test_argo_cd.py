@@ -1,24 +1,13 @@
+import pytest
 
-
-from typing import Any, Callable, Dict
-
-from datadog_checks.base import AgentCheck
-from datadog_checks.base.stubs.aggregator import AggregatorStub
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.argo_cd import ArgoCdCheck
 
-
-def test_check(aggregator, instance):
-    # type: (AggregatorStub, Dict[str, Any]) -> None
-    check = ArgoCdCheck('argo_cd', {}, [instance])
-    check.check(instance)
-
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+CHECK_NAME = 'argo_cd'
 
 
-def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-    check = ArgoCdCheck('argo_cd', {}, [instance])
-    dd_run_check(check)
-    aggregator.assert_service_check('argo_cd.can_connect', ArgoCdCheck.CRITICAL)
+@pytest.mark.unit
+def test_check_all_metrics(aggregator, mock_argo_cd):
+    instance = {'prometheus_url': 'http://localhost:8082/metrics'}
+    c = ArgoCdCheck(CHECK_NAME, {}, [instance])
+    c.check(instance)
+    aggregator.assert_metric("argocd.app_info", count=4, value=1)

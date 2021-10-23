@@ -2,19 +2,15 @@ from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheck
 
 from .metrics import APPLICATION_METRICS
 
-
 class ArgoCdCheck(OpenMetricsBaseCheck):
     """
     Collect Argocd metrics from Prometheus endpoint
     """
-
-
-
     def __init__(self, name, init_config, instances=None):
         instance = instances[0]
-        endpoint = instance.get('application_endpoint')
+        endpoint = instance.get('prometheus_url')
         if endpoint is None:
-            raise ConfigurationError("Unable to find application endpoint in config file.")
+            raise ConfigurationError("Unable to find prometheus url in config file.")
 
         instance.update(
             {
