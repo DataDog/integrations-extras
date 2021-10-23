@@ -19,6 +19,10 @@ coverage:
         target: 75
         flags:
         - aqua
+      Argo_CD:
+        target: 75
+        flags:
+        - argo_cd
       BIND_9:
         target: 75
         flags:
@@ -201,6 +205,11 @@ flags:
     paths:
     - aqua/datadog_checks/aqua
     - aqua/tests
+  argo_cd:
+    carryforward: true
+    paths:
+    - argo_cd/datadog_checks/argo_cd
+    - argo_cd/tests
   aws_pricing:
     carryforward: true
     paths:
