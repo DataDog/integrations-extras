@@ -21,7 +21,7 @@ When running the installation process, make sure to do so using the following va
 
 
 * <INTEGRATION_NAME>:  ns1
-* <INTEGRATION_VERSION>:  0.0.4
+* <INTEGRATION_VERSION>:  0.0.5
 
 
 ### Configuration
