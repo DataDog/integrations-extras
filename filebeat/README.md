@@ -25,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Filebeat
 
 ### Configuration
 
-1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metric-collection). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
+1. Edit the `filebeat.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Filebeat [metrics](#metrics). See the [sample filebeat.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
 

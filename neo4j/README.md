@@ -25,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Neo4j ch
 
 ### Configuration
 
-1. Edit the `neo4j.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your Neo4j [metrics](#metric-collection). See the [sample neo4j.d/conf.yaml][7] for all available configuration options.
+1. Edit the `neo4j.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your Neo4j [metrics](#metrics). See the [sample neo4j.d/conf.yaml][7] for all available configuration options.
 
 2. [Restart the Agent][8]
 

@@ -25,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Logstash
 
 ### Configuration
 
-1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Logstash [metrics](#metric-collection) and [logs](#logs-collection). See the [sample logstash.d/conf.yaml][8] for all available configuration options.
+1. Edit the `logstash.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Logstash [metrics](#metric-collection) and [logs](#log-collection). See the [sample logstash.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]
 
@@ -175,7 +175,7 @@ If you need further help, contact [Datadog support][22].
 [11]: https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/data/conf.yaml.example
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [13]: https://github.com/DataDog/logstash-output-datadog_logs
-[14]: https://app.datadoghq.com/account/settings#api
+[14]: https://app.datadoghq.com/organization-settings/api-keys
 [15]: https://docs.datadoghq.com/agent/proxy/#proxy-for-logs
 [16]: /logs/#edit-reserved-attributes
 [17]: /logs/processing/#integration-pipelines

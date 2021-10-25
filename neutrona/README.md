@@ -24,7 +24,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Neutrona
 
 ### Configuration
 
-1. Edit the `neutrona.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Neutrona [metrics](#metric-collection).
+1. Edit the `neutrona.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Neutrona [metrics](#metrics).
    See the [sample neutrona.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9]

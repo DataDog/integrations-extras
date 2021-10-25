@@ -1,5 +1,9 @@
 # CHANGELOG - Filebeat Integration
 
+1.2.0 
+=====
+* [BUG] Send config instance tags along with checks
+
 1.1.0 
 =====
 * [FEATURE] Add option to ignore the registry file check

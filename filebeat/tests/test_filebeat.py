@@ -118,6 +118,18 @@ def test_ignore_registry(aggregator, instance):
     aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.OK, tags=tags)
 
 
+@pytest.mark.usefixtures('dd_environment')
+def test_instance_tags(aggregator, instance):
+    instance['registry_file_path'] = "happy_path"
+    instance['tags'] = ["foo:bar"]
+    check = FilebeatCheck("filebeat", {}, [instance])
+    # test that it uses both the instance tags and the
+    # `stats_endpoint` tag generated
+    check.check(instance)
+    tags = instance['tags'] + ["stats_endpoint:{}".format(instance['stats_endpoint'])]
+    aggregator.assert_service_check("filebeat.can_connect", status=FilebeatCheck.OK, tags=tags)
+
+
 def test_missing_source_file(aggregator):
     config = _build_instance("missing_source_file")
     check = FilebeatCheck("filebeat", {}, [config])
