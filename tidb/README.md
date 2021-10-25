@@ -21,8 +21,6 @@ First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
 
-> The current version is shown below the title of this page.
-
 #### Host
 
 Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
@@ -147,25 +145,26 @@ _Available for Agent versions >6.0_
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+### Events
+
+TiDB check does not include any events.
+
 ### Service Checks
 
 Service Checks are based on `tidb_cluster.prometheus.health` metrics. This check is controlled by the `health_service_check` config and default to `true`.
 You can modify this behavior in `tidb.yml` file.
 
-### Events
-
-TiDB check does not include any events.
+See [service_checks.json][11] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 ### Too many metrics
 
-TiDB checks enables Datadog’s `distribution` by default. This part of data is quite large and may consume lots of resources. You can modify this behavior in `tidb.yml` file:
+The TiDB check enables Datadog's `distribution` metric type by default. This part of data is quite large and may consume lots of resources. You can modify this behavior in `tidb.yml` file:
 
 - `send_distribution_buckets: false`
 
-
-Since there are many important metrics in a TiDB cluster, TiDB checks set `max_returned_metrics` to `10000` by default. You can decrease `max_returned_metrics` in `tidb.yml` file if necessary:
+Since there are many important metrics in a TiDB cluster, the TiDB check sets `max_returned_metrics` to `10000` by default. You can decrease `max_returned_metrics` in `tidb.yml` file if necessary:
 
 - `max_returned_metrics: 1000`
 
@@ -181,3 +180,4 @@ Need help? Contact [Datadog support][7].
 [8]: https://app.datadoghq.com/account/settings#agent
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
