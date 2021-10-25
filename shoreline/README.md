@@ -51,13 +51,14 @@ For in-depth instructions on configuring the app, please see the [Datadog-Shorel
 
 ## Support
 
-Contact Shoreline through email for support and requests.
+Need help? Contact [Datadog Support][2].
 
-Email: [support@shoreline.io][2]
+## Further reading
+
 For more information, see the [Shoreline documentation][9].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
-[2]: support@shoreline.io
+[2]: https://docs.datadoghq.com/help/
 [3]: https://shoreline.io/datadog?source=DatadogIntTile
 [4]: https://docs.shoreline.io/integrations/datadog
 [5]: https://docs.shoreline.io/installation/kubernetes

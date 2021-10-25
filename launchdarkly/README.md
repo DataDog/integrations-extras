@@ -14,7 +14,7 @@ LaunchDarkly's dashboard widget lets you pin a subset feature flag targeting tog
 
 ### Relay proxy metrics integration
 
-If you are using the [LaunchDarkly Relay Proxy](2), you can configure it to export metrics, such as active and cumulative connections, to Datadog.
+If you are using the [LaunchDarkly Relay Proxy][2], you can configure it to export metrics, such as active and cumulative connections, to Datadog.
 
 ## Setup
 
@@ -43,7 +43,7 @@ The LaunchDarkly events integration uses a [Datadog API key][3], which can be cr
 
 ### Relay Proxy metrics
 
-Follow the Relay Proxy's [Metrics integrations documentation](5), to configure this feature.
+Follow the Relay Proxy's [Metrics integrations documentation][5], to configure this feature.
 
 ## Data Collected
 
@@ -53,7 +53,7 @@ The LaunchDarkly Relay Proxy can be configured to send the following metrics are
 
 - **`connections`**: The number of currently existing stream connections from SDKs to the Relay Proxy.
 - **`newconnections`**: The cumulative number of stream connections that have been made to the Relay Proxy since it started up.
-- **`requests`**: The cumulative number of requests received by all of the Relay Proxy's [service endpoints](6) (except for the status endpoint) since it started up.
+- **`requests`**: The cumulative number of requests received by all of the Relay Proxy's [service endpoints][6] (except for the status endpoint) since it started up.
 
 ### Events
 
@@ -69,7 +69,7 @@ Need help? Contact [Datadog Support][7].
 
 ## Further Reading
 
-Learn more about [LaunchDarkly][1] and [this integration][3].
+Learn more about [LaunchDarkly][1] and [this integration][4].
 
 [1]: https://launchdarkly.com
 [2]: https://docs.launchdarkly.com/home/relay-proxy
