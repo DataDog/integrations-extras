@@ -1,34 +1,44 @@
 # Local dev guide (in macOS)
 
-1. Set up
+1. Set up agent dev tool
 
-[https://datadoghq.dev/integrations-core/setup/](https://datadoghq.dev/integrations-core/setup/)
+   [https://datadoghq.dev/integrations-core/setup/](https://datadoghq.dev/integrations-core/setup/)
 
-2. Update metadata (fields, config, doc, etc.)
+2. Install datadog agent
 
-```shell
-ddev validate config --sync tidb
-```
+   [https://docs.datadoghq.com/getting_started/agent/](https://docs.datadoghq.com/getting_started/agent/)
 
-4. Reformat
+3. Write some code ...
 
-```shell
-ddev test -fs tidb
-```
+4. Update metadata (fields, configs, docs, etc.)
 
-5. Tests (unit & integration)
+   ```shell
+   ddev validate config --sync tidb
+   ```
 
-```shell
-ddev test -fs tidb
-```
+5. Reformat
 
-7. Build & install & uninstall 
+   ```shell
+   ddev test -fs tidb
+   ```
 
-```shell
-ddev release build tidb
-sudo datadog-agent integration install -w /path/to/wheel.whl
-sudo datadog-agent integration remove datadog-tidb
-```
+6. Tests (unit & integration)
 
-Removing integration will not delete `conf.d/tidb/*` at the same time. You should remove ti manually if necessary.
+   ```shell
+   ddev test tidb
+   ```
 
+7. Set up manual test env
+
+   - Use `tiup playground --monitor=0` to start a dev TiDB cluster
+   - Build & install & uninstall TiDB integration
+     ```shell
+     ddev release build tidb
+     sudo datadog-agent integration install -w /path/to/wheel.whl
+     sudo datadog-agent integration remove datadog-tidb
+     ```
+     > Removing integration will not remove `conf.d/tidb/*` at the same time. You should remove it manually if necessary.
+
+8. Manual test
+
+   Check local agent log and web app carefully.
