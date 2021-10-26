@@ -175,7 +175,7 @@ If you need further help, contact [Datadog support][22].
 [11]: https://github.com/DataDog/integrations-extras/blob/master/logstash/datadog_checks/logstash/data/conf.yaml.example
 [12]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [13]: https://github.com/DataDog/logstash-output-datadog_logs
-[14]: https://app.datadoghq.com/account/settings#api
+[14]: https://app.datadoghq.com/organization-settings/api-keys
 [15]: https://docs.datadoghq.com/agent/proxy/#proxy-for-logs
 [16]: /logs/#edit-reserved-attributes
 [17]: /logs/processing/#integration-pipelines
