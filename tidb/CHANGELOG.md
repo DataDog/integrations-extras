@@ -1,6 +1,6 @@
 # CHANGELOG - TiDB
 
-## 1.1.0 / 2021-Oct-13
+## 2.0.0 / 2021-Oct-13
 
 * [Added] Added a service check.
 
