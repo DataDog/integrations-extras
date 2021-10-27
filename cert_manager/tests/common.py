@@ -16,7 +16,7 @@ ACME_METRICS = {
 }
 
 CONTROLLER_METRICS = {
-    'cert_manager.clock_time': aggregator.MONOTONIC_COUNT,
+    'cert_manager.clock_time': aggregator.GAUGE,
     'cert_manager.controller.sync_call.count': aggregator.MONOTONIC_COUNT,
     'cert_manager.prometheus.health': aggregator.GAUGE,
 }
