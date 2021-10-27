@@ -56,6 +56,9 @@ Need help? Contact [Datadog support][8].
 
 For more details about this integration, see the [NS1 + Datadog Integration][9] article in the NS1 Help Center.
 
+## Further Reading
+
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://ns1.com/
 [2]: https://app.datadoghq.com/account/settings#agent/overview
