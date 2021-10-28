@@ -54,7 +54,12 @@ See [service_checks.json][10] for a list of service checks provided by this inte
 
 Need help? Contact [Datadog support][8].
 
-For more details about this integration, see the [NS1 + Datadog Integration][9] article in the NS1 Help Center.
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [NS1 + Datadog Integration (Outbound) Quick Start Guide][9]
+- [Monitor NS1 with Datadog][11]
 
 
 [1]: https://ns1.com/
@@ -67,3 +72,4 @@ For more details about this integration, see the [NS1 + Datadog Integration][9] 
 [8]: https://docs.datadoghq.com/help/
 [9]: https://help.ns1.com/hc/en-us/articles/4402752547219
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ns1/assets/service_checks.json
+[11]: https://www.datadoghq.com/blog/ns1-monitoring-datadog/
