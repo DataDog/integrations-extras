@@ -42,7 +42,7 @@ class RedpandaCheck(OpenMetricsBaseCheck):
         tags = instance.get('tags', [])
 
         # include hostname:port for server tag
-        tags.append('server:{}'.format(urlparse(endpoint).netloc))
+        tags.append('redpanda_server:{}'.format(urlparse(endpoint).netloc))
 
         instance.update(
             {
