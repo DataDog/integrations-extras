@@ -1,0 +1,539 @@
+{
+    "title": "HCP Vault Overview",
+    "description": "",
+    "widgets": [
+        {
+            "id": 4090294152802794,
+            "definition": {
+                "title": "About Redis",
+                "title_align": "center",
+                "type": "group",
+                "banner_img": "/static/images/logos/vault_large.svg",
+                "show_title": false,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 5633470244696532,
+                        "definition": {
+                            "type": "note",
+                            "content": "[HCP Vault Cluster Link](https://portal.cloud.hashicorp.com/services/vault/$cluster.value?project_id=$project.value)\n\nWith HCP Vault, you can leverage a SaaS service with secret management and encryption capabilities. This dashboard provides a high-level overview of your Vault clusters so you can monitor its performance and cluster health.",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 0, "y": 0, "width": 5, "height": 2},
+                    },
+                    {
+                        "id": 8127281118370152,
+                        "definition": {
+                            "type": "note",
+                            "content": "- [Official Vault integration docs](https://docs.datadoghq.com/integrations/vault/)\n- [Monitoring HashiCorp Vault with Datadog](https://www.datadoghq.com/blog/monitor-hashicorp-vault-with-datadog/)",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 5, "y": 0, "width": 3, "height": 2},
+                    },
+                ],
+            },
+            "layout": {"x": 0, "y": 0, "width": 8, "height": 5},
+        },
+        {
+            "id": 5123112093915332,
+            "definition": {
+                "title": "Overview",
+                "title_align": "center",
+                "type": "group",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 4705539663238666,
+                        "definition": {
+                            "title": "Sealed Status",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1"}],
+                                    "conditional_formats": [
+                                        {"comparator": "<=", "palette": "white_on_red", "value": 0},
+                                        {"comparator": ">", "palette": "white_on_green", "value": 0},
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_core_unsealed{$cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                        },
+                        "layout": {"x": 0, "y": 0, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 8784218473818119,
+                        "definition": {
+                            "title": "Secrets",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "cell_display_mode": "bar",
+                                            "limit": {"count": 50, "order": "desc"},
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "max:hcp.vault_secret_kv_count{$cluster} by {mount_point}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                        },
+                        "layout": {"x": 0, "y": 2, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 4095272068500176,
+                        "definition": {
+                            "title": "Identity Entities by Namespace",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "cell_display_mode": "bar",
+                                            "limit": {"count": 50, "order": "desc"},
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_identity_entity_count{$cluster} by {namespace}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "has_search_bar": "auto",
+                        },
+                        "layout": {"x": 0, "y": 4, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 456017111295358,
+                        "definition": {
+                            "title": "Active Leases",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1"}],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_expire_num_leases{$cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                        },
+                        "layout": {"x": 0, "y": 6, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 5836085665243004,
+                        "definition": {
+                            "type": "note",
+                            "content": "HCP Vault is a hosted version of Vault, which is operated by HashiCorp to allow organizations to get up and running quickly. HCP Vault uses the same binary as self-hosted Vault, which means you will have a consistent user experience. You can use the same Vault clients to communicate with HCP Vault as you use to communicate with a self-hosted Vault.\n\n",
+                            "background_color": "purple",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "top",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 0, "y": 8, "width": 4, "height": 2},
+                    },
+                ],
+            },
+            "layout": {"x": 8, "y": 0, "width": 4, "height": 11},
+        },
+        {
+            "id": 419420492253912,
+            "definition": {
+                "title": "Token",
+                "title_align": "center",
+                "type": "group",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 8446680300996296,
+                        "definition": {
+                            "title": "Available Tokens",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1"}],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_token_count{$cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last",
+                                        }
+                                    ],
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                        },
+                        "layout": {"x": 0, "y": 0, "width": 6, "height": 2},
+                    },
+                    {
+                        "id": 8829309220854054,
+                        "definition": {
+                            "type": "note",
+                            "content": "HCP Vault uses the same binary as self-hosted Vault, which means you will have a consistent user experience. You can use the same Vault clients to communicate with HCP Vault as you use to communicate with a self-hosted Vault.",
+                            "background_color": "gray",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 6, "y": 0, "width": 2, "height": 3},
+                    },
+                    {
+                        "id": 6635575960327144,
+                        "definition": {
+                            "title": "Available Tokens by Policy",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1", "limit": {"count": 10, "order": "desc"}}],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_token_count_by_policy{$cluster} by {policy}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "layout": {"x": 0, "y": 2, "width": 6, "height": 2},
+                    },
+                    {
+                        "id": 1721954430752232,
+                        "definition": {
+                            "type": "note",
+                            "content": "Cluster initialization generates a [root token](https://www.vaultproject.io/docs/concepts/tokens#root-tokens) used to enable initial authentication methods, define policies, and establish trust with the control plane. The root token is revoked after setup is complete.",
+                            "background_color": "blue",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 6, "y": 3, "width": 2, "height": 3},
+                    },
+                    {
+                        "id": 781451301738868,
+                        "definition": {
+                            "title": "Tokens by TTL",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1", "limit": {"count": 10, "order": "desc"}}],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_token_count_by_ttl{$cluster} by {creation_ttl}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "layout": {"x": 0, "y": 4, "width": 6, "height": 2},
+                    },
+                    {
+                        "id": 8363761746996760,
+                        "definition": {
+                            "title": "Tokens by Auth Method",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1", "limit": {"count": 10, "order": "desc"}}],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_token_count_by_auth{$cluster} by {auth_method}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg",
+                                        }
+                                    ],
+                                }
+                            ],
+                        },
+                        "layout": {"x": 0, "y": 6, "width": 6, "height": 2},
+                    },
+                    {
+                        "id": 1367026596897180,
+                        "definition": {
+                            "type": "note",
+                            "content": "HCP Vault is a hosted version of Vault, which is operated by HashiCorp to allow organizations to get up and running quickly. HCP Vault uses the same binary as self-hosted Vault, which means you will have a consistent user experience. You can use the same Vault clients to communicate with HCP Vault as you use to communicate with a self-hosted Vault.\n\n",
+                            "background_color": "green",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true,
+                        },
+                        "layout": {"x": 6, "y": 6, "width": 2, "height": 4},
+                    },
+                    {
+                        "id": 2249813376688112,
+                        "definition": {
+                            "title": "Tokens Creation by Method & TTL",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": ["avg", "min", "max", "value", "sum"],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "query1"}],
+                                    "response_format": "timeseries",
+                                    "on_right_yaxis": false,
+                                    "queries": [
+                                        {
+                                            "query": "avg:hcp.vault_token_creation{$cluster} by {auth_method,creation_ttl}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                        }
+                                    ],
+                                    "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"},
+                                    "display_type": "bars",
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto",
+                            },
+                            "markers": [],
+                        },
+                        "layout": {"x": 0, "y": 8, "width": 6, "height": 2},
+                    },
+                ],
+            },
+            "layout": {"x": 0, "y": 5, "width": 8, "height": 11},
+        },
+        {
+            "id": 2698675657111408,
+            "definition": {
+                "title": "Runtime",
+                "type": "group",
+                "background_color": "vivid_green",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 8678794987001947,
+                        "definition": {
+                            "title": "CPU Utilization",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": ["avg", "min", "max", "value", "sum"],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "(query1 - query2) / query1 * 100"}],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:host.cpu_seconds_total{$cluster} by {cluster_id}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                        },
+                                        {
+                                            "query": "sum:host.cpu_seconds_total{$cluster,mode:idle} by {cluster_id}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                        },
+                                    ],
+                                    "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"},
+                                    "display_type": "line",
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto",
+                            },
+                            "markers": [],
+                        },
+                        "layout": {"x": 0, "y": 0, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 6102370563446998,
+                        "definition": {
+                            "title": "Disk Utilization",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": ["avg", "min", "max", "value", "sum"],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "(query1 - query2) / query1 * 100"}],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:host.filesystem_total_bytes{$cluster} by {cluster_id}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                        },
+                                        {
+                                            "query": "avg:host.filesystem_free_bytes{$cluster} by {cluster_id}",
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                        },
+                                    ],
+                                    "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"},
+                                    "display_type": "line",
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto",
+                            },
+                            "markers": [],
+                        },
+                        "layout": {"x": 0, "y": 2, "width": 4, "height": 2},
+                    },
+                    {
+                        "id": 5482301037509117,
+                        "definition": {
+                            "title": "Memory Utilization",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": ["avg", "min", "max", "value", "sum"],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [{"formula": "(query1 - query2) / query1 * 100"}],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:host.memory_total_bytes{$cluster} by {cluster_id}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                        },
+                                        {
+                                            "query": "sum:host.memory_available_bytes{$cluster} by {cluster_id}",
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                        },
+                                    ],
+                                    "style": {"palette": "dog_classic", "line_type": "solid", "line_width": "normal"},
+                                    "display_type": "line",
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto",
+                            },
+                            "markers": [],
+                        },
+                        "layout": {"x": 0, "y": 4, "width": 4, "height": 2},
+                    },
+                ],
+            },
+            "layout": {"x": 8, "y": 11, "width": 4, "height": 7},
+        },
+    ],
+    "template_variables": [{"name": "cluster", "default": "*", "prefix": "cluster_id", "available_values": []}],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "t74-tge-23e",
+}
