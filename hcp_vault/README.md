@@ -23,6 +23,7 @@ To configure metrics streaming to Datadog, you will need to have:
 #### Enable Metrics Streaming
 
 1. From the HCP Vault cluster Overview, select the Metrics view.
+
 ![Metrics Streaming][4]
 
 2. If you have not yet configured metrics streaming before, click Enable streaming.  Otherwise skip to Step 3.
