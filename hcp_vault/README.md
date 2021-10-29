@@ -10,33 +10,30 @@ For details on metrics scope and interpretation, see the [HCP Vault Metrics Guid
 
 ## Setup
 
-### Installation
-
-#### Prerequisites
+## Prerequisites
 To configure metrics streaming to Datadog, you will need to have: 
 - A production grade HCP Vault cluster
 - Your Datadog region and your [Datadog API key][2]
 - An account with Admin or Contributor [role assigned in HCP][3]
 
-### Configuration
+### Enable Metrics Streaming
 
-#### Enable Metrics Streaming
-
-1. From the HCP Vault cluster Overview, select the Metrics view.
+- From the HCP Vault cluster Overview, select the Metrics view.
 
 ![Metrics Streaming][4]
 
-2. If you have not yet configured metrics streaming before, click Enable streaming.  Otherwise skip to Step.
+- If you have not yet configured metrics streaming before, click Enable streaming.  Otherwise skip to Step.
 
-3. From the Stream Vault metrics view, select Datadog as the provider.
+- From the Stream Vault metrics view, select Datadog as the provider.
 
-4. Under Datadog configuration, enter your API Key and select the Datadog site region that matches your existing Datadog environment.
+- Under Datadog configuration, enter your API Key and select the Datadog site region that matches your existing Datadog environment.
+
 ![Choose Provider][5]
-    
-5. Click Save. 
+
+- Click Save. 
 **Note**: At this time HCP Vault only supports metrics streaming to one metrics endpoint at a time.
 
-6. Once the metrics have been enabled, navigate to Datadog, and enable the integration by clicking Install on the integration tile. This will install a sample HCP Vault dashboard, that comes with preset visualization widgets to help make the most of your HCP Vault telemetry. You can find the dashboard by searching for “HCP Vault Overview” from the dashboard list. 
+- Once the metrics have been enabled, navigate to Datadog, and enable the integration by clicking Install on the integration tile. This will install a sample HCP Vault dashboard, that comes with preset visualization widgets to help make the most of your HCP Vault telemetry. You can find the dashboard by searching for “HCP Vault Overview” from the dashboard list. 
 
 ## Data Collected
 
