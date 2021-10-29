@@ -10,13 +10,17 @@ For details on metrics scope and interpretation, see the [HCP Vault Metrics Guid
 
 ## Setup
 
-## Prerequisites
+### Installation
+
+#### Prerequisites
 To configure metrics streaming to Datadog, you will need to have: 
 - A production grade HCP Vault cluster
 - Your Datadog region and your [Datadog API key][2]
 - An account with Admin or Contributor [role assigned in HCP][3]
 
-### Enable Metrics Streaming
+### Configuration
+
+#### Enable Metrics Streaming
 
 - From the HCP Vault cluster Overview, select the Metrics view.
 
