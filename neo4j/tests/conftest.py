@@ -24,7 +24,8 @@ def ensure_prometheus_endpoint_is_accessable():
 @pytest.fixture(scope='session')
 def dd_environment():
     instance = INSTANCE
-    image = os.environ.get("NEO4J_IMAGE", f"neo4j:{os.environ['NEO4J_VERSION']}-enterprise")
+    image = "neo4j:4.3.6-enterprise"
+    #    image = os.environ.get("NEO4J_IMAGE", f"neo4j:{os.environ['NEO4J_VERSION']}-enterprise")
     with docker_run(
         os.path.join(DOCKER_DIR, 'docker-compose.yaml'),
         env_vars={'NEO4J_IMAGE': image},

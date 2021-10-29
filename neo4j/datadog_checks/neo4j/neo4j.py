@@ -32,7 +32,7 @@ class Neo4jCheck(PrometheusCheck):
         self._set_whitelisted_metrics()
         config = self._get_config(instance=instance)
         self.exclude_labels = config.exclude_labels
-        if (config.https.lower() == 'false'):
+        if config.https.lower() == 'false':
             endpoint = 'http://{}:{}/metrics'.format(config.host, config.port)
         else:
             endpoint = 'https://{}:{}/metrics'.format(config.host, config.port)

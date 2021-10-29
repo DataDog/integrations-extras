@@ -1,14 +1,14 @@
+from dataclasses import dataclass
+
 import pytest
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.neo4j import GLOBAL_DB_NAME, NAMESPACE, Config, Neo4jCheck
 
-from dataclasses import dataclass
-
 
 @dataclass
 class FakeMetric:
-    name: str
+    name = str
 
 
 @pytest.mark.integration
@@ -24,35 +24,41 @@ def test_service_check(aggregator, instance):
 
     if instance.get('neo4j_version') == '3.5':
         aggregator.assert_metric(
-            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+            name='{}.page_cache.hits'.format(NAMESPACE),
+            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
         )
-        aggregator.assert_metric(
-            name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
-        )
+    #        aggregator.assert_metric(
+    #            name='{}.check_point.duration'.format(NAMESPACE),
+    #            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+    #        )
     elif instance.get('neo4j_version') == '4.0':
         aggregator.assert_metric(
-            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+            name='{}.page_cache.hits'.format(NAMESPACE),
+            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
         )
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:system'])
     elif instance.get('neo4j_version') == '4.1':
         aggregator.assert_metric(
-            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+            name='{}.page_cache.hits'.format(NAMESPACE),
+            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
         )
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:system'])
     elif instance.get('neo4j_version') == '4.2':
         aggregator.assert_metric(
-            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+            name='{}.page_cache.hits'.format(NAMESPACE),
+            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
         )
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:system'])
     elif instance.get('neo4j_version') == '4.3':
         aggregator.assert_metric(
-            name='{}.page_cache.hits'.format(NAMESPACE), tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
+            name='{}.page_cache.hits'.format(NAMESPACE),
+            tags=['db_name:{}'.format(GLOBAL_DB_NAME)],
         )
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:neo4j'])
-        aggregator.assert_metric(name='{}.check_point.events'.format(NAMESPACE), tags=['db_name:system'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:neo4j'])
+        aggregator.assert_metric(name='{}.check_point.duration'.format(NAMESPACE), tags=['db_name:system'])
     else:
         raise Exception('unknown neo4j_version: {}'.format(instance.get('neo4j_version')))
 
@@ -76,13 +82,23 @@ def test_check_namespaced_metrics():
     check = Neo4jCheck('neo4j', {}, {})
     check.process_metric = fake_process_metric
 
-    config = Config(host='localhost', port=9000, neo4j_version='4.0', https='false', neo4j_dbs=[],
-                    exclude_labels=['kube_service'], instance_tags=['key:value'])
+    config = Config(
+        host='localhost',
+        port=9000,
+        neo4j_version='4.0',
+        https='false',
+        neo4j_dbs=[],
+        exclude_labels=['kube_service'],
+        instance_tags=['key:value'],
+    )
 
-    check._check_metrics([
-        FakeMetric("neo4j_dbms_some_global_metric"),
-        FakeMetric("neo4j_database_mydb_some_local_metric"),
-    ], config=config)
+    check._check_metrics(
+        [
+            FakeMetric("neo4j_dbms_some_global_metric"),
+            FakeMetric("neo4j_database_mydb_some_local_metric"),
+        ],
+        config=config,
+    )
 
     assert out == [
         (FakeMetric("some_global_metric"), {'custom_tags': ['db_name:global', 'key:value']}),
@@ -116,8 +132,13 @@ def test_get_config():
         'neo4j_version': '3.5',
     }
     assert check._get_config(instance) == Config(
-        host='localhost', port=2004, neo4j_version='3.5', https='false', neo4j_dbs=[],
-        exclude_labels=[], instance_tags=[],
+        host='localhost',
+        port=2004,
+        neo4j_version='3.5',
+        https='false',
+        neo4j_dbs=[],
+        exclude_labels=[],
+        instance_tags=[],
     )
 
     instance = {}
