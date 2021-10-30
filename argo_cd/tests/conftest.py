@@ -3,7 +3,6 @@ import os
 import mock
 import pytest
 
-
 @pytest.fixture()
 def mock_argo_cd():
     f_name = os.path.join(os.path.dirname(__file__), 'fixtures', 'metrics.txt')
