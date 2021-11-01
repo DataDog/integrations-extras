@@ -2,9 +2,9 @@
 
 ## Overview
 
-The HCP Vault integration provides an overview of your Vault clusters so you can monitor its performance and cluster health.
+The HCP Vault integration provides an overview of your Vault clusters so you can monitor performance and cluster health.
 
-Availability: HCP Vault metrics streaming is available for all production grade cluster tiers.  The feature is not available for Development tier clusters.
+HCP Vault metrics streaming is available for all production grade cluster tiers.  The feature is not available for Development tier clusters.
 
 For details on metrics scope and interpretation, see the [HCP Vault Metrics Guidance][1]
 
@@ -12,34 +12,33 @@ For details on metrics scope and interpretation, see the [HCP Vault Metrics Guid
 
 ### Installation
 
-- Follow the instructions below
+Follow the Configuration instructions below.
 
-#### Prerequisites
-To configure metrics streaming to Datadog, you will need to have: 
+### Prerequisites
 - A production grade HCP Vault cluster
 - Your Datadog region and your [Datadog API key][2]
 - An account with Admin or Contributor [role assigned in HCP][3]
 
 ### Configuration
 
-#### Enable Metrics Streaming
+To enable metrics streaming:
 
-- From the HCP Vault cluster Overview, select the Metrics view.
+1. From the HCP Vault cluster Overview, select the Metrics view.
 
-![Metrics Streaming][4]
+   ![Metrics Streaming][4]
 
-- If you have not yet configured metrics streaming before, click Enable streaming.  Otherwise skip to Step.
+2. If you have not yet configured metrics streaming, click Enable streaming.
 
-- From the Stream Vault metrics view, select Datadog as the provider.
+3. From the Stream Vault metrics view, select Datadog as the provider.
 
-- Under Datadog configuration, enter your API Key and select the Datadog site region that matches your existing Datadog environment.
+4. Under Datadog configuration, enter your API Key and select the Datadog site region that matches your Datadog environment.
 
-![Choose Provider][5]
+   ![Choose Provider][5]
 
-- Click Save. 
-**Note**: At this time HCP Vault only supports metrics streaming to one metrics endpoint at a time.
+5. Click Save. 
+**Note**: HCP Vault supports metrics streaming to only one metrics endpoint at a time.
 
-- Once the metrics have been enabled, navigate to Datadog, and enable the integration by clicking Install on the integration tile. This will install a sample HCP Vault dashboard, that comes with preset visualization widgets to help make the most of your HCP Vault telemetry. You can find the dashboard by searching for “HCP Vault Overview” from the dashboard list. 
+6. Navigate to Datadog, and enable the integration by clicking Install on the integration tile. This installs a HCP Vault dashboard with widgets that make the most of your HCP Vault telemetry. You can find the dashboard by searching for "HCP Vault Overview" in the dashboard list. 
 
 ## Data Collected
 
