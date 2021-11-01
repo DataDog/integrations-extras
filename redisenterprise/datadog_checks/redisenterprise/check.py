@@ -26,7 +26,7 @@ class RedisenterpriseCheck(AgentCheck):
         self.last_event_timestamp_seen = datetime.utcnow() - timedelta(0, 120)
 
     def _timestamp(self, date):
-        """ Allows us to return an epoch time stamp if we use python2 or python3 """
+        """Allows us to return an epoch time stamp if we use python2 or python3"""
         if sys.version_info[0] < 3 or sys.version_info[1] < 4:
             import time
 
@@ -59,7 +59,7 @@ class RedisenterpriseCheck(AgentCheck):
                 service_check_tags.append('redis_cluster:{}'.format(fqdn))
 
                 # collect the license data
-                fqdn = self._get_license(host, port, service_check_tags)
+                self._get_license(host, port, service_check_tags)
 
                 # collect the node data
                 self._get_nodes(host, port, service_check_tags)
@@ -70,7 +70,7 @@ class RedisenterpriseCheck(AgentCheck):
                 self._shard_usage(bdb_dict, service_check_tags, host)
 
                 # collect the events from the API - we set the timeout higher here
-                self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
+                self._get_events(host, port, username, password, bdb_dict, service_check_tags, event_limit)
 
                 # update the timestamp if everything else passes
                 self.last_timestamp_seen = datetime.utcnow()
@@ -93,7 +93,7 @@ class RedisenterpriseCheck(AgentCheck):
         pass
 
     def _check_not_follower(self, host, port, username, password, timeout, is_mock):
-        """ The RedisEnterprise returns a 307 if a node is a cluster follower (not leader) """
+        """The RedisEnterprise returns a 307 if a node is a cluster follower (not leader)"""
         if is_mock:
             return False
 
@@ -125,7 +125,7 @@ class RedisenterpriseCheck(AgentCheck):
         return info
 
     def _get_fqdn(self, host, port, service_check_tags):
-        """ Get the cluster FQDN back from the endpoints """
+        """Get the cluster FQDN back from the endpoints"""
         try:
             info = self._api_fetch_json("cluster", service_check_tags)
             fqdn = info.get('name')
@@ -160,17 +160,28 @@ class RedisenterpriseCheck(AgentCheck):
             }
         return bdb_dict
 
-    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
-        """ Scrape the LOG endpoint and put all log entries into Datadog events """
-        evnts = self._api_fetch_json(
-            "logs",
-            service_check_tags,
+    def _get_events(self, host, port, username, password, bdb_dict, service_check_tags, event_limit):
+        """Scrape the LOG endpoint and put all log entries into Datadog events"""
+
+        # We need to use requests to send the get params since the http wrapper does not allow this
+        r = requests.get(
+            'https://{}:{}/v1/logs'.format(host, port),
+            auth=HTTPBasicAuth(username, password),
+            headers={'Content-Type': 'application/json'},
+            allow_redirects=False,
+            verify=False,
             params={
                 "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "order": "desc",
                 "limit": event_limit,
             },
         )
+        if r.status_code != 200:
+            msg = 'RedisEnterprise: Unable to fetch logs from endpoint: HTTP Status {}'.format(r.status_code)
+            self.log.info(msg)
+
+        evnts = r.json()
+
         for evnt in evnts:
             msg = {k: v for k, v in evnt.items() if k not in ['time', 'severity']}
             self.event(
@@ -192,7 +203,7 @@ class RedisenterpriseCheck(AgentCheck):
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
 
     def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
-        """ Collect Enterprise database related stats """
+        """Collect Enterprise database related stats"""
         gauges = [
             'avg_latency',
             'avg_latency_max',
@@ -304,7 +315,7 @@ class RedisenterpriseCheck(AgentCheck):
         return 0
 
     def _get_license(self, host, port, service_check_tags):
-        """ Collect Enterprise License Information """
+        """Collect Enterprise License Information"""
         stats = self._api_fetch_json("license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.now()
@@ -324,14 +335,14 @@ class RedisenterpriseCheck(AgentCheck):
         )
 
     def _shard_usage(self, bdb_dict, service_check_tags, host):
-        """ Sum up the number of shards """
+        """Sum up the number of shards"""
         used = 0
         for x in bdb_dict.values():
             used += x['shards_used']
         self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags, hostname=host)
 
     def _get_nodes(self, host, port, service_check_tags):
-        """ Collect Enterprise Node Information """
+        """Collect Enterprise Node Information"""
         stats = self._api_fetch_json("nodes", service_check_tags)
         res = {'total_node_cores': 0, 'total_node_memory': 0, 'total_node_count': 0, 'total_active_nodes': 0}
 

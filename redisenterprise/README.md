@@ -84,7 +84,7 @@ Users can be configured according to the [documentation][8].
 
 ### Metrics
 
-See [metadata.csv][9] for a list of metrics provided by this integration and the description of each.
+See [metadata.csv][9] for a list of metrics provided by this integration.
 
 ### Service Checks
 

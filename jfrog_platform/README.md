@@ -181,7 +181,7 @@ Need help? Contact [Datadog support][15].
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_metrics_dashboard.png
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
 [5]: https://helm.sh/
-[6]: https://app.datadoghq.com/account/settings#api
+[6]: https://app.datadoghq.com/organization-settings/api-keys
 [7]: https://github.com/jfrog/metrics#setup
 [8]: https://www.jfrog.com/confluence/display/JFROG/Access+Tokens#AccessTokens-GeneratingAdminTokens
 [9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6v7#agent-configuration-directory

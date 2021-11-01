@@ -46,6 +46,6 @@ Need help? Contact [Datadog support][8].
 [4]: https://vercel.com/docs/serverless-functions/introduction
 [5]: /logs/
 [6]: /synthetics/
-[7]: https://app.datadoghq.com/account/settings#api
+[7]: https://app.datadoghq.com/organization-settings/api-keys
 [8]: https://vercel.com/integrations/datadog-logs
 [9]: /help/
