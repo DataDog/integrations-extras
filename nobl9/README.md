@@ -12,16 +12,16 @@ define and measure reliability goals, and align activities against the
 priorities set by the error budget.
 
 ### SLO Grid View
-![SLO Grid View](images/grid_view.jpg)
+![SLO Grid View](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/grid_view.jpg) [4]
 
 ### SLO Detail
-![Detail](images/slo_detail.png)
+![Detail](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_detail.png) [5]
 
 ### SLO Report
-![SLO Report](images/slo_report.png)
+![SLO Report](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_report.png) [6]
 
 ### Service Health Dashboard
-![Service Health Dashboard](images/service_health.png)
+![Service Health Dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png) [7]
 
 ## Setup
 All configuration happens on the Nobl9 SLO Platform.
@@ -50,3 +50,10 @@ Need help? Contact [Nobl9 Support][2] or [Datadog Support][3].
 [1]: https://nobl9.github.io/techdocs_User_Guide/#service-level-objectives-38
 [2]: https://nobl9.com/about/#contact
 [3]: https://docs.datadoghq.com/help/
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/grid_view.jpg
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_detail.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_report.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png
+
+### Service Health Dashboard
+![Service Health Dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png) [7]
