@@ -58,7 +58,7 @@ hcp_vault does not include any events.
 
 Need help? Contact [Datadog support][6].
 
-[1]: https://learn.hashicorp.com/tutorials/cloud/vault-metrics-guide
+[1]: https://learn.hashicorp.com/collections/vault/cloud
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/
 [3]: https://cloud.hashicorp.com/docs/hcp/access-control
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/hcp_vault/images/metrics-streaming.png
