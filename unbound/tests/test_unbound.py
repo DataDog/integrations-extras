@@ -148,6 +148,24 @@ def test_extended_stats_1_9_2(aggregator, mock_which, mock_extended_stats_1_9_2)
     aggregator.assert_all_metrics_covered()
 
 
+def test_hostname_with_port(aggregator, mock_which, mock_basic_stats_1_4_22):
+    instance = {"host": "localhost@53"}
+    check = UnboundCheck('unbound', {}, [instance])
+    check.check(instance)
+    # Ignore the actual metrics...Consider the test successful if we see an ok service
+    # check
+    aggregator.assert_service_check(UnboundCheck.SERVICE_CHECK_NAME, status=AgentCheck.OK)
+
+
+def test_hostname_without_port(aggregator, mock_which, mock_basic_stats_1_4_22):
+    instance = {"host": "localhost"}
+    check = UnboundCheck('unbound', {}, [instance])
+    check.check(instance)
+    # Ignore the actual metrics...Consider the test successful if we see an ok service
+    # check
+    aggregator.assert_service_check(UnboundCheck.SERVICE_CHECK_NAME, status=AgentCheck.OK)
+
+
 def assert_basic_stats_1_9_2(aggregator, tags):
     thread0_tags = tags + ['thread:0']
     aggregator.assert_metric(
