@@ -16,3 +16,7 @@ ACME_METRICS = {
     'certmanager_http_acme_client_request_count': 'http_acme_client.request.count',
     'certmanager_http_acme_client_request_duration_seconds': 'http_acme_client.request.duration',
 }
+
+TYPE_OVERRIDES = {
+    'certmanager_clock_time_seconds': 'gauge',
+}
