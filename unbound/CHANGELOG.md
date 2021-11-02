@@ -2,5 +2,5 @@
 
 ## 1.0.1 / 2021-08-08
 
-* [ADDED] Allow the use of hostname for server address. See [#936](https://github.com/DataDog/integrations-extras/pull/937).
+* [ADDED] Allow the use of hostname for server address. See [#937](https://github.com/DataDog/integrations-extras/pull/937).
 
