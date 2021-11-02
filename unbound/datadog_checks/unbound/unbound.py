@@ -278,7 +278,7 @@ def which(program, use_sudo, log):
 def hostname_to_ip(hostname):
     if '@' not in hostname:
         # gethostbyname() handles both hostnames & IPv4 addresses. If the
-        # hostname is an IPv4 address itself it is returned unchanged"
+        # hostname is an IPv4 address itself it is returned unchanged
         return socket.gethostbyname(hostname)
 
     strs = hostname.split("@")
