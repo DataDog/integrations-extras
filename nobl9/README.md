@@ -7,9 +7,7 @@ SLO targets. Since Nobl9 calculates error budgets of acceptable thresholds, it
 can trigger workflows and alerts when the error burn rate is too high or has
 been exceeded.
 
-Use the Datadog Nobl9 integration to pass business context to monitoring data,
-define and measure reliability goals, and align activities against the
-priorities set by the error budget.
+The Datadog Nobl9 integration allows you to pass business context through monitoring data, define and measure reliability goals, and align activities against priorities set by the error budget.
 
 ### SLO Grid View
 ![SLO Grid View](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/grid_view.jpg) [4]
