@@ -25,20 +25,11 @@ The Datadog Nobl9 integration allows you to pass business context through monito
 
 All configuration happens on the Nobl9 SLO Platform.
 
-1. Add the Datadog API endpoint to connect to your data source, either
-https://api.datadoghq.com/ or https://api.datadoghq.eu/ (required).
-2. Enter a **Project** name. This field is intended for use in situations
-where multiple users are spread across multiple teams or projects. When the
-field is left blank, a default value appears.
-3. The **Display Name** appears automatically when a name is entered into the
-**Name** field.
-4. Enter a name for your data source (required). Names are required because metadata names are
-unique within each project and are validated against some RFC and DNS names.
-The name must contain only lowercase alphanumeric characters and dashes. For
-example: `my-datadog-data-source`
-5. Enter a description (optional). Add the team or owner details and explain
-the purpose of creating this specific data source. Adding a description can
-provide immediate context for any team member.
+1. Add the Datadog API endpoint to connect to your data source, either `https://api.datadoghq.com/` or `https://api.datadoghq.eu/` (required).
+2. Enter a **Project** name. This field is intended for situations where multiple users are spread across multiple teams or projects. When the field is left blank, a default value appears.
+3. The **Display Name** appears automatically when a name is entered in the **Name** field.
+4. Enter a name for your data source (required). Metadata names are unique within each project and are validated against some RFC and DNS names. The data source name must contain only lowercase alphanumeric characters and dashes. For example: `my-datadog-data-source`.
+5. Enter a description (optional). Add the team or owner details and explain why you created this specific data source. Descriptions provide immediate context for any team member.
 
 See Nobl9's [User Guide][1] for more information about creating SLOs on the Nobl9 platform.
 
