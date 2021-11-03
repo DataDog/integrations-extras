@@ -22,6 +22,7 @@ The Datadog Nobl9 integration allows you to pass business context through monito
 ![Service Health Dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png) [7]
 
 ## Setup
+
 All configuration happens on the Nobl9 SLO Platform.
 
 1. Add the Datadog API endpoint to connect to your data source, either
