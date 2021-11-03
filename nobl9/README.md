@@ -45,5 +45,3 @@ Need help? Contact [Nobl9 Support][2] or [Datadog Support][3].
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_report.png
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png
 
-### Service Health Dashboard
-![Service Health Dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png) [7]
