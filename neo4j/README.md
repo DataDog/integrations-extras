@@ -14,7 +14,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To install the neo4j check on your host:
 
-1. Download and install the [Datadog Agent](https://app.datadoghq.com/account/settings#agent).
+1. Download and install the [Datadog Agent][8].
 2. To install the neo4j check on your host:
 
    ```shell
@@ -58,3 +58,4 @@ Need help? Contact [Datadog support][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-core/blob/master/neo4j/metadata.csv
 [7]: https://docs.datadoghq.com/help
+[8]: https://app.datadoghq.com/account/settings#agent
