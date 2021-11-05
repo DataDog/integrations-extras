@@ -24,7 +24,7 @@ VECTORIZED_CLUSTER = {
 
 VECTORIZED_HTTPD = {
     'vectorized_httpd_connections_current': 'httpd.connections_current',
-    'vectorized_httpd_connections_total': 'httpd.connections_total',
+    'vectorized_httpd_connections': 'httpd.connections',
     'vectorized_httpd_read_errors': 'httpd.read_errors',
     'vectorized_httpd_reply_errors': 'httpd.reply_errors',
     'vectorized_httpd_requests_served': 'httpd.requests_served',

@@ -4,9 +4,18 @@ files:
   options:
   - template: init_config
     options:
-    - template: init_config/openmetrics_legacy
+    - template: init_config/openmetrics
   - template: instances
     options:
+    - name: use_openmetrics
+      description: |
+        Use the latest OpenMetrics implementation for more features and better performance.
+        If running on Agent v6, you must set the `python_version` option in `datadog.yaml` to `"3"`.
+      value:
+        example: true
+        display_default: false
+        type: boolean
+      enabled: true
     - name: metric_groups
       description: List of additional Redpanda metric groups to collect in addition to the default metrics
       value:
@@ -22,11 +31,11 @@ files:
         - redpanda.rpc_client
         - redpanda.scheduler
         - redpanda.stall
-    - template: instances/openmetrics_legacy
+    - template: instances/openmetrics
       overrides:
-        prometheus_url.value.example: http://localhost:9644/metrics
-        prometheus_url.display_priority: 1
-        send_histograms_buckets.hidden: true
+        openmetrics_endpoint.value.example: http://localhost:9644/metrics
+        openmetrics_endpoint.display_priority: 1
+        collect_histogram_buckets.hidden: true
   - template: logs
     example:
     - type: journald
