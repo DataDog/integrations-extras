@@ -11,7 +11,6 @@ CHECK_NAME = 'argo_cd'
 
 
 @pytest.mark.integration
-@pytest.mark.unit
 def test_check_all_metrics(aggregator, dd_run_check, mock_argo_cd):
     instance = {'prometheus_url': 'http://localhost:8082/metrics'}
     c = ArgoCdCheck(CHECK_NAME, {}, [instance])
