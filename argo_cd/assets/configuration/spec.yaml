@@ -7,14 +7,6 @@ files:
       - template: init_config/openmetrics
   - template: instances
     options:
-    - name: prometheus_url
-      description: |
-        The URL where your Argo CD metrics are exposed by Prometheus.
-      enabled: true
-      value:
-        type: string
-        example: http://argocd-application-controller.argocd.cluster.local:8082/metrics
-        display_default: null
     - template: instances/openmetrics
       overrides:
-        openmetrics_endpoint.description: Description
+        openmetrics_endpoint.description: The URL where your Argo CD metrics are exposed by Prometheus.

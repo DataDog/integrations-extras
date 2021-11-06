@@ -45,15 +45,10 @@ init_config:
 #
 instances:
 
-    ## @param prometheus_url - string - optional
+    ## @param openmetrics_endpoint - string - required
     ## The URL where your Argo CD metrics are exposed by Prometheus.
     #
-  - prometheus_url: http://argocd-application-controller.argocd.cluster.local:8082/metrics
-
-    ## @param openmetrics_endpoint - string - required
-    ## Description
-    #
-    openmetrics_endpoint: <OPENMETRICS_ENDPOINT>
+  - openmetrics_endpoint: <OPENMETRICS_ENDPOINT>
 
     ## @param raw_metric_prefix - string - optional
     ## A prefix that will be removed from all exposed metric names, if present.

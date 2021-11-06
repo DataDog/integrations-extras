@@ -14,9 +14,9 @@ class ArgoCdCheck(OpenMetricsBaseCheckV2):
 
     def __init__(self, name, init_config, instances=None):
         instance = instances[0]
-        endpoint = instance.get('prometheus_url')
+        endpoint = instance.get('openmetrics_endpoint')
         if endpoint is None:
-            raise ConfigurationError("Unable to find prometheus url in config file.")
+            raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
 
         instance.update(
             {
