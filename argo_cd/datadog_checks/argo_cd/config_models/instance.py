@@ -97,7 +97,6 @@ class InstanceConfig(BaseModel):
     openmetrics_endpoint: str
     password: Optional[str]
     persist_connections: Optional[bool]
-    prometheus_url: Optional[str]
     proxy: Optional[Proxy]
     raw_line_filters: Optional[Sequence[str]]
     raw_metric_prefix: Optional[str]

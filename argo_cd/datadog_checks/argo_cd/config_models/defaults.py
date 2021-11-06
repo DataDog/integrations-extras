@@ -173,10 +173,6 @@ def instance_persist_connections(field, value):
     return False
 
 
-def instance_prometheus_url(field, value):
-    return get_default_field_value(field, value)
-
-
 def instance_proxy(field, value):
     return get_default_field_value(field, value)
 
