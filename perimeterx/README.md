@@ -2,11 +2,11 @@
 
 ## Overview
 
-This integration allows [PerimeterX][https://www.perimeterx.com/] customers to forward their PerimeterX related logs and events to Datadog.
+This integration allows [PerimeterX][2] customers to forward their PerimeterX related logs and events to Datadog.
 
 ## Setup
 
-All configuration is done by PerimeterX. Please visit the [PerimeterX documentation](https://docs.perimeterx.com/pxconsole/docs/data-integration-to-third-party-apps) regarding third party integrations.
+All configuration is done by PerimeterX. Please visit the [PerimeterX documentation][3] regarding third party integrations.
 
 ### Installation
 
@@ -14,8 +14,8 @@ No installation is required on your host.
 
 ### Configuration
 
-1. Generate a new Integration API Key in your [Datadog portal](https://app.datadoghq.com/account/settings#api)
-2. Open a support ticket with [PerimeterX Support](mailto:support@perimeterx.com) and request the Datadog log export integration. Support will need the following information:
+1. Generate a new Integration API Key in your [Datadog portal][4].
+2. Open a support ticket with [PerimeterX Support][5] and request the Datadog log export integration. Support needs the following information:
    - Your Datadog Integration API Key
    - Whether you want to send metrics and/or logs
    - The PerimeterX Application ID(s) that should be forwarded to Datadog
@@ -33,7 +33,7 @@ Once PerimeterX Support has confirmed the Datadog integration is complete, perfo
 
 ### Metrics
 
-PerimeterX does not includes metrics for [requests](https://docs.perimeterx.com/pxconsole/docs/data-schema-metrics).
+PerimeterX does not include metrics for [requests][6].
 
 ### Service Checks
 
@@ -48,3 +48,8 @@ PerimeterX does not include any events.
 Need help? Contact [Datadog support][1].
 
 [1]: https://docs.datadoghq.com/help/
+[2]: https://www.perimeterx.com/
+[3]: https://docs.perimeterx.com/pxconsole/docs/data-integration-to-third-party-apps
+[4]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: mailto:support@perimeterx.com
+[6]: https://docs.perimeterx.com/pxconsole/docs/data-schema-metrics

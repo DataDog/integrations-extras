@@ -80,7 +80,6 @@ def test_down_service_does_not_raise(aggregator):
     aggregator.assert_service_check(check.PROCESS_SERVICE_CHECK,
                                     VespaCheck.OK,
                                     count=1,
-                                    message='Service vespa.up-service returns up',
                                     tags=['instance:up-service', 'vespaVersion:7.0.0',
                                           'vespa-service:vespa.up-service', 'tag1:val1'])
     assert 3 == check.metric_count

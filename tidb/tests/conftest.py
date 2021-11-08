@@ -1,10 +1,9 @@
 import os
-from copy import deepcopy
 
 import mock
 import pytest
 
-from datadog_checks.dev import get_docker_hostname, get_here
+from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
 HERE = get_here()
 HOST = get_docker_hostname()
@@ -19,7 +18,7 @@ DM_WORKER_PORT = 8262
 PUMP_PORT = 8250
 
 
-# mock metrics
+# Mock metrics
 
 
 @pytest.fixture()
@@ -28,7 +27,7 @@ def mock_tidb_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tidb_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
@@ -41,7 +40,7 @@ def mock_pd_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_pd_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_pd_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
@@ -54,66 +53,116 @@ def mock_tikv_metrics():
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tikv_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
         yield
 
 
-def get_mock_metrics(filename):
+def _get_mock_metrics(filename):
     f_name = os.path.join(os.path.dirname(__file__), 'fixtures', filename)
     with open(f_name, 'r') as f:
         text_data = f.read()
     return text_data
 
 
-# tidb check instance
-
-
-required_instance = {
-    'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
-    'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
-    'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
-}
-
-
-@pytest.fixture(scope="session")
-def full_instance():
-    base = deepcopy(required_instance)
-    base.update(
-        {
-            "tiflash_metric_url": "http://{}:{}/metrics".format(HOST, TIFLASH_PORT),
-            "tiflash_proxy_metric_url": "http://{}:{}/metrics".format(HOST, TIFLASH_PROXY_PORT),
-            "ticdc_metric_url": "http://{}:{}/metrics".format(HOST, TICDC_PORT),
-            "dm_master_metric_url": "http://{}:{}/metrics".format(HOST, DM_MASTER_PORT),
-            "dm_worker_metric_url": "http://{}:{}/metrics".format(HOST, DM_WORKER_PORT),
-            "pump_metric_url": "http://{}:{}/metrics".format(HOST, PUMP_PORT),
-        }
-    )
-    return base
-
-
-@pytest.fixture(scope="session")
-def customized_metric_instance():
-    base = deepcopy(required_instance)
-    base.update({"tidb_customized_metrics": [{"tidb_tikvclient_rawkv_cmd_seconds": "tikvclient_rawkv_cmd_seconds"}]})
-    return base
-
-
-# openmetrics check instances
+# TiDB check instances for different components
 
 
 @pytest.fixture(scope="session")
 def tidb_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT), 'namespace': 'tidb'}
-
-
-@pytest.fixture(scope="session")
-def tikv_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT), 'namespace': 'tikv'}
+    return {
+        'tidb_metric_url': "http://{}:{}/metrics".format(HOST, TIDB_PORT),
+        'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
+    }
 
 
 @pytest.fixture(scope="session")
 def pd_instance():
-    return {'prometheus_url': "http://{}:{}/metrics".format(HOST, PD_PORT), 'namespace': 'pd'}
+    return {
+        'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
+        'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
+    }
+
+
+@pytest.fixture(scope="session")
+def tikv_instance():
+    return {
+        'tikv_metric_url': "http://{}:{}/metrics".format(HOST, TIKV_PORT),
+        'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
+    }
+
+
+# Excepted results
+
+
+EXPECTED_TIDB = {
+    'metrics': {
+        'tidb_cluster.tidb_executor_statement_total': [
+            'tidb_cluster_component:tidb',
+            'type:Use',
+            'tidb_cluster_name:test',
+        ],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:10080/metrics',
+            'tidb_cluster_component:tidb',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+EXPECTED_PD = {
+    'metrics': {
+        'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso', 'tidb_cluster_name:test'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:2379/metrics',
+            'tidb_cluster_component:pd',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+EXPECTED_TIKV = {
+    'metrics': {
+        'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata', 'tidb_cluster_name:test'],
+    },
+    'service_check': {
+        'tidb_cluster.prometheus.health': [
+            'endpoint:http://localhost:20180/metrics',
+            'tidb_cluster_component:tikv',
+            'tidb_cluster_name:test',
+        ],
+    },
+}
+
+
+# Integration test docker-compose environment
+
+
+@pytest.fixture(scope='session')
+def dd_environment():
+    compose_file = os.path.join(get_here(), 'compose', 'docker-compose.yml')
+
+    # This does 3 things:
+    #
+    # 1. Spins up the services defined in the compose file
+    # 2. Waits for the url to be available before running the tests
+    # 3. Tears down the services when the tests are finished
+    with docker_run(
+        compose_file,
+        endpoints=[
+            "http://{}:{}/metrics".format(HOST, TIDB_PORT),
+            "http://{}:{}/metrics".format(HOST, TIKV_PORT),
+            "http://{}:{}/metrics".format(HOST, PD_PORT),
+        ],
+        sleep=3,
+    ):
+        yield
