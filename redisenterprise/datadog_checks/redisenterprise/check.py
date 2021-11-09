@@ -168,24 +168,13 @@ class RedisenterpriseCheck(AgentCheck):
     def _get_events(self, host, port, username, password, bdb_dict, service_check_tags, event_limit):
         """Scrape the LOG endpoint and put all log entries into Datadog events"""
 
-        # We need to use requests to send the get params since the http wrapper does not allow this
-        r = requests.get(
-            'https://{}:{}/v1/logs'.format(host, port),
-            auth=HTTPBasicAuth(username, password),
-            headers={'Content-Type': 'application/json'},
-            allow_redirects=False,
-            verify=False,
-            params={
-                "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                "order": "desc",
-                "limit": event_limit,
-            },
-        )
-        if r.status_code != 200:
-            msg = 'RedisEnterprise: Unable to fetch logs from endpoint: HTTP Status {}'.format(r.status_code)
-            self.log.info(msg)
+        p = {
+            "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "order": "desc",
+            "limit": event_limit,
+        }
 
-        evnts = r.json()
+        evnts = self._api_fetch_json("logs", service_check_tags, params=p)
 
         for evnt in evnts:
             msg = {k: v for k, v in evnt.items() if k not in ['time', 'severity']}
@@ -234,8 +223,8 @@ class RedisenterpriseCheck(AgentCheck):
                         z['intervals'][-1][k],
                         tags=tgs + ['crdt_peerid:{}'.format(z.get('uid'))] + service_check_tags,
                     )
-                except:
-                    pass
+                except Exception as e:
+                    self.log.debug(str(e))
 
     def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
         """Collect Enterprise database related stats"""
