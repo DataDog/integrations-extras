@@ -23,6 +23,9 @@ Redis Enterprise's Datadog integration provides a templated view across your clu
 #### Redis on Flash
 ![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/ROF_dashboard.png)
 
+#### Active/Active Redis
+![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/active_active_dashboard.png)
+
 #### Redis Enterprise Events
 ![events](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/events.png)
 
