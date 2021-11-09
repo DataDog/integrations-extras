@@ -232,7 +232,7 @@ class RedisenterpriseCheck(AgentCheck):
                     self.gauge(
                         'redis_enterprise.{}'.format(v),
                         z['intervals'][-1][k],
-                        tags=tgs + ['crdt_peerid:{}'.format(z.get('uid'))],
+                        tags=tgs + ['crdt_peerid:{}'.format(z.get('uid'))] + service_check_tags,
                     )
                 except:
                     pass
