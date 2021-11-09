@@ -36,24 +36,51 @@ Follow these steps in Datadog:
 
 4. Navigate to the **Configuration** tab and scroll to the bottom of the page.
 
-5. Under the section **Name and URL**, enter a meaningful name and paste the **Datadog Webhook URL** provided by Squadcast.
+5. (a) Give the Webhook a name in the Name field.
 
-    ![Squadcast Webhook][2]
+   (b) Paste the **Datadog Webhook URL** provided by Squadcast in the URL field.
 
-6. Tick the checkbox under the section **Use custom payload**.
-7. Copy-paste the following JSON in the text box under the **Custom Payload** section:
+   (c) Copy-paste the following JSON in the text box under the **Payload** section.
+    
+![Squadcast Webhook][2]
 
-    ```json
+```json
     {
         "alertId": "$ALERT_ID",
         "eventMessage": "$TEXT_ONLY_MSG",
         "title": "$EVENT_TITLE",
         "url": "$LINK",
-        "alertTransition": "$ALERT_TRANSITION"
+        "alertTransition": "Triggered",
+        "hostname": "$HOSTNAME",
+        "orgName":"$ORG_NAME",
+        "priority":"$PRIORITY",
+        "snapshot": "$SNAPSHOT",
+        "alertQuery": "$ALERT_QUERY",
+        "alertScope": "$ALERT_SCOPE",
+        "alertStatus": "$ALERT_STATUS",
+        "eventType": "$EVENT_TYPE",
+        "event_id": "$ID",
+        "alert_metric": "$ALERT_METRIC",
+        "alert_priority": "$ALERT_PRIORITY",
+        "alert_title": "$ALERT_TITLE",
+        "alert_type" : "$ALERT_TYPE",
+        "event_msg" : "$EVENT_MSG",
+        "incident_pub_id" : "$INCIDENT_PUBLIC_ID",
+        "incident_title" : "$INCIDENT_TITLE",
+        "incident_url" : "$INCIDENT_URL",
+        "incident_msg" : "$INCIDENT_MSG",
+        "security_rule_id" : "$SECURITY_RULE_ID",
+        "security_rule_name" : "$SECURITY_RULE_NAME",
+        "security_signal_severity" : "$SECURITY_SIGNAL_SEVERITY",
+        "security_signal_title" : "$SECURITY_SIGNAL_TITLE",
+        "security_signal_msg" : "$SECURITY_SIGNAL_MSG",
+        "security_rule_query" : "$SECURITY_RULE_QUERY",
+        "security_rule_type" : "$SECURITY_RULE_TYPE",
+        "tags" : "$TAGS"
     }
-    ```
+```
 
-8. Click on "Install Integration" to complete the service integration.
+6. Click on “Save” to complete the service integration.
 
     View the [official documentation][3] from Squadcast for more details on setup.
 
@@ -74,6 +101,6 @@ Squadcast integration does not include any service checks.
 Need help? Contact [Datadog Support][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/squadcast/images/datadog-service.png
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/squadcast/images/datadog-webhook.png
+[2]: https://user-images.githubusercontent.com/87639260/140858849-b4059d94-893d-4900-9168-db4c369a62a0.png
 [3]: https://support.squadcast.com/docs/datadog
 [4]: https://docs.datadoghq.com/help/
