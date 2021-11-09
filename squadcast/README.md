@@ -1,26 +1,27 @@
 ## Overview
 
-Use the Datadog-Squadcast integration to send Datadog alerts to Squadcast and seamlessly take actions on these alerts within the Squadcast platform.
+Use the Datadog-Squadcast integration to send Datadog alerts/incidents to Squadcast and seamlessly take actions on them within Squadcast.
 
 Connect Squadcast to Datadog in order to:
-- Trigger and resolve incidents from Datadog
-- Tackle incidents and set up escalation policies as they occur
-- Set up a daily reminder of who is on-call
+- Trigger, route and resolve alerts/incidents from Datadog
+- Tackle alerts/incidents and set up Escalation Policies as they occur
+- Define on-call Schedules and set up customisable reminders of who is on-call
 
 ## Setup
 
-**Note**: Only the users with Account Owner or Admin privileges can configure services on Squadcast.
-At least one Escalation Policy must be configured before you can add a service.
+**Note**: Only Squadcast users with the right Team-level privileges can configure Services in Squadcast. At least one Escalation Policy must be configured before a Service can be added.
 
 ### Squadcast
 
 Follow these steps in Squadcast:
 
-1. Open the **Services** page from the sidebar.
+1. Choose the **Team** from the Team-picker on the top.
 
-2. Choose an existing service, or create a new service by clicking on **Add Service**.
+2. Open the **Services** page from the primary navigation bar on the left.
 
-3. Click on **Alert Sources** and select **Datadog** from the drop down.
+3. Choose an existing Service, or create a new Service by clicking on Add Service.
+
+4. Click on **Alert Sources** and select **Datadog** from the drop-down.
 
 5. Copy the **Datadog Webhook URL** shown and click **Done**.
 
@@ -32,11 +33,11 @@ Follow these steps in Datadog:
 
 2. Use the search bar to search for "webhooks".
 
-3. Once the **Webhooks** tile appears, hover and click on "Install".
+3. Once the **Webhooks** tile appears, hover and click on **Install**.
 
 4. Navigate to the **Configuration** tab and scroll to the bottom of the page.
 
-5. (a) Give the Webhook a name in the Name field.
+5. (a) Give the Webhook a name in the **Name** field.
 
    (b) Paste the **Datadog Webhook URL** provided by Squadcast in the URL field.
 
@@ -80,9 +81,11 @@ Follow these steps in Datadog:
     }
 ```
 
-6. Click on “Save” to complete the service integration.
+6. Click on **Save** to complete the service integration.
 
     View the [official documentation][3] from Squadcast for more details on setup.
+
+**Note**: Once the Webhook for Squadcast has been configured, ensure that the same is also selected as a channel within Notify your team in the Monitor’s configuration.
 
 ## Data Collected
 ### Metrics
@@ -104,3 +107,4 @@ Need help? Contact [Datadog Support][4].
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/squadcast/images/datadog-webhook.png
 [3]: https://support.squadcast.com/docs/datadog
 [4]: https://docs.datadoghq.com/help/
+
