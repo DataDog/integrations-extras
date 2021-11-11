@@ -13,7 +13,7 @@ Connect Datadog with [Redpanda][1] to view key metrics and add additional metric
 2. Manually install the Redpanda integration. See [Use Community Integrations][10] for more details based on the environment.
 
 <!-- xxx tabs xxx -->
-<!-- xx tab "Host" xxx -->
+<!-- xxx tab "Host" xxx -->
 
 #### Host
 
