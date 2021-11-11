@@ -115,7 +115,7 @@ All [Redis Enterprise events][10] are collected.
 
 ## Troubleshooting
 
-Contact the [Redis Field Engineering Team][11]
+Contact the [Redis Field Engineering Team][11].
 
 
 [1]: http://www.redislabs.com
