@@ -85,7 +85,7 @@ Follow these steps in Datadog:
 
     View the [official documentation][3] from Squadcast for more details on setup.
 
-**Note**: Once the Webhook for Squadcast has been configured, ensure that the same is also selected as a channel within Notify your team in the Monitor’s configuration.
+**Note**: Once the Webhook for Squadcast has been configured, ensure that the same is also selected as a channel under "Notify your team" in the Monitor’s configuration.
 
 ## Data Collected
 ### Metrics
