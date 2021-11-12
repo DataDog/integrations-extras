@@ -5,7 +5,7 @@ Use the Datadog-Squadcast integration to send Datadog alerts or incidents to Squ
 Connect Squadcast to Datadog in order to:
 - Trigger, route, and resolve alerts or incidents from Datadog
 - Tackle alerts/incidents and set up Escalation Policies as they occur
-- Define on-call Schedules and set up customisable reminders of who is on-call
+- Define on-call schedules and set up customizable reminders of who is on-call
 
 ## Setup
 
