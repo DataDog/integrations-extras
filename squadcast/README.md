@@ -9,7 +9,7 @@ Connect Squadcast to Datadog in order to:
 
 ## Setup
 
-**Note**: Only Squadcast users with the right Team-level privileges can configure Services in Squadcast. At least one Escalation Policy must be configured before a Service can be added.
+**Note**: Only Squadcast users with the correct team-level privileges can configure services in Squadcast. At least one escalation policy must be configured before a service can be added.
 
 ### Squadcast
 
