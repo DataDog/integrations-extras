@@ -15,7 +15,7 @@ Connect Squadcast to Datadog in order to:
 
 Follow these steps in Squadcast:
 
-1. Choose the **Team** from the Team-picker on the top.
+1. Choose the **Team** from the team-picker on the top.
 
 2. Open the **Services** page from the primary navigation bar on the left.
 
