@@ -19,7 +19,7 @@ Follow these steps in Squadcast:
 
 2. Open the **Services** page from the primary navigation bar on the left.
 
-3. Choose an existing Service, or create a new Service by clicking on Add Service.
+3. Choose an existing service, or create a new service by clicking on **Add Service**.
 
 4. Click on **Alert Sources** and select **Datadog** from the drop-down.
 
