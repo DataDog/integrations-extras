@@ -39,7 +39,7 @@ Follow these steps in Datadog:
 
 5. (a) Give the Webhook a name in the **Name** field.
 
-   (b) Paste the **Datadog Webhook URL** provided by Squadcast in the URL field.
+   (b) Paste the **Datadog Webhook URL** provided by Squadcast in the **URL** field.
 
    (c) Copy-paste the following JSON in the text box under the **Payload** section.
     
