@@ -39,8 +39,8 @@ class NextcloudCheck(AgentCheck):
         {"name": "database_version", "json_path": "server.database.version"},
     ]
 
-    def check(self, instance):
-        url = instance['url']
+    def check(self, _):
+        url = self.instance['url']
 
         try:
             self.log.debug("Checking against %s", url)
