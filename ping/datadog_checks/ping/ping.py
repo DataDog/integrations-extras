@@ -16,7 +16,7 @@ class PingCheck(AgentCheck):
         # Fetches the conf
         timeout = int(instance.get("timeout", 4))
         response_time = instance.get("collect_response_time", False)
-        custom_tags = instance.get("tags", [])
+        custom_tags = instance.get("tags", ['foo:bar'])
 
         host = instance.get("host", None)
         if host is None:
