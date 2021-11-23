@@ -75,6 +75,6 @@ Read more about this integration in our [blog post][6].
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://manage.auth0.com
-[4]: https://app.datadoghq.com/account/settings#api
+[4]: https://app.datadoghq.com/organization-settings/api-keys
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
 [6]: https://www.datadoghq.com/blog/monitor-auth0-with-datadog/

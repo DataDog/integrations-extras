@@ -37,7 +37,7 @@ The RBLTracker check does not include any service checks.
 Need help? Contact [Datadog support][5].
 
 [1]: https://rbltracker.com
-[2]: https://app.datadoghq.com/account/settings#api
+[2]: https://app.datadoghq.com/organization-settings/api-keys
 [3]: https://rbltracker.com/docs/adding-a-datadog-contact-type
 [4]: https://docs.datadoghq.com/events/
 [5]: https://docs.datadoghq.com/help/

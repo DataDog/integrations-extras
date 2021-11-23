@@ -4,7 +4,7 @@
   "manifest_version": "1.0.0",
   "name": "tidb",
   "metric_prefix": "tidb_cluster",
-  "metric_to_check": "tidb_cluster.tidb.server_connections",
+  "metric_to_check": "tidb_cluster.tidb_executor_statement_total",
   "creates_events": false,
   "short_description": "The integration for TiDB cluster",
   "guid": "4b34acac-39ce-4ec4-9329-c68cc4e61279",
@@ -29,10 +29,10 @@
       "spec": "assets/configuration/spec.yaml"
     },
     "dashboards": {
-      "overview":"assets/dashboards/one-screen-overview.json"
+      "overview": "assets/dashboards/one-screen-overview.json",
+      "TiDB Overview": "assets/dashboards/overview.json"
     },
-    "monitors": {
-    },
+    "monitors": {},
     "saved_views": {},
     "service_checks": "assets/service_checks.json",
     "logs": {

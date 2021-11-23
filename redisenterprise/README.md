@@ -23,13 +23,16 @@ Redis Enterprise's Datadog integration provides a templated view across your clu
 #### Redis on Flash
 ![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/ROF_dashboard.png)
 
+#### Active/Active Redis
+![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/active_active_dashboard.png)
+
 #### Redis Enterprise Events
 ![events](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/events.png)
 
 
 ### Provider
 
-![dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/redislabs-logo.png)
+![provider](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/logo-redis.png)
 
 This integration is provided by Redis Labs.
 
@@ -84,7 +87,7 @@ Users can be configured according to the [documentation][8].
 
 ### Metrics
 
-See [metadata.csv][9] for a list of metrics provided by this integration and the description of each.
+See [metadata.csv][9] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -112,7 +115,7 @@ All [Redis Enterprise events][10] are collected.
 
 ## Troubleshooting
 
-Contact the [Redis Enterprise Support Team][11]
+Contact the [Redis Field Engineering Team][11].
 
 
 [1]: http://www.redislabs.com
@@ -125,4 +128,4 @@ Contact the [Redis Enterprise Support Team][11]
 [8]: https://docs.redislabs.com/latest/rc/security/database-security/passwords-users-roles/
 [9]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/metadata.csv
 [10]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
-[11]: https://redislabs.com/deployment/support/
+[11]: mailto:redis.observability@redis.com?subject=Datadog%20Integration%20Support

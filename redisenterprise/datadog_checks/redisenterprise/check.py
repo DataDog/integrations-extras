@@ -59,7 +59,7 @@ class RedisenterpriseCheck(AgentCheck):
                 service_check_tags.append('redis_cluster:{}'.format(fqdn))
 
                 # collect the license data
-                fqdn = self._get_license(host, port, service_check_tags)
+                self._get_license(host, port, service_check_tags)
 
                 # collect the node data
                 self._get_nodes(host, port, service_check_tags)
@@ -70,7 +70,11 @@ class RedisenterpriseCheck(AgentCheck):
                 self._shard_usage(bdb_dict, service_check_tags, host)
 
                 # collect the events from the API - we set the timeout higher here
-                self._get_events(host, port, bdb_dict, service_check_tags, event_limit)
+                self._get_events(host, port, username, password, bdb_dict, service_check_tags, event_limit)
+
+                # if there are bdbs with crdt collect those stats
+                for j in [k for k, v in bdb_dict.items() if v['crdt']]:
+                    self._get_crdt_stats(host, port, j, bdb_dict, service_check_tags)
 
                 # update the timestamp if everything else passes
                 self.last_timestamp_seen = datetime.utcnow()
@@ -116,7 +120,7 @@ class RedisenterpriseCheck(AgentCheck):
         """ Get a Python dictionary back from a Redis Enterprise endpoint """
         headers_sent = {'Content-Type': 'application/json'}
         url = 'https://{}:{}/v1/{}'.format(host, port, endpoint)
-        r = self.http.get(url, extra_headers=headers_sent)
+        r = self.http.get(url, extra_headers=headers_sent, params=params)
         if r.status_code != 200:
             msg = "unexpected status of {0} when fetching stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
@@ -156,21 +160,22 @@ class RedisenterpriseCheck(AgentCheck):
                 'name': i['name'],
                 'limit': i['memory_size'],
                 'shards_used': shards_used,
+                'crdt': i['crdt'],
                 'endpoints': len(i['endpoints'][-1]['addr']),
             }
         return bdb_dict
 
-    def _get_events(self, host, port, bdb_dict, service_check_tags, event_limit):
+    def _get_events(self, host, port, username, password, bdb_dict, service_check_tags, event_limit):
         """Scrape the LOG endpoint and put all log entries into Datadog events"""
-        evnts = self._api_fetch_json(
-            "logs",
-            service_check_tags,
-            params={
-                "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                "order": "desc",
-                "limit": event_limit,
-            },
-        )
+
+        p = {
+            "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "order": "desc",
+            "limit": event_limit,
+        }
+
+        evnts = self._api_fetch_json("logs", service_check_tags, params=p)
+
         for evnt in evnts:
             msg = {k: v for k, v in evnt.items() if k not in ['time', 'severity']}
             self.event(
@@ -190,6 +195,36 @@ class RedisenterpriseCheck(AgentCheck):
             ts = datetime.strptime(evnt['time'], "%Y-%m-%dT%H:%M:%SZ")
             if ts > self.last_event_timestamp_seen:
                 self.last_event_timestamp_seen = ts + timedelta(0, 1)
+
+    def _get_crdt_stats(self, host, port, bdb, bdb_dict, service_check_tags):
+        """Collect CRDT stats from the BDB endpoint"""
+        crdt_stats = {
+            "egress_bytes": "crdt_egress_bytes",
+            "egress_bytes_decompressed": "crdt_egress_bytes_decompressed",
+            "ingress_bytes": "crdt_ingress_bytes",
+            "ingress_bytes_decompressed": "crdt_ingress_bytes_decompressed",
+            "local_ingress_lag_time": "crdt_local_lag",
+            "pending_local_writes_max": "crdt_pending_max",
+            "pending_local_writes_min": "crdt_pending_min",
+        }
+
+        params = {
+            "stime": self.last_event_timestamp_seen.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "interval": "10sec",
+        }
+        peer_stats = self._api_fetch_json('bdbs/{}/peer_stats'.format(bdb), service_check_tags, params=params)
+        for z in peer_stats['peer_stats']:
+            tgs = []
+            tgs.append('database:{}'.format(bdb_dict[int(bdb)]['name']))
+            for k, v in crdt_stats.items():
+                try:
+                    self.gauge(
+                        'redis_enterprise.{}'.format(v),
+                        z['intervals'][-1][k],
+                        tags=tgs + ['crdt_peerid:{}'.format(z.get('uid'))] + service_check_tags,
+                    )
+                except Exception as e:
+                    self.log.debug(str(e))
 
     def _get_bdb_stats(self, host, port, bdb_dict, service_check_tags):
         """Collect Enterprise database related stats"""

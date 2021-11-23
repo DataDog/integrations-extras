@@ -103,7 +103,7 @@ Need help? Contact [Datadog support][15].
 [7]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/aqua/datadog_checks/aqua/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
-[10]: https://app.datadoghq.com/account/settings#api
+[10]: https://app.datadoghq.com/organization-settings/api-keys
 [11]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/#log-collection
 [12]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/#create-manifest
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
