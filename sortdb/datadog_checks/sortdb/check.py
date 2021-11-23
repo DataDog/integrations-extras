@@ -4,7 +4,6 @@
 import time
 from hashlib import md5
 
-import requests
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 from simplejson import JSONDecodeError
 from six import iteritems
@@ -76,7 +75,7 @@ class SortdbCheck(AgentCheck):
         self.log.debug('Sending request to "%s"', url)
 
         try:
-            response = requests.get(url, timeout=timeout)
+            response = self.http.get(url)
             response.raise_for_status()
             response = response.json()
 
