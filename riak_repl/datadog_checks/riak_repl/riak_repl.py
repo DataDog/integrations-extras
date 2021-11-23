@@ -1,7 +1,7 @@
 import json
 import unicodedata
 
-import requests
+from requests.exceptions import ConnectionError, Timeout
 from six import iteritems
 
 from datadog_checks.base import AgentCheck
@@ -61,18 +61,16 @@ class RiakReplCheck(AgentCheck):
     def check(self, instance):
         url = instance.get('url', '')
         connected_clusters = instance.get('connected_clusters', '')
-        default_timeout = instance.get('default_timeout', 5)
-        timeout = float(instance.get('timeout', default_timeout))
         tags = instance.get('tags', [])
 
         if not url:
             raise CheckException("Configuration error, please fix conf.yaml")
 
         try:
-            r = requests.get(url, timeout=timeout)
-        except requests.exceptions.Timeout:
-            raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
-        except requests.exceptions.ConnectionError as e:
+            r = self.http.get(url)
+        except Timeout:
+            raise CheckException('URL: {} timed out after {} seconds.'.format(url, self.http.options['timeout']))
+        except ConnectionError as e:
             raise CheckException(e)
 
         if r.status_code != 200:
