@@ -1,1 +1,991 @@
-{"title":"Redis Enterprise Database Overview","description":"## Redis Enteprise Database Overview\n\nThis is the top level databse view recommended for day to day use\n\n- [More Information](https://developer.redis.com/explore/datadog/)\n","widgets":[{"id":464394517387450,"definition":{"title":"Redis Enterprise","type":"group","show_title":true,"layout_type":"ordered","widgets":[{"id":7865116353398980,"definition":{"type":"image","url":"https://redis.com/wp-content/uploads/2020/06/blog-featured-image-redis-enterprise-1200x1000-1-1024x853.jpg","sizing":"contain","margin":"md","has_background":false,"has_border":false,"vertical_align":"center","horizontal_align":"center"},"layout":{"x":0,"y":0,"width":2,"height":2}},{"id":4159865936264448,"definition":{"type":"note","content":"[Redis Enterprise](https://redis.com/redis-enterprise-software/overview/) Dashboard\n\n[Integration Details](https://developer.redis.com/explore/datadog/)","background_color":"white","font_size":"16","text_align":"left","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":2,"y":0,"width":2,"height":2}}]},"layout":{"x":0,"y":0,"width":4,"height":3}},{"id":8445249221203396,"definition":{"title":"Overview","type":"group","show_title":true,"layout_type":"ordered","widgets":[{"id":4007588257006042,"definition":{"type":"note","content":"$redis_cluster  \n\n$database","background_color":"white","font_size":"12","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":0,"y":0,"width":3,"height":1}},{"id":6718977010234586,"definition":{"title":"Ops/Second","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"response_format":"scalar","queries":[{"name":"query1","data_source":"metrics","query":"avg:redisenterprise.total_req{$redis_cluster,$database}","aggregator":"avg"}],"conditional_formats":[{"comparator":"<","palette":"white_on_yellow","value":0.0001},{"comparator":">","palette":"white_on_green","value":0}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"precision":2},"layout":{"x":3,"y":0,"width":3,"height":1}},{"id":1709930576568328,"definition":{"title":"Latency (avg)","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"response_format":"scalar","queries":[{"name":"query1","data_source":"metrics","query":"avg:redisenterprise.avg_latency{$redis_cluster,$database}","aggregator":"avg"}],"conditional_formats":[{"comparator":">","palette":"white_on_red","value":1000000},{"comparator":">=","palette":"white_on_yellow","value":500000},{"comparator":"<","palette":"white_on_green","value":500000}],"formulas":[{"formula":"query1"}]}],"autoscale":false,"custom_unit":"μs","precision":0},"layout":{"x":6,"y":0,"width":2,"height":1}},{"id":4434723027607302,"definition":{"title":"Connections","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"response_format":"scalar","queries":[{"name":"query1","data_source":"metrics","query":"avg:redisenterprise.conns{$redis_cluster,$database}","aggregator":"avg"}],"conditional_formats":[{"comparator":">","palette":"white_on_red","value":5000},{"comparator":">=","palette":"white_on_yellow","value":1000},{"comparator":"<","palette":"white_on_green","value":999}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"precision":0},"layout":{"x":0,"y":1,"width":3,"height":1}},{"id":3447422080334292,"definition":{"title":"Cache Hit Rate","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"response_format":"scalar","queries":[{"name":"query1","data_source":"metrics","query":"avg:redisenterprise.cache_hit_rate{$redis_cluster,$database}","aggregator":"avg"}],"conditional_formats":[{"comparator":">","palette":"white_on_green","value":0}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"custom_unit":"%","precision":2},"layout":{"x":3,"y":1,"width":3,"height":1}},{"id":6579694331164554,"definition":{"title":"Used Memory","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"response_format":"scalar","queries":[{"name":"query1","data_source":"metrics","query":"avg:redisenterprise.used_memory_percent{$redis_cluster,$database}","aggregator":"avg"}],"conditional_formats":[{"comparator":"<","palette":"white_on_green","value":85},{"comparator":">","palette":"white_on_yellow","value":85},{"comparator":">","palette":"white_on_red","value":95}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"custom_unit":"%","precision":2},"layout":{"x":6,"y":1,"width":2,"height":1}}]},"layout":{"x":4,"y":0,"width":8,"height":3}},{"id":4191747858729364,"definition":{"title":"Capacity","type":"group","background_color":"vivid_orange","show_title":true,"layout_type":"ordered","widgets":[{"id":4755660634523384,"definition":{"title":"Key Count","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"keys","formula":"query1"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.no_of_keys{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":6434438502955720,"definition":{"title":"Memory Usage","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"memory_limit","formula":"query1"},{"alias":"used_memory","formula":"query2"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.memory_limit{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.used_memory{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":2,"width":6,"height":2}},{"id":6638260064701286,"definition":{"title":"Percentages","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"hit_rate","formula":"query1"},{"alias":"memory_usage","formula":"query2"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.used_memory_percent{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":4,"width":6,"height":2}},{"id":3210785924547114,"definition":{"title":"Cache Pressure","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"evictions","formula":"query1"},{"alias":"expirations","formula":"query2"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.evicted_objects{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.expired_objects{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":6,"width":6,"height":2}}]},"layout":{"x":0,"y":0,"width":6,"height":10}},{"id":4357513555546578,"definition":{"title":"Latency","type":"group","background_color":"vivid_blue","show_title":true,"layout_type":"ordered","widgets":[{"id":1934007142538980,"definition":{"title":"Latency(μs)","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"latency","formula":"query1"},{"alias":"read latency","formula":"query2"},{"alias":"write latency","formula":"query3"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.avg_latency{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.avg_read_latency{$redis_cluster,$database}"},{"data_source":"metrics","name":"query3","query":"sum:redisenterprise.avg_write_latency{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":0,"width":6,"height":2}}]},"layout":{"x":6,"y":0,"width":6,"height":3}},{"id":2834337360547440,"definition":{"title":"Throughput","type":"group","background_color":"vivid_green","show_title":true,"layout_type":"ordered","widgets":[{"id":4258499768048282,"definition":{"title":"Ops/Second","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"total","formula":"query1"},{"alias":"read","formula":"query2"},{"alias":"write","formula":"query3"},{"alias":"other","formula":"query4"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.total_req{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.read_req{$redis_cluster,$database}"},{"data_source":"metrics","name":"query3","query":"sum:redisenterprise.write_req{$redis_cluster,$database}"},{"data_source":"metrics","name":"query4","query":"sum:redisenterprise.other_req{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":1624135731960554,"definition":{"title":"Network Traffic","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"ingress","formula":"query1"},{"alias":"egress","formula":"query2"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.ingress_bytes{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.egress_bytes{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":2,"width":6,"height":2}},{"id":6780601534821902,"definition":{"title":"Cache","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"read_hits","formula":"query1"},{"alias":"read_misses","formula":"query2"},{"alias":"write_hits","formula":"query3"},{"alias":"write_misses","formula":"query4"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:redisenterprise.read_hits{$redis_cluster,$database}"},{"data_source":"metrics","name":"query2","query":"sum:redisenterprise.read_misses{$redis_cluster,$database}"},{"data_source":"metrics","name":"query3","query":"sum:redisenterprise.write_hits{$redis_cluster,$database}"},{"data_source":"metrics","name":"query4","query":"sum:redisenterprise.write_misses{$redis_cluster,$database}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"scale":"linear","include_zero":true,"label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":0,"y":4,"width":6,"height":2}}]},"layout":{"x":6,"y":3,"width":6,"height":7}}],"template_variables":[{"name":"redis_cluster","default":"*","prefix":"redis_cluster","available_values":[]},{"name":"database","default":"*","prefix":"database","available_values":[]}],"layout_type":"ordered","is_read_only":false,"notify_list":[],"reflow_type":"fixed","id":"7m3-5r4-6zm"}
+{
+    "title": "Redis Enterprise Database Overview",
+    "description": "## Redis Enteprise Database Overview\n\nThis is the top level databse view recommended for day to day use\n\n- [More Information](https://developer.redis.com/explore/datadog/)\n",
+    "widgets": [
+        {
+            "id": 464394517387450,
+            "definition": {
+                "title": "Redis Enterprise",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 7865116353398980,
+                        "definition": {
+                            "type": "image",
+                            "url": "https://redis.com/wp-content/uploads/2020/06/blog-featured-image-redis-enterprise-1200x1000-1-1024x853.jpg",
+                            "sizing": "contain",
+                            "margin": "md",
+                            "has_background": false,
+                            "has_border": false,
+                            "vertical_align": "center",
+                            "horizontal_align": "center"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4159865936264448,
+                        "definition": {
+                            "type": "note",
+                            "content": "[Redis Enterprise](https://redis.com/redis-enterprise-software/overview/) Dashboard\n\n[Integration Details](https://developer.redis.com/explore/datadog/)",
+                            "background_color": "white",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 3
+            }
+        },
+        {
+            "id": 8445249221203396,
+            "definition": {
+                "title": "Overview",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 4007588257006042,
+                        "definition": {
+                            "type": "note",
+                            "content": "$redis_cluster  \n\n$database",
+                            "background_color": "white",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 6718977010234586,
+                        "definition": {
+                            "title": "Ops/Second",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:redisenterprise.total_req{$redis_cluster,$database}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_yellow",
+                                            "value": 0.0001
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 0,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 1709930576568328,
+                        "definition": {
+                            "title": "Latency (avg)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:redisenterprise.avg_latency{$redis_cluster,$database}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 1000000
+                                        },
+                                        {
+                                            "comparator": ">=",
+                                            "palette": "white_on_yellow",
+                                            "value": 500000
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 500000
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": false,
+                            "custom_unit": "\u03bcs",
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4434723027607302,
+                        "definition": {
+                            "title": "Connections",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:redisenterprise.conns{$redis_cluster,$database}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 5000
+                                        },
+                                        {
+                                            "comparator": ">=",
+                                            "palette": "white_on_yellow",
+                                            "value": 1000
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 999
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 3447422080334292,
+                        "definition": {
+                            "title": "Cache Hit Rate",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:redisenterprise.cache_hit_rate{$redis_cluster,$database}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "%",
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 1,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 6579694331164554,
+                        "definition": {
+                            "title": "Used Memory",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:redisenterprise.used_memory_percent{$redis_cluster,$database}",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 85
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_yellow",
+                                            "value": 85
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 95
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "%",
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 1,
+                            "width": 2,
+                            "height": 1
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 8,
+                "height": 3
+            }
+        },
+        {
+            "id": 4191747858729364,
+            "definition": {
+                "title": "Capacity",
+                "type": "group",
+                "background_color": "vivid_orange",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 4755660634523384,
+                        "definition": {
+                            "title": "Key Count",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "keys",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.no_of_keys{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 6434438502955720,
+                        "definition": {
+                            "title": "Memory Usage",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "memory_limit",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "used_memory",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.memory_limit{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.used_memory{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 6638260064701286,
+                        "definition": {
+                            "title": "Percentages",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "hit_rate",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "memory_usage",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.cache_hit_rate{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.used_memory_percent{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 4,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 3210785924547114,
+                        "definition": {
+                            "title": "Cache Pressure",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "evictions",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "expirations",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.evicted_objects{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.expired_objects{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 6,
+                            "width": 6,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 10
+            }
+        },
+        {
+            "id": 4357513555546578,
+            "definition": {
+                "title": "Latency",
+                "type": "group",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 1934007142538980,
+                        "definition": {
+                            "title": "Latency(\u03bcs)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "latency",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "read latency",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "write latency",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.avg_latency{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.avg_read_latency{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "sum:redisenterprise.avg_write_latency{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
+            }
+        },
+        {
+            "id": 2834337360547440,
+            "definition": {
+                "title": "Throughput",
+                "type": "group",
+                "background_color": "vivid_green",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 4258499768048282,
+                        "definition": {
+                            "title": "Ops/Second",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "total",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "read",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "write",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "other",
+                                            "formula": "query4"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.total_req{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.read_req{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "sum:redisenterprise.write_req{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "query": "sum:redisenterprise.other_req{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1624135731960554,
+                        "definition": {
+                            "title": "Network Traffic",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "ingress",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "egress",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.ingress_bytes{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.egress_bytes{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 6780601534821902,
+                        "definition": {
+                            "title": "Cache",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "read_hits",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "read_misses",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "write_hits",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "write_misses",
+                                            "formula": "query4"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:redisenterprise.read_hits{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:redisenterprise.read_misses{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "sum:redisenterprise.write_hits{$redis_cluster,$database}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "query": "sum:redisenterprise.write_misses{$redis_cluster,$database}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "scale": "linear",
+                                "include_zero": true,
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 4,
+                            "width": 6,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 3,
+                "width": 6,
+                "height": 7
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "redis_cluster",
+            "default": "*",
+            "prefix": "redis_cluster",
+            "available_values": []
+        },
+        {
+            "name": "database",
+            "default": "*",
+            "prefix": "database",
+            "available_values": []
+        }
+    ],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "7m3-5r4-6zm"
+}
