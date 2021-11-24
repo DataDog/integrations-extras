@@ -1,356 +1,484 @@
 {
     "title": "Redis Enterprise Active/Active Statistics",
-    "description": "",
+    "description": "## Redis Enteprise Active/Active\n\nThis is the view of the CRDB stats\n\n- [More Information](https://developer.redis.com/explore/datadog/)",
     "widgets": [
         {
-            "id": 7244515742318636,
+            "id": 464394517387450,
             "definition": {
-                "title": "Database Writes",
-                "title_size": "16",
-                "title_align": "left",
-                "type": "query_value",
-                "requests": [
+                "title": "Redis Enterprise",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "response_format": "scalar",
-                        "queries": [
-                            {
-                                "query": "max:redisenterprise.write_req{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1",
-                                "aggregator": "avg"
-                            }
-                        ]
+                        "id": 7865116353398980,
+                        "definition": {
+                            "type": "image",
+                            "url": "https://redis.com/wp-content/uploads/2020/06/blog-featured-image-redis-enterprise-1200x1000-1-1024x853.jpg",
+                            "sizing": "contain",
+                            "margin": "md",
+                            "has_background": false,
+                            "has_border": false,
+                            "vertical_align": "center",
+                            "horizontal_align": "center"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4159865936264448,
+                        "definition": {
+                            "type": "note",
+                            "content": "[Redis Enterprise](https://redis.com/redis-enterprise-software/overview/) Dashboard\n\n[Integration Details](https://developer.redis.com/explore/datadog/)",
+                            "background_color": "white",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
                     }
-                ],
-                "autoscale": true,
-                "custom_unit": "Writes/Sec",
-                "precision": 2
+                ]
             },
             "layout": {
                 "x": 0,
                 "y": 0,
                 "width": 4,
-                "height": 2
+                "height": 3
             }
         },
         {
-            "id": 8064125873915574,
+            "id": 8445249221203396,
             "definition": {
-                "title": "Local Lag",
-                "title_size": "16",
-                "title_align": "left",
-                "type": "query_value",
-                "requests": [
+                "title": "Licensing",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "response_format": "scalar",
-                        "queries": [
-                            {
-                                "query": "max:redis_enterprise.crdt_local_lag{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1",
-                                "aggregator": "avg"
-                            }
-                        ]
+                        "id": 4007588257006042,
+                        "definition": {
+                            "type": "note",
+                            "content": "$redis_cluster  \n",
+                            "background_color": "white",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4722854379405720,
+                        "definition": {
+                            "title": "Database Writes",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.write_req{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4434723027607302,
+                        "definition": {
+                            "title": "Local Lag",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redis_enterprise.crdt_local_lag{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "(s)",
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4062422926924300,
+                        "definition": {
+                            "title": "Max Pending Writes",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redis_enterprise.crdt_pending_max{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 1,
+                            "width": 4,
+                            "height": 1
+                        }
                     }
-                ],
-                "autoscale": true,
-                "custom_unit": "(s)",
-                "precision": 2
+                ]
             },
             "layout": {
                 "x": 4,
                 "y": 0,
-                "width": 4,
-                "height": 2
+                "width": 8,
+                "height": 3
             }
         },
         {
-            "id": 4930102061895642,
+            "id": 4357513555546578,
             "definition": {
-                "title": "Pending Writes",
-                "title_size": "16",
-                "title_align": "left",
-                "type": "query_value",
-                "requests": [
+                "title": "Throughput",
+                "type": "group",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "response_format": "scalar",
-                        "queries": [
-                            {
-                                "query": "avg:redis_enterprise.crdt_pending_max{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1",
-                                "aggregator": "avg"
-                            }
-                        ]
+                        "id": 1436751654791658,
+                        "definition": {
+                            "title": "Local Lag (s)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Lag",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_local_lag{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 509966101319288,
+                        "definition": {
+                            "title": "Pending Writes",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Writes",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_pending_max{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 2
+                        }
                     }
-                ],
-                "autoscale": true,
-                "precision": 2
+                ]
             },
             "layout": {
-                "x": 8,
+                "x": 0,
                 "y": 0,
-                "width": 4,
-                "height": 2
-            }
-        },
-        {
-            "id": 2808234328082964,
-            "definition": {
-                "title": "Local Lag",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "queries": [
-                            {
-                                "query": "avg:redis_enterprise.crdt_local_lag{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1"
-                            }
-                        ],
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "scale": "linear",
-                    "label": "",
-                    "min": "auto",
-                    "max": "auto"
-                },
-                "markers": []
-            },
-            "layout": {
-                "x": 0,
-                "y": 2,
                 "width": 6,
-                "height": 2
+                "height": 5
             }
         },
         {
-            "id": 48958138923992,
+            "id": 5739786900826056,
             "definition": {
-                "title": "Pending Writes",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
+                "title": "Network",
+                "type": "group",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "formulas": [
-                            {
-                                "formula": "query1"
+                        "id": 7246016026779132,
+                        "definition": {
+                            "title": "Network Compressed",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "egress",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "ingress",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_egress_bytes{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        },
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_ingress_bytes{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
                             },
-                            {
-                                "formula": "query2"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "queries": [
-                            {
-                                "query": "avg:redis_enterprise.crdt_pending_max{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1"
-                            },
-                            {
-                                "query": "avg:redis_enterprise.crdt_pending_max{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query2"
-                            }
-                        ],
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
+                            "markers": []
                         },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "scale": "linear",
-                    "label": "",
-                    "min": "auto",
-                    "max": "auto"
-                },
-                "markers": []
-            },
-            "layout": {
-                "x": 6,
-                "y": 2,
-                "width": 6,
-                "height": 2
-            }
-        },
-        {
-            "id": 7100524991676140,
-            "definition": {
-                "title": "Network Compressed",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
+                    },
                     {
-                        "formulas": [
-                            {
-                                "formula": "query1"
+                        "id": 1934007142538980,
+                        "definition": {
+                            "title": "Network Uncompressed",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "egress",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "ingress",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_egress_bytes_decompressed{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        },
+                                        {
+                                            "query": "sum:redis_enterprise.crdt_ingress_bytes_decompressed{$redis_cluster,$database}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
                             },
-                            {
-                                "formula": "query2"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "queries": [
-                            {
-                                "query": "avg:redis_enterprise.crdt_egress_bytes{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1"
-                            },
-                            {
-                                "query": "avg:redis_enterprise.crdt_ingress_bytes{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query2"
-                            }
-                        ],
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
+                            "markers": []
                         },
-                        "display_type": "line"
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 2
+                        }
                     }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "scale": "linear",
-                    "label": "",
-                    "min": "auto",
-                    "max": "auto"
-                },
-                "markers": []
-            },
-            "layout": {
-                "x": 0,
-                "y": 4,
-                "width": 6,
-                "height": 2
-            }
-        },
-        {
-            "id": 6638692307842618,
-            "definition": {
-                "title": "Network Uncompressed",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            },
-                            {
-                                "formula": "query2"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "queries": [
-                            {
-                                "query": "avg:redis_enterprise.crdt_egress_bytes_decompressed{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query1"
-                            },
-                            {
-                                "query": "avg:redis_enterprise.crdt_ingress_bytes_decompressed{$redis_cluster,$database}",
-                                "data_source": "metrics",
-                                "name": "query2"
-                            }
-                        ],
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "line"
-                    }
-                ],
-                "yaxis": {
-                    "include_zero": true,
-                    "scale": "linear",
-                    "label": "",
-                    "min": "auto",
-                    "max": "auto"
-                },
-                "markers": []
+                ]
             },
             "layout": {
                 "x": 6,
-                "y": 4,
+                "y": 0,
                 "width": 6,
-                "height": 2
+                "height": 5
             }
         }
     ],
@@ -372,5 +500,5 @@
     "is_read_only": false,
     "notify_list": [],
     "reflow_type": "fixed",
-    "id": "wks-dic-mn9"
+    "id": "3qi-dq6-ifv"
 }
