@@ -1,13 +1,5 @@
 # CHANGELOG - RedisEnterprise
 
-1.1.1
-=====
-
-### Dashboard improvements
-
-* [Feature] Update dashboards to the newer style
-
-
 1.1.0
 =====
 
