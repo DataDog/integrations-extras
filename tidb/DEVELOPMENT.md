@@ -30,6 +30,7 @@
    - Build, install, and uninstall TiDB integration:
    
      ```shell
+     ddev clean tidb
      ddev release build tidb
      sudo datadog-agent integration install -w /path/to/wheel.whl
      sudo datadog-agent integration remove datadog-tidb
