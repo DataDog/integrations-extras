@@ -11,7 +11,7 @@ Connect [TiDB][1] cluster to Datadog in order to:
 > **Note:** 
 >
 > - TiDB 4.0+ is required for this integration. 
-> - Integration of TiDB Cloud with Datadog is not available now.
+> - For TiDB Cloud, please refer to [TiDB Cloud Integration][12].
 
 ## Setup
 
@@ -20,8 +20,6 @@ Connect [TiDB][1] cluster to Datadog in order to:
 First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
-
-#### Host
 
 Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
 
@@ -181,3 +179,4 @@ Need help? Contact [Datadog support][7].
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
+[12]: https://docs.datadoghq.com/integrations/tidb_cloud/
