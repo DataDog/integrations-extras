@@ -18,7 +18,7 @@ Here's all that you can do with LambdaTest:
 
 ## Setup
 
-All configuration happens on Lambdatest Dashboard. Find details on how to set it up in the [LambdaTest-Datadog integration Documentation][3]
+All configuration happens on Lambdatest Dashboard. Find details on how to set it up in the [LambdaTest-Datadog integration Documentation][1]
 
 ### Configuration
 Here’s how you can track incidents in DataDog with LambdaTest
