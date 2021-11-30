@@ -38,3 +38,34 @@ services:
     depends_on:
       - "tikv"
     restart: on-failure
+  tiflash:
+    image: pingcap/tiflash:v5.1.2
+    volumes:
+      - ./tiflash.toml:/tiflash.toml:ro
+    ports:
+      - "9000:9000"
+      - "8123:8123"
+      - "8234:8234"
+      - "3930:3930"
+      - "20170:20170"
+      - "20292:20292"
+    command:
+      - --config=/tiflash.toml
+    depends_on:
+      - "tikv"
+      - "tidb"
+    restart: on-failure
+  error-metric-trigger:
+    image: mysql:8.0.27
+    command:
+      - mysql
+      - -uroot
+      - -htidb
+      - -P4000
+      - -e
+      - "select * from foo.bar;"
+    depends_on:
+      - "tikv"
+      - "tidb"
+      - "tiflash"
+    restart: on-failure

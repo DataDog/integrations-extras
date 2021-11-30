@@ -28,9 +28,7 @@ class TiDBCheck(OpenMetricsBaseCheck):
                 "pd",
                 {
                     'pd_metric_url': 'http://localhost:2379/metrics',
-                    'metrics': TIDB_METRICS
-                    + TIFLASH_METRICS
-                    + TIKV_METRICS,
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
                 },
             )
         }

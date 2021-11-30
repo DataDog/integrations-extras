@@ -4,7 +4,7 @@ import pytest
 from datadog_checks.base.utils.tagging import GENERIC_TAGS
 from datadog_checks.tidb import TiDBCheck
 
-from .conftest import EXPECTED_PD, EXPECTED_TIDB, EXPECTED_TIKV
+from .expected import EXPECTED_TIDB, EXPECTED_TIFLASH, EXPECTED_TIFLASH_PROXY, EXPECTED_TIKV
 
 
 @pytest.mark.unit
@@ -25,9 +25,15 @@ def test_tidb_mock_metrics(aggregator, mock_tidb_metrics, tidb_instance):
 
 
 @pytest.mark.unit
-def test_pd_mock_metrics(aggregator, mock_pd_metrics, pd_instance):
-    check = TiDBCheck("test_pd_mock_metrics", {}, [pd_instance])
-    _check_and_assert(aggregator, EXPECTED_PD, check)
+def test_tiflash_mock_metrics(aggregator, mock_tiflash_metrics, tiflash_instance):
+    check = TiDBCheck("test_tiflash_mock_metrics", {}, [tiflash_instance])
+    _check_and_assert(aggregator, EXPECTED_TIFLASH, check)
+
+
+@pytest.mark.unit
+def test_tiflash_proxy_mock_metrics(aggregator, mock_tiflash_proxy_metrics, tiflash_proxy_instance):
+    check = TiDBCheck("test_tiflash_proxy_mock_metrics", {}, [tiflash_proxy_instance])
+    _check_and_assert(aggregator, EXPECTED_TIFLASH_PROXY, check)
 
 
 @pytest.mark.unit
@@ -38,11 +44,13 @@ def test_tikv_mock_metrics(aggregator, mock_tikv_metrics, tikv_instance):
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-def test_cluster_metrics(aggregator, pd_instance, tikv_instance, tidb_instance):
+def test_cluster_metrics(aggregator, tikv_instance, tidb_instance, tiflash_instance, tiflash_proxy_instance):
     check = TiDBCheck("test_cluster_metrics", {}, [tidb_instance])
     _check_and_assert(aggregator, EXPECTED_TIDB, check)
-    check = TiDBCheck("test_cluster_metrics", {}, [pd_instance])
-    _check_and_assert(aggregator, EXPECTED_PD, check)
+    check = TiDBCheck("test_cluster_metrics", {}, [tiflash_instance])
+    _check_and_assert(aggregator, EXPECTED_TIFLASH, check)
+    check = TiDBCheck("test_cluster_metrics", {}, [tiflash_proxy_instance])
+    _check_and_assert(aggregator, EXPECTED_TIFLASH_PROXY, check)
     check = TiDBCheck("test_cluster_metrics", {}, [tikv_instance])
     _check_and_assert(aggregator, EXPECTED_TIKV, check)
 
