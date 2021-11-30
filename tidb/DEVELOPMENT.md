@@ -26,7 +26,8 @@
 
 7. Set up the manual test environment:
 
-   - Use `tiup playground --monitor=0` to start a dev TiDB cluster.
+   - CD to the `./tidb/tests/compose` directory.
+   - Use `docker-compose up` to start a dev TiDB cluster.
    - Build, install, and uninstall TiDB integration:
    
      ```shell

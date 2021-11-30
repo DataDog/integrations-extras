@@ -11,7 +11,6 @@ from .expected import EXPECTED_TIDB, EXPECTED_TIFLASH, EXPECTED_TIFLASH_PROXY, E
 def test_create_check_instance_transform(tidb_instance):
     check = TiDBCheck("test_config_transform", {}, [tidb_instance])
     assert check.instance.get('prometheus_url') == 'http://localhost:10080/metrics'
-    assert check.instance.get('namespace') == 'tidb_cluster'
     assert check.instance.get('tags') == ['tidb_cluster_name:test', 'tidb_cluster_component:tidb']
     mapper = check.instance.get('labels_mapper')
     for label in GENERIC_TAGS:

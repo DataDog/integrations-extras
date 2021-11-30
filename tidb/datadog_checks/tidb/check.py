@@ -33,4 +33,10 @@ class TiDBCheck(OpenMetricsBaseCheck):
             )
         }
 
-        super(TiDBCheck, self).__init__(name, init_config, [openmetrics_instance], default_instances=default_instances)
+        super(TiDBCheck, self).__init__(
+            name,
+            init_config,
+            [openmetrics_instance],
+            default_instances=default_instances,
+            default_namespace="tidb_cluster",
+        )
