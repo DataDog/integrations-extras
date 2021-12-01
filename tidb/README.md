@@ -37,34 +37,34 @@ Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
   instances:
   
     - pd_metric_url: http://localhost:2379/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
+        - instance:db-pd-0
   
     - tidb_metric_url: http://localhost:10080/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
+        - instance:db-tidb-0
   
     - tikv_metric_url: http://localhost:20180/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
+        - instance:db-tikv-0
   
     - tiflash_metric_url: http://localhost:8234/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
+        - instance:db-tiflash-0
   
     - tiflash_proxy_metric_url: http://localhost:20292/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
+        - instance:db-tiflash-0        
   ```
 
 3. [Restart the Agent][4].
@@ -143,16 +143,15 @@ _Available for Agent versions >6.0_
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+> It is possible to use the `metrics` config to collect more other metrics from a TiDB cluster.
+
 ### Events
 
 TiDB check does not include any events.
 
 ### Service Checks
 
-Service Checks are based on `tidb_cluster.prometheus.health` metrics. This check is controlled by the `health_service_check` config and default to `true`.
-You can modify this behavior in `tidb.yml` file.
-
-See [service_checks.json][11] for a list of service checks provided by this integration.
+TiDB check does not include any service checks.
 
 ## Troubleshooting
 
