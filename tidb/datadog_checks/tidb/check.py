@@ -30,7 +30,14 @@ class TiDBCheck(OpenMetricsBaseCheck):
                     'pd_metric_url': 'http://localhost:2379/metrics',
                     'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
                 },
-            )
+            ),
+            'tidb_cloud': build_check(
+                "pd",
+                {
+                    'pd_metric_url': 'http://localhost:2379/metrics',
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
+                },
+            ),
         }
 
         super(TiDBCheck, self).__init__(
