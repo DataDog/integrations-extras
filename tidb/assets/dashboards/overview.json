@@ -51,7 +51,6 @@
                     }
                 ],
                 "show_legend": true,
-                "time": {},
                 "title": "Queries per second",
                 "title_align": "left",
                 "title_size": "16",
@@ -79,7 +78,7 @@
                     "min",
                     "max"
                 ],
-                "legend_layout": "auto",
+                "legend_layout": "vertical",
                 "markers": [],
                 "requests": [
                     {
@@ -106,22 +105,22 @@
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
-                                "query": "avg:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance}"
+                                "query": "avg:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance,sql_type}"
                             },
                             {
                                 "data_source": "metrics",
                                 "name": "query2",
-                                "query": "p50:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance}"
+                                "query": "p50:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance,sql_type}"
                             },
                             {
                                 "data_source": "metrics",
                                 "name": "query3",
-                                "query": "p95:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance}"
+                                "query": "p95:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance,sql_type}"
                             },
                             {
                                 "data_source": "metrics",
                                 "name": "query4",
-                                "query": "p99:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance}"
+                                "query": "p99:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance,sql_type}"
                             }
                         ],
                         "response_format": "timeseries",
@@ -186,7 +185,6 @@
                     }
                 ],
                 "show_legend": true,
-                "time": {},
                 "title": "Failed queries per second",
                 "title_align": "left",
                 "title_size": "16",
@@ -297,7 +295,8 @@
                     }
                 ],
                 "show_legend": true,
-                "title": "TiDB CPU usage",
+                "time": {},
+                "title": "TiDB CPU usage (0-1 as a percent)",
                 "title_align": "left",
                 "title_size": "16",
                 "type": "timeseries",
@@ -417,7 +416,8 @@
                     }
                 ],
                 "show_legend": true,
-                "title": "TiKV CPU usage",
+                "time": {},
+                "title": "TiKV CPU usage (0-1 as a percent)",
                 "title_align": "left",
                 "title_size": "16",
                 "type": "timeseries",
@@ -537,7 +537,8 @@
                     }
                 ],
                 "show_legend": true,
-                "title": "TiFlash CPU usage",
+                "time": {},
+                "title": "TiFlash CPU usage (0-1 as a percent)",
                 "title_align": "left",
                 "title_size": "16",
                 "type": "timeseries",
