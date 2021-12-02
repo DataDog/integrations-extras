@@ -38,4 +38,4 @@ Need help? Contact [Datadog support][3].
 [2]: https://tidbcloud.com/console/preferences
 [3]: https://docs.datadoghq.com/help/
 [4]: https://docs.datadoghq.com/integrations/tidb/
-[5]: https://github.com/DataDog/integrations-extras/blob/master/tidbcloud/metadata.csv
+[5]: https://github.com/DataDog/integrations-extras/blob/master/tidb_cloud/metadata.csv
