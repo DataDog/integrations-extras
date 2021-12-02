@@ -26,7 +26,9 @@ To install the neo4j check on your host:
 
 1. Edit the `neo4j.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your neo4j performance data. See the [sample neo4j.d/conf.yaml][3] for all available configuration options.
 
-2. [Restart the Agent][4].
+2. The neo4j_url has been replaced by host. Please ensure any updates use host.
+
+3. [Restart the Agent][4].
 
 ### Validation
 
