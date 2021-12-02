@@ -11,7 +11,7 @@ Connect [TiDB][1] cluster to Datadog in order to:
 > **Note:** 
 >
 > - TiDB 4.0+ is required for this integration. 
-> - For TiDB Cloud, please refer to [TiDB Cloud Integration][12].
+> - For TiDB Cloud, refer to the [TiDB Cloud Integration][12].
 
 ## Setup
 
@@ -143,7 +143,7 @@ _Available for Agent versions >6.0_
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
-> It is possible to use the `metrics` config to collect more other metrics from a TiDB cluster.
+> It is possible to use the `metrics` config to collect other metrics from a TiDB cluster.
 
 ### Events
 

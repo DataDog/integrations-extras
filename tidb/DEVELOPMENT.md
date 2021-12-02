@@ -5,7 +5,7 @@
 > Make sure you have the latest version of `ddev` installed.
 > Check the version by running `ddev --version`.
 
-2.Install the [Datadog Agent][2].
+2. Install the [Datadog Agent][2].
 
 3. Write some code.
 
