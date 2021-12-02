@@ -36,8 +36,8 @@
      ```shell
      ddev clean tidb
      ddev release build tidb
-     sudo datadog-agent integration install -w /path/to/wheel.whl
      sudo datadog-agent integration remove datadog-tidb
+     sudo datadog-agent integration install -w /path/to/wheel.whl
      ```
      
      > Removing the integration does not remove `conf.d/tidb/*` at the same time. Remove it manually if necessary.

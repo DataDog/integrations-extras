@@ -5,6 +5,11 @@ EXPECTED_TIDB = {
             'tidb_cluster_component:tidb',
             'tidb_cluster_name:test',
         ],
+        'tidb_cluster.tidb_server_execute_error_total': [
+            'type:schema:1146',
+            'tidb_cluster_component:tidb',
+            'tidb_cluster_name:test',
+        ],
         'tidb_cluster.tidb_server_handle_query_duration_seconds.sum': [
             'sql_type:Begin',
             'tidb_cluster_component:tidb',
@@ -15,6 +20,10 @@ EXPECTED_TIDB = {
             'tidb_cluster_name:test',
         ],
         'tidb_cluster.process_cpu_seconds_total': [
+            'tidb_cluster_component:tidb',
+            'tidb_cluster_name:test',
+        ],
+        'tidb_cluster.process_resident_memory_bytes': [
             'tidb_cluster_component:tidb',
             'tidb_cluster_name:test',
         ],
@@ -50,7 +59,11 @@ EXPECTED_TIFLASH = {
 
 EXPECTED_TIFLASH_PROXY = {
     'metrics': {
-        'tidb_cluster.tiflash_cpu_seconds_total': [
+        'tidb_cluster.process_cpu_seconds_total': [
+            'tidb_cluster_component:tiflash_proxy',
+            'tidb_cluster_name:test',
+        ],
+        'tidb_cluster.process_resident_memory_bytes': [
             'tidb_cluster_component:tiflash_proxy',
             'tidb_cluster_name:test',
         ],
@@ -77,11 +90,17 @@ EXPECTED_TIKV = {
             'tidb_cluster_name:test',
             'type:available',
         ],
-        # Since this metric has random value, we can't check it.
-        'tidb_cluster.tikv_thread_cpu_seconds_total': None,
         'tidb_cluster.tikv_io_bytes': [
             'op:read',
             'type:compaction',
+            'tidb_cluster_component:tikv',
+            'tidb_cluster_name:test',
+        ],
+        'tidb_cluster.process_cpu_seconds_total': [
+            'tidb_cluster_component:tikv',
+            'tidb_cluster_name:test',
+        ],
+        'tidb_cluster.process_resident_memory_bytes': [
             'tidb_cluster_component:tikv',
             'tidb_cluster_name:test',
         ],

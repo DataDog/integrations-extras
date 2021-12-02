@@ -178,4 +178,4 @@ Need help? Contact [Datadog support][7].
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
-[12]: https://docs.datadoghq.com/integrations/tidbcloud/
+[12]: https://docs.datadoghq.com/integrations/tidb_cloud/
