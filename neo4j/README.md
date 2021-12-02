@@ -3,7 +3,7 @@
 ## Overview
 
 This check monitors [neo4j][1] through the Datadog Agent.
-Please verify the metrics and checks that are submitted through this agent. Since Neo4j 4.0 and onward supports multiple databases, some metrics and checks are no longer published.
+Metrics and checks that are submitted through this agent. Since Neo4j 4.0 and onward supports multiple databases, some metrics and checks are no longer published.
 
 ## Setup
 
@@ -40,7 +40,7 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-Service check neo4j.prometheus.health is submitted in the base check
+Service check `neo4j.prometheus.health` is submitted in the base check
 
 ### Events
 
