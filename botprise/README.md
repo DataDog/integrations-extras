@@ -6,7 +6,7 @@ Botprise's Datadog integration allows you to send generated [Botprise][7] events
 
 ## Setup
 
-To use the Botprise-Datadog integration, you must be a customer of Botprise. For more information about Botprise, visit us at [https://www.botprise.com/][10].
+To use the Botprise-Datadog integration, you must be a customer of Botprise. For more information about Botprise, see [https://www.botprise.com/][10].
 
 ### Installation
 
