@@ -25,29 +25,6 @@ Sedai is an autonomous, agentless, and configuration-free SaaS that intelligentl
 
 ## Tecnhical Documentation
 [Sedai User Guide][4]
-
-## Fulfillment Method
-Software as a Service (SaaS)
-
-## Pricing
-### Sedai Autonomous Cloud Application Management
-| Tier 	              | Features               | app instances | Lambda invocations | 1 MONTH | 12 MONTHS |
-| :----	              | :------:               | :-----------: | :----------------: | :-----: | :-------: |
-| Starter	          | Core Features          |       100     |        20M 	    |    $90  |    $900   |
-| Professional Tier 1 | Starter + Remediations |       100     |        20M 	    |   $340  |  $3,420   |
-| Professional Tier 2 | Starter + Remediations |       500     |       100M 	    | $1,300  | $13,000   |
-| Professional Tier 3 | Starter + Remediations |     2,000     |       500M 	    | $4,800  | $48,000   |
-
-### Additional usage fees
-You will be billed monthly for additional usage costs if your usage exceeds your contract. Your additional usage costs will be determined by the number of units you use above your contract.
-
-| Tier       	      | per instance/pod | per 10k invocations |
-| :---       	      | :--------------: | :-----------------: |
-| Professional Tier 1 |      $3.40       |       $0.170        |
-| Professional Tier 2 |      $2.60       |       $0.130        |
-| Professional Tier 3 |      $2.40       |       $0.096        |
-
-## Usage Information
 ### Fulfillment Options
 #### Software as a Service (SaaS)
 Software as a service is a delivery model for software applications whereby the vendor hosts and operates the application over the Internet. Customers pay for using the software without owning the underlying infrastructure. With SaaS Contracts, customers will pay for usage through their AWS bill.
