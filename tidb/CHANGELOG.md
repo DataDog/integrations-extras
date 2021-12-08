@@ -7,8 +7,6 @@
 * [Improvement] Expose the `metrics` mapper config to let users customize more metrics.
 * [Improvement] Add more tests.
 
-* [Removed] Removed useless service checks.
-
 ## 2.0.0 / 2021-Oct-13
 
 * [Added] Added a service check.
