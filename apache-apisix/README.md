@@ -2,6 +2,8 @@
 
 ## Overview
 
+Apache APISIX is a dynamic, real-time, high-performance API gateway, and it provides rich traffic management features such as load balancing, dynamic upstream, canary release, circuit breaking, authentication, observability, and more. We could use Apache APISIX to handle traditional north-south traffic, as well as east-west traffic between services. It can also be used as a k8s ingress controller.
+
 The [APISIX-Datadog plugin][1] pushes its custom metrics to the DogStatsD server, comes bundled with Datadog agent over the UDP connection. DogStatsD basically is an implementation of StatsD protocol. It collects the custom metrics for [Apache APISIX][2] agent, aggregates it into a single data point and sends it to the configured Datadog server.
 
 ## Setup
