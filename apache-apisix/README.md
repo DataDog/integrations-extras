@@ -10,7 +10,7 @@ The [APISIX-Datadog plugin][1] pushes its custom metrics to the DogStatsD server
 
 ### Installation
 
-Follow the Configuration instructions below.
+Follow the configuration instructions below.
 
 ### Configuration
 
