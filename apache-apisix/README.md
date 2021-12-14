@@ -37,7 +37,7 @@ $ docker run -d --name dogstatsd-agent -e DD_API_KEY=<Your API Key from step 2> 
 
 If you are using Kubernetes in your production environment, you can deploy `dogstatsd` as a `Daemonset` or as a `Multi-Container Pod` alongside Apache APISIX agent.
 
-4. The following is an example on how to activate the datadog plugin for a specific route. We are assuming your `dogstatsd` agent is already up an running.
+4. The following is an example on how to activate the Datadog plugin for a specific route. This assumes the `dogstatsd` agent is already up and running.
 
 ```shell
 # enable plugin for a specific route
