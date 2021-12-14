@@ -75,7 +75,7 @@ curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f13
 }'
 ```
 
-5. Please visit [Datadog Plugin][1]'s document for more custom configuration.
+5. See the [Datadog Plugin][1] documentation for additional custom configuration options.
 
 ### Validation
 
