@@ -56,7 +56,7 @@ $ curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f
 }'
 ```
 
-Now any requests to endpoint uri `/hello` will generate the above metrics and push it to local DogStatsD server of the datadog agent.
+Now any requests to endpoint URI `/hello` will generate the above metrics and push it to local DogStatsD server of the Datadog Agent.
 
 5. If we want to deactivate the plugin, simply remove the corresponding json configuration in the plugin configuration to disable the `datadog`. APISIX plugins are hot-reloaded, therefore no need to restart APISIX.
 
