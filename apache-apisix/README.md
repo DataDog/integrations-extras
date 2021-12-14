@@ -20,7 +20,7 @@ Follow the configuration instructions below.
 
 2. If you are new to Datadog:
 
-   1. First create an account by visiting www.datadoghq.com.
+   1. First, create an account by visiting the [Datadog website][8] and click on the Get Started Free button.
    2. Generate an API Key.
       ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/apache-apisix/images/screenshot_1.png)
 
