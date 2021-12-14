@@ -89,7 +89,7 @@ See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Events
 
-Apache APISIX check doesn't include any events.
+The Apache APISIX check does not include any events.
 
 ## Troubleshooting
 
