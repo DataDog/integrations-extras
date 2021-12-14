@@ -16,7 +16,7 @@ Follow the configuration instructions below.
 
 1. If you are already using Datadog and have the Datadog Agent installed, make sure port 8125/UDP is allowed through your firewall. For example, the Apache APISIX agent can reach port 8125 of the Datadog Agent. If you already have this configured, you can skip to step 3.
 
-> To learn more about how to install a full-fledged datadog agent, visit [here][3].
+> To learn more about how to install the Datadog Agent, see the [Agent documentation][3].
 
 2. If you are new to Datadog
 
