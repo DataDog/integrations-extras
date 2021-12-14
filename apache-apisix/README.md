@@ -79,7 +79,7 @@ curl http://127.0.0.1:9080/apisix/admin/routes/1 -H 'X-API-KEY: edd1c9f034335f13
 
 ### Validation
 
-Please [run the Agent's status subcommand][4] and look for `apisix` under the Checks section.
+[Run the Agent's status subcommand][4] and look for `apisix` under the Checks section.
 
 ## Data Collected
 
