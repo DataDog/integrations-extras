@@ -18,7 +18,7 @@ Follow the configuration instructions below.
 
 > To learn more about how to install the Datadog Agent, see the [Agent documentation][3].
 
-2. If you are new to Datadog
+2. If you are new to Datadog:
 
    1. First create an account by visiting www.datadoghq.com.
    2. Generate an API Key.
