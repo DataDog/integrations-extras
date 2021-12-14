@@ -106,3 +106,4 @@ Need help? Contact [Datadog support][6].
 [5]: https://github.com/DataDog/integrations-core/blob/master/apache-apisix/metadata.csv
 [6]: https://docs.datadoghq.com/help/
 [7]: https://apisix.apache.org/blog/2021/11/12/apisix-datadog
+[8]: https://www.datadoghq.com/
