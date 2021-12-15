@@ -43,6 +43,10 @@ coverage:
         target: 75
         flags:
         - filebeat
+      FoundationDB:
+        target: 75
+        flags:
+        - foundationdb
       Gatekeeper:
         target: 75
         flags:
@@ -245,6 +249,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  foundationdb:
+    carryforward: true
+    paths:
+    - foundationdb/datadog_checks/foundationdb
+    - foundationdb/tests
   gatekeeper:
     carryforward: true
     paths:

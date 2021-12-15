@@ -253,7 +253,7 @@ Federator.ai does not include any events.
 
 Need help? Read the [Federator.ai - Installation and Configuration Guide][6] or contact [Datadog support][10].
 
-[1]: https://prophetstor.com/federator-ai-2/
+[1]: https://prophetstor.com/federator_ai/
 [2]: https://youtu.be/IooFJnB8bb8
 [3]: https://github.com/DataDog/watermarkpodautoscaler
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png

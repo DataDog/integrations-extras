@@ -32,6 +32,9 @@ jobs:
       run: |
         ddev config set repos.extras .
         ddev config set repo extras
+        ddev config set orgs.ci.dd_url "https://app.datadoghq.com"
+        ddev config set org ci
+        ddev ci setup
 
     - name: Run CI validation
       run: |
