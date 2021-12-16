@@ -6,7 +6,7 @@ The data runner is trapped in an infinite library, searching for your metrics. O
 
 ### What it does
 
-Add the Data Runner widget to your dashboard, and choose a metric you want him to find. He'll run around the infinite library looking for it, and every time he finds it, the metric's value is added to your score. Leave him to run and see what you're up to at the end of the day!
+Add the Data Runner widget to your dashboard, then choose a metric you want him to find. He'll run around the infinite library looking for it, and every time he finds it the metric's value will be added to your score. Leave him to run and see what your score is at the end of the day!
 
 _Hang on, it can be any metric I feed into Datadog? So why wouldn't I just pick something with ridiculously high values?_
 
@@ -30,9 +30,9 @@ The imagery is all from the fantastic [Kenney](https://kenney.nl/assets/isometri
 
 ## Setup
 
-1. In your Datadog account, navigate to Dashboards. Select the dashboard that you would like to add the Game to, or [create a new dashboard](https://docs.datadoghq.com/dashboards/#new-dashboard).
+1. In your Datadog account, navigate to Dashboards. Select the dashboard that you would like to add the game to, or [create a new dashboard](https://docs.datadoghq.com/dashboards/#new-dashboard).
 
-2. In the dashboard, click **+Add Widgets** to the right of the dashboard title. Scroll to the right through the widgets, and then drag and drop the **The data runner** widget into the desired position on your dashboard. Choose a metric you want the Data Runner to find, then click save.
+2. In the dashboard, click **+Add Widgets** to the right of the dashboard title. Scroll to the bottom to the "Apps" section, then drag and drop the **The data runner** widget into the desired position on your dashboard. Choose a metric you want the Data Runner to find, then click save.
 
 ## Support
 
