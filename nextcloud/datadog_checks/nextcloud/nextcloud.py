@@ -1,5 +1,3 @@
-import requests
-
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.headers import headers
 
@@ -41,15 +39,12 @@ class NextcloudCheck(AgentCheck):
         {"name": "database_version", "json_path": "server.database.version"},
     ]
 
-    def check(self, instance):
-        url = instance['url']
-        username = instance['username']
-        password = instance['password']
-        auth = (username, password)
+    def check(self, _):
+        url = self.instance['url']
 
         try:
             self.log.debug("Checking against %s", url)
-            response = requests.get(url, auth=auth, headers=headers(self.agentConfig))
+            response = self.http.get(url, extra_headers=headers(self.agentConfig))
             if response.status_code != 200:
                 self.service_check(
                     NextcloudCheck.STATUS_CHECK, AgentCheck.CRITICAL, message="Problem requesting {}.".format(url)
