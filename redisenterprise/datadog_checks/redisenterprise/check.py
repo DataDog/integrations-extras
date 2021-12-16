@@ -84,6 +84,7 @@ class RedisenterpriseCheck(AgentCheck):
                     'redisenterprise.running',
                     self._get_version(host, port, service_check_tags),
                     tags=service_check_tags,
+                    hostname=host,
                 )
 
             self.last_timestamp_seen = datetime.utcnow()
@@ -156,12 +157,17 @@ class RedisenterpriseCheck(AgentCheck):
             if i['replication']:
                 shards_used = shards_used * 2
 
+            # more carefully handle the number of endpoints for misconfigured dbs
+            endpoint_count = 0
+            if i.get('endpoints'):
+                endpoint_count = len(i['endpoints'][-1]['addr'])
+
             bdb_dict[i['uid']] = {
                 'name': i['name'],
                 'limit': i['memory_size'],
                 'shards_used': shards_used,
                 'crdt': i['crdt'],
-                'endpoints': len(i['endpoints'][-1]['addr']),
+                'endpoints': endpoint_count,
             }
         return bdb_dict
 
@@ -343,19 +349,20 @@ class RedisenterpriseCheck(AgentCheck):
         stats = self._api_fetch_json("license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.now()
-        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags)
-        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags)
+        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags, hostname=host)
 
         # Check the time remaining on the license as a service check
-        license_check = RedisenterpriseCheck.OK
+        license_check = self.OK
         if stats['expired']:
-            license_check = RedisenterpriseCheck.CRITICAL
+            license_check = self.CRITICAL
         elif (expire - now).days < 7:
-            license_check = RedisenterpriseCheck.WARNING
+            license_check = self.WARNING
         self.service_check(
             'redisenterprise.license_status',
             license_check,
             tags=service_check_tags,
+            hostname=host,
         )
 
     def _shard_usage(self, bdb_dict, service_check_tags, host):
