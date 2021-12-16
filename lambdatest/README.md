@@ -1,4 +1,4 @@
-# LambdatTest integration
+# LambdaTest integration
 
 ## Overview
 
@@ -6,7 +6,7 @@ Integrate with LambdaTest and empower your teams to collaborate and test efficie
 
 LambdaTest supports manual and various automation testing frameworks like Selenium, Cypress, TestCafe, etc.
 
-With the LambdaTest integration, log bugs while performing cross-browser testing of your websites (and web apps) using LambdaTest platform. LambdaTest will automatically include details from the testing environment, such as browser version, OS, resolution, comments, and screenshots in Datadog.
+With the LambdaTest integration, log bugs while performing cross-browser testing of your websites (and web apps) using LambdaTest platform. LambdaTest automatically includes details from the testing environment, such as browser version, OS, resolution, comments, and screenshots in Datadog.
 
 Here's all that you can do with LambdaTest:  
 
@@ -19,9 +19,10 @@ Here's all that you can do with LambdaTest:
 
 ## Setup
 
-All configuration happens on the Lambdatest Dashboard. See the [LambdaTest-Datadog integration][1] setup documentation.
+All configuration happens on the LambdaTest Dashboard. See the [LambdaTest-Datadog integration][1] setup documentation.
 
 ### Configuration
+
 Here’s how you can track incidents in Datadog with LambdaTest:
 
 1. Log in to your LambdaTest account on the LambdaTest website.
