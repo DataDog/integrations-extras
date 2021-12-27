@@ -5,15 +5,15 @@
     "template_variables": [
         {
             "available_values": [],
-            "default": "*",
+            "default": "SELECT_YOUR_CLUSTER",
             "name": "cluster_name",
             "prefix": "cluster_name"
         },
         {
             "available_values": [],
             "default": "*",
-            "name": "instance",
-            "prefix": "instance"
+            "name": "host",
+            "prefix": "host"
         }
     ],
     "title": "TiDB Cluster Overview",
@@ -33,21 +33,22 @@
                                 "min",
                                 "max"
                             ],
-                            "legend_layout": "auto",
+                            "legend_layout": "vertical",
                             "markers": [],
                             "requests": [
                                 {
                                     "display_type": "area",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query2, 'basic', 2)"
+                                            "alias": "query / s",
+                                            "formula": "query2"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tidb_executor_statement_total{$cluster_name,$instance} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cluster.tidb_executor_statement_total{$cluster_name,$host} by {type}.as_rate()"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -86,21 +87,22 @@
                                 "min",
                                 "max"
                             ],
-                            "legend_layout": "auto",
+                            "legend_layout": "vertical",
                             "markers": [],
                             "requests": [
                                 {
                                     "display_type": "area",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "alias": "failed query / s",
+                                            "formula": "query1"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tidb_server_execute_error_total{$cluster_name,$instance} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cluster.tidb_server_execute_error_total{$cluster_name,$host} by {type}.as_rate()"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -112,6 +114,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "Failed queries per second",
                             "title_align": "left",
                             "title_size": "16",
@@ -147,41 +150,50 @@
                                     "formulas": [
                                         {
                                             "alias": "avg",
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         },
                                         {
                                             "alias": "p50",
-                                            "formula": "anomalies(query2, 'basic', 2)"
+                                            "formula": "query2"
                                         },
                                         {
                                             "alias": "p95",
-                                            "formula": "anomalies(query3, 'basic', 2)"
+                                            "formula": "query3"
                                         },
                                         {
                                             "alias": "p99",
-                                            "formula": "anomalies(query4, 'basic', 2)"
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "alias": "max",
+                                            "formula": "query5"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance}"
+                                            "query": "avg:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$host}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "p50:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance}"
+                                            "query": "p50:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$host}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query3",
-                                            "query": "p95:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance}"
+                                            "query": "p95:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$host}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query4",
-                                            "query": "p99:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$instance} by {instance}"
+                                            "query": "p99:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$host}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query5",
+                                            "query": "max:tidb_cluster.tidb_server_handle_query_duration_seconds{$cluster_name,$host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -229,14 +241,14 @@
                                     "display_type": "area",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tidb_server_connections{$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tidb_server_connections{$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -248,6 +260,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "Connection count",
                             "title_align": "left",
                             "title_size": "16",
@@ -302,14 +315,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(per_second(query1), 'basic', 2)"
+                                            "formula": "per_second(query1)"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{$cluster_name,$instance,tidb_cluster_component:tidb} by {instance}"
+                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{tidb_cluster_component:tidb,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -321,6 +334,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiDB CPU usage (percentage from 0 to 1)",
                             "title_align": "left",
                             "title_size": "16",
@@ -357,14 +371,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{$cluster_name,$instance,tidb_cluster_component:tidb} by {instance}"
+                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{tidb_cluster_component:tidb,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -376,6 +390,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiDB memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -412,14 +427,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(per_second(query1), 'basic', 2)"
+                                            "formula": "per_second(query1)"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{$cluster_name,$instance,tidb_cluster_component:tikv} by {instance}"
+                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{tidb_cluster_component:tikv,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -431,6 +446,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiKV CPU usage (percentage from 0 to 1)",
                             "title_align": "left",
                             "title_size": "16",
@@ -467,14 +483,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{$cluster_name,$instance,tidb_cluster_component:tikv} by {instance}"
+                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{tidb_cluster_component:tikv,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -486,6 +502,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiKV memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -522,14 +539,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(per_second(query1), 'basic', 2)"
+                                            "formula": "per_second(query1)"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{$cluster_name,$instance,tidb_cluster_component:tiflash_proxy} by {instance}"
+                                            "query": "avg:tidb_cluster.process_cpu_seconds_total{tidb_cluster_component:tiflash_proxy,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -541,6 +558,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiFlash CPU usage (percentage from 0 to 1)",
                             "title_align": "left",
                             "title_size": "16",
@@ -577,14 +595,14 @@
                                     "display_type": "line",
                                     "formulas": [
                                         {
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{$cluster_name,$instance,tidb_cluster_component:tiflash_proxy} by {instance}"
+                                            "query": "sum:tidb_cluster.process_resident_memory_bytes{tidb_cluster_component:tiflash_proxy,$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -596,6 +614,7 @@
                                 }
                             ],
                             "show_legend": true,
+                            "time": {},
                             "title": "TiFlash memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -639,11 +658,9 @@
                             "legend_columns": [
                                 "avg",
                                 "min",
-                                "max",
-                                "value",
-                                "sum"
+                                "max"
                             ],
-                            "legend_layout": "auto",
+                            "legend_layout": "vertical",
                             "markers": [],
                             "requests": [
                                 {
@@ -651,23 +668,23 @@
                                     "formulas": [
                                         {
                                             "alias": "read",
-                                            "formula": "anomalies(query1, 'basic', 2)"
+                                            "formula": "query1"
                                         },
                                         {
                                             "alias": "write",
-                                            "formula": "anomalies(query2, 'basic', 2)"
+                                            "formula": "query2"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tikv_io_bytes{$cluster_name,$instance,op:read} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cluster.tikv_io_bytes{op:read,$cluster_name,$host} by {host}.as_rate()"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tikv_io_bytes{$cluster_name,$instance,op:write} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cluster.tikv_io_bytes{op:write,$cluster_name,$host} by {host}.as_rate()"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -705,11 +722,9 @@
                             "legend_columns": [
                                 "avg",
                                 "min",
-                                "max",
-                                "value",
-                                "sum"
+                                "max"
                             ],
-                            "legend_layout": "auto",
+                            "legend_layout": "vertical",
                             "markers": [],
                             "requests": [
                                 {
@@ -728,12 +743,12 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tikv_engine_size_bytes{$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tikv_engine_size_bytes{$cluster_name,$host} by {host}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tikv_store_size_bytes{$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tikv_store_size_bytes{$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -771,11 +786,9 @@
                             "legend_columns": [
                                 "avg",
                                 "min",
-                                "max",
-                                "value",
-                                "sum"
+                                "max"
                             ],
-                            "legend_layout": "auto",
+                            "legend_layout": "vertical",
                             "markers": [],
                             "requests": [
                                 {
@@ -794,12 +807,12 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tiflash_store_size_used_bytes{$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tiflash_store_size_used_bytes{$cluster_name,$host} by {host}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tiflash_store_size_capacity_bytes{$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tiflash_store_size_capacity_bytes{$cluster_name,$host} by {host}"
                                         }
                                     ],
                                     "response_format": "timeseries",
