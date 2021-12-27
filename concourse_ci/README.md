@@ -19,7 +19,7 @@ Configure ATC to use the Datadog emitter by setting the following options. It is
 
 ### Metric emitter options
 
-See the Concourse CI [documentation][4] for more information.
+See [Configuring Metrics][4] in the Concourse CI documentation for more information.
 
 ```text
 Metric Emitter (Datadog):
