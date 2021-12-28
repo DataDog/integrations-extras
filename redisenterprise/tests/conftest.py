@@ -51,12 +51,14 @@ def dd_environment():
                     verify=False,
                 )
                 if j.status_code == 200:
+                    sleep(15)
+                    print("Boostrap Successful")
                     break
                 else:
-                    print("Retrying:", counter)
+                    print("Retrying cluster bootstrap:", counter)
                     sleep(5)
             except Exception as e:
-                print("Retrying:", counter, " Error:", str(e))
+                print("Retrying cluster bootstrap:", counter, " Error:", str(e))
                 sleep(5)
             if counter > 9:
                 break
@@ -70,8 +72,8 @@ def dd_environment():
             json=DATABASE,
         )
         if x.status_code != 200:
-            print("Error: Unable to create database")
-        print("OK: bootstrap complete")
+            print("Error: Unable to create database: HTTP {} : {}".format(x.status_code, x.text))
+        print("OK: DB Setup complete")
         yield
 
 

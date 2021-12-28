@@ -1,5 +1,12 @@
 # CHANGELOG - RedisEnterprise
 
+1.1.1
+=====
+
+### Bug fix for monitors
+
+* [Bug] Unable to get monitor results without a hostname set - fixed
+
 1.1.0
 =====
 
