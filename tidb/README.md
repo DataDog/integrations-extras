@@ -11,8 +11,7 @@ Connect [TiDB][1] cluster to Datadog in order to:
 > **Note:** 
 >
 > - TiDB 4.0+ is required for this integration. 
-> - Integration of TiDB Cloud with Datadog is not available now.
-
+> - For TiDB Cloud, refer to the [TiDB Cloud Integration][12].
 ## Setup
 
 ### Installation
@@ -20,8 +19,6 @@ Connect [TiDB][1] cluster to Datadog in order to:
 First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
-
-#### Host
 
 Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
 
@@ -39,34 +36,29 @@ Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
   instances:
   
     - pd_metric_url: http://localhost:2379/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
   
     - tidb_metric_url: http://localhost:10080/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
   
     - tikv_metric_url: http://localhost:20180/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
   
     - tiflash_metric_url: http://localhost:8234/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
   
     - tiflash_proxy_metric_url: http://localhost:20292/metrics
-      max_returned_metrics: 10000
       send_distribution_buckets: true
       tags:
-        - tidb_cluster_name:cluster01
+        - cluster_name:cluster01
   ```
 
 3. [Restart the Agent][4].
@@ -145,6 +137,7 @@ _Available for Agent versions >6.0_
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+> It is possible to use the `metrics` configuration option to collect additional metrics from a TiDB cluster.
 ### Events
 
 TiDB check does not include any events.
@@ -181,3 +174,4 @@ Need help? Contact [Datadog support][7].
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
+[12]: https://docs.datadoghq.com/integrations/tidb_cloud/

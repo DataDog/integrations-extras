@@ -2,6 +2,8 @@
 
 1. Set up the [Agent dev tool][1].
 
+> Make sure you have the latest version of `ddev` installed.
+> Check the version by running `ddev --version`.
 2. Install the [Datadog Agent][2].
 
 3. Write some code.
@@ -26,17 +28,18 @@
 
 7. Set up the manual test environment:
 
-   - Use `tiup playground --monitor=0` to start a dev TiDB cluster.
+   - CD to the `./tidb/tests/compose` directory.
+   - Use `docker-compose up` to start a dev TiDB cluster.
    - Build, install, and uninstall TiDB integration:
    
      ```shell
+     ddev clean tidb
      ddev release build tidb
-     sudo datadog-agent integration install -w /path/to/wheel.whl
      sudo datadog-agent integration remove datadog-tidb
+     sudo datadog-agent integration install -w /path/to/wheel.whl
      ```
      
      > Removing the integration does not remove `conf.d/tidb/*` at the same time. Remove it manually if necessary.
-
 8. Conduct a manual test:
 
    Check local Agent log and web app carefully.
