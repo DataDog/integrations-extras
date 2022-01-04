@@ -24,7 +24,7 @@ Once a user configures the Datadog integration in Superwise, standard model metr
 
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/6.png)
 
-3. That's it, Now you can see a widget of new integration with Datdog and that it (:
+3. That's it, now you can see the new Datadog integration widget.
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/3.png)
 
  ### Validation
