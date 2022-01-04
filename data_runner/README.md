@@ -30,7 +30,7 @@ Data Runner does not include any events.
 
 Data Runner does not include any service checks.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Datadog support][3].
 
