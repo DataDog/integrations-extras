@@ -29,7 +29,7 @@ Once a user configures the Datadog integration in Superwise, standard model metr
 
 ### Validation
 Go to the metric explorer section of the Datadog app to verify the integration between Superwise and Datadog,
-Superwise sent the superwise.integration.test metric to Datadog to validate the integration.  
+Within Datadog, go to the Metrics Explorer and search for the superwise.integration.test metric to verify that the integration between Superwise and Datadog was successful. 
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/4.png)   
 
 ## Data Collected
