@@ -48,8 +48,7 @@ Nats Streaming Server metrics are tagged with names like "nss-cluster_id"
 
 ### Events
 
-If you are running Nats Streaming Server in a Fault Tolerant group a Nats Streaming Failover event will be issued
-when the status of a Server changes between `FT_STANDBY` and `FT_ACTIVE`
+If you are running Nats Streaming Server in a Fault Tolerant group, a Nats Streaming Failover event is issued when the status of a server changes between `FT_STANDBY` and `FT_ACTIVE`.
 
 ### Service Checks
 
