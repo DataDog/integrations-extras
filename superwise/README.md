@@ -5,7 +5,7 @@
 Superwise's model observability gives you visibility and context into your models' behaviors, so you can easily monitor model risks based on different use cases. With Superwise, data scientists, ML engineers, and business ops get model observability without alert fatigue, so you can be confident about your model management.  
     
 
-![Superwise Dashboard]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png)  
+![Superwise Dashboard][2]
 
 Superwise’s model metrics and incidents integration sends out-of-the-box model metrics, including drift, activity, incidents, and custom metrics, directly to Datadog. You’ll get an overview of which models are misbehaving that can be tailored to any use case, logic, segmentation, threshold, and sensitivity.
 
