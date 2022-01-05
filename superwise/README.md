@@ -17,7 +17,7 @@ Once a user configures the Datadog integration in Superwise, standard model metr
 1. Go to [Superwise portal][2] and select **Integrations*.
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/1.png)
 
-2. Click on Create a new channel and select Datadog Integration.
+2. Click **Create a new channel** and select **Datadog**.
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/2.png)
 
 3. Input your Datadog API Key and Application key and click on the Test button. The Test button will send a dummy request to your Datadog account to validate the integration. You should get a success message in Superwise. To finish the setup click “Create channel”.
