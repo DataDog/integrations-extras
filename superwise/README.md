@@ -50,6 +50,11 @@ Need help? Take a look at [Superwise documentation][9].
 
 
 [1]: https://www.superwise.ai/
-[2]: https://portal.superwise.ai/
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png
+[3]: https://portal.superwise.ai/
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/2.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/6.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/3.png
+[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/4.png
 [8]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
 [9]: https://docs.superwise.ai
