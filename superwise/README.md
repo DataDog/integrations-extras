@@ -46,7 +46,7 @@ The Superwise integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Take a look at [Superwise documentation][4].
+Need help? Take a look at [Superwise documentation][9].
 
 
 [1]: https://www.superwise.ai/
