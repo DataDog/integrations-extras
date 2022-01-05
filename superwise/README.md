@@ -51,5 +51,5 @@ Need help? Take a look at [Superwise documentation][4].
 
 [1]: https://www.superwise.ai/
 [2]: https://portal.superwise.ai/
-[3]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
+[8]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
 [4]: https://docs.superwise.ai
