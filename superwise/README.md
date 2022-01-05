@@ -2,7 +2,7 @@
 
 ## Overview
 [Superwise][1] provides model observability for high-scale machine learning (ML) operations.
-Superwise model observability gives you visibility and context into your models' behaviors, so you can easily express and monitor model risks as they relate to your business. With Superwise, data scientists, ML engineers, and business ops get intuitive model observability without the alert fatigue so you can be confident about your model management and focus on the fun things in life like building newer, better models.  
+Superwise's model observability gives you visibility and context into your models' behaviors, so you can easily monitor model risks based on different use cases. With Superwise, data scientists, ML engineers, and business ops get model observability without alert fatigue, so you can be confident about your model management.  
     
 
 ![Superwise Dashboard]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png)  
