@@ -7,7 +7,7 @@ Superwise's model observability gives you visibility and context into your model
 
 ![Superwise Dashboard]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png)  
 
-Superwise’s model metrics and incidents integration streamline results of our out-of-the-box model metrics, including drift, activity, incidents, and any custom metrics you configure, directly into Datadog app. You’ll get an immediate overview of which models are misbehaving that can be tailored to any use case, logic, segmentation, threshold, and sensitivity.
+Superwise’s model metrics and incidents integration sends out-of-the-box model metrics, including drift, activity, incidents, and custom metrics, directly to Datadog. You’ll get an overview of which models are misbehaving that can be tailored to any use case, logic, segmentation, threshold, and sensitivity.
 
 
 ## Setup
