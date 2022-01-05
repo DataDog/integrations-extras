@@ -12,7 +12,7 @@ Superwise’s model metrics and incidents integration sends out-of-the-box model
 
 ## Setup
 
-Once a user configures the Datadog integration in Superwise, standard model metrics are sent to Datadog and users get model observability dashboards within Datadog. Users can also configure any specific model metric and incident policy and send them to Datadog for model observability tailored to their business context.
+With the Datadog integration configured in Superwise, standard model metrics are sent to Datadog, and users get model observability dashboards in Datadog. You can configure any specific model metric and incident policy, and send them to Datadog for model observability that is tailored to your use case.
 
 1. Go to [Superwise portal][2] and select **Integrations**.
 
