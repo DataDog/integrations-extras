@@ -24,7 +24,7 @@ With the Datadog integration configured in Superwise, standard model metrics are
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/6.png)
 
 3. That's it, now you can see the new Datadog integration widget.
-![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/3.png)
+![Superwise Integration][6]
 
 ### Validation
 In Datadog, go to **Metrics Explorer** and search for the metric `superwise.integration.test` to verify that the integration between Superwise and Datadog is working. 
