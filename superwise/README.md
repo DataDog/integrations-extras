@@ -34,7 +34,7 @@ In Datadog, go to **Metrics Explorer** and search for the metric `superwise.inte
 
 ### Metrics
 
-See [metadata.csv][3] for a list of metrics provided by this check.
+See [metadata.csv][8] for a list of metrics provided by this check.
 
 ### Events
 
