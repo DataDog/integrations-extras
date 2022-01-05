@@ -7,19 +7,19 @@ Superwise's model observability gives you visibility and context into your model
 
 ![Superwise Dashboard]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png)  
 
-Superwise’s model metrics and incidents integration streamline results of our out-of-the-box model metrics, including drift, activity, incidents, and any custom metrics you configure, directly into Datadog app. You’ll get an immediate overview of which models are misbehaving that can be tailored to any use case, logic, segmentation, threshold, and sensitivity.
+Superwise’s model metrics and incidents integration sends out-of-the-box model metrics, including drift, activity, incidents, and custom metrics, directly to Datadog. You’ll get an overview of which models are misbehaving that can be tailored to any use case, logic, segmentation, threshold, and sensitivity.
 
 
 ## Setup
 
-Once a user configures the Datadog integration in Superwise, standard model metrics are sent to Datadog and users get model observability dashboards within Datadog. Users can also configure any specific model metric and incident policy and send them to Datadog for model observability tailored to their business context.
+With the Datadog integration configured in Superwise, standard model metrics are sent to Datadog, and users get model observability dashboards in Datadog. You can configure any specific model metric and incident policy, and send them to Datadog for model observability that is tailored to your use case.
 
 1. Go to [Superwise portal][2] and select **Integrations**.
 
 2. Click **Create a new channel** and select **Datadog**.
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/2.png)
 
-3. Input your Datadog API Key and Application key and click on the Test button. The Test button will send a dummy request to your Datadog account to validate the integration. You should get a success message in Superwise. To finish the setup click “Create channel”.
+3. Input your Datadog API Key and Application key, and click **Test**. A test request is sent to your Datadog account to validate the integration. If the request was successfully sent, there is a message in Superwise saying the test was delivered successfully. To finish the setup, click **Create channel**.
 
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/6.png)
 
@@ -27,8 +27,7 @@ Once a user configures the Datadog integration in Superwise, standard model metr
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/3.png)
 
 ### Validation
-Go to the metric explorer section of the Datadog app to verify the integration between Superwise and Datadog,
-Within Datadog, go to the Metrics Explorer and search for the superwise.integration.test metric to verify that the integration between Superwise and Datadog was successful. 
+In Datadog, go to **Metrics Explorer** and search for the metric `superwise.integration.test` to verify that the integration between Superwise and Datadog is working. 
 ![Superwise Integration]( https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/4.png)   
 
 ## Data Collected
@@ -47,7 +46,7 @@ The Superwise integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Take a look at our docs [Superwise support][4].
+Need help? Take a look at [Superwise documentation][4].
 
 
 [1]: https://www.superwise.ai/
