@@ -1,7 +1,7 @@
 # Superwise Integration
 
 ## Overview
-[Superwise][1]  is about solving model observability for high-scale ML operations.
+[Superwise][1] provides model observability for high-scale machine learning (ML) operations.
 Superwise model observability gives you visibility and context into your models' behaviors, so you can easily express and monitor model risks as they relate to your business. With Superwise, data scientists, ML engineers, and business ops get intuitive model observability without the alert fatigue so you can be confident about your model management and focus on the fun things in life like building newer, better models.  
     
 
