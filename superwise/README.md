@@ -14,7 +14,7 @@ With the Datadog integration configured in Superwise, standard model metrics are
 ## Setup
 
 
-1. Go to [Superwise portal][2] and select **Integrations**.
+1. Go to [Superwise portal][3] and select **Integrations**.
 
 2. Click **Create a new channel** and select **Datadog**.
 ![Superwise - Add new integration][4]
