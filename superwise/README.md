@@ -17,6 +17,7 @@ With the Datadog integration configured in Superwise, standard model metrics are
 1. Go to [Superwise portal][3] and select **Integrations**.
 
 2. Click **Create a new channel** and select **Datadog**.
+
 ![Superwise - Add new integration][4]
 
 3. Input your Datadog API Key and Application key, and click **Test**. A test request is sent to your Datadog account to validate the integration. If the request was successfully sent, there is a message in Superwise saying the test was delivered successfully. To finish the setup, click **Create channel**.
