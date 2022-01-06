@@ -153,6 +153,13 @@ See [service_checks.json][11] for a list of service checks provided by this inte
 
 ## Troubleshooting
 
+### Missing CPU and Memory metrics for TiKV and TiFlash instances on macOS
+
+You will not get CPU or Memory metrics for TiKV and TiFlash instances in two cases:
+
+- Running TiKV or TiFlash instances with [tiup playground][13] on macOS.
+- Or, running TiKV or TiFlash instances with [docker-compose up][14] on a new Apple M1 machine.
+
 ### Too many metrics
 
 The TiDB check enables Datadog's `distribution` metric type by default. This part of data is quite large and may consume lots of resources. You can modify this behavior in `tidb.yml` file:
@@ -177,3 +184,5 @@ Need help? Contact [Datadog support][7].
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
 [12]: https://docs.datadoghq.com/integrations/tidb_cloud/
+[13]: https://docs.pingcap.com/tidb/stable/tiup-playground
+[14]: 
