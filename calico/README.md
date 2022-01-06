@@ -16,7 +16,7 @@ Using annotations:
 
 1. Set up Calico on your cluster if you have not already.
 
-2. Enable Prometheus metrics using the instructions in Calico's [Monitor Calico Component Metrics documentation][9].
+2. Enable Prometheus metrics using the instructions in [Monitor Calico component metrics][9].
    Once enabled, you should have a `felix-metrics-svc` service running in your cluster, as well as a `prometheus-pod`.
 
 3. To use Autodiscovery, modify `prometheus-pod`. Add the following snippet to your Prometheus YAML configuration file:
@@ -56,7 +56,7 @@ To install the Calico check on your host:
 4. Upload the build artifact to any host with an Agent and
    run `datadog-agent integration install -w path/to/calico/dist/<ARTIFACT_NAME>.whl`.
 
-5. Follow Calico's [Monitor Calico Component Metrics documentation][9] until you have a `felix-metrics-svc` service running using `kubectl get all --all-namespaces`.
+5. Follow [Monitor Calico component metrics][9] until you have a `felix-metrics-svc` service running using `kubectl get all --all-namespaces`.
 
 6. If you are using minikube, you must forward port 9091 to `felix-metrics-svc`.
    Run `kubectl port-forward service/felix-metrics-svc 9091:9091 -n kube-system`.
@@ -92,8 +92,8 @@ See [service_checks.json][7] for a list of service checks provided by this integ
 
 ## Concerning logs
 
-Since Calico structure is setup in a kubernetes cluster, it is built with deployments, pods, service.
-Kubernetes integration makes a great job at fetching logs from containers Therefore, when Kubernetes integration is setup, calico logs are automatically available in datadoghq Log section. You should proceed this way.
+Since Calico structure is set up in a Kubernetes cluster, it is built with deployments, pods, and services.
+The Kubernetes integration fetches logs from containers. Therefore, when Kubernetes integration is set up, Calico logs are automatically available in the Datadog Log Explorer.
 
 ## Troubleshooting
 

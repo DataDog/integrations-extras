@@ -8,9 +8,9 @@ and, optionally, FoundationDB transaction logs.
 
 ## Setup
 
-Both the check and the metrics apply to the FoundationDB cluster as a whole,
-and so should only be installed on one host (which doesn't need to be one that is
-running FoundationDB, but just one with access to it). The host chosen to
+Both the check and metrics apply to the FoundationDB cluster as a whole,
+and should only be installed on one host. This doesn't need to be one that is
+running FoundationDB, but just one with access to it. The host chosen to
 collect the metrics is required to have the [FoundationDB client][8] installed.
 It is possible to monitor multiple FoundationDB clusters by adding multiple
 instances in the configuration file.
@@ -48,7 +48,7 @@ the root of your Agent's configuration directory to start collecting
 FoundationDB metrics. See the [sample foundationdb.d/conf.yaml][3] for
 all available configuration options.
 
-The cluster to check will be determined by searching for a cluster file
+The cluster to check is determined by searching for a cluster file
 in the [default location][10]. If the cluster file is located elsewhere,
 set the `cluster_file` property.
 
@@ -80,7 +80,7 @@ FoundationDB itself first.
     ```
 
 2. Restart the FoundationDB server so the changes take effect. Verify that
-   logs in the logdir are now being written in JSON.
+   logs in the logdir are being written in JSON.
 
 3. Ensure that log collection in the Datadog Agent is enabled. In your
    `datadog.yaml` file, make sure this appears:

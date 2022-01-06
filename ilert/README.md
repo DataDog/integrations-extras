@@ -22,7 +22,7 @@ Integrate with iLert to:
 
    ![iLert Alert Source New][2]
 
-4. On the next page a **Webhook URL** is generated. You will need this URL at the bottom of the setup in Datadog.
+4. On the next page a **Webhook URL** is generated. You need this URL at the bottom of the setup in Datadog.
 
    ![iLert Alert Source View][3]
 
@@ -57,10 +57,9 @@ Integrate with iLert to:
 
    ![Datadog Webhook View][5]
 
-4. Click save button
-5. The integration is now set up!
+4. Click save button to finish setting up this check.
 
-   View the [official documentation][6] from iLert for more details on setup.
+   View the [iLert Datadog Integration documentation][6] for more details.
 
 ## Data Collected
 
@@ -70,7 +69,7 @@ iLert integration does not include any metrics.
 
 ### Events
 
-Your iLert Triggered / Resolved events will appear iLert platform dashboard.
+Your iLert triggered and resolved events appear in the iLert platform dashboard.
 
 ### Service Checks
 
