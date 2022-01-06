@@ -2,7 +2,9 @@
 
 ## Overview
 
-[TiDB Cloud][1] makes deploying, managing and maintaining your TiDB clusters even simpler with a fully managed cloud instance that you control through an intuitive console. TiDB Cloud allows developers and DBAs with little or no training to handle once-complex tasks such as infrastructure management and cluster deployment with ease, to focus on your applications, not the complexities of your database.
+[TiDB Cloud][1] makes deploying, managing and maintaining your TiDB clusters even simpler with a fully managed cloud instance that you control through an intuitive console. 
+
+TiDB Cloud allows developers and DBAs with little or no training to handle once-complex tasks such as infrastructure management and cluster deployment with ease, to focus on your applications, not the complexities of your database.
 
 The Datadog integration is an observability feature of TiDB Cloud that exports metrics of TiDB Cloud clusters to your Datadog platform.
 
