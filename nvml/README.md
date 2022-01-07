@@ -30,7 +30,7 @@ If you are using Docker, there is an [example Dockerfile][15] in the NVML reposi
 
 If you're using Docker and Kubernetes, you need to expose the environment variables `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES`. See the included Dockerfile for an example.
 
-If you want to be able to correlate reserved Kubernetes NVIDIA devices with the Kubernetes pod using the device, mount the Unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your Agent's configuration. More information about this socket is on the [Kubernetes website][12]. **Note**: This device is in beta support for version 1.15.
+To correlate reserved Kubernetes NVIDIA devices with the Kubernetes pod using the device, mount the Unix domain socket `/var/lib/kubelet/pod-resources/kubelet.sock` into your Agent's configuration. More information about this socket is on the [Kubernetes website][12]. **Note**: This device is in beta support for version 1.15.
 
 ### Configuration
 
@@ -46,7 +46,7 @@ If you want to be able to correlate reserved Kubernetes NVIDIA devices with the 
 
 ### Metrics
 
-See [metadata.csv][10] for a list of metrics provided by this check.  The authoritative metric documentation is on the [NVIDIA website][13].
+See [metadata.csv][10] for a list of metrics provided by this check. The authoritative metric documentation is on the [NVIDIA website][13].
 
 There is an attempt to, when possible, match metric names with NVIDIA's [Data Center GPU Manager (DCGM) exporter][14].
 
