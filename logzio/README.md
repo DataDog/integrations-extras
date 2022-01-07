@@ -21,7 +21,7 @@ Import your alerts into Datadog with the following steps:
 1. Use a [Datadog API key][3] to create a new alert endpoint in Logz.io.
 2. Create a new alert in Logz.io for a specific query.
 
-For a more detailed setup description, see [the logz.io dedicated datadog documentation][4].
+For a more detailed setup description, see [Log Correlation with Logz.io and Datadog][4].
 
 ## Data Collected
 
