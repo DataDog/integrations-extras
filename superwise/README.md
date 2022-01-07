@@ -24,6 +24,7 @@ With the Datadog integration configured in Superwise, standard model metrics are
 ![Superwise - Add new Datadog channel][5]
 
 3. That's it, now you can see the new Datadog integration widget.
+
 ![Superwise Integration][6]
 
 ### Validation
