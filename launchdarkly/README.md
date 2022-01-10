@@ -10,7 +10,7 @@ The [LaunchDarkly][1] events integration for Datadog brings flag event markers t
 
 ### Dashboard widget
 
-LaunchDarkly's dashboard widget lets you pin a subset feature flag targeting toggles to your Datadog dashboards to seamlessly monitor and perform a feature go-live from a single window.
+LaunchDarkly's dashboard widget lets you pin a subset feature flag targeting toggles to your Datadog dashboards to monitor and perform a feature go-live from a single window.
 
 ### Relay proxy metrics integration
 
@@ -20,7 +20,7 @@ If you are using the [LaunchDarkly Relay Proxy][2], you can configure it to expo
 
 ### Events integration
 
-The LaunchDarkly events integration uses a [Datadog API key][3], which can be created by a Datadog admin. Once you obtain a Datadog API key, visit the [LaunchDarkly documentation for the Datadog integration][4] to learn how to setup the LaunchDarkly events integration for Datadog.
+The LaunchDarkly events integration uses a [Datadog API key][3], which can be created by a Datadog admin. Once you obtain a Datadog API key, see the [LaunchDarkly documentation for the Datadog integration][4] to learn how to setup the LaunchDarkly events integration for Datadog.
 
 ### Dashboard widget
 
@@ -36,14 +36,14 @@ The LaunchDarkly events integration uses a [Datadog API key][3], which can be cr
    - **LaunchDarkly environment**: The name of the LaunchDarkly environment you wish to associate with the dashboard widget.
    - **Environment template variable**: An optional [Datadog template variable](https://docs.datadoghq.com/dashboards/template_variables/) used to override the **LaunchDarkly environment** option.
    - **LaunchDarkly tag filter**: An optional `+` separated list tags used to filter the feature flags displayed in the widget. If multiple tags are included, only flags that match **all** included tags appear in the widget. If omitted, all of the project's feature flags appear in the widget.
-   - **Sort**: The order the flags will be displayed in the widget. Defaults to **Newest**.
+   - **Sort**: The order the flags are displayed in the widget. Defaults to **Newest**.
 
 8. Optionally give the widget a title.
 9. Press **Save** to finish configuring the Datadog dashboard widget.
 
 ### Relay Proxy metrics
 
-Follow the Relay Proxy's [Metrics integrations documentation][5], to configure this feature.
+Follow the Relay Proxy's [Metrics integrations documentation][5] to configure this feature.
 
 ## Data Collected
 
@@ -69,7 +69,7 @@ Need help? Contact [Datadog Support][7].
 
 ## Further Reading
 
-Learn more about [LaunchDarkly][1] and [this integration][4].
+Learn more about [LaunchDarkly][1] and the [Datadog events integration][4].
 
 [1]: https://launchdarkly.com
 [2]: https://docs.launchdarkly.com/home/relay-proxy

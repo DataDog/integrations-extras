@@ -2,7 +2,7 @@
 
 ## Overview
 
-Enabling this integration will let you:
+Enable this integration to:
 
 - Send events about deployments to Datadog
 - Correlate deployment details with your Datadog metrics
@@ -30,7 +30,7 @@ ${'${execution.pipeline.name} execution #${execution.id}'}
 ${'${execution.to_revision.revision} - ${execution.to_revision.message}'}
 ```
 
-- When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy will send an event to Datadog:
+- When ready, click **Add action** and run the pipeline. On every successful deployment, Buddy sends an event to Datadog:
 
 ![snapshot][5]
 

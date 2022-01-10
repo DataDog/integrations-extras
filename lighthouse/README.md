@@ -74,7 +74,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Lighthou
       sudo yum install -y chromium
       ```
 
-      **Note**: This integration runs Chrome/Chromium in headless mode; Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
+      **Note**: This integration runs Chrome/Chromium in headless mode. Chrome/Chromium may require kernel 4.4+ on RHEL/CentOS for the headless mode to work properly.
 
    - [Puppeteer][12]
       + Check if installed.
