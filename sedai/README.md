@@ -1,11 +1,10 @@
-# Autonomous Cloud Application Management
+# [Sedai][1] — Find out why production is the new playground with a free 14 day trial
+## Continuous Autonomous Availability Management (CAAM)
 
-*Autonomous is your future; Production is the new playground*
-
-## **[Schedule a Demo][2]**
+*Intelligent enough to detect, independent enough to act — that's the power of autonomous*
 
 ## Overview
-Sedai is an autonomous, agentless, and configuration-free SaaS that intelligently manages your cloud environments to prevent availability issues and optimize performance and cost — all in production. Sedai's Continuous Autonomous Availability Management (CAAM) platform helps you take full advantage of your microservices with smart signals that prevent downtime, avoid potential SLO breaches, improve latency, analyze code releases, and lower cloud costs.
+Sedai proactively manages your cloud environments for you through autonomous actions that prevent availability issues as well as optimize your resources’ performance — all in production. Our agentless and configuration-free platform infers your cloud environments and intelligently learns and adapts based on observed performance. From preventing downtime and managing SLOs to analyzing code releases and lowering cloud costs, learn how our autonomous platform can become a staple in your SRE tool kit.
 
 **Unlock the full potential of your microservices:**
 * Achieve 99.99% or better application availability
@@ -23,31 +22,26 @@ Sedai is an autonomous, agentless, and configuration-free SaaS that intelligentl
 ## Home Page
 [Sedai Inc.][1]
 
-## Tecnhical Documentation
-[Sedai User Guide][4]
-### Fulfillment Options
-#### Software as a Service (SaaS)
-Software as a service is a delivery model for software applications whereby the vendor hosts and operates the application over the Internet. Customers pay for using the software without owning the underlying infrastructure. With SaaS Contracts, customers will pay for usage through their AWS bill.
-
-#### End User License Agreement
-By subscribing to this product you agree to terms and conditions outlined in the product End User License Agreement (EULA)
-
+## Technical Documentation
+Please review the [Sedai User Guide][4].
 ## Setup
-[Contact us][5] to set up your demo account.
+### Ready to Autonomously Optimize your applications for heightened performance?
+With our agentless approach, integration is seamless and setup takes minutes — simply connect your cloud and monitoring accounts and favorite integrations. We automatically identify your topology and metrics and start analyzing performance immediately.
+
+**[Schedule a free 30 minute demo to learn more][2]**
+
+**[Schedule a free 14-day trial][2]**
+
+[Contact us][5] if you have questions about the process.
+
+For existing Sedai customers, **[learn how to receive notifications in DataDog about Sedai activity.][6]**
 
 ## Support
-[Contact us][5] for any support questions.
+Support is provided 24/7 via email to [support@sedai.io][3].
 
-
-Your purchase also includes 24x7 support from Sedai through email. Please contact us at [support@sedai.io][3].
-
-## Refund Policy
-Full Refund
-
-## **[Schedule a Demo][2]**
-
-[1]:[https://www.sedai.io]
+[1]:[https://www.sedai.io]cs
 [2]:[https://calendly.com/sedai/sedai-demo]
 [3]:[email:support@sedai.io]
 [4]:[https://sedai.gitbook.io/sedai/]
 [5]:[email:contact@sedai.io]
+[6]:[https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications]
