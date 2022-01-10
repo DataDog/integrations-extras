@@ -60,7 +60,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Queries per second",
                             "title_align": "left",
                             "title_size": "16",
@@ -115,7 +114,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Failed queries per second",
                             "title_align": "left",
                             "title_size": "16",
@@ -206,7 +204,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Query duration",
                             "title_align": "left",
                             "title_size": "16",
@@ -262,7 +259,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Connection count",
                             "title_align": "left",
                             "title_size": "16",
@@ -334,7 +330,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cloud.process_cpu_capacity_cores{component:tidb,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tidb,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -395,12 +391,12 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tidb_cloud.process_memory_used_bytes{component:tidb,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.process_memory_used_bytes{component:tidb,$cluster_name,$instance} by {instance}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tidb_cloud.process_memory_capacity_bytes{component:tidb,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tidb,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -466,7 +462,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cloud.process_cpu_capacity_cores{component:tikv,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tikv,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -527,12 +523,12 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cluster.tidb_cloud.process_memory_used_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.process_memory_used_bytes{component:tikv,$cluster_name,$instance} by {instance}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tidb_cloud.process_memory_capacity_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tikv,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -598,7 +594,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cloud.process_cpu_capacity_cores{component:tiflash,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tiflash,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -664,7 +660,7 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cluster.tidb_cloud.process_memory_capacity_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
+                                            "query": "sum:tidb_cluster.tidb_cloud.node_memory_capacity_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -742,12 +738,12 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "sum:tidb_cloud.storate_tikv_io_bytes_total{op:read,$cluster_name,$instance} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cloud.storage_tikv_io_bytes_total{op:read,$cluster_name,$instance} by {instance}.as_rate()"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cloud.storate_tikv_io_bytes_total{op:write,$cluster_name,$instance} by {instance}.as_rate()"
+                                            "query": "sum:tidb_cloud.storage_tikv_io_bytes_total{op:write,$cluster_name,$instance} by {instance}.as_rate()"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -823,7 +819,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiKV storage usage",
                             "title_align": "left",
                             "title_size": "16",
@@ -887,7 +882,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiFlash storage usage",
                             "title_align": "left",
                             "title_size": "16",
