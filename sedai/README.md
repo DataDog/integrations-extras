@@ -15,7 +15,7 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 ### Core Features
 
 * **Easy setup:** Sedai's agentless approach integrates with your cloud accounts and observability platforms so you can get up and running in minutes.
-* **Configuration-free:** We infer your topology and metrics, and intelligently leverage them to detect signals based on observed performance.
+* **Configuration-free:** By inferring your topology and metrics, Sedai leverages them to detect signals based on observed performance.
 * **Autonomous Availability:** Prevent issues and ensure the highest levels of availability with autonomous actions.
 * **Release Intelligence:** Validate releases' performance in production in real-time with smart scorecards that assess the quality of your deployments and analyze deviations in latency and errors.
 * **Resource Optimization:** Improve customer experience and lower cloud costs on the fly with dynamic allocation that smartly manages your resources based on their traffic needs.
