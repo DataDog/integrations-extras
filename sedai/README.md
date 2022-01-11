@@ -1,7 +1,3 @@
-**[Sedai][1] — Find out why production is the new playground with a free 14 day trial**
-### Continuous Autonomous Availability Management (CAAM)
-
-*Intelligent enough to detect, independent enough to act — that's the power of autonomous*
 
 ## Overview
 
