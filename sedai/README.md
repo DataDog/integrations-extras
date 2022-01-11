@@ -46,10 +46,6 @@ Need help? Email [Support][3] is available 24/7.
 
 Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2]. 
 
-[Contact us][5] if you have questions about the process.
-
-## Support
-Support is provided 24/7 via email to [support@sedai.io][3].
 
 [1]:[https://www.sedai.io]
 [2]:[https://calendly.com/sedai/sedai-demo]
