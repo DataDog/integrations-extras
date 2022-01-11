@@ -22,8 +22,6 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 
 Visit **[Sedai Inc.][1]** to learn more.
 
-### Technical Documentation
-Please review the [Sedai User Guide][4].
 ## Setup
 Existing Sedai customers can receive notifications in DataDog about Sedai activity. Learn how to connect DataDog to Sedai in **[our documentation][6].**
 
