@@ -26,7 +26,25 @@ Visit **[Sedai Inc.][1]** to learn more.
 Existing Sedai customers can receive notifications in DataDog about Sedai activity. Learn how to connect DataDog to Sedai in **[our documentation][6].**
 
 
-**[Schedule a free 30 minute demo OR a free 14-day trial][2]**
+## Data Collected
+
+### Metrics
+
+This integration does not collect metrics.
+
+### Events
+
+This integration does not support events.
+
+### Service
+
+This integration does not collect service checks.
+
+## Support
+
+Need help? Email [Support][3] is available 24/7.
+
+Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2]. 
 
 [Contact us][5] if you have questions about the process.
 
