@@ -53,9 +53,9 @@ Need help? Email [Support][3] is available 24/7.
 Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2]. 
 
 
-[1]:[https://www.sedai.io]
-[2]:[https://calendly.com/sedai/sedai-demo]
-[3]:[email:support@sedai.io]
-[4]:[https://sedai.gitbook.io/sedai/]
-[5]:[email:contact@sedai.io]
-[6]:[https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications]
+[1]: https://www.sedai.io
+[2]: https://calendly.com/sedai/sedai-demo
+[3]: mailto:support@sedai.io
+[4]: https://sedai.gitbook.io/sedai/
+[5]: mailto:contact@sedai.io
+[6]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
