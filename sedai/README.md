@@ -28,9 +28,7 @@ Please review the [Sedai User Guide][4].
 ### Ready to Autonomously Optimize your applications for heightened performance?
 With our agentless approach, integration is seamless and setup takes minutes — simply connect your cloud and monitoring accounts and favorite integrations. We automatically identify your topology and metrics and start analyzing performance immediately.
 
-**[Schedule a free 30 minute demo to learn more][2]**
-
-**[Schedule a free 14-day trial][2]**
+**[Schedule a free 30 minute demo OR a free 14-day trial][2]**
 
 [Contact us][5] if you have questions about the process.
 
