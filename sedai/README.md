@@ -37,7 +37,7 @@ For existing Sedai customers, **[learn how to receive notifications in DataDog a
 ## Support
 Support is provided 24/7 via email to [support@sedai.io][3].
 
-[1]:[https://www.sedai.io]cs
+[1]:[https://www.sedai.io]
 [2]:[https://calendly.com/sedai/sedai-demo]
 [3]:[email:support@sedai.io]
 [4]:[https://sedai.gitbook.io/sedai/]
