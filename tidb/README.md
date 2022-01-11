@@ -185,4 +185,4 @@ Need help? Contact [Datadog support][7].
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
 [12]: https://docs.datadoghq.com/integrations/tidb_cloud/
 [13]: https://docs.pingcap.com/tidb/stable/tiup-playground
-[14]: 
+[14]: https://github.com/DataDog/integrations-extras/tree/master/tidb/tests/compose
