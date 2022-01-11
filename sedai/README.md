@@ -13,6 +13,7 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 * Increase team productivity and agility by 3x
 
 ### Core Features
+
 * **Easy setup:** Our agentless approach integrates with your cloud accounts and observability platforms to get up and running in minutes.
 * **Configuration-free:** We infer your topology and metrics, and intelligently leverage them to detect signals based on observed performance.
 * **Autonomous Availability:** Prevent issues and ensure the highest levels of availability with autonomous actions.
