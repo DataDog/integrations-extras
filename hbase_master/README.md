@@ -31,15 +31,15 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Hbase_ma
     
     ```yaml
       - include:
-         domain: Hadoop
-         bean:
-         - Hadoop:service=HBase,name=Master,sub=Server
-         attribute:
-         # Is Active Master
-         tag.isActiveMaster:
-            metric_type: gauge
-            alias: hbase.master.server.tag.is_active_master
-            values: {"true": 1, "false": 0, default: 0}
+          domain: Hadoop
+          bean:
+            - Hadoop:service=HBase,name=Master,sub=Server
+          attribute:
+            # Is Active Master
+            tag.isActiveMaster:
+               metric_type: gauge
+               alias: hbase.master.server.tag.is_active_master
+               values: {"true": 1, "false": 0, default: 0}
     ```
 
 2. [Restart the Agent][8]

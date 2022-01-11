@@ -10,10 +10,13 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the OctoPrint check on your host:
+To install the OctoPrint check on your host by running:
 
-1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
-    - VERSION is currently `1.0.0`.  This may be verified in `./datadog_checks/octoprint/__about__.py`.
+```shell
+sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>
+```
+
+**Note**: The `VERSION` is listed at the top of this page.
 
 #### Install from source (optional)
 
@@ -29,9 +32,9 @@ To install the OctoPrint check on your host:
 
 ### Configuration
 
-1. From the OctoPrint web interface, create an API key for use with Datadog.  This can be found within Settings --> Application Keys.
+1. From the OctoPrint web interface, create an API key for use with Datadog. This can be found within Settings --> Application Keys.
 
-2. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.  Paste the OctoPrint API key as the value for `octo_api_key`. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
+2. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory. Paste the OctoPrint API key as the value for `octo_api_key`. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
 
 3. [Restart the Agent][6].
 
@@ -53,7 +56,7 @@ Any or all of these may be changed or removed by modifying the integration's `co
 
 #### Log processing
 
-OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
+OctoPrint uses its own log format (not an object format). To make use of the logs, create a log processing pipeline with some parsing rules, for example:
 
 1. Main Pipeline: "OctoPrint"
     1. Sub Pipeline 1: "OctoPrint Print Job"
