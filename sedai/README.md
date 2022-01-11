@@ -21,7 +21,7 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 * **Resource Optimization:** Improve customer experience and lower cloud costs on the fly with dynamic allocation that manages your resources based on traffic needs.
 * **Smart SLOs:** In addition to automatically analyzing and defining targets, Sedai manages error budgets with autonomous actions that prevent errors, downtime, and SLO breaches.
 
-Visit **[Sedai Inc.][1]** to learn more.
+To learn more, see [Sedai Inc.][1].
 
 ## Setup
 
