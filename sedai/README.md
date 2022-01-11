@@ -1,7 +1,6 @@
 
 ## Overview
 
-As a Sedai customer you can integrate directly with DataDog to see selected notifications in your DataDog Dashboard.
 
 Sedai proactively manages your cloud environments for you through autonomous actions that prevent availability issues as well as optimize your resources’ performance — all in production. Our agentless and configuration-free platform infers your cloud environments and intelligently learns and adapts based on observed performance. From preventing downtime and managing SLOs to analyzing code releases and lowering cloud costs, learn how our autonomous platform can become a staple in your SRE tool kit.
 
