@@ -25,8 +25,6 @@ Visit **[Sedai Inc.][1]** to learn more.
 ## Setup
 Existing Sedai customers can receive notifications in DataDog about Sedai activity. Learn how to connect DataDog to Sedai in **[our documentation][6].**
 
-### Ready to Autonomously Optimize your applications for heightened performance?
-With our agentless approach, integration is seamless and setup takes minutes — simply connect your cloud and monitoring accounts and favorite integrations. We automatically identify your topology and metrics and start analyzing performance immediately.
 
 **[Schedule a free 30 minute demo OR a free 14-day trial][2]**
 
