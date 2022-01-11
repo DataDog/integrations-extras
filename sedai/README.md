@@ -23,7 +23,12 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 Visit **[Sedai Inc.][1]** to learn more.
 
 ## Setup
-Existing Sedai customers can receive notifications in DataDog about Sedai activity. Learn how to connect DataDog to Sedai in **[our documentation][6].**
+
+After connecting your cloud provider, monitoring provider, and notification provider accounts, Sendai identifies your topology and metrics and starts to analyze performance.
+
+### Installation
+
+Existing Sedai customers can receive notifications about Sedai activity in Datadog. For more information, see the [Sedai documentation][6].
 
 
 ## Data Collected
