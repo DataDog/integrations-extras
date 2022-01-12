@@ -155,10 +155,10 @@ See [service_checks.json][11] for a list of service checks provided by this inte
 
 ### Missing CPU and Memory metrics for TiKV and TiFlash instances on macOS
 
-You will not get CPU or Memory metrics for TiKV and TiFlash instances in two cases:
+CPU and Memory metrics are not provided for TiKV and TiFlash instances in the following cases:
 
 - Running TiKV or TiFlash instances with [tiup playground][13] on macOS.
-- Or, running TiKV or TiFlash instances with [docker-compose up][14] on a new Apple M1 machine.
+- Running TiKV or TiFlash instances with [docker-compose up][14] on a new Apple M1 machine.
 
 ### Too many metrics
 
