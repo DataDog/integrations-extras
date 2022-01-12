@@ -25,7 +25,7 @@ To learn more, see [Sedai Inc.][1]
 
 ## Setup
 
-After connecting your cloud provider, monitoring provider, and notification provider accounts, Sendai identifies your topology and metrics and starts to analyze performance.
+After connecting your cloud provider, monitoring provider, and notification provider accounts, Sedai identifies your topology and metrics and starts to analyze performance.
 
 ### Installation
 
