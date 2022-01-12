@@ -54,7 +54,7 @@ This workflow runs with its input variables initially assigned based on the requ
     id
     ```
 
-There are also have additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow assigns these output variables and outputs the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
+There are also additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow assigns these output variables and outputs the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
 
 ![Expand][11]
 
