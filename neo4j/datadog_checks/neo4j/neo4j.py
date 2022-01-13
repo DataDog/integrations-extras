@@ -139,6 +139,7 @@ class Neo4jCheck(PrometheusCheck):
             # causal clustering metrics
             'causal_clustering_catchup_tx_pull_requests_received_total': 'causal_clustering.catchup_tx_pull_requests_received',  # noqa: E501
             'causal_clustering_core_append_index': 'causal_clustering.core.append_index',
+            'causal_clustering_core_applied_index': 'causal_clustering.core.applied_index',
             'causal_clustering_core_commit_index': 'causal_clustering.core.commit_index',
             'causal_clustering_core_discovery_cluster_converged': 'causal_clustering.core.discovery.cluster.converged',  # noqa: E501
             'causal_clustering_core_discovery_cluster_members': 'causal_clustering.core.discovery.cluster.members',  # noqa: E501
