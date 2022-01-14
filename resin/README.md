@@ -8,8 +8,7 @@ This check monitors [Resin][1] through the Datadog Agent.
 
 ### Installation
 
-The Resin check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself.
+The Resin check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Configuration
 
@@ -30,9 +29,9 @@ need to install it yourself.
 
 [Run the Agent's status subcommand][4] and look for `resin` under the Checks section.
 
-### Log Collection
+### Log collection
 
-Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][6] for the location of your configuration file:
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, see the [Agent Configuration Files guide][6] for the location of your configuration file:
 
 ```yaml
 logs_enabled: true

@@ -8,10 +8,10 @@ Retool helps developers create custom apps that embed directly into a Datadog da
 ![Screenshot1][1]
 
 ### Metrics
-Datadog’s embedded Retool app for Elasticsearch Management combines existing visibility into key Elasticsearch metrics and logs with the power to manage clusters, accounts, and more without leaving your Datadog dashboard.
+Datadog's embedded Retool app for Elasticsearch Management combines existing visibility into key Elasticsearch metrics and logs with the power to manage clusters, accounts, and more without leaving your Datadog dashboard.
 
 ### Dashboards
-Retool built an embedded app for Elasticsearch Management. You can already monitor Elasticsearch metrics, traces, and logs in Datadog today. With our embedded app, developers can take action on their rich Datadog insights directly in the Datadog dashboard. These actions include:
+Retool built an embedded app for Elasticsearch Management. You can already monitor Elasticsearch metrics, traces, and logs in Datadog today. With the embedded app, developers can take action on their rich Datadog insights directly in the Datadog dashboard. These actions include:
 
 - Add a new index with shards and replicas
 - Manage nodes by rerouting shards and excluding indexes
@@ -20,9 +20,9 @@ Retool built an embedded app for Elasticsearch Management. You can already monit
 ## Setup
 The Retool integration comes with an out-of-the-box dashboard, which allows you to sign up or log into Retool through an iframe.
 
-You’ll be prompted to connect to your ElasticSearch cluster with a connection string. This app will automatically be added to you instance. You then need to click resources in the navbar and create a new Datadog resource (adding your api and application keys). Finally connect your Datadog resource to the two Datadog queries by selecting it from the select resource dropdown in the query editor. 
+You are prompted to connect to your ElasticSearch cluster with a connection string. This app is automatically added to your instance. You then need to click resources in the navbar and create a new Datadog resource (adding your api and application keys). Finally connect your Datadog resource to the two Datadog queries by selecting it from the select resource dropdown in the query editor. 
 
-And that’s it - return to Datadog and the app will be up and running in your dashboard. You can edit the app anytime to customize it for your DevOps workflows.
+Return to Datadog to see the app up and running in your dashboard. You can edit the app anytime to customize it for your DevOps workflows.
 
 ## Data Collected
 

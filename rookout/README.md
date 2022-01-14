@@ -8,17 +8,20 @@
 
 Rookout is designed from the ground up for production environments and modern architecture debugging, such as Kubernetes, microservices, serverless, and service-mesh based applications.
 
-The Rookout integration lets you collect metrics from your code running live in production or any other environment, without ever needing to stop it or to redeploy.
+The Rookout integration lets you collect metrics from your code running live in production or any other environment, without ever needing to stop or redeploy it.
 
 ### Usage
 
-The Rookout integration has two components: the first is a context menu item for your dashboard widgets that lets you start collecting metric points from your code, and the second is a custom widget showing you all the metric points you have set in Rookout.
+The Rookout integration has two components:
+
+- A context menu item for your dashboard widgets that lets you collect metric points from your code.
+- A custom widget showing you all the metric points you have set in Rookout.
 
 **Context Menu Item**
 
-When clicking on a timeseries widget that represents one or more servers or services, a new context menu item will appear. 
+When clicking on a timeseries widget that represents one or more servers or services, a new context menu item appears.
 
-Clicking on "Set metric points" will open the Rookout app, and automatically select the right instances for you.
+Clicking on "Set metric points" opens the Rookout app, and automatically selects the correct instances for you.
 
 **Custom Dashboard Widget**
 
@@ -30,9 +33,9 @@ Add the Rookout widget to your dashboard to see where you have set metric points
 
 To add the Rookout context menu item to a timeseries widget in your dashboard, you need to add a rookout label filter to its title.
 
-For instance, if a timeseries shows some metric in a service called "cartservice", you want the Rookout context menu item to automatically start a Rookout session with the label filter: "k8s_deployment:cartservice".
+For instance, if a timeseries shows some metric in a service called `cartservice`, you want the Rookout context menu item to automatically start a Rookout session with the label filter: `k8s_deployment:cartservice`.
 
-To do that, add "\[k8s_deployment:cartservice\]" to the title of the timeseries widget.
+To do that, add `[k8s_deployment:cartservice]` to the title of the timeseries widget.
 
 ## Data Collected
 
@@ -48,9 +51,9 @@ Rookout does not include any service checks.
 
 Rookout does not include any events.
 
-## Support
+## Troubleshooting
 
-Feel free to contact us at [support@rookout.com][2]
+Need help? Contact [Rookout support][2].
 
 [1]: https://rookout.com
 [2]: mailto:support@rookout.com
