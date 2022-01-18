@@ -26,7 +26,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Traefik 
 <!-- xxx tab "v2" xxx -->
 
 #### About v2
-For information about the changes from v1 to v2, see the [Traefik migration guide][5]. For information about the latest version, see [Traefik documentation][6].
+For information about the changes from v1 to v2, see the [Traefik migration guide][5]. For information about the latest version, see the [Traefik documentation][6].
 
 #### Metric collection
 
@@ -36,7 +36,7 @@ Follow [Traefix's documentation][7] to send [Traefix metrics][8] to Datadog.
 
 **Available for Agent >6.0**
 
-By default, [Traefik logs][9] are sent to stdout. This should not be changed for containerized version, as the Datadog Agent is able to collect logs directly from container `stdout`/`stderr`.
+By default, [Traefik logs][9] are sent to stdout. This should not be changed for containerized version, because the Datadog Agent can collect logs directly from the container `stdout`/`stderr`.
 
 1. To configure [Traefik to log to a file][9], add the following in the Traefik configuration file:
 
