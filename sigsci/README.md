@@ -35,7 +35,7 @@ Get metrics and events from Signal Sciences in real-time to:
 
 ## Setup
 
-To use the Signal Sciences-Datadog integration, you must be a customer of Signal Sciences. For more information about Signal Sciences, visit us at <https://www.signalsciences.com>.
+To use the Signal Sciences-Datadog integration, you must be a customer of Signal Sciences. For more information about Signal Sciences, see <https://www.signalsciences.com>.
 
 ### Configuration
 
@@ -79,10 +79,7 @@ To use the Signal Sciences-Datadog integration, you must be a customer of Signal
 
 4. Click _Add_.
 
-**Need more information?**
-
-- [Here's a video][7] that covers the agent configuration and Datadog setup
-- Read the full [Signal Sciences docs][8]
+For more information, see the [Datadog Signal Sciences integration][8].
 
 ## Data Collected
 
@@ -104,9 +101,9 @@ Need help? Contact [Datadog support][10].
 
 ## Further Reading
 
-Learn more about application security, DevOps, SecOps, and all the ops on [Signal Sciences blog][11].
+Additional helpful documentation, links, and articles:
 
-To sign up for the Signal Sciences-Datadog Monitoring, a free service to see attacks against your applications, APIs, and microservices in real-time without a Signal Sciences subscription, visit our [registration page][12].
+- [Signal Sciences blog][11]
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
@@ -114,10 +111,8 @@ To sign up for the Signal Sciences-Datadog Monitoring, a free service to see att
 [4]: https://docs.datadoghq.com/agent/kubernetes/dogstatsd/
 [5]: https://app.datadoghq.com/organization-settings/api-keys
 [6]: https://dashboard.signalsciences.net
-[7]: https://player.vimeo.com/video/347360711
 [8]: https://docs.signalsciences.net/integrations/datadog/
 [9]: https://docs.datadoghq.com/events/
 [10]: https://docs.datadoghq.com/help/
-[11]: https://labs.signalsciences.com
-[12]: https://info.signalsciences.com/datadog-security
+[11]: https://www.signalsciences.com/blog/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/sigsci/metadata.csv

@@ -65,7 +65,7 @@ To set up this integration, you must have an active [StackPulse account][2] and 
     }
     ```
 
-5. Pick monitors for triggering StackPulse Playbooks, and in the **Alert Your Team** field, add a reference to the newly created Webhook integration. For further details, see the [DataDog documentation on managing monitors][7].
+5. Pick monitors for triggering StackPulse Playbooks, and in the **Alert Your Team** field, add a reference to the newly created Webhook integration. For more details, see [Manage Monitors][7].
 
 6. Navigate to **Integrations -> APIs** and choose the **API Keys** card. Under **New API Key**, input a meaningful name for the new key and click **Create API Key**, then **Copy** the new key.
 
@@ -97,7 +97,7 @@ Need help? Contact [Datadog support][11].
 [2]: https://stackpulse.com/get-started/
 [3]: https://app.stackpulse.io/integrations/datadog?create=true
 [5]: https://app.datadoghq.com/account/settings#integrations/webhooks
-[7]: https://docs.datadoghq.com/monitors/manage_monitor/
+[7]: https://docs.datadoghq.com/monitors/manage/
 [8]: https://app.stackpulse.io/integrations/datadog%20api%20keys?create=true
 [10]: https://github.com/stackpulse/steps/tree/master/steps/datadog/post-event
 [11]: https://docs.datadoghq.com/help/

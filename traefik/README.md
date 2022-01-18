@@ -90,7 +90,7 @@ The [common Apache Access format][12] is used by default and is supported by thi
 
 ### Validation
 
-[Run the Agent's `status` subcommand][13] and look for `traefik` under the Checks section.
+Run the [Agent's status subcommand][13] and look for `traefik` under the Checks section.
 
 ## Compatibility
 

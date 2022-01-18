@@ -50,7 +50,7 @@ See [service_checks.json][12] for a list of service checks provided by this inte
 
 ## Troubleshooting
 
-The SortDB check does not currently include any events.
+The SortDB check does not include any events.
 
 
 [1]: https://github.com/jehiah/sortdb
