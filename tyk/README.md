@@ -2,7 +2,7 @@
 
 ## Overview
 
-Datadog can collect and display errors response time, duration, latency and monitor performance of the API traffic in [Tyk][1] to easily discover issues in your APIs or your consumers.
+Datadog can collect and display errors response time, duration, latency, and monitor performance of the API traffic in [Tyk][1] to discover issues in your APIs or consumers.
 
 Tyk has a built-in Datadog integration that collects metrics from [Tyk API gateway][7].
 
@@ -24,7 +24,7 @@ Tyk's integration is included in the `tyk-pump` package, so you only need to set
 
 ### Installation
 
-#### Install Tyk
+#### Installation
 
 For this integration you need to have a running Tyk installation. You can install [Tyk self managed][14] or [Tyk OSS][15]. Both options include the `tyk-pump`.
 
@@ -32,14 +32,14 @@ For this integration you need to have a running Tyk installation. You can instal
 
 Install the [Datadog Agent][16] in your environment.
 
-You can run Datadog [Agent][17] in your k8s cluster, as a docker container, on your mac, or any other way you choose as long as `Tyk pump` is be able to access it.
+Run the Datadog [Agent][17] in your K8s cluster, as a Docker container, on your Mac, or any way as long as `Tyk pump` is able to access it.
 
 For containerized environments, see the [Autodiscovery Integration Templates][2] for more guidance. To validate that the changes are applied, [run the Agent's status subcommands][13]
 
 
 ### Configuration
 
-#### Setup Tyk-pump:
+#### Tyk-pump
 To set a Datadog pump follow the instructions in [the DogstatsD section][18] of the pump README.
 
 The following is an example of Datadog pump configuration in `pump.conf`:
@@ -78,7 +78,7 @@ This [example][19] was taken from [Tyk-demo][20] project, an open source project
 
 Tyk's integration uses [DogstatsD][21]. It is a metrics aggregation service bundled with the Datadog Agent. DogStatsD implements the `StatsD` protocol and adds a few Datadog-specific extensions. Tyk is using `Histogram metric type`.
 
-Please set up the following Datadog and DogStatsD environment variables in your environment:
+Set up the following Datadog and DogStatsD environment variables in your environment:
 
 | DD Environment variable | Value | Description |
 |---------------------------|-------------|------|
@@ -87,7 +87,7 @@ Please set up the following Datadog and DogStatsD environment variables in your 
 | DD_DOGSTATSD_TAGS | "env:tyk-demo" |  Additional tags to append to all metrics, events, and service checks received by this DogStatsD server. |
 | DD_LOGS_ENABLED | true | Enables log collection for the Datadog Agent. |
 | DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL | true | Collects logs from containers. |
-| DD_DOGSTATSD_SOCKET | /var/run/docker.sock | Path to the Unix socket to listen to.  Docker compose mounts this path. |
+| DD_DOGSTATSD_SOCKET | /var/run/docker.sock | Path to the Unix socket to listen to. Docker compose mounts this path. |
 | DD_DOGSTATSD_ORIGIN_DETECTION | true | Enables container detection and tagging for Unix socket metrics. |
 | DD_DOGSTATSD_NON_LOCAL_TRAFFIC | true | Listens for DogStatsD packets from other containers. (Required to send custom metrics). |
 | DD_AGENT_HOST | dd-agent | Name of the agent host in Docker. |
@@ -102,7 +102,7 @@ After setting environment variables listed above, set up the agent [with Dogstat
 
 Create a dashboard or import [the sample][11] and add a widget. In the section **Graph your data** under the **metric** option, start typing the namespace you chose for the pump in the config `pump.conf` under `dogstatsd.namespace`.
 
-In the example above it was `tyk`. Once you start typing you will see all the available metrics - `tyk.request_time.avg` etc.
+In the example above, it's `tyk`. Once you start typing, all the available metrics are displayed.
 
 ## Data Collected
 

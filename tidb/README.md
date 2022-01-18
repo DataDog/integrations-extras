@@ -8,10 +8,10 @@ Connect [TiDB][1] cluster to Datadog in order to:
 - Collect logs of your cluster, such as TiDB/TiKV/TiFlash logs and slow query logs.
 - Visualize cluster performance on the provided dashboard.
 
-> **Note:** 
+> **Note**:
 >
 > - TiDB 4.0+ is required for this integration. 
-> - For TiDB Cloud, refer to the [TiDB Cloud Integration][12].
+> - For TiDB Cloud, see the [TiDB Cloud Integration][12].
 
 ## Setup
 
@@ -130,7 +130,7 @@ _Available for Agent versions >6.0_
 
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `tidb` under the Checks section.
+Run the [Agent's status subcommand][5] and look for `tidb` under the Checks section.
 
 ## Data Collected
 

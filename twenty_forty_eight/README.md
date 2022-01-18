@@ -14,11 +14,10 @@ Click on the widget to activate the app, then use your **arrow keys** to move th
 
 2. In the dashboard, click **+Add Widgets** to the right of the dashboard title. Scroll to the right through the widgets, and then drag and drop the **Twenty Forty Eight** widget into the desired position on your dashboard.
 
-## Support
+## Troubleshooting
 
-[Contact Datadog support][3] if you run into any issues.
+Need help? Contact [Datadog support][3].
 
-[Check out our app documentation][1] if you are interested in building a Datadog app of your own.
 
 [1]: https://docs.datadoghq.com/developers/datadog_apps
 [2]: https://docs.datadoghq.com/dashboards/#new-dashboard
