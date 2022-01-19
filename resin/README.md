@@ -12,7 +12,7 @@ The Resin check is not included in the [Datadog Agent][2] package, so you need t
 
 ### Configuration
 
-1. Configure the [resin default server](https://www.caucho.com/resin-4.0/admin/cluster-server.xtp#JVMparameters:settingtheJVMcommandline) to enable JMX by adding the following JVM arguments:
+1. Configure the [resin default server][9] to enable JMX by adding the following JVM arguments:
 
 ```
 <server-default>
@@ -65,10 +65,11 @@ Need help? Contact [Datadog support][7].
 
 
 [1]: https://caucho.com/
-[2]: https://github.com/DataDog/integrations-core/blob/master/resin/datadog_checks/resin/data/conf.yaml.example
+[2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
 [6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
 [7]: https://docs.datadoghq.com/help/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/resin/assets/service_checks.json
+[9]: https://www.caucho.com/resin-4.0/admin/cluster-server.xtp#JVMparameters:settingtheJVMcommandline
