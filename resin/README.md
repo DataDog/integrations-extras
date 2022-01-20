@@ -21,7 +21,7 @@ The Resin check is not included in the [Datadog Agent][2] package, so you need t
 </server-default>
 ```
 
-2. Edit the `resin.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [sample resin.d/conf.yaml][2] for all available configuration options.
+2. Edit the `resin.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [resin.d/conf.yaml example][2] for all available configuration options.
 
 3. [Restart the Agent][3].
 
@@ -65,7 +65,7 @@ Need help? Contact [Datadog support][7].
 
 
 [1]: https://caucho.com/
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://github.com/DataDog/integrations-extras/blob/master/resin/datadog_checks/resin/data/conf.yaml.example 
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
