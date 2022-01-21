@@ -18,9 +18,6 @@ If you do not have an InsightFinder account, [sign up][3] to start your free tri
 
 Contact [Datadog support][6] or email [InsightFinder support][4].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
 
 [1]: https://insightfinder.com/
 [2]: https://insightfinder.com/datadog-integration/
