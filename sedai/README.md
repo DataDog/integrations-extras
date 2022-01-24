@@ -1,8 +1,6 @@
-
 ## Overview
 
-
-Sedai: Continuous Autonomous Availability Management (CAAM) proactively manages your cloud environments through autonomous actions that prevent availability issues and optimize your resources’ performance in production. Our agentless, configuration-free platform infers and adapts to your cloud environments' observed performance. 
+Sedai: Continuous Autonomous Availability Management (CAAM) proactively manages your cloud environments through autonomous actions that prevent availability issues and optimize your resources’ performance in production. Our agentless, configuration-free platform infers and adapts to your cloud environments' observed performance.
 
 From preventing downtime and managing SLOs to analyzing code releases and lowering cloud costs, Sedai is the autonomous platform for your SRE and DevOps teams. As a Sedai customer, you can directly integrate with Datadog to receive select notifications in your dashboards.
 
@@ -24,12 +22,51 @@ From preventing downtime and managing SLOs to analyzing code releases and loweri
 To learn more, see [Sedai Inc.][1]
 
 ## Setup
+As an existing Sedai customer you may integrate your environment with your DataDog dashboard.
 
-After connecting your cloud provider, monitoring provider, and notification provider accounts, Sendai identifies your topology and metrics and starts to analyze performance.
+Notifications are alerts related to the events and the updates happening in your Sedai system that can be displayed on your DataDog dashboard as *Events*.
 
-### Installation
+**To access the notifications page:**
 
-Existing Sedai customers can receive notifications about Sedai activity in Datadog. For more information, see the [Sedai documentation][6].
+From the **Settings** menu, click **Notifications**.
+
+The Notifications page is displayed.
+
+![Settings → Notifications](images/Notifications.png)
+
+Click the `+ Add Integration` button to add a new notification integration.
+
+![+ Add Integration](images/Add_Intgegration_button.png)
+
+Click the **DataDog** icon from the **Select a notification integration** pop-out.
+
+![Select DataDog](images/Select_DataDog.png)
+
+The **Add DataDog Channel** popup will be available:
+
+![Add DataDog Channel](images/Add_DataDog_Channel.png)
+
+Enter a **Nick Name** to identify the channel.
+
+Copy-and-paste your **DataDog API Key** into the input field.
+
+Check the **Enabled** check-box if you would like messages from Sedai to immediately start appearing as *DataDog Events* on your DataDog dashboard.
+
+Then click the **Test Integration** button to ensure that your DataDog API Key has been entered correctly.
+
+You should see **Working** replace the *Test Integration* button and you can now click the **Save** button to store the channel configuration:
+
+![Working](images/Add_DataDog_Channel-Working_REC.png)
+
+If you see the **Invalid credentials** message:
+
+![Invalid Credentials](images/Invalid_credentials.png)
+
+There is an error in the **DataDog API Key** that should be corrected before testing the integration again.
+
+### Filtering Notifications
+
+There is a default set of notification types that will appear as events on your DataDog dashboard, instructions on how to add or remove notification types that will trigger sending events to DataDog are available in the [Sedai documentation][2].
 
 
 ## Data Collected
@@ -50,12 +87,10 @@ This integration does not collect service checks.
 
 Need help? Email [Support][3] is available 24/7.
 
-Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2]. 
+Alternatively, [contact us][4] to schedule a demo or a free 14-day trial.
 
 
 [1]: https://www.sedai.io
-[2]: https://calendly.com/sedai/sedai-demo
+[2]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
 [3]: mailto:support@sedai.io
-[4]: https://sedai.gitbook.io/sedai/
-[5]: mailto:contact@sedai.io
-[6]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
+[4]: https://www.sedai.io/contact
