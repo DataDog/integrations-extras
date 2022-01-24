@@ -1,7 +1,7 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import requests
+from requests.exceptions import ConnectionError
 from six import iteritems
 
 from datadog_checks.base import AgentCheck, ConfigurationError
@@ -20,7 +20,7 @@ class TraefikCheck(AgentCheck):
 
         try:
             url = '{}://{}:{}{}'.format(scheme, host, port, path)
-            response = requests.get(url)
+            response = self.http.get(url)
             response_status_code = response.status_code
 
             if response_status_code == 200:
@@ -52,7 +52,7 @@ class TraefikCheck(AgentCheck):
                     'traefik.health', self.CRITICAL, message='Traefik health check return code is not 200'
                 )
 
-        except requests.exceptions.ConnectionError:
+        except ConnectionError:
             self.service_check('traefik.health', self.CRITICAL, message='Traefik endpoint unreachable')
 
         except Exception as e:

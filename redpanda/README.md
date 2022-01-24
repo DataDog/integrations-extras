@@ -107,7 +107,7 @@ Metrics are automatically collected in Datadog's server. For more information, s
 
 By default, log collection is disabled in the Datadog Agent. Log collection is available for Agent v6.0+.
 
-To enable logs, see the [Kubernetes log collection documentation][9].
+To enable logs, see [Kubernetes Log Collection][9].
 
 | Parameter      | Value                                                  |
 | -------------- | ------------------------------------------------------ |
