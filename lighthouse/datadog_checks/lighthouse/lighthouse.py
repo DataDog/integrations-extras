@@ -113,6 +113,7 @@ class LighthouseCheck(AgentCheck):
             self.gauge("lighthouse.uses_optimized_images", uses_optimized_images, tags=tags)
             self.gauge("lighthouse.render_blocking_resources", render_blocking_resources, tags=tags)
             self.gauge("lighthouse.bootup_time", bootup_time, tags=tags)
+            self.gauge("lighthouse.server_response_time", server_response_time, tags=tags)
             self.gauge("lighthouse.speed_index", speed_index, tags=tags)
             self.gauge("lighthouse.dom_size", dom_size, tags=tags)
             self.gauge("lighthouse.total_blocking_time", total_blocking_time, tags=tags)
