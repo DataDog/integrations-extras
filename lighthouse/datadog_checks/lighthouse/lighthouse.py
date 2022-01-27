@@ -18,7 +18,7 @@ class LighthouseCheck(AgentCheck):
         form_factor = instance.get('form_factor')
         
         if backward_compatible_lighthouse_url:
-            lighthouse_urls.append(lighthouse_url)
+            lighthouse_urls.append(backward_compatible_lighthouse_url)
 
         if not lighthouse_urls or not lighthouse_name:
             self.log.error("missing instance url or name")
