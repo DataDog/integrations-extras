@@ -16,7 +16,7 @@ class LighthouseCheck(AgentCheck):
         lighthouse_name = instance.get('name')
         extra_chrome_flags = instance.get('extra_chrome_flags', [])
         form_factor = instance.get('form_factor')
-        
+
         if backward_compatible_lighthouse_url:
             lighthouse_urls.append(backward_compatible_lighthouse_url)
 
@@ -33,7 +33,7 @@ class LighthouseCheck(AgentCheck):
                 "--quiet",
                 "--chrome-flags='{}'".format(" ".join(CHROME_FLAGS + extra_chrome_flags)),
             ]
-            
+
             if form_factor:
                 cmd.append("--form-factor=" + form_factor)
 
@@ -53,29 +53,31 @@ class LighthouseCheck(AgentCheck):
                 raise CheckException(error_message, exit_code, e)
 
             if data.get("runtimeError", {"code": EXPECTED_RESPONSE_CODE}).get("code") == EXPECTED_RESPONSE_CODE:
-                score_accessibility = round(((data.get("categories", {}).get("accessibility", {}).get("score") or 0) * 100))
+                score_accessibility = round(
+                    ((data.get("categories", {}).get("accessibility", {}).get("score") or 0) * 100)
+                )
                 score_best_practices = round(
                     ((data.get("categories", {}).get("best-practices", {}).get("score") or 0) * 100)
                 )
                 score_performance = round(((data.get("categories", {}).get("performance", {}).get("score") or 0) * 100))
                 score_pwa = round(((data.get("categories", {}).get("pwa", {}).get("score") or 0) * 100))
                 score_seo = round(((data.get("categories", {}).get("seo", {}).get("score") or 0) * 100))
-                largest_contentful_paint = (data.get("audits", {}).get("largest-contentful-paint", {}).get("numericValue") or 0)
-                first_contentful_paint = (data.get("audits", {}).get("first-contentful-paint", {}).get("numericValue") or 0)
-                cumulative_layout_shift = (data.get("audits", {}).get("cumulative-layout-shift", {}).get("numericValue") or 0)
-                max_potential_fid = (data.get("audits", {}).get("max-potential-fid", {}).get("numericValue") or 0)
-                time_to_interactive = (data.get("audits", {}).get("interactive", {}).get("numericValue") or 0)
-                mainthread_work_breakdown = (data.get("audits", {}).get("mainthread-work-breakdown", {}).get("numericValue") or 0)
-                unused_javascript = (data.get("audits", {}).get("unused-javascript", {}).get("numericValue") or 0)
-                unused_css_rules = (data.get("audits", {}).get("unused-css-rules", {}).get("numericValue") or 0)
-                modern_image_formats = (data.get("audits", {}).get("modern-image-formats", {}).get("numericValue") or 0)
-                uses_optimized_images = (data.get("audits", {}).get("uses-optimized-images", {}).get("numericValue") or 0)
-                render_blocking_resources = (data.get("audits", {}).get("render-blocking-resources", {}).get("numericValue") or 0)
-                bootup_time = (data.get("audits", {}).get("bootup-time", {}).get("numericValue") or 0)
-                server_response_time = (data.get("audits", {}).get("server-response-time", {}).get("numericValue") or 0)
-                speed_index = (data.get("audits", {}).get("speed-index", {}).get("numericValue") or 0)
-                dom_size = (data.get("audits", {}).get("dom-size", {}).get("numericValue") or 0)
-                total_blocking_time = (data.get("audits", {}).get("total-blocking-time", {}).get("numericValue") or 0)
+                largest_contentful_paint = LighthouseCheck._get_numeric_audit_value(data, "largest-contentful-paint")
+                first_contentful_paint = LighthouseCheck._get_numeric_audit_value(data, "first-contentful-paint")
+                cumulative_layout_shift = LighthouseCheck._get_numeric_audit_value(data, "cumulative-layout-shift")
+                max_potential_fid = LighthouseCheck._get_numeric_audit_value(data, "max-potential-fid")
+                time_to_interactive = LighthouseCheck._get_numeric_audit_value(data, "interactive")
+                mainthread_work_breakdown = LighthouseCheck._get_numeric_audit_value(data, "mainthread-work-breakdown")
+                unused_javascript = LighthouseCheck._get_numeric_audit_value(data, "unused-javascript")
+                unused_css_rules = LighthouseCheck._get_numeric_audit_value(data, "unused-css-rules")
+                modern_image_formats = LighthouseCheck._get_numeric_audit_value(data, "modern-image-formats")
+                uses_optimized_images = LighthouseCheck._get_numeric_audit_value(data, "uses-optimized-images")
+                render_blocking_resources = LighthouseCheck._get_numeric_audit_value(data, "render-blocking-resources")
+                bootup_time = LighthouseCheck._get_numeric_audit_value(data, "bootup-time")
+                server_response_time = LighthouseCheck._get_numeric_audit_value(data, "server-response-time")
+                speed_index = LighthouseCheck._get_numeric_audit_value(data, "speed-index")
+                dom_size = LighthouseCheck._get_numeric_audit_value(data, "dom-size")
+                total_blocking_time = LighthouseCheck._get_numeric_audit_value(data, "total-blocking-time")
             else:
                 err_code = data.get("runtimeError", {}).get("code")
                 err_msg = data.get("runtimeError", {}).get("message")
@@ -122,3 +124,7 @@ class LighthouseCheck(AgentCheck):
     def _get_lighthouse_report(command, logger, raise_on_empty=False):
         json, err_msg, exit_code = get_subprocess_output(command, logger, raise_on_empty_output=raise_on_empty)
         return json, err_msg, exit_code
+
+    @staticmethod
+    def _get_numeric_audit_value(data, attribute):
+        return data.get("audits", {}).get(attribute, {}).get("numericValue") or 0
