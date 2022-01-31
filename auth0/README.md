@@ -37,7 +37,7 @@ All configuration happens on the [Auth0 Dashboard][2].
     | Setting     	   | Description                                                |
     | ---------------- | ---------------------------------------------------------- |
     | `API Key`        | Enter your [Datadog API key][4]. 							|
-    | `Region` 		   | If you are in the Datadog EU site (app.datadoghq.eu), the Region should be `EU`, otherwise it should be `GLOBAL`   |
+    | `Region` 		     | The region in which your Datadog site is in (ex. `EU` for app.datadoghq.eu, `US1` for app.datadoghq.com and `US3` for us3.datadoghq.com). For more information, see the relevant [Datadog API documentation][7] |
 
 	
 6. Click Save.
@@ -79,3 +79,4 @@ Read more about this integration in our [blog post][6].
 [4]: https://app.datadoghq.com/organization-settings/api-keys
 [5]: https://auth0.com/docs/logs/references/log-event-type-codes
 [6]: https://www.datadoghq.com/blog/monitor-auth0-with-datadog/
+[7]: https://docs.datadoghq.com/api/latest/logs/#send-logs
