@@ -34,7 +34,19 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Zabbix c
 ##### Create Datadog media type 
 
 1. Navigate to *Administration > Media Types > Create Media Type*.
-2. Add Datadog api_key as a parameter. And, add the following Zabbix template variables as parameters: {ALERT.MESSAGE}, {ALERT.SUBJECT}, {EVENT.DATE}, {EVENT.NAME}, {EVENT.NSEVERITY}, {EVENT.TAGSJSON}, {EVENT.TIME}, {EVENT.VALUE}, {ITEM.NAME}
+2. Add paramters to the webhook using Zabbix template variables : Add your Datadog api_key and, and the following Zabbix template variables as parameters:
+   ```
+        api_key | "Enter Yours"
+        event_date |  {EVENT.DATE}
+        event_name | {EVENT.NAME}
+        event_nseverity |  {EVENT.NSEVERITY}
+        event_tags | {EVENT.TAGSJSON}
+        event_time | {EVENT.TIME}
+        event_value | {EVENT.VALUE}
+        item_name | {ITEM.NAME}
+        alert_message | {ALERT.MESSAGE}
+        alert_subject | {ALERT.SUBJECT}
+   ```
 3. Set **Name** to `Datadog`, **Type** to `Webhook`, and input the following code as the **Script**:
 ``` 
 	try {
