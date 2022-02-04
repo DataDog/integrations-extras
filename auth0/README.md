@@ -37,7 +37,7 @@ All configuration happens on the [Auth0 Dashboard][2].
     | Setting     	   | Description                                                |
     | ---------------- | ---------------------------------------------------------- |
     | `API Key`        | Enter your [Datadog API key][4]. 							|
-    | `Region` 		     | Your [Datadog site][7]. For example, `EU` for app.datadoghq.eu, `US1` for app.datadoghq.com, and `US3` for us3.datadoghq.com). |
+    | `Region` 		     | Your [Datadog site][7]. For example, `EU` for app.datadoghq.eu, `US1` for app.datadoghq.com, and `US3` for us3.datadoghq.com. |
 
 	
 6. Click Save.
