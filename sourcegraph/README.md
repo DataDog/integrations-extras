@@ -61,7 +61,7 @@ This extension does not include any service checks.
 
 This extension does not include any events.
 
-## Troubleshooting
+## Support
 
 If you're a an individual Sourcegraph user, email support@sourcegraph.com. 
 
