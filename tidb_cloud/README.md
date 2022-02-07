@@ -8,7 +8,7 @@ Use the TiDB Cloud Datadog integration to export metrics from TiDB Cloud cluster
 
 > **Note:**
 >
-> - For TiDB clusters on premises, please refer to [TiDB Integration][4].
+> - For TiDB clusters on premises, see the [TiDB Integration][4].
 
 ## Setup
 

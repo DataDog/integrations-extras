@@ -27,9 +27,8 @@ APCu does not expose metrics by default so this integration includes a metric ex
 ```
 /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
 ```
-You can download the exporter [here][5].
 
-When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
+When you [configure](#configuration) your Agent, refer to the exporter directly by this file name, or configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
 ```
 Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_apcu/assets/exporter/apcu-dd-handler.php
@@ -51,7 +50,7 @@ Alias /apcu-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datad
 
 ### Validation
 
-[Run the Agent's status subcommand][10] and look for `php_apcu` under the Checks section.
+Run the [Agent's status subcommand][10] and look for `php_apcu` under the Checks section.
 
 ## Data Collected
 
@@ -76,7 +75,6 @@ Need help? Contact [Datadog support][12].
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
 [8]: https://github.com/DataDog/integrations-extras/blob/master/php_apcu/datadog_checks/php_apcu/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information

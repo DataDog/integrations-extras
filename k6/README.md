@@ -2,7 +2,7 @@
 
 ## Overview
 
-[k6][1] is an open-source load testing tool that will help you to catch performance issues and performance regressions earlier.
+[k6][1] is an open-source load testing tool that helps you catch performance issues and regressions earlier.
 
 With the k6 integration, you can track performance metrics of k6 tests to:
 

@@ -1,6 +1,5 @@
 import json
 
-import requests
 from requests import RequestException
 
 from datadog_checks.base import AgentCheck
@@ -33,7 +32,7 @@ class NeutronaCheck(AgentCheck):
             raise CheckException("Configuration error, please fix check's conf.yaml")
 
         try:
-            response = requests.post(
+            response = self.http.post(
                 '/'.join([azure_authentication_url.strip('/'), directory_id, 'oauth2/token?api-version=1.0']),
                 data={
                     'grant_type': 'client_credentials',
@@ -42,6 +41,7 @@ class NeutronaCheck(AgentCheck):
                     'client_secret': application_key,
                 },
             )
+            response.raise_for_status()
         except RequestException:
             self.log.error(
                 ' '.join(['Connection error to', azure_authentication_url, 'Unable to obtain Azure access token.'])
@@ -69,7 +69,7 @@ class NeutronaCheck(AgentCheck):
 
         # EXPRESS ROUTE CROSS CONNECTIONS
         try:
-            response = requests.get(
+            response = self.http.get(
                 ''.join(
                     [
                         azure_management_url.strip('/'),
@@ -81,8 +81,9 @@ class NeutronaCheck(AgentCheck):
                         '2018-08-01',
                     ]
                 ),
-                headers={'Authorization': ' '.join(['Bearer', azure_access_token])},
+                extra_headers={'Authorization': ' '.join(['Bearer', azure_access_token])},
             )
+            response.raise_for_status()
         except RequestException:
             self.log.error(' '.join(['Connection error to', azure_management_url]))
             raise CheckException(' '.join(['Connection error to', azure_management_url]))
@@ -109,11 +110,8 @@ class NeutronaCheck(AgentCheck):
 
                         # NEUTRONA TELEMETRY DATA
                         try:
-                            response = requests.get(
+                            response = self.http.get(
                                 ''.join([neutrona_express_route_api_url.strip('/'), '/client/?=', service_key]),
-                                # headers={
-                                #    'Authorization': ' '.join(['Bearer', '']),
-                                # }
                             )
                         except RequestException:
                             self.log.error(' '.join(['Connection error to', neutrona_express_route_api_url]))

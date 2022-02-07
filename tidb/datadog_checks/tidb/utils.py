@@ -10,7 +10,6 @@ def build_check(component, instance):
         instance.update(
             {
                 'prometheus_url': url,
-                'namespace': "tidb_cluster",
                 'labels_mapper': user_labels_mapper,
                 'tags': user_tags + ['tidb_cluster_component:' + component],
             }

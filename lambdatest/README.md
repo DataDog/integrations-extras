@@ -2,7 +2,7 @@
 
 ## Overview
 
-Integrate with LambdaTest and empower your teams to collaborate and test efficiently. LambdaTest is a cloud based testing platform that allows users to run both manual and automated tests on their websites and web apps across 2000+ browsers, browser versions, and operating systems.
+Integrate with LambdaTest and empower your teams to collaborate and test efficiently. LambdaTest is a cloud based testing platform that allows users to run manual and automated tests on their websites and web apps across 2000+ browsers, browser versions, and operating systems.
 
 LambdaTest supports manual and various automation testing frameworks like Selenium, Cypress, TestCafe, etc.
 
@@ -39,7 +39,7 @@ For support or feature requests, contact LambdaTest on the following channels:
 
 Email: support@lambdatest.com
 Phone: +1-(866)-430-7087
-Visit: https://www.lambdatest.com/ 
+Website: https://www.lambdatest.com/ 
 
 [1]: https://www.lambdatest.com/support/docs/datadog-integration/
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/
