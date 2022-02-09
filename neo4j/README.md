@@ -42,7 +42,7 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-Service check neo4j.prometheus.health is submitted in the base check
+Service check `neo4j.prometheus.health` is submitted in the base check
 
 ### Events
 
