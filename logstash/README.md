@@ -95,7 +95,7 @@ output {
 
 ##### Add metadata to your logs
 
-In order to get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs, including hostname and source. By default, the hostname and timestamp should be properly remapped thanks to Datadog's default [remapping for reserved attributes][16]. To make sure the service is correctly remapped, add its attribute value to the service remapping list.
+To get the best use out of your logs in Datadog, it is important to have the proper metadata associated with your logs, including hostname and source. By default, the hostname and timestamp should be properly remapped thanks to Datadog's default [remapping for reserved attributes][16]. To make sure the service is correctly remapped, add its attribute value to the service remapping list.
 
 ##### Source
 

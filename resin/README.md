@@ -8,12 +8,11 @@ This check monitors [Resin][1] through the Datadog Agent.
 
 ### Installation
 
-The Resin check is not included in the [Datadog Agent][2] package, so you will
-need to install it yourself.
+The Resin check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Configuration
 
-1. Configure the [resin default server](https://www.caucho.com/resin-4.0/admin/cluster-server.xtp#JVMparameters:settingtheJVMcommandline) to enable JMX by adding the following JVM arguments:
+1. Configure the [resin default server][9] to enable JMX by adding the following JVM arguments:
 
 ```
 <server-default>
@@ -22,7 +21,7 @@ need to install it yourself.
 </server-default>
 ```
 
-2. Edit the `resin.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [sample resin.d/conf.yaml][2] for all available configuration options.
+2. Edit the `resin.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your resin performance data. See the [resin.d/conf.yaml example][2] for all available configuration options.
 
 3. [Restart the Agent][3].
 
@@ -30,9 +29,9 @@ need to install it yourself.
 
 [Run the Agent's status subcommand][4] and look for `resin` under the Checks section.
 
-### Log Collection
+### Log collection
 
-Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][6] for the location of your configuration file:
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, see the [Agent Configuration Files guide][6] for the location of your configuration file:
 
 ```yaml
 logs_enabled: true
@@ -66,10 +65,11 @@ Need help? Contact [Datadog support][7].
 
 
 [1]: https://caucho.com/
-[2]: https://github.com/DataDog/integrations-core/blob/master/resin/datadog_checks/resin/data/conf.yaml.example
+[2]: https://github.com/DataDog/integrations-extras/blob/master/resin/datadog_checks/resin/data/conf.yaml.example 
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#start-stop-and-restart-the-agent
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/resin/metadata.csv
 [6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
 [7]: https://docs.datadoghq.com/help/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/resin/assets/service_checks.json
+[9]: https://www.caucho.com/resin-4.0/admin/cluster-server.xtp#JVMparameters:settingtheJVMcommandline

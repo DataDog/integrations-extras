@@ -17,29 +17,32 @@ resources:
       ref: master
       endpoint: DataDog
   containers:
-    - container: dd_agent
-      image: gcr.io/datadoghq/agent:latest
-      ports:
-        - 8127:8126
-      env:
-        DD_API_KEY: $(DD_CI_API_KEY)
-        DD_HOSTNAME: "none"
-        DD_INSIDE_CI: "true"
+    - ${{ if eq(variables['System.PullRequest.IsFork'], 'False') }}:
+      - container: dd_agent
+        image: gcr.io/datadoghq/agent:latest
+        ports:
+          - 8127:8126
+        env:
+          DD_API_KEY: $(DD_CI_API_KEY)
+          DD_HOSTNAME: "none"
+          DD_INSIDE_CI: "true"
 
 jobs:
 - template: '.azure-pipelines/templates/test-single-linux.yml@integrations-core'
   parameters:
-    ddtrace_flag: '--ddtrace'
+    ${{ if eq(variables['System.PullRequest.IsFork'], 'False') }}:
+      ddtrace_flag: '--ddtrace'
     job_name: Changed
     display: Linux
-    validate: true
+    validate: false
     validate_changed: changed
     validate_codeowners: true
     repo: 'extras'
 
 - template: '.azure-pipelines/templates/test-single-windows.yml@integrations-core'
   parameters:
-    ddtrace_flag: '--ddtrace'
+    ${{ if eq(variables['System.PullRequest.IsFork'], 'False') }}:
+      ddtrace_flag: '--ddtrace'
     job_name: Changed
     check: '--changed none_yet'
     validate_changed: changed

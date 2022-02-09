@@ -31,9 +31,9 @@ OPcache does not expose metrics by default so this integration includes a metric
 ```
 /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
 ```
-You can download the exporter from [here][5].
+You can download the exporter from the Datadog [integrations-extras][5] repository.
 
-When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
+When [configuring](#configuration) your Agent, reference the exporter directly by this file name, or configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
 ```
 Alias /opcache-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php

@@ -7,7 +7,7 @@ It also optionally measures the round-trip time for messages sent from the check
 
 Ping operates by sending Internet Control Message Protocol (ICMP) echo request packets to the target host and waiting for an ICMP echo reply.
 
-This check uses the system ping command, rather than generating the ICMP echo request itself, as creating an ICMP packet requires a raw socket, and creating raw sockets requires root privileges, which the Agent does not have. The ping command uses the `setuid` access flag to run with elevated privileges, avoiding this issue.
+This check uses the system ping command, rather than generating the ICMP echo request itself, as creating an ICMP packet requires a raw socket. Creating raw sockets requires root privileges, which the Agent does not have. The ping command uses the `setuid` access flag to run with elevated privileges, avoiding this issue.
 
 ## Setup
 
@@ -37,7 +37,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the ping che
 
 ### Validation
 
-[Run the Agent's status subcommand][9] and look for `ping` under the Checks section.
+Run the [Agent's status subcommand][9] and look for `ping` under the Checks section.
 
 ## Data Collected
 
