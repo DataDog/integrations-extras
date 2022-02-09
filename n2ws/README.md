@@ -2,6 +2,7 @@
 
 ## Overview
 
+
 N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS) and Microsoft Azure. N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS and Azure.
 
 Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts, 
@@ -38,12 +39,11 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 5.	##### Get N2WS dashboards
     In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
-    You will get 5 types of dashboards to your account, 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.0 (includes Azure):
+    You will get 5 types of dashboards to your account, 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.1 (includes Azure):
     'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for version 3.2.1
-	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0' and 'N2WSBackup&Recovery-GraphicalVersionV4.0' for version 4.0
+	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.1' and 'N2WSBackup&Recovery-GraphicalVersionV4.1' for version 4.1
  
     Alternatively users can [import JSON templates from N2WS][4].
-
 
 ## Data Collected
 
