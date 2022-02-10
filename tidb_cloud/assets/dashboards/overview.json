@@ -42,14 +42,14 @@
                                     "formulas": [
                                         {
                                             "alias": "queries",
-                                            "formula": "query2"
+                                            "formula": "default_zero(query2)"
                                         }
                                     ],
                                     "queries": [
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "sum:tidb_cloud.db_queries_total{$cluster_name,$instance} by {sql_type}.as_count()"
+                                            "query": "count:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal} by {sql_type}.as_count()"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -117,7 +117,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Failed queries per second",
                             "title_align": "left",
                             "title_size": "16",
@@ -177,27 +176,27 @@
                                         {
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "query": "avg:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance}"
+                                            "query": "avg:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query2",
-                                            "query": "p50:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance}"
+                                            "query": "p50:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query3",
-                                            "query": "p95:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance}"
+                                            "query": "p95:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query4",
-                                            "query": "p99:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance}"
+                                            "query": "p99:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
                                         },
                                         {
                                             "data_source": "metrics",
                                             "name": "query5",
-                                            "query": "max:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance}"
+                                            "query": "max:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
                                         }
                                     ],
                                     "response_format": "timeseries",
@@ -209,7 +208,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Query duration",
                             "title_align": "left",
                             "title_size": "16",
@@ -264,7 +262,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "Connection count",
                             "title_align": "left",
                             "title_size": "16",
@@ -347,7 +344,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiDB CPU usage (cores)",
                             "title_align": "left",
                             "title_size": "16",
@@ -412,7 +408,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiDB memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -477,7 +472,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiKV CPU usage (cores)",
                             "title_align": "left",
                             "title_size": "16",
@@ -542,7 +536,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiKV memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -607,7 +600,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiKV disk usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -672,7 +664,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiFlash CPU usage (cores)",
                             "title_align": "left",
                             "title_size": "16",
@@ -737,7 +728,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiFlash memory usage bytes",
                             "title_align": "left",
                             "title_size": "16",
@@ -802,7 +792,6 @@
                                 }
                             ],
                             "show_legend": true,
-                            "time": {},
                             "title": "TiFlash disk usage bytes",
                             "title_align": "left",
                             "title_size": "16",
