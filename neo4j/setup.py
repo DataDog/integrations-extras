@@ -15,7 +15,7 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-CHECKS_BASE_REQ = 'datadog-checks-base>=4.2.0'
+CHECKS_BASE_REQ = 'datadog-checks-base>=23.7.0'
 
 
 setup(
@@ -32,6 +32,7 @@ setup(
     author_email='neo4j-cloud@neotechnology.com',
     # License
     license='BSD-3-Clause',
+    python_requires='>=3.8',
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -39,8 +40,7 @@ setup(
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
     packages=['datadog_checks.neo4j'],
