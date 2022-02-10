@@ -2,80 +2,24 @@ name: Neo4j
 
 files:
 - name: neo4j.yaml
-    
   options:
-        
   - template: instances
     options:
-    - name: host
-      required: true
-      description: Neo4j host to connect to
-      value:
-              type: string
-              example: localhost
-              
-    - name: port
-      required: false
-      description: Port which prometheus is listening on
-      value:
-              type: integer
-              example: 2004
-              
-    - name: https
-      required: false
-      description: Use https to connect to prometheus
-      value:
-              type: boolean
-              example: false
-
     - name: neo4j_version
-      required: true
-      description: | 
-                   The Neo4j version to gather metric from. 
-                   Supported versions are 3.5, 4.0, 4.1, 4.2, 4.3
+      description: |
+        The Neo4j version to gather metric from.
       value:
-              type: string
-              example: "4.3"
-
+        type: string
+        example: "4.3"
     - name: neo4j_dbs
-      required: false
-      description: | 
-                   The Neo4j databases to gather metric from. 
-                   This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5.
+      description: |
+        The Neo4j databases to gather metric from.
+        This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5.
       value:
-              type: string
-              example: <DB_1>
-
-    - name: exclude_labels
-      required: false
-      description: | 
-                   A list of prometheus labels to exclude. Those labels will just not be added 
-                   as tags when submitting the metric.
-      value:
-              type: string
-              example: <TAG_1>
-
-    - name: tags
-      required: false
-      description: | 
-                   A list of tags to attach to every metric and service check emitted by this instance. 
-                   
-                   Learn more about tagging at https://docs.datadoghq.com/getting_started/agent/
-      value:
-              type: string
-              example: <KEY_1>:<VALUE_1>
-
-    - name: min_collection_interval
-      required: false
-      description: This changes the collection interval of the check.
-      value:
-              type: integer
-              example: 15
-
-    - name: empty_default_hostname
-      required: false
-      description: This forces the check to send metrics with no hostname.
-      value:
-              type: boolean
-              example: false
-
+        type: array
+        items:
+          type: string
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.display_priority: 5
+        openmetrics_endpoint.value.example: http://localhost:2004/metrics

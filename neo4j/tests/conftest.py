@@ -1,40 +1,27 @@
 import os
 
 import pytest
-import requests
 
-from datadog_checks.dev import docker_run, get_docker_hostname, get_here
-from datadog_checks.dev.conditions import WaitFor
+from datadog_checks.dev import docker_run
 
-DOCKER_DIR = os.path.join(get_here(), 'docker')
-INSTANCE = {
-    'host': get_docker_hostname(),
-    'port': 2004,
-    'neo4j_version': os.environ['NEO4J_VERSION'],
-}
-
-
-def ensure_prometheus_endpoint_is_accessable():
-    instance = INSTANCE
-    url = 'http://{}:{}/metrics'.format(instance.get('host'), instance.get('port'))
-    response = requests.get(url)
-    response.raise_for_status()
+from . import common
 
 
 @pytest.fixture(scope='session')
-def dd_environment():
-    instance = INSTANCE
-    image = "neo4j:4.3.6-enterprise"
-    #    image = os.environ.get("NEO4J_IMAGE", f"neo4j:{os.environ['NEO4J_VERSION']}-enterprise")
+def dd_environment(instance):
     with docker_run(
-        os.path.join(DOCKER_DIR, 'docker-compose.yaml'),
-        env_vars={'NEO4J_IMAGE': image},
+        os.path.join(common.HERE, 'docker', 'docker-compose.yaml'),
+        env_vars={'NEO4J_IMAGE': f'neo4j:{common.NEO4J_VERSION}-enterprise'},
         log_patterns=['Remote interface available at'],
-        conditions=[WaitFor(ensure_prometheus_endpoint_is_accessable)],
+        endpoints=[common.METRICS_URL],
     ):
         yield instance
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def instance():
-    return INSTANCE.copy()
+    return {
+        'openmetrics_endpoint': common.METRICS_URL,
+        'neo4j_version': common.NEO4J_VERSION,
+        'neo4j_dbs': ['neo4j', 'system'],
+    }
