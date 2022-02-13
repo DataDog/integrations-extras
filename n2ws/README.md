@@ -12,9 +12,9 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 ### Installation
 
-1.	##### Install the [Python Integration][1]
+1.	Install the [Python Integration][1].
 
-2.  ##### Enable support for Datadog on your N2WS instance:
+2.  Enable support for Datadog on your N2WS instance:
     - Connect to your N2WS Backup and Recovery instance with SSH.
     - Add the lines below to `/cpmdata/conf/cpmserver.cfg`. You might need `sudo` privileges to perform this action.
         ```
@@ -23,13 +23,13 @@ and more by Datadog monitoring service. This integration allows users to monitor
         ```
     - Run ```service apache2 restart```.
 
-3.	##### Install the Datadog Agent on your N2WS Instance.
-    Login to Datadog and go to Integrations -> Agent -> Ubuntu
-    Copy the agent ‘easy one-step install’ command 
-    Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
+3.	Install the Datadog Agent on your N2WS Instance.
+    - Login to Datadog and go to Integrations -> Agent -> Ubuntu
+    - Copy the agent ‘easy one-step install’ command 
+    - Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
 
-4.	##### Setup Datadog Dashboard metrics
-    Go to [‘Metrics-> Explorer’][2]
+4.	Setup Datadog Dashboard metrics
+    - Go to [‘Metrics-> Explorer’][2]
 
     **Graph**: Select your metric from the list. All N2WS metrics begin with the string ‘cpm_metric’.
 
@@ -37,9 +37,9 @@ and more by Datadog monitoring service. This integration allows users to monitor
               You can select either a specific user or the entire N2WS instance.
 
 
-5.	##### Get N2WS dashboards
+5.	Get N2WS dashboards
     In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 
-    You will get 5 types of dashboards to your account, 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.1 (includes Azure):
+    This integration has five different dashboards available: 3 for N2WS Backup & Recovery v3.2.1 (only AWS supported) and 2 for for N2WS Backup & Recovery v4.1 (includes Azure):
     'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for version 3.2.1
 	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.1' and 'N2WSBackup&Recovery-GraphicalVersionV4.1' for version 4.1
  
