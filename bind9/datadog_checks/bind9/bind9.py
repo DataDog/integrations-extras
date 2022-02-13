@@ -4,8 +4,6 @@
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-import requests
-
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 EPOCH = datetime(1970, 1, 1)
@@ -21,7 +19,7 @@ class Bind9Check(AgentCheck):
         if not dns_url:
             raise ConfigurationError('The statistic channel URL must be specified in the configuration')
 
-        self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.OK, message='Connection to %s was successful' % dns_url)
+        self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.OK)
 
         root = self.getStatsFromUrl(dns_url)
         self.collectTimeMetric(root, 'boot-time')
@@ -33,7 +31,7 @@ class Bind9Check(AgentCheck):
 
     def getStatsFromUrl(self, dns_url):
         try:
-            response = requests.get(dns_url)
+            response = self.http.get(dns_url)
             response.raise_for_status()
         except Exception:
             self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.CRITICAL, message="stats cannot be taken")

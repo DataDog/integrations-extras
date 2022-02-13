@@ -109,18 +109,18 @@ To install the cert_manager check on your host:
 
 See [metadata.csv][9] for a list of metrics provided by this check.
 
-### Service Checks
-
-`cert_manager.prometheus.health`:
-Returns CRITICAL if the Agent fails to connect to the Prometheus endpoint, otherwise returns UP.
-
 ### Events
 
 cert_manager does not include any events.
 
+### Service Checks
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
+
 
 [1]: https://github.com/jetstack/cert-manager
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/cert_manager/images/overview_dashboard.png
@@ -132,3 +132,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-core/blob/master/cert_manager/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://github.com/DataDog/integrations-extras/blob/master/cert_manager/assets/service_checks.json

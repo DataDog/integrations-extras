@@ -24,17 +24,16 @@ To install the `php_opcache` check on your host:
  run `datadog-agent integration install -w
  path/to/php_opcache/dist/<ARTIFACT_NAME>.whl`.
 
-#### OPcache Setup
-
+#### OPcache
 
 OPcache does not expose metrics by default so this integration includes a metric exporter, located here:
 
 ```
 /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
 ```
-You can download the exporter from [here][5].
+You can download the exporter from the Datadog [integrations-extras][5] repository.
 
-When you configure your Agent (the `instances` setting, described next), you can refer to the exporter directly by this file name, or you can configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
+When [configuring](#configuration) your Agent, reference the exporter directly by this file name, or configure an alias for it on your web server. For example, if you're using Apache, the alias in the web server configuration file would look like this:
 
 ```
 Alias /opcache-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
@@ -63,17 +62,18 @@ Alias /opcache-status /opt/datadog-agent/embedded/lib/python3.8/site-packages/da
 
 See [metadata.csv][9] for a list of metrics provided by this check.
 
-### Service Checks
-
-`php_opcache` does not include any service checks.
-
 ### Events
 
-`php_opcache` does not include any events.
+The PHP OPcache integration does not include any events.
+
+### Service Checks
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
+
 
 [1]: https://www.php.net/manual/en/book.opcache.php
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
@@ -85,3 +85,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [9]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/assets/service_checks.json

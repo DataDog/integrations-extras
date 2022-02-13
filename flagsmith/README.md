@@ -18,17 +18,18 @@ The Flagsmith integration does not include any metrics.
 
 ### Service Checks
 
-Flagsmith does not include any service checks.
+The Flagsmith integration does not include any service checks.
 
 ### Events
 
-All events are sent to the Datadog event stream.
+All Flagsmith events are sent to the Datadog event stream.
 
 ## Troubleshooting
 
-Need help? Check out the [Flagsmith documentation](https://docs.flagsmith.com/integrations/datadog/) or [contact Datadog Support][4].
+Need help? See the [Flagsmith documentation][4] or contact [Datadog Support][5].
 
 [1]: https://www.flagsmith.com/
 [2]: https://app.datadoghq.com/account/settings#integrations/flagsmith
-[3]: https://app.datadoghq.com/account/settings#api
-[4]: https://docs.datadoghq.com/help/
+[3]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: https://docs.flagsmith.com/integrations/datadog/
+[5]: https://docs.datadoghq.com/help/

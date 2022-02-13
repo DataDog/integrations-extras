@@ -4,8 +4,6 @@
 
 import time
 
-import requests
-
 from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'gnatsd_streaming'
@@ -63,7 +61,7 @@ class GnatsdStreamingCheckInvocation:
 
     def _status_check(self):
         try:
-            response = requests.get(self.config.url)
+            response = self.checker.http.get(self.config.url)
 
             if response.status_code == 200:
                 self.checker.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags=self.service_check_tags)
@@ -77,7 +75,7 @@ class GnatsdStreamingCheckInvocation:
             raise e
 
     def _failover_check(self):
-        response = requests.get(self.config.url + '/serverz').json()
+        response = self.checker.http.get(self.config.url + '/serverz').json()
         if self.checker.ft_status is None:
             # our first run through we just remember the state for later
             self.checker.ft_status = response['state']
@@ -102,7 +100,7 @@ class GnatsdStreamingCheckInvocation:
         if pagination:
             params.update(pagination)
 
-        data = requests.get(self.config.url + '/' + endpoint, params).json()
+        data = self.checker.http.get(self.config.url + '/' + endpoint, params=params).json()
         self._track_metrics(endpoint, metrics, data)
 
         if data.get('count', 0) > 0:
@@ -151,8 +149,8 @@ class GnatsdStreamingCheckInvocation:
 
 
 class GnatsdStreamingCheck(AgentCheck):
-    def __init__(self, name, init_config, agentConfig, instances=None):
-        AgentCheck.__init__(self, name, init_config, agentConfig, instances)
+    def __init__(self, name, init_config, instances):
+        super(GnatsdStreamingCheck, self).__init__(name, init_config, instances)
         self.counts = {}
         self.ft_status = None
 

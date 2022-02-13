@@ -251,10 +251,10 @@ class StormCheck(AgentCheck):
             self.log.debug("Fetching url %s", url)
             if params:
                 self.log.debug("Request params: %s", params)
-            resp = requests.get(url, params=params)
+            resp = self.http.get(url, params=params)
             resp.encoding = 'utf-8'
             data = resp.json()
-            # Log response data exluding configuration section
+            # Log response data excluding configuration section
             self.log.debug("Response data: %s", json.dumps({x: data[x] for x in data if x != 'configuration'}))
             if 'error' in data:
                 self.log.warning("Error message returned in JSON response")
@@ -896,10 +896,11 @@ class StormCheck(AgentCheck):
                         if topology_status is None:
                             topology_status = _get_string(stats, 'unknown', 'status').upper()
                             check_status = AgentCheck.CRITICAL if topology_status != 'ACTIVE' else AgentCheck.OK
+                            topology_message = '{} topology status marked as: {}'.format(topology_name, topology_status)
                             self.service_check(
                                 'topology_check.{}'.format(topology_name),
                                 status=check_status,
-                                message='{} topology status marked as: {}'.format(topology_name, topology_status),
+                                message=topology_message if check_status != AgentCheck.OK else "",
                                 tags=['stormEnvironment:{}'.format(self.environment_name)] + self.additional_tags,
                             )
                     except Exception:  # noqa

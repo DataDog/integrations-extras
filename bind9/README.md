@@ -10,20 +10,19 @@ Get metrics from Bind9 DNS Server.
 
 ## Setup
 
-The Bind9 check is **NOT** included in the [Datadog Agent][2] package.
+The Bind9 check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Bind9 check on your host. See the dedicated Agent guide for [installing community integrations][3] to install checks with the [Agent prior v6.8][4] or the [Docker Agent][5]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Bind9 check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][2].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-bind9==<INTEGRATION_VERSION>
    ```
-   
-3. Configure your integration like [any other packaged integration][6].
+
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -33,7 +32,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Bind9 
    init_config:
 
    instances:
-     - URL: "<BIND_9_STATS_URL>"
+     - url: "<BIND_9_STATS_URL>"
    ```
 
 2. [Restart the Agent][9]
@@ -54,26 +53,25 @@ See [metadata.csv][11] for a list of metrics provided by this integration.
 
 ### Events
 
-The bind9_check check does not include any event at this time.
+The bind9_check check does not include any events.
 
 ### Service Checks
 
-`bind9_check.BIND_SERVICE_CHECK` : Returns `OK` If Statistics-channel URL of DNS is present in Instance.
-`bind9_check.BIND_SERVICE_CHECK` : Returns `CRITICAL` If URL Errors occurs.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
-## Development
+## Troubleshooting
 
-Please refer to the [main documentation][12] for more details about how to test and develop Agent based integrations.
+Need help? Contact [Datadog support][13].
+
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[6]: https://docs.datadoghq.com/getting_started/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/bind9/metadata.csv
-[12]: https://docs.datadoghq.com/developers/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/bind9/assets/service_checks.json
+[13]: https://docs.datadoghq.com/help

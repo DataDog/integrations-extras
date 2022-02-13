@@ -9,18 +9,19 @@ Get metrics from Portworx service in real time to:
 
 ## Setup
 
+The Portworx check is not included in the [Datadog Agent][2] package, so you need to install it.
+
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Portworx check on your host. See the dedicated Agent guide for [installing community integrations][1] to install checks with the [Agent prior to version 6.8][2] or the [Docker Agent][3]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Portworx check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][4].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-portworx==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][5].
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -69,16 +70,17 @@ Check that the `url` in `portworx.yaml` is correct.
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][11].
+Additional helpful documentation, links, and articles:
 
-[1]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[4]: https://app.datadoghq.com/account/settings#agent
-[5]: https://docs.datadoghq.com/getting_started/integrations/
+- [Monitoring multi-cloud container storage with Portworx and Datadog][11]
+
+
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [7]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
 [10]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv
-[11]: https://www.datadoghq.com/blog
+[11]: https://www.datadoghq.com/blog/portworx-integration/

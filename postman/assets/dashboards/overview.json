@@ -3,7 +3,7 @@
   "description": "## Postman Monitor Dashboard\n\nPostman integration with Datadog lets you dive deeper into your monitoring runs, helping you stay on top of your API's performance, availability, resiliency and more.",
   "widgets": [
     {
-      "id": 2311421909417186,
+      "id": 0,
       "layout": {
         "x": 2,
         "y": 0,
@@ -17,7 +17,7 @@
       }
     },
     {
-      "id": 6603516749633666,
+      "id": 1,
       "layout": {
         "x": 2,
         "y": 24,
@@ -36,7 +36,7 @@
       }
     },
     {
-      "id": 8809487213018518,
+      "id": 2,
       "layout": {
         "x": 26,
         "y": 0,
@@ -55,7 +55,7 @@
       }
     },
     {
-      "id": 5787377688388788,
+      "id": 3,
       "layout": {
         "x": 26,
         "y": 23,
@@ -75,10 +75,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_totalLatency{$monitor_name}",
+            "q": "avg:postman.monitor.run.total_latency{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -88,9 +89,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -98,7 +99,7 @@
       }
     },
     {
-      "id": 1123404146891992,
+      "id": 4,
       "layout": {
         "x": 26,
         "y": 39,
@@ -118,10 +119,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_failedTests{$monitor_name}",
+            "q": "avg:postman.monitor.run.failed_tests{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -131,9 +133,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -141,7 +143,7 @@
       }
     },
     {
-      "id": 6252165328796272,
+      "id": 5,
       "layout": {
         "x": 74,
         "y": 39,
@@ -161,10 +163,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_passedTests{$monitor_name}",
+            "q": "avg:postman.monitor.run.passed_tests{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -174,9 +177,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -184,7 +187,7 @@
       }
     },
     {
-      "id": 7070924855052846,
+      "id": 6,
       "layout": {
         "x": 74,
         "y": 62,
@@ -204,10 +207,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_run_httpStatus5XX{$monitor_name}",
+            "q": "avg:postman.monitor.run.http_status_5xx{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -217,9 +221,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -227,7 +231,7 @@
       }
     },
     {
-      "id": 3812313915875772,
+      "id": 7,
       "layout": {
         "x": 26,
         "y": 78,
@@ -247,10 +251,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_run_httpStatus4XX{$monitor_name}",
+            "q": "avg:postman.monitor.run.http_status_4xx{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -260,9 +265,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -270,7 +275,7 @@
       }
     },
     {
-      "id": 7050946823244288,
+      "id": 8,
       "layout": {
         "x": 74,
         "y": 78,
@@ -290,10 +295,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_run_httpStatus2XX{$monitor_name}",
+            "q": "avg:postman.monitor.run.http_status_2xx{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -303,9 +309,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -313,7 +319,7 @@
       }
     },
     {
-      "id": 5321512732076046,
+      "id": 9,
       "layout": {
         "x": 126,
         "y": 0,
@@ -332,7 +338,7 @@
       }
     },
     {
-      "id": 2102111858986032,
+      "id": 10,
       "layout": {
         "x": 126,
         "y": 23,
@@ -352,10 +358,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_request_latency{$monitor_name} by {request_name}",
+            "q": "avg:postman.monitor.request.latency{$monitor_name} by {request_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -365,9 +372,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -375,7 +382,7 @@
       }
     },
     {
-      "id": 8866371394332234,
+      "id": 11,
       "layout": {
         "x": 126,
         "y": 39,
@@ -395,10 +402,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_request_bytes{$monitor_name} by {request_name}",
+            "q": "avg:postman.monitor.request.bytes{$monitor_name} by {request_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -408,9 +416,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -418,7 +426,7 @@
       }
     },
     {
-      "id": 5040347378643160,
+      "id": 12,
       "layout": {
         "x": 126,
         "y": 55,
@@ -438,10 +446,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_request_failedTests{$monitor_name} by {request_name}",
+            "q": "avg:postman.monitor.request.failed_tests{$monitor_name} by {request_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -451,9 +460,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -461,7 +470,7 @@
       }
     },
     {
-      "id": 3469561499183274,
+      "id": 13,
       "layout": {
         "x": 126,
         "y": 71,
@@ -481,10 +490,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_request_passedTests{$monitor_name} by {request_name}",
+            "q": "avg:postman.monitor.request.passed_tests{$monitor_name} by {request_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -494,9 +504,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -504,7 +514,7 @@
       }
     },
     {
-      "id": 3887023551834882,
+      "id": 14,
       "layout": {
         "x": 74,
         "y": 7,
@@ -524,10 +534,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_errors{$monitor_name}",
+            "q": "avg:postman.monitor.run.errors{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -537,9 +548,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -547,7 +558,7 @@
       }
     },
     {
-      "id": 1830067074516792,
+      "id": 15,
       "layout": {
         "x": 74,
         "y": 23,
@@ -567,10 +578,11 @@
           "value",
           "sum"
         ],
+        "time": {},
         "type": "timeseries",
         "requests": [
           {
-            "q": "avg:PostmanMonitors_requestCount{$monitor_name}",
+            "q": "avg:postman.monitor.run.request_count{$monitor_name}",
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -580,9 +592,9 @@
           }
         ],
         "yaxis": {
+          "include_zero": true,
           "scale": "linear",
           "label": "",
-          "include_zero": true,
           "min": "auto",
           "max": "auto"
         },
@@ -590,7 +602,7 @@
       }
     },
     {
-      "id": 2612551173899318,
+      "id": 16,
       "layout": {
         "x": 26,
         "y": 7,
@@ -609,7 +621,7 @@
       }
     },
     {
-      "id": 1116697373333466,
+      "id": 17,
       "layout": {
         "x": 26,
         "y": 56,
@@ -628,7 +640,7 @@
       }
     },
     {
-      "id": 3738659614428284,
+      "id": 18,
       "layout": {
         "x": 26,
         "y": 62,
@@ -647,7 +659,7 @@
       }
     },
     {
-      "id": 3927069944710866,
+      "id": 19,
       "layout": {
         "x": 126,
         "y": 7,
@@ -674,7 +686,7 @@
     }
   ],
   "layout_type": "free",
-  "is_read_only": false,
+  "is_read_only": true,
   "notify_list": [],
-  "id": "sxf-vxn-etq"
+  "id": "3rk-5wh-5pd"
 }

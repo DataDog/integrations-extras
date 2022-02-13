@@ -1,0 +1,41 @@
+{
+  "display_name": "Redis Enterprise",
+  "maintainer": "github@mague.com",
+  "manifest_version": "1.0.0",
+  "name": "redisenterprise",
+  "metric_prefix": "redisenterprise.",
+  "metric_to_check": "redisenterprise.total_node_count",
+  "creates_events": true,
+  "short_description": "Redis Enterprise Observability",
+  "guid": "727dcbe6-9ed6-409f-ad72-265939b90da8",
+  "support": "contrib",
+  "supported_os": [
+    "linux",
+    "mac_os",
+    "windows"
+  ],
+  "public_title": "RedisEnterprise Integration",
+  "categories": [
+    "data store",
+    "caching"
+  ],
+  "type": "check",
+  "is_public": true,
+  "integration_id": "redisenterprise",
+  "assets": {
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
+    "dashboards": {
+      "Redis Enterprise Database Overview": "assets/dashboards/redisenterprise_overview.json",
+      "Redis Enterprise Cluster Overview": "assets/dashboards/redisenterprise_cluster_top_view.json",
+      "Redis Enterprise Redis on Flash": "assets/dashboards/redisenterprise_rof.json",
+      "Redis Enterprise Active/Active Statistics": "assets/dashboards/redis_enterprise_active_active.json"
+    },
+    "monitors": {},
+    "saved_views": {},
+    "service_checks": "assets/service_checks.json",
+    "logs": {},
+    "metrics_metadata": "metadata.csv"
+  }
+}

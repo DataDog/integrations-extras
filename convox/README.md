@@ -8,7 +8,7 @@ Get metrics from Convox in real-time to visualize your containers' performance:
 
 ## Setup
 
-Please refer to the [Convox setup doc page][2].
+See the Convox documentation to [set up Datadog][2].
 
 ### Deploy the Datadog Agent
 
@@ -28,9 +28,9 @@ $ convox scale agent --count=3 --cpu=10 --memory=128
 
 Use a `count` that matches the `InstanceCount` parameter of your Rack.
 
-### Auto Scaling
+### Auto scaling
 
-If autoscaling is enabled on your Rack, you'll need to dynamically scale the Datadog agent count to match the Rack instance count.
+If autoscaling is enabled on your Rack, you need to dynamically scale the Datadog Agent count to match the Rack instance count.
 
 See the [Listening for ECS CloudWatch Events Tutorial][3] for guidance.
 

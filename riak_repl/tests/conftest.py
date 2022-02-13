@@ -11,7 +11,7 @@ from .common import HERE, URL
 @pytest.fixture(scope='session')
 def dd_environment():
     compose_file = os.path.join(HERE, 'docker', 'docker-compose.yml')
-    log_patterns = 'Fullsync complete from riak-west-1 to riak-east-1'
+    log_patterns = 'Fullsync complete from'
 
     with docker_run(
         compose_file=compose_file,

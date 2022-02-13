@@ -36,6 +36,8 @@ and more by Datadog monitoring service. This integration allows users to monitor
     **Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
               You can select either a specific user or the entire N2WS instance.
 
+    **Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
+              You can select either a specific user or the entire N2WS instance.
 
 5.	Get N2WS dashboards
     In [Datadog Integrations][3] , search for 'N2WS' tile and install it. 

@@ -1,0 +1,41 @@
+{
+  "display_name": "TiDB",
+  "maintainer": "xuyifan02@pingcap.com",
+  "manifest_version": "1.0.0",
+  "name": "tidb",
+  "metric_prefix": "tidb_cluster",
+  "metric_to_check": "tidb_cluster.tidb_executor_statement_total",
+  "creates_events": false,
+  "short_description": "The integration for TiDB cluster",
+  "guid": "4b34acac-39ce-4ec4-9329-c68cc4e61279",
+  "support": "contrib",
+  "supported_os": [
+    "linux",
+    "mac_os",
+    "windows"
+  ],
+  "public_title": "TiDB",
+  "categories": [
+    "data store",
+    "cloud",
+    "log collection"
+  ],
+  "type": "check",
+  "is_public": true,
+  "integration_id": "tidb",
+  "assets": {
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
+    "dashboards": {
+      "TiDB Overview": "assets/dashboards/overview.json"
+    },
+    "monitors": {},
+    "saved_views": {},
+    "service_checks": "assets/service_checks.json",
+    "logs": {
+      "service": "tidb"
+    },
+    "metrics_metadata": "metadata.csv"
+  }
+}

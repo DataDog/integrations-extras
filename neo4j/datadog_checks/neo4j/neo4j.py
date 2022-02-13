@@ -1,12 +1,18 @@
-import requests
-from urllib3.util import Timeout
-
 from datadog_checks.base.checks import AgentCheck
 from datadog_checks.base.errors import CheckException
 
 
 class Neo4jCheck(AgentCheck):
     SERVICE_CHECK_NAME = 'neo4j.can_connect'
+
+    HTTP_CONFIG_REMAPPER = {
+        'user': {
+            'name': 'username',
+        },
+        'default_timeout': {
+            'name': 'timeout',
+        },
+    }
 
     # Neo4j metrics to send
     keys = set(
@@ -85,12 +91,11 @@ class Neo4jCheck(AgentCheck):
         'dbms.memory.pagecache.size': 'neo4j.dbms.memory.pagecache.size',
     }
 
-    def check(self, instance):
-        host, port, user, password, timeout, server_name = self._get_config(instance)
-        tags = instance.get('tags', [])
+    def check(self, _):
+        host, port, server_name = self._get_config(self.instance)
+        tags = self.instance.get('tags', [])
         tags.append('server_name:{}'.format(server_name))
         service_check_tags = tags + ['url:{}'.format(host)]
-        auth = (user, password)
 
         # Neo specific
         # Create payload using built-in Neo4j queryJmx stored procedure
@@ -104,13 +109,13 @@ class Neo4jCheck(AgentCheck):
             ]
         }
         try:
-            version = self._get_version(host, port, timeout, auth, service_check_tags)
+            version = self._get_version(host, port, service_check_tags)
 
             if version > 2:
                 check_url = "{}:{}/db/data/transaction/commit".format(host, port)
             else:
                 check_url = "{}:{}/v1/service/metrics".format(host, port)
-            r = requests.post(check_url, auth=auth, json=payload, timeout=timeout)
+            r = self.http.post(check_url, json=payload)
         except Exception as e:
             msg = "Unable to fetch Neo4j stats: {}".format(e)
             self._critical_service_check(service_check_tags, msg)
@@ -138,21 +143,13 @@ class Neo4jCheck(AgentCheck):
     def _get_config(self, instance):
         host = instance.get('neo4j_url', '')
         port = int(instance.get('port', 7474))
-        user = instance.get('user', '')
-        password = str(instance.get('password', ''))
-        connect_timeout = instance.get('connect_timeout')
         server_name = instance.get('server_name', '')
 
-        timeout = None
-        if connect_timeout:
-            timeout = Timeout(connect=connect_timeout)
+        return host, port, server_name
 
-        return host, port, user, password, timeout, server_name
-
-    def _get_version(self, host, port, timeout, auth, service_check_tags):
+    def _get_version(self, host, port, service_check_tags):
         version_url = '{}:{}/db/data/'.format(host, port)
-        headers_sent = {'Content-Type': 'application/json'}
-        r = requests.get(version_url, auth=auth, headers=headers_sent, timeout=timeout)
+        r = self.http.get(version_url)
         if r.status_code != 200:
             msg = "unexpected status of {0} when fetching Neo4j stats, response: {1}"
             msg = msg.format(r.status_code, r.text)
