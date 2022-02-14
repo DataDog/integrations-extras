@@ -1,160 +1,160 @@
-metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-hbase.regionserver.ipc.queue_size,gauge,"",byte,"",Number of bytes in the call queues.,0,hbase_regionserver,""
-hbase.regionserver.ipc.num_open_connections,gauge,"","","",Number of open connections.,0,hbase_regionserver,""
-hbase.regionserver.ipc.num_active_handler,gauge,"","","",Number of active rpc handlers.,0,hbase_regionserver,""
-hbase.regionserver.ipc.total_call_time.max,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,""
-hbase.regionserver.ipc.total_call_time.mean,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,""
-hbase.regionserver.ipc.total_call_time.median,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,""
-hbase.regionserver.ipc.total_call_time.percentile.99,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,""
-hbase.regionserver.regions.num_regions,gauge,"","","",Number of regions in the metrics system,0,hbase_regionserver,""
-hbase.regionserver.replication.sink.applied_ops,gauge,"","","",Number of WAL entries applied on replication sink.,0,hbase_regionserver,""
-hbase.regionserver.replication.sink.age_of_last_applied_op,gauge,"",millisecond,"",Replication time lag of last applied WAL entry between source and sink.,0,hbase_regionserver,""
-hbase.regionserver.replication.sink.applied_batches,gauge,"","","",Number of WAL applying operations processd on replication sink.,0,hbase_regionserver,""
-hbase.regionserver.server.region_count,gauge,"","","",Number of regions,0,hbase_regionserver,""
-hbase.regionserver.server.store_count,gauge,"","","",Number of Stores,0,hbase_regionserver,""
-hbase.regionserver.server.hlog_file_count,gauge,"","","",Number of WAL Files,0,hbase_regionserver,""
-hbase.regionserver.server.hlog_file_size,gauge,"",byte,"",Size of all WAL Files,0,hbase_regionserver,""
-hbase.regionserver.server.store_file_count,gauge,"","","",Number of Store Files,0,hbase_regionserver,""
-hbase.regionserver.server.mem_store_size,gauge,"",byte,"",Size of the memstore,0,hbase_regionserver,""
-hbase.regionserver.server.store_file_size,gauge,"",byte,"",Size of storefiles being served.,0,hbase_regionserver,""
-hbase.regionserver.server.total_request_count,gauge,"","","",Total number of requests this RegionServer has answered.,0,hbase_regionserver,""
-hbase.regionserver.server.read_request_count,gauge,"","","",Number of read requests this region server has answered.,0,hbase_regionserver,""
-hbase.regionserver.server.write_request_count,gauge,"","","",Number of mutation requests this region server has answered.,0,hbase_regionserver,""
-hbase.regionserver.server.check_mutate_failed_count,gauge,"","","",Number of Check and Mutate calls that failed the checks.,0,hbase_regionserver,""
-hbase.regionserver.server.check_mutate_passed_count,gauge,"","","",Number of Check and Mutate calls that passed the checks.,0,hbase_regionserver,""
-hbase.regionserver.server.store_file_index_size,gauge,"",byte,"",Size of indexes in storefiles on disk.,0,hbase_regionserver,""
-hbase.regionserver.server.static_index_size,gauge,"",byte,"",Uncompressed size of the static indexes.,0,hbase_regionserver,""
-hbase.regionserver.server.static_bloom_size,gauge,"",byte,"",Uncompressed size of the static bloom filters.,0,hbase_regionserver,""
-hbase.regionserver.server.mutations_without_wal_count,count,"","","",Number of mutations that have been sent by clients with the write ahead logging turned off.,0,hbase_regionserver,""
-hbase.regionserver.server.mutations_without_wal_size,gauge,"",byte,"",Size of data that has been sent by clients with the write ahead logging turned off.,0,hbase_regionserver,""
-hbase.regionserver.server.percent_files_local,gauge,"",percent,"",The percent of HFiles that are stored on the local hdfs data node.,0,hbase_regionserver,""
-hbase.regionserver.server.percent_files_local_secondary_regions,gauge,"",percent,"",The percent of HFiles used by secondary regions that are stored on the local hdfs data node.,0,hbase_regionserver,""
-hbase.regionserver.server.split_queue_length,gauge,"","","",Length of the queue for splits.,0,hbase_regionserver,""
-hbase.regionserver.server.compaction_queue_length,gauge,"","","",Length of the queue for compactions.,0,hbase_regionserver,""
-hbase.regionserver.server.flush_queue_length,gauge,"","","",Length of the queue for region flushes,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_free_size,gauge,"",byte,"",Size of the block cache that is not occupied.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_count,gauge,"","","",Number of block in the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_size,gauge,"",byte,"",Size of the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_hit_count,gauge,"","","",Count of the hit on the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_hit_count_primary,gauge,"","","",Count of hit on primary replica in the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_miss_count,gauge,"","","",Number of requests for a block that missed the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_miss_count_primary,gauge,"","","",Number of requests for a block of primary replica that missed the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_eviction_count,gauge,"","","",Count of the number of blocks evicted from the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_eviction_count_primary,gauge,"","","",Count of the number of blocks evicted from primary replica in the block cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_hit_percent,gauge,"",percent,"",Percent of block cache requests that are hits,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_express_hit_percent,gauge,"",percent,"",The percent of the time that requests with the cache turned on hit the cache.,0,hbase_regionserver,""
-hbase.regionserver.server.block_cache_failed_insertion_count,gauge,"",millisecond,"",Number of times that a block cache insertion failed. Usually due to size restrictions.,0,hbase_regionserver,""
-hbase.regionserver.server.updates_blocked_time,gauge,"",millisecond,"",Number of MS updates have been blocked so that the memstore can be flushed.,0,hbase_regionserver,""
-hbase.regionserver.server.flushed_cells_count,gauge,"","","",The number of cells flushed to disk,0,hbase_regionserver,""
-hbase.regionserver.server.compacted_cells_count,gauge,"","","",The number of cells processed during minor compactions,0,hbase_regionserver,""
-hbase.regionserver.server.major_compacted_cells_count,gauge,"","","",The number of cells processed during major compactions,0,hbase_regionserver,""
-hbase.regionserver.server.flushed_cells_size,gauge,"",byte,"","The total amount of data flushed to disk, in bytes",0,hbase_regionserver,""
-hbase.regionserver.server.compacted_cells_size,gauge,"",byte,"","The total amount of data processed during minor compactions, in bytes",0,hbase_regionserver,""
-hbase.regionserver.server.major_compacted_cells_size,gauge,"",byte,"","The total amount of data processed during major compactions, in bytes",0,hbase_regionserver,""
-hbase.regionserver.server.blocked_request_count,gauge,"","","",The number of blocked requests because of memstore size is larger than blockingMemStoreSize,0,hbase_regionserver,""
-hbase.regionserver.server.hedged_read,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.hedged_read_wins,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc_num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc.min,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc.max,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc.mean,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc.median,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_with_gc.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.mutate.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.slow_append_count,gauge,"","","",The number of Appends that took over 1000ms to complete,0,hbase_regionserver,""
-hbase.regionserver.server.pause_warn_threshold_exceeded,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.slow_delete_count,gauge,"","","",The number of Deletes that took over 1000ms to complete,0,hbase_regionserver,""
-hbase.regionserver.server.increment.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.increment.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.increment.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.increment.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.increment.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.increment.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.replay.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.min,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.max,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.mean,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.median,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.flush_time.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_info_threshold_exceeded,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.delete.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.split_request_count,gauge,"","","",Number of splits requested,0,hbase_regionserver,""
-hbase.regionserver.server.split_success_count,gauge,"","","",Number of successfully executed splits,0,hbase_regionserver,""
-hbase.regionserver.server.slow_get_count,gauge,"","","",The number of Gets that took over 1000ms to complete,0,hbase_regionserver,""
-hbase.regionserver.server.get.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.get.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.get.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.get.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.get.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.get.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.num_ops,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.min,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.max,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.mean,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.median,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.scan_next.percentile.99,gauge,"","","","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.min,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.max,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.mean,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.median,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.pause_time_without_gc.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.slow_put_count,gauge,"","","",The number of Multis that took over 1000ms to complete,0,hbase_regionserver,""
-hbase.regionserver.server.slow_increment_count,gauge,"","","",The number of Increments that took over 1000ms to complete,0,hbase_regionserver,""
-hbase.regionserver.server.split_time.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.split_time.min,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.split_time.max,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.split_time.mean,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.split_time.median,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.server.split_time.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.num_ops,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.min,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.max,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.mean,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.median,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_size.percentile.99,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.num_ops,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.min,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.max,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.mean,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.median,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.sync_time.percentile.99,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,""
-hbase.regionserver.wal.slow_append_count,gauge,"","","",Number of appends that were slow.,0,hbase_regionserver,""
-hbase.regionserver.wal.roll_request,gauge,"",millisecond,"",How many times a log roll has been requested total,0,hbase_regionserver,""
-hbase.regionserver.wal.append_count,gauge,"","","",Number of appends to the write ahead log.,0,hbase_regionserver,""
-hbase.regionserver.wal.low_replica_roll_request,gauge,"",millisecond,"",How many times a log roll was requested due to too few DN's in the write pipeline.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.num_ops,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.min,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.max,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.mean,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.median,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.regionserver.wal.append_time.percentile.99,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_non_heap_used_in_mb,gauge,"","","",Non-heap memory used in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_non_heap_committed_in_mb,gauge,"","","",Non-heap memory committed in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_non_heap_max_in_mb,gauge,"","","",Non-heap memory max in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_heap_used_in_mb,gauge,"","","",Heap memory used in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_heap_committed_in_mb,gauge,"","","",Heap memory committed in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_heap_max_in_mb,gauge,"","","",Heap memory max in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.mem_max_in_mb,gauge,"","","",Max memory size in MB,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_count_par_new,gauge,"","","",GC Count for ParNew,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_time_millis_par_new,gauge,"",millisecond,"",GC Time for ParNew,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_count_concurrent_mark_sweep,gauge,"","","",GC Count for ConcurrentMarkSweep,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_time_millis_concurrent_mark_sweep,gauge,"",millisecond,"",GC Time for ConcurrentMarkSweep,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_count,gauge,"","","",Total GC count,0,hbase_regionserver,""
-hbase.jvm_metrics.gc_time_millis,gauge,"",millisecond,"",Total GC time in milliseconds,0,hbase_regionserver,""
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
+hbase.regionserver.ipc.queue_size,gauge,"",byte,"",Number of bytes in the call queues.,0,hbase_regionserver,"",
+hbase.regionserver.ipc.num_open_connections,gauge,"","","",Number of open connections.,0,hbase_regionserver,"",
+hbase.regionserver.ipc.num_active_handler,gauge,"","","",Number of active rpc handlers.,0,hbase_regionserver,"",
+hbase.regionserver.ipc.total_call_time.max,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,"",
+hbase.regionserver.ipc.total_call_time.mean,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,"",
+hbase.regionserver.ipc.total_call_time.median,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,"",
+hbase.regionserver.ipc.total_call_time.percentile.99,gauge,"",millisecond,"","total call time, including both queued and processing time.",0,hbase_regionserver,"",
+hbase.regionserver.regions.num_regions,gauge,"","","",Number of regions in the metrics system,0,hbase_regionserver,"",
+hbase.regionserver.replication.sink.applied_ops,gauge,"","","",Number of WAL entries applied on replication sink.,0,hbase_regionserver,"",
+hbase.regionserver.replication.sink.age_of_last_applied_op,gauge,"",millisecond,"",Replication time lag of last applied WAL entry between source and sink.,0,hbase_regionserver,"",
+hbase.regionserver.replication.sink.applied_batches,gauge,"","","",Number of WAL applying operations processd on replication sink.,0,hbase_regionserver,"",
+hbase.regionserver.server.region_count,gauge,"","","",Number of regions,0,hbase_regionserver,"",
+hbase.regionserver.server.store_count,gauge,"","","",Number of Stores,0,hbase_regionserver,"",
+hbase.regionserver.server.hlog_file_count,gauge,"","","",Number of WAL Files,0,hbase_regionserver,"",
+hbase.regionserver.server.hlog_file_size,gauge,"",byte,"",Size of all WAL Files,0,hbase_regionserver,"",
+hbase.regionserver.server.store_file_count,gauge,"","","",Number of Store Files,0,hbase_regionserver,"",
+hbase.regionserver.server.mem_store_size,gauge,"",byte,"",Size of the memstore,0,hbase_regionserver,"",
+hbase.regionserver.server.store_file_size,gauge,"",byte,"",Size of storefiles being served.,0,hbase_regionserver,"",
+hbase.regionserver.server.total_request_count,gauge,"","","",Total number of requests this RegionServer has answered.,0,hbase_regionserver,"",
+hbase.regionserver.server.read_request_count,gauge,"","","",Number of read requests this region server has answered.,0,hbase_regionserver,"",
+hbase.regionserver.server.write_request_count,gauge,"","","",Number of mutation requests this region server has answered.,0,hbase_regionserver,"",
+hbase.regionserver.server.check_mutate_failed_count,gauge,"","","",Number of Check and Mutate calls that failed the checks.,0,hbase_regionserver,"",
+hbase.regionserver.server.check_mutate_passed_count,gauge,"","","",Number of Check and Mutate calls that passed the checks.,0,hbase_regionserver,"",
+hbase.regionserver.server.store_file_index_size,gauge,"",byte,"",Size of indexes in storefiles on disk.,0,hbase_regionserver,"",
+hbase.regionserver.server.static_index_size,gauge,"",byte,"",Uncompressed size of the static indexes.,0,hbase_regionserver,"",
+hbase.regionserver.server.static_bloom_size,gauge,"",byte,"",Uncompressed size of the static bloom filters.,0,hbase_regionserver,"",
+hbase.regionserver.server.mutations_without_wal_count,count,"","","",Number of mutations that have been sent by clients with the write ahead logging turned off.,0,hbase_regionserver,"",
+hbase.regionserver.server.mutations_without_wal_size,gauge,"",byte,"",Size of data that has been sent by clients with the write ahead logging turned off.,0,hbase_regionserver,"",
+hbase.regionserver.server.percent_files_local,gauge,"",percent,"",The percent of HFiles that are stored on the local hdfs data node.,0,hbase_regionserver,"",
+hbase.regionserver.server.percent_files_local_secondary_regions,gauge,"",percent,"",The percent of HFiles used by secondary regions that are stored on the local hdfs data node.,0,hbase_regionserver,"",
+hbase.regionserver.server.split_queue_length,gauge,"","","",Length of the queue for splits.,0,hbase_regionserver,"",
+hbase.regionserver.server.compaction_queue_length,gauge,"","","",Length of the queue for compactions.,0,hbase_regionserver,"",
+hbase.regionserver.server.flush_queue_length,gauge,"","","",Length of the queue for region flushes,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_free_size,gauge,"",byte,"",Size of the block cache that is not occupied.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_count,gauge,"","","",Number of block in the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_size,gauge,"",byte,"",Size of the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_hit_count,gauge,"","","",Count of the hit on the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_hit_count_primary,gauge,"","","",Count of hit on primary replica in the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_miss_count,gauge,"","","",Number of requests for a block that missed the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_miss_count_primary,gauge,"","","",Number of requests for a block of primary replica that missed the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_eviction_count,gauge,"","","",Count of the number of blocks evicted from the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_eviction_count_primary,gauge,"","","",Count of the number of blocks evicted from primary replica in the block cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_hit_percent,gauge,"",percent,"",Percent of block cache requests that are hits,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_express_hit_percent,gauge,"",percent,"",The percent of the time that requests with the cache turned on hit the cache.,0,hbase_regionserver,"",
+hbase.regionserver.server.block_cache_failed_insertion_count,gauge,"",millisecond,"",Number of times that a block cache insertion failed. Usually due to size restrictions.,0,hbase_regionserver,"",
+hbase.regionserver.server.updates_blocked_time,gauge,"",millisecond,"",Number of MS updates have been blocked so that the memstore can be flushed.,0,hbase_regionserver,"",
+hbase.regionserver.server.flushed_cells_count,gauge,"","","",The number of cells flushed to disk,0,hbase_regionserver,"",
+hbase.regionserver.server.compacted_cells_count,gauge,"","","",The number of cells processed during minor compactions,0,hbase_regionserver,"",
+hbase.regionserver.server.major_compacted_cells_count,gauge,"","","",The number of cells processed during major compactions,0,hbase_regionserver,"",
+hbase.regionserver.server.flushed_cells_size,gauge,"",byte,"","The total amount of data flushed to disk, in bytes",0,hbase_regionserver,"",
+hbase.regionserver.server.compacted_cells_size,gauge,"",byte,"","The total amount of data processed during minor compactions, in bytes",0,hbase_regionserver,"",
+hbase.regionserver.server.major_compacted_cells_size,gauge,"",byte,"","The total amount of data processed during major compactions, in bytes",0,hbase_regionserver,"",
+hbase.regionserver.server.blocked_request_count,gauge,"","","",The number of blocked requests because of memstore size is larger than blockingMemStoreSize,0,hbase_regionserver,"",
+hbase.regionserver.server.hedged_read,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.hedged_read_wins,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc_num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc.min,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc.max,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc.mean,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc.median,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_with_gc.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.mutate.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.slow_append_count,gauge,"","","",The number of Appends that took over 1000ms to complete,0,hbase_regionserver,"",
+hbase.regionserver.server.pause_warn_threshold_exceeded,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.slow_delete_count,gauge,"","","",The number of Deletes that took over 1000ms to complete,0,hbase_regionserver,"",
+hbase.regionserver.server.increment.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.increment.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.increment.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.increment.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.increment.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.increment.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.replay.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.min,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.max,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.mean,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.median,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.flush_time.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_info_threshold_exceeded,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.delete.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_request_count,gauge,"","","",Number of splits requested,0,hbase_regionserver,"",
+hbase.regionserver.server.split_success_count,gauge,"","","",Number of successfully executed splits,0,hbase_regionserver,"",
+hbase.regionserver.server.slow_get_count,gauge,"","","",The number of Gets that took over 1000ms to complete,0,hbase_regionserver,"",
+hbase.regionserver.server.get.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.get.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.get.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.get.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.get.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.get.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.num_ops,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.min,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.max,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.mean,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.median,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.scan_next.percentile.99,gauge,"","","","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.min,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.max,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.mean,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.median,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.pause_time_without_gc.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.slow_put_count,gauge,"","","",The number of Multis that took over 1000ms to complete,0,hbase_regionserver,"",
+hbase.regionserver.server.slow_increment_count,gauge,"","","",The number of Increments that took over 1000ms to complete,0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.num_ops,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.min,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.max,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.mean,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.median,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.server.split_time.percentile.99,gauge,"",millisecond,"","",0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.num_ops,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.min,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.max,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.mean,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.median,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_size.percentile.99,gauge,"",byte,"",size (in bytes) of the data appended to the WAL.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.num_ops,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.min,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.max,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.mean,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.median,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.sync_time.percentile.99,gauge,"",millisecond,"",the time it took to sync the WAL to HDFS.,0,hbase_regionserver,"",
+hbase.regionserver.wal.slow_append_count,gauge,"","","",Number of appends that were slow.,0,hbase_regionserver,"",
+hbase.regionserver.wal.roll_request,gauge,"",millisecond,"",How many times a log roll has been requested total,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_count,gauge,"","","",Number of appends to the write ahead log.,0,hbase_regionserver,"",
+hbase.regionserver.wal.low_replica_roll_request,gauge,"",millisecond,"",How many times a log roll was requested due to too few DN's in the write pipeline.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.num_ops,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.min,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.max,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.mean,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.median,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.regionserver.wal.append_time.percentile.99,gauge,"",millisecond,"",time an append to the log took.,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_non_heap_used_in_mb,gauge,"","","",Non-heap memory used in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_non_heap_committed_in_mb,gauge,"","","",Non-heap memory committed in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_non_heap_max_in_mb,gauge,"","","",Non-heap memory max in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_heap_used_in_mb,gauge,"","","",Heap memory used in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_heap_committed_in_mb,gauge,"","","",Heap memory committed in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_heap_max_in_mb,gauge,"","","",Heap memory max in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.mem_max_in_mb,gauge,"","","",Max memory size in MB,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_count_par_new,gauge,"","","",GC Count for ParNew,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_time_millis_par_new,gauge,"",millisecond,"",GC Time for ParNew,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_count_concurrent_mark_sweep,gauge,"","","",GC Count for ConcurrentMarkSweep,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_time_millis_concurrent_mark_sweep,gauge,"",millisecond,"",GC Time for ConcurrentMarkSweep,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_count,gauge,"","","",Total GC count,0,hbase_regionserver,"",
+hbase.jvm_metrics.gc_time_millis,gauge,"",millisecond,"",Total GC time in milliseconds,0,hbase_regionserver,"",
