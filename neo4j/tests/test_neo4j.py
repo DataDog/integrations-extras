@@ -1,40 +1,40 @@
-# (C) Datadog, Inc. 2010-2016
-# All rights reserved
-# Licensed under Simplified BSD License (see LICENSE)
-
 import pytest
 
-from datadog_checks.base.errors import CheckException
+from datadog_checks.base.constants import ServiceCheck
 from datadog_checks.neo4j import Neo4jCheck
 
-from .common import CHECK_NAME, CONNECTION_FAILURE, NEO4J_MINIMAL_CONFIG, NEO4J_VARS
+from .common import METRICS_URL, NEO4J_VERSION
+
+pytestmark = [pytest.mark.integration, pytest.mark.usefixtures('dd_environment')]
 
 
-@pytest.mark.usefixtures('dd_environment')
-def test_minimal_config(aggregator):
-    c = Neo4jCheck(CHECK_NAME, {}, [NEO4J_MINIMAL_CONFIG])
-    c.check(NEO4J_MINIMAL_CONFIG)
+def test(aggregator, dd_run_check, instance):
+    check = Neo4jCheck('neo4j', {}, [instance])
+    dd_run_check(check)
 
-    # Test service check
-    aggregator.assert_service_check('neo4j.can_connect', status=Neo4jCheck.OK)
+    aggregator.assert_service_check('neo4j.openmetrics.health', ServiceCheck.OK)
 
-    # Test metrics
-    testable_metrics = NEO4J_VARS
-
-    for mname in testable_metrics:
-        aggregator.assert_metric('neo4j.{}'.format(mname), tags=[])
-
-    aggregator.assert_all_metrics_covered()
-
-
-@pytest.mark.usefixtures('dd_environment')
-def test_connection_failure(aggregator):
-    """
-    Service check reports connection failure
-    """
-    c = Neo4jCheck(CHECK_NAME, {}, [CONNECTION_FAILURE])
-
-    with pytest.raises(CheckException):
-        c.check(CONNECTION_FAILURE)
-
-    aggregator.assert_service_check('neo4j.can_connect', status=Neo4jCheck.CRITICAL)
+    if NEO4J_VERSION.startswith('3.5'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+    elif NEO4J_VERSION.startswith('4.0'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
+    elif NEO4J_VERSION.startswith('4.1'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
+    elif NEO4J_VERSION.startswith('4.2'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
+    elif NEO4J_VERSION.startswith('4.3'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
+    elif NEO4J_VERSION.startswith('4.4'):
+        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
+        aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
+    else:
+        raise Exception(f'unknown neo4j_version: {NEO4J_VERSION}')
