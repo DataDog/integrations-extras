@@ -2,12 +2,12 @@
 
 ## Overview
 
-![Datadog Services Map Screenshot](images/sourcegraph-datadog-services-map-extension.png)
+![Datadog Services Map Screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sourcegraph/images/sourcegraph-datadog-services-map-extension.png)
 
-The Datadog Services Map Sourcegraph Extension brings the context of Datadog APM directly into your code on Sourcegraph and on your code host (via [the Sourcegraph Browser Extension](https://docs.sourcegraph.com/integration/browser_extension)). 
+The Datadog Services Map Sourcegraph Extension brings the context of Datadog APM directly into your code on Sourcegraph and on your code host through [the Sourcegraph Browser Extension][1]. 
 
-* See which services call or are called by other services 
-* Go directly to the [Datadog APM Services Map](https://docs.datadoghq.com/tracing/visualization/services_map/) for your service 
+* See which services call or are called by other services.
+* Go directly to the [Datadog APM Services Map][2] for your service.
 
 ## Setup
 
@@ -32,7 +32,7 @@ To enable it just for yourself, add these to your user settings `/user/username/
 "datadogServiceMap.corsAnywhereUrl": "CORS_ANYWHERE_URL",
 ```
 
-> If you don't have a CORS anywhere URL, you can use the Sourcegraph demo: `https://sourcegraph-demo-cors-anywhere.herokuapp.com`
+If you don't have a CORS anywhere URL, you can use the Sourcegraph demo: `https://sourcegraph-demo-cors-anywhere.herokuapp.com`
 
 ### 3. Visit a code file with a service tracer call
 
@@ -63,7 +63,13 @@ This extension does not include any events.
 
 ## Support
 
-If you're a an individual Sourcegraph user, email support@sourcegraph.com. 
+## Further reading
 
-If you're a Sourcegraph customer, use your existing support slack channel or email contact.
+- [Use Datadog's Sourcegraph extension to navigate code and visualize service dependencies][4]
 
+Need help? Contact [Datadog support][3].
+
+[1]: https://docs.sourcegraph.com/integration/browser_extension
+[2]: https://docs.datadoghq.com/tracing/visualization/services_map/
+[3]: https://docs.datadoghq.com/help/
+[4]: https://www.datadoghq.com/blog/sourcegraph-datadog-apm-integration/
