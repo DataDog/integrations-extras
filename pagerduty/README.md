@@ -3,26 +3,26 @@
 ## Overview
 
 PagerDuty is a real-time operations platform which is continuously processing, analyzing,
-and routing event data. The system acts as an aggregation point for data coming from multiple 
-monitoring tools and can provide a holistic view of your current state of operations. PagerDuty 
-allows Datadog customers to enable more effective incident response while increasing visibility 
-and accountability throughout the incident lifecycle. PagerDuty delivers two new apps that will 
+and routing event data. The system acts as an aggregation point for data coming from multiple
+monitoring tools and can provide a holistic view of your current state of operations. PagerDuty
+allows Datadog customers to enable more effective incident response while increasing visibility
+and accountability throughout the incident lifecycle. PagerDuty delivers two new apps that will
 give you all the capabilities of our real-time operations platform, wherever you work
-without the need to switch tools. Add new widgets, Status Dashboard by PagerDuty 
-and Incidents by PagerDuty, directly to your dashboard to see the service status dashboard and respond 
+without the need to switch tools. Add new widgets, Status Dashboard by PagerDuty
+and Incidents by PagerDuty, directly to your dashboard to see the service status dashboard and respond
 to high-urgency incidents directly from Datadog in real time.
 
 ### Status Dashboard by PagerDuty
 
-Status Dashboard by PagerDuty provides technical responders, business responders, 
-and technical and business leaders a live, shared view of system health to improve 
-awareness of operational issues. It displays the current service status and sends 
+Status Dashboard by PagerDuty provides technical responders, business responders,
+and technical and business leaders a live, shared view of system health to improve
+awareness of operational issues. It displays the current service status and sends
 notifications to alert users when business services are being impacted. This feature
 improves communication between response teams and stakeholders during incidents.
 
 #### Key Features
 
-- Teams can view the service status dashboard directly from Datadog to get a quick, real-time view of their team’s system health.
+- Teams can view the service status dashboard directly from Datadog to get a quick, real-time view of their team's system health.
 - Users can manually trigger an incident from the PagerDuty Datadog App if they identify an issue that they know the engineering team will want to look at right away.
 - The Widget displays the current status of key business services and their impacting business services to get complete context while working on incidents.
 - Improves communication between response teams and stakeholders during incidents.
@@ -33,8 +33,8 @@ improves communication between response teams and stakeholders during incidents.
 
 ### Incidents by PagerDuty
 
-Incidents by PagerDuty allows you to take incident action directly from the 
-Datadog interface. It arms you with knowledge of ongoing incidents within PagerDuty 
+Incidents by PagerDuty allows you to take incident action directly from the
+Datadog interface. It arms you with knowledge of ongoing incidents within PagerDuty
 along with the ability to acknowledge and resolve all with a seamless navigation back into
 PagerDuty without having to context switch between tools.
 
@@ -54,8 +54,8 @@ PagerDuty without having to context switch between tools.
 
 ## Support
 
-[Contact the PagerDuty Sales Team][2] if you would like to become a 
-PagerDuty customer or [Datadog Support][3] for any troubleshooting. 
+[Contact the PagerDuty Sales Team][2] if you would like to become a
+PagerDuty customer or [Datadog Support][3] for any troubleshooting.
 
 [Contact the Pagerduty Sales Team](https://www.pagerduty.com/contact-sales/) if you would like to
 upgrade to a plan including the status dashboard feature and Incidents by Pagerduty.

@@ -5,7 +5,7 @@
 
 N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS) and Microsoft Azure. N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS and Azure.
 
-Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts, 
+Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts,
 and more by Datadog monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
 
 ## Setup
@@ -29,15 +29,15 @@ and more by Datadog monitoring service. This integration allows users to monitor
     - Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
 
 4.	Set up Datadog Dashboard metrics:
-    - Go to [‘Metrics-> Explorer’][2]
+    - Go to ['Metrics -> Explorer'][2]
 
-    **Graph**: Select your metric from the list. All N2WS metrics begin with the string ‘cpm_metric’.
+    **Graph**: Select your metric from the list. All N2WS metrics begin with the string 'cpm_metric'.
 
-    **Over**: Select data from the list. All N2WS users data begin with the string ‘cpm:user:<user-name>’.
+    **Over**: Select data from the list. All N2WS users data begin with the string 'cpm:user:<user-name>'.
               You can select either a specific user or the entire N2WS instance.
 
 5.	Get N2WS dashboards
-    - In [Datadog Integrations][3], search for the `N2WS` tile and install it. 
+    - In [Datadog Integrations][3], search for the `N2WS` tile and install it.
     - This creates five types of dashboards to your account. Three for N2WS Backup & Recovery v3.2.1 (only AWS supported) and two for N2WS Backup & Recovery v4.0 (includes Azure):
     `N2WSBackup&Recovery-Graphicalversion`, `N2WSBackup&Recovery-Graphicalversion-areas`, and `N2WSBackup&Recovery-EntitiesSpecificDashboard` for version 3.2.1. `N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0` and `N2WSBackup&Recovery-GraphicalVersionV4.0` for version 4.0.
     - Alternatively users can [import JSON templates from N2WS][4].
@@ -78,6 +78,6 @@ The N2WS Backup & Recovery integration does not include any service checks.
 [4]: https://support.n2ws.com/portal/en/kb/articles/datadog-templates
 [5]: https://github.com/DataDog/integrations-extras/blob/master/n2ws/metadata.csv
 [6]: https://n2ws.com/support/documentation
-[7]: https://n2ws.com/support 
+[7]: https://n2ws.com/support
 [8]: https://docs.datadoghq.com/help/
 [9]: https://app.datadoghq.com/account/settings#ubuntu

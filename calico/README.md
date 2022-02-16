@@ -41,7 +41,7 @@ metadata:
     [....]
 ```
 
-You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by running `kubectl get all —all-namespaces`.
+You can find values for `<FELIX-SERVICE-IP>` and `<FELIX-SERVICE-PORT>` by running `kubectl get all -all-namespaces`.
 
 ### Installation with an OS-based Agent
 

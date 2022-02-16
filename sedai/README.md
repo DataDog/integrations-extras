@@ -1,7 +1,7 @@
 
 ## Overview
 
-Sedai: Continuous Autonomous Availability Management (CAAM) proactively manages your cloud environments through autonomous actions that prevent availability issues and optimize your resources’ performance in production. The agentless, configuration-free platform infers and adapts to your cloud environments' observed performance. 
+Sedai: Continuous Autonomous Availability Management (CAAM) proactively manages your cloud environments through autonomous actions that prevent availability issues and optimize your resources' performance in production. The agentless, configuration-free platform infers and adapts to your cloud environments' observed performance.
 
 From preventing downtime and managing SLOs to analyzing code releases and lowering cloud costs, Sedai is the autonomous platform for your SRE and DevOps teams. As a Sedai customer, you can directly integrate with Datadog to receive select notifications in your dashboards.
 
@@ -48,7 +48,7 @@ This integration does not collect service checks.
 
 Need help? Email [Support][3] is available 24/7.
 
-Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2]. 
+Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2].
 
 
 [1]: https://www.sedai.io
