@@ -1,4 +1,4 @@
-from __future__ import annotations
+# (C) Datadog, Inc. 2021-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 

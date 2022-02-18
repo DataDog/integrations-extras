@@ -1,4 +1,4 @@
-from datadog_checks.base.utils.models.fields import get_default_field_value
+# (C) Datadog, Inc. 2021-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
