@@ -8,12 +8,6 @@ ALL_METRICS = {
         {"json_path": "proc.mem", "json_type": "int", "metric_name": "eventstore.proc.mem", "metric_type": "gauge"},
         {"json_path": "proc.cpu", "json_type": "float", "metric_name": "eventstore.proc.cpu", "metric_type": "gauge"},
         {
-            "json_path": "proc.cpuScaled",
-            "json_type": "float",
-            "metric_name": "eventstore.proc.cpu_scaled",
-            "metric_type": "gauge",
-        },
-        {
             "json_path": "proc.threadsCount",
             "json_type": "int",
             "metric_name": "eventstore.proc.threads",
@@ -181,7 +175,6 @@ ALL_METRICS = {
             "metric_name": "eventstore.gc.total_bytes_in_heaps",
             "metric_type": "gauge",
         },
-        {"json_path": "sys.cpu", "json_type": "float", "metric_name": "eventstore.sys.cpu", "metric_type": "gauge"},
         {
             "json_path": "sys.freeMem",
             "json_type": "int",
