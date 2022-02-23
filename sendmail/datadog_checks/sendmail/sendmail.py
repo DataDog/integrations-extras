@@ -73,7 +73,7 @@ class SendmailCheck(AgentCheck):
         self.log.debug("Error: %s", err)
         count = mail_queue.splitlines()
         # Retrieve the last total number of requests
-        queue_count = int(count[-1][-1])
+        queue_count = int(count[-1].split()[-1])
         self.log.info("Number of mails in the queue: %s", queue_count)
 
         return queue_count

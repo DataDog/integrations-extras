@@ -3,19 +3,23 @@
 ## Overview
 Nobl9 is a SLO platform that provides real-time, historical SLO reports. Nobl9 integrates with Datadog to collect SLI metrics and measure them against SLO targets. Since Nobl9 calculates error budgets of acceptable thresholds, it can trigger workflows and alerts when the error burn rate is too high or has been exceeded.
 
-The Datadog Nobl9 integration allows you to pass business context through monitoring data, define and measure reliability goals, and align activities against priorities set by the error budget.
+With the Datadog Nobl9 integration, you can:
 
-### SLO Grid View
-![SLO Grid View](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/grid_view.jpg) [4]
+- Pass business context through monitoring data
+- Define and measure reliability goals
+- Align activities against priorities set by the error budget
 
-### SLO Detail
-![Detail](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_detail.png) [5]
+### SLO grid view
+![SLO Grid View][4]
 
-### SLO Report
-![SLO Report](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/slo_report.png) [6]
+### SLO detail
+![Detail][5]
 
-### Service Health Dashboard
-![Service Health Dashboard](https://raw.githubusercontent.com/DataDog/integrations-extras/master/nobl9/images/service_health.png) [7]
+### SLO report
+![SLO Report][6]
+
+### Service health dashboard
+![Service Health Dashboard][7]
 
 ## Setup
 

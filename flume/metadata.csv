@@ -1,37 +1,37 @@
-metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-flume.channel.capacity,gauge,10,event,,The maximum number of events that can be queued in the channel at any time. For channel types without a capacity limit the value will be zero.,0,flume,channel capacity
-flume.channel.fill_percentage,gauge,10,percent,,The channel fill percentage.,0,flume,channel fill percentage
-flume.channel.size,gauge,10,event,,The number of events currently queued in the channel.,0,flume,channel size
-flume.channel.event_put_attempt_count,count,10,event,second,The total number of events that have been attempted to be put into the channel.,0,flume,channel put attempt count
-flume.channel.event_put_success_count,count,10,event,second,The total number of events that have successfully been put into the channel.,0,flume,channel put success count
-flume.channel.event_take_attempt_count,count,10,event,second,The total number of attempts that have been made to take an event from the channel.,0,flume,channel take attempt count
-flume.channel.event_take_success_count,count,10,event,second,The total number of events that have successfully been taken from the channel.,0,flume,channel take success count
-flume.channel.kafka_commit_timer,gauge,10,time,millisecond,The timer for the Kafka channel commits.,0,flume,Kafka channel commit timer
-flume.channel.kafka_event_get_timer,gauge,10,time,millisecond,"The timer for the kafka channel retrieving events. ",0,flume,Kafka channel get event timer
-flume.channel.kafka_event_send_timer,gauge,10,time,millisecond,The timer for the Kafka channel sending events.,0,flume,Kafka channel send event timer
-flume.channel.rollbackcount,count,10,event,,The count of rollbacks from the kafka channel.,0,flume,"Kafka channel rollback count "
-flume.sink.event_write_fail,count,10,event,second,The total number of failed write events.,0,flume,sink write failed events
-flume.sink.batch_empty_count,count,10,event,second,The number of append batches attempted containing zero events.,0,flume,sink batch empty count
-flume.sink.channel_read_fail,count,10,event,second,The number of failed read events from the channel.,0,flume,sink channel read fail
-flume.sink.batch_complete_count,count,10,event,second,The number of append batches attempted containing the maximum number of events supported by the next hop.,0,flume,sink batch complete count
-flume.sink.batch_underflow_count,count,10,event,second,The number of append batches attempted containing less than the maximum number of events supported by the next hop.,0,flume,sink batch fail count
-flume.sink.connection_closed_count,count,10,connection,second,The number of connections closed by this sink.,0,flume,sink connection closed count
-flume.sink.connection_failed_count,count,10,connection,second,The number of failed connections.,0,flume,sink connection failed count
-flume.sink.connection_created_count,count,10,connection,second,The number of connections created by this sink. Only applicable to some sink types.,0,flume,sink connection created count
-flume.sink.event_drain_attempt_count,count,10,event,second,The total number of events that have been attempted to be drained to the next hop.,0,flume,sink event drain attempt count
-flume.sink.event_drain_success_count,count,10,event,second,The total number of events that have successfully been drained to the next hop,0,flume,sink event drain success count
-flume.sink.kafka_event_sent_timer,gauge,10,time,millisecond,The timer for the Kafka sink sending events.,0,flume,Kafka sink send event timer
-flume.sink.rollbackcount,gauge,10,event,,The count of rollbacks from the Kafka sink.,0,flume,Kafka sink rollback count
-flume.source.event_read_fail,count,10,event,second,The total number of failed read source events.,0,flume,source event read failures
-flume.source.channel_write_fail,count,10,event,second,The total number of failed channel write events.,0,flume,source channel write fails
-flume.source.event_accepted_count,count,10,event,second,"The total number of events successfully accepted, either through append batches or single-event appends.",0,flume,source event accepted count
-flume.source.event_received_count,count,10,event,second,"The total number of events received, either through append batches or single-event appends.",0,flume,source event received count
-flume.source.append_accepted_count,count,10,event,second,The total number of single-event appends successfully accepted.,0,flume,source append accepted count
-flume.source.append_received_count,count,10,event,second,The total number of single-event appends received.,0,flume,source append received count
-flume.source.open_connection_count,count,10,connection,,The number of open connections,0,flume,source open connections count
-flume.source.generic_processing_fail,count,10,event,,The total number of generic processing failures.,0,flume,source generic processing fail
-flume.source.append_batch_accepted_count,count,10,event,,The total number of append batches accepted successfully.,0,flume,source append batch accepted count
-flume.source.append_batch_received_count,count,10,event,,The total number of append batches received.,0,flume,source append batch received count
-flume.source.kafka_commit_timer,gauge,10,time,millisecond,The timer for the Kafka source committing events.,0,flume,Kafka source commit timer
-flume.source.kafka_empty_count,count,10,event,,"The count of empty events from the Kafka source. ",0,flume,Kafka source empty count
-flume.source.kafka_event_get_timer,gauge,10,time,millisecond,The timer for the Kafka source retrieving events.,0,flume,Kafka source get event timer
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
+flume.channel.capacity,gauge,10,event,,The maximum number of events that can be queued in the channel at any time. For channel types without a capacity limit the value will be zero.,0,flume,channel capacity,
+flume.channel.fill_percentage,gauge,10,percent,,The channel fill percentage.,0,flume,channel fill percentage,
+flume.channel.size,gauge,10,event,,The number of events currently queued in the channel.,0,flume,channel size,
+flume.channel.event_put_attempt_count,count,10,event,second,The total number of events that have been attempted to be put into the channel.,0,flume,channel put attempt count,
+flume.channel.event_put_success_count,count,10,event,second,The total number of events that have successfully been put into the channel.,0,flume,channel put success count,
+flume.channel.event_take_attempt_count,count,10,event,second,The total number of attempts that have been made to take an event from the channel.,0,flume,channel take attempt count,
+flume.channel.event_take_success_count,count,10,event,second,The total number of events that have successfully been taken from the channel.,0,flume,channel take success count,
+flume.channel.kafka_commit_timer,gauge,10,time,millisecond,The timer for the Kafka channel commits.,0,flume,Kafka channel commit timer,
+flume.channel.kafka_event_get_timer,gauge,10,time,millisecond,"The timer for the kafka channel retrieving events. ",0,flume,Kafka channel get event timer,
+flume.channel.kafka_event_send_timer,gauge,10,time,millisecond,The timer for the Kafka channel sending events.,0,flume,Kafka channel send event timer,
+flume.channel.rollbackcount,count,10,event,,The count of rollbacks from the kafka channel.,0,flume,"Kafka channel rollback count ",
+flume.sink.event_write_fail,count,10,event,second,The total number of failed write events.,0,flume,sink write failed events,
+flume.sink.batch_empty_count,count,10,event,second,The number of append batches attempted containing zero events.,0,flume,sink batch empty count,
+flume.sink.channel_read_fail,count,10,event,second,The number of failed read events from the channel.,0,flume,sink channel read fail,
+flume.sink.batch_complete_count,count,10,event,second,The number of append batches attempted containing the maximum number of events supported by the next hop.,0,flume,sink batch complete count,
+flume.sink.batch_underflow_count,count,10,event,second,The number of append batches attempted containing less than the maximum number of events supported by the next hop.,0,flume,sink batch fail count,
+flume.sink.connection_closed_count,count,10,connection,second,The number of connections closed by this sink.,0,flume,sink connection closed count,
+flume.sink.connection_failed_count,count,10,connection,second,The number of failed connections.,0,flume,sink connection failed count,
+flume.sink.connection_created_count,count,10,connection,second,The number of connections created by this sink. Only applicable to some sink types.,0,flume,sink connection created count,
+flume.sink.event_drain_attempt_count,count,10,event,second,The total number of events that have been attempted to be drained to the next hop.,0,flume,sink event drain attempt count,
+flume.sink.event_drain_success_count,count,10,event,second,The total number of events that have successfully been drained to the next hop,0,flume,sink event drain success count,
+flume.sink.kafka_event_sent_timer,gauge,10,time,millisecond,The timer for the Kafka sink sending events.,0,flume,Kafka sink send event timer,
+flume.sink.rollbackcount,gauge,10,event,,The count of rollbacks from the Kafka sink.,0,flume,Kafka sink rollback count,
+flume.source.event_read_fail,count,10,event,second,The total number of failed read source events.,0,flume,source event read failures,
+flume.source.channel_write_fail,count,10,event,second,The total number of failed channel write events.,0,flume,source channel write fails,
+flume.source.event_accepted_count,count,10,event,second,"The total number of events successfully accepted, either through append batches or single-event appends.",0,flume,source event accepted count,
+flume.source.event_received_count,count,10,event,second,"The total number of events received, either through append batches or single-event appends.",0,flume,source event received count,
+flume.source.append_accepted_count,count,10,event,second,The total number of single-event appends successfully accepted.,0,flume,source append accepted count,
+flume.source.append_received_count,count,10,event,second,The total number of single-event appends received.,0,flume,source append received count,
+flume.source.open_connection_count,count,10,connection,,The number of open connections,0,flume,source open connections count,
+flume.source.generic_processing_fail,count,10,event,,The total number of generic processing failures.,0,flume,source generic processing fail,
+flume.source.append_batch_accepted_count,count,10,event,,The total number of append batches accepted successfully.,0,flume,source append batch accepted count,
+flume.source.append_batch_received_count,count,10,event,,The total number of append batches received.,0,flume,source append batch received count,
+flume.source.kafka_commit_timer,gauge,10,time,millisecond,The timer for the Kafka source committing events.,0,flume,Kafka source commit timer,
+flume.source.kafka_empty_count,count,10,event,,"The count of empty events from the Kafka source. ",0,flume,Kafka source empty count,
+flume.source.kafka_event_get_timer,gauge,10,time,millisecond,The timer for the Kafka source retrieving events.,0,flume,Kafka source get event timer,

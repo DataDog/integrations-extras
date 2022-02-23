@@ -4,7 +4,7 @@
 
 The HCP Vault integration provides an overview of your Vault clusters so you can monitor performance and cluster health.
 
-HCP Vault metrics streaming is available for all production grade cluster tiers.  The feature is not available for Development tier clusters.
+HCP Vault metrics streaming is available for all production grade cluster tiers. The feature is not available for Development tier clusters.
 
 For details on metrics scope and interpretation, see the [HCP Vault Metrics Guidance][1]
 
@@ -44,15 +44,15 @@ To enable metrics streaming:
 
 ### Metrics
 
-For details on metrics scope and interpretation, see the [HCP Vault Metrics Guidance][1]
+For details on metrics scope and interpretation, see the [HCP Vault Metrics Guidance][1].
 
 ### Service Checks
 
-hcp_vault does not include any service checks.
+The HCP Vault integration does not include any service checks.
 
 ### Events
 
-hcp_vault does not include any events.
+The HCP Vault integration does not include any events.
 
 ## Troubleshooting
 

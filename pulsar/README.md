@@ -44,7 +44,7 @@ To install the Pulsar check on your host:
 
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `pulsar` under the Checks section.
+Run the [Agent's status subcommand][5] and look for `pulsar` under the Checks section.
 
 ## Data Collected
 

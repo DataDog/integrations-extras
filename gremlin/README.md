@@ -15,11 +15,11 @@ Pairing Gremlin with Datadog's [Events][1] is an effective way to add failure-te
 
 ### Configuration
 
-In order to activate this integration, you will need to pass your Datadog API key to Gremlin. This is done on the [Integrations Page][4], by clicking the **Add** button on the row for **Datadog**. You will be prompted for your **Datadog API key**. Once entered, the integration will be initialized!
+To activate this integration, you need to pass your Datadog API key to Gremlin. This is done on the [Integrations Page][4], by clicking the **Add** button on the row for **Datadog**. You are prompted for your **Datadog API key**. Once entered, the integration is initialized.
 
 - API key: <span class="hidden-api-key">\${api_key}</span>
 
-You should now start seeing events from this integration in your [Event Stream][2].
+You should start seeing events from this integration in your [Event Stream][2].
 
 ## Data Collected
 
@@ -41,11 +41,13 @@ Need help? Contact [Datadog support][5].
 
 ## Further Reading
 
-Learn more about infrastructure monitoring and all our integrations on [our blog][6].
+Additional helpful documentation, links, and articles:
+
+- [How Gremlin monitors its own Chaos Engineering service with Datadog][6]
 
 [1]: https://docs.datadoghq.com/getting_started/#events
 [2]: https://app.datadoghq.com/event/stream
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gremlin/images/events-overlay.png
 [4]: https://app.gremlin.com/settings/integrations
 [5]: https://docs.datadoghq.com/help/
-[6]: https://www.datadoghq.com/blog
+[6]: https://www.datadoghq.com/blog/gremlin-datadog/
