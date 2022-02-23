@@ -47,7 +47,7 @@ If you are using Agent v7.21+ / v6.21+ follow the instructions below to install 
    ```shell
    datadog-agent integration install -t datadog-redisenterprise==<INTEGRATION_VERSION>
    ```
-  The latest version can be found on the [Datadog Integrations Release Page][12]
+  You can find the latest version on the [Datadog Integrations Release Page][12]
 
    **Note**: If necessary, prepend `sudo -u dd-agent` to the install command.
    
