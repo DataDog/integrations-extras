@@ -8,6 +8,5 @@
 * [Changed] Update gnatsd check to use RequestsWrapper. See [#892](https://github.com/DataDog/integrations-extras/pull/892).
 
 ## 1.0.0 / 2018-06-01
-==================
 
 * [Added] Add gnatsd integration. See [#116](https://github.com/DataDog/integrations-extras/pull/116).
