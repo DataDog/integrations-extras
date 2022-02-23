@@ -12,4 +12,4 @@
 
 ### Changes
 
-* [FEATURE] Add gnatsd integration. See [#116](https://github.com/DataDog/integrations-extras/pull/116).
+* [Added] Add gnatsd integration. See [#116](https://github.com/DataDog/integrations-extras/pull/116).
