@@ -47,6 +47,8 @@ If you are using Agent v7.21+ / v6.21+ follow the instructions below to install 
    ```shell
    datadog-agent integration install -t datadog-redisenterprise==<INTEGRATION_VERSION>
    ```
+  The latest version can be found on the [Datadog Integrations Release Page][12]
+
    **Note**: If necessary, prepend `sudo -u dd-agent` to the install command.
    
 3. Configure your integration like [any other packaged integration][6].
@@ -125,3 +127,4 @@ Contact the [Redis Field Engineering Team][11].
 [9]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/metadata.csv
 [10]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
 [11]: mailto:redis.observability@redis.com?subject=Datadog%20Integration%20Support
+[12]: https://github.com/DataDog/integrations-extras/tags
