@@ -7,13 +7,14 @@ class PureFACheck(OpenMetricsBaseCheckV2):
 
     def __init__(self, name, init_config, instances):
         super(PureFACheck, self).__init__(name, init_config, instances)
+        self.check_initializations.appendleft(self._parse_config)
 
     def get_default_config(self):
             return {'metrics': [METRIC_MAP]}
 
-    def check(self, instance):
-          endpoint = instance.get('openmetrics_endpoint')
-          if endpoint is None:
-              raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
+    def _parse_config(self):
+        self.scraper_configs = []
+        endpoint = self.instance.get('openmetrics_endpoint')
 
-          super().check(instance)
+        if endpoint is None:
+            raise ConfigurationError("Unable to find openmetrics URL in config file.")
