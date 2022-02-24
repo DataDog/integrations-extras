@@ -25,7 +25,7 @@ To configure this check for an Agent running on a host, run `datadog-agent integ
 ### Configuration
 
 1. Create a local user on your FlashArray with Read-Only role and generate an API token for this user.
-   ![Generate an API Key](./images/API.png) 
+   ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/purefa/images/API.png) 
 2. Add this configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your purefa performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
 
 Note: The `/array` endpoint is required as an abolute minimum when creating your configuration file.
