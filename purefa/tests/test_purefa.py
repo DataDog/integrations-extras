@@ -1,5 +1,3 @@
-
-
 from typing import Any, Dict
 
 from datadog_checks.base.stubs.aggregator import AggregatorStub
