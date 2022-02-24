@@ -29,7 +29,7 @@ CHECKS_BASE_REQ = 'datadog-checks-base>=23.2.0'
 
 
 setup(
-    name='purefa',
+    name='datadog-purefa',
     version=ABOUT['__version__'],
     description='The Pure Storage FlashArray check',
     long_description=long_description,
