@@ -5,6 +5,7 @@
 This check monitors [PureFA][1] through the [Datadog Agent][2].
 
 Note: This integration requires OpenMetricsBaseCheckV2 which is available in Agent v7.26.x+ and requires Python 3
+
 Note: This integration requires the use of the [Pure Storage Prometheus exporter][11]
 
 ## Setup
