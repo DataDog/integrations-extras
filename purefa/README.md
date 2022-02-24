@@ -113,7 +113,7 @@ Need help? Contact [Datadog support][8].
 [4]: https://github.com/PureStorage-OpenConnect/observability/blob/master/datadog/integrations-extras/purefa/datadog_checks/purefa/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/PureStorage-OpenConnect/observability/blob/master/datadog/integrations-extras/purefa/metadata.csv
+[7]: https://github.com/chrroberts-pure/integrations-extras/blob/master/purefa/metadata.csv
 [8]: https://docs.datadoghq.com/help/
 [9]: https://app.datadoghq.com/account/settings#agent
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
