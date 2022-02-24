@@ -2,6 +2,7 @@ from datadog_checks.base import OpenMetricsBaseCheckV2
 from datadog_checks.base import ConfigurationError
 from .metrics import METRIC_MAP
 
+
 class PureFACheck(OpenMetricsBaseCheckV2):
     __NAMESPACE__ = "purefa"
 
@@ -10,7 +11,7 @@ class PureFACheck(OpenMetricsBaseCheckV2):
         self.check_initializations.appendleft(self._parse_config)
 
     def get_default_config(self):
-            return {'metrics': [METRIC_MAP]}
+        return {'metrics': [METRIC_MAP]}
 
     def _parse_config(self):
         self.scraper_configs = []

@@ -1,8 +1,7 @@
 
 
-from typing import Any, Callable, Dict
+from typing import Any, Dict
 
-from datadog_checks.base import AgentCheck
 from datadog_checks.base.stubs.aggregator import AggregatorStub
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.purefa import PureFACheck
