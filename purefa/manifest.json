@@ -1,0 +1,46 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a2d8f393-62cd-4ece-bfab-e30797698b12",
+  "app_id": "purefa",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows"
+  ],
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "",
+    "title": "Pure Storage FlashArray",
+    "media": []
+  },
+  "author": {
+    "support_email": "pure-observability@purestorage.com"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "PureFA",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "purefa.",
+        "check": "purefa.info",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "purefa_overview": "dashboards/purefa_overview.json"
+    }
+  }
+}

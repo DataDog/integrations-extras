@@ -1,0 +1,74 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ##@param timeout - number - optional - default: 60
+    ## The timeout for connecting to services.
+    #
+    timeout: 60
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+
+## Every instance is scheduled independent of the others.
+#
+instances:
+    
+    ## @param openmetrics_endpoint - string - required
+    ## The URL exposing metrics in the OpenMetrics format.
+    #
+    - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/array?endpoint=<array_ip_or_fqdn>
+    
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param hostname_label - string - optional
+    ## Override the hostname for every metric submission with the value of one of its labels.
+    #
+    # hostname_label: <HOSTNAME_LABEL>
+
+    ## @param hostname_format - string - optional
+    ## When `hostname_label` is set, this instructs the check how to format the values. The string
+    ## `<HOSTNAME>` will be replaced by the value of the label defined by `hostname_label`.
+    #
+    # hostname_format: <HOSTNAME>
+
+    ## @param headers - mapping - optional
+    ## The headers parameter allows you to send specific headers with every request.
+    ## You can use it for explicitly specifying the host header or adding headers for
+    ## authorization purposes.
+    ##
+    ## This overrides any default headers.
+    #
+    # headers:
+    #   Host: <ALTERNATIVE_HOSTNAME>
+    #   X-Auth-Token: <AUTH_TOKEN>
+   
+    ##@param min_collection_interval - number - optional - default: 60
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 60
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
+   
+   ## @param max_returned_metrics - integer - optional - default: 100000
+    ## The check limits itself to 2000 metrics by default, increase this limit if needed.
+    #
+    # max_returned_metrics: 100000
