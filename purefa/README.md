@@ -24,7 +24,11 @@ To configure this check for an Agent running on a host, run `datadog-agent integ
 
 ### Configuration
 
-1. Add this configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your purefa performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
+1. Create a local user on your FlashArray with Read-Only role and generate an API token for this user.
+   ![Generate an API Key](./images/API.png) 
+2. Add this configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your purefa performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
+
+Note: The `/array` endpoint is required as an abolute minimum when creating your configuration file.
 
 ```yaml
 init_config:
@@ -102,18 +106,18 @@ The PureFA integration does not include any events.
 
 The PureFA integration does not include any service checks.
 
+## Support
 
-## Troubleshooting
-
-Need help? Contact [Datadog support][8].
-
+For support or feature requests, contact Pure Storage through the following methods:
+* Email: pure-observability@purestorage.com
+* Slack: [Pure Storage Code// Observability Channel][11].
 
 [1]: https://github.com/PureStorage-OpenConnect/pure-exporter
 [2]: https://app.datadoghq.com/account/settings#agent
 [4]: https://github.com/PureStorage-OpenConnect/observability/blob/master/datadog/integrations-extras/purefa/datadog_checks/purefa/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/chrroberts-pure/integrations-extras/blob/master/purefa/metadata.csv
-[8]: https://docs.datadoghq.com/help/
+[7]: https://github.com/PureStorage-OpenConnect/observability/blob/master/datadog/integrations-extras/purefa/metadata.csv
 [9]: https://app.datadoghq.com/account/settings#agent
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
