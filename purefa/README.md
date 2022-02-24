@@ -12,9 +12,13 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the PureFA check on your host:
+1. [Download and launch the Datadog Agent][9].
+2. Manually install the Pure FlashArray integration. See [Use Community Integrations][10] for more details based on the environment.
 
-1. Upload the build artifact located in `purefa/dist/<ARTIFACT_NAME>.whl` to any host with an Agent and run `datadog-agent integration install -w path/to/purefa/dist/<ARTIFACT_NAME>.whl`.
+
+#### Host
+
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purafa==<INTEGRATION_VERSION>`.
 
 ### Configuration
 
@@ -109,3 +113,5 @@ Need help? Contact [Datadog support][8].
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/PureStorage-OpenConnect/observability/blob/master/datadog/integrations-extras/purefa/metadata.csv
 [8]: https://docs.datadoghq.com/help/
+[9]: https://app.datadoghq.com/account/settings#agent
+[10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
