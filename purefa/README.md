@@ -2,11 +2,11 @@
 
 ## Overview
 
-This check monitors [PureFA][1] through the [Datadog Agent][2].
+This check monitors the [Pure Storage FlashArray][1] through the [Datadog Agent][2] and the [Pure Storage Prometheus exporter][1].
 
 Note: This integration requires OpenMetricsBaseCheckV2 which is available in Agent v7.26.x+ and requires Python 3
 
-Note: This integration requires the use of the [Pure Storage Prometheus exporter][11]
+Note: This integration requires the use of the [Pure Storage Prometheus exporter][1]
 
 ## Setup
 
@@ -117,4 +117,3 @@ Need help? Contact [Datadog support][8].
 [8]: https://docs.datadoghq.com/help/
 [9]: https://app.datadoghq.com/account/settings#agent
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
-[11]: https://github.com/PureStorage-OpenConnect/pure-exporter
