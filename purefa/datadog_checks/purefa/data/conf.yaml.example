@@ -50,12 +50,6 @@ instances:
     #
   - openmetrics_endpoint: http://localhost:9491/metrics/flasharray/array?endpoint=array01
 
-    ## @param use_openmetrics - boolean - optional - default: true
-    ## Use the latest OpenMetrics implementation for more features and better performance.
-    ## If running on Agent v6, you must set the `python_version` option in `datadog.yaml` to `"3"`.
-    #
-    use_openmetrics: true
-
     ## @param raw_metric_prefix - string - optional
     ## A prefix that will be removed from all exposed metric names, if present.
     ## All configuration options will use the prefix-less name.
@@ -170,6 +164,11 @@ instances:
     ## `<HOSTNAME>` will be replaced by the value of the label defined by `hostname_label`.
     #
     # hostname_format: <HOSTNAME>
+
+    ## @param collect_histogram_buckets - boolean - optional - default: true
+    ## Whether or not to send histogram buckets.
+    #
+    # collect_histogram_buckets: true
 
     ## @param non_cumulative_histogram_buckets - boolean - optional - default: false
     ## Whether or not histogram buckets should be non-cumulative and to come with a `lower_bound` tag.
