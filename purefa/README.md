@@ -6,7 +6,7 @@ This check monitors the [Pure Storage FlashArray][3] through the [Datadog Agent]
 
 The integration can provide performance data at the array, host, volume and pod level, as well as high-level capacity and configuration information.
 
-Monitor multiple FlashArrays and aggregate these into a single dashboard, or group together by custonmer defined environment.
+Monitor multiple FlashArrays and aggregate these into a single dashboard, or group together by customer defined environment.
 
 Note: This integration requires:
 
