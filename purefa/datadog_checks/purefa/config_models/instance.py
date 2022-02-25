@@ -128,7 +128,6 @@ class InstanceConfig(BaseModel):
     tls_verify: Optional[bool]
     use_latest_spec: Optional[bool]
     use_legacy_auth_encoding: Optional[bool]
-    use_openmetrics: Optional[bool]
     use_process_start_time: Optional[bool]
     username: Optional[str]
 
