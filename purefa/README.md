@@ -10,9 +10,9 @@ Monitor multiple FlashArrays and aggregate these into a single dashboard, or gro
 
 Note: This integration requires:
 
- - OpenMetricsBaseCheckV2 which is available in Agent v7.26.x+
+ - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
- - The [Pure Storage Prometheus exporter][1] is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
+ - The Pure Storage Prometheus exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
 
 ## Setup
 
