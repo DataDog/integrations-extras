@@ -50,14 +50,12 @@ instances:
     headers:
        Authorization: Bearer <api_token>
 
-
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/volumes?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
     headers:
        Authorization: Bearer <api_token>
-
 
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/hosts?endpoint=<array_ip_or_fqdn>
     tags:
@@ -66,7 +64,6 @@ instances:
     headers:
        Authorization: Bearer <api_token>
 
-
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/pods?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
@@ -74,7 +71,6 @@ instances:
        - host:<full_fqdn>
     headers:
        Authorization: Bearer <api_token>
-
 ```
 2. [Restart the Agent][5].
 
