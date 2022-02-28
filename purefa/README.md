@@ -47,50 +47,34 @@ instances:
        - env:<env>
        - fa_array_name:<full_fqdn>
        - host:<full_fqdn>
-    hostname_label: host
-    hostname_format: <HOSTNAME>.<domain_name>
     headers:
        Authorization: Bearer <api_token>
-    min_collection_interval: 120
-    empty_default_hostname: true
-    max_returned_metrics: 100000
+
 
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/volumes?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
-    hostname_label: host
-    hostname_format: <HOSTNAME>.<domain_name>
     headers:
        Authorization: Bearer <api_token>
-    min_collection_interval: 120
-    empty_default_hostname: true
-    max_returned_metrics: 100000
+
 
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/hosts?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
-    hostname_label: host
-    hostname_format: <HOSTNAME>.<domain_name>
     headers:
        Authorization: Bearer <api_token>
-    min_collection_interval: 120
-    empty_default_hostname: true
-    max_returned_metrics: 100000
+
 
   - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/pods?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
        - host:<full_fqdn>
-    hostname_label: host
-    hostname_format: <HOSTNAME>.<domain_name>
     headers:
        Authorization: Bearer <api_token>
-    min_collection_interval: 120
-    empty_default_hostname: true
-    max_returned_metrics: 100000
+
 ```
 2. [Restart the Agent][5].
 
@@ -111,6 +95,32 @@ The PureFA integration does not include any events.
 ### Service Checks
 
 The PureFA integration does not include any service checks.
+
+## Troubleshooting
+
+### Arrays are not showing in dashboard
+
+The dashboards included in this integration use the tags env, and fa_array_name. Please make sure that these are set per instance. `host` must be set for the `/array` and `/pods` endpoint in `purefa.d/conf.yaml`
+
+```yaml
+- tags:
+   - env:<env>
+   - fa_array_name:<full_fqdn>
+   - host:<full_fqdn>`
+```
+
+
+### Increasing Collection Interval
+
+The Pure Storage FlashArray check sets `min_collection_interval` to `120` by default, the minimum recomended value is `20`. You may increase/decrease `min_collection_interval` in `purefa.d/conf.yaml` file if necessary:
+
+- `min_collection_interval: 120`
+
+### Too few metrics
+
+Since there are many important metrics in a Pure Storage Array, the Pure Storage FlashArray check sets `max_returned_metrics` to `100000` by default. You may increase/decrease `max_returned_metrics` in `purefa.d/conf.yaml` file if necessary:
+
+- `max_returned_metrics: 100000`
 
 ## Support
 

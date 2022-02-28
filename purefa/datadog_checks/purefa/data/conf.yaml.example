@@ -50,6 +50,35 @@ instances:
     #
   - openmetrics_endpoint: http://localhost:9491/metrics/flasharray/array?endpoint=array01
 
+    ## @param hostname_label - string - optional - default: host
+    ## Override the hostname for every metric submission with the value of one of its labels.
+    #
+    # hostname_label: host
+
+    ## @param hostname_format - string - optional
+    ## When `hostname_label` is set, this instructs the check how to format the values. The string
+    ## `<HOSTNAME>` will be replaced by the value of the label defined by `hostname_label`.
+    #
+    # hostname_format: <HOSTNAME>
+
+    ## @param min_collection_interval - number - optional - default: 120
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    # min_collection_interval: 120
+
+    ## @param empty_default_hostname - boolean - optional - default: true
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: true
+
+    ## @param max_returned_metrics - number - required
+    ## The maximum number of metrics sent for each scraping.
+    #
+    max_returned_metrics: 100000
+
     ## @param raw_metric_prefix - string - optional
     ## A prefix that will be removed from all exposed metric names, if present.
     ## All configuration options will use the prefix-less name.
@@ -153,17 +182,6 @@ instances:
     ## the health of the `openmetrics_endpoint`.
     #
     # enable_health_service_check: true
-
-    ## @param hostname_label - string - optional
-    ## Override the hostname for every metric submission with the value of one of its labels.
-    #
-    # hostname_label: <HOSTNAME_LABEL>
-
-    ## @param hostname_format - string - optional
-    ## When `hostname_label` is set, this instructs the check how to format the values. The string
-    ## `<HOSTNAME>` will be replaced by the value of the label defined by `hostname_label`.
-    #
-    # hostname_format: <HOSTNAME>
 
     ## @param collect_histogram_buckets - boolean - optional - default: true
     ## Whether or not to send histogram buckets.
@@ -586,16 +604,3 @@ instances:
     ## Overrides any `service` defined in the `init_config` section.
     #
     # service: <SERVICE>
-
-    ## @param min_collection_interval - number - optional - default: 15
-    ## This changes the collection interval of the check. For more information, see:
-    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
-    #
-    # min_collection_interval: 15
-
-    ## @param empty_default_hostname - boolean - optional - default: false
-    ## This forces the check to send metrics with no hostname.
-    ##
-    ## This is useful for cluster-level checks.
-    #
-    # empty_default_hostname: false

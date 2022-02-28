@@ -7,7 +7,22 @@ files:
     - template: init_config/openmetrics
   - template: instances
     options:
+    - name: max_returned_metrics
+      description: The maximum number of metrics sent for each scraping.
+      required: true
+      value:
+        type: number
+        example: 100000
     - template: instances/openmetrics
+      options:
       overrides:
         openmetrics_endpoint.value.example: http://localhost:9491/metrics/flasharray/array?endpoint=array01
         openmetrics_endpoint.display_priority: 1
+        hostname_label.value.example: host
+        hostname_label.display_priority: 1
+        hostname_format.value.example: <HOSTNAME>
+        hostname_format.display_priority: 1
+        min_collection_interval.value.example: 120
+        min_collection_interval.display_priority: 1
+        empty_default_hostname.value.example: true
+        empty_default_hostname.display_priority: 1
