@@ -75,7 +75,7 @@ def instance_disable_generic_tags(field, value):
 
 
 def instance_empty_default_hostname(field, value):
-    return False
+    return True
 
 
 def instance_enable_health_service_check(field, value):
@@ -115,7 +115,7 @@ def instance_hostname_format(field, value):
 
 
 def instance_hostname_label(field, value):
-    return get_default_field_value(field, value)
+    return 'host'
 
 
 def instance_ignore_tags(field, value):
@@ -163,7 +163,7 @@ def instance_metrics(field, value):
 
 
 def instance_min_collection_interval(field, value):
-    return 15
+    return 120
 
 
 def instance_namespace(field, value):
