@@ -34,7 +34,7 @@ To configure this check for an Agent running on a host, run `datadog-agent integ
    ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/purefa/images/API.png) 
 2. Add the following configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your purefa performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
 
-Note: The `/array` endpoint is required as an abolute minimum when creating your configuration file.
+Note: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
 ```yaml
 init_config:
@@ -42,7 +42,7 @@ init_config:
 
 instances:
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/array?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/array?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
@@ -50,21 +50,21 @@ instances:
     headers:
        Authorization: Bearer <api_token>
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/volumes?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/volumes?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
     headers:
        Authorization: Bearer <api_token>
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/hosts?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/hosts?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
     headers:
        Authorization: Bearer <api_token>
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:9491/metrics/flasharray/pods?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/pods?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
