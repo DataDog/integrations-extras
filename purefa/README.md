@@ -96,13 +96,13 @@ The PureFA integration does not include any service checks.
 
 ### Arrays are not showing in dashboard
 
-The dashboards included in this integration use the tags env, and fa_array_name. Please make sure that these are set per instance. `host` must be set for the `/array` and `/pods` endpoint in `purefa.d/conf.yaml`
+The dashboards included in this integration use the tags `env`, and `fa_array_name`. Please make sure that these are set per instance. `host` must also be set for the `/array` and `/pods` endpoints in `purefa.d/conf.yaml`
 
 ```yaml
 - tags:
    - env:<env>
    - fa_array_name:<full_fqdn>
-   - host:<full_fqdn>`
+   - host:<full_fqdn>
 ```
 
 
@@ -114,12 +114,12 @@ The Pure Storage FlashArray check sets `min_collection_interval` to `120` by def
 min_collection_interval: 120
 ```
 
-### Too few metrics
+### Missing metrics
 
 Since there are many important metrics in a Pure Storage Array, the Pure Storage FlashArray check sets `max_returned_metrics` to `100000` by default. You may increase/decrease `max_returned_metrics` in `purefa.d/conf.yaml` file if necessary:
 
 ```yaml
-max_returned_metrics: 100000`
+max_returned_metrics: 100000
 ```
 
 ## Support
