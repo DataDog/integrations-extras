@@ -72,11 +72,41 @@ instances:
     headers:
        Authorization: Bearer <api_token>
 ```
+
 2. [Restart the Agent][5].
 
 ### Validation
 
 [Run the Agent's status subcommand][6] and look for `purefa` under the Checks section.
+
+### Troubleshooting
+
+#### Arrays are not showing in dashboard
+
+The dashboards included in this integration use the tags `env`, and `fa_array_name`. Please make sure that these are set per instance. `host` must also be set for the `/array` and `/pods` endpoints in `purefa.d/conf.yaml`
+
+```yaml
+- tags:
+   - env:<env>
+   - fa_array_name:<full_fqdn>
+   - host:<full_fqdn>
+```
+
+#### Increasing Collection Interval
+
+The Pure Storage FlashArray check sets `min_collection_interval` to `120` by default, the minimum recomended value is `20`. You may increase/decrease `min_collection_interval` in `purefa.d/conf.yaml` file if necessary:
+
+```yaml
+min_collection_interval: 120
+```
+
+#### Missing metrics
+
+Since there are many important metrics in a Pure Storage Array, the Pure Storage FlashArray check sets `max_returned_metrics` to `100000` by default. You may increase/decrease `max_returned_metrics` in `purefa.d/conf.yaml` file if necessary:
+
+```yaml
+max_returned_metrics: 100000
+```
 
 ## Data Collected
 
@@ -91,36 +121,6 @@ The PureFA integration does not include any events.
 ### Service Checks
 
 The PureFA integration does not include any service checks.
-
-## Troubleshooting
-
-### Arrays are not showing in dashboard
-
-The dashboards included in this integration use the tags `env`, and `fa_array_name`. Please make sure that these are set per instance. `host` must also be set for the `/array` and `/pods` endpoints in `purefa.d/conf.yaml`
-
-```yaml
-- tags:
-   - env:<env>
-   - fa_array_name:<full_fqdn>
-   - host:<full_fqdn>
-```
-
-
-### Increasing Collection Interval
-
-The Pure Storage FlashArray check sets `min_collection_interval` to `120` by default, the minimum recomended value is `20`. You may increase/decrease `min_collection_interval` in `purefa.d/conf.yaml` file if necessary:
-
-```yaml
-min_collection_interval: 120
-```
-
-### Missing metrics
-
-Since there are many important metrics in a Pure Storage Array, the Pure Storage FlashArray check sets `max_returned_metrics` to `100000` by default. You may increase/decrease `max_returned_metrics` in `purefa.d/conf.yaml` file if necessary:
-
-```yaml
-max_returned_metrics: 100000
-```
 
 ## Support
 
