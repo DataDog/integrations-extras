@@ -1,6 +1,5 @@
 
-from datadog_checks.base import OpenMetricsBaseCheckV2
-from datadog_checks.base import ConfigurationError
+from datadog_checks.base import OpenMetricsBaseCheckV2, ConfigurationError
 from .metrics import METRIC_MAP
 
 
@@ -12,14 +11,5 @@ class PureFACheck(OpenMetricsBaseCheckV2):
 
     def get_default_config(self):
         return {
-            'metrics': [METRIC_MAP],
-            'openmetrics_endpoint': "http://localhost:9491/metrics/flasharray/array?endpoint=array01"
+            'metrics': [METRIC_MAP]
             }
- 
-
-    def check(self, instance):
-        endpoint = instance.get('openmetrics_endpoint')
-        if endpoint is None:
-            raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
-
-        super().check(instance)
