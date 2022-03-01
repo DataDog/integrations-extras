@@ -61,18 +61,12 @@ instances:
     #
     # hostname_format: <HOSTNAME>
 
-    ## @param min_collection_interval - number - optional - default: 120
-    ## This changes the collection interval of the check. For more information, see:
-    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
-    #
-    # min_collection_interval: 120
-
     ## @param empty_default_hostname - boolean - optional - default: true
     ## This forces the check to send metrics with no hostname.
     ##
     ## This is useful for cluster-level checks.
     #
-    # empty_default_hostname: true
+    empty_default_hostname: true
 
     ## @param max_returned_metrics - number - optional - default: 100000
     ## The maximum number of metrics sent for each scraping.
@@ -604,3 +598,9 @@ instances:
     ## Overrides any `service` defined in the `init_config` section.
     #
     # service: <SERVICE>
+
+    ## @param min_collection_interval - number - optional - default: 120
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    min_collection_interval: 120
