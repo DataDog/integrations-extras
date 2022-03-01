@@ -108,7 +108,7 @@ The dashboards included in this integration use the tags `env`, and `fa_array_na
 
 ### Increasing Collection Interval
 
-The Pure Storage FlashArray check sets `min_collection_interval` to `120` by default, the minimum recomended value is `20`. You may increase/decrease `min_collection_interval` in `purefa.d/conf.yaml` file if necessary:
+The Pure Storage FlashArray check sets `min_collection_interval` to `120` by default, and the minimum recommended value is `20`. You may increase/decrease `min_collection_interval` in the `purefa.d/conf.yaml` file if necessary:
 
 ```yaml
 min_collection_interval: 120
