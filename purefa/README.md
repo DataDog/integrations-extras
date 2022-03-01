@@ -120,7 +120,7 @@ The PureFA integration does not include any events.
 
 ### Service Checks
 
-The PureFA integration does not include any service checks.
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Support
 
@@ -138,3 +138,4 @@ For support or feature requests, contact Pure Storage through the following meth
 [9]: https://app.datadoghq.com/account/settings#agent
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
+[12]: https://github.com/DataDog/integrations-extras/blob/master/purefa/assets/service_checks.json
