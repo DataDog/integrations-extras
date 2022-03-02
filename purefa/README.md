@@ -104,13 +104,6 @@ The Pure Storage FlashArray check sets `min_collection_interval` to `120` by def
 min_collection_interval: 120
 ```
 
-#### Missing metrics
-
-Since there are many important metrics in a Pure Storage Array, the Pure Storage FlashArray check sets `max_returned_metrics` to `100000` by default. You may increase/decrease `max_returned_metrics` in the `purefa.d/conf.yaml` file if necessary:
-
-```yaml
-max_returned_metrics: 100000
-```
 
 ## Data Collected
 
