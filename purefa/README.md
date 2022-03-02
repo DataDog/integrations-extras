@@ -8,7 +8,7 @@ The integration can provide performance data at the array, host, volume and pod 
 
 You can monitor multiple FlashArrays and aggregate these into a single dashboard, or group them together by customer defined environment.
 
-Note: This integration requires:
+**This integration requires the following**:
 
  - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
