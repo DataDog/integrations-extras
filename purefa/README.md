@@ -34,7 +34,7 @@ To configure this check for an Agent running on a host, run `datadog-agent integ
    ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/purefa/images/API.png) 
 2. Add the following configuration block to the `purefa.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your PureFA performance data. See the sample [purefa.d/conf.yaml][4] for all available configuration options.
 
-Note: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
+**Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
 ```yaml
 init_config:
