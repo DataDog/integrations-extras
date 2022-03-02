@@ -87,7 +87,7 @@ instances:
 
 #### Arrays are not showing in dashboard
 
-The dashboards included in this integration use the tags `env`, and `fa_array_name`. Please make sure that these are set per instance. `host` must also be set for the `/array` and `/pods` endpoints in `purefa.d/conf.yaml`
+The dashboards included in this integration use the tags `env`, and `fa_array_name`. Make sure that these are set per instance. `host` must also be set for the `/array` and `/pods` endpoints in `purefa.d/conf.yaml`.
 
 ```yaml
 - tags:
