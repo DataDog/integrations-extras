@@ -158,10 +158,6 @@ def instance_log_requests(field, value):
     return False
 
 
-def instance_max_returned_metrics(field, value):
-    return 100000
-
-
 def instance_metrics(field, value):
     return get_default_field_value(field, value)
 
