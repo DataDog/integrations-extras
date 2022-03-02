@@ -26,7 +26,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 #### Host
 
-To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purafa==<INTEGRATION_VERSION>`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
 ### Configuration
 
