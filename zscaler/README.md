@@ -34,14 +34,11 @@
 
 ### Installation
 
-The zscaler check is included in the [Datadog Agent][2] package.
-No additional installation is needed on your server.
+No additional installation is required.
 
 ### Configuration
 
-1. Edit the `zscaler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your zscaler performance data. See the [sample zscaler.d/conf.yaml][3] for all available configuration options.
-
-2. [Restart the Agent][4].
+No configuration is required.
 
 ### Validation
 
@@ -55,11 +52,11 @@ See [metadata.csv][6] for a list of metrics provided by this check.
 
 ### Service Checks
 
-zscaler does not include any service checks.
+Zscaler does not include any service checks.
 
 ### Events
 
-zscaler does not include any events.
+Zscaler does not include any events.
 
 ## Troubleshooting
 
