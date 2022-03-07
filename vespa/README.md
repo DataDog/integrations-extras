@@ -37,7 +37,7 @@ To configure the Vespa check:
 
 ### Validation
 
-[Run the Agent's status subcommand][6] and look for `vespa` under the Checks section.
+Run the [Agent's status subcommand][6] and look for `vespa` under the Checks section.
 
 ## Data Collected
 

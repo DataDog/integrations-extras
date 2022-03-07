@@ -8,7 +8,7 @@ LambdaTest supports manual and various automation testing frameworks like Seleni
 
 With the LambdaTest integration, log bugs while performing cross-browser testing of your websites (and web apps) using LambdaTest platform. LambdaTest automatically includes details from the testing environment, such as browser version, OS, resolution, comments, and screenshots in Datadog.
 
-Here's all that you can do with LambdaTest:  
+Here's all that you can do with LambdaTest:
 
 - Live-interactive testing across 2000+ browsers and real machines hosted on cloud-based infrastructure.
 - An online automation testing grid supports Selenium and Cypress tests with any CI/CD pipeline to help QA teams validate and ship quality builds faster.
@@ -23,7 +23,7 @@ All configuration happens on the LambdaTest Dashboard. See the [LambdaTest-Datad
 
 ### Configuration
 
-Here’s how you can track incidents in Datadog with LambdaTest:
+Here's how you can track incidents in Datadog with LambdaTest:
 
 1. Log in to your LambdaTest account on the LambdaTest website.
 2. Select settings from the menu bar.
@@ -39,7 +39,7 @@ For support or feature requests, contact LambdaTest on the following channels:
 
 Email: support@lambdatest.com
 Phone: +1-(866)-430-7087
-Website: https://www.lambdatest.com/ 
+Website: https://www.lambdatest.com/
 
 [1]: https://www.lambdatest.com/support/docs/datadog-integration/
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/

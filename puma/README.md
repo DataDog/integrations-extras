@@ -28,7 +28,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Puma che
 
 ### Validation
 
-[Run the Agent's status subcommand][11] and look for `puma` under the Checks section.
+Run the [Agent's status subcommand][11] and look for `puma` under the Checks section.
 
 ## Data Collected
 
