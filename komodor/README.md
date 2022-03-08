@@ -2,14 +2,14 @@
 
 ## Overview
 
-This integration allows Datadog Monitor Alerts to be available in the Komodor Kubernetes troubleshooting platform and to suggest related services based on service connections detected by Datadog..
+This integration allows Datadog Monitor Alerts to be available in the Komodor Kubernetes troubleshooting platform and to suggest related services based on service connections detected by Datadog.
 
 Komodor tracks changes across your entire K8s stack analyzes their ripple effect and provides you with the context you need to troubleshoot efficiently and independently.
 
 ### Turning troubleshooting chaos into clarity
-Today’s microservices systems are complex, distributed and they are constantly changing. Keeping track of so many moving parts in so many places often seems nearly impossible!
+Today's microservices systems are complex, distributed and they are constantly changing. Keeping track of so many moving parts in so many places often seems nearly impossible!
 
-Komodor is the missing piece in your DevOps toolchain – offering one unified platform from which you can gain a deep understanding of all of your system events, changes and their effect.
+Komodor is the missing piece in your DevOps toolchain and offers one unified platform from which you can gain a deep understanding of all of your system events, changes and their effect.
 
 ### Empower on-call teams
 Make the knowledge and expertise that has traditionally been held by only a few, clear and visible to Dev and SRE teams.
