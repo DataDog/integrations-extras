@@ -38,7 +38,7 @@ You can install the Komodor agent in under 5 minutes, here is a [quick overview]
 
 ## Support
 
-For more information and a live demo please [contact us]![1]
+For more information and a live demo please [contact us][1].
 
 [1]: https://komodor.com/sign-up/
 [2]: https://docs.komodor.com/Learn/Komodor-Agent.html
