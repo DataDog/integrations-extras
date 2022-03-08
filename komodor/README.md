@@ -34,7 +34,7 @@ Manage your ever-growing system complexity, change frequency and alert volume wi
 
 ## Setup
 
-You can install the Komodor agent in under 5 minutes, here is a [quick overview]![2] of installing the agent. 
+You can install the Komodor agent in under 5 minutes, here is a [quick overview][2] of installing the agent. 
 
 ## Support
 
