@@ -83,9 +83,9 @@ Follow these steps in Datadog:
 
 6. Click on **Save** to complete the service integration.
 
-    View the [official documentation][3] from Squadcast for more details on setup.
+    See the [Squadcast documentation][3] for more details.
 
-**Note**: Once the Webhook for Squadcast has been configured, ensure that the same is also selected as a channel under "Notify your team" in the Monitor’s configuration.
+**Note**: Once the Webhook for Squadcast is configured, select the same as a channel under **Notify your team** in the Datadog monitor's configuration.
 
 ## Data Collected
 ### Metrics
@@ -94,7 +94,7 @@ Squadcast integration does not include any metrics.
 
 ### Events
 
-Your Squadcast Triggered / Resolved events will appear in your Squadcast platform dashboard.
+Your Squadcast triggered and resolved events display in your Squadcast platform dashboard.
 
 ### Service Checks
 

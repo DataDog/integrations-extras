@@ -13,9 +13,9 @@ Using advanced machine learning algorithms to predict application workloads, Fed
 * Multicloud cost analysis and recommendations based on workload predictions for Kubernetes clusters and VM clusters
 * Actual cost and potential savings based on recommendations for clusters, Kubernetes applications, VMs, and Kubernetes namespaces
 
-By integrating with ProphetStor Federator.ai, you can track and predict the resource usages of Kubernetes containers, namespaces, and cluster nodes to make the right recommendations to prevent costly over-provisioning or performance-impacting under-provisioning. With easy integration to CI/CD pipeline, Federator.ai enables continuous optimization of containers whenever they are deployed in a Kubernetes cluster. Utilizing application workload predictions, Federator.ai auto-scales application containers at the right time and optimizes performance with the right number of container replicas through Kubernetes HPA or [Datadog Watermark Pod Autoscaling (WPA)][3].
+By integrating with ProphetStor Federator.ai, you can track and predict the resource usages of Kubernetes containers, namespaces, and cluster nodes to make the right recommendations to prevent costly over-provisioning or performance-impacting under-provisioning. With easy integration to CI/CD pipeline, Federator.ai enables continuous optimization of containers whenever they are deployed in a Kubernetes cluster. Using application workload predictions, Federator.ai auto-scales application containers at the right time and optimizes performance with the right number of container replicas through Kubernetes HPA or [Datadog Watermark Pod Autoscaling (WPA)][3].
 
-For additional information on Federator.ai, refer to the [ProphetStor Federator.ai Feature Demo][2] and [ProphetStor Federator.ai for Datadog][14] videos.
+For additional information on Federator.ai, see the [ProphetStor Federator.ai Feature Demo][2] and [ProphetStor Federator.ai for Datadog][14] videos.
 
 
 **ProphetStor Federator.ai Cluster Overview**
@@ -231,7 +231,7 @@ For additional information on Federator.ai, refer to the [ProphetStor Federator.
     
 	![Add Cluster Window][4] 
     
-3. Refer to the [Federator.ai - Installation and Configuration Guide][6] and [User Guide][5] for more details. 
+3. See the [Federator.ai - Installation and Configuration Guide][6] and [User Guide][5] for more details. 
 
 
 ## Data Collected
@@ -254,7 +254,7 @@ Federator.ai does not include any events.
 Need help? Read the [Federator.ai - Installation and Configuration Guide][6] or contact [Datadog support][10].
 
 [1]: https://prophetstor.com/federator_ai/
-[2]: https://youtu.be/IooFJnB8bb8
+[2]: https://youtu.be/AeSH8yGGA3Q
 [3]: https://github.com/DataDog/watermarkpodautoscaler
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png
 [5]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20User%20Guide.pdf

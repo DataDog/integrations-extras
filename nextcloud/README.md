@@ -28,7 +28,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Nextclou
 
 ### Validation
 
-[Run the Agent's `status` subcommand][10] and look for `nextcloud` under the Checks section.
+Run the [Agent's status subcommand][10] and look for `nextcloud` under the Checks section.
 
 ## Data Collected
 

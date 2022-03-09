@@ -8,16 +8,16 @@ This integration provides [Redis Enterprise][1] monitoring and metrics for Datad
 
 ### What is Redis Enterprise?
 
-[Redis Enterprise][1] is the fully supported enterprise version of Redis.  In addition to the core open source Redis feature set, Redis Enterprise adds active-active geo-distribution, multi-model database features, enhanced observability and easier multi-tenancy management for higher uptimes.
+[Redis Enterprise][1] is the fully supported enterprise version of Redis. In addition to the core open source Redis feature set, Redis Enterprise adds active-active geo-distribution, multi-model database features, enhanced observability, and easier multi-tenancy management for higher uptimes.
 
-### Redis Enterprise Datadog Dashboard
+### Redis Enterprise Datadog dashboard
 
 Redis Enterprise's Datadog integration provides a templated view across your clusters and databases allowing for operational insight unavailable in other products. Understand usage patterns and plan for growth armed with the data necessary to make informed decisions.
 
-#### Database Overview
+#### Database overview
 ![overview](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/dashboard.png)
 
-#### Cluster Overview
+#### Cluster overview
 ![overview](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/datadog_cluster_top_view.png)
 
 #### Redis on Flash
@@ -26,17 +26,14 @@ Redis Enterprise's Datadog integration provides a templated view across your clu
 #### Active/Active Redis
 ![rofdash](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/active_active_dashboard.png)
 
-#### Redis Enterprise Events
+#### Redis Enterprise events
 ![events](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/events.png)
-
 
 ### Provider
 
 ![provider](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/logo-redis.png)
 
 This integration is provided by Redis Labs.
-
-
 
 ## Setup
 
@@ -50,6 +47,8 @@ If you are using Agent v7.21+ / v6.21+ follow the instructions below to install 
    ```shell
    datadog-agent integration install -t datadog-redisenterprise==<INTEGRATION_VERSION>
    ```
+  You can find the latest version on the [Datadog Integrations Release Page][12]
+
    **Note**: If necessary, prepend `sudo -u dd-agent` to the install command.
    
 3. Configure your integration like [any other packaged integration][6].
@@ -103,11 +102,10 @@ The check returns:
 The check returns:
 
 - `OK` if the cluster license is valid for longer than 1 week.
-- `WARNING` if cluster license will expire in < 7 days.
+- `WARNING` if cluster license expires in < 7 days.
 - `CRITICAL` if the cluster license has expired.
 
-**Note:** The cluster will continue to operate as normal with an expired license, however, no configuration changes can be made during this time.  Contact your sales representative for a renewal.
-
+**Note:** The cluster continues to operate as normal with an expired license, however, no configuration changes can be made during this time. Contact your sales representative for a renewal.
 
 ### Events
 
@@ -129,3 +127,4 @@ Contact the [Redis Field Engineering Team][11].
 [9]: https://github.com/DataDog/integrations-extras/blob/master/redisenterprise/metadata.csv
 [10]: https://docs.redislabs.com/latest/rs/administering/monitoring-metrics/#cluster-alerts
 [11]: mailto:redis.observability@redis.com?subject=Datadog%20Integration%20Support
+[12]: https://github.com/DataDog/integrations-extras/tags

@@ -4,7 +4,7 @@
 
 The Sqreen integration enables you to monitor your service security activity with dashboards, security rules, log facets, and saved views in Datadog.
 
-This integration is only available to Datadog and Sqreen design partners, and requires the Sqreen microagent to be deployed in the web services to be secured. 
+This integration is only available to Datadog and Sqreen design partners, and requires the Sqreen microagent to be deployed in the web services to be secured.
 
 ![Sqreen Insights in Datadog][1]
 

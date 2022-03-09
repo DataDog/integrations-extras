@@ -12,16 +12,16 @@ your Hasura Cloud project's operation logs and metrics to your Datadog dashboard
 
 To set up the Hasura Cloud Datadog integration for your Hasura Cloud project, provide a Datadog API key and region to Hasura Cloud.
 
-Refer to the [Hasura Cloud documentation][3] to configure the Datadog integration for your Hasura Cloud project. 
+See the [Hasura Cloud documentation][3] to configure the Datadog integration for your Hasura Cloud project.
 
-Once the above is done, go to the [Logs section][5] in Datadog and create facets for the following top level fields: 
+Once the above is done, go to the [Logs section][5] in Datadog and create facets for the following top level fields:
 
 * `operation_name`
 * `operation_type`
 * `error_code`
 * `is_error`
 
-Read the [Datadog Log Facets documentation][4] for information regarding creating facets from logs. 
+See the [Datadog Log Facets documentation][4] for information regarding creating facets from logs.
 
 ## Data Collected
 

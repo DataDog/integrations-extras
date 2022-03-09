@@ -4,7 +4,7 @@
 
 Rundeck further enhances Datadog notifications with automated workflow capabilities to help diagnose issues-and, optionally, to remediate them. 
 
-Learn more about automating your runbooks to reduce incident time [on the Rundeck website][1].
+Learn more about automating your runbooks to reduce incident time on the [Rundeck website][1].
 
 Some example use cases are:
 
@@ -27,7 +27,7 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 
 1. In your Rundeck Project, click the **Webhooks** navigation option.
 2. Click **Add**.
-3. Give the webhook a name.  (For example, *Datadog-Restart Service*)
+3. Give the webhook a name, for example: `Datadog-Restart Service`.
 4. Click the **Choose Webhook Plugin** button and select **Run Job***.
 5. Select the job you'd like to run when this webhook is triggered.
 6. [optional] In the **Options** line, enter the following text:
@@ -57,7 +57,6 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 Add this integration to any alert notification in Datadog by adding the recipient of `@webhook-Rundeck_Restart_Service`. The name varies based on what you name the webhook in step 4a. When the monitor triggers an alert, the webhook runs the associated job.
 
 Other plugins, such as Advanced Run Job, can also be used, depending on your use case.
-
 
 ## Data Collected
 

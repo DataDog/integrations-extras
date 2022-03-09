@@ -1,0 +1,827 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides a **high-level** overview of your TiDB clusters.\n\nFurther reading on TiDB monitoring:\n\n- [TiDB Monitoring Framework Overview](https://docs.pingcap.com/tidb/stable/tidb-monitoring-framework)\n- [TiDB Troubleshooting Map](https://docs.pingcap.com/tidb/stable/tidb-troubleshooting-map)\n- [Key Metrics](https://docs.pingcap.com/tidb/stable/grafana-overview-dashboard)\n\nClone this template dashboard to make changes and add your own graph widgets.",
+    "layout_type": "ordered",
+    "template_variables": [
+        {
+            "available_values": [],
+            "default": "SELECT_YOUR_CLUSTER",
+            "name": "cluster_name",
+            "prefix": "cluster_name"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "instance",
+            "prefix": "instance"
+        }
+    ],
+    "title": "TiDBCloud Cluster Overview",
+    "widgets": [
+        {
+            "definition": {
+                "background_color": "vivid_green",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Cluster Performance",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "bars",
+                                    "formulas": [
+                                        {
+                                            "alias": "queries",
+                                            "formula": "default_zero(query2)"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "count:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal} by {sql_type}.as_count()"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "time": {},
+                            "title": "Queries per second",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 2133775056333350,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "bars",
+                                    "formulas": [
+                                        {
+                                            "alias": "failed queries",
+                                            "formula": "default_zero(query1)"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.db_failed_queries_total{$cluster_name,$instance} by {type}.as_count()"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Failed queries per second",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 5746662345180932,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 6,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "avg",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "p50",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "p95",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "p99",
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "alias": "max",
+                                            "formula": "query5"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "p50:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "p95:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "query": "p99:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query5",
+                                            "query": "max:tidb_cloud.db_query_duration_seconds{$cluster_name,$instance,!sql_type:internal}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Query duration",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 4820632235484913,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 0,
+                            "y": 3
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "area",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.db_connections{$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Connection count",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 2278849698067162,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 6,
+                            "y": 3
+                        }
+                    }
+                ]
+            },
+            "id": 2064912651172608,
+            "layout": {
+                "height": 7,
+                "width": 12,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "vivid_blue",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Node Resource Utilization",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "max",
+                                "value",
+                                "avg",
+                                "min"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "autosmooth(query1)"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tidb,$cluster_name,$instance} by {instance}.as_rate()"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tidb,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiDB CPU usage (cores)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 5781994570649179,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tidb,$cluster_name,$instance} by {instance}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tidb,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiDB memory usage bytes",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 7928624106284772,
+                        "layout": {
+                            "height": 3,
+                            "width": 6,
+                            "x": 6,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "max",
+                                "value",
+                                "avg",
+                                "min"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "autosmooth(query1)"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tikv,$cluster_name,$instance} by {instance}.as_rate()"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tikv,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV CPU usage (cores)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 815570989345466,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 0,
+                            "y": 3
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV memory usage bytes",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 3089172447202306,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 4,
+                            "y": 3
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tikv,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiKV disk usage bytes",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 3746610663947074,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 8,
+                            "y": 3
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "max",
+                                "value",
+                                "avg",
+                                "min"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "autosmooth(query1)"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tiflash,$cluster_name,$instance} by {instance}.as_rate()"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tiflash,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiFlash CPU usage (cores)",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 3461067880752330,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 0,
+                            "y": 6
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiFlash memory usage bytes",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 3233310598267762,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 4,
+                            "y": 6
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value"
+                            ],
+                            "legend_layout": "vertical",
+                            "markers": [],
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "usage",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "capacity",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tiflash,$cluster_name,$instance} by {instance}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "TiFlash disk usage bytes",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": true,
+                                "label": "",
+                                "max": "auto",
+                                "min": "auto",
+                                "scale": "linear"
+                            }
+                        },
+                        "id": 7673170287570968,
+                        "layout": {
+                            "height": 3,
+                            "width": 4,
+                            "x": 8,
+                            "y": 6
+                        }
+                    }
+                ]
+            },
+            "id": 3706679498094862,
+            "layout": {
+                "height": 10,
+                "is_column_break": true,
+                "width": 12,
+                "x": 0,
+                "y": 7
+            }
+        }
+    ]
+}

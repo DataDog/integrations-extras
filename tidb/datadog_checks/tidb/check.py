@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from datadog_checks.base import OpenMetricsBaseCheck
 
-from .metrics import DM_METRICS, PD_METRICS, PUMP_METRICS, TICDC_METRICS, TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
+from .metrics import TIDB_METRICS, TIFLASH_METRICS, TIKV_METRICS
 from .utils import build_check
 
 
@@ -28,15 +28,22 @@ class TiDBCheck(OpenMetricsBaseCheck):
                 "pd",
                 {
                     'pd_metric_url': 'http://localhost:2379/metrics',
-                    'metrics': DM_METRICS
-                    + PD_METRICS
-                    + PUMP_METRICS
-                    + TICDC_METRICS
-                    + TIDB_METRICS
-                    + TIFLASH_METRICS
-                    + TIKV_METRICS,
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
                 },
-            )
+            ),
+            'tidb_cloud': build_check(
+                "pd",
+                {
+                    'pd_metric_url': 'http://localhost:2379/metrics',
+                    'metrics': TIDB_METRICS + TIFLASH_METRICS + TIKV_METRICS,
+                },
+            ),
         }
 
-        super(TiDBCheck, self).__init__(name, init_config, [openmetrics_instance], default_instances=default_instances)
+        super(TiDBCheck, self).__init__(
+            name,
+            init_config,
+            [openmetrics_instance],
+            default_instances=default_instances,
+            default_namespace="tidb_cluster",
+        )
