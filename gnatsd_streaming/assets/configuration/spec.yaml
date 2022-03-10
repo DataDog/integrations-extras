@@ -1,0 +1,26 @@
+name: Gnatsd streaming
+files:
+- name: gnatsd_streaming.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/http
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: host
+      required: true
+      description: |
+        Gnatsd host to connect to.
+      value:
+        type: string
+        example: localhost
+    - name: port
+      required: true
+      description: |
+        Gnatsd port to connect to when reaching `host`
+      value:
+        type: integer
+        example: 8222
+    - template: instances/http
+    - template: instances/default

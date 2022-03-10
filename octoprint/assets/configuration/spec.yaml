@@ -1,0 +1,42 @@
+name: OctoPrint
+files:
+- name: octoprint.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: The URL to check.
+      value:
+        type: string
+        example: http://octoprint.local
+    - name: octo_api_key
+      required: true
+      description: API key to your OctoPrint instance
+      value:
+        type: string
+        example: ABC123
+    - name: flag_follow_redirects
+      required: false
+      description: Follow 301 redirects.
+      value:
+        type: boolean
+        example: false
+    - template: instances/default
+  - template: logs
+    example:
+    - type: file
+      path: "/home/pi/.octoprint/logs"
+      service: "octoprint"
+      source: "octoprint"
+    - type: file
+      path: "/var/log/webcamd.log"
+      service: "octoprint-webcam"
+      source: "octoprint"
+    - type: file
+      path: "/var/log/haproxy.log"
+      service: "octoprint-haproxy"
+      source: "octoprint"

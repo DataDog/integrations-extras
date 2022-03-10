@@ -9,7 +9,7 @@ import pytest
 from datadog_checks.base.errors import CheckException
 from datadog_checks.cert_manager import CertManagerCheck
 
-from .common import EXPECTED_METRICS, MOCK_INSTANCE
+from .common import ACME_METRICS, CERT_METRICS, CONTROLLER_METRICS, MOCK_INSTANCE
 
 
 def get_response(filename):
@@ -53,6 +53,10 @@ def test_config():
 def test_check(aggregator, instance, mock_metrics):
     check = CertManagerCheck('cert_manager', {}, [MOCK_INSTANCE])
     check.check(MOCK_INSTANCE)
+
+    EXPECTED_METRICS = dict(CERT_METRICS)
+    EXPECTED_METRICS.update(CONTROLLER_METRICS)
+    EXPECTED_METRICS.update(ACME_METRICS)
 
     for metric_name, metric_type in EXPECTED_METRICS.items():
         aggregator.assert_metric(metric_name, metric_type=metric_type)

@@ -1,0 +1,119 @@
+jmx_metrics:
+    - include:
+        domain: org.apache.flume.channel
+        attribute:
+          ChannelCapacity:
+            metric_type: gauge
+            alias: flume.channel.capacity
+          ChannelFillPercentage:
+            metric_type: gauge
+            alias: flume.channel.fill_percentage
+          ChannelSize:
+            metric_type: gauge
+            alias: flume.channel.size
+          EventPutAttemptCount:
+            metric_type: monotonic_count
+            alias: flume.channel.event_put_attempt_count
+          EventPutSuccessCount:
+            metric_type: monotonic_count
+            alias: flume.channel.event_put_success_count
+          EventTakeAttemptCount:
+            metric_type: monotonic_count
+            alias: flume.channel.event_take_attempt_count
+          EventTakeSuccessCount:
+            metric_type: monotonic_count
+            alias: flume.channel.event_take_success_count
+          KafkaCommitTimer:
+            metric_type: gauge
+            alias: flume.channel.kafka_commit_timer
+          KafkaEventGetTimer:
+            metric_type: gauge
+            alias: flume.channel.kafka_event_get_timer
+          KafkaEventSendTimer:
+            metric_type: gauge
+            alias: flume.channel.kafka_event_send_timer
+          RollbackCount:
+            metric_type: count
+            alias: flume.channel.rollbackcount
+    - include:
+        domain: org.apache.flume.sink
+        attribute:
+          ConnectionCreatedCount:
+            metric_type: monotonic_count
+            alias: flume.sink.connection_created_count
+          ConnectionClosedCount:
+            metric_type: monotonic_count
+            alias: flume.sink.connection_closed_count
+          ConnectionFailedCount:
+            metric_type: monotonic_count
+            alias: flume.sink.connection_failed_count
+          BatchEmptyCount:
+            metric_type: monotonic_count
+            alias: flume.sink.batch_empty_count
+          BatchUnderflowCount:
+            metric_type: monotonic_count
+            alias: flume.sink.batch_underflow_count
+          BatchCompleteCount:
+            metric_type: monotonic_count
+            alias: flume.sink.batch_complete_count
+          EventDrainAttemptCount:
+            metric_type: monotonic_count
+            alias: flume.sink.event_drain_attempt_count
+          EventDrainSuccessCount:
+            metric_type: monotonic_count
+            alias: flume.sink.event_drain_success_count
+          EventWriteFail:
+            metric_type: monotonic_count
+            alias: flume.sink.event_write_fail
+          ChannelReadFail:
+            metric_type: monotonic_count
+            alias: flume.sink.channel_read_fail
+          KafkaEventSendTimer:
+            metric_type: gauge
+            alias: flume.sink.kafka_event_sent_timer
+          RollbackCount:
+            metric_type: count
+            alias: flume.sink.rollbackcount
+    - include:
+        domain: org.apache.flume.source
+        attribute:
+          EventReadFail:
+            metric_type: monotonic_count
+            alias: flume.source.event_read_fail
+          EventReceivedCount:
+            metric_type: monotonic_count
+            alias: flume.source.event_received_count
+          EventAcceptedCount:
+            metric_type: monotonic_count
+            alias: flume.source.event_accepted_count
+          AppendReceivedCount:
+            metric_type: monotonic_count
+            alias: flume.source.append_received_count
+          AppendAcceptedCount:
+            metric_type: monotonic_count
+            alias: flume.source.append_accepted_count
+          AppendBatchReceivedCount:
+            metric_type: monotonic_count
+            alias: flume.source.append_batch_received_count
+          AppendBatchAcceptedCount:
+            metric_type: monotonic_count
+            alias: flume.source.append_batch_accepted_count
+          OpenConnectionCount:
+            metric_type: count
+            alias: flume.source.open_connection_count
+          ChannelWriteFail:
+            metric_type: monotonic_count
+            alias: flume.source.channel_write_fail
+          GenericProcessingFail:
+            metric_type: monotonic_count
+            alias: flume.source.generic_processing_fail
+          KafkaCommitTimer:
+            metric_type: gauge
+            alias: flume.source.kafka_commit_timer
+          KafkaEmptyCount:
+            metric_type: monotonic_count
+            alias: flume.source.kafka_empty_count
+          KafkaEventGetTimer:
+            metric_type: gauge
+            alias: flume.source.kafka_event_get_timer
+  

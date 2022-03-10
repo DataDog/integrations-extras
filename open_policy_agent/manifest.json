@@ -1,0 +1,40 @@
+{
+  "display_name": "open_policy_agent",
+  "maintainer": "ara.pulido@datadoghq.com",
+  "manifest_version": "1.0.0",
+  "name": "open_policy_agent",
+  "metric_prefix": "open_policy_agent.",
+  "metric_to_check": "open_policy_agent.policies",
+  "creates_events": false,
+  "short_description": "OPA integration",
+  "guid": "73fdfc40-51ea-11eb-ae93-0242ac130002",
+  "support": "contrib",
+  "supported_os": [
+    "linux"
+  ],
+  "public_title": "Open Policy Agent",
+  "categories": [
+    "security",
+    "containers",
+    "configuration & deployment",
+    "log collection"
+  ],
+  "type": "check",
+  "is_public": true,
+  "integration_id": "open-policy-agent",
+  "assets": {
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
+    "dashboards": {
+      "OPA base dashboard": "assets/dashboards/open_policy_agent_overview.json"
+    },
+    "monitors": {},
+    "saved_views": {},
+    "service_checks": "assets/service_checks.json",
+    "metrics_metadata": "metadata.csv",
+    "logs": {
+      "source": "opa"
+    }
+  }
+}

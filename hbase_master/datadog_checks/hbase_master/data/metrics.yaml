@@ -6,7 +6,7 @@ jmx_metrics:
   - include:
       domain: Hadoop
       bean:
-       - Hadoop:service=HBase,name=Master,sub=AssignmentManger
+       - Hadoop:service=HBase,name=Master,sub=AssignmentManager
       attribute:
         # The age of the longest region in transition, in milliseconds
         ritOldestAge:
@@ -92,8 +92,8 @@ jmx_metrics:
           metric_type: gauge
           alias: hbase.master.server.tag.is_active_master
           values: {true: 1, false: 0, default: 0}
-          #must wrap true and false in quotes for Agent 6
-          #values: {"true": 1, "false": 0, default: 0}
+          # Note: If using Agent 6, boolean keys must be in quotes
+          # values: {"true": 1, "false": 0, default: 0}
         # Number of RegionServers
         numRegionServers:
           metric_type: gauge

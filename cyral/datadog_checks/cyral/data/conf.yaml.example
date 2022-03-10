@@ -2,6 +2,38 @@
 #
 init_config:
 
+    ## @param proxy - mapping - optional
+    ## Set HTTP or HTTPS proxies for all instances. Use the `no_proxy` list
+    ## to specify hosts that must bypass proxies.
+    ##
+    ## The SOCKS protocol is also supported like so:
+    ##
+    ##   socks5://user:pass@host:port
+    ##
+    ## Using the scheme `socks5` causes the DNS resolution to happen on the
+    ## client, rather than on the proxy server. This is in line with `curl`,
+    ## which uses the scheme to decide whether to do the DNS resolution on
+    ## the client or proxy. If you want to resolve the domains on the proxy
+    ## server, use `socks5h` as the scheme.
+    #
+    # proxy:
+    #   http: http://<PROXY_SERVER_FOR_HTTP>:<PORT>
+    #   https: https://<PROXY_SERVER_FOR_HTTPS>:<PORT>
+    #   no_proxy:
+    #   - <HOSTNAME_1>
+    #   - <HOSTNAME_2>
+
+    ## @param skip_proxy - boolean - optional - default: false
+    ## If set to `true`, this makes the check bypass any proxy
+    ## settings enabled and attempt to reach services directly.
+    #
+    # skip_proxy: false
+
+    ## @param timeout - number - optional - default: 10
+    ## The timeout for connecting to services.
+    #
+    # timeout: 10
+
     ## @param service - string - optional
     ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
     ##
@@ -19,7 +51,7 @@ instances:
   - prometheus_url: <PROMETHEUS_URL>
 
     ## @param prometheus_metrics_prefix - string - optional
-    ## <PREFIX> for exposed Prometheus metrics.
+    ## Removes a given <PREFIX> from exposed Prometheus metrics.
     #
     # prometheus_metrics_prefix: <PREFIX>_
 
@@ -86,14 +118,30 @@ instances:
     #
     # send_distribution_sums_as_monotonic: false
 
+    ## @param use_process_start_time - boolean - optional - default: false
+    ## Whether to enable a heuristic for reporting counter values on the first scrape. When true,
+    ## the first time an endpoint is scraped, check `process_start_time_seconds` to decide whether zero
+    ## initial value can be assumed for counters. This requires keeping metrics in memory until the entire
+    ## response is received.
+    #
+    # use_process_start_time: false
+
     ## @param exclude_labels - list of strings - optional
-    ## A list of labels to be excluded
+    ## A list of labels to be excluded. May be used in conjunction with `include_labels`.
+    ## Labels defined in `excluded labels` will take precedence in case of overlap.
     #
     # exclude_labels:
     #   - timestamp
 
-    ## @param bearer_token_auth - boolean - optional - default: false
+    ## @param include_labels - list of strings - optional
+    ## A list of labels to include. May be used in conjunction with `exclude_labels`.
+    ## Labels defined in `excluded labels` will take precedence in case of overlap.
+    #
+    # include_labels: []
+
+    ## @param bearer_token_auth - boolean or string - optional - default: false
     ## If set to true, adds a bearer token authentication header.
+    ## If set to 'tls_only', only adds a bearer token authentication header if the endpoint is secure https.
     ## Note: If bearer_token_path is not set, the default path is /var/run/secrets/kubernetes.io/serviceaccount/token.
     #
     # bearer_token_auth: false
@@ -105,14 +153,32 @@ instances:
     # bearer_token_path: <TOKEN_PATH>
 
     ## @param ignore_metrics - list of strings - optional
-    ## A list of metrics to ignore, use the "*" wildcard can be used to match multiple metric names.
+    ## A list of metrics to ignore, the "*" wildcard can be used to match multiple metric names.
+    ## The wildcard matching is done via fnmatch, it locates a match anywhere in the string.
     #
     # ignore_metrics:
     #   - <IGNORED_METRIC_NAME>
-    #   - <PREFIX_*>
-    #   - <*_SUFFIX>
-    #   - <PREFIX_*_SUFFIX>
-    #   - <*_SUBSTRING_*>
+    #   - <SUBSTRING_*>
+    #   - <*_SUBSTRING>
+
+    ## @param ignore_metrics_by_labels - mapping - optional
+    ## A mapping of labels where metrics with matching label key and values are ignored.
+    ## Use the "*" wildcard to match all label values.
+    #
+    # ignore_metrics_by_labels:
+    #   <KEY_1>:
+    #   - <LABEL_1>
+    #   - <LABEL_2>
+    #   <KEY_2>:
+    #   - '*'
+
+    ## @param ignore_tags - list of strings - optional
+    ## A list of regular expressions used to ignore tags added by autodiscovery and entries in the `tags` option.
+    #
+    # ignore_tags:
+    #   - <FULL:TAG>
+    #   - <TAG_PREFIX:.*>
+    #   - <TAG_SUFFIX$>
 
     ## @param proxy - mapping - optional
     ## This overrides the `proxy` setting in `init_config`.
@@ -289,6 +355,8 @@ instances:
 
     ## @param aws_host - string - optional
     ## If your services require AWS Signature Version 4 signing, set the host.
+    ## This only needs the hostname and does not require the protocol (HTTP, HTTPS, and more).
+    ## For example, if connecting to https://us-east-1.amazonaws.com/, set `aws_host` to `us-east-1.amazonaws.com`.
     ##
     ## Note: This setting is not necessary for official integrations.
     ##
@@ -347,6 +415,20 @@ instances:
     #
     # tls_ca_cert: <CA_CERT_PATH>
 
+    ## @param tls_protocols_allowed - list of strings - optional
+    ## The expected versions of TLS/SSL when fetching intermediate certificates.
+    ## Only `SSLv3`, `TLSv1.2`, `TLSv1.3` are allowed by default. The possible values are:
+    ##   SSLv3
+    ##   TLSv1
+    ##   TLSv1.1
+    ##   TLSv1.2
+    ##   TLSv1.3
+    #
+    # tls_protocols_allowed:
+    #   - SSLv3
+    #   - TLSv1.2
+    #   - TLSv1.3
+
     ## @param headers - mapping - optional
     ## The headers parameter allows you to send specific headers with every request.
     ## You can use it for explicitly specifying the host header or adding headers for
@@ -382,6 +464,11 @@ instances:
     #
     # read_timeout: <READ_TIMEOUT>
 
+    ## @param request_size - number - optional - default: 10
+    ## The number of kibibytes (KiB) to read from streaming HTTP responses at a time.
+    #
+    # request_size: 10
+
     ## @param log_requests - boolean - optional - default: false
     ## Whether or not to debug log the HTTP(S) requests made, including the method and URL.
     #
@@ -391,6 +478,11 @@ instances:
     ## Whether or not to persist cookies and use connection pooling for increased performance.
     #
     # persist_connections: false
+
+    ## @param allow_redirects - boolean - optional - default: true
+    ## Whether or not to allow URL redirection.
+    #
+    # allow_redirects: true
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.

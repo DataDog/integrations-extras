@@ -27,7 +27,7 @@ jmx_dump = JSON.load(`curl -s http://localhost:60030/jmx?description=true`)['bea
 metrics = YAML.safe_load(File.new(METRICS_FILENAME, 'r'))
 
 # metrics data decorators
-# complete required fields or optional fields from dumped attribut from hbase
+# complete required fields or optional fields from dumped attribute from hbase
 def decorate_descrption(metric, dumped_attribute)
   if Hash === dumped_attribute && dumped_attribute.key?('description')
     metric['description'] = dumped_attribute['description']

@@ -48,11 +48,11 @@ Getting set up with the Apollo Datadog integration is as simple as providing a D
 
    ![IntegrationsToggle][6]
 
-6. Go to the Datadog metrics explorer and start to see the metrics flow in! Please allow up to five minutes for metrics to be visible.
+6. Go to the Datadog metrics explorer to see your metrics. Metrics may take up to five minutes to be visible.
 
 ### Usage
 
-Please refer to the [Apollo integrations docs][7] for more detailed usage information.
+See the [Apollo integrations docs][7] for more detailed usage information.
 
 ## Data Collected
 
@@ -72,17 +72,13 @@ The Apollo integration does not include any service checks at this time.
 
 Need help? Contact [Datadog Support][9].
 
-## Further Reading
-
-Learn more about infrastructure monitoring and all our integrations on [our blog][10].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/metrics.png
 [2]: https://app.datadoghq.com/account/settings#integrations
-[3]: https://app.datadoghq.com/account/settings#api
+[3]: https://app.datadoghq.com/organization-settings/api-keys
 [4]: https://www.apollographql.com/docs/studio/org/graphs/#viewing-graph-information
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-link.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/apollo/images/settings-toggle.png
 [7]: https://www.apollographql.com/docs/studio/datadog-integration/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/apollo/metadata.csv
 [9]: https://docs.datadoghq.com/help/
-[10]: https://www.datadoghq.com/blog

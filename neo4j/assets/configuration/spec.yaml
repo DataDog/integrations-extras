@@ -1,0 +1,25 @@
+name: Neo4j
+
+files:
+- name: neo4j.yaml
+  options:
+  - template: instances
+    options:
+    - name: neo4j_version
+      description: |
+        The Neo4j version to gather metric from.
+      value:
+        type: string
+        example: "4.3"
+    - name: neo4j_dbs
+      description: |
+        The Neo4j databases to gather metric from.
+        This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5.
+      value:
+        type: array
+        items:
+          type: string
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.display_priority: 5
+        openmetrics_endpoint.value.example: http://localhost:2004/metrics

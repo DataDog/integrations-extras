@@ -1,5 +1,7 @@
 # Agent Check: Nomad
 
+![Nomad Dashboard][4]
+
 ## Overview
 
 Gather metrics from your Nomad clusters to:
@@ -7,11 +9,13 @@ Gather metrics from your Nomad clusters to:
 - Visualize and monitor cluster performance
 - Alert on cluster health and availability
 
+Recommended monitors are available to get notified on different Nomad events.
+
 ## Setup
 
 ### Installation
 
-Nomad emits metrics to Datadog via DogStatsD. To enable the Nomad integration, [install the Datadog Agent][1] on each client and server host.
+Nomad emits metrics to Datadog through DogStatsD. To enable the Nomad integration, [install the Datadog Agent][1] on each client and server host.
 
 ### Configuration
 
@@ -27,7 +31,7 @@ telemetry {
 }
 ```
 
-Next, reload or restart the Nomad agent on each host. You should now begin to see Nomad metrics flowing to your Datadog account.
+Next, reload or restart the Nomad agent on each host. You should start to see Nomad metrics flowing to your Datadog account.
 
 ## Data Collected
 
@@ -50,3 +54,4 @@ Need help? Contact [Datadog support][3].
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://github.com/DataDog/integrations-extras/blob/master/nomad/metadata.csv
 [3]: https://docs.datadoghq.com/help/
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/nomad/images/dashboard_overview.png

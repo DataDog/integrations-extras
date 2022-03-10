@@ -1,0 +1,38 @@
+version: '3.7'
+
+networks: 
+  kafka_flume_zookeeper:
+    name: kafka_flume_zookeeper
+
+services:
+  flume:
+    container_name: flume
+    image: kealanmaas/flume_kafka_hdfs:latest
+    ports:
+      - 5445:5445
+    networks: 
+      - kafka_flume_zookeeper
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.0
+    container_name: zookeeper
+    networks: 
+      - kafka_flume_zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  broker:
+    image: confluentinc/cp-kafka:5.5.0
+    container_name: broker
+    ports: 
+      - "19092:19092"
+    networks: 
+      - kafka_flume_zookeeper
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:9092,CONNECTIONS_FROM_HOST://localhost:19092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONNECTIONS_FROM_HOST:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

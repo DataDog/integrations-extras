@@ -1,0 +1,38 @@
+{
+  "display_name": "PHP APCu",
+  "maintainer": "noname@withgod.jp",
+  "manifest_version": "1.0.0",
+  "name": "php_apcu",
+  "metric_prefix": "php_apcu.",
+  "metric_to_check": "php_apcu.cache.mem_size",
+  "creates_events": false,
+  "short_description": "Monitor PHP APCu in-memory data caching.",
+  "guid": "d6b2f21e-8a91-4c5a-98c3-647af53065b7",
+  "support": "contrib",
+  "supported_os": [
+    "linux",
+    "mac_os",
+    "windows"
+  ],
+  "public_title": "Datadog-PHP APCu Integration",
+  "categories": [
+    ""
+  ],
+  "type": "check",
+  "is_public": true,
+  "integration_id": "php-apcu",
+  "assets": {
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
+    "dashboards": {},
+    "monitors": {
+      "[php_apcu] Detected High Cache Usage": "assets/monitors/php-apcu_high_usage.json",
+      "[php_apcu] Cache Full has been detected": "assets/monitors/php-apcu_expunges.json"
+    },
+    "saved_views": {},
+    "service_checks": "assets/service_checks.json",
+    "logs": {},
+    "metrics_metadata": "metadata.csv"
+  }
+}

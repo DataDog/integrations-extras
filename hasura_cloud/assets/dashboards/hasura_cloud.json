@@ -1,0 +1,446 @@
+{
+    "title": "Hasura Cloud Overview",
+    "description": null,
+    "widgets": [
+      {
+        "id": 6246891041084316,
+        "definition": {
+          "title": "Overview",
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 8227643746899519,
+              "definition": {
+                "title": "Latest Requests/Minute",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "default_zero(avg:hasura_cloud.average_requests_per_minute{$project_name})",
+                    "aggregator": "last"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              }
+            },
+            {
+              "id": 5028008339748724,
+              "definition": {
+                "title": "Latest Request Success Rate",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "avg:hasura_cloud.success_rate{$project_name}*100",
+                    "aggregator": "last",
+                    "conditional_formats": [
+                      {
+                        "comparator": "<",
+                        "palette": "white_on_red",
+                        "value": 95
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 2
+              }
+            },
+            {
+              "id": 5574767110612332,
+              "definition": {
+                "title": "Max Request Execution Time",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "default_zero(avg:hasura_cloud.average_execution_time{$project_name})*1000",
+                    "aggregator": "max"
+                  }
+                ],
+                "autoscale": false,
+                "custom_unit": "ms",
+                "precision": 3
+              }
+            },
+            {
+              "id": 6398023590094053,
+              "definition": {
+                "title": "Max Websockets Open",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "default_zero(avg:hasura_cloud.websockets_open{$project_name})",
+                    "aggregator": "max"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              }
+            },
+            {
+              "id": 2989289157458115,
+              "definition": {
+                "title": "Max Active Subscriptions",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "default_zero(avg:hasura_cloud.active_subscription{$project_name})",
+                    "aggregator": "max"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 1304927926491108,
+        "definition": {
+          "title": "Operations",
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 1419625298023691,
+              "definition": {
+                "title": "Requests/Minute",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "q": "avg:hasura_cloud.average_requests_per_minute{$project_name}",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ],
+                "yaxis": {
+                  "scale": "linear",
+                  "label": "",
+                  "include_zero": true,
+                  "min": "auto",
+                  "max": "auto"
+                },
+                "markers": []
+              }
+            },
+            {
+              "id": 2524665362112599,
+              "definition": {
+                "title": "Operation count by type",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "log_query": {
+                      "index": "*",
+                      "search": {
+                        "query": "source:hasura-cloud-metrics $project_name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@operation_type",
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          },
+                          "limit": 50
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 2401586642594870,
+              "definition": {
+                "title": "Operation count by name",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "log_query": {
+                      "index": "*",
+                      "search": {
+                        "query": "source:hasura-cloud-metrics $project_name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@operation_name",
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          },
+                          "limit": 50
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 3356018948213748,
+              "definition": {
+                "title": "Operation by name",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "log_query": {
+                      "index": "*",
+                      "search": {
+                        "query": "source:hasura-cloud-metrics $project_name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@operation_name",
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          },
+                          "limit": 50
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "bars"
+                  }
+                ],
+                "yaxis": {
+                  "scale": "linear",
+                  "label": "",
+                  "include_zero": true,
+                  "min": "auto",
+                  "max": "auto"
+                },
+                "markers": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 8668654304950066,
+        "definition": {
+          "title": "Error",
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 8708246661936613,
+              "definition": {
+                "title": "Current Request Error Rate",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                  {
+                    "q": "(1-avg:hasura_cloud.success_rate{$project_name})*100",
+                    "aggregator": "last",
+                    "conditional_formats": [
+                      {
+                        "comparator": ">",
+                        "palette": "white_on_red",
+                        "value": 5
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "custom_unit": "%",
+                "precision": 2
+              }
+            },
+            {
+              "id": 226561932744856,
+              "definition": {
+                "title": "Request Success Rate",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "q": "(avg:hasura_cloud.success_rate{$project_name})*100",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ],
+                "yaxis": {
+                  "scale": "linear",
+                  "label": "",
+                  "include_zero": true,
+                  "min": "auto",
+                  "max": "auto"
+                },
+                "markers": []
+              }
+            },
+            {
+              "id": 5597556620467967,
+              "definition": {
+                "title": "Error count by type",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "log_query": {
+                      "index": "*",
+                      "search": {
+                        "query": "@is_error:true $project_name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@error_code",
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          },
+                          "limit": 50
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": 1289262958484684,
+              "definition": {
+                "title": "Errors by type",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "vertical",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "log_query": {
+                      "index": "*",
+                      "search": {
+                        "query": "source:hasura-cloud-metrics @is_error:true $project_name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@error_code",
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          },
+                          "limit": 50
+                        }
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      }
+                    },
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "bars"
+                  }
+                ],
+                "yaxis": {
+                  "scale": "linear",
+                  "label": "",
+                  "include_zero": true,
+                  "min": "auto",
+                  "max": "auto"
+                },
+                "markers": []
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "template_variables": [
+      {
+        "name": "project_name",
+        "default": "*",
+        "prefix": "project_name"
+      }
+    ],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "id": "pih-xhv-ccd"
+  }

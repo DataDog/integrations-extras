@@ -1,18 +1,17 @@
-comment:
-  layout: files
-  behavior: default
-  branches: null
+comment: false
 coverage:
   range: 50..100
   round: down
   precision: 2
   status:
     patch: false
+    default_rules:
+      flag_coverage_not_uploaded_behavior: exclude
     project:
       default:
         target: 75
         if_ci_failed: error
-      AWS Pricing:
+      AWS_Pricing:
         target: 75
         flags:
         - aws_pricing
@@ -20,14 +19,22 @@ coverage:
         target: 75
         flags:
         - aqua
-      BIND 9:
+      BIND_9:
         target: 75
         flags:
         - bind9
+      Calico:
+        target: 75
+        flags:
+        - calico
+      Cloudsmith:
+        target: 75
+        flags:
+        - cloudsmith
       Cyral:
         target: 75
         flags:
-          - cyral
+        - cyral
       Eventstore:
         target: 75
         flags:
@@ -36,14 +43,26 @@ coverage:
         target: 75
         flags:
         - filebeat
+      FoundationDB:
+        target: 75
+        flags:
+        - foundationdb
+      Gatekeeper:
+        target: 75
+        flags:
+        - gatekeeper
       Gnatsd:
         target: 75
         flags:
         - gnatsd
-      Gnatsd Streaming:
+      Gnatsd_Streaming:
         target: 75
         flags:
         - gnatsd_streaming
+      JFrog_Platform:
+        target: 75
+        flags:
+        - jfrog_platform
       Kernelcare:
         target: 75
         flags:
@@ -56,18 +75,34 @@ coverage:
         target: 75
         flags:
         - logstash
+      NS1:
+        target: 75
+        flags:
+        - ns1
       Neo4j:
         target: 75
         flags:
         - neo4j
       Neutrona:
-        target: 75
+        target: 60
         flags:
         - neutrona
       Nextcloud:
         target: 75
         flags:
         - nextcloud
+      OctoPrint:
+        target: 75
+        flags:
+        - octoprint
+      PHP_APCu:
+        target: 75
+        flags:
+        - php_apcu
+      PHP_OPcache:
+        target: 75
+        flags:
+        - php_opcache
       Ping:
         target: 75
         flags:
@@ -80,15 +115,23 @@ coverage:
         target: 75
         flags:
         - puma
-      Reboot Required:
+      Reboot_Required:
         target: 75
         flags:
         - reboot_required
-      Redis Sentinel:
+      Redis_Enterprise:
+        target: 75
+        flags:
+        - redisenterprise
+      Redis_Sentinel:
         target: 75
         flags:
         - redis_sentinel
-      Riak MDC Replication:
+      Redpanda:
+        target: 75
+        flags:
+        - redpanda
+      Riak_MDC_Replication:
         target: 75
         flags:
         - riak_repl
@@ -105,13 +148,17 @@ coverage:
         flags:
         - sortdb
       Stardog:
-        target: 75
+        target: 70
         flags:
         - stardog
       Storm:
         target: 75
         flags:
         - storm
+      TiDB:
+        target: 75
+        flags:
+        - tidb
       Traefik:
         target: 75
         flags:
@@ -129,7 +176,7 @@ coverage:
         flags:
         - vespa
       Zabbix:
-        target: 75
+        target: 50
         flags:
         - zabbix
       cert-manager:
@@ -140,10 +187,22 @@ coverage:
         target: 75
         flags:
         - nvml
+      open_policy_agent:
+        target: 75
+        flags:
+        - open_policy_agent
       pihole:
         target: 75
         flags:
         - pihole
+      pulsar:
+        target: 75
+        flags:
+        - pulsar
+      purefa:
+        target: 75
+        flags:
+        - purefa
       speedtest:
         target: 75
         flags:
@@ -164,16 +223,26 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
+  calico:
+    carryforward: true
+    paths:
+    - calico/datadog_checks/calico
+    - calico/tests
   cert_manager:
     carryforward: true
     paths:
     - cert_manager/datadog_checks/cert_manager
     - cert_manager/tests
+  cloudsmith:
+    carryforward: true
+    paths:
+    - cloudsmith/datadog_checks/cloudsmith
+    - cloudsmith/tests
   cyral:
     carryforward: true
     paths:
-      - cyral/datadog_checks/cyral
-      - cyral/tests
+    - cyral/datadog_checks/cyral
+    - cyral/tests
   eventstore:
     carryforward: true
     paths:
@@ -184,6 +253,16 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  foundationdb:
+    carryforward: true
+    paths:
+    - foundationdb/datadog_checks/foundationdb
+    - foundationdb/tests
+  gatekeeper:
+    carryforward: true
+    paths:
+    - gatekeeper/datadog_checks/gatekeeper
+    - gatekeeper/tests
   gnatsd:
     carryforward: true
     paths:
@@ -194,6 +273,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  jfrog_platform:
+    carryforward: true
+    paths:
+    - jfrog_platform/datadog_checks/jfrog_platform
+    - jfrog_platform/tests
   kernelcare:
     carryforward: true
     paths:
@@ -224,11 +308,36 @@ flags:
     paths:
     - nextcloud/datadog_checks/nextcloud
     - nextcloud/tests
+  ns1:
+    carryforward: true
+    paths:
+    - ns1/datadog_checks/ns1
+    - ns1/tests
   nvml:
     carryforward: true
     paths:
     - nvml/datadog_checks/nvml
     - nvml/tests
+  octoprint:
+    carryforward: true
+    paths:
+    - octoprint/datadog_checks/octoprint
+    - octoprint/tests
+  open_policy_agent:
+    carryforward: true
+    paths:
+    - open_policy_agent/datadog_checks/open_policy_agent
+    - open_policy_agent/tests
+  php_apcu:
+    carryforward: true
+    paths:
+    - php_apcu/datadog_checks/php_apcu
+    - php_apcu/tests
+  php_opcache:
+    carryforward: true
+    paths:
+    - php_opcache/datadog_checks/php_opcache
+    - php_opcache/tests
   pihole:
     carryforward: true
     paths:
@@ -244,11 +353,21 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
+  pulsar:
+    carryforward: true
+    paths:
+    - pulsar/datadog_checks/pulsar
+    - pulsar/tests
   puma:
     carryforward: true
     paths:
     - puma/datadog_checks/puma
     - puma/tests
+  purefa:
+    carryforward: true
+    paths:
+    - purefa/datadog_checks/purefa
+    - purefa/tests
   reboot_required:
     carryforward: true
     paths:
@@ -259,6 +378,16 @@ flags:
     paths:
     - redis_sentinel/datadog_checks/redis_sentinel
     - redis_sentinel/tests
+  redisenterprise:
+    carryforward: true
+    paths:
+    - redisenterprise/datadog_checks/redisenterprise
+    - redisenterprise/tests
+  redpanda:
+    carryforward: true
+    paths:
+    - redpanda/datadog_checks/redpanda
+    - redpanda/tests
   riak_repl:
     carryforward: true
     paths:
@@ -294,6 +423,11 @@ flags:
     paths:
     - storm/datadog_checks/storm
     - storm/tests
+  tidb:
+    carryforward: true
+    paths:
+    - tidb/datadog_checks/tidb
+    - tidb/tests
   traefik:
     carryforward: true
     paths:

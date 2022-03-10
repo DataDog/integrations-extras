@@ -4,9 +4,9 @@
   "manifest_version": "1.0.0",
   "name": "jfrog_platform",
   "metric_prefix": "jfrog.",
-  "metric_to_check": "",
+  "metric_to_check": "jfrog.artifactory.app_disk_free_bytes",
   "creates_events": false,
-  "short_description": "View and analyze Artifactory and Xray events.",
+  "short_description": "View and analyze JFrog Artifactory and Xray Metrics and events.",
   "guid": "2c70552e-b77a-4349-9955-8799b9b57d56",
   "support": "contrib",
   "supported_os": [
@@ -14,17 +14,25 @@
     "mac_os",
     "windows"
   ],
-  "public_title": "JFrog Artifactory and Xray",
+  "public_title": "JFrog Platform",
   "categories": [
     "log collection",
-    "security"
+    "security",
+    "metrics"
   ],
   "type": "check",
   "is_public": true,
   "integration_id": "jfrog-platform",
   "assets": {
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
     "dashboards": {
-      "Jfrog Artifactory Dashboard": "assets/dashboards/jfrog_artifactory_dashboard.json"
+      "Jfrog Artifactory Dashboard": "assets/dashboards/jfrog_artifactory_dashboard.json",
+      "Xray Metrics": "assets/dashboards/xray_metrics.json",
+      "Artifactory Metrics": "assets/dashboards/artifactory_metrics.json",
+      "Xray Logs": "assets/dashboards/xray_logs.json",
+      "Xray Violations": "assets/dashboards/xray_violations.json"
     },
     "saved_views": {},
     "monitors": {},

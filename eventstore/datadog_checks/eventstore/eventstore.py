@@ -16,8 +16,22 @@ from .metrics import ALL_METRICS
 
 
 class EventStoreCheck(AgentCheck):
+
+    HTTP_CONFIG_REMAPPER = {
+        'ca_bundle': {
+            'name': 'tls_ca_cert',
+        },
+        'default_timeout': {
+            'name': 'timeout',
+            'default': 5,
+        },
+        'user': {
+            'name': 'username',
+        },
+    }
+
     def check(self, instance):
-        """ Main method """
+        """Main method"""
         endpoints_def = instance.get('endpoints')
         if not endpoints_def:
             raise CheckException('The list of metric endpoints is empty')
@@ -32,28 +46,17 @@ class EventStoreCheck(AgentCheck):
             self.check_endpoint(instance, endpoint, metrics)
 
     def check_endpoint(self, instance, endpoint, metrics):
-        """ Process metrics from an API endpoint """
+        """Process metrics from an API endpoint"""
         base_url = instance.get('url', '')
         url = base_url + endpoint
-        default_timeout = instance.get('default_timeout', 5)
-        timeout = float(instance.get('timeout', default_timeout))
         tag_by_url = instance.get('tag_by_url', False)
         name_tag = instance.get('name', url)
         metric_def = copy.deepcopy(metrics)
-        # Requests defaults to True, which causes Requests to use the certifi CA bundle
-        verify_bundle = instance.get('ca_bundle', True)
 
-        user = instance.get('user')
-        password = instance.get('password')
-        if user is None or password is None:
-            auth = None
-        else:
-            auth = (user, password)
-            self.log.debug('Authenticating as: %s', user)
         try:
-            r = requests.get(url, timeout=timeout, auth=auth, verify=verify_bundle)
+            r = self.http.get(url)
         except requests.exceptions.Timeout:
-            raise CheckException('URL: {} timed out after {} seconds.'.format(url, timeout))
+            raise CheckException('URL: {} timed out after {} seconds.'.format(url, self.http.options['timeout'][0]))
         except requests.exceptions.MissingSchema as e:
             raise CheckException(e)
         except requests.exceptions.ConnectionError as e:
@@ -140,7 +143,7 @@ class EventStoreCheck(AgentCheck):
         return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
     def walk(self, json_obj, p=None, es_paths=None):
-        """ Walk a JSON tree and return the json paths in a list """
+        """Walk a JSON tree and return the json paths in a list"""
         if p is None:
             p = []
         if es_paths is None:
@@ -166,7 +169,7 @@ class EventStoreCheck(AgentCheck):
         return es_paths
 
     def get_tag_path(self, tag, metric_json_path, eventstore_paths):
-        """ Returns the paths for the given tags """
+        """Returns the paths for the given tags"""
         # This function will return the tag as a validated path,
         # if the tag has a wildcard it will return
         try:
@@ -184,7 +187,7 @@ class EventStoreCheck(AgentCheck):
             self.log.warning('No tag value found for %s, path %s', tag, metric_json_path)
 
     def get_json_path(self, json_path, eventstore_paths):
-        """ Find all the possible keys for a given path """
+        """Find all the possible keys for a given path"""
         self.log.debug("json paths: %s", json_path)
         self.log.debug("eventstore_paths: %s", eventstore_paths)
         response = []
@@ -212,7 +215,7 @@ class EventStoreCheck(AgentCheck):
     # Fill out eventstore_paths using walk of json
 
     def get_value(self, json_obj, metric_path, index=0):
-        """ Returns the value for the supplied metric path """
+        """Returns the value for the supplied metric path"""
         split = metric_path.split('.')
         key = split[index]
         if isinstance(json_obj, list):
@@ -231,7 +234,7 @@ class EventStoreCheck(AgentCheck):
             self.log.info('No value found for Metric: %s', metric_path)
 
     def convert_value(self, value, metric):
-        """ Returns the metric formatted in the specified value"""
+        """Returns the metric formatted in the specified value"""
         data_type = metric['json_type']
         v = None
         if data_type == 'float':
@@ -288,7 +291,7 @@ class EventStoreCheck(AgentCheck):
     def convert_to_timedelta(self, string):
         """
         Returns a time delta for strings in a format of: 0:00:00:00.0000
-        Using RegEx to not introduce a dependancy on another package
+        Using RegEx to not introduce a dependency on another package
         """
         dt_re = re.compile(r'^(\d+):(\d\d):(\d\d):(\d\d).(\d+)$')
         tmp = dt_re.match(string)
@@ -307,14 +310,14 @@ class EventStoreCheck(AgentCheck):
 
     @classmethod
     def _regex_number_to_int(cls, number, group_index):
-        """ Returns the number for the group or 0 """
+        """Returns the number for the group or 0"""
         try:
             return int(number.group(group_index)) or 0
         except AttributeError:
             return 0
 
     def dispatch_metric(self, value, metric):
-        """ Formats the metric into the correct type with relevant tags"""
+        """Formats the metric into the correct type with relevant tags"""
         metric_type = metric['metric_type']
         tags = metric['tag_by']
         metric_name = metric['metric_name']

@@ -1,0 +1,618 @@
+{
+	"title": "Gatekeeper Overview",
+	"description": "",
+	"widgets": [
+	  {
+	    "id": 6911435407474926,
+	    "definition": {
+	      "title": "About Gatekeeper",
+	      "title_align": "center",
+	      "type": "group",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 2108072626095020,
+		  "definition": {
+		    "type": "image",
+		    "url": "https://d33wubrfki0l68.cloudfront.net/037435cf0eb3b77f6d9080c7b25c54191490aa8d/c4776/img/logos/opa-horizontal-color.png",
+		    "sizing": "fit",
+		    "margin": "small"
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 6,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 7423501451853801,
+		  "definition": {
+		    "type": "note",
+		    "content": "This is a high-level overview of your Gatekeeper deployments, so you can track the health status of the controller, the policy violations happening in your clusters, performance metrics for the webhook and logs.\n\n##### [**Datadog Gatekeeper integration docs&nbsp;↗**](https://docs.datadoghq.com/integrations/gatekeeper/)",
+		    "background_color": "transparent",
+		    "font_size": "18",
+		    "text_align": "left",
+		    "show_tick": false,
+		    "tick_pos": "50%",
+		    "tick_edge": "left",
+		    "has_padding": true
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 2,
+		    "width": 6,
+		    "height": 2
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 0,
+	      "y": 0,
+	      "width": 6,
+	      "height": 5
+	    }
+	  },
+	  {
+	    "id": 4948785676715201,
+	    "definition": {
+	      "title": "Overview",
+	      "type": "group",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 5241763733587486,
+		  "definition": {
+		    "title": "Gatekeeper Pods",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "type": "hostmap",
+		    "requests": {
+		      "fill": {
+			"q": "avg:process.stat.container.cpu.total_pct{short_image:gatekeeper,$cluster_name} by {host}"
+		      }
+		    },
+		    "node_type": "container",
+		    "no_metric_hosts": true,
+		    "no_group_hosts": true,
+		    "group": [
+		      "kube_deployment"
+		    ],
+		    "scope": [
+		      "short_image:gatekeeper"
+		    ],
+		    "style": {
+		      "palette": "green_to_orange",
+		      "palette_flip": false
+		    }
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 4,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 662896864506256,
+		  "definition": {
+		    "title": "Gatekeeper Service Status",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "type": "check_status",
+		    "check": "gatekeeper.health",
+		    "grouping": "cluster",
+		    "group_by": [],
+		    "tags": []
+		  },
+		  "layout": {
+		    "x": 4,
+		    "y": 0,
+		    "width": 2,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 1231447041800458,
+		  "definition": {
+		    "title": "Constraints",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "time": {
+		      "live_span": "1m"
+		    },
+		    "type": "query_value",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "query1"
+			  }
+			],
+			"response_format": "scalar",
+			"queries": [
+			  {
+			    "query": "max:gatekeeper.constraints{$cluster_name}",
+			    "data_source": "metrics",
+			    "name": "query1",
+			    "aggregator": "last"
+			  }
+			]
+		      }
+		    ],
+		    "autoscale": true,
+		    "precision": 2
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 2,
+		    "width": 2,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 1654393948312138,
+		  "definition": {
+		    "title": "Constraint templates",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "time": {
+		      "live_span": "1m"
+		    },
+		    "type": "query_value",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "query1"
+			  }
+			],
+			"response_format": "scalar",
+			"queries": [
+			  {
+			    "query": "max:gatekeeper.constraint_templates{$cluster_name}",
+			    "data_source": "metrics",
+			    "name": "query1",
+			    "aggregator": "last"
+			  }
+			]
+		      }
+		    ],
+		    "autoscale": true,
+		    "precision": 2
+		  },
+		  "layout": {
+		    "x": 2,
+		    "y": 2,
+		    "width": 2,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 3959938327968227,
+		  "definition": {
+		    "title": "Policy violations",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "time": {
+		      "live_span": "1m"
+		    },
+		    "type": "query_value",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "query1"
+			  }
+			],
+			"conditional_formats": [
+			  {
+			    "comparator": ">",
+			    "palette": "white_on_red",
+			    "value": 0
+			  }
+			],
+			"response_format": "scalar",
+			"queries": [
+			  {
+			    "query": "max:gatekeeper.violations{$cluster_name}",
+			    "data_source": "metrics",
+			    "name": "query1",
+			    "aggregator": "last"
+			  }
+			]
+		      }
+		    ],
+		    "autoscale": true,
+		    "precision": 2
+		  },
+		  "layout": {
+		    "x": 4,
+		    "y": 2,
+		    "width": 2,
+		    "height": 2
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 6,
+	      "y": 0,
+	      "width": 6,
+	      "height": 5
+	    }
+	  },
+	  {
+	    "id": 7045212874813408,
+	    "definition": {
+	      "title": "Webhook Metrics",
+	      "type": "group",
+	      "background_color": "vivid_green",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 5681395347102368,
+		  "definition": {
+		    "title": "Avg latency of webhook requests by admission status",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "show_legend": true,
+		    "legend_layout": "auto",
+		    "legend_columns": [
+		      "avg",
+		      "min",
+		      "max",
+		      "value",
+		      "sum"
+		    ],
+		    "type": "timeseries",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "query1 / query2"
+			  }
+			],
+			"response_format": "timeseries",
+			"on_right_yaxis": false,
+			"queries": [
+			  {
+			    "query": "avg:gatekeeper.request.duration.seconds.sum{$cluster_name} by {admission_status}.as_count()",
+			    "data_source": "metrics",
+			    "name": "query1"
+			  },
+			  {
+			    "query": "avg:gatekeeper.request.duration.seconds.count{$cluster_name} by {admission_status}.as_count()",
+			    "data_source": "metrics",
+			    "name": "query2"
+			  }
+			],
+			"style": {
+			  "palette": "dog_classic",
+			  "line_type": "solid",
+			  "line_width": "normal"
+			},
+			"display_type": "line"
+		      }
+		    ],
+		    "yaxis": {
+		      "include_zero": true,
+		      "scale": "linear",
+		      "label": "",
+		      "min": "auto",
+		      "max": "auto"
+		    },
+		    "markers": []
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 6,
+		    "height": 2
+		  }
+		},
+		{
+		  "id": 3043040773837907,
+		  "definition": {
+		    "title": "Requests to webhook by admission status",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "show_legend": false,
+		    "legend_layout": "auto",
+		    "legend_columns": [
+		      "avg",
+		      "min",
+		      "max",
+		      "value",
+		      "sum"
+		    ],
+		    "type": "timeseries",
+		    "requests": [
+		      {
+			"on_right_yaxis": false,
+			"response_format": "timeseries",
+			"queries": [
+			  {
+			    "query": "sum:gatekeeper.request.count{$cluster_name} by {admission_status}.as_count()",
+			    "data_source": "metrics",
+			    "name": "query1"
+			  }
+			],
+			"style": {
+			  "palette": "warm",
+			  "line_type": "solid",
+			  "line_width": "normal"
+			},
+			"display_type": "line"
+		      }
+		    ],
+		    "yaxis": {
+		      "include_zero": false,
+		      "min": "0"
+		    },
+		    "markers": []
+		  },
+		  "layout": {
+		    "x": 6,
+		    "y": 0,
+		    "width": 6,
+		    "height": 2
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 0,
+	      "y": 5,
+	      "width": 12,
+	      "height": 3
+	    }
+	  },
+	  {
+	    "id": 8601892797451452,
+	    "definition": {
+	      "title": "Sync metrics",
+	      "type": "group",
+	      "background_color": "vivid_purple",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 2062645451696675,
+		  "definition": {
+		    "title": "Cached resources per kind",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "show_legend": false,
+		    "legend_layout": "auto",
+		    "legend_columns": [
+		      "avg",
+		      "min",
+		      "max",
+		      "value",
+		      "sum"
+		    ],
+		    "type": "timeseries",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "query1"
+			  }
+			],
+			"response_format": "timeseries",
+			"on_right_yaxis": false,
+			"queries": [
+			  {
+			    "query": "max:gatekeeper.sync{$cluster_name} by {kind}",
+			    "data_source": "metrics",
+			    "name": "query1"
+			  }
+			],
+			"style": {
+			  "palette": "cool",
+			  "line_type": "solid",
+			  "line_width": "normal"
+			},
+			"display_type": "line"
+		      }
+		    ],
+		    "yaxis": {
+		      "include_zero": true,
+		      "scale": "linear",
+		      "label": "",
+		      "min": "auto",
+		      "max": "auto"
+		    },
+		    "markers": []
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 6,
+		    "height": 3
+		  }
+		},
+		{
+		  "id": 6861808599070060,
+		  "definition": {
+		    "title": "Average duration of the sync operation",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "show_legend": false,
+		    "legend_layout": "auto",
+		    "legend_columns": [
+		      "avg",
+		      "min",
+		      "max",
+		      "value",
+		      "sum"
+		    ],
+		    "type": "timeseries",
+		    "requests": [
+		      {
+			"formulas": [
+			  {
+			    "formula": "default_zero(query1 / query2)"
+			  }
+			],
+			"response_format": "timeseries",
+			"on_right_yaxis": false,
+			"queries": [
+			  {
+			    "query": "avg:gatekeeper.sync.duration.seconds.sum{$cluster_name}.as_count()",
+			    "data_source": "metrics",
+			    "name": "query1"
+			  },
+			  {
+			    "query": "avg:gatekeeper.sync.duration.seconds.count{$cluster_name}.as_count()",
+			    "data_source": "metrics",
+			    "name": "query2"
+			  }
+			],
+			"style": {
+			  "palette": "purple",
+			  "line_type": "solid",
+			  "line_width": "normal"
+			},
+			"display_type": "line"
+		      }
+		    ],
+		    "yaxis": {
+		      "include_zero": false,
+		      "min": "0"
+		    },
+		    "markers": []
+		  },
+		  "layout": {
+		    "x": 6,
+		    "y": 0,
+		    "width": 6,
+		    "height": 3
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 0,
+	      "y": 8,
+	      "width": 12,
+	      "height": 4,
+	      "is_column_break": true
+	    }
+	  },
+	  {
+	    "id": 7765114811298536,
+	    "definition": {
+	      "title": "Gatekeeper Logs",
+	      "type": "group",
+	      "background_color": "vivid_pink",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 5114212970638887,
+		  "definition": {
+		    "title": "Gatekeeper Logs",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "type": "log_stream",
+		    "indexes": [],
+		    "query": "source:gatekeeper $cluster_name",
+		    "sort": {
+		      "column": "time",
+		      "order": "desc"
+		    },
+		    "columns": [
+		      "core_host",
+		      "core_service"
+		    ],
+		    "show_date_column": true,
+		    "show_message_column": true,
+		    "message_display": "expanded-md"
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 6,
+		    "height": 3
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 0,
+	      "y": 0,
+	      "width": 6,
+	      "height": 4
+	    }
+	  },
+	  {
+	    "id": 7130744034845723,
+	    "definition": {
+	      "title": "Audit metrics",
+	      "type": "group",
+	      "background_color": "vivid_yellow",
+	      "show_title": true,
+	      "layout_type": "ordered",
+	      "widgets": [
+		{
+		  "id": 4425031667682855,
+		  "definition": {
+		    "title": "Average duration of the audit operation",
+		    "title_size": "16",
+		    "title_align": "left",
+		    "show_legend": false,
+		    "type": "timeseries",
+		    "requests": [
+		      {
+			"q": "avg:gatekeeper.audit.duration.seconds.sum{$cluster_name}.as_count()/avg:gatekeeper.audit.duration.seconds.count{$cluster_name}.as_count()",
+			"on_right_yaxis": false,
+			"style": {
+			  "palette": "purple",
+			  "line_type": "solid",
+			  "line_width": "normal"
+			},
+			"display_type": "line"
+		      }
+		    ],
+		    "yaxis": {
+		      "include_zero": false,
+		      "min": "0"
+		    },
+		    "markers": []
+		  },
+		  "layout": {
+		    "x": 0,
+		    "y": 0,
+		    "width": 6,
+		    "height": 3
+		  }
+		}
+	      ]
+	    },
+	    "layout": {
+	      "x": 6,
+	      "y": 0,
+	      "width": 6,
+	      "height": 4
+	    }
+	  }
+	],
+	"template_variables": [
+	  {
+	    "name": "cluster_name",
+	    "default": "*",
+	    "prefix": "cluster_name"
+	  }
+	],
+	"layout_type": "ordered",
+	"is_read_only": false,
+	"notify_list": [],
+	"reflow_type": "fixed",
+	"id": "7gg-cmv-xsu"
+}

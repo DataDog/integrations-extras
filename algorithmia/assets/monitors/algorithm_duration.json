@@ -1,6 +1,6 @@
 {
 	"name": "[Algorithmia] Excessive Algorithm Runtime",
-	"type": "metric alert",
+	"type": "query alert",
 	"query": "avg(last_5m):avg:algorithmia.duration_milliseconds{*} > 10000",
 	"message": "Some algorithms queries are running for more than 10 seconds.\n\nThis can result in delays in real-time API responses from your algorithms and a backlogged queue.\n\nReview the documentation at https://algorithmia.com/developers/algorithm-development/advanced-algorithm-development/dealing-with-bottlenecks for more guidance on optimizing your algorithm's runtime.",
 	"tags": [

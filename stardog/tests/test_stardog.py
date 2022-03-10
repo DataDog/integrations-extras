@@ -38,8 +38,8 @@ def test_check_all_metrics(aggregator):
     """
     Testing Stardog check.
     """
-    check = StardogCheck('stardog', {}, {})
-    check.check(copy.deepcopy(INSTANCE))
+    check = StardogCheck('stardog', {}, [copy.deepcopy(INSTANCE)])
+    check.check({})
     tags = copy.deepcopy(INSTANCE['tags'])
     tags.append("stardog_url:http://localhost:%d" % HTTP.port)
     for metric_key in DATA:
@@ -59,6 +59,9 @@ class HttpServerThread(threading.Thread):
             def do_GET(self):
                 if self.path != '/admin/status':
                     self.send_response(404)
+                    return
+                if self.headers["Authorization"] != "Basic YWRtaW46YWRtaW4=":
+                    self.send_response(401)
                     return
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')

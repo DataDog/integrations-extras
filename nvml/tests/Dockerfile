@@ -13,7 +13,7 @@ ARG INTEGRATIONS_VERSION
 ARG DD_AGENT_VERSION
 WORKDIR /wheels
 
-RUN pip install "datadog-checks-dev[cli]==3.1.0"
+RUN python -m pip install --upgrade "datadog-checks-dev[cli]"
 RUN git clone https://github.com/datadog/integrations-extras.git && cd integrations-extras && git status && git reset --hard ${INTEGRATIONS_VERSION}
 
 RUN ddev config set extras ./integrations-extras

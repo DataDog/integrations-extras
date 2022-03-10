@@ -129,7 +129,7 @@
                 "type": "note",
                 "tick_edge": "bottom",
                 "text_align": "center",
-                "content": "**Autoscaling/HPA Recommendation **",
+                "content": "**Autoscaling/HPA Recommendation**",
                 "font_size": "16",
                 "tick_pos": "50%"
             },
@@ -157,7 +157,7 @@
                 "title": "Current/Desired/Recommended Replicas",
                 "requests": [
                     {
-                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,resource:replicas,$kube_stateful_set,$kube_cluster_name,$cluster_name,$oshift_deployment_config}",
+                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,resource:replicas,$kube_stateful_set,$kube_cluster_name,$cluster_name,$oshift_deployment_config,metric_source:generic_app}",
                         "on_right_yaxis": false,
                         "style": {
                             "line_width": "normal",
@@ -457,9 +457,8 @@
         },
         {
             "definition": {
-                "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/prophetstor_logos-bot-for-dashboard.png",
+                "url": "/static/images/logos/federatorai_large.svg",
                 "sizing": "fit",
-                "margin": "large",
                 "type": "image"
             },
             "layout": {
@@ -553,7 +552,7 @@
                         "display_type": "line"
                     },
                     {
-                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_stateful_set,resource:cpu,$kube_cluster_name,$cluster_name,$oshift_deployment_config}",
+                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_stateful_set,resource:cpu,$kube_cluster_name,$cluster_name,$oshift_deployment_config,metric_source:generic_app}",
                         "on_right_yaxis": false,
                         "style": {
                             "line_width": "normal",
@@ -609,7 +608,7 @@
                         "display_type": "line"
                     },
                     {
-                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_stateful_set,resource:memory,$kube_cluster_name,$cluster_name,$oshift_deployment_config}",
+                        "q": "avg:federatorai.recommendation{$kube_cluster,$kube_namespace,$kube_deployment,$kube_stateful_set,resource:memory,$kube_cluster_name,$cluster_name,$oshift_deployment_config,metric_source:generic_app}",
                         "on_right_yaxis": false,
                         "style": {
                             "line_width": "normal",

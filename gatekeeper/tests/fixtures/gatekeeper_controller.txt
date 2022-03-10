@@ -1,0 +1,100 @@
+# HELP gatekeeper_constraint_template_ingestion_count Total number of constraint template ingestion actions
+# TYPE gatekeeper_constraint_template_ingestion_count counter
+gatekeeper_constraint_template_ingestion_count{status="active"} 13
+# HELP gatekeeper_constraint_template_ingestion_duration_seconds Distribution of how long it took to ingest a constraint template in seconds
+# TYPE gatekeeper_constraint_template_ingestion_duration_seconds histogram
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.01"} 12
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.02"} 12
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.03"} 12
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.04"} 12
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.05"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.06"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.07"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.08"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.09"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.1"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.2"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.3"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.4"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.5"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="1"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="2"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="3"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="4"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="5"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="+Inf"} 13
+gatekeeper_constraint_template_ingestion_duration_seconds_sum{status="active"} 0.05695153600000001
+gatekeeper_constraint_template_ingestion_duration_seconds_count{status="active"} 13
+# HELP gatekeeper_constraint_templates Number of observed constraint templates
+# TYPE gatekeeper_constraint_templates gauge
+gatekeeper_constraint_templates{status="active"} 1
+gatekeeper_constraint_templates{status="error"} 0
+# HELP gatekeeper_constraints Current number of known constraints
+# TYPE gatekeeper_constraints gauge
+gatekeeper_constraints{enforcement_action="deny",status="active"} 0
+gatekeeper_constraints{enforcement_action="deny",status="error"} 0
+gatekeeper_constraints{enforcement_action="dryrun",status="active"} 1
+gatekeeper_constraints{enforcement_action="dryrun",status="error"} 0
+gatekeeper_constraints{enforcement_action="unrecognized",status="active"} 0
+gatekeeper_constraints{enforcement_action="unrecognized",status="error"} 0
+# HELP gatekeeper_request_count The number of requests that are routed to webhook
+# TYPE gatekeeper_request_count counter
+gatekeeper_request_count{admission_status="allow"} 7434
+# HELP gatekeeper_request_duration_seconds The response time in seconds
+# TYPE gatekeeper_request_duration_seconds histogram
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.001"} 6047
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.002"} 7109
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.003"} 7289
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.004"} 7345
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.005"} 7371
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.006"} 7386
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.007"} 7404
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.008"} 7416
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.009"} 7423
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.01"} 7427
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.02"} 7431
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.03"} 7431
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.04"} 7432
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.05"} 7432
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="+Inf"} 7434
+gatekeeper_request_duration_seconds_sum{admission_status="allow"} 7.291286859999988
+gatekeeper_request_duration_seconds_count{admission_status="allow"} 7434
+# HELP gatekeeper_sync Total number of resources of each kind being cached
+# TYPE gatekeeper_sync gauge
+gatekeeper_sync{kind="Namespace",status="active"} 6
+gatekeeper_sync{kind="Namespace",status="error"} 0
+gatekeeper_sync{kind="Pod",status="active"} 13
+gatekeeper_sync{kind="Pod",status="error"} 0
+# HELP gatekeeper_sync_duration_seconds Latency of sync operation in seconds
+# TYPE gatekeeper_sync_duration_seconds histogram
+gatekeeper_sync_duration_seconds_bucket{le="0.0001"} 22
+gatekeeper_sync_duration_seconds_bucket{le="0.0002"} 56
+gatekeeper_sync_duration_seconds_bucket{le="0.0003"} 64
+gatekeeper_sync_duration_seconds_bucket{le="0.0004"} 77
+gatekeeper_sync_duration_seconds_bucket{le="0.0005"} 87
+gatekeeper_sync_duration_seconds_bucket{le="0.0006"} 91
+gatekeeper_sync_duration_seconds_bucket{le="0.0007"} 99
+gatekeeper_sync_duration_seconds_bucket{le="0.0008"} 101
+gatekeeper_sync_duration_seconds_bucket{le="0.0009"} 103
+gatekeeper_sync_duration_seconds_bucket{le="0.001"} 104
+gatekeeper_sync_duration_seconds_bucket{le="0.002"} 131
+gatekeeper_sync_duration_seconds_bucket{le="0.003"} 145
+gatekeeper_sync_duration_seconds_bucket{le="0.004"} 156
+gatekeeper_sync_duration_seconds_bucket{le="0.005"} 167
+gatekeeper_sync_duration_seconds_bucket{le="0.01"} 198
+gatekeeper_sync_duration_seconds_bucket{le="0.02"} 208
+gatekeeper_sync_duration_seconds_bucket{le="0.03"} 212
+gatekeeper_sync_duration_seconds_bucket{le="0.04"} 213
+gatekeeper_sync_duration_seconds_bucket{le="0.05"} 213
+gatekeeper_sync_duration_seconds_bucket{le="+Inf"} 213
+gatekeeper_sync_duration_seconds_sum 0.6742633899999998
+gatekeeper_sync_duration_seconds_count 213
+# HELP gatekeeper_sync_last_run_time Timestamp of last sync operation
+# TYPE gatekeeper_sync_last_run_time gauge
+gatekeeper_sync_last_run_time 1.6082783476952126e+09
+# HELP gatekeeper_watch_manager_intended_watch_gvk The total number of Group/Version/Kinds that the watch manager has instructions to watch. This could differ from the actual count due to resources being pending, non-existent, or a failure of the watch manager to restart
+# TYPE gatekeeper_watch_manager_intended_watch_gvk gauge
+gatekeeper_watch_manager_intended_watch_gvk 3
+# HELP gatekeeper_watch_manager_watched_gvk The total number of Group/Version/Kinds currently watched by the watch manager
+# TYPE gatekeeper_watch_manager_watched_gvk gauge
+gatekeeper_watch_manager_watched_gvk 3

@@ -1,29 +1,35 @@
 {
-  "integration_id": "neo4j",
-  "maintainer": "help@neo4j.com",
+  "display_name": "Neo4j",
+  "maintainer": "neo4j-cloud@neotechnology.com",
   "manifest_version": "1.0.0",
   "name": "neo4j",
-  "display_name": "Neo4j",
+  "metric_prefix": "neo4j.",
+  "metric_to_check": "neo4j.page_cache_hits_total",
+  "creates_events": false,
+  "short_description": "Gathers Neo4j metrics",
   "guid": "a85ec8bb-e677-4089-ae8f-d1705c340131",
-  "short_description": "Integration with Neo4j Enterprise to monitor server performance.",
   "support": "contrib",
-  "public_title": "Datadog-Neo4j Integration",
   "supported_os": [
     "linux",
     "mac_os",
     "windows"
   ],
-  "creates_events": false,
+  "public_title": "Datadog-Neo4j Integration",
   "categories": [
-    "data store"
+    "database"
   ],
   "type": "check",
-  "is_public": true,
-  "metric_prefix": "neo4j.",
+  "is_public": false,
+  "integration_id": "neo4j",
   "assets": {
-    "monitors": {},
+    "configuration": {
+      "spec": "assets/configuration/spec.yaml"
+    },
     "dashboards": {},
+    "monitors": {},
+    "saved_views": {},
     "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
-  }
+	"metrics_metadata": "metadata.csv"
+  },
+  "is_beta": false
 }

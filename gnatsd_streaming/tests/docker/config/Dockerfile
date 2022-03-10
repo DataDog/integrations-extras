@@ -1,4 +1,4 @@
-FROM golang:latest
+FROM golang:1.15
 
 COPY script.sh /opt/local/script.sh
 

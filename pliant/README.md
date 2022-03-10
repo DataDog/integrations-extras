@@ -2,13 +2,11 @@
 
 ## Overview
 
-Pliant.io enhances Datadog notifications with low-code automated workflows, creating a true close-loop-automation solution. This can help with troubleshooting, diagnosis and automated remediation.  
+Pliant.io enhances Datadog notifications with low-code automated workflows, creating a true close-loop-automation solution. This can help with troubleshooting, diagnosis, and automated remediation.
 
 For more integration information, check out the [Pliant][1] site.
 
 Examples include:
-
-
 
 - Service restart
 - Load balancer configuration
@@ -17,28 +15,25 @@ Examples include:
 - Provision additional VMs or container nodes in response to load
 - De-commission resources when load is low
 
-
 ## Setup
-
 ### Installation
 
 Create one or more workflows that you would like to trigger from a Datadog notification.
 
 ### Configuration
+#### Pliant
 
-#### Pliant Setup
-**Create a Pliant API Key.**
-1. Log in to Pliant and click on your username at the top right of the screen to reveal a menu. Click "API Keys".
+1. **Create a Pliant API key** - Log in to Pliant and click on your username at the top right of the screen to reveal a menu. Click "API Keys".
 
 ![API Key Menu step1][8]
 
-2. From the API keys screen, click "+ Create" at the top right of the screen and title your new API key. Click save and note the the API key will be added to the table.
+2. From the API keys screen, click "+ Create" at the top right of the screen and title your new API key. Click save and make note of the API key, which will be added to the table.
 
 ![Create API Key step2][9]
 
 **Create a Pliant workflow to trigger from Datadog**
 
-1. Navigate to the workflows tab in Pliant. Click "+ Create"  and "Create Flow" to create a new workflow. Title the workflow in the popup and click "Create" to launch the editor into our new workflow.
+1. Navigate to the workflows tab in Pliant. Click "+ Create" and "Create Flow" to create a new workflow. Title the workflow in the popup and click "Create" to launch the editor into the new workflow.
 
 ![Create Flow step1-a-][10]
 
@@ -46,18 +41,20 @@ Create one or more workflows that you would like to trigger from a Datadog notif
 
 This example workflow is called "RestartHost" and restarts a host from the data Datadog triggers this workflow with.
 
-This workflow will run with its input variables initially assigned based on the request body we trigger it with. The workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, restart a host via SSH under certain circumstances when Datadog triggers our automation workflow with certain parameters. 
+This workflow runs with its input variables initially assigned based on the request body you trigger it with. The workflow can trigger/perform any desired infrastructure automation actions, using information from its input. In this example, restart a host with SSH under certain circumstances when Datadog triggers the automation workflow with certain parameters.
 
   - To add Input variables which populate with data sent from Datadog, click the "Expand" icon on at the start of the workflow to open the Variable panel. To create matching **Input** variables, set all of these input variables to equal empty quotes: `""`. By default, Datadog sends the following data:
-`body`
-`last_updated`
-`event_type`
-`title`
-`date`
-`org`
-`id`
+    ```
+    body
+    last_updated
+    event_type
+    title
+    date
+    org
+    id
+    ```
 
-There are also have additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow will assign these output variables and output the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
+There are also additional output variables (`host`, `meta`, and `ip`) that are initialized. The workflow assigns these output variables and outputs the resulting values upon completion. It may also specify variables which are neither input nor output variables to use internally within the workflow's logic.
 
 ![Expand][11]
 
@@ -73,7 +70,7 @@ Your endpoint is enclosed in double quotes and resembles: ***https://<YOUR_PLIAN
 
 ![endpoint][14]
 
-Copy the entire URL enclosed in the double quotes (which may include addtional querry parameters), starting with ***https***. Do not include the double quotes.
+Copy the entire URL enclosed in the double quotes (which may include additional query parameters), starting with ***https***. Do not include the double quotes.
 
 #### Datadog setup
 1. Open Datadog and from the left sidebar, click to **Integrations** > **Integrations**.
@@ -86,9 +83,11 @@ Copy the entire URL enclosed in the double quotes (which may include addtional q
 3. Scroll to "webhooks". Click **New** to add a new webhook to link to the Pliant workflow. First, give the webhook a name in the "name" field. This example uses the name *RestartHost*.
 ![webhooksConfig2][17]
 
-Now, paste the URL copied from step 4. For example: 
+Paste the URL copied from step 4. For example:
 
-***https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>***
+```
+https://<YOUR_PLIANT_INSTANCE>/api/v1/trigger/<YOUR_PLIANT_USERNAME>/User/<PATH_TO_WORKFLOW>/<WORKFLOW_NOW>?sync=true&api_key=<YOUR_API_KEY>
+```
 
 Paste this into the ***URL*** field of the webhook form.
 
