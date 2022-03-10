@@ -2,7 +2,7 @@
 
 ## Overview
 
-Datadog can collect and display errors response time, duration, latency, and monitor performance of the API traffic in [Tyk][1] to discover issues in your APIs or consumers.
+Datadog can collect and display errors, response time, duration, latency, as well as monitor the performance of API traffic in [Tyk][1] to discover issues in your APIs or consumers.
 
 Tyk has a built-in Datadog integration that collects metrics from [Tyk API gateway][7].
 
