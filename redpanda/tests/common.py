@@ -216,6 +216,9 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.storage.log_readers_evicted.count',
         'redpanda.storage.log_written_bytes.count',
     ],
+    'redpanda.consumerlag': [
+        'redpanda.consumerlag.kafka_group_offset',
+    ],
 }
 # fmt: on
 
