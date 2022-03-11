@@ -231,5 +231,5 @@ ADDITIONAL_METRICS_MAP = {
     'redpanda.rpc_client': VECTORIZED_RPC_CLIENT,
     'redpanda.scheduler': VECTORIZED_SCHEDULER,
     'redpanda.stall': VECTORIZDED_STALL,
-    'redpanda.sla': VECTORIZED_CONSUMERLAG,
+    'redpanda.consumerlag': VECTORIZED_CONSUMERLAG,
 }
