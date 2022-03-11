@@ -75,6 +75,7 @@ VECTORIZED_KAFKA = {
     'vectorized_kafka_rpc_requests_pending': 'kafka.rpc_requests_pending',
     'vectorized_kafka_rpc_sent_bytes': 'kafka.rpc_sent_bytes',
     'vectorized_kafka_rpc_service_errors': 'kafka.rpc_service_errors',
+    'vectorized_kafka_group_offset': 'kafka.group_offset',
 }
 
 VECTORIZED_LEADER = {
@@ -206,10 +207,6 @@ VECTORIZED_STORAGE = {
     'vectorized_storage_log_written_bytes': 'storage.log_written_bytes',
 }
 
-VECTORIZED_CONSUMERLAG = {
-    'vectorized_kafka_group_offset': 'kafka_group_offset',
-}
-
 INSTANCE_DEFAULT_METRICS = [
     VECTORIZED_APPLICATION,
     VECTORIZED_CLUSTER,
@@ -219,7 +216,6 @@ INSTANCE_DEFAULT_METRICS = [
     VECTORIZED_PANDAPROXY,
     VECTORIZED_REACTOR,
     VECTORIZED_STORAGE,
-    VECTORIZED_CONSUMERLAG,
 ]
 
 ADDITIONAL_METRICS_MAP = {
@@ -231,5 +227,4 @@ ADDITIONAL_METRICS_MAP = {
     'redpanda.rpc_client': VECTORIZED_RPC_CLIENT,
     'redpanda.scheduler': VECTORIZED_SCHEDULER,
     'redpanda.stall': VECTORIZDED_STALL,
-    'redpanda.consumerlag': VECTORIZED_CONSUMERLAG,
 }

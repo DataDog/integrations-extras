@@ -94,6 +94,7 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.kafka.rpc_requests_pending',
         'redpanda.kafka.rpc_sent_bytes.count',
         'redpanda.kafka.rpc_service_errors.count',
+        'redpanda.kafka.group_offset',
     ],
     'redpanda.leader': [
         'redpanda.leader.balancer_leader_transfer_error.count',
@@ -216,9 +217,6 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.storage.log_readers_evicted.count',
         'redpanda.storage.log_written_bytes.count',
     ],
-    'redpanda.consumerlag': [
-        'redpanda.consumerlag.kafka_group_offset',
-    ],
 }
 # fmt: on
 
@@ -231,7 +229,6 @@ INSTANCE_DEFAULT_GROUPS = [
     'redpanda.pandaproxy',
     'redpanda.reactor',
     'redpanda.storage',
-    'redpanda.consumerlag',
 ]
 
 INSTANCE_ADDITIONAL_GROUPS = [
