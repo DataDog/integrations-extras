@@ -231,6 +231,7 @@ INSTANCE_DEFAULT_GROUPS = [
     'redpanda.pandaproxy',
     'redpanda.reactor',
     'redpanda.storage',
+    'redpanda.consumerlag',
 ]
 
 INSTANCE_ADDITIONAL_GROUPS = [
