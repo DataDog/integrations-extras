@@ -30,7 +30,7 @@ For information about the changes from v1 to v2, see the [Traefik migration guid
 
 #### Metric collection
 
-Follow [Traefix's documentation][7] to send [Traefix metrics][8] to Datadog.
+Follow [Traefik's documentation][7] to send [Traefik metrics][8] to Datadog.
 
 #### Log collection
 
@@ -70,7 +70,7 @@ By default, [Traefik logs][9] are sent to stdout. This should not be changed for
 #### Trace collection
 
 1. [Enable APM][13] for Datadog, if needed.
-2. Follow [Traefix's documentation][14] to send [traces][15] to Datadog.
+2. Follow [Traefik's documentation][14] to send [traces][15] to Datadog.
 
 <!-- xxz tab xxx -->
 <!-- xxx tab "v1" xxx -->
@@ -146,7 +146,7 @@ By default, [Traefik logs][21] are sent to stdout. This should not be changed fo
 **Available for Traefik v1.7+**
 
 1. [Enable APM][23] for Datadog, if needed.
-2. Follow [Traefix's documentation][24] to send traces to Datadog.
+2. Follow [Traefik's documentation][24] to send traces to Datadog.
 
 <!-- xxz tab xxx -->
 <!-- xxz tabs xxx -->
