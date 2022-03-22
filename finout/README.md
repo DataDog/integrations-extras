@@ -3,8 +3,7 @@
 ## Overview
 
 
-[Finout](https://finout.io) combines Cloud Providers, Data Warehouses, and CDNs  
-into one mega bill, enabling an unparalleled business context view of your cloud spend with no heavy lifting in minutes.
+[Finout](https://finout.io) combines cloud providers, data warehouses, and CDNs in one bill, creating a business context view of your cloud spend in minutes.
 
 Finout’s cloud cost management tool uses your container metrics to break down Kubernetes costs without installing an agent. You can connect to any metric within Datadog and create a unit cost to improve cost observability.
 
@@ -20,15 +19,15 @@ For a Kubernetes-level cost breakdown or a unit cost based on a Datadog metric, 
 
 ### Configuration
 
-1. Install the app from this tile
-2. Add the Finout widget to your dashboard
-3. Authenticate with your Finout account
-4. Configure the widget parameters
-	1. Usage type (Cost, Total Coverage, RI, SP, Spot, or On-Demand)
-	2. Chart type (Bar or Line)
-	3. Context (Choose the Finout business context you want to visualize)
-	4. View (Which Finout saved view do you want to visualize)
-5. Add as many Finout widgets as you like!
+1. Install the app from the Datadog tile.
+2. Add the Finout widget to your dashboard.
+3. Authenticate your Finout account.
+4. Configure the following widget parameters:
+    - Usage type (Cost, Total Coverage, RI, SP, Spot, or On-Demand)
+    - Chart type (Bar or Line)
+    - Context (Select the Finout business context you want to visualize).
+    - View (Select which Finout saved view you want to visualize).
+5. Continue adding more Finout widgets!
 
 ## Troubleshooting
 
