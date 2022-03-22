@@ -97,5 +97,8 @@ def test_check(aggregator, dd_run_check):
     dd_run_check(check)
 
     for m in INSTANCE_DEFAULT_METRICS:
+        # skipping as its only exposed when consumer group is created
+        if m == "redpanda.kafka.group_offset":
+            continue
         aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
