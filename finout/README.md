@@ -6,18 +6,17 @@
 [Finout](https://finout.io) combines Cloud Providers, Data Warehouses, and CDNs  
 into one mega bill, enabling an unparalleled business context view of your cloud spend with no heavy lifting in minutes.
 
-Finout’s cloud cost management tool uses your container metrics in order to break down Kubernetes costs without the need to install an agent. You can connect to any metric within Datadog and use it to create a unit cost, saving countless hours and improving your cost observability company-wide.
+Finout’s cloud cost management tool uses your container metrics to break down Kubernetes costs without installing an agent. You can connect to any metric within Datadog and create a unit cost to improve cost observability.
 
-Finout’s Datadog application allows you to add cost widgets into your Datadog dashboards, combining your AWS, Snowflake, Kubernetes, and Unit costs alongside your usage in one place.
+Finout’s Datadog integration allows you to add cost widgets into your Datadog dashboards and combine your AWS, Snowflake, Kubernetes, and Unit costs alongside your usage.
 
 ## Setup
 
 ### Installation
 
-If you don't already have a Finout account, [sign up](https://finout.io/start-now) for your free trial.
-Once you get the invitation to your account, you are all set to start working with the Finout Application in Datadog within minutes, no code needed. 
+If you don't have a Finout account yet, [sign up](https://finout.io/start-now) for a free trial. After you accept the account invitation, you are set to start working with the Finout Application in Datadog, no code needed. 
 
-To get a Kubernetes-level cost breakdown, or a unit cost that is based on a Datadog metric, please reach out to Finout support directly in the Finout application or by emailing us at [support@finout.io](mailto:support@finout.io).
+For a Kubernetes-level cost breakdown or a unit cost based on a Datadog metric, contact Finout Support in the Finout application or email [support@finout.io](mailto:support@finout.io).
 
 ### Configuration
 
@@ -33,9 +32,8 @@ To get a Kubernetes-level cost breakdown, or a unit cost that is based on a Data
 
 ## Troubleshooting
 
-Please note that when looking at AWS cost you may need to expand the timeframe of your query to at least a week, as AWS cost and usage reporting is always two days behind.
+**Note:** When looking at AWS cost, you may need to expand the timeframe of your query to at least one week because AWS cost and usage reporting are always two days behind.
 
-Any questions? We are here to help!
-Just drop us an email at [support@finout.io](mailto:support@finout.io) or use the in-app chat.
+Any questions? We are here to help! Email [support@finout.io](mailto:support@finout.io) or use the in-app chat.
 
 
