@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Lightstep Incident Response][1] Lightstep Incident Response seamlessly orchestrates alert triaging and on-call scheduling across Slack, Zoom, desktop, and mobile. Provides unified response context with integrated collaboration alongside on-call, alert, and incident management workflows.
+[Lightstep Incident Response][1] seamlessly orchestrates alert triaging and on-call scheduling across Slack, Zoom, desktop, and mobile. Provides unified response context with integrated collaboration alongside on-call, alert, and incident management workflows.
 
 Lightstep Incident Response ingests data from Datadog through standard APIs and finds anomalous events before your business is impacted.
 
