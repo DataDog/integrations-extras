@@ -21,9 +21,9 @@ To get a Kubernetes-level cost breakdown, or a unit cost that is based on a Data
 
 ### Configuration
 
-1. Install the integration
-2. Add Finout widget to your dashboard
-3. Authenticate with your Finout account - 
+1. Install the app from this tile
+2. Add the Finout widget to your dashboard
+3. Authenticate with your Finout account
 4. Configure the widget parameters
 	1. Usage type (Cost, Total Coverage, RI, SP, Spot, or On-Demand)
 	2. Chart type (Bar or Line)
