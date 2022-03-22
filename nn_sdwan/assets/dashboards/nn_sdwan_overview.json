@@ -1,0 +1,838 @@
+{
+    "title": "Netnology SDWAN Overview",
+    "description": "Metrics Overview of SDWAN controllers",
+    "widgets": [
+        {
+            "id": 4790960642812288,
+            "layout": {
+                "x": 2,
+                "y": 7,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.device_control_status{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 1569186197068319,
+            "layout": {
+                "x": 30,
+                "y": 7,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.device_control_status{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "type": "sunburst",
+                "legend": {
+                    "type": "automatic"
+                }
+            }
+        },
+        {
+            "id": 1913940240353370,
+            "layout": {
+                "x": 2,
+                "y": 2,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Device Status",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 4421893116189207,
+            "layout": {
+                "x": 2,
+                "y": 31,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "WAN Edge Inventory",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 4329508846807851,
+            "layout": {
+                "x": 2,
+                "y": 36,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.wan_edge_inventory{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8632606163991454,
+            "layout": {
+                "x": 30,
+                "y": 36,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.wan_edge_inventory{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "type": "sunburst"
+            }
+        },
+        {
+            "id": 2510609959005535,
+            "layout": {
+                "x": 62,
+                "y": 7,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.site_health{$Service} by {status}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 5191129976902542,
+            "layout": {
+                "x": 90,
+                "y": 7,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.site_health{$Service} by {status}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "type": "sunburst"
+            }
+        },
+        {
+            "id": 1821223771867508,
+            "layout": {
+                "x": 62,
+                "y": 2,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Site Health",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 2534418741905115,
+            "layout": {
+                "x": 2,
+                "y": 65,
+                "width": 56,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.top_app_stats{$Service} by {application}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4891822391906229,
+            "layout": {
+                "x": 2,
+                "y": 60,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Top Applications",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 6179406214472955,
+            "layout": {
+                "x": 122,
+                "y": 7,
+                "width": 27,
+                "height": 7
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.transport_interface{$Service,percentagedistribution:_10_mbps}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 5993802825232897,
+            "layout": {
+                "x": 122,
+                "y": 2,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Transport Interface Distribution\n",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 6805949351678434,
+            "layout": {
+                "x": 122,
+                "y": 12,
+                "width": 27,
+                "height": 7
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.transport_interface{$Service,percentagedistribution:10_mbps_-_100_mbps}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 5077554130815453,
+            "layout": {
+                "x": 122,
+                "y": 17,
+                "width": 27,
+                "height": 7
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.transport_interface{$Service,percentagedistribution:100_mbps_-_500_mbps}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 8711324307770235,
+            "layout": {
+                "x": 122,
+                "y": 22,
+                "width": 27,
+                "height": 7
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.transport_interface{$Service,percentagedistribution:_500_mbps}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            }
+        },
+        {
+            "id": 7708620613160357,
+            "layout": {
+                "x": 151,
+                "y": 7,
+                "width": 27,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "0 - 10 Mbps",
+                "background_color": "gray",
+                "font_size": "36",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 6615751824865113,
+            "layout": {
+                "x": 151,
+                "y": 12,
+                "width": 27,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "10 - 100 Mbps",
+                "background_color": "gray",
+                "font_size": "36",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 7449413389665212,
+            "layout": {
+                "x": 151,
+                "y": 17,
+                "width": 27,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "100 - 500 Mbps",
+                "background_color": "gray",
+                "font_size": "36",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 3607165193436928,
+            "layout": {
+                "x": 151,
+                "y": 22,
+                "width": 27,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "500+ Mbps",
+                "background_color": "gray",
+                "font_size": "36",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 182347937985299,
+            "layout": {
+                "x": 62,
+                "y": 36,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.wan_edge_health{$Service} by {status}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": 4990841858360560,
+            "layout": {
+                "x": 90,
+                "y": 36,
+                "width": 28,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "sum:nn_sdwan.wan_edge_health{$Service} by {status}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "type": "sunburst"
+            }
+        },
+        {
+            "id": 619605484181769,
+            "layout": {
+                "x": 62,
+                "y": 31,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Wan Edge Health",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 8404398877384337,
+            "layout": {
+                "x": 122,
+                "y": 31,
+                "width": 56,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Application Aware Routing",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 3082176723434641,
+            "layout": {
+                "x": 122,
+                "y": 36,
+                "width": 56,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Latency (ms)",
+                                "cell_display_mode": "number",
+                                "limit": {
+                                    "count": 500,
+                                    "order": "desc"
+                                },
+                                "conditional_formats": [],
+                                "formula": "query1"
+                            },
+                            {
+                                "alias": "Jitter (ms)",
+                                "cell_display_mode": "number",
+                                "conditional_formats": [],
+                                "formula": "query2"
+                            },
+                            {
+                                "alias": "Loss Percentage",
+                                "cell_display_mode": "number",
+                                "conditional_formats": [],
+                                "formula": "query3"
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.latency{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "last"
+                            },
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.jitter{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query2",
+                                "aggregator": "last"
+                            },
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.loss_percentage{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query3",
+                                "aggregator": "last"
+                            }
+                        ]
+                    }
+                ],
+                "has_search_bar": "never"
+            }
+        },
+        {
+            "id": 1565086408981883,
+            "layout": {
+                "x": 66,
+                "y": 60,
+                "width": 108,
+                "height": 5
+            },
+            "definition": {
+                "type": "note",
+                "content": "Application Aware Routing",
+                "background_color": "vivid_blue",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
+            }
+        },
+        {
+            "id": 180766955419646,
+            "layout": {
+                "x": 66,
+                "y": 65,
+                "width": 108,
+                "height": 22
+            },
+            "definition": {
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "alias": "Latency (ms)"
+                            },
+                            {
+                                "formula": "query2",
+                                "alias": "Jitter (ms)"
+                            },
+                            {
+                                "formula": "query3",
+                                "alias": "Loss Percentage"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.latency{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            },
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.jitter{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            },
+                            {
+                                "query": "avg:nn_sdwan.app_aware_routing.loss_percentage{$Service} by {name}",
+                                "data_source": "metrics",
+                                "name": "query3"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "Service",
+            "default": "*",
+            "prefix": "service",
+            "available_values": []
+        }
+    ],
+    "layout_type": "free",
+    "is_read_only": false,
+    "notify_list": [],
+    "id": "dzw-bz7-vch"
+}

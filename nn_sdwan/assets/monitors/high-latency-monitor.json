@@ -1,0 +1,23 @@
+{
+    "id": 65951821,
+    "name": "High Latency Alert [>100ms]",
+    "type": "query alert",
+    "query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.latency{*} > 100",
+    "message": "A link has detected  high latency.",
+    "tags": [],
+    "options": {
+        "notify_audit": false,
+        "silenced": {},
+        "include_tags": true,
+        "thresholds": {
+            "critical": 100,
+            "warning": 60
+        },
+        "require_full_window": false,
+        "new_host_delay": 300,
+        "notify_no_data": false,
+        "renotify_interval": 0,
+        "escalation_message": ""
+    },
+    "priority": null
+}
