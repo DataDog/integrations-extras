@@ -49,7 +49,7 @@ Follow the Relay Proxy's [Metrics integrations documentation][5] to configure th
 
 ### Metrics
 
-The LaunchDarkly Relay Proxy can be configured to send the following metrics are sent to datadog:
+The LaunchDarkly Relay Proxy can be configured to send the following metrics to Datadog:
 
 - **`connections`**: The number of currently existing stream connections from SDKs to the Relay Proxy.
 - **`newconnections`**: The cumulative number of stream connections that have been made to the Relay Proxy since it started up.

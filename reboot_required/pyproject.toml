@@ -6,18 +6,18 @@ requires = [
 build-backend = "hatchling.build"
 
 [project]
-name = "datadog-sendmail"
-description = "The Sendmail check"
+name = "datadog-reboot-required"
+description = "The Reboot required check"
 readme = "README.md"
 license = "BSD-3-Clause"
 keywords = [
     "datadog",
     "datadog agent",
     "datadog check",
-    "sendmail",
+    "reboot_required",
 ]
 authors = [
-    { email = "david.bouchare@datadoghq.com" },
+    { email = "support@krugerheavyindustries.com" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -29,7 +29,7 @@ classifiers = [
     "Topic :: System :: Monitoring",
 ]
 dependencies = [
-    "datadog-checks-base>=4.2.0",
+    "datadog-checks-base>=5.1.0",
 ]
 dynamic = [
     "version",
@@ -42,7 +42,7 @@ deps = []
 Source = "https://github.com/DataDog/integrations-extras"
 
 [tool.hatch.version]
-path = "datadog_checks/sendmail/__about__.py"
+path = "datadog_checks/reboot_required/__about__.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -55,7 +55,7 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 include = [
-    "/datadog_checks/sendmail",
+    "/datadog_checks/reboot_required",
 ]
 dev-mode-dirs = [
     ".",

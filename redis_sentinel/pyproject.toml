@@ -6,18 +6,18 @@ requires = [
 build-backend = "hatchling.build"
 
 [project]
-name = "datadog-sendmail"
-description = "The Sendmail check"
+name = "datadog-redis-sentinel"
+description = "The Redis Sentinel check"
 readme = "README.md"
 license = "BSD-3-Clause"
 keywords = [
     "datadog",
     "datadog agent",
     "datadog check",
-    "sendmail",
+    "redis_sentinel",
 ]
 authors = [
-    { email = "david.bouchare@datadoghq.com" },
+    { email = "@krasnoukhov" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -36,13 +36,15 @@ dynamic = [
 ]
 
 [project.optional-dependencies]
-deps = []
+deps = [
+    "redis==2.10.5",
+]
 
 [project.urls]
 Source = "https://github.com/DataDog/integrations-extras"
 
 [tool.hatch.version]
-path = "datadog_checks/sendmail/__about__.py"
+path = "datadog_checks/redis_sentinel/__about__.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -55,7 +57,7 @@ include = [
 
 [tool.hatch.build.targets.wheel]
 include = [
-    "/datadog_checks/sendmail",
+    "/datadog_checks/redis_sentinel",
 ]
 dev-mode-dirs = [
     ".",

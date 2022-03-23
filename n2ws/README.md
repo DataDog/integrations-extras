@@ -36,11 +36,15 @@ and more by Datadog monitoring service. This integration allows users to monitor
     **Over**: Select data from the list. All N2WS users data begin with the string 'cpm:user:<user-name>'.
               You can select either a specific user or the entire N2WS instance.
 
+
 5.	Get N2WS dashboards
     - In [Datadog Integrations][3], search for the `N2WS` tile and install it.
-    - This creates five types of dashboards to your account. Three for N2WS Backup & Recovery v3.2.1 (only AWS supported) and two for N2WS Backup & Recovery v4.0 (includes Azure):
-    `N2WSBackup&Recovery-Graphicalversion`, `N2WSBackup&Recovery-Graphicalversion-areas`, and `N2WSBackup&Recovery-EntitiesSpecificDashboard` for version 3.2.1. `N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0` and `N2WSBackup&Recovery-GraphicalVersionV4.0` for version 4.0.
-    - Alternatively users can [import JSON templates from N2WS][4].
+    - Five dashboards will be installed in your account:
+    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for N2WS Backup & Recovery v3.2.1
+	**Note**: These dashboards are only available for AWS users.
+	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.1' and 'N2WSBackup&Recovery-GraphicalVersionV4.1' for N2WS Backup & Recovery v4.1
+ 
+    Alternatively, you can [import JSON templates from N2WS][4] to create your dashboards.
 
 ## Data Collected
 

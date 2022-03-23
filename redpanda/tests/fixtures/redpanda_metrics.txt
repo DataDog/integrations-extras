@@ -354,6 +354,18 @@ vectorized_kafka_rpc_sent_bytes{shard="0"} 6164
 # HELP vectorized_kafka_rpc_service_errors kafka_rpc: Number of service errors
 # TYPE vectorized_kafka_rpc_service_errors counter
 vectorized_kafka_rpc_service_errors{shard="0"} 0
+# HELP vectorized_kafka_group_offset Group topic partition offset
+# TYPE vectorized_kafka_group_offset gauge
+vectorized_kafka_group_offset{group="123",partition="0",shard="0",topic="foo"} 132444.000000
+vectorized_kafka_group_offset{group="123",partition="1",shard="0",topic="foo"} 133757.000000
+vectorized_kafka_group_offset{group="123",partition="2",shard="0",topic="foo"} 136132.000000
+vectorized_kafka_group_offset{group="123",partition="3",shard="0",topic="foo"} 136116.000000
+vectorized_kafka_group_offset{group="123",partition="4",shard="0",topic="foo"} 127034.000000
+vectorized_kafka_group_offset{group="123",partition="5",shard="0",topic="foo"} 125198.000000
+vectorized_kafka_group_offset{group="123",partition="6",shard="0",topic="foo"} 121542.000000
+vectorized_kafka_group_offset{group="123",partition="7",shard="0",topic="foo"} 123378.000000
+vectorized_kafka_group_offset{group="123",partition="8",shard="0",topic="foo"} 119706.000000
+vectorized_kafka_group_offset{group="123",partition="9",shard="0",topic="foo"} 121526.000000
 # HELP vectorized_leader_balancer_leader_transfer_error Number of errors attempting to transfer leader
 # TYPE vectorized_leader_balancer_leader_transfer_error counter
 vectorized_leader_balancer_leader_transfer_error{shard="0"} 0
@@ -731,3 +743,4 @@ vectorized_storage_log_readers_evicted{namespace="redpanda",partition="0",shard=
 # TYPE vectorized_storage_log_written_bytes counter
 vectorized_storage_log_written_bytes{namespace="kafka_internal",partition="0",shard="0",topic="group"} 394
 vectorized_storage_log_written_bytes{namespace="redpanda",partition="0",shard="0",topic="controller"} 842
+
