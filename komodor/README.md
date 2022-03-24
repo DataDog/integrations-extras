@@ -34,7 +34,36 @@ Manage your ever-growing system complexity, change frequency and alert volume wi
 
 ## Setup
 
-You can install the Komodor agent in under 5 minutes, here is a [quick overview][2] of installing the agent. 
+Once signed up as a customer or with a [trial account][1], you can easily install the Komodor pod-based agent on each Kubernetes luster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
+
+### Datadog integration
+Komodor supports three types of integrations with Datadog.
+
+#### Komodor platform integration 
+This [initial integration][3] will allow DataDog Monitor Alerts to be available in Komodor and to suggest related services based on service dependencies detected in DataDog. 
+
+#### Datadog Webhook Integration
+Datadog [Webhook integration][4] allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
+
+#### Datadog Monitor Notification
+Adding a Komodor [dynamic link][5] to DataDog Monitor Notifications will generate a direct link to the relevant service in Komodor. You will see the alert link in your Alerting provider connected to DataDog.
+
+### Configure service and deployment annotations
+Enrich the Komodor service and deployment screens by adding links back to relevant Datadog APM Dashboards and dynamic links that will deep link back to specififc service metrics and time ranges within Datadog. Easily done by usuing Kubernetes [annotations][6].
+
+## Data Collected
+
+### Log collection
+Komodor does not send any logs to Datadog.
+
+### Metrics
+Komodor does not include any metrics.
+
+### Service Checks
+Komodor does not include any service checks.
+
+### Events
+Komodor will display Datadog events in the Komodor Service and Events timelines.
 
 ## Support
 
@@ -42,3 +71,7 @@ For more information and a live demo please [contact us][1].
 
 [1]: https://komodor.com/sign-up/
 [2]: https://docs.komodor.com/Learn/Komodor-Agent.html
+[3]: https://docs.komodor.com/Integrations/Datadog.html
+[4]: https://docs.komodor.com/Integrations/datadog-webhook.html
+[5]: https://docs.komodor.com/Integrations/Datadog-Monitor-Notification.html
+[6]: https://docs.komodor.com/Learn/Annotations.html
