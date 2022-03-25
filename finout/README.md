@@ -29,7 +29,7 @@ For a Kubernetes-level cost breakdown or a unit cost based on a Datadog metric, 
     - View (Select which Finout saved view you want to visualize).
 5. Continue adding more Finout widgets!
 
-## Troubleshooting
+## Support
 
 **Note:** When looking at AWS cost, you may need to expand the timeframe of your query to at least one week because AWS cost and usage reporting are always two days behind.
 
