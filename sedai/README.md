@@ -1,59 +1,34 @@
 
 ## Overview
 
-Sedai: Continuous Autonomous Availability Management (CAAM) proactively manages your cloud environments through autonomous actions that prevent availability issues and optimize your resources' performance in production. The agentless, configuration-free platform infers and adapts to your cloud environments' observed performance.
+Sedai is an autonomous cloud platform that proactively manages production environments to prevent issues and improve availability, performance, and cloud costs. As an intelligent autopilot for SREs, Sedai independently detects, prioritizes, and analyzes monitoring data for opportunities to safely and autonomously act in production — all without thresholds or human intervention. Learn more and try for free at [Sedai.io][1].
 
-From preventing downtime and managing SLOs to analyzing code releases and lowering cloud costs, Sedai is the autonomous platform for your SRE and DevOps teams. As a Sedai customer, you can directly integrate with Datadog to receive select notifications in your dashboards.
+Enable this integration to receive notifications in Datadog about actions Sedai autonomously executes in your production environments.
 
-**Unlock the full potential of your microservices:**
-* Achieve 99.99% or better application availability
-* Autonomously reduce resource latency by 75%
-* Reduce cloud costs by 30% through autonomous optimization
-* Increase team productivity and agility by 3x
+### How it Works
 
-### Core features
+* **Agentless:** Seamlessly connects to your cloud accounts and automatically discovers and understands production environments.
 
-* **Easy setup:** Sedai's agentless approach integrates with your cloud accounts and observability platforms so you can get up and running in minutes.
-* **Configuration-free:** By inferring your topology and metrics, Sedai leverages them to detect signals based on observed performance.
-* **Autonomous Availability:** Prevent issues and ensure the highest levels of availability with autonomous actions.
-* **Release Intelligence:** Validate release performance in production in real-time with smart scorecards that assess the quality of your deployments and analyze deviations in latency and errors.
-* **Resource Optimization:** Improve customer experience and lower cloud costs on the fly with dynamic allocation that manages your resources based on traffic needs.
-* **Smart SLOs:** In addition to automatically analyzing and defining targets, Sedai manages error budgets with autonomous actions that prevent errors, downtime, and SLO breaches.
+* **Configuration-free:** Easily connects to Datadog API and other APM/Observability platforms, and intelligently identifies, prioritizes and learns metric behavior.
 
-To learn more, see [Sedai Inc.][1]
+* **Proactive Actions:** Safely acts in production on your behalf to ensure resources avoid availability issues and run optimally at all times.
 
 ## Setup
 
-After connecting your cloud provider, monitoring provider, and notification provider accounts, Sedai identifies your topology and metrics and starts to analyze performance.
+In Sedai:
 
-### Installation
-
-Existing Sedai customers can receive notifications about Sedai activity in Datadog. For more information, see the [Sedai Notifications][6].
+* Navigate to Settings > Integrations and add your Datadog account.
+* Under Settings > Notifications, [select which notifications][3] you want to send to Datadog. 
 
 ## Data Collected
 
-### Metrics
-
-This integration does not collect metrics.
-
-### Events
-
-This integration does not support events.
-
-### Service
-
-This integration does not collect service checks.
+This integration does not collect metrics or service checks, and does not support events.
 
 ## Support
 
-Need help? Email [Support][3] is available 24/7.
-
-Alternatively, [schedule a 30-minute demo][2] or [contact us][5] for a [free 14-day trial][2].
+For help with this integration or to view a Sedai demo, email [contact@support.io][2].
 
 
 [1]: https://www.sedai.io
-[2]: https://calendly.com/sedai/sedai-demo
-[3]: mailto:support@sedai.io
-[4]: https://sedai.gitbook.io/sedai/
-[5]: mailto:contact@sedai.io
-[6]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
+[2]: mailto:support@sedai.io
+[3]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications

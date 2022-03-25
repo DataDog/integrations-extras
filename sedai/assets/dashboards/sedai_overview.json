@@ -1,0 +1,614 @@
+{
+    "title": "Sedai Dashboard",
+    "description": "Sedai is an autonomous, agentless, and configuration-free SaaS that intelligently manages your cloud environments to prevent availability issues and optimize performance and cost — all in production. Sedai's Continuous Autonomous Availability Management (CAAM) platform helps you take full advantage of your microservices with smart signals that prevent downtime, avoid potential SLO breaches, improve latency, analyze code releases, and lower cloud costs\n\nSedai User Guide: https://sedai.gitbook.io/sedai/",
+    "widgets": [
+        {
+            "id": 5755183399176454,
+            "definition": {
+                "type": "image",
+                "url": "https://s3.amazonaws.com/sedai.io/newlogos/horizontal_darktext.svg",
+                "sizing": "contain",
+                "margin": "lg",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 2
+            }
+        },
+        {
+            "id": 8588117012661090,
+            "definition": {
+                "title": "SEDAI EVENTS",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1d"
+                },
+                "type": "event_timeline",
+                "query": "SEDAI",
+                "tags_execution": "and"
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 12,
+                "height": 2
+            }
+        },
+        {
+            "id": 2736311318481268,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.memorysize{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "events": [
+                    {
+                        "q": "serverless_auto_optimization_completed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 1692659810988030,
+            "definition": {
+                "title": "SEDAI serverless_auto_optimization_completed EVENTS STREAM",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "event_stream",
+                "query": "tags:\"serverless_auto_optimization_completed\"",
+                "tags_execution": "and",
+                "event_size": "s"
+            },
+            "layout": {
+                "x": 5,
+                "y": 4,
+                "width": 7,
+                "height": 4
+            }
+        },
+        {
+            "id": 160513272530810,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.duration{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "events": [
+                    {
+                        "q": "tags:serverless_auto_optimization_completed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 5,
+                "height": 2
+            }
+        },
+        {
+            "id": 2941510625283156,
+            "definition": {
+                "title": "Errors by Function",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}.as_count()",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 976163568285184,
+            "definition": {
+                "title": "Tracing Test Client Timeout Graph",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.timeout{functionname:tracing-test-client}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "events": [
+                    {
+                        "q": "tags:\"tracing-test-client\"",
+                        "tags_execution": "and"
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 4,
+                "y": 8,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 1386061149298212,
+            "definition": {
+                "title": "Throttled Invocation by Function",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.throttles{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}.as_count()",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ],
+                "events": [
+                    {
+                        "q": "tags:\"serverless_auto_optimization_completed\"",
+                        "tags_execution": "and"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 8,
+                "y": 8,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 7,
+            "definition": {
+                "title": "Slowest functions",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:aws.lambda.duration.p95{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}, 20, 'mean', 'desc')"
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 4,
+                "is_column_break": true
+            }
+        },
+        {
+            "id": 9,
+            "definition": {
+                "title": "Functions with most errors",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:aws.lambda.errors{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}.as_count(), 20, 'sum', 'desc')",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 0
+                            }
+                        ]
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 2,
+            "definition": {
+                "title": "Top invoked functions",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(sum:aws.lambda.invocations{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}.as_count(), 100, 'sum', 'desc')"
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 8,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 18,
+            "definition": {
+                "title": "Max execution time / timeout",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:aws.lambda.duration.maximum{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}/(avg:aws.lambda.timeout{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}*1000),10,'max','desc')",
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_red",
+                                "value": 0.9
+                            },
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_yellow",
+                                "value": 0.7
+                            },
+                            {
+                                "comparator": "<",
+                                "palette": "white_on_green",
+                                "value": 0.7
+                            }
+                        ]
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 8,
+            "definition": {
+                "title": "Total execution time",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "q": "top(avg:aws.lambda.duration.sum{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}, 20, 'sum', 'desc')"
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 4,
+                "y": 4,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 1,
+            "definition": {
+                "title": "p95 execution time by function",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.duration.p95{$aws_account,$region,$function,$resource,$executedVersion} by {functionname}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "include_zero": true,
+                    "scale": "linear",
+                    "label": "",
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "events": [
+                    {
+                        "q": "Sedai"
+                    }
+                ],
+                "custom_links": []
+            },
+            "layout": {
+                "x": 8,
+                "y": 4,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 1157533675257068,
+            "definition": {
+                "title": "",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:aws.lambda.errors{*}.as_count()",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 8,
+                "y": 6,
+                "width": 4,
+                "height": 2
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "aws_account",
+            "default": "*",
+            "prefix": "aws_account",
+            "available_values": []
+        },
+        {
+            "name": "region",
+            "default": "*",
+            "prefix": "region",
+            "available_values": []
+        },
+        {
+            "name": "function",
+            "default": "getquote",
+            "prefix": "functionname",
+            "available_values": []
+        },
+        {
+            "name": "resource",
+            "default": "*",
+            "prefix": "resource",
+            "available_values": []
+        },
+        {
+            "name": "executedVersion",
+            "default": "*",
+            "prefix": "executedversion",
+            "available_values": []
+        }
+    ],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "template_variable_presets": [
+        {
+            "name": "Sedai Dashboard",
+            "template_variables": [
+                {
+                    "name": "function",
+                    "value": "*"
+                }
+            ]
+        },
+        {
+            "name": "Timeboard(Tracing Test Client)",
+            "template_variables": [
+                {
+                    "name": "function",
+                    "value": "*"
+                }
+            ]
+        },
+        {
+            "name": "functionname:getquote",
+            "template_variables": []
+        }
+    ],
+    "reflow_type": "fixed",
+    "id": "zru-wn8-gu9"
+}
