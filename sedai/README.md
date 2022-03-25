@@ -1,7 +1,7 @@
 
 ## Overview
 
-Sedai is an autonomous cloud platform that proactively manages production environments to prevent issues and improve availability, performance, and cloud costs. As an intelligent autopilot for SREs, Sedai independently detects, prioritizes, and analyzes monitoring data for opportunities to safely and autonomously act in production — all without thresholds or human intervention. Learn more and try for free at [Sedai.io][1].
+Sedai is an autonomous cloud platform that proactively manages production environments to prevent issues and improve availability, performance, and cloud costs. As an intelligent autopilot for SREs, Sedai independently detects, prioritizes, and analyzes monitoring data for opportunities to safely and autonomously act in production - all without thresholds or human intervention. Learn more and try for free at [Sedai.io][1].
 
 Enable this integration to receive notifications in Datadog about actions Sedai autonomously executes in your production environments.
 
