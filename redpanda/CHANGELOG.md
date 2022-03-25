@@ -1,5 +1,9 @@
 # CHANGELOG - redpanda
 
+## 1.1.1 / 2022-03-25
+
+* [Fixed] Fix dashboard logo. See [#1251](https://github.com/DataDog/integrations-extras/pull/1251).
+
 ## 1.1.0 / 2022-03-24
 
 * [Added] Add RP consumer group offset. See [#1237](https://github.com/DataDog/integrations-extras/pull/1237). Thanks [bpraseed](https://github.com/bpraseed).
