@@ -43,7 +43,7 @@ Komodor supports three types of integrations with Datadog.
 This [initial integration][3] will allow Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
 
 #### Datadog Webhook Integration
-Datadog [Webhook integration][4] allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
+The Datadog [Webhook integration][4] allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
 
 #### Datadog Monitor Notification
 Adding a Komodor [dynamic link][5] to DataDog Monitor Notifications will generate a direct link to the relevant service in Komodor. You will see the alert link in your Alerting provider connected to DataDog.
