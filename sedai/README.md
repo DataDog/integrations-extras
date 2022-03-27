@@ -1,4 +1,3 @@
-
 ## Overview
 
 Sedai is an autonomous cloud platform that proactively manages production environments to prevent issues and improve availability, performance, and cloud costs. As an intelligent autopilot for SREs, Sedai independently detects, prioritizes, and analyzes monitoring data for opportunities to safely and autonomously act in production - all without thresholds or human intervention. Learn more and try for free at [Sedai.io][1].
@@ -32,3 +31,4 @@ For help with this integration or to view a Sedai demo, email [contact@support.i
 [1]: https://www.sedai.io
 [2]: mailto:support@sedai.io
 [3]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
+
