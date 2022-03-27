@@ -34,7 +34,7 @@ Manage your ever-growing system complexity, change frequency and alert volume wi
 
 ## Setup
 
-Once signed up as a customer or with a [trial account][1], you can easily install the Komodor pod-based agent on each Kubernetes luster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
+Once signed up as a customer or with a [trial account][1], you can easily install the Komodor pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
 
 ### Datadog integration
 Komodor supports three types of integrations with Datadog.
