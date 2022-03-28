@@ -25,7 +25,7 @@ Detect and resolve issues to prevent escalation. Enable any on-call developer to
 
 Once logged into the Komodor platform, you can easily install our pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
 
-Once the agent is install you can begin with the Datadog integrations listed below, when they're completed you can enrichen deployment and service metadata with dynamic links and annotations listed below.
+Once the agent is installed you can begin setting up the Datadog integrations listed below. Once setup is completed, you can enrich deployment and service metadata with dynamic links and annotations as described below.
 
 ### Datadog integration
 Komodor supports three types of integrations with Datadog.
