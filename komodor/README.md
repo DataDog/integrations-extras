@@ -58,7 +58,7 @@ Komodor will display Datadog events in the Komodor Service and Events timelines.
 
 ## Support
 
-For more information and a live demo please [contact us][1].
+For more information please [visit our website][1] or contact us at [].
 
 [1]: https://komodor.com/sign-up/
 [2]: https://docs.komodor.com/Learn/Komodor-Agent.html
