@@ -14,11 +14,9 @@ As a prerequisite, you should be signed up by your SaaS vendor for Apptrail.
 
 To get started, create a delivery trail in the Apptrail Portal and choose Datadog as the configured destination.
 
-For a complete guide and set of steps to follow, consult the [Apptrail Datadog delivery documentation][2].
-
 ### Steps
 
-View the [Creating a trail][4] documentation for overall documentation on creating trails.
+View the [Creating a trail][4] documentation for general documentation on creating trails.
 
 1. Navigate to the [**Trails**][5] page in the Apptrail Portal.
 2. Click the **Create a new trail** button at the top right.
@@ -34,6 +32,8 @@ To view Apptrail audit logs in Datadog:
 
 1. Navigate to **Logs** > **Livetail**.
 2. See Apptrail audit logs by setting `source:apptrail`.
+
+For more details, take a look at the [Apptrail Datadog delivery documentation][2].
 
 ## Data Collected
 
