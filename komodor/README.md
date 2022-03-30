@@ -13,13 +13,9 @@ Make the knowledge and expertise that has traditionally been held by only a few,
 Gain the K8s visibility you are lacking. See your deployments on a timeline with the relevant information: what changed, what code was pushed and by whom.
 
 ### Track your system end-to-end
-View data from your Git, config, infra, alerting and other tools, in one centralized and easy-to-understand display, easily link to Datadog metrics with dynamic deployment links that take you directly to the data you need.
+View data from your Git, config maps, infrastruture, alerting and other tooling such as Datadog, in one centralized and easy-to-understand display, easily link to Datadog metrics with dynamic deployment links that take you directly to the matrics you need.
 
-### Uncovering the context
-Troubleshoot your microservices based on the most relevant context, connections and dependencies.
-
-### Increase performance and availability
-Detect and resolve issues to prevent escalation. Enable any on-call developer to quickly uncover root causes and get the right teams involved for rapid resolution.
+Troubleshoot your microservices based on the most relevant context, connections and service dependencies detected in Datadog.
 
 ## Setup
 
