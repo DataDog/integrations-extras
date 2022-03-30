@@ -27,7 +27,7 @@ Once the agent is installed you can begin setting up the Datadog integrations li
 Komodor supports three types of integrations with Datadog.
 
 #### Komodor platform integration 
-This [initial integration][3] will allow Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
+This [initial integration][3] allows Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
 
 #### Datadog Webhook Integration
 The Datadog [Webhook integration][4] allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
