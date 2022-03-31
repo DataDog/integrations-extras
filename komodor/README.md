@@ -8,7 +8,8 @@ Komodor tracks changes across your entire K8s stack, analyzes their ripple effec
 
 ## Setup
 
-Once logged into the Komodor platform, you can easily install our pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
+1. Log onto the Komodor platform {add a link}.
+2. Install the Komodor pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize. For more information, see the [Komodor docs][2] for installing the agent.
 
 3. Once the agent is installed, set up the Datadog integrations listed below:
     - [Komodor platform integration][3] -  This initial integration allows Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
