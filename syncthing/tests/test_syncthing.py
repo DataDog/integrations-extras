@@ -1,5 +1,3 @@
-
-
 from typing import Any, Callable, Dict
 
 from datadog_checks.base import AgentCheck
