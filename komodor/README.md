@@ -10,7 +10,11 @@ Komodor tracks changes across your entire K8s stack, analyzes their ripple effec
 
 Once logged into the Komodor platform, you can easily install our pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize - here is a [quick overview][2] of installing the agent.
 
-Once the agent is installed you can begin setting up the Datadog integrations listed below. Once setup is completed, you can enrich deployment and service metadata with dynamic links and annotations as described below.
+3. Once the agent is installed, set up the Datadog integrations listed below:
+    - [Komodor platform integration][3] -  This initial integration allows Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
+    - [Datadog Webhook Integration][4] - This integrations allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
+    - Datadog Monitor Notification - Adding a Komodor [dynamic link][5] to Datadog Monitor Notifications will generate a direct link to the relevant service in Komodor. You will see the alert link in your Alerting provider connected to Datadog.
+4. Once you set up the integrations, enrich the Komodor service and deployment screens by adding links to relevant Datadog APM Dashboards as well as dynamic links to specific service metrics and time ranges within Datadog. This can be done easily with Kubernetes [annotations][6].
 
 ### Datadog integration
 Komodor supports three types of integrations with Datadog.
