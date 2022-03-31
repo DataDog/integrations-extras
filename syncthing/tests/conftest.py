@@ -8,4 +8,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {}
+    return {"url": "http://localhost/rest/", "api_key": ""}

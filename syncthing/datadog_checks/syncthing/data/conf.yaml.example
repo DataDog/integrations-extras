@@ -13,7 +13,17 @@ init_config:
 #
 instances:
 
-  -
+    ## @param url - string - required
+    ## The URL where Synthing accepts HTTP requests.
+    #
+  - url: http://localhost:8384/rest/
+
+    ## @param api_key - string - required
+    ## Synthing API key.
+    ## The API key can be generated in the GUI, or set in the configuration/gui/apikey element in the configuration file. 
+    #
+    api_key: API-KEY 
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
