@@ -8,7 +8,7 @@ Komodor tracks changes across your entire K8s stack, analyzes their ripple effec
 
 ## Setup
 
-1. Log onto the Komodor platform {add a link}.
+1. Log onto the Komodor platform [here][7].
 2. Install the Komodor pod-based agent on each Kubernetes cluster by using a Helm chart or Kustomize. For more information, see the [Komodor docs][2] for installing the agent.
 
 3. Once the agent is installed, set up the Datadog integrations listed below:
@@ -17,38 +17,9 @@ Komodor tracks changes across your entire K8s stack, analyzes their ripple effec
     - Datadog Monitor Notification - Adding a Komodor [dynamic link][5] to Datadog Monitor Notifications will generate a direct link to the relevant service in Komodor. You will see the alert link in your Alerting provider connected to Datadog.
 4. Once you set up the integrations, enrich the Komodor service and deployment screens by adding links to relevant Datadog APM Dashboards as well as dynamic links to specific service metrics and time ranges within Datadog. This can be done easily with Kubernetes [annotations][6].
 
-### Datadog integration
-Komodor supports three types of integrations with Datadog.
-
-#### Komodor platform integration 
-This [initial integration][3] allows Datadog Monitor Alerts to be available in Komodor and will suggest related services based on service dependencies detected in Datadog. 
-
-#### Datadog Webhook Integration
-The Datadog [Webhook integration][4] allows Komodor to receive alerts from Datadog Monitors. You will see all alerts in the Komodor Service View.
-
-#### Datadog Monitor Notification
-Adding a Komodor [dynamic link][5] to Datadog Monitor Notifications will generate a direct link to the relevant service in Komodor. You will see the alert link in your Alerting provider connected to Datadog.
-
-### Configure service and deployment annotations
-Enrich the Komodor service and deployment screens by adding links to relevant Datadog APM Dashboards as well as dynamic links to specific service metrics and time ranges within Datadog. This can be done easily with Kubernetes [annotations][6].
-
-## Data Collected
-
-### Log collection
-Komodor does not send any logs to Datadog.
-
-### Metrics
-Komodor does not include any metrics.
-
-### Service Checks
-Komodor does not include any service checks.
-
-### Events
-Komodor will display Datadog events in the Komodor Service and Events timelines.
-
 ## Support
 
-For more information please [visit our website][1] or contact us at [].
+For more information please [visit our website][1] or contact us [here][8].
 
 [1]: https://komodor.com/sign-up/
 [2]: https://docs.komodor.com/Learn/Komodor-Agent.html
@@ -56,3 +27,5 @@ For more information please [visit our website][1] or contact us at [].
 [4]: https://docs.komodor.com/Integrations/datadog-webhook.html
 [5]: https://docs.komodor.com/Integrations/Datadog-Monitor-Notification.html
 [6]: https://docs.komodor.com/Learn/Annotations.html
+[7]: https://app.komodor.com/
+[8]: https://komodor.com/contact-us/
