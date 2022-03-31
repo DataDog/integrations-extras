@@ -30,10 +30,10 @@ View the [Creating a trail][4] documentation for general documentation on creati
 
 To view Apptrail audit logs in Datadog:
 
-1. Navigate to **Logs** > **Livetail**.
+1. Navigate to **Logs** > **Live Tail**.
 2. See Apptrail audit logs by setting `source:apptrail`.
 
-For more details, take a look at the [Apptrail Datadog delivery documentation][2].
+For more details, read the [Apptrail Datadog delivery documentation][2].
 
 ## Data Collected
 
@@ -53,9 +53,9 @@ Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailt
 - [Apptrail event delivery trails][11]
 
 [1]: https://apptrail.com
-[2]: https://apptrail.com/docs/consumers/event-delivery/integrations/datadog
+[2]: https://apptrail.com/docs/consumers/guide/event-delivery/integrations/datadog
 [3]: https://docs.datadoghq.com/help/
-[4]: https://apptrail.com/docs/consumers/guide/working-with-trails#creating-a-trail
+[4]: https://apptrail.com/docs/consumers/guide/event-delivery/working-with-trails#creating-a-trail
 [5]: https://portal.apptrail.com/trails
 [6]: https://docs.datadoghq.com/getting_started/site/
 [7]: https://app.datadoghq.com/organization-settings/api-keys
