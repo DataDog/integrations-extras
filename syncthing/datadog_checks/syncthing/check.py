@@ -69,8 +69,8 @@ class SyncthingCheck(AgentCheck):
             self.gauge('folder.need.files', int(s['needFiles']), tags=ft)
             self.gauge('folder.need.total_items', int(s['needTotalItems']), tags=ft)
 
-            self.gauge('folder.errors', int(s['errors']), tags=ft)
-            self.gauge('folder.pull_errors', int(s['pullErrors']), tags=ft)
+            self.count('folder.errors', int(s['errors']), tags=ft)
+            self.count('folder.pull_errors', int(s['pullErrors']), tags=ft)
             self.gauge('folder.bytes', int(s['inSyncBytes']), tags=ft)
             self.gauge('folder.files', int(s['inSyncFiles']), tags=ft)
 
@@ -79,7 +79,7 @@ class SyncthingCheck(AgentCheck):
         count = 0
         if res is not None:
             count = len(res)
-        self.gauge('errors', count, tags=tags)
+        self.count('errors', count, tags=tags)
 
     def check(self, _):
         # type: (Any) -> None

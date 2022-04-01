@@ -198,6 +198,30 @@
                     }
                 ]
             }
+        },
+        {
+            "id": 3357010561821455,
+            "definition": {
+                "title": "Hosts",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "hostmap",
+                "requests": {
+                    "fill": {
+                        "q": "avg:syncthing.connections.connected{field:apps:syncthing} by {host}"
+                    }
+                },
+                "node_type": "host",
+                "no_metric_hosts": true,
+                "no_group_hosts": true,
+                "scope": [
+                    "field:apps:syncthing"
+                ],
+                "style": {
+                    "palette": "green_to_orange",
+                    "palette_flip": false
+                }
+            }
         }
     ],
     "template_variables": [],
