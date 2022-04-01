@@ -208,6 +208,9 @@
                 "type": "hostmap",
                 "requests": {
                     "fill": {
+                        "q": "max:syncthing.errors{field:apps:syncthing} by {host}"
+                    },
+                    "size": {
                         "q": "avg:syncthing.connections.connected{field:apps:syncthing} by {host}"
                     }
                 },
