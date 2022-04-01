@@ -4,9 +4,9 @@
   "manifest_version": "1.0.0",
   "name": "syncthing",
   "metric_prefix": "syncthing.",
-  "metric_to_check": "",
+  "metric_to_check": "syncthing.connections.count",
   "creates_events": false,
-  "short_description": "",
+  "short_description": "Track overall statistics from your Syncthing instance",
   "guid": "1e29ccc9-cec4-4cf5-b566-2f71021ad315",
   "support": "contrib",
   "supported_os": [
@@ -14,19 +14,26 @@
     "mac_os",
     "windows"
   ],
-  "public_title": "Syncthing",
+  "public_title": "Datadog-Syncthing Integration",
   "categories": [
-    ""
+    "collaboration"
   ],
   "type": "check",
-  "is_public": false,
+  "is_public": true,
   "integration_id": "syncthing",
   "assets": {
     "configuration": {
       "spec": "assets/configuration/spec.yaml"
     },
-    "dashboards": {},
-    "monitors": {},
+    "dashboards": {
+        "Syncthing Overview": "assets/dashboards/syncthing_overview.json"
+    },
+    "monitors": {
+        "[Syncthing] Disconnected": "syncthing/assets/monitors/syncthing_disconnected.json",
+        "[Syncthing] Out of sync": "syncthing/assets/monitors/syncthing_out_of_sync.json",
+        "[Syncthing] System error": "syncthing/assets/monitors/syncthing_system_error.json",
+        "[Syncthing] Folder error": "syncthing/assets/monitors/syncthing_folder_error.json"
+    },
     "saved_views": {},
     "service_checks": "assets/service_checks.json",
     "logs": {},

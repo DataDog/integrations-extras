@@ -1,0 +1,23 @@
+{
+	"id": 5093191,
+	"name": "Syncthing error on {{host.name}} in {{folder.name}}",
+	"type": "query alert",
+	"query": "sum(last_5m):sum:syncthing.folder.errors{*} by {host,folder} > 0",
+	"message": "@all",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"silenced": {},
+		"include_tags": true,
+		"thresholds": {
+			"critical": 0
+		},
+		"require_full_window": false,
+		"new_host_delay": 300,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"escalation_message": ""
+	},
+	"priority": null,
+	"restricted_roles": null
+}

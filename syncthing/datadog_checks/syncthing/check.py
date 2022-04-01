@@ -84,8 +84,6 @@ class SyncthingCheck(AgentCheck):
     def check(self, _):
         # type: (Any) -> None
 
-        # Perform HTTP Requests with our HTTP wrapper.
-        # More info at https://datadoghq.dev/integrations-core/base/http/
         try:
             tags = self.__get_tags()
             self.__check_connections(tags)
@@ -121,21 +119,4 @@ class SyncthingCheck(AgentCheck):
             self.service_check('can_connect', AgentCheck.CRITICAL, message=str(e))
             raise
 
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge('test', 1.23, tags=['foo:bar'])
-
-        # This is how you use the persistent cache. This cache file based and persists across agent restarts.
-        # If you need an in-memory cache that is persisted across runs
-        # You can define a dictionary in the __init__ method.
-        # self.write_persistent_cache('key', 'value')
-        # value = self.read_persistent_cache('key')
-
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check('can_connect', AgentCheck.OK)
-
-        # If it didn't then it should send a critical service check
         self.service_check('can_connect', AgentCheck.CRITICAL)

@@ -1,0 +1,27 @@
+{
+	"id": 5086116,
+	"name": "Syncthing out of sync on {{host.name}}",
+	"type": "query alert",
+	"query": "min(last_30m):sum:syncthing.folder.need.files{host:*} by {host} > 0",
+	"message": "@all",
+	"tags": [],
+	"options": {
+		"notify_audit": true,
+		"renotify_statuses": [
+			"alert",
+			"no data"
+		],
+		"silenced": {},
+		"include_tags": true,
+		"thresholds": {
+			"critical": 0
+		},
+		"require_full_window": true,
+		"new_host_delay": 300,
+		"notify_no_data": false,
+		"renotify_interval": 30,
+		"escalation_message": ""
+	},
+	"priority": null,
+	"restricted_roles": null
+}
