@@ -141,7 +141,7 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     aggregator.assert_metric('syncthing.errors', tags=gtags)
 
     for f in ['folder1', 'folder2']:
-        ftags = gtags.copy()
+        ftags = list(gtags)
         ftags.append('folder:' + f)
         aggregator.assert_metric('syncthing.folder.bytes', tags=ftags)
         aggregator.assert_metric('syncthing.folder.errors', tags=ftags)

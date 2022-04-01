@@ -1,8 +1,7 @@
-from json import JSONDecodeError
 from typing import Any
-from urllib.parse import urljoin
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+from simplejson import JSONDecodeError
 
 from datadog_checks.base import AgentCheck
 
@@ -19,7 +18,7 @@ class SyncthingCheck(AgentCheck):
         self.api_key = self.instance.get('api_key')
 
     def __get_json(self, url_path):
-        response = self.http.get(urljoin(self.url, url_path), headers={'X-API-Key': self.api_key})
+        response = self.http.get(self.url + url_path, headers={'X-API-Key': self.api_key})
         response.raise_for_status()
         return response.json()
 
