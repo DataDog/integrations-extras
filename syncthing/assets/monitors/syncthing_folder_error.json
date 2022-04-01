@@ -1,10 +1,11 @@
 {
-	"id": 5093191,
 	"name": "Syncthing error on {{host.name}} in {{folder.name}}",
 	"type": "query alert",
 	"query": "sum(last_5m):sum:syncthing.folder.errors{*} by {host,folder} > 0",
 	"message": "@all",
-	"tags": [],
+	"tags": [
+		"integration:syncthing"
+	],
 	"options": {
 		"notify_audit": false,
 		"silenced": {},
@@ -19,5 +20,8 @@
 		"escalation_message": ""
 	},
 	"priority": null,
-	"restricted_roles": null
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing has folder errors"
+	}
 }

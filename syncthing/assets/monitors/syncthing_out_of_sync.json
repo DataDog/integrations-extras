@@ -1,10 +1,11 @@
 {
-	"id": 5086116,
 	"name": "Syncthing out of sync on {{host.name}}",
 	"type": "query alert",
 	"query": "min(last_30m):sum:syncthing.folder.need.files{host:*} by {host} > 0",
 	"message": "@all",
-	"tags": [],
+	"tags": [
+		"integration:syncthing"
+	],
 	"options": {
 		"notify_audit": true,
 		"renotify_statuses": [
@@ -23,5 +24,8 @@
 		"escalation_message": ""
 	},
 	"priority": null,
-	"restricted_roles": null
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing has files to sync more then half an hour"
+	}
 }

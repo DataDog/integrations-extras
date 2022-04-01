@@ -1,10 +1,11 @@
 {
-	"id": 5086083,
 	"name": "Syncthing disconnected on {{host.name}}",
 	"type": "query alert",
 	"query": "avg(last_5m):avg:syncthing.connections.connected{host:*} by {host} < 1",
 	"message": "@all",
-	"tags": [],
+	"tags": [
+		"integration:syncthing"
+	],
 	"options": {
 		"notify_audit": false,
 		"silenced": {},
@@ -20,5 +21,8 @@
 		"no_data_timeframe": 10
 	},
 	"priority": null,
-	"restricted_roles": null
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing has no active connections"
+	}
 }

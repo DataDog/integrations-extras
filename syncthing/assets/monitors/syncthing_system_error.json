@@ -1,10 +1,11 @@
 {
-	"id": 5093187,
 	"name": "Syncthing system error on {{host.name}}",
 	"type": "query alert",
 	"query": "sum(last_5m):sum:syncthing.errors{host:*} by {host} > 0",
 	"message": "@all",
-	"tags": [],
+	"tags": [
+		"integration:syncthing"
+	],
 	"options": {
 		"notify_audit": false,
 		"silenced": {},
@@ -19,5 +20,8 @@
 		"escalation_message": ""
 	},
 	"priority": null,
-	"restricted_roles": null
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing has system errors"
+	}
 }
