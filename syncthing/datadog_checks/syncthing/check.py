@@ -97,7 +97,6 @@ class SyncthingCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message='Request timeout: {}, {}'.format(self.url, e),
             )
-            raise
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
             self.service_check(
@@ -105,7 +104,6 @@ class SyncthingCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message='Request failed: {}, {}'.format(self.url, e),
             )
-            raise
 
         except JSONDecodeError as e:
             self.service_check(
@@ -113,10 +111,9 @@ class SyncthingCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message='JSON Parse failed: {}, {}'.format(self.url, e),
             )
-            raise
 
         except ValueError as e:
             self.service_check('can_connect', AgentCheck.CRITICAL, message=str(e))
-            raise
 
-        self.service_check('can_connect', AgentCheck.CRITICAL)
+        except BaseException as e:
+            self.service_check('can_connect', AgentCheck.CRITICAL, message=str(e))

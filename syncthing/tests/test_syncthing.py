@@ -165,10 +165,11 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_service_check('syncthing.can_connect', SyncthingCheck.OK)
 
 
-# def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
-#    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#    check = SyncthingCheck('syncthing', {}, [instance])
-#    dd_run_check(check)
-#   # aggregator.assert_service_check('syncthing.can_connect', SyncthingCheck.CRITICAL)
+def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance, requests_mock):
+    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+    check = SyncthingCheck('syncthing', {}, [instance])
+    dd_run_check(check)
+    aggregator.assert_service_check('syncthing.can_connect', SyncthingCheck.CRITICAL)
