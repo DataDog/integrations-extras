@@ -40,8 +40,8 @@ setup(
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-core',
     # Author details
-    author='Datadog',
-    author_email='packages@datadoghq.com',
+    author='Netnology',
+    author_email='info@netnology.io',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
