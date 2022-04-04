@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors SDWAN controllers using a SDWAN platorm provided by [Netnology][1] through the Datadog Agent. Currently only Cisco vManage devices are supported.
+This check monitors SDWAN controllers through the Datadog Agent using a SDWAN platorm provided by [Netnology][1]. Currently only Cisco vManage devices are supported.
 
 ## Setup
 
