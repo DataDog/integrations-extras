@@ -2,11 +2,15 @@
 
 ## Overview
 
-This check monitors SDWAN controllers through the Datadog Agent using a SDWAN platorm provided by [Netnology][1]. Currently only Cisco vManage devices are supported.
+This check monitors SDWAN controllers through the Datadog Agent using a SDWAN platform provided by [Netnology][1]. The
+check enables users to monitor the network health and performance of multiple SDWAN controllers simultaneously. Collected
+information can then be used for aggregated dashboarding and notifications on configured monitors/alerts.
+
+Currently, only Cisco vManage devices are supported as SDWAN controller targets.
 
 ## Setup
 
-The nn_sdwan check is not included in the [Datadog Agent][2] package, so you need to install it manually.
+The Netnology SDWAN integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
 
 ### Installation
 
@@ -38,7 +42,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Events
 
-The nn-sdwan integration does not include any events.
+The Netnology SDWAN integration does not include any events.
 
 ### Service Checks
 
