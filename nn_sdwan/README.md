@@ -22,7 +22,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 
 ### Configuration
 
-1. Edit the `nn_sdwan.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your nn_sdwan performance data. See the [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
+1. Edit the `nn_sdwan.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Netnology SDWAN performance data. See [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
 
 2. [Restart the Agent][5].
 
