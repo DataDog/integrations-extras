@@ -41,7 +41,7 @@ To install the Shoreline Agent, follow one of three methods:
 
 #### Configuring the app
 
-To configure the Datadog-Shoreline App in Shoreline, you need your Datadog API and application keys. 
+To configure the Datadog-Shoreline App in Shoreline, you need your Datadog API and application keys and also, to define the Dashboard name and Webhook name.
 
 For example:
 ![integration_example](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png)
