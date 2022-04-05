@@ -115,7 +115,7 @@ A Zscaler Cloud NSS subscription is required.
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this check.
+Zscaler does not include any metrics.
 
 ### Service Checks
 
