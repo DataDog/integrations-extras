@@ -8,31 +8,15 @@ EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensiti
 
 ### Usage
 
-The EverSQL integration has two options:
+Slow SQL queries located in the Datadog Database monitoring dashboard can be optimized instantly using EverSQL, by easily copying the slow SQL query from Datadog and pasting it directly into EverSQL's [SQL Optimization][2] process.
 
-- A manual method, where you copy your queries from Datadog dashboard and paste them to EverSQL’s [optimize a query][2] action.
-- An automatic method, where you add the EverSQL Sensor to your [RDS][3] or your [on-prem database][4].
-
-### Supported Databases
-MySQL, PostgreSQL, Aurora,Cloud SQL, Azure DB, Percona, MariaDB.
+### Supported Databases: 
+MySQL, PostgreSQL, AWS Aurora, Google Cloud SQL, Azure DB, Percona, MariaDB.
 
 ## Setup
 
 ### Configuration
-In order to use the manual workflow, just start at [EverSQL][2].
-
-In order to enable the automatic workflow, please follow these steps:
-
-**Step 1:** Enable the slow query log
-The performance sensor requires slow query logs to be enabled.
-Click here for instructions if you don't have them enabled.
-
-**Step 2**: Install the performance sensor
-If you are using RDS, You can now deploy the performance sensor from the [Amazon Serverless Application repository][3].
-Your personal API key (required as part of the installation) can be found [here][5].
-
-To install the performance sensor on other environments, please run the following these [steps][6].
-
+To speed up slow queries identified by Datadog, navigate to the Datadog Database monitoring dashboard and locate the slow SQL queries table. Once you identify the SQL query you'd like to speed up, copy it from Datadog and paste it directly into [EverSQL][2] for optimization.
 
 ## Data Collected
 
@@ -50,13 +34,8 @@ EverSQL does not include any events.
 
 ## Support
 
-Need help? Contact [EverSQL support][7].
+Need help? Contact [EverSQL support][3].
 
 [1]: https://www.eversql.com/
 [2]: https://www.eversql.com/sql-query-optimizer/ 
-[3]: https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-2:196422412051:applications~EverSQL-Performance-Sensor 
-
-[4]: https://www.eversql.com/sensors/
-[5]: https://www.eversql.com/edit-user-profile/ 
-[6]: https://www.eversql.com/sensors/ 
-[7]: https://eversql.freshdesk.com/support/tickets/new 
+[3]: https://eversql.freshdesk.com/support/tickets/new 
