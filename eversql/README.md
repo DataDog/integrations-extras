@@ -6,10 +6,7 @@
 - Database storage is out of space and looking for redundant indexes that you can delete?
 **
 
-[EverSQL][1] is the fastest way to automatically speed up your database and optimize SQL queries.
-80,000+ developers, DBAs, and DevOps engineers use EverSQL for automatic SQL tuning and indexing.
-Our customers report their queries are 5X faster on average, just minutes after getting started.
-Save your team 35 weekly hours on average by optimizing your SQL queries online for free.
+[EverSQL][1] is the fastest way to automatically speed up your database and optimize SQL queries, providing automatic SQL tuning and indexing for developers, DBAs, and DevOps engineers.
 
 EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensitive data.
 
