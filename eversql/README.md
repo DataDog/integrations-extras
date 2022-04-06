@@ -1,4 +1,4 @@
-# EverSQL - Your Database, Just Faster™
+# EverSQL Integration
 
 ## Overview
 - Looking to speed up slow SQL queries?
