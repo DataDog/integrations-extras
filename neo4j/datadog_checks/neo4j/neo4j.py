@@ -74,7 +74,7 @@ class Neo4jCheck(PrometheusCheck):
         for metric in metrics:
             metric.name = metric.name.replace('neo4j_', '', 1)
             db_name = GLOBAL_DB_NAME
-            if config.neo4j_version.startswith("4."):
+            if config.neo4j_version.startswith("4.") or config.neo4j_version.startswith("5."):
                 neo4j_db = self._get_db_for_metric(dbs=config.neo4j_dbs, metric_name=metric.name)
                 if neo4j_db:
                     db_name = neo4j_db
