@@ -13,7 +13,7 @@ The EverSQL integration has two options:
 - A manual method, where you copy your queries from Datadog dashboard and paste them to EverSQL’s [optimize a query][2] action.
 - An automatic method, where you add the EverSQL Sensor to your [RDS][3] or your [on-prem database][4].
 
-### Supported Databases: 
+### Supported Databases
 MySQL, PostgreSQL, Aurora,Cloud SQL, Azure DB, Percona, MariaDB.
 
 ## Setup
