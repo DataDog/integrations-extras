@@ -1,16 +1,10 @@
-# EverSQL Integration
+# EverSQL
 
 ## Overview
-- Looking to speed up slow SQL queries?
-- Reached 100% CPU on your database, and you are unsure how to fix it?
-- Database storage is out of space and looking for redundant indexes that you can delete?
-**
 
 [EverSQL][1] is the fastest way to automatically speed up your database and optimize SQL queries, providing automatic SQL tuning and indexing for developers, DBAs, and DevOps engineers.
 
 EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensitive data.
-
-![snapshot][8]
 
 ### Usage
 
@@ -34,10 +28,10 @@ The performance sensor requires slow query logs to be enabled.
 Click here for instructions if you don't have them enabled.
 
 **Step 2**: Install the performance sensor
-If you are using RDS, You can now deploy the performance sensor from the [Amazon Serverless Application repository][4].
-Your personal API key (required as part of the installation) can be found [here][5]
+If you are using RDS, You can now deploy the performance sensor from the [Amazon Serverless Application repository][3].
+Your personal API key (required as part of the installation) can be found [here][5].
 
-To install the performance sensor on other environment, please run the following these [steps][6]
+To install the performance sensor on other environments, please run the following these [steps][6].
 
 
 ## Data Collected
@@ -54,17 +48,15 @@ EverSQL does not include any service checks.
 
 EverSQL does not include any events.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [EverSQL support][7].
 
 [1]: https://www.eversql.com/
 [2]: https://www.eversql.com/sql-query-optimizer/ 
-[3]: https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-2:196422412051:applications~EverSQL-Performance-Sensor
+[3]: https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-2:196422412051:applications~EverSQL-Performance-Sensor 
 
-[4]: https://serverlessrepo.aws.amazon.com/applications/arn:aws:serverlessrepo:us-east-2:196422412051:applications~EverSQL-Performance-Sensor
-
+[4]: https://www.eversql.com/sensors/
 [5]: https://www.eversql.com/edit-user-profile/ 
 [6]: https://www.eversql.com/sensors/ 
 [7]: https://eversql.freshdesk.com/support/tickets/new 
-[8]: https://www.eversql.com/wp-content/uploads/2022/04/Datadog-EverSQL-SQL-Optimization.png
