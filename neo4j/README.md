@@ -55,9 +55,9 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://neo4j.com/
 [2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
-[3]: https://github.com/DataDog/integrations-core/blob/master/neo4j/datadog_checks/neo4j/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/datadog_checks/neo4j/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-core/blob/master/neo4j/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
 [7]: https://docs.datadoghq.com/help
 [8]: https://app.datadoghq.com/account/settings#agent
