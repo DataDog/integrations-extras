@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Syncthing][1].
+Syncthing synchronizes files between two or more computers in real time. This integration allows you to monitor [Syncthing][1] using Datadog.
 
 ## Setup
 
