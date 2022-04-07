@@ -14,9 +14,9 @@ The Datazoom integration emits logs to Datadog.
 
 - Visit Datazoom's integation [documentation][1].
 
-### Validation
+### Dashboard
 
-Datazoom logs are available in Datadog for querying.
+Datazoom logs Dashboard is available [here](dashboard/lists/preset/3?q=datazoom). 
 
 ## Data Collected
 
@@ -38,4 +38,3 @@ Need help? Contact [Datadog support][2].
 
 [1]: https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog
 [2]: https://docs.datadoghq.com/help/
-
