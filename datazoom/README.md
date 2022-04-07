@@ -16,21 +16,21 @@ The Datazoom integration emits logs to Datadog.
 
 ### Dashboard
 
-Datazoom logs Dashboard is available [here](../dashboard/lists/preset/3?q=datazoom). 
+Datazoom logs dashboard is available [here](../dashboard/lists/preset/3?q=datazoom). 
 
 ## Data Collected
 
 ### Metrics
 
-datazoom does not include any metrics.
+Datazoom does not include any metrics.
 
 ### Service Checks
 
-datazoom does not include any service checks.
+Datazoom does not include any service checks.
 
 ### Events
 
-datazoom does not include any events.
+Datazoom does not include any events.
 
 ## Troubleshooting
 
