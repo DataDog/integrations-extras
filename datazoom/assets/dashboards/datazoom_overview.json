@@ -1,45 +1,26 @@
 {
   "title": "Datazoom Overview",
-  "description": "",
+  "description": "These  widgets are examples that allow you to gain insights about your viewer's video experience. Easily send data from your video player to Datadog and start to get a better idea of your viewer's streaming experience.\n\n**Configure your Datadog Collector here** — [Collector setup](https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog)\n\n**Learn more about metrics here** — [Metrics Encyclopedia](https://help.datazoom.io/hc/en-us/sections/360010671291-Metrics-Encyclopedia)\n\n**Learn more about Datazoom here** — [datazoom.io](https://www.datazoom.io/)",
   "widgets": [
     {
-      "id": 6446712000095184,
+      "id": 1475417609098636,
       "definition": {
-        "title": "About Redis",
-        "title_align": "center",
-        "type": "group",
-        "banner_img": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1481215763/kse6n5i73ibxiqypjfcz.png",
-        "show_title": false,
-        "layout_type": "ordered",
-        "widgets": [
-          {
-            "id": 6102062100728986,
-            "definition": {
-              "type": "note",
-              "content": "This dashboard shows latency information and slow query counts that summarize your Redis master's performance, as well as memory metrics to help you manage your Redis instance.\n\n##### [Official Datadog Redis documentation ↗](https://docs.datadoghq.com/integrations/redisdb/)",
-              "background_color": "vivid_yellow",
-              "font_size": "16",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 6,
-              "height": 2
-            }
-          }
-        ]
+        "type": "note",
+        "content": "![alt text](https://app.datazoom.io/images/datazoom-logo-med-new.svg)\n\nThese  widgets are examples that allow you to gain insights about your viewer's video experience. Easily send data from your video player to Datadog and start to get a better idea of your viewer's streaming experience.\n\n**Configure your Datadog Collector here** — [Collector setup](https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog)\n\n**Learn more about metrics here** — [Metrics Encyclopedia](https://help.datazoom.io/hc/en-us/sections/360010671291-Metrics-Encyclopedia)\n\n**Learn more about Datazoom here** — [datazoom.io](https://www.datazoom.io/)",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
       },
       "layout": {
         "x": 0,
         "y": 0,
         "width": 6,
-        "height": 5
+        "height": 4
       }
     },
     {
@@ -48,141 +29,10 @@
         "title": "Overview",
         "title_align": "center",
         "type": "group",
-        "background_color": "vivid_purple",
+        "background_color": "gray",
         "show_title": true,
         "layout_type": "ordered",
         "widgets": [
-          {
-            "id": 8878911225408296,
-            "definition": {
-              "title": "Device Type Breakdown",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "order": "desc"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@user_details.content_session_id",
-                        "aggregation": "cardinality"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@device.device_type",
-                          "sort": {
-                            "metric": "@user_details.content_session_id",
-                            "aggregation": "cardinality",
-                            "order": "desc"
-                          },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "legend": {
-                "type": "inline"
-              }
-            },
-            "layout": {
-              "x": 0,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          },
-          {
-            "id": 336558513402914,
-            "definition": {
-              "title": "ISP Breakdown",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:playback_start $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@network.isp",
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          },
-                          "limit": 10
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "type": "sunburst",
-              "hide_total": false,
-              "legend": {
-                "hide_value": true,
-                "hide_percent": false,
-                "type": "inline"
-              }
-            },
-            "layout": {
-              "x": 3,
-              "y": 0,
-              "width": 3,
-              "height": 3
-            }
-          },
-          {
-            "id": 3300872296443660,
-            "definition": {
-              "type": "note",
-              "content": "This metric is only available when the connection between the primary and its replica has been lost. Ideally, this value should never exceed zero—the primary and the replica should be in constant communication to ensure the replica is not serving stale data.",
-              "background_color": "vivid_yellow",
-              "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 3,
-              "width": 6,
-              "height": 1
-            }
-          },
           {
             "id": 7176299297676266,
             "definition": {
@@ -203,7 +53,8 @@
                       },
                       "data_source": "logs",
                       "compute": {
-                        "aggregation": "count"
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
                       },
                       "name": "query1",
                       "indexes": [
@@ -216,99 +67,14 @@
               ],
               "autoscale": false,
               "custom_unit": "",
-              "precision": 0
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
             "layout": {
               "x": 0,
-              "y": 4,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 6518480862980536,
-            "definition": {
-              "title": "Content - Avg Stall duration",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1 / 1000"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@event.metrics.stall_duration_content_ms",
-                        "aggregation": "avg"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": false,
-              "custom_unit": " seconds",
-              "text_align": "left",
-              "precision": 2
-            },
-            "layout": {
-              "x": 2,
-              "y": 4,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 882793493827956,
-            "definition": {
-              "title": "Ads - Avg Buffer duration",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1 / 1000"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "metric": "@event.metrics.buffer_duration_ads_ms",
-                        "aggregation": "avg"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": false,
-              "custom_unit": " seconds",
-              "text_align": "left",
-              "precision": 2
-            },
-            "layout": {
-              "x": 4,
-              "y": 4,
+              "y": 0,
               "width": 2,
               "height": 2
             }
@@ -344,11 +110,75 @@
                   ]
                 }
               ],
-              "precision": 0
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
             },
             "layout": {
-              "x": 0,
-              "y": 6,
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5991033846981416,
+            "definition": {
+              "title": "Exit Before Video Start",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "((query1 - query2) / query1) * 100"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:media_request @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
               "width": 2,
               "height": 2
             }
@@ -388,11 +218,108 @@
               "autoscale": false,
               "custom_unit": " seconds",
               "text_align": "left",
-              "precision": 2
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 6518480862980536,
+            "definition": {
+              "title": "Avg Stall duration",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.stall_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " seconds",
+              "text_align": "left",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
               "x": 2,
-              "y": 6,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 882793493827956,
+            "definition": {
+              "title": "Avg Buffer duration",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.buffer_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " seconds",
+              "text_align": "left",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
               "width": 2,
               "height": 2
             }
@@ -400,13 +327,59 @@
           {
             "id": 7002799083242720,
             "definition": {
-              "title": "Average Client Bitrate",
+              "title": "Average Client Bandwidth",
               "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
                       "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.bandwidth_kbps",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " Mbps",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6312789484652350,
+            "definition": {
+              "title": "Average Client Bitrate",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000000"
                     }
                   ],
                   "response_format": "scalar",
@@ -431,12 +404,163 @@
               ],
               "autoscale": false,
               "custom_unit": " Mbps",
-              "precision": 2
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
             },
             "layout": {
-              "x": 4,
+              "x": 3,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4493145777925208,
+            "definition": {
+              "title": "Percent Time Spent Stalled",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "(query1 / query2) * 100"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.stall_duration_content_ms",
+                        "interval": 60000,
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.playback_duration_content_ms",
+                        "interval": 60000,
+                        "aggregation": "avg"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
               "y": 6,
-              "width": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 8216014209258540,
+            "definition": {
+              "title": "Percent Views without errors",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "(100 - (query1 / query2) * 100)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:error $os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
               "height": 2
             }
           }
@@ -446,7 +570,7 @@
         "x": 6,
         "y": 0,
         "width": 6,
-        "height": 9
+        "height": 11
       }
     },
     {
@@ -454,7 +578,7 @@
       "definition": {
         "title": "Log stream",
         "type": "group",
-        "background_color": "vivid_green",
+        "background_color": "gray",
         "show_title": true,
         "layout_type": "ordered",
         "widgets": [
@@ -466,7 +590,7 @@
               "title_align": "left",
               "type": "log_stream",
               "indexes": [],
-              "query": "source:datazoom",
+              "query": "$isp $device_type $os.family $device.os_version $browser.family $player_name $player_version $content_session_id $usr.id",
               "sort": {
                 "column": "time",
                 "order": "desc"
@@ -491,7 +615,7 @@
               "title_align": "left",
               "type": "log_stream",
               "indexes": [],
-              "query": "source:datazoom status:error",
+              "query": "status:error $isp $device_type $os.family $device.os_version $browser.family $player_name $player_version $content_session_id $usr.id",
               "sort": {
                 "column": "time",
                 "order": "desc"
@@ -512,7 +636,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 5,
+        "y": 4,
         "width": 6,
         "height": 8
       }
@@ -522,7 +646,7 @@
       "definition": {
         "title": "Telemetry overview",
         "type": "group",
-        "background_color": "vivid_green",
+        "background_color": "gray",
         "show_title": true,
         "layout_type": "ordered",
         "widgets": [
@@ -623,7 +747,7 @@
                             "aggregation": "count",
                             "order": "desc"
                           },
-                          "limit": 10
+                          "limit": 100
                         }
                       ]
                     }
@@ -641,35 +765,14 @@
               "x": 3,
               "y": 0,
               "width": 3,
-              "height": 2
-            }
-          },
-          {
-            "id": 8527117813243816,
-            "definition": {
-              "type": "note",
-              "content": "This metric is only available when the connection between the primary and its replica has been lost. Ideally, this value should never exceed zero—the primary and the replica should be in constant communication to ensure the replica is not serving stale data.",
-              "background_color": "white",
-              "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": true,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 3,
-              "y": 2,
-              "width": 3,
-              "height": 1
+              "height": 3
             }
           }
         ]
       },
       "layout": {
         "x": 6,
-        "y": 9,
+        "y": 11,
         "width": 6,
         "height": 4
       }
@@ -679,7 +782,7 @@
       "definition": {
         "title": "Error Stats",
         "type": "group",
-        "background_color": "vivid_green",
+        "background_color": "gray",
         "show_title": true,
         "layout_type": "ordered",
         "widgets": [
@@ -713,7 +816,7 @@
                         }
                       ],
                       "limit": {
-                        "count": 50,
+                        "count": 1000,
                         "order": "desc"
                       },
                       "cell_display_mode": "bar",
@@ -741,7 +844,7 @@
                             "aggregation": "count",
                             "order": "desc"
                           },
-                          "limit": 50
+                          "limit": 1000
                         }
                       ]
                     }
@@ -754,28 +857,7 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 6
-            }
-          },
-          {
-            "id": 17531354755582,
-            "definition": {
-              "type": "note",
-              "content": "This metric is only available when the connection between the primary and its replica has been lost. Ideally, this value should never exceed zero—the primary and the replica should be in constant communication to ensure the replica is not serving stale data.",
-              "background_color": "vivid_yellow",
-              "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 6,
-              "width": 6,
-              "height": 1
+              "height": 3
             }
           },
           {
@@ -866,77 +948,9 @@
             },
             "layout": {
               "x": 0,
-              "y": 7,
+              "y": 3,
               "width": 3,
               "height": 6
-            }
-          },
-          {
-            "id": 6256831780253320,
-            "definition": {
-              "title": "Exit Before Video Start",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "((query1 - query2) / query1) * 100"
-                    }
-                  ],
-                  "conditional_formats": [
-                    {
-                      "comparator": ">",
-                      "palette": "white_on_red",
-                      "value": 10
-                    },
-                    {
-                      "comparator": ">",
-                      "palette": "white_on_yellow",
-                      "value": 5
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:media_request @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": []
-                    },
-                    {
-                      "search": {
-                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "name": "query2",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": false,
-              "custom_unit": "%",
-              "precision": 2
-            },
-            "layout": {
-              "x": 3,
-              "y": 7,
-              "width": 3,
-              "height": 2
             }
           },
           {
@@ -989,27 +1003,26 @@
             },
             "layout": {
               "x": 3,
-              "y": 9,
+              "y": 3,
               "width": 3,
-              "height": 4
+              "height": 6
             }
           }
         ]
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 12,
         "width": 6,
-        "height": 14,
-        "is_column_break": true
+        "height": 10
       }
     },
     {
       "id": 7430551660170484,
       "definition": {
-        "title": "Playback Stats",
+        "title": "Viewer Stats",
         "type": "group",
-        "background_color": "vivid_green",
+        "background_color": "gray",
         "show_title": true,
         "layout_type": "ordered",
         "widgets": [
@@ -1044,7 +1057,7 @@
                       },
                       "data_source": "logs",
                       "compute": {
-                        "metric": "@user_details.content_session_id",
+                        "metric": "@usr.id",
                         "interval": 60000,
                         "aggregation": "cardinality"
                       },
@@ -1056,11 +1069,11 @@
                     }
                   ],
                   "style": {
-                    "palette": "cool",
+                    "palette": "dog_classic",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "area"
+                  "display_type": "bars"
                 }
               ],
               "yaxis": {
@@ -1075,55 +1088,7 @@
             "layout": {
               "x": 0,
               "y": 0,
-              "width": 4,
-              "height": 2
-            }
-          },
-          {
-            "id": 5833149467346172,
-            "definition": {
-              "title": "Minutes Viewed",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1 * 5"
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:heartbeat @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": []
-                    }
-                  ]
-                }
-              ],
-              "autoscale": false,
-              "custom_unit": "minutes",
-              "custom_links": [
-                {
-                  "link": "https://www.google.com/",
-                  "label": "Google"
-                }
-              ],
-              "precision": 2
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 2,
+              "width": 6,
               "height": 2
             }
           },
@@ -1136,7 +1101,7 @@
                 {
                   "formulas": [
                     {
-                      "formula": "week_before(query1)"
+                      "formula": "day_before(query1)"
                     },
                     {
                       "formula": "query1",
@@ -1197,7 +1162,7 @@
                 {
                   "formulas": [
                     {
-                      "formula": "week_before(query1)"
+                      "formula": "day_before(query1)"
                     },
                     {
                       "formula": "query1",
@@ -1252,8 +1217,16 @@
           {
             "id": 115963815709942,
             "definition": {
-              "title": "Average Bitrate",
+              "title": "Average Bandwidth",
               "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
@@ -1270,7 +1243,7 @@
                       },
                       "data_source": "logs",
                       "compute": {
-                        "metric": "@event.metrics.rendition_video_bitrate_kbps",
+                        "metric": "@event.metrics.bandwidth_kbps",
                         "aggregation": "avg"
                       },
                       "name": "query1",
@@ -1285,7 +1258,7 @@
                     "line_type": "solid",
                     "line_width": "normal"
                   },
-                  "display_type": "area"
+                  "display_type": "line"
                 }
               ]
             },
@@ -1301,6 +1274,14 @@
             "definition": {
               "title": "Content Starts",
               "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests": [
                 {
@@ -1352,88 +1333,6 @@
             }
           },
           {
-            "id": 3878835140519112,
-            "definition": {
-              "type": "note",
-              "content": "This metric is only available when the connection between the primary and its replica has been lost. Ideally, this value should never exceed zero—the primary and the replica should be in constant communication to ensure the replica is not serving stale data.",
-              "background_color": "vivid_yellow",
-              "font_size": "12",
-              "text_align": "left",
-              "vertical_align": "top",
-              "show_tick": false,
-              "tick_pos": "50%",
-              "tick_edge": "left",
-              "has_padding": true
-            },
-            "layout": {
-              "x": 0,
-              "y": 6,
-              "width": 2,
-              "height": 3
-            }
-          },
-          {
-            "id": 7118386673018946,
-            "definition": {
-              "title": "Traffic by Country",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "geomap",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 1000,
-                        "order": "desc"
-                      }
-                    }
-                  ],
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "search": {
-                        "query": "@event.type:error @video.media_type:content $content_session_id $player_version $player_name $browser.family $device.os_version $os.family $device_type $isp $usr.id"
-                      },
-                      "data_source": "logs",
-                      "compute": {
-                        "aggregation": "count"
-                      },
-                      "name": "query1",
-                      "indexes": [
-                        "*"
-                      ],
-                      "group_by": [
-                        {
-                          "facet": "@network.client.geoip.country.iso_code",
-                          "sort": {
-                            "aggregation": "count",
-                            "order": "desc"
-                          },
-                          "limit": 1000
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ],
-              "style": {
-                "palette": "Viridis",
-                "palette_flip": false
-              },
-              "view": {
-                "focus": "WORLD"
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 6,
-              "width": 4,
-              "height": 3
-            }
-          },
-          {
             "id": 8939117881545120,
             "definition": {
               "title": "Average Bitrate",
@@ -1451,7 +1350,7 @@
                 {
                   "formulas": [
                     {
-                      "formula": "query1 / 100"
+                      "formula": "query1 / 1000"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1491,7 +1390,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 9,
+              "y": 6,
               "width": 3,
               "height": 2
             }
@@ -1554,87 +1453,217 @@
             },
             "layout": {
               "x": 3,
-              "y": 9,
+              "y": 6,
               "width": 3,
               "height": 2
             }
           },
           {
-            "id": 8986225952627466,
+            "id": 8878911225408296,
             "definition": {
-              "title": "Stall duration distribution",
-              "show_legend": false,
-              "type": "distribution",
-              "xaxis": {
-                "max": "auto",
-                "include_zero": true,
-                "scale": "linear",
-                "min": "auto"
-              },
-              "yaxis": {
-                "max": "auto",
-                "include_zero": true,
-                "scale": "linear",
-                "min": "auto"
-              },
+              "title": "Device Type Breakdown",
               "requests": [
                 {
-                  "style": {
-                    "palette": "warm"
-                  },
-                  "log_query": {
-                    "index": "*",
-                    "search": {
-                      "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
-                    },
-                    "group_by": [],
-                    "compute": {
-                      "facet": "@event.metrics.stall_duration_content_ms",
-                      "aggregation": "avg"
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "order": "desc"
+                      }
                     }
-                  }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@device.device_type",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        },
+                        {
+                          "facet": "@http.useragent_details.os.family",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ]
                 }
-              ]
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "type": "inline"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 336558513402914,
+            "definition": {
+              "title": "ISP Breakdown",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.isp",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 1000
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": true,
+              "legend": {
+                "hide_value": true,
+                "hide_percent": false,
+                "type": "inline"
+              }
             },
             "layout": {
               "x": 0,
               "y": 11,
               "width": 6,
-              "height": 2
+              "height": 3
             }
           }
         ]
       },
       "layout": {
         "x": 6,
-        "y": 0,
+        "y": 15,
         "width": 6,
-        "height": 14
+        "height": 15
       }
     },
     {
-      "id": 972160248935056,
+      "id": 7118386673018946,
       "definition": {
-        "type": "note",
-        "content": "",
-        "background_color": "white",
-        "font_size": "14",
-        "text_align": "left",
-        "vertical_align": "top",
-        "show_tick": false,
-        "tick_pos": "50%",
-        "tick_edge": "left",
-        "has_padding": true
+        "title": "Traffic by Country",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "geomap",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "count": 1000,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "@video.media_type:content $content_session_id $player_version $player_name $browser.family $device.os_version $os.family $device_type $isp $usr.id"
+                },
+                "data_source": "logs",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@network.client.geoip.country.iso_code",
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    },
+                    "limit": 1000
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "style": {
+          "palette": "hostmap_blues",
+          "palette_flip": false
+        },
+        "view": {
+          "focus": "WORLD"
+        }
       },
       "layout": {
-        "x": 2,
-        "y": 0,
-        "width": 2,
-        "height": 2
+        "x": 0,
+        "y": 22,
+        "width": 6,
+        "height": 5
       }
     }
   ],
   "template_variables": [
+    {
+      "name": "os.family",
+      "default": "*",
+      "prefix": "@http.useragent_details.os.family",
+      "available_values": []
+    },
+    {
+      "name": "browser.family",
+      "default": "*",
+      "prefix": "@http.useragent_details.browser.family",
+      "available_values": []
+    },
     {
       "name": "isp",
       "default": "*",
@@ -1648,21 +1677,9 @@
       "available_values": []
     },
     {
-      "name": "os.family",
-      "default": "*",
-      "prefix": "@http.useragent_details.os.family",
-      "available_values": []
-    },
-    {
       "name": "device.os_version",
       "default": "*",
       "prefix": "@device.os_version",
-      "available_values": []
-    },
-    {
-      "name": "browser.family",
-      "default": "*",
-      "prefix": "@http.useragent_details.browser.family",
       "available_values": []
     },
     {
@@ -1694,5 +1711,5 @@
   "is_read_only": false,
   "notify_list": [],
   "reflow_type": "fixed",
-  "id": "irb-dj8-cqe"
+  "id": "2jc-ztd-bat"
 }
