@@ -16,7 +16,7 @@ The Datazoom integration emits logs to Datadog.
 
 ### Dashboard
 
-Datazoom logs Dashboard is available [here](dashboard/lists/preset/3?q=datazoom). 
+Datazoom logs Dashboard is available [here](../dashboard/lists/preset/3?q=datazoom). 
 
 ## Data Collected
 
