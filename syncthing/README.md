@@ -10,7 +10,7 @@ The Syncthing check is not included in the [Datadog Agent][2] package, so you ne
 
 ### Installation
 
-For Agent v7.21+ / v6.21+, follow the instructions below to install the Syncthing check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Syncthing check on your host. See [Use Community Integrations][3] to install the Syncthing check with the Docker Agent or earlier versions of the Agent.
 
 1. Run the following command to install the Agent integration:
 
