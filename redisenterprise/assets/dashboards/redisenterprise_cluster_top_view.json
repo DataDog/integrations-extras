@@ -1,293 +1,504 @@
 {
     "title": "Redis Enterprise Cluster Top View",
-    "description": "This displays top level Redis Enterprise Cluster information. Detailed usage can be found in the Redis Enterprise Database View ",
+    "description": "## Redis Enteprise Cluster Top View\n\nThis is the cluster level overview\n\n- [More Information](https://developer.redis.com/explore/datadog/)",
     "widgets": [
         {
-            "id": 7583956557836382,
-            "layout": {
-                "x": 1,
-                "y": 3,
-                "width": 114,
-                "height": 6
-            },
+            "id": 464394517387450,
             "definition": {
-                "type": "free_text",
-                "text": "Redis Cluster: $redis_cluster",
-                "color": "#4d4d4d",
-                "font_size": "36",
-                "text_align": "left"
-            }
-        },
-        {
-            "id": 2227741916474628,
-            "layout": {
-                "x": 1,
-                "y": 28,
-                "width": 56,
-                "height": 15
-            },
-            "definition": {
-                "title": "Node Count",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
+                "title": "Redis Enterprise",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "q": "avg:redisenterprise.total_node_count{$redis_cluster}",
-                        "aggregator": "last",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
-                    }
-                ],
-                "autoscale": true,
-                "precision": 2
-            }
-        },
-        {
-            "id": 3101774888341912,
-            "layout": {
-                "x": 59,
-                "y": 28,
-                "width": 56,
-                "height": 15
-            },
-            "definition": {
-                "title": "Active Nodes",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
+                        "id": 7865116353398980,
+                        "definition": {
+                            "type": "image",
+                            "url": "https://redis.com/wp-content/uploads/2020/06/blog-featured-image-redis-enterprise-1200x1000-1-1024x853.jpg",
+                            "sizing": "contain",
+                            "margin": "md",
+                            "has_background": false,
+                            "has_border": false,
+                            "vertical_align": "center",
+                            "horizontal_align": "center"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
                     {
-                        "q": "avg:redisenterprise.total_active_nodes{$redis_cluster}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
+                        "id": 4159865936264448,
+                        "definition": {
+                            "type": "note",
+                            "content": "[Redis Enterprise](https://redis.com/redis-enterprise-software/overview/) Dashboard\n\n[Integration Details](https://developer.redis.com/explore/datadog/)",
+                            "background_color": "white",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
                     }
-                ],
-                "autoscale": true,
-                "precision": 2
-            }
-        },
-        {
-            "id": 5597962866767428,
-            "layout": {
-                "x": 1,
-                "y": 11,
-                "width": 38,
-                "height": 15
+                ]
             },
-            "definition": {
-                "title": "Days remaining on license",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
-                    {
-                        "q": "avg:redisenterprise.license_days{$redis_cluster}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": "<",
-                                "palette": "white_on_red",
-                                "value": 7
-                            },
-                            {
-                                "comparator": "<",
-                                "palette": "white_on_yellow",
-                                "value": 14
-                            },
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 14
-                            }
-                        ]
-                    }
-                ],
-                "autoscale": true,
-                "precision": 2
-            }
-        },
-        {
-            "id": 5692598419727192,
             "layout": {
-                "x": 1,
-                "y": 45,
-                "width": 56,
-                "height": 15
-            },
-            "definition": {
-                "title": "Total Cluster Cores",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
-                    {
-                        "q": "avg:redisenterprise.total_node_cores{$redis_cluster}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
-                    }
-                ],
-                "autoscale": true,
-                "precision": 2
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 3
             }
         },
         {
-            "id": 7276472307523224,
-            "layout": {
-                "x": 41,
-                "y": 11,
-                "width": 36,
-                "height": 15
-            },
+            "id": 8445249221203396,
             "definition": {
-                "title": "Licensed shards",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
+                "title": "Licensing",
+                "type": "group",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "q": "avg:redisenterprise.license_shards{*}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
+                        "id": 4007588257006042,
+                        "definition": {
+                            "type": "note",
+                            "content": "$redis_cluster  \n",
+                            "background_color": "white",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4722854379405720,
+                        "definition": {
+                            "title": "Days remaining on license",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_red",
+                                            "value": 7
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_yellow",
+                                            "value": 14
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 14
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.license_days{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4434723027607302,
+                        "definition": {
+                            "title": "Licensed shards",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.license_shards{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 4,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4062422926924300,
+                        "definition": {
+                            "title": "Total Used Shards",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.total_shards_used{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 1,
+                            "width": 4,
+                            "height": 1
+                        }
                     }
-                ],
-                "autoscale": true,
-                "precision": 2
-            }
-        },
-        {
-            "id": 7161805452803940,
-            "layout": {
-                "x": 59,
-                "y": 45,
-                "width": 56,
-                "height": 15
+                ]
             },
-            "definition": {
-                "title": "Total Cluster Memory",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
-                    {
-                        "q": "avg:redisenterprise.total_node_memory{$redis_cluster}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
-                    }
-                ],
-                "autoscale": true,
-                "precision": 2
-            }
-        },
-        {
-            "id": 8713280799501608,
             "layout": {
                 "x": 4,
-                "y": 63,
-                "width": 108,
-                "height": 15
-            },
-            "definition": {
-                "title": "Cluster Requests",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "time": {},
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "q": "sum:redisenterprise.total_req{$redis_cluster} by {redis_cluster}",
-                        "on_right_yaxis": false,
-                        "style": {
-                            "palette": "cool",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "area"
-                    }
-                ],
-                "yaxis": {
-                    "scale": "linear",
-                    "label": "",
-                    "include_zero": true,
-                    "min": "auto",
-                    "max": "auto"
-                },
-                "markers": []
+                "y": 0,
+                "width": 8,
+                "height": 3
             }
         },
         {
-            "id": 7986822700390194,
-            "layout": {
-                "x": 78,
-                "y": 11,
-                "width": 37,
-                "height": 15
-            },
+            "id": 4357513555546578,
             "definition": {
-                "title": "Total Used Shards",
-                "title_size": "16",
-                "title_align": "left",
-                "time": {},
-                "type": "query_value",
-                "requests": [
+                "title": "Throughput",
+                "type": "group",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "q": "avg:redisenterprise.total_shards_used{$redis_cluster}",
-                        "aggregator": "avg",
-                        "conditional_formats": [
-                            {
-                                "comparator": ">",
-                                "palette": "white_on_green",
-                                "value": 0
-                            }
-                        ]
+                        "id": 1934007142538980,
+                        "definition": {
+                            "title": "Ops/Second",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "time": {},
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "total_ops",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "sum:redisenterprise.total_req{$redis_cluster} by {redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 2
+                        }
                     }
-                ],
-                "autoscale": true,
-                "precision": 2
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 3
+            }
+        },
+        {
+            "id": 5739786900826056,
+            "definition": {
+                "title": "Capacity",
+                "type": "group",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 3815384017896878,
+                        "definition": {
+                            "title": "Node Count",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.total_node_count{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 6458883465415920,
+                        "definition": {
+                            "title": "Node Count",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.total_node_count{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 0,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 1943414119690998,
+                        "definition": {
+                            "title": "Total Cluster Cores",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.total_node_cores{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 3,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4310361508498526,
+                        "definition": {
+                            "title": "Total Cluster Memory",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "time": {},
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_green",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:redisenterprise.total_node_memory{$redis_cluster}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 1,
+                            "width": 3,
+                            "height": 1
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
             }
         }
     ],
@@ -295,11 +506,13 @@
         {
             "name": "redis_cluster",
             "default": "*",
-            "prefix": "redis_cluster"
+            "prefix": "redis_cluster",
+            "available_values": []
         }
     ],
-    "layout_type": "free",
+    "layout_type": "ordered",
     "is_read_only": false,
     "notify_list": [],
-    "id": "itj-8x7-zyt"
+    "reflow_type": "fixed",
+    "id": "a2v-g3y-u2r"
 }

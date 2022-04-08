@@ -4,7 +4,7 @@
 
 This check monitors [Aqua][1].
 
-The Aqua check will alert the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua. Aqua will also send data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
+The Aqua check alerts the user if total high-severity vulnerability is reached, or if a container is running inside a host not registered by Aqua. Aqua also sends data alerts regarding blocked events in runtime, and it is possible to trigger a webhook to scale infrastructure if more Aqua scanners are required.
 
 ## Setup
 
@@ -69,7 +69,7 @@ For the Aqua Enforcer logs: **Available for Agent >6.0**
      # (...)
    ```
 
-    Make sure that the Docker socket is mounted to the Datadog Agent as done in [this manifest][12].
+    Make sure that the Docker socket is mounted to the Datadog Agent. See the Kubernetes documentation for [example manifests][12].
 
 6. [Restart the Agent][9].
 
@@ -105,7 +105,7 @@ Need help? Contact [Datadog support][15].
 [9]: https://docs.datadoghq.com/agent/faq/agent-commands/#start-stop-restart-the-agent
 [10]: https://app.datadoghq.com/organization-settings/api-keys
 [11]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/#log-collection
-[12]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/#create-manifest
+[12]: https://docs.datadoghq.com/agent/kubernetes/?tab=daemonset#installation
 [13]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [14]: https://github.com/DataDog/integrations-extras/blob/master/aqua/metadata.csv
 [15]: https://docs.datadoghq.com/help/

@@ -6,7 +6,7 @@ This integration allows [PerimeterX][2] customers to forward their PerimeterX re
 
 ## Setup
 
-All configuration is done by PerimeterX. Please visit the [PerimeterX documentation][3] regarding third party integrations.
+All configuration is done by PerimeterX. See the [PerimeterX documentation][3] regarding third party integrations.
 
 ### Installation
 

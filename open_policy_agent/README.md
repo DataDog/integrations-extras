@@ -85,11 +85,11 @@ To install the open_policy_agent check on your Kubernetes cluster:
 
 The default dashboard includes some graphs related to a metric around OPA decisions, called `open_policy_agent.decisions`. This metric is created based on the OPA "Decision Logs". To generate this metric and populate this part of the dashboard, create a new log-generated metric in Datadog.
 
-First, create a facet for the `msg` field of our OPA logs, as it will only generate metrics for the "Decision Logs" type of log entry. For that, select any of the log entries coming from OPA, click on the engine log near the `msg` field and select "Create facet for @msg":
+First, create a facet for the `msg` field of the OPA logs, as it only generates metrics for the "Decision Logs" type of log entry. For that, select any of the log entries coming from OPA, click on the engine log near the `msg` field and select "Create facet for @msg":
 
 ![Message Facet][6]
 
-Now create two facets, one for the `input.request.kind.kind` field and one for the `result.response.allowed` field, both available in any of the log entries type "Decision Log".
+Create two facets, one for the `input.request.kind.kind` field and one for the `result.response.allowed` field, both available in any of the log entries type "Decision Log".
 
 ![Kind Facet][7]
 ![Allowed Facet][8]

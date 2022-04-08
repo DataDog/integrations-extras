@@ -28,7 +28,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Riak-Rep
 
 ### Validation
 
-[Run the Agent's `status` subcommand][9] and look for `riak_repl` under the Checks section.
+Run the [Agent's status subcommand][9] and look for `riak_repl` under the Checks section.
 
 ## Data Collected
 
@@ -38,11 +38,11 @@ See [metadata.csv][10] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-riak_repl does not currently include any service checks.
+The Riak-Repl integration does not include any service checks.
 
 ### Events
 
-riak_repl does not currently include any events.
+The Riak-Repl integration does not include any events.
 
 ## Troubleshooting
 

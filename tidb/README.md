@@ -8,10 +8,10 @@ Connect [TiDB][1] cluster to Datadog in order to:
 - Collect logs of your cluster, such as TiDB/TiKV/TiFlash logs and slow query logs.
 - Visualize cluster performance on the provided dashboard.
 
-> **Note:** 
+> **Note**:
 >
 > - TiDB 4.0+ is required for this integration. 
-> - Integration of TiDB Cloud with Datadog is not available now.
+> - For TiDB Cloud, see the [TiDB Cloud Integration][12].
 
 ## Setup
 
@@ -21,51 +21,48 @@ First, [download and launch the Datadog Agent][8].
 
 Then, manually install the TiDB check. [Instructions vary depending on the environment][10]. 
 
-> Current TiDB integration version: `1.0.0`
-
-#### Host
-
 Run `datadog-agent integration install -t datadog-tidb==<INTEGRATION_VERSION>`.
 
-#### Containerized
-
-The best way to use this integration with the Docker Agent is to build the Agent with this integration installed. Use the following Dockerfile to build an updated version of the Agent:
-
-```dockerfile
-FROM gcr.io/datadoghq/agent:latest
-
-ARG INTEGRATION_VERSION=1.0.0
-
-RUN agent integration install -r -t datadog-tidb==${INTEGRATION_VERSION}
-```
-
-Build the image and push it to your private Docker registry.
-
-Then, upgrade the Datadog Agent container image. If the Helm chart is used, modify the `agents.image` section in the `values.yaml` to replace the default agent image:
-
-```yaml
-agents:
-  enabled: true
-  image:
-    tag: <NEW_TAG>
-    repository: <YOUR_PRIVATE_REPOSITORY>/<AGENT_NAME>
-```
-
-Use the new `values.yaml` to upgrade the Agent:
-
-```shell
-helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
-```
-
 ### Configuration
-
-#### Host
 
 ##### Metric collection
 
 1. Edit the `tidb.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your TiDB performance data. See the [sample tidb.d/conf.yaml][3] for all available configuration options.
+   
+  The [sample tidb.d/conf.yaml][3] only configures the PD instance. You need to manually configure the other instances in the TiDB cluster. Like this:
 
-2. [Restart the Agent][4].
+  ```yaml
+  init_config:
+  
+  instances:
+  
+    - pd_metric_url: http://localhost:2379/metrics
+      send_distribution_buckets: true
+      tags:
+        - cluster_name:cluster01
+  
+    - tidb_metric_url: http://localhost:10080/metrics
+      send_distribution_buckets: true
+      tags:
+        - cluster_name:cluster01
+  
+    - tikv_metric_url: http://localhost:20180/metrics
+      send_distribution_buckets: true
+      tags:
+        - cluster_name:cluster01
+  
+    - tiflash_metric_url: http://localhost:8234/metrics
+      send_distribution_buckets: true
+      tags:
+        - cluster_name:cluster01
+  
+    - tiflash_proxy_metric_url: http://localhost:20292/metrics
+      send_distribution_buckets: true
+      tags:
+        - cluster_name:cluster01
+  ```
+
+3. [Restart the Agent][4].
 
 ##### Log collection
 
@@ -80,42 +77,42 @@ _Available for Agent versions >6.0_
 2. Add this configuration block to your `tidb.d/conf.yaml` file to start collecting your TiDB logs:
 
    ```yaml
-     logs:
-      # pd log
-      - type: file
-        path: "/tidb-deploy/pd-2379/log/pd*.log"
-        service: "tidb-cluster"
-        source: "pd"
-     
-      # tikv log
-      - type: file
-        path: "/tidb-deploy/tikv-20160/log/tikv*.log"
-        service: "tidb-cluster"
-        source: "tikv"
-     
-      # tidb log
-      - type: file
-        path: "/tidb-deploy/tidb-4000/log/tidb*.log"
-        service: "tidb-cluster"
-        source: "tidb"
-        exclude_paths:
-          - /tidb-deploy/tidb-4000/log/tidb_slow_query.log
-      - type: file
-        path: "/tidb-deploy/tidb-4000/log/tidb_slow_query*.log"
-        service: "tidb-cluster"
-        source: "tidb"
-        log_processing_rules:
-          - type: multi_line
-            name: new_log_start_with_datetime
-            pattern: '#\sTime:'
-        tags:
-          - "custom_format:tidb_slow_query"
-     
-      # tiflash log
-      - type: file
-        path: "/tidb-deploy/tiflash-9000/log/tiflash*.log"
-        service: "tidb-cluster"
-        source: "tiflash"
+   logs:
+    # pd log
+    - type: file
+      path: "/tidb-deploy/pd-2379/log/pd*.log"
+      service: "tidb-cluster"
+      source: "pd"
+   
+    # tikv log
+    - type: file
+      path: "/tidb-deploy/tikv-20160/log/tikv*.log"
+      service: "tidb-cluster"
+      source: "tikv"
+   
+    # tidb log
+    - type: file
+      path: "/tidb-deploy/tidb-4000/log/tidb*.log"
+      service: "tidb-cluster"
+      source: "tidb"
+      exclude_paths:
+        - /tidb-deploy/tidb-4000/log/tidb_slow_query.log
+    - type: file
+      path: "/tidb-deploy/tidb-4000/log/tidb_slow_query*.log"
+      service: "tidb-cluster"
+      source: "tidb"
+      log_processing_rules:
+        - type: multi_line
+          name: new_log_start_with_datetime
+          pattern: '#\sTime:'
+      tags:
+        - "custom_format:tidb_slow_query"
+   
+    # tiflash log
+    - type: file
+      path: "/tidb-deploy/tiflash-9000/log/tiflash*.log"
+      service: "tidb-cluster"
+      source: "tiflash"
    ```
 
    Change the `path` and `service` according to your cluster's configuration. 
@@ -131,48 +128,9 @@ _Available for Agent versions >6.0_
 
 3. [Restart the Agent][4].
 
-#### Containerized
-
-##### Metric collection
-
-For containerized environments, after the TiDB check is integrated in the Datadog Agent image, Autodiscovery is configured by default.
-
-Thus, metrics are automatically collected to Datadog's server.
-
-If you need to override the default Autodiscovery behavior, add Datadog annotations to TiDB Pods:
-
-```yaml
-apiVersion: v1
-kind: Pod
-# (...)
-metadata:
-  name: '<POD_NAME>'
-  annotations:
-    ad.datadoghq.com/tidb.check_names: '["tidb"]'
-    ad.datadoghq.com/tidb.init_configs: '[{}]'
-    ad.datadoghq.com/tidb.instances: '[{"pd_metric_url": "http://%%host%%:2379/metrics", "tidb_metric_url": "http://%%host%%:10080/metrics", "tikv_metric_url": "http://%%host%%:20180/metrics"}]'
-    # (...)
-spec:
-  containers:
-    - name: 'tidb'
-# (...)
-```
-
-See the [Autodiscovery Integration Templates][2] for the complete guidance.
-
-##### Log collection
-
-_Available for Agent versions >6.0_
-
-Collecting logs is disabled by default in the Datadog Agent. To enable it, see [Kubernetes log collection documentation][9].
-
-| Parameter      | Value                                                  |
-| -------------- | ------------------------------------------------------ |
-| `<LOG_CONFIG>` | `{"source": "tidb", "service": "tidb_cluster"}` |
-
 ### Validation
 
-[Run the Agent's status subcommand][5] and look for `tidb` under the Checks section.
+Run the [Agent's status subcommand][5] and look for `tidb` under the Checks section.
 
 ## Data Collected
 
@@ -180,15 +138,37 @@ Collecting logs is disabled by default in the Datadog Agent. To enable it, see [
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
-### Service Checks
-
-TiDB check does not include any service checks.
+> It is possible to use the `metrics` configuration option to collect additional metrics from a TiDB cluster.
 
 ### Events
 
 TiDB check does not include any events.
 
+### Service Checks
+
+Service Checks are based on `tidb_cluster.prometheus.health` metrics. This check is controlled by the `health_service_check` config and default to `true`.
+You can modify this behavior in `tidb.yml` file.
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
+
 ## Troubleshooting
+
+### Missing CPU and Memory metrics for TiKV and TiFlash instances on macOS
+
+CPU and Memory metrics are not provided for TiKV and TiFlash instances in the following cases:
+
+- Running TiKV or TiFlash instances with [tiup playground][13] on macOS.
+- Running TiKV or TiFlash instances with [docker-compose up][14] on a new Apple M1 machine.
+
+### Too many metrics
+
+The TiDB check enables Datadog's `distribution` metric type by default. This part of data is quite large and may consume lots of resources. You can modify this behavior in `tidb.yml` file:
+
+- `send_distribution_buckets: false`
+
+Since there are many important metrics in a TiDB cluster, the TiDB check sets `max_returned_metrics` to `10000` by default. You can decrease `max_returned_metrics` in `tidb.yml` file if necessary:
+
+- `max_returned_metrics: 1000`
 
 Need help? Contact [Datadog support][7].
 
@@ -202,3 +182,7 @@ Need help? Contact [Datadog support][7].
 [8]: https://app.datadoghq.com/account/settings#agent
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
+[11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json
+[12]: https://docs.datadoghq.com/integrations/tidb_cloud/
+[13]: https://docs.pingcap.com/tidb/stable/tiup-playground
+[14]: https://github.com/DataDog/integrations-extras/tree/master/tidb/tests/compose

@@ -10,9 +10,10 @@ This integration helps you stay on top of your monitors' health. It enables you 
 - Analyze the metrics of Postman Monitoring runs in Datadog
 
 - Generate events for successful and failed monitoring runs.
+
 ## Setup
 
-You can find detailed instructions on [Postman's documentation page][3]. Postman Integrations require a Postman [Team, Business, or Enterprise plan][8].
+You can find detailed instructions in [Postman's documentation][3]. Postman Integrations require a Postman [Team, Business, or Enterprise plan][8].
 
 ### Configuration
 
@@ -29,10 +30,6 @@ You can find detailed instructions on [Postman's documentation page][3]. Postman
 
 ![Configure Integration][4]
 
-### Validation
-
-
-
 ## Data Collected
 
 ### Metrics
@@ -45,8 +42,12 @@ Postman does not include any service checks.
 
 ### Events
 
-An event is generated each time a monitor runs in Postman. The severity of the event is "Low" if all the tests in the Postman 
-Monitor pass and "Normal" if some of them fail, or if there is an error in execution of any event.
+An event is generated each time a monitor runs in Postman. The severity of the event is based on the tests in the Postman monitor:
+
+| Severity | Description                                                           |
+|----------|-----------------------------------------------------------------------|
+| `Low`    | If all the tests pass                                                 |
+| `Normal` | If some tests fail, or an error occurs in the execution of any event. |
 
 ## Troubleshooting
 

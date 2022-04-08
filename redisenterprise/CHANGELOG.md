@@ -1,5 +1,20 @@
 # CHANGELOG - RedisEnterprise
 
+1.1.1
+=====
+
+### Bug fix for monitors
+
+* [Bug] Unable to get monitor results without a hostname set - fixed
+
+1.1.0
+=====
+
+### Add in new Active Active metrics
+
+* [Feature] Collect statistics on Active/Active(CRDT) databases
+* [Bug] the http wrapper now allows get params, so revert usage of python requests
+
 
 1.0.0
 =====

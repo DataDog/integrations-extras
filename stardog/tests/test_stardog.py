@@ -38,8 +38,8 @@ def test_check_all_metrics(aggregator):
     """
     Testing Stardog check.
     """
-    check = StardogCheck('stardog', {}, {})
-    check.check(copy.deepcopy(INSTANCE))
+    check = StardogCheck('stardog', {}, [copy.deepcopy(INSTANCE)])
+    check.check({})
     tags = copy.deepcopy(INSTANCE['tags'])
     tags.append("stardog_url:http://localhost:%d" % HTTP.port)
     for metric_key in DATA:

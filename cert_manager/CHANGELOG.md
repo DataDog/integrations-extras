@@ -1,5 +1,10 @@
 # CHANGELOG - cert_manager
 
+## 2.2.0 / 2021-11-03
+
+* [Added] Add days to certificate expiration widget to default dashboard. See [#1063](https://github.com/DataDog/integrations-extras/pull/1063).
+* [Fixed] Change cert_manager.clock_time type to gauge. See [#1055](https://github.com/DataDog/integrations-extras/pull/1055).
+
 ## 2.1.0 / 2021-10-19
 
 * [Added] Add 'certmanager_clock_time_seconds' metric collection. See [#1031](https://github.com/DataDog/integrations-extras/pull/1031). Thanks [albertrdixon](https://github.com/albertrdixon).

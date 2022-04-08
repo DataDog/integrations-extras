@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from datadog_checks.base import OpenMetricsBaseCheck
 
-from .metrics import ACME_METRICS, CERT_METRICS, CONTROLLER_METRICS
+from .metrics import ACME_METRICS, CERT_METRICS, CONTROLLER_METRICS, TYPE_OVERRIDES
 
 
 class CertManagerCheck(OpenMetricsBaseCheck):
@@ -15,7 +15,7 @@ class CertManagerCheck(OpenMetricsBaseCheck):
         METRIC_MAP.update(ACME_METRICS)
         METRIC_MAP.update(CERT_METRICS)
 
-        default_instances = {'cert_manager': {'metrics': [METRIC_MAP]}}
+        default_instances = {'cert_manager': {'metrics': [METRIC_MAP], 'type_overrides': TYPE_OVERRIDES}}
 
         super(CertManagerCheck, self).__init__(
             name, init_config, instances, default_instances=default_instances, default_namespace='cert_manager'

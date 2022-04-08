@@ -1,9 +1,6 @@
-import base64
 import re
 
-import requests
-
-from datadog_checks.base import AgentCheck, ensure_bytes
+from datadog_checks.base import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'stardog'
 
@@ -121,12 +118,9 @@ class StardogCheck(AgentCheck):
                         self.gauge(report_key, values_map[report_key], tags=local_tags)
                     break
 
-    def check(self, instance):
+    def check(self, _):
         try:
-            auth_token = base64.b64encode(ensure_bytes(instance["username"] + ":" + instance["password"])).decode()
-            response = requests.get(
-                instance['stardog_url'] + '/admin/status', headers={'Authorization': 'Basic {}'.format(auth_token)}
-            )
+            response = self.http.get(self.instance['stardog_url'] + '/admin/status')
         except KeyError:
             raise Exception('The Stardog check instance is not properly configured')
 
@@ -134,13 +128,13 @@ class StardogCheck(AgentCheck):
             response.raise_for_status()
         json_doc = response.json()
         try:
-            tags = instance['tags']
+            tags = self.instance['tags']
             if type(tags) != list:
                 self.log.warning('The tags list in the Stardog check is not configured properly')
                 tags = []
         except KeyError:
             tags = []
 
-        tags.append("stardog_url:%s" % instance['stardog_url'])
+        tags.append("stardog_url:%s" % self.instance['stardog_url'])
         self._process_doc(json_doc, _g_metrics_map, tags)
         self._process_doc(json_doc, _g_bd_specific_map, tags, add_db_tags=True)

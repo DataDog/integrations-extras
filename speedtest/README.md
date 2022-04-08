@@ -20,7 +20,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Speedtes
 
 2. Configure your integration similar to core [integrations][4].
 
-**Note**: For all hosts, you need to also install the [Speedtest CLI][1] and accept the agreement as the Datadog Agent user prior to use, for example: `sudo -u dd-agent speedtest`.
+**Note**: For all hosts, you need to install the [Speedtest CLI][1] and accept the agreement as the Datadog Agent user prior to use, for example: `sudo -u dd-agent speedtest`.
 
 ### Configuration
 
@@ -30,7 +30,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Speedtes
 
 ### Validation
 
-[Run the Agent's status subcommand][10] and look for `speedtest` under the Checks section.
+Run the [Agent's status subcommand][10] and look for `speedtest` under the Checks section.
 
 ## Data Collected
 
@@ -40,7 +40,7 @@ See [metadata.csv][11] for a list of metrics provided by this check.
 
 ### Events
 
-Speedtest does not include any events.
+The Speedtest check does not include any events.
 
 ### Service Checks
 

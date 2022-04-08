@@ -33,19 +33,19 @@ All configuration happens on Lacework Dashboard. Find details on how to set it u
 
 ### Metrics
 
-This Lacework integration does not not collect metrics
+The Lacework integration does not collect any metrics.
 
 ### Service Checks
 
-This Lacework intgeration does not include any service checks.
+The Lacework integration does not include any service checks.
 
 ### Log collection
 
-Lacework can be configured to send Logs.
+The Lacework integration can be configured to send Logs.
 
 ### Events
 
-Lacework can be configured to send Events.
+The Lacework integration can be configured to send Events.
 
 ## Troubleshooting
 
