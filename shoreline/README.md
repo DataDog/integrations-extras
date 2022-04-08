@@ -4,7 +4,7 @@
 
 Shoreline incident automation enables DevOps and Site Reliability Engineers (SREs) to interactively **debug at scale** and quickly **build remediations** to eliminate repetitive work.
 
-The debug and repair feature allows you to execute commands in real-time across your server farm without needing to SSH into the servers individually. You can execute anything that can be typed at the Linux command prompt such as Linux commands, shell scripts, and calls to cloud provider APIs, and turn these debug sessions into automations connected to Datadog monitors. 
+The debug and repair feature allows you to execute commands in real-time across your server farm without needing to SSH into the servers individually. Execute anything that can be typed into the Linux command prompt such as Linux commands, shell scripts, and calls to cloud provider APIs, and turn these debug sessions into automations connected to Datadog monitors.
 
 The Shoreline App automatically executes the automation when the monitor is triggered, significantly reducing Mean Time To Repair (MTTR) and manual work.
 
@@ -19,7 +19,7 @@ Follow the steps below to configure the integration:
 
 1. Download the Shoreline Agent.
 2. Install the Datadog integration from this tile to get access to the App.
-2. Configure the Datadog App from Shoreline. 
+2. Configure the Datadog-Shoreline App.
 
 
 #### Shoreline Agent
@@ -35,27 +35,27 @@ Install Shoreline Agents on every host you want Shoreline to monitor and act upo
 To install the Shoreline Agent, follow one of three methods:
 
 1. [Kubernetes][5]
-2. [Kubernetes via Helm][6]
+2. [Kubernetes with Helm][6]
 3. [Virtual Machines][7]
 
 
-#### Configuring the Datadog App
+#### Configuring the app
 
-To configure the Datadog-Shoreline App in Shoreline, you need your Datadog API and Application Keys. 
+To configure the Datadog-Shoreline App in Shoreline, you need your Datadog API and application keys. 
 
 For example:
 ![integration_example](https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png)
 
-For in-depth instructions on configuring the app, please see the [Datadog-Shoreline documentation][4]
+For in-depth instructions on configuring the app, see the [Datadog-Shoreline documentation][4].
 
+## Troubleshooting
 
-## Support
-
-Need help? Contact [Datadog Support][2].
+Need help? Contact [Datadog support][2].
 
 ## Further reading
 
 For more information, see the [Shoreline documentation][9].
+
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
 [2]: https://docs.datadoghq.com/help/

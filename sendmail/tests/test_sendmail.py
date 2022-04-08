@@ -11,7 +11,7 @@ def mailqueue_mock():
 Total requests: 0
 MTA Queue status...
 /var/spool/mqueue is empty
-Total requests: 0"""
+Total requests: 306"""
 
 
 def test_bad_configuration():
@@ -40,5 +40,5 @@ def test_queue_output(aggregator):
             'datadog_checks.sendmail.sendmail.get_subprocess_output', return_value=(mailqueue_mock(), '', 0)
         ):
             check.check({'sendmail_command': '/usr/bin/mailq', 'tags': tags})
-            aggregator.assert_metric('sendmail.queue.size', value=0, tags=tags + ['queue:total'])
+            aggregator.assert_metric('sendmail.queue.size', value=306, tags=tags + ['queue:total'])
             aggregator.assert_service_check('sendmail.returns.output', SendmailCheck.OK)

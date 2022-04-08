@@ -6,13 +6,13 @@ JFrog Enterprise with Xray features Artifactory Enterprise and Xray. Together, t
 
 Artifactory supports multiple build packages, artifacts, and metadata. It allows DevOps teams to have the freedom of choice of build packages like Bower, Chef, CocoaPods, Conan, Conda, CRAN, Debian, Docker, Golang, Gradle, Git LFS, Helm, Ivy, Maven, npm, NuGet, Opkg, P2, PHP Composer, Puppet, PyPI, RPM, RubyGems, SBT, Vagrant & VCS, CI/CD platforms, and devops tools.
 
-Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replication for geographically distributed teams allowing you to replicate between a source repository and multiple targets simultaneously and security features such as IP filtering, CNAME, and data encryption at rest.Artifactory supports Kubernetes for microservices and containerized applications. Manage your deployments and gain insight into dependencies using Artifactory as your Kubernetes registry. 
+Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replication for geographically distributed teams allowing you to replicate between a source repository and multiple targets simultaneously and security features such as IP filtering, CNAME, and data encryption at rest. Artifactory supports Kubernetes for microservices and containerized applications. Manage your deployments and gain insight into dependencies using Artifactory as your Kubernetes registry. 
 
-JFrog Xray is a continuous security and universal artifact analysis solution that provides multi-layered analysis of your containers and software artifacts for vulnerabilities and license compliance issues.  It is the only Software Composition Analysis solution that natively integrates with JFrog Artifactory for optimized scanning and unified operation. Supports all major package types, understands how to unpack them, and uses recursive scanning to see into all of the underlying layers and dependencies, even those packaged in Docker images, and zip files.
+JFrog Xray is a continuous security and universal artifact analysis solution that provides multi-layered analysis of your containers and software artifacts for vulnerabilities and license compliance issues. It is the only Software Composition Analysis solution that natively integrates with JFrog Artifactory for optimized scanning and unified operation. Supports all major package types, understands how to unpack them, and uses recursive scanning to see into all of the underlying layers and dependencies, even those packaged in Docker images, and zip files.
 
 ### JFrog Artifactory and Xray logs Datadog dashboard
 
-JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into JFrog Artifactory's usage statistics or JFrog Xray's scanned components details.
+The JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into JFrog Artifactory's usage statistics or JFrog Xray's scanned components details.
 
 ![dashboard][1]
 
@@ -22,7 +22,7 @@ JFrog Datadog integration allows you to send Artifactory/Xray logs to the log st
 
 ### JFrog Artifactory and Xray metrics API dashboard
 
-JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to send metrics from the Artifactory's/Xray's OpenMetrics API endpoint to Datadog.  With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory/Xray, as well as, insights into the count and type of artifacts and components scanned by Xray.  Upon setting up the configuration, these metrics are made available as out-of-the-box dashboards within the Datadog UI and may be used to enhance existing dashboards within Datadog.
+JFrog Artifactory and Xray metrics API integration with Datadog allows you to send metrics from the OpenMetrics API endpoint to Datadog. With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory/Xray, as well as, insights into the count and type of artifacts and components scanned by Xray. After setting up the configuration, these metrics are available as out-of-the-box dashboards and may be used to enhance existing dashboards within Datadog.
 
 ![artifactory][2]
 
@@ -35,8 +35,8 @@ JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to se
 
 ### Log collection
 
-1. [Install Fluentd using the jFrog documentation][18] based on your installation type, and define the environment variable.  
- 
+1. Install Fluentd using the [jFrog documentation][18] based on your installation type, and define the environment variable.
+
 2. Configure Fluentd with Artifactory by downloading the Artifactory Fluentd configuration file to a directory you have permissions to write in, such as `$JF_PRODUCT_DATA_INTERNAL` locations.
     
     ```text
@@ -56,9 +56,9 @@ JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to se
     </match>
     ```
     
-    * `API_KEY` (required) is the API key from [Datadog][4].
-    * `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
-    * `include_tag_key` defaults to false and it will add `fluentd` tag in the JSON record if set to true.
+    - `API_KEY` (required) is the API key from [Datadog][4].
+    - `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
+    - `include_tag_key` defaults to false and adds the `fluentd` tag in the JSON record if set to true.
 
 3. Configure Fluentd with Xray by downloading the Xray Fluentd configuration file to a directory you have permissions to write, such as the `$JF_PRODUCT_DATA_INTERNAL` locations.
     
@@ -98,7 +98,7 @@ JFrog Artifactory's/Xray's metrics API integration with Datadog allows you to se
     
     * `API_KEY`  (required) is the API key from [Datadog][4].
     * `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in Datadog.
-    * `include_tag_key` defaults to false and it will add `fluentd` tag in the json record if set to true.
+    * `include_tag_key` defaults to false and adds the `fluentd` tag in the json record if set to true.
     
 4. Enable the integration by running `td-agent` on `artifactory` and `xray` instances:
 

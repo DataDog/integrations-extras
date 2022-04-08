@@ -17,20 +17,19 @@ As an administrator, click the "Admin Tools" menu in the upper right hand of you
 
 ![admin-menu][2]
 
-Add a new integration, by clicking the "New" button. You will now be able to configure the integration.
+Add a new integration, by clicking the "New" button to enable configuration of the integration.
 
 ![push-configuration][3]
 
 Add a unique name for this integration and your API key from Datadog. Then choose which tags and metrics you want to send. Some things to remember:
 
-- We include a normalized version of the check name as a default tag
-- For multi-step checks (Real Browser and API Checks), we include the position of the
-  request that the metrics came from
+- A normalized version of the check name is included as a default tag.
+- For multi-step checks (Real Browser and API Checks), the position of the request that the metrics came from is included.
 - Uptime checks include HTTP, Port, and API checks
 - Port checks only report the "Response Time" metric
 - Not all browsers support all metrics
 
-If you would like Real Browser Checks to report timings from the [User Timings API][4], make sure "Send All User Timings?" is selected. Any marks are reported under the `rigor.real_browser.marks` namespace and measures are reported under the `rigor.real_browser.measures` namespace. Be aware that selecting this option could send a lot of new series into Datadog, especially if the marks and measures on the site you are testing are dynamically generated.
+If you would like Real Browser Checks to report timings from the [User Timings API][4], make sure "Send All User Timings?" is selected. Any marks are reported under the `rigor.real_browser.marks` namespace and measures are reported under the `rigor.real_browser.measures` namespace. **Note**: Selecting this option could send a lot of new series into Datadog, especially if the marks and measures on the site you are testing are dynamically generated.
 
 Once you have configured the integration. You can add to any Real Browser, HTTP, Port, or API check. Just edit the check and go to the "Notifications" tab. Here you can add the integration that you just created.
 
@@ -111,13 +110,13 @@ Any of Rigor's metrics can be sent to Datadog. The metrics that are actually sen
 - `rigor.real_browser.server_errors`
 - `rigor.real_browser.errors`
 
-Additionally, if the integration is configured, browser User Timings will be sent under the `rigor.real_browser.marks` and `rigor.real_browser.measures` namespaces.
+Additionally, if the integration is configured, browser User Timings are sent under the `rigor.real_browser.marks` and `rigor.real_browser.measures` namespaces.
 
 See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Events
 
-When a check is configured to alert via a Datadog event, 2 events types will be pushed into Datadog:
+When a check is configured to alert through a Datadog event, two events types are pushed into Datadog:
 
 - **Failed** - whenever the check fails enough to pass the threshold so that it sends an alert
 - **Back online** - whenever the check successfully runs while in an alerting state
@@ -126,15 +125,12 @@ When a check is configured to alert via a Datadog event, 2 events types will be 
 
 ### Service Checks
 
-This integration does not include any service checks.
+The Rigor integration does not include any service checks.
 
 ### Troubleshooting
 
-Need help? Contact [Rigor Support][11].
+Need help? Contact [Rigor support][11].
 
-### Further Reading
-
-Learn more about Rigor and how we can help make your website faster, visit [rigor][12].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_timeboard_with_metrics.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_admin_menu.png
@@ -147,5 +143,4 @@ Learn more about Rigor and how we can help make your website faster, visit [rigo
 [9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_add_webhook_to_check.png
 [10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_events_example.png
 [11]: mailto:support@rigor.com
-[12]: https://rigor.com
 [13]: https://github.com/DataDog/integrations-core/blob/master/rigor/metadata.csv
