@@ -8,7 +8,7 @@ EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensiti
 
 ### Usage
 
-Slow SQL queries located in the Datadog Database monitoring dashboard can be optimized instantly using EverSQL, by easily copying the slow SQL query from Datadog and pasting it directly into EverSQL's [SQL Optimization][2] process.
+Slow SQL queries found in the Datadog Database Monitoring dashboard can be optimized instantly using EverSQL, by easily copying the slow SQL query from Datadog and pasting it directly into EverSQL's [SQL Optimization][2] process.
 
 ### Supported Databases: 
 MySQL, PostgreSQL, AWS Aurora, Google Cloud SQL, Azure DB, Percona, MariaDB.
