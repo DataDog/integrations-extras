@@ -19,7 +19,7 @@ Follow the steps below to configure your PlanetScale organization to push metric
 
 ### Metrics
 
-TBD
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -37,4 +37,5 @@ Need help? Contact [PlanetScale support][4].
 [2]: https://app.planetscale.com/settings/integrations
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/planetscale/images/planetscale.png
 [4]: http://planetscale.com
+[5]: https://github.com/DataDog/integrations-extras/blob/master/planetscale/metadata.csv
 
