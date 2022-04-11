@@ -99,7 +99,7 @@ class Neo4jCheck(PrometheusCheck):
         exclude_labels = self._get_value(instance=instance, key='exclude_labels', required=False, default_value=[])
         instance_tags = self._get_value(instance=instance, key='tags', required=False, default_value=[])
 
-        if neo4j_version not in ["3.5", "4.0"]:
+        if neo4j_version not in ["3.5", "4.0", "5.0"]:
             raise ConfigurationError('neo4j_version "{}" is not a valid value'.format(neo4j_version))
 
         return Config(
