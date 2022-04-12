@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import pytest
 
-INSTANCE = {"hostname": "10.7.58.60", "username": "admin", "password": "Sanfran1234", "protocol": "https"}
+INSTANCE = {"hostname": "localhost", "username": "username", "password": "password", "protocol": "https"}
 
 
 @pytest.fixture(scope='session')
