@@ -39,4 +39,5 @@ Need help? Contact [EverSQL support][3].
 [1]: https://www.eversql.com/
 [2]: https://www.eversql.com/sql-query-optimizer/ 
 [3]: https://eversql.freshdesk.com/support/tickets/new
-[4]: https://www.datadoghq.com/product/database-monitoring/
+[4]: https://app.datadoghq.com/databases/
+[5]: https://docs.datadoghq.com/getting_started/database_monitoring/#troubleshoot-a-slow-query
