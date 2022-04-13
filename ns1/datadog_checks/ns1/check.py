@@ -23,13 +23,11 @@ class Ns1Check(AgentCheck):
 
         self.api_endpoint = self.instance.get("api_endpoint")
         if not self.api_endpoint:
-            raise ConfigurationError(
-                'NS1 API endpoint must be specified in configuration')
+            raise ConfigurationError('NS1 API endpoint must be specified in configuration')
 
         self.api_key = self.instance.get("api_key")
         if not self.api_key:
-            raise ConfigurationError(
-                'NS1 API key must be specified in configuration')
+            raise ConfigurationError('NS1 API key must be specified in configuration')
 
         self.max_retry_attempts = self.instance.get("max_retry_attempts")
         if not self.max_retry_attempts:
@@ -56,19 +54,16 @@ class Ns1Check(AgentCheck):
         self.get_usage_count()
 
         # create URLs to query API for all configured metrics
-        checkUrl = self.create_url(
-            self.metrics, self.query_params, self.networks)
+        checkUrl = self.create_url(self.metrics, self.query_params, self.networks)
 
         for k, v in checkUrl.items():
             try:
                 url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.get_stats(url)
-                msg = '{prefix} Query URL: {url}'.format(
-                    prefix=self.LOG_MSG_PREFIX, url=url)
+                msg = '{prefix} Query URL: {url}'.format(prefix=self.LOG_MSG_PREFIX, url=url)
                 self.log.info(msg)
-                msg = '{prefix} result: {result}'.format(
-                    prefix=self.LOG_MSG_PREFIX, result=json.dumps(res))
+                msg = '{prefix} result: {result}'.format(prefix=self.LOG_MSG_PREFIX, result=json.dumps(res))
                 self.log.info(msg)
                 if res:
                     # extract metric from API result.
@@ -127,8 +122,7 @@ class Ns1Check(AgentCheck):
         return checkUrl
 
     def get_ddi_scope_groups(self):
-        url = "{apiendpoint}/v1/dhcp/scopegroup".format(
-            apiendpoint=self.api_endpoint)
+        url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=self.api_endpoint)
         res = self.get_stats(url)
         scopegroups = {}
         for group in res:
@@ -142,8 +136,7 @@ class Ns1Check(AgentCheck):
         res = self.get_stats(url)
         msg = 'Get networks API Query URL: {url}'.format(url=url)
         self.log.info(msg)
-        msg = 'Get Networks API result: {result}'.format(
-            result=json.dumps(res))
+        msg = 'Get Networks API result: {result}'.format(result=json.dumps(res))
         self.log.info(msg)
 
         nets = {}
@@ -155,8 +148,7 @@ class Ns1Check(AgentCheck):
         return nets
 
     def get_zone_records(self, zonename):
-        url = "{apiendpoint}/v1/zones/{zone}".format(
-            apiendpoint=self.api_endpoint, zone=zonename)
+        url = "{apiendpoint}/v1/zones/{zone}".format(apiendpoint=self.api_endpoint, zone=zonename)
         res = self.get_stats(url)
         records = res["records"]
         recmap = {}
@@ -212,8 +204,7 @@ class Ns1Check(AgentCheck):
             return None, False
 
     def get_pulsar_applications(self):
-        url = "{apiendpoint}/v1/pulsar/apps".format(
-            apiendpoint=self.api_endpoint)
+        url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=self.api_endpoint)
         res = self.get_stats(url)
         apps = {}
         for app in res:
@@ -418,8 +409,7 @@ class Ns1Check(AgentCheck):
         retry = 0
         while True:
             try:
-                response = self.http.get(
-                    url, extra_headers=self.headers, timeout=60)
+                response = self.http.get(url, extra_headers=self.headers, timeout=60)
                 response.raise_for_status()
                 response_json = response.json()
 
@@ -440,8 +430,7 @@ class Ns1Check(AgentCheck):
                         self.service_check(
                             self.NS1_SERVICE_CHECK,
                             AgentCheck.CRITICAL,
-                            message="Max retries reached: {}, giving up!".format(
-                                self.max_retry_attempts),
+                            message="Max retries reached: {}, giving up!".format(self.max_retry_attempts),
                         )
                         raise
 
@@ -466,30 +455,32 @@ class Ns1Check(AgentCheck):
                         continue
 
                 # Not 429 - notify the error and raise the expection
-                self.service_check(self.NS1_SERVICE_CHECK,
-                                   AgentCheck.CRITICAL,
-                                   message="Request failed: {}, {}".format(
-                                       url, e),
-                                   )
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
                 raise
 
             except (InvalidURL, ConnectionError) as e:
-                self.service_check(self.NS1_SERVICE_CHECK,
-                                   AgentCheck.CRITICAL,
-                                   message="Request failed: {}, {}".format(
-                                       url, e),
-                                   )
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
                 raise
 
             except ValueError as e:
-                self.service_check(self.NS1_SERVICE_CHECK,
-                                   AgentCheck.CRITICAL, message=str(e))
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL, message=str(e))
                 raise
 
             except Exception:
-                self.service_check(self.NS1_SERVICE_CHECK,
-                                   AgentCheck.CRITICAL,
-                                   message="Error getting stats from NS1 DNS")
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Error getting stats from NS1 DNS")
                 raise
 
     def remove_prefix(self, text, prefix):

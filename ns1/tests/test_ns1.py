@@ -49,19 +49,20 @@ def test_429_http_error(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()
 
-    url = "{apiendpoint}/v1/zones/dloc1.com".format(
-        apiendpoint=check.api_endpoint)
+    url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
 
-    requests_mock.register_uri('GET',
-                               url,
-                               status_code=429,
-                               reason="Too many requests",
-                               headers={'X-Ratelimit-By': 'customer',
-                                        'X-Ratelimit-Limit': '1000',
-                                        'X-Ratelimit-Period': '1',
-                                        'X-Ratelimit-Remaining': '0'
-                                        }
-                               )
+    requests_mock.register_uri(
+        'GET',
+        url,
+        status_code=429,
+        reason="Too many requests",
+        headers={
+            'X-Ratelimit-By': 'customer',
+            'X-Ratelimit-Limit': '1000',
+            'X-Ratelimit-Period': '1',
+            'X-Ratelimit-Remaining': '0'
+        }
+    )
     with pytest.raises(HTTPError):
         stats = check.get_stats(url)
         assert stats is None
@@ -73,19 +74,20 @@ def test_set_max_retries(aggregator, instance_ddi, requests_mock, caplog):
     check = Ns1Check('ns1', {}, [instance_ddi])
 
     with caplog.at_level(logging.WARNING):
-        url = "{apiendpoint}/v1/zones/dloc1.com".format(
-            apiendpoint=check.api_endpoint)
+        url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
 
-        requests_mock.register_uri('GET',
-                                   url,
-                                   status_code=429,
-                                   reason="Too many requests",
-                                   headers={'X-Ratelimit-By': 'customer',
-                                            'X-Ratelimit-Limit': '1000',
-                                            'X-Ratelimit-Period': '1',
-                                            'X-Ratelimit-Remaining': '0'
-                                            }
-                                   )
+        requests_mock.register_uri(
+            'GET',
+            url,
+            status_code=429,
+            reason="Too many requests",
+            headers={
+                'X-Ratelimit-By': 'customer',
+                'X-Ratelimit-Limit': '1000',
+                'X-Ratelimit-Period': '1',
+                'X-Ratelimit-Remaining': '0'
+            }
+        )
         with pytest.raises(HTTPError):
             check.get_stats(url)
 
@@ -98,8 +100,7 @@ def test_set_max_retries(aggregator, instance_ddi, requests_mock, caplog):
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     check = Ns1Check('ns1', {}, [instance_ddi])
     aggregator.assert_all_metrics_covered()
-    url = "{apiendpoint}/v1/dhcp/scopegroup".format(
-        apiendpoint=check.api_endpoint)
+    url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=check.api_endpoint)
     ddiresponse = '''
     [
         {
@@ -144,8 +145,7 @@ def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
     ]
     '''
     requests_mock.get(url, text=ddiresponse)
-    checkUrl = check.create_url(
-        check.metrics, check.query_params, check.networks)
+    checkUrl = check.create_url(check.metrics, check.query_params, check.networks)
 
     assert len(checkUrl) > 0
     assert check.api_endpoint is not None
@@ -293,21 +293,17 @@ def test_url_gen(aggregator, instance_1, requests_mock):
     }
     '''
     requests_mock.get(url, text=appres)
-    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(
-        apiendpoint=check.api_endpoint)
-    url2 = "{apiendpoint}/v1/pulsar/apps/ejgrgw/jobs".format(
-        apiendpoint=check.api_endpoint)
+    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)
+    url2 = "{apiendpoint}/v1/pulsar/apps/ejgrgw/jobs".format(apiendpoint=check.api_endpoint)
     url3 = "{apiendpoint}/v1/networks".format(apiendpoint=check.api_endpoint)
-    url4 = "{apiendpoint}/v1/zones/dloc1.com".format(
-        apiendpoint=check.api_endpoint)
+    url4 = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
     requests_mock.get(url1, text=jobres)
     requests_mock.get(url2, text=jobres1)
     requests_mock.get(url3, text=netres)
     requests_mock.get(url4, text=zoneres)
     check.get_pulsar_applications()
 
-    checkUrl = check.create_url(
-        check.metrics, check.query_params, check.networks)
+    checkUrl = check.create_url(check.metrics, check.query_params, check.networks)
 
     assert check.get_pulsar_job_name_from_id(
         "1xtvhvx") == "CDN Latency - Cloudflare"
@@ -401,8 +397,7 @@ def test_get_pulsar_app(aggregator, instance, requests_mock):
     '''
 
     requests_mock.get(url, text=appres)
-    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(
-        apiendpoint=check.api_endpoint)
+    url1 = "{apiendpoint}/v1/pulsar/apps/1xy4sn3/jobs".format(apiendpoint=check.api_endpoint)
     requests_mock.get(url1, text=jobres)
     pulsar_apps = check.get_pulsar_applications()
 
@@ -611,55 +606,46 @@ def test_usage_count(aggregator, instance_1):
 def test_pulsar_count(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     check.usage_count = {"test": [0, 0]}
-    usage, status = check.extract_pulsar_count(
-        "test", json.loads(PULSAR_RESULT_DECISIONS))
+    usage, status = check.extract_pulsar_count("test", json.loads(PULSAR_RESULT_DECISIONS))
 
     assert usage == 4877
     assert status
     assert check.usage_count["test"] == [1619870400, 4877]
 
     check.usage_count = {"pulsar": [1619870400, 5000]}
-    usage, status = check.extract_pulsar_count(
-        "pulsar", json.loads(PULSAR_RESULT_DECISIONS))
+    usage, status = check.extract_pulsar_count("pulsar", json.loads(PULSAR_RESULT_DECISIONS))
     assert usage == 0
     assert check.usage_count["pulsar"] == [1619870400, 5000]
-    usage, status = check.extract_metric(
-        "pulsar", json.loads(PULSAR_RESULT_DECISIONS))
+    usage, status = check.extract_metric("pulsar", json.loads(PULSAR_RESULT_DECISIONS))
     assert usage == 0
     assert check.usage_count["pulsar"] == [1619870400, 5000]
 
     check.usage_count = {"test.1b1o94j": [0, 0]}
-    jobs, status = check.extract_pulsar_count_by_job(
-        "test", json.loads(PULSAR_RESULT_DECISIONS))
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
     assert jobs["test.1b1o94j"] == 1644
 
     check.usage_count = {"pulsar.decisions.1b1o94j": [0, 0]}
-    jobs, status = check.extract_metric(
-        "pulsar.decisions", json.loads(PULSAR_RESULT_DECISIONS))
+    jobs, status = check.extract_metric("pulsar.decisions", json.loads(PULSAR_RESULT_DECISIONS))
     assert jobs["pulsar.decisions.1b1o94j"] == 1644
 
     check.usage_count = {"test.1b1o94j": [1619827200, 1000]}
-    jobs, status = check.extract_pulsar_count_by_job(
-        "test", json.loads(PULSAR_RESULT_DECISIONS))
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(PULSAR_RESULT_DECISIONS))
     assert jobs["test.1b1o94j"] == 644
 
     check.usage_count = {"test.1b1o94j": [1619870400, 1000]}
     # should throw exception due to wrong data
-    jobs, status = check.extract_pulsar_count_by_job(
-        "test", json.loads(USAGE_RESULT))
+    jobs, status = check.extract_pulsar_count_by_job("test", json.loads(USAGE_RESULT))
     assert status is False
 
 
 def test_extractPulsarResponseTime(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
 
-    rtime, status = check.extract_pulsar_response_time(
-        json.loads(PULSAR_RESULT_PERFORMANCE))
+    rtime, status = check.extract_pulsar_response_time(json.loads(PULSAR_RESULT_PERFORMANCE))
     assert rtime == 46.605
     assert status
 
-    rtime, status = check.extract_metric(
-        "pulsar.performance", json.loads(PULSAR_RESULT_PERFORMANCE))
+    rtime, status = check.extract_metric("pulsar.performance", json.loads(PULSAR_RESULT_PERFORMANCE))
     assert rtime == 46.605
     assert status
 
@@ -852,8 +838,7 @@ def test_extract_billing(aggregator, instance_1):
     assert billing["usage"] == 1509129
     assert billing["limit"] == 500000
     assert status
-    billing, status = check.extract_metric(
-        "billing", json.loads(billing_result))
+    billing, status = check.extract_metric("billing", json.loads(billing_result))
     assert billing["usage"] == 1509129
     assert billing["limit"] == 500000
     assert status
@@ -861,12 +846,10 @@ def test_extract_billing(aggregator, instance_1):
 
 def test_extractPulsarAvailabilityPercent(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
-    up_percent, status = check.extract_pulsar_availability(
-        json.loads(PULSAR_RESULT_AVAILABILITY))
+    up_percent, status = check.extract_pulsar_availability(json.loads(PULSAR_RESULT_AVAILABILITY))
     assert up_percent == 0.975
     assert status
-    up_percent, status = check.extract_metric(
-        "pulsar.availability", json.loads(PULSAR_RESULT_AVAILABILITY))
+    up_percent, status = check.extract_metric("pulsar.availability", json.loads(PULSAR_RESULT_AVAILABILITY))
     assert up_percent == 0.975
     assert status
 
