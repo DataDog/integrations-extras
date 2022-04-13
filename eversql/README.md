@@ -16,7 +16,13 @@ MySQL, PostgreSQL, AWS Aurora, Google Cloud SQL, Azure DB, Percona, MariaDB.
 ## Setup
 
 ### Configuration
-To speed up slow queries identified by Datadog, navigate to the [Datadog Database Monitoring][4] dashboard and locate the slow SQL queries table. Once you identify the SQL query you'd like to speed up, copy it from Datadog and paste it directly into [EverSQL][2] for optimization.
+To speed up slow SQL queries identified by Datadog:
+1. Navigate to the [Datadog Database Monitoring][4] dashboard and locate the slow SQL queries table.
+2. Add a filter for the relevant database, and sort by a relevant performance metric, such as Average Latency.
+3. Once you identify the SQL query you'd like to speed up, copy it from Datadog.
+4. Navigate to [EverSQL][2] and paste the SQL query as part of the query optimization process.
+5. From the optimization report, copy and create the optimal indexes in your database.
+6. Copy the rewritten optimized query to your application code.
 
 ## Data Collected
 
