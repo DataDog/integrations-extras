@@ -2,7 +2,7 @@
 
 ## Overview
 
-[EverSQL][1] is the fastest way to automatically speed up your database and optimize SQL queries, providing automatic SQL tuning and indexing for developers, DBAs, and DevOps engineers.
+[EverSQL][1] is a way to speed up your database and optimize SQL queries, providing automatic SQL tuning and indexing for developers, DBAs, and DevOps engineers.
 
 EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensitive data.
 
