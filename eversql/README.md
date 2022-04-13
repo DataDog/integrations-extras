@@ -4,7 +4,7 @@
 
 [EverSQL][1] is a way to speed up your database and optimize SQL queries, providing automatic SQL tuning and indexing for developers, DBAs, and DevOps engineers.
 
-EverSQL is 100% non-intrusive, and doesn't access any of your databases' sensitive data.
+EverSQL is non-intrusive, and doesn't access any of your databases' sensitive data.
 
 ### Usage
 
