@@ -29,7 +29,7 @@ Planetscale does not include any service checks.
 
 Planetscale does not include any events.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [PlanetScale support][4].
 
