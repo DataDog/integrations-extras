@@ -1,4 +1,7 @@
 import json
+import time
+from requests import codes
+
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
@@ -11,6 +14,7 @@ class Ns1Check(AgentCheck):
     NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
     LOG_MSG_PREFIX = "NS1 API"
+    MAX_RETRIES_ATTEMPTS_DEFAULT = 5
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
@@ -19,11 +23,17 @@ class Ns1Check(AgentCheck):
 
         self.api_endpoint = self.instance.get("api_endpoint")
         if not self.api_endpoint:
-            raise ConfigurationError('NS1 API endpoint must be specified in configuration')
+            raise ConfigurationError(
+                'NS1 API endpoint must be specified in configuration')
 
         self.api_key = self.instance.get("api_key")
         if not self.api_key:
-            raise ConfigurationError('NS1 API key must be specified in configuration')
+            raise ConfigurationError(
+                'NS1 API key must be specified in configuration')
+
+        self.max_retry_attempts = self.instance.get("max_retry_attempts")
+        if not self.max_retry_attempts:
+            self.max_retry_attempts = self.MAX_RETRIES_ATTEMPTS_DEFAULT
 
         self.headers = {"X-NSONE-Key": self.api_key}
 
@@ -46,16 +56,19 @@ class Ns1Check(AgentCheck):
         self.get_usage_count()
 
         # create URLs to query API for all configured metrics
-        checkUrl = self.create_url(self.metrics, self.query_params, self.networks)
+        checkUrl = self.create_url(
+            self.metrics, self.query_params, self.networks)
 
         for k, v in checkUrl.items():
             try:
                 url, name, tags, metric_type = v
                 # Query API to get metrics
                 res = self.get_stats(url)
-                msg = '{prefix} Query URL: {url}'.format(prefix=self.LOG_MSG_PREFIX, url=url)
+                msg = '{prefix} Query URL: {url}'.format(
+                    prefix=self.LOG_MSG_PREFIX, url=url)
                 self.log.info(msg)
-                msg = '{prefix} result: {result}'.format(prefix=self.LOG_MSG_PREFIX, result=json.dumps(res))
+                msg = '{prefix} result: {result}'.format(
+                    prefix=self.LOG_MSG_PREFIX, result=json.dumps(res))
                 self.log.info(msg)
                 if res:
                     # extract metric from API result.
@@ -90,7 +103,8 @@ class Ns1Check(AgentCheck):
                 networknames = None
                 if networks and len(networks) > 0:
                     networknames = self.get_networks(networks)
-                checkUrl.update(self.ns1.get_stats_url_usage(key, val, networknames))
+                checkUrl.update(self.ns1.get_stats_url_usage(
+                    key, val, networknames))
             elif key == "account":
                 checkUrl.update(self.ns1.get_zone_info_url(key, val))
                 checkUrl.update(self.ns1.get_plan_details_url(key, val))
@@ -104,14 +118,17 @@ class Ns1Check(AgentCheck):
                 checkUrl.update(self.ns1.get_pulsar_url(query_params))
             elif key == "pulsar_by_app":
                 self.pulsar_apps = self.get_pulsar_applications()
-                checkUrl.update(self.ns1.get_pulsar_by_app_url(val, self.pulsar_apps, query_params))
+                checkUrl.update(self.ns1.get_pulsar_by_app_url(
+                    val, self.pulsar_apps, query_params))
             elif key == "pulsar_by_record":
-                checkUrl.update(self.ns1.get_pulsar_by_record_url(val, query_params))
+                checkUrl.update(
+                    self.ns1.get_pulsar_by_record_url(val, query_params))
 
         return checkUrl
 
     def get_ddi_scope_groups(self):
-        url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=self.api_endpoint)
+        url = "{apiendpoint}/v1/dhcp/scopegroup".format(
+            apiendpoint=self.api_endpoint)
         res = self.get_stats(url)
         scopegroups = {}
         for group in res:
@@ -125,7 +142,8 @@ class Ns1Check(AgentCheck):
         res = self.get_stats(url)
         msg = 'Get networks API Query URL: {url}'.format(url=url)
         self.log.info(msg)
-        msg = 'Get Networks API result: {result}'.format(result=json.dumps(res))
+        msg = 'Get Networks API result: {result}'.format(
+            result=json.dumps(res))
         self.log.info(msg)
 
         nets = {}
@@ -137,7 +155,8 @@ class Ns1Check(AgentCheck):
         return nets
 
     def get_zone_records(self, zonename):
-        url = "{apiendpoint}/v1/zones/{zone}".format(apiendpoint=self.api_endpoint, zone=zonename)
+        url = "{apiendpoint}/v1/zones/{zone}".format(
+            apiendpoint=self.api_endpoint, zone=zonename)
         res = self.get_stats(url)
         records = res["records"]
         recmap = {}
@@ -160,7 +179,8 @@ class Ns1Check(AgentCheck):
             self.set_usage_count()
 
     def set_usage_count(self):
-        self.write_persistent_cache(self.NS1_CACHE_KEY, json.dumps(self.usage_count))
+        self.write_persistent_cache(
+            self.NS1_CACHE_KEY, json.dumps(self.usage_count))
 
     def extract_metric(self, key, result):
         # Various NS1 APis are returning different data structures, extract values depending on which API was called
@@ -192,7 +212,8 @@ class Ns1Check(AgentCheck):
             return None, False
 
     def get_pulsar_applications(self):
-        url = "{apiendpoint}/v1/pulsar/apps".format(apiendpoint=self.api_endpoint)
+        url = "{apiendpoint}/v1/pulsar/apps".format(
+            apiendpoint=self.api_endpoint)
         res = self.get_stats(url)
         apps = {}
         for app in res:
@@ -232,12 +253,14 @@ class Ns1Check(AgentCheck):
                         if curr_timestamp == prev_timestamp:
                             # don't submit count if it didn't increase
                             if curr_count >= prev_count:
-                                self.usage_count[jobkey] = [prev_timestamp, curr_count]
+                                self.usage_count[jobkey] = [
+                                    prev_timestamp, curr_count]
                                 result[jobkey] = curr_count - prev_count
                             else:
                                 result[jobkey] = 0
                         else:
-                            self.usage_count[jobkey] = [curr_timestamp, curr_count]
+                            self.usage_count[jobkey] = [
+                                curr_timestamp, curr_count]
                             result[jobkey] = curr_count
                     else:
                         self.usage_count[jobkey] = [curr_timestamp, curr_count]
@@ -391,39 +414,87 @@ class Ns1Check(AgentCheck):
     def get_stats(self, url):
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
-        try:
-            response = self.http.get(url, extra_headers=self.headers, timeout=60)
-            response.raise_for_status()
-            response_json = response.json()
 
-            return response_json
+        retry = 0
+        while True:
+            try:
+                response = self.http.get(
+                    url, extra_headers=self.headers, timeout=60)
+                response.raise_for_status()
+                response_json = response.json()
 
-        except Timeout as e:
-            self.service_check(
-                self.NS1_SERVICE_CHECK,
-                AgentCheck.CRITICAL,
-                message="Request timeout: {}, {}".format(url, e),
-            )
-            raise
+                return response_json
 
-        except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(
-                self.NS1_SERVICE_CHECK,
-                AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(url, e),
-            )
-            raise
+            except Timeout as e:
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request timeout: {}, {}".format(url, e),
+                )
+                raise
 
-        except ValueError as e:
-            self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e))
-            raise
-        except Exception:
-            self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats from NS1 DNS")
-            raise
+            except HTTPError as e:
+                if response.status_code == codes.too_many_requests:
+                    if retry >= self.max_retry_attempts:
+                        # max retries attempt reached, giving up.
+                        self.service_check(
+                            self.NS1_SERVICE_CHECK,
+                            AgentCheck.CRITICAL,
+                            message="Max retries reached: {}, giving up!".format(
+                                self.max_retry_attempts),
+                        )
+                        raise
+
+                    else:
+                        # read rate limit headers and caculate the sleep time
+                        ratelimit_period = response.headers['X-RateLimit-Period']
+                        if ratelimit_period is None or ratelimit_period == 0:
+                            ratelimit_period = 300
+
+                        ratelimit_limit = response.headers['X-RateLimit-Limit']
+                        if ratelimit_limit is None or ratelimit_limit == 0:
+                            ratelimit_limit = 100
+
+                        next_request_available_in_seconds = int(
+                            ratelimit_period) / int(ratelimit_limit)
+                        msg = "Rate limit reached, X-RateLimit-Period: {}, X-RateLimit-Limit: {}, sleeping: {}".format(
+                            ratelimit_period, ratelimit_limit, next_request_available_in_seconds)
+                        self.log.warning(msg)
+
+                        retry += 1
+                        time.sleep(next_request_available_in_seconds)
+                        continue
+
+                # Not 429 - notify the error and raise the expection
+                self.service_check(self.NS1_SERVICE_CHECK,
+                                   AgentCheck.CRITICAL,
+                                   message="Request failed: {}, {}".format(
+                                       url, e),
+                                   )
+                raise
+
+            except (InvalidURL, ConnectionError) as e:
+                self.service_check(self.NS1_SERVICE_CHECK,
+                                   AgentCheck.CRITICAL,
+                                   message="Request failed: {}, {}".format(
+                                       url, e),
+                                   )
+                raise
+
+            except ValueError as e:
+                self.service_check(self.NS1_SERVICE_CHECK,
+                                   AgentCheck.CRITICAL, message=str(e))
+                raise
+
+            except Exception:
+                self.service_check(self.NS1_SERVICE_CHECK,
+                                   AgentCheck.CRITICAL,
+                                   message="Error getting stats from NS1 DNS")
+                raise
 
     def remove_prefix(self, text, prefix):
         if text.startswith(prefix):
-            return text[len(prefix) :]
+            return text[len(prefix):]
         return text
 
     def send_metrics(self, metric_name, metric_value, tags, metric_type):
@@ -443,7 +514,8 @@ class Ns1Check(AgentCheck):
         elif metric_name == "pulsar.decisions":
             for k, v in metric_value.items():
                 pulsar_job_id = self.remove_prefix(k, "pulsar.decisions.")
-                tags = ["resource:{jobname}".format(jobname=self.get_pulsar_job_name_from_id(pulsar_job_id))]
+                tags = ["resource:{jobname}".format(
+                    jobname=self.get_pulsar_job_name_from_id(pulsar_job_id))]
                 if metric_type == "gauge":
                     self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
                 elif metric_type == "count":
@@ -456,7 +528,8 @@ class Ns1Check(AgentCheck):
                 if metric_type == "gauge":
                     self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
                 elif metric_type == "count":
-                    self.count('ns1.{name}.{record}'.format(name=metric_name, record=k), v, tags)
+                    self.count('ns1.{name}.{record}'.format(
+                        name=metric_name, record=k), v, tags)
         else:
             # scalar value, just submit
             if metric_type == "gauge":
