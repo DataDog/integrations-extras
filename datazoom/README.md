@@ -20,7 +20,7 @@ The Datazoom integration emits logs to Datadog. No installation is required on t
 
 ### Dashboard
 
-Datazoom logs dashboard is available [here](../dashboard/lists/preset/3?q=datazoom). 
+See the [Datazoom logs dashboard][4].
 
 ## Data Collected
 
