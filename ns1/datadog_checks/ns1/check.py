@@ -98,8 +98,7 @@ class Ns1Check(AgentCheck):
                 networknames = None
                 if networks and len(networks) > 0:
                     networknames = self.get_networks(networks)
-                checkUrl.update(self.ns1.get_stats_url_usage(
-                    key, val, networknames))
+                checkUrl.update(self.ns1.get_stats_url_usage(key, val, networknames))
             elif key == "account":
                 checkUrl.update(self.ns1.get_zone_info_url(key, val))
                 checkUrl.update(self.ns1.get_plan_details_url(key, val))
@@ -113,11 +112,9 @@ class Ns1Check(AgentCheck):
                 checkUrl.update(self.ns1.get_pulsar_url(query_params))
             elif key == "pulsar_by_app":
                 self.pulsar_apps = self.get_pulsar_applications()
-                checkUrl.update(self.ns1.get_pulsar_by_app_url(
-                    val, self.pulsar_apps, query_params))
+                checkUrl.update(self.ns1.get_pulsar_by_app_url(val, self.pulsar_apps, query_params))
             elif key == "pulsar_by_record":
-                checkUrl.update(
-                    self.ns1.get_pulsar_by_record_url(val, query_params))
+                checkUrl.update(self.ns1.get_pulsar_by_record_url(val, query_params))
 
         return checkUrl
 
@@ -171,8 +168,7 @@ class Ns1Check(AgentCheck):
             self.set_usage_count()
 
     def set_usage_count(self):
-        self.write_persistent_cache(
-            self.NS1_CACHE_KEY, json.dumps(self.usage_count))
+        self.write_persistent_cache(self.NS1_CACHE_KEY, json.dumps(self.usage_count))
 
     def extract_metric(self, key, result):
         # Various NS1 APis are returning different data structures, extract values depending on which API was called
@@ -244,14 +240,12 @@ class Ns1Check(AgentCheck):
                         if curr_timestamp == prev_timestamp:
                             # don't submit count if it didn't increase
                             if curr_count >= prev_count:
-                                self.usage_count[jobkey] = [
-                                    prev_timestamp, curr_count]
+                                self.usage_count[jobkey] = [prev_timestamp, curr_count]
                                 result[jobkey] = curr_count - prev_count
                             else:
                                 result[jobkey] = 0
                         else:
-                            self.usage_count[jobkey] = [
-                                curr_timestamp, curr_count]
+                            self.usage_count[jobkey] = [curr_timestamp, curr_count]
                             result[jobkey] = curr_count
                     else:
                         self.usage_count[jobkey] = [curr_timestamp, curr_count]
@@ -505,8 +499,7 @@ class Ns1Check(AgentCheck):
         elif metric_name == "pulsar.decisions":
             for k, v in metric_value.items():
                 pulsar_job_id = self.remove_prefix(k, "pulsar.decisions.")
-                tags = ["resource:{jobname}".format(
-                    jobname=self.get_pulsar_job_name_from_id(pulsar_job_id))]
+                tags = ["resource:{jobname}".format(jobname=self.get_pulsar_job_name_from_id(pulsar_job_id))]
                 if metric_type == "gauge":
                     self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
                 elif metric_type == "count":
@@ -519,8 +512,7 @@ class Ns1Check(AgentCheck):
                 if metric_type == "gauge":
                     self.gauge('ns1.{name}'.format(name=metric_name), v, tags)
                 elif metric_type == "count":
-                    self.count('ns1.{name}.{record}'.format(
-                        name=metric_name, record=k), v, tags)
+                    self.count('ns1.{name}.{record}'.format(name=metric_name, record=k), v, tags)
         else:
             # scalar value, just submit
             if metric_type == "gauge":

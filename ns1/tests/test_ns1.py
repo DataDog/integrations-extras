@@ -305,13 +305,11 @@ def test_url_gen(aggregator, instance_1, requests_mock):
 
     checkUrl = check.create_url(check.metrics, check.query_params, check.networks)
 
-    assert check.get_pulsar_job_name_from_id(
-        "1xtvhvx") == "CDN Latency - Cloudflare"
+    assert check.get_pulsar_job_name_from_id("1xtvhvx") == "CDN Latency - Cloudflare"
     # if check.query_params:
     query_params = check.query_params
     query_string = "?"
-    query_string = query_string + "period=" + \
-        query_params["pulsar_period"] + "&"
+    query_string = query_string + "period=" + query_params["pulsar_period"] + "&"
     query_string = query_string + "geo=" + query_params["pulsar_geo"] + "&"
     query_string = query_string + "asn=" + query_params["pulsar_asn"] + "&"
     query_string = query_string[:-1]
