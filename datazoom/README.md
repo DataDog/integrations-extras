@@ -16,7 +16,7 @@ The Datazoom integration emits logs to Datadog.
 
 ### Configuration
 
-- Visit Datazoom's integation [documentation][1].
+- Visit Datazoom's integation [documentation][1] for details on how to configure the Datazoom Datadog Connector.
 
 ### Dashboard
 
