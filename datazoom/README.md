@@ -2,7 +2,11 @@
 
 ## Overview
 
-The [Datazoom Datadog Connector][1] sends Collector data to a configured Datadog destination, available for query in Log Explorer.
+Datazoom is a video data platform that gathers data from endpoints through an ecosystem of collectors.
+
+The [Datazoom Datadog Connector][1] sends collector data to Datadog, where you can query the data in your [Log Explorer][3].
+
+Datazoom sends data set at the INFO level.
 
 ## Setup
 
