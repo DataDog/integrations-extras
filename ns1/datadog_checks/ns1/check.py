@@ -465,7 +465,7 @@ class Ns1Check(AgentCheck):
                 raise
 
             except ValueError as e:
-                self.service_check(self.NS1_SERVICE_CHECK,AgentCheck.CRITICAL, message=str(e))
+                self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e))
                 raise
 
             except Exception:
