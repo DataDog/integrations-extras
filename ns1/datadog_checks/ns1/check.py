@@ -438,10 +438,10 @@ class Ns1Check(AgentCheck):
                         if ratelimit_limit is None or ratelimit_limit == 0:
                             ratelimit_limit = 100
 
-                        next_request_available_in_seconds = int(
-                            ratelimit_period) / int(ratelimit_limit)
+                        next_request_available_in_seconds = int(ratelimit_period) / int(ratelimit_limit)
                         msg = "Rate limit reached, X-RateLimit-Period: {}, X-RateLimit-Limit: {}, sleeping: {}".format(
-                            ratelimit_period, ratelimit_limit, next_request_available_in_seconds)
+                            ratelimit_period, ratelimit_limit, next_request_available_in_seconds
+                        )
                         self.log.warning(msg)
 
                         retry += 1
@@ -465,21 +465,18 @@ class Ns1Check(AgentCheck):
                 raise
 
             except ValueError as e:
-                self.service_check(
-                    self.NS1_SERVICE_CHECK,
-                    AgentCheck.CRITICAL, message=str(e))
+                self.service_check(self.NS1_SERVICE_CHECK,AgentCheck.CRITICAL, message=str(e))
                 raise
 
             except Exception:
                 self.service_check(
-                    self.NS1_SERVICE_CHECK,
-                    AgentCheck.CRITICAL,
-                    message="Error getting stats from NS1 DNS")
+                    self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats from NS1 DNS"
+                )
                 raise
 
     def remove_prefix(self, text, prefix):
         if text.startswith(prefix):
-            return text[len(prefix):]
+            return text[len(prefix) :]
         return text
 
     def send_metrics(self, metric_name, metric_value, tags, metric_type):

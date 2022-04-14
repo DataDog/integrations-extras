@@ -60,8 +60,8 @@ def test_429_http_error(aggregator, instance_ddi, requests_mock):
             'X-Ratelimit-By': 'customer',
             'X-Ratelimit-Limit': '1000',
             'X-Ratelimit-Period': '1',
-            'X-Ratelimit-Remaining': '0'
-        }
+            'X-Ratelimit-Remaining': '0',
+        },
     )
     with pytest.raises(HTTPError):
         stats = check.get_stats(url)
@@ -85,8 +85,8 @@ def test_set_max_retries(aggregator, instance_ddi, requests_mock, caplog):
                 'X-Ratelimit-By': 'customer',
                 'X-Ratelimit-Limit': '1000',
                 'X-Ratelimit-Period': '1',
-                'X-Ratelimit-Remaining': '0'
-            }
+                'X-Ratelimit-Remaining': '0',
+            },
         )
         with pytest.raises(HTTPError):
             check.get_stats(url)
