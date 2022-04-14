@@ -1,8 +1,7 @@
 import json
 import time
+
 from requests import codes
-
-
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
