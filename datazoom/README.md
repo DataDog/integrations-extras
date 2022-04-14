@@ -12,7 +12,7 @@ Datazoom sends data set at the INFO level.
 
 ### Installation
 
-The Datazoom integration emits logs to Datadog.
+The Datazoom integration emits logs to Datadog. No installation is required on the Datadog side.
 
 ### Configuration
 
