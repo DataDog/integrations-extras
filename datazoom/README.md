@@ -1,4 +1,4 @@
-# Agent Check: datazoom
+# Agent Check: Datazoom
 
 ## Overview
 
