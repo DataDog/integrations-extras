@@ -1,4 +1,4 @@
-# CHANGELOG - PureFA
+# CHANGELOG - PureFB
 
 ## 1.0.0
 
