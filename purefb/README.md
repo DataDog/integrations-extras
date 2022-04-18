@@ -13,11 +13,11 @@ You can monitor multiple FlashBlades and aggregate these into a single dashboard
  - FlashBlade Purity 3.2.x+
  - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
- - The Pure Storage FlashBlade OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
+ - The Pure Storage FlashBlade OpenMetrics exporter is installed and running in a containerized environment. Refer to the [Pure Storage GitHub repo][1] for installation instructions.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the Autodiscovery Integration Templates for guidance on applying these instructions.
+Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][13] for guidance on applying these instructions.
 
 ### Installation
 
@@ -27,7 +27,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 #### Host
 
-To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==<INTEGRATION_VERSION>`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==1.0.0`.
 
 ### Configuration
 
@@ -93,13 +93,13 @@ The dashboards included in this integration use the tags `env`, `host`, and `fb_
 
 #### Increasing collection interval
 
-For the `/array` endpoint The Pure Storage FlashBlade check sets `min_collection_interval` to `120` by default , and the minimum recommended value is `15`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
+For the `/array` endpoint, the Pure Storage FlashBlade check sets `min_collection_interval` to `120` by default, and the minimum recommended value is `15`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
 
 ```yaml
 min_collection_interval: 120
 ```
 
-For the `/clients`, and `/usage` endpoints The Pure Storage FlashBlade check sets `min_collection_interval` to `600` by default , and the minimum recommended value is `120`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
+For the `/clients`, and `/usage` endpoints, the Pure Storage FlashBlade check sets `min_collection_interval` to `600` by default , and the minimum recommended value is `120`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
 
 ```yaml
 min_collection_interval: 600
@@ -137,3 +137,4 @@ For support or feature requests, contact Pure Storage through the following meth
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
 [12]: https://github.com/DataDog/integrations-extras/blob/master/purefb/assets/service_checks.json
+[13]: https://docs.datadoghq.com/agent/kubernetes/integrations/
