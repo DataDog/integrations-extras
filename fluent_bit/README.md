@@ -1,8 +1,8 @@
-# Agent Check: Fluent Bit
+# Agent Check: Fluent Bit (Agent)
 
 ## Overview
 
-This check monitors [Fluent Bit][1] through the Datadog Agent.
+This check monitors [Fluent Bit][1] metrics through the Datadog Agent. For sending logs to Datadog with Fluent Bit, see the [Fluent Bit][11] documentation to learn about the Datadog Fluent Bit output plugin.
 
 ## Fluent Bit configuration
 Fluent Bit doesn't expose its internal metrics by default. You need to enable the built-in HTTP server that exposes the metrics endpoint.
@@ -10,24 +10,22 @@ Fluent Bit doesn't expose its internal metrics by default. You need to enable th
 [SERVICE]
     http_server on
 ```
-Please see the official [documentation][2] for more information.
+See the official [documentation][2] for more information.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][3] for guidance on applying these instructions.
+Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][4] for guidance on applying these instructions.
 
 ### Installation
 
 To install the Fluent Bit check on your host:
 
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
+1. Install the [developer toolkit][12] on any machine.
 
 2. Run `ddev release build fluent_bit` to build the package.
 
-3. [Download the Datadog Agent][2].
+3. [Download the Datadog Agent][3].
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
@@ -45,19 +43,19 @@ To install the Fluent Bit check on your host:
         #
       - metrics_endpoint: http://127.0.0.1:2020/api/v1/metrics/prometheus
     ```
-   See the [sample fluent_bit.d/conf.yaml][4] for all available configuration options.
+   See the [sample fluent_bit.d/conf.yaml][5] file for all available configuration options.
 
-3. [Restart the Agent][5].
+2. [Restart the Agent][6].
 
 ### Validation
 
-[Run the Agent's status subcommand][6] and look for `fluent_bit` under the Checks section.
+[Run the Agent's status subcommand][7] and look for `fluent_bit` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this check.
+See [metadata.csv][8] for a list of metrics provided by this check.
 
 ### Events
 
@@ -67,11 +65,9 @@ The Fluent Bit integration does not include any events.
 
 The Fluent Bit integration does not include any service checks.
 
-See [service_checks.json][8] for a list of service checks provided by this integration.
-
 ## Troubleshooting
 
-Need help? Contact [Datadog support][9].
+Need help? Contact [Datadog support][10].
 
 
 [1]: https://fluentbit.io
@@ -84,3 +80,5 @@ Need help? Contact [Datadog support][9].
 [8]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
 [9]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
+[11]: https://docs.datadoghq.com/integrations/fluentbit/
+[12]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
