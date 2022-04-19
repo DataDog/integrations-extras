@@ -74,11 +74,11 @@ Need help? Contact [Datadog support][10].
 [2]: https://docs.fluentbit.io/manual/administration/monitoring
 [3]: https://app.datadoghq.com/account/settings#agent
 [4]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[5]: https://github.com/DataDog/integrations-core/blob/master/check/datadog_checks/check/data/conf.yaml.example
+[5]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/datadog_checks/fluent_bit/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
-[9]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
+[8]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/metadata.csv
+[9]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
 [11]: https://docs.datadoghq.com/integrations/fluentbit/
 [12]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
