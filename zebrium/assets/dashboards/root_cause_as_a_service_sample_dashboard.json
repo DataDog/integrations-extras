@@ -1,0 +1,141 @@
+{
+    "author_name": "Datadog",
+    "description": "",
+    "layout_type": "ordered",
+    "template_variables": [],
+    "title": "Zebrium Root Cause as a Service Sample Dashboard",
+    "widgets": [
+        {
+            "definition": {
+                "background_color": "blue",
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Zebrium Root Cause as a Service",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "custom_links": [
+                                {
+                                    "is_hidden": false,
+                                    "override_label": "events"
+                                }
+                            ],
+                            "events": [
+                                {
+                                    "q": "ze_deployment:* ze_service_group:* ze_significance:*",
+                                    "tags_execution": "and"
+                                }
+                            ],
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "legend_layout": "auto",
+                            "requests": [
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "All Events",
+                                            "formula": "default_zero(query1)"
+                                        },
+                                        {
+                                            "alias": "Errors",
+                                            "formula": "default_zero(query3)"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "query": "avg:zebrium.logs.all.count{ze_service_group:*,ze_deployment:*}.fill(last, 600)"
+                                        },
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "query": "avg:zebrium.logs.errors.count{ze_service_group:*,ze_deployment:*}.fill(last, 600)"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "dog_classic"
+                                    }
+                                },
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "Anomalies",
+                                            "formula": "default_zero(query0)"
+                                        }
+                                    ],
+                                    "on_right_yaxis": true,
+                                    "queries": [
+                                        {
+                                            "data_source": "metrics",
+                                            "name": "query0",
+                                            "query": "avg:zebrium.logs.anomalies.count{ze_service_group:*,ze_deployment:*}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "green"
+                                    }
+                                }
+                            ],
+                            "show_legend": true,
+                            "title": "Zebrium Root Cause Finder",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries",
+                            "yaxis": {
+                                "include_zero": false,
+                                "scale": "log"
+                            }
+                        },
+                        "id": 3034148781896830,
+                        "layout": {
+                            "height": 4,
+                            "width": 6,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "event_size": "l",
+                            "query": "ze_service_group:*  ze_deployment:*  ze_significance:*",
+                            "tags_execution": "and",
+                            "title": "Zebrium Root Cause Report Summaries",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "event_stream"
+                        },
+                        "id": 856106195498584,
+                        "layout": {
+                            "height": 4,
+                            "width": 6,
+                            "x": 6,
+                            "y": 0
+                        }
+                    }
+                ]
+            },
+            "id": 6120676499999034,
+            "layout": {
+                "height": 5,
+                "width": 12,
+                "x": 0,
+                "y": 0
+            }
+        }
+    ]
+}

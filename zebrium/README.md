@@ -1,0 +1,52 @@
+# Zebrium Root Cause as a Service
+ 
+## Overview
+ 
+When you know there's a problem and you're not sure what caused it, [Zebrium][1] will automatically show you the root cause directly on your Datadog dashboards. It works by using machine learning on logs - but you don't need to manually train it or set up any rules. And it achieves accuracy in less than 24 hours. 
+
+Using Zebrium is simple. When you're troubleshooting a problem, instead of digging around, just scroll to the Zebrium panel on your dashboard and look at the details of the corresponding detection.
+
+There are two integrations available: 1) Dashboard widget and 2) Events and metrics integration.
+
+### 1) Dashboard widget
+
+You can install a Zebrium widget on your dashboards that gives you a pre-built, elegant and interactive widget to see the Root Cause of any problems (as well as a few relevant metrics). This method provides the simplest user experience.
+ 
+### 2) Events and metrics integration
+
+Zebrium detection events and metrics can be sent to Datadog. You can visualize them any way you like (sample dashboard provided). This method should be used if you would like to customize how Zebrium data appears on your dashboards.
+
+## Setup
+ 
+### Events and metrics integration
+
+The Zebrium events and metrics integration uses a [Datadog API key][2], which needs to be created by a Datadog admin. Once you obtain a Datadog API key, see the [Zebrium documentation for Datadog integration][3] to learn how to setup the Zebrium events and metrics integration for Datadog.
+
+### Dashboard widget
+
+1. Click **Install Integration** in the top right of this panel.
+2. Navigate to an existing Datadog dashboard or create a new one.
+3. Press the **Add Widgets** button to expose the widget drawer.
+4. Search for **Zebrium** in the **Apps** section of the widget drawer.
+5. Click or drag the ***Zebrium Root Cause Finder*** widget icon to add it to your Datadog dashboard.
+6. Open the [Zebrium UI][5] in a new browser tab and  create an access token for your deployment. 
+   - Select the hamburger menu in the upper right of the Zebrium UI and choose Access Tokens. 
+   - Click the Add Access Token button, provide a name for the token, select the deployment for the token and set role to viewer. 
+   - Click Add and copy the token to your clipboard. 
+7. In the widget editor in the Datadog UI, enter the following information:
+   - **API Endpoint**: this is the absolute URL to the root of your Zebrium instance. It is normally **https://cloud.zebrium.com**.
+   - **Token**: Paste the token that you crated in step 6 above.
+   - **Service Group**: The name of the service group you wish to show data from. Or enter 'All' to show data from all service groups in this deployment. 
+9. Optionally give the widget a title.
+10. Press **Save** to finish configuring the Datadog dashboard widget.
+ 
+## Support
+ 
+Need help? Contact [Zebrium Support][4].
+
+
+[1]: https://www.zebrium.com
+[2]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: https://docs.zebrium.com/docs/monitoring/datadog_autodetect/
+[4]: mailto:support@zebrium.com
+[5]: https://cloud.zebrium.com
