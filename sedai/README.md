@@ -16,17 +16,17 @@ Enable this integration to receive notifications in Datadog about actions that S
 
 In Sedai:
 
-* Navigate to Settings > Notifications > Add Integration > DataDog Icon 
-![DataDog Notification Integration](images/DataDog_Notification_Integration.png)
+* Navigate to Settings > Notifications > Add Integration > Datadog Icon 
+![DataDog Notification Integration](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/DataDog_Notification_Integration.png)
 
-* Enter a Nick Name and the API Key for your DataDog account, Enable it and Test the integration.
-![DataDog Notification Integration](images/Add_DataDog_Channel.png)
+* Enter a nickname and the API Key for your Datadog account, enable it and test the integration.
+![DataDog Notification Integration](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/Add_DataDog_Channel.png)
 
-* Once the Test is verified to be working, click Save.
-![Working DataDog Integration](images/Add_DataDog_Channel-Working_REC.png)
+* Once the test is verified to be working, click Save.
+![Working DataDog Integration](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/Add_DataDog_Channel-Working_REC.png)
 
 * Under Settings > Notifications, [select which notifications][2] you want to send to Datadog. 
-![Enable DataDog Notifications](images/Enable_Notifications.png)
+![Enable DataDog Notifications](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/Enable_Notifications.png)
 
 ## Data Collected
 
