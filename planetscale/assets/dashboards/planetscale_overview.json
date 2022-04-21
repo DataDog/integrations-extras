@@ -1,0 +1,771 @@
+{
+  "title": "PlanetScale",
+  "description": "This dashboard shows storage breakdowns, connection counts, and query statistics that summarize your PlanetScale database performance.",
+  "widgets": [
+    {
+      "id": 1391931796390812,
+      "definition": {
+        "title": "About Redis",
+        "title_align": "center",
+        "type": "group",
+        "banner_img": "https://mms.businesswire.com/media/20210623005261/en/887089/22/planetscale_owler_20210106_213213_original.jpg",
+        "show_title": false,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6363628028205868,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard shows storage breakdowns, connection counts, and query statistics that summarize your PlanetScale database performance.\n\n##### [Official integration documentation ↗](https://docs.datadoghq.com/integrations/TODO/) \n##### [Official PlanetScale documentation ↗](https://docs.planetscale.com/)",
+              "background_color": "white",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 929375605109094,
+      "definition": {
+        "title": "Overview",
+        "title_align": "center",
+        "type": "group",
+        "background_color": "white",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4671422542077876,
+            "definition": {
+              "title": "Query Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.queries{$database,$branch}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 1
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 1815986394311214,
+            "definition": {
+              "title": "Total Storage",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.storage{$database,$branch}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 2
+            },
+            "layout": { "x": 2, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 3782630556866780,
+            "definition": {
+              "title": "Avg Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.connections{$database,$branch}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 0
+            },
+            "layout": { "x": 4, "y": 0, "width": 2, "height": 1 }
+          },
+          {
+            "id": 270507848071460,
+            "definition": {
+              "title": "Planetscale Monitors",
+              "title_size": "13",
+              "title_align": "left",
+              "type": "manage_status",
+              "summary_type": "monitors",
+              "display_format": "countsAndList",
+              "color_preference": "text",
+              "hide_zero_counts": true,
+              "show_last_triggered": true,
+              "show_priority": true,
+              "query": "metric:planetscale*",
+              "sort": "status,desc",
+              "count": 50,
+              "start": 0
+            },
+            "layout": { "x": 0, "y": 1, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 4618828695200784,
+      "definition": {
+        "title": "Totals",
+        "type": "group",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 275193826138764,
+            "definition": {
+              "title": "Rows Written",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.rows_written{$database,$branch} by {ps_database,ps_branch}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 84664538395074,
+            "definition": {
+              "title": "Current Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.connections{$database,$branch} by {ps_database,ps_branch}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 6771422524927118,
+            "definition": {
+              "title": "Storage by Database Branch",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "size",
+                      "limit": { "order": "desc" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.storage{$database,$branch} by {ps_database,ps_branch}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 3 }
+          },
+          {
+            "id": 7613699966698120,
+            "definition": {
+              "title": "Rows Read",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.rows_read{$database,$branch} by {ps_database,ps_branch}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "blue",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 5226459194064852,
+            "definition": {
+              "title": "Queries Issued",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.queries{$database,$branch,$statement} by {ps_branch,ps_database,ps_statement}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 5105190804303932,
+            "definition": {
+              "type": "note",
+              "content": "These metrics represent the totals that you see in your when viewing your databases on [app.planetscale.com](https://app.planetscale.com)",
+              "background_color": "white",
+              "font_size": "16",
+              "text_align": "center",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 8, "y": 3, "width": 4, "height": 1 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 5, "width": 12, "height": 5 }
+    },
+    {
+      "id": 6508455201038694,
+      "definition": {
+        "title": "Table Breakdowns",
+        "type": "group",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3846937738219984,
+            "definition": {
+              "title": "Storage Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    { "formula": "query1", "limit": { "order": "desc" } }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "max:planetscale.tables.storage{$database,$branch,$table} by {ps_table}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "inline" }
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 4 }
+          },
+          {
+            "id": 4426829630991764,
+            "definition": {
+              "title": "Cumulative Query Count Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    { "formula": "query1", "limit": { "order": "desc" } }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.queries{$database,$branch,$statement,$table} by {ps_table,ps_statement}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "inline" }
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 4 }
+          },
+          {
+            "id": 1111645644586720,
+            "definition": {
+              "title": "Cumulative Query Time Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    { "formula": "query1", "limit": { "order": "desc" } }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.cumulative_query_time{$database,$branch,$statement,$table} by {ps_table,ps_statement}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "inline" }
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 4 }
+          },
+          {
+            "id": 6223028222762888,
+            "definition": {
+              "type": "note",
+              "content": "These metrics represent the storage and activity of individual tables in your PlanetScale databases.",
+              "background_color": "white",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4764351690781918,
+            "definition": {
+              "title": "Top 5 Query Counts",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "top(query1, 5, 'sum', 'desc')" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.queries{$database,$branch,$table,$statement} by {ps_table,ps_statement}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4257394654047350,
+            "definition": {
+              "title": "Top 5 Cumulative Query Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "top(query1, 5, 'sum', 'desc')" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.cumulative_query_time{$database,$branch,$table,$statement} by {ps_table,ps_statement}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "blue",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 4, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 601939455113124,
+      "definition": {
+        "title": "Row Breakdowns",
+        "type": "group",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8983184494818952,
+            "definition": {
+              "title": "Rows Inserted",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_inserted{$database,$branch,$table} by {ps_branch,ps_database,ps_table}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "blue",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 2499114596912930,
+            "definition": {
+              "title": "Cumulative Rows Written Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 + query2 + query3",
+                      "limit": { "order": "desc" }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_inserted{$database,$branch,$table} by {ps_table}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "query": "sum:planetscale.tables.rows_updated{$database,$branch,$table} by {ps_table}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "aggregator": "sum"
+                    },
+                    {
+                      "query": "sum:planetscale.tables.rows_deleted{$database,$branch,$table} by {ps_table}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 4, "y": 0, "width": 8, "height": 4 }
+          },
+          {
+            "id": 1189878971861186,
+            "definition": {
+              "title": "Rows Updated",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_updated{$database,$branch,$table} by {ps_branch,ps_database,ps_table}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4124845069562976,
+            "definition": {
+              "title": "Rows Deleted",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_deleted{$database,$branch,$table} by {ps_branch,ps_database,ps_table}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              }
+            },
+            "layout": { "x": 0, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 8405709109399572,
+            "definition": {
+              "title": "Cumulative Rows Selected Breakdown",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    { "formula": "query1", "limit": { "order": "desc" } }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_selected{$database,$branch,$table} by {ps_table}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "sum"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 4, "y": 4, "width": 8, "height": 4 }
+          },
+          {
+            "id": 4397636433113778,
+            "definition": {
+              "title": "Rows Selected",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:planetscale.tables.rows_selected{$database,$branch,$table} by {ps_branch,ps_database,ps_table}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "grey",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 6, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 17, "width": 12, "height": 9 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "database",
+      "default": "*",
+      "prefix": "ps_database",
+      "available_values": []
+    },
+    {
+      "name": "branch",
+      "default": "*",
+      "prefix": "ps_branch",
+      "available_values": []
+    },
+    {
+      "name": "statement",
+      "default": "*",
+      "prefix": "ps_statement",
+      "available_values": []
+    },
+    {
+      "name": "table",
+      "default": "*",
+      "prefix": "ps_table",
+      "available_values": []
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "template_variable_presets": [
+    {
+      "name": "Beam",
+      "template_variables": [{ "name": "database", "value": "beam" }]
+    }
+  ],
+  "reflow_type": "fixed",
+  "id": "qcq-f45-wct"
+}

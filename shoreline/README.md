@@ -48,7 +48,7 @@ For example:
 
 For in-depth instructions on configuring the app, see the [Datadog-Shoreline documentation][4].
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Datadog support][2].
 
