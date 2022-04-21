@@ -26,3 +26,17 @@ release-auto:
     # Prefix every line with a timestamp
     - ./.gitlab/release/tag-release.sh 2>&1 | ts "[%H:%M:%S %Z]  "
   tags: [ "runner:main" ]
+
+publish:
+  stage: release
+  image: 486234852809.dkr.ecr.us-east-1.amazonaws.com/ci/declarative-integration-pipeline:1
+  tags: [ "runner:main" ]
+  only:
+    - master
+  script:
+    - mkdir $CI_PROJECT_DIR/target
+    - ls -d $CI_PROJECT_DIR/* > $CI_PROJECT_DIR/target/listing.txt
+  artifacts:
+    paths:
+      - target/listing.txt
+    expire_in: 20 mins
