@@ -35,7 +35,7 @@ The Zebrium events and metrics integration uses a [Datadog API key][2], which ne
    - Click Add and copy the token to your clipboard. 
 7. In the widget editor in the Datadog UI, enter the following information:
    - **API Endpoint**: this is the absolute URL to the root of your Zebrium instance. It is normally **https://cloud.zebrium.com**.
-   - **Token**: Paste the token that you crated in step 6 above.
+   - **Token**: Paste the token that you created in step 6 above.
    - **Service Group**: The name of the service group you wish to show data from. Or enter 'All' to show data from all service groups in this deployment. 
 9. Optionally give the widget a title.
 10. Press **Save** to finish configuring the Datadog dashboard widget.
