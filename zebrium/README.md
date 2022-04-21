@@ -6,7 +6,7 @@ When you know there's a problem and you're not sure what caused it, [Zebrium][1]
 
 Using Zebrium is simple. When you're troubleshooting a problem, instead of digging around, simply add the Zebrium app to your Datadog dashboard and look at the details of the corresponding detection.
 
-There are two integrations available: 1) Dashboard widget and 2) Events and metrics integration.
+Zebrium integrates with Datadog in two ways: 1) a Datadog App with a custom dashboard widget and 2) an events and metrics integration.
 
 ### 1) Dashboard widget
 
