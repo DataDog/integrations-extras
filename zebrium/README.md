@@ -10,7 +10,7 @@ Zebrium integrates with Datadog in two ways: 1) a Datadog App with a custom dash
 
 ### 1) Datadog App
 
-You can install a Zebrium widget on your dashboards that gives you a pre-built, elegant and interactive widget to see the Root Cause of any problems (as well as a few relevant metrics). This method provides the simplest user experience.
+The Zebrium app provides a pre-built, elegant and interactive dashboard widget to see the Root Cause of any problems (as well as a few relevant metrics). This method provides the simplest user experience.
  
 ### 2) Events and metrics integration
 
