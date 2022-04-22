@@ -68,7 +68,7 @@ class Neo4jCheck(PrometheusCheck):
             tags = ['db_name:{}'.format(db_name)]
             if config.instance_tags:
                 tags.extend(config.instance_tags.copy())
-            self.process_metric(message=metric, custom_tags=tags)
+            self.process_metric(message=metric, custom_tags=tags, send_monotonic_counter=True)
 
     def _check_legacy_metrics(self, metrics, config):
         for metric in metrics:
@@ -83,7 +83,7 @@ class Neo4jCheck(PrometheusCheck):
             tags = ['db_name:{}'.format(db_name)]
             if config.instance_tags:
                 tags.extend(config.instance_tags.copy())
-            self.process_metric(message=metric, custom_tags=tags)
+            self.process_metric(message=metric, custom_tags=tags, send_monotonic_counter=True)
 
     def _get_db_for_metric(self, dbs, metric_name):
         for db in dbs:
