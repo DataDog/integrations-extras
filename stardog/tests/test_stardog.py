@@ -1,5 +1,6 @@
 import copy
 import json
+import re
 import threading
 
 import requests
@@ -42,21 +43,30 @@ def test_check_all_metrics(aggregator):
     check.check({})
     tags = copy.deepcopy(INSTANCE["tags"])
     tags.append("stardog_url:http://localhost:%d" % HTTP.port)
-    # tags_with_db = copy.deepcopy(INSTANCE["tags"])
 
     for metric_key in DATA:
         metric_value = DATA[metric_key]
+        db_regex = re.compile(r"(databases|kga)\.([^\.]+)\..*")
+        local_tags = tags[:]
+        db_match = db_regex.match(metric_key)
+        if db_match is not None:
+            try:
+                db_name = db_match.group(2)
+                local_tags.append("database:%s" % db_name)
+            except Exception:
+                continue
+
         if len(metric_value) > 1:
             for sub_value in metric_value:
                 if sub_value in ("duration_units", "rate_units"):
                     continue
                 new_key = "stardog.%s.%s" % (metric_key, sub_value)
                 metric_val = float(metric_value[sub_value])
-                aggregator.assert_metric(new_key, metric_type=0, count=1, value=metric_val, tags=tags)
+                aggregator.assert_metric(new_key, metric_type=0, count=1, value=metric_val, tags=local_tags)
         else:
             new_key = "stardog.%s" % metric_key
             metric_val = float(metric_value[next(iter(metric_value))])
-            aggregator.assert_metric(new_key, metric_type=0, count=1, value=metric_val, tags=tags)
+            aggregator.assert_metric(new_key, metric_type=0, count=1, value=metric_val, tags=local_tags)
     aggregator.assert_all_metrics_covered
 
 

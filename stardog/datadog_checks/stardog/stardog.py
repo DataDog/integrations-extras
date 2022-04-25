@@ -69,7 +69,7 @@ def convert_default(in_key, in_val):
         key = "stardog.%s" % in_key
         val = float(in_val["value"] if "value" in in_val else in_val["count"])
         return {key: val}
-    except:
+    except Exception:
         return None
 
 
@@ -79,7 +79,7 @@ def convert_default_db(in_key, in_val, db_name):
 
 
 class StardogCheck(AgentCheck):
-    def _process_doc(self, doc, tags, add_db_tags=False):
+    def _process_doc(self, doc, tags):
         db_regex = re.compile(r"(databases|kga)\.([^\.]+)\..*")
         for k in doc:
             local_tags = tags[:]
@@ -87,8 +87,7 @@ class StardogCheck(AgentCheck):
             if db_match is not None:
                 try:
                     db_name = db_match.group(2)
-                    if add_db_tags:
-                        local_tags.append("database:%s" % db_name)
+                    local_tags.append("database:%s" % db_name)
                 except Exception:
                     self.log.warning("No database name was found")
                     continue
