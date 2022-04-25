@@ -30,7 +30,7 @@ In Sedai:
 
 ## Data Collected
 
-This integration does not collect metrics or service checks, and does not support events.
+This integration sends events into Datadog.
 
 ## Support
 
