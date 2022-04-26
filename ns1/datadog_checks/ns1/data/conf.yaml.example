@@ -23,6 +23,13 @@ instances:
     #
     api_key: test_key_123
 
+    ## @param max_retry_attempts - integer - optional - default: 5
+    ## Maximum retry attempts when the integration gets a '429 - too many request' from NS1 API
+    ## It will sleep the recommended time and then retry. It will give up and fail when the max_retry_attempts
+    ## is reached.
+    #
+    max_retry_attempts: 5
+
     ## @param networks - list - optional
     ## If present, usage stats are queried and reported by the network.
     ## Each network's stats are tagged with network name.
