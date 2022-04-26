@@ -2,15 +2,15 @@
 
 ## Overview
 
-This check monitors SDWAN controllers through the Datadog Agent using a SDWAN platform provided by [Netnology][1]. The
-check enables users to monitor the network health and performance of multiple SDWAN controllers simultaneously. Collected
+This check monitors SD-WAN controllers through the Datadog Agent using a SD-WAN platform provided by [Netnology][1]. The
+check enables users to monitor the network health and performance of multiple SD-WAN controllers simultaneously. Collected
 information can then be used for aggregated dashboarding and notifications on configured monitors/alerts.
 
-Currently, only Cisco vManage devices are supported as SDWAN controller targets.
+Currently, only Cisco vManage devices are supported as SD-WAN controller targets.
 
 ## Setup
 
-The Netnology SDWAN integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
+The Netnology SD-WAN integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
 
 ### Installation
 
@@ -26,7 +26,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 
 ### Configuration
 
-1. Edit the `nn_sdwan.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Netnology SDWAN performance data. See [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
+1. Edit the `nn_sdwan.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Netnology SD-WAN performance data. See [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
 
 2. [Restart the Agent][5].
 
@@ -42,7 +42,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Events
 
-The Netnology SDWAN integration does not include any events.
+The Netnology SD-WAN integration does not include any events.
 
 ### Service Checks
 
@@ -56,10 +56,10 @@ Need help? Contact [Datadog support][9].
 [1]: https://netnology.io
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/getting_started/integrations/
-[4]: https://github.com/DataDog/integrations-core/blob/master/nn_sdwan/datadog_checks/nn_sdwan/data/conf.yaml.example
+[4]: https://github.com/DataDog/integrations-extras/blob/master/nn_sdwan/datadog_checks/nn_sdwan/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
-[8]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
+[7]: https://github.com/DataDog/integrations-extras/blob/master/nn_sdwan/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/nn_sdwan/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
-[10]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[10]: https://docs.datadoghq.com/agent/guide/use-community-integrations/ 
