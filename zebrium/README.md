@@ -4,7 +4,7 @@
  
 When you know there's a problem and you're not sure what caused it, [Zebrium][1] shows you the root cause directly on your Datadog dashboards. It works by using machine learning on logs, without the need for manual training or setting up any rules, and it achieves accuracy in less than 24 hours. 
 
-Using Zebrium is simple. When you're troubleshooting a problem, instead of digging around, simply add the Zebrium app to your Datadog dashboard and look at the details of the corresponding detection.
+Using Zebrium is simple. When troubleshooting a problem, simply add the Zebrium app to your Datadog dashboard and look at the details of the corresponding detection.
 
 Zebrium integrates with Datadog in two ways: 1) a Datadog App with a custom dashboard widget and 2) an events and metrics integration.
 
