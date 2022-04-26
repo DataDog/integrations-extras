@@ -1,4 +1,4 @@
-# Agent Check: Netnology SDWAN
+# Agent Check: Netnology SD-WAN
 
 ## Overview
 
