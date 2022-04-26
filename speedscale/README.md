@@ -10,7 +10,7 @@ This integration publishes traffic replay results from [Speedscale][1] into Data
 
 1. To use this integration you need a Datadog [API Key][2] so that events can be submitted into Datadog.
 
-   A best practice is to save this into an environment variable. Most likely you will store this environment variable in your continuous integration system, but when doing a one-off test you can access in your terminal like so:
+    A best practice is to save this value into an environment variable. Most likely you will store this environment variable in your continuous integration system, but when doing a one-off test you can access it in your terminal like so:
 
 ```
 export DDOG_API_KEY=0
