@@ -8,7 +8,7 @@ Enable this integration to receive notifications in Datadog about actions that S
 
 * **Agentless:** Seamlessly connects to your cloud accounts and automatically discovers and understands production environments.
 
-* **Configuration-free:** Easily connects to Datadog API and other APM/Observability platforms, and intelligently identifies, prioritizes and learns metric behavior.
+* **Configuration-free:** Easily connects to Datadog API and intelligently identifies, prioritizes and learns metric behavior.
 
 * **Proactive Actions:** Safely acts in production on your behalf to ensure that resources avoid availability issues and run optimally at all times.
 
