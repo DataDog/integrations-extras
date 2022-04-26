@@ -16,7 +16,7 @@ This integration publishes traffic replay results from [Speedscale][1] into Data
 export DDOG_API_KEY=0
 ```
 
-2. Gather the report ID of a specific report that you want to upload into Datadog. When working with continuous integration, get the report ID associated with your commit hash. Store this report ID in an environment variable:
+2. Gather the report ID of a specific report that you'd like to upload to Datadog. When working with continuous integration, get the report ID associated with your commit hash. Store this report ID in an environment variable:
 
 ```
 export SPD_REPORT_ID=0
