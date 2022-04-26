@@ -8,7 +8,7 @@ This integration publishes traffic replay results from [Speedscale][1] into Data
 
 ### Configuration
 
-1. To use this integration you need a Datadog [API Key][2] so that the Datadog Agent can submit metrics and events to Datadog.
+1. To use this integration you need a Datadog [API Key][2] so that events can be submitted into Datadog.
 
    A best practice is to save this into an environment variable. Most likely you will store this environment variable in your continuous integration system, but when doing a one-off test you can access in your terminal like so:
 
