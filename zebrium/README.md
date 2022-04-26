@@ -14,7 +14,7 @@ The Zebrium app provides a pre-built, elegant and interactive dashboard widget t
  
 ### 2) Events and metrics integration
 
-Zebrium detection events and metrics can be sent to Datadog. You can visualize them any way you like (sample dashboard provided). This method should be used if you would like to customize how Zebrium data appears on your dashboards.
+With the integration, Zebrium detection events and metrics are sent directly into Datadog. You can visualize them any way you'd like (sample dashboard provided). This method should be used if you would like to customize how Zebrium data appears on your dashboards.
 
 ## Setup
  
