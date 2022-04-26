@@ -12,22 +12,22 @@ This integration publishes traffic replay results from [Speedscale][1] into Data
 
     A best practice is to save this value into an environment variable. Most likely you will store this environment variable in your continuous integration system, but when doing a one-off test you can access it in your terminal like so:
 
-```
-export DDOG_API_KEY=0
-```
+   ```
+   export DDOG_API_KEY=0
+   ```
 
 2. Gather the report ID of a specific report that you'd like to upload to Datadog. When working with continuous integration, get the report ID associated with your commit hash. Store this report ID in an environment variable:
 
-```
-export SPD_REPORT_ID=0
-```
+   ```
+   export SPD_REPORT_ID=0
+   ```
 
 3. With the specific report ID and the Datadog API key, run the `speedctl` command to export that traffic replay report as a Datadog event.
 
-```
-speedctl export datadog report ${SPD_REPORT_ID} --apiKey ${DDOG_API_KEY}
-✔ {"status":"ok",...}
-```
+   ```
+   speedctl export datadog report ${SPD_REPORT_ID} --apiKey ${DDOG_API_KEY}
+   {"status":"ok",...}
+   ```
 ### Validation
 
 View the Datadog [Event Stream][2] to see your exported report.
