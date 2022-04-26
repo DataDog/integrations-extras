@@ -4,14 +4,14 @@
 
 This check monitors the [Pure Storage FlashBlade][3] through the [Datadog Agent][2] and the [Pure Storage FlashBlade OpenMetrics exporter][1]. 
 
-The integration can provide performance data at the array, client, share and bucket level, as well as high-level capacity and configuration information.
+The integration can provide performance data at the array, client, share, and bucket level, as well as high-level capacity and configuration information.
 
-You can monitor multiple FlashBlades and aggregate these into a single dashboard, or group them together by customer defined environment.
+You can monitor multiple FlashBlades and aggregate these into a single dashboard, or group them together by customer-defined environment.
 
 **This integration requires the following**:
 
  - FlashBlade Purity 3.2.x+
- - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
+ - Datadog Agent v7.26.x+ to use OpenMetricsBaseCheckV2
  - Python 3
  - The Pure Storage FlashBlade OpenMetrics exporter is installed and running in a containerized environment. Refer to the [Pure Storage GitHub repo][1] for installation instructions.
 
@@ -33,7 +33,7 @@ To configure this check for an Agent running on a host, run `datadog-agent integ
 
 1. Create a user on your FlashBlade with the Read-Only role and generate an API token for this user.
 
-2. Add the following configuration block to the `purefb.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your PureFB performance data. See the sample [purefb.d/conf.yaml][4] for all available configuration options.
+2. Add the following configuration block to the `purefb.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting your PureFB performance data. See the sample [purefb.d/conf.yaml][4] for all available configuration options.
 
 **Note**: The `/array` endpoint is required as an absolute minimum when creating your configuration file.
 
@@ -93,13 +93,13 @@ The dashboards included in this integration use the tags `env`, `host`, and `fb_
 
 #### Increasing collection interval
 
-For the `/array` endpoint, the Pure Storage FlashBlade check sets `min_collection_interval` to `120` by default, and the minimum recommended value is `15`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
+For the `/array` endpoint, the Pure Storage FlashBlade check sets `min_collection_interval` to `120` by default, and the minimum recommended value is `15`. You may increase or decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
 
 ```yaml
 min_collection_interval: 120
 ```
 
-For the `/clients`, and `/usage` endpoints, the Pure Storage FlashBlade check sets `min_collection_interval` to `600` by default , and the minimum recommended value is `120`. You may increase/decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
+For the `/clients`, and `/usage` endpoints, the Pure Storage FlashBlade check sets `min_collection_interval` to `600` by default , and the minimum recommended value is `120`. You may increase or decrease `min_collection_interval` in the `purefb.d/conf.yaml` file if necessary:
 
 ```yaml
 min_collection_interval: 600
