@@ -3,4 +3,4 @@
 =====
 ### Initial version
 
-* [FEATURE] Initial Pure Storage FlashArray integration.
+* [Added] Initial Pure Storage FlashArray integration.
