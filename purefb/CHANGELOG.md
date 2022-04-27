@@ -2,4 +2,4 @@
 
 ## 1.0.0
 
-* [FEATURE] Initial Pure Storage FlashBlade integration.
+* [Added] Initial Pure Storage FlashBlade integration.
