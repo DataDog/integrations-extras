@@ -1,7 +1,8 @@
 from datadog_checks.base import OpenMetricsBaseCheckV2
 
-from .metrics import METRIC_MAP
 from .config_models import ConfigMixin
+from .metrics import METRIC_MAP
+
 
 
 class PureFBCheck(OpenMetricsBaseCheckV2, ConfigMixin):
