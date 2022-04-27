@@ -4,7 +4,6 @@ from .config_models import ConfigMixin
 from .metrics import METRIC_MAP
 
 
-
 class PureFBCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     __NAMESPACE__ = "purefb"
 
