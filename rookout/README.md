@@ -4,7 +4,7 @@
 
 ### Description
 
-[Rookout][1] is a disruptive developer solution for cloud native debugging and live data collection. Rookout’s Non-Breaking Breakpoints let you collect any type of data on the fly with no extra coding, redeployments, or restarts.
+[Rookout][1] is a disruptive developer solution for cloud native debugging and live data collection. Rookout's Non-Breaking Breakpoints let you collect any type of data on the fly with no extra coding, redeployments, or restarts.
 
 Rookout is designed from the ground up for production environments and modern architecture debugging, such as Kubernetes, microservices, serverless, and service-mesh based applications.
 

@@ -54,6 +54,7 @@ class PumaCheck(AgentCheck):
             metrics['backlog'] = int(response.get('backlog', 0))
             metrics['max_threads'] = int(response.get('max_threads', 0))
             metrics['pool_capacity'] = int(response.get('pool_capacity', 0))
+            metrics['requests_count'] = int(response.get('requests_count', 0))
             metrics['running'] = int(response.get('running', 0))
 
         return metrics
