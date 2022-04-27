@@ -1,5 +1,3 @@
-# Agent Check: Speedscale
-
 ## Overview
 
 This integration publishes traffic replay results from [Speedscale][1] into Datadog. This lets you combine your observability data from Datadog with the results of a particular Speedscale replay to investigate the root cause of poor performance. Find and troubleshoot potential performance issues before they show up in production with the Speedscale Datadog integration.
