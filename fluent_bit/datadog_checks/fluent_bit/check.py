@@ -12,9 +12,6 @@ class FluentBitCheck(OpenMetricsBaseCheckV2):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get('metrics_endpoint')
 
-        if not metrics_endpoint:
-            raise ConfigurationError("Unable to find metrics_endpoint in config file.")
-
         metrics_map = {
             'fluentbit_input_records': 'input.records',
             'fluentbit_input_bytes': 'input.bytes',
