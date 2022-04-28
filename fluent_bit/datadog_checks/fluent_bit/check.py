@@ -1,4 +1,4 @@
-from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
+from datadog_checks.base import OpenMetricsBaseCheckV2
 
 
 class FluentBitCheck(OpenMetricsBaseCheckV2):
