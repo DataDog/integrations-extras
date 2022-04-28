@@ -1,6 +1,8 @@
 import json
+import logging
 
 import pytest
+from requests.exceptions import HTTPError
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
@@ -41,6 +43,58 @@ def test_get_zone_info_url(aggregator, instance_ddi, requests_mock):
     aggregator.assert_all_metrics_covered()
     checkUrl = check.ns1.get_zone_info_url("test", None)
     assert len(checkUrl.items()) == 0  # is None
+
+
+def test_429_http_error(aggregator, instance_ddi, requests_mock):
+    check = Ns1Check('ns1', {}, [instance_ddi])
+    aggregator.assert_all_metrics_covered()
+
+    url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
+
+    requests_mock.register_uri(
+        'GET',
+        url,
+        status_code=429,
+        reason="Too many requests",
+        headers={
+            'X-Ratelimit-By': 'customer',
+            'X-Ratelimit-Limit': '1000',
+            'X-Ratelimit-Period': '1',
+            'X-Ratelimit-Remaining': '0',
+        },
+    )
+    with pytest.raises(HTTPError):
+        stats = check.get_stats(url)
+        assert stats is None
+
+
+def test_set_max_retries(aggregator, instance_ddi, requests_mock, caplog):
+    max_retries = 3
+    instance_ddi["max_retry_attempts"] = max_retries
+    check = Ns1Check('ns1', {}, [instance_ddi])
+
+    with caplog.at_level(logging.WARNING):
+        url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
+
+        requests_mock.register_uri(
+            'GET',
+            url,
+            status_code=429,
+            reason="Too many requests",
+            headers={
+                'X-Ratelimit-By': 'customer',
+                'X-Ratelimit-Limit': '1000',
+                'X-Ratelimit-Period': '1',
+                'X-Ratelimit-Remaining': '0',
+            },
+        )
+        with pytest.raises(HTTPError):
+            check.get_stats(url)
+
+        log_list = caplog.text.split('\n')
+        assert len(log_list) == max_retries + 1
+        for i in range(max_retries):
+            assert 'Rate limit reached' in log_list[i]
 
 
 def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
