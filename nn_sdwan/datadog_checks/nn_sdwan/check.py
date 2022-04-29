@@ -4,21 +4,11 @@
 # import net
 
 import platform
-import subprocess
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
 from .net_api import vManageApi
-
-
-def pingable(host: str):
-    """
-    Returns True if host (str) responds to a ping request.
-    """
-
-    param = '-n' if platform.system().lower() == 'windows' else '-c'
-    command = ['ping', param, '1', host]
-    return subprocess.call(command, stdout=subprocess.DEVNULL) == 0
 
 
 class NnSdwanCheck(AgentCheck):
@@ -38,7 +28,7 @@ class NnSdwanCheck(AgentCheck):
 
     def check(self, _):
         # Handle service check (availablity / reachability)
-        if not pingable(self.instance.get('hostname')):
+        if not self.pingable(self.instance.get('hostname')):
             self.service_check('nn_sdwan.sdwan_controller.online', self.CRITICAL, message='Host unreachable.')
             return
 
@@ -47,7 +37,9 @@ class NnSdwanCheck(AgentCheck):
             # vManage is online and responding
             self.service_check('nn_sdwan.sdwan_controller.online', self.OK)
         except Exception:
-            self.service_check('nn_sdwan.sdwan_controller.online', self.WARNING, message='vManage API is not responding.')
+            self.service_check(
+                'nn_sdwan.sdwan_controller.online', self.WARNING, message='vManage API is not responding.'
+            )
             return
 
         # Get metrics
@@ -62,6 +54,16 @@ class NnSdwanCheck(AgentCheck):
         self.get_transport_interface()
         self.get_wan_edge_health()
         self.get_wan_edge_inventory()
+
+    def pingable(self, host: str):
+        """
+        Returns True if host (str) responds to a ping request.
+        """
+
+        param = '-n' if platform.system().lower() == 'windows' else '-c'
+        command = ['ping', param, '1', host]
+        out, err, retcode = get_subprocess_output(command, self.log)
+        return retcode == 0
 
     def get_wan_edge_inventory(self):
         wan_edge_inven_stats = self.vmanage_api.get_wan_edge_inventory()['data']
