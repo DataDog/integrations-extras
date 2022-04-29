@@ -18,18 +18,17 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the Fluent Bit check on your host:
+### Installation
 
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Sendmail check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. Install the [developer toolkit][12] on any machine.
+1. Run the following command to install the Agent integration:
 
-2. Run `ddev release build fluent_bit` to build the package.
+   ```shell
+   datadog-agent integration install -t datadog-fluentbit==<INTEGRATION_VERSION>
+   ```
 
-3. [Download the Datadog Agent][3].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/fluent_bit/dist/<ARTIFACT_NAME>.whl`.
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
