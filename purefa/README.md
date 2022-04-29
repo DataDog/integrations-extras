@@ -24,9 +24,12 @@ Follow the instructions below to install and configure this check for an Agent r
 2. Manually install the Pure FlashArray integration. See [Use Community Integrations][10] for more details based on your environment.
 
 
-#### Host
+#### Agent Host
 
 To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
+
+Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md](https://github.com/DataDog/integrations-extras/blob/master/purefa/CHANGELOG.md) for Datadog Integration Extras. 
+  * e.g. `datadog-agent integration install -t datadog-purefa==1.0.0`
 
 ### Configuration
 
