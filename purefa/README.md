@@ -28,7 +28,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
-Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md](https://github.com/DataDog/integrations-extras/blob/master/purefa/CHANGELOG.md) for Datadog Integration Extras. 
+Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
   * e.g. `datadog-agent integration install -t datadog-purefa==1.0.0`
 
 ### Configuration
@@ -139,3 +139,4 @@ For support or feature requests, contact Pure Storage through the following meth
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
 [12]: https://github.com/DataDog/integrations-extras/blob/master/purefa/assets/service_checks.json
+[13]: https://github.com/DataDog/integrations-extras/blob/master/purefa/CHANGELOG.md
