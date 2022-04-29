@@ -39,6 +39,10 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Fluent_Bit:
+        target: 75
+        flags:
+        - fluent_bit
       Gatekeeper:
         target: 75
         flags:
@@ -244,6 +248,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  fluent_bit:
+    carryforward: true
+    paths:
+    - fluent_bit/datadog_checks/fluent_bit
+    - fluent_bit/tests
   gatekeeper:
     carryforward: true
     paths:
