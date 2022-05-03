@@ -20,7 +20,7 @@ In Sedai:
 
    ![Add Datadog Integration][3]
 
-2. Enter a nickname and the API Key for your Datadog account, enable it and test the integration.
+2. Enter a nickname and the API key for your Datadog account. Enable and test the integration.
 
    ![Setup Datadog API Key][4]
 
