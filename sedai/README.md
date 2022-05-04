@@ -38,7 +38,7 @@ This integration sends events into Datadog.
 
 ## Support
 
-For help with this integration, please email [support@sedai.io][1].
+For help with this integration, contact [Datadog support][1].
 
 
 [1]: mailto:support@sedai.io
