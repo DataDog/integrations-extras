@@ -41,7 +41,7 @@ This integration sends events into Datadog.
 For help with this integration, contact [Datadog support][1].
 
 
-[1]: mailto:support@sedai.io
+[1]: https://docs.datadoghq.com/help/
 [2]: https://sedai.gitbook.io/sedai/sedai-user-guide/controls/notifications
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/DataDog_Notification_Integration.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sedai/images/Add_DataDog_Channel.png
