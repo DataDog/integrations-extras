@@ -1,7 +1,7 @@
 import pytest
 
 from datadog_checks.dev.utils import get_metadata_metrics
-from datadog_checks.fluent_bit import FluentBitCheck
+from datadog_checks.fluentbit import FluentBitCheck
 
 METRICS = [
     'fluentbit.input.records.count',

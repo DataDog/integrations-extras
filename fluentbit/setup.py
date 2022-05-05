@@ -7,7 +7,7 @@ HERE = path.dirname(path.abspath(__file__))
 
 # Get version info
 ABOUT = {}
-with open(path.join(HERE, 'datadog_checks', 'fluent_bit', '__about__.py')) as f:
+with open(path.join(HERE, 'datadog_checks', 'fluentbit', '__about__.py')) as f:
     exec(f.read(), ABOUT)
 
 # Get the long description from the README file
@@ -43,12 +43,12 @@ CHECKS_BASE_REQ = parse_pyproject_array('dependencies')[0]
 
 
 setup(
-    name='datadog-fluent_bit',
+    name='datadog-fluentbit',
     version=ABOUT['__version__'],
     description='The Fluent Bit check',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords='datadog agent fluent_bit check',
+    keywords='datadog agent fluentbit check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
@@ -67,7 +67,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
-    packages=['datadog_checks.fluent_bit'],
+    packages=['datadog_checks.fluentbit'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': parse_pyproject_array('deps')},

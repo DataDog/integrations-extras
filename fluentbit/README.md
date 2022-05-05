@@ -18,22 +18,21 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the Fluent Bit check on your host:
+### Installation
 
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Fluent Bit check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. Install the [developer toolkit][12] on any machine.
+1. Run the following command to install the Agent integration:
 
-2. Run `ddev release build fluent_bit` to build the package.
+   ```shell
+   datadog-agent integration install -t datadog-fluentbit==<INTEGRATION_VERSION>
+   ```
 
-3. [Download the Datadog Agent][3].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/fluent_bit/dist/<ARTIFACT_NAME>.whl`.
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
-1. Edit the `fluent_bit.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your fluent_bit performance data.
+1. Edit the `fluentbit.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your fluentbit performance data.
     ```yaml
     init_config:
 
@@ -43,13 +42,13 @@ To install the Fluent Bit check on your host:
         #
       - metrics_endpoint: http://127.0.0.1:2020/api/v1/metrics/prometheus
     ```
-   See the [sample fluent_bit.d/conf.yaml][5] file for all available configuration options.
+   See the [sample fluentbit.d/conf.yaml][5] file for all available configuration options.
 
 2. [Restart the Agent][6].
 
 ### Validation
 
-[Run the Agent's status subcommand][7] and look for `fluent_bit` under the Checks section.
+[Run the Agent's status subcommand][7] and look for `fluentbit` under the Checks section.
 
 ## Data Collected
 
@@ -74,11 +73,11 @@ Need help? Contact [Datadog support][10].
 [2]: https://docs.fluentbit.io/manual/administration/monitoring
 [3]: https://app.datadoghq.com/account/settings#agent
 [4]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[5]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/datadog_checks/fluent_bit/data/conf.yaml.example
+[5]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/datadog_checks/fluentbit/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/metadata.csv
-[9]: https://github.com/DataDog/integrations-extras/blob/master/fluent_bit/assets/service_checks.json
+[8]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/metadata.csv
+[9]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
 [11]: https://docs.datadoghq.com/integrations/fluentbit/
 [12]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
