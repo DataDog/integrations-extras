@@ -73,7 +73,7 @@ You need to create a Datadog API key and an application key to use as input para
 
 **Note:** Some Datadog steps in Torq require an API key and application key, while other steps require the Datadog integration.
 
-### Create an API Key in Datadog
+### Create an API key in Datadog
 
 After you create the API key, copy and save it because you are not able to access it later. For more information, see [API and Application Keys][12].
 
@@ -84,7 +84,7 @@ After you create the API key, copy and save it because you are not able to acces
 4. Enter a meaningful name for the API key such as `Torq` and click **Create Key**.
 5. Copy the `Key` and save it. You need this key to create a Datadog integration in Torq.
 
-### Create an Application Key in Datadog
+### Create an application key in Datadog
 
 After you create the application key, copy and save it because you are not able to access it later. For more information, see [API and Application Keys]][13].
 

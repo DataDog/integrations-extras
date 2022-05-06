@@ -1,0 +1,68 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a2d8f393-62cd-4ece-bfab-e30797698b12",
+  "app_id": "purefa",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows",
+    "Category::OS System",
+    "Category::Data Store",
+    "Offering::Integration"
+  ],
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor the performance and utilization of Pure Storage FlashArrays",
+    "title": "Pure Storage FlashArray",
+    "media": [
+      {
+        "caption": "Pure Storage FlashArray Dashboard - Overview (Top)",
+        "image_url": "images/FA-overview-1.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Pure Storage FlashArray Dashboard - Overview (Middle)",
+        "image_url": "images/FA-overview-2.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Pure Storage FlashArray Dashboard - Overview (Bottom)",
+        "image_url": "images/FA-overview-3.png",
+        "media_type": "image"
+      }
+    ]
+  },
+  "author": {
+    "homepage": "https://purestorage.com",
+    "name": "Pure Storage",
+    "support_email": "pure-observability@purestorage.com",
+    "sales_email": "sales@purestorage.com"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "PureFA",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "purefa.",
+        "check": "purefa.info",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "purefa_overview": "dashboards/purefa_overview.json"
+    }
+  }
+}

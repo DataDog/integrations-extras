@@ -28,11 +28,11 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Pi-hole 
 
 ### Validation
 
-[Run the Agent's status subcommand][9] and look for `pihole` under the Checks section.
+Run the [Agent's status subcommand][9] and look for `pihole` under the Checks section.
 
-### Log Collection
+### Log collection
 
-Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, refer to the [Agent Configuration Files guide][11] for the location of your configuration file:
+Enable logs collection for Datadog Agent in `/etc/datadog-agent/datadog.yaml` on Linux platforms. On other platforms, see the [Agent Configuration Files guide][11] for the location of your configuration file:
 
 ```yaml
 logs_enabled: true

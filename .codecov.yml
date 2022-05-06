@@ -23,10 +23,6 @@ coverage:
         target: 75
         flags:
         - bind9
-      Calico:
-        target: 75
-        flags:
-        - calico
       Cloudsmith:
         target: 75
         flags:
@@ -43,10 +39,10 @@ coverage:
         target: 75
         flags:
         - filebeat
-      FoundationDB:
+      Fluent_Bit:
         target: 75
         flags:
-        - foundationdb
+        - fluentbit
       Gatekeeper:
         target: 75
         flags:
@@ -155,6 +151,10 @@ coverage:
         target: 75
         flags:
         - storm
+      Syncthing:
+        target: 75
+        flags:
+        - syncthing
       TiDB:
         target: 75
         flags:
@@ -199,6 +199,14 @@ coverage:
         target: 75
         flags:
         - pulsar
+      purefa:
+        target: 75
+        flags:
+        - purefa
+      purefb:
+        target: 75
+        flags:
+        - purefb
       speedtest:
         target: 75
         flags:
@@ -219,11 +227,6 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
-  calico:
-    carryforward: true
-    paths:
-    - calico/datadog_checks/calico
-    - calico/tests
   cert_manager:
     carryforward: true
     paths:
@@ -249,11 +252,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
-  foundationdb:
+  fluentbit:
     carryforward: true
     paths:
-    - foundationdb/datadog_checks/foundationdb
-    - foundationdb/tests
+    - fluentbit/datadog_checks/fluentbit
+    - fluentbit/tests
   gatekeeper:
     carryforward: true
     paths:
@@ -359,6 +362,16 @@ flags:
     paths:
     - puma/datadog_checks/puma
     - puma/tests
+  purefa:
+    carryforward: true
+    paths:
+    - purefa/datadog_checks/purefa
+    - purefa/tests
+  purefb:
+    carryforward: true
+    paths:
+    - purefb/datadog_checks/purefb
+    - purefb/tests
   reboot_required:
     carryforward: true
     paths:
@@ -414,6 +427,11 @@ flags:
     paths:
     - storm/datadog_checks/storm
     - storm/tests
+  syncthing:
+    carryforward: true
+    paths:
+    - syncthing/datadog_checks/syncthing
+    - syncthing/tests
   tidb:
     carryforward: true
     paths:

@@ -22,7 +22,7 @@ Integrate Split with Datadog to:
 
 ![Split Screenshot][4]
 
-Split data should now be flowing into Datadog.
+Split data should be flowing into Datadog.
 
 ## Data Collected
 

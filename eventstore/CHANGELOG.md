@@ -1,13 +1,18 @@
 # CHANGELOG - eventstore
 
+## 2.0.0
+
+* [Added] Support EventStoreDB >=v20.6.0
+* [Removed] Support for EventStoreDB <=v5.0 
+
 ## 1.1.0
 
-* [FEATURE] Allow passing a custom CA bundle
+* [Added] Allow passing a custom CA bundle
 
 ## 1.0.0
 
-* [FEATURE] Add metrics from multiple API endpoints
+* [Added] Add metrics from multiple API endpoints
 
 ## 0.1.0
 
-* [FEATURE] first version
+* [Added] first version

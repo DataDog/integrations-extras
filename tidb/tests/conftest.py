@@ -35,12 +35,25 @@ def mock_tidb_metrics():
 
 
 @pytest.fixture()
-def mock_pd_metrics():
+def mock_tiflash_metrics():
     with mock.patch(
         'requests.get',
         return_value=mock.MagicMock(
             status_code=200,
-            iter_lines=lambda **kwargs: _get_mock_metrics("mock_pd_metrics.txt").split("\n"),
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tiflash_metrics.txt").split("\n"),
+            headers={'Content-Type': "text/plain"},
+        ),
+    ):
+        yield
+
+
+@pytest.fixture()
+def mock_tiflash_proxy_metrics():
+    with mock.patch(
+        'requests.get',
+        return_value=mock.MagicMock(
+            status_code=200,
+            iter_lines=lambda **kwargs: _get_mock_metrics("mock_tiflash_proxy_metrics.txt").split("\n"),
             headers={'Content-Type': "text/plain"},
         ),
     ):
@@ -80,9 +93,18 @@ def tidb_instance():
 
 
 @pytest.fixture(scope="session")
-def pd_instance():
+def tiflash_instance():
     return {
-        'pd_metric_url': "http://{}:{}/metrics".format(HOST, PD_PORT),
+        'tiflash_metric_url': "http://{}:{}/metrics".format(HOST, TIFLASH_PORT),
+        'max_returned_metrics': "10000",
+        'tags': ['tidb_cluster_name:test'],
+    }
+
+
+@pytest.fixture(scope="session")
+def tiflash_proxy_instance():
+    return {
+        'tiflash_proxy_metric_url': "http://{}:{}/metrics".format(HOST, TIFLASH_PROXY_PORT),
         'max_returned_metrics': "10000",
         'tags': ['tidb_cluster_name:test'],
     }
@@ -95,53 +117,6 @@ def tikv_instance():
         'max_returned_metrics': "10000",
         'tags': ['tidb_cluster_name:test'],
     }
-
-
-# Excepted results
-
-
-EXPECTED_TIDB = {
-    'metrics': {
-        'tidb_cluster.tidb_executor_statement_total': [
-            'tidb_cluster_component:tidb',
-            'type:Use',
-            'tidb_cluster_name:test',
-        ],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': [
-            'endpoint:http://localhost:10080/metrics',
-            'tidb_cluster_component:tidb',
-            'tidb_cluster_name:test',
-        ],
-    },
-}
-
-EXPECTED_PD = {
-    'metrics': {
-        'tidb_cluster.pd_cluster_tso': ['dc:global', 'tidb_cluster_component:pd', 'type:tso', 'tidb_cluster_name:test'],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': [
-            'endpoint:http://localhost:2379/metrics',
-            'tidb_cluster_component:pd',
-            'tidb_cluster_name:test',
-        ],
-    },
-}
-
-EXPECTED_TIKV = {
-    'metrics': {
-        'tidb_cluster.tikv_allocator_stats': ['tidb_cluster_component:tikv', 'type:metadata', 'tidb_cluster_name:test'],
-    },
-    'service_check': {
-        'tidb_cluster.prometheus.health': [
-            'endpoint:http://localhost:20180/metrics',
-            'tidb_cluster_component:tikv',
-            'tidb_cluster_name:test',
-        ],
-    },
-}
 
 
 # Integration test docker-compose environment
@@ -162,7 +137,9 @@ def dd_environment():
             "http://{}:{}/metrics".format(HOST, TIDB_PORT),
             "http://{}:{}/metrics".format(HOST, TIKV_PORT),
             "http://{}:{}/metrics".format(HOST, PD_PORT),
+            "http://{}:{}/metrics".format(HOST, TIFLASH_PORT),
+            "http://{}:{}/metrics".format(HOST, TIFLASH_PROXY_PORT),
         ],
-        sleep=3,
+        sleep=5,
     ):
         yield

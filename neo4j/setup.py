@@ -15,32 +15,24 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
-def get_dependencies():
-    dep_file = path.join(HERE, 'requirements.in')
-    if not path.isfile(dep_file):
-        return []
-
-    with open(dep_file, encoding='utf-8') as f:
-        return f.readlines()
-
-
-CHECKS_BASE_REQ = 'datadog-checks-base>=4.2.0'
+CHECKS_BASE_REQ = 'datadog-checks-base>=23.7.0'
 
 
 setup(
     name='datadog-neo4j',
     version=ABOUT['__version__'],
-    description='The Neo4j check',
+    description='The neo4j check',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent neo4j check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='@platinummonkey',
-    author_email='@platinummonkey',
+    author='Neo4j Cloud',
+    author_email='neo4j-cloud@neotechnology.com',
     # License
     license='BSD-3-Clause',
+    python_requires='>=3.8',
     # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -48,14 +40,12 @@ setup(
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     # The package we're going to ship
     packages=['datadog_checks.neo4j'],
     # Run-time dependencies
     install_requires=[CHECKS_BASE_REQ],
-    extras_require={'deps': get_dependencies()},
     # Extra files to ship with the wheel package
     include_package_data=True,
 )
