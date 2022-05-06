@@ -21,18 +21,18 @@ resources:
   - container: dd_agent
     image: gcr.io/datadoghq/agent:latest
     ports:
-      - 8127:8126
+    - 8127:8126
     env:
       DD_API_KEY: $(DD_CI_API_KEY)
-      DD_HOSTNAME: "none"
-      DD_INSIDE_CI: "true"
+      DD_HOSTNAME: none
+      DD_INSIDE_CI: 'true'
 variables:
   DDEV_COLOR: 1
   DD_TRACE_AGENT_PORT: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
-    ddtrace_flag: '--ddtrace'
+    ddtrace_flag: --ddtrace
     repo: extras
     checks:
     - checkName: aqua
@@ -43,9 +43,6 @@ jobs:
       os: linux
     - checkName: bind9
       displayName: BIND 9
-      os: linux
-    - checkName: calico
-      displayName: Calico
       os: linux
     - checkName: cert_manager
       displayName: cert-manager
@@ -62,11 +59,11 @@ jobs:
     - checkName: filebeat
       displayName: Filebeat
       os: linux
+    - checkName: fluentbit
+      displayName: Fluent Bit
+      os: linux
     - checkName: flume
       displayName: flume
-      os: linux
-    - checkName: foundationdb
-      displayName: FoundationDB
       os: linux
     - checkName: gatekeeper
       displayName: Gatekeeper
@@ -134,6 +131,9 @@ jobs:
     - checkName: purefa
       displayName: purefa
       os: linux
+    - checkName: purefb
+      displayName: purefb
+      os: linux
     - checkName: reboot_required
       displayName: Reboot Required
       os: linux
@@ -169,6 +169,9 @@ jobs:
       os: linux
     - checkName: storm
       displayName: Storm
+      os: linux
+    - checkName: syncthing
+      displayName: Syncthing
       os: linux
     - checkName: tidb
       displayName: TiDB

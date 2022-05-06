@@ -1,5 +1,9 @@
 # CHANGELOG - ns1
 
+## 0.0.6
+
+* [FEATURE] Add API rate limit handler
+
 ## 0.0.5
 
 * [FEATURE] Update overview dashboard layout

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.9.1
+    container_name: fluent-bit
+    command: ["-c", "/etc/fluent-bit.conf"]
+    ports:
+      - "2020:2020"
+    volumes:
+      - ./fluent-bit.conf:/etc/fluent-bit.conf

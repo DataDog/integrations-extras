@@ -6,7 +6,7 @@ Sleuth is a deployment tracking tool that enables you to track software deployme
 
 To add the Datadog integration:
 
-1. Login to your [Sleuth account](https://app.sleuth.io/accounts/login/). 
+1. Login to your [Sleuth account][1]. 
 2. Click **Integrations** in the sidebar.
 3. Click the _Metric Trackers_ tab, then **enable** in the Datadog card.
 4. Enter your Datadog API Key and Application Key in the corresponding fields. 
@@ -15,11 +15,11 @@ To add the Datadog integration:
 
 > Your Datadog API Key and Application Key can be found under **Integrations** &gt; **API**. Alternatively, you can click on the **generate** link in the Sleuth dialog box (as shown below), which takes you to the API/Applications Keys area in your Datadog console. 
 
-![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration-api-key.png)
+![][2]
 
 > Once the Datadog integration installation is successful, the message **Datadog is connected** displayed.
 
-![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration.png)
+![][3]
 
 ### Installation
 
@@ -29,11 +29,11 @@ The Datadog Sleuth integration is installed exclusively from your Sleuth account
 
 - Click the **Add metric** dropdown and select a Sleuth project to process incoming Datadog metrics. All projects within your Sleuth organization are displayed in the dropdown.
 
-![](https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-enabled-metric-pick.png)
+![][4]
 
 > Integrations are made at the Sleuth organization level, and are available for all projects within that organization. Individual settings for an integration are made at the project level.
 
-Once configuration is complete, Sleuth displays Datadog metrics in your deploys. Read [**Dashboard**](https://help.sleuth.io/dashboard) for more information on how metrics are communicated in Sleuth's deploy cards. 
+Once configuration is complete, Sleuth displays Datadog metrics in your deploys. Read [**Dashboard**][5] for more information on how metrics are communicated in Sleuth's deploy cards. 
 
 
 ## Data Collected
@@ -56,3 +56,11 @@ The Sleuth integration does not include any events.
 2. In the Datadog integration card, click **disable**.
 
 The Datadog integration is disconnected and is no longer available to any projects within that organization. Any project-level modifications you made to the Datadog integration is lost.
+
+
+[1]: https://app.sleuth.io/accounts/login/ 
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration-api-key.png 
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-integration.png 
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sleuth/images/datadog-enabled-metric-pick.png 
+[5]: https://help.sleuth.io/dashboard
+
