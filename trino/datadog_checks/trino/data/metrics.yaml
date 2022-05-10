@@ -1,0 +1,151 @@
+# Default metrics collected by this check. You should not have to modify this.
+jmx_metrics:
+  - include:
+      bean: trino.execution:name=QueryManager
+      attribute:
+        AbandonedQueries.OneMinute.Count:
+          alias: trino.execution.abandoned_queries.one_minute.count
+        AbandonedQueries.OneMinute.Rate:
+          alias: trino.execution.abandoned_queries.one_minute.rate
+        AbandonedQueries.TotalCount:
+          alias: trino.execution.abandoned_queries.total_count
+        CanceledQueries.OneMinute.Count:
+          alias: trino.execution.canceled_queries.one_minute.count
+        CanceledQueries.OneMinute.Rate:
+          alias: trino.execution.canceled_queries.one_minute.rate
+        CanceledQueries.TotalCount:
+          alias: trino.execution.canceled_queries.total_count
+        CompletedQueries.OneMinute.Count:
+          alias: trino.execution.completed_queries.one_minute.count
+        CompletedQueries.OneMinute.Rate:
+          alias: trino.execution.completed_queries.one_minute.rate
+        CompletedQueries.TotalCount:
+          alias: trino.execution.completed_queries.total_count
+        ConsumedCpuTimeSecs.OneMinute.Count:
+          alias: trino.execution.consumed_cpu_time_secs.one_minute.count
+        ConsumedCpuTimeSecs.OneMinute.Rate:
+          alias: trino.execution.consumed_cpu_time_secs.one_minute.rate
+        ConsumedCpuTimeSecs.TotalCount:
+          alias: trino.execution.consumed_cpu_time_secs.total_count
+        CpuInputByteRate.AllTime.Avg:
+          alias: trino.execution.cpu_input_byte_rate.all_time.avg
+        CpuInputByteRate.AllTime.P75:
+          alias: trino.execution.cpu_input_byte_rate.all_time.p75
+        CpuInputByteRate.AllTime.P95:
+          alias: trino.execution.cpu_input_byte_rate.all_time.p95
+        CpuInputByteRate.OneMinute.Avg:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.avg
+        CpuInputByteRate.OneMinute.Count:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.count
+        CpuInputByteRate.OneMinute.Max:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.max
+        CpuInputByteRate.OneMinute.Min:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.min
+        CpuInputByteRate.OneMinute.P75:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.p75
+        CpuInputByteRate.OneMinute.P95:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.p95
+        CpuInputByteRate.OneMinute.Total:
+          alias: trino.execution.cpu_input_byte_rate.one_minute.total
+        ExecutionTime.AllTime.Avg:
+          alias: trino.execution.execution_time.all_time.avg
+        ExecutionTime.AllTime.Count:
+          alias: trino.execution.execution_time.all_time.count
+        ExecutionTime.AllTime.Max:
+          alias: trino.execution.execution_time.all_time.max
+        ExecutionTime.AllTime.Min:
+          alias: trino.execution.execution_time.all_time.min
+        ExecutionTime.AllTime.P75:
+          alias: trino.execution.execution_time.all_time.p75
+        ExecutionTime.AllTime.P95:
+          alias: trino.execution.execution_time.all_time.p95
+        ExecutionTime.OneMinute.Avg:
+          alias: trino.execution.execution_time.one_minute.avg
+        ExecutionTime.OneMinute.Max:
+          alias: trino.execution.execution_time.one_minute.max
+        ExecutionTime.OneMinute.Min:
+          alias: trino.execution.execution_time.one_minute.min
+        ExecutionTime.OneMinute.P75:
+          alias: trino.execution.execution_time.one_minute.p75
+        ExecutionTime.OneMinute.P95:
+          alias: trino.execution.execution_time.one_minute.p95
+        ExternalFailures.OneMinute.Count:
+          alias: trino.execution.external_failures.one_minute.count
+        ExternalFailures.OneMinute.Rate:
+          alias: trino.execution.external_failures.one_minute.rate
+        ExternalFailures.TotalCount:
+          alias: trino.execution.external_failures.total_count
+        FailedQueries.OneMinute.Count:
+          alias: trino.execution.failed_queries.one_minute.count
+        FailedQueries.OneMinute.Rate:
+          alias: trino.execution.failed_queries.one_minute.rate
+        FailedQueries.TotalCount:
+          alias: trino.execution.failed_queries.total_count
+        InsufficientResourcesFailures.OneMinute.Count:
+          alias: trino.execution.insufficient_resources_failures.one_minute.count
+        InsufficientResourcesFailures.OneMinute.Rate:
+          alias: trino.execution.insufficient_resources_failures.one_minute.rate
+        InsufficientResourcesFailures.TotalCount:
+          alias: trino.execution.insufficient_resources_failures.total_count
+        InternalFailures.OneMinute.Count:
+          alias: trino.execution.internal_failures.one_minute.count
+        InternalFailures.OneMinute.Rate:
+          alias: trino.execution.internal_failures.one_minute.rate
+        InternalFailures.TotalCount:
+          alias: trino.execution.internal_failures.total_count
+        QueuedQueries:
+          alias: trino.execution.queued_queries
+        RunningQueries:
+          alias: trino.execution.running_queries
+        StartedQueries.OneMinute.Count:
+          alias: trino.execution.started_queries.one_minute.count
+        StartedQueries.OneMinute.Rate:
+          alias: trino.execution.started_queries.one_minute.rate
+        StartedQueries.TotalCount:
+          alias: trino.execution.started_queries.total_count
+        UserErrorFailures.OneMinute.Count:
+          alias: trino.execution.user_error_failures.one_minute.count
+        UserErrorFailures.OneMinute.Rate:
+          alias: trino.execution.user_error_failures.one_minute.rate
+        UserErrorFailures.TotalCount:
+          alias: trino.execution.user_error_failures.total_count
+        WallInputBytesRate.OneMinute.Avg:
+          alias: trino.execution.wall_input_bytes_rate.one_minute.avg
+        WallInputBytesRate.OneMinute.Max:
+          alias: trino.execution.wall_input_bytes_rate.one_minute.max
+        WallInputBytesRate.OneMinute.Min:
+          alias: trino.execution.wall_input_bytes_rate.one_minute.min
+        WallInputBytesRate.OneMinute.P75:
+          alias: trino.execution.wall_input_bytes_rate.one_minute.p75
+        WallInputBytesRate.OneMinute.P95:
+          alias: trino.execution.wall_input_bytes_rate.one_minute.p95
+  - include:
+      bean: trino.execution.executor:name=TaskExecutor
+      attribute:
+        BlockedSplits:
+          alias: trino.execution.executor.blocked_splits
+        ProcessorExecutor.QueuedTaskCount:
+          alias: trino.execution.executor.processor_executor.queued_task_count
+        RunningSplits:
+          alias: trino.execution.executor.running_splits
+        TotalSplits:
+          alias: trino.execution.executor.total_splits
+        WaitingSplits:
+          alias: trino.execution.executor.waiting_splits
+  - include:
+      domain: trino.memory
+      attribute:
+        AssignedQueries:
+          alias: trino.memory.assigned_queries
+        BlockedNodes:
+          alias: trino.memory.blocked_nodes
+        FreeDistributedBytes:
+          alias: trino.memory.free_distributed_bytes
+        Nodes:
+          alias: trino.memory.nodes
+        ReservedDistributedBytes:
+          alias: trino.memory.reserved_distributed_bytes
+        ReservedRevocableDistributedBytes:
+          alias: trino.memory.reserved_revocable_distributed_bytes
+        TotalDistributedBytes:
+          alias: trino.memory.total_distributed_bytes
