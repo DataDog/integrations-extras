@@ -53,7 +53,7 @@ Need help? See the [Superwise documentation][9].
 
 Additional helpful documentation, links, and articles:
 
-- [Monitor model performance with Superwise’s offering in the Datadog Marketplace][10]
+- [Monitor model performance with Superwise's offering in the Datadog Marketplace][10]
 
 [1]: https://www.superwise.ai/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png
