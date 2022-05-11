@@ -1,0 +1,238 @@
+Metric Name,Type,Description
+crdb_dedicated.addsstable.applications,(count),Number of SSTable ingestions applied (i.e. applied by Replicas). Shown as operation
+crdb_dedicated.addsstable.copies,(count),number of SSTable ingestions that required copying files during application. Shown as operation
+crdb_dedicated.addsstable.proposals,(count),Number of SSTable ingestions proposed (i.e. sent to Raft by lease holders). Shown as operation
+crdb_dedicated.admission.wait.sum.kv,(count),Total wait time in micros for requests within the KV layer
+crdb_dedicated.admission.wait.sum.kv.stores,(count),Total wait time in micros for write requests within the KV layer
+crdb_dedicated.admission.wait.sum.sql.kv.response,(count),Total wait time in micros for responses between the KV and SQL layer
+crdb_dedicated.admission.wait.sum.sql.sql.response,(count) ,Total wait time in micros for responses within the SQL layer when receiving DistSQL responses
+crdb_dedicated.capacity,(gauge),Total storage capacity. Shown as byte
+crdb_dedicated.capacity.available,(gauge),Available storage capacity. Shown as byte
+crdb_dedicated.capacity.reserved,(gauge),Capacity reserved for snapshots. Shown as byte
+crdb_dedicated.capacity.used,(gauge),Used storage capacity. Shown as byte
+crdb_dedicated.changefeed.backfill.count,(gauge),Number of changefeeds currently executing backfill. Shown as count.
+crdb_dedicated.changefeed.backfill.pending.ranges,(gauge),Number of ranges in an ongoing backfill that are yet to be fully emitted. Shown as count
+crdb_dedicated.changefeed.commit.latency,(gauge),"Event commit latency: a difference between event MVCC timestamp and the time it was acknowledged by the downstream sink. If the sink batches events, then the difference between the oldest event in the batch and acknowledgement is recorded. Excludes latency during backfill. Shown as nanoseconds."
+crdb_dedicated.changefeed.emitted.messages,(count),Messages emitted by all feeds. Shown as count.
+crdb_dedicated.changefeed.error.retries,(count),Total retryable errors encountered by all changefeeds. Shown as count.
+crdb_dedicated.changefeed.failures,(count),Total number of changefeed jobs which have failed. Shown as count.
+crdb_dedicated.changefeed.max.behind.nanos,(gauge),Largest commit-to-emit duration of any running feed. Shown as nanoseconds.
+crdb_dedicated.changefeed.message.size.hist,(gauge),Histogram of message sizes for changefeeds. Shown as bytes.
+crdb_dedicated.changefeed.running,(gauge),"Number of currently running changefeeds, including sinkless. Shown as count."
+crdb_dedicated.clock.offset.meannanos,(gauge),Mean clock offset with other nodes in nanoseconds. Shown as nanosecond
+crdb_dedicated.clock.offset.stddevnanos,(gauge),Stdddev clock offset with other nodes in nanoseconds. Shown as nanosecond
+crdb_dedicated.distsender.batches,(count),Number of batches processed
+crdb_dedicated.distsender.batches.partial,(count),Number of partial batches processed
+crdb_dedicated.distsender.errors.notleaseholder,(count),Number of NotLeaseHolderErrors encountered. Shown as error
+crdb_dedicated.distsender.rpc.sent,(count),Number of RPCs sent
+crdb_dedicated.distsender.rpc.sent.local,(count),Number of local RPCs sent
+crdb_dedicated.distsender.rpc.sent.nextreplicaerror,(count),Number of RPCs sent due to per-replica errors. Shown as error
+crdb_dedicated.exec.error,(count),Number of batch KV requests that failed to execute on this node. Shown as request
+crdb_dedicated.exec.latency,(distribution),Latency in nanoseconds of batch KV requests executed on this node. Shown as nanosecond
+crdb_dedicated.exec.success,(count),Number of batch KV requests executed successfully on this node. Shown as request
+crdb_dedicated.gcbytesage,(gauge),Cumulative age of non-live data in seconds. Shown as second
+crdb_dedicated.gossip.bytes.received,(count),Number of received gossip bytes. Shown as byte
+crdb_dedicated.gossip.bytes.sent,(count),Number of sent gossip bytes. Shown as byte
+crdb_dedicated.gossip.connections.incoming,(gauge),Number of active incoming gossip connections. Shown as connection
+crdb_dedicated.gossip.connections.outgoing,(gauge),Number of active outgoing gossip connections. Shown as connection
+crdb_dedicated.gossip.connections.refused,(count),Number of refused incoming gossip connections. Shown as connection
+crdb_dedicated.gossip.infos.received,(count),Number of received gossip Info objects
+crdb_dedicated.gossip.infos.sent,(count),Number of sent gossip Info objects
+crdb_dedicated.intentage,(gauge),Cumulative age of intents in seconds. Shown as second
+crdb_dedicated.intentbytes,(gauge),Number of bytes in intent KV pairs. Shown as byte
+crdb_dedicated.intentcount,(gauge),Count of intent keys. Shown as key
+crdb_dedicated.jobs.changefeed.resume.retry.error,(count),Number of changefeed jobs which failed with a retriable error. Shown as count.
+crdb_dedicated.keybytes,(gauge),Number of bytes taken up by keys. Shown as byte
+crdb_dedicated.keycount,(gauge),Count of all keys. Shown as key
+crdb_dedicated.leases.epoch,(gauge),Number of replica leaseholders using epoch-based leases
+crdb_dedicated.leases.error,(count),Number of failed lease requests. Shown as request
+crdb_dedicated.leases.expiration,(gauge),Number of replica leaseholders using expiration-based leases
+crdb_dedicated.leases.success,(count),Number of successful lease requests. Shown as request
+crdb_dedicated.leases.transfers.error,(count),Number of failed lease transfers
+crdb_dedicated.leases.transfers.success,(count),Number of successful lease transfers
+crdb_dedicated.livebytes,(gauge),Number of bytes of live data (keys plus values). Shown as byte
+crdb_dedicated.livecount,(gauge),Count of live keys. Shown as key
+crdb_dedicated.liveness.epochincrements,(count),Number of times this node has incremented its liveness epoch
+crdb_dedicated.liveness.heartbeatfailures,(count),Number of failed node liveness heartbeats from this node
+crdb_dedicated.liveness.heartbeatlatency,(distribution),Node liveness heartbeat latency in nanoseconds. Shown as nanosecond
+crdb_dedicated.liveness.heartbeatsuccesses,(count),Number of successful node liveness heartbeats from this node
+crdb_dedicated.liveness.livenodes,(gauge),Number of live nodes in the cluster (will be 0 if this node is not itself live)
+crdb_dedicated.queue.consistency.pending,(gauge),Number of pending replicas in the consistency checker queue
+crdb_dedicated.queue.consistency.process.failure,(count),Number of replicas which failed processing in the consistency checker queue
+crdb_dedicated.queue.consistency.process.success,(count),Number of replicas successfully processed by the consistency checker queue
+crdb_dedicated.queue.consistency.processingnanos,(count),Nanoseconds spent processing replicas in the consistency checker queue. Shown as nanosecond
+crdb_dedicated.queue.gc.info.abortspanconsidered,(count),Number of AbortSpan entries old enough to be considered for removal
+crdb_dedicated.queue.gc.info.abortspangcnum,(count),Number of AbortSpan entries fit for removal
+crdb_dedicated.queue.gc.info.abortspanscanned,(count),Number of transactions present in the AbortSpan scanned from the engine. Shown as transaction
+crdb_dedicated.queue.gc.info.intentsconsidered,(count),Number of 'old' intents
+crdb_dedicated.queue.gc.info.intenttxns,(count),Number of associated distinct transactions. Shown as transaction
+crdb_dedicated.queue.gc.info.numkeysaffected,(count),Number of keys with GC'able data. Shown as key
+crdb_dedicated.queue.gc.info.pushtxn,(count),Number of attempted pushes
+crdb_dedicated.queue.gc.info.resolvesuccess,(count),Number of successful intent resolutions
+crdb_dedicated.queue.gc.info.resolvetotal,(count),Number of attempted intent resolutions
+crdb_dedicated.queue.gc.info.transactionspangcaborted,(count),Number of GC'able entries corresponding to aborted txns
+crdb_dedicated.queue.gc.info.transactionspangccommitted,(count),Number of GC'able entries corresponding to committed txns
+crdb_dedicated.queue.gc.info.transactionspangcpending,(count),Number of GC'able entries corresponding to pending txns
+crdb_dedicated.queue.gc.info.transactionspanscanned,(count),Number of entries in transaction spans scanned from the engine
+crdb_dedicated.queue.gc.pending,(gauge),Number of pending replicas in the GC queue
+crdb_dedicated.queue.gc.process.failure,(count),Number of replicas which failed processing in the GC queue
+crdb_dedicated.queue.gc.process.success,(count),Number of replicas successfully processed by the GC queue
+crdb_dedicated.queue.gc.processingnanos,(count),Nanoseconds spent processing replicas in the GC queue. Shown as nanosecond
+crdb_dedicated.queue.raftlog.pending,(gauge),Number of pending replicas in the Raft log queue
+crdb_dedicated.queue.raftlog.process.failure,(count),Number of replicas which failed processing in the Raft log queue
+crdb_dedicated.queue.raftlog.process.success,(count),Number of replicas successfully processed by the Raft log queue
+crdb_dedicated.queue.raftlog.processingnanos,(count),Nanoseconds spent processing replicas in the Raft log queue. Shown as nanosecond
+crdb_dedicated.queue.raftsnapshot.pending,(gauge),Number of pending replicas in the Raft repair queue
+crdb_dedicated.queue.raftsnapshot.process.failure,(count),Number of replicas which failed processing in the Raft repair queue
+crdb_dedicated.queue.raftsnapshot.process.success,(count),Number of replicas successfully processed by the Raft repair queue
+crdb_dedicated.queue.raftsnapshot.processingnanos,(count),Nanoseconds spent processing replicas in the Raft repair queue. Shown as nanosecond
+crdb_dedicated.queue.replicagc.pending,(gauge),Number of pending replicas in the replica GC queue
+crdb_dedicated.queue.replicagc.process.failure,(count),Number of replicas which failed processing in the replica GC queue
+crdb_dedicated.queue.replicagc.process.success,(count),Number of replicas successfully processed by the replica GC queue
+crdb_dedicated.queue.replicagc.processingnanos,(count),Nanoseconds spent processing replicas in the replica GC queue. Shown as nanosecond
+crdb_dedicated.queue.replicagc.removereplica,(count),Number of replica removals attempted by the replica gc queue
+crdb_dedicated.queue.replicate.addreplica,(count),Number of replica additions attempted by the replicate queue
+crdb_dedicated.queue.replicate.pending,(gauge),Number of pending replicas in the replicate queue
+crdb_dedicated.queue.replicate.process.failure,(count),Number of replicas which failed processing in the replicate queue
+crdb_dedicated.queue.replicate.process.success,(count),Number of replicas successfully processed by the replicate queue
+crdb_dedicated.queue.replicate.processingnanos,(count),Nanoseconds spent processing replicas in the replicate queue. Shown as nanosecond
+crdb_dedicated.queue.replicate.purgatory,(gauge),"Number of replicas in the replicate queue's purgatory, awaiting allocation options"
+crdb_dedicated.queue.replicate.rebalancereplica,(count),Number of replica rebalancer-initiated additions attempted by the replicate queue
+crdb_dedicated.queue.replicate.removedeadreplica,(count),Number of dead replica removals attempted by the replicate queue (typically in response to a node outage)
+crdb_dedicated.queue.replicate.removereplica,(count),Number of replica removals attempted by the replicate queue (typically in response to a rebalancer-initiated addition)
+crdb_dedicated.queue.replicate.transferlease,(count),Number of range lease transfers attempted by the replicate queue
+crdb_dedicated.queue.split.pending,(gauge),Number of pending replicas in the split queue
+crdb_dedicated.queue.split.process.failure,(count),Number of replicas which failed processing in the split queue
+crdb_dedicated.queue.split.process.success,(count),Number of replicas successfully processed by the split queue
+crdb_dedicated.queue.split.processingnanos,(count),Nanoseconds spent processing replicas in the split queue. Shown as nanosecond
+crdb_dedicated.queue.tsmaintenance.pending,(gauge),Number of pending replicas in the time series maintenance queue
+crdb_dedicated.queue.tsmaintenance.process.failure,(count),Number of replicas which failed processing in the time series maintenance queue
+crdb_dedicated.queue.tsmaintenance.process.success,(count),Number of replicas successfully processed by the time series maintenance queue
+crdb_dedicated.queue.tsmaintenance.processingnanos,(count),Nanoseconds spent processing replicas in the time series maintenance queue. Shown as nanosecond
+crdb_dedicated.raft.commandsapplied,(count),Count of Raft commands applied. Shown as command
+crdb_dedicated.raft.enqueued.pending,(gauge),Number of pending outgoing messages in the Raft Transport queue
+crdb_dedicated.raft.heartbeats.pending,(gauge),Number of pending heartbeats and responses waiting to be coalesced
+crdb_dedicated.raft.process.commandcommit.latency,(distribution),Latency histogram in nanoseconds for committing Raft commands. Shown as nanosecond
+crdb_dedicated.raft.process.logcommit.latency,(distribution),Latency histogram in nanoseconds for committing Raft log entries. Shown as nanosecond
+crdb_dedicated.raft.process.tickingnanos,(count),Nanoseconds spent in store.processRaft() processing replica.Tick(). Shown as nanosecond
+crdb_dedicated.raft.process.workingnanos,(count),Nanoseconds spent in store.processRaft() working. Shown as nanosecond
+crdb_dedicated.raft.rcvd.app,(count),Number of MsgApp messages received by this store
+crdb_dedicated.raft.rcvd.appresp,(count),Number of MsgAppResp messages received by this store
+crdb_dedicated.raft.rcvd.dropped,(count),Number of dropped incoming Raft messages
+crdb_dedicated.raft.rcvd.heartbeat,(count),"Number of (coalesced, if enabled) MsgHeartbeat messages received by this store"
+crdb_dedicated.raft.rcvd.heartbeatresp,(count),"Number of (coalesced, if enabled) MsgHeartbeatResp messages received by this store"
+crdb_dedicated.raft.rcvd.prevote,(count),Number of MsgPreVote messages received by this store
+crdb_dedicated.raft.rcvd.prevoteresp,(count),Number of MsgPreVoteResp messages received by this store
+crdb_dedicated.raft.rcvd.prop,(count),Number of MsgProp messages received by this store
+crdb_dedicated.raft.rcvd.snap,(count),Number of MsgSnap messages received by this store
+crdb_dedicated.raft.rcvd.timeoutnow,(count),Number of MsgTimeoutNow messages received by this store
+crdb_dedicated.raft.rcvd.transferleader,(count),Number of MsgTransferLeader messages received by this store
+crdb_dedicated.raft.rcvd.vote,(count),Number of MsgVote messages received by this store
+crdb_dedicated.raft.rcvd.voteresp,(count),Number of MsgVoteResp messages received by this store
+crdb_dedicated.raft.ticks,(count),Number of Raft ticks queued
+crdb_dedicated.raftlog.behind,(gauge),Number of Raft log entries followers on other stores are behind. Shown as entry
+crdb_dedicated.raftlog.truncated,(count),Number of Raft log entries truncated. Shown as entry
+crdb_dedicated.range.adds,(count),Number of range additions
+crdb_dedicated.range.raftleadertransfers,(count),Number of raft leader transfers
+crdb_dedicated.range.removes,(count),Number of range removals
+crdb_dedicated.range.snapshots.generated,(count),Number of generated snapshots
+crdb_dedicated.range.splits,(count),Number of range splits
+crdb_dedicated.ranges,(gauge),Number of ranges
+crdb_dedicated.ranges.overreplicated,(gauge),Number of ranges with more live replicas than the replication target
+crdb_dedicated.ranges.unavailable,(gauge),Number of ranges with fewer live replicas than needed for quorum
+crdb_dedicated.ranges.underreplicated,(gauge),Number of ranges with fewer live replicas than the replication target
+crdb_dedicated.rebalancing.writespersecond,(gauge),"Number of keys written (i.e. applied by raft) per second to the store, averaged over a large time period as used in rebalancing decisions. Shown as key"
+crdb_dedicated.replicas,(gauge),Number of replicas
+crdb_dedicated.replicas.leaders,(gauge),Number of raft leaders
+crdb_dedicated.replicas.leaders.not_leaseholders,(gauge),Number of replicas that are Raft leaders whose range lease is held by another store
+crdb_dedicated.replicas.leaseholders,(gauge),Number of lease holders
+crdb_dedicated.replicas.quiescent,(gauge),Number of quiesced replicas
+crdb_dedicated.replicas.reserved,(gauge),Number of replicas reserved for snapshots
+crdb_dedicated.requests.backpressure.split,(gauge),Number of backpressured writes waiting on a Range split
+crdb_dedicated.requests.slow.distsender,(gauge),Number of requests that have been stuck for a long time in the dist sender. Shown as request
+crdb_dedicated.requests.slow.lease,(gauge),Number of requests that have been stuck for a long time acquiring a lease. Shown as request
+crdb_dedicated.requests.slow.raft,(gauge),Number of requests that have been stuck for a long time in raft. Shown as request
+crdb_dedicated.rocksdb.block.cache.hits,(gauge),Count of block cache hits
+crdb_dedicated.rocksdb.block.cache.misses,(gauge),Count of block cache misses
+crdb_dedicated.rocksdb.block.cache.pinned.usage,(gauge),Bytes pinned by the block cache. Shown as byte
+crdb_dedicated.rocksdb.block.cache.usage,(gauge),Bytes used by the block cache. Shown as byte
+crdb_dedicated.rocksdb.bloom_filter.prefix.checked,(gauge),Number of times the bloom filter was checked
+crdb_dedicated.rocksdb.bloom_filter.prefix.useful,(gauge),Number of times the bloom filter helped avoid iterator creation
+crdb_dedicated.rocksdb.compactions,(gauge),Number of table compactions
+crdb_dedicated.rocksdb.flushes,(gauge),Number of table flushes
+crdb_dedicated.rocksdb.memtable.total.size,(gauge),Current size of memtable in bytes. Shown as byte
+crdb_dedicated.rocksdb.num_sstables,(gauge),Number of rocksdb SSTables. Shown as table
+crdb_dedicated.rocksdb.read.amplification,(gauge),Number of disk reads per query. Shown as read
+crdb_dedicated.rocksdb.table.readers.mem.estimate,(gauge),Memory used by index and filter blocks
+crdb_dedicated.round_trip.latency,(distribution),Distribution of round-trip latencies with other nodes in nanoseconds. Shown as nanosecond
+crdb_dedicated.sql.bytesin,(count),Number of sql bytes received. Shown as byte
+crdb_dedicated.sql.bytesout,(count),Number of sql bytes sent. Shown as byte
+crdb_dedicated.sql.conn.latency,(distribution),Latency to establish and authenticate a SQL connection. Shown as nanoseconds.
+crdb_dedicated.sql.conns,(gauge),Number of active sql connections. Shown as connection
+crdb_dedicated.sql.ddl.count,(count),Number of SQL DDL statements
+crdb_dedicated.sql.delete.count,(count),Number of SQL DELETE statements
+crdb_dedicated.sql.distsql.contended.queries.count,(count),Number of SQL queries that experienced contention. Shown as count.
+crdb_dedicated.sql.distsql.exec.latency,(distribution),Latency in nanoseconds of DistSQL statement execution. Shown as nanosecond
+crdb_dedicated.sql.distsql.flows.active,(gauge),Number of distributed SQL flows currently active
+crdb_dedicated.sql.distsql.flows.total,(count),Number of distributed SQL flows executed
+crdb_dedicated.sql.distsql.queries.active,(gauge),Number of distributed SQL queries currently active
+crdb_dedicated.sql.distsql.queries.total,(count),Number of distributed SQL queries executed
+crdb_dedicated.sql.distsql.select.count,(count),Number of DistSQL SELECT statements
+crdb_dedicated.sql.distsql.service.latency,(distribution),Latency in nanoseconds of DistSQL request execution. Shown as nanosecond
+crdb_dedicated.sql.exec.latency,(distribution),Latency in nanoseconds of SQL statement execution. Shown as nanosecond
+crdb_dedicated.sql.failure.count,(count),Number of statements resulting in a planning or runtime error. Shown as count.
+crdb_dedicated.sql.full.scan.count,(count),Number of full table or index scans. Shown as count.
+crdb_dedicated.sql.insert.count,(count),Number of SQL INSERT statements
+crdb_dedicated.sql.mem.distsql.current,(gauge),Current sql statement memory usage for distsql
+crdb_dedicated.sql.mem.distsql.max,(distribution),Memory usage per sql statement for distsql
+crdb_dedicated.sql.mem.internal.session.current,(gauge),Current sql session memory usage for internal
+crdb_dedicated.sql.mem.internal.session.max,(distribution),Memory usage per sql session for internal
+crdb_dedicated.sql.mem.internal.txn.current,(gauge),Current sql transaction memory usage for internal
+crdb_dedicated.sql.mem.internal.txn.max,(distribution),Memory usage per sql transaction for internal
+crdb_dedicated.sql.misc.count,(count),Number of other SQL statements
+crdb_dedicated.sql.query.count,(count),Number of SQL queries
+crdb_dedicated.sql.select.count,(count),Number of SQL SELECT statements
+crdb_dedicated.sql.service.latency,(distribution),Latency in nanoseconds of SQL request execution. Shown as nanosecond
+crdb_dedicated.sql.statements.active,(gauge),Number of currently active user SQL statements. Shown as count.
+crdb_dedicated.sql.txn.abort.count,(count),Number of SQL transaction ABORT statements
+crdb_dedicated.sql.txn.begin.count,(count),Number of SQL transaction BEGIN statements
+crdb_dedicated.sql.txn.commit.count,(count),Number of SQL transaction COMMIT statements
+crdb_dedicated.sql.txn.latency,(distribution),Latency of SQL transactions. Shown as nanoseconds.
+crdb_dedicated.sql.txn.rollback.count,(count),Number of SQL transaction ROLLBACK statements
+crdb_dedicated.sql.txns.open,(gauge),Number of currently open SQL transactions. Shown as count.
+crdb_dedicated.sql.update.count,(count),Number of SQL UPDATE statements
+crdb_dedicated.sys.cgo.allocbytes,(gauge),Current bytes of memory allocated by cgo. Shown as byte
+crdb_dedicated.sys.cgo.totalbytes,(gauge),"Total bytes of memory allocated by cgo, but not released. Shown as byte"
+crdb_dedicated.sys.cgocalls,(gauge),Total number of cgo calls
+crdb_dedicated.sys.cpu.combined.percent.normalized,(gauge),"Current user+system cpu percentage, normalized 0-1 by number of cores."
+crdb_dedicated.sys.cpu.sys.ns,(gauge),Total system cpu time in nanoseconds. Shown as nanosecond
+crdb_dedicated.sys.cpu.sys.percent,(gauge),Current system cpu percentage
+crdb_dedicated.sys.cpu.user.ns,(gauge),Total user cpu time in nanoseconds. Shown as nanosecond
+crdb_dedicated.sys.cpu.user.percent,(gauge),Current user cpu percentage. Shown as percent
+crdb_dedicated.sys.fd.open,(gauge),Process open file descriptors
+crdb_dedicated.sys.fd.softlimit,(gauge),Process open FD soft limit
+crdb_dedicated.sys.gc.count,(gauge),Total number of GC runs
+crdb_dedicated.sys.gc.pause.ns,(gauge),Total GC pause in nanoseconds. Shown as nanosecond
+crdb_dedicated.sys.gc.pause.percent,(gauge),Current GC pause percentage. Shown as percent
+crdb_dedicated.sys.go.allocbytes,(gauge),Current bytes of memory allocated by go. Shown as byte
+crdb_dedicated.sys.go.totalbytes,(gauge),"Total bytes of memory allocated by go, but not released. Shown as byte"
+crdb_dedicated.sys.goroutines,(gauge),Current number of goroutines
+crdb_dedicated.sys.host.net.recv.bytes,(gauge),Bytes received on all network interfaces since this process started.
+crdb_dedicated.sys.host.net.send.bytes,(gauge),Bytes sent on all network interfaces since this process started.
+crdb_dedicated.sys.rss,(gauge),Current process RSS
+crdb_dedicated.sys.uptime,(gauge),Process uptime in seconds. Shown as second
+crdb_dedicated.sysbytes,(gauge),Number of bytes in system KV pairs. Shown as byte
+crdb_dedicated.syscount,(gauge),Count of system KV pairs
+crdb_dedicated.timeseries.write.bytes,(count),Total size in bytes of metric samples written to disk. Shown as byte
+crdb_dedicated.timeseries.write.errors,(count),Total errors encountered while attempting to write metrics to disk. Shown as error
+crdb_dedicated.timeseries.write.samples,(count),Total number of metric samples written to disk
+crdb_dedicated.totalbytes,(gauge),Total number of bytes taken up by keys and values including non-live data. Shown as byte
+crdb_dedicated.txn.aborts,(count),Number of aborted KV transactions
+crdb_dedicated.txn.commits,(count),Number of committed KV transactions (including 1PC)
+crdb_dedicated.txn.commits1PC,(count),Number of committed one-phase KV transactions
+crdb_dedicated.txn.durations,(distribution),KV transaction durations in nanoseconds
+crdb_dedicated.txn.restarts,(distribution),Number of restarted KV transactions
+crdb_dedicated.txn.restarts.serializable,(count),Number of restarts due to a forwarded commit timestamp and isolation=SERIALIZABLE
+crdb_dedicated.txn.restarts.writetooold,(count),Number of restarts due to a concurrent writer committing first
+crdb_dedicated.valbytes,(gauge),Number of bytes taken up by values. Shown as byte
+crdb_dedicated.valcount,(gauge),Count of all values
