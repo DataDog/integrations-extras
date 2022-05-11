@@ -1,44 +1,30 @@
 {
-  "manifest_version": "2.0.0",
-  "app_uuid": "0d085e44-d2b1-4634-a7c7-201b42cb167b",
-  "app_id": "cockroach-cloud",
-  "classifier_tags": [
-    "Supported OS::Linux",
-    "Supported OS::Mac OS",
-    "Supported OS::Windows"
-  ],
-  "display_on_public_website": false,
-  "tile": {
-    "overview": "README.md#Overview",
-    "configuration": "README.md#Setup",
-    "support": "README.md#Support",
-    "changelog": "CHANGELOG.md",
-    "description": "Send your Cockroach Cloud metrics to DataDog.",
-    "title": "Cockroach Cloud",
-    "media": []
-  },
-  "author": {
-    "support_email": "support@cockroachlabs.com"
-  },
-  "oauth": {},
+  "name": "cockroach_cloud",
+  "display_name": "Cockroach Cloud",
+  "maintainer": "help@datadoghq.com",
+  "manifest_version": "1.0.0",
+  "guid": "0d085e44-d2b1-4634-a7c7-201b42cb167b",
+  "integration_id": "cockroach-cloud",
+  "supported_os": ["linux", "mac_os", "windows"],
+  "is_public": false,
+  "short_description": "Send your Cockroach Cloud metrics to DataDog.",
+  "metric_prefix": "crdb_dedicated.",
+  "metric_to_check": "crdb_dedicated.sys.uptime",
+  "public_title": "Datadog-Cockroach Cloud Integration",
+  "creates_events": false,
   "assets": {
     "dashboards": {
       "cockroach_cloud_overview": "assets/dashboards/cockroach_cloud_overview.json"
     },
-    "integration": {
-      "source_type_name": "CockroachCloud",
-      "configuration": {},
-      "events": {
-        "creates_events": false
-      },
-      "metrics": {
-        "prefix": "crdb_dedicated.",
-        "check": "crdb_dedicated.sys.uptime",
-        "metadata_path": "metadata.csv"
-      },
-      "service_checks": {
-        "metadata_path": "assets/service_checks.json"
-      }
-    }
-  }
+    "metrics_metadata": "metadata.csv",
+    "service_checks": "assets/service_checks.json",
+    "logs": {
+      "source": "cockroach-cloud"
+    },
+    "monitors": {},
+    "saved_views": {}
+  },
+  "support": "contrib",
+  "categories": [""],
+  "type": "check"
 }
