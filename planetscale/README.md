@@ -1,4 +1,4 @@
-# Agent Check: Planetscale
+# Planetscale
 
 ## Overview
 
