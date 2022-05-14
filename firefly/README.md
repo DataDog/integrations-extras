@@ -28,4 +28,6 @@ Get alerts and fix any policy violation, using pre-made or custom policies, usin
 3. Click done
 
 ## Support
-Any questions? We are here to help! Email [contact@gofirefly.io](mailto:contact@gofirefly.io) or use the in-app chat.
+Any questions? We are here to help! Email [contact@gofirefly.io][1] or use the in-app chat.
+
+[1]: mailto:contact@gofirefly.io
