@@ -65,7 +65,7 @@ A Zscaler Cloud NSS subscription is required.
 2. Select the **Cloud NSS Feeds** tab. Then, click on **Add Cloud NSS Feed**.
 3. In the dialog box, enter or select the following values:
    * Feed Name: `<YOUR_FEED_NAME>`
-   * NSS Type: `NSS for Firewall`
+   * NSS Type: `NSS for DNS`
    * SIEM Type: `Other`
    * Batch Size: `16`
    * API URL: `https://http-intake.logs.datadoghq.com/v1/input?ddsource=zscaler`
