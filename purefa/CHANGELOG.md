@@ -1,6 +1,9 @@
 # CHANGELOG - PureFA
-1.0.0 
-=====
-### Initial version
 
-* [FEATURE] Initial Pure Storage FlashArray integration.
+## 1.0.1
+
+* [Changed] Updated purefa.py to include an default openmetrics_endpoint from spec.yaml
+
+## 1.0.0
+
+* [Added] Initial Pure Storage FlashArray integration.
