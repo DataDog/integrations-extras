@@ -87,5 +87,10 @@ Follow the steps below for Datadog integration.
 5. Refer to [Datadog documents][2] for the next configuration steps.
 
 
+## Support
+
+Need help? Contact [Datadog support][3] or reach out to [AlertNow support](mailto:support@opsnow.com).
+
 [1]: https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#integrations/webhooks
 [2]: https://docs.datadoghq.com/monitors/
+[3]: https://docs.datadoghq.com/help/
