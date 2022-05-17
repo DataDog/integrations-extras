@@ -17,7 +17,7 @@ Akamai techdocs site][2] and make sure you set the log source to `akamai.datastr
 
 ### Validation
 
-To validate that this integration is configured properly, [search for logs with the source `akamai.datastream`][3].
+To validate that this integration is configured properly, [search for logs with the source `akamai.datastream`][3]. You may have to wait a few minutes after configuring the datastream in Akamai before logs are visible in Datadog.
 
 ## Data Collected
 
