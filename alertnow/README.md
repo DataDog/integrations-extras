@@ -10,7 +10,7 @@ What AlertNow offers:
 - Notify users based on escalation policy
 - Reports on MTTA and MTTR, and analysis reports
 
-![alertnow overview](./images/alertnow_overview.png)
+![alertnow overview][1]
 
 ## Configuration
 
@@ -22,21 +22,21 @@ To connect Datadog with AlertNow, you must create a webhook and add monitors in 
 2. Log in to AlertNow and go to the Configuration > Integration menu.
 3. Click **Create Integration**, and then select the **Datadog** card.
 
-    ![datadog card](./images/integration_card_datadog.png)
+    ![datadog card][2]
 
 4. In the Create integration page, enter the required information, and then click the OK button to create the integration.
 
-    ![datadog integration](./images/create_integration_datadog_en.png)
+    ![datadog integration][3]
 
 5. Copy the URL from the Integration page of AlertNow.
-    ![datadog detail](./images/datadog_integration_detail.png)
+    ![datadog detail][4]
 
 
 ### Datadog
 
 Follow the steps below for Datadog integration.
 
-1. Open the [Webhooks Integration tile][1].
+1. Open the [Webhooks Integration tile][5].
 
 2. Select the **Configuration** tab, and scroll to the bottom and click **New**.
 
@@ -44,7 +44,7 @@ Follow the steps below for Datadog integration.
 
     <pre><code> https://alertnowitgr.opsnow.com/integration/datadog/v1/{API-KEY} </code></pre>
 
-    ![datadog webhook](./images/datadog_webhook.png)
+    ![datadog webhook][6]
 
 4. Paste JSON Payload below and paste it in the Payload window.
 
@@ -84,13 +84,18 @@ Follow the steps below for Datadog integration.
 
     ```
 
-5. Refer to [Datadog documents][2] for the next configuration steps.
+5. Refer to [Datadog documents][7] for the next configuration steps.
 
 
 ## Support
 
-Need help? Contact [Datadog support][3] or reach out to [AlertNow support](mailto:support@opsnow.com).
+Need help? Contact [Datadog support][8] or reach out to [AlertNow support](mailto:support@opsnow.com).
 
-[1]: https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#integrations/webhooks
-[2]: https://docs.datadoghq.com/monitors/
-[3]: https://docs.datadoghq.com/help/
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/alertnow_overview.png
+[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/integration_card_datadog.png
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/create_integration_datadog_en.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/datadog_integration_detail.png
+[5]: https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#integrations/webhooks
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/datadog_webhook.png
+[7]: https://docs.datadoghq.com/monitors/
+[8]: https://docs.datadoghq.com/help/
