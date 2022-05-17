@@ -12,7 +12,7 @@ What AlertNow offers:
 
 ![alertnow overview][1]
 
-## Configuration
+## Setup
 
 ### AlertNow
 
