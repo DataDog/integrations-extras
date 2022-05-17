@@ -131,7 +131,7 @@ For support or feature requests, contact Pure Storage through the following meth
 [1]: https://github.com/PureStorage-OpenConnect/pure-exporter
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://www.purestorage.com/products.html
-[4]: https://github.com/DataDog/integrations-extras/blob/master/purefa/data/conf.yaml.example
+[4]: https://github.com/datadog/integrations-extras/blob/master/purefa/datadog_checks/purefa/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/purefa/metadata.csv
