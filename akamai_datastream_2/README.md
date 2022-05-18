@@ -39,4 +39,4 @@ Need help? Contact [Datadog support][1].
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://techdocs.akamai.com/datastream2/docs/stream-datadog
-[3]: /logs?query=source%3Aakamai.datastream
+[3]: https://app.datadoghq.com/logs?query=source%3Aakamai.datastream
