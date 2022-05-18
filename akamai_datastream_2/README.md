@@ -8,7 +8,7 @@ Akamai DataStream 2 captures performance and security logs for your delivery pro
 
 ### Installation
 
-Click "Install Integration" to enable a preset dashboard for viewing Akamai DataStream 2 logs and metrics.
+Click **Install Integration** to enable a preset dashboard for viewing Akamai DataStream 2 logs and metrics.
 
 ### Configuration
 
