@@ -2,7 +2,7 @@
 
 ## Overview
 
-Akamai DataStream 2 captures performance and security logs for your delivery properties to stream them in near real-time to Datadog to provide complete monitoring capability.
+Akamai DataStream 2 captures performance and security logs for your delivery properties. This integration streams the data in near real-time to Datadog for complete monitoring.
 
 ## Setup
 
