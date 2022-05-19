@@ -39,6 +39,10 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Fluent_Bit:
+        target: 75
+        flags:
+        - fluentbit
       Gatekeeper:
         target: 75
         flags:
@@ -199,6 +203,10 @@ coverage:
         target: 75
         flags:
         - purefa
+      purefb:
+        target: 75
+        flags:
+        - purefb
       speedtest:
         target: 75
         flags:
@@ -244,6 +252,11 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  fluentbit:
+    carryforward: true
+    paths:
+    - fluentbit/datadog_checks/fluentbit
+    - fluentbit/tests
   gatekeeper:
     carryforward: true
     paths:
@@ -354,6 +367,11 @@ flags:
     paths:
     - purefa/datadog_checks/purefa
     - purefa/tests
+  purefb:
+    carryforward: true
+    paths:
+    - purefb/datadog_checks/purefb
+    - purefb/tests
   reboot_required:
     carryforward: true
     paths:
