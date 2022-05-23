@@ -81,7 +81,7 @@ Need help? Contact [Datadog support][12].
 [5]: https://docs.datadoghq.com/dashboards/#dashboard-list
 [6]: https://docs.datadoghq.com/dashboards/#clone-dashboard
 [7]: https://docs.datadoghq.com/dashboards/#new-dashboard
-[8]: https://docs.datadoghq.com/integrations/cockroach-cloud
+[8]: https://docs.datadoghq.com/integrations/cockroach_cloud
 [9]: https://docs.datadoghq.com/metrics/explorer/
 [10]: https://support.cockroachlabs.com/
 [11]: https://docs.datadoghq.com/developers/guide/data-collection-resolution-retention/
