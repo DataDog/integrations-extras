@@ -7,7 +7,8 @@ AlertNow is an integrated incident management platform that collects alerts from
 
 What AlertNow offers:
 - Trigger and resolve incidents from Datadog
-- Notify the right people via email, SMS, Voice call, and mobile application when they occur
+- Notify the right people via email, SMS, Voice call, and mobile application when incidents occur
+
 - Notify users based on escalation policy
 - Reports on MTTA and MTTR, and analysis reports
 
