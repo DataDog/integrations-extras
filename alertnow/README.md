@@ -97,7 +97,8 @@ Follow the steps below in your Datadog account.
 
 ## Support
 
-Need help? Contact [Datadog support][8] or reach out to [AlertNow support](mailto:support@opsnow.com).
+Need help? Contact [AlertNow support](mailto:support@opsnow.com).
+
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/alertnow_overview.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/integration_card_datadog.png
