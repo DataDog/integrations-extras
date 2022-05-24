@@ -10,7 +10,8 @@ What AlertNow offers:
 - Notify the right people via email, SMS, Voice call, and mobile application when incidents occur
 
 - Notify users based on escalation policy
-- Reports on MTTA and MTTR, and analysis reports
+- Reports on MTTA and MTTR, analysis reports
+
 
 ![alertnow overview][1]
 
