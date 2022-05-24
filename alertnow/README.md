@@ -2,7 +2,8 @@
 
 ## Overview
 
-AlertNow is the integrated incident management platform that collects alerts from various and complex IT environments and delivers the alerts to the right people, enabling them to handle the incidents rapidly. When you connect AlertNow with Datadog, it automatically syncs your Datadog alerts with those in AlertNow to manage alerts on the single platform such as notify your teams and respond to critical issues immediately.
+AlertNow is an integrated incident management platform that collects alerts from various and complex IT environments and delivers the alerts to the right people, enabling them to handle incidents rapidly. Connecting AlertNow with Datadog automatically syncs your Datadog alerts with those in AlertNow. You can manage alerts on a single platform, notify your teams, and respond to critical issues immediately.
+
 
 What AlertNow offers:
 - Trigger and resolve incidents from Datadog
