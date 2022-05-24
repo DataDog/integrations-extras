@@ -91,7 +91,8 @@ Follow the steps below in your Datadog account.
 
     ```
 
-5. Refer to [Datadog documents][7] for the next configuration steps.
+5. Refer to Datadog's [Alerting documentation][7] to create monitors.
+
 
 
 ## Support
