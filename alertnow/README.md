@@ -49,7 +49,8 @@ Follow the steps below for Datadog integration.
 
     ![datadog webhook][6]
 
-4. Paste JSON Payload below and paste it in the Payload window.
+4. Copy the JSON Payload below and paste it in the Payload window.
+
 
     ``` json
     {
