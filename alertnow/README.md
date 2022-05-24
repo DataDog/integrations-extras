@@ -38,7 +38,8 @@ To connect Datadog with AlertNow, create a webhook and monitors in Datadog.
 
 ### Datadog
 
-Follow the steps below for Datadog integration.
+Follow the steps below in your Datadog account.
+
 
 1. Open the [Webhooks Integration tile][5].
 
