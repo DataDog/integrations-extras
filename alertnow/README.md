@@ -22,7 +22,8 @@ What AlertNow offers:
 To connect Datadog with AlertNow, create a webhook and monitors in Datadog.
 
 
-1. Use your existing account or create an AlertNow account in opsnow.com.
+1. Use your existing account or create an AlertNow account at opsnow.com.
+
 2. Log in to AlertNow and go to the Configuration > Integration menu.
 3. Click **Create Integration**, and then select the **Datadog** card.
 
