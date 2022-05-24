@@ -107,4 +107,3 @@ Need help? Contact [AlertNow support](mailto:support@opsnow.com).
 [5]: https://app.datadoghq.com/account/login?next=%2Faccount%2Fsettings#integrations/webhooks
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/alertnow/images/datadog_webhook.png
 [7]: https://docs.datadoghq.com/monitors/
-[8]: https://docs.datadoghq.com/help/
