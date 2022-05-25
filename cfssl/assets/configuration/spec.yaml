@@ -1,0 +1,20 @@
+name: cfssl
+files:
+- name: cfssl.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      description: The URL to the cfssl endpoint
+      required: true
+      enabled: true
+      value:
+        type: string
+        example: https://localhost:8888/
+        display_default: null
+    - template: instances/default
+      overrides:
+        metric_patterns.hidden: true
