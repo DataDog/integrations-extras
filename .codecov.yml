@@ -195,6 +195,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      exim:
+        target: 75
+        flags:
+        - exim
       nvml:
         target: 75
         flags:
@@ -259,6 +263,11 @@ flags:
     paths:
     - eventstore/datadog_checks/eventstore
     - eventstore/tests
+  exim:
+    carryforward: true
+    paths:
+    - exim/datadog_checks/exim
+    - exim/tests
   filebeat:
     carryforward: true
     paths:
