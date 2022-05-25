@@ -46,7 +46,8 @@ Follow the steps below in your Datadog account.
 
 2. Select the **Configuration** tab, and scroll to the bottom and click **New**.
 
-3. On the **New Webhook** form, enter a meaningful name and the AlertNow Webhook URL which was created in the AlertNow integration page. The format of the copied AlertNow Webhook URL is as below, and variables in **{API-KEY}** vary.
+3. On the **New Webhook** form, enter a meaningful name and the AlertNow Webhook URL created in the AlertNow integration page. The format of the copied AlertNow Webhook URL is as below. Substitute your API key for **{API-KEY}**.
+
 
 
     <pre><code> https://alertnowitgr.opsnow.com/integration/datadog/v1/{API-KEY} </code></pre>
