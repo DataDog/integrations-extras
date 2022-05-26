@@ -46,7 +46,7 @@ After you create the application key, copy and save it because you are not able 
 
 1. Obtain Datadog API key and Application key from [Datadog portal](https://app.datadoghq.com/organization-settings/api-keys) as described above
 
-2. In DoControl [Dashboard→Settings→Workflows→Secrets](https://app.docontrol.io/settings/workflows?tab=Secrets) add your Datadog API key as a new secret
+2. In DoControl [Dashboard->Settings->Workflows->Secrets](https://app.docontrol.io/settings/workflows?tab=Secrets) add your Datadog API key as a new secret
 
    ![DC_Secrets](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_Secrets.png)
 
