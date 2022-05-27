@@ -12,7 +12,7 @@ To set up this integration, you must have an active [DoControl account](https://
 
 No installation is required on your host.
 
-### Use Datadog actions in DoControls workflows
+### Use Datadog actions in DoControl's workflows
 
 You need to create a Datadog API key and an application key to use as input parameters for Datadog actions in DoControl.
 
