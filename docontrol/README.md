@@ -53,7 +53,7 @@ Be sure to copy and save your Application Key as you will not be able to access 
 3. Create a new Workflow from a pre-established [**playbook**](https://app.docontrol.io/workflowV2/playbooks?filter=by_use_case&use_case=all) or create one from [**scratch**](https://app.docontrol.io/workflowV2/workflow/new/workflow-editor).
    ![DC_WF_Create](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_WF_Create.png)
 
-4. Design and edit your business logic by dragging and dropping actions onto the canvas, configuring the steps and connecting them
+4. Design and edit your business logic by dragging and dropping actions onto the canvas, configuring the steps and connecting them.
 
 5. From the Actions bar, under **Utilities**, drag and drop Datadog actions, **Send logs** or **Create Incident**
 
