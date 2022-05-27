@@ -18,8 +18,6 @@ You must create a Datadog API key and an application key to use as input paramet
 
 #### Create an API key in Datadog
 
-Be sure to copy and save your API Key as you will not be able to access it after exiting the page. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
-
 1. In Datadog, hover over your username in the bottom left corner and select **Organization Settings**.
 
 2. From the left panel, click **API Keys**.
@@ -31,6 +29,8 @@ Be sure to copy and save your API Key as you will not be able to access it after
 4. Enter a meaningful name for the API key such as `DoControl` and click **Create Key**.
 
 5. Copy the `Key` and save it. You need this key to create a Datadog integration in DoControl.
+
+Be sure to copy and save your API Key as you will not be able to access it after exiting the page. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
 
 #### Create an application key in Datadog
 
