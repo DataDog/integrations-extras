@@ -6,7 +6,7 @@ This integration allows [DoControl](https://www.docontrol.io/) customers to forw
 
 ## Setup
 
-To set up this integration, you must have an active [DoControl account](https://www.docontrol.io/demo) . You must also have proper admin permissions in Datadog.
+To set up this integration, you must have an active [DoControl account](https://www.docontrol.io/demo). You must also have proper admin permissions in Datadog.
 
 ### Installation
 
