@@ -55,7 +55,7 @@ Be sure to copy and save your Application Key as you will not be able to access 
 
 4. Design and edit your business logic by dragging and dropping actions onto the canvas, configuring the steps and connecting them.
 
-5. From the Actions bar, under **Utilities**, drag and drop Datadog actions, **Send logs** or **Create Incident**
+5. From the Actions bar, under **Utilities**, you can drag and drop Datadog actions, such as **Send logs** or **Create Incident**, into your Workflow. 
 
    ![DC_Utils](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_Utils.png)
 
