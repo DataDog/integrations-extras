@@ -14,7 +14,7 @@ No installation is required on your host.
 
 ### Use Datadog actions in DoControl's workflows
 
-You need to create a Datadog API key and an application key to use as input parameters for Datadog actions in DoControl.
+You must create a Datadog API key and an application key to use as input parameters for Datadog actions in DoControl.
 
 #### Create an API key in Datadog
 
