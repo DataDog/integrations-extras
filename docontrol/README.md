@@ -18,7 +18,7 @@ You must create a Datadog API key and an application key to use as input paramet
 
 #### Create an API key in Datadog
 
-After you create the API key, copy and save it because you are not able to access it later. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
+Be sure to copy and save your API Key as you will not be able to access it after exiting the page. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
 
 1. Hover over your user name and select **Organization Settings**.
 
