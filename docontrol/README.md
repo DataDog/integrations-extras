@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration allows [DoControl](https://www.docontrol.io/) customers to forward their DoControl related logs and events to Datadog through automated security Workflows.
+This integration allows [DoControl](https://www.docontrol.io/) customers to forward their DoControl related logs and events to Datadog through automated security workflows.
 
 ## Setup
 
