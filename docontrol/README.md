@@ -34,7 +34,7 @@ Be sure to copy and save your API Key as you will not be able to access it after
 
 #### Create an application key in Datadog
 
-After you create the application key, copy and save it because you are not able to access it later. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
+Be sure to copy and save your Application Key as you will not be able to access it after exiting the page. For more information, see [API and Application Keys](https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token).
 
 1. Hover over your user name and select **Organization Settings**.
 2. From the left panel, click **Application Keys**.
