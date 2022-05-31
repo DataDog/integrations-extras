@@ -31,7 +31,7 @@ Planetscale does not include any events.
 
 Need help? Contact [Datadog support][4].
 
-[1]: /organization-settings/api-keys
+[1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://app.planetscale.com/settings/integrations
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/planetscale/images/planetscale.png
 [4]: https://docs.datadoghq.com/help/

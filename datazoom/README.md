@@ -16,7 +16,7 @@ The Datazoom integration emits logs to Datadog. No installation is required on t
 
 ### Configuration
 
-- Visit Datazoom's integation [documentation][1] for details on how to configure the Datazoom Datadog Connector.
+- Visit Datazoom's integration [documentation][1] for details on how to configure the Datazoom Datadog Connector.
 
 ### Dashboard
 

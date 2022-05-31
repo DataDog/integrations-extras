@@ -22,9 +22,9 @@ To enable Datadog monitoring for a Cockroach Cloud cluster:
  
 ### Configuration
  
-Open your Datadog [Dashboard List][5] and click `cockroach-cloud`. This sample dashboard presents metrics on cockroach-cloud.
+Open your Datadog [Dashboard List][5] and click `CockroachDB Dedicated Overview`. This out of the box dashboard presents metrics on CockroachDB Dedicated Overview.
 
-To create your own Cockroach Cloud dashboard, you can either [clone][6] the default `cockroach-cloud` dashboard and edit the widgets, or [create a new dashboard][7].
+To create your own Cockroach Cloud dashboard, you can either [clone][6] the default `CockroachDB Dedicated Overview` dashboard and edit the widgets, or [create a new dashboard][7].
 
 The [available metrics][8] are drawn directly from the CockroachDB [Prometheus endpoint][1] and are intended for use as building blocks for your own charts.
 
@@ -81,7 +81,7 @@ Need help? Contact [Datadog support][12].
 [5]: https://docs.datadoghq.com/dashboards/#dashboard-list
 [6]: https://docs.datadoghq.com/dashboards/#clone-dashboard
 [7]: https://docs.datadoghq.com/dashboards/#new-dashboard
-[8]: https://docs.datadoghq.com/integrations/cockroach-cloud
+[8]: https://docs.datadoghq.com/integrations/cockroachdb_dedicated
 [9]: https://docs.datadoghq.com/metrics/explorer/
 [10]: https://support.cockroachlabs.com/
 [11]: https://docs.datadoghq.com/developers/guide/data-collection-resolution-retention/
