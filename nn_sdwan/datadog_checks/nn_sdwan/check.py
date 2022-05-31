@@ -64,7 +64,7 @@ class NnSdwanCheck(AgentCheck):
 
         param = '-n' if platform.system().lower() == 'windows' else '-c'
         command = ['ping', param, '1', host]
-        out, err, retcode = get_subprocess_output(command, self.log)
+        out, err, retcode = get_subprocess_output(command, self.log, raise_on_empty_output=False)
         return retcode == 0
 
     def get_wan_edge_inventory(self):
