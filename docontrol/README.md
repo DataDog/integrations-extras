@@ -59,7 +59,7 @@ Be sure to copy and save your Application Key as you will not be able to access 
 
    ![DC_Utils](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_Utils.png)
 
-6. Configure the actions to refer to the DD-API-KEY stored as a secret in step #2 above, and the DD-APPLICATION-KEY obtained in step #1 above.
+6. Configure the actions to refer to the DD-API-KEY stored as a secret in Step 2 above, and the DD-APPLICATION-KEY obtained in Step 1 above.
 
    ![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
 
