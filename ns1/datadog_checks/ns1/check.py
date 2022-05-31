@@ -1,5 +1,7 @@
 import json
+import time
 
+from requests import codes
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
@@ -11,6 +13,7 @@ class Ns1Check(AgentCheck):
     NS1_CACHE_KEY = "ns1.cache.key"
     NS1_SERVICE_CHECK = "ns1.can_connect"
     LOG_MSG_PREFIX = "NS1 API"
+    MAX_RETRIES_ATTEMPTS_DEFAULT = 5
 
     def __init__(self, name, init_config, instances):
         super(Ns1Check, self).__init__(name, init_config, instances)
@@ -24,6 +27,10 @@ class Ns1Check(AgentCheck):
         self.api_key = self.instance.get("api_key")
         if not self.api_key:
             raise ConfigurationError('NS1 API key must be specified in configuration')
+
+        self.max_retry_attempts = self.instance.get("max_retry_attempts")
+        if not self.max_retry_attempts:
+            self.max_retry_attempts = self.MAX_RETRIES_ATTEMPTS_DEFAULT
 
         self.headers = {"X-NSONE-Key": self.api_key}
 
@@ -391,35 +398,80 @@ class Ns1Check(AgentCheck):
     def get_stats(self, url):
         # Perform HTTP Requests with our HTTP wrapper.
         # More info at https://datadoghq.dev/integrations-core/base/http/
-        try:
-            response = self.http.get(url, extra_headers=self.headers, timeout=60)
-            response.raise_for_status()
-            response_json = response.json()
 
-            return response_json
+        retry = 0
+        while True:
+            try:
+                response = self.http.get(url, extra_headers=self.headers, timeout=60)
+                response.raise_for_status()
+                response_json = response.json()
 
-        except Timeout as e:
-            self.service_check(
-                self.NS1_SERVICE_CHECK,
-                AgentCheck.CRITICAL,
-                message="Request timeout: {}, {}".format(url, e),
-            )
-            raise
+                return response_json
 
-        except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(
-                self.NS1_SERVICE_CHECK,
-                AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(url, e),
-            )
-            raise
+            except Timeout as e:
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request timeout: {}, {}".format(url, e),
+                )
+                raise
 
-        except ValueError as e:
-            self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e))
-            raise
-        except Exception:
-            self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats from NS1 DNS")
-            raise
+            except HTTPError as e:
+                if response.status_code == codes.too_many_requests:
+                    if retry >= self.max_retry_attempts:
+                        # max retries attempt reached, giving up.
+                        self.service_check(
+                            self.NS1_SERVICE_CHECK,
+                            AgentCheck.CRITICAL,
+                            message="Max retries reached: {}, giving up!".format(self.max_retry_attempts),
+                        )
+                        raise
+
+                    else:
+                        # read rate limit headers and caculate the sleep time
+                        ratelimit_period = response.headers['X-RateLimit-Period']
+                        if ratelimit_period is None or ratelimit_period == 0:
+                            ratelimit_period = 300
+
+                        ratelimit_limit = response.headers['X-RateLimit-Limit']
+                        if ratelimit_limit is None or ratelimit_limit == 0:
+                            ratelimit_limit = 100
+
+                        next_request_available_in_seconds = int(ratelimit_period) / int(ratelimit_limit)
+                        msg = "Rate limit reached, X-RateLimit-Period: {}, X-RateLimit-Limit: {}, sleeping: {}".format(
+                            ratelimit_period, ratelimit_limit, next_request_available_in_seconds
+                        )
+                        self.log.warning(msg)
+
+                        retry += 1
+                        time.sleep(next_request_available_in_seconds)
+                        continue
+
+                # Not 429 - notify the error and raise the expection
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
+                raise
+
+            except (InvalidURL, ConnectionError) as e:
+                self.service_check(
+                    self.NS1_SERVICE_CHECK,
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
+                raise
+
+            except ValueError as e:
+                self.service_check(self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message=str(e))
+                raise
+
+            except Exception:
+                self.service_check(
+                    self.NS1_SERVICE_CHECK, AgentCheck.CRITICAL, message="Error getting stats from NS1 DNS"
+                )
+                raise
 
     def remove_prefix(self, text, prefix):
         if text.startswith(prefix):

@@ -8,17 +8,31 @@ instances:
     #
   - min_collection_interval: 60
 
-    ## @param url - string - required
-    ## url of the website to get lighthouse metrics of
+    ## @param url - string - optional
+    ## url of the website to get lighthouse metrics of. This option is deprecated.
     ## ex: "https://www.datadoghq.com"
     #
-    url: <URL_PLACEHOLDER>
+    # url: <URL_PLACEHOLDER>
 
+    ## @param urls - list of strings - required
+    ## urls of the websites to get lighthouse metrics of
+    ## ex: "https://www.datadoghq.com"
+    #
+    urls:
+      - <URL_PLACEHOLDER1>
+      - <URL_PLACEHOLDER2>
+    
     ## @param name - string - required
     ## name of your website.
     ## ex: "datadog_homepage"
     #
     name: <NAME_PLACEHOLDER>
+    
+    ## @param form_factor - string - optional
+    ## passed to lighthouse as the form-factor param
+    ## options are "mobile" or "desktop"
+    #
+    # form_factor: <FORM_FACTOR_PLACEHOLDER>
 
     ## @param extra_chrome_flags - list - optional
     ## List of chrome-flags in addition to `--headless`

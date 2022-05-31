@@ -1,0 +1,43 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "ea670b69-7322-4c75-afbc-4ef1a6cf286c",
+  "app_id": "planetscale",
+  "classifier_tags": [],
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send your PlanetScale metrics to DataDog.",
+    "title": "PlanetScale",
+    "media": []
+  },
+  "author": {
+    "support_email": "support@planetscale.com",
+    "homepage": "http://www.planetscale.com",
+    "name": "James Cunningham",
+    "sales_email": "sales@planetscale.com"
+  },
+  "oauth": {},
+  "assets": {
+    "dashboards": {
+      "planetscale_overview": "assets/dashboards/planetscale_overview.json"
+    },
+    "integration": {
+      "source_type_name": "PlanetScale",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "planetscale.",
+        "check": "planetscale.tables.storage",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  }
+}

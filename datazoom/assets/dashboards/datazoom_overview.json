@@ -1,0 +1,1715 @@
+{
+  "title": "Datazoom Overview",
+  "description": "These  widgets are examples that allow you to gain insights about your viewer's video experience. Easily send data from your video player to Datadog and start to get a better idea of your viewer's streaming experience.\n\n**Configure your Datadog Collector here** — [Collector setup](https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog)\n\n**Learn more about metrics here** — [Metrics Encyclopedia](https://help.datazoom.io/hc/en-us/sections/360010671291-Metrics-Encyclopedia)\n\n**Learn more about Datazoom here** — [datazoom.io](https://www.datazoom.io/)",
+  "widgets": [
+    {
+      "id": 1475417609098636,
+      "definition": {
+        "type": "note",
+        "content": "![alt text](https://app.datazoom.io/images/datazoom-logo-med-new.svg)\n\nThese  widgets are examples that allow you to gain insights about your viewer's video experience. Easily send data from your video player to Datadog and start to get a better idea of your viewer's streaming experience.\n\n**Configure your Datadog Collector here** — [Collector setup](https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog)\n\n**Learn more about metrics here** — [Metrics Encyclopedia](https://help.datazoom.io/hc/en-us/sections/360010671291-Metrics-Encyclopedia)\n\n**Learn more about Datazoom here** — [datazoom.io](https://www.datazoom.io/)",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 2953195222840216,
+      "definition": {
+        "title": "Overview",
+        "title_align": "center",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7176299297676266,
+            "definition": {
+              "title": "Content Requests",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:media_request @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "",
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 4597111488075252,
+            "definition": {
+              "title": "Content Starts",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "precision": 0,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 5991033846981416,
+            "definition": {
+              "title": "Exit Before Video Start",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "((query1 - query2) / query1) * 100"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:media_request @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "custom_unit": "%",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 2683789071909088,
+            "definition": {
+              "title": "Time to First Frame Average",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.attributes.startup_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " seconds",
+              "text_align": "left",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 6518480862980536,
+            "definition": {
+              "title": "Avg Stall duration",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.stall_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " seconds",
+              "text_align": "left",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 2,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 882793493827956,
+            "definition": {
+              "title": "Avg Buffer duration",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.buffer_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " seconds",
+              "text_align": "left",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 7002799083242720,
+            "definition": {
+              "title": "Average Client Bandwidth",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.bandwidth_kbps",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " Mbps",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6312789484652350,
+            "definition": {
+              "title": "Average Client Bitrate",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.rendition_video_bitrate_kbps",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": " Mbps",
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4493145777925208,
+            "definition": {
+              "title": "Percent Time Spent Stalled",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "(query1 / query2) * 100"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.stall_duration_content_ms",
+                        "interval": 60000,
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.playback_duration_content_ms",
+                        "interval": 60000,
+                        "aggregation": "avg"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 8216014209258540,
+            "definition": {
+              "title": "Percent Views without errors",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "(100 - (query1 / query2) * 100)"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:error $os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    },
+                    {
+                      "search": {
+                        "query": "$os.family $browser.family $isp $device_type $device.os_version $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 11
+      }
+    },
+    {
+      "id": 1769580649783966,
+      "definition": {
+        "title": "Log stream",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4714326368803644,
+            "definition": {
+              "title": "Datazoom Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "log_stream",
+              "indexes": [],
+              "query": "source:datazoom $isp $device_type $os.family $device.os_version $browser.family $player_name $player_version $content_session_id $usr.id",
+              "sort": {
+                "column": "time",
+                "order": "desc"
+              },
+              "columns": [],
+              "show_date_column": true,
+              "show_message_column": true,
+              "message_display": "expanded-md"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 4260678263137342,
+            "definition": {
+              "title": "Datazoom Error Logs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "log_stream",
+              "indexes": [],
+              "query": "source:datazoom status:error $isp $device_type $os.family $device.os_version $browser.family $player_name $player_version $content_session_id $usr.id",
+              "sort": {
+                "column": "time",
+                "order": "desc"
+              },
+              "columns": [],
+              "show_date_column": true,
+              "show_message_column": true,
+              "message_display": "expanded-md"
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 6,
+        "height": 8
+      }
+    },
+    {
+      "id": 8984121378006742,
+      "definition": {
+        "title": "Telemetry overview",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 814020241417246,
+            "definition": {
+              "title": "Event Type breakdown",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@event.type",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "hide_value": true,
+                "hide_percent": false,
+                "type": "inline"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 1491335914973422,
+            "definition": {
+              "title": "Telemetry throughput",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Data points",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "status",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 100
+                        }
+                      ]
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 11,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": 6848811295943868,
+      "definition": {
+        "title": "Error Stats",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2946354215329826,
+            "definition": {
+              "title": "Content Error Messages",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Errors",
+                      "conditional_formats": [
+                        {
+                          "palette": "red_on_white",
+                          "comparator": ">",
+                          "value": 100
+                        },
+                        {
+                          "palette": "yellow_on_white",
+                          "comparator": ">",
+                          "value": 50
+                        },
+                        {
+                          "palette": "green_on_white",
+                          "comparator": ">",
+                          "value": 10
+                        }
+                      ],
+                      "limit": {
+                        "count": 1000,
+                        "order": "desc"
+                      },
+                      "cell_display_mode": "bar",
+                      "formula": "query2"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:error @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@event.attributes.error_msg",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 1000
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "never"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 3818998416075900,
+            "definition": {
+              "title": "Errors by Network ASN",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Error #",
+                      "limit": {
+                        "count": 15,
+                        "order": "desc"
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Requests",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "% of Error",
+                      "conditional_formats": [
+                        {
+                          "palette": "white_on_yellow",
+                          "comparator": ">",
+                          "value": 0.5
+                        }
+                      ],
+                      "formula": "query1 / query2 * 100"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content @event.type:error $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.asn",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 15
+                        }
+                      ]
+                    },
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query2",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.asn",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 15
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 6
+            }
+          },
+          {
+            "id": 4536653346729990,
+            "definition": {
+              "title": "Users with content errors",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Errors",
+                      "limit": {
+                        "count": 100,
+                        "order": "desc"
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content @event.type:error $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@usr.id",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 100
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 3,
+              "height": 6
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 6,
+        "height": 10
+      }
+    },
+    {
+      "id": 7430551660170484,
+      "definition": {
+        "title": "Viewer Stats",
+        "type": "group",
+        "background_color": "gray",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3047309106654824,
+            "definition": {
+              "title": "Concurrent Viewers",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Current Viewers",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "on_right_yaxis": false,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@usr.id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 3555091624517886,
+            "definition": {
+              "title": "WoW Change by Media Type",
+              "type": "change",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "day_before(query1)"
+                    },
+                    {
+                      "formula": "query1",
+                      "alias": "Current Viewers"
+                    }
+                  ],
+                  "order_by": "change",
+                  "order_dir": "desc",
+                  "compare_to": "hour_before",
+                  "response_format": "scalar",
+                  "show_present": true,
+                  "increase_good": true,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@usr.id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@video.media_type",
+                          "sort": {
+                            "metric": "@usr.id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "change_type": "absolute"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 5067899298114782,
+            "definition": {
+              "title": "WoW Change by Region",
+              "type": "change",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "day_before(query1)"
+                    },
+                    {
+                      "formula": "query1",
+                      "alias": "Current Viewers"
+                    }
+                  ],
+                  "order_by": "change",
+                  "order_dir": "desc",
+                  "compare_to": "hour_before",
+                  "response_format": "scalar",
+                  "show_present": true,
+                  "increase_good": true,
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "$isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@usr.id",
+                        "interval": 60000,
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@geo_location.region",
+                          "sort": {
+                            "metric": "@usr.id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "change_type": "absolute"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 2,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 115963815709942,
+            "definition": {
+              "title": "Average Bandwidth",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.bandwidth_kbps",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 2340756437104846,
+            "definition": {
+              "title": "Content Starts",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@event.type:playback_start @video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@device.device_type",
+                          "sort": {
+                            "aggregation": "count",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ],
+                  "style": {
+                    "palette": "green",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 4,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 8939117881545120,
+            "definition": {
+              "title": "Average Bitrate",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.metrics.rendition_video_bitrate_kbps",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 6605837915023280,
+            "definition": {
+              "title": "Average time to First Frame",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@event.attributes.startup_duration_content_ms",
+                        "aggregation": "avg"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": []
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 3,
+              "y": 6,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 8878911225408296,
+            "definition": {
+              "title": "Device Type Breakdown",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@device.device_type",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        },
+                        {
+                          "facet": "@http.useragent_details.os.family",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "type": "inline"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 336558513402914,
+            "definition": {
+              "title": "ISP Breakdown",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "search": {
+                        "query": "@video.media_type:content $isp $browser.family $device_type $device.os_version $os.family $player_name $player_version $content_session_id $usr.id"
+                      },
+                      "data_source": "logs",
+                      "compute": {
+                        "metric": "@user_details.content_session_id",
+                        "aggregation": "cardinality"
+                      },
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "group_by": [
+                        {
+                          "facet": "@network.isp",
+                          "sort": {
+                            "metric": "@user_details.content_session_id",
+                            "aggregation": "cardinality",
+                            "order": "desc"
+                          },
+                          "limit": 1000
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": true,
+              "legend": {
+                "hide_value": true,
+                "hide_percent": false,
+                "type": "inline"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 11,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 15,
+        "width": 6,
+        "height": 15
+      }
+    },
+    {
+      "id": 7118386673018946,
+      "definition": {
+        "title": "Traffic by Country",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "geomap",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "count": 1000,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "@video.media_type:content $content_session_id $player_version $player_name $browser.family $device.os_version $os.family $device_type $isp $usr.id"
+                },
+                "data_source": "logs",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "@network.client.geoip.country.iso_code",
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    },
+                    "limit": 1000
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "style": {
+          "palette": "hostmap_blues",
+          "palette_flip": false
+        },
+        "view": {
+          "focus": "WORLD"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 22,
+        "width": 6,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "os.family",
+      "default": "*",
+      "prefix": "@http.useragent_details.os.family",
+      "available_values": []
+    },
+    {
+      "name": "browser.family",
+      "default": "*",
+      "prefix": "@http.useragent_details.browser.family",
+      "available_values": []
+    },
+    {
+      "name": "isp",
+      "default": "*",
+      "prefix": "@network.isp",
+      "available_values": []
+    },
+    {
+      "name": "device_type",
+      "default": "*",
+      "prefix": "@device.device_type",
+      "available_values": []
+    },
+    {
+      "name": "device.os_version",
+      "default": "*",
+      "prefix": "@device.os_version",
+      "available_values": []
+    },
+    {
+      "name": "player_name",
+      "default": "*",
+      "prefix": "@player.player_name",
+      "available_values": []
+    },
+    {
+      "name": "player_version",
+      "default": "*",
+      "prefix": "@player.player_version",
+      "available_values": []
+    },
+    {
+      "name": "content_session_id",
+      "default": "*",
+      "prefix": "@user_details.content_session_id",
+      "available_values": []
+    },
+    {
+      "name": "usr.id",
+      "default": "*",
+      "prefix": "@usr.id",
+      "available_values": []
+    }
+  ],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "2jc-ztd-bat"
+}
