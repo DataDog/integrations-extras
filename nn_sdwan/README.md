@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors SD-WAN controllers through the Datadog Agent using a SD-WAN platform provided by [Netnology][1]. The
+This check monitors SD-WAN controllers through the Datadog Agent using an SD-WAN platform provided by [Netnology][1]. The
 check enables users to monitor the network health and performance of multiple SD-WAN controllers simultaneously. Collected
 information can then be used for aggregated dashboarding and notifications on configured monitors/alerts.
 
