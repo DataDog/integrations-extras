@@ -6,7 +6,7 @@ This integration allows [DoControl][9] customers to forward their DoControl-rela
 
 ## Setup
 
-To set up this integration, you must have an active [DoControl account][10]. You must also have proper [admin permissions][11] in Datadog.
+To set up this integration, you must have an active [DoControl account][10]. You must also have proper [admin permissions][11] in Datadog. 
 
 ### Installation
 
