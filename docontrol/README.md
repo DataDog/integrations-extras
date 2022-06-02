@@ -58,7 +58,7 @@ You must create a Datadog API key and an application key to use as input paramet
 
 ## Support
 
-Need help? Contact [Datadog support][1].
+Need help? Contact [Datadog support][1] or [DoControl support][8].
 
 
 [1]: https://docs.datadoghq.com/help/
@@ -68,3 +68,4 @@ Need help? Contact [Datadog support][1].
 [5]: https://app.docontrol.io/workflowV2/playbooks?filter=by_use_case&use_case=all
 [6]: https://app.docontrol.io/workflowV2/workflow/new/workflow-editor
 [7]: https://docs.docontrol.io/docontrol-user-guide/the-docontrol-console/workflows-beta/designing-and-editing-workflows/defining-workflow-and-action-settings#action-categories
+[8]: mailto:support@docontrol.io
