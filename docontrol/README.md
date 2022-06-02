@@ -33,26 +33,26 @@ You must create a Datadog API key and an application key to use as input paramet
 
 #### Create a Datadog integration in DoControl
 
-1. Obtain an API key and Application key from [Datadog](https://app.datadoghq.com/organization-settings/api-keys) as described above.
-
-2. In DoControl, navigate to [Dashboard->Settings->Workflows->Secrets](https://app.docontrol.io/settings/workflows?tab=Secrets), and add your Datadog API key as a new secret.
-
+1. In DoControl, navigate to [Dashboard->Settings->Workflows->Secrets][4], and add your Datadog API key as a new secret.
+   
    ![DC_Secrets](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_Secrets.png)
 
-3. Create a new Workflow from a pre-established [**playbook**](https://app.docontrol.io/workflowV2/playbooks?filter=by_use_case&use_case=all) or create one from [**scratch**](https://app.docontrol.io/workflowV2/workflow/new/workflow-editor).
+2. Create a new Workflow from a pre-established [**playbook**][5] or from [**scratch**][6].
+   
    ![DC_WF_Create](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_WF_Create.png)
 
-4. Design and edit your business logic by dragging and dropping actions onto the canvas, configuring the steps and connecting them.
+3. Design and edit your business logic by dragging and dropping actions onto the canvas, configuring the steps, and connecting them.
 
-5. From the Actions bar, under **Utilities**, you can drag and drop Datadog actions, such as **Send logs** or **Create Incident**, into your Workflow. 
+4. From the Actions bar, under **Utilities**, you can drag and drop Datadog actions into your Workflow, such as **Send logs** or **Create incident**.
 
    ![DC_Utils](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_Utils.png)
+   
+5. Configure the actions to refer to the DD-API-KEY stored as a secret in Step 1 above, and the DD-APPLICATION-KEY obtained in [Create an application key in Datadog](#create-an-application-key-in-datadog). 
 
-6. Configure the actions to refer to the DD-API-KEY stored as a secret in Step 2 above, and the DD-APPLICATION-KEY obtained in Step 1 above.
+![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
 
-   ![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
+6. Learn more about DoControl in the [DoControl documentation][7].
 
-7. Learn more about DoControl in our [documentation](https://docs.docontrol.io/docontrol-user-guide/the-docontrol-console/workflows-beta/designing-and-editing-workflows/defining-workflow-and-action-settings#action-categories).
 
    
 
