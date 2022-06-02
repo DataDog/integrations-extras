@@ -50,7 +50,7 @@ You must create a Datadog API key and an application key to use as input paramet
 
    ![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
 
-6. Learn more about DoControl in the [DoControl documentation][7].
+Learn more about DoControl in the [DoControl documentation][7].
 
 
    
