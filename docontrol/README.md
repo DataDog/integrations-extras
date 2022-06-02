@@ -64,3 +64,9 @@ Need help? Contact [Datadog support][1].
 
 
 [1]: https://docs.datadoghq.com/help/
+[2]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
+[3]: https://docs.datadoghq.com/account_management/api-app-keys/#add-application-keys
+[4]: https://app.docontrol.io/settings/workflows?tab=Secrets
+[5]: https://app.docontrol.io/workflowV2/playbooks?filter=by_use_case&use_case=all
+[6]: https://app.docontrol.io/workflowV2/workflow/new/workflow-editor
+[7]: https://docs.docontrol.io/docontrol-user-guide/the-docontrol-console/workflows-beta/designing-and-editing-workflows/defining-workflow-and-action-settings#action-categories
