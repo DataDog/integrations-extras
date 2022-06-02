@@ -68,3 +68,6 @@ Need help? Contact [Datadog support][1] or [DoControl support][8].
 [6]: https://app.docontrol.io/workflowV2/workflow/new/workflow-editor
 [7]: https://docs.docontrol.io/docontrol-user-guide/the-docontrol-console/workflows-beta/designing-and-editing-workflows/defining-workflow-and-action-settings#action-categories
 [8]: mailto:support@docontrol.io
+[9]: https://www.docontrol.io/
+[10]: https://www.docontrol.io/demo
+[11]: https://docs.datadoghq.com/account_management/rbac/permissions/
