@@ -48,7 +48,7 @@ You must create a Datadog API key and an application key to use as input paramet
    
 5. Configure the actions to refer to the DD-API-KEY stored as a secret in Step 1 above, and the DD-APPLICATION-KEY obtained in [Create an application key in Datadog](#create-an-application-key-in-datadog). 
 
-![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
+   ![DC_DD_conf](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/DC_DD_conf.png)
 
 6. Learn more about DoControl in the [DoControl documentation][7].
 
