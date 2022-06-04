@@ -114,9 +114,9 @@ For additional information on Federator.ai, see the [ProphetStor Federator.ai Fe
    - This timeseries graph shows the CPU usage of consumers.
 
 
-**ProphetStor Federator.ai Cost Analysis Overview**
+**ProphetStor Federator.ai Multi-Cloud Cost Analysis Overview**
 
-![Cost Analysis Overview][13]
+![Multi-Cloud Cost Analysis Overview][13]
 
 * Current Cluster Cost and Current Cluster Configuration
    - These tables show the current cost and the environment configuration of the clusters.
@@ -254,7 +254,7 @@ Federator.ai does not include any events.
 Need help? Read the [Federator.ai - Installation and Configuration Guide][6] or contact [Datadog support][10].
 
 [1]: https://prophetstor.com/federator_ai/
-[2]: https://youtu.be/IooFJnB8bb8
+[2]: https://youtu.be/AeSH8yGGA3Q
 [3]: https://github.com/DataDog/watermarkpodautoscaler
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/federatorai/images/add_cluster_window.png
 [5]: https://prophetstor.com/wp-content/uploads/documentation/Federator.ai/Latest%20Version/ProphetStor%20Federator.ai%20User%20Guide.pdf

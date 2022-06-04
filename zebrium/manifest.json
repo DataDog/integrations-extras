@@ -1,0 +1,67 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a1fa9510-af05-4950-ad67-4eed3f14d4bf",
+  "app_id": "zebrium",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Discover the root cause of problems directly on your dashboards",
+    "title": "Zebrium RCaaS",
+    "media": [
+      {
+        "media_type": "video",
+        "caption": "Video: Root Cause Finder for Datadog.",
+        "image_url": "images/Zebrium-Root_Cause_as_a_Service_thumb.png",
+        "vimeo_id": 703040365
+      },
+      {
+        "media_type": "image",
+        "caption": "Zebrium widget showing two root cause detections (red dot on vertical lines).",
+        "image_url": "images/Zebrium_Root_Cause_Finder_Widget.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Zebrium root cause summary shown in a side panel.",
+        "image_url": "images/Zebrium_Root_Cause_Finder_With_Side_Panel.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Mac OS",
+      "Supported OS::Windows",
+      "Category::Notification",
+      "Offering::UI Extension",
+      "Offering::Integration"
+    ]
+  },
+  "author": {
+    "name": "Zebrium",
+    "homepage": "https://www.zebrium.com",
+    "support_email": "support@zebrium.com",
+    "sales_email": "hello@zebrium.com"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "zebrium",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "zebrium.",
+        "check": "zebrium.logs.all.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Zebrium Root Cause as a Service Sample Dashboard": "assets/dashboards/root_cause_as_a_service_sample_dashboard.json"
+    }
+  }
+}

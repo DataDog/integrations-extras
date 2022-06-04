@@ -2,13 +2,13 @@
 
 ## Overview
 
-[Embrace][1] is a mobile observability and data platform that empowers mobile teams to deliver optimal user experiences for 
-performance optimization, issue prioritization and remediation, and monitoring across features, releases, and custom 
+[Embrace][1] is a mobile observability and data platform that empowers mobile teams to deliver optimal user experiences for
+performance optimization, issue prioritization and remediation, and monitoring across features, releases, and custom
 segments. At its core, Embrace turns complex mobile data into action. By collecting comprehensive session-level data for
 each and every user experience, Embrace extracts powerful insights to fuel your growth.
 
-After app installation, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect 
-the full details of every affected user session without having to manually reproduce it. 
+After app installation, Embrace provides dashboards that track key mobile health metrics. For any regression, you can inspect
+the full details of every affected user session without having to manually reproduce it.
 
 ## Setup
 
@@ -16,7 +16,7 @@ the full details of every affected user session without having to manually repro
 1. After completing setup of the Embrace integration, navigate back to Datadog to connect both platforms.
 1. Authenticate and connect your Embrace account to Datadog by logging in with your credentials.
 1. Create a New Dashboard in Datadog. Select the Embrace widget to display Embrace data with crash or networking metrics.
-1. Click into “Details” to dive deeper into Embrace from Datadog.
+1. Click into "Details" to dive deeper into Embrace from Datadog.
 
 ## Support
 

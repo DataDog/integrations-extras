@@ -8,7 +8,7 @@
 
 Integrate Vercel with Datadog to:
 
-- View and parse your application logs using [Datadog’s Log Management][5]
+- View and parse your application logs using [Datadog's Log Management][5]
 - See the number of requests and 4xx/5xx HTTP errors to your serverless applications and APIs running on Vercel
 - Monitor frontend performance with [Datadog Synthetics][6]
 
