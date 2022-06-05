@@ -20,7 +20,7 @@ Get alerts and fix any policy violation, using pre-made or custom policies, usin
 
 ### Configure Firefly - Datadog Integration:
 1. From your Firefly UI, go to: **Settings > Integrations > Datadog**
-2. In order to create the integration you’ll have to:
+2. In order to create the integration you will have to:
     * Create a new application key
       * Copy the application key and paste it into the dedicated line
     * Create a new API key
