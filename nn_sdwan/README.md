@@ -1,16 +1,16 @@
-# Agent Check: Netnology SD-WAN
+# Agent Check: Netnology’s Cisco SD-WAN Integration
 
 ## Overview
 
-This check monitors SD-WAN controllers through the Datadog Agent using an SD-WAN platform provided by [Netnology][1]. The
-check enables users to monitor the network health and performance of multiple SD-WAN controllers simultaneously. Collected
+This check monitors Cisco SD-WAN controllers through the Datadog Agent using an SD-WAN platform provided by [Netnology][1]. The
+check enables users to monitor the network health and performance of multiple Cisco SD-WAN controllers simultaneously. Collected
 information can then be used for aggregated dashboarding and notifications on configured monitors/alerts.
 
 Currently, only Cisco vManage devices are supported as SD-WAN controller targets.
 
 ## Setup
 
-The Netnology SD-WAN integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
+The Netnology Cisco SD-WAN integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
 
 ### Installation
 
@@ -26,7 +26,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 
 ### Configuration
 
-1. Edit the `nn_sdwan.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Netnology SD-WAN performance data. See [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
+1. Edit the `nn_sdwan.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Cisco SD-WAN performance data. See [sample nn_sdwan.d/conf.yaml][4] for all available configuration options.
 
 2. [Restart the Agent][5].
 
@@ -42,7 +42,7 @@ See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Events
 
-The Netnology SD-WAN integration does not include any events.
+The Netnology Cisco SD-WAN integration does not include any events.
 
 ### Service Checks
 
