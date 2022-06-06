@@ -1,39 +1,52 @@
 {
-  "display_name": "StormForge",
-  "maintainer": "support@stormforge.io",
-  "manifest_version": "1.0.0",
-  "name": "stormforge",
-  "metric_prefix": "stormforge.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "",
-  "guid": "be4aa824-bd91-4245-9a7e-24214d415d82",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "StormForge",
-  "categories": [
-    "cloud",
-    "configuration & deployment",
-    "containers",
-    "cost management",
-    "orchestration"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "stormforge",
-  "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "manifest_version": "2.0.0",
+    "app_uuid": "6f1ddcc9-e704-4f94-941b-8a914fcd89a0",
+    "app_id": "stormforge",
+    "display_on_public_website": true,
+    "tile": {
+        "overview": "README.md#Overview",
+        "configuration": "README.md#Setup",
+        "support": "README.md#Support",
+        "changelog": "CHANGELOG.md",
+        "description": "StormForge Optimize Live applies machine learning to your observability metrics to make real-time recommendations to resource requests for any deployment running in Kubernetes.",
+        "title": "StormForge",
+        "media": [],
+        "classifier_tags": [
+            "Supported OS::Linux",
+            "Category::Cloud",
+            "Category::Configuration Deployment",
+            "Category::Containers",
+            "Category::Cost Management",
+            "Category::Orchestration"
+        ]
     },
-    "dashboards": {
-      "StormForge Optimize Live Application Overview": "assets/dashboards/stormforge_overview.json"
+    "author": {
+        "name": "StormForge",
+        "support_email": "support@stormforge.io",
+        "homepage": "https://stormforge.io",
+        "sales_email": "sales@stormforge.io"
     },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
-  }
+    "oauth": {},
+    "assets": {
+        "integration": {
+            "source_type_name": "StormForge",
+            "configuration": {
+                "spec": "assets/configuration/spec.yaml"
+            },
+            "events": {
+                "creates_events": false
+            },
+            "metrics": {
+                "prefix": "stormforge.",
+                "check": "",
+                "metadata_path": "metadata.csv"
+            },
+            "service_checks": {
+                "metadata_path": "assets/service_checks.json"
+            }
+        },
+        "dashboards": {
+            "StormForge Optimize Live Application Overview": "assets/dashboards/stormforge_overview.json"
+        }
+    }
 }

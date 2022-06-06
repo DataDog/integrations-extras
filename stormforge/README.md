@@ -43,7 +43,7 @@ The StormForge integration creates an event for:
 
 The StormForge integration does not include any service checks.
 
-## Troubleshooting
+## Support
 
 [Contact us][8]
 
