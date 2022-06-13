@@ -30,9 +30,9 @@ metadata:
     datadoghq.com/dashboard-url: <DATADOGURL>
 ```
 
-### Verifiaction
+### Verification
 
-Open your Backstage instance Overview tab and see if your Datadog dahsboard or graph is rendered as expected.
+Open your Backstage instance Overview tab to confirm your Datadog dashboard or graph is rendered as expected.
 
 ## Data Collected
 
