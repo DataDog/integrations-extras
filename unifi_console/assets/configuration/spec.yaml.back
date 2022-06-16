@@ -1,0 +1,181 @@
+name: Unifi Console
+files:
+  - name: unifi_console.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/http
+          - template: init_config/default
+      - template: instances
+        options:
+          - name: url
+            required: true
+            description: The controler url.
+            value:
+              type: string
+              example: https://127.0.0.1:8443
+          - name: user
+            required: true
+            description: User name
+            value:
+              type: string
+          - name: password
+            secret: true
+            required: true
+            description: Password
+            value:
+              type: string
+          - name: site
+            required: false
+            description: Site
+            value:
+              type: string
+              default: default
+              example: default
+          - name: tls_verify
+            value:
+              example: false
+              type: boolean
+            description: Instructs the check to validate the TLS certificate of services.
+          - name: tls_use_host_header
+            value:
+              example: false
+              type: boolean
+            description: |
+              If a `Host` header is set, this enables its use for SNI (matching against the TLS certificate CN or SAN).
+          - name: tls_ignore_warning
+            value:
+              example: false
+              type: boolean
+            description: |
+              If `tls_verify` is disabled, security warnings are logged by the check.
+              Disable those by setting `tls_ignore_warning` to true.
+          - name: tls_cert
+            value:
+              example: <CERT_PATH>
+              type: string
+            description: |
+              The path to a single file in PEM format containing a certificate as well as any
+              number of CA certificates needed to establish the certificate's authenticity for
+              use when connecting to services. It may also contain an unencrypted private key to use.
+          - name: tls_private_key
+            value:
+              example: <PRIVATE_KEY_PATH>
+              type: string
+            description: |
+              The unencrypted private key to use for `tls_cert` when connecting to services. This is
+              required if `tls_cert` is set and it does not already contain a private key.
+          - name: tls_ca_cert
+            value:
+              example: <CA_CERT_PATH>
+              type: string
+            description: |
+              The path to a file of concatenated CA certificates in PEM format or a directory
+              containing several CA certificates in PEM format. If a directory, the directory
+              must have been processed using the c_rehash utility supplied with OpenSSL. See:
+              https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
+          - name: tls_protocols_allowed
+            value:
+              example:
+              - 'SSLv3'
+              - 'TLSv1.2'
+              - 'TLSv1.3'
+              type: array
+              items:
+                type: string
+            description: |
+              The expected versions of TLS/SSL when fetching intermediate certificates.
+              Only `SSLv3`, `TLSv1.2`, `TLSv1.3` are allowed by default. The possible values are:
+                SSLv3
+                TLSv1
+                TLSv1.1
+                TLSv1.2
+                TLSv1.3
+          - name: proxy
+            value:
+              example:
+                http: http://<PROXY_SERVER_FOR_HTTP>:<PORT>
+                https: https://<PROXY_SERVER_FOR_HTTPS>:<PORT>
+                no_proxy:
+                  - <HOSTNAME_1>
+                  - <HOSTNAME_2>
+              type: object
+              properties:
+                - name: http
+                  type: string
+                - name: https
+                  type: string
+                - name: no_proxy
+                  type: array
+                  items:
+                    type: string
+            description: |
+              This overrides the `proxy` setting in `init_config`.
+
+              Set HTTP or HTTPS proxies for this instance. Use the `no_proxy` list
+              to specify hosts that must bypass proxies.
+
+              The SOCKS protocol is also supported, for example:
+
+                socks5://user:pass@host:port
+
+              Using the scheme `socks5` causes the DNS resolution to happen on the
+              client, rather than on the proxy server. This is in line with `curl`,
+              which uses the scheme to decide whether to do the DNS resolution on
+              the client or proxy. If you want to resolve the domains on the proxy
+              server, use `socks5h` as the scheme.
+          - name: skip_proxy
+            value:
+              example: false
+              type: boolean
+            description: |
+              This overrides the `skip_proxy` setting in `init_config`.
+
+              If set to `true`, this makes the check bypass any proxy
+              settings enabled and attempt to reach services directly.
+          - name: timeout
+            value:
+              example: 10
+              type: number
+            description: |
+              The timeout for accessing services.
+
+              This overrides the `timeout` setting in `init_config`.
+          - name: connect_timeout
+            value:
+              type: number
+            description: The connect timeout for accessing services. Defaults to `timeout`.
+          - name: read_timeout
+            value:
+              type: number
+            description: The read timeout for accessing services. Defaults to `timeout`.
+          - name: request_size
+            description: |
+              The number of kibibytes (KiB) to read from streaming HTTP responses at a time.
+            value:
+              example: 16
+              type: number
+          - name: log_requests
+            value:
+              example: false
+              type: boolean
+            description: Whether or not to debug log the HTTP(S) requests made, including the method and URL.
+          - name: persist_connections
+            value:
+              example: true
+              type: boolean
+            description: Whether or not to persist cookies and use connection pooling for increased performance.
+          - name: allow_redirects
+            value:
+              example: true
+              type: boolean
+            description: Whether or not to allow URL redirection.
+          - template: instances/default
+            overrides:
+              empty_default_hostname.display_priority: 1
+              empty_default_hostname.required: true
+              empty_default_hostname.value.example: true
+              empty_default_hostname.description: |
+                The Unifi integration is a cluster-level check where metrics are usually unrelated to the host
+                on which the Agent runs. Setting this parameter to true, prevents the Agent from attaching the hostname
+                (and the host tags) to the metrics.
