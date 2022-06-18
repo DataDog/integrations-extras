@@ -47,6 +47,10 @@ coverage:
         target: 75
         flags:
         - gatekeeper
+      Gitea:
+        target: 75
+        flags:
+        - gitea
       Gnatsd:
         target: 75
         flags:
@@ -266,6 +270,11 @@ flags:
     paths:
     - gatekeeper/datadog_checks/gatekeeper
     - gatekeeper/tests
+  gitea:
+    carryforward: true
+    paths:
+      - gitea/datadog_checks/gitea
+      - gitea/tests
   gnatsd:
     carryforward: true
     paths:
