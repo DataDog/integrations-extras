@@ -1,33 +1,31 @@
 # Firefly
 
 ## Overview
-Firefly is a Cloud Asset Management solution that helps Cloud teams to discover all their cloud footprint (incl. AWS, GCP, Kubernetes, and Datadog), automatically transform resources to Infrastructure-as-Code, detect drifts, and policy violations to make sure their cloud is aligned with its desired state.
-Firefly helps teams make their Datadog assets immutable, versioned, scalable and monitored by managing them as code in any Infrastructure-as-Code (IaC) tool of their choice.
+Firefly is a Cloud Asset Management solution that helps Cloud teams discover their cloud footprint (including AWS, GCP, Kubernetes, and Datadog), automatically transform resources to Infrastructure-as-Code, and detect drifts and policy violations to make sure their cloud is aligned with its desired state.
+Firefly helps teams make their Datadog assets immutable, versioned, scalable, and monitored by managing them as code in any Infrastructure-as-Code (IaC) tool of their choice.
 
-### Full Cloud Inventory
-Get a fully searchable inventory of all Datadog assets, alongside other cloud assets, such as AWS, K8s, GCP, Okta, and more.
+### Full cloud inventory
+Get a fully searchable inventory of all Datadog assets alongside other cloud assets, such as AWS, K8s, GCP, Okta, and more.
 
-### Automatic Codification
-Automatically turn a single or multiple Datadog assets into code, including  Terraform, Pulumi, Cloudformation, and CDK.
+### Automatic codification
+Automatically turn single or multiple Datadog assets into code, including Terraform, Pulumi, Cloudformation, and CDK specifications.
 
-### Detect and Fix Drifts
-Get real-time notifications on any discrepancy and fix it as it occurs, directly to your repository.
+### Detect and fix drift
+Get real-time notifications of any discrepancy between your Infrastructure-as-Code and your actual state of cloud, and push a fix directly to your repository as drift occurs.
 
-### Detect and Fix Policy Violations
-Get alerts and fix any policy violation, using pre-made or custom policies, using Firefly unified policy engine, to find hazardous misconfigurations or costly underutilizations.
+### Detect and fix policy violations
+Use the Firefly unified policy engine to find hazardous misconfigurations or costly underutilizations, and get alerts on policy violations for both custom and pre-made policies.
 
 ## Setup
 
-### Configure Firefly - Datadog Integration:
-1. From your Firefly UI, go to: **Settings > Integrations > Datadog**
-2. In order to create the integration you will have to:
-    * Create a new application key
-      * Copy the application key and paste it into the dedicated line
-    * Create a new API key
-      * Copy the application key and paste it into the dedicated line
-3. Click done
+### Configure Firefly - Datadog integration
+1. Create a new Datadog application key and API key.
+2. In the Firefly UI, go to: **Settings > Integrations > Datadog**
+3. Copy the application key and paste it into the dedicated line.
+4. Copy the API key and paste it into the dedicated line.
+5. Click **Done**.
 
 ## Support
-Any questions? We are here to help! Email [contact@gofirefly.io][1] or use the in-app chat.
+Any questions? Email [contact@gofirefly.io][1] or use the in-app chat.
 
 [1]: mailto:contact@gofirefly.io

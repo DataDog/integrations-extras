@@ -4,4 +4,4 @@
 
 ### Changes
 
-* [FEATURE] Initial release - Firefly Datadog Application
+* [FEATURE] Initial release - Firefly Datadog Integration
