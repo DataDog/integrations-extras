@@ -17,7 +17,6 @@ class ControllerInfo(object):
 class DeviceInfo(object):
     def __init__(self, device_info) -> None:
         id = device_info["_id"]
-        ip = device_info["ip"]
         architecture = device_info["architecture"]
         kernel_version = device_info["kernel_version"]
         model = device_info["model"]
@@ -35,7 +34,6 @@ class DeviceInfo(object):
 
         self.tags = []
         self.tags.append("id:{}".format(id))
-        self.tags.append("ip:{}".format(ip))
         self.tags.append("architecture:{}".format(architecture))
         self.tags.append("kernel_version:{}".format(kernel_version))
         self.tags.append("model:{}".format(model))
@@ -52,3 +50,13 @@ class DeviceInfo(object):
         self.metrics.append(Gauge("device.system.mem.total", system_mem_total, self.tags))
         self.metrics.append(Gauge("device.system.mem.buffer", system_mem_buffer, self.tags))
         self.metrics.append(Gauge("device.system.mem.pct", system_mem_pct, self.tags))
+        self.metrics.append(Gauge("device.tx_packets", device_info['stat']['ap']['tx_packets'], self.tags))
+        self.metrics.append(Gauge("device.tx_bytes", device_info['stat']['ap']['tx_bytes'], self.tags))
+        self.metrics.append(Gauge("device.tx_errors", device_info['stat']['ap']['tx_errors'], self.tags))
+        self.metrics.append(Gauge("device.tx_dropped", device_info['stat']['ap']['tx_dropped'], self.tags))
+        self.metrics.append(Gauge("device.tx_retries", device_info['stat']['ap']['tx_retries'], self.tags))
+        self.metrics.append(Gauge("device.rx_packets", device_info['stat']['ap']['rx_packets'], self.tags))
+        self.metrics.append(Gauge("device.rx_bytes", device_info['stat']['ap']['rx_bytes'], self.tags))
+        self.metrics.append(Gauge("device.rx_errors", device_info['stat']['ap']['rx_errors'], self.tags))
+        self.metrics.append(Gauge("device.rx_dropped", device_info['stat']['ap']['rx_dropped'], self.tags))
+        self.metrics.append(Gauge("device.guests", device_info['guest-num_sta'], self.tags))
