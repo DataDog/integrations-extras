@@ -50,6 +50,8 @@ class DeviceInfo(object):
         self.metrics.append(Gauge("device.system.mem.total", system_mem_total, self.tags))
         self.metrics.append(Gauge("device.system.mem.buffer", system_mem_buffer, self.tags))
         self.metrics.append(Gauge("device.system.mem.pct", system_mem_pct, self.tags))
+        
+        # Stats
         self.metrics.append(Gauge("device.tx_packets", device_info['stat']['ap']['tx_packets'], self.tags))
         self.metrics.append(Gauge("device.tx_bytes", device_info['stat']['ap']['tx_bytes'], self.tags))
         self.metrics.append(Gauge("device.tx_errors", device_info['stat']['ap']['tx_errors'], self.tags))
@@ -60,3 +62,19 @@ class DeviceInfo(object):
         self.metrics.append(Gauge("device.rx_errors", device_info['stat']['ap']['rx_errors'], self.tags))
         self.metrics.append(Gauge("device.rx_dropped", device_info['stat']['ap']['rx_dropped'], self.tags))
         self.metrics.append(Gauge("device.guests", device_info['guest-num_sta'], self.tags))
+
+        # Uplink
+        uplink_tags = []
+        uplink_tags.append("uplink.name:{}".format(device_info['uplink']['name']))
+        uplink_tags.append("uplink.speed:{}".format(device_info['uplink']['speed']))
+        uplink_tags.append("uplink.max_speed:{}".format(device_info['uplink']['max_speed']))
+        uplink_tags.append("uplink.type:{}".format(device_info['uplink']['type']))
+        uplink_tags.append("uplink.uplink_source:{}".format(device_info['uplink']['uplink_source']))
+        self.metrics.append(Gauge("device.uplink.rx_bytes", device_info['uplink']['rx_bytes'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.rx_dropped", device_info['uplink']['rx_dropped'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.rx_errors", device_info['uplink']['rx_errors'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.rx_packets", device_info['uplink']['rx_packets'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.tx_bytes", device_info['uplink']['tx_bytes'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.tx_dropped", device_info['uplink']['tx_dropped'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.tx_errors", device_info['uplink']['tx_errors'], uplink_tags + self.tags))
+        self.metrics.append(Gauge("device.uplink.tx_packets", device_info['uplink']['tx_packets'], uplink_tags + self.tags))
