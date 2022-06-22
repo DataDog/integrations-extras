@@ -4,4 +4,4 @@
 ==================
 ### Changes
 
-* [FEATURE] Backstage DataDog Integration
+* [FEATURE] Backstage Datadog Integration
