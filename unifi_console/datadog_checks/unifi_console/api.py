@@ -63,17 +63,16 @@ class UnifiAPI(object):
         return ControllerInfo(resp)
 
     @smart_retry
-    def get_devices_metrics(self) -> List[Metric]:
+    def get_devices_info(self) -> List[DeviceInfo]:
         url = "{}/api/s/{}/stat/device/".format(self.config.url, self.config.site)
 
         resp = self._get_json(url)
 
-        metrics: List[Metric] = []
+        devices: List[DeviceInfo] = []
         for obj in resp["data"]:
-            device = DeviceInfo(obj)
-            metrics += device.metrics
+            devices.append(DeviceInfo(obj))
 
-        return metrics
+        return devices
 
     def _get_json(self, url):
         try:

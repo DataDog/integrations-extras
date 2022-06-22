@@ -65,10 +65,10 @@ def test_check_status_pass(aggregator, dd_run_check, instance):
 
 
 @pytest.mark.usefixtures("mock_api")
-def test_get_devices_metrics_fails(aggregator, dd_run_check, instance):
-    with patch("datadog_checks.unifi_console.check.UnifiAPI.get_devices_metrics") as mock_get_devices_metrics:
+def test_get_devices_info_fails(aggregator, dd_run_check, instance):
+    with patch("datadog_checks.unifi_console.check.UnifiAPI.get_devices_info") as mock_get_devices_info:
         check = UnifiConsoleCheck("unifi", {}, [instance])
-        mock_get_devices_metrics.side_effect = Exception()
+        mock_get_devices_info.side_effect = Exception()
 
         with pytest.raises(Exception):
             dd_run_check(check)

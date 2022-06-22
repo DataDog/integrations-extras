@@ -17,13 +17,12 @@ class MockedAPI(object):
         with open(os.path.join(HERE, "fixtures", "status_valid.json")) as f:
             return ControllerInfo(json.load(f))
 
-    def get_devices_metrics(self):
+    def get_devices_info(self):
         with open(os.path.join(HERE, "fixtures", "device_metrics.json")) as f:
 
             resp = json.load(f)
-            metrics = []
+            devices = []
             for obj in resp["data"]:
-                device = DeviceInfo(obj)
-                metrics += device.metrics
+                devices.append(DeviceInfo(obj))
 
-            return metrics
+            return devices
