@@ -4,7 +4,7 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.unifi_console.api import APIConnectionError, UnifiAPI
 from datadog_checks.unifi_console.config import UnifiConfig
 from datadog_checks.unifi_console.mertrics import Metric
-from datadog_checks.unifi_console.types import ControllerInfo
+from datadog_checks.unifi_console.types import Check, ControllerInfo
 
 
 class UnifiConsoleCheck(AgentCheck):
@@ -32,7 +32,9 @@ class UnifiConsoleCheck(AgentCheck):
             self.api.connect()
             self.log.debug("Connected")
         except APIConnectionError:
-            self.log.error("Cannot authenticate to Unifi Controller API. The check will not run.")
+            self.log.error(
+                "Cannot authenticate to Unifi Controller API. The check will not run."
+            )
             self.service_check(
                 "can_connect",
                 AgentCheck.CRITICAL,
@@ -51,7 +53,9 @@ class UnifiConsoleCheck(AgentCheck):
 
         except Exception:
             # Explicitly do not attach any host to the service checks.
-            self.log.exception("The Unifi API is not responding. The check will not run.")
+            self.log.exception(
+                "The Unifi API is not responding. The check will not run."
+            )
             self.service_check(
                 "can_connect",
                 AgentCheck.CRITICAL,
@@ -60,18 +64,22 @@ class UnifiConsoleCheck(AgentCheck):
             )
             raise
         else:
-            self.service_check("can_connect", AgentCheck.OK, tags=self._config.tags, hostname=None)
+            self.service_check(
+                "can_connect", AgentCheck.OK, tags=self._config.tags, hostname=None
+            )
         finally:
             self._submit_healthy_metrics(status, self._config.tags)
 
         # Collect devices metrics
         try:
-            metrics = self.api.get_devices_metrics()
+            devices = self.api.get_devices_info()
         except Exception:
             self.log.exception("Exception raised during the get_devices_metrics.")
             raise
         else:
-            self._submit_metrics(metrics)
+            for device in devices:
+                self._submit_metrics(device.metrics)
+                self._submit_checks(device.checks)
 
     def _submit_healthy_metrics(self, controller_info: ControllerInfo, tags):
         health_status = AgentCheck.CRITICAL
@@ -91,3 +99,8 @@ class UnifiConsoleCheck(AgentCheck):
                 self.count(m.name, m.value, tags=tags, hostname=None)
             elif m.type == "rate":
                 self.rate(m.name, m.value, tags=tags, hostname=None)
+
+    def _submit_checks(self, checks):
+        for c in checks:
+            if isinstance(c, Check):
+                self.service_check(c.name, c.value, tags=c.tags)

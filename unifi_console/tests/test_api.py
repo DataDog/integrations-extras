@@ -74,7 +74,7 @@ def test_smart_retry(instance, exception, expected_calls):
         api = UnifiAPI(config, MagicMock(), MagicMock())
         mock__get_json.side_effect = [exception, "success"]
         try:
-            api.get_devices_metrics()
+            api.get_devices_info()
         except Exception:
             pass
         assert mock__get_json.call_count == expected_calls
@@ -88,11 +88,11 @@ def test_get_devices_metrics(instance):
         mock__get_json.return_value = data
         config = UnifiConfig(instance, {}, MagicMock())
         api = UnifiAPI(config, MagicMock(), MagicMock())
-        metrics = api.get_devices_metrics()
+        devices = api.get_devices_info()
 
         mock__get_json.assert_called_once_with("{}/api/s/{}/stat/device/".format(config.url, config.site))
-        assert isinstance(metrics, list)
-        assert len(metrics) > 1
+        assert isinstance(devices, list)
+        assert len(devices) == 1
 
 
 def test__get_json(instance):
