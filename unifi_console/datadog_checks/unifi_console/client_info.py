@@ -17,7 +17,10 @@ class ClientInfo(object):
         tags = []
         tags.append("id:{}".format(client_info["_id"]))
         tags.append("radio_name:{}".format(client_info["radio_name"]))
-        tags.append("device:{}".format(client_info["name"]))
+        if "name" in client_info: 
+            tags.append("device:{}".format(client_info["name"]))
+        elif "hostname" in client_info:
+            tags.append("device:{}".format(client_info["hostname"]))
         tags.append("channel:{}".format(client_info["channel"]))
         tags.append("radio:{}".format(client_info["radio"]))
         tags.append("radio_proto:{}".format(client_info["radio_proto"]))
@@ -27,6 +30,7 @@ class ClientInfo(object):
 
     def _get_metrics(self, client_info) -> List[Metric]:
         metrics: List[Metric] = []
+        metrics.append(Gauge("client.up", 1, self.tags))
         metrics.append(Gauge("client.satisfaction", client_info["satisfaction"], self.tags))
         metrics.append(Gauge("client.signal", client_info["signal"], self.tags))
         metrics.append(Gauge("client.noise", client_info["noise"], self.tags))
