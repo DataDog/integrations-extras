@@ -4,9 +4,10 @@ from typing import Any, Callable, List, TypeVar, cast
 
 from requests import HTTPError, Timeout
 
+from datadog_checks.unifi_console.client_info import ClientInfo
+from datadog_checks.unifi_console.device_info import DeviceInfo
 from datadog_checks.unifi_console.errors import Unauthorized
-from datadog_checks.unifi_console.mertrics import Metric
-from datadog_checks.unifi_console.types import APIConnectionError, ControllerInfo, DeviceInfo
+from datadog_checks.unifi_console.types import APIConnectionError, ControllerInfo
 
 CallableT = TypeVar("CallableT", bound=Callable)
 
@@ -73,6 +74,18 @@ class UnifiAPI(object):
             devices.append(DeviceInfo(obj))
 
         return devices
+
+    @smart_retry
+    def get_clients_info(self) -> List[ClientInfo]:
+        url = "{}/api/s/{}/stat/sta/".format(self.config.url, self.config.site)
+
+        resp = self._get_json(url)
+
+        clients: List[ClientInfo] = []
+        for obj in resp["data"]:
+            clients.append(ClientInfo(obj))
+
+        return clients
 
     def _get_json(self, url):
         try:

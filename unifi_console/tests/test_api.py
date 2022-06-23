@@ -95,6 +95,21 @@ def test_get_devices_metrics(instance):
         assert len(devices) == 1
 
 
+def test_get_clients_metrics(instance):
+    with patch("datadog_checks.unifi_console.api.UnifiAPI._get_json") as mock__get_json, open(
+        os.path.join(HERE, "fixtures", "client_metrics.json")
+    ) as f:
+        data = json.load(f)
+        mock__get_json.return_value = data
+        config = UnifiConfig(instance, {}, MagicMock())
+        api = UnifiAPI(config, MagicMock(), MagicMock())
+        clients = api.get_clients_info()
+
+        mock__get_json.assert_called_once_with("{}/api/s/{}/stat/sta/".format(config.url, config.site))
+        assert isinstance(clients, list)
+        assert len(clients) == 1
+
+
 def test__get_json(instance):
     http = MagicMock()
     config = UnifiConfig(instance, {}, MagicMock())

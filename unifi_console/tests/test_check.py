@@ -16,16 +16,20 @@ def test_metrics_submission(aggregator, dd_run_check, instance):
     """This test asserts that the same api content always produces the same metrics."""
     check = UnifiConsoleCheck("unifi", {}, [instance])
     dd_run_check(check)
-    fixture_file = os.path.join(HERE, "fixtures", "device_metrics_values.json")
-    with open(fixture_file, "r") as f:
-        data = json.load(f)
-        for metric in data:
-            aggregator.assert_metric(
-                metric["name"],
-                metric.get("value"),
-                hostname=metric.get("hostname"),
-                tags=metric.get("tags"),
-            )
+
+    value_files = ["device_metrics_values.json", "client_metrics_values.json"]
+
+    for file in value_files:
+        fixture_file = os.path.join(HERE, "fixtures", file)
+        with open(fixture_file, "r") as f:
+            data = json.load(f)
+            for metric in data:
+                aggregator.assert_metric(
+                    metric["name"],
+                    metric.get("value"),
+                    hostname=metric.get("hostname"),
+                    tags=metric.get("tags"),
+                )
     aggregator.assert_metric('unifi.healthy', metric_type=aggregator.GAUGE)
     aggregator.assert_all_metrics_covered()
 
@@ -69,6 +73,16 @@ def test_get_devices_info_fails(aggregator, dd_run_check, instance):
     with patch("datadog_checks.unifi_console.check.UnifiAPI.get_devices_info") as mock_get_devices_info:
         check = UnifiConsoleCheck("unifi", {}, [instance])
         mock_get_devices_info.side_effect = Exception()
+
+        with pytest.raises(Exception):
+            dd_run_check(check)
+
+
+@pytest.mark.usefixtures("mock_api")
+def test_get_clients_info_fails(aggregator, dd_run_check, instance):
+    with patch("datadog_checks.unifi_console.check.UnifiAPI.get_clients_info") as mock_get_clients_info:
+        check = UnifiConsoleCheck("unifi", {}, [instance])
+        mock_get_clients_info.side_effect = Exception()
 
         with pytest.raises(Exception):
             dd_run_check(check)
