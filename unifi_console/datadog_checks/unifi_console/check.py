@@ -32,9 +32,7 @@ class UnifiConsoleCheck(AgentCheck):
             self.api.connect()
             self.log.debug("Connected")
         except APIConnectionError:
-            self.log.error(
-                "Cannot authenticate to Unifi Controller API. The check will not run."
-            )
+            self.log.error("Cannot authenticate to Unifi Controller API. The check will not run.")
             self.service_check(
                 "can_connect",
                 AgentCheck.CRITICAL,
@@ -53,9 +51,7 @@ class UnifiConsoleCheck(AgentCheck):
 
         except Exception:
             # Explicitly do not attach any host to the service checks.
-            self.log.exception(
-                "The Unifi API is not responding. The check will not run."
-            )
+            self.log.exception("The Unifi API is not responding. The check will not run.")
             self.service_check(
                 "can_connect",
                 AgentCheck.CRITICAL,
@@ -64,9 +60,7 @@ class UnifiConsoleCheck(AgentCheck):
             )
             raise
         else:
-            self.service_check(
-                "can_connect", AgentCheck.OK, tags=self._config.tags, hostname=None
-            )
+            self.service_check("can_connect", AgentCheck.OK, tags=self._config.tags, hostname=None)
         finally:
             self._submit_healthy_metrics(status, self._config.tags)
 
@@ -74,12 +68,22 @@ class UnifiConsoleCheck(AgentCheck):
         try:
             devices = self.api.get_devices_info()
         except Exception:
-            self.log.exception("Exception raised during the get_devices_metrics.")
+            self.log.exception("Exception raised during the get_devices_info.")
             raise
         else:
             for device in devices:
                 self._submit_metrics(device.metrics)
                 self._submit_checks(device.checks)
+
+        # Collect clients metrics
+        try:
+            clients = self.api.get_clients_info()
+        except Exception:
+            self.log.exception("Exception raised during the get_clients_info.")
+            raise
+        else:
+            for c in clients:
+                self._submit_metrics(c.metrics)
 
     def _submit_healthy_metrics(self, controller_info: ControllerInfo, tags):
         health_status = AgentCheck.CRITICAL
