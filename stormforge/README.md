@@ -4,7 +4,7 @@
 
 [StormForge Optimize Live][1] applies machine learning to your observability metrics to make real-time recommendations to resource requests for any deployment running in Kubernetes.
 
-For access to Optimize Live, please contact your StormForge sales rep directly or through the Datadog marketplace.
+For access to Optimize Live, please contact your StormForge sales rep directly.
 
 **Benefits Include:**
 - Improve resource efficiency
@@ -25,7 +25,7 @@ To set up this integration, you must have a StormForge account along with Datado
 4. Deploy Optimize Live
 5. Set up your Applications within [StormForge][5].
 
-More detailed instructions can be found in our [Getting started][6] guide.
+More detailed instructions can be found in the StormForge [getting started][6] guide.
 
 ## Data Collected
 
@@ -35,9 +35,9 @@ See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Events
 
-The StormForge integration creates an event for:
-- application updates
-- recommendations that are applied
+The StormForge integration creates events for:
+- Application updates
+- Recommendations that have been applied
 
 ### Service Checks
 
@@ -45,7 +45,7 @@ The StormForge integration does not include any service checks.
 
 ## Support
 
-[Contact us][8]
+For questions or other support, you can contact StormForge via [email][8].
 
 [1]: https://www.stormforge.io/how-stormforge-optimize-live-works/
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/#api-keys
