@@ -23,7 +23,7 @@ See the official [documentation][3] for more information.
 
 The Gitea integration is not included in the [Datadog Agent][4] package by default, so you need to install it.
 
-For Agent v7.34+, follow the instructions below to install the Gitea check on your host. See [Use Community Integrations][5] to install with the Docker Agent or earlier versions of the Agent.
+For Agent v7.36+, follow the instructions below to install the Gitea check on your host. See [Use Community Integrations][5] to install with the Docker Agent or earlier versions of the Agent.
 
 1. Run the following command to install the Agent integration:
 
