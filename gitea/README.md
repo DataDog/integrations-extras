@@ -1,4 +1,4 @@
-# Gitlab Integration
+# Gitea Integration
 
 ## Overview
 
