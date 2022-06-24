@@ -1,7 +1,5 @@
 # CHANGELOG - Gitea
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Gitea Integration.
+* [Added] Initial Gitea Integration.
