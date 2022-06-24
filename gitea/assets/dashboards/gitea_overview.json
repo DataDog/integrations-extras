@@ -76,11 +76,11 @@
               "title_align": "left",
               "type": "check_status",
               "check": "gitea.openmetrics.health",
-              "grouping": "check",
-              "group": "endpoint:http://localhost:3000/metrics,host:COMP-C02G70X8ML87",
+              "grouping": "cluster",
+              "group": "$gitea_url",
               "group_by": [],
               "tags": [
-                "*"
+                "$gitea_url"
               ]
             },
             "layout": {
@@ -625,7 +625,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 10,
         "width": 12,
         "height": 3,
         "is_column_break": true
@@ -703,6 +703,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -712,14 +713,14 @@
                       "formula": "query1"
                     }
                   ],
-                  "response_format": "timeseries",
                   "queries": [
                     {
-                      "query": "avg:gitea.projects{endpoint:$gitea_url.value,endpoint:http://localhost:3000/metrics}",
+                      "query": "avg:gitea.projects{endpoint:$gitea_url.value}",
                       "data_source": "metrics",
                       "name": "query1"
                     }
                   ],
+                  "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -1028,7 +1029,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 3,
+        "y": 13,
         "width": 12,
         "height": 7
       }
@@ -1038,7 +1039,7 @@
     {
       "name": "gitea_url",
       "default": "*",
-      "prefix": "",
+      "prefix": "endpoint",
       "available_values": []
     }
   ],
