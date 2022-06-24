@@ -59,7 +59,7 @@ Need help? Contact [Datadog support][6].
 
 [1]: https://trino.io/
 [2]: https://docs.datadoghq.com/agent/guide/use-community-integrations
-[3]: https://github.com/DataDog/integrations-core/blob/master/jmx/datadog_checks/jmx/data/conf.yaml.example
+[3]: https://github.com/DataDog/integrations-extras/blob/master/trino/datadog_checks/trino/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://docs.datadoghq.com/integrations/java/
 [6]: https://docs.datadoghq.com/help/
