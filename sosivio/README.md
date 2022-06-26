@@ -16,7 +16,7 @@ Sosivio is installed under one namespace (labeled "sosivio") which creates all t
  
 ### Installation
 
-1. In the Sosivio Dashboard Configuration page, add the [Datadog API key][2] and the Datadog URL (if not the default datadoghq.com site). See [Datadog sites][4] to learn more.
+1. In the Sosivio Dashboard Configuration page, add your [Datadog API key][2] and Datadog URL (if not the default datadoghq.com site). See [Datadog sites][4] to learn more.
 2. Click **Install**.
 
 For more information, view the [Sosivio documentation][3].
