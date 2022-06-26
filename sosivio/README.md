@@ -8,7 +8,7 @@ Sosivio's Datadog integration allows users to see Sosivio Failure Alerts directl
  
 ## Setup
 
-If you don't have a Sosivio account set up, [create an account][5] and sign up for a free 4-week trial of Sosivio Premium directly from our website (no credit card required). At the end of the 4-week trial, your license converts to the Sosivio Community Version, which is free, forever. With the account set up, you are ready to start using the Sosivio Application in Datadog.
+If you don't have a Sosivio account, [create an account][5] and sign up for a free 4-week trial of Sosivio Premium directly from our website (no credit card required). At the end of the 4-week trial, your license converts to the Sosivio Community Version, which is free, forever. With the account set up, you are ready to start using the Sosivio integration in Datadog.
 
 
 Sosivio is installed under one namespace (labeled "sosivio") which creates all the required components for the product. 
