@@ -31,7 +31,7 @@ For Agent v7.36+, follow the instructions below to install the Gitea check on yo
 datadog-agent integration install -t datadog-gitea==<INTEGRATION_VERSION>
 ```
 
-2. Configure your integration similar to core [integrations][6].
+2. Configure your integration similar to Agent-based [integrations][6].
 
 ### Configuration
 
