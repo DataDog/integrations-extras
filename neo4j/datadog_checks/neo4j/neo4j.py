@@ -26,6 +26,8 @@ class Config:
 
 
 class Neo4jCheck(PrometheusCheck):
+    DEFAULT_METRIC_LIMIT = 0
+
     def check(self, instance):
         self._set_whitelisted_metrics()
         config = self._get_config(instance=instance)
