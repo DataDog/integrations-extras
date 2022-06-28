@@ -22,4 +22,6 @@ def instance():
         "url": os.environ.get("UNIFi_URL", "https://FAKE"),
         "user": os.environ.get("UNIFi_USER", "FAKE"),
         "pwd": os.environ.get("UNIFi_PWD", "FAKE"),
+        "empty_default_hostname": True,
+        "persist_connections": True,
     }
