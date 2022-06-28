@@ -17,7 +17,7 @@ class ClientInfo(object):
         tags = []
         tags.append("id:{}".format(client_info["_id"]))
         tags.append("radio_name:{}".format(client_info["radio_name"]))
-        if "name" in client_info: 
+        if "name" in client_info:
             tags.append("device:{}".format(client_info["name"]))
         elif "hostname" in client_info:
             tags.append("device:{}".format(client_info["hostname"]))

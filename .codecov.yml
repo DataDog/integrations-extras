@@ -119,6 +119,14 @@ coverage:
         target: 75
         flags:
         - puma
+      PureFA:
+        target: 75
+        flags:
+        - purefa
+      PureFB:
+        target: 75
+        flags:
+        - purefb
       Reboot_Required:
         target: 75
         flags:
@@ -183,6 +191,10 @@ coverage:
         target: 75
         flags:
         - unbound
+      Unifi Console:
+        target: 75
+        flags:
+        - unifi_console
       Vespa:
         target: 75
         flags:
@@ -483,6 +495,11 @@ flags:
     paths:
     - unbound/datadog_checks/unbound
     - unbound/tests
+  unifi_console:
+    carryforward: true
+    paths:
+    - unifi_console/datadog_checks/unifi_console
+    - unifi_console/tests
   upsc:
     carryforward: true
     paths:
