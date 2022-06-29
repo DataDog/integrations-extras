@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Unifi Controller][1] through the Datadog Agent.
+This check monitors [Unifi Console][1] through the Datadog Agent.
 
 ## Setup
 
