@@ -64,3 +64,4 @@ Need help? Contact [Datadog support][9].
 [7]: https://github.com/DataDog/integrations-core/blob/master/unifi_console/metadata.csv
 [8]: https://github.com/DataDog/integrations-core/blob/master/unifi_console/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
+[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
