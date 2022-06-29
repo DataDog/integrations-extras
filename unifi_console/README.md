@@ -61,6 +61,5 @@ Need help? Contact [Datadog support][9].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-core/blob/master/unifi_console/metadata.csv
-[8]: https://github.com/DataDog/integrations-core/blob/master/unifi_console/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
 [10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
