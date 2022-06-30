@@ -11,7 +11,7 @@ This check collects [Trino][1] metrics, such as the following examples:
 
 ### Installation
 
-For Agent v7.21+ / v6.21+, follow the instructions below to install the Trino check on your host. See [Use Community Integrations][2] to install with the Docker Agent or earlier versions of the Agent.
+For Agent v7.33.0+, follow the instructions below to install the Trino check on your host. See [Use Community Integrations][2] to install with the Docker Agent or earlier versions of the Agent.
 
 1. Run the following command to install the Agent integration:
 
