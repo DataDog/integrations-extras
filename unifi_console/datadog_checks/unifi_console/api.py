@@ -51,7 +51,7 @@ class UnifiAPI(object):
         url = self.config.url + "/api/login"
 
         try:
-            resp = self.http.post(url, data=payload, headers=headers)
+            resp = self.http.post(url, data=payload, extra_headers=headers)
             resp.raise_for_status()
         except Exception as e:
             err_msg = "Connection to {} failed: {}".format(self.config.url, e)
