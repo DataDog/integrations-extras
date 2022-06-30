@@ -1,7 +1,5 @@
 class UnifiConfig(object):
     def __init__(self, instance, init_config, log) -> None:
-        self.log = log
-
         # Use self.instance to read the check configuration
         self.url = instance.get("url", "")
         self.user = instance.get("user", "")
