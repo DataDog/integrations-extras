@@ -58,7 +58,7 @@ Additional helpful documentation, links, and articles:
 
 - [React Native Monitoring][7]
 
-[1]: https://app.datadoghq.com/integrations/reactnative 
+[1]: https://app.datadoghq.com/integrations/rum-react-native 
 [2]: https://docs.datadoghq.com/real_user_monitoring/reactnative/#setup 
 [3]: Does not exist
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
