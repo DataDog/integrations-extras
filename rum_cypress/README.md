@@ -13,6 +13,9 @@ With the Datadog [Cypress integration][1], monitor the performance of your CI/CD
 ## Setup
 
 For more information about integrating Cypress tests with RUM & Session Replay, see the [CI Visibility-RUM integration documentation][2].
+
+Setup
+
 ### Collect RUM events 
 
 To start collecting Real User Monitoring events from your application, see [Cypress Monitoring][3]. 
@@ -21,16 +24,32 @@ To start collecting Real User Monitoring events from your application, see [Cypr
 
 Your application automatically sends traces to Datadog.
 
-### Collect logs 
-
-To start forwarding your application's logs to Datadog, see [Cypress Log Collection][4].
-
 Data Collected
 
 ### Metrics
 
-The CI Visibility-RUM integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][5].
+The CI Visibility-RUM integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][4].
 
-### Events 
+### Service Checks 
 
-For more information about events and attributes, see [RUM Cypress Data Collected][6]. 
+The React Native integration does not include any service checks.
+
+## Troubleshooting
+
+Need help? Contact [Datadog Support][5]. 
+
+## Further Reading 
+
+Additional helpful documentation, links, and articles: 
+
+- [CI Visibility][6]
+
+
+# Links
+
+[1]: https://app.datadoghq.com/integrations/rum-cypress 
+[2]: https://docs.datadoghq.com/continuous_integration/guides/rum_integration/
+[3]: https://docs.datadoghq.com/continuous_integration/guides/rum_integration/#browser-tests-and-rum
+[4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
+[5]: https://docs.datadoghq.com/help/
+[6]: https://docs.datadoghq.com/continuous_integration/
