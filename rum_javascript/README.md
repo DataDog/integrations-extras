@@ -58,7 +58,7 @@ Additional helpful documentation, links, and articles:
 
 # Links
 
-[1]: https://app.datadoghq.com/integrations/javascript 
+[1]: https://app.datadoghq.com/integrations/rum-javascript 
 [2]: https://docs.datadoghq.com/real_user_monitoring/browser/
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tabs=browserrum
 [4]: https://docs.datadoghq.com/logs/log_collection/javascript/
