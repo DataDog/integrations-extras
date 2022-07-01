@@ -59,7 +59,7 @@ Additional helpful documentation, links, and articles:
 - [iOS and tvOS Monitoring][8]
 
 
-[1]: https://app.datadoghq.com/integrations/ios 
+[1]: https://app.datadoghq.com/integrations/rum-ios 
 [2]: https://docs.datadoghq.com/real_user_monitoring/real_user_monitoring/ios/?tabs=swift#setup
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces?tab=iosrum#setup-rum 
 [4]: https://docs.datadoghq.com/logs/log_collection/ios/ 
