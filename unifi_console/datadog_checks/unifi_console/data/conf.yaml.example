@@ -87,12 +87,12 @@ instances:
     #
     # min_collection_interval: 15
 
-    ## @param empty_default_hostname - boolean - required
+    ## @param empty_default_hostname - boolean - optional - default: true
     ## The Unifi integration is a cluster-level check where metrics are usually unrelated to the host
     ## on which the Agent runs. Setting this parameter to true, prevents the Agent from attaching the hostname
     ## (and the host tags) to the metrics.
     #
-    empty_default_hostname: true
+    # empty_default_hostname: true
 
     ## @param metric_patterns - mapping - optional
     ## A mapping of metrics to include or exclude, with each entry being a regular expression.
@@ -354,10 +354,10 @@ instances:
     #
     # log_requests: false
 
-    ## @param persist_connections - boolean - required
+    ## @param persist_connections - boolean - optional - default: true
     ## The Unifi integration leverage the Controler API the uses cookies for request authentification
     #
-    persist_connections: true
+    # persist_connections: true
 
     ## @param allow_redirects - boolean - optional - default: true
     ## Whether or not to allow URL redirection.
