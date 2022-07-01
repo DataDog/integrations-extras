@@ -58,7 +58,7 @@ Additional helpful documentation, links, and articles:
 
 - [Android and Android TV Monitoring][8]
 
-[1]: https://app.datadoghq.com/integrations/android
+[1]: https://app.datadoghq.com/integrations/rum-android
 [2]: https://docs.datadoghq.com/real_user_monitoring/android/?tabs=kotlin#setup
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces?tab=androidrum#setup-rum
 [4]: https://docs.datadoghq.com/logs/log_collection/android/?tab=kotlin
