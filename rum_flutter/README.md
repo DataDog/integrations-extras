@@ -21,7 +21,7 @@ Monitor the end-to-end health of your Flutter application by:
 - Unifying full-stack monitoring in a single platform for frontend and backend teams
 
 
-##Setup
+## Setup
 
 ### Collect RUM events 
 
