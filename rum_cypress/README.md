@@ -32,7 +32,7 @@ The CI Visibility-RUM integration does not include any metrics. To generate cust
 
 ### Service Checks 
 
-The React Native integration does not include any service checks.
+The Cypress integration does not include any service checks.
 
 ## Troubleshooting
 
