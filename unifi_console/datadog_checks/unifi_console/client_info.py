@@ -15,32 +15,45 @@ class ClientInfo(object):
 
     def _get_tags(self, client_info) -> List[str]:
         tags = []
-        tags.append("id:{}".format(client_info["_id"]))
-        tags.append("radio_name:{}".format(client_info["radio_name"]))
+        wanted_tags = [
+            {"key": "id", "value": "_id"},
+            {"key": "radio_name", "value": "radio_name"},
+            {"key": "channel", "value": "channel"},
+            {"key": "radio", "value": "radio"},
+            {"key": "radio_proto", "value": "radio_proto"},
+            {"key": "oui", "value": "oui"},
+        ]
         if "name" in client_info:
             tags.append("device:{}".format(client_info["name"]))
         elif "hostname" in client_info:
             tags.append("device:{}".format(client_info["hostname"]))
-        tags.append("channel:{}".format(client_info["channel"]))
-        tags.append("radio:{}".format(client_info["radio"]))
-        tags.append("radio_proto:{}".format(client_info["radio_proto"]))
-        tags.append("oui:{}".format(client_info["oui"]))
+
+        for t in wanted_tags:
+            if t["value"] in client_info:
+                tags.append("{}:{}".format(t["key"], client_info[t["value"]]))
 
         self.tags = tags
 
     def _get_metrics(self, client_info) -> List[Metric]:
         metrics: List[Metric] = []
         metrics.append(Gauge("client.up", 1, self.tags))
-        metrics.append(Gauge("client.satisfaction", client_info["satisfaction"], self.tags))
-        metrics.append(Gauge("client.signal", client_info["signal"], self.tags))
-        metrics.append(Gauge("client.noise", client_info["noise"], self.tags))
-        metrics.append(Gauge("client.uptime", client_info["uptime"], self.tags))
-        metrics.append(Gauge("client.tx_bytes", client_info["tx_bytes"], self.tags))
-        metrics.append(Gauge("client.rx_bytes", client_info["rx_bytes"], self.tags))
-        metrics.append(Gauge("client.tx_packets", client_info["tx_packets"], self.tags))
-        metrics.append(Gauge("client.rx_packets", client_info["rx_packets"], self.tags))
-        metrics.append(Gauge("client.tx_retries", client_info["tx_retries"], self.tags))
-        metrics.append(Gauge("client.tx_rate", client_info["tx_rate"], self.tags))
-        metrics.append(Gauge("client.rx_rate", client_info["rx_rate"], self.tags))
+
+        wanted_metrics = [
+            "satisfaction",
+            "signal",
+            "noise",
+            "uptime",
+            "tx_bytes",
+            "rx_bytes",
+            "tx_packets",
+            "rx_packets",
+            "tx_retries",
+            "tx_rate",
+            "rx_rate",
+        ]
+
+        for m in wanted_metrics:
+            if m in client_info:
+                metrics.append(Gauge("client.{}".format(m), client_info[m], self.tags))
 
         self.metrics += metrics

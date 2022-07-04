@@ -13,6 +13,7 @@ class UnifiConsoleCheck(AgentCheck):
     __NAMESPACE__ = "unifi"
 
     def __init__(self, name, init_config, instances):
+        instances[0]['persist_connections'] = instances[0].get('persist_connections', True)
         super(UnifiConsoleCheck, self).__init__(name, init_config, instances)
 
         # Use self.instance to read the check configuration
