@@ -34,7 +34,7 @@ Your React Native application automatically sends traces to Datadog.
 
 To start forwarding your React Native application's logs to Datadog, see [React Native Log Collection][3].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -42,7 +42,7 @@ The React Native integration does not include any metrics. To generate custom me
 
 ### Events 
 
-For more information about events and attributes, see [RUM React Native Data Collected][5]. 
+For more information about events and attributes, see [RUM React Native Monitoring][5]. 
 
 ### Service Checks 
 
@@ -60,8 +60,8 @@ Additional helpful documentation, links, and articles:
 
 [1]: https://app.datadoghq.com/integrations/rum-react-native 
 [2]: https://docs.datadoghq.com/real_user_monitoring/reactnative/#setup 
-[3]: Does not exist
+[3]: https://docs.datadoghq.com/real_user_monitoring/reactnative/#manual-instrumentation
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
-[5]: Does not exist
+[5]: https://docs.datadoghq.com/real_user_monitoring/reactnative/
 [6]: https://docs.datadoghq.com/help/ 
 [7]: https://docs.datadoghq.com/real_user_monitoring/reactnative/
