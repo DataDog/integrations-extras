@@ -21,7 +21,7 @@ Monitor the end-to-end health of your Flutter application by:
 - Unifying full-stack monitoring in a single platform for frontend and backend teams
 
 
-##Setup
+## Setup
 
 ### Collect RUM events 
 
@@ -35,7 +35,7 @@ Your Flutter application automatically sends traces to Datadog.
 
 To start forwarding your Flutter application's logs to Datadog, see [Flutter Log Collection][3].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -43,7 +43,7 @@ The Flutter integration does not include any metrics. To generate custom metrics
 
 ### Events 
 
-For more information about events and attributes, see [RUM Flutter Data Collected][5]. 
+For more information about events and attributes, see [RUM Flutter Monitoring][5]. 
 
 ### Service Checks 
 
@@ -60,13 +60,11 @@ Additional helpful documentation, links, and articles:
 - [Flutter Monitoring][7]
 
 
-Links
-
 [1]: https://app.datadoghq.com/integrations/rum-flutter 
 [2]: https://docs.datadoghq.com/real_user_monitoring/flutter/#setup
-[3]: Does not exist
+[3]: https://docs.datadoghq.com/real_user_monitoring/flutter/#send-logs
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
-[5]: Does not exist
+[5]: https://docs.datadoghq.com/real_user_monitoring/flutter/
 [6]: https://docs.datadoghq.com/help/ 
 [7]: https://docs.datadoghq.com/real_user_monitoring/flutter/
 
