@@ -2,9 +2,9 @@
 
 ## Overview
 
-WWith the Datadog [React integration][1], resolve performance issues quickly in React components by:
+With the Datadog [React integration][1], resolve performance issues quickly in React components by:
 
-- Debugging the root cause of performance bottlenecks, such as a slow server response time, render-blocking resource, or error inside a component
+- Debugging the root cause of performance bottlenecks, such as a slow server response time, render-blocking resource, or an error inside a component
 - Automatically correlating React performance data with user journeys, AJAX calls to the server side, and logs
 - Alerting your engineering teams when crucial performance metrics for React (such as Core Web Vitals) fall below a threshold that results in a poor user experience
 
@@ -30,7 +30,7 @@ Your React application automatically sends traces to Datadog.
 
 To start forwarding your React application's logs to Datadog, see [React Log Collection][3].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -55,7 +55,6 @@ Additional helpful documentation, links, and articles:
 - [React Monitoring][7]
 
 
-## Links
 
 [1]: https://app.datadoghq.com/integrations/rum-react 
 [2]: https://docs.datadoghq.com/real_user_monitoring/browser/ 
