@@ -195,6 +195,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      fiddler:
+        target: 75
+        flags:
+        - fiddler
       nvml:
         target: 75
         flags:
@@ -211,11 +215,11 @@ coverage:
         target: 75
         flags:
         - pulsar
-      PureFA:
+      purefa:
         target: 75
         flags:
         - purefa
-      PureFB:
+      purefb:
         target: 75
         flags:
         - purefb
@@ -259,6 +263,11 @@ flags:
     paths:
     - eventstore/datadog_checks/eventstore
     - eventstore/tests
+  fiddler:
+    carryforward: true
+    paths:
+    - fiddler/datadog_checks/fiddler
+    - fiddler/tests
   filebeat:
     carryforward: true
     paths:
@@ -277,8 +286,8 @@ flags:
   gitea:
     carryforward: true
     paths:
-      - gitea/datadog_checks/gitea
-      - gitea/tests
+    - gitea/datadog_checks/gitea
+    - gitea/tests
   gnatsd:
     carryforward: true
     paths:
