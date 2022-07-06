@@ -2,8 +2,8 @@
 
 ## Overview
 
-This check monitors AI model performance [Fiddler][1] through the Datadog Agent.
-- Monitor model drift and model performance for AI models
+This check monitors AI model performance using [Fiddler][1] through the Datadog Agent.
+Fiddler monitors model drift and model performance for AI models.
 
 
 ## Setup
@@ -24,7 +24,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fiddler 
 
 ### Configuration
 
-1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample fiddler.d/conf.yaml][5] for all available configuration options.
+1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample `fiddler.d/conf.yaml`][5] for all available configuration options.
 
 2. [Restart the Agent][6].
 
