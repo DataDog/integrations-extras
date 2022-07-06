@@ -31,7 +31,7 @@ To start sending your JavaScript application's traces to Datadog, see [Connect R
 
 To start forwarding your JavaScript application's logs to Datadog, see [Browser Log Collection][4].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -56,7 +56,6 @@ Additional helpful documentation, links, and articles:
 - [Browser Monitoring][2]
 
 
-# Links
 
 [1]: https://app.datadoghq.com/integrations/rum-javascript 
 [2]: https://docs.datadoghq.com/real_user_monitoring/browser/
