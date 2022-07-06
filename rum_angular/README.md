@@ -16,24 +16,12 @@ Monitor your Angular applications from end-to-end by:
 - Analyzing and contextualizing every user session with attributes such as user ID, email, name, and more
 - Unifying full-stack monitoring in one platform for frontend and backend development teams
 
-## With the Datadog [Angular integration][1], resolve performance issues quickly in Angular components by:
-
-- Debugging the root cause of performance bottlenecks, such as a slow server response time, render-blocking resource, or error inside a component
-- Automatically correlating Angular performance data with user journeys, AJAX calls to the server side, and logs
-- Alerting your engineering teams when crucial performance metrics for Angular (such as Core Web Vitals) fall below a threshold that results in a poor user experience
 
 
-Monitor your Angular applications from end-to-end by:
-
-Tracking and visualizing user journeys across your entire stack
-Debugging the root cause of slow load times, which may be an issue with your React code, network performance, or underlying infrastructure 
-Analyzing and contextualizing every user session with attributes such as user ID, email, name, and more
-Unifying full-stack monitoring in one platform for frontend and backend development teams
 
 
-Configuration
 
-Setup
+## Setup
 
 ### Collect RUM events 
 
@@ -47,7 +35,7 @@ Your Angular application automatically sends traces to Datadog.
 
 To start forwarding your Angular application's logs to Datadog, see [JavaScript Log Collection][3].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -66,7 +54,6 @@ The Angular integration does not include any service checks.
 Need help? Contact [Datadog Support][6]. 
 
 
-# Links
 
 [1]: https://app.datadoghq.com/integrations/rum-angular
 [2]: https://docs.datadoghq.com/real_user_monitoring/browser/ 
