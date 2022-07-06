@@ -14,7 +14,6 @@ With the Datadog [Cypress integration][1], monitor the performance of your CI/CD
 
 For more information about integrating Cypress tests with RUM & Session Replay, see the [CI Visibility-RUM integration documentation][2].
 
-Setup
 
 ### Collect RUM events 
 
@@ -24,7 +23,7 @@ To start collecting Real User Monitoring events from your application, see [Cypr
 
 Your application automatically sends traces to Datadog.
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -45,7 +44,6 @@ Additional helpful documentation, links, and articles:
 - [CI Visibility][6]
 
 
-# Links
 
 [1]: https://app.datadoghq.com/integrations/rum-cypress 
 [2]: https://docs.datadoghq.com/continuous_integration/guides/rum_integration/
