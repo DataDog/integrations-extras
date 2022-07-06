@@ -34,7 +34,7 @@ To start sending your iOS application's traces to Datadog, see [Connect RUM and 
 
 To start forwarding your iOS application's logs to Datadog, see [iOS Log Collection][4].
 
-Data Collected
+## Data Collected
 
 ### Metrics
 
@@ -60,7 +60,7 @@ Additional helpful documentation, links, and articles:
 
 
 [1]: https://app.datadoghq.com/integrations/rum-ios 
-[2]: https://docs.datadoghq.com/real_user_monitoring/real_user_monitoring/ios/?tabs=swift#setup
+[2]: https://docs.datadoghq.com/real_user_monitoring/ios/?tabs=swift#setup
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces?tab=iosrum#setup-rum 
 [4]: https://docs.datadoghq.com/logs/log_collection/ios/ 
 [5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
