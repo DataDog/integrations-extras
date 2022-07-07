@@ -131,6 +131,6 @@ Need help? Contact [Datadog support][10].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/datadog_checks/gatekeeper/data/conf.yaml.example
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-core/blob/master/gatekeeper/metadata.csv
+[9]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/metadata.csv
 [10]: https://docs.datadoghq.com/help/
 [11]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/assets/service_checks.json
