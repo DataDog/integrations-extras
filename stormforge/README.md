@@ -15,7 +15,7 @@ For access to Optimize Live, please contact your StormForge sales rep [directly]
 
 ## Setup
 
-To set up this integration, you must have a StormForge account along with Datadog API and Application keys.
+To set up this integration, you must have a StormForge account along with Datadog API and application keys.
 
 ### Configuration
 
