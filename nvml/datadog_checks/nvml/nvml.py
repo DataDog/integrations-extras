@@ -159,6 +159,11 @@ class NvmlCheck(AgentCheck):
             self.monotonic_count('pcie_tx_throughput', tx_bytes, tags=tags)
             self.monotonic_count('pcie_rx_throughput', rx_bytes, tags=tags)
 
+        # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1g92d1c5182a14dd4be7090e3c1480b121
+        with NvmlCall("temperature", self.log):
+            temp = NvmlCheck.N.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+            self.monotonic_count('temperature', temp, tags=tags)
+
     def _start_discovery(self):
         """Start daemon thread to discover which k8s pod is assigned to a GPU"""
         # type: () -> None
