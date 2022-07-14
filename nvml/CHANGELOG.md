@@ -1,5 +1,9 @@
 # CHANGELOG - nvml
 
+## 1.0.3
+
+* Fix version.
+
 ## 1.0.2
 
 * Add GPU temperature metric. 
