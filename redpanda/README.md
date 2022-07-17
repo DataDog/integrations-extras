@@ -84,7 +84,12 @@ By default, collecting logs is disabled in the Datadog Agent. Log collection is 
    logs_enabled: true
    ```
 
-2. Add the following in your `redpanda.d/conf.yaml` file to start collecting your Redpanda logs:
+2. Make sure `dd-agent` user is member of `systemd-journal` group, if not following command as root:
+   ```
+   usermod -a -G systemd-journal dd-agent
+   ```
+
+3. Add the following in your `redpanda.d/conf.yaml` file to start collecting your Redpanda logs:
 
    ```yaml
     logs:
