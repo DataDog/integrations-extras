@@ -1,5 +1,8 @@
 # CHANGELOG - nvml
 
+## 1.0.4
+* Change monotonic_count to gauge for temperature. 
+
 ## 1.0.3
 
 * Fix version.
