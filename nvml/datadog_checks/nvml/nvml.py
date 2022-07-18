@@ -164,6 +164,11 @@ class NvmlCheck(AgentCheck):
             temp = NvmlCheck.N.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
             self.gauge('temperature', temp, tags=tags)
 
+        # https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html#group__nvmlDeviceQueries_1ge8e3e5b5b9dcf436e4537982cf647d4e
+        with NvmlCall("fan_speed", self.log):
+            fan_speed = NvmlCheck.N.nvmlDeviceGetFanSpeed(handle)
+            self.gauge('fan_speed', fan_speed, tags=tags)
+
     def _start_discovery(self):
         """Start daemon thread to discover which k8s pod is assigned to a GPU"""
         # type: () -> None
