@@ -16,13 +16,14 @@ from datadog_checks.base import AgentCheck
 # We will get one hours worth data in chunks and process them.
 bin_size = 3600
 
-metrics_list = ['accuracy', 'histogram_drift', 'output_average', 'feature_average', 'traffic_count']
+# metrics_list = ['accuracy', 'histogram_drift', 'output_average', 'feature_average', 'traffic_count']
+metrics_list = ['accuracy']
 tags = list()
 
 # Connection parameters for Fiddler. Currently hard coded to get some testing done. Will be parameterizing this later.
-URL = 'https://rajeev2271.test.fiddler.ai'
-ORG_ID = 'rajeev2271'
-AUTH_TOKEN = ''
+URL = 'https://demo.trial.fiddler.ai'
+ORG_ID = 'demo'
+AUTH_TOKEN = 'K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs'
 
 client = fdl.FiddlerApi(url=URL, org_id=ORG_ID, auth_token=AUTH_TOKEN)
 
@@ -53,7 +54,8 @@ class FiddlerCheck(AgentCheck):
             result_all = client._call(project_path)
             print("Projects: ", result_all["projects"])
 
-            start_time = time.time() * 1000 - (bin_size * 1000)
+            #            start_time = time.time() * 1000 - (bin_size * 1000)
+            start_time = (time.time() * 1000) - (bin_size * 1000)
             end_time = time.time() * 1000
             print("Start time is : ", start_time)
             print("End time is : ", end_time)
@@ -64,12 +66,9 @@ class FiddlerCheck(AgentCheck):
 
                 # Iterate through all of the models within a project
                 for model in models:
-                    if model["id"] != "random_forest":
-                        print("Model: ", model["id"])
-                        continue
-                    else:
-                        print("Model: ", model["id"])
+                    print("Model: ", model["id"])
                     for metric in metrics_list:
+                        print("Metric is :", metric)
                         json_request = {
                             "metric": metric,
                             "time_range_start": start_time,
@@ -87,7 +86,7 @@ class FiddlerCheck(AgentCheck):
 
                         # iterate through the json result for that specific metric
                         for single_value in result["values"]:
-                            start_time = int(time.time())
+                            start_time = int(time.time()) * 1000
 
                             # Every metric has a different way of providing the value. So handle them separetly.
                             if metric == 'traffic_count':
