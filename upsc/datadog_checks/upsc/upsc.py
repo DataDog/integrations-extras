@@ -23,8 +23,8 @@ class UpscCheck(AgentCheck):
         :rtype: list[str]
         """
         try:
-            results = subprocess.check_output(['upsc', '-l'], stderr=self.DEV_NULL)
-            return [r.strip() for r in results.split('\n')]
+            results = subprocess.check_output(['upsc', '-l'], stderr=self.DEV_NULL, universal_newlines=True)
+            return [r.strip() for r in results.strip().split('\n')]
         except subprocess.CalledProcessError as e:
             self.log.error("Unable to query devices: %s", e)
             return []
@@ -38,7 +38,7 @@ class UpscCheck(AgentCheck):
         :rtype: dict(str, str)
         """
         try:
-            results = subprocess.check_output(['upsc', name], stderr=self.DEV_NULL)
+            results = subprocess.check_output(['upsc', name], stderr=self.DEV_NULL, universal_newlines=True)
             stats = {}
             for line in results.splitlines(False):
                 key, val = line.split(':', 1)
@@ -88,6 +88,7 @@ class UpscCheck(AgentCheck):
         self.update_from_config(instance)
 
         for device in self.list_ups_devices():
+
             if device not in self.excluded_devices:
                 excluded = False
                 for r in self.excluded_devices_re:
