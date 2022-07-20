@@ -47,6 +47,10 @@ coverage:
         target: 75
         flags:
         - gatekeeper
+      Gitea:
+        target: 75
+        flags:
+        - gitea
       Gnatsd:
         target: 75
         flags:
@@ -167,6 +171,10 @@ coverage:
         target: 75
         flags:
         - traefik
+      Trino:
+        target: 75
+        flags:
+        - trino
       UPSC:
         target: 75
         flags:
@@ -266,6 +274,11 @@ flags:
     paths:
     - gatekeeper/datadog_checks/gatekeeper
     - gatekeeper/tests
+  gitea:
+    carryforward: true
+    paths:
+      - gitea/datadog_checks/gitea
+      - gitea/tests
   gnatsd:
     carryforward: true
     paths:
@@ -451,6 +464,11 @@ flags:
     paths:
     - traefik/datadog_checks/traefik
     - traefik/tests
+  trino:
+    carryforward: true
+    paths:
+    - trino/datadog_checks/trino
+    - trino/tests
   unbound:
     carryforward: true
     paths:
