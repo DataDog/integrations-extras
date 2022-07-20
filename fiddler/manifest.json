@@ -1,35 +1,43 @@
 {
-  "display_name": "fiddler",
-  "maintainer": "rajeev@fiddler.ai",
-  "manifest_version": "1.0.0",
-  "name": "fiddler",
-  "metric_prefix": "fiddler.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "",
-  "guid": "d60c4beb-d51d-40c0-be4e-de9ad2b48770",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
+  "manifest_version": "2.0.0",
+  "app_uuid": "ee617671-508e-4bb3-ba25-8815b11a16aa",
+  "app_id": "fiddler",
+  "classifier_tags": [
+    "Supported OS::Linux",
+    "Supported OS::Mac OS",
+    "Supported OS::Windows"
   ],
-  "public_title": "fiddler",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": false,
-  "integration_id": "fiddler",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "",
+    "title": "fiddler",
+    "media": []
+  },
+  "author": {
+    "support_email": "rajeev@fiddler.ai"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "fiddler",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "fiddler.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
