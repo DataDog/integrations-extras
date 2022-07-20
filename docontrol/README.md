@@ -19,13 +19,13 @@ You must create a Datadog API key and an application key to use as input paramet
 #### Create an API key in Datadog
 
 1. Use Datadog's [Add an API key][2] documentation to create an API key. Give the key a meaningful name such as `DoControl`.
-2. Copy the `Key` and save it. This key is not accessible after exiting the page.
+2. Copy the `Key` and save it.
 
 
 #### Create an application key in Datadog
 
 1. Use Datadog's [Add application keys][3] documentation to create an application key.
-2. Copy and save your application key. This key is not accessible after exiting the page.
+2. Copy and save your application key.
 
 ![Get_DD_Application_Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/Get_DD_Application_Key.png)
 

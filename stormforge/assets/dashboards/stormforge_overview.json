@@ -1,0 +1,420 @@
+{
+  "title": "StormForge Optimize Live Application Overview",
+  "description": "View recommendations for configured applications",
+	"author_name": "StormForge",
+  "widgets": [
+    {
+      "id": 22,
+      "layout": {
+        "x": 86,
+        "y": 10,
+        "width": 43,
+        "height": 31
+      },
+      "definition": {
+        "title": "CPU - Usage by Deployment",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "max",
+          "value",
+          "min"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "CPU Usage",
+                "formula": "exclude_null(query1)"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:kubernetes.cpu.usage.total{$kube_namespace,$kube_deployment,$kube_cluster_name} by {kube_cluster_name,kube_namespace,kube_deployment}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
+    },
+    {
+      "id": 23,
+      "layout": {
+        "x": 86,
+        "y": 44,
+        "width": 44,
+        "height": 33
+      },
+      "definition": {
+        "title": "Memory - Usage by Deployment",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "min",
+          "max",
+          "value"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Memory Usage",
+                "formula": "exclude_null(query1)"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:kubernetes.memory.usage{$kube_namespace,$kube_deployment,$kube_cluster_name} by {kube_deployment,kube_namespace,kube_cluster_name}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
+    },
+    {
+      "id": 24,
+      "layout": {
+        "x": 1,
+        "y": 44,
+        "width": 40,
+        "height": 33
+      },
+      "definition": {
+        "title": "Highest Memory-Intensive Deployments",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "live_span": "4h"
+        },
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:kubernetes.memory.usage{$kube_deployment,$kube_cluster_name,$kube_app_name,$kube_namespace} by {kube_deployment,kube_namespace,kube_app_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "type": "sunburst"
+      }
+    },
+    {
+      "id": 25,
+      "layout": {
+        "x": 1,
+        "y": 10,
+        "width": 40,
+        "height": 31
+      },
+      "definition": {
+        "title": "Highest CPU-Intensive Deployments",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "live_span": "4h"
+        },
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:kubernetes.cpu.usage.total{$kube_namespace,$kube_deployment,$kube_cluster_name} by {kube_deployment,kube_namespace,kube_app_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "type": "sunburst"
+      }
+    },
+    {
+      "id": 26,
+      "layout": {
+        "x": 43,
+        "y": 10,
+        "width": 41,
+        "height": 31
+      },
+      "definition": {
+        "title": "CPU - Requests, Limits and Usage with Recommendations",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "value"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Current Usage",
+                "formula": "query2"
+              },
+              {
+                "alias": "Recommended Limits",
+                "formula": "query4"
+              },
+              {
+                "alias": "Recommended Requests",
+                "formula": "query5"
+              },
+              {
+                "alias": "Current Requests",
+                "formula": "query1"
+              },
+              {
+                "alias": "Current Limits",
+                "formula": "query3"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:kubernetes.cpu.usage.total{$kube_namespace,$kube_cluster_name,kube_container_name:$container,$kube_deployment}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "sum:stormforge.recommendation_cpu_limits_cores{namespace:$kube_namespace.value,candidate:deploy,$kube_cluster_name,kube_container_name:$container,workload:$kube_deployment.value}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query4"
+              },
+              {
+                "query": "sum:stormforge.recommendation_cpu_requests_cores{namespace:$kube_namespace.value,candidate:deploy,$kube_cluster_name,kube_container_name:$container,workload:$kube_deployment.value}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query5"
+              },
+              {
+                "query": "sum:kubernetes.cpu.requests{$kube_namespace,$kube_cluster_name,kube_container_name:$container,$kube_deployment}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:kubernetes.cpu.limits{$kube_namespace,$kube_cluster_name,kube_container_name:$container,$kube_deployment}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query3"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
+    },
+    {
+      "id": 27,
+      "layout": {
+        "x": 43,
+        "y": 44,
+        "width": 41,
+        "height": 33
+      },
+      "definition": {
+        "title": "Memory - Requests, Limits and Usage with Recommendations",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "value"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Current Requests",
+                "formula": "query1"
+              },
+              {
+                "alias": "Current Usage",
+                "formula": "query2"
+              },
+              {
+                "alias": "Current Limits",
+                "formula": "query3"
+              },
+              {
+                "alias": "Recommended Limits",
+                "formula": "query4"
+              },
+              {
+                "alias": "Recommended Requests",
+                "formula": "query5"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:kubernetes.memory.requests{$kube_namespace,$kube_deployment,$kube_cluster_name}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:kubernetes.memory.rss{$kube_namespace,$kube_deployment,$kube_cluster_name}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "sum:kubernetes.memory.limits{$kube_namespace,$kube_deployment,$kube_cluster_name}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query3"
+              },
+              {
+                "query": "sum:stormforge.recommendation_memory_limits_bytes{namespace:$kube_namespace.value,workload:$kube_deployment.value,candidate:deploy,$kube_cluster_name}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query4"
+              },
+              {
+                "query": "sum:stormforge.recommendation_memory_requests_bytes{namespace:$kube_namespace.value,workload:$kube_deployment.value,candidate:deploy,$kube_cluster_name}.rollup(max, 3600)",
+                "data_source": "metrics",
+                "name": "query5"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
+    },
+    {
+      "id": 6367076038833314,
+      "layout": {
+        "x": 1,
+        "y": 0,
+        "width": 128,
+        "height": 8
+      },
+      "definition": {
+        "type": "image",
+        "url": "https://www.stormforge.io/wp-content/uploads/2022/04/brand-black-trans.png",
+        "url_dark_theme": "https://www.stormforge.io/wp-content/uploads/2022/04/brand-white-trans.png",
+        "sizing": "none",
+        "margin": "md",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "kube_cluster_name",
+      "default": "*",
+      "prefix": "kube_cluster_name",
+      "available_values": []
+    },
+    {
+      "name": "kube_namespace",
+      "default": "*",
+      "prefix": "kube_namespace",
+      "available_values": []
+    },
+    {
+      "name": "kube_app_name",
+      "default": "*",
+      "prefix": "kube_app_name",
+      "available_values": []
+    },
+    {
+      "name": "kube_deployment",
+      "default": "*",
+      "prefix": "kube_deployment",
+      "available_values": []
+    },
+    {
+      "name": "container",
+      "default": "*",
+      "prefix": "container",
+      "available_values": []
+    }
+  ],
+  "layout_type": "free",
+  "is_read_only": true,
+  "notify_list": [],
+  "template_variable_presets": [],
+  "id": "ff7-5gx-pry"
+}
