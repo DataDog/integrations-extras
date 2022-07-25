@@ -2,6 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
+import os
 import os.path
 import threading
 import time
@@ -10,6 +11,7 @@ import grpc
 import pynvml
 
 from datadog_checks.base import AgentCheck
+from datadog_checks.base.utils.tagging import tagger
 
 from .api_pb2 import ListPodResourcesRequest
 from .api_pb2_grpc import PodResourcesListerStub
@@ -190,6 +192,25 @@ class NvmlCheck(AgentCheck):
             # Note: device ID comes in as bytes, but we get strings from grpc
             return self.known_tags.get(device_id, self.known_tags.get(device_id.decode("utf-8"), []))
 
+    def get_pod_tags(self, namespace, pod_name):
+        try:
+            uid_length = 36
+            pod_uid = None
+            prefix = f"{namespace}_{pod_name}_"
+            for d in os.listdir("/var/log/pods"):
+                if len(d) != len(prefix) + uid_length:
+                    continue
+                if not d.startswith(prefix):
+                    continue
+                pod_uid = d[-uid_length:]
+                break
+            if pod_uid is None:
+                return []
+            return tagger.get_tags(f"kubernetes_pod_uid://{pod_uid}", tagger.LOW)
+        except Exception:
+            self.log.error("Could not get tags for %s pod %s", namespace, pod_name)
+            return []
+
     def refresh_tags(self):
         channel = grpc.insecure_channel('unix://' + SOCKET_PATH)
         stub = PodResourcesListerStub(channel)
@@ -203,12 +224,13 @@ class NvmlCheck(AgentCheck):
                     pod_name = pod_res.name
                     kube_namespace = pod_res.namespace
                     kube_container_name = container.name
+                    pod_tags = self.get_pod_tags(kube_namespace, pod_name)
                     for device_id in device.device_ids:
                         # These are the tag names that datadog seems to use
                         new_tags[device_id] = [
                             "pod_name:" + pod_name,
                             "kube_namespace:" + kube_namespace,
                             "kube_container_name:" + kube_container_name,
-                        ]
+                        ] + pod_tags
         with self.lock:
             self.known_tags = new_tags
