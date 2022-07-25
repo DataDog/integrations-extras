@@ -7,4 +7,23 @@ files:
     - template: init_config/default
   - template: instances
     options:
+    - name: url
+      required: true
+      description: The Fiddler end point URL
+      value:
+        type: string
+        example: https://demo.trial.fiddler.ai
+    - name: fiddler_api_key
+      required: true
+      description: The API key for the Fiddler instance
+      secret: true
+      value:
+        type: string
+        example: K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs
+    - name: organization
+      required: true
+      description: The orginization id for the Fiddler instance
+      value:
+        type: string
+        example: demo
     - template: instances/default
