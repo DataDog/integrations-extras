@@ -9,10 +9,6 @@ import fiddler as fdl
 
 from datadog_checks.base import AgentCheck
 
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
-
 # We will get one hours worth data in chunks and process them.
 bin_size = 3600
 
@@ -26,7 +22,6 @@ ORG_ID = 'demo'
 AUTH_TOKEN = 'K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs'
 
 client = fdl.FiddlerApi(url=URL, org_id=ORG_ID, auth_token=AUTH_TOKEN)
-
 
 def create_tags(**tags_in):
     tags.clear()
@@ -44,21 +39,29 @@ class FiddlerCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FiddlerCheck, self).__init__(name, init_config, instances)
 
+#        self.base_url = self.instance.get('url')
+#        self.api_key = self.instance.get('fiddler_api_key')
+#        self.org = self.instance.get('organization')
+
+#        self.log.debug("Connecting to : ", self.base_url)
+#        self.log.debug("with org id : ", self.org)
+#        self.log.debug("and auth key : ", self.api_key)
+
+#        client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
+
         # Use self.instance to read the check configuration
-        # self.url = self.instance.get("url")
 
     def check(self, _):
         # Iterate through the projects and the models and push data into Fiddler
         try:
             project_path = ['list_projects', ORG_ID]
             result_all = client._call(project_path)
-            print("Projects: ", result_all["projects"])
+            self.log.debug("Projects: ", result_all["projects"])
 
-            #            start_time = time.time() * 1000 - (bin_size * 1000)
             start_time = (time.time() * 1000) - (bin_size * 1000)
             end_time = time.time() * 1000
-            print("Start time is : ", start_time)
-            print("End time is : ", end_time)
+            self.log.debug("Start time is : ", start_time)
+            self.log.debug("End time is : ", end_time)
 
             # Iterate through all of the projects within the Fiddler instance and get the metrics
             for project in result_all["projects"]:
@@ -66,9 +69,9 @@ class FiddlerCheck(AgentCheck):
 
                 # Iterate through all of the models within a project
                 for model in models:
-                    print("Model: ", model["id"])
+                    self.log.debug("Model: ", model["id"])
                     for metric in metrics_list:
-                        print("Metric is :", metric)
+                        self.log.debug("Metric is :", metric)
                         json_request = {
                             "metric": metric,
                             "time_range_start": start_time,
@@ -77,12 +80,12 @@ class FiddlerCheck(AgentCheck):
                             "prediction": '_',
                         }
                         agg_metrics_path = ['aggregated_metrics', ORG_ID, project["name"], model["id"]]
-                        print("ProjectModel: ", project["name"], model["id"], metric)
+                        self.log.debug("ProjectModel: ", project["name"], model["id"], metric)
                         result = client._call(agg_metrics_path, json_request)
 
-                        print("Agg_metrics_path: ", agg_metrics_path)
-                        print("json request: ", json_request, "\n")
-                        print("Result : ", result, "\n")
+                        self.log.debug("Agg_metrics_path: ", agg_metrics_path)
+                        self.log.debug("json request: ", json_request, "\n")
+                        self.log.debug("Result : ", result, "\n")
 
                         # iterate through the json result for that specific metric
                         for single_value in result["values"]:
@@ -91,7 +94,7 @@ class FiddlerCheck(AgentCheck):
                             # Every metric has a different way of providing the value. So handle them separetly.
                             if metric == 'traffic_count':
                                 value = single_value["value"]
-                                print("Final list: ", project["name"], model["id"], start_time, metric, value)
+                                self.log.debug("Final list: ", project["name"], model["id"], start_time, metric, value)
                                 create_tags(project=project["name"], model=model["id"])
                                 self.gauge(metric, value, tags)
 
@@ -99,7 +102,7 @@ class FiddlerCheck(AgentCheck):
                                 for key, value in single_value["value"].items():
                                     new_metric = key
                                     value = value
-                                    print("Final list: ", project["name"], model["id"], start_time, new_metric, value)
+                                    self.log.debug("Final list: ", project["name"], model["id"], start_time, new_metric, value)
                                     create_tags(project=project["name"], model=model["id"])
                                     self.gauge(metric, value, tags)
 
@@ -107,7 +110,7 @@ class FiddlerCheck(AgentCheck):
                                 for key, value in single_value["value"].items():
                                     new_metric = "histogram_drift-" + key
                                     value = value
-                                    print("Final list: ", project["name"], model["id"], start_time, new_metric, value)
+                                    self.log.debug("Final list: ", project["name"], model["id"], start_time, new_metric, value)
                                     create_tags(project=project["name"], model=model["id"], feature=key)
                                     self.gauge(metric, value, tags)
 
@@ -115,7 +118,7 @@ class FiddlerCheck(AgentCheck):
                                 for key, value in single_value["value"].items():
                                     new_metric = key
                                     value = value
-                                    print("Final list: ", project["name"], model["id"], start_time, new_metric, value)
+                                    self.log.debug("Final list: ", project["name"], model["id"], start_time, new_metric, value)
                                     create_tags(project=project["name"], model=model["id"], feature=key)
                                     self.gauge(metric, value, tags)
 
@@ -124,7 +127,7 @@ class FiddlerCheck(AgentCheck):
                                 for key, value in accuracy_metrics["accuracy_metrics"].items():
                                     new_metric = key
                                     value = value
-                                    print("Final list: ", project["name"], model["id"], start_time, new_metric, value)
+                                    self.log.debug("Final list: ", project["name"], model["id"], start_time, new_metric, value)
                                     create_tags(project=project["name"], model=model["id"])
                                     self.gauge(metric, value, tags)
         except Timeout as e:
@@ -139,4 +142,4 @@ class FiddlerCheck(AgentCheck):
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
 
-        self.service_check("can_connect", AgentCheck.OK)
+#        self.service_check("can_connect", AgentCheck.OK)
