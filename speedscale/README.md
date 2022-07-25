@@ -23,7 +23,7 @@ This integration publishes traffic replay results from [Speedscale][1] into Data
 3. With the specific report ID and the Datadog API key, run the `speedctl` command to export that traffic replay report as a Datadog event.
 
    ```
-   speedctl export datadog report ${SPD_REPORT_ID} --apiKey ${DDOG_API_KEY}
+   speedctl export datadog ${SPD_REPORT_ID} --apiKey ${DDOG_API_KEY}
    {"status":"ok",...}
    ```
 ### Validation
