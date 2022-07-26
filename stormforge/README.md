@@ -4,8 +4,6 @@
 
 [StormForge Optimize Live][1] applies machine learning to your observability metrics to make real-time recommendations to resource requests for any deployment running in Kubernetes.
 
-For access to Optimize Live, please contact your StormForge sales rep [directly][8].
-
 **With StormForge Optimize Live, you can:**
 - Improve resource efficiency
 - Leverage existing observability data
@@ -54,4 +52,3 @@ For questions or other support, you can contact StormForge via [email][8].
 [5]: https://app.stormforge.io
 [6]: https://docs.stormforge.io/optimize-live/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/stormforge/metadata.csv
-[8]: mailto:support@stormforge.io
