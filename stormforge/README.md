@@ -52,3 +52,4 @@ For questions or other support, you can contact StormForge via [email][8].
 [5]: https://app.stormforge.io
 [6]: https://docs.stormforge.io/optimize-live/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/stormforge/metadata.csv
+[8]: mailto:support@stormforge.io
