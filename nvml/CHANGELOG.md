@@ -1,6 +1,11 @@
 # CHANGELOG - nvml
 
+## 1.0.5
+
+* Add fan speed to monitored metrics.
+
 ## 1.0.4
+
 * Change monotonic_count to gauge for temperature. 
 
 ## 1.0.3
