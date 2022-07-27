@@ -22,4 +22,4 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = FiddlerCheck('fiddler', {}, [instance])
     dd_run_check(check)
-#    aggregator.assert_service_check('fiddler.can_connect', FiddlerCheck.OK)
+    aggregator.assert_service_check('fiddler.can_connect', FiddlerCheck.OK)
