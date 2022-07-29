@@ -4,11 +4,13 @@
 
 # import yaml
 import time
-# from typing import Any
 
 import fiddler as fdl
 
 from datadog_checks.base import AgentCheck
+
+# from typing import Any
+
 
 # We will get one hours worth data in chunks and process them.
 bin_size = 3600
@@ -23,6 +25,7 @@ ORG_ID = 'demo'
 AUTH_TOKEN = 'K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs'
 
 client = fdl.FiddlerApi(url=URL, org_id=ORG_ID, auth_token=AUTH_TOKEN)
+
 
 def create_tags(**tags_in):
     tags.clear()
@@ -40,17 +43,17 @@ class FiddlerCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FiddlerCheck, self).__init__(name, init_config, instances)
 
-#        self.base_url = self.instance.get('url')
-#        self.api_key = self.instance.get('fiddler_api_key')
-#        self.org = self.instance.get('organization')
+    #        self.base_url = self.instance.get('url')
+    #        self.api_key = self.instance.get('fiddler_api_key')
+    #        self.org = self.instance.get('organization')
 
-#        print("Connecting to : ", self.base_url)
-#        print("with org id : ", self.org)
-#        print("and auth key : ", self.api_key)
+    #        print("Connecting to : ", self.base_url)
+    #        print("with org id : ", self.org)
+    #        print("and auth key : ", self.api_key)
 
-#        client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
+    #        client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
 
-        # Use self.instance to read the check configuration
+    # Use self.instance to read the check configuration
 
     def check(self, _):
         # Iterate through the projects and the models and push data into Fiddler
@@ -81,14 +84,19 @@ class FiddlerCheck(AgentCheck):
                     }
                     agg_metrics_path = ['aggregated_metrics', ORG_ID, project["name"], model["id"]]
                     print("ProjectModel: ", project["name"], model["id"], metric)
-#                    result = client._call(agg_metrics_path, json_request)
+                    # result = client._call(agg_metrics_path, json_request)
 
                     try:
                         result = client._call(agg_metrics_path, json_request)
                     except:
                         print("Aggregated metrics exception : ", agg_metrics_path)
                         print("Project with no monitoring data. ProjectModel: ", project["name"], model["id"], metric)
-                        pass
+                        hit_exception = True
+
+                    if hit_exception:
+                        print("Hit the exception.")
+                        hit_exception = False
+                        continue
 
                     print("Agg_metrics_path: ", agg_metrics_path)
                     print("json request: ", json_request, "\n")
