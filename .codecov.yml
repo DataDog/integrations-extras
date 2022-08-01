@@ -119,6 +119,14 @@ coverage:
         target: 75
         flags:
         - puma
+      PureFA:
+        target: 75
+        flags:
+        - purefa
+      PureFB:
+        target: 75
+        flags:
+        - purefb
       Reboot_Required:
         target: 75
         flags:
@@ -195,6 +203,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
       nvml:
         target: 75
         flags:
@@ -211,14 +223,6 @@ coverage:
         target: 75
         flags:
         - pulsar
-      PureFA:
-        target: 75
-        flags:
-        - purefa
-      PureFB:
-        target: 75
-        flags:
-        - purefb
       speedtest:
         target: 75
         flags:
@@ -277,8 +281,8 @@ flags:
   gitea:
     carryforward: true
     paths:
-      - gitea/datadog_checks/gitea
-      - gitea/tests
+    - gitea/datadog_checks/gitea
+    - gitea/tests
   gnatsd:
     carryforward: true
     paths:
@@ -289,6 +293,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  grpc_check:
+    carryforward: true
+    paths:
+    - grpc_check/datadog_checks/grpc_check
+    - grpc_check/tests
   jfrog_platform:
     carryforward: true
     paths:
