@@ -63,11 +63,11 @@ This extension does not include any events.
 
 ## Support
 
+Need help? Contact [Datadog support][3].
+
 ## Further reading
 
 - [Use Datadog's Sourcegraph extension to navigate code and visualize service dependencies][4]
-
-Need help? Contact [Datadog support][3].
 
 [1]: https://docs.sourcegraph.com/integration/browser_extension
 [2]: https://docs.datadoghq.com/tracing/visualization/services_map/
