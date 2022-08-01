@@ -83,7 +83,7 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
 
 1. Ensure the Agent has log collection enabled. You can check this by verifying whether or not `logs_enabled: true` has been set in the Agent's main configuration file `datadog.yaml`. [Refer to this document for more details][20].
 
-2. Modify the OpenMetrics config file (located at `openmetrics.d/conf.yaml`) to collect to the appropriate log files. Remember that you can use wildcards to select more than one log file. You should add something like this to the bottom of the file: 
+2. Modify the OpenMetrics config file (located at `openmetrics.d/conf.yaml`) to collect to the appropriate log files. Remember that [you can use wildcards to select more than one log file][21]. You should add something like this to the bottom of the file: 
 
 ```yaml
 logs:
@@ -218,3 +218,4 @@ Need help? Contact [Datadog support][15].
 [18]: https://github.com/jfrog/log-analytics-datadog/blob/master/README.md
 [19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
 [20]: https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection
+[21]: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#tail-directories-by-using-wildcards
