@@ -66,6 +66,14 @@ class MockNvml:
     def nvmlDeviceGetPowerUsage(h):
         return 12
 
+    @staticmethod
+    def nvmlDeviceGetTemperature(h, b):
+        return 13
+
+    @staticmethod
+    def nvmlDeviceGetFanSpeed(h):
+        return 14
+
 
 @pytest.mark.unit
 def test_check(aggregator, instance):
@@ -85,5 +93,7 @@ def test_check(aggregator, instance):
     aggregator.assert_metric('nvml.pcie_rx_throughput', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.pcie_tx_throughput', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.power_usage', tags=expected_tags, count=1)
+    aggregator.assert_metric('nvml.temperature', tags=expected_tags, count=1)
+    aggregator.assert_metric('nvml.fan_speed', tags=expected_tags, count=1)
 
     aggregator.assert_all_metrics_covered()

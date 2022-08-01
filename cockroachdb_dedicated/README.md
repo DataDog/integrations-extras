@@ -68,6 +68,19 @@ To deactivate the integration:
 
 After deactivating an integration, the metrics data will remain in Datadog for a default [retention period][11]. 
 
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][13] for a list of metrics provided by this integration.
+
+### Service Checks
+
+The CockroachDB Dedicated integration does not include any service checks.
+
+### Events
+
+The CockroachDB Dedicated integration does not include any events.
  
 ## Support
  
@@ -86,3 +99,4 @@ Need help? Contact [Datadog support][12].
 [10]: https://support.cockroachlabs.com/
 [11]: https://docs.datadoghq.com/developers/guide/data-collection-resolution-retention/
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/cockroachdb_dedicated/metadata.csv

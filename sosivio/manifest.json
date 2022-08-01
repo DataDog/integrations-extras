@@ -1,0 +1,57 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "d98f7912-e5a3-48bc-b63e-612d835bf6b4",
+  "app_id": "sosivio",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Get Answers. Not Data. Predictive Troubleshooting for Kubernetes.",
+    "title": "Sosivio",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Sosivios Dashboard in Datadog",
+        "image_url": "images/datadog-sosivio-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Notification",
+      "Category::Monitoring",
+      "Category::Containers",
+      "Category::Network",
+      "Category::Orchestration",
+      "Category::Alerting"
+    ]
+  },
+  "author": {
+    "support_email": "support@sosiv.io",
+    "homepage": "https://www.sosiv.io",
+    "name": "Sosivio",
+    "sales_email": "sales@sosiv.io"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Sosivio",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "sosivio.",
+        "check": "sosivio.healthchecks",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "sosivio_overview.json": "./assets/dashboards/sosivio_overview.json"
+    }
+  }
+}
