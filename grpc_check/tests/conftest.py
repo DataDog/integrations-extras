@@ -13,7 +13,7 @@ INSTANCE = {
 
 @pytest.fixture(scope="session")
 def dd_environment():
-    compose_file = os.path.join(get_here(), "docker/docker-compose.yml")
+    compose_file = os.path.join(get_here(), "docker", "docker-compose.yml")
     with docker_run(compose_file):
         yield INSTANCE
 
