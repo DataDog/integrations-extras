@@ -1,1 +1,292 @@
-{"title":"InsightFinder Dashboard","description":"This dashboard provided the view of predicted or detected incidents from InsightFinder. \n\nAbout InsightFinder - \nInsightFinder Unified Intelligence Engine (UIE) platform provides human centered AI solutions for identifying incident root causes, predicting and preventing production incidents. Visit us at www.insightfinder.com to learn more.","widgets":[{"id":5694616657083584,"definition":{"title":"InsightFinder","type":"group","background_color":"vivid_orange","show_title":true,"layout_type":"ordered","widgets":[{"id":5461395352924928,"definition":{"type":"image","url":"https://uc199676fafed31e1fccaefa4f33.previews.dropboxusercontent.com/p/thumb/ABkKXnSMbkYVyHf_IvQh7X8OrdbS1MNwyYzWKtsUDUInabtlTmLM1cHcXOioSBF88vt9FhGtIi3pS8v2gRiz3xDNePvCl4r8ihkB3l1LN-qIzAmArOpbkMjXAbwqUrkWt2yfqo3-UUleKS7MulNdGtywzQ4MJfteo_HOTdiUStCmjQqRDRjhC5CU_9xz2npI8_7Cvb1dW2UJg_BsdgNGZ4XWH6RuJRGAM6TD38SeU76k5kxi1FESCJHQ-_sOwif2GLcTsyOttqtAkQYp4AQm6XEq_C1DlFTxXEMvEQWztqhYCeAvb8Cr-YigLxXsyRqKZQXoF5AOg5qBvTJaPxqSQcifnjVPUhDgbskTqibz-KsWD3YqA7iqfuPfJSPeWIGLgns/p.png?size=512x512&size_mode=1","sizing":"contain","has_background":false,"has_border":true,"vertical_align":"center","horizontal_align":"center"},"layout":{"x":0,"y":0,"width":2,"height":2}},{"id":1510135480041762,"definition":{"type":"note","content":"This dashboard provided the view of predicted or detected incidents from InsightFinder.\n\nAbout InsightFinder - InsightFinder Unified Intelligence Engine (UIE) platform provides human centered AI solutions for identifying incident root causes, predicting and preventing production incidents. Visit us at www.insightfinder.com to learn more.\n\nhttps://insightfinder.com/datadog-integration/","background_color":"transparent","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":false},"layout":{"x":2,"y":0,"width":10,"height":2}}]},"layout":{"x":0,"y":0,"width":12,"height":3}},{"id":6865066213940010,"definition":{"title":"Predicted Incidents Timeline","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"search":{"query":""},"data_source":"incident_analytics","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"severity","sort":{"aggregation":"count","order":"desc"},"limit":10}]}],"style":{"palette":"orange","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":12,"height":2}},{"id":159134579140046,"definition":{"title":"Total Predicted Incidents","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"incident_analytics","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[]}]}],"autoscale":true,"precision":2,"timeseries_background":{"type":"bars","yaxis":{}}},"layout":{"x":0,"y":2,"width":2,"height":2}},{"id":396654075496888,"definition":{"title":"Top 10 Incidents","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"incident_analytics","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"severity","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":2,"y":2,"width":5,"height":2}},{"id":2279940465993678,"definition":{"title":"","title_size":"16","title_align":"left","type":"query_table","requests":[{"formulas":[{"formula":"query1","conditional_formats":[],"limit":{"count":10,"order":"desc"},"cell_display_mode":"bar"}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"incident_analytics","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"severity","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}],"has_search_bar":"never"},"layout":{"x":7,"y":2,"width":5,"height":2}}],"template_variables":[],"layout_type":"ordered","is_read_only":false,"notify_list":[],"reflow_type":"fixed","id":"mp4-6pb-gku"}
+{
+  "title": "InsightFinder Dashboard",
+  "description": "This dashboard provided the view of predicted or detected incidents from InsightFinder. \n\nAbout InsightFinder - \nInsightFinder Unified Intelligence Engine (UIE) platform provides human centered AI solutions for identifying incident root causes, predicting and preventing production incidents. Visit us at www.insightfinder.com to learn more.",
+  "widgets": [
+    {
+      "id": 5694616657083584,
+      "definition": {
+        "title": "InsightFinder",
+        "type": "group",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5461395352924928,
+            "definition": {
+              "type": "image",
+              "url": "https://uc199676fafed31e1fccaefa4f33.previews.dropboxusercontent.com/p/thumb/ABkKXnSMbkYVyHf_IvQh7X8OrdbS1MNwyYzWKtsUDUInabtlTmLM1cHcXOioSBF88vt9FhGtIi3pS8v2gRiz3xDNePvCl4r8ihkB3l1LN-qIzAmArOpbkMjXAbwqUrkWt2yfqo3-UUleKS7MulNdGtywzQ4MJfteo_HOTdiUStCmjQqRDRjhC5CU_9xz2npI8_7Cvb1dW2UJg_BsdgNGZ4XWH6RuJRGAM6TD38SeU76k5kxi1FESCJHQ-_sOwif2GLcTsyOttqtAkQYp4AQm6XEq_C1DlFTxXEMvEQWztqhYCeAvb8Cr-YigLxXsyRqKZQXoF5AOg5qBvTJaPxqSQcifnjVPUhDgbskTqibz-KsWD3YqA7iqfuPfJSPeWIGLgns/p.png?size=512x512&size_mode=1",
+              "sizing": "contain",
+              "has_background": false,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 1510135480041762,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provided the view of predicted or detected incidents from InsightFinder.\n\nAbout InsightFinder - InsightFinder Unified Intelligence Engine (UIE) platform provides human centered AI solutions for identifying incident root causes, predicting and preventing production incidents. Visit us at www.insightfinder.com to learn more.\n\nhttps://insightfinder.com/datadog-integration/",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 10,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 6865066213940010,
+      "definition": {
+        "title": "Predicted Incidents Timeline",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": {
+                  "query": ""
+                },
+                "data_source": "incident_analytics",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "severity",
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    },
+                    "limit": 10
+                  }
+                ]
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 2
+      }
+    },
+    {
+      "id": 159134579140046,
+      "definition": {
+        "title": "Total Predicted Incidents",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": ""
+                },
+                "data_source": "incident_analytics",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "bars",
+          "yaxis": {}
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "id": 396654075496888,
+      "definition": {
+        "title": "Top 10 Incidents",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": ""
+                },
+                "data_source": "incident_analytics",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "severity",
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    },
+                    "limit": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 2,
+        "y": 2,
+        "width": 5,
+        "height": 2
+      }
+    },
+    {
+      "id": 2279940465993678,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "conditional_formats": [],
+                "limit": {
+                  "count": 10,
+                  "order": "desc"
+                },
+                "cell_display_mode": "bar"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": ""
+                },
+                "data_source": "incident_analytics",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": [
+                  {
+                    "facet": "severity",
+                    "sort": {
+                      "aggregation": "count",
+                      "order": "desc"
+                    },
+                    "limit": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "has_search_bar": "never"
+      },
+      "layout": {
+        "x": 7,
+        "y": 2,
+        "width": 5,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "mp4-6pb-gku"
+}
