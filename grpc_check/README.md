@@ -60,10 +60,3 @@ Need help? Contact [Datadog support][9].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/grpc_check/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/grpc_check/assets/service_checks.json
 [9]: help@datadoghq.com
-
-
-INSTALLED PIP
-
-grpcio
-grpc
-grpcio-health-checking
