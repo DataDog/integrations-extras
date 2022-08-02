@@ -54,11 +54,11 @@ Need help? Contact [Datadog support][9].
 [1]: https://github.com/grpc/grpc/blob/master/doc/health-checking.md
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[4]: https://github.com/DataDog/integrations-core/blob/master/check/datadog_checks/check/data/conf.yaml.example
+[4]: https://github.com/DataDog/integrations-extras/blob/master/grpc_check/datadog_checks/check/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
-[8]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
+[7]: https://github.com/DataDog/integrations-extras/blob/master/grpc_check/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/grpc_check/assets/service_checks.json
 [9]: help@datadoghq.com
 
 
