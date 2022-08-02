@@ -103,7 +103,10 @@ logs:
 ### Log collection - Using FluentD
 
 #### Requirements
+
 * Your [Datadog API key][6].
+
+#### Setup and Configure
 1. Install Fluentd using the [jFrog documentation][18] based on your installation type, and define the environment variable.
 
 2. Configure Fluentd with Artifactory by downloading the Artifactory Fluentd configuration file to a directory you have permissions to write in, such as `$JF_PRODUCT_DATA_INTERNAL` locations.
