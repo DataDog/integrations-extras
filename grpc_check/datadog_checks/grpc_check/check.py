@@ -79,12 +79,12 @@ class GrpcCheckCheck(AgentCheck):
         self.client_cert = self.instance.get("client_cert", "")
         self.client_key = self.instance.get("client_key", "")
         self.ca_cert = self.instance.get("ca_cert", "")
-        self._validate_instance(self.instance)
+        self._validate_configuration()
         self.tags = self.instance.get("tags", [])
         self.tags.append("grpc_server_address:{}".format(self.grpc_server_address))
         self.tags.append("grpc_server_service:{}".format(self.grpc_server_service))
 
-    def _validate_instance(self, instance):
+    def _validate_configuration(self):
         if not self.grpc_server_address:
             raise ConfigurationError("grpc_server_address must be specified")
         if self.timeout <= 0:
