@@ -4,9 +4,12 @@
   "manifest_version": "1.0.0",
   "name": "grpc_check",
   "metric_prefix": "grpc_check.",
-  "metric_to_check": "",
+  "metric_to_check": [
+    "grpc_check.healthy",
+    "grpc_check.unhealthy"
+  ],
   "creates_events": false,
-  "short_description": "",
+  "short_description": "Monitor gRPC servers based on gRPC Health Checking Protocol",
   "guid": "c315801f-de1b-4c4c-974f-da2e76f245db",
   "support": "contrib",
   "supported_os": [
@@ -19,7 +22,7 @@
     ""
   ],
   "type": "check",
-  "is_public": false,
+  "is_public": true,
   "integration_id": "grpc-check",
   "assets": {
     "configuration": {

@@ -121,15 +121,15 @@ class GrpcCheckCheck(AgentCheck):
         self.log.debug("creating an insecure channel")
         return grpc.insecure_channel(instance.get("grpc_server_address"))
 
-    def _send_can_connect(self):
-        self.gauge("network.grpc.can_connect", 1, tags=self.tags)
-        self.gauge("network.grpc.cant_connect", 0, tags=self.tags)
-        self.service_check("grpc.can_connect", AgentCheck.OK, tags=self.tags)
+    def _send_healthy(self):
+        self.gauge("grpc_check.healthy", 1, tags=self.tags)
+        self.gauge("grpc_check.unhealthy", 0, tags=self.tags)
+        self.service_check("grpc.healthy", AgentCheck.OK, tags=self.tags)
 
-    def _send_cant_connect(self):
-        self.gauge("network.grpc.can_connect", 0, tags=self.tags)
-        self.gauge("network.grpc.cant_connect", 1, tags=self.tags)
-        self.service_check("grpc.can_connect", AgentCheck.CRITICAL, tags=self.tags)
+    def _send_unhealthy(self):
+        self.gauge("grpc_check.healthy", 0, tags=self.tags)
+        self.gauge("grpc_check.unhealthy", 1, tags=self.tags)
+        self.service_check("grpc.healthy", AgentCheck.CRITICAL, tags=self.tags)
 
     def check(self, instance):
         self.log.debug(
@@ -174,28 +174,28 @@ class GrpcCheckCheck(AgentCheck):
 
         if not response:
             self.tags.append("status_code:{}".format(status_code.name))
-            self._send_cant_connect()
+            self._send_unhealthy()
             return
 
         self.tags.append("status_code:{}".format(grpc.StatusCode.OK.name))
         if response.status == health_pb2.HealthCheckResponse.SERVING:
             self.log.info(
-                "grpc_server_address=%s, grpc_server_service=%s: serving",
+                "grpc_server_address=%s, grpc_server_service=%s: healthy",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_can_connect()
+            self._send_healthy()
         elif response.status == health_pb2.HealthCheckResponse.NOT_SERVING:
             self.log.warning(
-                "grpc_server_address=%s, grpc_server_service=%s: not serving",
+                "grpc_server_address=%s, grpc_server_service=%s: unhealthy",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_cant_connect()
+            self._send_unhealthy()
         else:
             self.log.warning(
                 "grpc_server_address=%s, grpc_server_service=%s: health check response was unknown",
                 self.grpc_server_address,
                 self.grpc_server_service,
             )
-            self._send_cant_connect()
+            self._send_unhealthy()

@@ -3,7 +3,6 @@
 #     ddev -x validate config -s <INTEGRATION_NAME>
 #     ddev -x validate models -s <INTEGRATION_NAME>
 
-
 from datadog_checks.base.utils.models.fields import get_default_field_value
 
 
@@ -11,16 +10,40 @@ def shared_service(field, value):
     return get_default_field_value(field, value)
 
 
+def instance_ca_cert(field, value):
+    return '/path/to/ca.pem'
+
+
+def instance_client_cert(field, value):
+    return '/path/to/client.pem'
+
+
+def instance_client_key(field, value):
+    return '/path/to/client-key.pem'
+
+
+def instance_disable_generic_tags(field, value):
+    return False
+
+
 def instance_empty_default_hostname(field, value):
     return False
+
+
+def instance_grpc_server_service(field, value):
+    return get_default_field_value(field, value)
+
+
+def instance_metric_patterns(field, value):
+    return get_default_field_value(field, value)
 
 
 def instance_min_collection_interval(field, value):
     return 15
 
 
-def instance_timeout(field, value):
-    return 1000
+def instance_rpc_header(field, value):
+    return get_default_field_value(field, value)
 
 
 def instance_service(field, value):
@@ -29,3 +52,7 @@ def instance_service(field, value):
 
 def instance_tags(field, value):
     return get_default_field_value(field, value)
+
+
+def instance_timeout(field, value):
+    return 1000

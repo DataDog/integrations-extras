@@ -58,7 +58,7 @@ def test_insecure_server_is_serving(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -66,7 +66,7 @@ def test_insecure_server_is_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -74,7 +74,7 @@ def test_insecure_server_is_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.OK,
         tags=expected_tags,
         count=1,
@@ -108,7 +108,7 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -116,7 +116,7 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -124,7 +124,7 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -158,7 +158,7 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -166,7 +166,7 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -174,7 +174,7 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -208,7 +208,7 @@ def test_unavailable(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -216,7 +216,7 @@ def test_unavailable(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -224,7 +224,7 @@ def test_unavailable(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -258,7 +258,7 @@ def test_timeout(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -266,7 +266,7 @@ def test_timeout(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -274,7 +274,7 @@ def test_timeout(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -308,7 +308,7 @@ def test_not_found(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -316,7 +316,7 @@ def test_not_found(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -324,7 +324,7 @@ def test_not_found(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -361,7 +361,7 @@ def test_secure_server_is_serving(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -369,7 +369,7 @@ def test_secure_server_is_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -377,7 +377,7 @@ def test_secure_server_is_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.OK,
         tags=expected_tags,
         count=1,
@@ -414,7 +414,7 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -422,7 +422,7 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -430,7 +430,7 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -467,7 +467,7 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -475,7 +475,7 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -483,7 +483,7 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.CRITICAL,
         tags=expected_tags,
         count=1,
@@ -570,7 +570,7 @@ def test_check_integration(dd_run_check, aggregator, instance):
     ]
 
     aggregator.assert_metric(
-        "network.grpc.can_connect",
+        "grpc_check.healthy",
         value=1.0,
         tags=expected_tags,
         hostname="",
@@ -578,7 +578,7 @@ def test_check_integration(dd_run_check, aggregator, instance):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_metric(
-        "network.grpc.cant_connect",
+        "grpc_check.unhealthy",
         value=0.0,
         tags=expected_tags,
         hostname="",
@@ -586,7 +586,7 @@ def test_check_integration(dd_run_check, aggregator, instance):
         metric_type=aggregator.GAUGE,
     )
     aggregator.assert_service_check(
-        "grpc.can_connect",
+        "grpc.healthy",
         status=AgentCheck.OK,
         tags=expected_tags,
         count=1,
