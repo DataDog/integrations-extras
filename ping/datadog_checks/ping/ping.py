@@ -3,7 +3,7 @@
 import platform
 import re
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
@@ -40,9 +40,9 @@ class PingCheck(AgentCheck):
                         self.CONFIGURATION_ERROR_MSG.format(target_host, 'IPv6 address', 'valid address')
                     )
             # It's a correct IP V6 address
-            cmd="ping6"
+            cmd = "ping6"
         else:
-            cmd="ping"
+            cmd = "ping"
 
         if platform.system() == "Windows":  # pragma: nocover
             precmd = ["cmd", "/c", "chcp 437 &"]  # Set code page to English for non-US Windows
