@@ -39,10 +39,18 @@ coverage:
         target: 75
         flags:
         - filebeat
+      Fluent_Bit:
+        target: 75
+        flags:
+        - fluentbit
       Gatekeeper:
         target: 75
         flags:
         - gatekeeper
+      Gitea:
+        target: 75
+        flags:
+        - gitea
       Gnatsd:
         target: 75
         flags:
@@ -75,6 +83,10 @@ coverage:
         target: 75
         flags:
         - neo4j
+      Netnology_SD-WAN:
+        target: 75
+        flags:
+        - nn_sdwan
       Neutrona:
         target: 60
         flags:
@@ -159,6 +171,10 @@ coverage:
         target: 75
         flags:
         - traefik
+      Trino:
+        target: 75
+        flags:
+        - trino
       UPSC:
         target: 75
         flags:
@@ -195,10 +211,14 @@ coverage:
         target: 75
         flags:
         - pulsar
-      purefa:
+      PureFA:
         target: 75
         flags:
         - purefa
+      PureFB:
+        target: 75
+        flags:
+        - purefb
       speedtest:
         target: 75
         flags:
@@ -244,11 +264,21 @@ flags:
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  fluentbit:
+    carryforward: true
+    paths:
+    - fluentbit/datadog_checks/fluentbit
+    - fluentbit/tests
   gatekeeper:
     carryforward: true
     paths:
     - gatekeeper/datadog_checks/gatekeeper
     - gatekeeper/tests
+  gitea:
+    carryforward: true
+    paths:
+      - gitea/datadog_checks/gitea
+      - gitea/tests
   gnatsd:
     carryforward: true
     paths:
@@ -294,6 +324,11 @@ flags:
     paths:
     - nextcloud/datadog_checks/nextcloud
     - nextcloud/tests
+  nn_sdwan:
+    carryforward: true
+    paths:
+    - nn_sdwan/datadog_checks/nn_sdwan
+    - nn_sdwan/tests
   ns1:
     carryforward: true
     paths:
@@ -354,6 +389,11 @@ flags:
     paths:
     - purefa/datadog_checks/purefa
     - purefa/tests
+  purefb:
+    carryforward: true
+    paths:
+    - purefb/datadog_checks/purefb
+    - purefb/tests
   reboot_required:
     carryforward: true
     paths:
@@ -424,6 +464,11 @@ flags:
     paths:
     - traefik/datadog_checks/traefik
     - traefik/tests
+  trino:
+    carryforward: true
+    paths:
+    - trino/datadog_checks/trino
+    - trino/tests
   unbound:
     carryforward: true
     paths:

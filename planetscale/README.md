@@ -1,12 +1,10 @@
-# Agent Check: Planetscale
+# Planetscale
 
 ## Overview
 
 PlanetScale can push metrics into Datadog to assist your team with understanding database usage and performance.
 
 ## Setup
-
-### Configuration
 
 Follow the steps below to configure your PlanetScale organization to push metrics into Datadog.
 
@@ -31,11 +29,11 @@ Planetscale does not include any events.
 
 ## Support
 
-Need help? Contact [PlanetScale support][4].
+Need help? Contact [Datadog support][4].
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://app.planetscale.com/settings/integrations
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/planetscale/images/planetscale.png
-[4]: http://planetscale.com
+[4]: https://docs.datadoghq.com/help/
 [5]: https://github.com/DataDog/integrations-extras/blob/master/planetscale/metadata.csv
 

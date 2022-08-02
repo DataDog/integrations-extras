@@ -21,18 +21,18 @@ resources:
   - container: dd_agent
     image: gcr.io/datadoghq/agent:latest
     ports:
-      - 8127:8126
+    - 8127:8126
     env:
       DD_API_KEY: $(DD_CI_API_KEY)
-      DD_HOSTNAME: "none"
-      DD_INSIDE_CI: "true"
+      DD_HOSTNAME: none
+      DD_INSIDE_CI: 'true'
 variables:
   DDEV_COLOR: 1
   DD_TRACE_AGENT_PORT: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
-    ddtrace_flag: '--ddtrace'
+    ddtrace_flag: --ddtrace
     repo: extras
     checks:
     - checkName: aqua
@@ -59,11 +59,17 @@ jobs:
     - checkName: filebeat
       displayName: Filebeat
       os: linux
+    - checkName: fluentbit
+      displayName: Fluent Bit
+      os: linux
     - checkName: flume
       displayName: flume
       os: linux
     - checkName: gatekeeper
       displayName: Gatekeeper
+      os: linux
+    - checkName: gitea
+      displayName: Gitea
       os: linux
     - checkName: gnatsd
       displayName: Gnatsd
@@ -91,6 +97,9 @@ jobs:
       os: linux
     - checkName: nextcloud
       displayName: Nextcloud
+      os: linux
+    - checkName: nn_sdwan
+      displayName: Netnology SD-WAN
       os: linux
     - checkName: ns1
       displayName: NS1
@@ -126,7 +135,10 @@ jobs:
       displayName: Puma
       os: linux
     - checkName: purefa
-      displayName: purefa
+      displayName: PureFA
+      os: linux
+    - checkName: purefb
+      displayName: PureFB
       os: linux
     - checkName: reboot_required
       displayName: Reboot Required
@@ -172,6 +184,9 @@ jobs:
       os: linux
     - checkName: traefik
       displayName: Traefik
+      os: linux
+    - checkName: trino
+      displayName: Trino
       os: linux
     - checkName: unbound
       displayName: Unbound

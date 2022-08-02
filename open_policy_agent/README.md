@@ -138,6 +138,6 @@ Need help? Contact [Datadog support][13].
 [9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/open_policy_agent/images/metric.png
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[12]: https://github.com/DataDog/integrations-core/blob/master/open_policy_agent/metadata.csv
+[12]: https://github.com/DataDog/integrations-extras/blob/master/open_policy_agent/metadata.csv
 [13]: https://docs.datadoghq.com/help/
 [14]: https://github.com/DataDog/integrations-extras/blob/master/open_policy_agent/assets/service_checks.json

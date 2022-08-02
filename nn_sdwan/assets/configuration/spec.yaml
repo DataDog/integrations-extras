@@ -1,0 +1,35 @@
+name: Netnology SD-WAN
+files:
+- name: nn_sdwan.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: hostname
+      required: True
+      description: The hostname of the remote Cisco SD-WAN controller.
+      value:
+        type: string
+        example: localhost
+    - name: username
+      required: True
+      description: A username used for basic authentication with the Cisco SD-WAN controller.
+      value:
+        type: string
+        example: username
+    - name: password
+      required: True
+      description: A corresponding password used for basic authentication with the Cisco SD-WAN controller.
+      secret: True
+      value:
+        type: string
+        example: password
+    - name: protocol
+      required: True
+      description: The protocol to use when fetching metrics.
+      value:
+        type: string
+        example: https
+    - template: instances/default

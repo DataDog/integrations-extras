@@ -65,7 +65,7 @@ A Zscaler Cloud NSS subscription is required.
 2. Select the **Cloud NSS Feeds** tab. Then, click on **Add Cloud NSS Feed**.
 3. In the dialog box, enter or select the following values:
    * Feed Name: `<YOUR_FEED_NAME>`
-   * NSS Type: `NSS for Firewall`
+   * NSS Type: `NSS for DNS`
    * SIEM Type: `Other`
    * Batch Size: `16`
    * API URL: `https://http-intake.logs.datadoghq.com/v1/input?ddsource=zscaler`
@@ -134,6 +134,6 @@ Need help? Contact [Datadog support][7].
 [3]: https://github.com/DataDog/integrations-core/blob/master/zscaler/datadog_checks/zscaler/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-core/blob/master/zscaler/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/zscaler/metadata.csv
 [7]: https://docs.datadoghq.com/help/
 [8]: https://help.zscaler.com/zia/about-nanolog-streaming-service

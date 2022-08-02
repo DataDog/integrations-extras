@@ -59,5 +59,5 @@ Need help? Contact [Datadog support][12].
 [8]: https://github.com/DataDog/integrations-extras/blob/master/neutrona/datadog_checks/neutrona/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[11]: https://github.com/DataDog/integrations-core/blob/master/neutrona/metadata.csv
+[11]: https://github.com/DataDog/integrations-extras/blob/master/neutrona/metadata.csv
 [12]: https://docs.datadoghq.com/help/

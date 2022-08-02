@@ -28,6 +28,9 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
+Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
+  * e.g. `datadog-agent integration install -t datadog-purefa==1.0.1`
+
 ### Configuration
 
 1. Create a local user on your FlashArray with the Read-Only role and generate an API token for this user.
@@ -128,7 +131,7 @@ For support or feature requests, contact Pure Storage through the following meth
 [1]: https://github.com/PureStorage-OpenConnect/pure-exporter
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://www.purestorage.com/products.html
-[4]: https://github.com/DataDog/integrations-extras/blob/master/purefa/data/conf.yaml.example
+[4]: https://github.com/datadog/integrations-extras/blob/master/purefa/datadog_checks/purefa/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/purefa/metadata.csv
@@ -136,3 +139,4 @@ For support or feature requests, contact Pure Storage through the following meth
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
 [12]: https://github.com/DataDog/integrations-extras/blob/master/purefa/assets/service_checks.json
+[13]: https://github.com/DataDog/integrations-extras/blob/master/purefa/CHANGELOG.md

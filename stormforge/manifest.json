@@ -1,0 +1,63 @@
+{
+    "manifest_version": "2.0.0",
+    "app_uuid": "6f1ddcc9-e704-4f94-941b-8a914fcd89a0",
+    "app_id": "stormforge",
+    "display_on_public_website": true,
+    "tile": {
+        "overview": "README.md#Overview",
+        "configuration": "README.md#Setup",
+        "support": "README.md#Support",
+        "changelog": "CHANGELOG.md",
+        "description": "Real-time optimization of Kubernetes resources using machine learning",
+        "title": "StormForge",
+        "media": [{
+                "media_type": "image",
+                "caption": "Create an Application as a collection of resources to target for optimization.",
+                "image_url": "images/sf_ui_01_application.jpg"
+            },
+            {
+                "media_type": "image",
+                "caption": "Configure Optimize Live",
+                "image_url": "images/sf_ui_02_configure.jpg"
+            }
+        ],
+        "classifier_tags": [
+            "Supported OS::Linux",
+            "Category::Cloud",
+            "Category::Configuration & Deployment",
+            "Category::Containers",
+            "Category::Cost Management",
+            "Category::Orchestration",
+            "Offering::Integration"
+        ]
+    },
+    "author": {
+        "name": "StormForge",
+        "support_email": "support@stormforge.io",
+        "homepage": "https://stormforge.io",
+        "sales_email": "sales@stormforge.io"
+    },
+    "oauth": {},
+    "assets": {
+        "integration": {
+            "source_type_name": "StormForge",
+            "configuration": {
+                "spec": "assets/configuration/spec.yaml"
+            },
+            "events": {
+                "creates_events": false
+            },
+            "metrics": {
+                "prefix": "stormforge.",
+                "check": "stormforge.recommendation_cpu_requests_cores",
+                "metadata_path": "metadata.csv"
+            },
+            "service_checks": {
+                "metadata_path": "assets/service_checks.json"
+            }
+        },
+        "dashboards": {
+            "StormForge Optimize Live Application Overview": "assets/dashboards/stormforge_overview.json"
+        }
+    }
+}
