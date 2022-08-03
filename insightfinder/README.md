@@ -21,7 +21,6 @@ Contact [Datadog support][6] or email [InsightFinder support][4].
 
 [1]: https://insightfinder.com/
 [2]: https://insightfinder.com/datadog-integration/
-[3]: https://app.insightfinder.com/auth/signup
-[4]: mailto:support@insightfinder.com
-[5]: https://docs.datadoghq.com/account_management/api-app-keys/
-[6]: https://docs.datadoghq.com/help/
+[3]: mailto:support@insightfinder.com
+[4]: https://docs.datadoghq.com/account_management/api-app-keys/
+[5]: https://docs.datadoghq.com/help/
