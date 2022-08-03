@@ -4,8 +4,7 @@
 
 [InsightFinder][1] AIOps identifies system and application issues before they impact users. Powered by unsupervised machine learning, InsightFinder continuously learns from events, logs, metrics, and changes to detect anomalies, predict incidents, and remediate outages.
 
-InsightFinder ingests data from Datadog through standard APIs and finds anomalous events before your business is impacted.
-Alerts for these anomalous events can be sent to notify your team. This bidirectional integration provides advanced AIOps capabilities.
+This bidirectional integration provides advanced AIOps capabilities. InsightFinder ingests data from Datadog through standard APIs and finds anomalous events before your business is impacted. Alerts for these anomalous events can then be sent into Datadog to notify your team.
 
 ## Setup
 
