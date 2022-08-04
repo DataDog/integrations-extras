@@ -12,7 +12,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To install the grpc_check check on your host:
 
-1. Install the developer toolkit[10] on any machine.
+1. Install the [developer toolkit][10] on any machine.
 
 2. Run `ddev release build grpc_check` to build the package.
 
