@@ -10,16 +10,15 @@ This bidirectional integration provides advanced AIOps capabilities. InsightFind
 
 ### Installation
 
-To configure the integration and send data to InsightFinder, see the [InsightFinder-Datadog Integration][2]. You need a Datadog [API key and application key][5].
+To configure the integration and send data to InsightFinder, see the [InsightFinder-Datadog Integration][2]. You need a Datadog [API key and application key][3].
 
 
 ## Support
 
-Contact [Datadog support][6] or email [InsightFinder support][4].
+Contact [Datadog support][4] or email [InsightFinder support][1].
 
 
 [1]: https://insightfinder.com/
 [2]: https://insightfinder.com/datadog-integration/
-[3]: mailto:support@insightfinder.com
-[4]: https://docs.datadoghq.com/account_management/api-app-keys/
-[5]: https://docs.datadoghq.com/help/
+[3]: https://docs.datadoghq.com/account_management/api-app-keys/
+[4]: https://docs.datadoghq.com/help/
