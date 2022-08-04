@@ -92,8 +92,7 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
-    grpc_server = create_insecure_grpc_server(
-        health_pb2.HealthCheckResponse.NOT_SERVING)
+    grpc_server = create_insecure_grpc_server(health_pb2.HealthCheckResponse.NOT_SERVING)
     grpc_server.start()
 
     check = GrpcCheck("grpc_check", {}, [instance])
@@ -143,8 +142,7 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
-    grpc_server = create_insecure_grpc_server(
-        health_pb2.HealthCheckResponse.UNKNOWN)
+    grpc_server = create_insecure_grpc_server(health_pb2.HealthCheckResponse.UNKNOWN)
     grpc_server.start()
 
     check = GrpcCheck("grpc_check", {}, [instance])
@@ -400,8 +398,7 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
         "client_cert": "tests/fixtures/client.pem",
         "client_key": "tests/fixtures/client-key.pem",
     }
-    grpc_server = create_secure_grpc_server(
-        health_pb2.HealthCheckResponse.NOT_SERVING)
+    grpc_server = create_secure_grpc_server(health_pb2.HealthCheckResponse.NOT_SERVING)
     grpc_server.start()
 
     check = GrpcCheck("grpc_check", {}, [instance])
@@ -454,8 +451,7 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
         "client_cert": "tests/fixtures/client.pem",
         "client_key": "tests/fixtures/client-key.pem",
     }
-    grpc_server = create_secure_grpc_server(
-        health_pb2.HealthCheckResponse.UNKNOWN)
+    grpc_server = create_secure_grpc_server(health_pb2.HealthCheckResponse.UNKNOWN)
     grpc_server.start()
 
     check = GrpcCheck("grpc_check", {}, [instance])
