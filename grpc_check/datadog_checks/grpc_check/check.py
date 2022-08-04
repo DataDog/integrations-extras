@@ -16,22 +16,26 @@ class _GenericClientInterceptor(
         self._fn = interceptor_function
 
     def intercept_unary_unary(self, continuation, client_call_details, request):
-        new_details, new_request_iterator, postprocess = self._fn(client_call_details, iter((request,)), False, False)
+        new_details, new_request_iterator, postprocess = self._fn(
+            client_call_details, iter((request,)), False, False)
         response = continuation(new_details, next(new_request_iterator))
         return postprocess(response) if postprocess else response
 
     def intercept_unary_stream(self, continuation, client_call_details, request):
-        new_details, new_request_iterator, postprocess = self._fn(client_call_details, iter((request,)), False, True)
+        new_details, new_request_iterator, postprocess = self._fn(
+            client_call_details, iter((request,)), False, True)
         response_it = continuation(new_details, next(new_request_iterator))
         return postprocess(response_it) if postprocess else response_it
 
     def intercept_stream_unary(self, continuation, client_call_details, request_iterator):
-        new_details, new_request_iterator, postprocess = self._fn(client_call_details, request_iterator, True, False)
+        new_details, new_request_iterator, postprocess = self._fn(
+            client_call_details, request_iterator, True, False)
         response = continuation(new_details, new_request_iterator)
         return postprocess(response) if postprocess else response
 
     def intercept_stream_stream(self, continuation, client_call_details, request_iterator):
-        new_details, new_request_iterator, postprocess = self._fn(client_call_details, request_iterator, True, True)
+        new_details, new_request_iterator, postprocess = self._fn(
+            client_call_details, request_iterator, True, True)
         response_it = continuation(new_details, new_request_iterator)
         return postprocess(response_it) if postprocess else response_it
 
@@ -41,7 +45,8 @@ def create_generic_client_interceptor(intercept_call):
 
 
 class _ClientCallDetails(
-    collections.namedtuple("_ClientCallDetails", ("method", "timeout", "metadata", "credentials")),
+    collections.namedtuple("_ClientCallDetails",
+                           ("method", "timeout", "metadata", "credentials")),
     grpc.ClientCallDetails,
 ):
     pass
@@ -69,9 +74,9 @@ def header_adder_interceptor(header, value):
     return create_generic_client_interceptor(intercept_call)
 
 
-class GrpcCheckCheck(AgentCheck):
+class GrpcCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
-        super(GrpcCheckCheck, self).__init__(name, init_config, instances)
+        super(GrpcCheck, self).__init__(name, init_config, instances)
         self.grpc_server_address = self.instance.get("grpc_server_address", "")
         self.grpc_server_service = self.instance.get("grpc_server_service", "")
         self.timeout = self.instance.get("timeout", 0) / 1000
@@ -81,27 +86,34 @@ class GrpcCheckCheck(AgentCheck):
         self.ca_cert = self.instance.get("ca_cert", "")
         self._validate_configuration()
         self.tags = self.instance.get("tags", [])
-        self.tags.append("grpc_server_address:{}".format(self.grpc_server_address))
-        self.tags.append("grpc_server_service:{}".format(self.grpc_server_service))
+        self.tags.append("grpc_server_address:{}".format(
+            self.grpc_server_address))
+        self.tags.append("grpc_server_service:{}".format(
+            self.grpc_server_service))
 
     def _validate_configuration(self):
         if not self.grpc_server_address:
             raise ConfigurationError("grpc_server_address must be specified")
         if self.timeout <= 0:
             raise ConfigurationError("timeout must be greater than zero")
-        _all = all([self.ca_cert != "", self.client_cert != "", self.client_key != ""])
-        nothing = all([self.ca_cert == "", self.client_cert == "", self.client_key == ""])
+        _all = all([self.ca_cert != "", self.client_cert !=
+                   "", self.client_key != ""])
+        nothing = all([self.ca_cert == "", self.client_cert ==
+                      "", self.client_key == ""])
         if (_all or nothing) is False:
-            raise ConfigurationError("ca_cert, client_cert or client_key is missing")
+            raise ConfigurationError(
+                "ca_cert, client_cert or client_key is missing")
 
     def _parse_rcp_headers(self, rpc_headers):
         header_adder_interceptors = []
         for rpc_header in rpc_headers:
             header_value = rpc_header.split(":")
             if len(header_value) <= 1:
-                self.log.debug("'%s' was invalid rpc_header format", rpc_header)
+                self.log.debug(
+                    "'%s' was invalid rpc_header format", rpc_header)
                 continue
-            header_adder_interceptors.append(header_adder_interceptor(header_value[0], header_value[1].strip()))
+            header_adder_interceptors.append(header_adder_interceptor(
+                header_value[0], header_value[1].strip()))
         return header_adder_interceptors
 
     def _create_channel(self, instance):
@@ -141,10 +153,13 @@ class GrpcCheckCheck(AgentCheck):
         response = None
         try:
             with self._create_channel(instance) as channel:
-                header_adder_interceptors = self._parse_rcp_headers(self.rpc_header)
-                intercept_channel = grpc.intercept_channel(channel, *header_adder_interceptors)
+                header_adder_interceptors = self._parse_rcp_headers(
+                    self.rpc_header)
+                intercept_channel = grpc.intercept_channel(
+                    channel, *header_adder_interceptors)
                 health_stub = health_pb2_grpc.HealthStub(intercept_channel)
-                request = health_pb2.HealthCheckRequest(service=self.grpc_server_service)
+                request = health_pb2.HealthCheckRequest(
+                    service=self.grpc_server_service)
                 response = health_stub.Check(request, timeout=self.timeout)
         except grpc.RpcError as e:
             status_code = e.code()

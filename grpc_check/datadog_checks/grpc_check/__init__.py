@@ -1,4 +1,4 @@
 from .__about__ import __version__
-from .check import GrpcCheckCheck
+from .check import GrpcCheck
 
-__all__ = ["__version__", "GrpcCheckCheck"]
+__all__ = ["__version__", "GrpcCheck"]

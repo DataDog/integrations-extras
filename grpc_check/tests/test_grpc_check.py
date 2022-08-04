@@ -6,7 +6,7 @@ from grpc_health.v1 import health, health_pb2, health_pb2_grpc
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.dev.utils import get_metadata_metrics
-from datadog_checks.grpc_check import GrpcCheckCheck
+from datadog_checks.grpc_check import GrpcCheck
 
 
 def create_insecure_grpc_server(expected_status=health_pb2.HealthCheckResponse.SERVING):
@@ -45,7 +45,7 @@ def test_insecure_server_is_serving(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -92,10 +92,11 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
-    grpc_server = create_insecure_grpc_server(health_pb2.HealthCheckResponse.NOT_SERVING)
+    grpc_server = create_insecure_grpc_server(
+        health_pb2.HealthCheckResponse.NOT_SERVING)
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -142,10 +143,11 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
-    grpc_server = create_insecure_grpc_server(health_pb2.HealthCheckResponse.UNKNOWN)
+    grpc_server = create_insecure_grpc_server(
+        health_pb2.HealthCheckResponse.UNKNOWN)
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -195,7 +197,7 @@ def test_unavailable(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -245,7 +247,7 @@ def test_timeout(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -295,7 +297,7 @@ def test_not_found(dd_run_check, aggregator):
     grpc_server = create_insecure_grpc_server()
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -348,7 +350,7 @@ def test_secure_server_is_serving(dd_run_check, aggregator):
     grpc_server = create_secure_grpc_server()
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -398,10 +400,11 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
         "client_cert": "tests/fixtures/client.pem",
         "client_key": "tests/fixtures/client-key.pem",
     }
-    grpc_server = create_secure_grpc_server(health_pb2.HealthCheckResponse.NOT_SERVING)
+    grpc_server = create_secure_grpc_server(
+        health_pb2.HealthCheckResponse.NOT_SERVING)
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -451,10 +454,11 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
         "client_cert": "tests/fixtures/client.pem",
         "client_key": "tests/fixtures/client-key.pem",
     }
-    grpc_server = create_secure_grpc_server(health_pb2.HealthCheckResponse.UNKNOWN)
+    grpc_server = create_secure_grpc_server(
+        health_pb2.HealthCheckResponse.UNKNOWN)
     grpc_server.start()
 
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
     grpc_server.stop(None)
 
@@ -508,7 +512,7 @@ def test_ca_cert_missing():
         ConfigurationError,
         match="^ca_cert, client_cert or client_key is missing$",
     ):
-        GrpcCheckCheck("grpc_check", {}, [instance])
+        GrpcCheck("grpc_check", {}, [instance])
 
 
 def test_client_cert_missing():
@@ -525,7 +529,7 @@ def test_client_cert_missing():
         ConfigurationError,
         match="^ca_cert, client_cert or client_key is missing$",
     ):
-        GrpcCheckCheck("grpc_check", {}, [instance])
+        GrpcCheck("grpc_check", {}, [instance])
 
 
 def test_client_key_missing():
@@ -542,25 +546,25 @@ def test_client_key_missing():
         ConfigurationError,
         match="^ca_cert, client_cert or client_key is missing$",
     ):
-        GrpcCheckCheck("grpc_check", {}, [instance])
+        GrpcCheck("grpc_check", {}, [instance])
 
 
 def test_empty_instance():
     instance = {}
     with pytest.raises(ConfigurationError, match="^grpc_server_address must be specified$"):
-        GrpcCheckCheck("grpc_check", {}, [instance])
+        GrpcCheck("grpc_check", {}, [instance])
 
 
 def test_timeout_zero():
     instance = {"grpc_server_address": "localhost:50051", "timeout": 0}
     with pytest.raises(ConfigurationError, match="^timeout must be greater than zero$"):
-        GrpcCheckCheck("grpc_check", {}, [instance])
+        GrpcCheck("grpc_check", {}, [instance])
 
 
 @pytest.mark.integration
 @pytest.mark.usefixtures("dd_environment")
 def test_check_integration(dd_run_check, aggregator, instance):
-    check = GrpcCheckCheck("grpc_check", {}, [instance])
+    check = GrpcCheck("grpc_check", {}, [instance])
     dd_run_check(check)
 
     expected_tags = [
