@@ -10,7 +10,7 @@ from datadog_checks.unifi_console.types import Check, ControllerInfo
 class UnifiConsoleCheck(AgentCheck):
 
     # This will be the prefix of every metric and service check the integration sends
-    __NAMESPACE__ = "unifi"
+    __NAMESPACE__ = "unifi_console"
 
     def __init__(self, name, init_config, instances):
         instances[0]['persist_connections'] = instances[0].get('persist_connections', True)

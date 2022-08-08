@@ -30,7 +30,7 @@ def test_metrics_submission(aggregator, dd_run_check, instance):
                     hostname=metric.get("hostname"),
                     tags=metric.get("tags"),
                 )
-    aggregator.assert_metric('unifi.healthy', metric_type=aggregator.GAUGE)
+    aggregator.assert_metric('unifi_console.healthy', metric_type=aggregator.GAUGE)
     aggregator.assert_all_metrics_covered()
 
 
@@ -53,9 +53,9 @@ def test_check_status_fail(aggregator, dd_run_check, instance):
         with pytest.raises(Exception):
             dd_run_check(check)
 
-        aggregator.assert_service_check("unifi.can_connect", AgentCheck.CRITICAL, tags=check._config.tags)
-        aggregator.assert_service_check("unifi.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
-        aggregator.assert_metric('unifi.healthy', 0, metric_type=aggregator.GAUGE)
+        aggregator.assert_service_check("unifi_console.can_connect", AgentCheck.CRITICAL, tags=check._config.tags)
+        aggregator.assert_service_check("unifi_console.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
+        aggregator.assert_metric('unifi_console.healthy', 0, metric_type=aggregator.GAUGE)
 
 
 @pytest.mark.usefixtures("mock_api")
@@ -63,9 +63,9 @@ def test_check_status_pass(aggregator, dd_run_check, instance):
     check = UnifiConsoleCheck("unifi", {}, [instance])
 
     dd_run_check(check)
-    aggregator.assert_service_check("unifi.can_connect", AgentCheck.OK, tags=check._config.tags)
-    aggregator.assert_service_check("unifi.healthy", AgentCheck.OK, tags=check._config.tags)
-    aggregator.assert_metric('unifi.healthy', 1, metric_type=aggregator.GAUGE)
+    aggregator.assert_service_check("unifi_console.can_connect", AgentCheck.OK, tags=check._config.tags)
+    aggregator.assert_service_check("unifi_console.healthy", AgentCheck.OK, tags=check._config.tags)
+    aggregator.assert_metric('unifi_console.healthy', 1, metric_type=aggregator.GAUGE)
 
 
 @pytest.mark.usefixtures("mock_api")
@@ -95,19 +95,19 @@ def test__submit_healthy_metrics(aggregator, instance):
 
     info = "test"
     check._submit_healthy_metrics(info, check._config.tags)
-    aggregator.assert_service_check("unifi.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
-    aggregator.assert_metric('unifi.healthy', 0, metric_type=aggregator.GAUGE)
+    aggregator.assert_service_check("unifi_console.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
+    aggregator.assert_metric('unifi_console.healthy', 0, metric_type=aggregator.GAUGE)
 
     with open(os.path.join(HERE, "fixtures", "status_valid.json")) as f:
         check._submit_healthy_metrics(ControllerInfo(json.load(f)), check._config.tags)
-    aggregator.assert_service_check("unifi.healthy", AgentCheck.OK, tags=check._config.tags)
-    aggregator.assert_metric('unifi.healthy', 1, metric_type=aggregator.GAUGE)
+    aggregator.assert_service_check("unifi_console.healthy", AgentCheck.OK, tags=check._config.tags)
+    aggregator.assert_metric('unifi_console.healthy', 1, metric_type=aggregator.GAUGE)
 
     aggregator.reset()
     with open(os.path.join(HERE, "fixtures", "status_invalid.json")) as f:
         check._submit_healthy_metrics(ControllerInfo(json.load(f)), check._config.tags)
-    aggregator.assert_service_check("unifi.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
-    aggregator.assert_metric('unifi.healthy', 0, metric_type=aggregator.GAUGE)
+    aggregator.assert_service_check("unifi_console.healthy", AgentCheck.CRITICAL, tags=check._config.tags)
+    aggregator.assert_metric('unifi_console.healthy', 0, metric_type=aggregator.GAUGE)
 
 
 @pytest.mark.parametrize(
@@ -123,4 +123,4 @@ def test__submit_metrics(aggregator, instance, metric, expected_type):
 
     metrics = [metric]
     check._submit_metrics(metrics)
-    aggregator.assert_metric('unifi.test', 1, metric_type=expected_type)
+    aggregator.assert_metric('unifi_console.test', 1, metric_type=expected_type)

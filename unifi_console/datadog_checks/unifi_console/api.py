@@ -16,7 +16,7 @@ def smart_retry(f):
     # type: (Callable) -> CallableT
     """A function decorated with this `@smart_retry` will trigger a new authentication if it fails. The function
     will then be retried.
-    This is useful when the integration keeps a semi-healthy connection to the vSphere API"""
+    This is useful when the integration keeps a semi-healthy connection to the Controller API"""
 
     @functools.wraps(f)
     def wrapper(api_instance, *args, **kwargs):
@@ -26,7 +26,7 @@ def smart_retry(f):
         except Unauthorized as e:
 
             api_instance.log.debug(
-                "An exception occurred when executing %s: %s. Refreshing the connection to vCenter and retrying",
+                "An exception occurred when executing %s: %s. Refreshing the connection to the Controller and retrying",
                 f.__name__,
                 e,
             )
