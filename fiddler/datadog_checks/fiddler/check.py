@@ -1,8 +1,3 @@
-# import datetime
-# import json
-# from requests.exceptions import Timeout
-
-# import yaml
 import time
 
 import fiddler as fdl
@@ -93,7 +88,9 @@ class FiddlerCheck(AgentCheck):
                         result = self.client._call(agg_metrics_path, json_request)
                     except Exception:
                         self.log("Aggregated metrics exception : ", agg_metrics_path)
-                        self.log("Project with no monitoring data. ProjectModel: ", project["name"], model["id"], metric)
+                        self.log(
+                            "Project with no monitoring data. ProjectModel: ", project["name"], model["id"], metric
+                        )
                         hit_exception = True
 
                     if hit_exception:
@@ -152,4 +149,4 @@ class FiddlerCheck(AgentCheck):
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
 
-        self.service_check("can_connect", AgentCheck.OK)
+        self.service_check("fiddler.can_connect", AgentCheck.OK)

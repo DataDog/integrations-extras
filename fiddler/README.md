@@ -3,7 +3,7 @@
 ## Overview
 
 This check monitors AI model performance using [Fiddler][1] through the Datadog Agent.
-Fiddler monitors model drift model performance for AI models.
+Fiddler monitors model drift and performance for AI models.
 
 
 ## Setup
