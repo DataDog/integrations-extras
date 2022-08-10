@@ -1,38 +1,52 @@
 {
-  "display_name": "Torq",
-  "maintainer": "support@torq.io",
-  "manifest_version": "1.0.0",
-  "name": "torq",
-  "metric_prefix": "torq.",
-  "metric_to_check": "",
-  "creates_events": true,
-  "short_description": "No-code automation for security and operations teams",
-  "guid": "06f744f6-88ec-4ca1-9acf-cc1754b6cef5",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Torq",
-  "categories": [
-    "automation",
-    "orchestration",
-    "notification",
-    "collaboration",
-    "security"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "torq",
+  "manifest_version": "2.0.0",
+  "app_uuid": "56e675d8-a461-46ec-93e9-9e8618d21354",
+  "app_id": "torq",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "No-code automation for security and operations teams",
+    "title": "Torq",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Orchestration",
+      "Category::Notification",
+      "Category::Collaboration",
+      "Category::Security"
+    ]
+  },
+  "author": {
+    "support_email": "support@torq.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@torq.io",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Torq",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "torq.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Torq": "assets/dashboards/torq_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
