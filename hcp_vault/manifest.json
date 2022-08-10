@@ -1,34 +1,47 @@
 {
-  "display_name": "HCPVault",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "hcp_vault",
-  "metric_prefix": "hcp_vault.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "The HCP Vault integration provides an overview of your Vault clusters",
-  "guid": "9fb902f5-b9cf-4064-8236-b65bf32474aa",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "HCP Vault",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "hcp-vault",
+  "manifest_version": "2.0.0",
+  "app_uuid": "ad48fccf-95f1-4ead-ae7f-efac1757418a",
+  "app_id": "hcp-vault",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "The HCP Vault integration provides an overview of your Vault clusters",
+    "title": "HCP Vault",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "HCPVault",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "hcp_vault.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "HCPVault Overview": "assets/dashboards/hcp_vault_overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
