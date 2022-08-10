@@ -1,35 +1,46 @@
 {
-  "display_name": "Trino",
-  "maintainer": "@ndrluis",
-  "manifest_version": "1.0.0",
-  "name": "trino",
-  "metric_prefix": "trino.",
-  "metric_to_check": "trino.memory.reserved_distributed_bytes",
-  "creates_events": false,
-  "short_description": "Collects performance and usage stats on Trino clusters",
-  "guid": "f82a7dd0-5d8a-4d1c-ac99-5463da28d890",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Trino",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "trino",
+  "manifest_version": "2.0.0",
+  "app_uuid": "5d6fa7f8-e827-408c-9cf1-8f2bd64b45d3",
+  "app_id": "trino",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collects performance and usage stats on Trino clusters",
+    "title": "Trino",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Trino",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "trino.",
+        "check": "trino.memory.reserved_distributed_bytes",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
