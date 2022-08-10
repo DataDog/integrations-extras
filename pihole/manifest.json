@@ -1,35 +1,48 @@
 {
-  "display_name": "pihole",
-  "maintainer": "monganai@tcd.ie",
-  "manifest_version": "1.0.0",
-  "name": "pihole",
-  "metric_prefix": "pihole.",
-  "metric_to_check": "pihole.clients_ever_seen",
-  "creates_events": false,
-  "short_description": "Integration to collect default Pi-hole metrics",
-  "guid": "f0a69a1e-3961-43e2-9848-469342734e34",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Pi-hole",
-  "categories": [
-    "network",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "pihole",
+  "manifest_version": "2.0.0",
+  "app_uuid": "008d006b-6390-4b93-9302-dc37d9625b18",
+  "app_id": "pihole",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Integration to collect default Pi-hole metrics",
+    "title": "Pi-hole",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Network",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "monganai@tcd.ie",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "monganai@tcd.ie",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "pihole",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "pihole.",
+        "check": "pihole.clients_ever_seen",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
