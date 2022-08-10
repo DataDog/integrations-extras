@@ -1,30 +1,45 @@
 {
-  "integration_id": "rbltracker",
-  "name": "rbltracker",
-  "manifest_version": "1.0.0",
-  "display_name": "RBLTracker",
-  "short_description": "RBLTracker provides easy-to-use, real-time blacklist monitoring.",
-  "metric_prefix": "",
-  "metric_to_check": "",
-  "creates_events": true,
-  "public_title": "RBLTracker",
-  "maintainer": "help@datadoghq.com",
-  "guid": "94218bd0-8cc3-4686-8b67-ea9110b77092",
-  "categories": [
-    "monitoring"
-  ],
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "support": "contrib",
-  "type": "crawler",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "4b512bd9-ca9d-4d6a-b4f2-5fec54ce75bc",
+  "app_id": "rbltracker",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "RBLTracker provides easy-to-use, real-time blacklist monitoring.",
+    "title": "RBLTracker",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "RBLTracker",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "rbltracker.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
