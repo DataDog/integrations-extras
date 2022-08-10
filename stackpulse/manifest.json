@@ -1,38 +1,52 @@
 {
-  "display_name": "StackPulse",
-  "maintainer": "support@stackpulse.io",
-  "manifest_version": "1.0.0",
-  "name": "stackpulse",
-  "metric_prefix": "stackpulse.",
-  "metric_to_check": "",
-  "creates_events": true,
-  "short_description": "Automate your alert responses and track playbook executions in your event stream",
-  "guid": "cbfbe4be-1720-4c9e-b565-cef70fcc5b2b",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "StackPulse",
-  "categories": [
-    "automation",
-    "orchestration",
-    "notification",
-    "collaboration",
-    "monitoring"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "stackpulse",
+  "manifest_version": "2.0.0",
+  "app_uuid": "c42edc68-cb25-43f9-9bd2-657a2b7dea82",
+  "app_id": "stackpulse",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Automate your alert responses and track playbook executions in your event stream",
+    "title": "StackPulse",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Orchestration",
+      "Category::Notification",
+      "Category::Collaboration",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "support@stackpulse.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@stackpulse.io",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "StackPulse",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "stackpulse.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "StackPulse": "assets/dashboards/stackpulse_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
