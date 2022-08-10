@@ -1,35 +1,47 @@
 {
-  "display_name": "Neo4j",
-  "maintainer": "neo4j-cloud@neotechnology.com",
-  "manifest_version": "1.0.0",
-  "name": "neo4j",
-  "metric_prefix": "neo4j.",
-  "metric_to_check": "neo4j.page_cache_hits_total",
-  "creates_events": false,
-  "short_description": "Gathers Neo4j metrics",
-  "guid": "a85ec8bb-e677-4089-ae8f-d1705c340131",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Neo4j",
-  "categories": [
-    "data store"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "neo4j",
-  "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+  "manifest_version": "2.0.0",
+  "app_uuid": "f2657bb8-ded4-48f3-8095-f703cc203149",
+  "app_id": "neo4j",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Gathers Neo4j metrics",
+    "title": "Neo4j",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Data Store"
+    ]
   },
-  "is_beta": false
+  "author": {
+    "support_email": "neo4j-cloud@neotechnology.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "neo4j-cloud@neotechnology.com",
+    "name": "unknown"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Neo4j",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "neo4j.",
+        "check": "neo4j.page_cache_hits_total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  }
 }
