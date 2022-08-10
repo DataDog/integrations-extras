@@ -1,28 +1,43 @@
 {
-  "integration_id": "portworx",
-  "maintainer": "paul@portworx.com",
-  "manifest_version": "1.0.0",
-  "name": "portworx",
-  "display_name": "Portworx",
-  "short_description": "Collect runtime metrics from a Portworx Instance.",
-  "metric_prefix": "portworx.",
-  "metric_to_check": "portworx.cluster.cpu_percent",
-  "public_title": "Portworx",
-  "guid": "858a4b03-3f75-4019-8ba8-46b00d5aeb46",
-  "support": "contrib",
-  "type": "check",
-  "creates_events": false,
-  "supported_os": [
-    "linux"
-  ],
-  "categories": [
-    "monitoring"
-  ],
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "e682ab93-39cd-403b-a16f-8082961bc081",
+  "app_id": "portworx",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect runtime metrics from a Portworx Instance.",
+    "title": "Portworx",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "paul@portworx.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "paul@portworx.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Portworx",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "portworx.",
+        "check": "portworx.cluster.cpu_percent",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
