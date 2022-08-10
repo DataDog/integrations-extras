@@ -1,32 +1,46 @@
 {
-  "display_name": "Rundeck",
-  "maintainer": "forrest@rundeck.com",
-  "manifest_version": "1.0.0",
-  "name": "Rundeck",
-  "metric_prefix": "rundeck.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Automate Remediation Actions using Rundeck Webhooks",
-  "guid": "2e3492d3-14fd-409d-b339-fb1bc14d7db9",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Rundeck",
-  "categories": [
-    "orchestration",
-    "notification"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "rundeck",
+  "manifest_version": "2.0.0",
+  "app_uuid": "beb808d2-cc12-4bc5-8ff7-b63552b35e0a",
+  "app_id": "rundeck",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Automate Remediation Actions using Rundeck Webhooks",
+    "title": "Rundeck",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Orchestration",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "forrest@rundeck.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "forrest@rundeck.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Rundeck",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rundeck.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
