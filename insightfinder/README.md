@@ -15,10 +15,11 @@ To configure the integration and send data to InsightFinder, see the [InsightFin
 
 ## Support
 
-Contact [Datadog support][4] or email [InsightFinder support][1].
+Contact [Datadog support][4] or email [InsightFinder support][5].
 
 
 [1]: https://insightfinder.com/
 [2]: https://insightfinder.com/datadog-integration/
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/
 [4]: https://docs.datadoghq.com/help/
+[5]: support@insightfinder.com
