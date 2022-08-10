@@ -1,37 +1,51 @@
 {
-  "display_name": "Gatekeeper",
-  "maintainer": "ara.pulido@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "gatekeeper",
-  "metric_prefix": "gatekeeper.",
-  "metric_to_check": "gatekeeper.constraints",
-  "creates_events": false,
-  "short_description": "Gatekeeper integration",
-  "guid": "a68c72bd-a16a-4fcf-8911-43575dd722b9",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Gatekeeper",
-  "categories": [
-    "security",
-    "containers",
-    "configuration & deployment"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "gatekeeper",
+  "manifest_version": "2.0.0",
+  "app_uuid": "9c48b05d-ee74-4557-818e-14456c6f427b",
+  "app_id": "gatekeeper",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Gatekeeper integration",
+    "title": "Gatekeeper",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Security",
+      "Category::Containers",
+      "Category::Configuration & Deployment"
+    ]
+  },
+  "author": {
+    "support_email": "ara.pulido@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "ara.pulido@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Gatekeeper",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "gatekeeper.",
+        "check": "gatekeeper.constraints",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Gatekeeper base dashboard": "assets/dashboards/gatekeeper_overview.json"
     },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv",
     "logs": {
       "source": "gatekeeper"
     }
