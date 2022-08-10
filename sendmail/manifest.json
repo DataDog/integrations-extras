@@ -1,28 +1,43 @@
 {
-  "display_name": "Sendmail",
-  "maintainer": "david.bouchare@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "sendmail",
-  "metric_prefix": "sendmail.",
-  "metric_to_check": "sendmail.queue.size",
-  "creates_events": false,
-  "short_description": "Sendmail integration to monitor mail queues",
-  "guid": "4d4f72c7-c8c5-4e7a-b281-32c2d462c7c8",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Sendmail",
-  "categories": [
-    "Collaboration"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "sendmail",
+  "manifest_version": "2.0.0",
+  "app_uuid": "8169d145-8d1f-4bb8-a4de-a0aa9aa84c0b",
+  "app_id": "sendmail",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Sendmail integration to monitor mail queues",
+    "title": "Sendmail",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Collaboration"
+    ]
+  },
+  "author": {
+    "support_email": "david.bouchare@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "david.bouchare@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Sendmail",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "sendmail.",
+        "check": "sendmail.queue.size",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
