@@ -1,41 +1,52 @@
 {
-  "display_name": "N2WS Backup & Recovery",
-  "maintainer": "eliad.eini@n2ws.com",
-  "manifest_version": "1.0.0",
-  "name": "n2ws",
-  "metric_prefix": "cpm_metric.",
-  "metric_to_check": "cpm_metric.dashboard_activity.backup_success_num",
-  "creates_events": false,
-  "short_description": "View summary data from all the connected N2WS Backup & Recovery hosts",
-  "guid": "315aa71c-cc41-4f8c-b0f3-37882c1fa766",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "N2WS",
-  "categories": [
-    "cloud"
-  ],
-  "type": "check",
-  "is_public": true,
-  "has_logo": true,
-  "doc_link": "https://docs.datadoghq.com/integrations/n2ws/",
-  "integration_id": "n2ws",
+  "manifest_version": "2.0.0",
+  "app_uuid": "6c0176c4-b878-43e0-a5a8-d280b0fa123e",
+  "app_id": "n2ws",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "View summary data from all the connected N2WS Backup & Recovery hosts",
+    "title": "N2WS",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Cloud"
+    ]
+  },
+  "author": {
+    "support_email": "eliad.eini@n2ws.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "eliad.eini@n2ws.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {},
+    "integration": {
+      "source_type_name": "N2WS Backup & Recovery",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "cpm_metric.",
+        "check": "cpm_metric.dashboard_activity.backup_success_num",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "N2WSBackup&Recovery-EntitiesSpecificDashboard": "assets/dashboards/N2WSBackup&Recovery-EntityTypesDetails.json",
       "N2WSBackup&Recovery-GraphicalVersion": "assets/dashboards/N2WSBackup&Recovery-BackupSuccessRates(ColumnGraphs).json",
       "N2WSBackup&Recovery-GraphicalVersion-Areas": "assets/dashboards/N2WSBackup&Recovery-BackupSuccessRates(AreasGraphs).json",
       "N2WSBackup&Recovery-EntitiesSpecificDashboardV4.0": "assets/dashboards/N2WSBackup&Recoveryv4.1-EntityTypesDetails.json",
       "N2WSBackup&Recovery-GraphicalVersionV4.0": "assets/dashboards/N2WSBackup&Recoveryv4.1-BackupSuccessRates(ColumnGraphs).json"
-    },
-    "metrics_metadata": "metadata.csv",
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {}
+    }
   }
 }
