@@ -1,28 +1,45 @@
 {
-  "integration_id": "configcat",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "categories": [
-    "notification"
-  ],
-  "creates_events": true,
-  "display_name": "ConfigCat",
-  "guid": "5e98d95a-519d-460c-945a-5e3a4e1f8d72",
-  "is_public": true,
-  "maintainer": "developer@configcat.com",
-  "manifest_version": "1.0.0",
-  "name": "configcat",
-  "public_title": "ConfigCat",
-  "description": "Datadog-ConfigCat integration ensures that all ConfigCat settings changes send to Datadog as an Event. With this feature you can see your system behaviour when changing your settings. You can setup the Datadog integration for a products in the ConfigCat.",
-  "short_description": "Setting change events tracked by Datadog",
-  "support": "contrib",
-  "type": "crawler",
+  "manifest_version": "2.0.0",
+  "app_uuid": "22b2d616-b246-457e-8883-a79bee8c467d",
+  "app_id": "configcat",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Setting change events tracked by Datadog",
+    "title": "ConfigCat",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "developer@configcat.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "developer@configcat.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json"
+    "integration": {
+      "source_type_name": "ConfigCat",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "check": [],
+        "prefix": "configcat.",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
