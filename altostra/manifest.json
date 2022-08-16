@@ -1,37 +1,51 @@
 {
-  "display_name": "Altostra",
-  "maintainer": "support@altostra.com",
-  "manifest_version": "1.0.0",
-  "name": "altostra",
-  "metric_prefix": "altostra.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Automatically send your cloud applications logs from Altostra to Datadog",
-  "guid": "c5b325e5-a55a-4ff2-9c91-3aac9463c6be",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Altostra",
-  "categories": [
-    "automation",
-    "cloud",
-    "configuration & deployment",
-    "log collection"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "altostra",
+  "manifest_version": "2.0.0",
+  "app_uuid": "c22d6f84-3404-4638-99bc-7cb19ab4508a",
+  "app_id": "altostra",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Automatically send your cloud applications logs from Altostra to Datadog",
+    "title": "Altostra",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Cloud",
+      "Category::Configuration & Deployment",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "support@altostra.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@altostra.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Altostra",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "altostra.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Altostra": "assets/dashboards/altostra.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
