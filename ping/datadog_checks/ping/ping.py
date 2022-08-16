@@ -3,7 +3,7 @@
 import platform
 import re
 
-from datadog_checks.base import AgentCheck
+from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.base.errors import CheckException
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
 
@@ -26,6 +26,24 @@ class PingCheck(AgentCheck):
 
     def _exec_ping(self, timeout, target_host):
         precmd = []
+
+        try:
+            split_url = target_host.split(":")
+        except Exception:  # Would be raised if url is not a string
+            raise ConfigurationError(self.CONFIGURATION_ERROR_MSG.format(target_host, 'host', 'string'))
+
+        # IPv6 address format: 2001:db8:85a3:8d3:1319:8a2e:370:7348
+        if len(split_url) == 8:  # It may then be a IP V6 address, we check that
+            for block in split_url:
+                if len(block) != 4:
+                    raise ConfigurationError(
+                        self.CONFIGURATION_ERROR_MSG.format(target_host, 'IPv6 address', 'valid address')
+                    )
+            # It's a correct IP V6 address
+            cmd = "ping6"
+        else:
+            cmd = "ping"
+
         if platform.system() == "Windows":  # pragma: nocover
             precmd = ["cmd", "/c", "chcp 437 &"]  # Set code page to English for non-US Windows
             countOption = "-n"
@@ -35,18 +53,23 @@ class PingCheck(AgentCheck):
             timeout = timeout * 1000
         elif platform.system() == "Darwin":
             countOption = "-c"
-            timeoutOption = "-W"  # Also in ms on Mac
-            timeout = timeout * 1000
+            if cmd == "ping":
+                timeoutOption = "-W"  # Also in ms on Mac
+                timeout = timeout * 1000
+            else:
+                # Not timeout in Darwin's ping6, pass on default value of a neutral parameter instead...
+                timeoutOption = "-i"  # Wait between packets
+                timeout = 1
         else:
             # The timeout option is is seconds on Linux, leaving timeout as is
             # https://linux.die.net/man/8/ping
             countOption = "-c"
             timeoutOption = "-W"
 
-        self.log.debug("Running: ping %s %s %s %s %s", countOption, "1", timeoutOption, timeout, target_host)
+        self.log.debug("Running: %s %s %s %s %s %s", cmd, countOption, "1", timeoutOption, timeout, target_host)
 
         lines, err, retcode = get_subprocess_output(
-            precmd + ["ping", countOption, "1", timeoutOption, str(timeout), target_host],
+            precmd + [cmd, countOption, "1", timeoutOption, str(timeout), target_host],
             self.log,
             raise_on_empty_output=True,
         )
