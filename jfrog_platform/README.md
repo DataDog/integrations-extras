@@ -90,12 +90,12 @@ logs:
   - type: file
     path: "<PATH_TO_ARTIFACTORY_LOGS>/<LOG_FILE_NAME>.log"
     service: "artifactory"
-    source: "jfrog"
+    source: "jfrog platform"
 
   - type: file
     path: "<PATH_TO_XRAY_LOGS>/<LOG_FILE_NAME>.log"
     service: "xray"
-    source: "jfrog"
+    source: "jfrog platform"
 ```
 
 3. [Restart the agent to apply the changes][11]. 
