@@ -34,7 +34,7 @@ The Blue Matador integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact the [maintainer][11] of this integration.
+Need help? Contact the [maintainer][5] of this integration.
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/eventstream.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/dashboard.png
