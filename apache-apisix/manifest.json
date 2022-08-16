@@ -1,44 +1,56 @@
 {
-  "display_name": "Apache APISIX",
-  "public_title": "Apache APISIX",
-  "integration_id": "apache-apisix",
-  "is_public": true,
-  "maintainer": "dev@apisix.apache.org",
-  "manifest_version": "1.0.0",
-  "name": "apache-apisix",
-  "metric_prefix": "apisix.",
-  "metric_to_check": [
-    "apisix.request.counter",
-    "apisix.request.latency",
-    "apisix.upstream.latency",
-    "apisix.apisix.latency",
-    "apisix.ingress.size",
-    "apisix.egress.size"
-  ],
-  "creates_events": false,
-  "short_description": "Datadog-APISIX Integration",
-  "description": "Datadog-APISIX integration using DogStatsD",
-  "guid": "fb69375e-5742-42e6-81cf-8fc19de610ed",
-  "support": "contrib",
-  "supported_os": [
-    "windows",
-    "mac_os",
-    "linux"
-  ],
-  "categories": [
-    "monitoring",
-    "web",
-    "cloud",
-    "autodiscovery",
-    "metrics"
-  ],
-  "type": "check",
+  "manifest_version": "2.0.0",
+  "app_uuid": "b842d639-caf6-4b3a-8115-52458b9a0753",
+  "app_id": "apache-apisix",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Datadog-APISIX Integration",
+    "title": "Apache APISIX",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Supported OS::Linux",
+      "Category::Monitoring",
+      "Category::Web",
+      "Category::Cloud",
+      "Category::Autodiscovery",
+      "Category::Metrics"
+    ]
+  },
+  "author": {
+    "support_email": "dev@apisix.apache.org",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "dev@apisix.apache.org",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "configuration": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Apache APISIX",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "apisix.",
+        "check": [
+          "apisix.request.counter",
+          "apisix.request.latency",
+          "apisix.upstream.latency",
+          "apisix.apisix.latency",
+          "apisix.ingress.size",
+          "apisix.egress.size"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
