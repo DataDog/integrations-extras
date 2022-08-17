@@ -8,7 +8,8 @@
     "Supported OS::Windows",
     "Category::Alerting",
     "Category::Monitoring",
-    "Category::Metrics"
+    "Category::Metrics",
+    "Offering::Integration"
   ],
   "display_on_public_website": true,
   "tile": {
@@ -16,12 +17,21 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "",
+    "description": "This integration pulls model performance metrics out of Fiddler and pushes them into DataDog",
     "title": "Fiddler",
-    "media": []
+    "media": [
+      {
+        "caption": "Fiddler Model Performance Management",
+        "image_url": "images/fiddler-logo.png",
+        "media_type": "image"
+      }
+    ]
   },
   "author": {
-    "support_email": "rajeev@fiddler.ai"
+    "name":"Rajeev Govindan",
+    "homepage":"http://www.fiddler.ai",
+    "support_email": "rajeev@fiddler.ai",
+    "sales_email": "rajeev@fiddler.ai"
   },
   "oauth": {},
   "assets": {
@@ -35,7 +45,7 @@
       },
       "metrics": {
         "prefix": "fiddler.",
-        "check": "",
+        "check": "accuracy",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {

@@ -8,4 +8,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {}
+    return {"url": "https://demo.trial.fiddler.ai", "fiddler_api_key": "apikey", "organization": "demo"}
