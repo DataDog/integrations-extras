@@ -34,10 +34,11 @@ class FiddlerCheck(AgentCheck):
         super(FiddlerCheck, self).__init__(name, init_config, instances)
 
         # Connection parameters for Fiddler. Will be parameterizing this later.
-        self.URL = 'https://demo.trial.fiddler.ai'
+        self.URL = 'https://demo.fiddler.ai'
         self.ORG_ID = 'demo'
         self.AUTH_TOKEN = 'K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs'
 
+        print("Inside init method.")
         self.client = fdl.FiddlerApi(url=self.URL, org_id=self.ORG_ID, auth_token=self.AUTH_TOKEN)
 
     #        self.base_url = self.instance.get('url')
