@@ -207,6 +207,14 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      cfssl:
+        target: 75
+        flags:
+        - cfssl
+      exim:
+        target: 75
+        flags:
+        - exim
       nvml:
         target: 75
         flags:
@@ -219,10 +227,6 @@ coverage:
         target: 75
         flags:
         - pihole
-      pulsar:
-        target: 75
-        flags:
-        - pulsar
       speedtest:
         target: 75
         flags:
@@ -248,6 +252,11 @@ flags:
     paths:
     - cert_manager/datadog_checks/cert_manager
     - cert_manager/tests
+  cfssl:
+    carryforward: true
+    paths:
+    - cfssl/datadog_checks/cfssl
+    - cfssl/tests
   cloudsmith:
     carryforward: true
     paths:
@@ -263,6 +272,11 @@ flags:
     paths:
     - eventstore/datadog_checks/eventstore
     - eventstore/tests
+  exim:
+    carryforward: true
+    paths:
+    - exim/datadog_checks/exim
+    - exim/tests
   filebeat:
     carryforward: true
     paths:
@@ -383,11 +397,6 @@ flags:
     paths:
     - portworx/datadog_checks/portworx
     - portworx/tests
-  pulsar:
-    carryforward: true
-    paths:
-    - pulsar/datadog_checks/pulsar
-    - pulsar/tests
   puma:
     carryforward: true
     paths:

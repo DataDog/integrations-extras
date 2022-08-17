@@ -1,28 +1,45 @@
 {
-  "integration_id": "buddy",
-  "name": "buddy",
-  "manifest_version": "1.0.0",
-  "maintainer": "support@buddy.works",
-  "display_name": "Buddy",
-  "short_description": "One-click delivery automation with working website previews for web developers.",
-  "creates_events": false,
-  "categories": [
-    "web"
-  ],
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "guid": "7b131269-e2ba-4279-b9dd-82e85764d389",
-  "public_title": "Buddy",
-  "type": "crawler",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "f9d740e2-31b5-427c-a65b-41984656cc73",
+  "app_id": "buddy",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "One-click delivery automation with working website previews for web developers.",
+    "title": "Buddy",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Web"
+    ]
+  },
+  "author": {
+    "support_email": "support@buddy.works",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@buddy.works",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Buddy",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "buddy."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

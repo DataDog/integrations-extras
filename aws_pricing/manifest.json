@@ -1,32 +1,47 @@
 {
-  "integration_id": "aws-pricing",
-  "display_name": "AWS Pricing",
-  "maintainer": "tsein@brightcove.com",
-  "manifest_version": "1.0.0",
-  "name": "aws_pricing",
-  "metric_prefix": "aws.pricing.",
-  "metric_to_check": "aws.pricing.amazonecs",
-  "creates_events": false,
-  "short_description": "Collect AWS Pricing information for services by rate code.",
-  "guid": "fce760ae-979a-4c35-aa4e-5a05c24e2ce3",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "AWS Pricing",
-  "categories": [
-    "aws",
-    "cloud",
-    "cost management"
-  ],
-  "type": "check",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "74fb11c5-4dea-4b17-acac-2c2453ea6331",
+  "app_id": "aws-pricing",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect AWS Pricing information for services by rate code.",
+    "title": "AWS Pricing",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::AWS",
+      "Category::Cloud",
+      "Category::Cost Management"
+    ]
+  },
+  "author": {
+    "support_email": "tsein@brightcove.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "tsein@brightcove.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "AWS Pricing",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "aws.pricing.",
+        "check": "aws.pricing.amazonecs",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
