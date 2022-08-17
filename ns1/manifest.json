@@ -1,37 +1,50 @@
 {
-  "display_name": "NS1",
-  "maintainer": "zjohnson@ns1.com",
-  "manifest_version": "1.0.0",
-  "name": "ns1",
-  "metric_prefix": "ns1.",
-  "metric_to_check": "ns1.qps",
-  "creates_events": false,
-  "short_description": "A Datadog integration to collect NS1 metrics",
-  "guid": "7c7c7d80-d307-4ffd-ac60-1a7180d932e3",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "ns1",
-  "categories": [
-    "monitoring"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "ns1",
+  "manifest_version": "2.0.0",
+  "app_uuid": "8bc08030-a931-42a0-b9c0-9ca87f3e0e12",
+  "app_id": "ns1",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "A Datadog integration to collect NS1 metrics",
+    "title": "ns1",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "zjohnson@ns1.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "zjohnson@ns1.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "NS1",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "ns1.",
+        "check": "ns1.qps",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "NS1": "assets/dashboards/overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
