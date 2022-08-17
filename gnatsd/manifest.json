@@ -1,34 +1,48 @@
 {
-  "integration_id": "gnatsd",
-  "maintainer": "dev@goldstar.com",
-  "manifest_version": "1.0.0",
-  "name": "gnatsd",
-  "display_name": "Gnatsd",
-  "public_title": "Gnatsd",
-  "short_description": "Monitor gnatsd cluster with Datadog.",
-  "guid": "7edcf450-d9cf-44aa-9053-ece04ac7c21d",
-  "support": "contrib",
-  "type": "check",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "categories": [
-    "messaging",
-    "notification"
-  ],
-  "creates_events": false,
-  "is_public": true,
-  "metric_prefix": "gnatsd.",
-  "metric_to_check": "gnatsd.connz.connections.in_bytes",
+  "manifest_version": "2.0.0",
+  "app_uuid": "91ef7414-0d7b-4ccd-b1a0-d23ef8b6780f",
+  "app_id": "gnatsd",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor gnatsd cluster with Datadog.",
+    "title": "Gnatsd",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Messaging",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "dev@goldstar.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "dev@goldstar.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Gnatsd",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "gnatsd.",
+        "check": "gnatsd.connz.connections.in_bytes",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

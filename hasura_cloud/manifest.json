@@ -1,40 +1,54 @@
 {
-  "display_name": "Hasura Cloud",
-  "maintainer": "support@hasura.io",
-  "manifest_version": "1.0.0",
-  "name": "hasura_cloud",
-  "metric_prefix": "hasura_cloud.",
-  "metric_to_check": [
-    "hasura_cloud.requests_per_minute",
-    "hasura_cloud.average_execution_time",
-    "hasura_cloud.success_rate"
-  ],
-  "creates_events": false,
-  "short_description": "Monitor your Hasura Cloud Project",
-  "guid": "fa26fe8b-6dbf-43fc-9597-a7dd1b56abaa",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Hasura Cloud",
-  "categories": [
-    "monitoring",
-    "log collection",
-    "cloud"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "hasura-cloud",
+  "manifest_version": "2.0.0",
+  "app_uuid": "d7eb9597-f00b-48dc-9100-7afda5fe4bce",
+  "app_id": "hasura-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your Hasura Cloud Project",
+    "title": "Hasura Cloud",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring",
+      "Category::Log Collection",
+      "Category::Cloud"
+    ]
+  },
+  "author": {
+    "support_email": "support@hasura.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@hasura.io",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Hasura Cloud",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "hasura_cloud.",
+        "check": [
+          "hasura_cloud.requests_per_minute",
+          "hasura_cloud.average_execution_time",
+          "hasura_cloud.success_rate"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Hasura Cloud Datadog Integration Dashboard": "assets/dashboards/hasura_cloud.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

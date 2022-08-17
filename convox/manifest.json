@@ -1,28 +1,45 @@
 {
-  "integration_id": "convox",
-  "name": "convox",
-  "manifest_version": "1.0.0",
-  "display_name": "Convox",
-  "short_description": "Convox is an open-source PaaS designed for total privacy and zero upkeep.",
-  "creates_events": false,
-  "guid": "e8b1f8a7-8859-4c85-81bd-044400854e59",
-  "maintainer": "help@datadoghq.com",
-  "support": "contrib",
-  "categories": [
-    "cloud"
-  ],
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Convox",
-  "type": "crawler",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "4476973b-6e79-4861-a321-7e24e581873b",
+  "app_id": "convox",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Convox is an open-source PaaS designed for total privacy and zero upkeep.",
+    "title": "Convox",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Cloud"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Convox",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "convox."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

@@ -1,35 +1,47 @@
 {
-  "display_name": "exim",
-  "maintainer": "JeanFred1@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "exim",
-  "metric_prefix": "exim.",
-  "metric_to_check": "exim.queue.count",
-  "creates_events": false,
-  "short_description": "Exim integration to monitor mail queues",
-  "guid": "04552816-c3e6-4a0a-90a0-bd751633984d",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Exim",
-  "categories": [
-    "Collaboration"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "exim",
+  "manifest_version": "2.0.0",
+  "app_uuid": "c84e4868-f96b-49b6-8243-2031dde179af",
+  "app_id": "exim",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Exim integration to monitor mail queues",
+    "title": "Exim",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Collaboration"
+    ]
+  },
+  "author": {
+    "support_email": "JeanFred1@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "JeanFred1@gmail.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "exim",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "exim.",
+        "check": "exim.queue.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
