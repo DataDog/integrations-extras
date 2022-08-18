@@ -1,42 +1,49 @@
 {
-  "display_name": "Vercel",
-  "maintainer": "https://docs.datadoghq.com/help/",
-  "manifest_version": "1.0.0",
-  "name": "vercel",
-  "metric_prefix": "vercel.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Monitor your serverless applications running on Vercel",
-  "guid": "cf0daf64-9c85-43b1-8b6b-7d08f8d31b0f",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Vercel",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "vercel",
+  "manifest_version": "2.0.0",
+  "app_uuid": "3ee4a2db-aea9-4663-93a9-d5758f71ba9d",
+  "app_id": "vercel",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your serverless applications running on Vercel",
+    "title": "Vercel",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Vercel",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "vercel.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Vercel": "assets/dashboards/vercel_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
-  },
-  "further_reading": [
-    {"link": "https://www.datadoghq.com/blog/monitor-vercel-serverless-functions-with-datadog/",
-      "tag": "Blog",
-      "text": "Monitor Vercel Serverless Functions with Datadog"
-    }]
+    }
+  }
 }
