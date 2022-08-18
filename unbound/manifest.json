@@ -1,30 +1,45 @@
 {
-  "display_name": "Unbound",
-  "maintainer": "david.byron@avast.com",
-  "manifest_version": "1.0.0",
-  "name": "unbound",
-  "metric_prefix": "unbound.",
-  "metric_to_check": "unbound.time.up",
-  "creates_events": false,
-  "short_description": "A datadog integration to collect unbound metrics",
-  "guid": "2b31e667-1fd9-440f-9e96-c72bea3cf3ca",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Unbound",
-  "categories": [
-    "network"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "unbound",
+  "manifest_version": "2.0.0",
+  "app_uuid": "33cd72ba-822b-4a74-92eb-f1240ea71975",
+  "app_id": "unbound",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "A datadog integration to collect unbound metrics",
+    "title": "Unbound",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Network"
+    ]
+  },
+  "author": {
+    "support_email": "david.byron@avast.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "david.byron@avast.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Unbound",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "unbound.",
+        "check": "unbound.time.up",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
