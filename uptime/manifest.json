@@ -1,30 +1,45 @@
 {
-  "integration_id": "uptime",
-  "maintainer": "jeremy-lq",
-  "manifest_version": "1.0.0",
-  "name": "uptime",
-  "display_name": "Uptime",
-  "guid": "5da2ddb8-ecf7-4971-a3ee-e42752efc1f5",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "short_description": "Uptime & performance monitoring made easy",
-  "metric_prefix": "uptime",
-  "metric_to_check": "uptime.response_time",
-  "creates_events": true,
-  "public_title": "Uptime",
-  "categories": [
-    "os & system"
-  ],
-  "type": "crawler",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "937f96ea-644f-4903-9f74-cdc5e8b46dd8",
+  "app_id": "uptime",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Uptime & performance monitoring made easy",
+    "title": "Uptime",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::OS System"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Uptime",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "uptime",
+        "check": "uptime.response_time",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
