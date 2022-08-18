@@ -1,35 +1,49 @@
 {
-  "display_name": "TiDB Cloud",
-  "maintainer": "xuyifan02@pingcap.com",
-  "manifest_version": "1.0.0",
-  "name": "tidb_cloud",
-  "metric_prefix": "tidb_cloud.",
-  "metric_to_check": "tidb_cloud.db_queries_total",
-  "creates_events": true,
-  "short_description": "Monitoring TiDB Cloud clusters with Datadog",
-  "guid": "afb5cfd5-c8d9-4dee-8f52-f3dfc012b669",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "TiDB Cloud",
-  "categories": [
-    "cloud",
-    "data store"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "tidb-cloud",
+  "manifest_version": "2.0.0",
+  "app_uuid": "9ed710d3-49d4-41fa-a304-0b27f289bdb7",
+  "app_id": "tidb-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitoring TiDB Cloud clusters with Datadog",
+    "title": "TiDB Cloud",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Cloud",
+      "Category::Data Store"
+    ]
+  },
+  "author": {
+    "support_email": "xuyifan02@pingcap.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "xuyifan02@pingcap.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "TiDB Cloud",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "tidb_cloud.",
+        "check": "tidb_cloud.db_queries_total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "TiDB Cloud Overview": "assets/dashboards/overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

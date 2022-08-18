@@ -1,0 +1,2 @@
+# CHANGELOG - TiDB Cloud
+
