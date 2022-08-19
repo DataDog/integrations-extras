@@ -1,0 +1,1 @@
+# CHANGELOG - Embrace Mobile
