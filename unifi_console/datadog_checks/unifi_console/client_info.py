@@ -5,11 +5,13 @@ from datadog_checks.unifi_console.types import Check
 
 
 class ClientInfo(object):
+    name: str = ""
     metrics: List[Metric] = []
     checks: List[Check] = []
     tags: List[str] = []
 
     def __init__(self, client_info) -> None:
+        self.name = client_info["_id"]
         self._get_tags(client_info)
         self._get_metrics(client_info)
 

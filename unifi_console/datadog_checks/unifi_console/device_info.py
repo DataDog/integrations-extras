@@ -7,11 +7,15 @@ from datadog_checks.unifi_console.types import Check
 
 class DeviceInfo(object):
 
+    name: str = ""
     metrics: List[Metric] = []
     checks: List[Check] = []
     tags: List[str] = []
 
     def __init__(self, device_info) -> None:
+
+        self.name = device_info["_id"]
+
         self._get_tags(device_info)
 
         self._get_base_metrics(device_info)

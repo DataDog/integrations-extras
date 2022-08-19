@@ -48,7 +48,6 @@ class UnifiConsoleCheck(AgentCheck):
         status = cast(ControllerInfo, None)
         try:
             status = self.api.status()
-            print(status)
 
         except Exception:
             # Explicitly do not attach any host to the service checks.
@@ -73,6 +72,7 @@ class UnifiConsoleCheck(AgentCheck):
             raise
         else:
             for device in devices:
+                self.log.debug("Submitting metrics for device %s", device.name)
                 self._submit_metrics(device.metrics)
                 self._submit_checks(device.checks)
 
@@ -84,6 +84,7 @@ class UnifiConsoleCheck(AgentCheck):
             raise
         else:
             for c in clients:
+                self.log.debug("Submitting metrics for client %s", c.name)
                 self._submit_metrics(c.metrics)
 
     def _submit_healthy_metrics(self, controller_info: ControllerInfo, tags):
