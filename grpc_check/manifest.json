@@ -1,38 +1,49 @@
 {
-  "display_name": "gRPC Check",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "grpc_check",
-  "metric_prefix": "grpc_check.",
-  "metric_to_check": [
-    "grpc_check.healthy",
-    "grpc_check.unhealthy"
-  ],
-  "creates_events": false,
-  "short_description": "Monitor gRPC servers based on gRPC Health Checking Protocol",
-  "guid": "c315801f-de1b-4c4c-974f-da2e76f245db",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "grpc_check",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "grpc-check",
+  "manifest_version": "2.0.0",
+  "app_uuid": "f0317cd5-e4b9-4147-998e-25c69fad94ed",
+  "app_id": "grpc-check",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Troubleshooting",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor gRPC servers based on gRPC Health Checking Protocol",
+    "title": "grpc_check",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "name": "unknown",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "support_email": "help@datadoghq.com"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "gRPC Check",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "grpc_check.",
+        "check": [
+          "grpc_check.healthy",
+          "grpc_check.unhealthy"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
