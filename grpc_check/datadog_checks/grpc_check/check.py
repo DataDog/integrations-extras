@@ -179,7 +179,7 @@ class GrpcCheck(AgentCheck):
 
         self.tags.append("status_code:{}".format(grpc.StatusCode.OK.name))
         if response.status == health_pb2.HealthCheckResponse.SERVING:
-            self.log.info(
+            self.log.debug(
                 "grpc_server_address=%s, grpc_server_service=%s: healthy",
                 self.grpc_server_address,
                 self.grpc_server_service,
