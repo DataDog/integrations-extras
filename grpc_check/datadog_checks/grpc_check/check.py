@@ -116,10 +116,10 @@ class GrpcCheck(AgentCheck):
                 key,
                 ca,
             )
-            return grpc.secure_channel(instance.get("grpc_server_address"), credentials)
+            return grpc.secure_channel(self.grpc_server_address, credentials)
 
         self.log.debug("creating an insecure channel")
-        return grpc.insecure_channel(instance.get("grpc_server_address"))
+        return grpc.insecure_channel(self.grpc_server_address)
 
     def _send_healthy(self):
         self.gauge("grpc_check.healthy", 1, tags=self.tags)
