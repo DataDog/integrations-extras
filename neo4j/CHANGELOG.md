@@ -2,7 +2,7 @@
 
 ## 2.0.1 / 2022-08-22
 
-* [Added] Added causal_cluster read replica metrics.
+* [Added] Added causal_cluster read replica metrics. See [#1509](https://github.com/DataDog/integrations-extras/pull/1509)
 
 ## 2.0.0 / 2022-02-24
 
