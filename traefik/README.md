@@ -41,8 +41,9 @@ By default, [Traefik logs][9] are sent to stdout. This should not be changed for
 1. To configure [Traefik to log to a file][9], add the following in the Traefik configuration file:
 
    ```conf
-    log:
-      filePath: "/path/to/traefik.log"
+   [traefikLog]
+     filePath = "/path/to/traefik.log"
+     format   = "json"
     ```
     
     The [common Apache Access format][10] is used by default and is supported by this integration.
@@ -89,7 +90,7 @@ See [Traefik documentation][16] for information about v1. For information about 
     init_config:
 
     instances:
-    - host: 10.1.2.3
+      - host: 10.1.2.3
         port: "8080"
         path: "/health"
         scheme: "http"
@@ -116,7 +117,8 @@ By default, [Traefik logs][21] are sent to stdout. This should not be changed fo
 
     ```conf
     [traefikLog]
-    filePath = "/path/to/traefik.log"
+      filePath = "/path/to/traefik.log"
+      format   = "json"
     ```
 
     The [common Apache Access format][22] is used by default and is supported by this integration.
