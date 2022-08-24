@@ -1,35 +1,46 @@
 {
-  "display_name": "Unifi_Console",
-  "maintainer": "antonin.bruneau@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "unifi_console",
-  "metric_prefix": "unifi",
-  "metric_to_check": "unifi.device.status",
-  "creates_events": false,
-  "short_description": "This check collects metrics from the Unifi Controller",
-  "guid": "f32d1d7a-4c1e-4e6b-b38d-0f06f56c89a6",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Unifi Console",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "unifi-console",
+  "manifest_version": "2.0.0",
+  "app_uuid": "224a050d-7ed3-4e7a-ada6-410f61393fc0",
+  "app_id": "unifi-console",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Troubleshooting",
+    "changelog": "CHANGELOG.md",
+    "description": "This check collects metrics from the Unifi Controller",
+    "title": "Unifi Console",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "antonin.bruneau@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "antonin.bruneau@gmail.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Unifi_Console",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "unifi.",
+        "check": "unifi.device.status",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
