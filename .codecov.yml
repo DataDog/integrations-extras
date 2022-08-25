@@ -119,6 +119,14 @@ coverage:
         target: 75
         flags:
         - puma
+      PureFA:
+        target: 75
+        flags:
+        - purefa
+      PureFB:
+        target: 75
+        flags:
+        - purefb
       Reboot_Required:
         target: 75
         flags:
@@ -195,6 +203,10 @@ coverage:
         target: 75
         flags:
         - cert_manager
+      fluxcd:
+        target: 75
+        flags:
+        - fluxcd
       nvml:
         target: 75
         flags:
@@ -211,14 +223,6 @@ coverage:
         target: 75
         flags:
         - pulsar
-      PureFA:
-        target: 75
-        flags:
-        - purefa
-      PureFB:
-        target: 75
-        flags:
-        - purefb
       speedtest:
         target: 75
         flags:
@@ -269,6 +273,11 @@ flags:
     paths:
     - fluentbit/datadog_checks/fluentbit
     - fluentbit/tests
+  fluxcd:
+    carryforward: true
+    paths:
+    - fluxcd/datadog_checks/fluxcd
+    - fluxcd/tests
   gatekeeper:
     carryforward: true
     paths:
@@ -277,8 +286,8 @@ flags:
   gitea:
     carryforward: true
     paths:
-      - gitea/datadog_checks/gitea
-      - gitea/tests
+    - gitea/datadog_checks/gitea
+    - gitea/tests
   gnatsd:
     carryforward: true
     paths:
