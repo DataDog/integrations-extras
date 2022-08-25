@@ -1,0 +1,65 @@
+name: Go-pprof-scraper
+files:
+- name: go_pprof_scraper.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/tags
+    # - template: init_config/default # This stops the validator from complaining that default is missing
+  - template: instances
+    options:
+    - name: service_name
+      required: true
+      description: Name of the service, which will be tagged as "service:<SERVICE>" on uploaded profiles
+      value:
+        example: "myservice"
+        type: string
+    - name: pprof_url
+      required: true
+      description: URL of the /debug/pprof endpoint to collect
+      value:
+        example: "http://myservice:1234/debug/pprof/"
+        type: string
+    - name: duration
+      requried: false
+      description: Duration of profiles, in seconds
+      value:
+        example: 30
+        type: integer
+        display_default: 15
+    - name: profiles
+      requried: false
+      description: List of profiles to collect. Valid options are "cpu", "heap", "mutex", "block", and "goroutine"
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - "cpu"
+          - "heap"
+    - name: cumulative
+      requried: false
+      description: |
+        Whether to collect heap, mutex, or block profiles as cumulative profiles
+        since the program started. If false, requests those profiles over the
+        period specified by "duration".
+        
+        In order to use profile aggregation, "cumulative" must set to false.
+
+        Note that setting "cumulative" to false will cause the profiled
+        application to use more memory in order to compute the profiles.
+      value:
+        type: boolean
+        example: true
+        display_default: false
+    - template: instances/global
+      overrides:
+        min_collection_interval.value.example: 60
+        min_collection_interval.enabled: true
+        min_collection_interval.description: |
+          How frequently profiles are collected.
+
+          This changes the collection interval of the check. For more information, see:
+          https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    - template: instances/tags
+    # - template: instances/default 

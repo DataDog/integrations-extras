@@ -1,0 +1,74 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this integration.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+## Every instance is scheduled independent of the others.
+#
+instances:
+
+    ## @param service_name - string - required
+    ## Name of the service, which will be tagged as "service:<SERVICE>" on uploaded profiles
+    #
+  - service_name: myservice
+
+    ## @param pprof_url - string - required
+    ## URL of the /debug/pprof endpoint to collect
+    #
+    pprof_url: http://myservice:1234/debug/pprof/
+
+    ## @param duration - integer - optional - default: 15
+    ## Duration of profiles, in seconds
+    #
+    # duration: 30
+
+    ## @param profiles - list of strings - optional
+    ## List of profiles to collect. Valid options are "cpu", "heap", "mutex", "block", and "goroutine"
+    #
+    # profiles:
+    #   - cpu
+    #   - heap
+
+    ## @param cumulative - boolean - optional - default: false
+    ## Whether to collect heap, mutex, or block profiles as cumulative profiles
+    ## since the program started. If false, requests those profiles over the
+    ## period specified by "duration".
+    ##
+    ## In order to use profile aggregation, "cumulative" must set to false.
+    ##
+    ## Note that setting "cumulative" to false will cause the profiled
+    ## application to use more memory in order to compute the profiles.
+    #
+    # cumulative: true
+
+    ## @param min_collection_interval - number - optional - default: 60
+    ## How frequently profiles are collected.
+    ##
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    min_collection_interval: 60
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>

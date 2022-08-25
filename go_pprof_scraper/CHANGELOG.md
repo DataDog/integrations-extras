@@ -1,0 +1,2 @@
+# CHANGELOG - Go-pprof-scraper
+

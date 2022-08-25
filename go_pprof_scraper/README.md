@@ -1,0 +1,67 @@
+# Agent Check: Go-pprof-scraper
+
+## Overview
+
+This check collects profiles from Go applications which expose the [`/debug/pprof`][1] endpoint.
+
+**NOTE**: Prefer instrumenting services with the [dd-trace-go][12] profiling client library. The client library
+offers better integration with other Datadog services, such as through [code hotspots and enpoint filtering][13].
+This integration should be used for services for which you do not control the source code.
+
+**NOTE**: Using this integration will result in billing for hosts under Datadog's [Continuous Profiler][10] service.
+For more on Continuous Profiler billing, consult our [billing documentation][11].
+
+## Setup
+
+Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][3] for guidance on applying these instructions.
+
+### Installation
+
+TODO: update this
+The Go-pprof-scraper check is included in the [Datadog Agent][2] package.
+No additional installation is needed on your server.
+
+### Configuration
+
+1. Edit the `go_pprof_scraper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your go_pprof_scraper performance data. See the [sample go_pprof_scraper.d/conf.yaml][4] for all available configuration options.
+
+2. [Restart the Agent][5].
+
+### Validation
+
+[Run the Agent's status subcommand][6] and look for `go_pprof_scraper` under the Checks section.
+
+## Data Collected
+
+### Metrics
+
+See [metadata.csv][7] for a list of metrics provided by this integration.
+
+### Events
+
+The Go-pprof-scraper integration does not include any events.
+
+### Service Checks
+
+The Go-pprof-scraper integration does not include any service checks.
+
+See [service_checks.json][8] for a list of service checks provided by this integration.
+
+## Troubleshooting
+
+Need help? Contact [Datadog support][9].
+
+
+[1]: https://pkg.go.dev/net/http/pprof
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[4]: https://github.com/DataDog/integrations-core/blob/master/check/datadog_checks/check/data/conf.yaml.example
+[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[7]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
+[8]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
+[9]: https://docs.datadoghq.com/help/
+[10]: https://docs.datadoghq.com/profiler/
+[11]: https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/
+[12]: https://docs.datadoghq.com/profiler/enabling/go/
+[13]: https://docs.datadoghq.com/profiler/connect_traces_and_profiles/
