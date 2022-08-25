@@ -12,7 +12,13 @@ The unitQ Datadog integration allows you to forward metrics from unitQ to Datado
 
 ### Configuration
 
-Contact your customer success manager to enable the unitQ Datadog integration.
+1. In unitQ, go to Integrations.
+2. Select the Datadog tile
+3. Fill in the following details:
+   - **Datadog Site**:
+     - Enter `https://api.datadoghq.com` if you use the Datadog US region.
+     - Enter `https://api.datadoghq.eu` if you use the Datadog EU region.
+   - **API Key**: Enter your [Datadog API key][3].
 
 ## Data Collected
 
@@ -34,3 +40,4 @@ Need help? Contact [Datadog support][2].
 
 [1]: https://github.com/DataDog/integrations-extras/blob/master/unitq/metadata.csv
 [2]: https://docs.datadoghq.com/help/
+[3]: https://app.datadoghq.com/organization-settings/api-keys
