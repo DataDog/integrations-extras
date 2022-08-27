@@ -2,7 +2,7 @@
 
 ## Overview
 [Flux](https://fluxcd.io/) is a set of continuous and progressive delivery solutions for Kubernetes that are open and extensible.
-This check monitors [fluxcd][1] through the Datadog Agent.
+This check monitors fluxcd through the Datadog Agent.
 
 ## Setup
 
