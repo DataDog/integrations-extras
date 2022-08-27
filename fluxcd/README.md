@@ -13,8 +13,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the fluxcd check on your host:
 
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
+1. Install the [developer toolkit][10]
  on any machine.
 
 2. Run `ddev release build fluxcd` to build the package.
