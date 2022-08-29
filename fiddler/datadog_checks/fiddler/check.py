@@ -10,7 +10,6 @@ from datadog_checks.base import AgentCheck
 # We will get one hours worth data in chunks and process them.
 bin_size = 3600
 
-# metrics_list = ['accuracy', 'histogram_drift', 'output_average', 'feature_average', 'traffic_count']
 metrics_list = ['accuracy']
 
 
