@@ -4,6 +4,7 @@
 import datetime
 import time
 from concurrent.futures import ThreadPoolExecutor
+from uuid import uuid4
 
 import requests_unixsocket
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
@@ -39,10 +40,12 @@ class GoPprofScraperCheck(AgentCheck):
         super(GoPprofScraperCheck, self).__init__(name, init_config, instances)
 
         self._get_apm_config()
+        self.runtime_id = uuid4()
 
         self.service = self.instance.get("service_name")
         if not self.service:
             raise ConfigurationError("service_name is required")
+        self.env = self.instance.get("env", datadog_agent.get_config("env"))
 
         self.url = self.instance.get("pprof_url")
         if not self.url:
@@ -135,7 +138,7 @@ class GoPprofScraperCheck(AgentCheck):
             return
 
         try:
-            start = datetime.datetime.now()
+            start = datetime.datetime.utcnow()
             with ThreadPoolExecutor() as executor:
                 profiles = list(executor.map(self._get_profile, self.profiles))
 
@@ -154,11 +157,13 @@ class GoPprofScraperCheck(AgentCheck):
             add_form_field("version", "3")
             add_form_field("format", "pprof")
             add_form_field("family", "go")
-            add_form_field("start", start.isoformat())
-            add_form_field("end", (start + datetime.timedelta(seconds=self.duration)).isoformat())
+            add_form_field("start", start.isoformat(timespec="seconds") + "Z")
+            add_form_field("end", (start + datetime.timedelta(seconds=self.duration)).isoformat(timespec="seconds") + "Z")
             add_form_field("tags[]", "runtime:go")
             add_form_field("tags[]", "service:{}".format(self.service))
-            # TODO: env tag?
+            add_form_field("tags[]", "runtime-id:{}".format(self.runtime_id))
+            if self.env:
+                add_form_field("tags[]", "env:{}".format(self.env))
             for tag in self.tags:
                 add_form_field("tags[]", tag)
 
