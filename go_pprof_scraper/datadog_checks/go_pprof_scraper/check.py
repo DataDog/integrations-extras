@@ -176,7 +176,7 @@ class GoPprofScraperCheck(AgentCheck):
 
             if self.trace_agent_socket:
                 session = requests_unixsocket.Session()
-                r = session.get(self.trace_agent_socket, files=files)
+                r = session.post(self.trace_agent_socket, files=files)
             else:
                 r = self.http.post(self.trace_agent_url, files=files)
             r.raise_for_status()
