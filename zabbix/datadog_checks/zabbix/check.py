@@ -177,7 +177,7 @@ class ZabbixCheck(AgentCheck):
                 mname = METRICS[item_name]
 
                 # To avoid sending non-numeric values as gauge
-                # see: https://www.zabbix.com/documentation/6.2/en/manual/api/reference/item/object?hl=value_typ#:~:text=ID%7D%2C%20%7BITEM.KEY%7D.-,value_type,-(required)
+                # https://www.zabbix.com/documentation/6.2/en/manual/api/reference/item/object?hl=value_typ#:~:text=ID%7D%2C%20%7BITEM.KEY%7D.-,value_type,-(required) # noqa: E501
                 if value_type != '0' and value_type != '3':
                     self.log.debug("'{}' value is not numeric_float and numeric unsigned".format(item_name))
                     continue
