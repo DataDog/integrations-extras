@@ -11,7 +11,7 @@ def shared_tags(field, value):
 
 
 def instance_cumulative(field, value):
-    return False
+    return True
 
 
 def instance_duration(field, value):
@@ -20,6 +20,10 @@ def instance_duration(field, value):
 
 def instance_empty_default_hostname(field, value):
     return False
+
+
+def instance_env(field, value):
+    return 'prod'
 
 
 def instance_min_collection_interval(field, value):

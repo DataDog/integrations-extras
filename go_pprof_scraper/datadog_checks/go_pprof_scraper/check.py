@@ -73,7 +73,7 @@ class GoPprofScraperCheck(AgentCheck):
                 )
         self.profiles = list(set(self.profiles))
 
-        self.cumulative = self.instance.get("cumulate", False)
+        self.cumulative = self.instance.get("cumulative", True)
         self.tags = self.instance.get("tags", [])
         self.tags.extend(self.init_config.get("tags", []))
 

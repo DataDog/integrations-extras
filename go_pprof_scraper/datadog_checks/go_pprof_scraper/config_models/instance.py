@@ -22,6 +22,7 @@ class InstanceConfig(BaseModel):
     cumulative: Optional[bool]
     duration: Optional[int]
     empty_default_hostname: Optional[bool]
+    env: Optional[str]
     min_collection_interval: Optional[float]
     pprof_url: str
     profiles: Optional[Sequence[str]]

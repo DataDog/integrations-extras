@@ -73,7 +73,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if _, ok := r.MultipartForm.File["data[delta-heap.pprof]"]; !ok {
+	if _, ok := r.MultipartForm.File["data[heap.pprof]"]; !ok {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "missing data[delta-heap.pprof], have values %v\n", r.MultipartForm.File)
 		return
