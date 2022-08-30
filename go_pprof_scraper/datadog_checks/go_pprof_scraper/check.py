@@ -31,6 +31,10 @@ DEFAULT_PROFILE_DURATION = 30  # TODO: something more sensible
 DEFAULT_PROFILES = ["cpu", "heap"]
 
 
+def _timeformat(dt):
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 class GoPprofScraperCheck(AgentCheck):
 
     # This will be the prefix of every metric and service check the integration sends
@@ -157,8 +161,8 @@ class GoPprofScraperCheck(AgentCheck):
             add_form_field("version", "3")
             add_form_field("format", "pprof")
             add_form_field("family", "go")
-            add_form_field("start", start.isoformat(timespec="seconds") + "Z")
-            add_form_field("end", (start + datetime.timedelta(seconds=self.duration)).isoformat(timespec="seconds") + "Z")
+            add_form_field("start", _timeformat(start))
+            add_form_field("end", _timeformat(start + datetime.timedelta(seconds=self.duration)))
             add_form_field("tags[]", "runtime:go")
             add_form_field("tags[]", "service:{}".format(self.service))
             add_form_field("tags[]", "runtime-id:{}".format(self.runtime_id))

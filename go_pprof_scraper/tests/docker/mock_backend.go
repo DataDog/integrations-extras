@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"sync/atomic"
+	"time"
 )
 
 var accepted int64
@@ -37,11 +38,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "bad version, wanted 3, got %s\n", v)
 		return
 	}
-	if v := r.Form.Get("start"); v == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "missing required form field \"start\"\n")
-		return
+
+	for _, form := range []string{"start", "end"} {
+		v := r.Form.Get(form)
+		if v == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprintf(w, "missing required form field \"%s\"\n", form)
+			return
+		}
+		if _, err := time.Parse(time.RFC3339, v); err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprintf(w, "%s time must be in RFC3339 (ISO 8601) format: %s\n", form, err)
+			return
+		}
 	}
+
 	if v := r.Form.Get("end"); v == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		fmt.Fprintf(w, "missing required form field \"end\"\n")
