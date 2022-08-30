@@ -11,23 +11,25 @@ jobs:
     outputs:
       md: ${{ steps.changes.outputs.md }}
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'    
-      
-      - name: Output changed files
-        id: changes
-        run: |
-          echo "::set-output name=md::$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep .md$ | xargs)"
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Output changed files
+      id: changes
+      run: >-
+        echo "::set-output name=md::$(
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} |
+          grep .md$ |
+          xargs
+        )"
 
-      - name: Check for invalid partials
-        with:
-          md_files: ${{ steps.changes.outputs.md }}
-        run: |
-          echo ${{ md_files }}
-          python .github/workflows/check_partials.py --files='${{ md_files }}'
+    - name: Check for invalid partials
+      run: |
+        echo ${{ steps.changed-files.outputs.md }}
+        python .github/workflows/check_partials.py --files='${{ steps.changes.outputs.md }}'
