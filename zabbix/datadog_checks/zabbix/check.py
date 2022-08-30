@@ -42,8 +42,7 @@ class ZabbixCheck(AgentCheck):
         token = response.get('result')
         if token is None:
             raise Exception(
-                'Unable to login with params user={} api={}: {}'.
-                format(zabbix_user, zabbix_api, response.get('error'))
+                'Unable to login with params user={} api={}: {}'.format(zabbix_user, zabbix_api, response.get('error'))
             )
         return token
 
