@@ -107,9 +107,7 @@ METRIC_MAP = {
     'causal_clustering_core_message_processing_timer_vote_response': (
         'causal_clustering.core.message_processing_timer.vote_response'
     ),
-    'causal_clustering.read_replica.pull_updates': (
-        'causal_clustering.read_replica.pull_updates'
-    ),
+    'causal_clustering.read_replica.pull_updates': 'causal_clustering.read_replica.pull_updates',
     'causal_clustering.read_replica.pull_update_highest_tx_id_requested': (
         'causal_clustering.read_replica.pull_update_highest_tx_id_requested'
     ),
