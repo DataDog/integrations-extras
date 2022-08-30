@@ -179,7 +179,7 @@ class ZabbixCheck(AgentCheck):
                 # To avoid sending non-numeric values as gauge
                 # https://www.zabbix.com/documentation/6.2/en/manual/api/reference/item/object?hl=value_typ#:~:text=ID%7D%2C%20%7BITEM.KEY%7D.-,value_type,-(required) # noqa: E501
                 if value_type != '0' and value_type != '3':
-                    self.log.debug('\"{}\" value is not numeric_float and numeric unsigned'.format(item_name))
+                    self.log.debug('\"%s\" value is not numeric_float and numeric unsigned', item_name)
                     continue
 
                 try:
