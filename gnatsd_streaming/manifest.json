@@ -1,33 +1,47 @@
 {
-  "integration_id": "gnatsd-streaming",
-  "maintainer": "dev@goldstar.com",
-  "manifest_version": "1.0.0",
-  "name": "gnatsd_streaming",
-  "display_name": "Gnatsd streaming",
-  "public_title": "Gnatsd Streaming",
-  "short_description": "NATS server streaming",
-  "guid": "0a849512-5823-4d9b-b378-aa9d8fb06231",
-  "support": "contrib",
-  "type": "check",
-  "creates_events": true,
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "categories": [
-    "monitoring"
-  ],
-  "is_public": true,
-  "metric_prefix": "gnatsd.",
-  "metric_to_check": "gnatsd.streaming.serverz.clients",
+  "manifest_version": "2.0.0",
+  "app_uuid": "264e486e-d704-4851-987a-d33c11036521",
+  "app_id": "gnatsd-streaming",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "NATS server streaming",
+    "title": "Gnatsd Streaming",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "dev@goldstar.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "dev@goldstar.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Gnatsd streaming",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "gnatsd.",
+        "check": "gnatsd.streaming.serverz.clients",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

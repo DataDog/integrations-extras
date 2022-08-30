@@ -40,7 +40,14 @@ Datazoom does not include any events.
 
 Need help? Contact [Datadog support][2].
 
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Blog: Monitor Datazoom telemetry with Datadog][5]
+
 [1]: https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog
 [2]: https://docs.datadoghq.com/help/
 [3]: https://app.datadoghq.com/logs
 [4]: https://app.datadoghq.com/dashboard/lists/preset/3?q=datazoom
+[5]: https://www.datadoghq.com/blog/monitor-datazoom/

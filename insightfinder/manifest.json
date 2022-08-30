@@ -1,34 +1,50 @@
 {
-  "display_name": "InsightFinder",
-  "maintainer": "support@insightfinder.com",
-  "manifest_version": "1.0.0",
-  "name": "insightfinder",
-  "metric_prefix": "insightfinder.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Integrate data from DataDog for analysis by InsightFinder",
-  "guid": "1ecaeadf-7b34-48f7-b9cb-81b8a9e4e4dc",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "InsightFinder",
-  "categories": [
-    "automation",
-    "monitoring",
-    "notification"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "insightfinder",
+  "manifest_version": "2.0.0",
+  "app_uuid": "144b8c72-b842-4257-9815-93aa63ad2da1",
+  "app_id": "insightfinder",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Integrate data from DataDog for analysis by InsightFinder",
+    "title": "InsightFinder",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Monitoring",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "support@insightfinder.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@insightfinder.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "InsightFinder",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "insightfinder.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "InsightFinder Dashboard": "assets/dashboards/ifdashboard.json"
+    }
   }
 }

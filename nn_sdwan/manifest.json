@@ -1,33 +1,51 @@
 {
-  "display_name": "Netnology SD-WAN",
-  "maintainer": "info@netnology.io",
-  "manifest_version": "1.0.0",
-  "name": "nn_sdwan",
-  "metric_prefix": "nn_sdwan.",
-  "metric_to_check": [
-    "nn_sdwan.device_control_status",
-    "nn_sdwan.app_aware_routing.latency"
-  ],
-  "creates_events": false,
-  "short_description": "Cisco SDWAN Controller Metric Exporter by Netnology",
-  "guid": "a7c79ba9-a4b7-4fa4-b4aa-3868458e2101",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Netnology Cisco SD-WAN",
-  "categories": [
-    "monitoring",
-    "network"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "nn-sdwan",
+  "manifest_version": "2.0.0",
+  "app_uuid": "8ff5c833-1498-4e63-9ef2-8deecf444d09",
+  "app_id": "nn-sdwan",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Cisco SDWAN Controller Metric Exporter by Netnology",
+    "title": "Netnology Cisco SD-WAN",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring",
+      "Category::Network"
+    ]
+  },
+  "author": {
+    "support_email": "info@netnology.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "info@netnology.io",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Netnology SD-WAN",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "nn_sdwan.",
+        "check": [
+          "nn_sdwan.device_control_status",
+          "nn_sdwan.app_aware_routing.latency"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Netnology SD-WAN Overview": "assets/dashboards/nn_sdwan_overview.json"
@@ -35,10 +53,6 @@
     "monitors": {
       "High Latency Monitor": "assets/monitors/high-latency-monitor.json",
       "Packet Loss Monitor": "assets/monitors/packet-loss-monitor.json"
-    },
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

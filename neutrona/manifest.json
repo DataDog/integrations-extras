@@ -1,32 +1,47 @@
 {
-  "integration_id": "neutrona",
-  "display_name": "Neutrona",
-  "maintainer": "david@neutrona.com",
-  "manifest_version": "1.0.0",
-  "name": "neutrona",
-  "metric_prefix": "neutrona.",
-  "metric_to_check": "neutrona.azure.expressroute.egress_bps",
-  "creates_events": false,
-  "short_description": "Neutrona Telemetry",
-  "guid": "ced5a4ae-6623-49f0-b45b-dbb678a5baa2",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Neutrona",
-  "categories": [
-    "AZURE",
-    "CLOUD",
-    "NETWORK"
-  ],
-  "type": "check",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "f44f84d4-1436-4ab1-8023-b952850b64c8",
+  "app_id": "neutrona",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Neutrona Telemetry",
+    "title": "Neutrona",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Azure",
+      "Category::Cloud",
+      "Category::Network"
+    ]
+  },
+  "author": {
+    "support_email": "david@neutrona.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "david@neutrona.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Neutrona",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "neutrona.",
+        "check": "neutrona.azure.expressroute.egress_bps",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

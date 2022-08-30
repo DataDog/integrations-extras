@@ -1,34 +1,48 @@
 {
-  "display_name": "PerimeterX",
-  "maintainer": "support@perimeterx.com",
-  "manifest_version": "1.0.0",
-  "name": "perimeterx",
-  "metric_prefix": "perimeterx.",
-  "metric_to_check": "",
-  "creates_events": true,
-  "short_description": "Integrate PerimeterX Logs and Metrics with DataDog",
-  "guid": "6e3a9bc2-6766-4b24-9edf-12811d821d41",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "PerimeterX",
-  "categories": [
-    "security"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "perimeterx",
+  "manifest_version": "2.0.0",
+  "app_uuid": "47527216-ad8e-454b-8291-494f05c2d5c9",
+  "app_id": "perimeterx",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Integrate PerimeterX Logs and Metrics with DataDog",
+    "title": "PerimeterX",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Security"
+    ]
+  },
+  "author": {
+    "support_email": "support@perimeterx.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@perimeterx.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "PerimeterX",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "perimeterx.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "PerimeterX Overview": "assets/dashboards/PerimeterX_Bot_Defender_Dashboard.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
-  },
-  "is_beta": false
+    }
+  }
 }

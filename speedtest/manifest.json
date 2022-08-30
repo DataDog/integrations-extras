@@ -1,37 +1,51 @@
 {
-  "display_name": "speedtest",
-  "maintainer": "cody.lee@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "speedtest",
-  "metric_prefix": "speedtest.",
-  "metric_to_check": "speedtest.download.bandwidth",
-  "creates_events": false,
-  "short_description": "Runs Speedtest results using speedtest-cli",
-  "guid": "4bf81e32-170a-44f3-868d-1683ef39464f",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "speedtest",
-  "categories": [
-    "isp",
-    "network"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "speedtest",
+  "manifest_version": "2.0.0",
+  "app_uuid": "550862f8-f1d1-4924-b802-185b865e09a4",
+  "app_id": "speedtest",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Runs Speedtest results using speedtest-cli",
+    "title": "speedtest",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::ISP",
+      "Category::Network"
+    ]
+  },
+  "author": {
+    "support_email": "cody.lee@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "cody.lee@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "speedtest",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "speedtest.",
+        "check": "speedtest.download.bandwidth",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Speedtest": "assets/dashboards/speedtest.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

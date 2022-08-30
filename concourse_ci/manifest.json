@@ -1,30 +1,45 @@
 {
-  "integration_id": "concourse-ci",
-  "categories": [
-    "Collaboration"
-  ],
-  "guid": "054cc9fb-01c4-4f05-98b5-fae828746787",
-  "is_public": true,
-  "maintainer": "help@datadoghq.com",
-  "public_title": "Concourse-CI",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "type": "crawler",
-  "manifest_version": "1.0.0",
-  "name": "concourse_ci",
-  "display_name": "Concourse CI",
-  "short_description": "Collect metrics emitted from Concourse CI.",
-  "metric_prefix": "concourse.ci.",
-  "metric_to_check": "concourse.ci.goroutines",
-  "creates_events": false,
+  "manifest_version": "2.0.0",
+  "app_uuid": "eb83d03f-e1d6-4718-8e54-922f4d2528b1",
+  "app_id": "concourse-ci",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect metrics emitted from Concourse CI.",
+    "title": "Concourse-CI",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Collaboration"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Concourse CI",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "concourse.ci.",
+        "check": "concourse.ci.goroutines",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

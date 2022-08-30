@@ -1,0 +1,2 @@
+# CHANGELOG - Redis Sentinel
+

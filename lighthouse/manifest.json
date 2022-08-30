@@ -1,28 +1,43 @@
 {
-  "integration_id": "lighthouse",
-  "display_name": "Lighthouse",
-  "maintainer": "mustin.eric@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "lighthouse",
-  "metric_prefix": "lighthouse.",
-  "metric_to_check": "lighthouse.performance",
-  "creates_events": false,
-  "short_description": "Google Lighthouse Audit Stats",
-  "guid": "4e66e6d6-bcb0-4250-b950-95ef11176494",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Lighthouse",
-  "categories": [
-    "web"
-  ],
-  "type": "check",
-  "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+  "manifest_version": "2.0.0",
+  "app_uuid": "e61bdb03-995f-4f46-8b14-afd59e35453b",
+  "app_id": "lighthouse",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Google Lighthouse Audit Stats",
+    "title": "Lighthouse",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Web"
+    ]
   },
-  "is_public": true
+  "author": {
+    "support_email": "mustin.eric@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "mustin.eric@gmail.com",
+    "name": "unknown"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Lighthouse",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "lighthouse.",
+        "check": "lighthouse.performance",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  }
 }

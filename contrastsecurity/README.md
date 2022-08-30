@@ -48,9 +48,13 @@ The Contrast integration does not send any events.
 
 The Contrast integration does not include any service checks.
 
+## Troubleshooting
+
+Need help? Contact the [maintainer][6] of this integration.
 
 [1]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/
 [2]: https://docs.contrastsecurity.com/
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#restart-the-agent
 [4]: https://docs.datadoghq.com/logs/log_collection/
 [5]: https://docs.datadoghq.com/api/#create-a-dashboard
+[6]: https://github.com/DataDog/integrations-extras/blob/master/contrastsecurity/manifest.json

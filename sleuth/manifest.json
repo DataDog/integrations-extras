@@ -1,36 +1,50 @@
 {
-  "display_name": "Sleuth",
-  "maintainer": "support@sleuth.io",
-  "manifest_version": "1.0.0",
-  "name": "sleuth",
-  "metric_prefix": "sleuth.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Sleuth Deployment Tracker",
-  "guid": "294cd3d0-1412-475a-9c85-d8369719b805",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Sleuth",
-  "categories": [
-    "orchestration",
-    "issue tracking",
-    "collaboration",
-    "source control"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "sleuth",
+  "manifest_version": "2.0.0",
+  "app_uuid": "7923b3ef-2436-4315-bf2e-7631a6975886",
+  "app_id": "sleuth",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Sleuth Deployment Tracker",
+    "title": "Sleuth",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Orchestration",
+      "Category::Issue Tracking",
+      "Category::Collaboration",
+      "Category::Source Control"
+    ]
+  },
+  "author": {
+    "support_email": "support@sleuth.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@sleuth.io",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json"
+    "integration": {
+      "source_type_name": "Sleuth",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "sleuth.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

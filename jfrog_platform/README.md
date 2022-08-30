@@ -30,11 +30,83 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
 
 ## Setup
 
-### Requirements
+
+### Metrics collection
+
+1. Enable Metrics for Artifactory and Xray:
+
+    1. [Enable Metrics for Artifactory][7]
+    2. [Create admin access tokens for Artifactory and Xray][8]
+
+2. Datadog Configuration
+
+    Follow the instructions below to configure this check for an Agent running on a host. For containerized environments, see the Containerized section.
+
+    These values override the configuration specified below
+    ```text
+    ARTIFACTORY_HOST_NAME_OR_IP   -> IP address or DNS of Artifactory 
+    ARTIFACTORY_ADMIN_TOKEN       -> Admin token for Artifactory
+    XRAY_ADMIN_TOKEN              -> Admin token for Xray
+    ```
+    To configure this check for an Agent running on a host:
+
+    1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory][9] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][10] for all available configuration options
+        ```text
+        instances:
+           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/artifactory/api/v1/metrics
+             scheme: http
+             headers:
+               Authorization: "Bearer <ARTIFACTORY_ADMIN_TOKEN>"
+             static_configs:
+               - targets: ["<ARTIFACTORY_HOST_NAME_OR_IP>:80"]
+             namespace: jfrog.artifactory
+             metrics:
+               - sys*
+               - jfrt*
+               - app*
+           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/xray/api/v1/metrics
+               scheme: http
+               headers:
+                 Authorization: "Bearer <XRAY_ADMIN_TOKEN>"
+               namespace: jfrog.xray
+               metrics:
+                 - app*
+                 - db*
+                 - go*
+                 - queue*
+                 - sys*
+                 - jfxr*
+        ```
+    2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
+
+### Log collection - Using the Agent (Recommended)
+
+1. Ensure the Agent has log collection enabled. You can check this by verifying whether or not `logs_enabled: true` has been set in the Agent's main configuration file `datadog.yaml`. [Refer to this document for more details][20].
+
+2. Modify the OpenMetrics config file (located at `openmetrics.d/conf.yaml`) to collect the appropriate log files.  You can use [wildcards][21] to select more than one log file. Add the following to the bottom of the file: 
+
+```yaml
+logs:
+  - type: file
+    path: "<PATH_TO_ARTIFACTORY_LOGS>/<LOG_FILE_NAME>.log"
+    service: "artifactory"
+    source: "jfrog"
+
+  - type: file
+    path: "<PATH_TO_XRAY_LOGS>/<LOG_FILE_NAME>.log"
+    service: "xray"
+    source: "jfrog"
+```
+
+3. [Restart the agent to apply the changes][11]. 
+
+### Log collection - Using FluentD
+
+#### Requirements
+
 * Your [Datadog API key][6].
 
-### Log collection
-
+#### Setup and Configure
 1. Install Fluentd using the [jFrog documentation][18] based on your installation type, and define the environment variable.
 
 2. Configure Fluentd with Artifactory by downloading the Artifactory Fluentd configuration file to a directory you have permissions to write in, such as `$JF_PRODUCT_DATA_INTERNAL` locations.
@@ -110,53 +182,6 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
 
     Add all attributes as facets from **Facets** > **Add** (on the left side of the screen in Logs) > **Search**.
 
-### Metrics collection
-
-1. Enable Metrics for Artifactory and Xray:
-
-    1. [Enable Metrics for Artifactory][7]
-    2. [Create admin access tokens for Artifactory and Xray][8]
-
-2. Datadog Configuration
-
-    Follow the instructions below to configure this check for an Agent running on a host. For containerized environments, see the Containerized section.
-
-    These values override the configuration specified below
-    ```text
-    ARTIFACTORY_HOST_NAME_OR_IP   -> IP address or DNS of Artifactory 
-    ARTIFACTORY_ADMIN_TOKEN       -> Admin token for Artifactory
-    XRAY_ADMIN_TOKEN              -> Admin token for Xray
-    ```
-    To configure this check for an Agent running on a host:
-
-    1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory][9] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][10] for all available configuration options
-        ```text
-        instances:
-           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/artifactory/api/v1/metrics
-             scheme: http
-             headers:
-               Authorization: "Bearer <ARTIFACTORY_ADMIN_TOKEN>"
-             static_configs:
-               - targets: ["<ARTIFACTORY_HOST_NAME_OR_IP>:80"]
-             namespace: jfrog.artifactory
-             metrics:
-               - sys*
-               - jfrt*
-               - app*
-           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/xray/api/v1/metrics
-               scheme: http
-               headers:
-                 Authorization: "Bearer <XRAY_ADMIN_TOKEN>"
-               namespace: jfrog.xray
-               metrics:
-                 - app*
-                 - db*
-                 - go*
-                 - queue*
-                 - sys*
-                 - jfxr*
-        ```
-    2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
 
 ### JFrog platform tile 
 
@@ -195,3 +220,5 @@ Need help? Contact [Datadog support][15].
 [17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_violations.png
 [18]: https://github.com/jfrog/log-analytics-datadog/blob/master/README.md
 [19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
+[20]: https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection
+[21]: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#tail-directories-by-using-wildcards

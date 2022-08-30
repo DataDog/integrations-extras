@@ -1,35 +1,49 @@
 {
-  "display_name": "Cyral",
-  "maintainer": "product@cyral.com",
-  "manifest_version": "1.0.0",
-  "name": "cyral",
-  "metric_prefix": "cyral.",
-  "metric_to_check": "cyral.analysis_time",
-  "creates_events": false,
-  "short_description": "Collect runtime metrics from a Cyral instance monitoring MySQL.",
-  "guid": "2a854a73-b0da-4954-b34e-fc1cd05ba8e8",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Cyral",
-  "categories": [
-    "monitoring",
-    "security"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "cyral",
+  "manifest_version": "2.0.0",
+  "app_uuid": "da6e2ea6-1611-4d37-9cc6-efce73bc4f31",
+  "app_id": "cyral",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect runtime metrics from a Cyral instance monitoring MySQL.",
+    "title": "Cyral",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Monitoring",
+      "Category::Security"
+    ]
+  },
+  "author": {
+    "support_email": "product@cyral.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "product@cyral.com",
+    "name": "unknown"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Cyral",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "cyral.",
+        "check": "cyral.analysis_time",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Cyral Overview": "assets/dashboards/cyral_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }
