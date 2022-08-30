@@ -113,9 +113,7 @@ METRIC_MAP = {
     'causal_clustering_core_replication_success': 'causal_clustering.core.replication_success',
     'causal_clustering_core_term': 'causal_clustering.core.term',
     'causal_clustering_core_tx_retries': 'causal_clustering.core.tx_retries',
-    'causal_clustering.read_replica.pull_updates': (
-        'causal_clustering.read_replica.pull_updates'
-    ),
+    'causal_clustering.read_replica.pull_updates': 'causal_clustering.read_replica.pull_updates',
     'causal_clustering.read_replica.pull_update_highest_tx_id_requested': (
         'causal_clustering.read_replica.pull_update_highest_tx_id_requested'
     ),
