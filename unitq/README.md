@@ -12,7 +12,7 @@ The unitQ Datadog integration allows you to forward metrics from unitQ to Datado
 
 ### Configuration
 
-1. In unitQ, go to Integrations.
+1. In unitQ, go to **Integrations**.
 2. Select the Datadog tile
 3. Fill in the following details:
    - **Datadog Site**:
