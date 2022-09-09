@@ -1,0 +1,29 @@
+{
+	"id": 81595898,
+	"name": "Monitor for low data usage",
+	"type": "query alert",
+	"query": "avg(last_4h):anomalies(avg:endpoint.volume{*} by {host}, 'basic', 2, direction='below', interval=60, alert_window='last_15m', count_default_zero='true') >= 0.02",
+	"message": "Monitor for low data usage by host",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"silenced": {
+			"*": null
+		},
+		"include_tags": false,
+		"thresholds": {
+			"critical": 0.02,
+			"critical_recovery": 0
+		},
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"new_group_delay": 60,
+		"threshold_windows": {
+			"recovery_window": "last_15m",
+			"trigger_window": "last_15m"
+		}
+	},
+	"priority": null,
+	"restricted_roles": null
+}

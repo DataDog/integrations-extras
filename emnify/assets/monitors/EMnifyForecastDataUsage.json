@@ -1,0 +1,22 @@
+{
+	"id": 81020738,
+	"name": "[EMnify] Forecasted data usage has gone above 50M bytes",
+	"type": "query alert",
+	"query": "max(next_2w):forecast(sum:endpoint.volume{*} + sum:endpoint.volume{*}, 'linear', 1, model='default', interval='120m', history='1w') >= 50000000",
+	"message": "[EMnify] Forecasted data usage over the next month has gone above 50M Bytes  @artur.lazarenko@iternal.group",
+	"tags": [],
+	"options": {
+		"notify_audit": false,
+		"silenced": {},
+		"include_tags": true,
+		"thresholds": {
+			"critical": 50000000
+		},
+		"require_full_window": false,
+		"new_host_delay": 300,
+		"notify_no_data": false,
+		"renotify_interval": 0
+	},
+	"priority": null,
+	"restricted_roles": null
+}
