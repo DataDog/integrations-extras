@@ -2,10 +2,6 @@
 
 ## Overview
 
-unitQ is your consolidated, searchable platform for user feedback. Our AI technology extracts data-driven insights from what users are saying to help you increase product quality.
-
-Our solution monitors millions of quality issues daily - for category-leading brands like Chime, Quizlet, Pandora, and Strava.
-
 The unitQ Datadog integration allows you to forward metrics from unitQ to Datadog. Datadog supports an advanced function API, which enables you to create graphs and alerts for user feedback metrics.
 
 ## Setup
