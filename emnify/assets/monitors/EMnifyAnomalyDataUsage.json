@@ -3,7 +3,7 @@
 	"name": "[EMnify] Usage traffic anomaly detected for a device {{host.host}}",
 	"type": "query alert",
 	"query": "sum(last_15m):anomalies(sum:endpoint.volume_tx{*} by {host}.as_count() + sum:endpoint.volume_rx{*} by {host}.as_count(), 'agile', 2, direction='both', interval=60, alert_window='last_15m', seasonality='hourly', timezone='utc', count_default_zero='true') >= 0.95",
-	"message": "Traffic usage for a device {{host.host}} is different from usual, which is higher than usual. @artur.lazarenko@iternal.group",
+	"message": "Traffic usage for a device {{host.host}} is different from usual, which is higher than usual.",
 	"tags": [],
 	"options": {
 		"thresholds": {

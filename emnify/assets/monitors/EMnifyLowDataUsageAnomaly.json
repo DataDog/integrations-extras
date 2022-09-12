@@ -1,6 +1,6 @@
 {
 	"id": 81595898,
-	"name": "Monitor for low data usage",
+	"name": "[EMnify] Unusual Data Consumption Drop",
 	"type": "query alert",
 	"query": "avg(last_4h):anomalies(avg:endpoint.volume{*} by {host}, 'basic', 2, direction='below', interval=60, alert_window='last_15m', count_default_zero='true') >= 0.02",
 	"message": "Monitor for low data usage by host",

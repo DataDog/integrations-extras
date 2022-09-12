@@ -1,9 +1,9 @@
 {
 	"id": 81020738,
-	"name": "[EMnify] Forecasted data usage has gone above 50M bytes",
+	"name": "[EMnify] Forecasted Data Usage is higher than expected",
 	"type": "query alert",
 	"query": "max(next_2w):forecast(sum:endpoint.volume{*} + sum:endpoint.volume{*}, 'linear', 1, model='default', interval='120m', history='1w') >= 50000000",
-	"message": "[EMnify] Forecasted data usage over the next month has gone above 50M Bytes  @artur.lazarenko@iternal.group",
+	"message": "[EMnify] Forecasted data usage over the next month has gone above 50M Bytes",
 	"tags": [],
 	"options": {
 		"notify_audit": false,

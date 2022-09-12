@@ -1,52 +1,55 @@
 {
-    "manifest_version": "2.0.0",
-    "app_uuid": "efcb18d9-2789-4481-bd4b-ff5a4c058dc3",
-    "app_id": "emnify",
-    "display_on_public_website": false,
-    "tile": {
-      "overview": "README.md#Overview",
-      "configuration": "README.md#Setup",
-      "support": "README.md#Support",
-      "changelog": "CHANGELOG.md",
-      "description": "Monitor and collect data usage from a EMnify portal",
-      "title": "EMnify",
-      "media": [],
-      "classifier_tags": [
-        "Supported OS::Linux",
-        "Supported OS::macOS",
-        "Supported OS::Windows",
-        "Category::Log Collection"
-      ]
+  "manifest_version": "2.0.0",
+  "app_uuid": "000307b4-8304-424a-8378-daf9a41b4d93",
+  "app_id": "emnify",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitors and Dashboard for EMnify data usage metrics",
+    "title": "EMnify",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::IoT",
+      "Category::Monitoring",
+      "Category::Connectivity",
+      "Category::Metrics",
+      "Category::Alerting",
+      "Category::Issue Tracking"
+    ]
+  },
+  "author": {
+    "support_email": "mail@emnify.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "sales@emnify.com",
+    "name": "EMnify"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "EMnify",
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "emnify.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {}
     },
-    "author": {
-      "support_email": "",
-      "homepage": "https://github.com/DataDog/integrations-extras",
-      "sales_email": "",
-      "name": "ArturLaz"
+    "dashboards": {
+      "Dashboard": "assets/dashboards/EMnifydashboard.json"
     },
-    "oauth": {},
-    "assets": {
-      "integration": {
-        "source_type_name": "EMnify",
-        
-        "events": {
-          "creates_events": true
-        },
-        "metrics": {
-          "prefix": "emnify.",
-          "check": "endpoint.volume",
-          "metadata_path": "metadata.csv"
-        },
-        "dashboards": {
-            "DataUsage Dashboard": "assets/dashboards/EMnifydashboard.json"
-          },
-        
-        "monitors": {
-            "DataUsage Anomaly": "assets/monitors/EMnifyAnomalyDataUsage.json",
-            "Low DataUsage Anomaly": "assets/monitors/EMnifyLowDataUsageAnomaly.json",
-            "Forecast DataUsage": "assets/monitors/EMnifyForecastDataUsage.json"
-        }
-      }
+    "monitors": {
+      "Unusually High Data Consumption": "assets/monitors/EMnifyAnomalyDataUsage.json",
+      "Unusual Data Consumption Drop": "assets/monitors/EMnifyLowDataUsageAnomaly.json",
+      "Forecasted Data Usage is Higher than expected": "assets/monitors/EMnifyForecastDataUsage.json"
     }
   }
-  
+}
