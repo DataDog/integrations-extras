@@ -12,7 +12,7 @@ With the Datadog [Angular integration][1], resolve performance issues quickly in
 Monitor your Angular applications from end-to-end by:
 
 - Tracking and visualizing user journeys across your entire stack
-- Debugging the root cause of slow load times, which may be an issue with your React code, network performance, or underlying infrastructure 
+- Debugging the root cause of slow load times, which may be an issue with your Angular code, network performance, or underlying infrastructure 
 - Analyzing and contextualizing every user session with attributes such as user ID, email, name, and more
 - Unifying full-stack monitoring in one platform for frontend and backend development teams
 
