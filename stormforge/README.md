@@ -48,7 +48,7 @@ For questions or other support, you can contact StormForge via [email][8].
 [1]: https://www.stormforge.io/how-stormforge-optimize-live-works/
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/#api-keys
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/#application-keys
-[4]: https://docs.stormforge.io/optimize-live/install/#datadog-metrics
+[4]: https://docs.stormforge.io/optimize-live/getting-started/install/#datadog-metric-provider
 [5]: https://app.stormforge.io
 [6]: https://docs.stormforge.io/optimize-live/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/stormforge/metadata.csv
