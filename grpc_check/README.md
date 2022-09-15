@@ -15,7 +15,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the grpc_check check on your host:
 
 ```bash
-sudo -u dd-agent datadog-agent integration install -t datadog-grpc-check==1.0.0
+sudo -u dd-agent datadog-agent integration install -t datadog-grpc-check==1.0.1
 ```
 
 #### Dockerfile
@@ -24,7 +24,7 @@ Build the Agent image with this Dockerfile.
 
 ```Dockerfile
 FROM datadog/agent:7
-RUN agent integration install -r -t datadog-grpc-check==1.0.0 \
+RUN agent integration install -r -t datadog-grpc-check==1.0.1 \
   && /opt/datadog-agent/embedded/bin/pip3 install grpcio grpcio-health-checking
 ```
 
