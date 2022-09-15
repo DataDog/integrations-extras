@@ -1,5 +1,4 @@
 {
-  "id": 81020738,
   "name": "[EMnify] Forecasted data usage has gone above expected",
   "type": "query alert",
   "query": "max(next_2w):forecast(sum:endpoint.volume{*}.as_count().rollup(sum, 86400), 'linear', 2, model='reactive', interval='60m', history='1mo') >= 1000000000",

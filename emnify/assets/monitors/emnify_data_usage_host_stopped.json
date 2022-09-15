@@ -1,5 +1,4 @@
 {
-  "id": 81595898,
   "name": "[EMnify] Data exchange has stopped unexpectedly for a device",
   "type": "query alert",
   "query": "avg(last_1d):anomalies(avg:endpoint.volume{*} by {host}.as_count().fill(zero, 0).rollup(sum, 900), 'robust', 2, direction='below', interval=300, alert_window='last_1h', seasonality='hourly', timezone='utc', count_default_zero='true') >= 0.5",
