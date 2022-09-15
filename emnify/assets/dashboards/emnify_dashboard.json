@@ -1,5 +1,5 @@
 {
-  "description": "Observe your consumption analytics all in one dashboard. Analyze usage patterns for your devices inventory.",
+  "description": "Observe your consumption analytics all in one dashboard. Analyze patterns of usage across your devices inventory.",
   "id": "ajg-fdu-uyn",
   "is_read_only": false,
   "layout_type": "ordered",
@@ -9,22 +9,61 @@
   "title": "[EMnify] Dashboard",
   "widgets": [
     {
-      "id": 2719566117138984,
+      "id": 973562992734448,
       "definition": {
-        "type": "image",
-        "url": "https://portal.emnify.com/images/main-layout-logo-dark.svg",
-        "sizing": "contain",
-        "margin": "md",
-        "has_background": false,
-        "has_border": false,
-        "vertical_align": "center",
-        "horizontal_align": "center"
+        "title": "About EMnify Dashboard",
+        "type": "group",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2719566117138984,
+            "definition": {
+              "type": "image",
+              "url": "https://portal.emnify.com/images/main-layout-logo-dark.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4205652380459396,
+            "definition": {
+              "type": "note",
+              "content": "# Widgets\n\nObserve your consumption analytics all in one dashboard. Analyze usage patterns for your device inventory.\n\n# Setup\nConfigure streaming of Usage Data following the [integration guide][2],\nsections “Integration Steps” and “Verifying the integration”.\n\n# Dashboard Tuning\n\nYou can pick a period to filter the data displayed.\n\n[2]: https://www.emnify.com/integration-guides/emnify-datastreamer-integration-for-datadog",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
       },
       "layout": {
-        "x": 2,
+        "x": 0,
         "y": 0,
-        "width": 3,
-        "height": 2
+        "width": 6,
+        "height": 6
       }
     },
     {
@@ -60,10 +99,32 @@
         }
       },
       "layout": {
-        "x": 5,
+        "x": 6,
         "y": 0,
-        "width": 5,
-        "height": 2
+        "width": 6,
+        "height": 6
+      }
+    },
+    {
+      "id": 3360734162786772,
+      "definition": {
+        "type": "note",
+        "content": "Use this widget to track anomalies that appear in your usage patterns.\n\nThis way you can easier troubleshoot issues in your infrastructure.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 5,
+        "is_column_break": true
       }
     },
     {
@@ -111,10 +172,10 @@
         }
       },
       "layout": {
-        "x": 0,
-        "y": 2,
-        "width": 12,
-        "height": 3
+        "x": 2,
+        "y": 0,
+        "width": 10,
+        "height": 5
       }
     },
     {
@@ -144,8 +205,50 @@
       "layout": {
         "x": 0,
         "y": 5,
-        "width": 12,
-        "height": 3
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 6496848488480304,
+      "definition": {
+        "type": "note",
+        "content": "See portions of total data consumption that every device takes during a selected period.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 5,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 2374018436671430,
+      "definition": {
+        "type": "note",
+        "content": "Daily incoming and outgoing traffic stacks show the distribution of traffic consumption among your devices during the time. ",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 2,
+        "height": 5
       }
     },
     {
@@ -206,9 +309,9 @@
         }
       },
       "layout": {
-        "x": 0,
-        "y": 8,
-        "width": 12,
+        "x": 2,
+        "y": 10,
+        "width": 10,
         "height": 5
       }
     },
@@ -261,8 +364,50 @@
       },
       "layout": {
         "x": 0,
-        "y": 13,
-        "width": 6,
+        "y": 15,
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 3974593474246872,
+      "definition": {
+        "type": "note",
+        "content": "Shows clusters of devices with similar consumption patterns.\n\nThis may help you to define the optimal pricing model.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 15,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 1572035223962300,
+      "definition": {
+        "type": "note",
+        "content": "Top devices by data consumption.\n\nIn **config** you may set rules of formatting that will help you to highlight a group that has consumption that deserves attention.\n\nBy default, we highlight with red all the devices having more than *150 MB* of data consumption.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 2,
         "height": 5
       }
     },
@@ -304,9 +449,9 @@
         ]
       },
       "layout": {
-        "x": 6,
-        "y": 13,
-        "width": 6,
+        "x": 2,
+        "y": 20,
+        "width": 10,
         "height": 5
       }
     }
