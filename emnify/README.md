@@ -1,5 +1,5 @@
 ## Overview
-[EMnify’s][1] cellular IoT connectivity platform keeps your devices
+[EMnify][1] cellular IoT connectivity platform keeps your devices
 connected and secure wherever you deploy. Our network-agnostic SIMs
 let your applications connect to more than 540 networks in over 180 countries.
 We also offer the largest LTE-M coverage on the market.
@@ -8,7 +8,7 @@ Use the Datadog-EMnify integration to collect metrics and data usage from IoT EM
 
 ## Setup
 Configure streaming of Usage Data following the [integration guide][2],
-sections “Integration Steps” and “Verifying the integration”.
+sections "Integration Steps" and "Verifying the integration".
 
 ### Monitors
 
