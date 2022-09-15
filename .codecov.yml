@@ -59,6 +59,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
       JFrog_Platform:
         target: 75
         flags:
@@ -324,6 +328,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  grpc_check:
+    carryforward: true
+    paths:
+    - grpc_check/datadog_checks/grpc_check
+    - grpc_check/tests
   jfrog_platform:
     carryforward: true
     paths:
