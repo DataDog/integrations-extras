@@ -45,7 +45,7 @@ CHECKS_BASE_REQ = parse_pyproject_array("dependencies")[0]
 setup(
     name="datadog-grpc_check",
     version=ABOUT["__version__"],
-    description="The grpc_check check",
+    description="The grpc_check monitors endpoints implementing gRPC Health Checking Protocol",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="datadog agent grpc_check check",
@@ -53,7 +53,7 @@ setup(
     url="https://github.com/DataDog/integrations-extras",
     # Author details
     author="Keisuke Umegaki",
-    author_email="help@datadoghq.com",
+    author_email="keisuke.umegaki.630@gmail.com",
     # License
     license="BSD-3-Clause",
     # See https://pypi.org/classifiers
