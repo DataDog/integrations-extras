@@ -14,14 +14,9 @@ Follow the instructions below to install and configure this check for an Agent r
 
 To install the grpc_check check on your host:
 
-1. Install the [developer toolkit][10] on any machine.
-
-2. Run `ddev release build grpc_check` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
-   run `datadog-agent integration install -w path/to/grpc_check/dist/<ARTIFACT_NAME>.whl`.
+```bash
+sudo -u dd-agent datadog-agent integration install -t datadog-grpc-check==1.0.0
+```
 
 #### Dockerfile
 
