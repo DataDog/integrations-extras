@@ -1,0 +1,29 @@
+{
+  "id": 86539444,
+  "name": "[EMnify] Data Receiving for a device {{host.host}} is higher than usual.",
+  "type": "query alert",
+  "query": "sum(last_12h):anomalies(sum:endpoint.volume_rx{*} by {host}.as_count().fill(zero, 0).rollup(sum, 300), 'basic', 2, direction='above', interval=120, alert_window='last_30m', count_default_zero='true') >= 1",
+  "message": "Incoming traffic for a device is higher than usual.",
+  "tags": [],
+  "options": {
+    "notify_audit": false,
+    "timeout_h": 1,
+    "silenced": {},
+    "include_tags": true,
+    "thresholds": {
+      "critical": 1,
+      "warning": 0.7,
+      "critical_recovery": 0
+    },
+    "require_full_window": false,
+    "notify_no_data": false,
+    "renotify_interval": 0,
+    "new_group_delay": 60,
+    "threshold_windows": {
+      "recovery_window": "last_1h",
+      "trigger_window": "last_30m"
+    }
+  },
+  "priority": null,
+  "restricted_roles": null
+}
