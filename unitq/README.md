@@ -2,7 +2,7 @@
 
 ## Overview
 
-The unitQ Datadog integration allows you to forward metrics from unitQ to Datadog.By delivering unitQ metrics to Datadog, users can leverage Datadog's graphing and alerting capabilities to track user feedback ensuring a happy customer base
+The unitQ Datadog integration allows you to forward metrics from unitQ to Datadog. By delivering unitQ metrics to Datadog, users can leverage Datadog's graphing and alerting capabilities to track user feedback - ensuring a happy customer base.
 
 ## Setup
 
