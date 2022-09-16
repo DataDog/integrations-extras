@@ -2,6 +2,8 @@
 
 ## Overview
 
+unitQ is your consolidated, searchable platform for user feedback. Our AI technology extracts data-driven insights from what users are saying to help you increase product quality.
+
 The unitQ Datadog integration allows you to forward metrics from unitQ to Datadog. By delivering unitQ metrics to Datadog, users can leverage Datadog's graphing and alerting capabilities to track user feedback - ensuring a happy customer base.
 
 ## Setup
