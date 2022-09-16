@@ -38,17 +38,21 @@ class FiddlerCheck(AgentCheck):
         self.AUTH_TOKEN = 'K4ph7ORDcIO2xVIEA6KxL1o1zHjZockgurhCOZOUSVs'
 
         self.log.info("Inside init method.")
-        self.client = fdl.FiddlerApi(url=self.URL, org_id=self.ORG_ID, auth_token=self.AUTH_TOKEN)
+        #        self.client = fdl.FiddlerApi(url=self.URL, org_id=self.ORG_ID, auth_token=self.AUTH_TOKEN)
 
-    #        self.base_url = self.instance.get('url')
-    #        self.api_key = self.instance.get('fiddler_api_key')
-    #        self.org = self.instance.get('organization')
+        self.base_url = self.instance.get('url')
+        self.api_key = self.instance.get('fiddler_api_key')
+        self.org = self.instance.get('organization')
 
-    #        self.log.info("Connecting to : ", self.base_url)
-    #        self.log.info("with org id : ", self.org)
-    #        self.log.info("and auth key : ", self.api_key)
+        #            self.log.info("Connecting to : ", self.base_url)
+        #            self.log.info("with org id : ", self.org)
+        #            self.log.info("and auth key : ", self.api_key)
 
-    #        client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
+        print("Connecting to : ", self.base_url)
+        print("with org id : ", self.org)
+        print("and auth key : ", self.api_key)
+
+        self.client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
 
     # Use self.instance to read the check configuration
 
