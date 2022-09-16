@@ -55,7 +55,7 @@ class FiddlerCheck(AgentCheck):
     def check(self, _):
         # Iterate through the projects and the models and push data into Fiddler
         project_path = ['list_projects', self.ORG_ID]
-        result_all = self.client._call(project_path)
+        result_all = self.client.v1._call(project_path)
         #        self.log.info("Projects: ", result_all["projects"])
 
         start_time = (time.time() * 1000) - (bin_size * 1000)
@@ -85,7 +85,7 @@ class FiddlerCheck(AgentCheck):
 
                     hit_exception = False
                     try:
-                        result = self.client._call(agg_metrics_path, json_request)
+                        result = self.client.v1._call(agg_metrics_path, json_request)
                     except Exception:
                         self.log.info("Aggregated metrics exception : ", agg_metrics_path)
                         self.log.info(
