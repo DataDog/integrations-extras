@@ -51,8 +51,27 @@
   },
   "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "EMnify",
+      "configuration": {},
+      "service_checks": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "emnify.",
+        "check": "endpoint.volume",
+        "metadata_path": "metadata.csv"
+      }
+    },
     "dashboards": {
       "dashboard": "assets/dashboards/emnify_dashboard.json"
+    },
+    "monitors": {
+      "Daily Traffic Forecast": "assets/monitors/emnify_data_usage_forecast.json",
+      "High Incoming Traffic": "assets/monitors/emnify_data_usage_high_rx.json",
+      "High Outgoing Traffic": "assets/monitors/emnify_data_usage_high_tx.json",
+      "Traffic Transmition Stopped": "assets/monitors/emnify_data_usage_host_stopped.json"
     }
   }
 }
