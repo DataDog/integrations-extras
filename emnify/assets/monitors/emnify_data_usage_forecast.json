@@ -3,7 +3,7 @@
   "type": "query alert",
   "query": "max(next_2w):forecast(sum:endpoint.volume{*}.as_count().rollup(sum, 86400), 'linear', 2, model='reactive', interval='60m', history='1mo') >= 1000000000",
   "message": "It was forecasted that data usage over the next week would exceed what was set as the limit.",
-  "tags": [],
+  "tags": ["integration"],
   "options": {
     "notify_audit": false,
     "silenced": {},
