@@ -32,7 +32,7 @@ To enable it just for yourself, add these to your user settings `/user/username/
 "datadogServiceMap.corsAnywhereUrl": "CORS_ANYWHERE_URL",
 ```
 
-If you don't have a CORS anywhere URL, you can use the Sourcegraph demo: `https://sourcegraph-demo-cors-anywhere.herokuapp.com`
+If you don't have a CORS anywhere URL, you can use the [Sourcegraph demo][5].
 
 ### 3. Visit a code file with a service tracer call
 
@@ -73,3 +73,4 @@ Need help? Contact [Datadog support][3].
 [2]: https://docs.datadoghq.com/tracing/visualization/services_map/
 [3]: https://docs.datadoghq.com/help/
 [4]: https://www.datadoghq.com/blog/sourcegraph-datadog-apm-integration/
+[5]: https://sourcegraph-demo-cors-anywhere.herokuapp.com
