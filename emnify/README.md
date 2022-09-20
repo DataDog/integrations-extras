@@ -5,11 +5,11 @@ connected and secure.
 Use the Datadog-EMnify integration to collect metrics and data usage from IoT EMnify devices.
 
 ## Setup
-Follow the [integration guide][2] to configure streaming of usage data, using the **Integration steps** and **Verifying the integration** sections.
+Follow the [Emnify integration guide][2] to configure streaming of usage data, using the **Integration steps** and **Verifying the integration** sections.
 
 ### Monitors
 
-Everybody has different usage patterns so in order for monitors to reflect your specific case you must
+Everybody has different usage patterns, so in order for monitors to reflect your specific case you must
 define workload-based boundaries and sensitivity.
 For more information read the [Forecast monitor][4] and [Anomaly monitor][5] documentation.
 
