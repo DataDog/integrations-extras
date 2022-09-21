@@ -36,6 +36,9 @@ EXPECTED_CONTROLLER_METRICS = {
     'gatekeeper.sync.duration.seconds.count': aggregator.MONOTONIC_COUNT,
     'gatekeeper.watch.intended': aggregator.GAUGE,
     'gatekeeper.watch.watched': aggregator.GAUGE,
+    'gatekeeper.validation.request.count': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.validation.request.duration.seconds.sum': aggregator.MONOTONIC_COUNT,
+    'gatekeeper.validation.request.duration.seconds.count': aggregator.MONOTONIC_COUNT,
 }
 
 
