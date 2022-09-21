@@ -5,7 +5,7 @@ connected and secure.
 Use the Datadog-EMnify integration to collect metrics and data usage from IoT EMnify devices.
 
 ## Setup
-Follow the [Emnify integration guide][2] to configure streaming of usage data, using the **Integration steps** and **Verifying the integration** sections.
+Follow the [EMnify integration guide][2] to configure streaming of usage data, using the **Integration steps** and **Verifying the integration** sections.
 
 ### Monitors
 
@@ -19,7 +19,7 @@ You can pick a period in [dashboard][6] to filter data displayed.
 
 ## Support
 
-Need help? Contact [Emnify support][3].
+Need help? Contact [EMnify support][3].
 
 [1]: https://www.emnify.com/
 [2]: https://www.emnify.com/integration-guides/emnify-datastreamer-integration-for-datadog
