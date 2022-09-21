@@ -4,7 +4,7 @@ from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
 URL = 'http://{}:9000'.format(get_docker_hostname())
 FIDDLER_API_KEY = 'eSZ7iyuywmODU0ftl1GvqzuxLNE8mxFWovBftInhqY4'
-INSTANCE = {"urlF": "https://demo.fiddler.ai", "fiddler_api_key": FIDDLER_API_KEY, "organization": "demo", 'url': URL}
+INSTANCE = {"url": "https://demo.fiddler.ai", "fiddler_api_key": FIDDLER_API_KEY, "organization": "demo"}
 
 
 @pytest.fixture(scope='session')
@@ -17,7 +17,7 @@ def dd_environment():
     # 2. Waits for the url to be available before running the tests
     # 3. Tears down the services when the tests are finished
     with docker_run(compose_file, endpoints=[URL]):
-        yield instance
+        yield e2e_instance
 
 
 @pytest.fixture(scope='session')

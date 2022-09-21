@@ -1,8 +1,8 @@
 # Agent Check: Fiddler
 
 ## Overview
-
 Fiddler AI monitors AI model performance by sending real-time alerts when model performance metrics drop and allowing customers to drill-down to understand where a model is failing. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, precision, recall and drift.
+
 
 ## Setup
 
