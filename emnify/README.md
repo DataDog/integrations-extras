@@ -15,7 +15,7 @@ For more information read the [Forecast monitor][4] and [Anomaly monitor][5] doc
 
 ### Dashboard
 
-You can pick a period in [dashboard][6] to filter data displayed.
+Choose a time frame in the [dashboard][6] to filter the data displayed.
 
 ## Support
 
