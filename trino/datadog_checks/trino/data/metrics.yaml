@@ -3,6 +3,8 @@ jmx_metrics:
   - include:
       bean: trino.execution:name=QueryManager
       attribute:
+        SubmittedQueries.TotalCount:
+          alias: trino.execution.submitted_queries.total_count
         AbandonedQueries.OneMinute.Count:
           alias: trino.execution.abandoned_queries.one_minute.count
         AbandonedQueries.OneMinute.Rate:
@@ -27,6 +29,8 @@ jmx_metrics:
           alias: trino.execution.consumed_cpu_time_secs.one_minute.rate
         ConsumedCpuTimeSecs.TotalCount:
           alias: trino.execution.consumed_cpu_time_secs.total_count
+        ConsumedInputBytes.FiveMinute.Rate:
+          alias: trino.execution.consumed_input_bytes.five_minute.rate
         CpuInputByteRate.AllTime.Avg:
           alias: trino.execution.cpu_input_byte_rate.all_time.avg
         CpuInputByteRate.AllTime.P75:
@@ -119,6 +123,28 @@ jmx_metrics:
           alias: trino.execution.wall_input_bytes_rate.one_minute.p75
         WallInputBytesRate.OneMinute.P95:
           alias: trino.execution.wall_input_bytes_rate.one_minute.p95
+        QueuedTime.AllTime.Avg:
+          alias: trino.execution.queued_time.all_time.avg
+        QueuedTime.AllTime.Count:
+          alias: trino.execution.queued_time.all_time.count
+        QueuedTime.AllTime.Max:
+          alias: trino.execution.queued_time.all_time.max
+        QueuedTime.AllTime.Min:
+          alias: trino.execution.queued_time.all_time.min
+        QueuedTime.AllTime.P75:
+          alias: trino.execution.queued_time.all_time.p75
+        QueuedTime.AllTime.P95:
+          alias: trino.execution.queued_time.all_time.p95
+        QueuedTime.OneMinute.Avg:
+          alias: trino.execution.queued_time.one_minute.avg
+        QueuedTime.OneMinute.Max:
+          alias: trino.execution.queued_time.one_minute.max
+        QueuedTime.OneMinute.Min:
+          alias: trino.execution.queued_time.one_minute.min
+        QueuedTime.OneMinute.P75:
+          alias: trino.execution.queued_time.one_minute.p75
+        QueuedTime.OneMinute.P95:
+          alias: trino.execution.queued_time.one_minute.p95
   - include:
       bean: trino.execution.executor:name=TaskExecutor
       attribute:
@@ -149,3 +175,44 @@ jmx_metrics:
           alias: trino.memory.reserved_revocable_distributed_bytes
         TotalDistributedBytes:
           alias: trino.memory.total_distributed_bytes
+        ClusterMemoryBytes:
+          alias: trino.memory.cluster_memory_bytes
+        ClusterTotalMemoryReservation:
+          alias: trino.memory.cluster_total_memory_reservation
+        ClusterUserMemoryReservation:
+          alias: trino.memory.cluster_user_memory_reservation
+        QueriesKilledDueToOutOfMemory:
+          alias: trino.memory.queries_killed_due_to_out_of_memory
+        TasksKilledDueToOutOfMemory:
+          alias: trino.memory.tasks_killed_due_to_out_of_memory
+        TotalAvailableProcessors:
+          alias: trino.memory.total_available_processors
+  - include:
+      bean: trino.metadata:name=DiscoveryNodeManager
+      attribute:
+        ActiveNodeCount:
+          alias: trino.metadata.active_node_count
+        InactiveNodeCount:
+          alias: trino.metadata.inactive_node_count
+  - include:
+      bean: trino.execution:name=SqlTaskManager
+      attribute:
+        InputDataSize.TotalCount:
+          alias: trino.execution.input_data_size.total_count
+        InputDataSize.OneMinute.Rate:
+          alias: trino.execution.input_data_size.one_minute.rate
+        OutputDataSize.TotalCount:
+          alias: trino.execution.output_data_size.total_count
+        OutputDataSize.OneMinute.Rate:
+          alias: trino.execution.output_data_size.one_minute.rate
+  - include:
+      bean: trino.security:name=AccessControlManager
+      attribute:
+        AuthorizationFail.TotalCount:
+          alias: trino.security.authorization_fail.total_count
+        AuthorizationFail.OneMinute.Rate:
+          alias: trino.security.authorization_fail.one_minute.rate
+        AuthorizationSuccess.TotalCount:
+          alias: trino.security.authorization_success.total_count
+        AuthorizationSuccess.OneMinute.Rate:
+          alias: trino.security.authorization_success.one_minute.rate
