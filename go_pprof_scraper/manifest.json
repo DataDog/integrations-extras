@@ -1,35 +1,43 @@
 {
-  "display_name": "Go-pprof-scraper",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "go_pprof_scraper",
-  "metric_prefix": "go_pprof_scraper.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "",
-  "guid": "d83918aa-71c5-4bdf-afc2-e298d3949bf2",
-  "support": "core",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Go-pprof-scraper",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": false,
-  "integration_id": "go-pprof-scraper",
+  "manifest_version": "2.0.0",
+  "app_uuid": "2b13f6b1-d3ba-4254-93c0-2ceaf783cd85",
+  "app_id": "go-pprof-scraper",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "",
+    "title": "Go-pprof-scraper",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Go-pprof-scraper",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "go_pprof_scraper.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
