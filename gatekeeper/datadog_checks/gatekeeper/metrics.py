@@ -15,4 +15,8 @@ METRIC_MAP = {
     'gatekeeper_sync_last_run_time': 'sync.last_run_time',
     'gatekeeper_watch_manager_intended_watch_gvk': 'watch.intended',
     'gatekeeper_watch_manager_watched_gvk': 'watch.watched',
+    'gatekeeper_mutator_ingestion_count': 'mutator.ingestion.count',
+    'gatekeeper_mutator_ingestion_duration_seconds': 'mutator.ingestion.duration.seconds',
+    'gatekeeper_mutators': 'mutators',
+    'gatekeeper_mutator_conflicting_count': 'mutator.conflicting.count',
 }
