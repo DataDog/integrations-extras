@@ -17,9 +17,17 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-TODO: update this
-The Go-pprof-scraper check is included in the [Datadog Agent][2] package.
-No additional installation is needed on your server.
+If you are using Agent v7.21+ / v6.21+ follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][14] to install checks with the [Agent prior < v7.21 / v6.21][15] or the [Docker Agent][16]:
+
+1. [Download and launch the Datadog Agent][2].
+2. Run the following command to install the integrations wheel with the Agent:
+
+   ```shell
+   datadog-agent integration install -t datadog-redisenterprise==<INTEGRATION_VERSION>
+   ```
+  You can find the latest version on the [Datadog Integrations Release Page][17]
+
+   **Note**: If necessary, prepend `sudo -u dd-agent` to the install command.
 
 ### Configuration
 
@@ -35,7 +43,7 @@ No additional installation is needed on your server.
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this integration.
+The Go-pprof-scraper integration does not create any metrics.
 
 ### Events
 
@@ -65,3 +73,7 @@ Need help? Contact [Datadog support][9].
 [11]: https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/
 [12]: https://docs.datadoghq.com/profiler/enabling/go/
 [13]: https://docs.datadoghq.com/profiler/connect_traces_and_profiles/
+[14]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentv721v621
+[15]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentearlierversions
+[16]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
+[17]: https://github.com/DataDog/integrations-extras/tags
