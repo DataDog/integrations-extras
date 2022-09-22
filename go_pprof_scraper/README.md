@@ -58,8 +58,8 @@ Need help? Contact [Datadog support][9].
 [4]: https://github.com/DataDog/integrations-core/blob/master/check/datadog_checks/check/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-core/blob/master/check/metadata.csv
-[8]: https://github.com/DataDog/integrations-core/blob/master/check/assets/service_checks.json
+[7]: https://github.com/DataDog/integrations-extras/blob/master/go_pprof_scraper/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/go_pprof_scraper/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
 [10]: https://docs.datadoghq.com/profiler/
 [11]: https://docs.datadoghq.com/account_management/billing/apm_tracing_profiler/
