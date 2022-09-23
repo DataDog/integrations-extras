@@ -98,3 +98,123 @@ gatekeeper_watch_manager_intended_watch_gvk 3
 # HELP gatekeeper_watch_manager_watched_gvk The total number of Group/Version/Kinds currently watched by the watch manager
 # TYPE gatekeeper_watch_manager_watched_gvk gauge
 gatekeeper_watch_manager_watched_gvk 3
+# HELP gatekeeper_constraint_template_ingestion_count Total number of constraint template ingestion actions
+# TYPE gatekeeper_constraint_template_ingestion_count counter
+gatekeeper_constraint_template_ingestion_count{status="active"} 6
+# HELP gatekeeper_constraint_template_ingestion_duration_seconds Distribution of how long it took to ingest a constraint template in seconds
+# TYPE gatekeeper_constraint_template_ingestion_duration_seconds histogram
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.01"} 5
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.02"} 5
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.03"} 5
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.04"} 5
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.05"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.06"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.07"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.08"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.09"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.1"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.2"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.3"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.4"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="0.5"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="1"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="2"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="3"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="4"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="5"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_bucket{status="active",le="+Inf"} 6
+gatekeeper_constraint_template_ingestion_duration_seconds_sum{status="active"} 0.051321725000000006
+gatekeeper_constraint_template_ingestion_duration_seconds_count{status="active"} 6
+# HELP gatekeeper_constraint_templates Number of observed constraint templates
+# TYPE gatekeeper_constraint_templates gauge
+gatekeeper_constraint_templates{status="active"} 1
+gatekeeper_constraint_templates{status="error"} 0
+# HELP gatekeeper_constraints Current number of known constraints
+# TYPE gatekeeper_constraints gauge
+gatekeeper_constraints{enforcement_action="deny",status="active"} 1
+gatekeeper_constraints{enforcement_action="deny",status="error"} 0
+gatekeeper_constraints{enforcement_action="dryrun",status="active"} 0
+gatekeeper_constraints{enforcement_action="dryrun",status="error"} 0
+gatekeeper_constraints{enforcement_action="unrecognized",status="active"} 0
+gatekeeper_constraints{enforcement_action="unrecognized",status="error"} 0
+gatekeeper_constraints{enforcement_action="warn",status="active"} 0
+gatekeeper_constraints{enforcement_action="warn",status="error"} 0
+# HELP gatekeeper_request_count The number of requests that are routed to validation webhook
+# TYPE gatekeeper_request_count counter
+gatekeeper_request_count{admission_status="allow"} 587
+# HELP gatekeeper_request_duration_seconds The response time in seconds
+# TYPE gatekeeper_request_duration_seconds histogram
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.001"} 394
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.002"} 567
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.003"} 575
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.004"} 578
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.005"} 581
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.006"} 585
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.007"} 585
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.008"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.009"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.01"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.02"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.03"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.04"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="0.05"} 586
+gatekeeper_request_duration_seconds_bucket{admission_status="allow",le="+Inf"} 587
+gatekeeper_request_duration_seconds_sum{admission_status="allow"} 0.697986493
+gatekeeper_request_duration_seconds_count{admission_status="allow"} 587
+# HELP gatekeeper_validation_request_count The number of requests that are routed to validation webhook
+# TYPE gatekeeper_validation_request_count counter
+gatekeeper_validation_request_count{admission_status="allow"} 587
+# HELP gatekeeper_validation_request_duration_seconds The response time in seconds
+# TYPE gatekeeper_validation_request_duration_seconds histogram
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.001"} 394
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.002"} 567
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.003"} 575
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.004"} 578
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.005"} 581
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.006"} 585
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.007"} 585
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.008"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.009"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.01"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.02"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.03"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.04"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="0.05"} 586
+gatekeeper_validation_request_duration_seconds_bucket{admission_status="allow",le="+Inf"} 587
+gatekeeper_validation_request_duration_seconds_sum{admission_status="allow"} 0.697986493
+gatekeeper_validation_request_duration_seconds_count{admission_status="allow"} 587
+# HELP gatekeeper_watch_manager_intended_watch_gvk The total number of Group/Version/Kinds that the watch manager has instructions to watch. This could differ from the actual count due to resources being pending, non-existent, or a failure of the watch manager to restart
+# TYPE gatekeeper_watch_manager_intended_watch_gvk gauge
+gatekeeper_watch_manager_intended_watch_gvk 1
+# HELP gatekeeper_watch_manager_watched_gvk The total number of Group/Version/Kinds currently watched by the watch manager
+# TYPE gatekeeper_watch_manager_watched_gvk gauge
+gatekeeper_watch_manager_watched_gvk 1
+# HELP gatekeeper_mutator_conflicting_count The current number of conflicting Mutator objects
+# TYPE gatekeeper_mutator_conflicting_count gauge
+gatekeeper_mutator_conflicting_count 0
+# HELP gatekeeper_mutator_ingestion_count Total number of Mutator ingestion actions
+# TYPE gatekeeper_mutator_ingestion_count counter
+gatekeeper_mutator_ingestion_count{status="active"} 4
+# HELP gatekeeper_mutator_ingestion_duration_seconds The distribution of Mutator ingestion durations
+# TYPE gatekeeper_mutator_ingestion_duration_seconds histogram
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.001"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.002"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.003"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.004"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.005"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.006"} 0
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.007"} 1
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.008"} 2
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.009"} 2
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.01"} 3
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.02"} 3
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.03"} 4
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.04"} 4
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="0.05"} 4
+gatekeeper_mutator_ingestion_duration_seconds_bucket{status="active",le="+Inf"} 4
+gatekeeper_mutator_ingestion_duration_seconds_sum{status="active"} 0.052600856
+gatekeeper_mutator_ingestion_duration_seconds_count{status="active"} 4
+# HELP gatekeeper_mutators The current number of Mutator objects
+# TYPE gatekeeper_mutators gauge
+gatekeeper_mutators{status="active"} 1
+gatekeeper_mutators{status="error"} 0

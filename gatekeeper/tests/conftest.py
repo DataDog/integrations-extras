@@ -26,7 +26,7 @@ def setup_cert_manager():
             "kubectl",
             "apply",
             "-f",
-            "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.3/deploy/gatekeeper.yaml",
+            "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.9/deploy/gatekeeper.yaml",
         ]
     )
     run_command(
