@@ -46,8 +46,8 @@ class FiddlerCheck(AgentCheck):
 
         start_time = (time.time() * 1000) - (bin_size * 1000)
         end_time = time.time() * 1000
-        self.log.debug("Start time is : ", start_time)
-        self.log.debug("End time is : ", end_time)
+        self.log.debug("Start time is : %s", start_time)
+        self.log.debug("End time is : %s", end_time)
 
         # Iterate through all of the projects within the Fiddler instance and get the metrics
         for project in result_all["projects"]:
@@ -55,9 +55,9 @@ class FiddlerCheck(AgentCheck):
 
             # Iterate through all of the models within a project
             for model in models:
-                self.log.debug("Model: ", model["id"])
+                self.log.debug("Model: %s", model["id"])
                 for metric in metrics_list:
-                    self.log.debug("Metric is :", metric)
+                    self.log.debug("Metric is : %s", metric)
                     json_request = {
                         "metric": metric,
                         "time_range_start": start_time,
@@ -66,16 +66,19 @@ class FiddlerCheck(AgentCheck):
                         "prediction": '_',
                     }
                     agg_metrics_path = ['aggregated_metrics', self.org, project["name"], model["id"]]
-                    self.log.debug("ProjectModel: ", project["name"], model["id"], metric)
+                    self.log.debug("ProjectModel: %s %s %s", project["name"], model["id"], metric)
                     # result = self.client._call(agg_metrics_path, json_request)
 
                     hit_exception = False
                     try:
                         result = self.client.v1._call(agg_metrics_path, json_request)
                     except Exception:
-                        self.log.info("Aggregated metrics exception : ", agg_metrics_path)
+                        self.log.info("Aggregated metrics exception : %s", agg_metrics_path)
                         self.log.info(
-                            "Project with no monitoring data. ProjectModel: ", project["name"], model["id"], metric
+                            "Project with no monitoring data. ProjectModel: %s %s %s",
+                            project["name"],
+                            model["id"],
+                            metric,
                         )
                         hit_exception = True
 
@@ -84,9 +87,9 @@ class FiddlerCheck(AgentCheck):
                         hit_exception = False
                         continue
 
-                    self.log.debug("Agg_metrics_path: ", agg_metrics_path)
-                    self.log.debug("json request: ", json_request, "\n")
-                    self.log.debug("Result : ", result, "\n")
+                    self.log.debug("Agg_metrics_path: %s", agg_metrics_path)
+                    self.log.debug("json request: %s", json_request, "\n")
+                    self.log.debug("Result : %s", result, "\n")
 
                     # iterate through the json result for that specific metric
                     for single_value in result["values"]:
