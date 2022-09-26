@@ -97,7 +97,7 @@ class FiddlerCheck(AgentCheck):
                         # Every metric has a different way of providing the value. So handle them separetly.
                         if metric == 'traffic_count':
                             value = single_value["value"]
-                            self.log.debug("Final list: ", project["name"], model["id"], start_time, metric, value)
+                            self.log.debug("Final list: %s %s %s %s %s", project["name"], model["id"], start_time, metric, value)
                             tags = create_tags(project=project["name"], model=model["id"])
                             self.gauge(metric, value, tags)
 
@@ -106,7 +106,7 @@ class FiddlerCheck(AgentCheck):
                                 new_metric = key
                                 value = value
                                 self.log.debug(
-                                    "Final list: ", project["name"], model["id"], start_time, new_metric, value
+                                    "Final list: %s %s %s %s %s", project["name"], model["id"], start_time, new_metric, value
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"])
                                 self.gauge(metric, value, tags)
@@ -116,7 +116,7 @@ class FiddlerCheck(AgentCheck):
                                 new_metric = "histogram_drift-" + key
                                 value = value
                                 self.log.debug(
-                                    "Final list: ", project["name"], model["id"], start_time, new_metric, value
+                                    "Final list: %s %s %s %s %s", project["name"], model["id"], start_time, new_metric, value
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(metric, value, tags)
@@ -126,7 +126,7 @@ class FiddlerCheck(AgentCheck):
                                 new_metric = key
                                 value = value
                                 self.log.debug(
-                                    "Final list: ", project["name"], model["id"], start_time, new_metric, value
+                                    "Final list: %s %s %s %s %s", project["name"], model["id"], start_time, new_metric, value
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(metric, value, tags)
@@ -137,7 +137,7 @@ class FiddlerCheck(AgentCheck):
                                 new_metric = key
                                 value = value
                                 self.log.debug(
-                                    "Final list: ", project["name"], model["id"], start_time, new_metric, value
+                                    "Final list: %s %s %s %s %s", project["name"], model["id"], start_time, new_metric, value
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"])
                                 self.gauge(metric, value, tags)
