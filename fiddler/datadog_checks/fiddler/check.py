@@ -43,7 +43,7 @@ class FiddlerCheck(AgentCheck):
 
     def check(self, _):
         # Iterate through the projects and the models and push data into Fiddler
-        project_path = ['list_projects', self.ORG_ID]
+        project_path = ['list_projects', self.org]
         result_all = self.client.v1._call(project_path)
 
         start_time = (time.time() * 1000) - (bin_size * 1000)
@@ -67,7 +67,7 @@ class FiddlerCheck(AgentCheck):
                         "bin_size": bin_size,
                         "prediction": '_',
                     }
-                    agg_metrics_path = ['aggregated_metrics', self.ORG_ID, project["name"], model["id"]]
+                    agg_metrics_path = ['aggregated_metrics', self.org, project["name"], model["id"]]
                     self.log.debug("ProjectModel: ", project["name"], model["id"], metric)
                     # result = self.client._call(agg_metrics_path, json_request)
 
