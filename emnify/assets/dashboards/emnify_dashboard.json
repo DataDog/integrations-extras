@@ -154,7 +154,7 @@
             "response_format": "timeseries",
             "queries": [
               {
-                "query": "sum:endpoint.volume{*}.as_count().rollup(sum, 3600)",
+                "query": "sum:emnify.endpoint.volume{*}.as_count().rollup(sum, 3600)",
                 "data_source": "metrics",
                 "name": "query1"
               }
@@ -193,7 +193,7 @@
             "response_format": "scalar",
             "queries": [
               {
-                "query": "sum:endpoint.volume{*} by {host}",
+                "query": "sum:emnify.endpoint.volume{*} by {host}",
                 "data_source": "metrics",
                 "name": "query1",
                 "aggregator": "sum"
@@ -285,12 +285,12 @@
             "response_format": "timeseries",
             "queries": [
               {
-                "query": "sum:endpoint.volume_tx{*} by {host}.as_count()",
+                "query": "sum:emnify.endpoint.volume_tx{*} by {host}.as_count()",
                 "data_source": "metrics",
                 "name": "query1"
               },
               {
-                "query": "sum:endpoint.volume_rx{*} by {host}.as_count()",
+                "query": "sum:emnify.endpoint.volume_rx{*} by {host}.as_count()",
                 "data_source": "metrics",
                 "name": "query2"
               }
@@ -339,13 +339,13 @@
             "response_format": "scalar",
             "queries": [
               {
-                "query": "sum:endpoint.volume_tx{*} by {host}.as_count()",
+                "query": "sum:emnify.endpoint.volume_tx{*} by {host}.as_count()",
                 "data_source": "metrics",
                 "name": "query1",
                 "aggregator": "sum"
               },
               {
-                "query": "sum:endpoint.volume_rx{*} by {host}.as_count()",
+                "query": "sum:emnify.endpoint.volume_rx{*} by {host}.as_count()",
                 "data_source": "metrics",
                 "name": "duplicatedquery1",
                 "aggregator": "sum"
@@ -439,7 +439,7 @@
             "response_format": "scalar",
             "queries": [
               {
-                "query": "sum:endpoint.volume{*} by {host}.as_count()",
+                "query": "sum:emnify.endpoint.volume{*} by {host}.as_count()",
                 "data_source": "metrics",
                 "name": "query1",
                 "aggregator": "sum"
