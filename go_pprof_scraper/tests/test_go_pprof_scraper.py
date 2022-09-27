@@ -34,7 +34,7 @@ def test_config():
         GoPprofScraperCheck(
             "go_pprof_scraper",
             INIT_CONFIG,
-            [{"pprof_url": "http://localhost:1234/debug/pprof/", "profiles": ["xzy"], "service_name": "testing"}],
+            [{"pprof_url": "http://localhost:1234/debug/pprof/", "profiles": ["xzy"], "service": "testing"}],
         )
 
     # Duration too long
@@ -42,7 +42,7 @@ def test_config():
         GoPprofScraperCheck(
             "go_pprof_scraper",
             INIT_CONFIG,
-            [{"pprof_url": "http://localhost:1234/debug/pprof", "duration": 1000, "service_name": "testing"}],
+            [{"pprof_url": "http://localhost:1234/debug/pprof", "duration": 1000, "service": "testing"}],
         )
 
     c = GoPprofScraperCheck(
@@ -53,7 +53,7 @@ def test_config():
                 "pprof_url": "http://localhost:1234/debug/pprof",
                 "profiles": ["cpu", "heap"],
                 "duration": 3,
-                "service_name": "testing",
+                "service": "testing",
             }
         ],
     )

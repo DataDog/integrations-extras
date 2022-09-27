@@ -5,7 +5,7 @@
 
 from __future__ import annotations
 
-from typing import Optional, Sequence
+from typing import Optional
 
 from pydantic import BaseModel, root_validator, validator
 
@@ -19,7 +19,7 @@ class SharedConfig(BaseModel):
     class Config:
         allow_mutation = False
 
-    tags: Optional[Sequence[str]]
+    service: Optional[str]
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):

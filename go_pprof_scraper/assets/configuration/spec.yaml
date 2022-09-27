@@ -4,16 +4,9 @@ files:
   options:
   - template: init_config
     options:
-    - template: init_config/tags
-    # - template: init_config/default # This stops the validator from complaining that default is missing
+    - template: init_config/default
   - template: instances
     options:
-    - name: service_name
-      required: true
-      description: Name of the service, which will be tagged as "service:<SERVICE>" on uploaded profiles
-      value:
-        example: "myservice"
-        type: string
     - name: env
       required: false
       description: env tag to apply to uploaded profiles ("env:<ENV>")
@@ -61,7 +54,7 @@ files:
         type: boolean
         example: true
         display_default: true
-    - template: instances/global
+    - template: instances/default
       overrides:
         min_collection_interval.value.example: 60
         min_collection_interval.enabled: true
@@ -70,5 +63,8 @@ files:
 
           This changes the collection interval of the check. For more information, see:
           https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
-    - template: instances/tags
-    # - template: instances/default 
+        service.required: true
+        service.description: |
+          Service name to tag on every profile uploaded for this instance.
+
+          Overrides any `service` defined in the `init_config` section.

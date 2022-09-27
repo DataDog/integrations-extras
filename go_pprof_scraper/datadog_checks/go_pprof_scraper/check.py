@@ -46,9 +46,9 @@ class GoPprofScraperCheck(AgentCheck):
         self._get_apm_config()
         self.runtime_id = uuid4()
 
-        self.service = self.instance.get("service_name")
+        self.service = self.instance.get("service")
         if not self.service:
-            raise ConfigurationError("service_name is required")
+            raise ConfigurationError("service is required")
         self.env = self.instance.get("env", datadog_agent.get_config("env"))
 
         self.url = self.instance.get("pprof_url")

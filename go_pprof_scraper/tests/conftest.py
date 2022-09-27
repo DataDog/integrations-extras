@@ -12,7 +12,7 @@ INSTANCE = {
     "pprof_url": URL,
     "profiles": ["heap"],
     "tags": ["foo:bar"],
-    "service_name": "testing",
+    "service": "testing",
     "duration": 1,
     "min_collection_interval": 5,
 }
