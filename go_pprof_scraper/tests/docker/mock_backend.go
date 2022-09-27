@@ -53,12 +53,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if v := r.Form.Get("end"); v == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "missing required form field \"end\"\n")
-		return
-	}
-
 	expected := []string{
 		"foo:bar",
 		"runtime:go",
@@ -75,7 +69,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	if _, ok := r.MultipartForm.File["data[heap.pprof]"]; !ok {
 		w.WriteHeader(http.StatusBadRequest)
-		fmt.Fprintf(w, "missing data[delta-heap.pprof], have values %v\n", r.MultipartForm.File)
+		fmt.Fprintf(w, "missing data[heap.pprof], have values %v\n", r.MultipartForm.File)
 		return
 	}
 	// All good, consider this accepted
