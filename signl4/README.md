@@ -136,7 +136,7 @@ In order to configure this back channel, go to your SIGNL4 web portal and then t
 
 ![Datadog Connector App][6]
 
-You need to configure the following.
+You need to configure the following:
 
 Datadog URL: The URL of your Datadog instance, e.g. https://app.datadoghq.com/ or https://app.datadoghq.eu/.  
 Datadog API Key: Your Datadog API key. You can find or create this one in Datadog under your account, Organization Settings -> API Keys.  
