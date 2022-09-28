@@ -19,7 +19,7 @@ Follow these steps in SIGNL4:
 
 2. In your SIGNL4 app find your SIGNL4 webhook address including your team secret under *Teams -> Your Team -> Secret*.
 
-### Datadog Alerts
+### Datadog alerts
 
 You can alert your SIGNL4 team about new Alerts in Datadog. Alerts that get resolved in Datadog will automatically close the alert in SIGNL4. In order to do so you need to configure the following.
 
