@@ -48,7 +48,7 @@ Follow the following steps inside Zenduty:
 ## Data Collected
 ### Metrics
 
-Zenduty integration does not include any metrics.
+The Zenduty integration does not include any metrics.
 
 ### Events
 
