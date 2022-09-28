@@ -128,7 +128,7 @@ If you create a new incident now, your SIGNL4 team will receive an alert. If you
 
 Also, if you set the incident status to Resolved in Datadog, this will close the alert in SIGNL4.
 
-### Status Updates for Datadog Incidents
+### Status updates for Datadog incidents
 
 For Datadog incidents you can update the status to Stable / Resolved directly from your SIGNL4 app by acknowledging / closing the respective alert.
 
