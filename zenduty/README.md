@@ -24,7 +24,7 @@ Follow the following steps inside Zenduty:
 
 5. From the sidebar, go to **Integrations**. Search for **'Webhooks'** from this page, and click the add button.
 
-6. Scroll down, click on the **'+New'** button in the Webhooks section. Fill in the name, the webhook URL copied from Zenduty and paste the following JSON in the payload box:
+6. Scroll down, click on the **+New** button in the Webhooks section. Fill in the name, the webhook URL copied from Zenduty, and paste the following JSON in the payload box:
 ```
 {
 "alert_id": "$ALERT_ID",
