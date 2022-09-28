@@ -21,7 +21,7 @@ Follow these steps in SIGNL4:
 
 ### Datadog alerts
 
-You can alert your SIGNL4 team about new Alerts in Datadog. Alerts that get resolved in Datadog will automatically close the alert in SIGNL4. In order to do so you need to configure the following.
+You can alert your SIGNL4 team about new alerts in Datadog. Alerts that get resolved in Datadog automatically close the alert in SIGNL4. In order to do so you need to configure the following:
 
 1. Navigate to the [Webhooks Integration tile][9].
 
