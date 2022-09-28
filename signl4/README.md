@@ -60,7 +60,7 @@ You can alert your SIGNL4 team about new alerts in Datadog. Alerts that get reso
 	}
     ```
 
-You can adapt the parameters according to your need but please leave alertId, alertTransition and X-S4-SourceSystem unchanged.
+You can adapt the parameters according to your needs, but leave `alertId`, `alertTransition`, and `X-S4-SourceSystem` unchanged.
 
 5. Click on **Save** to complete the webhook creation.
 
