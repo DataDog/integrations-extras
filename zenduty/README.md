@@ -12,13 +12,13 @@ Connect Zenduty with Datadog in order to:
 ### Zenduty
 Follow the following steps inside Zenduty:
 
-1. Go to **'Teams'** and click on the team you want to add the integration to.
+1. Go to **Teams** and click on the team you want to add the integration to.
  
-2. Navigate to **'Services'**, create a new service or select an existing one.
+2. Navigate to **Services**. Create a new service or select an existing one.
  
-3. Go to **'Integrations'** and then **'Add New Integration'**. Give it a name and select the application **'Datadog'** from the dropdown menu.
+3. Go to **Integrations** and then **Add New Integration**. Give the integration a name, and select the application **Datadog** from the dropdown menu.
 
-4. Go to **'Configure'** under your integrations and copy the Datadog webhook URL generated.
+4. Go to **Configure** under your integrations, and copy the generated Datadog webhook URL.
 
 ### Datadog
 
