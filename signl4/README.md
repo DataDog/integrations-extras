@@ -112,7 +112,7 @@ You can alert your SIGNL4 team about new Incidents in Datadog. Incidents that ge
 	}
     ```
 
-You can adapt the parameters according to your need but please leave incidentStatus, s4ExternalId and X-S4-SourceSystem unchanged.
+Adapt the parameters according to your needs, but leave `incidentStatus`, `s4ExternalId` and `X-S4-SourceSystem` unchanged.
 
 5. Click on **Save** to complete the webhook creation.
 
