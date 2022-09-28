@@ -9,7 +9,7 @@ Connect Zenduty with Datadog in order to:
 
 ## Setup
 
-### Zenduty:
+### Zenduty
 Follow the following steps inside Zenduty:
 
 1. Go to **'Teams'** and click on the team you want to add the integration to.
