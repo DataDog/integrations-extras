@@ -56,7 +56,7 @@ Triggered, acknowledged, and resolved events are displayed in Zenduty's dashboar
 
 ### Service Checks
 
-Zenduty integration does not include any service checks.
+The Zenduty integration does not include any service checks.
 
 ## Troubleshooting
 Need help? Contact [Datadog Support][2].
