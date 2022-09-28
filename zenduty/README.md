@@ -39,7 +39,7 @@ Follow the following steps inside Zenduty:
 }
 ```
 
-7. Click on **'Save'**. The Datadog-Zenduty integration is complete.
+7. Click on **Save**. The Datadog Zenduty integration setup is complete.
 
     See the [Zenduty documentation][1] for more details and to get the most out of this integration.
 
