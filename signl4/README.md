@@ -70,7 +70,7 @@ You can now use your webhook as a notification channel in your monitor. Assuming
 
 ### Datadog Incidents
 
-You can alert your SIGNL4 team about new Incidents in Datadog. Incidents that get resolved in Datadog will automatically close the alert in SIGNL4. In order to do so you need to configure the following.
+You can alert your SIGNL4 team about new Incidents in Datadog. Incidents that get resolved in Datadog automatically close the alert in SIGNL4. In order to do so, configure the following:
 
 1. Navigate to the [Webhooks Integration tile][9].
 
