@@ -1,6 +1,6 @@
 ## Overview
 
-Use the Datadog-Zenduty integration to send Datadog alerts to the right team, notify them as per on-call schedules and help them remediate and resolve incidents with speed.
+Use the Zenduty integration to send Datadog alerts to the right team, notify them as per on-call schedules, and help them remediate and resolve incidents with speed.
 
 Connect Zenduty with Datadog in order to:
 - Trigger and resolve incidents, get alerts for them and track issues from Datadog
