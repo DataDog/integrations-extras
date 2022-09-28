@@ -66,7 +66,7 @@ You can adapt the parameters according to your needs, but leave `alertId`, `aler
 
 For more details, see [Mobile alerting with tracking & escalation for Datadog][7].
 
-That's it and now you can use your webhook as a notification channel in your Monitor. You can choose @webhook-SIGNL4 here if SIGNL4 is the name of your webhook. When the conditions of the monitor apply your team will receive a new SIGNL4 alert.
+You can now use your webhook as a notification channel in your monitor. Assuming the name of your webhook is SIGNL4, send notifications using `@webhook-SIGNL4`. When the conditions of the monitor apply, your team receives a new SIGNL4 alert.
 
 ### Datadog Incidents
 
