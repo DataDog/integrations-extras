@@ -126,7 +126,7 @@ You can create a rule in Datadog under Monitors -> Settings (Incidents) Rules. I
 
 If you create a new incident, your SIGNL4 team receives an alert. If you acknowledge or close the alert in the SIGNL4 app, the incident status is be set to Stable or Resolved.
 
-Also, if you set the incident status to Resolved in Datadog, this will close the alert in SIGNL4.
+Also, if you set the incident status to Resolved in Datadog, this closes the alert in SIGNL4.
 
 ### Status updates for Datadog incidents
 
