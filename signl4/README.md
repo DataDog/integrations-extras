@@ -138,10 +138,10 @@ In order to configure this back channel, go to your SIGNL4 web portal and then t
 
 You need to configure the following:
 
-Datadog URL: The URL of your Datadog instance, e.g. https://app.datadoghq.com/ or https://app.datadoghq.eu/.  
-Datadog API Key: Your Datadog API key. You can find or create this one in Datadog under your account, Organization Settings -> API Keys.  
-Datadog Application Key: Your Datadog application key. You can find or create this one in Datadog under your account, Organization Settings -> Application Keys.  
-Acknowledgement as Stable: Acknowledgements set the incident status to Stable.  
+- Datadog URL: The URL of your Datadog instance, for example, https://app.datadoghq.com/ or https://app.datadoghq.eu/.  
+- Datadog API Key: Your Datadog API key. You can find or create an API key in Datadog under your account, Organization Settings -> API Keys.  
+- Datadog Application Key: Your Datadog application key. You can find or create an application key in Datadog under your account, Organization Settings -> Application Keys.  
+- Acknowledgement as Stable: Acknowledgements set the incident status to Stable.  
 
 ## Data Collected
 
