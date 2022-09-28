@@ -52,7 +52,7 @@ The Zenduty integration does not include any metrics.
 
 ### Events
 
-Triggered, acknowledged and resolved events are displayed in Zenduty's dashboard
+Triggered, acknowledged, and resolved events are displayed in Zenduty's dashboard
 
 ### Service Checks
 
