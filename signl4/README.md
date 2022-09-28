@@ -120,7 +120,7 @@ For more details, see [Mobile alerting with tracking & escalation for Datadog][7
 
 ### Incidents Rule
 
-Now you can create a rule in Datadog under Monitors -> Settings (Incidents) Rules. In the you specify the criteria, i.e. the severity, service, etc. For the "Other attributes" we recommend to use "state:active" that will trigger a new alert and "state:resolved" that will close the alert. Under "Notify" you select your SIGNL4 incident webhook as created above and that's it.
+You can create a rule in Datadog under Monitors -> Settings (Incidents) Rules. In the rule, you specify the criteria, for example, the severity, service, etc. For the "Other attributes", it is recommended to use "state:active" to trigger a new alert and "state:resolved" to close the alert. Under "Notify", select your SIGNL4 incident webhook as created above.
 
 ![SIGNL4 Incidents Rule][5]
 
