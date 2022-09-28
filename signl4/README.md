@@ -130,7 +130,7 @@ Also, if you set the incident status to Resolved in Datadog, this will close the
 
 ### Status updates for Datadog incidents
 
-For Datadog incidents you can update the status to Stable / Resolved directly from your SIGNL4 app by acknowledging / closing the respective alert.
+For Datadog incidents, you can update the status to Stable or Resolved directly from your SIGNL4 app by acknowledging or closing the respective alert.
 
 In order to configure this back channel, go to your SIGNL4 web portal and then to Teams -> Apps. Search for the Datadog connector app and click "Create" there. You can find more information directly within the app settings.
 
