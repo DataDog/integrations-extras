@@ -74,7 +74,7 @@ class PingCheck(AgentCheck):
             raise_on_empty_output=False, #set this to false so that the check doesn't seems to have failed just because the host is unreachable
         )
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
-        if retcode == 0 #if ping successful
+        if retcode == 0: #if ping successful
             return lines #return the output.
         return "" #if ping not successful, return an empty string without raising an error.
 
