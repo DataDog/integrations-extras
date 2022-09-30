@@ -1,0 +1,459 @@
+{
+  "description": "Observe your consumption analytics all in one dashboard. Analyze patterns of usage across your devices inventory.",
+  "id": "ajg-fdu-uyn",
+  "is_read_only": false,
+  "layout_type": "ordered",
+  "notify_list": [ ],
+  "reflow_type": "fixed",
+  "template_variables": [ ],
+  "title": "EMnify Dashboard",
+  "widgets": [
+    {
+      "id": 973562992734448,
+      "definition": {
+        "title": "About EMnify Dashboard",
+        "type": "group",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2719566117138984,
+            "definition": {
+              "type": "image",
+              "url": "https://portal.emnify.com/images/main-layout-logo-dark.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "id": 4205652380459396,
+            "definition": {
+              "type": "note",
+              "content": "# Widgets\n\nObserve your consumption analytics all in one dashboard. Analyze usage patterns for your device inventory.\n\n# Setup\nConfigure streaming of Usage Data following the [integration guide][2],\nsections “Integration Steps” and “Verifying the integration”.\n\n# Dashboard Tuning\n\nYou can pick a period to filter the data displayed.\n\n[2]: https://www.emnify.com/integration-guides/emnify-datastreamer-integration-for-datadog",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 6
+      }
+    },
+    {
+      "id": 6446661413737418,
+      "definition": {
+        "title": "Total Data Consumption",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume{*}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "bars",
+          "yaxis": {}
+        }
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 6
+      }
+    },
+    {
+      "id": 3360734162786772,
+      "definition": {
+        "type": "note",
+        "content": "Use this widget to track anomalies that appear in your usage patterns.\n\nThis way you can easier troubleshoot issues in your infrastructure.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 5,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 406495337364450,
+      "definition": {
+        "title": "Total Usage with Anomalies",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Data Volume",
+                "formula": "anomalies(query1, 'robust', 2)"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume{*}.as_count().rollup(sum, 3600)",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }
+        ],
+        "yaxis": {
+          "scale": "sqrt"
+        }
+      },
+      "layout": {
+        "x": 2,
+        "y": 0,
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 3392374472006114,
+      "definition": {
+        "title": "Devices Chunks of Total Data Consumption",
+        "type": "treemap",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume{*} by {host}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 6496848488480304,
+      "definition": {
+        "type": "note",
+        "content": "See portions of total data consumption that every device takes during a selected period.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 5,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 2374018436671430,
+      "definition": {
+        "type": "note",
+        "content": "Daily incoming and outgoing traffic stacks show the distribution of traffic consumption among your devices during the time. ",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 8861267507955738,
+      "definition": {
+        "title": "Daily Data Consumption Stacks",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {
+          "live_span": "1mo"
+        },
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Data Transmitted",
+                "formula": "query1"
+              },
+              {
+                "alias": "Data Received",
+                "formula": "query2"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume_tx{*} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:emnify.endpoint.volume_rx{*} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ],
+        "yaxis": {
+          "include_zero": false,
+          "scale": "sqrt"
+        }
+      },
+      "layout": {
+        "x": 2,
+        "y": 10,
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 3084876685770464,
+      "definition": {
+        "title": "Monthly Data Received and Data Transmitted by host",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "scatterplot",
+        "requests": {
+          "table": {
+            "formulas": [
+              {
+                "alias": "Data Transmitted",
+                "dimension": "x",
+                "formula": "query1"
+              },
+              {
+                "alias": "Data Received",
+                "dimension": "y",
+                "formula": "duplicatedquery1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume_tx{*} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              },
+              {
+                "query": "sum:emnify.endpoint.volume_rx{*} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "duplicatedquery1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        },
+        "xaxis": {
+          "include_zero": false,
+          "scale": "log"
+        },
+        "yaxis": {
+          "include_zero": false,
+          "scale": "log"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 15,
+        "width": 10,
+        "height": 5
+      }
+    },
+    {
+      "id": 3974593474246872,
+      "definition": {
+        "type": "note",
+        "content": "Shows clusters of devices with similar consumption patterns.\n\nThis may help you to define the optimal pricing model.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 15,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 1572035223962300,
+      "definition": {
+        "type": "note",
+        "content": "Top devices by data consumption.\n\nIn **config** you may set rules of formatting that will help you to highlight a group that has consumption that deserves attention.\n\nBy default, we highlight with red all the devices having more than *150 MB* of data consumption.",
+        "background_color": "yellow",
+        "font_size": "18",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "right",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 20,
+        "width": 2,
+        "height": 5
+      }
+    },
+    {
+      "id": 3157632350532354,
+      "definition": {
+        "title": "Top 100 devices by data usage",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "count": 500,
+                  "order": "desc"
+                }
+              }
+            ],
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "palette": "white_on_yellow",
+                "value": 150000000
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:emnify.endpoint.volume{*} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 2,
+        "y": 20,
+        "width": 10,
+        "height": 5
+      }
+    }
+  ]
+}
