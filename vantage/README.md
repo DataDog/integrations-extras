@@ -16,7 +16,7 @@ Once integrated, begin exploring your Datadog costs within Vantage. You can crea
 
 ### Uninstallation
 
-To remove the Datadog integration from Vantage, visit the [integrations page][1] and click **remove**.
+To remove the Datadog integration from Vantage, visit the [Vantage integrations page][1] and click **remove**. Additionally, you'll want to uninstall this integration from Datadog by clicking the **Uninstall Integration** button below.
 
 To ensure this integration is fully uninstalled, revoke authorization in the Configure tab of this tile or in [OAuth Apps][2] within Organization Settings in Datadog. 
 
