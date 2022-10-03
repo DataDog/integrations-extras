@@ -8,7 +8,7 @@ Vantage is a cloud cost transparency and optimization platform. This integration
 
 ### Installation
 
-Visit [Vantage][4] to sign up for free. Once registered, visit the Vantage integrations page and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Vantage access to your billing and usage data.
+Visit [Vantage][4] to sign up for free. Once registered, visit the [Vantage integrations page][1] and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Vantage access to your billing and usage data.
 
 ### Configuration
 
