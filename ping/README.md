@@ -26,7 +26,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the ping che
    # Windows
    agent.exe integration install -t datadog-ping==<INTEGRATION_VERSION>
    ```
-2. Install the `ping` binary in accordance to your OS. For example, run the following for Ubuntu:
+2. Install the `ping` binary in accordance to your OS. For example, run the following command for Ubuntu:
    ```shell
    apt-get install iputils-ping
    ```
