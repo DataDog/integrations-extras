@@ -1,12 +1,16 @@
 METRIC_MAP = [
     {
+        #shared metrics
+        "purefa_info": {"name": "info"},
+        #pure-fa-openmetrics-exporter only metrics
+        "purefa_array_space_bytes": {"name": "array.space_bytes"},
+        #legacy pure_exporter only metrics
         "purefa_hardware_chassis_health": {"name": "hardware.chassis_health"},
         "purefa_hardware_controller_health": {"name": "hardware.controller_health"},
         "purefa_hardware_component_health": {"name": "hardware.component_health"},
         "purefa_hardware_temperature_celsius": {"name": "hardware.temperature_celsius"},
         "purefa_hardware_power_volts": {"name": "hardware.power_volts"},
         "purefa_alerts_total": {"name": "alerts.total"},
-        "purefa_info": {"name": "info"},
         "purefa_array_space_datareduction_ratio": {"name": "array.space_datareduction_ratio"},
         "purefa_array_space_capacity_bytes": {"name": "array.space_capacity_bytes"},
         "purefa_array_space_provisioned_bytes": {"name": "array.space_provisioned_bytes"},
