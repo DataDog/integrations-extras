@@ -90,8 +90,8 @@ Need help? Contact [Datadog Support][5].
 
 Learn more about [F5 Distributed Cloud Services](https://www.f5.com/cloud).
 
-[1]: assets/images/xcarch-min.png
-[2]: assets/images/dashboard-image.png
-[3]: assets/images/image-0.png
-[4]: assets/images/logreceiver-config.png
+[1]: images/xcarch-min.png
+[2]: images/dashboard-image.png
+[3]: images/image-0.png
+[4]: images/logreceiver-config.png
 [5]: http://docs.datadoghq.com/help/
