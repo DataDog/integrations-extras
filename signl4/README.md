@@ -82,7 +82,7 @@ You can alert your SIGNL4 team about new Incidents in Datadog. Incidents that ge
     https://connect.signl4.com/webhook/[team-secret]?ExtIDParam=s4ExternalId&ExtStatusParam=incidentStatus&ResolvedStatus=resolved
     ```
 
-    Replace `[team-secret]` with your SIGNL4 team secret here.
+    Replace `[team-secret]` in the URL with your SIGNL4 team secret.
 
     ![SIGNL4 Incidents Webhook][4]
 
