@@ -1,12 +1,12 @@
 ## Overview
 
-F5 Distributed Cloud Services, (XC) provides a global cloud native platform where customers can deploy, manage and secure their applications regardless of whether the application resides in a public cloud, in a private data center, or a colocation facility, (see below).  It provides a variety of both ADN and CDN services.
+F5 Distributed Cloud (XC) Services provides a global cloud native platform where customers can deploy, manage and secure their applications regardless of whether the application resides in a public cloud, in a private data center, or a colocation facility, (see below).  It provides a variety of both ADN and CDN services.
 
 ![snapshot][1]
 
-Although the XC console UI provides very good observability natively, many enterprises prefer to aggregate their telemetry from various sources and centralize visibility/analytics on the Datadog platform.  To this end, the XC platform includes the Global Log Receiver.
+Although the F5 XC console UI provides very good observability natively, many enterprises prefer to aggregate their telemetry from various sources and centralize visibility/analytics on the Datadog platform.  To this end, the F5 XC platform includes the Global Log Receiver.
 
-A XC global log receiver can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration is quite simple and can be done via the [XC Console UI](https://www.f5.com/cloud/products/distributed-cloud-console).
+A F5 XC global log receiver can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration is quite simple and can be done via the [F5 XC Console UI][6].
 
 In addition to the following configuration guidance.  The F5 Distributed Cloud Services integration includes:
 
@@ -88,10 +88,12 @@ Need help? Contact [Datadog Support][5].
 
 ## Further Reading
 
-Learn more about [F5 Distributed Cloud Services](https://www.f5.com/cloud).
+Learn more about [F5 Distributed Cloud Services][7].
 
 [1]: images/xcarch-min.png
 [2]: images/dashboard-image.png
 [3]: images/image-0.png
 [4]: images/logreceiver-config.png
 [5]: http://docs.datadoghq.com/help/
+[6]: https://www.f5.com/cloud/products/distributed-cloud-console
+[7]: https://www.f5.com/cloud
