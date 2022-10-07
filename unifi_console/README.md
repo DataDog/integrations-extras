@@ -15,7 +15,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Unifi ch
 1. Run the following command to install the Agent integration:
 
    ```shell
-   sudo -u dd-agent -- datadog-agent integration install -t datadog-unifi_console==<INTEGRATION_VERSION>
+   sudo -u dd-agent -- datadog-agent integration install -t datadog-unifi_console==1.1.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
