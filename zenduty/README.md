@@ -20,7 +20,7 @@ In [Zenduty][1], follow the steps below:
 
 4. Go to **Configure** under your integrations, and copy the generated Datadog webhook URL.
 
-### Datadog
+### Follow the steps below within Datadog:
 
 5. From the sidebar, go to **Integrations**. Search for **Webhooks** from [this page][2], and click the add button.
 
