@@ -88,6 +88,7 @@ class InstanceConfig(BaseModel):
     use_legacy_auth_encoding: Optional[bool]
     user: str
     username: Optional[str]
+    version: str
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):
