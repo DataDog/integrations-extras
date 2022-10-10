@@ -1,6 +1,6 @@
 ## Overview
 
-Use the Zenduty integration to send Datadog alerts to the right team, notify them as per on-call schedules, and help them remediate and resolve incidents with speed.
+Use the Zenduty integration to send Datadog alerts to the right team, notify them as per on-call schedules, and help them remediate and resolve incidents with speed. Send notifications via e-mail, Slack, Microsoft Teams, SMS, Phone Calls, Android and iOS push messages.
 
 Connect Zenduty with Datadog in order to:
 - Trigger and resolve incidents, get alerts for them, and track issues from Datadog
@@ -10,7 +10,7 @@ Connect Zenduty with Datadog in order to:
 ## Setup
 
 ### Zenduty
-Follow the following steps inside Zenduty:
+In [Zenduty][1], follow the steps below:
 
 1. Go to **Teams** and click on the team you want to add the integration to.
  
@@ -22,7 +22,7 @@ Follow the following steps inside Zenduty:
 
 ### Datadog
 
-5. From the sidebar, go to **Integrations**. Search for **Webhooks** from this page, and click the add button.
+5. From the sidebar, go to **Integrations**. Search for **Webhooks** from [this page][2], and click the add button.
 
 6. Scroll down, click on the **+New** button in the Webhooks section. Fill in the name, the webhook URL copied from Zenduty, and paste the following JSON in the payload box:
 ```
@@ -41,7 +41,7 @@ Follow the following steps inside Zenduty:
 
 7. Click on **Save**. The Datadog Zenduty integration setup is complete.
 
-    See the [Zenduty documentation][1] for more details and to get the most out of this integration.
+    See the [Zenduty documentation][3] for more details and to get the most out of this integration.
 
 **Note**: Mention ```@zenduty``` as a channel under **Notify your team** in the Datadog monitor's configuration to get alerts through Zenduty when Datadog incidents are created or resolved.
 
@@ -59,7 +59,9 @@ Triggered, acknowledged, and resolved events are displayed in Zenduty's dashboar
 The Zenduty integration does not include any service checks.
 
 ## Troubleshooting
-Need help? Contact [Datadog Support][2].
+Need help? Contact [Datadog Support][4].
 
-[1]: https://docs.zenduty.com/docs/datadog
-[2]: https://docs.datadoghq.com/help/
+[1]: https://www.zenduty.com
+[2]: https://app.datadoghq.com/integrations/webhooks?search=webhook
+[3]: https://docs.zenduty.com/docs/datadog
+[4]: https://docs.datadoghq.com/help/
