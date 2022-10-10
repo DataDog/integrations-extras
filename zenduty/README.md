@@ -41,7 +41,7 @@ In [Zenduty][1], follow the steps below:
 
 7. Click on **Save**. The Datadog Zenduty integration setup is complete.
 
-    See the [Zenduty documentation][3] for more details and to get the most out of this integration.
+See the [Zenduty documentation][3] for more details and to get the most out of this integration.
 
 **Note**: Mention ```@zenduty``` as a channel under **Notify your team** in the Datadog monitor's configuration to get alerts through Zenduty when Datadog incidents are created or resolved.
 
