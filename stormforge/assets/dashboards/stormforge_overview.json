@@ -378,6 +378,119 @@
         "vertical_align": "center",
         "horizontal_align": "center"
       }
+    },
+    {
+      "id": 557150385207816,
+      "layout": {
+        "x": 131,
+        "y": 10,
+        "width": 41,
+        "height": 31
+      },
+      "definition": {
+        "title": "CPU HPA Target (Recommended)",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "value"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "HPA Target (Recommended)",
+                "formula": "exclude_null(query4)"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:stormforge.recommendation_target{namespace:$kube_namespace.value,$kube_cluster_name,kube_container_name:$container,workload:$kube_deployment.value,cpurisk:$cpurisk.value} by {kube_cluster_name,horizontalpodautoscaler}.rollup(max, 300)",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
+    },
+    {
+      "id": 1567789593113136,
+      "layout": {
+        "x": 174,
+        "y": 10,
+        "width": 41,
+        "height": 31
+      },
+      "definition": {
+        "title": "CPU - Scale Point (Recommended) and Requests (Recommended)",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": [
+          "value"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Requests (Recommended)",
+                "formula": "query1"
+              },
+              {
+                "alias": "Scale Point (Recommended)",
+                "formula": "(exclude_null(query4) * query1) / 100"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:stormforge.recommendation_cpu_requests_cores{namespace:$kube_namespace.value,$kube_cluster_name,kube_container_name:$container,workload:$kube_deployment.value,cpurisk:$cpurisk.value}.rollup(max, 300)",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "avg:stormforge.recommendation_target{namespace:$kube_namespace.value,$kube_cluster_name,kube_container_name:$container,workload:$kube_deployment.value,cpurisk:$cpurisk.value}.rollup(max, 300)",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "label": "",
+          "min": "auto",
+          "max": "auto"
+        },
+        "custom_links": []
+      }
     }
   ],
   "template_variables": [
