@@ -64,7 +64,7 @@ class FiddlerCheck(AgentCheck):
                         "metric": metric,
                         "time_range_start": start_time,
                         "time_range_end": end_time,
-                        "bin_size": bin_size
+                        "bin_size": bin_size,
                     }
                     agg_metrics_path = ['aggregated_metrics', self.org, project["name"], model["id"]]
                     self.log.info("ProjectModel: %s %s %s", project["name"], model["id"], metric)
