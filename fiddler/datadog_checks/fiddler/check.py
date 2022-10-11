@@ -7,7 +7,7 @@ from datadog_checks.base import AgentCheck
 # We will get one hours worth data in chunks and process them.
 bin_size = 3600
 
-metrics_list = ['accuracy']
+metrics_list = ['accuracy', 'traffic_count', 'histogram_drift', 'feature_average', 'output_average']
 
 
 def create_tags(**tags_in):
