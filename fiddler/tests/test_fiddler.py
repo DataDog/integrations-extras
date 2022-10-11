@@ -11,7 +11,5 @@ def test_check(dd_run_check, aggregator, instance):
     check = FiddlerCheck('fiddler', {}, [instance])
     dd_run_check(check)
 
-    aggregator.assert_metric('fiddler.accuracy')
-
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
