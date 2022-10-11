@@ -107,6 +107,13 @@ METRIC_MAP = {
     'causal_clustering_core_message_processing_timer_vote_response': (
         'causal_clustering.core.message_processing_timer.vote_response'
     ),
+    'causal_clustering.read_replica.pull_updates': 'causal_clustering.read_replica.pull_updates',
+    'causal_clustering.read_replica.pull_update_highest_tx_id_requested': (
+        'causal_clustering.read_replica.pull_update_highest_tx_id_requested'
+    ),
+    'causal_clustering.read_replica.pull_update_highest_tx_id_received': (
+        'causal_clustering.read_replica.pull_update_highest_tx_id_received'
+    ),
     'causal_clustering_core_replication_attempt': 'causal_clustering.core.replication_attempt',
     'causal_clustering_core_replication_fail': 'causal_clustering.core.replication_fail',
     'causal_clustering_core_replication_new': 'causal_clustering.core.replication_new',

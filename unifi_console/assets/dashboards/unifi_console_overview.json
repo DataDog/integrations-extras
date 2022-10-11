@@ -27,11 +27,9 @@
                 "title_size": "16",
                 "title_align": "left",
                 "type": "check_status",
-                "check": "unifi.healthy",
+                "check": "unifi_console.healthy",
                 "grouping": "cluster",
-                "group_by": [
-                    "site"
-                ],
+                "group_by": [],
                 "tags": []
             },
             "layout": {
@@ -58,7 +56,7 @@
                         "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "avg:unifi.device.satisfaction{$site,$device}",
+                                "query": "avg:unifi_console.device.satisfaction{$site,$device}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "avg"
@@ -118,25 +116,25 @@
                         "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "avg:unifi.device.clients{$site,$device} by {device,model,device_version,site}",
+                                "query": "avg:unifi_console.device.clients{$site,$device} by {device,model,device_version,site}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "max"
                             },
                             {
-                                "query": "avg:unifi.device.system.mem.pct{$site,$device} by {device,model,device_version,site}",
+                                "query": "avg:unifi_console.device.system.mem.pct{$site,$device} by {device,model,device_version,site}",
                                 "data_source": "metrics",
                                 "name": "query2",
                                 "aggregator": "avg"
                             },
                             {
-                                "query": "avg:unifi.device.system.cpu.pct{$site,$device} by {device,model,device_version,site}",
+                                "query": "avg:unifi_console.device.system.cpu.pct{$site,$device} by {device,model,device_version,site}",
                                 "data_source": "metrics",
                                 "name": "query3",
                                 "aggregator": "avg"
                             },
                             {
-                                "query": "avg:unifi.device.uptime{$site,$device} by {device,model,device_version,site}",
+                                "query": "avg:unifi_console.device.uptime{$site,$device} by {device,model,device_version,site}",
                                 "data_source": "metrics",
                                 "name": "query4",
                                 "aggregator": "avg"
@@ -160,11 +158,9 @@
                 "title_size": "16",
                 "title_align": "left",
                 "type": "check_status",
-                "check": "unifi.device",
+                "check": "unifi_console.device",
                 "grouping": "cluster",
-                "group_by": [
-                    "device"
-                ],
+                "group_by": [],
                 "tags": [
                     "*"
                 ]
@@ -193,7 +189,7 @@
                         "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "sum:unifi.device.clients{$site,$device}",
+                                "query": "sum:unifi_console.device.clients{$site,$device}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "max"
@@ -226,11 +222,9 @@
                             "title_size": "16",
                             "title_align": "left",
                             "type": "check_status",
-                            "check": "unifi.device.uplink",
+                            "check": "unifi_console.device.uplink",
                             "grouping": "cluster",
-                            "group_by": [
-                                "device"
-                            ],
+                            "group_by": [],
                             "tags": []
                         },
                         "layout": {
@@ -257,7 +251,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "sum:unifi.device.uplink.tx_packets{$site,$device}",
+                                            "query": "sum:unifi_console.device.uplink.tx_packets{$site,$device}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -268,7 +262,7 @@
                             "autoscale": true,
                             "precision": 2,
                             "timeseries_background": {
-                                "type": "area",
+                                "type": "bars",
                                 "yaxis": {
                                     "include_zero": true
                                 }
@@ -298,7 +292,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "sum:unifi.device.uplink.rx_packets{$site,$device}",
+                                            "query": "sum:unifi_console.device.uplink.rx_packets{$site,$device}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -309,7 +303,7 @@
                             "autoscale": true,
                             "precision": 2,
                             "timeseries_background": {
-                                "type": "area",
+                                "type": "bars",
                                 "yaxis": {
                                     "include_zero": true
                                 }
@@ -339,7 +333,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "sum:unifi.device.uplink.tx_bytes{$site,$device}",
+                                            "query": "sum:unifi_console.device.uplink.tx_bytes{$site,$device}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -350,7 +344,7 @@
                             "autoscale": true,
                             "precision": 2,
                             "timeseries_background": {
-                                "type": "area",
+                                "type": "bars",
                                 "yaxis": {
                                     "include_zero": true
                                 }
@@ -380,7 +374,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "sum:unifi.device.uplink.rx_bytes{$site,$device}",
+                                            "query": "sum:unifi_console.device.uplink.rx_bytes{$site,$device}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -391,7 +385,7 @@
                             "autoscale": true,
                             "precision": 2,
                             "timeseries_background": {
-                                "type": "area",
+                                "type": "bars",
                                 "yaxis": {
                                     "include_zero": true
                                 }
@@ -464,25 +458,25 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:unifi.device.rx_bytes{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.rx_bytes{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "max"
                                         },
                                         {
-                                            "query": "avg:unifi.device.rx_packets{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.rx_packets{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query2",
                                             "aggregator": "avg"
                                         },
                                         {
-                                            "query": "avg:unifi.device.rx_dropped{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.rx_dropped{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query3",
                                             "aggregator": "avg"
                                         },
                                         {
-                                            "query": "avg:unifi.device.rx_errors{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.rx_errors{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query4",
                                             "aggregator": "avg"
@@ -547,31 +541,31 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:unifi.device.tx_bytes{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.tx_bytes{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "max"
                                         },
                                         {
-                                            "query": "avg:unifi.device.tx_packets{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.tx_packets{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query2",
                                             "aggregator": "avg"
                                         },
                                         {
-                                            "query": "avg:unifi.device.tx_dropped{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.tx_dropped{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query3",
                                             "aggregator": "avg"
                                         },
                                         {
-                                            "query": "avg:unifi.device.tx_errors{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.tx_errors{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query4",
                                             "aggregator": "avg"
                                         },
                                         {
-                                            "query": "avg:unifi.device.tx_retries{$site,$device} by {device,model,device_version,site}",
+                                            "query": "avg:unifi_console.device.tx_retries{$site,$device} by {device,model,device_version,site}",
                                             "data_source": "metrics",
                                             "name": "query5",
                                             "aggregator": "avg"
@@ -603,10 +597,8 @@
                 "title": "Clients / Channel",
                 "title_size": "16",
                 "title_align": "left",
-                "time": {},
                 "requests": [
                     {
-                        "response_format": "scalar",
                         "formulas": [
                             {
                                 "formula": "query1",
@@ -615,9 +607,10 @@
                                 }
                             }
                         ],
+                        "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "sum:unifi.client.up{*} by {channel}",
+                                "query": "sum:unifi_console.client.up{*} by {channel}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "avg"
@@ -643,10 +636,8 @@
                 "title": "Clients / OUI",
                 "title_size": "16",
                 "title_align": "left",
-                "time": {},
                 "requests": [
                     {
-                        "response_format": "scalar",
                         "formulas": [
                             {
                                 "formula": "query1",
@@ -655,9 +646,10 @@
                                 }
                             }
                         ],
+                        "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "sum:unifi.client.up{*} by {oui}",
+                                "query": "sum:unifi_console.client.up{*} by {oui}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "avg"
@@ -683,10 +675,8 @@
                 "title": "Clients / Radio",
                 "title_size": "16",
                 "title_align": "left",
-                "time": {},
                 "requests": [
                     {
-                        "response_format": "scalar",
                         "formulas": [
                             {
                                 "formula": "query1",
@@ -695,9 +685,10 @@
                                 }
                             }
                         ],
+                        "response_format": "scalar",
                         "queries": [
                             {
-                                "query": "sum:unifi.client.up{*} by {radio_name}",
+                                "query": "sum:unifi_console.client.up{*} by {radio_name}",
                                 "data_source": "metrics",
                                 "name": "query1",
                                 "aggregator": "avg"
@@ -721,15 +712,15 @@
     "template_variables": [
         {
             "name": "site",
-            "default": "*",
             "prefix": "site",
-            "available_values": []
+            "available_values": [],
+            "default": "*"
         },
         {
             "name": "device",
-            "default": "*",
             "prefix": "device",
-            "available_values": []
+            "available_values": [],
+            "default": "*"
         }
     ],
     "layout_type": "ordered",

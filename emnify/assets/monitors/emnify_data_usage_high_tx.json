@@ -1,0 +1,31 @@
+{
+  "name": "[EMnify] Data Transmission for a device {{host.host}} is higher than usual.",
+  "type": "query alert",
+  "query": "sum(last_12h):anomalies(sum:emnify.endpoint.volume_tx{*} by {host}.as_count().fill(zero, 0).rollup(sum, 300), 'basic', 2, direction='above', interval=120, alert_window='last_30m', count_default_zero='true') >= 1",
+  "message": "Outgoing traffic for a device with ID: {{host.host}} is higher than usual.",
+  "tags": ["integration:emnify"],
+  "options": {
+    "notify_audit": false,
+    "timeout_h": 1,
+    "silenced": {},
+    "include_tags": true,
+    "thresholds": {
+      "critical": 1,
+      "warning": 0.7,
+      "critical_recovery": 0
+    },
+    "require_full_window": false,
+    "notify_no_data": false,
+    "renotify_interval": 0,
+    "new_group_delay": 60,
+    "threshold_windows": {
+      "recovery_window": "last_1h",
+      "trigger_window": "last_30m"
+    }
+  },
+  "priority": null,
+  "restricted_roles": null,
+  "recommended_monitor_metadata": {
+    "description": "Notify your team when transmitted traffic is higher than usual."
+  }
+}

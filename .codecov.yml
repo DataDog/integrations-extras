@@ -63,6 +63,10 @@ coverage:
         target: 75
         flags:
         - go_pprof_scraper
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
       JFrog_Platform:
         target: 75
         flags:
@@ -207,10 +211,14 @@ coverage:
         target: 50
         flags:
         - zabbix
-      cert-manager:
+      fluxcd:
         target: 75
         flags:
-        - cert_manager
+        - fluxcd
+      exim:
+        target: 75
+        flags:
+        - exim
       cfssl:
         target: 75
         flags:
@@ -251,11 +259,6 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
-  cert_manager:
-    carryforward: true
-    paths:
-    - cert_manager/datadog_checks/cert_manager
-    - cert_manager/tests
   cfssl:
     carryforward: true
     paths:
@@ -291,6 +294,11 @@ flags:
     paths:
     - fluentbit/datadog_checks/fluentbit
     - fluentbit/tests
+  fluxcd:
+    carryforward: true
+    paths:
+    - fluxcd/datadog_checks/fluxcd
+    - fluxcd/tests
   gatekeeper:
     carryforward: true
     paths:
@@ -316,6 +324,11 @@ flags:
     paths:
     - go_pprof_scraper/datadog_checks/go_pprof_scraper
     - go_pprof_scraper/tests
+  grpc_check:
+    carryforward: true
+    paths:
+    - grpc_check/datadog_checks/grpc_check
+    - grpc_check/tests
   jfrog_platform:
     carryforward: true
     paths:

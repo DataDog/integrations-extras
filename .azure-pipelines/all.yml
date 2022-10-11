@@ -27,8 +27,11 @@ resources:
       DD_HOSTNAME: none
       DD_INSIDE_CI: 'true'
 variables:
-  DDEV_COLOR: 1
-  DD_TRACE_AGENT_PORT: 8127
+  - group: extras-variables
+  - name: DDEV_COLOR
+    value: 1
+  - name: DD_TRACE_AGENT_PORT
+    value: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
@@ -43,9 +46,6 @@ jobs:
       os: linux
     - checkName: bind9
       displayName: BIND 9
-      os: linux
-    - checkName: cert_manager
-      displayName: cert-manager
       os: linux
     - checkName: cfssl
       displayName: cfssl
@@ -71,6 +71,9 @@ jobs:
     - checkName: flume
       displayName: flume
       os: linux
+    - checkName: fluxcd
+      displayName: fluxcd
+      os: linux
     - checkName: gatekeeper
       displayName: Gatekeeper
       os: linux
@@ -85,6 +88,9 @@ jobs:
       os: linux
     - checkName: go_pprof_scraper
       displayName: Go-pprof-scraper
+      os: linux
+    - checkName: grpc_check
+      displayName: gRPC Check
       os: linux
     - checkName: jfrog_platform
       displayName: JFrog Platform
