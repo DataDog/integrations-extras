@@ -59,6 +59,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      Go-pprof-scraper:
+        target: 75
+        flags:
+        - go_pprof_scraper
       JFrog_Platform:
         target: 75
         flags:
@@ -207,14 +211,14 @@ coverage:
         target: 75
         flags:
         - cert_manager
-      exim:
-        target: 75
-        flags:
-        - exim
       cfssl:
         target: 75
         flags:
         - cfssl
+      exim:
+        target: 75
+        flags:
+        - exim
       nvml:
         target: 75
         flags:
@@ -227,14 +231,6 @@ coverage:
         target: 75
         flags:
         - pihole
-      PureFA:
-        target: 75
-        flags:
-        - purefa
-      PureFB:
-        target: 75
-        flags:
-        - purefb
       speedtest:
         target: 75
         flags:
@@ -303,8 +299,8 @@ flags:
   gitea:
     carryforward: true
     paths:
-      - gitea/datadog_checks/gitea
-      - gitea/tests
+    - gitea/datadog_checks/gitea
+    - gitea/tests
   gnatsd:
     carryforward: true
     paths:
@@ -315,6 +311,11 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  go_pprof_scraper:
+    carryforward: true
+    paths:
+    - go_pprof_scraper/datadog_checks/go_pprof_scraper
+    - go_pprof_scraper/tests
   jfrog_platform:
     carryforward: true
     paths:
