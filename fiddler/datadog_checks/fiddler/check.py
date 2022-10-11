@@ -107,7 +107,6 @@ class FiddlerCheck(AgentCheck):
                         elif metric == 'output_average' or metric == 'integrity_violation_count':
                             for key, value in single_value["value"].items():
                                 new_metric = key
-                                value = value
                                 self.log.debug(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
@@ -117,12 +116,11 @@ class FiddlerCheck(AgentCheck):
                                     value,
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"])
-                                self.gauge(metric, value, tags)
+                                self.gauge(new_metric, value, tags)
 
                         elif metric == 'histogram_drift':
                             for key, value in single_value["value"].items():
                                 new_metric = "histogram_drift-" + key
-                                value = value
                                 self.log.debug(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
@@ -132,12 +130,11 @@ class FiddlerCheck(AgentCheck):
                                     value,
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
-                                self.gauge(metric, value, tags)
+                                self.gauge(new_metric, value, tags)
 
                         elif metric == 'feature_average':
                             for key, value in single_value["value"].items():
                                 new_metric = key
-                                value = value
                                 self.log.debug(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
@@ -147,13 +144,12 @@ class FiddlerCheck(AgentCheck):
                                     value,
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
-                                self.gauge(metric, value, tags)
+                                self.gauge(new_metric, value, tags)
 
                         elif metric == 'accuracy':
                             accuracy_metrics = single_value["value"]
                             for key, value in accuracy_metrics["accuracy_metrics"].items():
                                 new_metric = key
-                                value = value
                                 self.log.debug(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
@@ -163,7 +159,7 @@ class FiddlerCheck(AgentCheck):
                                     value,
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"])
-                                self.gauge(metric, value, tags)
+                                self.gauge(new_metric, value, tags)
         # If the check ran successfully, we can send the status.
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
