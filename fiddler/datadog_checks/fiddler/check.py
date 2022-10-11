@@ -46,8 +46,8 @@ class FiddlerCheck(AgentCheck):
 
         start_time = (time.time() * 1000) - (bin_size * 1000)
         end_time = time.time() * 1000
-        self.log.debug("Start time is : %s", start_time)
-        self.log.debug("End time is : %s", end_time)
+        self.log.info("Start time is : %s", start_time)
+        self.log.info("End time is : %s", end_time)
 
         # Iterate through all of the projects within the Fiddler instance and get the metrics
         for project in result_all["projects"]:
@@ -55,19 +55,19 @@ class FiddlerCheck(AgentCheck):
 
             # Iterate through all of the models within a project
             for model in models:
-                self.log.debug("Model: %s", model["id"])
+                self.log.info("Model: %s", model["id"])
+
+                # Do the above iteration for every metric that we need publish.
                 for metric in metrics_list:
-                    self.log.debug("Metric is : %s", metric)
+                    self.log.info("Metric is : %s", metric)
                     json_request = {
                         "metric": metric,
                         "time_range_start": start_time,
                         "time_range_end": end_time,
-                        "bin_size": bin_size,
-                        "prediction": '_',
+                        "bin_size": bin_size
                     }
                     agg_metrics_path = ['aggregated_metrics', self.org, project["name"], model["id"]]
-                    self.log.debug("ProjectModel: %s %s %s", project["name"], model["id"], metric)
-                    # result = self.client._call(agg_metrics_path, json_request)
+                    self.log.info("ProjectModel: %s %s %s", project["name"], model["id"], metric)
 
                     hit_exception = False
                     try:
@@ -87,9 +87,7 @@ class FiddlerCheck(AgentCheck):
                         hit_exception = False
                         continue
 
-                    self.log.debug("Agg_metrics_path: %s", agg_metrics_path)
-                    self.log.debug("json request: %s", json_request, "\n")
-                    self.log.debug("Result : %s", result, "\n")
+                    self.log.info("Agg_metrics_path: %s", agg_metrics_path)
 
                     # iterate through the json result for that specific metric
                     for single_value in result["values"]:
@@ -98,7 +96,7 @@ class FiddlerCheck(AgentCheck):
                         # Every metric has a different way of providing the value. So handle them separetly.
                         if metric == 'traffic_count':
                             value = single_value["value"]
-                            self.log.debug(
+                            self.log.info(
                                 "Final list: %s %s %s %s %s", project["name"], model["id"], start_time, metric, value
                             )
                             tags = create_tags(project=project["name"], model=model["id"])
@@ -107,7 +105,7 @@ class FiddlerCheck(AgentCheck):
                         elif metric == 'output_average' or metric == 'integrity_violation_count':
                             for key, value in single_value["value"].items():
                                 new_metric = key
-                                self.log.debug(
+                                self.log.info(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
                                     model["id"],
@@ -121,7 +119,7 @@ class FiddlerCheck(AgentCheck):
                         elif metric == 'histogram_drift':
                             for key, value in single_value["value"].items():
                                 new_metric = "histogram_drift-" + key
-                                self.log.debug(
+                                self.log.info(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
                                     model["id"],
@@ -135,7 +133,7 @@ class FiddlerCheck(AgentCheck):
                         elif metric == 'feature_average':
                             for key, value in single_value["value"].items():
                                 new_metric = key
-                                self.log.debug(
+                                self.log.info(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
                                     model["id"],
@@ -150,7 +148,7 @@ class FiddlerCheck(AgentCheck):
                             accuracy_metrics = single_value["value"]
                             for key, value in accuracy_metrics["accuracy_metrics"].items():
                                 new_metric = key
-                                self.log.debug(
+                                self.log.info(
                                     "Final list: %s %s %s %s %s",
                                     project["name"],
                                     model["id"],
@@ -160,6 +158,7 @@ class FiddlerCheck(AgentCheck):
                                 )
                                 tags = create_tags(project=project["name"], model=model["id"])
                                 self.gauge(new_metric, value, tags)
+
         # If the check ran successfully, we can send the status.
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
