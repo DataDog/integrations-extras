@@ -5,10 +5,10 @@
 This check collects profiles from Go applications which expose the [`/debug/pprof`][1] endpoint.
 
 **NOTE**: Prefer instrumenting services with the [dd-trace-go][12] profiling client library. The client library
-offers better integration with other Datadog services, such as through [code hotspots and enpoint filtering][13].
-This integration should be used for services for which you do not control the source code.
+offers better integration with other Datadog services, such as through [code hotspots and endpoint filtering][13].
+Use this integration for services for which you do not control the source code.
 
-**NOTE**: Using this integration will result in billing for hosts under Datadog's [Continuous Profiler][10] service.
+**NOTE**: Using this integration results in billing for hosts under Datadog's [Continuous Profiler][10] service.
 For more on Continuous Profiler billing, consult our [billing documentation][11].
 
 ## Setup
@@ -17,7 +17,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using Agent v7.21+ / v6.21+ follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][14] to install checks with the [Agent prior < v7.21 / v6.21][15] or the [Docker Agent][16]:
+If you are using an Agent version >= 7.21/6.21, follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][14] to install checks with an [Agent version < v7.21/v6.21][15] or the [Docker Agent][16]:
 
 1. [Download and launch the Datadog Agent][2].
 2. Run the following command to install the integrations wheel with the Agent:
