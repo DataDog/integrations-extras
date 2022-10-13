@@ -8,7 +8,7 @@ The 1E Datadog integration enables you to automatically send 1E metrics to your 
 
 ### Configuration
 
-Getting set up with the 1E Datadog integration is as simple as emailing a Datadog API key and region to 1E Support team. There's no further configuration required.
+Getting set up with the 1E Datadog integration is as simple as emailing a Datadog API key and region to the 1E Support team. There's no further configuration required.
 
 1. Go to your [Datadog Integrations page][1] and click on the 1E tile.
 
