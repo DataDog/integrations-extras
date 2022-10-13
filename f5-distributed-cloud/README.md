@@ -8,7 +8,7 @@ Although the F5 XC console UI provides very good observability natively, many en
 
 A F5 XC global log receiver can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration is quite simple and can be done via the [F5 XC Console UI][6].
 
-In addition to the following configuration guidance.  The F5 Distributed Cloud Services integration includes:
+In addition to the following configuration guidance. The F5 Distributed Cloud Services integration includes:
 
 - Dashboard - *Access Log Overview*
 - Saved View - *Including facets for commonly queried fields*
