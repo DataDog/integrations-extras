@@ -34,8 +34,6 @@ class FiddlerCheck(AgentCheck):
         self.org = self.instance.get('organization')
 
         self.log.info("Connecting to : %s", self.base_url)
-        self.log.info("with org id : %s", self.org)
-        self.log.info("and auth key : %s", self.api_key)
 
         self.client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
 
