@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration allows [Drata][5] customers to forward their DoControl-related logs and events to Datadog through automated security workflows.
+This integration allows [Drata][5] customers to forward their compliance-related logs and events from Datadog to Drata via an API integration.
 
 ## Setup
 
@@ -24,7 +24,7 @@ No installation is required on your host.
 1. Use Datadog's [Add application keys][3] documentation to create an application key.
 2. Copy and save your application key.
 
-![Get_DD_Application_Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/docontrol/images/Get_DD_Application_Key.png)
+![Get_DD_Application_Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/drata/images/Get_DD_Application_Key.png)
 
 
 
