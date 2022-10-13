@@ -1,6 +1,6 @@
 ## Overview
 
-F5 Distributed Cloud (XC) Services provides a global cloud native platform where customers can deploy, manage and secure their applications regardless of whether the application resides in a public cloud, in a private data center, or a colocation facility, (see below).  It provides a variety of both ADN and CDN services.
+F5 Distributed Cloud (XC) Services provides a global cloud native platform where customers can deploy, manage, and secure their applications regardless of whether the application resides in a public cloud, in a private data center, or a colocation facility (see below). It provides a variety of both ADN and CDN services.
 
 ![snapshot][1]
 
