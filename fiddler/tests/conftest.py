@@ -9,7 +9,7 @@ def dd_environment():
 @pytest.fixture
 def instance():
     return {
-        "url": "https://junk.fiddler.ai",
-        "fiddler_api_key": "api_key",
-        "organization": "org_id",
+        "url": "REPLACE_WITH_URL",
+        "fiddler_api_key": "REPLACE_WITH_API_KEY",
+        "organization": "REPLACE_WITH_ORG_ID",
     }
