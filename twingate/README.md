@@ -35,7 +35,7 @@ Follow the steps to install [Datadog Agent][4] on the Twingate Connector server
           replace_placeholder: ""
           pattern: "ANALYTICS "
     ````
-3. Add the `dd-agent` user to the `systemd-journal` group `usermod -a -G systemd-journal dd-agent`
+3. Add the `dd-agent` user to the `systemd-journal` group using the command `usermod -a -G systemd-journal dd-agent`
 4. Restart agent `service datadog-agent restart`
 5. Confirm the Twingate Analytic log can be found in the [Datadog Logs](https://app.datadoghq.com/logs)
 
