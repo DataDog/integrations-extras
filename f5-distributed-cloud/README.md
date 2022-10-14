@@ -7,7 +7,7 @@ F5 Distributed Cloud (XC) Services provides a global cloud native platform where
 The F5 XC platform includes the Global Log Receiver. F5 XC global log receiver can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration can be done via the [F5 XC Console UI][6].
 
 
-In addition to the following configuration guidance. The F5 Distributed Cloud Services integration includes:
+The F5 Distributed Cloud Services integration includes:
 
 - Dashboard - *Access Log Overview*
 - Saved View - *Including facets for commonly queried fields*
