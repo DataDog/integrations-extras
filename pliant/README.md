@@ -117,7 +117,6 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://pliant.io/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://github.com/DataDog/integrations-core/blob/master/pliant/datadog_checks/pliant/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://docs.datadoghq.com/help/

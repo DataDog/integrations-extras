@@ -1,0 +1,35 @@
+name: Check markdown partials
+# Checks for invalid markdown partials
+on:
+  pull_request:
+    paths:
+    - '**/*.md'
+
+jobs:
+  changed-files:
+    runs-on: ubuntu-latest
+    outputs:
+      md: ${{ steps.changes.outputs.md }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Output changed files
+      id: changes
+      run: >-
+        echo "::set-output name=md::$(
+          git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} |
+          grep .md$ |
+          xargs
+        )"
+
+    - name: Check for invalid partials
+      run: |
+        echo ${{ steps.changed-files.outputs.md }}
+        python .github/workflows/check_partials.py --files='${{ steps.changes.outputs.md }}'
