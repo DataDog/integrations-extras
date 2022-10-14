@@ -2,7 +2,7 @@
 
 ## Overview
 
-The 1E Datadog integration enables you to automatically send 1E metrics to your Datadog account.
+The 1E Datadog Integration is an API-based integration that collects metrics from 1E products and forward them to your Datadog account. You can use these metrics to take advantage of the out-of-the-box dashboard or you can create your own visualizations.
 
 ## Setup
 
@@ -21,7 +21,7 @@ Getting set up with the 1E Datadog integration is as simple as emailing a Datado
    - If the domain name is `app.datadoghq.com`, your API region is `US`.
    - If the domain name is `app.datadoghq.eu`, your API region is `EU`.
 
-5. Send an email to 1E support with the Datadog API key and region to activate your 1E Datadog integration.
+5. Send an email to [1E support](mailto:support@1e.com) with the Datadog API key and region to activate your 1E Datadog integration.
 
 6. After you receive a reply from the support team, go to the Datadog metrics explorer to see your metrics.
 
