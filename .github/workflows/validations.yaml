@@ -8,13 +8,14 @@ on:
     branches:
     - master
 
+permissions:
+  pull-requests: write
+
 env:
   CHANGED: ${{ github.event_name == 'pull_request' && 'changed' || '' }}
 
 jobs:
   build:
-    permissions:
-      pull-requests: write
     runs-on: ubuntu-latest
 
     steps:
