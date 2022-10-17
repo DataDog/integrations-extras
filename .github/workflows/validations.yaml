@@ -4,12 +4,12 @@ on:
   push:
     branches:
     - master
-  pull_request:
+  pull_request_target:
     branches:
     - master
 
 env:
-  CHANGED: ${{ github.event_name == 'pull_request' && 'changed' || '' }}
+  CHANGED: ${{ github.event_name == 'pull_request_target' && 'changed' || '' }}
 
 jobs:
   build:
