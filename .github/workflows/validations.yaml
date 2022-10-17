@@ -13,6 +13,8 @@ env:
 
 jobs:
   build:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
 
     steps:
@@ -110,8 +112,6 @@ jobs:
     - name: Comment PR on failure
       if: failure()
       uses: actions/github-script@0.3.0
-      permissions:
-        pull-requests: write
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
