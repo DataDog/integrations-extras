@@ -8,10 +8,6 @@ on:
     branches:
     - master
 
-permissions:
-  contents: read
-  pull-requests: write
-
 env:
   CHANGED: ${{ github.event_name == 'pull_request' && 'changed' || '' }}
 
@@ -113,6 +109,7 @@ jobs:
 
     - name: Comment PR on failure
       if: failure()
+      continue-on-error: true
       uses: actions/github-script@0.3.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
