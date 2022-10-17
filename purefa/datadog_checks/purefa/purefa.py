@@ -1,3 +1,4 @@
+from operator import truediv
 from datadog_checks.base import OpenMetricsBaseCheckV2
 
 from .config_models import ConfigMixin
@@ -18,6 +19,7 @@ class PureFACheck(OpenMetricsBaseCheckV2, ConfigMixin):
         default_config = {
             'openmetrics_endpoint': self.openmetrics_endpoint,
             'metrics': METRIC_MAP,
+            'share_labels': {'purefa_info': {'labels': ['version']}},
         }
 
         return default_config
