@@ -40,3 +40,4 @@ Need help? Contact [Datadog support][1] or [Drata support][4].
 [5]: https://www.drata.com
 [6]: https://drata.com/demo
 [7]: https://docs.datadoghq.com/account_management/rbac/permissions/
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/drata/images/Get_DD_Application_Key.png
