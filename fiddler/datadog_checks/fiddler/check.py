@@ -35,9 +35,12 @@ class FiddlerCheck(AgentCheck):
 
         self.log.info("Connecting to : %s", self.base_url)
 
-        self.client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
+        self.client = None
 
     def check(self, _):
+        if not self.client:
+            self.client = fdl.FiddlerApi(url=self.base_url, org_id=self.org, auth_token=self.api_key)
+
         # Iterate through the projects and the models and push data into Fiddler
         project_path = ['list_projects', self.org]
         result_all = self.client.v1._call(project_path)
@@ -161,4 +164,4 @@ class FiddlerCheck(AgentCheck):
         # More info at
         # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
 
-        self.service_check("fiddler.can_connect", AgentCheck.OK)
+        self.service_check("can_connect", AgentCheck.OK)
