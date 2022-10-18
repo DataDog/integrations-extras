@@ -5,7 +5,7 @@
 
 [TypingDNA ActiveLock][3] is a Continuous Endpoint Authentication app that helps prevent unauthorized access to your company computers. Once installed on a user's PC, it continuously verifies the user by the way they type. If an unauthorized typing pattern is detected, ActiveLock instantly locks the computer and/or logs the data to your desired logging platform (i.e. Datadog).
 
-To visualize your data in Datadog, ActiveLock will need to be installed and configured. Note: This will be the same install for all of your company computers.
+To visualize your data in Datadog, a custom ActiveLock app will need to be configured and installed. Note: This will be the same install for all of your company computers.
 
 Configuration is straightforward and takes few minutes, please follow the steps in the *Configure* tab to get started.
 
