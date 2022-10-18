@@ -23,7 +23,7 @@ Getting set up with the 1E Datadog integration is as simple as emailing a Datado
 
 5. Send an email to [1E support](mailto:support@1e.com) with the Datadog API key and site to activate your 1E Datadog integration.
 
-6. 1Es team will be in touch once your account has been set up. Once it's been setup, navigate to the Metrics Explorer within Datadog to see metrics begin to flow in.
+6. 1Es team will be in touch once your account has been set up. Once it's been setup, navigate to the [Metrics Explorer][7] within Datadog to see metrics begin to flow in.
 
 ## Data Collected
 
@@ -49,3 +49,4 @@ Need help? Contact [Datadog support][4] or reach out to [1E Support][5].
 [4]: https://docs.datadoghq.com/help/
 [5]: https://www.1e.com/
 [6]: https://docs.datadoghq.com/getting_started/site/
+[7]: https://docs.datadoghq.com/metrics/explorer/
