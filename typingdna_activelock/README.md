@@ -5,24 +5,27 @@
 
 [TypingDNA ActiveLock][3] is a Continuous Endpoint Authentication app that helps prevent unauthorized access to your company computers. Once installed on a user's PC, it continuously verifies the user by the way they type. If an unauthorized typing pattern is detected, ActiveLock instantly locks the computer and/or logs the data to your desired logging platform (i.e. Datadog).
 
-To visualize your data in Datadog, ActiveLock will need to be installed and configured. Note: This will be the same install for all of your company computers.
+To visualize your data in Datadog, a custom ActiveLock app will need to be configured and installed. Note: This will be the same install for all of your company computers.
 
-Configuration is straightforward and takes few minutes, please follow the steps in the *Configure* tab to get started.
+Configuration is straightforward and takes few minutes, please follow the steps in the **Configure** tab to get started.
 
 ## Setup
 
 ### Configuration
 
-There are 3 main parts of the setup.
+**I. Generate a Datadog API key**
+1. Within your Datadog account, navigate to [Organization settings > API keys][4].
+2. Generate a new "API key".
 
-**1. Generate a Datadog API key**
-Within your Datadog account, go to [Organization settings > API keys][4] and generate a new key.
+**II. Get your custom install app.**
+1. Submit your newly generated API key AND your Datadog Region (e.g. US1, EU), in the URL specified by your TypingDNA account manager. Contact [TypingDNA support][2] if you're not yet a TypingDNA customer.
+2. Once we receive your API key and Region, we'll send you a custom ActiveLock app that you'll have to install on your company computers.
+3. Once installed, logs should start appearing in [Log explorer][5].
 
-**2. Get your custom install app.**
-Send your newly generated API key AND your Datadog Region (e.g. US1, EU), to your TypingDNA account manager, and/or to datadog.support@typingdna.com. Once we receive your API key and Region, we'll send you a custom install app that you'll have to install on your company computers. New logs will start appearing in [Log explorer][5].
-
-**3. Set up log features (facets/measures).**
-Now, once your data starts to log in Datadog, for ActiveLock dashboard to work correctly you'll need to set up a few more things. From [Log explorer][5], you'll need to add the following facets/measures (case sensitive) from the left side panel, *+Add* button. It is important to use `@` in the path definition.
+**III. Set up log features (facets/measures).**
+1. Once logs flow into Datadog, Navigate to [Log explorer][5].
+2. On the left side panel, select the "+Add" button to add the following facets/measures.
+Note: Facets and measures are case sensitive. Please include `@` in the path definition.
 
 |Path| Facet/Measure |Type|Display name|
 |--|--|--|--|
@@ -52,22 +55,10 @@ TypingDNA ActiveLock logs are collected and sent to Datadog directly from each a
 
 In order to be able to view the logs correctly in the TypingDNA ActiveLock dashboard you will need to set the facets and measures exactly as in the Configuration steps.
 
-### Metrics
-
-TypingDNA ActiveLock does not include any metrics.
-
-### Service Checks
-
-TypingDNA ActiveLock does not include any service checks.
-
-### Events
-
-TypingDNA ActiveLock does not include any events.
-
 ## Troubleshooting
 
 Need help? Contact [Datadog support][1].
-Contact [TypingDNA support][2] or send email to datadog.support@typingdna.com.
+Contact [TypingDNA support][2]
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://www.typingdna.com/contact
