@@ -17,6 +17,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fiddler 
 1. Run the following command to install the Agent integration:
 
    ```shell
+   /opt/datadog-agent/embedded/bin/pip install fiddler-client==1.4.4
    datadog-agent integration install -t datadog-fiddler==1.0.0
    ```
 
