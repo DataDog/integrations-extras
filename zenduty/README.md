@@ -43,7 +43,7 @@ In [Zenduty][1], follow the steps below:
 
 See the [Zenduty documentation][3] for more details and to get the most out of this integration.
 
-**Note**: Mention ```@zenduty``` as a channel under **Notify your team** in the Datadog monitor's configuration to get alerts through Zenduty when Datadog incidents are created or resolved.
+**Note**: Mention `@zenduty` as a channel under **Notify your team** in the Datadog monitor's configuration to get alerts through Zenduty when Datadog incidents are created or resolved.
 
 ## Data Collected
 ### Metrics
