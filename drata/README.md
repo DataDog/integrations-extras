@@ -22,7 +22,7 @@ To set up this integration, you must have an active [Drata account][6]. You must
 
 ## Support
 
-Need help? Contact [Datadog support][1] or [Drata support][4].
+Need help? Contact [Datadog support][1] or [support@drata.com][4].
 
 
 [1]: https://docs.datadoghq.com/help/
