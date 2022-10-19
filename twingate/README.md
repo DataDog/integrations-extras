@@ -10,12 +10,6 @@ This integration allows organizations to monitor a user's resource access activi
 1. You must have the Datadog Agent installed on the Twingate Connector server. You also must be able to connect to that host and be able to edit the files so as to configure the Agent and YAML Integration Configs. Refer to [these instructions](https://docs.datadoghq.com/getting_started/agent/) to install the Datadog Agent.
 2. You must deploy the Twingate Connector. Refer to [these instructions] to enable Real-time Connection Logs.[3]
 
-### Enable Twingate Connector Analytic Logs
-Follow the steps to enable [Real-time Connection Logs][3]
-
-### Install Datadog Agent
-Follow the steps to install [Datadog Agent][4] on the Twingate Connector server
-
 ### Configure Datadog Agent
 #### Systemd
 1. Set up [Datadog journald integration][5]
