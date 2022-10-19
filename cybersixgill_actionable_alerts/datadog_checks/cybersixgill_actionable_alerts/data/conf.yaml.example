@@ -9,11 +9,47 @@ init_config:
     #
     # service: <SERVICE>
 
-## Every instance is scheduled independently of the others.
+## Every instance is scheduled independent of the others.
 #
 instances:
 
-  -
+    ## @param grpc_server_address - string - required
+    ## tcp host:port to connect
+    #
+  - grpc_server_address: <HOST>:<PORT>
+
+    ## @param grpc_server_service - string - optional
+    ## service name to check
+    #
+    # grpc_server_service: <GRPC_SERVER_SERVICE>
+
+    ## @param timeout - integer - optional - default: 1000
+    ## duration of time in milliseconds to allow for the RPC.
+    #
+    # timeout: 1000
+
+    ## @param rpc_header - list of strings - optional
+    ## additional RPC headers in name: value format.
+    #
+    # rpc_header:
+    #   - 'rpc-header-1: value1'
+    #   - 'rpc-header-2: value2'
+
+    ## @param ca_cert - string - optional - default: /path/to/ca.pem
+    ## CA cert.
+    #
+    # ca_cert: /path/to/ca.pem
+
+    ## @param client_cert - string - optional - default: /path/to/client.pem
+    ## client certificate used for client identification and auth.
+    #
+    # client_cert: /path/to/client.pem
+
+    ## @param client_key - string - optional - default: /path/to/client-key.pem
+    ## client certificate key.
+    #
+    # client_key: /path/to/client-key.pem
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
@@ -42,3 +78,14 @@ instances:
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
