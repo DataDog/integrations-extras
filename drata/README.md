@@ -10,19 +10,11 @@ To set up this integration, you must have an active [Drata account][6]. You must
 
 ### Installation
 
-No installation is required on your host.
-
-
-#### Create an API key in Datadog
-
-1. Use Datadog's [Add an API key][2] documentation to create an API key. Give the key a meaningful name such as `Drata`.
-2. Copy the `Key` and save it.
-
-
-#### Create an application key in Datadog
-
-1. Use Datadog's [Add application keys][3] documentation to create an application key.
-2. Copy and save your application key.
+1. To install this integration, you'll need to create an API and App key. 
+2. Navigate to your organization settings to [create an API key][2] in Datadog. Give the key a meaningful name such as `Drata`.
+3. Copy and save your API `Key`.
+4. Within your organization settings, [create an application key][3]. 
+5. Copy and save your application key.
 
 ![Get_DD_Application_Key][8]
 
