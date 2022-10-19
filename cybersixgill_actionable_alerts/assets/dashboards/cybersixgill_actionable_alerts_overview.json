@@ -1,0 +1,27 @@
+{
+    "viz": "event_stream",
+    "requests": [
+        {
+            "query": {
+                "query_string": "source: my_apps",
+                "data_source": "event_stream",
+                "event_size": "s"
+            },
+            "columns": [
+                {
+                    "field": "source",
+                    "width": 50
+                },
+                {
+                    "field": "message",
+                    "width": "auto"
+                },
+                {
+                    "field": "date",
+                    "width": 90
+                }
+            ],
+            "response_format": "event_list"
+        }
+    ]
+}

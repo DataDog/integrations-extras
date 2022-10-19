@@ -1,0 +1,33 @@
+{
+    "viz": "timeseries",
+    "requests": [
+        {
+            "style": {
+                "palette": "dog_classic"
+            },
+            "type": "bars",
+            "formulas": [
+                {
+                    "formula": "query1"
+                }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+                {
+                    "search": {
+                        "query": "source:my_apps"
+                    },
+                    "data_source": "events",
+                    "compute": {
+                        "aggregation": "count"
+                    },
+                    "name": "query1",
+                    "indexes": [
+                        "*"
+                    ],
+                    "group_by": []
+                }
+            ]
+        }
+    ]
+}
