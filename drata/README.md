@@ -2,6 +2,8 @@
 
 ## Overview
 
+Drata is a security and compliance automation platform that continuously monitors and collects evidence of a company's security controls, while streamlining compliance workflows end-to-end to ensure audit readiness.
+
 This integration allows [Drata][5] customers to forward their compliance-related logs and events from Datadog to Drata via an API integration.
 
 ## Setup
@@ -16,9 +18,6 @@ To set up this integration, you must have an active [Drata account][6]. You must
 4. Within your organization settings, [create an application key][3]. 
 5. Copy and save your application key.
 
-![Get_DD_Application_Key][8]
-
-
 
 ## Support
 
@@ -32,4 +31,3 @@ Need help? Contact [Datadog support][1] or [support@drata.com][4].
 [5]: https://www.drata.com
 [6]: https://drata.com/demo
 [7]: https://docs.datadoghq.com/account_management/rbac/permissions/
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/drata/images/Get_DD_Application_Key.png
