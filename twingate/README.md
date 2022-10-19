@@ -34,7 +34,7 @@ This integration allows organizations to monitor a user's resource access activi
 5. Confirm the Twingate Analytic log can be found in the [Datadog Logs](https://app.datadoghq.com/logs)
 
 ### Configure Datadog Logs
-1. Create new Datadog [Pipeline][7] with
+1. Create a new Datadog [Pipeline][7] with
    * Filter `Service:twingate-connector`
    * Name `Twingate Analytics`
 2. Create new Grok Parser Processor within the Pipeline with
