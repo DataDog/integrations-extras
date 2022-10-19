@@ -67,15 +67,6 @@ This integration allows organizations to monitor a user's resource access activi
 
 
 
-## Data Collected
-### Metrics
-Twingate does not include any metrics.
-
-### Service Checks
-Twingate does not include any service checks.
-
-### Events
-Twingate does not include any events.
 
 ## Troubleshooting
 Need help? Contact [Twingate Support][2]
