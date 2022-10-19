@@ -18,9 +18,9 @@ Configuration is straightforward and takes few minutes, please follow the steps 
 2. Generate a new "API key".
 
 **II. Get your custom install app.**
-1. Submit your newly generated API key AND your Datadog Region (e.g. US1, EU), in the URL specified by your TypingDNA account manager. Contact [TypingDNA support][2] if you're not yet a TypingDNA customer.
-2. Once we receive your API key and Region, we'll send you a custom ActiveLock app that you'll have to install on your company computers.
-3. Once installed, logs should start appearing in [Log explorer][5].
+1. Navigate to [this custom install form][7] and submit your newly generated API key and your Datadog Region (e.g. US1, EU) along with your company details.
+2. Once we receive your information, we'll send you a custom ActiveLock app that you'll have to install on your company computers. We'll send any further details over email.
+3. After installation, logs should start appearing in [Log explorer][5].
 
 **III. Set up log features (facets/measures).**
 1. Once logs flow into Datadog, Navigate to [Log explorer][5].
@@ -66,3 +66,4 @@ Contact [TypingDNA support][2]
 [4]: https://app.datadoghq.com/organization-settings/api-keys
 [5]: https://app.datadoghq.com/logs
 [6]: https://app.datadoghq.com/dashboard/lists
+[7]: https://forms.gle/3U9KxF7ySThVLDJg8
