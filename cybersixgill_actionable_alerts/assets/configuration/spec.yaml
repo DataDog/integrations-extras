@@ -1,0 +1,50 @@
+name: Cybersixgill Actionable Alerts
+files:
+- name: cybersixgill_actionable_alerts.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+      - name: cl_id
+        required: true
+        description: The Client Id given by Cybersixgill
+        enabled:  true
+        value:
+          type: string
+          example:  clientid
+          display_default:  null
+      - name: cl_secret
+        required: true
+        description:  The Client Secret given by Cybersixgill
+        enabled:  true
+        value:
+          type: string
+          example:  client00000secret
+          display_default:  null
+      - name: alerts_limit
+        required: false
+        description:  The number of alerts to fetch on a single request default is 50
+        enabled:  false
+        value:
+          type: string
+          example:  50
+          display_default:  null
+      - name: threat_type
+        required: false
+        description:  Predefined types of threats alerts you would like to see like fraud, malware
+        enabled:  false
+        value:
+          type: string
+          example:  compromised accounts, fraud
+          display_default:  null
+      - name: threat_level
+        required: false
+        description:  Type of alerts which are either imminent or emerging
+        enabled:  false
+        value:
+          type: string
+          example:  imminent
+          display_default:  null
+    - template: instances/default
