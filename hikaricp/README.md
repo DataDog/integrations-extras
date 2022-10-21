@@ -2,7 +2,7 @@
 
 ## Overview
 [Hikaricp][1] is a lightweight and fast JDBC connection pooling framework.
-This check monitors hikaricp through the Datadog Agent.
+This check monitors HikariCP through the Datadog Agent.
 
 ## Setup
 
