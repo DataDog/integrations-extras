@@ -12,6 +12,8 @@ To visualize your data in Datadog, a custom ActiveLock app needs to be configure
 
 ### Configuration
 
+To get started, navigate to the **Configure** tab on the TypingDNA ActiveLock [integration tile][8].
+
 **I. Generate a Datadog API key**
 1. Within your Datadog account, navigate to [Organization settings > API keys][4].
 2. Generate a new "API key".
