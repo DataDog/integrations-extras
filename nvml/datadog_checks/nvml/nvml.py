@@ -171,6 +171,11 @@ class NvmlCheck(AgentCheck):
             fan_speed = NvmlCheck.N.nvmlDeviceGetFanSpeed(handle)
             self.gauge('fan_speed', fan_speed, tags=tags)
 
+        with NvmlCall("compute_running_processes", self.log):
+            compute_running_processes = NvmlCheck.N.nvmlDeviceGetComputeRunningProcesses_v2(handle)
+            for compute_running_process in compute_running_processes:
+                self.gauge('compute_running_process', compute_running_process.usedGpuMemory, tags=tags + [f"pid:{compute_running_process.pid}"])
+
     def _start_discovery(self):
         """Start daemon thread to discover which k8s pod is assigned to a GPU"""
         # type: () -> None
