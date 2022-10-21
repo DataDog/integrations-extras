@@ -14,19 +14,22 @@ To visualize your data in Datadog, a custom ActiveLock app needs to be configure
 
 To get started, navigate to the **Configure** tab on the TypingDNA ActiveLock [integration tile][8].
 
-**I. Generate a Datadog API key**
-1. Within your Datadog account, navigate to [Organization settings > API keys][4].
-2. Generate a new "API key".
 
-**II. Get your custom install app.**
-1. Navigate to [this custom install form][7] and submit your newly generated API key and your Datadog Region (e.g. US1, EU) along with your company details.
-2. Once we receive your information, we'll send you a custom ActiveLock app that you'll have to install on your company computers. We'll send any further details over email.
-3. After installation, logs should start appearing in [Log explorer][5].
+To generate a Datadog API key:
 
-**III. Set up log features (facets/measures).**
-1. Once logs flow into Datadog, Navigate to [Log explorer][5].
-2. On the left side panel, select the "+Add" button to add the following facets/measures.
-Note: Facets and measures are case sensitive. Please include `@` in the path definition.
+1. Navigate to [**Organization settings** > **API keys**][4] in your Datadog account.
+2. Click **+ New Key** to generate an API key.
+
+To get your custom install app:
+
+1. Complete [this custom install form][7] by submitting your newly generated API key and Datadog site region (such as US1 or EU), along with your company details.
+2. Once we receive your information, you will receive a custom ActiveLock app that you can install on your company computers and more information details over email.
+3. After installation, your ActiveLock logs should start to appear in the [Log Explorer][5].
+
+To set up log features such as facets and measures:
+
+1. Once logs are flowing into Datadog, navigate to the [Log Explorer][5].
+2. On the left side panel, click **+Add** to add the following facets and measures. Facets and measures are case sensitive. Include `@` in the path definition.
 
 |Path| Facet or Measure |Type|Display name|
 |--|--|--|--|
