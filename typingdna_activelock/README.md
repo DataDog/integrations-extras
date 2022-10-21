@@ -7,7 +7,6 @@
 
 To visualize your data in Datadog, a custom ActiveLock app needs to be configured and installed. This is the same install for all of your company computers.
 
-Configuration is straightforward and takes few minutes, please follow the steps in the **Configure** tab to get started.
 
 ## Setup
 
