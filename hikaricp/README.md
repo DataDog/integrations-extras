@@ -43,7 +43,7 @@ hikaricp does not include any service checks.
 
 ### Events
 
-hikaricp does not include any events. 
+HikariCP does not include any events. 
 
 ## Troubleshooting
 
