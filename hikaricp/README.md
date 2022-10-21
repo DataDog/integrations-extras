@@ -1,7 +1,7 @@
 # Agent Check: hikaricp
 
 ## Overview
-[Hikaricp](https://github.com/brettwooldridge/HikariCP/) is a is a very lightweight and lightning-fast JDBC connection pooling framework.
+[Hikaricp][1] is a lightweight and fast JDBC connection pooling framework.
 This check monitors hikaricp through the Datadog Agent.
 
 ## Setup
