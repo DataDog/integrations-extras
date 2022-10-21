@@ -71,8 +71,7 @@ The TypingDNA ActiveLock integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][1].
-Contact [TypingDNA support][2]
+Need help? Contact [Datadog][1] or [TypingDNA support][2].
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://www.typingdna.com/contact
