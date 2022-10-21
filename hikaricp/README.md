@@ -8,7 +8,7 @@ This check monitors HikariCP through the Datadog Agent.
 
 ### Installation
 
-To install the hikaricp check on your host:
+To install the HikariCP check on your host:
 
 
 1. Install the [developer toolkit]
