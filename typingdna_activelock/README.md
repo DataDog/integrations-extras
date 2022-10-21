@@ -45,7 +45,7 @@ Note: Facets and measures are case sensitive. Please include `@` in the path def
 
 To view your ActiveLock logs in Datadog, navigate to the [Log Explorer][5] and enter `source:typingdna_activelock` in the search query.
 
-To open the dashboard, navigate to [All Dashboards][6] where you should find the **TypingDNA ActiveLock** dashboard.
+To access the dashboard, navigate to the [Dashboard List][6] and search for the **TypingDNA ActiveLock** dashboard.
 
 
 ## Data Collected
