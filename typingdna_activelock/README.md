@@ -68,3 +68,4 @@ Contact [TypingDNA support][2]
 [5]: https://app.datadoghq.com/logs
 [6]: https://app.datadoghq.com/dashboard/lists
 [7]: https://forms.gle/3U9KxF7ySThVLDJg8
+[8]: https://app.datadoghq.com/integrations/typingdna_activelock
