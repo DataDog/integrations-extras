@@ -47,7 +47,7 @@ HikariCP does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact [Datadog support][9].
 
 [1]: https://github.com/brettwooldridge/HikariCP
 [2]: https://app.datadoghq.com/account/settings#agent
