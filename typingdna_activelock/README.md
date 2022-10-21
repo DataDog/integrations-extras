@@ -28,7 +28,7 @@ To get started, navigate to the **Configure** tab on the TypingDNA ActiveLock [i
 2. On the left side panel, select the "+Add" button to add the following facets/measures.
 Note: Facets and measures are case sensitive. Please include `@` in the path definition.
 
-|Path| Facet/Measure |Type|Display name|
+|Path| Facet or Measure |Type|Display name|
 |--|--|--|--|
 |`@username`|facet|string|username|
 |`@installID`|facet|string|installID|
