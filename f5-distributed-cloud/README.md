@@ -64,19 +64,6 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 
 - Select Save & Exit to complete creating the global log receiver. Verify that [logs][9] are received into your Datadog account.
 
-## Data Collected
-
-### Metrics
-
-The F5 Distributed Cloud Services integration does not include any metrics at this time.
-
-### Events
-
-The F5 Distributed Cloud Services integration does not include any events at this time.
-
-### Service Checks
-
-The F5 Distributed Cloud Services integration does not include any service checks at this time.
 
 ## Troubleshooting
 
