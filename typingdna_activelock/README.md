@@ -21,12 +21,12 @@ To generate a Datadog API key:
 To get your custom install app:
 
 1. Complete [this custom install form][7] by submitting your newly generated API key and Datadog site region (such as US1 or EU), along with your company details.
-2. Once we receive your information, you will receive a custom ActiveLock app that you can install on your company computers and more information details over email.
-3. After installation, your ActiveLock logs should start to appear in the [Log Explorer][5].
+2. You will then receive a custom ActiveLock app that you can install on your company computers and more information over email.
+3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
 
 To set up log features such as facets and measures:
 
-1. Once logs are flowing into Datadog, navigate to the [Log Explorer][5].
+1. Once logs are flowing into Datadog, navigate to [Log Explorer][5].
 2. On the left side panel, click **+Add** to add the following facets and measures. Facets and measures are case sensitive. Include `@` in the path definition.
 
 |Path| Facet or Measure |Type|Display name|
