@@ -12,7 +12,9 @@ This integration includes:
 
 ## Setup
 
-You can configure global log streaming in either system namespace or in shared namespace. In case of configuring in shared namespace, you can configure to stream from either shared namespace or all namespaces or specific list of namespaces. If you are configuring in system namespace, you can only stream logs from system namespace.
+Global log streaming is available for either system namespace or in shared namespace:
+- Shared Namespaces supports streaming logs from shared, all or a specific list of namespaces
+- System Namespaces only supports streaming logs from system namespaces.
 
 The example shown in this guide creates a global log receiver object in the Console in system namespace for streaming the logs to the external log collection system.
 
