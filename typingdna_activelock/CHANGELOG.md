@@ -2,7 +2,7 @@
 
 TypingDNA ActiveLock integration changes.
 
-1.0.0
+## 1.0.0 / 2022-10-30
 ==================
 
 ### Changes
