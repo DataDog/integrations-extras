@@ -1,6 +1,6 @@
 ## Overview
 
-F5 Distributed Cloud (XC) Services provides a global cloud native platform where customers can deploy, manage, and secure their applications regardless of whether the application resides in a public cloud, in a private data center, or a colocation. It provides a variety of both ADN and CDN services.
+F5 Distributed Cloud (XC) Services provides customers with a global cloud native platform that can deploy, manage, and secure their applications in hybrid environments (public cloud, private data centers, or colocations). ADN and CDN services are also available. 
 
 The F5 XC platform includes the Global Log Receiver. F5 XC global log receiver can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration can be done via the [F5 XC Console UI][6].
 
