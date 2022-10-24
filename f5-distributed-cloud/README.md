@@ -80,7 +80,7 @@ The F5 Distributed Cloud Services integration does not include any service check
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][5].
+Need help? Contact [Datadog Support][5] or [F5 Support][10].
 
 ## Further Reading
 
