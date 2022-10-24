@@ -2,6 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from types import SimpleNamespace
+from collections import namedtuple
 
 import mock
 import pytest
@@ -76,7 +77,8 @@ class MockNvml:
 
     @staticmethod
     def nvmlDeviceGetComputeRunningProcesses_v2(h):
-        return [{ "pid": 1, "usedGpuMemory": 11}]
+        Mock = namedtuple('Mock', ['pid', 'usedGpuMemory'])
+        return [Mock(pid = 1, usedGpuMemory = 11)]
 
 
 @pytest.mark.unit
@@ -99,6 +101,6 @@ def test_check(aggregator, instance):
     aggregator.assert_metric('nvml.power_usage', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.temperature', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.fan_speed', tags=expected_tags, count=1)
-    aggregator.assert_metric('nvml.compute_running_process', tags=expected_tags+["pid:1"], count=2)
+    aggregator.assert_metric('nvml.compute_running_process', tags=expected_tags+["pid:1"], count=1)
 
     aggregator.assert_all_metrics_covered()
