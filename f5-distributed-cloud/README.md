@@ -16,7 +16,7 @@ Global log streaming is available for either system namespace or in shared names
 - Shared Namespaces supports streaming logs from shared, all or a specific list of namespaces
 - System Namespaces only supports streaming logs from system namespaces.
 
-The example shown in this guide creates a global log receiver object in the Console in system namespace for streaming the logs to the external log collection system.
+Below is an example of configuring a global log receiver in a system namespace.
 
 Perform the following in the F5® Distributed Cloud Console:
 
