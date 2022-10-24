@@ -45,21 +45,20 @@ Do the following in the Global Log Receiver section:
 
 ![snapshot][4]
 
-**Step 3: Optionally, configure advanced settings**
-Advanced settings include configuring batch options and TLS. Using batch options, you can apply limits such as maximum number of messages bytes or timeout for a batch of logs to be sent to the receiver.
+**Optional Step 3: Configure advanced settings**
+Advanced settings include configuring batch options and TLS. You can apply limits such as maximum number of messages bytes or timeout for a batch of logs to be sent to the receiver.
 
-- Select Show Advanced Fields toggle and do the following in the Batch Options section:
-    - Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.
-    - Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.
-    - Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs will be sent after the batch is size is equal to or more than the specified byte size.
-
-Do the following for TLS section:
-
-- Select Use TLS for the TLS field.
-- Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
-- Select Enable mTLS for mTLS config and enter client certificate in PEM or Base64 format in the Client Certificate box.
-    - Select Configure in the Client Private Key field, enter the secret in the box with type selected as Text.
-    - Select Blindfold, wait for the operation to complete, and click Apply.
+1. Select the Show Advanced Fields toggle
+2. Within the Batch Options section:
+	 2.a Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.
+	 2.b Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.
+	 2.c Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs will be sent after the batch is size is equal to or more than the specified byte size.
+3. Within the TLS section:
+	 3.a Select Use TLS for the TLS field.
+	 3.b Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
+	 3.c Select Enable mTLS for mTLS config and enter client certificate in PEM or Base64 format in the Client Certificate box.
+	 3.d Select Configure in the Client Private Key field, enter the secret in the box with type selected as Text.
+	 3.e Select Blindfold, wait for the operation to complete, and click Apply.
 
 **Step 4: Complete log receiver creation**
 
