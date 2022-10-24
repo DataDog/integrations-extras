@@ -60,9 +60,9 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 	 3.d Select Configure in the Client Private Key field, enter the secret in the box with type selected as Text.
 	 3.e Select Blindfold, wait for the operation to complete, and click Apply.
 
-**Step 4: Complete log receiver creation**
+**Step 4: Finish set up**
 
-- Select Save & Exit to complete creating the global log receiver. Verify that logs are received into your Datadog account.
+- Select Save & Exit to complete creating the global log receiver. Verify that [logs][9] are received into your Datadog account.
 
 ## Data Collected
 
