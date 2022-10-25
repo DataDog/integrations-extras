@@ -1,11 +1,11 @@
 # Agent Check: cybersixgill_actionable_alerts
 
 ## Overview
-By integrating Cybersixgill actionable alerts, Datadog customers gain a premium,
+The Cybersixgill actionable alerts integration provides an 
 automated threat intelligence solution based on the most comprehensive data sources from the deep, dark and surface web. 
-It is customizable, enabling users to define key assets relevant to their brand, industry, and geolocation. Users can covertly 
-monitor critical assets such as IP addresses, domains, vulnerabilities, and VIPs for activity on the underground and closed sources - and 
-prioritize, as well as respond to threats directly from the Siemplify dashboard.
+It is customizable, enabling you to define key assets relevant to your brand, industry, and geolocation. You can covertly 
+monitor critical assets such as IP addresses, domains, vulnerabilities, and VIPs for activity on the underground and closed 
+sources - and prioritize, as well as respond to threats directly from the Datadog dashboard.
 This check monitors [cybersixgill_actionable_alerts][1].
 
 ## Setup
@@ -26,7 +26,7 @@ To install the cybersixgill_actionable_alerts check on your host:
 
 ### Configuration
 
-1. Provide Client Id and Client Secret in Configuration.yaml file which you will get it info@cybersixgill.com2.
+1. Provide Client Id and Client Secret in Configuration.yaml file which you will get it once you contact info@cybersixgill.com.
 2. Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
@@ -45,7 +45,7 @@ See assets/service_checks.json for a list of service checks provided by this int
 
 ### Events
 
-cybersixgill_actionable_alerts does include events.
+All Events are sent to Datadog event stream.
 
 ## Troubleshooting
 
