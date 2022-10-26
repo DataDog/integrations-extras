@@ -31,17 +31,17 @@ Below is an example of configuring a global log receiver in a system namespace.
 **Step 2: Configure global log receiver properties**
 Do the following in the Global Log Receiver section:
 
-- Enter a name in the metadata section. Optionally, set labels and add a description.
-- Select Request Logs or Security Events for the Log Type field. The request logs are set by default.
-- Select events to be streamed based on namespace from the following options:
-    - Select logs from current namespace - streams logs from the shared namespace.
-    - Select logs from all namespaces - streams logs from all namespaces.
-    - Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. Use Add item button to add more than one namespace.  Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.
-- Select Datadog for the Receiver Configuration box. Configure following for the Datadog receiver:
-    - Provide the appropriate data Doc site name, (datadoghq.com) in this case.   
-    - Provide a Datadog API key.
-
-![snapshot][4]
+1. Within the Global Log Receiver section, enter a name in the metadata section. Optional: set labels and add a description.
+2. Select Request Logs or Security Events for the Log Type field. Note: Request logs are set by default.
+3. Select events to be streamed based on namespace from the following options:
+	3a. Select logs from current namespace - streams logs from the shared namespace.
+	3.b Select logs from all namespaces - streams logs from all namespaces.
+	3.c Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.
+4. Select Datadog for the Receiver Configuration box. Configure the following for the Datadog receiver:
+ 	4.a Set the site name to datadoghq.com.
+	4.b Navigate to Datadog and [create an API key][8] within the organization settings. 
+	4.c Copy the API key
+	4.d Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.
 
 **Optional Step 3: Configure advanced settings**
 Advanced settings include configuring batch options and TLS. You can apply limits such as maximum number of messages bytes or timeout for a batch of logs to be sent to the receiver.
