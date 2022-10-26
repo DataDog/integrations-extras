@@ -27,7 +27,6 @@ Below is an example of configuring a global log receiver in a system namespace.
 
 ![snapshot][3]
 
-- Select Add Global Log Receiver button.
 
 **Step 2: Configure global log receiver properties**
 Do the following in the Global Log Receiver section:
