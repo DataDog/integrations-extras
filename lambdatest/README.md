@@ -29,7 +29,7 @@ Here's how you can track incidents in Datadog with LambdaTest:
 2. Select settings from the menu bar.
 3. Click on integrations under settings.
 4. To integrate Datadog, click on install next to Push to Datadog.
-5. Enter your [Datadog API and application key][2].
+5. Click on Authorize button to complete the integration process.
 6. A confirmation email is sent. Confirm the integration in the email.
 7. Once Datadog is integrated with your LambdaTest account, start logging bugs and performing cross-browser testing.
 
@@ -40,6 +40,3 @@ For support or feature requests, contact LambdaTest on the following channels:
 Email: support@lambdatest.com
 Phone: +1-(866)-430-7087
 Website: https://www.lambdatest.com/
-
-[1]: https://www.lambdatest.com/support/docs/datadog-integration/
-[2]: https://docs.datadoghq.com/account_management/api-app-keys/
