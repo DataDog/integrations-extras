@@ -18,13 +18,12 @@ Global log streaming is available for either system namespace or in shared names
 
 Below is an example of configuring a global log receiver in a system namespace.
 
-Perform the following in the F5® Distributed Cloud Console:
+**Step 1: To create a global log receiver**
 
-**Step 1: Start creating a global log receiver**
-
-- In the Console home page, select Shared Configuration service.
-- Select Manage > Global Log Receiver.
-- Select Global Log Receiver in case of Cloud and Edge Sites service.
+1. Within the F5® Distributed Cloud Console, navigate to Shared Configuration service.
+2. Select Manage > Global Log Receiver.
+3. Select Global Log Receiver in case of Cloud and Edge Sites service.
+4. Click add Global Log Receiver button
 
 ![snapshot][3]
 
