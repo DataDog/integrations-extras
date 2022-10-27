@@ -5,8 +5,6 @@
 
 This integration allows organizations to monitor a user's resource access activities in real-time.
 
-![Dashboard Preview][8]
-
 ## Setup
 ### Pre-requisite
 1. You must have the Datadog Agent installed on the Twingate Connector server. You also must be able to connect to that host and be able to edit the files so as to configure the Agent and YAML Integration Configs. Refer to [these instructions](https://docs.datadoghq.com/getting_started/agent/) to install the Datadog Agent.
@@ -22,11 +20,13 @@ This integration allows organizations to monitor a user's resource access activi
         container_mode: true
         include_units:
           - twingate-connector.service
+        service: Twingate Connection
+        source: Twingate Connection
         log_processing_rules:
         - type: include_at_match
           name: analytics
           pattern: ANALYTICS
-            - type: mask_sequences
+        - type: mask_sequences
           name: remove_analytics
           replace_placeholder: ""
           pattern: "ANALYTICS "
@@ -37,7 +37,7 @@ This integration allows organizations to monitor a user's resource access activi
 
 ### Configure Datadog Logs
 1. Create a new Datadog [Pipeline][7] with
-   * Filter `Service:twingate-connector`
+   * Filter `service:"Twingate Connection"`
    * Name `Twingate Analytics`
 2. Create new Grok Parser Processor within the Pipeline with
     * Name `Remove Client IP Port`
@@ -45,26 +45,32 @@ This integration allows organizations to monitor a user's resource access activi
 3. Create new GeoIP Parser Processor within the Pipeline with
     * Name `GeoIP Parser`
     * Geo IP `connection.client_ip`
-    *  Target Path `connection.client_geo`
-4. [Create Datadog facets][6] for the following fields
-   * Client IP `@connection.client_ip` 
+    * Target Path `connection.client_geo`
+4. Create new Remapper Processors within the Pipeline with `Preserve source field=disabled` and `Override on conflict=enabled` 
+   * Client IP Remapper: `connection.client_ip -> network.client.ip` with type `String`
+   * Bytes Read Remmaper: `connection.tx -> network.bytes_read` with type `Integer`
+   * Bytes Written Remapper: `connection.rx -> network.bytes_written` with type `Integer`
+   * User Remmaper: `user -> usr` with type `String`
+   * Error Message Remmaper: `connection.error_message -> error.message` with type `String`
+5. [Create Datadog facets][6] for the following fields with `Group = Twingate Connection`
+   * Client IP `@network.client.ip` 
    * Connector ID `@connector.id`
    * Connector `@connector.name`
    * Resource ID `@resource.id`
    * Resource `@resource.address`
    * Applied Rule `@resource.applied_rule`
-   * User ID `@user.id`
-   * User `@user.email`
+   * User Email `@usr.email`
    * Connection ID `@connection.id`
-   * Bytes Received `@connection.rx`
-   * Bytes Sent `@connection.tx`
    * Protocol `@connection.protocol`
    * Port `@connection.resource_port`
    * Remote Network ID `@remote_network.id`
    * Remote Network `@remote_netowrk_name`
    * Device ID `@device.id`
-   * Error `@connection.error_message`
+   * Error `@error.message`
    * Location `@connection.client_geo.country.iso_code`
+6. [Create Datadog measures][9] for the following fields with `Group=Twingate Connection`, `Type=Integer` and `Unit=Byte`
+   * Bytes Received `@network.bytes_written`
+   * Bytes Sent `@network.bytes_read`
 
 
 ## Troubleshooting
@@ -78,3 +84,4 @@ Need help? Contact [Twingate Support][2]
 [6]: https://docs.datadoghq.com/logs/explorer/facets/#manage-facets
 [7]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source#create-a-pipeline
 [8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard.png
+[9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
