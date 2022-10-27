@@ -24,22 +24,6 @@ To get your custom install app:
 2. You will then receive a custom ActiveLock app that you can install on your company computers and more information over email.
 3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
 
-To set up log features such as facets and measures:
-
-1. Once logs are flowing into Datadog, navigate to [Log Explorer][5].
-2. On the left side panel, click **+Add** to add the following facets and measures. Facets and measures are case sensitive. Include `@` in the path definition.
-
-|Path| Facet or Measure |Type|Display name|
-|--|--|--|--|
-|`@username`|facet|string|username|
-|`@installID`|facet|string|installID|
-|`@main_app`|facet|string|main_app|
-|`@result`|facet|string|result|
-|`@keyboard_id`|facet|string|keyboard_id|
-|`@version`|facet|string|version|
-| `@score` | measure |integer|score|
-| `@speed` | measure |integer|speed|
-| `@training_strength` | measure |integer|training_strength|
 
 
 ### Validation
