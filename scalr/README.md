@@ -2,9 +2,7 @@
 
 ## Overview
 
-Get metrics from the Scalr service in real time to:
-
-- Visualize and monitor Scalr states
+This integration collects metrics from Scalr.
 
 ## Setup
 The Scalr integration is not included in the [Datadog Agent][2] package, so you need to install it.

@@ -54,6 +54,7 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request timeout: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
+            self.log.exception("Communication with Scalr timed out.", e)
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
             self.service_check(
@@ -61,6 +62,7 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
+            self.log.exception("Couldn't reach Scalr.", e)
 
         except JSONDecodeError as e:
             self.service_check(
@@ -68,9 +70,11 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="JSON Parse failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
+            self.log.exception("Unexpected response from Scalr.", e)
 
         except ValueError as e:
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=str(e))
+            self.log.exception(e)
 
     @staticmethod
     def _validate_instance(instance):
