@@ -41,19 +41,6 @@ TypingDNA ActiveLock logs are collected and sent to Datadog directly from each a
 
 In order to view the logs correctly in the TypingDNA ActiveLock dashboard, you need to set the facets and measures in the [Configuration](#configuration) section.
 
-### Metrics
-
-The TypingDNA ActiveLock integration does not include any metrics.
-
-### Events
-
-The TypingDNA ActiveLock integration does not include any events.
-
-### Service Checks
-
-The TypingDNA ActiveLock integration does not include any service checks.
-
-
 ## Troubleshooting
 
 Need help? Contact [Datadog][1] or [TypingDNA support][2].
