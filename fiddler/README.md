@@ -2,8 +2,7 @@
 
 ## Overview
 
-This check monitors AI model performance using [Fiddler][1] through the Datadog Agent. Fiddler monitors model drift and performance for AI models. The check pulls in metrics like accuracy, precision, recall etc. and also pulls in data drift metrics for the feature inputs and the prediction. These metrics are pushed to DataDog using this integration, so that you can visualize model performance on a DataDog dashboard.
-
+Fiddler AI monitors AI model performance by sending real-time alerts when model performance metrics drop and allowing customers to drill-down to understand where a model is failing. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, precision, recall and drift.
 
 ## Setup
 
