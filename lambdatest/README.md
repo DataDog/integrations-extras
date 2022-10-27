@@ -25,11 +25,17 @@ All configuration happens on the LambdaTest Dashboard. See the [LambdaTest-Datad
 
 Here's how you can track incidents in Datadog with LambdaTest:
 
-1. Click "Connect Accounts" to begin authorization of the LambdaTest integration. You will be taken to the Login page in LambdaTest.
-2. Log in to your LambdaTest account on the LambdaTest website and you'll be redirected to your Datadog application.
+1. Click **Connect Accounts** to begin authorization of the LambdaTest integration from the Login page in LambdaTest.
+2. Log in to your LambdaTest account on the LambdaTest website and you'll be redirected to the Datadog authorization page.
 3. Click **Authorize** to complete the integration process.
 4. A confirmation email is sent once the integration configuration is complete.
 5. Once Datadog is integrated with your LambdaTest account, start logging bugs and performing cross-browser testing.
+
+### Uninstallation
+
+To ensure this integration is fully uninstalled, revoke authorization in the Configure tab of this tile or in [OAuth Apps](https://app.datadoghq.com/organization-settings/oauth-applications) within Organization Settings in Datadog. 
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys).
 
 ## Support
 
