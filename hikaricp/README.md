@@ -1,4 +1,4 @@
-# Agent Check: hikaricp
+# Agent Check: HikariCP
 
 ## Overview
 [Hikaricp][1] is a lightweight and fast JDBC connection pooling framework.
