@@ -44,3 +44,5 @@ For support or feature requests, contact LambdaTest on the following channels:
 Email: support@lambdatest.com
 Phone: +1-(866)-430-7087
 Website: https://www.lambdatest.com/
+
+[1]: https://www.lambdatest.com/support/docs/datadog-integration/
