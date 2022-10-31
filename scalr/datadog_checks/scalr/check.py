@@ -3,9 +3,9 @@ from simplejson import JSONDecodeError
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/integrations/datadog/account/{}/metrics"
+SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/metrics"
 SCALR_URL_PARAM = "url"
-SCALR_ACCOUNT_ID_PARAM = "account_id"
+SCALR_ACC_ID_PARAM = "account_id"
 SCALR_ACCESS_TOKEN_PARAM = "access_token"
 
 
@@ -36,10 +36,11 @@ class ScalrCheck(AgentCheck):
         self._validate_instance(instance)
 
         try:
+            query = "?filter[account]=" + str(instance[SCALR_ACC_ID_PARAM]) if instance.get(SCALR_ACC_ID_PARAM) else ""
             response = self.http.get(
-                SCALR_DD_METRICS_ENDPOINT.format(instance[SCALR_URL_PARAM], instance[SCALR_ACCOUNT_ID_PARAM]),
+                SCALR_DD_METRICS_ENDPOINT.format(instance[SCALR_URL_PARAM]) + query,
                 extra_headers=self._get_extra_headers(instance),
-                timeout=60,
+                timeout=10,
             )
             response.raise_for_status()
             response_json = response.json()
@@ -54,7 +55,7 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request timeout: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
-            self.log.exception("Communication with Scalr timed out.", e)
+            self.log.exception("Communication with Scalr timed out. %s", e)
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
             self.service_check(
@@ -62,7 +63,7 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
-            self.log.exception("Couldn't reach Scalr.", e)
+            self.log.exception("Couldn't reach Scalr. %s", e)
 
         except JSONDecodeError as e:
             self.service_check(
@@ -70,11 +71,11 @@ class ScalrCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="JSON Parse failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
             )
-            self.log.exception("Unexpected response from Scalr.", e)
+            self.log.exception("Unexpected response from Scalr. %s", e)
 
         except ValueError as e:
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=str(e))
-            self.log.exception(e)
+            self.log.exception(str(e))
 
     @staticmethod
     def _validate_instance(instance):
@@ -82,7 +83,7 @@ class ScalrCheck(AgentCheck):
         Validate that all required parameters are present in the instance.
         """
         missing = []
-        for option in ("url", "account_id", "access_token"):
+        for option in (SCALR_URL_PARAM, SCALR_ACCESS_TOKEN_PARAM):
             if option not in instance:
                 missing.append(option)
 
@@ -95,5 +96,5 @@ class ScalrCheck(AgentCheck):
         return {
             "Accept": "application/json",
             "Authorization": "Bearer {}".format(instance[SCALR_ACCESS_TOKEN_PARAM]),
-            "Prefer": "profile=internal",
+            "Prefer": "profile=preview",
         }
