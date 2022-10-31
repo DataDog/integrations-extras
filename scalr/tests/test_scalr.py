@@ -43,7 +43,7 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     }'''
 
     requests_mock.get(
-        'http://localhost/api/iacp/v3/accounts/metrics',
+        'http://localhost/api/iacp/v3/accounts/metrics/run-counts',
         text=SCALR_METRICS_RESPONSE,
     )
 

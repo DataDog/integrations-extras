@@ -3,7 +3,7 @@ from simplejson import JSONDecodeError
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/metrics"
+SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/metrics/run-counts"
 SCALR_URL_PARAM = "url"
 SCALR_ACCESS_TOKEN_PARAM = "access_token"
 
