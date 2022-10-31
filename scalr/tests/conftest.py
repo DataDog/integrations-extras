@@ -8,4 +8,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {"url": "http://localhost", "access_token": "test"}
+    return {"url": "http://acc_name.localhost", "access_token": "test"}

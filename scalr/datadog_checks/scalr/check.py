@@ -1,9 +1,12 @@
+from json import JSONDecodeError
+from urllib.parse import urlparse
+
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-from simplejson import JSONDecodeError
 
-from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.base import AgentCheck, errors
 
-SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/metrics/run-counts"
+SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/{}/metrics"
+SCALR_FIND_ACCOUNT_ENDPOINT = "{}/api/iacp/v3/accounts?filter[name]={}"
 SCALR_URL_PARAM = "url"
 SCALR_ACCESS_TOKEN_PARAM = "access_token"
 
@@ -30,18 +33,18 @@ class ScalrCheck(AgentCheck):
         "billings-flex-runs-minutes-count": "billing.flex_run_minutes.count",
     }
 
+    def __init__(self, name, init_config, instances):
+        super(ScalrCheck, self).__init__(name, init_config, instances)
+
+        self._validate_instance(self.instance)
+        self.url = self.instance.get(SCALR_URL_PARAM)
+        self.token = self.instance.get(SCALR_ACCESS_TOKEN_PARAM)
+        self.account_id = self._get_account_id()
+
     def check(self, instance):
 
-        self._validate_instance(instance)
-
         try:
-            response = self.http.get(
-                SCALR_DD_METRICS_ENDPOINT.format(instance[SCALR_URL_PARAM]),
-                extra_headers=self._get_extra_headers(instance),
-                timeout=10,
-            )
-            response.raise_for_status()
-            response_json = response.json()
+            response_json = self._get_json(SCALR_DD_METRICS_ENDPOINT.format(self.url, self.account_id))
 
             for key, name in self.SCALR_ACCOUNT_METRICS.items():
                 if key in response_json and response_json[key] is not None:
@@ -51,7 +54,7 @@ class ScalrCheck(AgentCheck):
             self.service_check(
                 self.SERVICE_CHECK_NAME,
                 AgentCheck.CRITICAL,
-                message="Request timeout: {}, {}".format(instance[SCALR_URL_PARAM], e),
+                message="Request timeout: {}, {}".format(self.url, e),
             )
             self.log.exception("Communication with Scalr timed out. %s", e)
 
@@ -59,7 +62,7 @@ class ScalrCheck(AgentCheck):
             self.service_check(
                 self.SERVICE_CHECK_NAME,
                 AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
+                message="Request failed: {}, {}".format(self.url, e),
             )
             self.log.exception("Couldn't reach Scalr. %s", e)
 
@@ -67,7 +70,7 @@ class ScalrCheck(AgentCheck):
             self.service_check(
                 self.SERVICE_CHECK_NAME,
                 AgentCheck.CRITICAL,
-                message="JSON Parse failed: {}, {}".format(instance[SCALR_URL_PARAM], e),
+                message="JSON Parse failed: {}, {}".format(self.url, e),
             )
             self.log.exception("Unexpected response from Scalr. %s", e)
 
@@ -87,12 +90,39 @@ class ScalrCheck(AgentCheck):
 
         if missing:
             missing = ", ".join(missing)
-            raise ConfigurationError("Scalr instance configuration missing option(s): {}".format(missing))
+            raise errors.ConfigMissingError("Scalr instance configuration missing option(s): {}".format(missing))
 
-    @staticmethod
-    def _get_extra_headers(instance):
+    def _get_account_id(self) -> str:
+        parsed_url = urlparse(self.url)
+        loc = parsed_url.netloc.find('.')
+        domain_name = parsed_url.netloc[:loc]
+        if -1 == loc or not domain_name:
+            raise errors.ConfigurationError(
+                f"Scalr instance configuration '{SCALR_URL_PARAM}' is not correct. "
+                "Value should be in format https://<account_name>.scalr.io"
+            )
+
+        res: dict = self._get_json(SCALR_FIND_ACCOUNT_ENDPOINT.format(self.url, domain_name))
+        data = res.get("data", [])
+        if type(data) is not list or len(data) != 1:
+            raise errors.CheckException("SCALR account not found.")
+
+        acc_id = data[0]['id']
+
+        return acc_id
+
+    def _get_json(self, endpoint) -> dict:
+        response = self.http.get(
+            endpoint,
+            extra_headers=self._get_extra_headers(),
+            timeout=10,
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def _get_extra_headers(self) -> dict:
         return {
-            "Accept": "application/json",
-            "Authorization": "Bearer {}".format(instance[SCALR_ACCESS_TOKEN_PARAM]),
+            "Accept": "application/vnd.api+json, application/json",
+            "Authorization": "Bearer {}".format(self.token),
             "Prefer": "profile=preview",
         }

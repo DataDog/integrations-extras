@@ -21,6 +21,19 @@ SCALR_ACCOUNT_METRICS = {
     "billings-flex-runs-minutes-count": "billing.flex_run_minutes.count",
 }
 
+SCALR_ACCOUNTS_RESPONSE = '''
+{
+    "data": [
+        {
+          "attributes": {},
+          "id": "acc-test",
+          "relationships": {},
+          "type": "accounts"
+        }
+    ]
+}
+'''
+
 
 def test_check(dd_run_check, aggregator, instance, requests_mock):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
@@ -43,8 +56,13 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     }'''
 
     requests_mock.get(
-        'http://localhost/api/iacp/v3/accounts/metrics/run-counts',
+        'http://acc_name.localhost/api/iacp/v3/accounts/acc-test/metrics',
         text=SCALR_METRICS_RESPONSE,
+    )
+
+    requests_mock.get(
+        'http://acc_name.localhost/api/iacp/v3/accounts?filter[name]=acc_name',
+        text=SCALR_ACCOUNTS_RESPONSE,
     )
 
     check = ScalrCheck('scalr', {}, [instance])
@@ -57,8 +75,13 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
-def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
+def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance, requests_mock):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+    requests_mock.get(
+        'http://acc_name.localhost/api/iacp/v3/accounts?filter[name]=acc_name',
+        text=SCALR_ACCOUNTS_RESPONSE,
+    )
+    requests_mock.get('http://acc_name.localhost/api/iacp/v3/accounts/acc-test/metrics')
     check = ScalrCheck('scalr', {}, [instance])
     dd_run_check(check)
     aggregator.assert_service_check('scalr.can_connect', ScalrCheck.CRITICAL)
