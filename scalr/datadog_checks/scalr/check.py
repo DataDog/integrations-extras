@@ -5,7 +5,6 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 
 SCALR_DD_METRICS_ENDPOINT = "{}/api/iacp/v3/accounts/metrics"
 SCALR_URL_PARAM = "url"
-SCALR_ACC_ID_PARAM = "account_id"
 SCALR_ACCESS_TOKEN_PARAM = "access_token"
 
 
@@ -36,9 +35,8 @@ class ScalrCheck(AgentCheck):
         self._validate_instance(instance)
 
         try:
-            query = "?filter[account]=" + str(instance[SCALR_ACC_ID_PARAM]) if instance.get(SCALR_ACC_ID_PARAM) else ""
             response = self.http.get(
-                SCALR_DD_METRICS_ENDPOINT.format(instance[SCALR_URL_PARAM]) + query,
+                SCALR_DD_METRICS_ENDPOINT.format(instance[SCALR_URL_PARAM]),
                 extra_headers=self._get_extra_headers(instance),
                 timeout=10,
             )

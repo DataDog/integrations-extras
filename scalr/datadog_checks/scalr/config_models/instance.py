@@ -28,7 +28,6 @@ class InstanceConfig(BaseModel):
         allow_mutation = False
 
     access_token: str
-    account_id: Optional[str]
     disable_generic_tags: Optional[bool]
     empty_default_hostname: Optional[bool]
     metric_patterns: Optional[MetricPatterns]
