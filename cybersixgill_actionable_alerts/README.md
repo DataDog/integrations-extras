@@ -1,31 +1,44 @@
 # Agent Check: cybersixgill_actionable_alerts
+
 ## Overview
-The Cybersixgill actionable alerts integration provides an 
-automated threat intelligence solution based on the most comprehensive data sources from the deep, dark and surface web. 
-It is customizable, enabling you to define key assets relevant to your brand, industry, and geolocation. You can covertly 
-monitor critical assets such as IP addresses, domains, vulnerabilities, and VIPs for activity on the underground and closed 
-sources - and prioritize, as well as respond to threats directly from the Datadog dashboard.
+
+The Cybersixgill actionable alerts integration provides an automated threat intelligence solution based on the most 
+comprehensive data sources from the deep, dark and surface web. It is customizable, enabling you to define key assets 
+relevant to your brand, industry, and geolocation. You can covertly monitor critical assets such as IP addresses, 
+domains, vulnerabilities, and VIPs for activity on the underground and closed sources - and prioritize, as well as 
+respond to threats directly from the Datadog dashboard.
+
 This check monitors [cybersixgill_actionable_alerts][1].
+
 ## Setup
+
 ### Installation
+
 To install the cybersixgill_actionable_alerts check on your host:
 1. Install the [developer toolkit][11] on any machine.
 2. To build the package, run the command: `ddev release build cybersixgill_actionable_alerts`
 3. [Install the Datadog Agent][10] on your host.
 4. Once the Agent is installed, upload the build artifact by running the command: `datadog-agent integration install -w
  path/to/cybersixgill_actionable_alerts/dist/datadog_cybersixgill_actionable_alerts-0.0.1-py3-none-any.whl`.
+
 ### Configuration
 1. Provide Client Id and Client Secret in Configuration.yaml file which you will get it once you contact info@cybersixgill.com.
 2. Provide the min collection interval in seconds. `min_collection_interval: 3600`
+
 ### Validation
-1. Verify that [events][12] are generated in your account
+1. Verify that [events][12] are generated in your account.
+
 ## Data Collected
+
 ### Metrics
 cybersixgill_actionable_alerts does not include any metrics.
+
 ### Service Checks
 See assets/service_checks.json for a list of service checks provided by this integration.
+
 ### Events
 This integration sends events into Datadog.
+
 ## Troubleshooting
 Need help? Contact [Datadog support][3] or [Cybersixgill support][13].
 
