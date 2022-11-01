@@ -35,42 +35,6 @@ This integration allows organizations to monitor a user's resource access activi
 4. Restart agent `service datadog-agent restart`
 5. Confirm the Twingate Analytic log can be found in the [Datadog Logs](https://app.datadoghq.com/logs)
 
-### Configure Datadog Logs
-1. Create a new Datadog [Pipeline][7] with
-   * Filter `service:"Twingate Connection"`
-   * Name `Twingate Analytics`
-2. Create new Grok Parser Processor within the Pipeline with
-    * Name `Remove Client IP Port`
-    * Rule `rule %{ipv4:connection.client_ip}%{regex(".*")}`
-3. Create new GeoIP Parser Processor within the Pipeline with
-    * Name `GeoIP Parser`
-    * Geo IP `connection.client_ip`
-    * Target Path `connection.client_geo`
-4. Create new Remapper Processors within the Pipeline with `Preserve source field=disabled` and `Override on conflict=enabled` 
-   * Client IP Remapper: `connection.client_ip -> network.client.ip` with type `String`
-   * Bytes Read Remmaper: `connection.tx -> network.bytes_read` with type `Integer`
-   * Bytes Written Remapper: `connection.rx -> network.bytes_written` with type `Integer`
-   * User Remmaper: `user -> usr` with type `String`
-   * Error Message Remmaper: `connection.error_message -> error.message` with type `String`
-5. [Create Datadog facets][6] for the following fields with `Group = Twingate Connection`
-   * Client IP `@network.client.ip` 
-   * Connector ID `@connector.id`
-   * Connector `@connector.name`
-   * Resource ID `@resource.id`
-   * Resource `@resource.address`
-   * Applied Rule `@resource.applied_rule`
-   * User Email `@usr.email`
-   * Connection ID `@connection.id`
-   * Protocol `@connection.protocol`
-   * Port `@connection.resource_port`
-   * Remote Network ID `@remote_network.id`
-   * Remote Network `@remote_netowrk_name`
-   * Device ID `@device.id`
-   * Error `@error.message`
-   * Location `@connection.client_geo.country.iso_code`
-6. [Create Datadog measures][9] for the following fields with `Group=Twingate Connection`, `Type=Integer` and `Unit=Byte`
-   * Bytes Received `@network.bytes_written`
-   * Bytes Sent `@network.bytes_read`
 
 
 ## Troubleshooting
