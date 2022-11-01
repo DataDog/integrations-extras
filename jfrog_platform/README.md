@@ -79,27 +79,6 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
         ```
     2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
 
-### Log collection - Using the Agent (Recommended)
-
-1. Ensure the Agent has log collection enabled. You can check this by verifying whether or not `logs_enabled: true` has been set in the Agent's main configuration file `datadog.yaml`. [Refer to this document for more details][20].
-
-2. Modify the OpenMetrics config file (located at `openmetrics.d/conf.yaml`) to collect the appropriate log files.  You can use [wildcards][21] to select more than one log file. Add the following to the bottom of the file: 
-
-```yaml
-logs:
-  - type: file
-    path: "<PATH_TO_ARTIFACTORY_LOGS>/<LOG_FILE_NAME>.log"
-    service: "artifactory"
-    source: "jfrog"
-
-  - type: file
-    path: "<PATH_TO_XRAY_LOGS>/<LOG_FILE_NAME>.log"
-    service: "xray"
-    source: "jfrog"
-```
-
-3. [Restart the agent to apply the changes][11]. 
-
 ### Log collection - Using FluentD
 
 #### Requirements

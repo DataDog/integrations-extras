@@ -7,7 +7,7 @@ from requests import HTTPError, Timeout
 from datadog_checks.unifi_console.client_info import ClientInfo
 from datadog_checks.unifi_console.device_info import DeviceInfo
 from datadog_checks.unifi_console.errors import Unauthorized
-from datadog_checks.unifi_console.types import APIConnectionError, ControllerInfo
+from datadog_checks.unifi_console.types import APIConnectionError, APIError, ControllerInfo
 
 CallableT = TypeVar("CallableT", bound=Callable)
 
@@ -45,27 +45,40 @@ class UnifiAPI(object):
         self.log = log
         self.http = http
 
+        if config.version == "unifiOS":
+            self.url = self.config.url + "/proxy/network"
+            self.auth_url = self.url + "/api/login"
+        elif config.version == "UDMP-unifiOS":
+            self.auth_url = self.config.url + "/api/auth/login"
+            self.url = self.config.url + "/proxy/network"
+        elif config.version[:1] == "v":
+            if float(config.version[1:]) < 4:
+                raise APIError("%s controllers no longer supported" % config.version)
+            self.url = self.config.url
+            self.auth_url = self.url + "api/login"
+        else:
+            raise APIError("%s controllers no longer supported" % config.version)
+
     def connect(self) -> None:
         payload = json.dumps({"username": self.config.user, "password": self.config.password})
         headers = {"Content-Type": "application/json"}
-        url = self.config.url + "/api/login"
 
         try:
-            resp = self.http.post(url, data=payload, extra_headers=headers)
+            resp = self.http.post(self.auth_url, data=payload, extra_headers=headers)
             resp.raise_for_status()
         except Exception as e:
-            err_msg = "Connection to {} failed: {}".format(self.config.url, e)
+            err_msg = "Connection to {} failed: {}".format(self.auth_url, e)
             raise APIConnectionError(err_msg)
 
     def status(self) -> ControllerInfo:
-        url = self.config.url + "/status"
+        url = self.url + "/status"
 
         resp = self._get_json(url)
         return ControllerInfo(resp)
 
     @smart_retry
     def get_devices_info(self) -> List[DeviceInfo]:
-        url = "{}/api/s/{}/stat/device/".format(self.config.url, self.config.site)
+        url = "{}/api/s/{}/stat/device/".format(self.url, self.config.site)
 
         resp = self._get_json(url)
 
@@ -77,7 +90,7 @@ class UnifiAPI(object):
 
     @smart_retry
     def get_clients_info(self) -> List[ClientInfo]:
-        url = "{}/api/s/{}/stat/sta/".format(self.config.url, self.config.site)
+        url = "{}/api/s/{}/stat/sta/".format(self.url, self.config.site)
 
         resp = self._get_json(url)
 
