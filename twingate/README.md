@@ -33,7 +33,7 @@ This integration allows organizations to monitor a user's resource access activi
     ````
 3. Add the `dd-agent` user to the `systemd-journal` group using the command `usermod -a -G systemd-journal dd-agent`
 4. Restart the agent `service datadog-agent restart`
-5. Confirm the Twingate Analytic log can be found in the [Datadog Logs](https://app.datadoghq.com/logs)
+5. Confirm the Twingate Analytic log can be found in the [Datadog Logs][10]
 
 
 
