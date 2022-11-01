@@ -49,3 +49,4 @@ Need help? Contact [Twingate Support][2]
 [7]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source#create-a-pipeline
 [8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard.png
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
+[10]: https://app.datadoghq.com/logs
