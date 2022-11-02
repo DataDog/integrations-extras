@@ -2,11 +2,10 @@
 
 ## Overview
 
-The Cybersixgill actionable alerts integration provides an automated threat intelligence solution based on the most 
-comprehensive data sources from the deep, dark and surface web. It is customizable, enabling you to define key assets 
-relevant to your brand, industry, and geolocation. You can covertly monitor critical assets such as IP addresses, 
-domains, vulnerabilities, and VIPs for activity on the underground and closed sources - and prioritize, as well as 
-respond to threats directly from the Datadog dashboard.
+Cybersixgill actionable alerts provides an automated threat intelligence solution based on comprehensive data sources 
+from the deep, dark and surface web. It is customizable, enabling you to define key assets relevant to your brand, 
+industry, and geolocation. This integration provides an out-of-the-box dashboard to monitor, prioritize, and respond to 
+critical assets such as IP addresses, domains, vulnerabilities, and VIPs.
 
 This check monitors [cybersixgill_actionable_alerts][1].
 
