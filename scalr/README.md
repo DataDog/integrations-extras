@@ -41,11 +41,16 @@ See [service_checks.json][13] for a list of service checks provided by this inte
 
 ### Events
 
-Scalr does not include any events.
+Scalr sends run execution results as an event to your [Datadog Event Stream][17]
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Datadog support][5] or [Scalr support][15]
+
+## Further Reading
+
+- [Scalr customer documentation][16]
+- [Scalr Datadog integration documentation][14]
 
 [1]: https://scalr.io
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -59,4 +64,8 @@ Need help? Contact [Datadog support][5].
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/scalr/metadata.csv
 [13]: https://github.com/DataDog/integrations-extras/blob/master/scalr/assets/service_checks.json
+[14]: https://docs.scalr.com/en/latest/integrations.html#datadog
+[15]: https://scalr-labs.atlassian.net/servicedesk/customer/portal/31
+[16]: https://docs.scalr.com
+[17]: https://docs.datadoghq.com/events/
 
