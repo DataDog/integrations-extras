@@ -6,7 +6,7 @@
 N2WS Backup & Recovery (CPM), known as N2WS, is an enterprise-class backup, recovery, and disaster recovery solution for Amazon Web Services (AWS) and Microsoft Azure. N2WS uses cloud native technologies (snapshots) to provide backup and restore capabilities in AWS and Azure.
 
 Your N2WS Backup and Recovery instance supports the monitoring of backups, disaster recovery, copy to S3, alerts,
-and more by Datadog monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
+and more with Datadog's monitoring service. This integration allows users to monitor and analyze the N2WS Backup and Recovery Dashboard metrics.
 
 ## Setup
 
@@ -25,24 +25,24 @@ and more by Datadog monitoring service. This integration allows users to monitor
 
 3.	Install the Datadog Agent on your N2WS Instance.
     - Login to Datadog and go to Integrations -> Agent -> Ubuntu
-    - Copy the Agent `easy one-step install` command.
-    - Connect to your N2WS Backup and Recovery Instance with SSH. You may require `sudo` privileges to perform this action.
+    - Copy the Agent one-step install command.
+    - Connect to your N2WS Backup and Recovery Instance with SSH and run the command. You may require `sudo` privileges to perform this action.
 
-4.	Set up Datadog Dashboard metrics:
-    - Go to ['Metrics -> Explorer'][2]
+4.	Set up Datadog dashboard metrics:
+    - Go to [**Metrics** -> **Explorer**][2]
 
-    **Graph**: Select your metric from the list. All N2WS metrics begin with the string 'cpm_metric'.
+    **Graph**: Select your metric from the list. All N2WS metrics begin with the string `cpm_metric`.
 
-    **Over**: Select data from the list. All N2WS users data begin with the string 'cpm:user:<user-name>'.
+    **Over**: Select data from the list. All N2WS users' data begins with the string `cpm:user:<user-name>`.
               You can select either a specific user or the entire N2WS instance.
 
 
 5.	Get N2WS dashboards
     - In [Datadog Integrations][3], search for the `N2WS` tile and install it.
-    - Five dashboards will be installed in your account:
-    'N2WSBackup&Recovery-Graphicalversion', 'N2WSBackup&Recovery-Graphicalversion-areas' and 'N2WSBackup&Recovery-EntitiesSpecificDashboard' for N2WS Backup & Recovery v3.2.1
+    - Five dashboards are installed in your account:
+    `N2WSBackup&Recovery-Graphicalversion`, `N2WSBackup&Recovery-Graphicalversion-areas` and `N2WSBackup&Recovery-EntitiesSpecificDashboard` for N2WS Backup & Recovery v3.2.1
 	**Note**: These dashboards are only available for AWS users.
-	'N2WSBackup&Recovery-EntitiesSpecificDashboardV4.1' and 'N2WSBackup&Recovery-GraphicalVersionV4.1' for N2WS Backup & Recovery v4.1
+	`N2WSBackup&Recovery-EntitiesSpecificDashboardV4.1` and `N2WSBackup&Recovery-GraphicalVersionV4.1` for N2WS Backup & Recovery v4.1
  
     Alternatively, you can [import JSON templates from N2WS][4] to create your dashboards.
 
