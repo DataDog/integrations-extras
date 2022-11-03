@@ -68,7 +68,7 @@ Need help? Contact [Datadog Support][1] or [F5 Support][6].
 
 ## Further Reading
 
-Learn more about [F5 Distributed Cloud Services][7].
+Learn more about [F5 Distributed Cloud Services][3].
 
 [1]: http://docs.datadoghq.com/help/
 [2]: https://www.f5.com/cloud/products/distributed-cloud-console
