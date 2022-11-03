@@ -2,10 +2,8 @@
 
 ## Overview
 
-Cybersixgill actionable alerts provides an automated threat intelligence solution based on comprehensive data sources 
-from the deep, dark and surface web. It is customizable, enabling you to define key assets relevant to your brand, 
-industry, and geolocation. This integration provides an out-of-the-box dashboard to monitor, prioritize, and respond to 
-critical assets such as IP addresses, domains, vulnerabilities, and VIPs.
+Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web such as IP addresses, 
+domains, vulnerabilities, and VIPs. This integration provides an out-of-the-box dashboard to prioritize and respond to threats.
 
 This check monitors [cybersixgill_actionable_alerts][1].
 
