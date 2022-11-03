@@ -70,12 +70,10 @@ Need help? Contact [Datadog Support][5] or [F5 Support][10].
 
 Learn more about [F5 Distributed Cloud Services][7].
 
-[3]: images/image-0.png
-[4]: images/logreceiver-config.png
-[5]: http://docs.datadoghq.com/help/
-[6]: https://www.f5.com/cloud/products/distributed-cloud-console
-[7]: https://www.f5.com/cloud
-[8]: https://docs.datadoghq.com/account_management/api-app-keys/
-[9]: https://app.datadoghq.com/logs
-[10]: https://docs.cloud.f5.com/docs/support/support
-[11]: https://youtu.be/VUtXCUngiw8
+[1]: http://docs.datadoghq.com/help/
+[2]: https://www.f5.com/cloud/products/distributed-cloud-console
+[3]: https://www.f5.com/cloud
+[4]: https://docs.datadoghq.com/account_management/api-app-keys/
+[5]: https://app.datadoghq.com/logs
+[6]: https://docs.cloud.f5.com/docs/support/support
+[7]: https://youtu.be/VUtXCUngiw8
