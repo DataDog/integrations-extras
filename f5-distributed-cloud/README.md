@@ -25,7 +25,6 @@ Below is an example of configuring a global log receiver in a system namespace. 
 3. Select Global Log Receiver in case of Cloud and Edge Sites service.
 4. Click add Global Log Receiver button
 
-![snapshot][3]
 
 
 **Step 2: Configure global log receiver properties**
