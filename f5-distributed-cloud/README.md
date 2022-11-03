@@ -59,7 +59,7 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 
 **Step 4: Finish set up**
 
-- Select Save & Exit to complete creating the global log receiver. Verify that [logs][9] are received into your Datadog account.
+- Select Save & Exit to complete creating the global log receiver. Verify that [logs][5] are received into your Datadog account.
 
 
 ## Troubleshooting
