@@ -64,7 +64,7 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][5] or [F5 Support][10].
+Need help? Contact [Datadog Support][1] or [F5 Support][6].
 
 ## Further Reading
 
