@@ -38,7 +38,7 @@ Do the following in the Global Log Receiver section:
 	3.c Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.
 4. Select Datadog for the Receiver Configuration box. Configure the following for the Datadog receiver:
  	4.a Set the site name to datadoghq.com.
-	4.b Navigate to Datadog and [create an API key][8] within the organization settings. 
+	4.b Navigate to Datadog and [create an API key][4] within the organization settings. 
 	4.c Copy the API key
 	4.d Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.
 
