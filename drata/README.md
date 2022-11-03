@@ -4,7 +4,7 @@
 
 Drata is a security and compliance automation platform that continuously monitors and collects evidence of a company's security controls, while streamlining compliance workflows end-to-end to ensure audit readiness.
 
-This integration allows [Drata][5] customers to forward their compliance-related logs and events from Datadog to Drata via an API integration.
+This integration allows [Drata][5] customers to forward their compliance-related logs and events from Datadog to Drata through an API integration.
 
 ## Setup
 
