@@ -1,5 +1,9 @@
 # CHANGELOG - Filebeat Integration
 
+1.3.0 
+=====
+* [FEATURE] Add support for Filebeat file registry post version 7.x
+
 1.2.0 
 =====
 * [BUG] Send config instance tags along with checks
