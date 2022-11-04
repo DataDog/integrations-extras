@@ -2,7 +2,7 @@
 
 F5 Distributed Cloud (XC) Services provides customers with a global cloud native platform that can deploy, manage, and secure their applications in hybrid environments (public cloud, private data centers, or colocations). ADN and CDN services are also available. 
 
-The F5 XC platform includes the Global Log Receiver, which can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration can be done via the [F5 XC Console UI][6].
+The F5 XC platform includes the Global Log Receiver, which can be configured to securely send logs to a Datadog HTTPS logging endpoint. Configuration can be done via the [F5 XC Console UI][2].
 
 
 This integration includes:
@@ -16,7 +16,7 @@ Global log streaming is available for either system namespace or in shared names
 - Shared Namespaces supports streaming logs from shared, all or a specific list of namespaces
 - System Namespaces only supports streaming logs from system namespaces.
 
-Below is an example of configuring a global log receiver in a system namespace.
+Below is an example of configuring a global log receiver in a system namespace. For a step-by-step video, click [here][7].
 
 **Step 1: To create a global log receiver**
 
@@ -25,7 +25,6 @@ Below is an example of configuring a global log receiver in a system namespace.
 3. Select Global Log Receiver in case of Cloud and Edge Sites service.
 4. Click add Global Log Receiver button
 
-![snapshot][3]
 
 
 **Step 2: Configure global log receiver properties**
@@ -39,7 +38,7 @@ Do the following in the Global Log Receiver section:
 	3.c Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.
 4. Select Datadog for the Receiver Configuration box. Configure the following for the Datadog receiver:
  	4.a Set the site name to datadoghq.com.
-	4.b Navigate to Datadog and [create an API key][8] within the organization settings. 
+	4.b Navigate to Datadog and [create an API key][4] within the organization settings. 
 	4.c Copy the API key
 	4.d Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.
 
@@ -60,22 +59,21 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 
 **Step 4: Finish set up**
 
-- Select Save & Exit to complete creating the global log receiver. Verify that [logs][9] are received into your Datadog account.
+- Select Save & Exit to complete creating the global log receiver. Verify that [logs][5] are received into your Datadog account.
 
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][5] or [F5 Support][10].
+Need help? Contact [Datadog Support][1] or [F5 Support][6].
 
 ## Further Reading
 
-Learn more about [F5 Distributed Cloud Services][7].
+Learn more about [F5 Distributed Cloud Services][3].
 
-[3]: images/image-0.png
-[4]: images/logreceiver-config.png
-[5]: http://docs.datadoghq.com/help/
-[6]: https://www.f5.com/cloud/products/distributed-cloud-console
-[7]: https://www.f5.com/cloud
-[8]: https://docs.datadoghq.com/account_management/api-app-keys/
-[9]: https://app.datadoghq.com/logs
-[10]: https://docs.cloud.f5.com/docs/support/support
+[1]: http://docs.datadoghq.com/help/
+[2]: https://www.f5.com/cloud/products/distributed-cloud-console
+[3]: https://www.f5.com/cloud
+[4]: https://docs.datadoghq.com/account_management/api-app-keys/
+[5]: https://app.datadoghq.com/logs
+[6]: https://docs.cloud.f5.com/docs/support/support
+[7]: https://youtu.be/VUtXCUngiw8
