@@ -78,27 +78,16 @@ class GoPprofScraperCheck(AgentCheck):
         self.tags.extend(self.init_config.get("tags", []))
 
     def _get_apm_config(self):
-        # TODO: for some reason the config I get here doesn't match the real
-        # config when I run "ddev env start --dev go_pprof_scraper py38". Here,
-        # I see apm_config with enabled: True, the default receiver_port, etc.
-        # But in the agent logs ("docker logs dd_go_pprof_scraper_py38") I see
-        # stuff like
-        #
-        #   [date] TRACE | INFO | (run.go:103 in Run) | trace-agent not enabled. Set the environment variable
-        #   DD_APM_ENABLED=true or add "apm_config.enabled: true" entry
-        #   to your datadog.yaml. Exiting...
-        apm_config = datadog_agent.get_config("apm_config")
-        if not apm_config:
-            self.apm_enabled = False
+        self.apm_enabled = bool(datadog_agent.get_config("apm_config.enabled"))
+        if not self.apm_enabled:
             return
 
-        self.apm_enabled = apm_config["enabled"]
-        self.trace_agent_port = apm_config["receiver_port"]
+        self.trace_agent_port = datadog_agent.get_config("apm_config.receiver_port")
         # XXX: Will the hostname ever *not* be localhost? I don't think so since
         # this is being run by the agent
         self.trace_agent_url = "http://localhost:{}/profiling/v1/input".format(self.trace_agent_port)
 
-        self.trace_agent_socket = quote(apm_config.get("receiver_socket", "").encode())
+        self.trace_agent_socket = datadog_agent.get_config("apm_config.receiver_socket")
         if self.trace_agent_socket:
             self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(self.trace_agent_socket)
 
