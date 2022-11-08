@@ -12,11 +12,8 @@ from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 from datadog_checks.base import AgentCheck, ConfigurationError
 
 try:
-    from urllib.parse import quote, urljoin, urlparse
+    from urllib.parse import urljoin, urlparse
 except ImportError:
-    # Use Python 2 imports
-    from urllib import quote
-
     from urlparse import urljoin, urlparse
 
 
