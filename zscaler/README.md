@@ -131,7 +131,6 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://www.zscaler.com/products/zscaler-internet-access
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://github.com/DataDog/integrations-core/blob/master/zscaler/datadog_checks/zscaler/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/zscaler/metadata.csv
