@@ -6,13 +6,12 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 ## Setup
 
 1. Click **Connect Accounts** to begin authorization of this integration. You will then be redirected to [Adaptive Shield][1].
-2. Click on **Settings**.
-3. Go to **Alerts** -> **"Add New Alerts Channel"** -> Select **Datadog**.
-4. Provide the alias name.
-5. Click **OAuth** to authorize.
+2. Click on **"Add New Alerts Channel"** -> Select **Datadog**.
+3. Provide the alias name.
+4. Click on **OAuth** to authorize.
 
 ## Support
 Need help? Contact [Adaptive Shield support][2].
 
-[1]: https://dashboard.adaptive-shield.com/dashboard
+[1]: https://dashboard.adaptive-shield.com/settings/alerts
 [2]: mailto:support@adaptive-shield.com
