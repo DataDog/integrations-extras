@@ -26,6 +26,8 @@ To install the HikariCP check on your host:
 
 1. Edit the `hikaricp/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your HikariCP performance data. See the [sample hikaricp/conf.yaml][4] for all available configuration options.
 
+2. [Restart the Agent][5].
+
 ### Validation
 
 [Run the Agent's status subcommand][6] and look for `hikaricp` under the Checks section.
