@@ -10,6 +10,14 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 3. Provide the alias name.
 4. Click on **OAuth** to authorize.
 
+
+### Uninstallation
+
+Once you uninstall this integration, any previous authorizations will be revoked. 
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys).
+
+
 ## Support
 Need help? Contact [Adaptive Shield support][2].
 
