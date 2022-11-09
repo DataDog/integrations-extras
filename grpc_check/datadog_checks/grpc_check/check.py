@@ -74,7 +74,7 @@ class GrpcCheck(AgentCheck):
         super(GrpcCheck, self).__init__(name, init_config, instances)
         self.grpc_server_address = self.instance.get("grpc_server_address", "")
         self.grpc_server_service = self.instance.get("grpc_server_service", "")
-        self.timeout = self.instance.get("timeout", 0) / 1000
+        self.timeout = self.instance.get("timeout", 1000) / 1000
         self.rpc_header = self.instance.get("rpc_header", [])
         self.client_cert = self.instance.get("client_cert", "")
         self.client_key = self.instance.get("client_key", "")
