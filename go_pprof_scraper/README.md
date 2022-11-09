@@ -23,7 +23,7 @@ If you are using an Agent version >= 7.21/6.21, follow the instructions below to
 2. Run the following command to install the integrations wheel with the Agent:
 
    ```shell
-   datadog-agent integration install -t datadog-redisenterprise==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-go-pprof-scraper==<INTEGRATION_VERSION>
    ```
   You can find the latest version on the [Datadog Integrations Release Page][17]
 
