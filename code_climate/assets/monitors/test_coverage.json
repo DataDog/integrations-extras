@@ -3,7 +3,9 @@
 	"type": "query alert",
 	"query": "avg(last_5m):avg:code_climate.quality.test_coverage{*} by {repo} < 70",
 	"message": "{{#is_alert}}The code coverage on repo {{repo.name}} has fallen below 70%. Maybe set aside some time to write tests before moving on to the next feature.{{/is_alert}}\n\n{{#is_warning}}The code coverage on repo {{repo.name}} has fallen below 80%. Now might be a good time to plan for dedicating some test-writing time in the coming sprints.{{/is_warning}}\n\n{{#is_recovery}}Congratulations! Code coverage on {{repo.name}} has improved!{{/is_recovery}}",
-	"tags": [],
+  "tags": [
+    "integration:code_climate"
+  ],
 	"options": {
 		"thresholds": {
 			"critical": 70,
@@ -17,6 +19,7 @@
 		"new_group_delay": 60,
 		"silenced": {}
 	},
-	"priority": null,
-	"restricted_roles": null
+  "recommended_monitor_metadata": {
+		"description": "Notify the team when test coverage is getting too low."
+	}
 }

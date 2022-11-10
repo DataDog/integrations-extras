@@ -3,7 +3,9 @@
 	"type": "query alert",
 	"query": "avg(last_1w):avg:code_climate.velocity.cycle_time{*} by {repo} > 10",
 	"message": "It's taking an average of over two weeks for code to make it to production in the {{repo.name}} repo. Take a look at how long PRs are waiting on reviews and how many times PRs need to be reworked before getting approval.",
-	"tags": [],
+	"tags": [
+    "integration:code_climate"
+  ],
 	"options": {
 		"thresholds": {
 			"critical": 10
@@ -14,5 +16,8 @@
 		"renotify_interval": 0,
 		"include_tags": true,
 		"new_group_delay": 60
+	},
+  "recommended_monitor_metadata": {
+		"description": "Nudge the team to investigate when cycle time drifts too high."
 	}
 }
