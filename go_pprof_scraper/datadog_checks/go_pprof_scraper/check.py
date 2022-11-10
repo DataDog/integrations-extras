@@ -2,6 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import datetime
+import socket
 import time
 from concurrent.futures import ThreadPoolExecutor
 from uuid import uuid4
@@ -24,7 +25,7 @@ except ImportError:
 
 
 VALID_PROFILE_TYPES = {"cpu", "heap", "mutex", "block", "goroutine"}
-DEFAULT_PROFILE_DURATION = 30  # TODO: something more sensible
+DEFAULT_PROFILE_DURATION = 60
 DEFAULT_PROFILES = ["cpu", "heap"]
 
 
@@ -52,7 +53,8 @@ class GoPprofScraperCheck(AgentCheck):
         if not self.url:
             raise ConfigurationError("pprof_url is required")
         self.hostname = urlparse(self.url).hostname
-        # TODO: What if self.hostname == "localhost" (or 127.0.0.1 or whatever?)
+        if self.hostname == "localhost" or self.hostname == "127.0.0.1":
+            self.hostname = socket.gethostname()
 
         self.duration = self.instance.get("duration", DEFAULT_PROFILE_DURATION)
         if self.duration > self.instance.get("min_collection_interval", 60):
