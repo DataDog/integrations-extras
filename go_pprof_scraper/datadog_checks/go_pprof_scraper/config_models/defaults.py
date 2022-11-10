@@ -19,7 +19,7 @@ def instance_disable_generic_tags(field, value):
 
 
 def instance_duration(field, value):
-    return 15
+    return 60
 
 
 def instance_empty_default_hostname(field, value):
