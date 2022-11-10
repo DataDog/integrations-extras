@@ -27,3 +27,4 @@ def test_mock_assert_metrics(dd_run_check, aggregator, check, mock_metrics):
         aggregator.assert_metric(metric_name)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_service_check("hikaricp.openmetrics.health", status=HikaricpCheck.OK)    
