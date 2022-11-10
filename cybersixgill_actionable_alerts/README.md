@@ -2,8 +2,9 @@
 
 ## Overview
 
-Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web such as IP addresses, 
-domains, vulnerabilities, and VIPs. This integration provides an out-of-the-box dashboard to prioritize and respond to threats.
+Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web 
+such as IP addresses, domains, vulnerabilities, and VIPs. This integration provides an out-of-
+the-box dashboard to prioritize and respond to threats.
 
 This check monitors [cybersixgill_actionable_alerts][1].
 
@@ -19,16 +20,15 @@ To install the cybersixgill_actionable_alerts check on your host:
  path/to/cybersixgill_actionable_alerts/dist/datadog_cybersixgill_actionable_alerts-0.0.1-py3-none-any.whl`.
 
 ### Configuration
-1. Provide Client Id and Client Secret in Configuration.yaml file which you will get it once you contact info@cybersixgill.com.
+1. Provide Client Id and Client Secret in Configuration.yaml file, once you contact 
+info@cybersixgill.com you will receive a welcome email with access to Cybersixgill 
+developer portal and then creating the client ID and secret there.
 2. Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
 1. Verify that [events][12] are generated in your account.
 
 ## Data Collected
-
-### Metrics
-cybersixgill_actionable_alerts does not include any metrics.
 
 ### Service Checks
 See assets/service_checks.json for a list of service checks provided by this integration.
