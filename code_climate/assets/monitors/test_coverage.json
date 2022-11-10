@@ -1,0 +1,22 @@
+{
+	"name": "[Code Climate] Test coverage is low",
+	"type": "query alert",
+	"query": "avg(last_5m):avg:code_climate.quality.test_coverage{*} by {repo} < 70",
+	"message": "{{#is_alert}}The code coverage on repo {{repo.name}} has fallen below 70%. Maybe set aside some time to write tests before moving on to the next feature.{{/is_alert}}\n\n{{#is_warning}}The code coverage on repo {{repo.name}} has fallen below 80%. Now might be a good time to plan for dedicating some test-writing time in the coming sprints.{{/is_warning}}\n\n{{#is_recovery}}Congratulations! Code coverage on {{repo.name}} has improved!{{/is_recovery}}",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 70,
+			"warning": 80
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"include_tags": true,
+		"new_group_delay": 60,
+		"silenced": {}
+	},
+	"priority": null,
+	"restricted_roles": null
+}
