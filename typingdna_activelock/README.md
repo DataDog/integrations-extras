@@ -39,8 +39,6 @@ To access the dashboard, navigate to the [Dashboard List][6] and search for the 
 
 TypingDNA ActiveLock logs are collected and sent to Datadog directly from each application.
 
-In order to view the logs correctly in the TypingDNA ActiveLock dashboard, you need to set the facets and measures in the [Configuration](#configuration) section.
-
 ## Troubleshooting
 
 Need help? Contact [Datadog][1] or [TypingDNA support][2].
