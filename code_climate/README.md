@@ -27,7 +27,7 @@ The metrics fall into two broad categories:
 
 The Code Climate integration sends data directly to Datadog's API from Code Climate on your behalf. Therefore, setup is simple and only requires you to provide Code Climate with an API key and Datadog site.
 
-1. [Create a new API key][1] in your Datadog account for Code Climate to use in
+1. [Create a new API key][1] in your Datadog account.
 2. [Identify which Datadog site][2] your account is running in.
 3. Add a Datadog integration in the [Velocity integration settings page][3], using the API key and site gathered above.
 
