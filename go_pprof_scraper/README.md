@@ -31,7 +31,7 @@ If you are using an Agent version >= 7.21/6.21, follow the instructions below to
 
 ### Configuration
 
-1. Edit the `go_pprof_scraper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your go_pprof_scraper performance data. See the [sample go_pprof_scraper.d/conf.yaml][4] for all available configuration options.
+1. Edit the `go_pprof_scraper.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Go performance data. See the [sample go_pprof_scraper.d/conf.yaml][4] for all available configuration options.
 
 2. [Restart the Agent][5].
 
