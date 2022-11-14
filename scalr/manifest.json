@@ -2,24 +2,20 @@
   "manifest_version": "2.0.0",
   "app_uuid": "d74ce5c8-4e5a-485a-be79-ff55f8205c9d",
   "app_id": "scalr",
-  "display_on_public_website": false,
+  "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Scalr is a Terraform Automation and COllaboration (TACO) product, used to centralize your Terraform administration while decentralizing operations",
+    "description": "Scalr is a Terraform Automation and COllaboration (TACO) product",
     "title": "Scalr",
     "media": [],
     "classifier_tags": [
-      "Supported OS::Linux",
-      "Supported OS::Windows",
-      "Supported OS::macOS",
-      "Category::Orchestration",
-      "Category::Collaboration",
+      "Supported OS::Any",
       "Category::Configuration & Deployment",
-      "Category::Continuous integration",
-      "Category::Deployment"
+      "Category::Provisioning",
+      "Category::Metrics"
     ]
   },
   "assets": {
@@ -29,11 +25,11 @@
         "spec": "assets/configuration/spec.yaml"
       },
       "events": {
-        "creates_events": true
+        "creates_events": false
       },
       "metrics": {
         "prefix": "scalr.",
-        "check": "",
+        "check": "scalr.runs.count",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
@@ -42,10 +38,7 @@
     },
     "dashboards": {
       "Scalr Overview Dashboard": "assets/dashboards/scalr_overview.json"
-    },
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
+    }
   },
   "author": {
     "support_email": "support@scalr.com",
