@@ -16,7 +16,7 @@ Global log streaming is available for either system namespace or in shared names
 - Shared Namespaces support streaming logs from all shared namespaces in your account, or a specific list of shared namespaces that you can specify.
 - System Namespaces only support streaming logs from system namespaces.
 
-Below is an example of configuring a global log receiver in a system namespace. For a step-by-step video, click [here][7].
+Below is an example of configuring a global log receiver in a system namespace. For a step-by-step video, see the [Configuring Remote Logging to Datadog official Datadog Youtube instructions][7].
 
 **Step 1: To create a global log receiver**
 
