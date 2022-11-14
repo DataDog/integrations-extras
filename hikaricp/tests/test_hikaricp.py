@@ -1,4 +1,5 @@
 import pytest
+import HikaricpCheck
 
 from datadog_checks.dev.utils import get_metadata_metrics
 
