@@ -51,11 +51,11 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 	 b. Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.
 	 c. Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs will be sent after the batch size equals or exceeds the specified byte size.
 3. Within the TLS section:
-	 3.a Select Use TLS for the TLS field.
-	 3.b Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
-	 3.c Select Enable mTLS for mTLS config and enter client certificate in PEM or Base64 format in the Client Certificate box.
-	 3.d Select Configure in the Client Private Key field, enter the secret in the box with type selected as Text.
-	 3.e Select Blindfold, wait for the operation to complete, and click Apply.
+	 a. Select Use TLS for the TLS field.
+	 b. Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
+	 c. Select Enable mTLS for mTLS config and enter the client certificate in PEM or Base64 format in the Client Certificate box.
+	 d. Select Configure in the Client Private Key field, and enter the secret in the box with type selected as Text.
+	 e. Select Blindfold, wait for the operation to complete, and click Apply.
 
 **Step 4: Finish set up**
 
