@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Datadog integration for [Blink][1] enables you to trigger automations in response to new incidents. You can also create, update, and view incidents and events in the DataDog event stream.
+The Datadog integration for [Blink][1] enables you to trigger automations in response to new incidents. You can also create, update, and view incidents and events in the Datadog event stream.
 
 ## Setup
 
