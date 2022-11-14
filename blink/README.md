@@ -12,12 +12,18 @@ Visit [our documentation][2] for details on how to integrate BlinkOps with Datad
 
 ### Events
 
-BlinkOps lets you send events, incidents, and monitors your Datadog event stream from a Blink automation.
+Blink automations let you send events and incidents to the Datadog event stream. 
 Searching and updating incidents is also supported with the Datadog integration in Blink.
+
+You can also configure Blink to run an automation when an incident is created.
+
+### Monitors
+
+Blink does not include any monitors, but the Datadog integration can view, modify, and create monitors.
 
 ### Metrics
 
-BlinkOps does not include any metrics, however you can query and list metrics from your Datadog environment for use in Blink automations.
+Blink does not include any metrics, however you can query and list metrics from your Datadog environment for use in Blink automations.
 
 ## Troubleshooting
 
