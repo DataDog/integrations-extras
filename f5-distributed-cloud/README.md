@@ -14,7 +14,7 @@ This integration includes:
 
 Global log streaming is available for either system namespace or in shared namespace:
 - Shared Namespaces support streaming logs from all shared namespaces in your account, or a specific list of shared namespaces that you can specify.
-- System Namespaces only supports streaming logs from system namespaces.
+- System Namespaces only support streaming logs from system namespaces.
 
 Below is an example of configuring a global log receiver in a system namespace. For a step-by-step video, click [here][7].
 
