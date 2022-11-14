@@ -40,7 +40,7 @@ Do the following in the Global Log Receiver section:
  	4.a Set the site name to datadoghq.com.
 	4.b Navigate to Datadog and [create an API key][4] within the organization settings. 
 	4.c Copy the API key
-	4.d Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.
+	d. Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.
 
 **Optional Step 3: Configure advanced settings**
 Advanced settings include configuring batch options and TLS. You can apply limits such as maximum number of messages bytes or timeout for a batch of logs to be sent to the receiver.
