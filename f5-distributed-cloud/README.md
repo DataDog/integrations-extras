@@ -20,7 +20,7 @@ Below is an example of configuring a global log receiver in a system namespace. 
 
 **Step 1: To create a global log receiver**
 
-1. Within the F5® Distributed Cloud Console, navigate to Shared Configuration service.
+1. In the F5® Distributed Cloud Console, navigate to the Shared Configuration service.
 2. Select Manage > Global Log Receiver.
 3. Select Global Log Receiver in case of Cloud and Edge Sites service.
 4. Click add Global Log Receiver button
