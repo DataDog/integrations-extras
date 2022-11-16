@@ -76,6 +76,7 @@ The Analysis Datadog graph displays metrics fetched by the Datadog monitor. For 
 When a metric is showing aggregated results from more than one host, the names of all hosts are included in the **Measurement** column in the legend. The aggregation method is indicated in the metric name, for example, **avg:metric1**.
 
 ![snapshot][6]
+![snapshot][8]
 
 ## Support
 
@@ -88,5 +89,6 @@ Need help? Go to the [LoadRunner Professional Help Page][1].
 [3]: https://github.com/DataDog/integrations-extras/blob/master/loadrunner/images/datadog-host.png
 [4]: https://github.com/DataDog/integrations-extras/blob/master/loadrunner/images/datadog-metrics.png
 [5]: https://admhelp.microfocus.com/lr/en/2022-2022-r2/help/WebHelp/Content/Controller/Datadog-monitor.htm
-[6]: https://admhelp.microfocus.com/lr/en/2022-2022-r2/help/WebHelp/Content/Analysis/images/datadog-graph.png
+[6]: https://github.com/DataDog/integrations-extras/blob/master/loadrunner/images/datadog-graph.png
 [7]: https://www.microfocus.com/products/loadrunner-professional/overview
+[8]: https://github.com/DataDog/integrations-extras/blob/master/loadrunner/images/datadog-graph-legend.png
