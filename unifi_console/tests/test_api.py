@@ -12,6 +12,14 @@ from datadog_checks.unifi_console.errors import Unauthorized
 from datadog_checks.unifi_console.types import APIConnectionError, ControllerInfo
 
 
+def test__init(instance):
+    config = UnifiConfig(instance, {}, MagicMock())
+    api = UnifiAPI(config, MagicMock(), MagicMock())
+
+    assert api.url is config.url
+    assert api.auth_url == config.url + "/api/login"
+
+
 def test_connection_success(instance):
     config = UnifiConfig(instance, {}, MagicMock())
     api = UnifiAPI(config, MagicMock(), MagicMock())

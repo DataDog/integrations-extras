@@ -59,6 +59,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
+      go_pprof_scraper:
+        target: 75
+        flags:
+        - go_pprof_scraper
       gRPC_Check:
         target: 75
         flags:
@@ -223,6 +227,10 @@ coverage:
         target: 75
         flags:
         - cfssl
+      exim:
+        target: 75
+        flags:
+        - exim
       nvml:
         target: 75
         flags:
@@ -235,18 +243,14 @@ coverage:
         target: 75
         flags:
         - pihole
-      PureFA:
-        target: 75
-        flags:
-        - purefa
-      PureFB:
-        target: 75
-        flags:
-        - purefb
       speedtest:
         target: 75
         flags:
         - speedtest
+      hikaricp:
+        target: 75
+        flags:
+        - hikaricp        
 flags:
   aqua:
     carryforward: true
@@ -323,11 +327,21 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  go_pprof_scraper:
+    carryforward: true
+    paths:
+    - go_pprof_scraper/datadog_checks/go_pprof_scraper
+    - go_pprof_scraper/tests
   grpc_check:
     carryforward: true
     paths:
     - grpc_check/datadog_checks/grpc_check
     - grpc_check/tests
+  hikaricp:
+    carryforward: true
+    paths:
+    - hikaricp/datadog_checks/hikaricp
+    - hikaricp/tests    
   jfrog_platform:
     carryforward: true
     paths:
