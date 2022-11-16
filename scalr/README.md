@@ -14,10 +14,10 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Scalr in
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-scalr==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-scalr==1.0.0
    ```
 
-2. Configure your integration similar to core [integrations][4].
+2. Configure your integration similar to Agent-based [integrations][4].
 
 ### Configuration
 
