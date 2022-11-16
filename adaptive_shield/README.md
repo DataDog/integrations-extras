@@ -13,7 +13,7 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 
 ### Uninstallation
 
-Once you uninstall this integration, any previous authorizations will be revoked. 
+When you uninstall this integration, any previous authorizations are revoked. 
 
 Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys).
 
