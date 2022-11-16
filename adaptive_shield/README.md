@@ -5,7 +5,7 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 
 ## Setup
 
-1. Click **Connect Accounts** to begin authorization of this integration. You will then be redirected to [Adaptive Shield][1].
+1. Click **Connect Accounts** to begin authorization of this integration. You are then redirected to [Adaptive Shield][1].
 2. Provide the alias name.
 3. Choose the relevant Datadog site. 
 4. Click on **OAuth** to authorize.
