@@ -1,0 +1,94 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
+instances:
+
+  -
+    ## @param env - string - optional - default: prod
+    ## env tag to apply to uploaded profiles ("env:<ENV>")
+    #
+    # env: prod
+
+    ## @param pprof_url - string - required
+    ## URL of the /debug/pprof endpoint to collect
+    #
+    pprof_url: http://myservice:1234/debug/pprof/
+
+    ## @param duration - integer - optional - default: 60
+    ## Duration of profiles, in seconds
+    #
+    # duration: 30
+
+    ## @param profiles - list of strings - optional
+    ## List of profiles to collect. Valid options are "cpu", "heap", "mutex", "block", and "goroutine"
+    #
+    # profiles:
+    #   - cpu
+    #   - heap
+
+    ## @param cumulative - boolean - optional - default: true
+    ## Whether to collect heap, mutex, or block profiles as cumulative profiles
+    ## since the program started. If false, requests those profiles over the
+    ## period specified by "duration". The profiles will hold the difference
+    ## between the samples at the beginning and end of profiling.
+    ##
+    ## For the heap profile, the in-use (also known as "live heap") samples may
+    ## be negative if "cumulative" is true.
+    ##
+    ## In order to use profile aggregation, "cumulative" must set to false.
+    ## Note that setting "cumulative" to false will cause the profiled
+    ## application to use more memory in order to compute the profiles.
+    #
+    # cumulative: true
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param service - string - required
+    ## Service name to tag on every profile uploaded for this instance.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
+    #
+    service: <SERVICE>
+
+    ## @param min_collection_interval - number - optional - default: 60
+    ## How frequently profiles are collected.
+    ##
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    min_collection_interval: 60
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
