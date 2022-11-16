@@ -20,10 +20,11 @@ To install the cybersixgill_actionable_alerts check on your host:
  path/to/cybersixgill_actionable_alerts/dist/datadog_cybersixgill_actionable_alerts-0.0.1-py3-none-any.whl`.
 
 ### Configuration
-1. Provide Client Id and Client Secret in Configuration.yaml file, once you contact 
-info@cybersixgill.com you will receive a welcome email with access to Cybersixgill 
-developer portal and then creating the client ID and secret there.
-2. Provide the min collection interval in seconds. `min_collection_interval: 3600`
+1. Email info@cybersixgill.com.
+2. You will receive a welcome email with access to the Cybersixgill developer platform.
+3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
+4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
+5.Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
 1. Verify that [events][12] are generated in your account.
