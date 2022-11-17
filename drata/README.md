@@ -12,11 +12,14 @@ To set up this integration, you must have an active [Drata account][6]. You must
 
 ### Installation
 
-1. To install this integration, you need to create an API and App key. 
-2. Navigate to your organization settings to [create an API key][2] in Datadog. Give the key a meaningful name such as `Drata`.
-3. Copy and save your API `Key`.
-4. Within your organization settings, [create an application key][3]. 
-5. Copy and save your application key.
+1. To install this integration, you need to create an API and App key.
+2. We recommend creating a Service Account in Datadog and applying the "Datadog Read Only" Role to give this connection limited permissions.
+3. Navigate to your organization settings to [create an API key][2] in Datadog. Give the key a meaningful name such as `Drata`.
+4. Copy and save your API `Key`.
+5. Within your organization settings, [create an application key][3]. 
+6. Copy and save your application key.
+7. Paste your API key and application key into the Drata connection drawer for Datadog.
+8. Drata will begin syncing user and configuration data from the Datadog API's and notify you if any compliance monitors are failing.
 
 
 ## Support
