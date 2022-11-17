@@ -2,7 +2,10 @@
 
 ## Overview
 
-The Datadog integration for [Blink][1] enables you to trigger automations in response to new incidents. You can also create, update, and view incidents and events in the Datadog event stream.
+The [Blink][1] integration enables you to:
+1. Trigger automations within Blink in response to new Datadog incidents 
+2. Create and update Datadog incidents in Blink 
+3. View any created incidents or events in the Datadog event stream
 
 ## Setup
 
@@ -12,14 +15,11 @@ Visit [our documentation][2] for details on how to integrate BlinkOps with Datad
 
 ### Events
 
-Blink automations let you send events and incidents to the Datadog event stream. 
-Searching and updating incidents is also supported with the Datadog integration in Blink.
-
-You can also configure Blink to run an automation when an incident is created.
+This integration sends events and incidents to Datadog where you can search and update any relevant incidents within Blink. 
 
 ### Monitors
 
-Blink does not include any monitors, but the Datadog integration can view, modify, and create monitors.
+You can view, modify, and create Datadog monitors in Blink.
 
 ### Metrics
 
