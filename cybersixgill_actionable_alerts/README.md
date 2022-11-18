@@ -24,7 +24,7 @@ To install the cybersixgill_actionable_alerts check on your host:
 2. You will receive a welcome email with access to the Cybersixgill developer platform.
 3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
 4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-5.Provide the min collection interval in seconds. `min_collection_interval: 3600`
+5. Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
 1. Verify that [events][12] are generated in your account.
