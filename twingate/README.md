@@ -51,3 +51,4 @@ Need help? Contact [Twingate Support][2]
 [8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard.png
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
 [10]: https://app.datadoghq.com/logs
+[11]: https://docs.datadoghq.com/getting_started/agent/
