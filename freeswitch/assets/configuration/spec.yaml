@@ -1,0 +1,17 @@
+name: freeswitch
+files:
+- name: freeswitch.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: freeswitch_conf_dir
+      required: true
+      description: The freeswitch configuration directory.
+      value:
+        type: string
+        example: "/etc/freeswitch"
+        default: "/etc/freeswitch"
+    - template: instances/default

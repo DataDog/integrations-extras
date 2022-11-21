@@ -1,0 +1,49 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "71cfdd12-c90a-4797-8efc-d51fd2d788a9",
+  "app_id": "freeswitch",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitoring agent for freeswitch PBX server",
+    "title": "freeswitch",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "freeswitch",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "freeswitch.",
+        "check": "freeswitch.profiles",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "logs": {
+        "source": "freeswitch"
+    }
+  },
+  "author": {
+    "support_email": "tmoore@dopensource.com",
+    "name": "Tyler Moore",
+    "homepage": "https://dopensource.com/",
+    "sales_email": "info@dopensource.com"
+  },
+  "oauth": {}
+}
