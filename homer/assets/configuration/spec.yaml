@@ -1,0 +1,55 @@
+name: homer
+files:
+- name: homer.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: homer_service_checks
+      required: true
+      description: The homer related services for service_up check.
+      value:
+        type: array
+        items:
+          type: string
+        example: ["postgres", "heplify-server", "homer-app"]
+        default: ["postgres", "heplify-server", "homer-app"]
+    - name: homer_config_db
+      required: true
+      description: The homer config DB settings.
+      value:
+        type: object
+        properties:
+          - name: user
+            type: string
+          - name: pass
+            type: string
+          - name: host
+            type: string
+          - name: port
+            type: integer
+          - name: name
+            type: string
+        example: {"user": "homer", "pass": "secret", "host": "localhost", "port": 5432, "name": "homer_config"}
+      secret: true
+    - name: homer_data_db
+      required: true
+      description: The homer data DB settings.
+      value:
+        type: object
+        properties:
+          - name: user
+            type: string
+          - name: pass
+            type: string
+          - name: host
+            type: string
+          - name: port
+            type: integer
+          - name: name
+            type: string
+        example: {"user": "homer", "pass": "secret", "host": "localhost", "port": 5432, "name": "homer_data"}
+      secret: true
+    - template: instances/default

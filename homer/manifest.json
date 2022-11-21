@@ -1,0 +1,49 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "889e9946-2b9b-451c-aacf-898180ea10cf",
+  "app_id": "homer",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitoring agent for homer services",
+    "title": "homer",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "homer",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "homer.",
+        "check": "homer.txcount.call",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "logs": {
+        "source": "homer"
+    }
+  },
+  "author": {
+    "support_email": "tmoore@dopensource.com",
+    "name": "Tyler Moore",
+    "homepage": "https://dopensource.com/",
+    "sales_email": "info@dopensource.com"
+  },
+  "oauth": {}
+}
