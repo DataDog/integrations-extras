@@ -27,7 +27,10 @@ Follow the instructions below to install and configure this check for an Agent r
 
 #### Host
 
-To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==1.0.0`.
+To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefb==<INTEGRATION_VERSION>`.
+
+Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
+  * e.g. `datadog-agent integration install -t datadog-purefb==1.0.2`
 
 ### Configuration
 
