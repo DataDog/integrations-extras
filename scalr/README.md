@@ -2,7 +2,8 @@
 
 ## Overview
 
-This integration collects metrics from Scalr.
+Scalr Datadog [integration][18] streams Terraform run execution [event][19] details as well as metrics, like runs queue and workspace count, to Datadog for in depth analysis and reporting.
+Metrics include information about number of environments, workspaces, runs, and state of the queue, and many others.
 
 ## Setup
 The Scalr integration is not included in the [Datadog Agent][2] package, so you need to install it.
@@ -68,4 +69,6 @@ Need help? Contact [Datadog support][5] or [Scalr support][15].
 [15]: https://scalr-labs.atlassian.net/servicedesk/customer/portal/31
 [16]: https://docs.scalr.com
 [17]: https://docs.datadoghq.com/events/explorer/
+[18]: https://docs.scalr.com/en/latest/integrations.html
+[19]: https://docs.datadoghq.com/events/
 
