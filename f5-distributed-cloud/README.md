@@ -33,29 +33,29 @@ Do the following in the Global Log Receiver section:
 1. Within the Global Log Receiver section, enter a name in the metadata section. Optional: set labels and add a description.
 2. Select Request Logs or Security Events for the Log Type field. Note: Request logs are set by default.
 3. Select events to be streamed based on namespace from the following options:
-	a. Select logs from the current namespace - streams logs from the shared namespace.  
-	b. Select logs from all namespaces - streams logs from all namespaces.  
-	c. Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.  
+	- Select logs from the current namespace - streams logs from the shared namespace.  
+	- Select logs from all namespaces - streams logs from all namespaces.  
+	- Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.  
 4. Select Datadog for the Receiver Configuration box. Configure the following for the Datadog receiver:
- 	a. Set the site name to datadoghq.com.  
-	b. Navigate to Datadog and [create an API key][4] within the organization settings.  
-	c. Copy the API key.  
-	d. Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.  
+	-   Set the site name to datadoghq.com.  
+	- Navigate to Datadog and [create an API key][4] within the organization settings.  
+	- Copy the API key.  
+	-  Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.  
 
 **Optional Step 3: Configure advanced settings**
 Advanced settings include configuring batch options and TLS. You can apply limits such as a maximum number of messages bytes or a timeout for a batch of logs to be sent to the receiver.
 
 1. Select the Show Advanced Fields toggle
 2. Within the Batch Options section:
-	 a. Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.  
-	 b. Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.  
-	 c. Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs are sent after the batch size equals or exceeds the specified byte size.  
+	-  Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.  
+	-  Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.  
+	-  Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs are sent after the batch size equals or exceeds the specified byte size.  
 3. Within the TLS section:
-	 a. Select Use TLS for the TLS field.
-	 b. Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
-	 c. Select Enable mTLS for mTLS config and enter the client certificate in PEM or Base64 format in the Client Certificate box.
-	 d. Select Configure in the Client Private Key field, and enter the secret in the box with type selected as Text.
-	 e. Select Blindfold, wait for the operation to complete, and click Apply.
+	 -  Select Use TLS for the TLS field.
+	 -  Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
+	 -  Select Enable mTLS for mTLS config and enter the client certificate in PEM or Base64 format in the Client Certificate box.
+	 -  Select Configure in the Client Private Key field, and enter the secret in the box with type selected as Text.
+	 -  Select Blindfold, wait for the operation to complete, and click Apply.
 
 **Step 4: Finish set up**
 
