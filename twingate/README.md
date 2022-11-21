@@ -39,7 +39,7 @@ This integration allows organizations to monitor a user's resource access activi
 
 
 ## Troubleshooting
-Need help? Contact [Twingate Support][2]
+Need help? Contact [Twingate Support][2].
 
 [1]: https://www.twingate.com/
 [2]: https://help.twingate.com/hc/en-us
