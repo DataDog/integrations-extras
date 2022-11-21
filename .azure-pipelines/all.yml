@@ -27,11 +27,11 @@ resources:
       DD_HOSTNAME: none
       DD_INSIDE_CI: 'true'
 variables:
-  - group: extras-variables
-  - name: DDEV_COLOR
-    value: 1
-  - name: DD_TRACE_AGENT_PORT
-    value: 8127
+- group: extras-variables
+- name: DDEV_COLOR
+  value: 1
+- name: DD_TRACE_AGENT_PORT
+  value: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
@@ -100,6 +100,9 @@ jobs:
       os: linux
     - checkName: jfrog_platform
       displayName: JFrog Platform
+      os: linux
+    - checkName: kamailio
+      displayName: kamailio
       os: linux
     - checkName: kernelcare
       displayName: Kernelcare
