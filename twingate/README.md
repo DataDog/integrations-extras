@@ -14,7 +14,7 @@ This integration allows organizations to monitor a user's resource access activi
 ### Configure the Datadog Agent
 #### Systemd
 1. Set up [Datadog journald integration][5].
-2. Replace `journald.d/conf.yaml` with the configuration below:
+2. Replace `journald.d/conf.yaml` with the following configuration:
     ````
     logs:
       - type: journald
