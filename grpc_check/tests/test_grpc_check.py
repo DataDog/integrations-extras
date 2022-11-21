@@ -38,7 +38,6 @@ def create_secure_grpc_server(expected_status=health_pb2.HealthCheckResponse.SER
 def test_insecure_server_is_serving(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50051",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
@@ -88,7 +87,6 @@ def test_insecure_server_is_serving(dd_run_check, aggregator):
 def test_insecure_server_is_not_serving(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50051",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
@@ -138,7 +136,6 @@ def test_insecure_server_is_not_serving(dd_run_check, aggregator):
 def test_insecure_server_is_unknown(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50051",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
@@ -188,7 +185,6 @@ def test_insecure_server_is_unknown(dd_run_check, aggregator):
 def test_unavailable(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:80",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
@@ -288,7 +284,6 @@ def test_timeout(dd_run_check, aggregator):
 def test_not_found(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50051",
-        "timeout": 1000,
         "grpc_server_service": "not_found",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
     }
@@ -338,7 +333,6 @@ def test_not_found(dd_run_check, aggregator):
 def test_secure_server_is_serving(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         "ca_cert": "tests/fixtures/ca.pem",
@@ -391,7 +385,6 @@ def test_secure_server_is_serving(dd_run_check, aggregator):
 def test_secure_server_is_not_serving(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         "ca_cert": "tests/fixtures/ca.pem",
@@ -444,7 +437,6 @@ def test_secure_server_is_not_serving(dd_run_check, aggregator):
 def test_secure_server_is_unknown(dd_run_check, aggregator):
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         "ca_cert": "tests/fixtures/ca.pem",
@@ -497,7 +489,6 @@ def test_secure_server_is_unknown(dd_run_check, aggregator):
 def test_ca_cert_missing():
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         # missing ca_cert
@@ -514,7 +505,6 @@ def test_ca_cert_missing():
 def test_client_cert_missing():
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         "ca_cert": "tests/fixtures/ca.pem",
@@ -531,7 +521,6 @@ def test_client_cert_missing():
 def test_client_key_missing():
     instance = {
         "grpc_server_address": "localhost:50052",
-        "timeout": 1000,
         "grpc_server_service": "grpc.test",
         "tags": ["tag_key1:value1", "tag_key2:value2"],
         "ca_cert": "tests/fixtures/ca.pem",

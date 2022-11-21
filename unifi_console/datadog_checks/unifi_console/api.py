@@ -55,7 +55,7 @@ class UnifiAPI(object):
             if float(config.version[1:]) < 4:
                 raise APIError("%s controllers no longer supported" % config.version)
             self.url = self.config.url
-            self.auth_url = self.url + "api/login"
+            self.auth_url = self.url + "/api/login"
         else:
             raise APIError("%s controllers no longer supported" % config.version)
 
