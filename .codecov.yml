@@ -59,14 +59,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
-      go_pprof_scraper:
+      Instabug:
         target: 75
         flags:
-        - go_pprof_scraper
-      gRPC_Check:
-        target: 75
-        flags:
-        - grpc_check
+        - instabug
       JFrog_Platform:
         target: 75
         flags:
@@ -211,14 +207,6 @@ coverage:
         target: 50
         flags:
         - zabbix
-      fluxcd:
-        target: 75
-        flags:
-        - fluxcd
-      exim:
-        target: 75
-        flags:
-        - exim
       cfssl:
         target: 75
         flags:
@@ -227,6 +215,22 @@ coverage:
         target: 75
         flags:
         - exim
+      fluxcd:
+        target: 75
+        flags:
+        - fluxcd
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
+      go_pprof_scraper:
+        target: 75
+        flags:
+        - go_pprof_scraper
+      hikaricp:
+        target: 75
+        flags:
+        - hikaricp
       nvml:
         target: 75
         flags:
@@ -243,10 +247,6 @@ coverage:
         target: 75
         flags:
         - speedtest
-      hikaricp:
-        target: 75
-        flags:
-        - hikaricp        
 flags:
   aqua:
     carryforward: true
@@ -337,7 +337,12 @@ flags:
     carryforward: true
     paths:
     - hikaricp/datadog_checks/hikaricp
-    - hikaricp/tests    
+    - hikaricp/tests
+  instabug:
+    carryforward: true
+    paths:
+    - instabug/datadog_checks/instabug
+    - instabug/tests
   jfrog_platform:
     carryforward: true
     paths:
