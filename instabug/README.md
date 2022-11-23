@@ -1,61 +1,37 @@
-# Agent Check: Instabug
+**Company Name**: Instabug
+## 📃 Overview:
 
-## Overview
+[Instabug](http://instabug.com) helps mobile teams proactively improve the quality of their mobile apps and deliver the high-quality experience users expect and deserve. Our APM, Crash Reporting, and Bug Reporting tools will help optimize your app’s performance and deliver the high-quality experience your users expect and deserve.
 
-This check monitors [Instabug][1].
-
-## Setup
-
-### Installation
-
-To install the Instabug check on your host:
+On Datadog, Instabug provides a dashboard widget that will help you monitor your overall app health and how the user perceives your app’s performance with just one number, the App Apdex. Through the widget you will get:
+- The overall App Apdex score
+- App Apdex overtime.
+- Break down the sessions into 4 buckets (Satisfying, Tolerable, Frustrating or Crashing sessions).
+- The latest 5 bug reports and the total number of new reports.
 
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
+## ⚒️ Setup:
+1. Signup for Instabug for free if you don’t have an account and follow the steps to integrate the SDK into your app. You need to integrate before seeing metrics in Datadog.
+<br >
+2. After completing Instabug integration, in Datadog, navigate to an existing dashboard or create a new one.
+<br >
+3. Press the Add Widgets button to expose the widget drawer.
+<br >
+4. Search for Instabug to find the Instabug widget in the Apps section of the widget drawer.
+<br >
+5. Click or drag the Instabug widget icon to add your dashboard and open the Instabug editor modal.
+<br >
+6. Authenticate and connect your Instabug account to Datadog by logging in with your credentials.
+<br >
+7. Optionally give the widget a title.
+<br >
+8. Press Save to finish configuring the Datadog dashboard widget.
+ 
+## 📦 Data Collected
+The Instabug integration does not include any metrics.
 
-2. Run `ddev release build instabug` to build the package.
+## ✅ Service Checks
+The Instabug integration does not include any service checks.
 
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/instabug/dist/<ARTIFACT_NAME>.whl`.
-
-### Configuration
-
-1. <List of steps to setup this Integration>
-
-### Validation
-
-<Steps to validate integration is functioning as expected>
-
-## Data Collected
-
-### Metrics
-
-Instabug does not include any metrics.
-
-### Service Checks
-
-Instabug does not include any service checks.
-
-### Events
-
-Instabug does not include any events.
-
-## Troubleshooting
-
-Need help? Contact [Datadog support][3].
-
-[1]: **LINK_TO_INTEGRATION_SITE**
-[2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[4]: https://github.com/DataDog/integrations-extras/blob/master/instabug/datadog_checks/instabug/data/conf.yaml.example
-[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://github.com/DataDog/integrations-extras/blob/master/instabug/metadata.csv
-[8]: https://github.com/DataDog/integrations-extras/blob/master/instabug/assets/service_checks.json
-[9]: https://docs.datadoghq.com/help/
-
+## ⛑️ Support
+Need help? Contact [Datadog Support](https://docs.datadoghq.com/help/)
