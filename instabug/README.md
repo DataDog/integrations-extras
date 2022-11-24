@@ -1,4 +1,4 @@
-**Company Name**: Instabug
+**Company Name**: [Instabug](http://instabug.com)
 ## 📃 Overview:
 
 [Instabug](http://instabug.com) helps mobile teams proactively improve the quality of their mobile apps and deliver the high-quality experience users expect and deserve. Our APM, Crash Reporting, and Bug Reporting tools will help optimize your app’s performance and deliver the high-quality experience your users expect and deserve.
