@@ -1,5 +1,5 @@
 # Instabug integration
-## Overview:
+## Overview
 
 [Instabug](http://instabug.com) helps mobile teams proactively improve the quality of their mobile apps and deliver the high-quality experience users expect and deserve. Our APM, Crash Reporting, and Bug Reporting tools will help optimize your app's performance and deliver the high-quality experience your users expect and deserve.
 
@@ -9,8 +9,7 @@ On Datadog, Instabug provides a dashboard widget that will help you monitor your
 - Break down the sessions into 4 buckets (Satisfying, Tolerable, Frustrating or Crashing sessions).
 - The latest 5 bug reports and the total number of new reports.
 
-
-## Setup:
+## Setup
 1. Signup for Instabug for free if you don't have an account and follow the steps to integrate the SDK into your app. You need to integrate before seeing metrics in Datadog.
 2. After completing Instabug integration, in Datadog, navigate to an existing dashboard or create a new one.
 3. Press the Add Widgets button to expose the widget drawer.
