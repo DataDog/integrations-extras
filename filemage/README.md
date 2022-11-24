@@ -2,18 +2,18 @@
 
 ## Overview
 
-This check monitors [filemage][1].
+This check monitors [FileMage][1].
 
 ## Setup
 
-### Building
+### Building The Package
 
 1. Install the [Datadog Developer Toolkit][3].
 
 2. Clone the `integrations-extras` repository:
 
 ```shell
-git clone https://github.com/DataDog/integrations-extras.git.
+git clone https://github.com/DataDog/integrations-extras.git
 ```
 
 3. Update your `ddev` config with the repo path:
@@ -29,11 +29,11 @@ ddev config set extras $(pwd)
 ddev -e release build filemage
 ```
 
-### Installing
+### Installing The Package
 
-Once you built the package wheel, install it on a host:
+Once you've built the wheel package, install it on a host:
 
-1. If the datadog agent is not installed yet [Install the Datadog Agent][2].
+1. Ensure that the [Datadog Agent][2] is installed.
 
 2. Install the package:
 
@@ -44,33 +44,58 @@ sudo -u dd-agent datadog-agent integration install -w filemage/dist/datadog_file
 
 ### Configuration
 
-1. Edit the config file `/etc/datadog-agent/conf.d/filemage.d/conf.yaml.example` per your settings.  
-   An example config can be found [here][5].  
-   Save the modified file as `/etc/datadog-agent/conf.d/filemage.d/conf.yaml`.
+1. Edit the `filemage.d/conf.yaml.example` file in the `conf.d/` folder at the root of your [Agent Configuration Directory][10] to start collecting your FileMage [metrics](#metrics).  
+   Once complete, save the modified file as `filemage.d/conf.yaml`, telling the agent FileMage is configured.  
+   See the [sample filemage conf.yaml][5] for all available configuration options.
 
 2. [Restart the Agent][6].
 
 ### Validation
 
-1. Check the [agent status][7] and make sure `filemage` is listed under the Checks section.
+1. Check the [agent status][7] and make sure `filemage` is listed under the Running Checks section.  
+   An example is shown below for comparison.
+
+```shell
+sudo -u dd-agent datadog-agent status
+```
+
+```text
+...
+
+  Running Checks
+  ==============
+
+    ...
+
+    filemage (0.0.1)
+    ----------------
+      Instance ID: filemage:ac55127bf7bd70b9 [OK]
+      Configuration Source: file:/etc/datadog-agent/conf.d/filemage.d/conf.yaml
+      Total Runs: 1,298
+      Metric Samples: Last Run: 0, Total: 0
+      Events: Last Run: 0, Total: 0
+      Service Checks: Last Run: 2, Total: 2,594
+      Average Execution Time : 41ms
+      Last Execution Date : 2022-11-23 15:59:22 EST / 2022-11-23 20:59:22 UTC (1669237162000)
+      Last Successful Execution Date : 2022-11-23 15:59:22 EST / 2022-11-23 20:59:22 UTC (1669237162000)
+```
+
 
 ## Data Collected
 
+Currently this integration tracks the number of times each FTP command is run.
+
 ### Metrics
 
-Currently this integration tracks the number of times each FTP command is run.    
-For more information see [metadata.csv][9] where possible metrics are defined.  
+See [metadata.csv][9] for the full list of possible metrics provided by this check.
 
 ### Service Checks
 
-1. services_up - validates the filemage services are running properly
-2. metrics_up  - validates the metrics were sent to datadog successfully
-
-For more information see [service_checks.json][8] for the service check definitions. 
+See [service_checks.json][8] for a list of service checks provided by this integration. 
 
 ### Events
 
-The filemage agent does not include any events.
+The FileMage integration does not include any events.
 
 ## Troubleshooting
 
@@ -85,3 +110,4 @@ Need help? Contact [dOpenSource][4].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/filemage/assets/service_checks.json
 [9]: https://github.com/DataDog/integrations-extras/blob/master/filemage/metadata.csv
+[10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
