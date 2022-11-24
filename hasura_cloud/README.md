@@ -6,7 +6,7 @@
 secure, production-ready GraphQL API over your data sources.
 
 The Datadog integration is an observability feature of Hasura Cloud that exports
-your Hasura Cloud project's operation logs, metrics and traces to your Datadog dashboard. 
+your Hasura Cloud project's operation logs, metrics, and traces to your Datadog dashboard. 
 
 ## Setup
 
@@ -23,7 +23,7 @@ Once the above is done, go to the [Logs section][5] in Datadog and create facets
 
 See the [Datadog Log Facets documentation][4] for information regarding creating facets from logs.
 
-Logs, metrics and traces from your Hasura Cloud project will be automatically sent to Datadog when your project receives traffic.
+Logs, metrics, and traces from your Hasura Cloud project are automatically sent to Datadog when your project receives traffic.
 
 ## Data Collected
 
