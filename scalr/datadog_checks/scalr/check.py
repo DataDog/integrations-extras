@@ -36,7 +36,6 @@ class ScalrCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(ScalrCheck, self).__init__(name, init_config, instances)
 
-        self._validate_instance(self.instance)
         self.url = self.instance.get(SCALR_URL_PARAM)
         self.token = self.instance.get(SCALR_ACCESS_TOKEN_PARAM)
         self.account_id = self._get_account_id()
@@ -47,9 +46,10 @@ class ScalrCheck(AgentCheck):
             response_json = self._get_json(SCALR_DD_METRICS_ENDPOINT.format(self.url, self.account_id))
 
             for key, name in self.SCALR_ACCOUNT_METRICS.items():
-                if key in response_json and response_json[key] is not None:
+                if response_json.get(key) is not None:
                     self.gauge(name, response_json[key], tags=instance.get('tags', []))
 
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK)
         except Timeout as e:
             self.service_check(
                 self.SERVICE_CHECK_NAME,
@@ -77,20 +77,6 @@ class ScalrCheck(AgentCheck):
         except ValueError as e:
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, message=str(e))
             self.log.exception(str(e))
-
-    @staticmethod
-    def _validate_instance(instance):
-        """
-        Validate that all required parameters are present in the instance.
-        """
-        missing = []
-        for option in (SCALR_URL_PARAM, SCALR_ACCESS_TOKEN_PARAM):
-            if option not in instance:
-                missing.append(option)
-
-        if missing:
-            missing = ", ".join(missing)
-            raise errors.ConfigMissingError("Scalr instance configuration missing option(s): {}".format(missing))
 
     def _get_account_id(self) -> str:
         parsed_url = urlparse(self.url)

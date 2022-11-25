@@ -6,19 +6,19 @@ from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.scalr import ScalrCheck
 
 SCALR_ACCOUNT_METRICS = {
-    "environments-count": "environments.count",
-    "workspaces-count": "workspaces.count",
-    "runs-count": "runs.count",
-    "runs-successful": "runs.successful",
-    "runs-failed": "runs.failed",
-    "runs-awaiting-confirmation": "runs.awaiting_confirmation",
-    "runs-concurrency": "runs.concurrency",
-    "runs-queue-size": "runs.queue_size",
-    "quota-max-concurrency": "quota.max_concurrency",
-    "billings-runs-count": "billing.runs.count",
-    "billings-run-minutes-count": "billing.run_minutes.count",
-    "billings-flex-runs-count": "billing.flex_runs.count",
-    "billings-flex-runs-minutes-count": "billing.flex_run_minutes.count",
+    "environments.count",
+    "workspaces.count",
+    "runs.count",
+    "runs.successful",
+    "runs.failed",
+    "runs.awaiting_confirmation",
+    "runs.concurrency",
+    "runs.queue_size",
+    "quota.max_concurrency",
+    "billing.runs.count",
+    "billing.run_minutes.count",
+    "billing.flex_runs.count",
+    "billing.flex_run_minutes.count",
 }
 
 SCALR_ACCOUNTS_RESPONSE = '''
@@ -68,11 +68,12 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     check = ScalrCheck('scalr', {}, [instance])
     dd_run_check(check)
 
-    for check_name in ScalrCheck.SCALR_ACCOUNT_METRICS.values():
-        aggregator.assert_metric('scalr.' + check_name)
+    for metric_name in SCALR_ACCOUNT_METRICS:
+        aggregator.assert_metric('scalr.' + metric_name)
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_service_check('scalr.can_connect', ScalrCheck.OK)
 
 
 def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance, requests_mock):
