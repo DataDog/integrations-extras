@@ -22,7 +22,7 @@ For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to ins
 
 ### Configuration
 
-1. Edit the `scalr.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your [Scalr metrics](#metrics). See the [sample syncthing.d/conf.yaml][8] for all available configuration options.
+1. Edit the `scalr.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your [Scalr metrics](#metrics). See the [sample scalr.d/conf.yaml][8] for all available configuration options.
 
 2. [Restart the Agent][9].
 
