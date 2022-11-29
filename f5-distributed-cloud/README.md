@@ -44,6 +44,7 @@ Do the following in the Global Log Receiver section:
 	d.  Navigate back to F5 and paste in the Datadog API key in the Datadog receiver fields.  
 
 **Optional Step 3: Configure advanced settings**
+
 Advanced settings include configuring batch options and TLS. You can apply limits such as a maximum number of messages bytes or a timeout for a batch of logs to be sent to the receiver.
 
 1. Select the Show Advanced Fields toggle
