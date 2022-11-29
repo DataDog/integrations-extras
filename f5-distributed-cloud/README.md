@@ -46,10 +46,10 @@ Do the following in the Global Log Receiver section:
 Advanced settings include configuring batch options and TLS. You can apply limits such as a maximum number of messages bytes or a timeout for a batch of logs to be sent to the receiver.
 
 1. Select the Show Advanced Fields toggle
-2. Within the Batch Options section:
-	-  Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.  
-	-  Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.  
-	-  Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs are sent after the batch size equals or exceeds the specified byte size.  
+2. Within the Batch Options section:  
+	a. Select Timeout Seconds for the Batch Timeout Options and enter a timeout value in the Timeout Seconds box.  
+	b. Select Max Events for the Batch Max Events and enter a value between 32 and 2000 in the Max Events box.  
+	c. Select Max Bytes for the Batch Bytes and enter a value between 4096 and 1048576 in the Batch Bytes box. Logs are sent after the batch size equals or exceeds the specified byte size.  
 3. Within the TLS section:
 	 -  Select Use TLS for the TLS field.
 	 -  Select Server CA Certificates for the Trusted CA field. Enter the certificates in PEM or Base64 format in the Server CA Certificates box.
