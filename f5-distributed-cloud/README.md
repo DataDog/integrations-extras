@@ -28,6 +28,7 @@ Below is an example of configuring a global log receiver in a system namespace. 
 
 
 **Step 2: Configure global log receiver properties**
+
 Do the following in the Global Log Receiver section:
 
 1. Within the Global Log Receiver section, enter a name in the metadata section. Optional: set labels and add a description.
