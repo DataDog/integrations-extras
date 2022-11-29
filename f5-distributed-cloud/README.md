@@ -32,10 +32,10 @@ Do the following in the Global Log Receiver section:
 
 1. Within the Global Log Receiver section, enter a name in the metadata section. Optional: set labels and add a description.
 2. Select Request Logs or Security Events for the Log Type field. Note: Request logs are set by default.
-3. Select events to be streamed based on namespace from the following options:
-	- Select logs from the current namespace - streams logs from the shared namespace.  
-	- Select logs from all namespaces - streams logs from all namespaces.  
-	- Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.  
+3. Select events to be streamed based on namespace from the following options:  
+	a. Select logs from the current namespace - streams logs from the shared namespace.  
+	b. Select logs from all namespaces - streams logs from all namespaces.  
+	c. Select logs in specific namespaces - streams logs from specified namespaces. Enter the namespace name in the displayed namespaces list. To add more than one namespace, select Add item. Note: Namespaces provide logical grouping and isolation of objects within a distributed cloud tenant.  
 4. Select Datadog for the Receiver Configuration box. Configure the following for the Datadog receiver:
 	-   Set the site name to datadoghq.com.  
 	- Navigate to Datadog and [create an API key][4] within the organization settings.  
