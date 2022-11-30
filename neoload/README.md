@@ -28,7 +28,7 @@ See [metadata.csv][3] for a list of metrics provided by this integration.
 
 All NeoLoad performance tests events are sent to your [Datadog Events Explorer][4].
 NeoLoad sends events to the Datadog API when a performance test starts and ends.
-Set the option in the "Push Counters" configuration of the Datadog Connector in NeoLoad. Available since NeoLoad 9.1.
+Set the option in the **Push Counters** configuration of the Datadog Connector in NeoLoad. Available since NeoLoad 9.1.
 
 ## Troubleshooting
 
