@@ -2,12 +2,12 @@
 
 ## Overview
 
-The [Blink][1] integration is a collection of no-code actions and triggers usable in Blink Automations. Instead of writing manual API calls and scripts, you can use Blink's visual drag-and-drop editor to quickly automate your Datadog workspace, or use one of the hundreds of existing pre-made automations from the [library][2].
+The [Blink][1] integration is a collection of no-code actions and triggers usable in Blink Automations. Instead of writing manual API calls and scripts, you can use Blink's visual editor to drag-and-drop Datadog API actions into your workflow. You can use also one of the hundreds of existing pre-made automations from the [library][2].
 
 This integration enables you to:
 1. Trigger automations within Blink in response to new Datadog incidents 
 2. Create and update Datadog incidents in Blink 
-3. View any created incidents or events in the Datadog event stream
+3. View incidents or events from the Datadog event stream in Blink
 
 View our full list of actions and capabilities on the [documentation site][3].
 
