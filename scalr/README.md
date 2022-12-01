@@ -2,8 +2,7 @@
 
 ## Overview
 
-Scalr Datadog [integration][18] streams Terraform run execution [event][19] details as well as metrics, like runs queue and workspace count, to Datadog for in depth analysis and reporting.
-Metrics include information about number of environments, workspaces, runs, and state of the queue, and many others.
+Scalr Datadog [integration][18] streams Terraform run execution [event][19] details as well as metrics, like runs queue and workspace count, to Datadog for in depth analysis and reporting. Having this information in Datadog allows to correlate infrastructure changes (deployments) with other events and metrics within your organization in one place as well as track trends within your terraform pipeline. Metrics include information about number of environments, workspaces, runs, and state of the queue, and many others.
 
 ## Setup
 The Scalr integration is not included in the [Datadog Agent][2] package, so you need to install it.
