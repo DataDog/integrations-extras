@@ -1,47 +1,50 @@
 {
   "manifest_version": "2.0.0",
-  "app_uuid": "f2657bb8-ded4-48f3-8095-f703cc203149",
-  "app_id": "neo4j",
+  "app_uuid": "7781542f-b4a2-40e2-86cd-9987980a0ead",
+  "app_id": "unitq",
   "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Gathers Neo4j metrics",
-    "title": "Neo4j",
+    "description": "Harness the power of user feedback to improve product quality.",
+    "title": "unitQ",
     "media": [],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::macOS",
       "Supported OS::Windows",
-      "Category::Data Store"
+      "Category::Monitoring",
+      "Category::Metrics",
+      "Offering::Integration"
     ]
   },
   "author": {
-    "support_email": "neo4j-cloud@neotechnology.com",
-    "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "neo4j-cloud@neotechnology.com",
-    "name": "unknown"
+    "name": "unitQ",
+    "homepage": "https://www.unitq.com/",
+    "sales_email": "hello@unitq.com",
+    "support_email": "hello@unitq.com"
   },
   "oauth": {},
   "assets": {
     "integration": {
-      "source_type_name": "Neo4j",
-      "configuration": {
-        "spec": "assets/configuration/spec.yaml"
-      },
+      "source_type_name": "unitQ",
+      "configuration": {},
       "events": {
         "creates_events": false
       },
       "metrics": {
-        "prefix": "neo4j.",
-        "check": "neo4j.page_cache_hits_total",
+        "prefix": "unitq.",
+        "check": "unitq.user_feedback",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       }
+    },
+    "dashboards": {
+      "unitQ": "assets/dashboards/unitq_overview.json"
     }
   }
 }

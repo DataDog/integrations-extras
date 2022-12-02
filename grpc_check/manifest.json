@@ -1,33 +1,32 @@
 {
   "manifest_version": "2.0.0",
-  "app_uuid": "f2657bb8-ded4-48f3-8095-f703cc203149",
-  "app_id": "neo4j",
+  "app_uuid": "f0317cd5-e4b9-4147-998e-25c69fad94ed",
+  "app_id": "grpc-check",
   "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
-    "support": "README.md#Support",
+    "support": "README.md#Troubleshooting",
     "changelog": "CHANGELOG.md",
-    "description": "Gathers Neo4j metrics",
-    "title": "Neo4j",
+    "description": "Monitor gRPC servers based on gRPC Health Checking Protocol",
+    "title": "gRPC Health",
     "media": [],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::macOS",
-      "Supported OS::Windows",
-      "Category::Data Store"
+      "Supported OS::Windows"
     ]
   },
   "author": {
-    "support_email": "neo4j-cloud@neotechnology.com",
+    "name": "unknown",
     "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "neo4j-cloud@neotechnology.com",
-    "name": "unknown"
+    "sales_email": "help@datadoghq.com",
+    "support_email": "keisuke.umegaki.630@gmail.com"
   },
   "oauth": {},
   "assets": {
     "integration": {
-      "source_type_name": "Neo4j",
+      "source_type_name": "gRPC Check",
       "configuration": {
         "spec": "assets/configuration/spec.yaml"
       },
@@ -35,8 +34,11 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "neo4j.",
-        "check": "neo4j.page_cache_hits_total",
+        "prefix": "grpc_check.",
+        "check": [
+          "grpc_check.healthy",
+          "grpc_check.unhealthy"
+        ],
         "metadata_path": "metadata.csv"
       },
       "service_checks": {

@@ -1,0 +1,56 @@
+name: gRPC Check
+files:
+- name: grpc_check.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: grpc_server_address
+      required: true
+      description: tcp host:port to connect
+      value:
+        type: string
+        example: <HOST>:<PORT>
+    - name: grpc_server_service
+      required: false
+      description: service name to check
+      value:
+        type: string
+    - name: timeout
+      required: false
+      description: duration of time in milliseconds to allow for the RPC.
+      value:
+        type: integer
+        example: 1000
+        display_default: 1000
+    - name: rpc_header
+      required: false
+      description: "additional RPC headers in name: value format."
+      value:
+        type: array
+        items:
+          type: string
+        example:
+          - 'rpc-header-1: value1'
+          - 'rpc-header-2: value2'
+    - name: ca_cert
+      required: false
+      description: CA cert.
+      value:
+        type: string
+        example: /path/to/ca.pem
+    - name: client_cert
+      required: false
+      description: client certificate used for client identification and auth.
+      value:
+        type: string
+        example: /path/to/client.pem
+    - name: client_key
+      required: false
+      description: client certificate key.
+      value:
+        type: string
+        example: /path/to/client-key.pem
+    - template: instances/default
