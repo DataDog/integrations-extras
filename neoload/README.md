@@ -15,7 +15,7 @@ With the NeoLoad integration, you can track NeoLoad test performance metrics to:
 
 For detailed instructions on NeoLoad configuration, follow the [NeoLoad documentation][2]. Since NeoLoad version 9.1, you can choose which metrics to send in the **Push Counters** configuration of the Datadog Connector in NeoLoad.
 
-When Datadog receives `NeoLoad.*` metrics, the NeoLoad integration tile is installed automatically, and the default NeoLoad dashboard is added to your dashboard list.
+Install the NeoLoad integration to add the default NeoLoad dashboard to your dashboard list.
 
 
 ## Data Collected
