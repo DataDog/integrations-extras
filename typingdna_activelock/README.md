@@ -21,14 +21,13 @@ To generate a Datadog API key:
 To get your custom install app:
 
 1. Complete [this custom install form][7] by submitting your newly generated API key and Datadog site region (such as US1 or EU), along with your company details.
-2. You will then receive a custom ActiveLock app that you can install on your company computers and more information over email.
+2. You will then receive a custom ActiveLock app that you can install on your company computers and more information over email. This install has an initial limit of 100 seats, and comes with a default 30-day trial period. You will need to purchase a commercial ActiveLock license from TypingDNA in order to use it for more than 30 days, and/or on more than 100 computers. Contact [TypingDNA][2] for details.
 3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
-
 
 
 ### Validation
 
-To view your ActiveLock logs in Datadog, navigate to the [Log Explorer][5] and enter `source:typingdna_activelock` in the search query.
+To view your ActiveLock logs in Datadog, navigate to the [Log Explorer][5] and enter `source:typingdna` and/or `service:activelock` in the search query.
 
 To access the dashboard, navigate to the [Dashboard List][6] and search for the **TypingDNA ActiveLock** dashboard.
 
@@ -49,5 +48,5 @@ Need help? Contact [Datadog][1] or [TypingDNA support][2].
 [4]: https://app.datadoghq.com/organization-settings/api-keys
 [5]: https://app.datadoghq.com/logs
 [6]: https://app.datadoghq.com/dashboard/lists
-[7]: https://forms.gle/3U9KxF7ySThVLDJg8
+[7]: https://www.typingdna.com/clients/altrial
 [8]: https://app.datadoghq.com/integrations/typingdna_activelock
