@@ -54,22 +54,20 @@ Need help? Contact [Datadog support][4] or [Scalr support][12].
 - [Scalr customer documentation][13]
 - [Scalr Datadog integration documentation][11]
 
-[1]: https://scalr.io
-[2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
-[4]: https://docs.datadoghq.com/getting_started/integrations/
-[5]: https://docs.datadoghq.com/help/
-[6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
-[8]: https://github.com/DataDog/integrations-extras/blob/master/scalr/datadog_checks/scalr/data/conf.yaml.example
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[11]: https://github.com/DataDog/integrations-extras/blob/master/scalr/metadata.csv
-[13]: https://github.com/DataDog/integrations-extras/blob/master/scalr/assets/service_checks.json
-[14]: https://docs.scalr.com/en/latest/integrations.html#datadog
-[15]: https://scalr-labs.atlassian.net/servicedesk/customer/portal/31
-[16]: https://docs.scalr.com
-[17]: https://docs.datadoghq.com/events/explorer/
-[18]: https://docs.scalr.com/en/latest/integrations.html
-[19]: https://docs.datadoghq.com/events/
+[1]: https://app.datadoghq.com/account/settings#agent
+[2]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[3]: https://docs.datadoghq.com/getting_started/integrations/
+[4]: https://docs.datadoghq.com/help/
+[5]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
+[6]: https://github.com/DataDog/integrations-extras/blob/master/scalr/datadog_checks/scalr/data/conf.yaml.example
+[7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
+[9]: https://github.com/DataDog/integrations-extras/blob/master/scalr/metadata.csv
+[10]: https://github.com/DataDog/integrations-extras/blob/master/scalr/assets/service_checks.json
+[11]: https://docs.scalr.com/en/latest/integrations.html#datadog
+[12]: https://scalr-labs.atlassian.net/servicedesk/customer/portal/31
+[13]: https://docs.scalr.com
+[14]: https://docs.datadoghq.com/events/explorer/
+[15]: https://docs.scalr.com/en/latest/integrations.html
+[16]: https://docs.datadoghq.com/events/
 
