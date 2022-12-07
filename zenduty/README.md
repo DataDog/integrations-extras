@@ -3,9 +3,9 @@
 Use the Zenduty integration to send Datadog alerts to the right team, notify them as per on-call schedules, and help them remediate and resolve incidents with speed. Send notifications via e-mail, Slack, Microsoft Teams, SMS, Phone Calls, Android and iOS push messages.
 
 Connect Zenduty with Datadog in order to:
-- Trigger and resolve incidents, get alerts for them, and track issues from Datadog
+- Trigger and resolve Zenduty incidents, receive alerts for created incidents, and track issues from Datadog
 - Deploy on-call schedules, escalation policies, incident playbooks, postmortems, and detailed analytics
-- Use Alert Rules to custom route specific Datadog alerts to certain users or teams, write suppression rules, and automatically add notes, responders, and incident tasks
+- Use Alert Rules to customize routing for Datadog alerts to certain users or teams, write suppression rules, and automatically add notes, responders, and incident tasks
 
 ## Setup
 
