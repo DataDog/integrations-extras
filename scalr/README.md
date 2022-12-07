@@ -4,7 +4,7 @@
 
 Scalr is a terraform cloud alternative that provides you with the controls, visibility, and flexibility to decentralize your terraform operations in one place.
 
-The Scalr [integration][18] sends Terraform run execution [event][19] details and metrics for in-depth analysis and reporting such as queue runs, queue state, the number of environments, and workspace count. These metrics are visualized in their out-of-the-box dashboard to help correlate deployments with other infrastructure changes and to track trends within your Terraform pipeline.
+The Scalr [integration][15] sends Terraform run execution [event][16] details and metrics for in-depth analysis and reporting such as queue runs, queue state, the number of environments, and workspace count. These metrics are visualized in their out-of-the-box dashboard to help correlate deployments with other infrastructure changes and to track trends within your Terraform pipeline.
 
 ## Setup
 The Scalr integration is not included in the [Datadog Agent][1] package, so you need to install it.
