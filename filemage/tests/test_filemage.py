@@ -11,6 +11,8 @@ from datadog_checks.base import AgentCheck
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.filemage import FilemageCheck
 
+from .common import MOCK_INSTANCE
+
 
 class MockProcess(object):
     def __init__(self, pid=None, name=None, create_time=None, ppid=None, cmdline=None, status='sleeping'):
@@ -286,14 +288,8 @@ def mockPrcoessIterServicesUp(attrs=None, ad_value=None):
     )
 
 
-TEST_INSTANCE = {
-    "filemage_service_checks": ["postgres", "gateway"],
-    "filemage_api_config": {"rooturl": "https://localhost/", "apitoken": "secret", "verifyssl": False},
-}
-
-
 def test_check(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [TEST_INSTANCE])
+    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
     dd_run_check(check)
 
     aggregator.assert_all_metrics_covered()
@@ -302,7 +298,7 @@ def test_check(dd_run_check, aggregator, instance):
 
 @mock.patch('tests.test_filemage.psutil.process_iter', mockPrcoessIterServicesDown)
 def test_services_down(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [TEST_INSTANCE])
+    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
     dd_run_check(check)
 
     aggregator.assert_service_check('filemage.services_up', AgentCheck.CRITICAL)
@@ -310,7 +306,7 @@ def test_services_down(dd_run_check, aggregator, instance):
 
 @mock.patch('tests.test_filemage.psutil.process_iter', mockPrcoessIterServicesUp)
 def test_services_up(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [TEST_INSTANCE])
+    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
     dd_run_check(check)
 
     aggregator.assert_service_check('filemage.services_up', AgentCheck.OK)
