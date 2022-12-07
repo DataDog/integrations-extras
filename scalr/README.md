@@ -19,40 +19,40 @@ For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to ins
    datadog-agent integration install -t datadog-scalr==1.0.0
    ```
 
-2. Configure your integration similar to an Agent-based [integration][4].
+2. Configure your integration similar to an Agent-based [integration][3].
 
 ### Configuration
 
-1. Edit the `scalr.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your [Scalr metrics](#metrics). See the [sample scalr.d/conf.yaml][8] for all available configuration options.
+1. Edit the `scalr.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][5] to start collecting your [Scalr metrics](#metrics). See the [sample scalr.d/conf.yaml][6] for all available configuration options.
 
-2. [Restart the Agent][9].
+2. [Restart the Agent][7].
 
 ### Validation
 
-Run the [Agent's status subcommand][10] and look for `scalr` under the Checks section.
+Run the [Agent's status subcommand][8] and look for `scalr` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][11] for a list of metrics provided by this integration.
+See [metadata.csv][9] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-See [service_checks.json][13] for a list of service checks provided by this integration.
+See [service_checks.json][10] for a list of service checks provided by this integration.
 
 ### Events
 
-Scalr sends run execution results as an event to the [Events Explorer][17].
+Scalr sends run execution results as an event to the [Events Explorer][14].
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5] or [Scalr support][15].
+Need help? Contact [Datadog support][4] or [Scalr support][12].
 
 ## Further Reading
 
-- [Scalr customer documentation][16]
-- [Scalr Datadog integration documentation][14]
+- [Scalr customer documentation][13]
+- [Scalr Datadog integration documentation][11]
 
 [1]: https://scalr.io
 [2]: https://app.datadoghq.com/account/settings#agent
