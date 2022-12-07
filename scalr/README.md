@@ -11,7 +11,7 @@ The Scalr integration is not included in the [Datadog Agent][1] package, so you 
 
 ### Installation
 
-For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to install the Scalr integration on your host. See [Use Community Integrations][3] to install it with the Docker Agent or earlier versions of the Datadog Agent.
+For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to install the Scalr integration on your host. See [Use Community Integrations][2] to install it with the Docker Agent or earlier versions of the Datadog Agent.
 
 1. Run the following command to install the Agent integration:
 
