@@ -41,10 +41,8 @@ If you have not purchased Bottomline's Record and Replay, please see our marketp
 If you need to set up an integration so that data is shared between Datadog and Bottomline, [click here](https://github.com/nbk96f1/datadog/tree/main/Documentation).
 
 ## Support
-For support or feature requests, contact Bottomline through the following channels:
+For support or feature requests, contact Bottomline at [Andrew.Leon@bottomline.com](mailto:Andrew.Leon@bottomline.com).
 
-- Support: Andrew.Leon@bottomline.com
-- Sales: Andrew.Leon@bottomline.com
 
 [1]: https://www.bottomline.com/
 
