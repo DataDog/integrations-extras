@@ -13,6 +13,9 @@ Bottomline's Mainframe Record and Replay solution is non-invasive in its capabil
 ### Monitors
 
 1. Bottomline Mainframe Resource has a Problem
+### Metrics
+
+See [metadata.csv][2] for a list of metrics provided by this check.
 
 ### Dashboards
 
