@@ -36,7 +36,7 @@ The following items are all required for this integration to run as intended:
 
 ### Setup
 
-If you have not purchased Bottomline's Record and Replay, please see our marketplace listing to which includes the product and integration, [click here](/account/settings#marketplace/bottomline-mainframe).
+If you are not already a customer of Bottomline, visit [Bottomline's Marketplace listing][3] to purchase a license.
 
 If you need to set up an integration so that data is shared between Datadog and Bottomline, [click here](https://github.com/nbk96f1/datadog/tree/main/Documentation).
 
