@@ -1,0 +1,35 @@
+{
+	"name": "Resource response time is very slow",
+	"type": "log alert",
+	"query": "logs(\"*\").index(\"*\").rollup(\"avg\", \"@bottomline.mainframe.activity.resource.@duration\").by(\"@bottomline.mainframe.activity.resource.code\").last(\"5m\") > 1000000000",
+	"message": "Slow resource!",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 1000000000,
+			"period": {
+				"digit": 5,
+				"name": "5 minute average",
+				"no_data_timeframe": 10,
+				"seconds": 300,
+				"tense": "last",
+				"text": "5 minutes",
+				"unit": "minutes",
+				"value": "last_5m",
+				"timeString": "5m",
+				"unitAbbreviation": "m"
+			},
+			"timeAggregator": "avg",
+			"comparison": ">",
+			"warning": 500000000
+		},
+		"enable_logs_sample": true,
+		"notify_audit": false,
+		"restriction_query": null,
+		"on_missing_data": "default",
+		"include_tags": true,
+		"new_group_delay": 60
+	},
+	"priority": 3,
+	"restricted_roles": null
+}
