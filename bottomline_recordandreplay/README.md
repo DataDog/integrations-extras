@@ -12,7 +12,7 @@ Bottomline's Mainframe Record and Replay solution is non-invasive in its capabil
 
 ### Monitors
 
-1. Bottomline Mainframe Resource has a Problem
+This integration includes a monitor that reports when a Mainframe Resource is experiencing a problem.
 ### Metrics
 
 See [metadata.csv][2] for a list of metrics provided by this check.
