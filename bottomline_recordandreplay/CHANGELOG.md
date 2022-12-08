@@ -1,5 +1,3 @@
-# CHANGELOG - bottomline_mainframe
+# CHANGELOG - bottomline_recordandreplay
 
-## 6.8.0 / 2022-11-15
-
-* [Added] inital release
+## 1.0.0 / 2022-11-15
