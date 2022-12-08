@@ -2,13 +2,17 @@
 
 ## Overview
 
-The Mainframe Record and Replay solution has the capability of monitoring 3270/5250 Users noninvasivily via network traffic. The integration comes pre-built with fully customizable dashboards that bring the most crucial information on user activity and system performance to the surface. 
+Bottomline's Mainframe Record and Replay solution is non-invasive in its capability to monitor 3270/5250 users via network traffic.  Bottomline helps customers monitor users and systems in ways more advanced than traditional approaches with our industry leading Fraud and Financial Crime solutions.
 
-### Monitors
+### Monitoring Capabilities
 
 1. Mainframe Users: Record and Replay the users session and log information about what the user did in the session.
 2. Mainframe: User Response Time
 3. Mainframe: Resource Response Time 
+
+### Monitors
+
+1. Bottomline Mainframe Resource has a Problem
 
 ### Dashboards
 
