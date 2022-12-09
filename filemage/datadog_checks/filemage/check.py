@@ -1,13 +1,22 @@
 from urllib.parse import urljoin
 
 import psutil
+import requests
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.dev.utils import get_metadata_metrics
+
+from .common import FTP_METRIC_PREFIX, NAMESPACE
 
 
 class FilemageCheck(AgentCheck):
     # this will be the prefix of every metric and service check the integration sends
-    __NAMESPACE__ = 'filemage'
+    __NAMESPACE__ = NAMESPACE
+    # the FTP commands that will be tracked via metric submissions
+    TRACKED_METRICS_META = get_metadata_metrics()
+    FTP_TRACKED_METRICS = TRACKED_METRICS_META.keys()
+    FTP_TRACKED_CMDS = [metric.replace(f'{NAMESPACE}.{FTP_METRIC_PREFIX}.', '') for metric in FTP_TRACKED_METRICS]
+    FTP_STATS_BASE = {x: 0.0 for x in FTP_TRACKED_CMDS}
 
     def __init__(self, name, init_config, instances):
         super(FilemageCheck, self).__init__(name, init_config, instances)
@@ -42,7 +51,7 @@ class FilemageCheck(AgentCheck):
 
         # gather and send metrics
         try:
-            r = self.http.get(
+            r = requests.get(
                 urljoin(f'{self.filemage_api_config["rooturl"]}', 'logs'),
                 headers={'Accept': 'application/json', 'filemage-api-token': self.filemage_api_config['apitoken']},
                 verify=self.filemage_api_config['verifyssl'],
@@ -50,12 +59,17 @@ class FilemageCheck(AgentCheck):
             )
             r.raise_for_status()
 
-            stats = {}
+            # get the FTP statistics
+            stats = FilemageCheck.FTP_STATS_BASE.copy()
             for entry in r.json():
-                stats[entry['operation']] = stats.get(entry['operation'], 1.0) + 1
+                if entry['operation'] not in FilemageCheck.FTP_TRACKED_CMDS:
+                    self.log.warning('skipping untracked FTP entry: %s', repr(entry))
+                    continue
+                stats[entry['operation']] += 1
 
+            # send the tracked statistics
             for k, v in stats.items():
-                self.gauge(f'ftp.{k}', v)
+                self.count(f'{FTP_METRIC_PREFIX}.{k}', v)
         except Exception:
             self.service_check("metrics_up", AgentCheck.WARNING, message='could not retrieve FTP metrics from filemage')
             self.log.warning('could not retrieve FTP metrics from filemage')

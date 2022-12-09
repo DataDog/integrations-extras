@@ -1,17 +1,19 @@
 import collections
+import datetime
 import multiprocessing
 import os
 import time
-from datetime import datetime
 from unittest import mock
 
 import psutil
+import pytest
+import requests
+from requests.structures import CaseInsensitiveDict
 
-from datadog_checks.base import AgentCheck
-from datadog_checks.dev.utils import get_metadata_metrics
+from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.filemage import FilemageCheck
 
-from .common import MOCK_INSTANCE
+from .common import EXPECTED_CHECKS
 
 
 class MockProcess(object):
@@ -25,7 +27,7 @@ class MockProcess(object):
         else:
             self._pid = pid
         self._name = name
-        self._create_time = create_time if create_time is not None else datetime.now().timestamp()
+        self._create_time = create_time if create_time is not None else datetime.datetime.now().timestamp()
         self._ppid = ppid if ppid is not None else os.getppid()
         self._cmdline = cmdline if cmdline is not None else [name]
         self._status = status
@@ -56,7 +58,7 @@ class MockProcess(object):
             if self._exitcode not in (object, None):
                 info["exitcode"] = self._exitcode
             if self._create_time:
-                info['started'] = datetime.fromtimestamp(self._create_time).strftime('%Y-%m-%d %H:%M:%S')
+                info['started'] = datetime.datetime.fromtimestamp(self._create_time).strftime('%Y-%m-%d %H:%M:%S')
             return "%s.%s(%s)" % (
                 self.__class__.__module__,
                 self.__class__.__name__,
@@ -250,6 +252,116 @@ class MockProcess(object):
         raise NotImplementedError()
 
 
+class MockResponse:
+    __attrs__ = [
+        "_content",
+        "status_code",
+        "headers",
+        "url",
+        "history",
+        "encoding",
+        "reason",
+        "cookies",
+        "elapsed",
+        "request",
+    ]
+
+    def __init__(self, json_data, status_code):
+        self._content = False
+        self._content_consumed = False
+        self._next = None
+        self.status_code = status_code
+        self.headers = CaseInsensitiveDict()
+        self.raw = None
+        self.url = None
+        self.encoding = None
+        self.history = []
+        self.reason = None
+        self.cookies = None
+        self.elapsed = datetime.timedelta(0)
+        self.request = None
+        self.json_data = json_data
+
+    def __repr__(self):
+        return f"<Response [{self.status_code}]>"
+
+    def __bool__(self):
+        return self.ok
+
+    def __nonzero__(self):
+        return self.ok
+
+    def __iter__(self):
+        return self.iter_content(128)
+
+    @property
+    def ok(self):
+        try:
+            self.raise_for_status()
+        except requests.HTTPError:
+            return False
+        return True
+
+    @property
+    def is_redirect(self):
+        raise NotImplementedError()
+
+    @property
+    def is_permanent_redirect(self):
+        raise NotImplementedError()
+
+    @property
+    def next(self):
+        raise NotImplementedError()
+
+    @property
+    def apparent_encoding(self):
+        raise NotImplementedError()
+
+    def iter_content(self, *args, **kwargs):
+        raise NotImplementedError()
+
+    def iter_lines(self, *args, **kwargs):
+        raise NotImplementedError()
+
+    @property
+    def content(self):
+        raise NotImplementedError()
+
+    @property
+    def text(self):
+        raise NotImplementedError()
+
+    def json(self, **kwargs):
+        return self.json_data
+
+    @property
+    def links(self):
+        raise NotImplementedError()
+
+    def raise_for_status(self):
+        http_error_msg = ""
+        if isinstance(self.reason, bytes):
+            try:
+                reason = self.reason.decode("utf-8")
+            except UnicodeDecodeError:
+                reason = self.reason.decode("iso-8859-1")
+        else:
+            reason = self.reason
+
+        if 400 <= self.status_code < 500:
+            http_error_msg = f"{self.status_code} Client Error: {reason} for url: {self.url}"
+
+        elif 500 <= self.status_code < 600:
+            http_error_msg = f"{self.status_code} Server Error: {reason} for url: {self.url}"
+
+        if http_error_msg:
+            raise requests.HTTPError(http_error_msg, response=self)
+
+    def close(self):
+        raise NotImplementedError()
+
+
 def mockPrcoessIterServicesDown(attrs=None, ad_value=None):
     def procIterFormat(proc):
         proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
@@ -288,29 +400,92 @@ def mockPrcoessIterServicesUp(attrs=None, ad_value=None):
     )
 
 
-def test_check(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
-    dd_run_check(check)
+def mockRequestsGetMetricsDown(*args, **kwargs):
+    return MockResponse({'message': 'Session expired.'}, 401)
 
+
+def mockRequestsGetMetricsUp(*args, **kwargs):
+    return MockResponse(
+        [
+            {'timestamp': '2022-12-09T17:00:10Z', 'path': '/tmp/example.csv', 'user': 'example', 'operation': 'put'},
+            {'timestamp': '2022-12-09T17:00:10Z', 'path': '/tmp/example.csv', 'user': 'example', 'operation': 'rmdir'},
+        ],
+        200,
+    )
+
+
+@pytest.mark.unit
+def test_bad_instance(dd_run_check, aggregator, bad_instance):
+    with pytest.raises(ConfigurationError):
+        c = FilemageCheck('filemage', {}, [bad_instance])
+        dd_run_check(c)
+
+
+@pytest.mark.unit
+def test_good_instance(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+def test_check_coverage(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
+    for check in EXPECTED_CHECKS:
+        aggregator.assert_service_check(check)
+    aggregator.assert_no_duplicate_service_checks()
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+def test_metric_coverage(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
+    for metric in FilemageCheck.FTP_TRACKED_METRICS:
+        aggregator.assert_metric(metric)
+    aggregator.assert_no_duplicate_metrics()
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+    aggregator.assert_metrics_using_metadata(FilemageCheck.TRACKED_METRICS_META)
 
 
-@mock.patch('tests.test_filemage.psutil.process_iter', mockPrcoessIterServicesDown)
-def test_services_down(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
-    dd_run_check(check)
-
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesDown)
+def test_services_down(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
     aggregator.assert_service_check('filemage.services_up', AgentCheck.CRITICAL)
 
 
-@mock.patch('tests.test_filemage.psutil.process_iter', mockPrcoessIterServicesUp)
-def test_services_up(dd_run_check, aggregator, instance):
-    check = FilemageCheck('filemage', {}, [MOCK_INSTANCE])
-    dd_run_check(check)
-
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+def test_services_up(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
     aggregator.assert_service_check('filemage.services_up', AgentCheck.OK)
 
 
-# TODO: validate aggregator.assert_service_check('filemage.metrics_up', AgentCheck.WARNING)
-# TODO: validate aggregator.assert_service_check('filemage.metrics_up', AgentCheck.OK)
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsDown)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+def test_metrics_down(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
+    aggregator.assert_service_check('filemage.metrics_up', AgentCheck.WARNING)
+
+
+@pytest.mark.integration
+@pytest.mark.usefixtures('dd_environment')
+@mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+def test_metrics_up(dd_run_check, aggregator, good_instance):
+    c = FilemageCheck('filemage', {}, [good_instance])
+    dd_run_check(c)
+    aggregator.assert_service_check('filemage.metrics_up', AgentCheck.OK)
