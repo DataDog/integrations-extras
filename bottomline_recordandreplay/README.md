@@ -22,7 +22,7 @@ See [metadata.csv][2] for a list of metrics provided by this check.
 
 ### Dashboards
 
-1. Bottomline Record and Replay Overview: This dashboard gives visibility into what resources are being used, resource performance, user activity, security events, and system monitors.
+**Bottomline Record and Replay Overview**: This dashboard gives visibility into what resources are being used, resource performance, user activity, security events, and system monitors.
 
 ## Setup
 
