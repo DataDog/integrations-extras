@@ -34,7 +34,7 @@ The following items are all required for this integration to run as intended:
   - You must have the Datadog Agent installed and running.
   - Access to the server running the Datadog Agent for installing Bottomline's Record and Replay and to modify the Datadog Agent configurations.
   - A supported database (Oracle or Postgres).
-  - A windows desktop to install Bottomline's Enterprise Manager for configuring Record and Replay.
+  - A Windows desktop to install Bottomline's Enterprise Manager for configuring Record and Replay.
 
 
 ### Setup
