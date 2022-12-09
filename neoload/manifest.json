@@ -1,0 +1,55 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "3d16e6da-7ac2-47b4-95c0-0d221686f05a",
+  "app_id": "neoload",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor and Analyze NeoLoad Performance Test Results",
+    "title": "NeoLoad",
+    "media": [{
+        "media_type": "image",
+        "caption": "NeoLoad Performance Testing dashboard",
+        "image_url": "/images/neoload-dashboard.png"
+    }],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Category::Monitoring",
+      "Category::Notification"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "neoload",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "NeoLoad.",
+        "check": "NeoLoad.Controller.User.Load",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+	},
+    "dashboards": {
+      "NeoLoad Performance Testing": "assets/dashboards/neoload_overview.json"
+    },
+    "logs": {}
+  },
+  "author": {
+    "name": "Tricentis",
+    "homepage": "https://www.tricentis.com/products/performance-testing-neoload",
+	"sales_email": "sales@tricentis.com",
+	"support_email": "support@tricentis.com"
+  },
+  "oauth": {}
+}
