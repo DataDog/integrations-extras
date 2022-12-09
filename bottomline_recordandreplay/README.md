@@ -30,7 +30,7 @@ Follow the step-by-step instructions below to install and configure this check f
 
 ### Prerequisites
 
-The following items are all required for this integration to run as intended:
+The following items are required for this integration to run as intended:
   - You must have the Datadog Agent installed and running.
   - Access to the server running the Datadog Agent for installing Bottomline's Record and Replay and to modify the Datadog Agent configurations.
   - A supported database (Oracle or Postgres).
