@@ -6,12 +6,6 @@ Bottomline's Mainframe Record and Replay solution is non-invasive in its capabil
 
 With this integration, you can monitor Bottomline's' Record and Replay sessions in Datadog to provide visibility into resource utilization, resource performance, user activity, security events, and system monitors. Customers can also directly access user session replays through Datadog.
 
-### Monitoring Capabilities
-
-1. Mainframe Users: Record and Replay the user's session and log information about what the user did in the session.
-2. Mainframe: Record and log the user's response time.
-3. Mainframe: Record and log the resource response time. 
-
 ### Monitors
 
 This integration includes a monitor that reports when a Mainframe Resource is experiencing a problem.
