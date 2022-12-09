@@ -2,9 +2,9 @@
 
 ## Overview
 
-This free intgration is for existing Bottomline and Datadog customers.  The integration creates a logger in Bottomline's Record and Replay using a pre-built JSON message format which can then be sent to Datadog using the standard agent. 
-
 Bottomline's Mainframe Record and Replay solution is non-invasive in its capability to monitor 3270/5250 users via network traffic.  Bottomline helps customers monitor users and systems in ways more advanced than traditional approaches with our industry leading Fraud and Financial Crime solutions.
+
+This integration is for existing Bottomline and Datadog customers, creates a logger in Bottomline's Record and Replay using a pre-built JSON message format, which can then be sent to Datadog using the standard agent. 
 
 ### Monitoring Capabilities
 
