@@ -2,15 +2,15 @@
 
 ## Overview
 
-Bottomline's Mainframe Record and Replay solution is non-invasive in its capability to monitor 3270/5250 users via network traffic.  Bottomline helps customers monitor users and systems in ways more advanced than traditional approaches with our industry leading Fraud and Financial Crime solutions.
+Bottomline's Mainframe Record and Replay solution is non-invasive in its capability to monitor 3270/5250 users via network traffic to help customers monitor users and systems.
 
-This integration is for existing Bottomline and Datadog customers, creates a logger in Bottomline's Record and Replay using a pre-built JSON message format, which can then be sent to Datadog using the standard agent. 
+With this integration, you can monitor Bottomline's' Record and Replay sessions in Datadog to provide visibility into resource utilization, resource performance, user activity, security events, and system monitors. Customers can also directly access user session replays through Datadog.
 
 ### Monitoring Capabilities
 
 1. Mainframe Users: Record and Replay the user's session and log information about what the user did in the session.
-2. Mainframe: User Response Time
-3. Mainframe: Resource Response Time 
+2. Mainframe: Record and log the user's response time.
+3. Mainframe: Record and log the resource response time. 
 
 ### Monitors
 
