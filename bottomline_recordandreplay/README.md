@@ -40,7 +40,7 @@ The following items are all required for this integration to run as intended:
 
 If you are not already a customer of Bottomline, visit [Bottomline's Marketplace listing][3] to purchase a license.
 
-If you need to set up an integration so that data is shared between Datadog and Bottomline, [click here](https://github.com/nbk96f1/datadog/tree/main/Documentation).
+Follow the instructions outlined [here][4] to install the integration.
 
 ## Support
 For support or feature requests, contact Bottomline at [Andrew.Leon@bottomline.com](mailto:Andrew.Leon@bottomline.com).
