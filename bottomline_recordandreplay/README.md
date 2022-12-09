@@ -8,7 +8,7 @@ This integration is for existing Bottomline and Datadog customers, creates a log
 
 ### Monitoring Capabilities
 
-1. Mainframe Users: Record and Replay the users session and log information about what the user did in the session.
+1. Mainframe Users: Record and Replay the user's session and log information about what the user did in the session.
 2. Mainframe: User Response Time
 3. Mainframe: Resource Response Time 
 
