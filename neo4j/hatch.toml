@@ -2,6 +2,17 @@
 
 [[envs.default.matrix]]
 python = ["3.8"]
+version = ["3.5", "4.0", "4.1", "4.2", "4.3", "4.4"]
+
+[envs.default.overrides]
+matrix.version.env-vars = [
+  { key = "NEO4J_VERSION", value = "3.5", if = ["3.5.30"] },
+  { key = "NEO4J_VERSION", value = "4.0", if = ["4.0.0"] },
+  { key = "NEO4J_VERSION", value = "4.1", if = ["4.1.11"] },
+  { key = "NEO4J_VERSION", value = "4.2", if = ["4.2.14"] },
+  { key = "NEO4J_VERSION", value = "4.3", if = ["4.3.10"] },
+  { key = "NEO4J_VERSION", value = "4.4", if = ["4.4.3"] },
+]
 
 [envs.default]
 e2e-env = false
