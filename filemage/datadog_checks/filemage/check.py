@@ -1,12 +1,20 @@
+import csv
+import os
 from urllib.parse import urljoin
 
 import psutil
 import requests
 
 from datadog_checks.base import AgentCheck, ConfigurationError
-from datadog_checks.dev.utils import get_metadata_metrics
 
 from .common import FTP_METRIC_PREFIX, NAMESPACE
+
+
+# define our custom version to avoid dependency hell
+def get_metadata_metrics():
+    metadata_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'metadata.csv')
+    with open(metadata_path) as f:
+        return {row['metric_name']: row for row in csv.DictReader(f)}
 
 
 class FilemageCheck(AgentCheck):

@@ -108,5 +108,5 @@ Need help? Contact [dOpenSource][4].
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: ./assets/service_checks.json
-[9]: ./metadata.csv
+[9]: ./datadog_checks/filemage/metadata.csv
 [10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
