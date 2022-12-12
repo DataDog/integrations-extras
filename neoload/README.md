@@ -40,4 +40,4 @@ Need help? Contact [Datadog support][5] or [Tricentis NeoLoad support][6].
 [4]: https://docs.datadoghq.com/events/
 [5]: https://docs.datadoghq.com/help/
 [6]: https://support-hub.tricentis.com/
-[7]: /metric/explorer
+[7]: /metrics/explorer
