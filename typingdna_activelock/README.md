@@ -1,10 +1,11 @@
 
-
 # TypingDNA ActiveLock
 
 ## Overview
 
-[TypingDNA ActiveLock][3] is a Continuous Endpoint Authentication app that helps prevent unauthorized access to your company computers. Once installed on a user's PC, it continuously verifies the user by the way they type. If an unauthorized typing pattern is detected, ActiveLock can instantly lock the computer and log the data to your desired logging platform (such as Datadog).
+[TypingDNA ActiveLock][3] is a Continuous Endpoint Authentication app that helps prevent unauthorized access to your company computers. Once installed on a user's PC (MacOS or Windows), it continuously verifies the user by the way they type. If an unauthorized typing pattern is detected, ActiveLock can instantly lock the computer and log the data to your desired logging platform (such as Datadog).
+
+Since ActiveLock does not come with it's own cloud dashboard, the only way to see its data in an aggregated way is to use a log aggregation platform. This integration allows not only to send logs from your ActiveLock apps to your Datadog, but allows you to monitor your organization computers from the TypingDNA ActiveLock dashboard installed along with this integration.
 
 To visualize your data in Datadog, a custom ActiveLock app needs to be configured and installed. This is the same install for all of your company computers.
 
@@ -21,7 +22,7 @@ To generate a Datadog API key:
 To get your custom install app:
 
 1. Complete [this custom install form][7] by submitting your newly generated API key and Datadog site region (such as US1 or EU), along with your company details.
-2. You will then receive a custom ActiveLock app that you can install on your company computers and more information over email. This install has an initial limit of 10 seats, and comes with a default 30-day trial period. You will need to purchase a commercial ActiveLock license from TypingDNA in order to use it for more than 30 days, and/or on more than 10 computers. Contact [TypingDNA][2] for details or the reseller/partner through which you found us.
+2. You will then receive a custom ActiveLock app that you can install on your company computers along with installation instructions over email. This install has an initial limit of 10 seats, and comes with a default 30-day trial period. To remove trial limitations you need a full commercial license. If you don't have a commercial license already, contact [TypingDNA][2] for licensing or the reseller/partner through which you found us.
 3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
 
 Note that if you came through a reseller/partner you should follow their instructions to get your custom install app (and commercial license).
