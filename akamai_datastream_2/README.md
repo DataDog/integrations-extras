@@ -13,7 +13,7 @@ Click **Install Integration** to enable a preset dashboard for viewing Akamai Da
 ### Configuration
 
 To configure Akamai DataStream 2 to send logs to Datadog, follow [these instructions on the
-Akamai techdocs site][2], and make sure to set the log source to `akamai.datastream` and the log format to `JSON`.
+Akamai techdocs site][2], make sure to set the log source to `akamai.datastream` and the log format to `JSON`.
 
 ### Validation
 
