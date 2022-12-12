@@ -35,7 +35,7 @@ Set the option in the **Push Counters** configuration of the Datadog Connector i
 Need help? Contact [Datadog support][5] or [Tricentis NeoLoad support][6].
 
 [1]: https://www.tricentis.com/products/performance-testing-neoload
-[2]: https://documentation.tricentis.com/neoload/9.1/en/content/reference_guide/datadog.htm
+[2]: https://documentation.tricentis.com/neoload/latest/en/content/reference_guide/datadog.htm
 [3]: https://github.com/DataDog/integrations-extras/blob/master/neoload/metadata.csv
 [4]: https://docs.datadoghq.com/events/
 [5]: https://docs.datadoghq.com/help/
