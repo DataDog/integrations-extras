@@ -7,10 +7,9 @@ from unittest import mock
 
 import psutil
 import pytest
-import requests
-from requests.structures import CaseInsensitiveDict
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+from datadog_checks.dev.http import MockResponse
 from datadog_checks.filemage import FilemageCheck
 
 from .common import EXPECTED_CHECKS
@@ -252,116 +251,6 @@ class MockProcess(object):
         raise NotImplementedError()
 
 
-class MockResponse:
-    __attrs__ = [
-        "_content",
-        "status_code",
-        "headers",
-        "url",
-        "history",
-        "encoding",
-        "reason",
-        "cookies",
-        "elapsed",
-        "request",
-    ]
-
-    def __init__(self, json_data, status_code):
-        self._content = False
-        self._content_consumed = False
-        self._next = None
-        self.status_code = status_code
-        self.headers = CaseInsensitiveDict()
-        self.raw = None
-        self.url = None
-        self.encoding = None
-        self.history = []
-        self.reason = None
-        self.cookies = None
-        self.elapsed = datetime.timedelta(0)
-        self.request = None
-        self.json_data = json_data
-
-    def __repr__(self):
-        return f"<Response [{self.status_code}]>"
-
-    def __bool__(self):
-        return self.ok
-
-    def __nonzero__(self):
-        return self.ok
-
-    def __iter__(self):
-        return self.iter_content(128)
-
-    @property
-    def ok(self):
-        try:
-            self.raise_for_status()
-        except requests.HTTPError:
-            return False
-        return True
-
-    @property
-    def is_redirect(self):
-        raise NotImplementedError()
-
-    @property
-    def is_permanent_redirect(self):
-        raise NotImplementedError()
-
-    @property
-    def next(self):
-        raise NotImplementedError()
-
-    @property
-    def apparent_encoding(self):
-        raise NotImplementedError()
-
-    def iter_content(self, *args, **kwargs):
-        raise NotImplementedError()
-
-    def iter_lines(self, *args, **kwargs):
-        raise NotImplementedError()
-
-    @property
-    def content(self):
-        raise NotImplementedError()
-
-    @property
-    def text(self):
-        raise NotImplementedError()
-
-    def json(self, **kwargs):
-        return self.json_data
-
-    @property
-    def links(self):
-        raise NotImplementedError()
-
-    def raise_for_status(self):
-        http_error_msg = ""
-        if isinstance(self.reason, bytes):
-            try:
-                reason = self.reason.decode("utf-8")
-            except UnicodeDecodeError:
-                reason = self.reason.decode("iso-8859-1")
-        else:
-            reason = self.reason
-
-        if 400 <= self.status_code < 500:
-            http_error_msg = f"{self.status_code} Client Error: {reason} for url: {self.url}"
-
-        elif 500 <= self.status_code < 600:
-            http_error_msg = f"{self.status_code} Server Error: {reason} for url: {self.url}"
-
-        if http_error_msg:
-            raise requests.HTTPError(http_error_msg, response=self)
-
-    def close(self):
-        raise NotImplementedError()
-
-
 def mockPrcoessIterServicesDown(attrs=None, ad_value=None):
     def procIterFormat(proc):
         proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
@@ -401,16 +290,16 @@ def mockPrcoessIterServicesUp(attrs=None, ad_value=None):
 
 
 def mockRequestsGetMetricsDown(*args, **kwargs):
-    return MockResponse({'message': 'Session expired.'}, 401)
+    return MockResponse(json_data={'message': 'Session expired.'}, status_code=401)
 
 
 def mockRequestsGetMetricsUp(*args, **kwargs):
     return MockResponse(
-        [
+        json_data=[
             {'timestamp': '2022-12-09T17:00:10Z', 'path': '/tmp/example.csv', 'user': 'example', 'operation': 'put'},
             {'timestamp': '2022-12-09T17:00:10Z', 'path': '/tmp/example.csv', 'user': 'example', 'operation': 'rmdir'},
         ],
-        200,
+        status_code=200,
     )
 
 

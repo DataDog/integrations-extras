@@ -78,9 +78,9 @@ class FilemageCheck(AgentCheck):
             # send the tracked statistics
             for k, v in stats.items():
                 self.count(f'{FTP_METRIC_PREFIX}.{k}', v)
-        except Exception:
+        except Exception as ex:
             self.service_check("metrics_up", AgentCheck.WARNING, message='could not retrieve FTP metrics from filemage')
-            self.log.warning('could not retrieve FTP metrics from filemage')
+            self.log.warning('could not retrieve FTP metrics from filemage: %s', str(ex))
             return
 
         self.service_check("metrics_up", AgentCheck.OK)
