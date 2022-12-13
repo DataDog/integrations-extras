@@ -1,6 +1,6 @@
 # CHANGELOG - PureFB
 
-## 1.0.2
+## 1.0.2 / 2022-12-14
 
 * [Added] Added support for the `purefb.array.space_utilization` metric introduced in `pure-fb-openmetrics-exporter v1.0.1`.
 
