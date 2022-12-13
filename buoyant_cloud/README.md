@@ -2,7 +2,10 @@
 
 ## Overview
 
-[Buoyant Cloud][1] provides fully managed Linkerd, right on your cluster.
+[Buoyant Cloud][1] provides fully managed Linkerd, right on your cluster, and
+monitors the health of Linkerd so you don't have to. This integration sends that
+information to Datadog so you can monitor and alert on Linkerd's health directly
+in Datadog.
 
 This integration sends the follow Buoyant Cloud data to Datadog:
 
@@ -16,8 +19,7 @@ This integration sends the follow Buoyant Cloud data to Datadog:
 
 ### Installation
 
-You need to have an account at [Buoyant Cloud][1] to use this integration. You
-can also sign up for Buoyant Cloud in the Datadog Marketplace.
+You need to have an account at [Buoyant Cloud][1] to use this integration. You can also sign up for Buoyant Cloud in the Datadog Marketplace.
 
 ### Configuration
 
@@ -25,22 +27,18 @@ can also sign up for Buoyant Cloud in the Datadog Marketplace.
 2. Browse to the [Buoyant Cloud Settings][2] page, and click `Connect Datadog`.
 3. Browse to the [Buoyant Cloud Notifications][3] page.
 4. Click the kebab menu to edit a notificaiton.
-5. In the `Edit notification rule` dialog, in the `Destinations` section, select
-   your Datadog org to have all events matching the notification rule sent to
-   Datadog.
+5. Go to the `Destinations` section and select your Datadog account to send all events matching the notification rule sent to Datadog.
 
 ### Validation
 
-As Buoyant Cloud creates events, you should see them appear in Datadog
-[event explorer][4].
+As Buoyant Cloud creates events, you should see them appear in Datadog [event explorer][4].
 
 ## Uninstallation
 
 1. Browse to the [Buoyant Cloud Settings][2] page
 2. Click the 3 dots to the right of your Datadog org
 3. Click `Remove`
-4. In the Datadog UI, remove any related Buoyant Cloud API keys from
-   Organization Settings
+4. In the Datadog UI, remove any related Buoyant Cloud API keys from Organization Settings
 
 ## Data Collected
 
