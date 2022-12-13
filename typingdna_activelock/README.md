@@ -21,7 +21,7 @@ To generate a Datadog API key:
 
 To get your custom install app:
 
-1. Complete [this custom install form][7] by submitting your newly generated API key and Datadog site region (such as US1 or EU), along with your company details.
+1. Complete [this custom install form][7] by submitting your newly generated API key, [Datadog site][9], and your company details.
 2. You will then receive a custom ActiveLock app that you can install on your company computers along with installation instructions over email. This install has an initial limit of 10 seats, and comes with a default 30-day trial period. To remove trial limitations you need a full commercial license. If you don't have a commercial license already, contact [TypingDNA][2] for licensing or the reseller/partner through which you found us.
 3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
 
