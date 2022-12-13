@@ -53,3 +53,4 @@ Need help? Contact [Datadog][1] or [TypingDNA support][2].
 [6]: https://app.datadoghq.com/dashboard/lists
 [7]: https://www.typingdna.com/clients/altrial
 [8]: https://app.datadoghq.com/integrations/typingdna_activelock
+[9]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
