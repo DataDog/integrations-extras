@@ -42,8 +42,10 @@ instances:
     ## period specified by "duration". The profiles will hold the difference
     ## between the samples at the beginning and end of profiling.
     ##
-    ## For the heap profile, the in-use (also known as "live heap") samples may
-    ## be negative if "cumulative" is true.
+    ## For the heap profile, the in-use (also known as "live heap") samples
+    ## may be negative if "cumulative" is false. This does not display
+    ## accurately in the profile UI, so Datadog does not recommend setting
+    ## "cumulative" to false.
     ##
     ## In order to use profile aggregation, "cumulative" must set to false.
     ## Note that setting "cumulative" to false will cause the profiled
