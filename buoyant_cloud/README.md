@@ -2,18 +2,7 @@
 
 ## Overview
 
-[Buoyant Cloud][1] provides fully managed Linkerd, right on your cluster, and
-monitors the health of Linkerd so you don't have to. This integration sends that
-information to Datadog so you can monitor and alert on Linkerd's health directly
-in Datadog.
-
-This integration sends the follow Buoyant Cloud data to Datadog:
-
-- Linkerd health alerts
-- Workload traffic alerts
-- Managed Linkerd events
-- Rollout events
-- Metrics (coming soon)
+[Buoyant Cloud][1] provides fully managed Linkerd on your cluster to monitor the health of Linkerd and deployments. With this integration, you can monitor and be alerted on Linkerd's health, workload traffic, and rollout events.
 
 ## Setup
 
