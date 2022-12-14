@@ -10,6 +10,7 @@ import pytest
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 from datadog_checks.dev.http import MockResponse
+from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.filemage import FilemageCheck
 
 from .common import EXPECTED_CHECKS
@@ -251,7 +252,7 @@ class MockProcess(object):
         raise NotImplementedError()
 
 
-def mockPrcoessIterServicesDown(attrs=None, ad_value=None):
+def mockProcessIterServicesDown(attrs=None, ad_value=None):
     def procIterFormat(proc):
         proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
         return proc
@@ -259,7 +260,7 @@ def mockPrcoessIterServicesDown(attrs=None, ad_value=None):
     yield procIterFormat(MockProcess(name='systemd', cmdline=['/sbin/init']))
 
 
-def mockPrcoessIterServicesUp(attrs=None, ad_value=None):
+def mockProcessIterServicesUp(attrs=None, ad_value=None):
     def procIterFormat(proc):
         proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
         return proc
@@ -319,7 +320,7 @@ def test_good_instance(dd_run_check, aggregator, good_instance):
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 @mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesUp)
 def test_check_coverage(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)
@@ -331,20 +332,21 @@ def test_check_coverage(dd_run_check, aggregator, good_instance):
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 @mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesUp)
 def test_metric_coverage(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)
-    for metric in FilemageCheck.FTP_TRACKED_METRICS:
+    metrics = get_metadata_metrics()
+    for metric in metrics:
         aggregator.assert_metric(metric)
     aggregator.assert_no_duplicate_metrics()
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(FilemageCheck.TRACKED_METRICS_META)
+    aggregator.assert_metrics_using_metadata(metrics)
 
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesDown)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesDown)
 def test_services_down(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)
@@ -353,7 +355,7 @@ def test_services_down(dd_run_check, aggregator, good_instance):
 
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesUp)
 def test_services_up(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)
@@ -363,7 +365,7 @@ def test_services_up(dd_run_check, aggregator, good_instance):
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 @mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsDown)
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesUp)
 def test_metrics_down(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)
@@ -373,7 +375,7 @@ def test_metrics_down(dd_run_check, aggregator, good_instance):
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 @mock.patch('datadog_checks.filemage.check.requests.get', mockRequestsGetMetricsUp)
-@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockPrcoessIterServicesUp)
+@mock.patch('datadog_checks.filemage.check.psutil.process_iter', mockProcessIterServicesUp)
 def test_metrics_up(dd_run_check, aggregator, good_instance):
     c = FilemageCheck('filemage', {}, [good_instance])
     dd_run_check(c)

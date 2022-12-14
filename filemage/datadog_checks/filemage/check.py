@@ -1,5 +1,3 @@
-import csv
-import os
 from urllib.parse import urljoin
 
 import psutil
@@ -7,23 +5,13 @@ import requests
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-from .common import FTP_METRIC_PREFIX, NAMESPACE
-
-
-# define our custom version to avoid dependency hell
-def get_metadata_metrics():
-    metadata_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'metadata.csv')
-    with open(metadata_path) as f:
-        return {row['metric_name']: row for row in csv.DictReader(f)}
+from .common import FTP_METRIC_PREFIX, FTP_TRACKED_CMDS, NAMESPACE
 
 
 class FilemageCheck(AgentCheck):
     # this will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = NAMESPACE
     # the FTP commands that will be tracked via metric submissions
-    TRACKED_METRICS_META = get_metadata_metrics()
-    FTP_TRACKED_METRICS = TRACKED_METRICS_META.keys()
-    FTP_TRACKED_CMDS = [metric.replace(f'{NAMESPACE}.{FTP_METRIC_PREFIX}.', '') for metric in FTP_TRACKED_METRICS]
     FTP_STATS_BASE = {x: 0.0 for x in FTP_TRACKED_CMDS}
 
     def __init__(self, name, init_config, instances):
@@ -70,7 +58,7 @@ class FilemageCheck(AgentCheck):
             # get the FTP statistics
             stats = FilemageCheck.FTP_STATS_BASE.copy()
             for entry in r.json():
-                if entry['operation'] not in FilemageCheck.FTP_TRACKED_CMDS:
+                if entry['operation'] not in FTP_TRACKED_CMDS:
                     self.log.warning('skipping untracked FTP entry: %s', repr(entry))
                     continue
                 stats[entry['operation']] += 1
