@@ -47,7 +47,7 @@ Need help? Get support from the following sources:
 [1]: https://buoyant.io/cloud
 [2]: https://buoyant.cloud/settings
 [3]: https://buoyant.cloud/notifications
-[4]: https://app.datadoghq.com/event/explorer
+[4]: /event/explorer
 [5]: https://docs.buoyant.cloud
 [6]: https://slack.linkerd.io
 [7]: mailto:cloud@buoyant.io
