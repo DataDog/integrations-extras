@@ -16,18 +16,19 @@ To install the cybersixgill_actionable_alerts check on your host:
 1. Install the [developer toolkit][11] on any machine.
 2. To build the package, run the command: `ddev release build cybersixgill_actionable_alerts`
 3. [Install the Datadog Agent][10] on your host.
-4. Once the Agent is installed, upload the build artifact by running the command: `datadog-agent integration install -w
- path/to/cybersixgill_actionable_alerts/dist/datadog_cybersixgill_actionable_alerts-0.0.1-py3-none-any.whl`.
+4. Once the Agent is installed, run the following command to install the Agent integration: `datadog-agent integration install -t 
+datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>`.
 
 ### Configuration
-1. Email info@cybersixgill.com.
-2. You will receive a welcome email with access to the Cybersixgill developer platform.
-3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
-4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-5. Provide the min collection interval in seconds. `min_collection_interval: 3600`
+1. Email getstarted@cybersixgill.com.
+2. After getting some information about your organization and understanding your needs.
+3. You will receive a welcome email with access to the Cybersixgill developer platform.
+4. Within the Cybersixgill developer platform, create the Client ID and Client secret.
+5. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
+6. Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
-1. Verify that [events][12] are generated in your account.
+ Verify that [events][12] are generated in your account.
 
 ## Data Collected
 
@@ -38,7 +39,7 @@ See assets/service_checks.json for a list of service checks provided by this int
 This integration sends events into Datadog.
 
 ## Troubleshooting
-Need help? Contact [Datadog support][3] or [Cybersixgill support][13].
+Need help? Contact [Cybersixgill support][13].
 
 [1]: https://www.cybersixgill.com/
 [2]: https://app.datadoghq.com/account/settings#agent
