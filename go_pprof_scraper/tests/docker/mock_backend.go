@@ -15,6 +15,9 @@ import (
 var accepted int64
 
 func main() {
+	http.HandleFunc("/reset", func(w http.ResponseWriter, r *http.Request) {
+		atomic.StoreInt64(&accepted, 0)
+	})
 	http.HandleFunc("/accepted", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "%d", atomic.LoadInt64(&accepted))
 	})

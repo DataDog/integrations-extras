@@ -77,6 +77,9 @@ def test_e2e(dd_agent_check, instance):
     check = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
     check.check([])
 
+    r = requests.post("http://localhost:9999/reset")
+    r.raise_for_status()
+
     aggregator = dd_agent_check(instance)
     aggregator.assert_service_check("go_pprof_scraper.can_connect", GoPprofScraperCheck.OK)
 
