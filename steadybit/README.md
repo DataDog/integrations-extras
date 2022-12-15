@@ -19,7 +19,7 @@ You will need a [free or paid Steadybit license][3]. The integration supports St
 
 ### Installation
 
-Several [installation methods are supported](https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog#content-installation). The simplest way to install the Steadybit Datadog extension is through our dedicated Helm chart.
+Several [installation methods are supported][4]. The simplest way to install the Steadybit Datadog extension is through our dedicated Helm chart.
 
 To learn more about the supported values for `datadog.siteParameter` and `datadog.siteUrl`, please see [Datadog's site documentation page](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site).
 
