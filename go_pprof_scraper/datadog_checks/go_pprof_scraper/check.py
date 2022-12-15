@@ -12,6 +12,8 @@ from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
+from .__about__ import __version__
+
 try:
     from urllib.parse import urljoin, urlparse
 except ImportError:
@@ -154,6 +156,7 @@ class GoPprofScraperCheck(AgentCheck):
             add_form_field("tags[]", "runtime:go")
             add_form_field("tags[]", "service:{}".format(self.service))
             add_form_field("tags[]", "runtime-id:{}".format(self.runtime_id))
+            add_form_field("tags[]", "profiler_version:agent-integration-{}".format(__version__))
             if self.env:
                 add_form_field("tags[]", "env:{}".format(self.env))
             for tag in self.tags:
