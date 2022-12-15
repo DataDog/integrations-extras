@@ -1,7 +1,7 @@
 # Instabug integration
 ## Overview
 
-[Instabug][1] helps mobile teams proactively improve the quality of their mobile apps and deliver the high-quality experience to end users. You can use APM, Crash Reporting, and Bug Reporting tools to help optimize your app's performance and deliver a high-quality experience to your users.
+[Instabug][1] helps mobile teams proactively improve the quality of their mobile apps and deliver a high-quality experience to end users. You can use APM, Crash Reporting, and Bug Reporting tools to help optimize your app's performance and improve the end-user experience.
 
 Instabug provides a dashboard widget for Datadog dashboards that helps monitor your overall app health and how users perceive your app's performance with just one number, the App Apdex. The widget provides:
 - The overall App Apdex score.
