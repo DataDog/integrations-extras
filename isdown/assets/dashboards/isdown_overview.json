@@ -1,0 +1,64 @@
+{
+  "title": "IsDown Dashboard",
+  "description": "",
+  "widgets": [{
+    "id": 3106929309224016,
+    "definition": {
+      "title": "",
+      "title_size": "16",
+      "title_align": "left",
+      "type": "event_timeline",
+      "query": "-status:ok source:my_apps",
+      "tags_execution": "and"
+    },
+    "layout": {
+      "x": 0,
+      "y": 0,
+      "width": 8,
+      "height": 3
+    }
+  }, {
+    "id": 274344946639516,
+    "definition": {
+      "title": "Check Status",
+      "title_size": "16",
+      "title_align": "left",
+      "time": {
+        "live_span": "10m"
+      },
+      "type": "check_status",
+      "check": "isdown",
+      "grouping": "cluster",
+      "group_by": ["host"],
+      "tags": ["*"]
+    },
+    "layout": {
+      "x": 8,
+      "y": 0,
+      "width": 4,
+      "height": 5
+    }
+  }, {
+    "id": 5089741986685294,
+    "definition": {
+      "title": "Incidents List",
+      "title_size": "16",
+      "title_align": "left",
+      "type": "event_stream",
+      "query": "source:my_apps",
+      "event_size": "s"
+    },
+    "layout": {
+      "x": 0,
+      "y": 3,
+      "width": 8,
+      "height": 5
+    }
+  }],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "pjp-g7j-srq"
+}
