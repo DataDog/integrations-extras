@@ -36,14 +36,6 @@ def test_config():
             [{"pprof_url": "http://localhost:1234/debug/pprof/", "profiles": ["xzy"], "service": "testing"}],
         )
 
-    # Duration too long
-    with pytest.raises(ConfigurationError):
-        GoPprofScraperCheck(
-            "go_pprof_scraper",
-            INIT_CONFIG,
-            [{"pprof_url": "http://localhost:1234/debug/pprof", "duration": 1000, "service": "testing"}],
-        )
-
     c = GoPprofScraperCheck(
         "go_pprof_scraper",
         INIT_CONFIG,

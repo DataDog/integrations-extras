@@ -69,13 +69,15 @@ instances:
     #
     service: <SERVICE>
 
-    ## @param min_collection_interval - number - optional - default: 60
-    ## How frequently profiles are collected.
-    ##
+    ## @param min_collection_interval - number - optional - default: 0
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    ##
+    ## This is a long-running check, and is intended to be started again as
+    ## soon as it finishes. Setting this to a value greater than 0 will
+    ## cause pauses between iterations of this check.
     #
-    min_collection_interval: 60
+    # min_collection_interval: 0
 
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.

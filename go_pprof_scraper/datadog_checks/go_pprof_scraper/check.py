@@ -59,12 +59,6 @@ class GoPprofScraperCheck(AgentCheck):
             self.hostname = socket.gethostname()
 
         self.duration = self.instance.get("duration", DEFAULT_PROFILE_DURATION)
-        if self.duration > self.instance.get("min_collection_interval", 60):
-            raise ConfigurationError(
-                "duration ({}) is be longer than min_collection_interval ({})".format(
-                    self.duration, self.instance.get("min_collection_interval")
-                )
-            )
 
         self.profiles = self.instance.get("profiles", DEFAULT_PROFILES)
         for profile in self.profiles:
