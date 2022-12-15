@@ -15,7 +15,7 @@ The integration between Datadog and Steadybit is done through the [Steadybit Dat
 
 ### Prerequisites
 
-You will need a [free or paid Steadybit license](https://signup.steadybit.io/?utm_campaign=datadog-integration&utm_source=datadog&utm_medium=integration-setup). The integration supports Steadybit's SAAS and on-premises offering.
+You will need a [free or paid Steadybit license][3]. The integration supports Steadybit's SAAS and on-premises offering.
 
 ### Installation
 
