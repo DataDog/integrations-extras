@@ -2,12 +2,9 @@
 
 ## Overview
 
-[Steadybit](https://steadybit.com/) is the first reliability engineering platform to go beyond Chaos Engineering. Organizations in the eCommerce, SaaS and financial services industries, as well as global enterprises choose Steadybit to roll out chaos engineering across their teams to foster a culture of reliability. Steadybit provides everything an organization needs to make it safe and easy to bridge the gap between the experts (SREs, platform and expert teams) and the developers.
+[Steadybit][1] is a chaos-engineering platform allowing you to simulate turbulent conditions in a controlled way to improve system reliability and guide your organization to better incident management.
 
-The monitor status check step can be dragged&dropped into the experiment editor. Once done, you can use it to collect information about the state of the Datadog monitors and, optionally, to verify that they are within the expected status.
-
-Experiments can be aborted and marked as failed when the Datadog monitor status check's actual state diverges from the expected state. This helps implement pre-/post-conditions and invariants. For example, to only start an experiment when the system is healthy.
-
+Through this integration, you can leverage Datadog information within chaos-engineering experiments and see chaos-engineering activity in the form of events within Datadog.
 
 ## Setup
 
@@ -62,8 +59,8 @@ Steadybit reports events to Datadog indicating chaos engineering activity. All s
 
 Need help? Contact [Steadybit's support](mailto:support@steadybit.com).
 
-[1]: https://steadybit.com/
-[2]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog
-[3]: https://signup.steadybit.io/utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-setup
-[4]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog#content-installation
+[1]: https://steadybit.com/?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
+[2]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
+[3]: https://signup.steadybit.io/?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
+[4]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme#content-installation
 [5]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
