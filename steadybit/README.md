@@ -61,3 +61,9 @@ Steadybit reports events to Datadog indicating chaos engineering activity. All s
 ## Troubleshooting
 
 Need help? Contact [Steadybit's support](mailto:support@steadybit.com).
+
+[1]: https://steadybit.com/
+[2]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog
+[3]: https://signup.steadybit.io/utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-setup
+[4]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog#content-installation
+[5]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
