@@ -27,7 +27,6 @@ As Buoyant Cloud creates events, you should see them appear in Datadog [event ex
 1. Browse to the [Buoyant Cloud Settings][2] page
 2. Click the 3 dots to the right of your Datadog org
 3. Click `Remove`
-4. In the Datadog UI, remove any related Buoyant Cloud API keys from Organization Settings
 
 ## Data Collected
 
