@@ -11,7 +11,7 @@ Experiments can be aborted and marked as failed when the Datadog monitor status 
 
 ## Setup
 
-The integration between Datadog and Steadybit is done through the [Steadybit Datadog extension](https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog). The extension interacts with Datadog's API to gather information about monitors and report events to Datadog.
+The integration between Datadog and Steadybit is done through the [Steadybit Datadog extension][2]. The extension interacts with Datadog's API to gather information about monitors and report events to Datadog.
 
 ### Prerequisites
 
