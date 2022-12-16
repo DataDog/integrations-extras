@@ -16,7 +16,7 @@ You need to have an account at [Buoyant Cloud][1] to use this integration. You c
 2. Browse to the [Buoyant Cloud Settings][2] page, and click `Connect Datadog`.
 3. Browse to the [Buoyant Cloud Notifications][3] page.
 4. Click the kebab menu to edit a notification.
-5. Go to the `Destinations` section and select your Datadog account to send all events matching the notification rule to Datadog.
+5. Go to the **Destinations** section and select your Datadog account to send all events matching the notification rule to Datadog.
 
 ### Validation
 
@@ -52,7 +52,7 @@ Need help? Get support from the following sources:
 [1]: https://buoyant.io/cloud
 [2]: https://buoyant.cloud/settings
 [3]: https://buoyant.cloud/notifications
-[4]: /event/explorer
+[4]: https://app.datadoghq.com/event/explorer
 [5]: https://docs.buoyant.cloud
 [6]: https://slack.linkerd.io
 [7]: mailto:cloud@buoyant.io
