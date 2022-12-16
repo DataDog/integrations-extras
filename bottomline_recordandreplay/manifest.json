@@ -1,0 +1,78 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "d87fbcfa-71db-4d62-8264-5d88ba2338ce",
+  "app_id": "bottomline-recordandreplay",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your 3270/5250 Mainframe users and Mainframe resources using network traffic.",
+    "title": "Bottomline's Record and Replay: Mainframe Integration",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Mainframe Record and Replay User Session",
+        "image_url": "images/mainframe_replay.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Mainframe Record and Replay Dashboard",
+        "image_url": "images/bt_dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Mainframe Record and Replay Overview",
+        "image_url": "images/bt_replay.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Mainframe Record and Replay Architecture",
+        "image_url": "images/bt_architecture.png"
+      },
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Category::Marketplace",
+      "Category::Cloud",
+      "Category::Monitoring",      
+      "Offering::Integration"
+    ]
+  },
+  "author": {
+    "homepage": "https://www.bottomline.com/",
+    "name": "Bottomline Technologies",
+    "support_email": "Andrew.Leon@bottomline.com",
+    "vendor_id": "bottomline",
+    "sales_email": "Andrew.Leon@bottomline.com"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Bottomline Mainframe",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "bottomline.cfrm.",
+        "check": "bottomline.mainframe.activity.@usr.id.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {}
+    },
+    "dashboards": {
+      "Bottomline Record and Replay Overview": "assets/dashboards/bottomline_activity_overview.json",
+    },
+    "monitors": {
+      "Mainframe resource taking long time to respond": "assets/monitors/bottomline_mainframe_resource_has_problem.json",
+    },
+    "logs": {}
+  },
+  "pricing": [
+    {}
+  ],
+  "legal_terms": {}
+}
