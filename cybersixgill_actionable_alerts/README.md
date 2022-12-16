@@ -2,14 +2,13 @@
 
 ## Overview
 
-Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web 
-such as IP addresses, domains, vulnerabilities, and VIPs. This integration provides an out-of-
-the-box dashboard to prioritize and respond to threats.
+Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web such as IP addresses, 
+domains, vulnerabilities, and VIPs. This integration provides an out-of-the-box dashboard to prioritize and respond to threats.
 
 This check monitors [cybersixgill_actionable_alerts][1].
 
 ## Setup
-
+If you are not already a customer of Cybersixgill, visit Cybersixgill's Marketplace listing to purchase a license.
 ### Installation
 
 To install the cybersixgill_actionable_alerts check on your host:
@@ -17,15 +16,14 @@ To install the cybersixgill_actionable_alerts check on your host:
 2. To build the package, run the command: `ddev release build cybersixgill_actionable_alerts`
 3. [Install the Datadog Agent][10] on your host.
 4. Once the Agent is installed, run the following command to install the Agent integration: `datadog-agent integration install -t 
-datadog-<INTEGRATION_NAME>==<INTEGRATION_VERSION>`.
+datadog-Cybersixgill Actionable Alerts==1.0.0`.
 
 ### Configuration
-1. Email getstarted@cybersixgill.com.
-2. After getting some information about your organization and understanding your needs.
-3. You will receive a welcome email with access to the Cybersixgill developer platform.
-4. Within the Cybersixgill developer platform, create the Client ID and Client secret.
-5. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-6. Provide the min collection interval in seconds. `min_collection_interval: 3600`
+1. To get Cybersixgill client ID and secret to operate Datadog integration, please reach out to support@cybersixgill.com.
+2. You will receive a welcome email with access to the Cybersixgill developer platform.
+3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
+4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
+5. Provide the min collection interval in seconds. `min_collection_interval: 3600`
 
 ### Validation
  Verify that [events][12] are generated in your account.
