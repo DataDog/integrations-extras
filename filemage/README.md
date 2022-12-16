@@ -54,9 +54,6 @@ sudo -u dd-agent datadog-agent integration install -w filemage/dist/datadog_file
 
 Run the [Agent's `status` subcommand][7] and look for `filemage` under the Running Checks section.
 
-```shell
-sudo -u dd-agent datadog-agent status
-```
 
 ```text
 ...
