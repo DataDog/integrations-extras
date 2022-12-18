@@ -26,7 +26,7 @@ To get your custom install app:
 	a. This install has an initial limit of 10 seats, and comes with a default 30-day trial period. To remove trial limitations you need a full commercial license. If you don't have a commercial license already, contact [TypingDNA][2] for licensing or the reseller/partner through which you found us.
 3. After installation, your ActiveLock logs should start to appear in [Log Explorer][5].
 
-Note: If you are through a reseller/partner, please follow their instructions to get your custom install app (and commercial license).
+Note that if you came through a reseller/partner you should follow their instructions to get your custom install app (and commercial license).
 
 
 ### Validation
