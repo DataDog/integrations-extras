@@ -14,7 +14,7 @@ Visit [Vantage][4] to sign up for free. Once registered, visit the [Vantage inte
 
 Once integrated, begin exploring your Datadog costs within Vantage. You can create filters for specific Datadog organizations and services alongside costs from any of the other supported Vantage providers.
 
-## Uninstallation
+### Uninstallation
 
 To remove the Datadog integration from Vantage, navigate to the [Vantage integrations page][1] and click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button below. Once you uninstall this integration, any previous authorizations are revoked. 
 
