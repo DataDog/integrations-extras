@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Steadybit][1] is a chaos-engineering platform allowing you to simulate turbulent conditions in a controlled way to improve system reliability and guide your organization to better incident management.
+[Steadybit][1] is a chaos-engineering platform allowing you to simulate turbulent conditions in a controlled way, to improve system reliability and guide your organization to better incident management.
 
 Through this integration, you can leverage Datadog information within chaos-engineering experiments and see chaos-engineering activity in the form of events within Datadog.
 
