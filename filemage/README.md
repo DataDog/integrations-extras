@@ -6,41 +6,15 @@ This check monitors [FileMage][1].
 
 ## Setup
 
-### Building the package
-
-1. Install the [Datadog Developer Toolkit][3].
-
-2. Clone the `integrations-extras` repository:
-
-```shell
-git clone https://github.com/DataDog/integrations-extras.git
-```
-
-3. Update your `ddev` config with the repo path:
-
-```shell
-cd integrations-extras/
-ddev config set extras $(pwd)
-```
-
-4. Build the `datadog-filemage` package:
-
-```shell
-ddev -e release build filemage
-```
-
 ### Installing the package
 
-Once you've built the wheel package, install it on a host:
-
-1. Ensure that the [Datadog Agent][2] is installed.
-
-2. Install the package:
+1. Run the following command to install the Agent integration:
 
 ```shell
-chown dd-agent:dd-agent filemage/dist/datadog_filemage*.whl
-sudo -u dd-agent datadog-agent integration install -w filemage/dist/datadog_filemage*.whl
+datadog-agent integration install -t datadog-filemage==1.0.0
 ```
+
+2. Configure your integration similar to an Agent-based [integration][3].
 
 ### Configuration
 
@@ -99,7 +73,7 @@ Need help? Contact [dOpenSource][4].
 
 [1]: https://www.filemage.io/
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://docs.datadoghq.com/getting_started/integrations/
 [4]: https://dopensource.com/
 [5]: ./datadog_checks/filemage/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
