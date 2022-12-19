@@ -87,6 +87,10 @@ class GoPprofScraperCheck(AgentCheck):
         # this is being run by the agent
         self.trace_agent_url = "http://localhost:{}/profiling/v1/input".format(self.trace_agent_port)
 
+        # If modifying UDS-related code, run the end-to-end tests with the
+        # GO_PPROF_TEST_UDS environment variable defined so that the agent will
+        # listen over UDS rather than TCP, e.g.
+        #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
         self.trace_agent_socket = datadog_agent.get_config("apm_config.receiver_socket")
         if self.trace_agent_socket:
             # requets_unixsocket expects the path to be URL-encoded. We pass
@@ -167,6 +171,10 @@ class GoPprofScraperCheck(AgentCheck):
             # "Datadog-Container-ID" header to the request.
 
             if self.trace_agent_socket:
+                # If modifying UDS-related code, run the end-to-end tests with
+                # the GO_PPROF_TEST_UDS environment variable defined so that
+                # the agent will listen over UDS rather than TCP, e.g.
+                #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
                 session = requests_unixsocket.Session()
                 r = session.post(self.trace_agent_socket, files=files)
             else:
