@@ -9,6 +9,7 @@ from uuid import uuid4
 
 import requests_unixsocket
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+from requests.utils import quote
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
@@ -88,7 +89,10 @@ class GoPprofScraperCheck(AgentCheck):
 
         self.trace_agent_socket = datadog_agent.get_config("apm_config.receiver_socket")
         if self.trace_agent_socket:
-            self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(self.trace_agent_socket)
+            # requets_unixsocket expects the path to be URL-encoded. We pass
+            # safe="" to quote so that the "/" are escaped.
+            path = quote(self.trace_agent_socket, safe="")
+            self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(path)
 
     def _get_profile(self, profile):
         query_params = {}
