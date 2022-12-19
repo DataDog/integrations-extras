@@ -39,7 +39,7 @@ helm upgrade steadybit-extension-datadog \
 
 ### Validation
 
-Once the Steadybit Datadog extension is running, you can see a list of Datadog monitors within the *Landscape* tab in Steadybit.
+Once the Steadybit Datadog extension is running, see a list of Datadog monitors within the *Landscape* tab in Steadybit.
 
 ## Data Collected
 
