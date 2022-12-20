@@ -31,13 +31,7 @@ As Buoyant Cloud creates events, they appear in the Datadog [event explorer][3].
 
 ### Events
 
-Buoyant Cloud sends [events][3] to Datadog, including:
-
-- Linkerd health alerts
-- Linkerd configuration alerts
-- Workload traffic alerts
-- Workload rollouts
-- Manual events
+Buoyant Cloud sends [events][3] to Datadog.
 
 ## Troubleshooting
 
