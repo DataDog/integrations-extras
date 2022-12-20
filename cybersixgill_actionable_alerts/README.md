@@ -19,7 +19,7 @@ To install the cybersixgill_actionable_alerts check on your host:
 datadog-Cybersixgill Actionable Alerts==1.0.0`.
 
 ### Configuration
-1. To get Cybersixgill client ID and secret to operate Datadog integration, please reach out to support@cybersixgill.com.
+1. Please reach out to support@cybersixgill.com and request access to the Cybersixgill Developer Platform.
 2. You will receive a welcome email with access to the Cybersixgill developer platform.
 3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
 4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
@@ -34,7 +34,7 @@ datadog-Cybersixgill Actionable Alerts==1.0.0`.
 See assets/service_checks.json for a list of service checks provided by this integration.
 
 ### Events
-This integration sends events into Datadog.
+This integration sends [events][12] into Datadog.
 
 ## Troubleshooting
 Need help? Contact [Cybersixgill support][13].
