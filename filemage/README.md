@@ -8,6 +8,9 @@ This check monitors [FileMage][1].
 
 ### Installing the package
 
+For the Datadog Agent v7.21 or v6.21 and later, follow these instructions to install the Filemage integration on your host.  
+See [Use Community Integrations][11] to install it with the Docker Agent or earlier versions of the Datadog Agent.  
+
 1. Run the following command to install the Agent integration:
 
 ```shell
@@ -37,7 +40,7 @@ Run the [Agent's `status` subcommand][7] and look for `filemage` under the Runni
 
     ...
 
-    filemage (0.0.1)
+    filemage (1.0.0)
     ----------------
       Instance ID: filemage:ac55127bf7bd70b9 [OK]
       Configuration Source: file:/etc/datadog-agent/conf.d/filemage.d/conf.yaml
@@ -81,3 +84,5 @@ Need help? Contact [dOpenSource][4].
 [8]: ./assets/service_checks.json
 [9]: ./datadog_checks/filemage/metadata.csv
 [10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
+[11]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+
