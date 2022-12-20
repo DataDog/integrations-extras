@@ -12,19 +12,18 @@ You need to have an account at [Buoyant Cloud][1] to use this integration. You c
 
 ### Configuration
 
-1. Log in to your Buoyant Cloud account.
-2. Browse to the [Buoyant Cloud Settings][2] page, and click `Connect Datadog`.
-3. Browse to the [Buoyant Cloud Notifications][3] page.
-4. Click the kebab menu to edit a notification.
-5. Go to the **Destinations** section and select your Datadog account to send all events matching the notification rule to Datadog.
+1. Click the Connect Accounts button on the tile to complete the OAuth flow.
+2. Browse to the [Buoyant Cloud Notifications][2] page.
+3. Click the kebab menu to edit a notification.
+4. Go to the **Destinations** section and select your Datadog account to send all events matching the notification rule to Datadog.
 
 ### Validation
 
-As Buoyant Cloud creates events, they appear in the Datadog [event explorer][4].
+As Buoyant Cloud creates events, they appear in the Datadog [event explorer][3].
 
 ## Uninstallation
 
-1. Browse to the [Buoyant Cloud Settings][2] page
+1. Browse to the [Buoyant Cloud Settings][4] page
 2. Click the kebab menu to the right of your Datadog org
 3. Click `Remove`
 
@@ -32,7 +31,7 @@ As Buoyant Cloud creates events, they appear in the Datadog [event explorer][4].
 
 ### Events
 
-Buoyant Cloud sends [events][4] to Datadog, including:
+Buoyant Cloud sends [events][3] to Datadog, including:
 
 - Linkerd health alerts
 - Linkerd configuration alerts
@@ -47,12 +46,11 @@ Need help? Get support from the following sources:
 - Browse the [Buoyant Cloud docs][5]
 - Reach out in [Linkerd Slack][6]
 - [Email the Buoyant Cloud team][7]
-- [Contact Buoyant][1]
 
 [1]: https://buoyant.io/cloud
-[2]: https://buoyant.cloud/settings
-[3]: https://buoyant.cloud/notifications
-[4]: https://app.datadoghq.com/event/explorer
+[2]: https://buoyant.cloud/notifications
+[3]: https://app.datadoghq.com/event/explorer
+[4]: https://buoyant.cloud/settings
 [5]: https://docs.buoyant.cloud
 [6]: https://slack.linkerd.io
 [7]: mailto:cloud@buoyant.io
