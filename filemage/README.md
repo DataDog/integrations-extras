@@ -78,11 +78,11 @@ Need help? Contact [dOpenSource][4].
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/getting_started/integrations/
 [4]: https://dopensource.com/
-[5]: ./datadog_checks/filemage/data/conf.yaml.example
+[5]: https://github.com/DataDog/integrations-extras/blob/master/filemage/datadog_checks/filemage/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[8]: ./assets/service_checks.json
-[9]: ./datadog_checks/filemage/metadata.csv
+[8]: https://github.com/DataDog/integrations-extras/blob/master/filemage/assets/service_checks.json
+[9]: https://github.com/DataDog/integrations-extras/blob/master/filemage/metadata.csv
 [10]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [11]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 
