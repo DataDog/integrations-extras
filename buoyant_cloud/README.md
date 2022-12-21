@@ -27,6 +27,8 @@ As Buoyant Cloud creates events, they appear in the Datadog [event explorer][3].
 2. Click the kebab menu to the right of your Datadog org
 3. Click `Remove`
 
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
+
 ## Data Collected
 
 ### Events
@@ -37,14 +39,15 @@ Buoyant Cloud sends [events][3] to Datadog.
 
 Need help? Get support from the following sources:
 
-- Browse the [Buoyant Cloud docs][5]
-- Reach out in [Linkerd Slack][6]
-- [Email the Buoyant Cloud team][7]
+- Browse the [Buoyant Cloud docs][6]
+- Reach out in [Linkerd Slack][7]
+- [Email the Buoyant Cloud team][8]
 
 [1]: https://buoyant.io/cloud
 [2]: https://buoyant.cloud/notifications
 [3]: https://app.datadoghq.com/event/explorer
 [4]: https://buoyant.cloud/settings
-[5]: https://docs.buoyant.cloud
-[6]: https://slack.linkerd.io
-[7]: mailto:cloud@buoyant.io
+[5]: https://app.datadoghq.com/organization-settings/api-keys
+[6]: https://docs.buoyant.cloud
+[7]: https://slack.linkerd.io
+[8]: mailto:cloud@buoyant.io
