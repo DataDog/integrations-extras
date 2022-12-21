@@ -8,8 +8,8 @@ What IsDown offers:
 
 * Get outage alerts in Datadog from all your third-party dependencies ( SaaS, PaaS, Cloud Providers, etc.)
 * Understand the frequency of outages through your different providers
-* Have the external outages together with the internal information
-* Set monitoring for specific parts or the whole provider
+* Have the external outages together with the information you gather in other systems in Datadog.
+* Set which components from a service you want to monitor. This way you avoid getting alerts from parts of a service that are not critical for your business.
 
 ## Setup
 
@@ -36,7 +36,7 @@ To connect Datadog to IsDown, you need to generate an API key in Datadog and add
 
 ### Service Checks
 
-IsDown sends service checks for each service you monitor. The service check name is `isdown`, with the host being the service name. The status is `OK` if the service is up and `WARNING` or `CRITICAL` depending on the severity of the status of a service.
+See [service_checks.json][3] for a list of service checks provided by this integration.
 
 ### Events
 
@@ -52,4 +52,5 @@ Need help? Contact [IsDown support][2].
 
 [1]: https://isdown.app
 [2]: mailto:support@isdown.app
+[3]: assets/service_checks.json
 
