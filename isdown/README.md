@@ -6,7 +6,7 @@
 
 What IsDown offers:
 
-* Get outage alerts in Datadog from all your third-party dependencies ( SaaS, PaaS, Cloud Providers, etc.)
+* Get outage alerts in Datadog from all your third-party dependencies (SaaS, PaaS, Cloud Providers, and so on)
 * Understand the frequency of outages through your different providers
 * Have the external outages together with the information you gather in other systems in Datadog.
 * Set which components from a service you want to monitor. This way you avoid getting alerts from parts of a service that are not critical for your business.
