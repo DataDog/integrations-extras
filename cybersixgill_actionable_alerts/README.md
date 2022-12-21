@@ -15,15 +15,15 @@ To install the cybersixgill_actionable_alerts check on your host:
 1. Install the [developer toolkit][11] on any machine.
 2. To build the package, run the command: `ddev release build cybersixgill_actionable_alerts`
 3. [Install the Datadog Agent][10] on your host.
-4. Once the Agent is installed, run the following command to install the Agent integration: `datadog-agent integration install -t 
+4. Once the Agent is installed, run the following command to install the integration: `datadog-agent integration install -t 
 datadog-Cybersixgill Actionable Alerts==1.0.0`.
 
 ### Configuration
-1. Please reach out to support@cybersixgill.com and request access to the Cybersixgill Developer Platform.
-2. You will receive a welcome email with access to the Cybersixgill developer platform.
+1. Reach out to support@cybersixgill.com and request access to the Cybersixgill Developer Platform.
+2. Receive the welcome email with access to the Cybersixgill developer platform.
 3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
 4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-5. Provide the min collection interval in seconds. `min_collection_interval: 3600`
+5. Provide the min collection interval in seconds. For example, `min_collection_interval: 3600`
 
 ### Validation
  Verify that [events][12] are generated in your account.
@@ -34,7 +34,7 @@ datadog-Cybersixgill Actionable Alerts==1.0.0`.
 See assets/service_checks.json for a list of service checks provided by this integration.
 
 ### Events
-This integration sends [events][12] into Datadog.
+This integration sends API type [events][12] to Datadog.
 
 ## Troubleshooting
 Need help? Contact [Cybersixgill support][13].
