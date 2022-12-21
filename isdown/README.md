@@ -2,7 +2,7 @@
 
 ## Overview
 
-[IsDown][1] is a status page aggregator & outage monitoring tool that helps businesses stay on top of their critical dependencies. Provide your team real-time monitoring and instant notifications for outages in all your tools and cloud providers. We monitor more than 2000 status pages.
+[IsDown][1] is a status page aggregator and outage monitoring tool that helps businesses monitor their dependencies. You can provide your team real-time monitoring and instant notifications for outages in all your tools and cloud providers. IsDown monitors more than 2000 status pages.
 
 What IsDown offers:
 
