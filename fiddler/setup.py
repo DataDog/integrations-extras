@@ -52,8 +52,8 @@ setup(
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='Rajeev',
-    author_email='rajeev@fiddler.ai',
+    author='Danny Brock',
+    author_email='danny@fiddler.ai',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers

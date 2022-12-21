@@ -29,11 +29,14 @@ class FiddlerCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FiddlerCheck, self).__init__(name, init_config, instances)
 
-        self.base_url = self.instance.get('url')
+        self.base_url = self.instance.get('urlF')
         self.api_key = self.instance.get('fiddler_api_key')
         self.org = self.instance.get('organization')
 
         self.log.info("Connecting to : %s", self.base_url)
+        print("Connecting to: " + str(self.base_url))
+        print("Org: " + str(self.org))
+        print("Auth: " + str(self.api_key))
 
         self.client = None
 
