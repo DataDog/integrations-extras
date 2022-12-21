@@ -12,7 +12,7 @@ You need to have an account at [Buoyant Cloud][1] to use this integration. You c
 
 ### Configuration
 
-1. Click the Connect Accounts button on the tile to complete the OAuth flow.
+1. Click the **Connect Accounts** button on the tile to complete the OAuth flow.
 2. Browse to the [Buoyant Cloud Notifications][2] page.
 3. Click the kebab menu to edit a notification.
 4. Go to the **Destinations** section and select your Datadog account to send all events matching the notification rule to Datadog.
@@ -23,9 +23,9 @@ As Buoyant Cloud creates events, they appear in the Datadog [event explorer][3].
 
 ## Uninstallation
 
-1. Browse to the [Buoyant Cloud Settings][4] page
-2. Click the kebab menu to the right of your Datadog org
-3. Click `Remove`
+1. Browse to the [Buoyant Cloud Settings][4] page.
+2. Click the kebab menu to the right of your Datadog org.
+3. Click **Remove**.
 
 Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
