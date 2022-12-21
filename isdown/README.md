@@ -27,7 +27,7 @@ To connect Datadog to IsDown, you need to generate an API key in Datadog and add
 
 ### Uninstallation
 
-1. Go to the Notifications page in IsDown.
+1. Go to the **Notifications** page in IsDown.
 2. Unselect Datadog and click Save.
 3. Delete you API Key dedicated to IsDown from Datadog.
 
