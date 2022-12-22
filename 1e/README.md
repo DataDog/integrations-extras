@@ -4,6 +4,9 @@
 
 At [1E][1], we reimagine how technology serves people and create new ways for IT to shape the future of work.
 
+The 1E platform helps IT teams improve end user experience, tighten security, reduce costs, and evolve IT Operations from cost center to strategic enabler.
+Our platform contains 1E for Visibility, Control, and Compliance, 1E for Digital Experience Observability, and 1E for Service Desk Automation solutions.
+
 The 1E Datadog Integration is an API-based integration that collects metrics from 1E products and forwards them to your Datadog account.
 
 Integrating Datadog with 1E enables IT administrators to:
@@ -28,16 +31,6 @@ To configure your integration between Datadog and 1E you will need to have the f
 ### Configuration
 
 Steps required to configure your integration between Datadog and 1E.
-
-#### Installing the 1E Dashboard
-
-You can install the 1E Dashboard from the Datadog Marketplace at any time in this process.
-
-To install, navigate to **Integrations** in your Datadog instance, search for **1E**, and open **1E Dashboard**.
-
-In 1E Dashboard, click on **Install Integration**.
-
-The dashboard's tiles will show data after you have configured integration with 1E.
 
 #### Creating a Datadog API Key
 
