@@ -38,7 +38,7 @@ If you are not already a customer of Bottomline, visit [Bottomline's Marketplace
 Follow the instructions outlined [here][4] to install the integration.
 
 ## Support
-For support or feature requests, contact Bottomline at [Andrew.Leon@bottomline.com](mailto:Andrew.Leon@bottomline.com).
+For support or feature requests, contact Bottomline at [partner.cfrm@bottomline.com](mailto:partner.cfrm@bottomline.com).
 
 
 [1]: https://www.bottomline.com/
