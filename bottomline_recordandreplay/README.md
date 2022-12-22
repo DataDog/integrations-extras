@@ -45,3 +45,4 @@ For support or feature requests, contact Bottomline at [partner.cfrm@bottomline.
 [2]: https://github.com/DataDog/integrations-extras/blob/master/bottomline_recordandreplay/metadata.csv
 [3]: https://app.datadoghq.com/marketplace/app/bottomline-mainframe
 [4]: https://github.com/nbk96f1/datadog/tree/main/Documentation
+[5]: mailto:partner.cfrm@bottomline.com
