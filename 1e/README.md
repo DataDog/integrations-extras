@@ -139,8 +139,7 @@ In addition, you can view data about:
 ### Schedule reports and create notifications in Datadog
 
 Once you have configured the 1E Dashboard, you have the option to schedule reports and create
-notifications from it.
-Refer to the [Datadog documentation][5] for details.
+notifications from it. Refer to the [Datadog documentation][5] for details.
 
 ## Data Collected
 
