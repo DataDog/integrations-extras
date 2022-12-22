@@ -158,7 +158,7 @@ The 1E integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][6] or reach out to [1E Support][1].
+Need help? Contact [1E Support][1].
 
 [1]: https://www.1e.com/
 [2]: https://1eportal.force.com/s/
