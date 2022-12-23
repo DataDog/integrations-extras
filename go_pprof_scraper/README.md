@@ -17,7 +17,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-If you are using an Agent version >= 7.21/6.21, follow the instructions below to install the RedisEnterprise check on your host. See the dedicated Agent guide for [installing community integrations][14] to install checks with an [Agent version < v7.21/v6.21][15] or the [Docker Agent][16]:
+If you are using an Agent version >= 7.21/6.21, follow the instructions below to install the `go_pprof_scraper` check on your host. See the dedicated Agent guide for [installing community integrations][14] to install checks with an [Agent version < v7.21/v6.21][15] or the [Docker Agent][16]:
 
 1. [Download and launch the Datadog Agent][2].
 2. Run the following command to install the integrations wheel with the Agent:

@@ -36,7 +36,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_database_time{$instance,$host,$cluster_name,$cluster_id} by {sql_type}",
+                                            "query": "sum:tidb_cloud.db_database_time{$instance,$host,$cluster_name,$cluster_id,$project_name} by {sql_type}",
                                             "data_source": "metrics",
                                             "name": "query0"
                                         }
@@ -57,7 +57,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_database_time{$instance,$host,$cluster_name,$cluster_id}",
+                                            "query": "sum:tidb_cloud.db_database_time{$instance,$host,$cluster_name,$cluster_id,$project_name}",
                                             "data_source": "metrics",
                                             "name": "query0"
                                         }
@@ -111,7 +111,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_query_per_second{$cluster_name,$host,$instance,$cluster_id}",
+                                            "query": "sum:tidb_cloud.db_query_per_second{$cluster_name,$host,$instance,$cluster_id,$project_name}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -132,7 +132,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_query_per_second{$cluster_name,$host,$instance,$cluster_id} by {type}",
+                                            "query": "sum:tidb_cloud.db_query_per_second{$cluster_name,$host,$instance,$cluster_id,$project_name} by {type}",
                                             "data_source": "metrics",
                                             "name": "query0"
                                         }
@@ -186,7 +186,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.db_average_query_duration{$cluster_name,$instance,$host,$cluster_id} by {sql_type}",
+                                            "query": "avg:tidb_cloud.db_average_query_duration{$cluster_name,$instance,$host,$cluster_id,$project_name} by {sql_type}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -241,7 +241,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_failed_queries{$cluster_name,$instance,$host,$cluster_id} by {type}",
+                                            "query": "sum:tidb_cloud.db_failed_queries{$cluster_name,$instance,$host,$cluster_id,$project_name} by {type}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -313,7 +313,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_total_connection{$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.db_total_connection{$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -368,7 +368,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_active_connections{$instance,$host,$cluster_name,$cluster_id} by {instance}.as_rate()",
+                                            "query": "sum:tidb_cloud.db_active_connections{$instance,$host,$cluster_name,$cluster_id,$project_name} by {instance}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -422,7 +422,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_disconnections{$instance,$host,$cluster_name,$cluster_id} by {instance,result}.as_rate()",
+                                            "query": "sum:tidb_cloud.db_disconnections{$instance,$host,$cluster_name,$cluster_id,$project_name} by {instance,result}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -494,7 +494,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_command_per_second{$instance,$host,$cluster_name,$cluster_id} by {type}",
+                                            "query": "sum:tidb_cloud.db_command_per_second{$instance,$host,$cluster_name,$cluster_id,$project_name} by {type}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -515,7 +515,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_command_per_second{$instance,$host,$cluster_name,$cluster_id}",
+                                            "query": "sum:tidb_cloud.db_command_per_second{$instance,$host,$cluster_name,$cluster_id,$project_name}",
                                             "data_source": "metrics",
                                             "name": "query0"
                                         }
@@ -570,7 +570,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_queries_using_plan_cache_ops{$instance,$host,$cluster_name,$cluster_id}",
+                                            "query": "sum:tidb_cloud.db_queries_using_plan_cache_ops{$instance,$host,$cluster_name,$cluster_id,$project_name}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -624,7 +624,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_transaction_per_second{$instance,$host,$cluster_name,$cluster_name,$cluster_id} by {type,txn_mode}",
+                                            "query": "sum:tidb_cloud.db_transaction_per_second{$instance,$host,$cluster_name,$cluster_name,$cluster_id,$project_name} by {type,txn_mode}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -645,7 +645,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.db_transaction_per_second{$instance,$host,$cluster_name,$cluster_name,$cluster_id}",
+                                            "query": "sum:tidb_cloud.db_transaction_per_second{$instance,$host,$cluster_name,$cluster_name,$cluster_id,$project_name}",
                                             "data_source": "metrics",
                                             "name": "query0"
                                         }
@@ -722,12 +722,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tidb,$cluster_name,$instance,$host,$cluster_id} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tidb,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -786,12 +786,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -850,12 +850,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -914,12 +914,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -978,12 +978,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -1042,12 +1042,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_cpu_capacity_cores{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -1106,12 +1106,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_used_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_memory_capacity_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -1170,12 +1170,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_storage_used_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id} by {instance}",
+                                            "query": "sum:tidb_cloud.node_storage_capacity_bytes{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -1225,6 +1225,12 @@
             "default": "tidbcloud.com"
         },
         {
+            "name": "project_name",
+            "prefix": "project_name",
+            "available_values": [],
+            "default": "*"
+        },
+        {
             "name": "cluster_name",
             "prefix": "cluster_name",
             "available_values": [],
@@ -1247,5 +1253,5 @@
     "is_read_only": false,
     "notify_list": [],
     "reflow_type": "fixed",
-    "id": "pp5-5zq-vw6"
+    "id": "g48-n7e-c3f"
 }

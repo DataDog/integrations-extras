@@ -11,7 +11,7 @@ With the Adaptive Shield integration, you can track and monitor SaaS posture ale
 4. Click on **OAuth** to authorize.
 
 
-### Uninstallation
+## Uninstallation
 
 When you uninstall this integration, any previous authorizations are revoked. 
 

@@ -31,7 +31,7 @@ Here's how you can track incidents in Datadog with LambdaTest:
 4. A confirmation email is sent once the integration configuration is complete.
 5. Once Datadog is integrated with your LambdaTest account, start logging bugs and performing cross-browser testing.
 
-### Uninstallation
+## Uninstallation
 
 Once you uninstall this integration, any previous authorizations are revoked. 
 
