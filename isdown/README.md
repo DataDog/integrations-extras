@@ -4,12 +4,7 @@
 
 [IsDown][1] is a status page aggregator and outage monitoring tool that helps businesses monitor their dependencies. You can provide your team real-time monitoring and instant notifications for outages in all your tools and cloud providers. IsDown monitors more than 2000 status pages.
 
-What IsDown offers:
-
-* Get outage alerts in Datadog from all your third-party dependencies (SaaS, PaaS, Cloud Providers, and so on)
-* Understand the frequency of outages across your different providers
-* Have the outages from your third-party providers together with the information you gather in other systems in Datadog.
-* Set which components from a service you want to monitor. This way you avoid getting alerts from parts of a service that are not critical for your business.
+With this integration, you can receive alerts from third-party dependencies in Datadog, monitor business critical services, and understand the frequency of outages all within the out-of-the-box dashboard.
 
 ## Setup
 
