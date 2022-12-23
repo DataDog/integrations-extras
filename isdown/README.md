@@ -10,7 +10,7 @@ With this integration, you can receive alerts from third-party dependencies in D
 
 ### IsDown
 
-To connect Datadog to IsDown, you need to generate an API key in Datadog and add it to your IsDown account.
+To connect Datadog to IsDown, you need to generate an [API key][5] in Datadog and add it to your IsDown account.
 
 1. Use your existing account or create a new one in [IsDown][1].
 2. Log in to your account and go to the Notifications page.
