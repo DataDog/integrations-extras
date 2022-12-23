@@ -48,4 +48,5 @@ Need help? Contact [IsDown support][2].
 [1]: https://isdown.app
 [2]: mailto:support@isdown.app
 [3]: assets/service_checks.json
-
+[4]: https://docs.datadoghq.com/getting_started/site/#overview
+[5]: https://app.datadoghq.com/organization-settings/api-keys
