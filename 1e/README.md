@@ -30,7 +30,7 @@ To configure your integration between Datadog and 1E you will need to have the f
 
 #### Creating a Datadog API Key
 
-To set up the integration with 1E, create a Datadog API key, and then upload the API key and site URL to 1E using the 1E API.```
+To set up the integration with 1E, create a Datadog API key, and then upload the API key and site URL to 1E using the 1E API.
 
 1. Navigate to the **Organization Settings** > [**API Keys**][3] page and create an API key.
 2. Identify your [Datadog site URL][4]. You will need this information when adding the Datadog configuration to 1E.
@@ -94,7 +94,7 @@ Install the 1E Dashboard integration if you have not already done so, and then o
 
 If the integration has been configured correctly, the dashboard will show data in each tile. If this is your first time installing 1E, you will have to wait for 1E to finish processing metrics, which happens once every 24 hours (by default this starts at midnight UTC).
 
-If you are familiar with using 1E, you can confirm data is available in the **Experience Analytics** app in the 1E portal.  Note you must sign in as a user that is assigned in 1E to either the **Full Administrator** role or **Experience Viewers** role.
+If you are familiar with using 1E, you can confirm data is available in the **Experience Analytics** app in the 1E portal. Note you must sign in as a user that is assigned in 1E to either the **Full Administrator** role or **Experience Viewers** role.
 
 Refer to the [Datadog documentation][5] for more details about creating, adding, and customizing your dashboards.
 
@@ -130,7 +130,7 @@ notifications from it. Refer to the [Datadog documentation][5] for details.
 
 ### Metrics
 
-See [metadata.csv][3] for a list of metrics provided by this integration.
+See [metadata.csv][9] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -152,3 +152,4 @@ Need help? Contact [1E Support][1].
 [6]: https://docs.datadoghq.com/help/
 [7]: https://www.postman.com/
 [8]: https://help.1e.com/display/TCNSDK/Tachyon+PowerShell+Toolkit
+[9]: https://github.com/DataDog/integrations-extras/blob/master/1e/metadata.csv
