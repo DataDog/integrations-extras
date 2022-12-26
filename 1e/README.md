@@ -11,8 +11,8 @@ The 1E Datadog Integration is an API-based integration that collects metrics fro
 
 Integrating Datadog with 1E enables IT administrators to:
 
-- View device data and related information in one place in Datadog
-- View Digital Employee Experience (DEX) score and related information
+- View device data and related information in one place in Datadog.
+- View Digital Employee Experience (DEX) score and related information.
 - Build a customizable dashboard inside Datadog for customer specific insights.
 
 ## Setup
@@ -21,33 +21,27 @@ Integrating Datadog with 1E enables IT administrators to:
 
 To configure your integration between Datadog and 1E you will need to have the following in place:
 
-- 1E 8.4
-  - platform installed, with at least one 1E client connected to provide metrics data
-  - a user that is assigned to the **Full Administrator** role
-  - 1E PowerShell Toolkit 2.0 or later, available from the [1E Support portal][2]
-- Datadog
-  - a user that is assigned to the **Datadog Admin** role and able to download the 1E Dashboard from the Marketplace.
+- 1E 8.4 installed. At least one 1E client must be connected to provide metrics data.
+- A user that is assigned to the **Full Administrator** role.
+- 1E PowerShell Toolkit 2.0 or later, which is available from the [1E Support portal][2].
+- In Datadog, a user that is assigned to the **Datadog Admin** role who can download the 1E Dashboard from the Marketplace.
 
 ### Configuration
 
-Steps required to configure your integration between Datadog and 1E.
-
 #### Creating a Datadog API Key
 
-To set up the integration with 1E, you need to upload a Datadog API key and site URL to your 1E
-installation, using the 1E PowerShell Toolkit or Postman.
+To set up the integration with 1E, create a Datadog API key, and then upload the API key and site URL to 1E using the 1E API.```
 
-1. To get started, go to the [Datadog APIs page][3], where you can create an API key
-
-2. Determine your [Datadog API site URL][4] with reference to Datadog documentation
+1. Navigate to the **Organization Settings** > [**API Keys**][3] page and create an API key.
+2. Identify your [Datadog site URL][4]. You will need this information when adding the Datadog configuration to 1E.
 
 #### Adding the Datadog configuration to 1E
 
-These steps tell 1E about the Datadog API key and site URL that you obtained in the previous step, by using a 1E API to update the Global Settings table in the 1E Master database.
+To update the Global Settings table in the 1E Master database, use the 1E API with the 1E PowerShell Toolkit (recommended) or Postman.
 
 ##### Using 1E PowerShell Toolkit to upload your Datadog configuration
 
-First, you will need to download and install the 1E PowerShell Toolkit, if you have not already done so. To install and use the toolkit, please refer to 1E online documentation at https://help.1e.com/display/TCNSDK/Tachyon+PowerShell+Toolkit.
+Download and install the 1E PowerShell Toolkit, if you have not already done so. To install and use the toolkit, refer to the [1E documentation][8].
 
 You will need to run the PowerShell Toolkit command similar to:
 
@@ -60,13 +54,13 @@ Add-TachyonAxmDatadogConfiguration `
 
 Parameters:
 
-- _DatadogKey_ - specifies the Datadog API key required for authentication
-- _DatadogSite_ - specifies the Datadog Site URL
-- _Enable_ - enables or disables Datadog integration, the default value is true.
+- `DatadogKey`: Specifies the Datadog API key required for authentication.
+- `DatadogSite`: Specifies the Datadog Site URL.
+- `Enable`: Enables or disables the Datadog integration. The default value is `true`.
 
 ##### Using Postman to upload your Datadog configuration
 
-An alternative to using the 1E PowerShell Toolkit command, you could also use Postman to upload your Datadog configuration, if you are familiar with this tool. You can find more details about Postman at https://www.postman.com/.
+As an alternative to using the 1E PowerShell Toolkit command, you can use [Postman][7] to upload your Datadog configuration.
 
 The following are the equivalent cURL commands:
 
@@ -96,21 +90,19 @@ Settings' \
 
 ### Verify
 
-Install the 1E Dashboard integration if you have not already done so.
+Install the 1E Dashboard integration if you have not already done so, and then open the 1E Dashboard.
 
-Open the 1E Dashboard.
+If the integration has been configured correctly, the dashboard will show data in each tile. If this is your first time installing 1E, you will have to wait for 1E to finish processing metrics, which happens once every 24 hours (by default this starts at midnight UTC).
 
-If integration has been configured correctly, the dashboard will show data in each tile. If you have only just installed 1E, then you will have to wait for 1E to complete processing metrics, which happens once every 24 hours (by default this starts at midnight UTC).
+If you are familiar with using 1E, you can confirm data is available in the **Experience Analytics** app in the 1E portal.  Note you must sign in as a user that is assigned in 1E to either the **Full Administrator** role or **Experience Viewers** role.
 
-If you are familiar with using 1E, then you can confirm data is available by signing in to the 1E portal and viewing in the **Experience Analytics** app. You need to sign in as a user that is assigned in 1E to either the **Full Administrator** role or **Experience Viewers** role.
-
-Please refer to [Datadog documentation][5] for more details about creating, adding, and customizing your dashboards.
+Refer to the [Datadog documentation][5] for more details about creating, adding, and customizing your dashboards.
 
 ### Using 1E Dashboard
 
-You can use the 1E Dashboard to view digital employee experience scores, trends and device metrics reported by 1E in Datadog. Experience data helps you visualize your end-users' experience of IT service delivery across your enterprise.
+You can use the 1E Dashboard to view digital employee experience scores, trends, and device metrics reported by 1E in Datadog. Experience data helps you visualize your end-users' experience of IT service delivery across your enterprise.
 
-Once you have the 1E Dashboard, you can view 1E metrics like:
+Once you have the 1E Dashboard, you can view 1E metrics such as the following:
 
 - Application crashes
 - Application hangs
@@ -124,10 +116,10 @@ In addition, you can view data about:
 
 - Number of connected devices
 - Digital Employee Experience (DEX) score related to:
-- Performance
-- Stability
-- Responsiveness
-- Sentiment.
+  - Performance
+  - Stability
+  - Responsiveness
+  - Sentiment.
 
 ### Schedule reports and create notifications in Datadog
 
@@ -158,3 +150,5 @@ Need help? Contact [1E Support][1].
 [4]: https://docs.datadoghq.com/getting_started/site/
 [5]: https://docs.datadoghq.com/
 [6]: https://docs.datadoghq.com/help/
+[7]: https://www.postman.com/
+[8]: https://help.1e.com/display/TCNSDK/Tachyon+PowerShell+Toolkit
