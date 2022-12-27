@@ -4,7 +4,7 @@
 
 [Steadybit][1] is a chaos engineering platform allowing you to simulate turbulent conditions in a controlled way, to improve system reliability and guide your organization to better incident management.
 
-Through this integration, you can leverage Datadog information within chaos engineering experiments and see chaos engineering activity in the form of events within Datadog.
+The Steadybit integration leverages the status of Datadog monitors within chaos engineering experiments. This integration provides your team insight into chaos engineering activity such as the experiments environment, start/end time, and the result of the experiment through Datadog events.
 
 ## Setup
 
@@ -57,10 +57,11 @@ Steadybit reports events to Datadog indicating chaos engineering activity. All s
 
 ## Troubleshooting
 
-Need help? Contact [Steadybit's support](mailto:support@steadybit.com).
+Need help? Contact [Steadybit's support][6].
 
 [1]: https://steadybit.com/?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
 [2]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
 [3]: https://signup.steadybit.io/?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme
 [4]: https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=integration-readme#content-installation
 [5]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
+[6]: mailto:support@steadybit.com
