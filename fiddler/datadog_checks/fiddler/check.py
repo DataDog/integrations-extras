@@ -29,7 +29,12 @@ class FiddlerCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(FiddlerCheck, self).__init__(name, init_config, instances)
 
-        self.base_url = self.instance.get('urlF')
+        print("Here is what is passed in to check.py's constructor...")
+        print(f"name: {name}")
+        print(f"init_config: {init_config}")
+        print(f"instances: {instances}")
+
+        self.base_url = self.instance.get('url')
         self.api_key = self.instance.get('fiddler_api_key')
         self.org = self.instance.get('organization')
 
