@@ -1,5 +1,7 @@
 import os
+
 import pytest
+
 from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
 URL = 'http://{}:9000'.format(get_docker_hostname())
