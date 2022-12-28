@@ -35,7 +35,7 @@ def instance_metric_patterns(field, value):
 
 
 def instance_min_collection_interval(field, value):
-    return 60
+    return 1
 
 
 def instance_profiles(field, value):

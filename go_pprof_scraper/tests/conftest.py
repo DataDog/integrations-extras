@@ -30,6 +30,7 @@ def dd_environment():
     with docker_run(
         compose_file,
         endpoints=[URL],
+        build=True,
     ):
         # According to
         # https://datadoghq.dev/integrations-core/ddev/plugins/#environment-manager
