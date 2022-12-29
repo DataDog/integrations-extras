@@ -39,6 +39,10 @@ class Device:
         self.__requested_tags = [*tags, *self.custom_tags]
         self.__requested_metrics = [*metrics, *self.custom_metrics]
 
+        self.tags = []
+        self.metrics = []
+        self.checks = []
+
         self.name = get_by_path(device_info, "_id")
         self._get_tags(device_info)
         self._get_metrics(device_info)
@@ -46,14 +50,12 @@ class Device:
         self._get_checks(device_info)
 
     def _get_tags(self, device_info: dict) -> List[str]:
-        self.tags = []
         for t in self.__requested_tags:
             tag_value = get_by_path(device_info, t["value"])
             if tag_value is not None:
                 self.tags.append("{}:{}".format(t["key"], tag_value))
 
     def _get_metrics(self, device_info: dict) -> None:
-        self.metrics = []
         for m in self.__requested_metrics:
             value = get_by_path(device_info, m["metric"])
             if value is not None:
