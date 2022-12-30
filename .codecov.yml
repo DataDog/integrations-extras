@@ -83,6 +83,10 @@ coverage:
         target: 75
         flags:
         - logstash
+      MyNewCheck:
+        target: 75
+        flags:
+        - mynewcheck
       NS1:
         target: 75
         flags:
@@ -366,6 +370,11 @@ flags:
     paths:
     - logstash/datadog_checks/logstash
     - logstash/tests
+  mynewcheck:
+    carryforward: true
+    paths:
+    - mynewcheck/datadog_checks/mynewcheck
+    - mynewcheck/tests
   neo4j:
     carryforward: true
     paths:
