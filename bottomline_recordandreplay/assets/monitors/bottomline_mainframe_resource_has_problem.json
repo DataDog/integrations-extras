@@ -3,7 +3,9 @@
 	"type": "log alert",
 	"query": "logs(\"*\").index(\"*\").rollup(\"avg\", \"@bottomline.mainframe.activity.resource.@duration\").by(\"@bottomline.mainframe.activity.resource.code\").last(\"5m\") > 1000000000",
 	"message": "Slow resource!",
-	"tags": [],
+	"tags": [
+		"integration:bottomline_recordandreplay"
+	],
 	"options": {
 		"thresholds": {
 			"critical": 1000000000,
