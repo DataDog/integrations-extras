@@ -19,7 +19,7 @@ To install the cybersixgill_actionable_alerts check on your host:
 datadog-Cybersixgill Actionable Alerts==1.0.0`.
 
 ### Configuration
-1. Reach out to support@cybersixgill.com and request access to the Cybersixgill Developer Platform.
+1. Reach out to [Cybersixgill Support][13] and request access to the Cybersixgill Developer Platform.
 2. Receive the welcome email with access to the Cybersixgill developer platform.
 3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
 4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
