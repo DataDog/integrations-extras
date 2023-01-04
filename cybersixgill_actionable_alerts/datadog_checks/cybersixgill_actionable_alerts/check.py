@@ -71,7 +71,7 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
                 additional_info = alert_info.get("additional_info")
                 event_dict = {
                     "event_type": al.get("threat_level"),
-                    "msg_title": al.get("alert_name"),
+                    "msg_title": al.get("title"),
                     "aggregation_key": al.get("id"),
                     "source_type_name": "Cybersixgill",
                     "tags": al.get("threats", []),
