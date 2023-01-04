@@ -36,7 +36,14 @@ This integration allows organizations to monitor a user's resource access activi
 4. Restart the Datadog Agent by running `service datadog-agent restart`.
 5. Confirm that the Twingate Analytic log appears in the [Log Explorer][10].
 
+### Setup Datadog Log Pipeline
+1. Navigating to **Logs** > **Pipeline**
+2. Search for Twingate
+3. Clone the pipeline
 
+### Datadog Dashboard
+1. Navigating to **Dashboards** > **Dashboard List**
+2. Select Twingate Analytics Dashboard
 
 ## Troubleshooting
 Need help? Contact [Twingate Support][2].
