@@ -41,9 +41,9 @@ This integration allows organizations to monitor a user's resource access activi
 2. Search for Twingate
 3. Clone the pipeline
 
-### Datadog Dashboard
-1. Navigating to **Dashboards** > **Dashboard List**
-2. Select Twingate Analytics Dashboard
+### Twingate Analytics Dashboard
+1. Go to the Datadog [Dashboard List][12].
+2. Search for the Twingate Analytics dashboard.
 
 ## Troubleshooting
 Need help? Contact [Twingate Support][2].
