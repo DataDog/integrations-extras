@@ -59,3 +59,4 @@ Need help? Contact [Twingate Support][2].
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
+[12]: https://app.datadoghq.com/dashboard/lists
