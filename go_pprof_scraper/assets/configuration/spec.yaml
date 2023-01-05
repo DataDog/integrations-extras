@@ -58,13 +58,17 @@ files:
         display_default: true
     - template: instances/default
       overrides:
-        min_collection_interval.value.example: 60
+        min_collection_interval.value.example: 1
         min_collection_interval.enabled: true
         min_collection_interval.description: |
-          How frequently profiles are collected.
-
           This changes the collection interval of the check. For more information, see:
           https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+
+          This is a long-running check, and is intended to be started again as
+          soon as it finishes. Setting this to a larger value will cause longer
+          pauses between iterations of this check.
+
+          If omitted, will default to 15 seconds.
         service.required: true
         service.description: |
           Service name to tag on every profile uploaded for this instance.
