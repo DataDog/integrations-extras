@@ -20,7 +20,7 @@ Visit Agora Analytic's integration [documentation][1] for details on configuring
 
 ### Metrics
 
-Agora Analytics does not provide any metrics.
+Agora Analytics emits metrics to Datadog.
 
 ### Events
 
