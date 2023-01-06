@@ -38,10 +38,11 @@ If you are not already a customer of Bottomline, visit [Bottomline's Marketplace
 Follow the instructions outlined [here][4] to install the integration.
 
 ## Support
-For support or feature requests, contact Bottomline at [partner.cfrm@bottomline.com](mailto:partner.cfrm@bottomline.com).
+For support or feature requests, contact [Bottomline][5].
 
 
 [1]: https://www.bottomline.com/
 [2]: https://github.com/DataDog/integrations-extras/blob/master/bottomline_recordandreplay/metadata.csv
-[3]: /marketplace/app/bottomline-mainframe
+[3]: https://app.datadoghq.com/marketplace/app/bottomline-mainframe
 [4]: https://github.com/nbk96f1/datadog/tree/main/Documentation
+[5]: mailto:partner.cfrm@bottomline.com
