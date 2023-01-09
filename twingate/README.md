@@ -36,7 +36,9 @@ This integration allows organizations to monitor a user's resource access activi
 4. Restart the Datadog Agent by running `service datadog-agent restart`.
 5. Confirm that the Twingate Analytic log appears in the [Log Explorer][10].
 
-
+### Twingate Analytics Dashboard
+1. Go to the Datadog [Dashboard List][12].
+2. Search for the Twingate Analytics dashboard.
 
 ## Troubleshooting
 Need help? Contact [Twingate Support][2].
@@ -52,3 +54,4 @@ Need help? Contact [Twingate Support][2].
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
+[12]: https://app.datadoghq.com/dashboard/lists
