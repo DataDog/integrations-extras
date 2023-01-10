@@ -1,13 +1,14 @@
 # Instabug integration
 ## Overview
 
-[Instabug][1] helps mobile teams proactively improve the quality of their mobile apps and deliver a high-quality experience to end users. You can use APM, Crash Reporting, and Bug Reporting tools to help optimize your app's performance and improve the end-user experience.
+[Instabug][1]'s comprehensive platform empowers developers to monitor, prioritize, and debug performance and stability issues throughout the entire mobile app development lifecycle. Over 15,000 companies utilize the unmatched performance monitoring and crash reporting features, allowing their team of developers to leverage critical data in real time. Verizon, PayPal, eBay, and more of today's top-rated apps rely on our automated reports, alerts, and data solutions to boost their mobile app performance, prepare for smoother release cycles, and enable further developments and scalability.
 
-Instabug provides a dashboard widget for Datadog dashboards that helps monitor your overall app health and how users perceive your app's performance with just one number, the App Apdex. The widget provides:
-- The overall App Apdex score.
-- The App Apdex overtime.
-- A breakdown of the sessions into four buckets (`Satisfying`, `Tolerable`, `Frustrating` or `Crashing` sessions).
-- The five latest bug reports and the total number of new reports.
+On Datadog, Instabug provides a dashboard widget that will help you monitor your overall app health and how the user perceives your app’s performance with just one number, the App Apdex. Through the widget you will get:
+- The overall App Apdex score
+- App Apdex overtime
+- Break down the sessions into 4 buckets (Satisfying, Tolerable, Frustrating or Crashing sessions)
+- The latest 5 bug reports and the total number of new reports
+
 
 ## Setup
 1. If you haven't already, [Signup for Instabug][2] for free and follow the steps to integrate the SDK into your app.
