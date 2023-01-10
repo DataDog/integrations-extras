@@ -42,8 +42,10 @@ instances:
     ## period specified by "duration". The profiles will hold the difference
     ## between the samples at the beginning and end of profiling.
     ##
-    ## For the heap profile, the in-use (also known as "live heap") samples may
-    ## be negative if "cumulative" is true.
+    ## For the heap profile, the in-use (also known as "live heap") samples
+    ## may be negative if "cumulative" is false. This does not display
+    ## accurately in the profile UI, so Datadog does not recommend setting
+    ## "cumulative" to false.
     ##
     ## In order to use profile aggregation, "cumulative" must set to false.
     ## Note that setting "cumulative" to false will cause the profiled
@@ -67,13 +69,17 @@ instances:
     #
     service: <SERVICE>
 
-    ## @param min_collection_interval - number - optional - default: 60
-    ## How frequently profiles are collected.
-    ##
+    ## @param min_collection_interval - number - optional - default: 1
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    ##
+    ## This is a long-running check, and is intended to be started again as
+    ## soon as it finishes. Setting this to a larger value will cause longer
+    ## pauses between iterations of this check.
+    ##
+    ## If omitted, will default to 15 seconds.
     #
-    min_collection_interval: 60
+    min_collection_interval: 1
 
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.

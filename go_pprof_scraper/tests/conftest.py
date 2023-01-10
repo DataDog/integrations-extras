@@ -25,9 +25,12 @@ def dd_environment():
     # We need to enable the trace-agent for testing since it won't be enabled by
     # default
     agent_env_vars = {"DD_APM_PROFILING_DD_URL": "http://localhost:9999/profiles", "DD_APM_ENABLED": "true"}
+    if os.getenv("GO_PPROF_TEST_UDS"):
+        agent_env_vars["DD_APM_RECEIVER_SOCKET"] = "/var/run/datadog-apm.socket"
     with docker_run(
         compose_file,
         endpoints=[URL],
+        build=True,
     ):
         # According to
         # https://datadoghq.dev/integrations-core/ddev/plugins/#environment-manager

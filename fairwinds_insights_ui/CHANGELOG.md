@@ -1,0 +1,2 @@
+# CHANGELOG - Fairwinds Insights UI
+

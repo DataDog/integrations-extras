@@ -9,8 +9,11 @@ from uuid import uuid4
 
 import requests_unixsocket
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+from requests.utils import quote
 
 from datadog_checks.base import AgentCheck, ConfigurationError
+
+from .__about__ import __version__
 
 try:
     from urllib.parse import urljoin, urlparse
@@ -57,12 +60,6 @@ class GoPprofScraperCheck(AgentCheck):
             self.hostname = socket.gethostname()
 
         self.duration = self.instance.get("duration", DEFAULT_PROFILE_DURATION)
-        if self.duration > self.instance.get("min_collection_interval", 60):
-            raise ConfigurationError(
-                "duration ({}) is be longer than min_collection_interval ({})".format(
-                    self.duration, self.instance.get("min_collection_interval")
-                )
-            )
 
         self.profiles = self.instance.get("profiles", DEFAULT_PROFILES)
         for profile in self.profiles:
@@ -86,9 +83,16 @@ class GoPprofScraperCheck(AgentCheck):
         # this is being run by the agent
         self.trace_agent_url = "http://localhost:{}/profiling/v1/input".format(self.trace_agent_port)
 
+        # If modifying UDS-related code, run the end-to-end tests with the
+        # GO_PPROF_TEST_UDS environment variable defined so that the agent will
+        # listen over UDS rather than TCP, e.g.
+        #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
         self.trace_agent_socket = datadog_agent.get_config("apm_config.receiver_socket")
         if self.trace_agent_socket:
-            self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(self.trace_agent_socket)
+            # requets_unixsocket expects the path to be URL-encoded. We pass
+            # safe="" to quote so that the "/" are escaped.
+            path = quote(self.trace_agent_socket, safe="")
+            self.trace_agent_socket = "http+unix://{}/profiling/v1/input".format(path)
 
     def _get_profile(self, profile):
         query_params = {}
@@ -154,6 +158,7 @@ class GoPprofScraperCheck(AgentCheck):
             add_form_field("tags[]", "runtime:go")
             add_form_field("tags[]", "service:{}".format(self.service))
             add_form_field("tags[]", "runtime-id:{}".format(self.runtime_id))
+            add_form_field("tags[]", "profiler_version:agent-integration-{}".format(__version__))
             if self.env:
                 add_form_field("tags[]", "env:{}".format(self.env))
             for tag in self.tags:
@@ -163,6 +168,10 @@ class GoPprofScraperCheck(AgentCheck):
             # "Datadog-Container-ID" header to the request.
 
             if self.trace_agent_socket:
+                # If modifying UDS-related code, run the end-to-end tests with
+                # the GO_PPROF_TEST_UDS environment variable defined so that
+                # the agent will listen over UDS rather than TCP, e.g.
+                #   env GO_PPROF_TEST_UDS=yes ddev env start --dev go_pprof_scraper py3.8
                 session = requests_unixsocket.Session()
                 r = session.post(self.trace_agent_socket, files=files)
             else:
