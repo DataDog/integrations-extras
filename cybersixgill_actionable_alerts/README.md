@@ -15,26 +15,26 @@ To install the cybersixgill_actionable_alerts check on your host:
 1. Install the [developer toolkit][11] on any machine.
 2. To build the package, run the command: `ddev release build cybersixgill_actionable_alerts`
 3. [Install the Datadog Agent][10] on your host.
-4. Once the Agent is installed, run the following command to install the integration: `datadog-agent integration install -t 
-datadog-Cybersixgill Actionable Alerts==1.0.0`.
+4. Once the Agent is installed, run the following command to install the integration:
+`datadog-agent integration install -t datadog-Cybersixgill Actionable Alerts==1.0.0`.
 
 ### Configuration
-1. Reach out to [Cybersixgill Support][13] and request access to the Cybersixgill Developer Platform.
-2. Receive the welcome email with access to the Cybersixgill developer platform.
-3. Within the Cybersixgill developer platform, create the Client ID and Client secret.
-4. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-5. Provide the min collection interval in seconds. For example, `min_collection_interval: 3600`
+6. Reach out to [Cybersixgill Support][13] and request access to the Cybersixgill Developer Platform.
+7. Receive the welcome email with access to the Cybersixgill developer platform.
+8. Within the Cybersixgill developer platform, create the Client ID and Client secret.
+9. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
+10. Provide the min collection interval in seconds. For example, `min_collection_interval: 3600`
 
 ### Validation
- Verify that [events][12] are generated in your account.
+Verify that Cybersixgill events are generated in the [Datadog Event Explorer][12].
 
 ## Data Collected
 
 ### Service Checks
-See assets/service_checks.json for a list of service checks provided by this integration.
+See [service_checks.json][14] for a list of service checks provided by this integration.
 
 ### Events
-This integration sends API type [events][12] to Datadog.
+This integration sends API type events to Datadog.
 
 ## Troubleshooting
 Need help? Contact [Cybersixgill support][13].
@@ -52,4 +52,5 @@ Need help? Contact [Cybersixgill support][13].
 [11]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
 [12]: https://app.datadoghq.com/event/explorer
 [13]: support@cybersixgill.com
+[14]: https://github.com/DataDog/integrations-extras/blob/master/cybersixgill_actionable_alerts/assets/service_checks.json
 
