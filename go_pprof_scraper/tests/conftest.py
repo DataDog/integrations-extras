@@ -7,7 +7,7 @@ import pytest
 
 from datadog_checks.dev import docker_run, get_docker_hostname, get_here
 
-URL = "http://{}:8888/debug/pprof/".format(get_docker_hostname())
+URL = "http://{}:8888/debug/pprof".format(get_docker_hostname())
 INSTANCE = {
     "pprof_url": URL,
     "profiles": ["heap"],

@@ -55,6 +55,9 @@ class GoPprofScraperCheck(AgentCheck):
         self.url = self.instance.get("pprof_url")
         if not self.url:
             raise ConfigurationError("pprof_url is required")
+        if not self.url.endswith("/"):
+            # TODO: log a warning that we're mucking with the provided path?
+            self.url += "/"
         self.hostname = urlparse(self.url).hostname
         if self.hostname == "localhost" or self.hostname == "127.0.0.1":
             self.hostname = socket.gethostname()

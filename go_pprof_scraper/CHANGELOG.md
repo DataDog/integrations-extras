@@ -1,5 +1,9 @@
 # CHANGELOG - Go-pprof-scraper
 
+## 1.0.3 / 2023-01-11
+
+* [Fixed] The `pprof_url` parameter no longer requires a trailing "/" to work properly.
+
 ## 1.0.2 / 2022-12-27
 
 * [Fixed] Decrease `min_collection_interval` value to prevent long pause between collecting profiles.
