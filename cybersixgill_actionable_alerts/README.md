@@ -3,7 +3,9 @@
 ## Overview
 
 Cybersixgill actionable alerts monitors critical assets across the deep, dark, and surface web such as IP addresses, 
-domains, vulnerabilities, and VIPs. This integration provides an out-of-the-box dashboard to prioritize and respond to threats.
+domains, vulnerabilities, VIPs and provide alerts and the context surrounding that alert to include severity, threat type, 
+description, post snippet, recommendations and assessments. This integration provides an out-of-the-box dashboard 
+to prioritize and respond to threats.
 
 This check monitors [cybersixgill_actionable_alerts][1].
 
