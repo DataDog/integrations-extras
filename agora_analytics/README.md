@@ -8,13 +8,9 @@ When you enable the Analytics integration in Datadog and Agora Console, Analytic
 
 ## Setup
 
-### Installation
-
-The Agora Analytics integration emits metrics to Datadog. No installation is required on the Datadog side.
-
 ### Configuration
 
-Visit Agora Analytic's integration [documentation][1] for details on configuring the Agora Analytics Datadog Connector.
+See the Agora Analytic's integration [documentation][1] for details on configuring the Agora Analytics Datadog Connector.
 
 ## Data Collected
 
@@ -32,10 +28,7 @@ Agora Analytics does not include any service checks.
 
 ## Support
 
-Need help? Contact [Agora Support][3]
-
-To build your own Datadog app, refer to the [Datadog apps developer documentation][2].
+Need help? Contact [Agora Support][2]
 
 [1]: https://docs.agora.io/en/agora-analytics/analyze/video-voice-sdk/datadog-integration
-[2]: https://docs.datadoghq.com/developers/datadog_apps
-[3]: support@agora.io
+[2]: support@agora.io
