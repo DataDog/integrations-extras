@@ -199,3 +199,119 @@ def usage_resp_critical():
         }
     }
     return usage_resp_critical
+
+
+@pytest.fixture()
+def audit_log_resp():
+    audit_log_resp = [
+        {
+            "actor": "test",
+            "actor_ip_address": "XXX.XXX.XXX.XXX",
+            "actor_kind": "user",
+            "actor_location": {
+                "city": "XXX",
+                "continent": "Europe",
+                "country": "United Kingdom",
+                "country_code": "GB",
+                "latitude": "1",
+                "longitude": "1",
+                "postal_code": "BT11"
+            },
+            "actor_slug_perm": "msle0eeRYz0",
+            "actor_url": "https://api.cloudsmith.io/v1/users/profile/test/",
+            "context": "",
+            "event": "action.login",
+            "event_at": "2023-01-10T12:59:03.926729Z",
+            "object": "test",
+            "object_kind": "user",
+            "object_slug_perm": "msle0eeRYz0",
+            "uuid": "efb5b5b0-5b5b-5b5b-5b5b-5b5b5b5b5b5b",
+            "target": "cloudsmith-test",
+            "target_kind": "namespace",
+            "target_slug_perm": "eqr0eeRYz0",
+        }]
+    return audit_log_resp
+
+
+@pytest.fixture()
+def audit_log_resp_bad_json():
+    # create a bad response
+    audit_log_resp_bad_json = [
+        {
+            "actor": "test",
+            "actor_ip_address": "XXX.XXX.XXX.XXX",
+            "actor_kind": "user",
+            "actor_location": {
+                "continent": "Europe",
+                "country": "United Kingdom",
+                "country_code": "GB",
+                "latitude": "1",
+                "longitude": "1",
+                "postal_code": "BT11"
+            },
+            "actor_slug_perm": "msle0eeRYz0",
+            "actor_url": "https://api.cloudsmith.io/v1/users/profile/test/",
+            "context": "",
+            "object": "test",
+            "object_kind": "user",
+            "object_slug_perm": "msle0eeRYz0",
+            "uuid": "efb5b5b0-5b5b-5b5b-5b5b-5b5b5b5b5b5b",
+            "target": "cloudsmith-test",
+            "target_kind": "namespace",
+            "target_slug_perm": "eqr0eeRYz0",
+        }]
+
+
+@pytest.fixture()
+def vulnerabilitiy_resp_json():
+    vulnerabilitiy_resp_json = [
+        {
+            "identifier": "weqwqeqw",
+            "created_at": "2023-01-06T18:18:39.546636Z",
+            "package": {
+                "identifier": "reqwqeqw",
+                "name": "library/python",
+                "version": "1eff2926e10eed27freqreq3be53538b76eff4f61dfd1f81be4e0c5e854ad1ae5",
+                "url": "https://api.cloudsmith.io/v1/packages/cloudsmith-test/test/tqetq/"
+            },
+            "scan_id": 1,
+            "has_vulnerabilities": True,
+            "num_vulnerabilities": 88,
+            "max_severity": "Critical"
+        },
+        {
+            "identifier": "rqerqerqe",
+            "created_at": "2023-01-06T18:18:23.263269Z",
+            "package": {
+                "identifier": "ereqreq",
+                "name": "library/node",
+                "version": "a5b5ad15479f19b8r312be69cd52032becacf2f9c600ed16ecb628c9937c80",
+                "url": "https://api.cloudsmith.io/v1/packages/cloudsmith-test/test/tqetq/"
+            },
+            "scan_id": 1,
+            "has_vulnerabilities": True,
+            "num_vulnerabilities": 104,
+            "max_severity": "Critical"
+        }]
+    return vulnerabilitiy_resp_json
+
+
+@pytest.fixture()
+def vulnerabilitiy_resp_json_bad():
+    vulnerabilitiy_resp_json_bad = [
+        {
+            "identifier": "weqwqeqw",
+            "created_at": "2023-01-06T18:18:39.546636Z",
+            "package": {
+                "identifier": "reqwqeqw",
+                "name": "library/python",
+                "version": "1eff2926e10eed27freqreq3be53538b76eff4f61dfd1f81be4e0c5e854ad1ae5",
+                "url": "https://api.cloudsmith.io/v1/packages/cloudsmith-test/test/tqetq/"
+            },
+            "scan_id": 1,
+            "has_vulnerabilities": True,
+            "num_vulnerabilities": 88,
+            "max_severity": "Medium"
+        }]
+    return vulnerabilitiy_resp_json_bad
+    

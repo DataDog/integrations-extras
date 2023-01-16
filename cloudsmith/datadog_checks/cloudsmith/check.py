@@ -1,3 +1,4 @@
+import datetime
 from json import JSONDecodeError
 from urllib.error import HTTPError
 
@@ -8,6 +9,8 @@ from datadog_checks.base.errors import CheckException
 
 METRIC = "/metrics/entitlements/"
 QUOTA = "/quota/"
+AUDIT_LOG = "/audit-log/"
+VOUNDRABILITIES = "/vulnerabilities/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
 
@@ -43,6 +46,9 @@ class CloudsmithCheck(AgentCheck):
     def get_full_path(self, path):
         url = self.base_url.rstrip('/') + path + self.org
         return url
+
+    def convert_time(self, time):
+        return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
 
     # Get stats from REST API as json
     def get_api_json(self, url):
@@ -108,6 +114,16 @@ class CloudsmithCheck(AgentCheck):
 
     def get_entitlement_info(self):
         url = self.get_full_path(METRIC)
+        response_json = self.get_api_json(url)
+        return response_json
+
+    def get_audit_log_info(self):
+        url = self.get_full_path(AUDIT_LOG)
+        response_json = self.get_api_json(url)
+        return response_json
+
+    def get_vulnerabilities_info(self):
+        url = self.get_full_path(VOUNDRABILITIES)
         response_json = self.get_api_json(url)
         return response_json
 
@@ -196,6 +212,81 @@ class CloudsmithCheck(AgentCheck):
             'bandwidth_used': bandwidth_used,
         }
         return usage_info
+
+    def get_parsed_audit_log_info(self):
+        response_json = self.get_audit_log_info()
+
+        actor = self.UNKOWN
+        actor_kind = self.UNKOWN
+        city = self.UNKOWN
+        event = self.UNKOWN
+        event_at = self.UNKOWN
+
+        if 'results' in response_json and len(response_json['results']) > 0:
+            if 'actor' in response_json['results'][0]:
+                actor = response_json['results'][0]['actor']
+            else:
+                self.log.warning("Error when parsing JSON for actor")
+            if 'actor_kind' in response_json['results'][0]:
+                actor_kind = response_json['results'][0]['actor_kind']
+            else:
+                self.log.warning("Error when parsing JSON for actor_kind")
+            if 'city' in response_json['results'][0]:
+                city = response_json['results'][0]['city']
+            else:
+                self.log.warning("Error when parsing JSON for city")
+            if 'event' in response_json['results'][0]:
+                event = response_json['results'][0]['event']
+            else:
+                self.log.warning("Error when parsing JSON for event")
+            if 'event_at' in response_json['results'][0]:
+                event_at = self.convert_time(response_json['results'][0]['event_at'])
+            else:
+                self.log.warning("Error when parsing JSON for event_at")
+
+        audit_log_info = {
+            'actor': actor,
+            'actor_kind': actor_kind,
+            'city': city,
+            'event': event,
+            'event_at': event_at,
+        }
+        return audit_log_info
+
+    def get_parsed_vulnerabilities_info(self):
+        # only show high or critical vulnerabilities
+        response_json = self.filter_vulnerabilities(self.get_vulnerabilities_info(), ['high', 'critical'])
+
+        package_name = self.UNKOWN
+        severity = self.UNKOWN
+        num_vulnerabilities = -1
+        created_at = self.UNKOWN
+
+        if 'results' in response_json and len(response_json['results']) > 0:
+            if 'package' in response_json['results'][0] and 'name' in response_json['results'][0]['package']:
+                package_name = response_json['results'][0]['package']['name']
+            else:
+                self.log.warning("Error when parsing JSON for package_name")
+            if 'max_severity' in response_json['results'][0]:
+                severity = response_json['results'][0]['max_severity']
+            else:
+                self.log.warning("Error when parsing JSON for severity")
+            if 'num_vulnerabilities' in response_json['results'][0]:
+                num_vulnerabilities = response_json['results'][0]['num_vulnerabilities']
+            else:
+                self.log.warning("Error when parsing JSON for num_vulnerabilities")
+            if 'created_at' in response_json['results'][0]: 
+                created_at = self.convert_time(response_json['results'][0]['created_at'])
+            else:
+                self.log.warning("Error when parsing JSON for created_at")
+
+        vulnerabilities_info = {
+            'package_name': package_name,
+            'severity': severity,
+            'num_vulnerabilities': num_vulnerabilities,
+            'created_at': created_at,
+        }
+        return vulnerabilities_info
 
     def check(self, _):
 
