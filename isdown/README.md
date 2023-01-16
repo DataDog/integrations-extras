@@ -36,7 +36,7 @@ See [service_checks.json][3] for a list of service checks provided by this integ
 ### Events
 
 IsDown sends events for each outage that happens in the services you monitor. It sends two types of events, one for the start of the outage and one for the end of the outage. The events are sent with the following attributes:
-- Title: The name of the service with the outage title.
+- Title: The name of the service with the outage.
 - Device Name: The name of the service.
 - Text: The description of the outage.
 - Tags: `isdown` and `isdown:service_name`.
