@@ -36,6 +36,8 @@ class LighthouseCheck(AgentCheck):
 
             if form_factor:
                 cmd.append("--form-factor=" + form_factor)
+                if form_factor == "desktop":
+                     cmd.append("--preset=desktop")
 
             json_string, error_message, exit_code = LighthouseCheck._get_lighthouse_report(cmd, self.log, False)
 
