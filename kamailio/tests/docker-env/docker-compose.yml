@@ -1,0 +1,47 @@
+version: '3.8'
+
+networks:
+  local:
+    ipam:
+      driver: default
+      config:
+        - subnet: '172.20.0.0/24'
+
+services:
+  ddev-kamailio:
+    container_name: ddev-kamailio
+    build:
+      context: ./kamailio
+    image: ddev-kamailio
+    restart: "unless-stopped"
+    cap_add:
+      - CAP_SYS_PTRACE
+    ports:
+      - '5060:5060/udp'
+      - '5060:5060/tcp'
+      - '5061:5061/tcp'
+    volumes:
+      - 'kamailio-run:/run/kamailio'
+    networks:
+      - local
+  ddev-nginx:
+    container_name: ddev-nginx
+    build:
+      context: ./nginx
+    image: ddev-nginx
+    restart: "unless-stopped"
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - '80:80/tcp'
+      - '80:80/udp'
+      - '443:443/tcp'
+    volumes:
+      - 'kamailio-run:/run/kamailio'
+    networks:
+      - local
+    depends_on:
+      - ddev-kamailio
+
+volumes:
+  kamailio-run:

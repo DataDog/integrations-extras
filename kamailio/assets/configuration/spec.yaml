@@ -5,13 +5,47 @@ files:
   - template: init_config
     options:
     - template: init_config/default
+      overrides:
+        service.enabled: true
+        service.value.example: "kamailio"
   - template: instances
     options:
-    - name: jsonrpc_api_url
+    - name: service_checks
       required: true
-      description: The kamailio jsonrpc API url.
+      description: The kamailio related services for service_up check.
       value:
-        type: string
-        example: "http://127.0.0.1:5060/api/kamailio"
-        default: "http://127.0.0.1:5060/api/kamailio"
+        type: array
+        items:
+          type: string
+        example: ["kamailio"]
+    - name: jsonrpc_config
+      required: false
+      description: The kamailio jsonrpc API configuration.
+      value:
+        type: object
+        properties:
+          - name: url
+            type: string
+          - name: version
+            type: string
+          - name: id
+            type: integer
+          - name: verify_ssl
+            type: boolean
+          - name: allow_redirects
+            type: boolean
+          - name: token
+            type: string
+        example: {"url": "http://127.0.0.1:5060/RPC", "version": "2.0", "id": 1, "verify_ssl": false, "allow_redirects": false, "token": ""}
+        secret: true
+    - name: get_modules_from_mmaps
+      required: false
+      description: Read modules loaded from memory. Set to true if your Kamailio config does not load the kex module.
+      value:
+        type: boolean
+        example: true
+        display_default: false
     - template: instances/default
+      overrides:
+        min_collection_interval.enabled: true
+        min_collection_interval.value.example: 60

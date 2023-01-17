@@ -2,21 +2,38 @@
 #
 init_config:
 
-    ## @param service - string - optional
+    ## @param service - string - optional - default: kamailio
     ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
     ##
     ## Additionally, this sets the default `service` for every log source.
     #
-    # service: <SERVICE>
+    service: kamailio
 
 ## Every instance is scheduled independently of the others.
 #
 instances:
 
-    ## @param jsonrpc_api_url - string - required
-    ## The kamailio jsonrpc API url.
+    ## @param service_checks - list of strings - required
+    ## The kamailio related services for service_up check.
     #
-  - jsonrpc_api_url: http://127.0.0.1:5060/api/kamailio
+  - service_checks:
+      - kamailio
+
+    ## @param jsonrpc_config - mapping - optional
+    ## The kamailio jsonrpc API configuration.
+    #
+    # jsonrpc_config:
+    #   url: http://127.0.0.1:5060/RPC
+    #   version: '2.0'
+    #   id: 1
+    #   verify_ssl: false
+    #   allow_redirects: false
+    #   token: ''
+
+    ## @param get_modules_from_mmaps - boolean - optional - default: false
+    ## Read modules loaded from memory. Set to true if your Kamailio config does not load the kex module.
+    #
+    # get_modules_from_mmaps: true
 
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
@@ -34,11 +51,11 @@ instances:
     #
     # service: <SERVICE>
 
-    ## @param min_collection_interval - number - optional - default: 15
+    ## @param min_collection_interval - number - optional - default: 60
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
     #
-    # min_collection_interval: 15
+    min_collection_interval: 60
 
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.

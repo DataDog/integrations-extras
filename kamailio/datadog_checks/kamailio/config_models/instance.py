@@ -15,6 +15,18 @@ from datadog_checks.base.utils.models import validation
 from . import defaults, validators
 
 
+class JsonrpcConfig(BaseModel):
+    class Config:
+        allow_mutation = False
+
+    allow_redirects: Optional[bool]
+    id: Optional[int]
+    token: Optional[str]
+    url: Optional[str]
+    verify_ssl: Optional[bool]
+    version: Optional[str]
+
+
 class MetricPatterns(BaseModel):
     class Config:
         allow_mutation = False
@@ -29,10 +41,12 @@ class InstanceConfig(BaseModel):
 
     disable_generic_tags: Optional[bool]
     empty_default_hostname: Optional[bool]
-    jsonrpc_api_url: str
+    get_modules_from_mmaps: Optional[bool]
+    jsonrpc_config: Optional[JsonrpcConfig]
     metric_patterns: Optional[MetricPatterns]
     min_collection_interval: Optional[float]
     service: Optional[str]
+    service_checks: Sequence[str]
     tags: Optional[Sequence[str]]
 
     @root_validator(pre=True)
