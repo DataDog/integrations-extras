@@ -27,8 +27,8 @@ The Instabug integration does not include any metrics.
 The Instabug integration does not include any service checks.
 
 ## Support
-Need help? Contact [Datadog Support][3].
+Need help? Contact [Instabug Support][3].
 
 [1]: http://instabug.com
 [2]: https://dashboard.instabug.com/signup
-[3]: https://docs.datadoghq.com/help/
+[3]: support@instabug.com
