@@ -4,6 +4,14 @@
 
 This check monitors [Kamailio][1].
 
+### Dashboards
+
+Included with this check is the *Kamailio Inspector Dashboard*, which can be used to evaluate your Kamailio deployment.  
+Example screenshots are provided below.
+
+![Inspector Dash 01][18]
+![Inspector Dash 02][19]
+
 ## Setup
 
 ### Installing the package
@@ -14,7 +22,7 @@ See [Use Community Integrations][13] to install it with the Docker Agent or earl
 1. Run the following command to install the Agent integration:
 
 ```shell
-datadog-agent integration install -t datadog-filemage==1.0.0
+datadog-agent integration install -t datadog-kamailio==1.0.0
 ```
 
 If you need a specific version simply change the version number in the command above.
@@ -170,3 +178,5 @@ sudo -u dd-agent datadog-agent integration install -w datadog_kamailio-*.whl
 [15]: https://kamailio.org/docs/modules/stable/modules/ctl.html
 [16]: https://docs.datadoghq.com/developers/integrations/
 [17]: ./datadog_checks/kamailio/__about__.py
+[18]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/kamailio/images/inspector-dash-01.png
+[19]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/kamailio/images/inspector-dash-02.png
