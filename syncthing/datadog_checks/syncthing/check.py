@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
@@ -46,12 +47,34 @@ class SyncthingCheck(AgentCheck):
         self.gauge('connections.paused', paused, tags=tags)
         self.gauge('connections.count', len(connections), tags=tags)
 
+    def __get_delta(self, now, val):
+        # remove timezone info since python2 has no native support
+        return (now - datetime.strptime(val[:19], "%Y-%m-%dT%H:%M:%S")).total_seconds()
+
+    def __check_device_stats(self, tags):
+        names = {d['deviceID']: d['name'] for d in self.__get_json('config/devices')}
+        devices = self.__get_json('stats/device')
+        now = datetime.now()
+
+        for d, v in devices.items():
+            if v['lastConnectionDurationS'] == 0:
+                # skip local and never connected devices
+                continue
+
+            dt = tags + ('device_id:' + d, 'device_name:' + names[d])
+
+            self.gauge('stats.device.last_seen', self.__get_delta(now, v['lastSeen']), tags=dt)
+            self.gauge('stats.device.last_connection_duration', v['lastConnectionDurationS'], tags=dt)
+
     def __check_folders(self, tags):
-        folders = [f['id'] for f in self.__get_json('config/folders')]
-        for folder in folders:
+        folders = [(f['id'], f['type']) for f in self.__get_json('config/folders')]
+        folders_stat = self.__get_json('stats/folder')
+        now = datetime.now()
+
+        for folder, tp in folders:
             s = self.__get_json('db/status?folder=' + folder)
 
-            ft = tags + ('folder:' + folder,)
+            ft = tags + ('folder:' + folder, 'type:' + tp)
 
             self.gauge('folder.global.bytes', int(s['globalBytes']), tags=ft)
             self.gauge('folder.global.deleted', int(s['globalDeleted']), tags=ft)
@@ -74,6 +97,8 @@ class SyncthingCheck(AgentCheck):
             self.gauge('folder.bytes', int(s['inSyncBytes']), tags=ft)
             self.gauge('folder.files', int(s['inSyncFiles']), tags=ft)
 
+            self.gauge('folder.last_scan', self.__get_delta(now, folders_stat[folder]['lastScan']), tags=ft)
+
     def __check_errors(self, tags):
         res = self.__get_json('system/error')['errors']
         count = 0
@@ -87,6 +112,7 @@ class SyncthingCheck(AgentCheck):
         try:
             tags = self.__get_tags()
             self.__check_connections(tags)
+            self.__check_device_stats(tags)
             self.__check_folders(tags)
             self.__check_errors(tags)
 

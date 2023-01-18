@@ -19,15 +19,30 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 
 
 def get_dependencies():
-    dep_file = path.join(HERE, 'requirements.in')
+    dep_file = path.join(HERE, "requirements.in")
     if not path.isfile(dep_file):
         return []
 
-    with open(dep_file, encoding='utf-8') as f:
+    with open(dep_file, encoding="utf-8") as f:
         return f.readlines()
 
 
-CHECKS_BASE_REQ = 'datadog-checks-base>=11.2.0'
+def parse_pyproject_array(name):
+    import os
+    import re
+    from ast import literal_eval
+
+    pattern = r"^{} = (\[.*?\])$".format(name)
+
+    with open(os.path.join(HERE, "pyproject.toml"), "r", encoding="utf-8") as f:
+        # Windows \r\n prevents match
+        contents = "\n".join(line.rstrip() for line in f.readlines())
+
+    array = re.search(pattern, contents, flags=re.MULTILINE | re.DOTALL).group(1)
+    return literal_eval(array)
+
+
+CHECKS_BASE_REQ = parse_pyproject_array("dependencies")[0]
 
 
 setup(
