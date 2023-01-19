@@ -22,7 +22,7 @@ This integration allows organizations to monitor a user's resource access activi
         include_units:
           - twingate-connector.service
         service: Twingate Connection
-        source: Twingate Connection
+        source: Twingate
         log_processing_rules:
         - type: include_at_match
           name: analytics
