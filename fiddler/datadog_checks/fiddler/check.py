@@ -6,6 +6,7 @@ from datadog_checks.base import AgentCheck
 
 metrics_list = ['accuracy', 'traffic_count', 'histogram_drift', 'feature_average', 'output_average']
 
+
 def create_tags(**tags_in):
     tags = []
 
@@ -33,9 +34,10 @@ class FiddlerCheck(AgentCheck):
         self.base_url = self.instance.get('url')
         self.api_key = self.instance.get('fiddler_api_key')
         self.org = self.instance.get('organization')
-        # Set the Fiddler bin size to the same number of seconds as the check runs.  Thus if the check runs every 5 mins, make the bin_size for fiddler 5 minutes (aka. 300 secs)
-        #self.bin_size = int(self.instance.get('minimum_collection_interval'))
-        self.bin_size = 300 # aka 5 mins
+        # Set the Fiddler bin size to the same number of seconds as the check runs.  
+        # Thus if the check runs every 5 mins, make the bin_size for fiddler 5 minutes (aka. 300 secs)
+        # self.bin_size = int(self.instance.get('minimum_collection_interval'))
+        self.bin_size = 300  # aka 5 mins
 
         self.log.info("Connecting to : %s", self.base_url)
         print("Connecting to: " + str(self.base_url))
@@ -58,7 +60,7 @@ class FiddlerCheck(AgentCheck):
         end_time_epoch = time.time() * 1000 - TEN_MINUTE_DELAY
         start_time = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(start_time_epoch / 1000))
         end_time = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(end_time_epoch / 1000))
-        
+
         print(f"start time epoch: {start_time_epoch}")
         print(f"end time epoch: {end_time_epoch}")
         print(f"Start time is : {start_time}")
@@ -89,7 +91,8 @@ class FiddlerCheck(AgentCheck):
                         result = self.client.v1._call(agg_metrics_path, json_request)
                     except Exception:
                         print("Aggregated metrics exception : %s" % (agg_metrics_path))
-                        print("Project with no monitoring data. ProjectModel: %s %s %s" % (project["name"], model["id"], metric))
+                        print("Project with no monitoring data. ProjectModel: %s %s %s" % 
+                                (project["name"], model["id"], metric))
                         hit_exception = True
 
                     if hit_exception:
@@ -104,30 +107,34 @@ class FiddlerCheck(AgentCheck):
                         # Every metric has a different way of providing the value. So handle them separetly.
                         if metric == 'traffic_count':
                             value = single_value["value"]
-                            print("traffic Final list: %s %s %s %s %s" % (project["name"], model["id"], start_time, metric, value))
+                            print("traffic Final list: %s %s %s %s %s" % 
+                                    (project["name"], model["id"], start_time, metric, value))
                             tags = create_tags(project=project["name"], model=model["id"])
                             self.gauge(metric, value, tags)
 
                         elif metric == 'output_average' or metric == 'integrity_violation_count':
                             for key, value in single_value["value"].items():
-                                #new_metric = metric + '-' + key
+                                # new_metric = metric + '-' + key
                                 new_metric = metric
-                                print("output_average Final list: %s %s %s %s %s" % (project["name"], model["id"], start_time, new_metric, value))
+                                print("output_average Final list: %s %s %s %s %s" % 
+                                        (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
                         elif metric == 'histogram_drift':
                             for key, value in single_value["value"].items():
-                                #new_metric = "histogram_drift-" + key
+                                # new_metric = "histogram_drift-" + key
                                 new_metric = metric
-                                print("hist Final list: %s %s %s %s %s" % (project["name"], model["id"], start_time, new_metric, value))
+                                print("hist Final list: %s %s %s %s %s" %
+                                        (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
                         elif metric == 'feature_average':
                             for key, value in single_value["value"].items():
                                 new_metric = metric
-                                print("feature_average Final list: %s %s %s %s %s" % (project["name"], model["id"], start_time, new_metric, value))
+                                print("feature_average Final list: %s %s %s %s %s" % 
+                                        (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
@@ -135,7 +142,8 @@ class FiddlerCheck(AgentCheck):
                             accuracy_metrics = single_value["value"]
                             for key, value in accuracy_metrics["accuracy_metrics"].items():
                                 new_metric = key
-                                print("accuracy Final list: %s %s %s %s %s" % (project["name"], model["id"], start_time, new_metric, value))
+                                print("accuracy Final list: %s %s %s %s %s" % 
+                                        (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"])
                                 self.gauge(new_metric, value, tags)
 
