@@ -88,13 +88,8 @@ class FiddlerCheck(AgentCheck):
                     try:
                         result = self.client.v1._call(agg_metrics_path, json_request)
                     except Exception:
-                        print("Aggregated metrics exception : %s", agg_metrics_path)
-                        print(
-                            "Project with no monitoring data. ProjectModel: %s %s %s" %
-                            project["name"],
-                            model["id"],
-                            metric,
-                        )
+                        print("Aggregated metrics exception : %s" % (agg_metrics_path))
+                        print("Project with no monitoring data. ProjectModel: %s %s %s" % (project["name"], model["id"], metric))
                         hit_exception = True
 
                     if hit_exception:
