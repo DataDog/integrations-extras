@@ -34,9 +34,9 @@ def test_metric_collection(dd_run_check, aggregator, instance):
 @pytest.mark.e2e
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
-def test_service_check(aggregator, e2e_instance):
-    c = FiddlerCheck('fiddler', {}, [e2e_instance])
+def test_service_check(aggregator, instance):
+    c = FiddlerCheck('fiddler', {}, [instance])
 
     # the check should send OK
-    c.check(e2e_instance)
+    c.check(instance)
     # aggregator.assert_service_check('awesome.search', AwesomeCheck.OK)
