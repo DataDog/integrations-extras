@@ -92,7 +92,7 @@ class FiddlerCheck(AgentCheck):
                     except Exception:
                         print("Aggregated metrics exception : %s" % (agg_metrics_path))
                         print("Project with no monitoring data. ProjectModel: %s %s %s" %
-                             (project["name"], model["id"], metric))
+                              (project["name"], model["id"], metric))
                         hit_exception = True
 
                     if hit_exception:
@@ -108,7 +108,7 @@ class FiddlerCheck(AgentCheck):
                         if metric == 'traffic_count':
                             value = single_value["value"]
                             print("traffic Final list: %s %s %s %s %s" %
-                                 (project["name"], model["id"], start_time, metric, value))
+                                  (project["name"], model["id"], start_time, metric, value))
                             tags = create_tags(project=project["name"], model=model["id"])
                             self.gauge(metric, value, tags)
 
@@ -117,7 +117,7 @@ class FiddlerCheck(AgentCheck):
                                 # new_metric = metric + '-' + key
                                 new_metric = metric
                                 print("output_average Final list: %s %s %s %s %s" %
-                                     (project["name"], model["id"], start_time, new_metric, value))
+                                      (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
@@ -126,7 +126,7 @@ class FiddlerCheck(AgentCheck):
                                 # new_metric = "histogram_drift-" + key
                                 new_metric = metric
                                 print("hist Final list: %s %s %s %s %s" %
-                                     (project["name"], model["id"], start_time, new_metric, value))
+                                      (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
@@ -134,7 +134,7 @@ class FiddlerCheck(AgentCheck):
                             for key, value in single_value["value"].items():
                                 new_metric = metric
                                 print("feature_average Final list: %s %s %s %s %s" %
-                                     (project["name"], model["id"], start_time, new_metric, value))
+                                      (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"], feature=key)
                                 self.gauge(new_metric, value, tags)
 
@@ -143,7 +143,7 @@ class FiddlerCheck(AgentCheck):
                             for key, value in accuracy_metrics["accuracy_metrics"].items():
                                 new_metric = key
                                 print("accuracy Final list: %s %s %s %s %s" %
-                                     (project["name"], model["id"], start_time, new_metric, value))
+                                      (project["name"], model["id"], start_time, new_metric, value))
                                 tags = create_tags(project=project["name"], model=model["id"])
                                 self.gauge(new_metric, value, tags)
 
