@@ -33,7 +33,13 @@ Additionally, ensure that all API keys associated with this integration have bee
 
 ### Events
 
-Buoyant Cloud sends [events][3] to Datadog.
+Buoyant Cloud sends [events][3] to Datadog, including:
+
+- Linkerd health alerts
+- Linkerd configuration alerts
+- Workload traffic alerts
+- Workload rollouts
+- Manual events
 
 ## Troubleshooting
 
@@ -47,7 +53,7 @@ Need help? Get support from the following sources:
 [2]: https://buoyant.cloud/notifications
 [3]: https://app.datadoghq.com/event/explorer
 [4]: https://buoyant.cloud/settings
-[5]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: https://app.datadoghq.com/organization-settings/api-keys?filter=Buoyant%20Cloud
 [6]: https://docs.buoyant.cloud
 [7]: https://slack.linkerd.io
 [8]: mailto:cloud@buoyant.io

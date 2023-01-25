@@ -1,0 +1,73 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b1194c36-afd0-47dc-9c0a-11f3ab82f387",
+  "app_id": "steadybit",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Immediately improve your systems' reliability with chaos engineering",
+    "title": "Steadybit",
+    "media": [
+      {
+        "media_type": "video",
+        "caption": "A video showing the Datadog API integration with Steadybit in action.",
+        "image_url": "images/steadybit_experiment_editor.png",
+        "vimeo_id": 782622274
+      },
+      {
+        "media_type": "image",
+        "caption": "Once executed, Datadog monitor statuses are used to control an experiment's behavior.",
+        "image_url": "images/steadybit_experiment_execution_run_log.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "The status of relevant Datadog monitors is displayed over time within Steadybit.",
+        "image_url": "images/steadybit_experiment_execution_monitor_status_over_time.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Steadybit reports events back to Datadog for organization-wide awareness.",
+        "image_url": "images/steadybit_events_in_datadog.png"
+      }
+    ],
+    "classifier_tags": [
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::AWS",
+      "Category::Cloud",
+      "Category::Testing"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Steadybit",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "steadybit.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Steadybit Chaos Engineering Activity": "assets/dashboards/steadybit.json"
+    }
+  },
+  "author": {
+    "support_email": "support@steadybit.com",
+    "name": "Steadybit",
+    "homepage": "https://steadybit.com/",
+    "sales_email": "sales@steadybit.com"
+  },
+  "oauth": {}
+}
