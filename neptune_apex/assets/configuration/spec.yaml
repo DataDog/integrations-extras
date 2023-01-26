@@ -1,0 +1,17 @@
+name: Neptune Apex
+files:
+- name: neptune_apex.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: address
+      description: the http(s) address to connect to the local neptune apex controller
+      required: true
+      value:
+        type: string
+        example: http://192.168.0.1
+    - template: instances/default
+    

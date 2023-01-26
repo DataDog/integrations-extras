@@ -1,0 +1,689 @@
+{
+    "title": "Neptune Apex",
+    "description": "",
+    "widgets": [
+        {
+            "id": 5161208912793882,
+            "definition": {
+                "type": "image",
+                "url": "https://pbs.twimg.com/profile_images/2625003925/j4gbv0w8hy5w8vmbelku_400x400.png",
+                "sizing": "contain",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 3166802095111478,
+            "definition": {
+                "title": "Neptune Collection Status",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "check_status",
+                "check": "neptune_apex.can_connect",
+                "grouping": "cluster",
+                "group_by": [
+                    "controller_name",
+                    "controller_serial"
+                ],
+                "tags": [
+                    "collection:status"
+                ]
+            },
+            "layout": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 1
+            }
+        },
+        {
+            "id": 3861362325927800,
+            "definition": {
+                "title": "Outlet Logs",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "event_timeline",
+                "query": "source:neptune_apex",
+                "tags_execution": "and"
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 8,
+                "height": 2
+            }
+        },
+        {
+            "id": 1552685293244772,
+            "definition": {
+                "title": "Neptune Outlog Collection Status",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "check_status",
+                "check": "neptune_apex.can_connect",
+                "grouping": "cluster",
+                "group_by": [
+                    "controller_name",
+                    "controller_serial"
+                ],
+                "tags": [
+                    "collection:outlog"
+                ]
+            },
+            "layout": {
+                "x": 2,
+                "y": 1,
+                "width": 2,
+                "height": 1
+            }
+        },
+        {
+            "id": 7834162912587974,
+            "definition": {
+                "title": "Aquarium Level (in)",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.probe.lls{$controller_name,$controller_serial,$probe_name,$controller_name,$controller_serial} by {name,probe_name,serial}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "pow",
+                    "min": "0",
+                    "max": "20"
+                },
+                "markers": [
+                    {
+                        "label": " Spillage ",
+                        "value": "y > 15",
+                        "display_type": "error dashed"
+                    },
+                    {
+                        "label": " Low Water ",
+                        "value": "10 < y < 12.5",
+                        "display_type": "warning dashed"
+                    },
+                    {
+                        "label": " Needs Water! ",
+                        "value": "0 < y < 10",
+                        "display_type": "error dashed"
+                    },
+                    {
+                        "label": "Optimal",
+                        "value": "12.5 < y < 15",
+                        "display_type": "ok dashed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 2524707739826650,
+            "definition": {
+                "title": "Outlet Logs",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "query": {
+                            "query_string": "source:neptune_apex",
+                            "data_source": "event_stream",
+                            "event_size": "l"
+                        },
+                        "columns": [],
+                        "response_format": "event_list"
+                    }
+                ],
+                "type": "list_stream"
+            },
+            "layout": {
+                "x": 4,
+                "y": 2,
+                "width": 8,
+                "height": 4
+            }
+        },
+        {
+            "id": 5762633067609770,
+            "definition": {
+                "title": "pH",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.probe.ph{$controller_name,$controller_serial,$probe_name,$controller_name,$controller_serial}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "pow",
+                    "max": "10"
+                },
+                "markers": [
+                    {
+                        "label": " Danger ",
+                        "value": "y > 8.6",
+                        "display_type": "error dashed"
+                    },
+                    {
+                        "label": " High ",
+                        "value": "8.4 < y < 8.6",
+                        "display_type": "warning dashed"
+                    },
+                    {
+                        "label": " Ideal ",
+                        "value": "8 < y < 8.4",
+                        "display_type": "ok dashed"
+                    },
+                    {
+                        "label": " Low ",
+                        "value": "7.8 < y < 8",
+                        "display_type": "warning dashed"
+                    },
+                    {
+                        "label": " Danger ",
+                        "value": "y < 7.8",
+                        "display_type": "error dashed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 7360450460447282,
+            "definition": {
+                "title": "ORP",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.probe.orp{$controller_name,$controller_serial,$probe_name,$controller_name,$controller_serial}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "include_zero": false,
+                    "scale": "pow"
+                },
+                "markers": [
+                    {
+                        "label": " Ideal ",
+                        "value": "200 < y < 240",
+                        "display_type": "ok dashed"
+                    },
+                    {
+                        "label": " Low ",
+                        "value": "180 < y < 200",
+                        "display_type": "warning dashed"
+                    },
+                    {
+                        "label": " High ",
+                        "value": "240 < y < 260",
+                        "display_type": "warning dashed"
+                    },
+                    {
+                        "label": " Danger ",
+                        "value": "0 < y < 180",
+                        "display_type": "error dashed"
+                    },
+                    {
+                        "label": " Danger ",
+                        "value": "y > 240",
+                        "display_type": "error dashed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 8061639441976896,
+            "definition": {
+                "title": "Outlet States",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.state{$controller_name,$controller_serial,$outlet_name,$outlet_id,$outlet_state,$device_id,$controller_name,$controller_serial} by {controller_name,controller_serial,name,outlet_type,state,device_id}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "avg"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 6,
+                "width": 8,
+                "height": 6
+            }
+        },
+        {
+            "id": 4873633938516518,
+            "definition": {
+                "title": "Watts per outlet",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.usage.watts{$controller_name,$controller_serial,$controller_name,$controller_serial,outlet_type:outlet} by {controller_hardware,controller_serial,device_id,outlet_type,name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "semantic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "include_zero": false,
+                    "scale": "log"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 8440513609628328,
+            "definition": {
+                "title": "Amps per outlet",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.usage.amps{$controller_name,$controller_serial,$controller_name,$controller_serial,outlet_type:outlet} by {controller_hardware,controller_serial,device_id,outlet_type,name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "semantic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "include_zero": false
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 10,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 7197439161569126,
+            "definition": {
+                "title": "Power Usage",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.usage.watts{$controller_name,$controller_serial,$controller_name,$controller_serial,outlet_type:outlet} by {name,outlet_type,controller_serial,controller_name}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "sum"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "type": "sunburst"
+            },
+            "layout": {
+                "x": 0,
+                "y": 12,
+                "width": 6,
+                "height": 4
+            }
+        },
+        {
+            "id": 4194580057230482,
+            "definition": {
+                "title": "Accessory Voltage Usage",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.probe.volt{$controller_name,$controller_serial,$probe_name,$controller_name,$controller_serial} by {name,probe_name,serial}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 12,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 4016899066984584,
+            "definition": {
+                "title": "Skimmer Usage - Watts (purple) vs Amps (red)",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.usage.watts{$controller_name,$controller_serial,name:skimmer*,$controller_name,$controller_serial} by {controller_hardware,controller_serial,device_id,outlet_type,name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "purple",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    },
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query0"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "on_right_yaxis": true,
+                        "queries": [
+                            {
+                                "query": "avg:neptune_apex.outlet.usage.amps{$controller_name,$controller_serial,name:skimmer*,$controller_name,$controller_serial} by {controller_hardware,controller_serial,device_id,outlet_type,name}",
+                                "data_source": "metrics",
+                                "name": "query0"
+                            }
+                        ],
+                        "style": {
+                            "palette": "warm",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "right_yaxis": {
+                    "include_zero": true,
+                    "scale": "linear",
+                    "label": "",
+                    "min": "auto",
+                    "max": "auto"
+                }
+            },
+            "layout": {
+                "x": 6,
+                "y": 14,
+                "width": 4,
+                "height": 2
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "controller_name",
+            "prefix": "controller_name",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "device_id",
+            "prefix": "device_id",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "controller_serial",
+            "prefix": "controller_serial",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "probe_name",
+            "prefix": "probe_name",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "outlet_id",
+            "prefix": "outlet_id",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "outlet_name",
+            "prefix": "outlet_name",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "outlet_state",
+            "prefix": "outlet_state",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}

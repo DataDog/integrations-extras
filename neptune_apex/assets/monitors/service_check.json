@@ -1,0 +1,29 @@
+{
+	"name": "Neptune Collection ({{collection.name}}) Status",
+	"type": "service check",
+	"query": "\"neptune_apex.can_connect\".over(\"*\").by(\"collection\").last(3).count_by_status()",
+	"message": "Neptune Collection ({{collection.name}}) Status. Check that the agent is able to connect to your neptune controller.",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 2,
+			"warning": 1,
+			"ok": 1
+		},
+		"notify_audit": false,
+		"notify_no_data": true,
+		"renotify_interval": 30,
+		"timeout_h": 0,
+		"include_tags": true,
+		"new_group_delay": 60,
+		"no_data_timeframe": 15,
+		"renotify_statuses": [
+			"alert",
+			"no data"
+		],
+		"escalation_message": "",
+		"silenced": {}
+	},
+	"priority": null,
+	"restricted_roles": null
+}

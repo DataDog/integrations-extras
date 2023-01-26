@@ -1,0 +1,52 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "03ddf68c-3908-45be-89ed-f08b57df1304",
+  "app_id": "neptune-apex",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Neptune Apex Reef Monitoring",
+    "title": "Neptune Apex",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Neptune Apex",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "neptune_apex.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Neptune Apex Overview": "assets/dashboards/neptune_apex_overview.json"
+    },
+    "monitors": {
+      "Neptune Can Connect": "assets/monitors/service_check.json"
+    }
+  },
+  "author": {
+    "support_email": "cody.lee@datadoghq.com",
+    "name": "Cody Lee",
+    "homepage": "https://apexfusion.com/apex",
+    "sales_email": "sales@neptunesystems.com"
+  },
+  "oauth": {}
+}
