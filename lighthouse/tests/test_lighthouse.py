@@ -60,19 +60,20 @@ def test_check(aggregator, instance):
 
 @pytest.mark.integration
 def test_check_urls_tags(aggregator, instance):
+    common_tag = "key:value"
     instance = {
         "urls": ["https://www.google.com", "https://www.datadoghq.com"],
         "name": "test",
-        "tags": ["key1:value1", "key2:value2"],
+        "tags": [common_tag],
     }
     lighthouse_check = LighthouseCheck("lighthouse", {}, {})
     LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
 
     lighthouse_check.check(instance)
 
-    tags = [instance["tags"] + ["url:{}".format(url), "name:{}".format(instance['name'])] for url in instance["urls"]]
+    expected_tags = [[common_tag, "url:" + url, "name:" + instance["name"]] for url in instance["urls"]]
 
-    for t in tags:
+    for t in expected_tags:
         aggregator.assert_metric(name="lighthouse.accessibility", value=92, tags=t)
         aggregator.assert_metric(name="lighthouse.best_practices", value=100, tags=t)
         aggregator.assert_metric(name="lighthouse.performance", value=55, tags=t)
