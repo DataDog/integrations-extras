@@ -23,7 +23,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fiddler 
 
 ### Configuration
 
-1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample `fiddler.d/conf.yaml`][5] for all available configuration options.  The `url`, `org`, and `fiddler_api_key` parameters will need to be updated respective of the Fiddler environment you wish the integration to query. Fiddler also suggests setting the `minimum_collection_interval` setting in the conf.yaml file to 300, or 5 minutes.
+1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample `fiddler.d/conf.yaml`][5] for all available configuration options. The `url`, `org`, and `fiddler_api_key` parameters need to be updated for the Fiddler environment you wish the integration to query. Fiddler also suggests setting the `minimum_collection_interval` setting in the `conf.yaml` file to `300` (5 minutes).
 
 2. [Restart the Agent][6].
 
