@@ -59,6 +59,49 @@ def test_check(aggregator, instance):
 
 
 @pytest.mark.integration
+def test_check_urls_tags(aggregator, instance):
+    instance = {
+        "urls": ["https://www.google.com", "https://www.datadoghq.com"],
+        "name": "test",
+        "tags": ["key1:value1", "key2:value2"],
+    }
+    lighthouse_check = LighthouseCheck("lighthouse", {}, {})
+    LighthouseCheck._get_lighthouse_report = MagicMock(side_effect=mock_get_lighthouse_report)
+
+    lighthouse_check.check(instance)
+
+    tags = [
+        instance["tags"] + [f"url:{url}", f"name:{instance['name']}"]
+        for url in instance["urls"]
+    ]
+
+    for t in tags:
+        aggregator.assert_metric(name="lighthouse.accessibility", value=92, tags=t)
+        aggregator.assert_metric(name="lighthouse.best_practices", value=100, tags=t)
+        aggregator.assert_metric(name="lighthouse.performance", value=55, tags=t)
+        aggregator.assert_metric(name="lighthouse.pwa", value=30, tags=t)
+        aggregator.assert_metric(name="lighthouse.seo", value=89, tags=t)
+        aggregator.assert_metric(name="lighthouse.bootup_time", value=2198, tags=t)
+        aggregator.assert_metric(name="lighthouse.cumulative_layout_shift", value=0.01, tags=t)
+        aggregator.assert_metric(name="lighthouse.dom_size", value=2721, tags=t)
+        aggregator.assert_metric(name="lighthouse.first_contentful_paint", value=2154, tags=t)
+        aggregator.assert_metric(name="lighthouse.largest_contentful_paint", value=3910, tags=t)
+        aggregator.assert_metric(name="lighthouse.mainthread_work_breakdown", value=3568, tags=t)
+        aggregator.assert_metric(name="lighthouse.max_potential_fid", value=208, tags=t)
+        aggregator.assert_metric(name="lighthouse.modern_image_formats", value=0, tags=t)
+        aggregator.assert_metric(name="lighthouse.render_blocking_resources", value=890, tags=t)
+        aggregator.assert_metric(name="lighthouse.server_response_time", value=276, tags=t)
+        aggregator.assert_metric(name="lighthouse.speed_index", value=4442, tags=t)
+        aggregator.assert_metric(name="lighthouse.time_to_interactive", value=10632.5, tags=t)
+        aggregator.assert_metric(name="lighthouse.total_blocking_time", value=926, tags=t)
+        aggregator.assert_metric(name="lighthouse.unused_css_rules", value=530, tags=t)
+        aggregator.assert_metric(name="lighthouse.unused_javascript", value=1200, tags=t)
+        aggregator.assert_metric(name="lighthouse.uses_optimized_images", value=0, tags=t)
+
+    aggregator.assert_all_metrics_covered()
+
+
+@pytest.mark.integration
 def test_missing_url_instance_check(aggregator, instance):
     # incomplete instance in yaml missing url
     incomplete_instance = {'name': 'datadoghq'}
