@@ -1,7 +1,7 @@
 # Agent Check: Fiddler
 
 ## Overview
-Fiddler's Model Performance Management platform monitors ML model performance by sending real-time alerts when model performance metrics drop and allowing customers to analyze inference data to understand why a model performance is degrading. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, traffic, and drift.
+Fiddler's Model Performance Management platform monitors Machine Learning model performance by sending real-time alerts when model performance metrics drop, allowing users to analyze inference data to understand why model performance is degrading. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, traffic, and drift.
 
 
 ## Setup
