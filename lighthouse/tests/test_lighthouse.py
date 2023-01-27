@@ -70,10 +70,7 @@ def test_check_urls_tags(aggregator, instance):
 
     lighthouse_check.check(instance)
 
-    tags = [
-        instance["tags"] + [f"url:{url}", f"name:{instance['name']}"]
-        for url in instance["urls"]
-    ]
+    tags = [instance["tags"] + ["url:{}".format(url), "name:{}".format(instance['name'])] for url in instance["urls"]]
 
     for t in tags:
         aggregator.assert_metric(name="lighthouse.accessibility", value=92, tags=t)
