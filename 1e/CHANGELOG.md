@@ -1,6 +1,6 @@
 # CHANGELOG - 1E Integration
 
-## 1.0.0 / 2022-10-20
+## 1.0.0 / 2023-02-02
 
 ### Changes
 
