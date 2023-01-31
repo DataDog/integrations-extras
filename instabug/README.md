@@ -1,7 +1,7 @@
 # Instabug integration
 ## Overview
 
-[Instabug][1] is a mobile-focused platform that empowers mobile teams to monitor, prioritize, and debug performance and stability issues throughout the entire mobile app development lifecycle.
+[Instabug][1] is a mobile-focused platform that empowers mobile teams to monitor, prioritize, and debug performance and stability issues throughout the mobile app development lifecycle.
 
 The Instabug dashboard widget in Datadog helps you monitor your overall app health and how users perceive your app's performance with just one number, the App Apdex. The widget provides:
 - The overall App Apdex score
