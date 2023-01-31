@@ -43,7 +43,7 @@ See [service_checks.json][9] for a list of service checks provided by this integ
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][10].
+Need help? Contact [Fiddler support][10].
 
 [1]: https://fiddler.ai
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -54,5 +54,5 @@ Need help? Contact [Datadog support][10].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/fiddler/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/fiddler/assets/service_checks.json
-[10]: https://docs.datadoghq.com/help/
+[10]: https://fiddlerlabs.zendesk.com/hc/en-us
 
