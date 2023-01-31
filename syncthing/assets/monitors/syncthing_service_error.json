@@ -1,0 +1,30 @@
+{
+	"name": "Syncthing service on {{host.name}} failed",
+	"type": "service check",
+	"query": "\"syncthing.can_connect\".over(\"*\").by(\"host\").last(2).count_by_status()",
+	"message": "@all",
+	"tags": [
+		"integration:syncthing"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 1,
+			"warning": 1,
+			"ok": 1
+		},
+		"notify_audit": false,
+		"notify_no_data": true,
+		"renotify_interval": 0,
+		"timeout_h": 0,
+		"include_tags": false,
+		"new_host_delay": 300,
+		"escalation_message": "",
+		"no_data_timeframe": 30,
+		"silenced": {}
+	},
+	"priority": null,
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing service failed"
+	}
+}

@@ -36,14 +36,6 @@ def test_config():
             [{"pprof_url": "http://localhost:1234/debug/pprof/", "profiles": ["xzy"], "service": "testing"}],
         )
 
-    # Duration too long
-    with pytest.raises(ConfigurationError):
-        GoPprofScraperCheck(
-            "go_pprof_scraper",
-            INIT_CONFIG,
-            [{"pprof_url": "http://localhost:1234/debug/pprof", "duration": 1000, "service": "testing"}],
-        )
-
     c = GoPprofScraperCheck(
         "go_pprof_scraper",
         INIT_CONFIG,
@@ -76,6 +68,9 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 def test_e2e(dd_agent_check, instance):
     check = GoPprofScraperCheck("go_pprof_scraper", INIT_CONFIG, [instance])
     check.check([])
+
+    r = requests.post("http://localhost:9999/reset")
+    r.raise_for_status()
 
     aggregator = dd_agent_check(instance)
     aggregator.assert_service_check("go_pprof_scraper.can_connect", GoPprofScraperCheck.OK)

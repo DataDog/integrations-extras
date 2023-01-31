@@ -42,10 +42,14 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     FOLDERS_RESPONSE = '''
     [
       {
-        "id": "folder1"
+        "id": "folder1",
+        "name": "folder1",
+        "type": "receiveonly"
       },
       {
-        "id": "folder2"
+        "id": "folder2",
+        "name": "folder2",
+        "type": "receiveonly"
       }
     ]'''
 
@@ -113,6 +117,45 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
       "version": 20782
     }'''
 
+    STATS_FOLDER_RESPONSE = '''
+    {
+      "folder1": {
+        "lastScan": "2022-12-18T00:24:56+01:00"
+      },
+      "folder2": {
+        "lastScan": "2022-12-18T00:48:18+01:00"
+      }
+    }'''
+
+    STATS_DEVICE_RESPONSE = '''
+    {
+      "ID0": {
+        "lastSeen": "1970-01-01T01:00:00+01:00",
+        "lastConnectionDurationS": 0
+      },
+      "ID1": {
+        "lastSeen": "2022-04-08T23:18:59+02:00",
+        "lastConnectionDurationS": 48
+      },
+      "ID2": {
+        "lastSeen": "2022-04-08T23:18:59+02:00",
+        "lastConnectionDurationS": 488.141677916
+      }
+    }'''
+
+    CONFIG_DEVICES_RESPONSE = '''
+    [
+        {
+            "deviceID": "ID1",
+            "name": "ID1"
+        },
+        {
+            "deviceID": "ID2",
+            "name": "ID2"
+        }
+    ]
+    '''
+
     ERROR_RESPONSE = '''
     {
       "errors": [
@@ -129,6 +172,9 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     requests_mock.get('http://localhost/rest/config/folders', text=FOLDERS_RESPONSE)
     requests_mock.get('http://localhost/rest/db/status?folder=folder1', text=FOLDER1_RESPONSE)
     requests_mock.get('http://localhost/rest/db/status?folder=folder2', text=FOLDER2_RESPONSE)
+    requests_mock.get('http://localhost/rest/stats/folder', text=STATS_FOLDER_RESPONSE)
+    requests_mock.get('http://localhost/rest/stats/device', text=STATS_DEVICE_RESPONSE)
+    requests_mock.get('http://localhost/rest/config/devices', text=CONFIG_DEVICES_RESPONSE)
     requests_mock.get('http://localhost/rest/system/error', text=ERROR_RESPONSE)
 
     check = SyncthingCheck('syncthing', {}, [instance])
@@ -143,6 +189,7 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     for f in ['folder1', 'folder2']:
         ftags = list(gtags)
         ftags.append('folder:' + f)
+        ftags.append('type:receiveonly')
         aggregator.assert_metric('syncthing.folder.bytes', tags=ftags)
         aggregator.assert_metric('syncthing.folder.errors', tags=ftags)
         aggregator.assert_metric('syncthing.folder.files', tags=ftags)
@@ -162,6 +209,14 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
         aggregator.assert_metric('syncthing.folder.need.files', tags=ftags)
         aggregator.assert_metric('syncthing.folder.need.total_items', tags=ftags)
         aggregator.assert_metric('syncthing.folder.pull_errors', tags=ftags)
+        aggregator.assert_metric('syncthing.folder.last_scan', tags=ftags)
+
+    for d in ['ID1', 'ID2']:
+        dtags = list(gtags)
+        dtags.append('device_name:' + d)
+        dtags.append('device_id:' + d)
+        aggregator.assert_metric('syncthing.stats.device.last_seen', tags=dtags)
+        aggregator.assert_metric('syncthing.stats.device.last_connection_duration', tags=dtags)
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())

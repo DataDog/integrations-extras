@@ -33,6 +33,12 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
 
 ### Metrics collection
 
+#### Note:
+
+Metrics collection is available only for [JFrog Platform Self-Hosted users. JFrog Cloud is not supported.][22]
+
+#### Setup and Configure
+
 1. Enable Metrics for Artifactory and Xray:
 
     1. [Enable Metrics for Artifactory][7]
@@ -201,3 +207,4 @@ Need help? Contact [Datadog support][15].
 [19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
 [20]: https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection
 [21]: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#tail-directories-by-using-wildcards
+[22]: https://www.jfrog.com/confluence/display/JFROG/Open+Metrics

@@ -27,5 +27,5 @@ Need help? Contact [Vantage support](mailto:support@vantage.sh).
 
 [1]: https://console.vantage.sh/settings/integrations
 [2]: https://app.datadoghq.com/organization-settings/oauth-applications
-[3]: https://app.datadoghq.com/organization-settings/api-keys
+[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=Vantage
 [4]: https://console.vantage.sh
