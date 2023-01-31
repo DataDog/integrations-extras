@@ -1,7 +1,7 @@
 # Agent Check: Fiddler
 
 ## Overview
-Fiddler's Model Performance Management platform monitors ML model performance by sending real-time alerts when model performance metrics drop and allowing customers to analyze inference data to understand why a model performance is degrading. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, traffic, and drift.
+Fiddler's Model Performance Management platform monitors Machine Learning model performance by sending real-time alerts when model performance metrics drop, allowing users to analyze inference data to understand why model performance is degrading. This integration includes metrics and an out-of-the-box dashboard that displays performance metrics such as accuracy, traffic, and drift.
 
 
 ## Setup
@@ -23,7 +23,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fiddler 
 
 ### Configuration
 
-1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample `fiddler.d/conf.yaml`][5] for all available configuration options.  The `url`, `org`, and `fiddler_api_key` parameters will need to be updated respective of the Fiddler environment you wish the integration to query. Fiddler also suggests setting the `minimum_collection_interval` setting in the conf.yaml file to 300, or 5 minutes.
+1. Edit the `fiddler.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Fiddler performance data. See the [sample `fiddler.d/conf.yaml`][5] for all available configuration options. The `url`, `org`, and `fiddler_api_key` parameters need to be updated for the Fiddler environment you wish the integration to query. Fiddler also suggests setting the `minimum_collection_interval` setting in the `conf.yaml` file to `300` (5 minutes).
 
 2. [Restart the Agent][6].
 
@@ -43,7 +43,7 @@ See [service_checks.json][9] for a list of service checks provided by this integ
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][10].
+Need help? Contact [Fiddler support][10].
 
 [1]: https://fiddler.ai
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -54,5 +54,5 @@ Need help? Contact [Datadog support][10].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/fiddler/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/fiddler/assets/service_checks.json
-[10]: https://docs.datadoghq.com/help/
+[10]: https://fiddlerlabs.zendesk.com/hc/en-us
 
