@@ -1,7 +1,7 @@
 # Instabug integration
 ## Overview
 
-[Instabug][1]'s comprehensive platform empowers developers to monitor, prioritize, and debug performance and stability issues throughout the entire mobile app development lifecycle. Over 15,000 companies utilize the unmatched performance monitoring and crash reporting features, allowing their team of developers to leverage critical data in real time. Verizon, PayPal, eBay, and more of today's top-rated apps rely on our automated reports, alerts, and data solutions to boost their mobile app performance, prepare for smoother release cycles, and enable further developments and scalability.
+[Instabug][1] is a mobile-focused platform that empowers mobile teams to monitor, prioritize, and debug performance and stability issues throughout the entire mobile app development lifecycle.
 
 On Datadog, Instabug provides a dashboard widget that will help you monitor your overall app health and how the user perceives your app's performance with just one number, the App Apdex. Through the widget you will get:
 - The overall App Apdex score
