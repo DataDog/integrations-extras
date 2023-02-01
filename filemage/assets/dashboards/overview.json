@@ -1,0 +1,206 @@
+{
+  "title": "Filemage Overview",
+  "description": "## Filemage Overview Dashboard\n\nThis dashboard shows an overview of the health of your Filemage server at a quick glance.  \n\nWith the Filemage Overview Dashboard you can:\n- see overall system health at a glance\n- track FTP statistics over time\n- identify anomalies to investigate\n\nFor more infomration about Filemage see the [Filemage Gateway Documentation][1].\n\n[1]: https://www.filemage.io/docs/",
+  "widgets": [
+    {
+      "id": 5135787227545338,
+      "definition": {
+        "title": "About",
+        "type": "group",
+        "banner_img": "https://www.filemage.io/_nuxt/img/2a87719.png",
+        "show_title": false,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4837755021300138,
+            "definition": {
+              "type": "note",
+              "content": "## Filemage Overview Dashboard\n\nThis dashboard shows an overview of the health of your Filemage server at a quick glance.  \n\nWith the Filemage Overview Dashboard you can:\n- see overall system health at a glance\n- track FTP statistics over time\n- identify anomalies to investigate\n\nFor more infomration about Filemage see the [Filemage Gateway Documentation][1].\n\n[1]: https://www.filemage.io/docs/",
+              "background_color": "white",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 8
+      }
+    },
+    {
+      "id": 5371912526417964,
+      "definition": {
+        "title": "Overview",
+        "type": "group",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5227136913231726,
+            "definition": {
+              "title": "Total Files Transferred",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "toplist",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:filemage.ftp.put{*} by {host}.as_count()",
+                      "aggregator": "max"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 500,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 2
+            }
+          },
+          {
+            "id": 7437811762846946,
+            "definition": {
+              "title": "Files Transferred Per Minute",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {
+                "live_span": "1d"
+              },
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "per_minute(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:filemage.ftp.put{*} by {host}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 1214677180269506,
+            "definition": {
+              "title": "Healthy Filemage Deployments",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "10m"
+              },
+              "type": "check_status",
+              "check": "filemage.services_up",
+              "grouping": "cluster",
+              "group_by": [],
+              "tags": [
+                "*"
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 5,
+              "width": 8,
+              "height": 1
+            }
+          },
+          {
+            "id": 7772139790279194,
+            "definition": {
+              "title": "Hosts Sending Filemage Metrics",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "10m"
+              },
+              "type": "check_status",
+              "check": "filemage.metrics_up",
+              "grouping": "cluster",
+              "group_by": [
+                "host"
+              ],
+              "tags": [
+                "*"
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 8,
+              "height": 1
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "9u5-rsv-qyd"
+}
