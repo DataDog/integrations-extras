@@ -4,17 +4,17 @@
 
 ## Overview
 
-Global technology companies use [incident.io][1] to empower teams to run incidents end-to-end. Rapidly fix and learn from incidents, so you can build more resilient products.
+Global technology companies use [incident.io][1] to empower teams to run incidents end-to-end. Fix and learn from incidents, so you can build more resilient products.
 
-When you trigger incidents using PagerDuty or OpsGenie, incident.io will automatically pull through any associated information about your Datadog monitors, putting all the information you need right in your incident channel.
+When you trigger an incident using PagerDuty or OpsGenie, incident.io automatically pulls through any associated information about your Datadog monitors, putting all the information you need in your incident channel.
 
 ## Setup
 
-To get started, you need to first connect PagerDuty or OpsGenie to Datadog, then setup incident triggers inside incident.io - details on how to do that can be found in the [incident.io documentation][2]
+To get started, connect PagerDuty or OpsGenie to Datadog. Then, set up incident triggers inside incident.io. See the [incident.io Datadog integration][2] for details.
 
 ## Support
 
-Contact incident.io's support team via Intercom on [our website][1], or reach out to our [support team][3].
+Contact incident.io's support team via Intercom on [the website][1], or reach out to the [support team][3].
 
 [1]: https://incident.io/
 [2]: https://help.incident.io/en/articles/6930062-datadog-integration
