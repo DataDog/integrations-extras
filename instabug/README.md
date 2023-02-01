@@ -11,9 +11,9 @@ The Instabug dashboard widget in Datadog helps you monitor your overall app heal
 
 
 ## Setup
-1. If you haven't already, [Sign up for Instabug][2] for free and follow the steps to integrate the SDK into your app.
+1. If you haven't already, [Sign up for Instabug][2] for free and follow the steps to integrate the SDK into your app. Ensure that you have also joined the [Datadog Apps beta][5].
 2. After integrating the Instabug SDK in your app, go to a new or existing [Datadog dashboard][4].
-3. Press the **+ Edit Dashboard** button to expose the widget drawer.
+3. Press the **+ Add Widgets** or **+ Edit Dashboard** button to expose the widget drawer.
 4. Search for `Instabug` under the **Apps** tab of the widget drawer.
 5. Click or drag the Instabug widget icon to add it to your dashboard and open the Instabug editor modal.
 6. Authenticate and connect your Instabug account to Datadog by logging in with your Instabug credentials.
@@ -33,3 +33,4 @@ Need help? Contact [Instabug Support][3].
 [2]: https://dashboard.instabug.com/signup
 [3]: mailto:support@instabug.com
 [4]: https://app.datadoghq.com/dashboard/lists
+[5]: https://docs.datadoghq.com/developers/datadog_apps/#join-the-beta
