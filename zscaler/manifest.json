@@ -1,34 +1,48 @@
 {
-  "display_name": "Zscaler",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "zscaler",
-  "metric_prefix": "zscaler.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "The Zscaler integration provides cloud security logs",
-  "guid": "595d2046-a122-4355-bfde-f4b42ece4a41",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Zscaler Integration",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "z-scaler",
+  "manifest_version": "2.0.0",
+  "app_uuid": "102476f5-1e00-452f-b841-9e32bb66d4bc",
+  "app_id": "z-scaler",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "The Zscaler integration provides cloud security logs",
+    "title": "Zscaler",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Datadog"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Zscaler",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "zscaler.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Zscaler Overview": "assets/dashboards/zscaler_overview.json"
     },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv",
     "logs": {
       "source": "zscaler"
     }

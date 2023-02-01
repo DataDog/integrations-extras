@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "f4cd02de-cfb8-4de9-a809-7a772ba738ca",
+  "app_id": "gitea",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Track all your Gitea metrics with Datadog",
+    "title": "Gitea",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Collaboration",
+      "Category::Source Control",
+      "Category::Issue Tracking",
+      "Category::Autodiscovery"
+    ]
+  },
+  "author": {
+    "support_email": "florent.clarret@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "florent.clarret@gmail.com",
+    "name": "Community"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Gitea",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "gitea.",
+        "check": "gitea.process.start_time",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Gitea Overview Dashboard": "assets/dashboards/gitea_overview.json"
+    }
+  }
+}

@@ -1,39 +1,52 @@
 {
-  "display_name": "Sedai",
-  "maintainer": "praveen.prakash@sedai.io",
-  "manifest_version": "1.0.0",
-  "name": "sedai",
-  "metric_prefix": "sedai.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "An autonomous platform to intelligently manage your cloud applications",
-  "description": "An agentless and threshold-free cloud management platform that acts as an intelligent autopilot for SREs. Sedai proactively manages your production environments to prevent availability issues, improve performance, optimize cloud costs, and provide deep insights on code releases.",
-  "guid": "147edbf7-176f-49de-af58-ed5f64336e07",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Sedai Integration",
-  "categories": [
-    "automation",
-    "cloud",
-    "cost-management",
-    "notification",
-    "orchestration",
-    "provisioning"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "sedai",
+  "manifest_version": "2.0.0",
+  "app_uuid": "fa7de455-fef8-4cb2-af30-9baa50e351f2",
+  "app_id": "sedai",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "An autonomous platform to intelligently manage your cloud applications",
+    "title": "Sedai",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Automation",
+      "Category::Cloud",
+      "Category::Notification",
+      "Category::Orchestration",
+      "Category::Provisioning"
+    ]
+  },
+  "author": {
+    "support_email": "praveen.prakash@sedai.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "praveen.prakash@sedai.io",
+    "name": "Sedai"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Sedai",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "sedai.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Sedai Overview": "assets/dashboards/sedai_overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {}
+    }
   }
 }

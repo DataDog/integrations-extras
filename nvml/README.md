@@ -70,10 +70,10 @@ Need help? Contact [Datadog support][11].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/nvml/datadog_checks/nvml/data/conf.yaml.example
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[10]: https://github.com/DataDog/integrations-core/blob/master/nvml/metadata.csv
+[10]: https://github.com/DataDog/integrations-extras/blob/master/nvml/metadata.csv
 [11]: https://docs.datadoghq.com/help
 [12]: https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources
 [13]: https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html
-[14]:https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter
+[14]: https://github.com/NVIDIA/dcgm-exporter
 [15]: https://github.com/DataDog/integrations-extras/blob/master/nvml/tests/Dockerfile
 [16]: https://github.com/DataDog/integrations-extras/blob/master/nvml/assets/service_checks.json

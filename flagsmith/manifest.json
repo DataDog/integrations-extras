@@ -1,30 +1,45 @@
 {
-  "display_name": "Flagsmith",
-  "maintainer": "support@flagsmith.com",
-  "manifest_version": "1.0.0",
-  "name": "flagsmith",
-  "creates_events": true,
-  "short_description": "Flag change events in Flagsmith appear in Datadog",
-  "guid": "cb56fcff-3c76-4522-9672-1c3d285728f5",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Flagsmith",
-  "categories": [
-    "notification"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "flagsmith",
+  "manifest_version": "2.0.0",
+  "app_uuid": "0ad66873-2958-4ca5-ae25-ee893b4c6e31",
+  "app_id": "flagsmith",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Flag change events in Flagsmith appear in Datadog",
+    "title": "Flagsmith",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "support@flagsmith.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@flagsmith.com",
+    "name": "Flagsmith"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv",
-    "logs": {}
+    "integration": {
+      "source_type_name": "Flagsmith",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "flagsmith."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

@@ -1,36 +1,47 @@
 {
-  "integration_id": "logstash",
-  "maintainer": "ervansetiawan@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "logstash",
-  "display_name": "Logstash",
-  "short_description": "Monitor and collect runtime metrics from a Logstash instance",
-  "metric_to_check": "logstash.process.cpu.percent",
-  "creates_events": true,
-  "guid": "9d110885-cbdf-44e5-83b8-7a6514724e98",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Logstash Integration",
-  "categories": [
-    "log collection"
-  ],
-  "type": "check",
-  "aliases": [
-    "logs/log_collection/logstash"
-  ],
-  "is_public": true,
-  "metric_prefix": "logstash.",
+  "manifest_version": "2.0.0",
+  "app_uuid": "efcb18d9-2789-4481-bd4b-ff5a4c058dc3",
+  "app_id": "logstash",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor and collect runtime metrics from a Logstash instance",
+    "title": "Logstash",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "ervansetiawan@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "ervansetiawan@gmail.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Logstash",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "logstash.",
+        "check": "logstash.process.cpu.percent",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

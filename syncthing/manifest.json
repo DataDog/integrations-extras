@@ -1,29 +1,47 @@
 {
-  "display_name": "Syncthing",
-  "maintainer": "Alexander@Bushnev.ru",
-  "manifest_version": "1.0.0",
-  "name": "syncthing",
-  "metric_prefix": "syncthing.",
-  "metric_to_check": "syncthing.connections.count",
-  "creates_events": false,
-  "short_description": "Track overall statistics from your Syncthing instance",
-  "guid": "1e29ccc9-cec4-4cf5-b566-2f71021ad315",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Syncthing Integration",
-  "categories": [
-    "collaboration"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "syncthing",
+  "manifest_version": "2.0.0",
+  "app_uuid": "a61c3428-6898-45be-8a20-89f4c039a56d",
+  "app_id": "syncthing",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Track overall statistics from your Syncthing instance",
+    "title": "Syncthing",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Collaboration"
+    ]
+  },
+  "author": {
+    "support_email": "Alexander@Bushnev.pro",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "Alexander@Bushnev.pro",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Syncthing",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "syncthing.",
+        "check": "syncthing.connections.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Syncthing Overview": "assets/dashboards/syncthing_overview.json"
@@ -32,11 +50,9 @@
       "[Syncthing] Disconnected": "assets/monitors/syncthing_disconnected.json",
       "[Syncthing] Out of sync": "assets/monitors/syncthing_out_of_sync.json",
       "[Syncthing] System error": "assets/monitors/syncthing_system_error.json",
-      "[Syncthing] Folder error": "assets/monitors/syncthing_folder_error.json"
-    },
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+      "[Syncthing] Folder error": "assets/monitors/syncthing_folder_error.json",
+      "[Syncthing] Service error": "assets/monitors/syncthing_service_error.json",
+      "[Syncthing] Device not connected": "assets/monitors/syncthing_device_not_connected.json"
+    }
   }
 }

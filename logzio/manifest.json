@@ -1,28 +1,45 @@
 {
-  "integration_id": "logz-io",
-  "name": "logzio",
-  "manifest_version": "1.0.0",
-  "display_name": "Logz.io",
-  "short_description": "AI-Powered ELK as a Service",
-  "creates_events": false,
-  "public_title": "Logz.io Integration",
-  "type": "crawler",
-  "is_public": true,
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "guid": "0e44f9bd-8c7b-426a-a0ba-8f4302808191",
-  "maintainer": "help@datadoghq.com",
-  "categories": [
-    "monitoring"
-  ],
+  "manifest_version": "2.0.0",
+  "app_uuid": "a637cc4e-f31f-4b35-9fff-76a8e7557d66",
+  "app_id": "logz-io",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "AI-Powered ELK as a Service",
+    "title": "Logz.io",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Logz.io"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Logz.io",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "logz-io."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

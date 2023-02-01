@@ -1,26 +1,44 @@
 {
-  "display_name": "Statsig",
-  "maintainer": "support@statsig.com",
-  "manifest_version": "1.0.0",
-  "name": "statsig",
-  "metric_prefix": "statsig.",
-  "metric_to_check": "statsig.log_event.count",
-  "creates_events": true,
-  "short_description": "Monitor Statsig changes in Datadog",
-  "guid": "f22e08ca-b524-45ad-815c-9ad654015158",
-  "support": "contrib",
-  "supported_os": ["linux", "mac_os", "windows"],
-  "public_title": "Statsig",
-  "categories": [""],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "statsig",
+  "manifest_version": "2.0.0",
+  "app_uuid": "57fb9235-151d-4ed9-b15e-a3e6f918dcca",
+  "app_id": "statsig",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Statsig changes in Datadog",
+    "title": "Statsig",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "support@statsig.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@statsig.com",
+    "name": "Statsig"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Statsig",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "statsig.",
+        "check": "statsig.log_event.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

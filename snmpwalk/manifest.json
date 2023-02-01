@@ -1,30 +1,47 @@
 {
-  "integration_id": "snmpwalk",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "snmpwalk",
-  "display_name": "Snmpwalk",
-  "short_description": "snmpwalk description.",
-  "guid": "a2864821-994c-4ebb-8532-b6879ea9a9ab",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "SNMP walk Integration",
-  "categories": [
-    "monitoring",
-    "notification",
-    "network"
-  ],
-  "type": "check",
-  "creates_events": false,
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "bc37c561-7ac5-4799-a56b-d85347bc9ff1",
+  "app_id": "snmpwalk",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "snmpwalk description.",
+    "title": "SNMP walk",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring",
+      "Category::Notification",
+      "Category::Network"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Snmpwalk",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "snmpwalk."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

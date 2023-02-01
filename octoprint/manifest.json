@@ -1,37 +1,50 @@
 {
-  "display_name": "OctoPrint",
-  "maintainer": "gwaldo@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "octoprint",
-  "metric_prefix": "octoprint.",
-  "metric_to_check": "octoprint.printer_state",
-  "creates_events": false,
-  "short_description": "Monitor OctoPrint, a web interface for managing 3d printers",
-  "guid": "77844a89-7202-4f8b-a0fb-642904eb9513",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Datadog OctoPrint Integration",
-  "categories": [
-    "web",
-    "orchestration",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "octoprint",
+  "manifest_version": "2.0.0",
+  "app_uuid": "f076efc3-c1c7-4e0a-b0dc-92870d655211",
+  "app_id": "octoprint",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor OctoPrint, a web interface for managing 3d printers",
+    "title": "Datadog OctoPrint",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Web",
+      "Category::Orchestration",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "gwaldo@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "gwaldo@gmail.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "OctoPrint",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "octoprint.",
+        "check": "octoprint.printer_state",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "OctoPrint Overview": "assets/dashboards/octoprint_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

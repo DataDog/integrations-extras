@@ -1,29 +1,46 @@
 {
-  "integration_id": "gremlin",
-  "categories": [
-    "collaboration",
-    "issue tracking"
-  ],
-  "creates_events": true,
-  "display_name": "Gremlin",
-  "guid": "087cb38a-d119-4db6-8c54-30700fc1f355",
-  "is_public": true,
-  "maintainer": "support@gremlin.com",
-  "manifest_version": "1.0.0",
-  "name": "gremlin",
-  "public_title": "Gremlin Integration",
-  "short_description": "Send events occurring in Gremlin to Datadog",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "type": "crawler",
+  "manifest_version": "2.0.0",
+  "app_uuid": "451a4863-1767-4c11-8831-d196ae4643d0",
+  "app_id": "gremlin",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send events occurring in Gremlin to Datadog",
+    "title": "Gremlin",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Collaboration",
+      "Category::Issue Tracking"
+    ]
+  },
+  "author": {
+    "support_email": "support@gremlin.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@gremlin.com",
+    "name": "Gremlin"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Gremlin",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "gremlin."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

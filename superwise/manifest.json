@@ -1,35 +1,48 @@
 {
-  "display_name": "Superwise",
-  "maintainer": "support@superwise.ai",
-  "manifest_version": "1.0.0",
-  "name": "superwise",
-  "metric_prefix": "superwise.",
-  "metric_to_check": "superwise.metric.overall.quantity",
-  "creates_events": false,
-  "short_description": "Model observability platform for machine learning models in production",
-  "guid": "2d2737e3-d201-4076-84e7-5455db0b5582",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Superwise Integration",
-  "categories": [
-    "monitoring",
-    "MLOps"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "superwise",
+  "manifest_version": "2.0.0",
+  "app_uuid": "814d45d4-bf11-46c9-98a2-5fab9c997c94",
+  "app_id": "superwise",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Model observability platform for machine learning models in production",
+    "title": "Superwise",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "support@superwise.ai",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@superwise.ai",
+    "name": "Superwise"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Superwise",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "superwise.",
+        "check": "superwise.metric.overall.quantity",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Superwise": "assets/dashboards/superwise.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

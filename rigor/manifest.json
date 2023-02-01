@@ -1,30 +1,45 @@
 {
-  "integration_id": "rigor",
-  "categories": [
-    "monitoring"
-  ],
-  "creates_events": true,
-  "display_name": "Rigor",
-  "guid": "f51704ed-a327-4132-9f04-a25a47791693",
-  "is_public": true,
-  "maintainer": "support@rigor.com",
-  "manifest_version": "1.0.0",
-  "name": "rigor",
-  "public_title": "Rigor Integration",
-  "short_description": "Rigor provides synthetic monitoring and optimization throughout dev lifecycle",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "type": "crawler",
-  "metric_prefix": "rigor.",
-  "metric_to_check": "rigor.http.dns_time",
+  "manifest_version": "2.0.0",
+  "app_uuid": "f9ab0c97-235c-4f88-8b92-89eb563e18ba",
+  "app_id": "rigor",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Rigor provides synthetic monitoring and optimization throughout dev lifecycle",
+    "title": "Rigor",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring"
+    ]
+  },
+  "author": {
+    "support_email": "support@rigor.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@rigor.com",
+    "name": "Rigor"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Rigor",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "rigor.",
+        "check": "rigor.http.dns_time",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

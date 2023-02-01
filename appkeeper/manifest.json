@@ -1,33 +1,46 @@
 {
-  "display_name": "AppKeeper",
-  "maintainer": "rd-pd-1@sios.com",
-  "manifest_version": "1.0.0",
-  "name": "AppKeeper",
-  "metric_prefix": "AppKeeper.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "Appkeeper restarts service based on alerts from Datadog",
-  "guid": "3cde5eb5-eadb-4065-8235-fb035abc34be",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "windows"
-  ],
-  "public_title": "AppKeeper Integration",
-  "categories": [
-    "aws",
-    "cloud",
-    "processing"
-  ],
-  "type": "crawler",
-  "is_public": true,
-  "integration_id": "appkeeper",
+  "manifest_version": "2.0.0",
+  "app_uuid": "fc54f5f2-0ce1-4d4e-b1e0-191eece029d3",
+  "app_id": "appkeeper",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Appkeeper restarts service based on alerts from Datadog",
+    "title": "AppKeeper",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Category::AWS",
+      "Category::Cloud",
+      "Category::Processing"
+    ]
+  },
+  "author": {
+    "support_email": "rd-pd-1@sios.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "rd-pd-1@sios.com",
+    "name": "SIOS AppKeeper"
+  },
+  "oauth": {},
   "assets": {
-    "dashboards": {},
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv",
-    "logs": {}
+    "integration": {
+      "source_type_name": "AppKeeper",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "AppKeeper.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

@@ -1,34 +1,49 @@
 {
-  "display_name": "k6",
-  "maintainer": "support@k6.io",
-  "manifest_version": "1.0.0",
-  "name": "k6",
-  "metric_prefix": "k6.",
-  "metric_to_check": "k6.http_reqs",
-  "creates_events": false,
-  "short_description": "Analyze and visualize k6 performance testing metrics in DataDog",
-  "guid": "9556c5e0-5573-4620-92c6-8d448f548d72",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "k6 Integration",
-  "categories": [
-    "monitoring",
-    "notification"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "k6",
+  "manifest_version": "2.0.0",
+  "app_uuid": "41cc233f-4db9-447b-925a-44363b202130",
+  "app_id": "k6",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Analyze and visualize k6 performance testing metrics in DataDog",
+    "title": "k6",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Monitoring",
+      "Category::Notification"
+    ]
+  },
+  "author": {
+    "support_email": "support@k6.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@k6.io",
+    "name": "k6"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "k6",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "k6.",
+        "check": "k6.http_reqs",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "k6 Performance Testing Overview": "assets/dashboards/overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

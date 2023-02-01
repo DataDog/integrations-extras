@@ -1,35 +1,47 @@
 {
-  "display_name": "Fluent Bit",
-  "maintainer": "zhenyamzk+GitHub@gmail.com",
-  "manifest_version": "1.0.0",
-  "name": "fluentbit",
-  "metric_prefix": "fluentbit.",
-  "metric_to_check": "fluentbit.input.records.count",
-  "creates_events": false,
-  "short_description": "Collect Fluent Bit internal metrics for each running plugin.",
-  "guid": "d64eb215-b1ef-4594-ba17-13bcac668962",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Fluent Bit (Agent) Integration",
-  "categories": [
-    "metrics"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "fluentbit",
+  "manifest_version": "2.0.0",
+  "app_uuid": "eee076f9-145f-4333-ad76-7bb40e41afef",
+  "app_id": "fluentbit",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect Fluent Bit internal metrics for each running plugin.",
+    "title": "Fluent Bit (Agent)",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Metrics"
+    ]
+  },
+  "author": {
+    "support_email": "zhenyamzk+GitHub@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "zhenyamzk+GitHub@gmail.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "dashboards": {},
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Fluent Bit",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "fluentbit.",
+        "check": "fluentbit.input.records.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

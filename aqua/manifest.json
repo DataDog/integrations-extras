@@ -1,34 +1,50 @@
 {
-  "integration_id": "aqua",
-  "display_name": "Aqua",
-  "maintainer": "oran.moshai@aquasec.com",
-  "manifest_version": "1.0.0",
-  "name": "aqua",
-  "metric_prefix": "aqua.",
-  "metric_to_check": "aqua.running_containers",
-  "creates_events": false,
-  "short_description": "Full dev-to-prod security solution for containers and cloud native applications",
-  "guid": "c269dad1-8db2-4e91-b25d-af646e80dbbf",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Aqua Integration",
-  "categories": [
-    "security",
-    "monitoring",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "d3819b09-3e08-492f-b0f8-b0d3f53fbdf5",
+  "app_id": "aqua",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Full dev-to-prod security solution for containers and cloud native applications",
+    "title": "Aqua",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Security",
+      "Category::Monitoring",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "oran.moshai@aquasec.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "oran.moshai@aquasec.com",
+    "name": "Aqua"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
+    "integration": {
+      "source_type_name": "Aqua",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "aqua.",
+        "check": "aqua.running_containers",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "aqua": "assets/dashboards/overview.json"
-    },
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

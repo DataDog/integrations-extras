@@ -1,41 +1,55 @@
 {
-  "display_name": "TiDB",
-  "maintainer": "xuyifan02@pingcap.com",
-  "manifest_version": "1.0.0",
-  "name": "tidb",
-  "metric_prefix": "tidb_cluster",
-  "metric_to_check": "tidb_cluster.tidb_executor_statement_total",
-  "creates_events": false,
-  "short_description": "The integration for TiDB cluster",
-  "guid": "4b34acac-39ce-4ec4-9329-c68cc4e61279",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "TiDB",
-  "categories": [
-    "data store",
-    "cloud",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "tidb",
+  "manifest_version": "2.0.0",
+  "app_uuid": "79e5c6d7-c494-4df7-98bc-c639e211c0b8",
+  "app_id": "tidb",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "The integration for TiDB cluster",
+    "title": "TiDB",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Data Store",
+      "Category::Cloud",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "xuyifan02@pingcap.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "xuyifan02@pingcap.com",
+    "name": "PingCAP"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "TiDB",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "tidb_cluster",
+        "check": "tidb_cluster.tidb_executor_statement_total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "TiDB Overview": "assets/dashboards/overview.json"
     },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
     "logs": {
-      "service": "tidb"
-    },
-    "metrics_metadata": "metadata.csv"
+      "source": "tidb"
+    }
   }
 }

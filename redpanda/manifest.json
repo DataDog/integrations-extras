@@ -1,42 +1,56 @@
 {
-  "display_name": "Redpanda",
-  "maintainer": "support@vectorized.io",
-  "manifest_version": "1.0.0",
-  "name": "redpanda",
-  "metric_prefix": "redpanda.",
-  "metric_to_check": "redpanda.application.uptime",
-  "creates_events": false,
-  "short_description": "Monitor the overall health and performance of Redpanda clusters.",
-  "guid": "7aa73d69-b635-4973-8b7c-b0bb325d407b",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Redpanda",
-  "categories": [
-    "processing",
-    "messaging",
-    "log collection",
-    "autodiscovery"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "redpanda",
+  "manifest_version": "2.0.0",
+  "app_uuid": "4c7855c5-6c2c-46c5-bfc3-1a7df1ac6b77",
+  "app_id": "redpanda",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor the overall health and performance of Redpanda clusters.",
+    "title": "Redpanda",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Processing",
+      "Category::Messaging",
+      "Category::Log Collection",
+      "Category::Autodiscovery"
+    ]
+  },
+  "author": {
+    "support_email": "support@vectorized.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@vectorized.io",
+    "name": "Redpanda"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Redpanda",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "redpanda.",
+        "check": "redpanda.application.uptime",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
-	"dashboards": {
+    "dashboards": {
       "Redpanda Overview": "assets/dashboards/overview.json"
     },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
     "logs": {
-		"source": "redpanda"
-	},
-    "metrics_metadata": "metadata.csv"
+      "source": "redpanda"
+    }
   }
 }

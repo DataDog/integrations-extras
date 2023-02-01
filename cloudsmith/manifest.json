@@ -1,38 +1,51 @@
 {
-  "display_name": "Cloudsmith",
-  "maintainer": "ccarey@cloudsmith.io",
-  "manifest_version": "1.0.0",
-  "name": "cloudsmith",
-  "metric_prefix": "cloudsmith.",
-  "metric_to_check": "cloudsmith.bandwidth_used",
-  "creates_events": false,
-  "short_description": "Monitor Cloudsmith metrics",
-  "guid": "4df273a8-c1ec-4462-b080-4749312e6b7f",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Cloudsmith",
-  "categories": [
-    "security",
-    "metrics"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "cloudsmith",
+  "manifest_version": "2.0.0",
+  "app_uuid": "92b5a159-e5e9-4e38-a4d4-b987cd03b7a1",
+  "app_id": "cloudsmith",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Cloudsmith metrics",
+    "title": "Cloudsmith",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Security",
+      "Category::Metrics"
+    ]
+  },
+  "author": {
+    "support_email": "ccarey@cloudsmith.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "ccarey@cloudsmith.io",
+    "name": "Cloudsmith"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Cloudsmith",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "cloudsmith.",
+        "check": "cloudsmith.bandwidth_used",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Cloudsmith": "assets/dashboards/cloudsmith_overview.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

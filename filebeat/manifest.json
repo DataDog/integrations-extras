@@ -1,33 +1,47 @@
 {
-  "integration_id": "filebeat",
-  "maintainer": "jean@tripping.com",
-  "manifest_version": "1.0.0",
-  "name": "filebeat",
-  "display_name": "Filebeat",
-  "guid": "3bb6a789-d1e3-465c-9bff-ea2a43ae2f59",
-  "short_description": "Lightweight Shipper for Logs",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Filebeat Integration",
-  "categories": [
-    "os & system"
-  ],
-  "type": "check",
-  "creates_events": false,
-  "is_public": true,
-  "metric_prefix": "filebeat.",
-  "metric_to_check": "filebeat.registry.unprocessed_bytes",
+  "manifest_version": "2.0.0",
+  "app_uuid": "50405147-1148-405a-9d81-ea48be4f613b",
+  "app_id": "filebeat",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Lightweight Shipper for Logs",
+    "title": "Filebeat",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::OS System"
+    ]
+  },
+  "author": {
+    "support_email": "jean@tripping.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "jean@tripping.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
-    },
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Filebeat",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "filebeat.",
+        "check": "filebeat.registry.unprocessed_bytes",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

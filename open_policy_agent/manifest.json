@@ -1,38 +1,52 @@
 {
-  "display_name": "open_policy_agent",
-  "maintainer": "ara.pulido@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "open_policy_agent",
-  "metric_prefix": "open_policy_agent.",
-  "metric_to_check": "open_policy_agent.policies",
-  "creates_events": false,
-  "short_description": "OPA integration",
-  "guid": "73fdfc40-51ea-11eb-ae93-0242ac130002",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "public_title": "Open Policy Agent",
-  "categories": [
-    "security",
-    "containers",
-    "configuration & deployment",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "open-policy-agent",
+  "manifest_version": "2.0.0",
+  "app_uuid": "98c54837-27eb-48ca-9780-29bb593eecb8",
+  "app_id": "open-policy-agent",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "OPA integration",
+    "title": "Open Policy Agent",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Security",
+      "Category::Containers",
+      "Category::Configuration & Deployment",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "ara.pulido@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "ara.pulido@datadoghq.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "open_policy_agent",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "open_policy_agent.",
+        "check": "open_policy_agent.policies",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "OPA base dashboard": "assets/dashboards/open_policy_agent_overview.json"
     },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv",
     "logs": {
       "source": "opa"
     }

@@ -1,37 +1,51 @@
 {
-  "integration_id": "hbase-regionserver",
-  "maintainer": "everpeace@gmail.com",
-  "manifest_version": "1.0.0",
-  "creates_events": false,
-  "name": "hbase_regionserver",
-  "display_name": "HBase regionserver",
-  "short_description": "HBase regionserver integration.",
-  "guid": "a50bb93e-81d3-4c2e-a307-8dd5b8f725f1",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Hbase region server Integration",
-  "categories": [
-    "data store",
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "metric_prefix": "hbase.",
-  "metric_to_check": "hbase.regionserver.ipc.queue_size",
+  "manifest_version": "2.0.0",
+  "app_uuid": "8835d739-bd99-49c1-bf71-8d20e9715e10",
+  "app_id": "hbase-regionserver",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "HBase regionserver integration.",
+    "title": "Hbase region server",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Data Store",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "everpeace@gmail.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "everpeace@gmail.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "HBase regionserver",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "hbase.",
+        "check": "hbase.regionserver.ipc.queue_size",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
     "logs": {
       "source": "hbase"
-    },
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

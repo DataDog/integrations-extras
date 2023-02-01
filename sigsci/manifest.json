@@ -1,32 +1,48 @@
 {
-  "integration_id": "sigsci",
-  "name": "sigsci",
-  "manifest_version": "1.0.0",
-  "guid": "0c92b7cd-0736-4f9d-82ed-16f1bba8c8d0",
-  "maintainer": "info@signalsciences.com",
-  "display_name": "Signal Sciences",
-  "short_description": "Collect data from Signal Sciences to see anomalies and block attacks",
-  "metric_prefix": "sigsci.",
-  "metric_to_check": "sigsci.agent.signal",
-  "creates_events": true,
-  "public_title": "Signal Sciences Integration",
-  "type": "crawler",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "is_public": true,
-  "categories": [
-    "security"
-  ],
+  "manifest_version": "2.0.0",
+  "app_uuid": "edc9a664-24f1-45ee-88ad-04e5da064f51",
+  "app_id": "sigsci",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect data from Signal Sciences to see anomalies and block attacks",
+    "title": "Signal Sciences",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Security"
+    ]
+  },
+  "author": {
+    "support_email": "info@signalsciences.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "info@signalsciences.com",
+    "name": "Signal Sciences"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
+    "integration": {
+      "source_type_name": "Signal Sciences",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "sigsci.",
+        "check": "sigsci.agent.signal",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "sigsci": "assets/dashboards/overview.json"
-    },
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

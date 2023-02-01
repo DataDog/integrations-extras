@@ -1,34 +1,47 @@
 {
-  "display_name": "Postman",
-  "maintainer": "integrations-partnerships@postman.com",
-  "manifest_version": "1.0.0",
-  "name": "postman",
-  "metric_prefix": "postman",
-  "metric_to_check": "postman.monitor.run.total_latency",
-  "creates_events": true,
-  "short_description": "Analyze metrics and generate events in Datadog from Postman Monitoring runs.",
-  "guid": "c678faae-1fc2-420b-83af-e973441b99de",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Postman",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "postman",
+  "manifest_version": "2.0.0",
+  "app_uuid": "9ba70e31-8e84-4d6b-84a1-95d6ba713df9",
+  "app_id": "postman",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Analyze metrics and generate events in Datadog from Postman Monitoring runs.",
+    "title": "Postman",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "integrations-partnerships@postman.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "integrations-partnerships@postman.com",
+    "name": "Postman"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Postman",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "postman",
+        "check": "postman.monitor.run.total_latency",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Postman API Dashboard": "assets/dashboards/overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

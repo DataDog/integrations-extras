@@ -1,41 +1,54 @@
 {
-  "display_name": "Redis Enterprise",
-  "maintainer": "github@mague.com",
-  "manifest_version": "1.0.0",
-  "name": "redisenterprise",
-  "metric_prefix": "redisenterprise.",
-  "metric_to_check": "redisenterprise.total_node_count",
-  "creates_events": true,
-  "short_description": "Redis Enterprise Observability",
-  "guid": "727dcbe6-9ed6-409f-ad72-265939b90da8",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "RedisEnterprise Integration",
-  "categories": [
-    "data store",
-    "caching"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "redisenterprise",
+  "manifest_version": "2.0.0",
+  "app_uuid": "a353f8c5-240c-48f9-b2a1-c86d2da0c07e",
+  "app_id": "redisenterprise",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Redis Enterprise Observability",
+    "title": "RedisEnterprise",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Data Store",
+      "Category::Caching"
+    ]
+  },
+  "author": {
+    "support_email": "github@mague.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "github@mague.com",
+    "name": "Redis"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "Redis Enterprise",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "redisenterprise.",
+        "check": "redisenterprise.total_node_count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
     "dashboards": {
       "Redis Enterprise Database Overview": "assets/dashboards/redisenterprise_overview.json",
       "Redis Enterprise Cluster Overview": "assets/dashboards/redisenterprise_cluster_top_view.json",
       "Redis Enterprise Redis on Flash": "assets/dashboards/redisenterprise_rof.json",
       "Redis Enterprise Active/Active Statistics": "assets/dashboards/redis_enterprise_active_active.json"
-    },
-    "monitors": {},
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

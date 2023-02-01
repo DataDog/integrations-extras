@@ -127,7 +127,7 @@ When a check is configured to alert through a Datadog event, two events types ar
 
 The Rigor integration does not include any service checks.
 
-### Troubleshooting
+## Troubleshooting
 
 Need help? Contact [Rigor support][11].
 
@@ -143,4 +143,4 @@ Need help? Contact [Rigor support][11].
 [9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_add_webhook_to_check.png
 [10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rigor/images/rigor_events_example.png
 [11]: mailto:support@rigor.com
-[13]: https://github.com/DataDog/integrations-core/blob/master/rigor/metadata.csv
+[13]: https://github.com/DataDog/integrations-extras/blob/master/rigor/metadata.csv

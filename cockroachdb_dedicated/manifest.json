@@ -1,39 +1,50 @@
 {
-  "name": "cockroachdb_dedicated",
-  "display_name": "CockroachDB Dedicated",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "guid": "0d085e44-d2b1-4634-a7c7-201b42cb167b",
-  "integration_id": "cockroach-cloud",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "is_public": true,
-  "short_description": "Send your Cockroach Cloud metrics to DataDog.",
-  "metric_prefix": "crdb_dedicated.",
-  "metric_to_check": "crdb_dedicated.sys.rss",
-  "public_title": "CockroachDB Dedicated Integration",
-  "creates_events": false,
+  "manifest_version": "2.0.0",
+  "app_uuid": "e0ab9a47-da5b-4008-8571-3842ac318f74",
+  "app_id": "cockroach-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send your Cockroach Cloud metrics to DataDog.",
+    "title": "CockroachDB Dedicated",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Datadog"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "CockroachDB Dedicated",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "crdb_dedicated.",
+        "check": "crdb_dedicated.sys.rss",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "cockroach_cloud_overview": "assets/dashboards/cockroach_cloud_overview.json"
     },
-    "metrics_metadata": "metadata.csv",
-    "service_checks": "assets/service_checks.json",
     "logs": {
       "source": "cockroach-cloud"
-    },
-    "monitors": {},
-    "saved_views": {}
-  },
-  "support": "contrib",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "aliases": [
-    "/integrations/cockroach_cloud"
-  ]
+    }
+  }
 }

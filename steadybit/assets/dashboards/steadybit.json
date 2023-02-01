@@ -1,0 +1,273 @@
+{
+  "title": "Steadybit - Chaos Engineering Activity",
+  "description": "This dashboard visualizes chaos engineering activity triggered within Steadybit and its outcomes. You will find this relevant to correlate monitoring and chaos engineering information.\n\nRelevant references:\n - [Sign up for a free Steadybit account](https://signup.steadybit.io/?utm_campaign=datadogintegration&utm_source=datadog&utm_medium=dashboard-description)\n - [Steadybit's Datadog extension](https://hub.steadybit.com/extension/com.github.steadybit.extension_datadog)\n - [Terminology reference](https://docs.steadybit.com/use-steadybit/experiments/run)\n\nClone this template dashboard to make changes and add your own graph widgets.",
+  "widgets": [
+    {
+      "id": 3418836626408906,
+      "definition": {
+        "type": "image",
+        "url": "https://steadybit-website-assets.s3.us-east-1.amazonaws.com/logo.png",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": true,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 1
+      }
+    },
+    {
+      "id": 3394200414134096,
+      "definition": {
+        "title": "Completed Experiments",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:completed"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 0,
+        "y": 1,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 3741157098040642,
+      "definition": {
+        "title": "Failed Experiments",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "palette": "white_on_yellow",
+                "value": 0
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:failed"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 4,
+        "y": 1,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 7482566989657078,
+      "definition": {
+        "title": "Errored Experiments",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "palette": "white_on_red",
+                "value": 0
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:errored"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      },
+      "layout": {
+        "x": 8,
+        "y": 1,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 4181678815980358,
+      "definition": {
+        "title": "Experiment Execution Results",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Completed",
+                "formula": "query1"
+              },
+              {
+                "alias": "Failed",
+                "style": {
+                  "palette_index": 1,
+                  "palette": "warm"
+                },
+                "formula": "query2"
+              },
+              {
+                "alias": "Errored",
+                "style": {
+                  "palette_index": 5,
+                  "palette": "warm"
+                },
+                "formula": "query3"
+              }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:completed"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              },
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:failed"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query2",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              },
+              {
+                "search": {
+                  "query": "source:steadybit execution_state:errored"
+                },
+                "data_source": "events",
+                "compute": {
+                  "aggregation": "count"
+                },
+                "name": "query3",
+                "indexes": [
+                  "*"
+                ],
+                "group_by": []
+              }
+            ],
+            "style": {
+              "palette": "classic"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "4n6-5up-dpz"
+}

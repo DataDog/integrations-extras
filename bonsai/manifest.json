@@ -1,29 +1,44 @@
 {
-  "name": "bonsai",
-  "integration_id": "bonsai",
-  "manifest_version": "1.0.0",
-  "maintainer": "dev@onemorecloud.com",
-  "support": "contrib",
-  "display_name": "Bonsai",
-  "short_description": "Bonsai Managed Elasticsearch",
-  "guid": "3c3a1e28-7fd3-443e-a3e1-0c223326a572",
-  "metric_prefix": "bonsai.",
-  "metric_to_check": "bonsai.req.total",
-  "creates_events": false,
-  "public_title": "Bonsai Integration",
-  "type": "crawler",
-  "is_public": true,
-  "categories": [
-    "data store"
-  ],
-  "supported_os": [
-    "linux",
-    "windows"
-  ],
+  "manifest_version": "2.0.0",
+  "app_uuid": "ec3141f4-b722-4eaa-be49-47c6eec76da9",
+  "app_id": "bonsai",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Bonsai Managed Elasticsearch",
+    "title": "Bonsai",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Category::Data Store"
+    ]
+  },
+  "author": {
+    "support_email": "dev@onemorecloud.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "dev@onemorecloud.com",
+    "name": "Bonsai"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Bonsai",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "bonsai.",
+        "check": "bonsai.req.total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

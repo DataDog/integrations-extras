@@ -1,30 +1,45 @@
 {
-  "integration_id": "redis-sentinel",
-  "maintainer": "@krasnoukhov",
-  "manifest_version": "1.0.0",
-  "name": "redis_sentinel",
-  "display_name": "Redis Sentinel",
-  "guid": "8efe0a8c-88c6-4a2f-aa04-60d92051c458",
-  "creates_events": false,
-  "short_description": "Redis Sentinel provides high availability for Redis.",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Redis Sentinel Integration",
-  "categories": [
-    "os & system"
-  ],
-  "type": "check",
-  "metric_to_check": "redis.sentinel.known_sentinels",
-  "metric_prefix": "redis.",
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "207e2b2c-5fad-40a4-a4fc-09f119e142d3",
+  "app_id": "redis-sentinel",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Redis Sentinel provides high availability for Redis.",
+    "title": "Redis Sentinel",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::OS System"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Redis Sentinel",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "redis.",
+        "check": "redis.sentinel.known_sentinels",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

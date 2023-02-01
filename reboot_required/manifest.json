@@ -1,26 +1,43 @@
 {
-  "integration_id": "reboot-required",
-  "maintainer": "support@krugerheavyindustries.com",
-  "manifest_version": "1.0.0",
-  "name": "reboot_required",
-  "display_name": "Reboot required",
-  "short_description": "Monitor systems that require a reboot after software update",
-  "support": "contrib",
-  "supported_os": [
-    "linux"
-  ],
-  "guid": "e7eed0e7-0acd-47c9-b684-3190828517ce",
-  "public_title": "Reboot Required Integration",
-  "categories": [
-    "os & system"
-  ],
-  "type": "check",
-  "creates_events": false,
-  "is_public": true,
+  "manifest_version": "2.0.0",
+  "app_uuid": "673a1136-68ad-46f4-ba6f-4203df10db6a",
+  "app_id": "reboot-required",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor systems that require a reboot after software update",
+    "title": "Reboot Required",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::OS System"
+    ]
+  },
+  "author": {
+    "support_email": "support@krugerheavyindustries.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "support@krugerheavyindustries.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "Reboot required",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "reboot-required."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }

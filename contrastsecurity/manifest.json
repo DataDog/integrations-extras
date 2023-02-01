@@ -1,32 +1,48 @@
 {
-  "display_name": "contrastsecurity",
-  "maintainer": "kristiana.mitchell@contrastsecurity.com",
-  "manifest_version": "1.0.0",
-  "name": "contrastsecurity",
-  "metric_prefix": "contrastsecurity.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "See attacks and vulnerabilities on Datadog from Contrast Security",
-  "guid": "8483bcdc-3d45-48ee-8a73-75511a67ad5f",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Contrast Security Integration",
-  "categories": [
-    "log collection"
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "contrastsecurity",
+  "manifest_version": "2.0.0",
+  "app_uuid": "8509e113-cf2e-42f1-b8d4-1261720498a5",
+  "app_id": "contrastsecurity",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "See attacks and vulnerabilities on Datadog from Contrast Security",
+    "title": "Contrast Security",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Log Collection"
+    ]
+  },
+  "author": {
+    "support_email": "kristiana.mitchell@contrastsecurity.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "kristiana.mitchell@contrastsecurity.com",
+    "name": "Contrast Security"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "contrastsecurity",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "contrastsecurity.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Contrast Security Integration Overview": "assets/dashboards/contrast_security_protect.json"
-    },
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

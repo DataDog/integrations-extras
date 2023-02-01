@@ -27,8 +27,11 @@ resources:
       DD_HOSTNAME: none
       DD_INSIDE_CI: 'true'
 variables:
-  DDEV_COLOR: 1
-  DD_TRACE_AGENT_PORT: 8127
+  - group: extras-variables
+  - name: DDEV_COLOR
+    value: 1
+  - name: DD_TRACE_AGENT_PORT
+    value: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
@@ -44,8 +47,8 @@ jobs:
     - checkName: bind9
       displayName: BIND 9
       os: linux
-    - checkName: cert_manager
-      displayName: cert-manager
+    - checkName: cfssl
+      displayName: cfssl
       os: linux
     - checkName: cloudsmith
       displayName: Cloudsmith
@@ -56,8 +59,14 @@ jobs:
     - checkName: eventstore
       displayName: Eventstore
       os: linux
+    - checkName: exim
+      displayName: exim
+      os: linux
     - checkName: filebeat
       displayName: Filebeat
+      os: linux
+    - checkName: filemage
+      displayName: filemage
       os: linux
     - checkName: fluentbit
       displayName: Fluent Bit
@@ -65,14 +74,29 @@ jobs:
     - checkName: flume
       displayName: flume
       os: linux
+    - checkName: fluxcd
+      displayName: fluxcd
+      os: linux
     - checkName: gatekeeper
       displayName: Gatekeeper
+      os: linux
+    - checkName: gitea
+      displayName: Gitea
       os: linux
     - checkName: gnatsd
       displayName: Gnatsd
       os: linux
     - checkName: gnatsd_streaming
       displayName: Gnatsd Streaming
+      os: linux
+    - checkName: go_pprof_scraper
+      displayName: go_pprof_scraper
+      os: linux
+    - checkName: grpc_check
+      displayName: gRPC Check
+      os: linux
+    - checkName: hikaricp
+      displayName: hikaricp
       os: linux
     - checkName: jfrog_platform
       displayName: JFrog Platform
@@ -125,9 +149,6 @@ jobs:
     - checkName: portworx
       displayName: Portworx
       os: linux
-    - checkName: pulsar
-      displayName: pulsar
-      os: linux
     - checkName: puma
       displayName: Puma
       os: linux
@@ -154,6 +175,9 @@ jobs:
       os: linux
     - checkName: riak_repl
       displayName: Riak MDC Replication
+      os: linux
+    - checkName: scalr
+      displayName: Scalr
       os: linux
     - checkName: sendmail
       displayName: Sendmail
@@ -182,8 +206,14 @@ jobs:
     - checkName: traefik
       displayName: Traefik
       os: linux
+    - checkName: trino
+      displayName: Trino
+      os: linux
     - checkName: unbound
       displayName: Unbound
+      os: linux
+    - checkName: unifi_console
+      displayName: Unifi Console
       os: linux
     - checkName: upsc
       displayName: UPSC

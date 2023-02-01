@@ -1,34 +1,47 @@
 {
-  "display_name": "Datazoom",
-  "maintainer": "help@datadoghq.com",
-  "manifest_version": "1.0.0",
-  "name": "datazoom",
-  "metric_prefix": "datazoom.",
-  "metric_to_check": "",
-  "creates_events": false,
-  "short_description": "View Datazoom Collector data in Log Explorer.",
-  "guid": "eef8335b-ae57-4bbf-82a7-41f9b8a704e9",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Datazoom Integration",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "datazoom",
+  "manifest_version": "2.0.0",
+  "app_uuid": "3c289cc6-b148-4e99-98ae-66c01386f767",
+  "app_id": "datazoom",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "View Datazoom Collector data in Log Explorer.",
+    "title": "Datazoom",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Datadog"
+  },
+  "oauth": {},
   "assets": {
+    "integration": {
+      "source_type_name": "Datazoom",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "datazoom.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
     "dashboards": {
       "Datazoom Overview": "assets/dashboards/datazoom_overview.json"
-    },
-    "saved_views": {},
-    "monitors": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

@@ -1,37 +1,49 @@
 {
-  "display_name": "PHP OPcache",
-  "maintainer": "noname@withgod.jp",
-  "manifest_version": "1.0.0",
-  "name": "php_opcache",
-  "metric_prefix": "php_opcache.",
-  "metric_to_check": "php_opcache.memory_usage.used_memory",
-  "creates_events": false,
-  "short_description": "Monitor PHP OPcache bytecode cache system.",
-  "guid": "323518fd-be8d-4b5e-b35d-829107a1c416",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "PHP OPcache Integration",
-  "categories": [
-    ""
-  ],
-  "type": "check",
-  "is_public": true,
-  "integration_id": "php-opcache",
+  "manifest_version": "2.0.0",
+  "app_uuid": "392e54ac-60d4-4225-ab5a-d75245e0ea06",
+  "app_id": "php-opcache",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor PHP OPcache bytecode cache system.",
+    "title": "PHP OPcache",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "noname@withgod.jp",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "noname@withgod.jp",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "configuration": {
-      "spec": "assets/configuration/spec.yaml"
+    "integration": {
+      "source_type_name": "PHP OPcache",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "php_opcache.",
+        "check": "php_opcache.memory_usage.used_memory",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     },
-    "dashboards": {},
     "monitors": {
       "[php_opcache] Cache Full has been detected": "assets/monitors/php-opcache_expunges.json"
-    },
-    "saved_views": {},
-    "service_checks": "assets/service_checks.json",
-    "logs": {},
-    "metrics_metadata": "metadata.csv"
+    }
   }
 }

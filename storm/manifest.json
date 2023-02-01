@@ -1,30 +1,45 @@
 {
-  "integration_id": "storm",
-  "maintainer": "@platinummonkey",
-  "manifest_version": "1.0.0",
-  "name": "storm",
-  "display_name": "storm",
-  "short_description": "Apache Storm 1.x.x Topology Execution Stats",
-  "guid": "5a9ec2c3-8ea0-4337-8c45-a6b8a36b8721",
-  "support": "contrib",
-  "supported_os": [
-    "linux",
-    "mac_os",
-    "windows"
-  ],
-  "public_title": "Storm Integration",
-  "categories": [
-    "processing"
-  ],
-  "creates_events": false,
-  "type": "check",
-  "is_public": true,
-  "metric_prefix": "storm.",
-  "metric_to_check": "storm.bolt.last_60.acked",
+  "manifest_version": "2.0.0",
+  "app_uuid": "a3c93ee5-077d-467d-87d7-a2325bdcf782",
+  "app_id": "storm",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Apache Storm 1.x.x Topology Execution Stats",
+    "title": "Storm",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows",
+      "Category::Processing"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Community"
+  },
+  "oauth": {},
   "assets": {
-    "monitors": {},
-    "dashboards": {},
-    "service_checks": "assets/service_checks.json",
-    "metrics_metadata": "metadata.csv"
+    "integration": {
+      "source_type_name": "storm",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "storm.",
+        "check": "storm.bolt.last_60.acked",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   }
 }
