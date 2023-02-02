@@ -74,6 +74,6 @@ Need help? Contact [Datadog support][11].
 [11]: https://docs.datadoghq.com/help
 [12]: https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources
 [13]: https://docs.nvidia.com/deploy/nvml-api/group__nvmlDeviceQueries.html
-[14]:https://github.com/NVIDIA/gpu-monitoring-tools/blob/master/exporters/prometheus-dcgm/dcgm-exporter/dcgm-exporter
+[14]: https://github.com/NVIDIA/dcgm-exporter
 [15]: https://github.com/DataDog/integrations-extras/blob/master/nvml/tests/Dockerfile
 [16]: https://github.com/DataDog/integrations-extras/blob/master/nvml/assets/service_checks.json
