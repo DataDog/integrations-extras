@@ -1,4 +1,5 @@
-import datetime
+import time
+from datetime import datetime
 from json import JSONDecodeError
 from urllib.error import HTTPError
 
@@ -13,42 +14,46 @@ AUDIT_LOG = "/audit-log/"
 VOUNDRABILITIES = "/vulnerabilities/"
 WARNING_QUOTA = 75
 CRITICAL_QUOTA = 85
+LAST_VULNERABILITY_STAMP = 0
+LAST_AUDIT_LOG_STAMP = 0
+AUDIT_LOG_LAST_RUN = 0
+VULNERABILITY_LAST_RUN = 0
 
 
 class CloudsmithCheck(AgentCheck):
-    __NAMESPACE__ = 'cloudsmith'
+    __NAMESPACE__ = "cloudsmith"
 
     def __init__(self, name, init_config, instances):
         super(CloudsmithCheck, self).__init__(name, init_config, instances)
 
-        self.base_url = self.instance.get('url')
-        self.api_key = self.instance.get('cloudsmith_api_key')
-        self.org = self.instance.get('organization')
+        self.base_url = self.instance.get("url")
+        self.api_key = self.instance.get("cloudsmith_api_key")
+        self.org = self.instance.get("organization")
 
         self.validate_config()
 
-        self.log.debug('Cloudsmith monitoring starting on %s', self.base_url)
+        self.log.debug("Cloudsmith monitoring starting on %s", self.base_url)
 
-        self.tags = self.instance.get('tags', [])
-        self.tags.append('base_url:{}'.format(self.base_url))
-        self.tags.append('cloudsmith_org:{}'.format(self.org))
+        self.tags = self.instance.get("tags", [])
+        self.tags.append("base_url:{}".format(self.base_url))
+        self.tags.append("cloudsmith_org:{}".format(self.org))
 
     def validate_config(self):
         if not self.api_key:
-            raise ConfigurationError('Configuration error, please specify api token in conf.yaml.')
+            raise ConfigurationError("Configuration error, please specify api token in conf.yaml.")
 
         if not self.org:
-            raise ConfigurationError('Configuration error, please specify org in conf.yaml.')
+            raise ConfigurationError("Configuration error, please specify org in conf.yaml.")
 
         if not self.base_url:
-            raise ConfigurationError('Configuration error, please specify Cloudsmith url in conf.yaml')
+            raise ConfigurationError("Configuration error, please specify Cloudsmith url in conf.yaml")
 
     def get_full_path(self, path):
-        url = self.base_url.rstrip('/') + path + self.org
+        url = self.base_url.rstrip("/") + path + self.org
         return url
 
     def convert_time(self, time):
-        return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
+        return int(datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ").timestamp())
 
     # Get stats from REST API as json
     def get_api_json(self, url):
@@ -94,11 +99,8 @@ class CloudsmithCheck(AgentCheck):
             raise
 
         if response.status_code != 200:
-            error_message = (
-                "Expected status code 200 for url {}, but got status code: {} check your config information".format(
-                    url, response.status_code
-                )
-            )
+            error_message = f"""Expected status code 200 for url {url}, but got status code:
+            {response.status_code} check your config information"""
             self.log.warning(error_message)
             self.service_check("can_connect", AgentCheck.CRITICAL, message=error_message)
             raise CheckException(error_message)
@@ -134,34 +136,34 @@ class CloudsmithCheck(AgentCheck):
 
         response_json = self.get_entitlement_info()
 
-        if 'tokens' in response_json:
-            if 'total' in response_json['tokens']:
-                token_count = response_json['tokens']['total']
+        if "tokens" in response_json:
+            if "total" in response_json["tokens"]:
+                token_count = response_json["tokens"]["total"]
             else:
                 self.log.warning("Error when parsing JSON for total token usage")
             if (
-                'bandwidth' in response_json['tokens']
-                and 'total' in response_json['tokens']['bandwidth']
-                and 'value' in response_json['tokens']['bandwidth']['total']
+                "bandwidth" in response_json["tokens"]
+                and "total" in response_json["tokens"]["bandwidth"]
+                and "value" in response_json["tokens"]["bandwidth"]["total"]
             ):
-                bandwidth_total = response_json['tokens']['bandwidth']['total']['value']
+                bandwidth_total = response_json["tokens"]["bandwidth"]["total"]["value"]
             else:
                 self.log.warning("Error when parsing JSON for total token bandwidth usage")
             if (
-                'downloads' in response_json['tokens']
-                and 'total' in response_json['tokens']['downloads']
-                and 'value' in response_json['tokens']['downloads']['total']
+                "downloads" in response_json["tokens"]
+                and "total" in response_json["tokens"]["downloads"]
+                and "value" in response_json["tokens"]["downloads"]["total"]
             ):
-                download_total = response_json['tokens']['downloads']['total']['value']
+                download_total = response_json["tokens"]["downloads"]["total"]["value"]
             else:
                 self.log.warning("Error when parsing JSON for total token download usage")
         else:
             self.log.warning("Error when parsing JSON for tokens")
 
         entitlement_info = {
-            'token_count': token_count,
-            'token_bandwidth_total': bandwidth_total,
-            'token_download_total': download_total,
+            "token_count": token_count,
+            "token_bandwidth_total": bandwidth_total,
+            "token_download_total": download_total,
         }
         return entitlement_info
 
@@ -173,20 +175,20 @@ class CloudsmithCheck(AgentCheck):
         storage_mark = self.UNKNOWN
         bandwidth_mark = self.UNKNOWN
 
-        if 'usage' in response_json and 'raw' in response_json['usage']:
+        if "usage" in response_json and "raw" in response_json["usage"]:
             if (
-                'storage' in response_json['usage']['raw']
-                and 'percentage_used' in response_json['usage']['raw']['storage']
+                "storage" in response_json["usage"]["raw"]
+                and "percentage_used" in response_json["usage"]["raw"]["storage"]
             ):
-                storage_used = response_json['usage']['raw']['storage']['percentage_used']
+                storage_used = response_json["usage"]["raw"]["storage"]["percentage_used"]
                 storage_mark = self.OK
             else:
                 self.log.warning("Error when parsing JSON for storage usage")
             if (
-                'bandwidth' in response_json['usage']['raw']
-                and 'percentage_used' in response_json['usage']['raw']['bandwidth']
+                "bandwidth" in response_json["usage"]["raw"]
+                and "percentage_used" in response_json["usage"]["raw"]["bandwidth"]
             ):
-                bandwidth_used = response_json['usage']['raw']['bandwidth']['percentage_used']
+                bandwidth_used = response_json["usage"]["raw"]["bandwidth"]["percentage_used"]
                 bandwidth_mark = self.OK
             else:
                 self.log.warning("Error when parsing JSON for bandwidth usage")
@@ -206,87 +208,66 @@ class CloudsmithCheck(AgentCheck):
                 bandwidth_mark = self.WARNING
 
         usage_info = {
-            'storage_mark': storage_mark,
-            'storage_used': storage_used,
-            'bandwidth_mark': bandwidth_mark,
-            'bandwidth_used': bandwidth_used,
+            "storage_mark": storage_mark,
+            "storage_used": storage_used,
+            "bandwidth_mark": bandwidth_mark,
+            "bandwidth_used": bandwidth_used,
         }
         return usage_info
 
     def get_parsed_audit_log_info(self):
         response_json = self.get_audit_log_info()
 
-        actor = self.UNKOWN
-        actor_kind = self.UNKOWN
-        city = self.UNKOWN
-        event = self.UNKOWN
-        event_at = self.UNKOWN
+        new_dict = []
 
-        if 'results' in response_json and len(response_json['results']) > 0:
-            if 'actor' in response_json['results'][0]:
-                actor = response_json['results'][0]['actor']
-            else:
-                self.log.warning("Error when parsing JSON for actor")
-            if 'actor_kind' in response_json['results'][0]:
-                actor_kind = response_json['results'][0]['actor_kind']
-            else:
-                self.log.warning("Error when parsing JSON for actor_kind")
-            if 'city' in response_json['results'][0]:
-                city = response_json['results'][0]['city']
-            else:
-                self.log.warning("Error when parsing JSON for city")
-            if 'event' in response_json['results'][0]:
-                event = response_json['results'][0]['event']
-            else:
-                self.log.warning("Error when parsing JSON for event")
-            if 'event_at' in response_json['results'][0]:
-                event_at = self.convert_time(response_json['results'][0]['event_at'])
-            else:
-                self.log.warning("Error when parsing JSON for event_at")
+        if len(response_json) == 0:
+            self.log.warning("Error when parsing JSON for audit log information")
+        else:
+            for i in response_json:
+                new_dict.append(
+                    {
+                        "actor": i["actor"],
+                        "actor_kind": i["actor_kind"],
+                        "city": i["actor_location"]["city"],
+                        "event": i["event"],
+                        "event_at": self.convert_time(i["event_at"]),
+                        "object": i["object"],
+                        "object_slug_perm": i["object_slug_perm"],
+                    }
+                )
 
-        audit_log_info = {
-            'actor': actor,
-            'actor_kind': actor_kind,
-            'city': city,
-            'event': event,
-            'event_at': event_at,
-        }
-        return audit_log_info
+        return new_dict
+
+    def filter_vulnerabilities(self, response_json, severity_list):
+        filtered_results = []
+        for result in response_json:
+            if "max_severity" in result and result["max_severity"] in severity_list:
+                filtered_results.append(result)
+                response_json = filtered_results
+        return response_json
 
     def get_parsed_vulnerabilities_info(self):
         # only show high or critical vulnerabilities
-        response_json = self.filter_vulnerabilities(self.get_vulnerabilities_info(), ['high', 'critical'])
+        response_json = self.filter_vulnerabilities(self.get_vulnerabilities_info(), ["High", "Critical"])
 
-        package_name = self.UNKOWN
-        severity = self.UNKOWN
-        num_vulnerabilities = -1
-        created_at = self.UNKOWN
+        new_dict = []
 
-        if 'results' in response_json and len(response_json['results']) > 0:
-            if 'package' in response_json['results'][0] and 'name' in response_json['results'][0]['package']:
-                package_name = response_json['results'][0]['package']['name']
-            else:
-                self.log.warning("Error when parsing JSON for package_name")
-            if 'max_severity' in response_json['results'][0]:
-                severity = response_json['results'][0]['max_severity']
-            else:
-                self.log.warning("Error when parsing JSON for severity")
-            if 'num_vulnerabilities' in response_json['results'][0]:
-                num_vulnerabilities = response_json['results'][0]['num_vulnerabilities']
-            else:
-                self.log.warning("Error when parsing JSON for num_vulnerabilities")
-            if 'created_at' in response_json['results'][0]: 
-                created_at = self.convert_time(response_json['results'][0]['created_at'])
-            else:
-                self.log.warning("Error when parsing JSON for created_at")
+        if len(response_json) == 0:
+            self.log.warning("Error when parsing JSON for vulnerabilities information")
+        else:
+            for i in response_json:
+                new_dict.append(
+                    {
+                        "package_name": i["package"]["name"],
+                        "package_version": i["package"]["version"],
+                        "package_url": i["package"]["url"],
+                        "severity": i["max_severity"],
+                        "num_vulnerabilities": i["num_vulnerabilities"],
+                        "created_at": self.convert_time(i["created_at"]),
+                    }
+                )
 
-        vulnerabilities_info = {
-            'package_name': package_name,
-            'severity': severity,
-            'num_vulnerabilities': num_vulnerabilities,
-            'created_at': created_at,
-        }
-        return vulnerabilities_info
+        return new_dict
 
     def check(self, _):
 
@@ -294,40 +275,130 @@ class CloudsmithCheck(AgentCheck):
         # More info at https://datadoghq.dev/integrations-core/base/http/
 
         usage_info = {
-            'storage_mark': CloudsmithCheck.UNKNOWN,
-            'storage_used': -1,
-            'bandwidth_mark': CloudsmithCheck.UNKNOWN,
-            'bandwidth_used': -1,
+            "storage_mark": CloudsmithCheck.UNKNOWN,
+            "storage_used": -1,
+            "bandwidth_mark": CloudsmithCheck.UNKNOWN,
+            "bandwidth_used": -1,
         }
         entitlement_info = {
-            'token_count': -1,
-            'token_bandwidth_total': -1,
-            'token_download_total': -1,
+            "token_count": -1,
+            "token_bandwidth_total": -1,
+            "token_download_total": -1,
         }
+
+        audit_log_info = [
+            {
+                "actor": CloudsmithCheck.UNKNOWN,
+                "actor_kind": CloudsmithCheck.UNKNOWN,
+                "city": CloudsmithCheck.UNKNOWN,
+                "event": CloudsmithCheck.UNKNOWN,
+                "event_at": -1,
+                "object": CloudsmithCheck.UNKNOWN,
+                "object_slug_perm": CloudsmithCheck.UNKNOWN,
+            }
+        ]
+
+        vulnerabilities_info = [
+            {
+                "package_name": CloudsmithCheck.UNKNOWN,
+                "package_version": CloudsmithCheck.UNKNOWN,
+                "package_url": CloudsmithCheck.UNKNOWN,
+                "severity": CloudsmithCheck.UNKNOWN,
+                "num_vulnerabilities": -1,
+                "created_at": -1,
+            }
+        ]
+
+        global LAST_AUDIT_LOG_STAMP
+        global LAST_VULNERABILITY_STAMP
+        global AUDIT_LOG_LAST_RUN
+        global VULNERABILITY_LAST_RUN
 
         usage_info = self.get_parsed_usage_info()
         entitlement_info = self.get_parsed_entitlement_info()
+
+        # Only run audit log and vulnerability checks if the last check was more than 5 minutes ago
+        # This will prevent the check from running too often and hitting the rate limit
+
+        if (time.time() - AUDIT_LOG_LAST_RUN) > 300:
+            audit_log_info = self.get_parsed_audit_log_info()
+            AUDIT_LOG_LAST_RUN = time.time()
+
+        if (time.time() - VULNERABILITY_LAST_RUN) > 300:
+            vulnerabilities_info = self.get_parsed_vulnerabilities_info()
+            VULNERABILITY_LAST_RUN = time.time()
+
+        vulnerabilities_info = self.get_parsed_vulnerabilities_info()
 
         # This is how you submit metrics
         # There are different types of metrics that you can submit (gauge, event).
         # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
 
-        self.gauge("storage_used", usage_info['storage_used'], tags=self.tags)
-        self.gauge("bandwidth_used", usage_info['bandwidth_used'], tags=self.tags)
-        self.gauge("token_count", entitlement_info['token_count'], tags=self.tags)
-        self.gauge("token_bandwidth_total", entitlement_info['token_bandwidth_total'], tags=self.tags)
-        self.gauge("token_download_total", entitlement_info['token_download_total'], tags=self.tags)
-
-        storage_msg = "Percentage storage used: {}%".format(usage_info['storage_used'])
-        self.service_check(
-            'storage',
-            usage_info['storage_mark'],
-            message=storage_msg if usage_info['storage_mark'] != AgentCheck.OK else "",
+        self.gauge("storage_used", usage_info["storage_used"], tags=self.tags)
+        self.gauge("bandwidth_used", usage_info["bandwidth_used"], tags=self.tags)
+        self.gauge("token_count", entitlement_info["token_count"], tags=self.tags)
+        self.gauge(
+            "token_bandwidth_total",
+            entitlement_info["token_bandwidth_total"],
+            tags=self.tags,
+        )
+        self.gauge(
+            "token_download_total",
+            entitlement_info["token_download_total"],
+            tags=self.tags,
         )
 
-        bandwith_msg = "Percentage bandwidth used: {}%".format(usage_info['bandwidth_used'])
+        # only create an event if the timestamp is newer than the last event
+        # this is to prevent duplicate events as we pull down the entire audit log
+
+        if LAST_AUDIT_LOG_STAMP < audit_log_info[0]["event_at"]:
+            for a in audit_log_info:
+                if a["event_at"] > LAST_AUDIT_LOG_STAMP:
+                    self.event(
+                        {
+                            "timestamp": a["event_at"],
+                            "event_type": "audit logs",
+                            "api_key": self.api_key,
+                            "msg_title": "{} on Object: {} (Object Slug: {}".format(
+                                a["event"], a["object"], a["object_slug_perm"]
+                            ),
+                            "msg_text": "Actor: {} ({}) from {}".format(a["actor"], a["actor_kind"], a["city"]),
+                            "aggregation_key": "audit_log",
+                            "tags": self.tags,
+                        }
+                    )
+            LAST_AUDIT_LOG_STAMP = audit_log_info[0]["event_at"]
+
+        if LAST_VULNERABILITY_STAMP < vulnerabilities_info[0]["created_at"]:
+            for v in vulnerabilities_info:
+                if v["created_at"] > LAST_VULNERABILITY_STAMP:
+                    self.event(
+                        {
+                            "timestamp": v["created_at"],
+                            "event_type": "vulnerabilities",
+                            "api_key": self.api_key,
+                            "msg_title": "{} vulnerability found in package: {} Version: {}".format(
+                                v["severity"], v["package_name"], v["package_version"]
+                            ),
+                            "msg_text": "Number of vulnerabilities: {}. Package URL: {}".format(
+                                v["num_vulnerabilities"], v["package_url"]
+                            ),
+                            "aggregation_key": "vulnerabilities",
+                            "tags": self.tags,
+                        }
+                    )
+            LAST_VULNERABILITY_STAMP = vulnerabilities_info[0]["created_at"]
+
+        storage_msg = "Percentage storage used: {}%".format(usage_info["storage_used"])
         self.service_check(
-            'bandwidth',
-            usage_info['bandwidth_mark'],
-            message=bandwith_msg if usage_info['bandwidth_mark'] != AgentCheck.OK else "",
+            "storage",
+            usage_info["storage_mark"],
+            message=storage_msg if usage_info["storage_mark"] != AgentCheck.OK else "",
+        )
+
+        bandwith_msg = "Percentage bandwidth used: {}%".format(usage_info["bandwidth_used"])
+        self.service_check(
+            "bandwidth",
+            usage_info["bandwidth_mark"],
+            message=bandwith_msg if usage_info["bandwidth_mark"] != AgentCheck.OK else "",
         )

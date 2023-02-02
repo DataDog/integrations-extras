@@ -8,7 +8,8 @@ def dd_environment():
 
 @pytest.fixture()
 def instance_good():
-    instance = {'url': 'https://api.cloudsmith.io/v1', 'cloudsmith_api_key': 'aaa', 'organization': 'cloudsmith'}
+    instance = {'url': 'https://api.cloudsmith.io/v1',
+                'cloudsmith_api_key': 'aaa', 'organization': 'cloudsmith'}
     return instance
 
 
@@ -202,35 +203,34 @@ def usage_resp_critical():
 
 
 @pytest.fixture()
-def audit_log_resp():
-    audit_log_resp = [
-        {
-            "actor": "test",
-            "actor_ip_address": "XXX.XXX.XXX.XXX",
-            "actor_kind": "user",
-            "actor_location": {
-                "city": "XXX",
-                "continent": "Europe",
-                "country": "United Kingdom",
-                "country_code": "GB",
-                "latitude": "1",
-                "longitude": "1",
-                "postal_code": "BT11"
-            },
-            "actor_slug_perm": "msle0eeRYz0",
-            "actor_url": "https://api.cloudsmith.io/v1/users/profile/test/",
-            "context": "",
-            "event": "action.login",
-            "event_at": "2023-01-10T12:59:03.926729Z",
-            "object": "test",
-            "object_kind": "user",
-            "object_slug_perm": "msle0eeRYz0",
-            "uuid": "efb5b5b0-5b5b-5b5b-5b5b-5b5b5b5b5b5b",
-            "target": "cloudsmith-test",
-            "target_kind": "namespace",
-            "target_slug_perm": "eqr0eeRYz0",
-        }]
-    return audit_log_resp
+def audit_log_resp_good():
+    audit_log_resp_good = {
+        "actor": "test user",
+        "actor_ip_address": "XXX.XXX.XXX.XXX",
+        "actor_kind": "user",
+        "actor_location": {
+            "city": "XXX",
+            "continent": "Europe",
+            "country": "United Kingdom",
+            "country_code": "GB",
+            "latitude": "1",
+            "longitude": "1",
+            "postal_code": "BT11"
+        },
+        "actor_slug_perm": "msle0eeRYz0",
+        "actor_url": "https://api.cloudsmith.io/v1/users/profile/test/",
+        "context": "",
+        "event": "action.login",
+        "event_at": "2023-01-10T12:59:03.926729Z",
+        "object": "test",
+        "object_kind": "user",
+        "object_slug_perm": "msle0eeRYz0",
+        "uuid": "efb5b5b0-5b5b-5b5b-5b5b-5b5b5b5b5b5b",
+        "target": "cloudsmith-test",
+        "target_kind": "namespace",
+        "target_slug_perm": "eqr0eeRYz0",
+    }
+    return audit_log_resp_good
 
 
 @pytest.fixture()
@@ -238,7 +238,6 @@ def audit_log_resp_bad_json():
     # create a bad response
     audit_log_resp_bad_json = [
         {
-            "actor": "test",
             "actor_ip_address": "XXX.XXX.XXX.XXX",
             "actor_kind": "user",
             "actor_location": {
@@ -260,6 +259,7 @@ def audit_log_resp_bad_json():
             "target_kind": "namespace",
             "target_slug_perm": "eqr0eeRYz0",
         }]
+    return audit_log_resp_bad_json
 
 
 @pytest.fixture()
@@ -314,4 +314,3 @@ def vulnerabilitiy_resp_json_bad():
             "max_severity": "Medium"
         }]
     return vulnerabilitiy_resp_json_bad
-    

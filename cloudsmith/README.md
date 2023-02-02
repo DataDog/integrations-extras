@@ -44,11 +44,20 @@ See [service_checks.json][9] for a list of service checks provided by this integ
 
 ### Events
 
-The Cloudsmith integration does not include any events.
+All Cloudsmith related events collected appear within the Datadog Event Stream with the `source:cloudsmith` property. They are collected every five minutes to reduce the number of requests sent to the Cloudsmith API.
+
+There are two types of events:
+
+- Security Scan event
+- Audit Logs event
+
+They are accessible with aggregation keys: `@aggregation_key:audit_log` and `@aggregation_key:vulnerabilities`.
+
+![example_image][10]
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][10].
+Need help? Contact [Datadog support][11].
 
 [1]: https://cloudsmith.com
 [2]: https://app.datadoghq.com/account/settings#agent
@@ -59,5 +68,5 @@ Need help? Contact [Datadog support][10].
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/metadata.csv
 [9]: https://github.com/DataDog/integrations-extras/blob/master/cloudsmith/assets/service_checks.json
-[10]: https://docs.datadoghq.com/help/
-
+[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/cloudsmith/images/datadog_example.png
+[11]: https://docs.datadoghq.com/help/
