@@ -1,6 +1,6 @@
 METRIC_MAP = [
     {
-        #shared metrics
+        # shared metrics
         "purefa_info": {"name": "info"},
         "purefa_array_performance_latency_usec": {"name": "array.performance_latency_usec"},
         "purefa_array_performance_bandwidth_bytes": {"name": "array.performance_bandwidth_bytes"},
@@ -12,7 +12,7 @@ METRIC_MAP = [
         "purefa_pod_space_bytes": {"name": "pod.space_bytes"},
         "purefa_volume_performance_latency_usec": {"name": "volume.performance_latency_usec"},
         "purefa_volume_space_bytes": {"name": "volume.space_bytes"},
-        #pure-fa-openmetrics-exporter only metrics
+        # pure-fa-openmetrics-exporter only metrics
         "purefa_array_space_bytes": {"name": "array.space_bytes"},
         "purefa_array_space_data_reduction_ratio": {"name": "array.space_data_reduction_ratio"},
         "purefa_array_space_utilization": {"name": "array.space_utilization"},
@@ -40,7 +40,7 @@ METRIC_MAP = [
         "purefa_volume_performance_bandwidth_bytes": {"name": "volume.performance_bandwidth_bytes"},
         "purefa_volume_performance_average_bytes": {"name": "volume.performance_average_bytes"},
         "purefa_volume_space_data_reduction_ratio": {"name": "volume.space_data_reduction_ratio"},
-        #legacy pure_exporter only metrics
+        # legacy pure_exporter only metrics
         "purefa_hardware_chassis_health": {"name": "hardware.chassis_health"},
         "purefa_hardware_controller_health": {"name": "hardware.controller_health"},
         "purefa_hardware_component_health": {"name": "hardware.component_health"},

@@ -1,4 +1,3 @@
-from operator import truediv
 from datadog_checks.base import OpenMetricsBaseCheckV2
 
 from .config_models import ConfigMixin
