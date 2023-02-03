@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors the [Pure Storage FlashArray][3] through the [Datadog Agent][2] and the [Pure Storage Prometheus exporter][1]. 
+This check monitors the [Pure Storage FlashArray][3] through the [Datadog Agent][2] and the [Pure Storage OpenMetrics exporter][1]. 
 
 The integration can provide performance data at the array, host, volume and pod level, as well as high-level capacity and configuration information.
 
@@ -12,7 +12,7 @@ You can monitor multiple FlashArrays and aggregate these into a single dashboard
 
  - Agent v7.26.x+ to utilize OpenMetricsBaseCheckV2
  - Python 3
- - The Pure Storage Prometheus exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
+ - The Pure Storage OpenMetrics exporter is installed and running in a containerized environment. Refer to the [GitHub repo][1] for installation instructions.
 
 ## Setup
 
@@ -29,7 +29,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To configure this check for an Agent running on a host, run `datadog-agent integration install -t datadog-purefa==<INTEGRATION_VERSION>`.
 
 Note:  `<INTEGRATION_VERSION>` can be found within the [CHANGELOG.md][13] for Datadog Integration Extras. 
-  * e.g. `datadog-agent integration install -t datadog-purefa==1.0.1`
+  * e.g. `datadog-agent integration install -t datadog-purefa==1.1.0`
 
 ### Configuration
 
@@ -45,7 +45,7 @@ init_config:
 
 instances:
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/array?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/array?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
@@ -54,7 +54,7 @@ instances:
        Authorization: Bearer <api_token>
     min_collection_interval: 120
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/volumes?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/volumes?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
@@ -62,7 +62,7 @@ instances:
        Authorization: Bearer <api_token>
     min_collection_interval: 120
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/hosts?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/hosts?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
@@ -70,7 +70,16 @@ instances:
        Authorization: Bearer <api_token>
     min_collection_interval: 120
 
-  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/flasharray/pods?endpoint=<array_ip_or_fqdn>
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/pods?endpoint=<array_ip_or_fqdn>
+    tags:
+       - env:<env>
+       - fa_array_name:<full_fqdn>
+       - host:<full_fqdn>
+    headers:
+       Authorization: Bearer <api_token>
+    min_collection_interval: 120
+
+  - openmetrics_endpoint: http://<exporter_ip_or_fqdn>:<port>/metrics/directories?endpoint=<array_ip_or_fqdn>
     tags:
        - env:<env>
        - fa_array_name:<full_fqdn>
@@ -85,6 +94,24 @@ instances:
 ### Validation
 
 [Run the Agent's status subcommand][6] and look for `purefa` under the Checks section.
+
+
+
+### Upgrades
+
+#### From PureFA Agent Check 1.0.x to 1.1.x
+
+1.1.x supports both [Pure Storage OpenMetrics exporter][1] and the deprecated [Pure Storage Prometheus exporter][14]
+
+The dashboard for the deprecated [Pure Storage Prometheus exporter][14] has been moved to `Pure FlashArray - Overview (Legacy Exporter)`
+
+A listing of metrics that are both shared and unique to the different exporters are listed in [metrics.py][15]. You may need to update your dashboards and/or your alerts to match the new metrics names when migrating from the [Pure Storage Prometheus exporter][14] to the [Pure Storage OpenMetrics exporter][1]. Please contact Pure Storage via the contact infomation below if you have any questions.
+
+When migrating from [Pure Storage OpenMetrics exporter][1] to the [Pure Storage Prometheus exporter][14], the endpoints no longer have `/flasharray` in the endpoint URI.
+
+In future versions the PureFA Agent Check, the metric names from the Pure Storage Prometheus exporter will be removed.
+
+
 
 ### Troubleshooting
 
@@ -128,7 +155,7 @@ For support or feature requests, contact Pure Storage through the following meth
 * Email: pure-observability@purestorage.com
 * Slack: [Pure Storage Code// Observability Channel][11].
 
-[1]: https://github.com/PureStorage-OpenConnect/pure-exporter
+[1]: https://github.com/PureStorage-OpenConnect/pure-fa-openmetrics-exporter
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://www.purestorage.com/products.html
 [4]: https://github.com/datadog/integrations-extras/blob/master/purefa/datadog_checks/purefa/data/conf.yaml.example
@@ -140,3 +167,5 @@ For support or feature requests, contact Pure Storage through the following meth
 [11]: https://code-purestorage.slack.com/messages/C0357KLR1EU
 [12]: https://github.com/DataDog/integrations-extras/blob/master/purefa/assets/service_checks.json
 [13]: https://github.com/DataDog/integrations-extras/blob/master/purefa/CHANGELOG.md
+[14]: https://github.com/PureStorage-OpenConnect/pure-exporter
+[15]: https://github.com/datadog/integrations-extras/blob/master/purefa/datadog_checks/purefa/metrics.py

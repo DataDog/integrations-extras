@@ -3,7 +3,7 @@
 ## 1.1.0
 
 * [Added] Support for [Pure FlashArray OpenMetrics Exporter](https://github.com/PureStorage-OpenConnect/pure-fa-openmetrics-exporter)
-* [Deprecated] Support for the [Pure Exporter](https://github.com/PureStorage-OpenConnect/pure-exporter)
+* [Deprecated] Support for the [Pure Exporter](https://github.com/PureStorage-OpenConnect/pure-exporter) - Deprecated metrics names are listed in `metadata.csv` as `Legacy`
 
 ## 1.0.1
 

@@ -1,5 +1,5 @@
 {
-    "title": "Pure FlashArray - Overview",
+    "title": "Pure FlashArray - Overview (Legacy Exporter)",
     "description": "",
     "widgets": [
       {
@@ -16,7 +16,7 @@
         "layout": {
           "x": 0,
           "y": 0,
-          "width": 3,
+          "width": 2,
           "height": 2
         }
       },
@@ -31,12 +31,44 @@
             {
               "formulas": [
                 {
-                  "alias": "Data Reduction Ratio",
-                  "conditional_formats": [],
+                  "alias": "Array Health",
+                  "conditional_formats": [
+                    {
+                      "palette": "white_on_green",
+                      "value": 1,
+                      "comparator": ">="
+                    },
+                    {
+                      "palette": "white_on_red",
+                      "value": 1,
+                      "comparator": "<"
+                    }
+                  ],
                   "limit": {
                     "count": 500,
                     "order": "desc"
                   },
+                  "formula": "query1"
+                },
+                {
+                  "alias": "Cloud Mediator Status",
+                  "conditional_formats": [
+                    {
+                      "palette": "white_on_green",
+                      "comparator": ">=",
+                      "value": 1
+                    },
+                    {
+                      "palette": "white_on_red",
+                      "comparator": "<",
+                      "value": 1
+                    }
+                  ],
+                  "formula": "query2"
+                },
+                {
+                  "alias": "Data Reduction Ratio",
+                  "conditional_formats": [],
                   "formula": "query3"
                 },
                 {
@@ -45,35 +77,65 @@
                 },
                 {
                   "alias": "Array Free Space",
-                  "formula": "query5"
+                  "conditional_formats": [
+                    {
+                      "palette": "white_on_red",
+                      "comparator": "<=",
+                      "value": 1000000000000
+                    },
+                    {
+                      "palette": "white_on_green",
+                      "comparator": ">",
+                      "value": 1000000000000
+                    }
+                  ],
+                  "formula": "query11 - query6"
                 },
                 {
                   "alias": "Utilization %",
-                  "formula": "query6"
+                  "conditional_formats": [
+                    {
+                      "palette": "white_on_green",
+                      "comparator": "<=",
+                      "value": 80
+                    },
+                    {
+                      "palette": "white_on_red",
+                      "comparator": ">",
+                      "value": 80
+                    }
+                  ],
+                  "formula": "query6 / query11 * 100"
                 }
               ],
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "avg:purefa.array.space_data_reduction_ratio{$ArrayName,$Env,$version} by {fa_array_name,version}",
+                  "query": "min:purefa.hardware.chassis_health{$ArrayName,$Env} by {fa_array_name}",
+                  "data_source": "metrics",
+                  "name": "query1",
+                  "aggregator": "last"
+                },
+                {
+                  "query": "min:purefa.pod.mediator_status{$ArrayName,$Env} by {fa_array_name}",
+                  "data_source": "metrics",
+                  "name": "query2",
+                  "aggregator": "last"
+                },
+                {
+                  "query": "avg:purefa.array.space_datareduction_ratio{$ArrayName,$Env} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query3",
                   "aggregator": "last"
                 },
                 {
-                  "query": "sum:purefa.array.space_bytes{$ArrayName,$Env,space:capacity,$version} by {fa_array_name,version}",
+                  "query": "sum:purefa.array.space_capacity_bytes{$ArrayName,$Env} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query11",
                   "aggregator": "last"
                 },
                 {
-                  "query": "sum:purefa.array.space_bytes{$ArrayName,$Env,space:empty,$version} by {fa_array_name,version}",
-                  "data_source": "metrics",
-                  "name": "query5",
-                  "aggregator": "last"
-                },
-                {
-                  "query": "sum:purefa.array.space_utilization{$ArrayName,$Env,$version} by {fa_array_name,version}",
+                  "query": "sum:purefa.array.space_used_bytes{$ArrayName,$Env} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query6",
                   "aggregator": "last"
@@ -84,10 +146,10 @@
           "has_search_bar": "always"
         },
         "layout": {
-          "x": 3,
+          "x": 2,
           "y": 0,
-          "width": 9,
-          "height": 3
+          "width": 10,
+          "height": 2
         }
       },
       {
@@ -107,125 +169,8 @@
         "layout": {
           "x": 0,
           "y": 2,
-          "width": 3,
+          "width": 2,
           "height": 2
-        }
-      },
-      {
-        "id": 7523731117124348,
-        "definition": {
-          "title": "FlashArray System Alerts",
-          "title_size": "16",
-          "title_align": "left",
-          "time": {},
-          "type": "query_table",
-          "requests": [
-            {
-              "formulas": [
-                {
-                  "alias": "Info",
-                  "conditional_formats": [
-                    {
-                      "palette": "black_on_light_yellow",
-                      "value": 1,
-                      "comparator": ">="
-                    }
-                  ],
-                  "cell_display_mode": "number",
-                  "formula": "query1"
-                },
-                {
-                  "alias": "Warning",
-                  "conditional_formats": [
-                    {
-                      "palette": "white_on_yellow",
-                      "value": 1,
-                      "comparator": ">="
-                    }
-                  ],
-                  "cell_display_mode": "number",
-                  "formula": "query2"
-                },
-                {
-                  "alias": "Critical",
-                  "conditional_formats": [
-                    {
-                      "palette": "white_on_red",
-                      "value": 1,
-                      "comparator": ">="
-                    }
-                  ],
-                  "limit": {
-                    "count": 500,
-                    "order": "desc"
-                  },
-                  "cell_display_mode": "number",
-                  "formula": "query3"
-                },
-                {
-                  "alias": "Total Alerts",
-                  "conditional_formats": [],
-                  "cell_display_mode": "number",
-                  "formula": "query4"
-                }
-              ],
-              "response_format": "scalar",
-              "queries": [
-                {
-                  "query": "sum:purefa.alerts.open{*,severity:info,$Env} by {fa_array_name}",
-                  "data_source": "metrics",
-                  "name": "query1",
-                  "aggregator": "last"
-                },
-                {
-                  "query": "sum:purefa.alerts.open{*,severity:warning,$Env} by {fa_array_name}",
-                  "data_source": "metrics",
-                  "name": "query2",
-                  "aggregator": "last"
-                },
-                {
-                  "query": "sum:purefa.alerts.open{*,severity:critical,$Env} by {fa_array_name}",
-                  "data_source": "metrics",
-                  "name": "query3",
-                  "aggregator": "last"
-                },
-                {
-                  "query": "sum:purefa.alerts.open{*,severity:*,$Env} by {fa_array_name}",
-                  "data_source": "metrics",
-                  "name": "query4",
-                  "aggregator": "last"
-                }
-              ]
-            }
-          ],
-          "has_search_bar": "auto"
-        },
-        "layout": {
-          "x": 3,
-          "y": 3,
-          "width": 9,
-          "height": 2
-        }
-      },
-      {
-        "id": 7126710766954086,
-        "definition": {
-          "type": "note",
-          "content": "## Widgets\n* FlashArray System Detail\n* FlashArray System Alerts\n* Average Total Bandwidth\n* Average Data Reduction Ratio\n* Average Array Space Utilization\n* Summary of Array Space Utilization by Type\n* Average IOPS by Type per Array\n* Read Bandwidth by Array\n* Write Bandwidth by Array\n* Average Top 5 Latent Volumes by Array\n* Average Queue Depth by Array\n* Average Top 5 Hosts by Array - Read IOPS\n* Average Top 5 Hosts by Array - Write IOPS\n* Average Top 5 Hosts by Array - Mirrored Write IOPS\n* Mirrored Write Bandwidth by Array",
-          "background_color": "white",
-          "font_size": "14",
-          "text_align": "left",
-          "vertical_align": "top",
-          "show_tick": false,
-          "tick_pos": "50%",
-          "tick_edge": "left",
-          "has_padding": true
-        },
-        "layout": {
-          "x": 0,
-          "y": 4,
-          "width": 3,
-          "height": 5
         }
       },
       {
@@ -245,7 +190,7 @@
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "sum:purefa.array.performance_bandwidth_bytes{$ArrayName,$Env,$version}",
+                  "query": "sum:purefa.array.performance_bandwidth_bytes{$ArrayName,$Env}",
                   "data_source": "metrics",
                   "name": "query1",
                   "aggregator": "avg"
@@ -257,8 +202,8 @@
           "precision": 2
         },
         "layout": {
-          "x": 3,
-          "y": 5,
+          "x": 2,
+          "y": 2,
           "width": 3,
           "height": 2
         }
@@ -280,7 +225,7 @@
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "avg:purefa.array.space_data_reduction_ratio{$ArrayName,$Env,$version}",
+                  "query": "avg:purefa.array.space_datareduction_ratio{$ArrayName,$Env}",
                   "data_source": "metrics",
                   "name": "query1",
                   "aggregator": "avg"
@@ -289,20 +234,19 @@
             }
           ],
           "autoscale": true,
-          "custom_unit": ":1",
           "precision": 2
         },
         "layout": {
-          "x": 6,
-          "y": 5,
-          "width": 4,
+          "x": 5,
+          "y": 2,
+          "width": 3,
           "height": 2
         }
       },
       {
         "id": 5822029414924402,
         "definition": {
-          "title": "Average Array Space Utilization",
+          "title": "Average Array Utilization",
           "title_size": "16",
           "title_align": "left",
           "type": "query_value",
@@ -310,15 +254,21 @@
             {
               "formulas": [
                 {
-                  "formula": "query1"
+                  "formula": "query1 / query2 * 100"
                 }
               ],
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "avg:purefa.array.space_utilization{$ArrayName,$Env,$version}",
+                  "query": "sum:purefa.array.space_used_bytes{$ArrayName,$Env}",
                   "data_source": "metrics",
                   "name": "query1",
+                  "aggregator": "last"
+                },
+                {
+                  "query": "sum:purefa.array.space_capacity_bytes{$ArrayName,$Env}",
+                  "data_source": "metrics",
+                  "name": "query2",
                   "aggregator": "last"
                 }
               ]
@@ -329,10 +279,31 @@
           "precision": 2
         },
         "layout": {
-          "x": 10,
-          "y": 5,
-          "width": 2,
+          "x": 8,
+          "y": 2,
+          "width": 4,
           "height": 2
+        }
+      },
+      {
+        "id": 7126710766954086,
+        "definition": {
+          "type": "note",
+          "content": "## Widgets\n* FlashArray System Detail\n* Average Array Utilization\n* Average Total Bandwidth\n* Avarage Data Reduction Ratio\n* Array Queue Depth by Array\n* Summary of Array Space Utilization by Type\n* Average IOPs by Type per Array\n* Average Top 5 Latent Volumes by Array\n* Read Bandwidth by Array\n* Write Bandwidth per Array\n* Mirrored Write Bandwidth by Array\n* Average Top 5 Hosts by Array - Read IOPs\n* Average Top 5 Hosts by Array - Write IOPs\n* Average Top 5 Hosts by Array - Mirrored Write IOPs",
+          "background_color": "white",
+          "font_size": "14",
+          "text_align": "left",
+          "vertical_align": "top",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left",
+          "has_padding": true
+        },
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 2,
+          "height": 5
         }
       },
       {
@@ -357,7 +328,7 @@
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "sum:purefa.array.space_bytes{$ArrayName AND $Env AND space IN (system,replication,shared,snapshots,unique,empty) AND $version} by {space}",
+                  "query": "sum:purefa.array.space_used_bytes{$ArrayName,$Env} by {dimension}",
                   "data_source": "metrics",
                   "name": "query1",
                   "aggregator": "last"
@@ -372,8 +343,8 @@
           }
         },
         "layout": {
-          "x": 3,
-          "y": 7,
+          "x": 2,
+          "y": 4,
           "width": 4,
           "height": 4
         }
@@ -388,7 +359,7 @@
             {
               "formulas": [
                 {
-                  "formula": "query2",
+                  "formula": "query1",
                   "limit": {
                     "order": "desc"
                   }
@@ -400,9 +371,9 @@
               "response_format": "scalar",
               "queries": [
                 {
-                  "query": "sum:purefa.array.performance_throughput_iops{$Env,$ArrayName,$version} by {dimension,fa_array_name}",
+                  "query": "sum:purefa.array.performance_iops{$Env,$ArrayName} by {fa_array_name,dimension}",
                   "data_source": "metrics",
-                  "name": "query2",
+                  "name": "query1",
                   "aggregator": "avg"
                 }
               ]
@@ -414,86 +385,10 @@
           }
         },
         "layout": {
-          "x": 7,
-          "y": 7,
-          "width": 5,
+          "x": 6,
+          "y": 4,
+          "width": 6,
           "height": 4
-        }
-      },
-      {
-        "id": 1129338696267730,
-        "definition": {
-          "type": "note",
-          "content": "## Metrics\n\n`All metrics are prefixed with purefa.`\n\nBelow are the metrics names available:\n* info\n* alerts.open\n* array.performance_average_bytes\n* array.performance_bandwidth_bytes\n* array.performance_latency_usec\n* array.performance_queue_depth_ops\n* array.performance_throughput_iops\n* array.space_bytes\n* array.space_data_reduction_ratio\n* array.space_utilization\n* directory.performance_average_bytes\n* directory.performance_bandwidth_bytes\n* directory.performance_latency_usec\n* directory.performance_throughput_iops\n* directory.space_bytes\n* directory.space_data_reduction_ratio\n* host.connections_info\n* host.performance_average_bytes\n* host.performance_bandwidth_bytes\n* host.performance_latency_usec\n* host.performance_throughput_iops\n* host.space_bytes\n* host.space_data_reduction_ratio\n* host.space_size_bytes\n* hw.component_status\n* hw.component_temperature_celsius\n* hw.component_voltage_volt\n* pod.performance_average_bytes\n* pod.performance_bandwidth_bytes\n* pod.performance_latency_usec\n* pod.performance_throughput_iops\n* pod.space_bytes\n* pod.space_data_reduction_ratio\n* volume.performance_average_bytes\n* volume.performance_bandwidth_bytes\n* volume.performance_latency_usec\n* volume.performance_throughput_iops\n* volume.space_bytes\n* volume.space_data_reduction_ratio",
-          "background_color": "white",
-          "font_size": "14",
-          "text_align": "left",
-          "vertical_align": "top",
-          "show_tick": false,
-          "tick_pos": "50%",
-          "tick_edge": "left",
-          "has_padding": true
-        },
-        "layout": {
-          "x": 0,
-          "y": 9,
-          "width": 3,
-          "height": 11
-        }
-      },
-      {
-        "id": 356528014255268,
-        "definition": {
-          "title": "Read Bandwidth by Array",
-          "title_size": "16",
-          "title_align": "left",
-          "show_legend": true,
-          "legend_layout": "vertical",
-          "legend_columns": [
-            "avg",
-            "min",
-            "max",
-            "value"
-          ],
-          "type": "timeseries",
-          "requests": [
-            {
-              "formulas": [
-                {
-                  "alias": "Read Bandwidth",
-                  "formula": "query1"
-                }
-              ],
-              "response_format": "timeseries",
-              "queries": [
-                {
-                  "query": "avg:purefa.array.performance_bandwidth_bytes{$ArrayName,$Env,dimension:read_bytes_per_sec,$version} by {fa_array_name}",
-                  "data_source": "metrics",
-                  "name": "query1"
-                }
-              ],
-              "style": {
-                "palette": "dog_classic",
-                "line_type": "solid",
-                "line_width": "normal"
-              },
-              "display_type": "line"
-            }
-          ],
-          "yaxis": {
-            "include_zero": true,
-            "scale": "linear",
-            "label": "",
-            "min": "auto",
-            "max": "auto"
-          },
-          "markers": []
-        },
-        "layout": {
-          "x": 3,
-          "y": 11,
-          "width": 4,
-          "height": 3
         }
       },
       {
@@ -522,7 +417,62 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.array.performance_bandwidth_bytes{$Env,dimension:write_bytes_per_sec,$version,$ArrayName} by {fa_array_name}",
+                  "query": "avg:purefa.array.performance_bandwidth_bytes{dimension:write,$ArrayName,$Env} by {fa_array_name}",
+                  "data_source": "metrics",
+                  "name": "query1"
+                }
+              ],
+              "style": {
+                "palette": "dog_classic",
+                "line_type": "solid",
+                "line_width": "normal"
+              },
+              "display_type": "line"
+            }
+          ],
+          "yaxis": {
+            "include_zero": true,
+            "scale": "linear",
+            "label": "",
+            "min": "auto",
+            "max": "auto"
+          },
+          "markers": []
+        },
+        "layout": {
+          "x": 2,
+          "y": 8,
+          "width": 5,
+          "height": 3
+        }
+      },
+      {
+        "id": 356528014255268,
+        "definition": {
+          "title": "Read Bandwidth by Array",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "vertical",
+          "legend_columns": [
+            "avg",
+            "min",
+            "max",
+            "value"
+          ],
+          "type": "timeseries",
+          "requests": [
+            {
+              "formulas": [
+                {
+                  "alias": "Read Bandwidth",
+                  "formula": "query1"
+                }
+              ],
+              "response_format": "timeseries",
+              "queries": [
+                {
+                  "query": "avg:purefa.array.performance_bandwidth_bytes{dimension:read,$ArrayName,$Env} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -546,9 +496,30 @@
         },
         "layout": {
           "x": 7,
-          "y": 11,
+          "y": 8,
           "width": 5,
           "height": 3
+        }
+      },
+      {
+        "id": 1129338696267730,
+        "definition": {
+          "type": "note",
+          "content": "## Metrics\n\n`All metrics are prefixed with purefa.`\n\nBelow are the metrics names available     \n   * info\n   * alerts.total\n   * array.performance_avg_block_bytes\n   * array.performance_bandwidth_bytes\n   * array.performance_iops\n   * array.performance_latency_user\n   * array.performance_qdepth\n   * array.space_capacity_bytes\n   * array.space_datareduction_ratio\n   * array.space_provisioned_bytes\n   * array.space_used_bytes\n   * hardware.chassis_health\n   * hardware.component_health\n   * hardware.controller_health\n   * hardware.power_volts\n   * hardware.temperature_celsius\n   * host.performance_bandwidth_bytes\n   * host.performance_iops\n   * host.performance_latency_usec\n   * host.space_bytes\n   * host.space_datareduction_ratio\n   * host.space_size_bytes\n   * pod.mediator_status\n   * pod.performance_bandwidth_bytes\n   * pod.performance_iops\n   * pod.performance_latency_usec\n   * pod.progress_percent\n   * pod.space_bytes\n   * pod.space_datareduction_ratio\n   * pod.space_size_bytes\n   * pod.status\n   * volume.performance_iops\n   * volume.performance_latency_usec\n   * volume.performance_throughput_bytes\n   * volume.space_bytes\n   * volume.space_datareduction_ratio\n   * volume.space_size_bytes",
+          "background_color": "white",
+          "font_size": "14",
+          "text_align": "left",
+          "vertical_align": "top",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left",
+          "has_padding": true
+        },
+        "layout": {
+          "x": 0,
+          "y": 9,
+          "width": 2,
+          "height": 10
         }
       },
       {
@@ -578,7 +549,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.volume.performance_latency_usec{$ArrayName,$Env,$version} by {fa_array_name,dimension,name}",
+                  "query": "avg:purefa.volume.performance_latency_usec{$ArrayName,$Env} by {volume,dimension,fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -601,16 +572,16 @@
           "markers": []
         },
         "layout": {
-          "x": 3,
-          "y": 14,
-          "width": 4,
+          "x": 2,
+          "y": 11,
+          "width": 5,
           "height": 3
         }
       },
       {
         "id": 6047876259864724,
         "definition": {
-          "title": "Average QDepth by Array",
+          "title": "Array QDepth by Array",
           "title_size": "16",
           "title_align": "left",
           "show_legend": true,
@@ -622,7 +593,6 @@
             "value",
             "sum"
           ],
-          "time": {},
           "type": "timeseries",
           "requests": [
             {
@@ -634,7 +604,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.array.performance_queue_depth_ops{$Env,$ArrayName,$version} by {fa_array_name}",
+                  "query": "avg:purefa.array.performance_qdepth{$Env,$ArrayName} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -650,7 +620,7 @@
         },
         "layout": {
           "x": 7,
-          "y": 14,
+          "y": 11,
           "width": 5,
           "height": 3
         }
@@ -682,7 +652,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.host.performance_throughput_iops{$ArrayName,$Env,dimension:reads_per_sec,$version} by {host,fa_array_name}",
+                  "query": "avg:purefa.host.performance_iops{dimension:read,$ArrayName,$Env} by {host,fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -705,9 +675,9 @@
           "markers": []
         },
         "layout": {
-          "x": 3,
-          "y": 17,
-          "width": 4,
+          "x": 2,
+          "y": 14,
+          "width": 5,
           "height": 3
         }
       },
@@ -738,7 +708,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.host.performance_throughput_iops{dimension:writes_per_sec,$ArrayName,$Env,$version} by {host,fa_array_name}",
+                  "query": "avg:purefa.host.performance_iops{dimension:write,$ArrayName,$Env} by {host,fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -762,7 +732,7 @@
         },
         "layout": {
           "x": 7,
-          "y": 17,
+          "y": 14,
           "width": 5,
           "height": 3
         }
@@ -794,7 +764,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.host.performance_throughput_iops{dimension:mirrored_writes_per_sec,$ArrayName,$Env,$version} by {host,fa_array_name}",
+                  "query": "avg:purefa.host.performance_iops{dimension:mirrored_write,$ArrayName,$Env} by {host,fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -817,9 +787,9 @@
           "markers": []
         },
         "layout": {
-          "x": 3,
-          "y": 20,
-          "width": 4,
+          "x": 2,
+          "y": 17,
+          "width": 5,
           "height": 3
         }
       },
@@ -849,7 +819,7 @@
               "response_format": "timeseries",
               "queries": [
                 {
-                  "query": "avg:purefa.array.performance_bandwidth_bytes{dimension:mirrored_write_bytes_per_sec,$ArrayName,$Env,$version} by {fa_array_name}",
+                  "query": "avg:purefa.array.performance_bandwidth_bytes{dimension:mirrored_write,$ArrayName,$Env} by {fa_array_name}",
                   "data_source": "metrics",
                   "name": "query1"
                 }
@@ -873,7 +843,7 @@
         },
         "layout": {
           "x": 7,
-          "y": 20,
+          "y": 17,
           "width": 5,
           "height": 3
         }
@@ -891,16 +861,10 @@
         "prefix": "fa_array_name",
         "available_values": [],
         "default": "*"
-      },
-      {
-        "name": "version",
-        "prefix": "version",
-        "available_values": [],
-        "default": "*"
       }
     ],
     "layout_type": "ordered",
     "notify_list": [],
     "reflow_type": "fixed",
-    "id": "2hn-ep7-uba"
+    "id": "a9w-uji-pru"
   }
