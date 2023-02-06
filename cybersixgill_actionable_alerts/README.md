@@ -10,7 +10,9 @@ to prioritize and respond to threats.
 This check monitors [cybersixgill_actionable_alerts][1].
 
 ## Setup
-If you are not already a customer of Cybersixgill, visit Cybersixgill's Marketplace listing to purchase a license.
+If you are not already a customer of Cybersixgill, visit Cybersixgill's Marketplace listing 
+to purchase a license.
+
 ### Installation
 
 To install the cybersixgill_actionable_alerts check on your host:
