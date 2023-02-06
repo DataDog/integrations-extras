@@ -8,7 +8,7 @@ All flag change events are sent to Datadog. These events are tagged with the env
 
 ## Setup
 
-In the [Flagsmith Dashboard](https://app.flagsmith.com/), select the Integrations Menu and then add the Datadog Integration. Enter your [Datadog API Key][2]. For Base URL, enter `https://api.datadoghq.com` if you are using the US Datadog site, or `https://api.datadoghq.eu` if you are using the EU Datadog site.
+In the [Flagsmith Dashboard][2], select the Integrations Menu and then add the Datadog Integration. Enter your [Datadog API Key][3]. For Base URL, enter `https://api.datadoghq.com` if you are using the US Datadog site, or `https://api.datadoghq.eu` if you are using the EU Datadog site.
 
 ## Data Collected
 
