@@ -1,4 +1,4 @@
-name: Cybersixgill Actionable Alerts
+name: cybersixgill_actionable_alerts
 files:
 - name: cybersixgill_actionable_alerts.yaml
   options:
@@ -29,7 +29,7 @@ files:
         enabled:  false
         value:
           type: string
-          example:  50
+          example:  "50"
           display_default:  null
       - name: threat_type
         required: false
@@ -47,4 +47,12 @@ files:
           type: string
           example:  imminent
           display_default:  null
-    - template: instances/default
+      - name: organization_id
+        required: false
+        description: The Organization Id provided by Cybersixgill
+        enabled:  false
+        value:
+          type: string
+          example: orgidexample
+          display_default: null
+  - template: instances/default
