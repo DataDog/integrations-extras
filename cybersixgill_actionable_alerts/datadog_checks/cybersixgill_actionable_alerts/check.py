@@ -7,7 +7,7 @@ from sixgill.sixgill_actionable_alert_client import SixgillActionableAlertClient
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-Channel_Id = "929d1810580865755aa02971c7de764b"
+Channel_Id = "d5cd46c205c20c87006b55a18b106428"
 
 
 class CybersixgillActionableAlertsCheck(AgentCheck):
@@ -25,9 +25,12 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
         alerts_limit = self.instance.get('alerts_limit')
         threat_level = self.instance.get('threat_level')
         threat_type = self.instance.get('threat_type')
+        organization_id = self.instance.get('organization_id')
         if not threat_level:
             threat_level = None
         threat_type_list = None
+        if not organization_id:
+            organization_id = None
         if threat_type:
             threat_type_list = threat_type.split(", ")
         try:
@@ -63,10 +66,11 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
                 to_date=to_datetime,
                 threat_type=threat_type_list,
                 threat_level=threat_level,
+                organization_id=organization_id,
             )
             for al in alerts:
                 alert_id = al.get("id")
-                portal_url = "https://portal.cybersixgill.com/#/?actionable_alert=" % alert_id
+                portal_url = f"https://portal.cybersixgill.com/#/?actionable_alert={alert_id}"
                 alert_info = sixgill_client.get_actionable_alert(alert_id)
                 additional_info = alert_info.get("additional_info")
                 event_dict = {
