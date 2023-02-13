@@ -2,7 +2,7 @@
 # Setup taken from https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 
 # Installs the NVML integration version 1.0.6.
-# Other available versions are available by reviewing the changelog (https://github.com/DataDog/integrations-extras/blob/master/nvml/CHANGELOG.md)
+# See the changelog for the other versions that are available (https://github.com/DataDog/integrations-extras/blob/master/nvml/CHANGELOG.md)
 FROM gcr.io/datadoghq/agent:latest
 RUN agent integration install -t -r datadog-nvml==1.0.6
 
