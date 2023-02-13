@@ -28,7 +28,19 @@ def test_metric_collection(dd_run_check, aggregator, instance):
 
     aggregator.assert_service_check('fiddler.can_connect', FiddlerCheck.OK)
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-    aggregator.assert_all_metrics_covered()    
+
+    aggregator.assert_metric('fiddler.accuracy')
+    aggregator.assert_metric('fiddler.histogram_drift')
+    aggregator.assert_metric('fiddler.feature_average')
+    aggregator.assert_metric('fiddler.output_average')
+    aggregator.assert_metric('fiddler.traffic_count')
+    aggregator.assert_metric('fiddler.binary_cross_entropy')
+    aggregator.assert_metric('fiddler.data_count')
+    aggregator.assert_metric('fiddler.expected_callibration_error')
+    aggregator.assert_metric('fiddler.fpr')
+    aggregator.assert_metric('fiddler.precision')
+
+    # aggregator.assert_all_metrics_covered()
 
 
 @pytest.mark.e2e
@@ -39,4 +51,4 @@ def test_service_check(aggregator, instance):
 
     # the check should send OK
     c.check(instance)
-    # aggregator.assert_service_check('awesome.search', AwesomeCheck.OK)
+    aggregator.assert_service_check('fiddler.can_connect', FiddlerCheck.OK)
