@@ -6,7 +6,7 @@
 FROM gcr.io/datadoghq/agent:latest
 RUN agent integration install -t -r datadog-nvml==1.0.6
 
-# Install PIP libraries used by the check using a permalink to the requirements
+# Use the permalink to the requirements to install the PIP libraries used by the check
 RUN curl https://raw.githubusercontent.com/DataDog/integrations-extras/c94cd62f61bcd763ae18a601f0862da308563c03/nvml/requirements.in > requirements.in && /opt/datadog-agent/embedded/bin/pip3 install -r requirements.in
 
 # Why do you need these variables: See https://github.com/NVIDIA/nvidia-docker/wiki/Usage
