@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "e092a68c-fb4d-47e3-8b11-922de80eddb7",
+  "app_id": "census",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send your Census sync metrics and events to Datadog.",
+    "title": "Census",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Census Syncs Overview",
+        "image_url": "images/census_overview.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Automation",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "Census Overview": "assets/dashboards/census_overview.json"
+    },
+    "integration": {
+      "source_type_name": "Census",
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "census",
+        "metadata_path": "metadata.csv",
+        "check": ["census.syncs.rows_processed", "census.syncs.sync_completed"]
+      },
+      "service_checks": {}
+    }
+  },
+  "author": {
+    "support_email": "dev@getcensus.com",
+    "name": "Census",
+    "homepage": "https://www.getcensus.com/",
+    "sales_email": "sales@getcensus.com"
+  },
+  "oauth": {}
+}

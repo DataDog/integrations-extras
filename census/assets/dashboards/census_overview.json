@@ -1,0 +1,319 @@
+{
+  "title": "Census Sync Observability",
+  "description": "## Census Sync Observability\n\nThis dashboard monitors ongoing Census Reverse ETL data piplines, allowing you to see whether any pipelines require attention.\n\nFor more details, [please log into your Census account here.](https://app.getcensus.com)",
+  "widgets": [
+    {
+      "id": 4200757191543018,
+      "definition": {
+        "title": "Total Completed Syncs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": { "query": "census.syncs.completed" },
+                "data_source": "events",
+                "compute": { "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 265738690037342,
+      "definition": {
+        "title": "Total Rows Updated",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:census.syncs.rows_processed{*}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 8428683063290050,
+      "definition": {
+        "title": "Successful and Failed Sync Runs",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": { "query": "census.syncs.completed" },
+                "data_source": "events",
+                "compute": { "interval": 3600000, "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": [
+                  {
+                    "facet": "status",
+                    "sort": { "aggregation": "count", "order": "desc" },
+                    "limit": 10
+                  }
+                ]
+              }
+            ],
+            "style": {
+              "palette": "semantic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 6596770144114794,
+      "definition": {
+        "title": "Rows Processed",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "alias": "Rows Processed", "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:census.syncs.rows_processed{*}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 2702040426925268,
+      "definition": {
+        "title": "Successful Sync Runs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": { "query": "status:ok census.syncs.completed" },
+                "data_source": "events",
+                "compute": { "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 0, "y": 2, "width": 2, "height": 2 }
+    },
+    {
+      "id": 2594301627456280,
+      "definition": {
+        "title": "Failed Sync Runs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "search": {
+                  "query": "census.syncs.completed status:emergency"
+                },
+                "data_source": "events",
+                "compute": { "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": []
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      },
+      "layout": { "x": 2, "y": 2, "width": 2, "height": 2 }
+    },
+    {
+      "id": 1078609681773160,
+      "definition": {
+        "title": "Failing Syncs",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Number of Failures",
+                "conditional_formats": [
+                  { "palette": "white_on_red", "comparator": ">", "value": 0 }
+                ],
+                "limit": { "count": 500, "order": "desc" },
+                "formula": "query2"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:census.syncs.sync_completed{workspace_name:census_development,status:failure} by {workspace_id,sync_id,destination_type,destination_object}.as_count()",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ],
+        "custom_links": [
+          {
+            "link": "https://sutrolabs-gi-hackweek-d-j8hqnl.herokuapp.com/workspaces/{{workspace_id.value}}/syncs/{{sync_id.value}}",
+            "label": "View Sync in Census"
+          }
+        ]
+      },
+      "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 8773165336843110,
+      "definition": {
+        "title": "Record Diffing Daily Change",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "change",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "day_before(query1)" },
+              { "formula": "query1" }
+            ],
+            "change_type": "absolute",
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:census.syncs.rows_processed{*} by {type}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 7022974426185112,
+      "definition": {
+        "title": "Failing Sync Events",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "query": {
+              "query_string": "status:emergency",
+              "data_source": "event_stream",
+              "event_size": "l"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 4, "width": 6, "height": 2 }
+    },
+    {
+      "id": 3475531684015776,
+      "definition": {
+        "title": "Rows Processed for each Destination Object",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": { "count": 500, "order": "desc" }
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:census.syncs.rows_processed{*} by {destination_type,destination_object}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 4, "width": 6, "height": 2 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "j99-x6b-j66"
+}
