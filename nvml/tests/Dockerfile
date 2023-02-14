@@ -1,39 +1,14 @@
-# Use an intermediate step to build the nvml datadog integration
-# Setup taken from https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-#
-# You will need to change this version to whichever datadog version you want to install
-# For example:
-#   docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
-ARG DD_AGENT_VERSION=latest
-ARG PY_VERSION=3.8
-ARG INTEGRATIONS_VERSION=master
+# As the NVML integration is a community integration, it is not packaged with the Agent image by default. A custom image with the packaged integration should therefore be used in containerized environments.
+# Setup taken from https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 
-FROM python:${PY_VERSION} AS wheel_builder
-ARG INTEGRATIONS_VERSION
-ARG DD_AGENT_VERSION
-WORKDIR /wheels
+# Installs the NVML integration version 1.0.6.
+# See the changelog for the other versions that are available (https://github.com/DataDog/integrations-extras/blob/master/nvml/CHANGELOG.md)
+FROM gcr.io/datadoghq/agent:latest
+RUN agent integration install -t -r datadog-nvml==1.0.6
 
-RUN python -m pip install --upgrade "datadog-checks-dev[cli]"
-RUN git clone https://github.com/datadog/integrations-extras.git && cd integrations-extras && git status && git reset --hard ${INTEGRATIONS_VERSION}
-
-RUN ddev config set extras ./integrations-extras
-RUN ddev -e release build nvml
-
-FROM datadog/agent:${DD_AGENT_VERSION}
-
-COPY --from=wheel_builder /wheels/integrations-extras/nvml/dist/ /dist
-COPY --from=wheel_builder /wheels/integrations-extras/nvml/requirements.in /requirements.in
-
-# Work around bug https://github.com/DataDog/datadog-agent/issues/4142
-RUN ln -s /etc/datadog-agent/datadog-docker.yaml /etc/datadog-agent/datadog.yaml && \
-	agent integration install -r -w /dist/*.whl && \
-	rm /etc/datadog-agent/datadog.yaml
-
-# The command 'agent integration install' does not capture dependencies.  This is strange
-# to me.  Install those on their own
-RUN /opt/datadog-agent/embedded/bin/pip3 install -r /requirements.in
+# Use the permalink to the requirements to install the PIP libraries used by the check
+RUN curl https://raw.githubusercontent.com/DataDog/integrations-extras/c94cd62f61bcd763ae18a601f0862da308563c03/nvml/requirements.in > requirements.in && /opt/datadog-agent/embedded/bin/pip3 install -r requirements.in
 
 # Why do you need these variables: See https://github.com/NVIDIA/nvidia-docker/wiki/Usage
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
-ENV INTEGRATIONS_VERSION $INTEGRATIONS_VERSION
