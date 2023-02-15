@@ -38,6 +38,12 @@ class InstanceConfig(BaseModel):
     profiles: Optional[Sequence[str]]
     service: str
     tags: Optional[Sequence[str]]
+    tls_ca_cert: Optional[str]
+    tls_cert: Optional[str]
+    tls_private_key: Optional[str]
+    tls_private_key_password: Optional[str]
+    tls_validate_hostname: Optional[bool]
+    tls_verify: Optional[bool]
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):
