@@ -1,5 +1,9 @@
 # CHANGELOG - Go-pprof-scraper
 
+## 1.0.4 / 2023-01-17
+
+* [Added] Add documentation on configuring TLS for profile collection.
+
 ## 1.0.3 / 2023-01-17
 
 * [Fixed] The `pprof_url` parameter no longer requires a trailing "/" to work properly.
