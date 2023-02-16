@@ -2,11 +2,9 @@
 
 ## Overview
 
-[Census][1] is the leading reverse ETL platform that turns your data warehouse into a hub for marketing and business operations, empowering everyone with trustworthy and actionable data. Hundreds of companies like Canva, Figma, Loom, and Notion use Census to publish analytics directly into all their applications in real time.
+[Census][1] is the leading reverse ETL platform that turns your data warehouse into a hub for marketing and business operations, empowering everyone with trustworthy and actionable data. Sync data from a source of truth like a data warehouse to a system of actions like CRM, advertising platform, or other SaaS app to operationalize data.
 
-Monitoring offers critical insights into maintaining and reacting to development processes. Often, developers use a whole suite of tools and products, each monitored independently. To ease the monitoring process, Census integrates with Datadog to provide developers the ability to monitor their Census workflows, along with their internal monitoring, all within Datadog. The integration comes with a pre-configured dashboard, providing a birds-eye view of your Census syncs.
-
-The Census integration emits [metrics][3] and events regarding syncs setup within Census.
+Census integrates with Datadog to provide developers with the ability to monitor their Census workflows, giving them the ability to track the number of successful vs failed syncs.  This integration sends [metrics][3] and events to Datadog from Census.
 
 ## Requirements
 
