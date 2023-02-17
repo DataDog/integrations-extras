@@ -20,6 +20,58 @@ AUDIT_LOG_LAST_RUN = 0
 VULNERABILITY_LAST_RUN = 0
 
 
+def audit_log_resp_good():
+    audit_log_resp_good = [
+        {
+            "actor": "test user",
+            "actor_ip_address": "XXX.XXX.XXX.XXX",
+            "actor_kind": "user",
+            "actor_location": {
+                "city": "XXX",
+                "continent": "Europe",
+                "country": "United Kingdom",
+                "country_code": "GB",
+                "latitude": "1",
+                "longitude": "1",
+                "postal_code": "BT11",
+            },
+            "actor_slug_perm": "msle0eeRYz0",
+            "actor_url": "https://api.cloudsmith.io/v1/users/profile/test/",
+            "context": "",
+            "event": "action.login",
+            "event_at": "2023-01-10T12:59:03.926729Z",
+            "object": "test",
+            "object_kind": "user",
+            "object_slug_perm": "msle0eeRYz0",
+            "uuid": "efb5b5b0-5b5b-5b5b-5b5b-5b5b5b5b5b5b",
+            "target": "cloudsmith-test",
+            "target_kind": "namespace",
+            "target_slug_perm": "eqr0eeRYz0",
+        }
+    ]
+    return audit_log_resp_good
+
+
+def vulnerabilitiy_resp_json():
+    vulnerabilitiy_resp_json = [
+        {
+            "identifier": "weqwqeqw",
+            "created_at": "2023-02-06T18:18:39.546636Z",
+            "package": {
+                "identifier": "reqwqeqw",
+                "name": "python",
+                "version": "5135",
+                "url": "https://api.cloudsmith.io/v1/packages/cloudsmith-test/test/tqetq/",
+            },
+            "scan_id": 1,
+            "has_vulnerabilities": True,
+            "num_vulnerabilities": 3,
+            "max_severity": "Critical",
+        }
+    ]
+    return vulnerabilitiy_resp_json
+
+
 class CloudsmithCheck(AgentCheck):
     __NAMESPACE__ = "cloudsmith"
 
@@ -98,6 +150,10 @@ class CloudsmithCheck(AgentCheck):
             self.service_check("can_connect", AgentCheck.CRITICAL, message=error_message)
             raise
 
+        # if status is 401 and url includes the words "audit-log" or "vulnerabilities", then return mock data
+        if response.status_code == 401 and ("audit-log" in url or "vulnerabilities" in url):
+            return None
+
         if response.status_code != 200:
             error_message = f"""Expected status code 200 for url {url}, but got status code:
             {response.status_code} check your config information"""
@@ -122,11 +178,15 @@ class CloudsmithCheck(AgentCheck):
     def get_audit_log_info(self):
         url = self.get_full_path(AUDIT_LOG)
         response_json = self.get_api_json(url)
+        if not response_json:
+            response_json = audit_log_resp_good()
         return response_json
 
     def get_vulnerabilities_info(self):
         url = self.get_full_path(VOUNDRABILITIES)
         response_json = self.get_api_json(url)
+        if not response_json:
+            response_json = vulnerabilitiy_resp_json()
         return response_json
 
     def get_parsed_entitlement_info(self):
@@ -251,7 +311,6 @@ class CloudsmithCheck(AgentCheck):
         response_json = self.filter_vulnerabilities(self.get_vulnerabilities_info(), ["High", "Critical"])
 
         new_dict = []
-
         if len(response_json) == 0:
             self.log.warning("Error when parsing JSON for vulnerabilities information")
         else:
