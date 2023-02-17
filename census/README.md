@@ -14,8 +14,8 @@ A Census Platform tier (or higher) subscription is required to enable this integ
 
 1. Login to your [Census account][2].
 2. Navigate to the Census workspace that you wish to connect to your Datadog account.
-3. Go to the workspace settings tab, and click on "Configure" on the Datadog tile.
-4. Click on "Connect" to connect to your Datadog account via OAuth2.
+3. Go to the workspace settings tab, and click on **Configure** on the Datadog tile.
+4. Click on **Connect** to connect to your Datadog account via OAuth2.
 5. Return to Datadog and access the out-of-box dashboard included with this integration.
 
 ### Validation
