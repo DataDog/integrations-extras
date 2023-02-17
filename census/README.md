@@ -42,4 +42,5 @@ Need help? Contact [Datadog support][4].
 
 [1]: https://www.getcensus.com/
 [2]: https://app.getcensus.com/
+[3]: https://github.com/DataDog/integrations-extras/blob/master/census/metadata.csv
 [4]: https://docs.datadoghq.com/help/
