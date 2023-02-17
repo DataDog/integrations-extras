@@ -34,7 +34,7 @@ Census does not include any service checks.
 
 ### Events
 
-This integration sends events to Datadog regarding sync completion events.
+This integration sends sync completion events to Datadog.
 
 ## Troubleshooting
 
