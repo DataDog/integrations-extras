@@ -20,7 +20,7 @@ A Census Platform tier (or higher) subscription is required to enable this integ
 
 ### Validation
 
-Execute a sync on your Census workspace and await the corresponding metrics and events to emit to your Datadog account. View these metrics and events on the Census dashboard. Events and metrics for a sync may take up to a couple of minutes to be transmitted to Datadog after sync completion.
+Execute a sync on your Census workspace, and check for the corresponding metrics and events on the Census dashboard in your Datadog account. Events and metrics for a sync may take up to a couple of minutes to be transmitted to Datadog after sync completion.
 
 ## Data Collected
 
