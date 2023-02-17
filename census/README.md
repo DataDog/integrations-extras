@@ -4,7 +4,7 @@
 
 [Census][1] is the leading reverse ETL platform that turns your data warehouse into a hub for marketing and business operations, empowering everyone with trustworthy and actionable data. Sync data from a source of truth like a data warehouse to a system of actions like CRM, advertising platform, or other SaaS app to operationalize data.
 
-Census integrates with Datadog to provide developers with the ability to monitor their Census workflows, giving them the ability to track the number of successful vs failed syncs.  This integration sends [metrics][3] and events to Datadog from Census.
+Census integrates with Datadog to provide developers the ability to monitor their Census workflows and track the number of successful and failed syncs. This integration sends [metrics][3] and events to Datadog from Census.
 
 ## Requirements
 
