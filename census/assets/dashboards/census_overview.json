@@ -215,7 +215,7 @@
             "response_format": "scalar",
             "queries": [
               {
-                "query": "sum:census.syncs.sync_completed{workspace_name:census_development,status:failure} by {workspace_id,sync_id,destination_type,destination_object}.as_count()",
+                "query": "sum:census.syncs.sync_completed{status:failure} by {workspace_id,sync_id,destination_type,destination_object}.as_count()",
                 "data_source": "metrics",
                 "name": "query2",
                 "aggregator": "sum"
