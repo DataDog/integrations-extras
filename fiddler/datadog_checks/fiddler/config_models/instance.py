@@ -27,23 +27,15 @@ class InstanceConfig(BaseModel):
     class Config:
         allow_mutation = False
 
-    cumulative: Optional[bool]
     disable_generic_tags: Optional[bool]
-    duration: Optional[int]
     empty_default_hostname: Optional[bool]
-    env: Optional[str]
+    fiddler_api_key: str
     metric_patterns: Optional[MetricPatterns]
     min_collection_interval: Optional[float]
-    pprof_url: str
-    profiles: Optional[Sequence[str]]
-    service: str
+    organization: str
+    service: Optional[str]
     tags: Optional[Sequence[str]]
-    tls_ca_cert: Optional[str]
-    tls_cert: Optional[str]
-    tls_private_key: Optional[str]
-    tls_private_key_password: Optional[str]
-    tls_validate_hostname: Optional[bool]
-    tls_verify: Optional[bool]
+    url: str
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):
