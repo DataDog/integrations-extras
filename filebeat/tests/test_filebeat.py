@@ -91,6 +91,27 @@ def test_registry_happy_path_with_legacy_format(aggregator):
     )
 
 
+# tests that we still support the format from filebeat > 7
+@pytest.mark.unit
+def test_registry_happy_path_with_new_style_format(aggregator):
+    config = _build_instance("new_style_json")
+    check = FilebeatCheck("filebeat", {}, [config])
+    with mocked_os_stat(
+        {
+            "/test_dd_agent/var/log/nginx/access.log": mocked_file_stats(394154, 277025, 51713),
+            "/test_dd_agent/var/log/syslog": mocked_file_stats(1024917, 152172, 51713),
+        }
+    ):
+        check.check(config)
+
+    aggregator.assert_metric(
+        "filebeat.registry.unprocessed_bytes", value=2407, tags=["source:/test_dd_agent/var/log/nginx/access.log"]
+    )
+    aggregator.assert_metric(
+        "filebeat.registry.unprocessed_bytes", value=0, tags=["source:/test_dd_agent/var/log/syslog"]
+    )
+
+
 def test_bad_config():
     check = FilebeatCheck("filebeat", {}, {})
     with pytest.raises(Exception) as excinfo:

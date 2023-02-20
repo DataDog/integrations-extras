@@ -261,6 +261,16 @@ class FilebeatCheck(AgentCheck):
         try:
             with open(registry_file_path) as registry_file:
                 return json.load(registry_file)
+
+        except ValueError:
+            contents = []
+            with open(registry_file_path) as registry_file:
+                for line in registry_file:
+                    content = json.loads(line)
+                    if 'op' not in content.keys():
+                        contents.append(content['v'])
+            return contents
+
         except IOError as ex:
             self.log.error("Cannot read the registry log file at %s: %s", registry_file_path, ex)
 

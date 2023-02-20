@@ -1,10 +1,10 @@
 from typing import cast
 
 from datadog_checks.base import AgentCheck
-from datadog_checks.unifi_console.api import APIConnectionError, UnifiAPI
 from datadog_checks.unifi_console.config import UnifiConfig
-from datadog_checks.unifi_console.mertrics import Metric
-from datadog_checks.unifi_console.types import Check, ControllerInfo
+from datadog_checks.unifi_console.errors import APIConnectionError
+from datadog_checks.unifi_console.types import Check, ControllerInfo, Metric
+from datadog_checks.unifi_console.unifi import Unifi
 
 
 class UnifiConsoleCheck(AgentCheck):
@@ -17,8 +17,8 @@ class UnifiConsoleCheck(AgentCheck):
         super(UnifiConsoleCheck, self).__init__(name, init_config, instances)
 
         # Use self.instance to read the check configuration
-        self._config = UnifiConfig(self.instance, self.init_config, self.log)
-        self.api = UnifiAPI(self._config, self.http, self.log)
+        self._config = UnifiConfig(self.instance)
+        self.api = Unifi(self._config, self.http, self.log)
 
         # try to login a initialization to prevent login for every request
         self.check_initializations.append(self._initiate_api_connection)
@@ -30,7 +30,7 @@ class UnifiConsoleCheck(AgentCheck):
                 self._config.url,
                 self._config.user,
             )
-            self.api.connect()
+            self.api.login()
             self.log.debug("Connected")
         except APIConnectionError:
             self.log.error("Cannot authenticate to Unifi Controller API. The check will not run.")

@@ -33,6 +33,12 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
 
 ### Metrics collection
 
+#### Note:
+
+Metrics collection is available only for [JFrog Platform Self-Hosted users. JFrog Cloud is not supported.][22]
+
+#### Setup and Configure
+
 1. Enable Metrics for Artifactory and Xray:
 
     1. [Enable Metrics for Artifactory][7]
@@ -78,27 +84,6 @@ JFrog Artifactory and Xray metrics API integration with Datadog allows you to se
                  - jfxr*
         ```
     2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
-
-### Log collection - Using the Agent (Recommended)
-
-1. Ensure the Agent has log collection enabled. You can check this by verifying whether or not `logs_enabled: true` has been set in the Agent's main configuration file `datadog.yaml`. [Refer to this document for more details][20].
-
-2. Modify the OpenMetrics config file (located at `openmetrics.d/conf.yaml`) to collect the appropriate log files.  You can use [wildcards][21] to select more than one log file. Add the following to the bottom of the file: 
-
-```yaml
-logs:
-  - type: file
-    path: "<PATH_TO_ARTIFACTORY_LOGS>/<LOG_FILE_NAME>.log"
-    service: "artifactory"
-    source: "jfrog"
-
-  - type: file
-    path: "<PATH_TO_XRAY_LOGS>/<LOG_FILE_NAME>.log"
-    service: "xray"
-    source: "jfrog"
-```
-
-3. [Restart the agent to apply the changes][11]. 
 
 ### Log collection - Using FluentD
 
@@ -222,3 +207,4 @@ Need help? Contact [Datadog support][15].
 [19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
 [20]: https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection
 [21]: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#tail-directories-by-using-wildcards
+[22]: https://www.jfrog.com/confluence/display/JFROG/Open+Metrics
