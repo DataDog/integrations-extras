@@ -29,8 +29,8 @@ The LaunchDarkly events integration uses a [Datadog API key][3], which can be cr
 1. Press the **Add Widgets** button to expose the widget drawer.
 1. Search for **LaunchDarkly** to find the LaunchDarkly widget in the **Apps** section of the widget drawer.
 1. Click or drag the LaunchDarkly widget icon to add it your your dashboard and open the **LaunchDarkly editor** modal.
-1. Press the **Connect** button to connect your LaunchDarkly account. A new window opens prompting you to authorize Datadog.
-1. Click **Authorize**. You are returned to Datadog.
+1. Press the **Connect** button to connect your LaunchDarkly account. A new window opens, prompting you to authorize Datadog.
+1. Click **Authorize**, which should navigate you back to Datadog.
 1. Next, configure the following widget options in the **LaunchDarkly editor**:
 
    - **LaunchDarkly project**: The name of the LaunchDarkly project you wish to associate with the dashboard widget.
@@ -39,7 +39,7 @@ The LaunchDarkly events integration uses a [Datadog API key][3], which can be cr
    - **LaunchDarkly tag filter**: An optional `+` separated list tags used to filter the feature flags displayed in the widget. If multiple tags are included, only flags that match **all** included tags appear in the widget. If omitted, all of the project's feature flags appear in the widget.
    - **Sort**: The order the flags are displayed in the widget. Defaults to **Newest**.
 
-1. Optionally give the widget a title.
+1. Optionally, give the widget a title.
 1. Press **Save** to finish configuring the Datadog dashboard widget.
 
 ### Relay Proxy metrics
