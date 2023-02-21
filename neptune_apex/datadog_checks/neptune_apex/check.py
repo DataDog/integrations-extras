@@ -133,7 +133,7 @@ class NeptuneApexCheck(AgentCheck):
                 tags.append("outlet_type:{}".format(outlet_type))
 
                 # report state then usage
-                outlet_state = -1 # unknown
+                outlet_state = -1  # unknown
                 if outlet_watts is not None:
                     outlet_state = 0
                     if outlet_watts > 0:
