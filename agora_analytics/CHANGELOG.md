@@ -1,5 +1,5 @@
 # CHANGELOG - Agora
 
-## 1.0.0 / 2022-01-15
+## 1.0.0 / 2022-02-22
 
 [FEATURE] Initial Agora Integration
