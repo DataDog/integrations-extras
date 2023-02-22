@@ -12,9 +12,9 @@ LaunchDarkly provides the following integrations with Datadog:
 
 The [LaunchDarkly][1] events integration for Datadog brings flag event markers to your monitoring dashboards, so you can see the effects of your LaunchDarkly feature deployments on your customer's services or systems. For instance, if a deployed feature causes a service to slow down, you can see the cause within Datadog.
 
-### Feature Flag Tracking integration
+### Feature flag tracking integration
 
-LaunchDarkly's Feature Flag Tracking integration enriches your RUM data with your feature flags so you can get visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance
+LaunchDarkly's feature flag tracking integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
 
 ### Dashboard widget
 
@@ -30,13 +30,13 @@ If you are using the [LaunchDarkly Relay Proxy][2], you can configure it to expo
 
 The LaunchDarkly events integration uses a [Datadog API key][3], which can be created by a Datadog admin. Once you obtain a Datadog API key, see the [LaunchDarkly documentation for the Datadog integration][4] to learn how to setup the LaunchDarkly events integration for Datadog.
 
-### Feature Flag Tracking integration
+### Feature flag tracking setup
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions you can visit our guide to [get started with Feature Flag data collection][9]
+Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][9] guide.
 
-1. Update your Browser RUM SDK version >= 4.25.0.
+1. Update your Browser RUM SDK version 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize LaunchDarkly's SDK and create an inspector reporting feature flags evaluations to Datadog using the snippet of code shown below.
+3. Initialize LaunchDarkly's SDK and create an inspector reporting feature flag evaluations to Datadog using the snippet of code shown below.
 
 ```
 const client = LDClient.initialize("<APP_KEY>", "<USER_ID>", {
