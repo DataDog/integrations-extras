@@ -15,21 +15,21 @@ Flagsmith provides the following integrations with Datadog:
 
 All flag change events are sent to Datadog. These events are tagged with the environment they were changed in.
 
-### Feature Flag Tracking integration
+### Feature flag tracking integration
 
-Flagsmith's Feature Flag Tracking integration enriches your RUM data with your feature flags so you can get visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance
+Flagsmith's feature flag tracking integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
 
 ## Setup
 
 In the [Flagsmith Dashboard][2], select the Integrations Menu and then add the Datadog Integration. Enter your [Datadog API Key][3]. For Base URL, enter `https://api.datadoghq.com` if you are using the US Datadog site, or `https://api.datadoghq.eu` if you are using the EU Datadog site.
 
-### Feature Flag Tracking integration
+### Feature flag tracking setup
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions you can visit our guide to [get started with Feature Flag data collection][6]
+Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][6] guide.
 
-1. Update your Browser RUM SDK version >= 4.25.0.
+1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize Flagsmith's SDK with the datadogRum option, which reports feature flags evaluations to Datadog using the snippet of code shown below.
+3. Initialize Flagsmith's SDK with the `datadogRum` option, which reports feature flag evaluations to Datadog using the snippet of code shown below.
 
 ```javascript
 flagsmith.init({
