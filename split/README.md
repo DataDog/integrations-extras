@@ -30,14 +30,14 @@ Integrate Split with Datadog to:
 
 Split data should be flowing into Datadog.
 
-### RUM Feature Flag Tracking
-Split's Feature Flag Tracking integration enriches your RUM data with your feature flags so you can get visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance
+### Feature Flag Tracking integration
+Split's feature flag tracking integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions you can visit our guide to [get started with Feature Flag data collection][7]
+Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][7] guide.
 
-1. Update your Browser RUM SDK version >= 4.25.0.
+1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize Split's SDK and and create an impression listener reporting feature flags evaluations to Datadog using the following snippet of code
+3. Initialize Split's SDK and create an impression listener reporting feature flag evaluations to Datadog using the following snippet of code.
 
 ```javascript
 const factory = SplitFactory({
