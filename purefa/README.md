@@ -107,7 +107,7 @@ The dashboard for the deprecated [Pure Storage Prometheus exporter][14] has been
 
 A listing of metrics that are both shared and unique to the different exporters are listed in [metrics.py][15]. You may need to update your dashboards and/or your alerts to match the new metrics names when migrating from the [Pure Storage Prometheus exporter][14] to the [Pure Storage OpenMetrics exporter][1]. Please contact Pure Storage via the contact infomation below if you have any questions.
 
-When migrating from [Pure Storage OpenMetrics exporter][1] to the [Pure Storage Prometheus exporter][14], the endpoints no longer have `/flasharray` in the endpoint URI.
+When migrating from [Pure Storage Prometheus exporter][14] to the [Pure Storage OpenMetrics exporter][1], the endpoints no longer have `/flasharray` in the endpoint URI.
 
 In future versions the PureFA Agent Check, the metric names from the Pure Storage Prometheus exporter will be removed.
 
