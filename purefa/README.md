@@ -97,7 +97,7 @@ instances:
 
 
 
-### Upgrades
+### Upgrading to new versions of this integration
 
 #### From PureFA Agent Check 1.0.x to 1.1.x
 
