@@ -103,7 +103,7 @@ instances:
 
 1.1.x supports both [Pure Storage OpenMetrics exporter][1] and the deprecated [Pure Storage Prometheus exporter][14]
 
-The dashboard for the deprecated [Pure Storage Prometheus exporter][14] has been moved to `Pure FlashArray - Overview (Legacy Exporter)`
+The dashboard for the deprecated [Pure Storage Prometheus exporter][14] has been renamed to `Pure FlashArray - Overview (Legacy Exporter)`
 
 A listing of metrics that are both shared and unique to the different exporters are listed in [metrics.py][15]. You may need to update your dashboards and/or your alerts to match the new metrics names when migrating from the [Pure Storage Prometheus exporter][14] to the [Pure Storage OpenMetrics exporter][1]. Please contact Pure Storage with the information in the Support tab if you have any questions.
 
