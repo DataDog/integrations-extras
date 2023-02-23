@@ -109,9 +109,7 @@ A listing of metrics that are both shared and unique to the different exporters 
 
 When migrating from [Pure Storage Prometheus exporter][14] to the [Pure Storage OpenMetrics exporter][1], the endpoints no longer have `/flasharray` in the endpoint URI.
 
-In future versions the PureFA Agent Check, the metric names from the Pure Storage Prometheus exporter will be removed.
-
-
+In future versions of the PureFA Agent Check, the metric names from the Pure Storage Prometheus exporter will be removed.
 
 ### Troubleshooting
 
