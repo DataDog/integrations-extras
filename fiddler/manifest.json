@@ -1,0 +1,86 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "ee617671-508e-4bb3-ba25-8815b11a16aa",
+  "app_id": "fiddler",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Gain visibility into your ML systems with the Fiddler Datadog integration",
+    "title": "Fiddler",
+    "media": [
+      {
+        "caption": "Fiddler Dashboard in DataDog",
+        "image_url": "images/fiddler-datadog.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Model Accuracy Chart",
+        "image_url": "images/accuracy-drift.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Model Analytics",
+        "image_url": "images/analytics.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Performing counterfactual explanations",
+        "image_url": "images/counterfactual.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Data Drift Charts",
+        "image_url": "images/data-drift.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Model Explanations",
+        "image_url": "images/explanation.png",
+        "media_type": "image"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Mac OS",
+      "Supported OS::Windows",
+      "Category::Alerting",
+      "Category::Monitoring",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Events",
+      "Queried Data Type::Metrics"
+    ]
+  },
+  "author": {
+    "name":"Fiddler",
+    "homepage":"http://www.fiddler.ai",
+    "support_email": "sales@fiddler.ai",
+    "sales_email": "sales@fiddler.ai"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "fiddler",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "fiddler.",
+        "check": "fiddler.accuracy",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+        "Fiddler": "assets/dashboards/fiddler_overview.json"
+    }
+  }
+}

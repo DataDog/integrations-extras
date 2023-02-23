@@ -24,18 +24,18 @@ In [Zenduty][1], follow the steps below:
 
 5. From the sidebar, go to **Integrations**. Search for **Webhooks** from [this page][2], and click the add button.
 
-6. Scroll down, click on the **+New** button in the Webhooks section. Fill in the name, the webhook URL copied from Zenduty, and paste the following JSON in the payload box:
-```
+6. Scroll down, click on the <kbd>**+New**</kbd> button in the Webhooks section. Fill in the name, the webhook URL copied from Zenduty, and paste the following JSON in the payload box:
+```json
 {
-"alert_id": "$ALERT_ID",
-"hostname":"$HOSTNAME",
-"date_posix":"$DATE_POSIX",
-"aggreg_key":"$AGGREG_KEY",
-"title": "$EVENT_TITLE",
-"alert_status":"$ALERT_STATUS",
-"alert_transition":"$ALERT_TRANSITION",
-"link":"$LINK",
-"event_msg":"$TEXT_ONLY_MSG"
+  "alert_id": "$ALERT_ID",
+  "hostname": "$HOSTNAME",
+  "date_posix": "$DATE_POSIX",
+  "aggreg_key": "$AGGREG_KEY",
+  "title": "$EVENT_TITLE",
+  "alert_status": "$ALERT_STATUS",
+  "alert_transition": "$ALERT_TRANSITION",
+  "link": "$LINK",
+  "event_msg": "$TEXT_ONLY_MSG"
 }
 ```
 
