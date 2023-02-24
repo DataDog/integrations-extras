@@ -8,8 +8,6 @@ This integration sends metrics including usage, quality, and performance data di
 
 ## Setup
 
-### Configuration
-
 See the Agora Analytics integration [documentation][1] for details on configuring the Agora Analytics Datadog Connector.
 
 ## Data Collected
