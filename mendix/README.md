@@ -2,12 +2,9 @@
 
 ## Overview
 
-[Mendix][1] is a [low-code IDE][2] and a visual model-driven development
-environment that developers can use to build apps on the Mendix Platform.
+[Mendix][1] is a [low-code IDE][2] and a visual model-driven development environment that developers can use to build apps on the Mendix Platform.
 
-With Mendix, you can easily create, change, integrate, test, and deploy your
-applications. You can manage branch lines and security as well as extend your
-app with custom code by using the built-in editors.
+With Mendix, you can easily create, change, integrate, test, and deploy your applications. You can manage branch lines and security as well as extend your app with custom code by using the built-in editors.
 
 [The Mendix integration][3] allows you to monitor your Mendix ecosystem, including Mendix Runtime metrics, Java Virtual Machine (JVM) metrics, database, SaaS(Software as a Service) environment metrics. Customize the metrics you send to Datadog in Mendix Studio Pro.
 
@@ -15,8 +12,7 @@ app with custom code by using the built-in editors.
 
 ## Setup
 
-To enable the Datadog integration for Mendix applications running on Mendix
-Cloud, see the [Datadog for Mendix cloud documentation][5].
+To enable the Datadog integration for Mendix applications running on Mendix Cloud, see the [Datadog for Mendix cloud documentation][5].
 
 
 ## Data Collected
