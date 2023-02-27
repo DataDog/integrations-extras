@@ -51,7 +51,7 @@ def instance_cache_metric_wildcards(field, value):
 
 
 def instance_cache_shared_labels(field, value):
-    return True
+    return False
 
 
 def instance_collect_counters_with_distributions(field, value):
