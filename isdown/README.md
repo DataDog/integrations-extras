@@ -12,7 +12,7 @@ With this integration, you can receive alerts from third-party dependencies in D
 2. Log in to your account and go to the **Notifications** page.
 3. Click on the checkbox to select Datadog and then click **Connect to Datadog**.
 4. You are then redirected to Datadog to authorize the application. IsDown creates an API key that only has access to what IsDown needs to send events and service checks to Datadog.
-5. After autorization you will be redirected to IsDown.
+5. After authorization you are redirected to IsDown.
 6. Select the services you want to monitor.
 7. In each service you can choose the notification settings.
 
