@@ -14,7 +14,7 @@ With this integration, you can receive alerts from third-party dependencies in D
 4. You are then redirected to Datadog to authorize the application. IsDown creates an API key that only has access to what IsDown needs to send events and service checks to Datadog.
 5. After authorization you are redirected to IsDown.
 6. Select the services to monitor.
-7. In each service you can choose the notification settings.
+7. Configure any desired notification settings for each service.
 
 
 ### Uninstallation
