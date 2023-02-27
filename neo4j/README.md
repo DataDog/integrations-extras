@@ -3,10 +3,13 @@
 ## Overview
 
 This check monitors [neo4j][1] through the Datadog Agent.
+In [Neo4j 5][9], all metric names now include dbms or database namespaces.
+
+This check has been tested against Neo4j 4 and Neo4j 5 databases. If there are any issues, contact DataDog support or support@neo4j.com
+
 Please verify the metrics and checks that are submitted through this agent. Since Neo4j 4.0 and onward supports multiple databases, some metrics and checks are no longer published.
 
 ## Setup
-
 
 Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
 
@@ -26,9 +29,11 @@ To install the neo4j check on your host:
 
 1. Edit the `neo4j.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your neo4j performance data. See the [sample neo4j.d/conf.yaml][3] for all available configuration options.
 
-2. The neo4j_url has been replaced by host. Please ensure any updates use host.
+2. Edit the `neo4j.d/neo4j.yaml` file in the `conf.d/` folder at the root of your Agent's configuraiton directory. See the [sample neo4j.d/neo4j.yaml][10] for all available configuration options.
 
-3. [Restart the Agent][4].
+3. The neo4j_url has been replaced by host. Please ensure any updates use host.
+
+4. [Restart the Agent][4].
 
 ### Validation
 
@@ -50,7 +55,6 @@ neo4j does not include any events.
 
 ## Troubleshooting
 
-
 Need help? Contact [Datadog support][7].
 
 [1]: https://neo4j.com/
@@ -61,3 +65,5 @@ Need help? Contact [Datadog support][7].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
 [7]: https://docs.datadoghq.com/help
 [8]: https://app.datadoghq.com/account/settings#agent
+[9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
+[10]: https://docs.datadoghq.com/containers/cluster_agent/clusterchecks/?tab=helm#example-mysql-check-on-an-externally-hosted-database

@@ -34,10 +34,15 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
                     if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
                         cached_metric_data[metric.name] = None
                         return
+                elif metric.name.startswith('neo4j_transaction_'):
+                    db_name, _, final_metric_name = metric.name.replace('neo4j_transaction_', '', 1).partition('_')
+                    if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
+                        cached_metric_data[metric.name] = None
+                        return
                 else:
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith('4.'):
+                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith('5.'):
                         if metric.name.startswith('neo4j_'):
                             raw_metric_name = metric.name.replace('neo4j_', '', 1)
                         else:
