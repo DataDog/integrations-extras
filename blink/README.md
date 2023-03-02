@@ -44,6 +44,7 @@ Blink does not include any metrics, however you can query and list metrics from 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][6].
+>>>>>>> 03a6ffb0e0f3f672cc709758f5717e9cac9416b2
 
 [1]: https://www.blinkops.com/
 [2]: https://library.blinkops.com/

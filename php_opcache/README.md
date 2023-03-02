@@ -16,7 +16,7 @@ To install the `php_opcache` check on your host:
 1. Install the [developer toolkit][3].
  on any machine.
 
-2. Run `ddev release build php_opcache` to build the package.
+2. Run `ddev -e release build php_opcache` to build the package.
 
 3. [Download the Datadog Agent][4].
 

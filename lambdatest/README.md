@@ -31,11 +31,11 @@ Here's how you can track incidents in Datadog with LambdaTest:
 4. A confirmation email is sent once the integration configuration is complete.
 5. Once Datadog is integrated with your LambdaTest account, start logging bugs and performing cross-browser testing.
 
-### Uninstallation
+## Uninstallation
 
-To ensure this integration is fully uninstalled, revoke authorization in the Configure tab of this tile or in [OAuth Apps](https://app.datadoghq.com/organization-settings/oauth-applications) within Organization Settings in Datadog. 
+Once you uninstall this integration, any previous authorizations are revoked. 
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys).
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys?filter=LambdaTest).
 
 ## Support
 
@@ -44,3 +44,5 @@ For support or feature requests, contact LambdaTest on the following channels:
 Email: support@lambdatest.com
 Phone: +1-(866)-430-7087
 Website: https://www.lambdatest.com/
+
+[1]: https://www.lambdatest.com/support/docs/datadog-integration/
