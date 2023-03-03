@@ -2,16 +2,16 @@
 
 ## Overview
 
-[Blink][1] is a low-code/no-code (LNCN) platform that enables automated incident response, cloud-native operations, and security operations workflows. Blink transforms manual tasks into interactive automations backed by the security and reliability of a cloud-native platform. Every script or ticket becomes a fully-managed automation.
+[Blink][1] is a low-code/no-code (LCNC) platform that enables automated incident response, cloud-native operations, and security operations workflows. Blink transforms manual tasks into interactive automations backed by the security and reliability of a cloud-native platform. Every script or ticket becomes a fully-managed automation.
 
 The user interface and [automation library][2] come with over 5,000 cloud-native workflows that make it easy to create new automations. Blink helps you achieve better cloud efficiency and more competitive SLA's, with fewer operational bottlenecks.
 
 This out-of-the-box integration enables you to:
 
-- Trigger event-based Blink automations using Datadog incidents
-- Create and update Datadog incidents automatically from within Blink
-- View incidents or events from the Datadog Events Explorer in Blink
-- Automatically enrich and remediate Datadog incidents using Blink automations
+- Trigger event-based Blink automations using Datadog incidents.
+- Create and update Datadog incidents automatically from within Blink.
+- View incidents or events from the Datadog Events Explorer in Blink.
+- Automatically enrich and remediate Datadog incidents using Blink automations.
 
 For more information about Blink, see the [Blink documentation][3].
 
@@ -19,13 +19,11 @@ For more information about Blink, see the [Blink documentation][3].
 
 Visit [our documentation][4] for details on how to connect your Datadog workspace to Blink.
 
-### Uninstallation
+## Uninstallation
 
 To uninstall the integration, simply delete the corresponding Datadog connection in your Blink workspace.
 
-Once deleted, any previous authorizations or access tokens are revoked.
-
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the Datadog [API Keys][5] page.
+Once deleted, any previous authorizations or access tokens are revoked. Ensure that all API keys associated with this integration have been disabled by searching for the integration name on the Datadog [API Keys][5] page.
 
 ## Data Collected
 
