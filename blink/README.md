@@ -4,7 +4,7 @@
 
 [Blink][1] is a low-code/no-code (LCNC) platform that enables automated incident response, cloud-native operations, and security operations workflows. Blink transforms manual tasks into interactive automations backed by the security and reliability of a cloud-native platform. Every script or ticket becomes a fully-managed automation.
 
-The user interface and [automation library][2] come with over 5,000 cloud-native workflows that make it easy to create new automations. Blink helps you achieve better cloud efficiency and more competitive SLA's, with fewer operational bottlenecks.
+The user interface and [automation library][2] come with premade Datadog-based automations and use-cases. Blink helps you achieve better cloud efficiency and more competitive SLA's, with fewer operational bottlenecks.
 
 This out-of-the-box integration enables you to:
 
@@ -41,11 +41,11 @@ Blink does not include any metrics, however you can query and list metrics from 
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][6].
+Need help? Contact [Blink support][6].
 
 [1]: https://www.blinkops.com/
-[2]: https://library.blinkops.com/
+[2]: https://library.blinkops.com/automations?vendors=Datadog
 [3]: https://www.docs.blinkops.com/docs/Integrations/Datadog/Actions
 [4]: https://www.docs.blinkops.com/docs/Integrations/Datadog/
 [5]: https://app.datadoghq.com/organization-settings/api-keys
-[6]: https://docs.datadoghq.com/help/
+[6]: mailto:support@blinkops.com
