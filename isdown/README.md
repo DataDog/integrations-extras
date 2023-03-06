@@ -8,23 +8,20 @@ With this integration, you can receive alerts from third-party dependencies in D
 
 ## Setup
 
-### IsDown
-
-To connect Datadog to IsDown, you need to generate an [API key][5] in Datadog and add it to your IsDown account.
-
 1. Use your existing account or create a new one in [IsDown][1].
 2. Log in to your account and go to the **Notifications** page.
-3. Add your API Key and select if you're using the US or EU [Datadog site][4].
-4. Click **Save**.
-5. Select the services you want to monitor.
-6. In each service you can choose the notification settings.
+3. Click on the checkbox to select Datadog and then click **Connect to Datadog**.
+4. You are then redirected to Datadog to authorize the application. IsDown creates an API key that only has access to what IsDown needs to send events and service checks to Datadog.
+5. After authorization you are redirected to IsDown.
+6. Select the services to monitor.
+7. Configure any desired notification settings for each service.
 
 
 ### Uninstallation
 
 1. Go to the **Notifications** page in IsDown.
 2. Unselect Datadog and click **Save**.
-3. In Datadog, delete your API Key dedicated to IsDown.
+3. Ensure that all API keys associated with this integration have been disabled by searching for IsDown on the [API Keys management page][4] in Datadog.
 
 
 ## Data Collected
@@ -37,7 +34,6 @@ See [service_checks.json][3] for a list of service checks provided by this integ
 
 IsDown sends events for each outage that happens in the services you monitor. It sends two types of events, one for the start of the outage and one for the end of the outage. The events are sent with the following attributes:
 - Title: The name of the service with the outage.
-- Device Name: The name of the service.
 - Text: The description of the outage.
 - Tags: `isdown` and `isdown:service_name`.
 
@@ -48,5 +44,4 @@ Need help? Contact [IsDown support][2].
 [1]: https://isdown.app
 [2]: mailto:support@isdown.app
 [3]: assets/service_checks.json
-[4]: https://docs.datadoghq.com/getting_started/site/#overview
-[5]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: https://app.datadoghq.com/organization-settings/api-keys
