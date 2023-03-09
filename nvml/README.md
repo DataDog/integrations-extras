@@ -25,7 +25,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the NVML che
 If you are using Docker, there is an [example Dockerfile][15] in the NVML repository.
 
    ```shell
-   docker build --build-arg=DD_AGENT_VERSION=7.18.0 .
+   docker build -t dd-agent-nvml .
    ```
 
 If you're using Docker and Kubernetes, you need to expose the environment variables `NVIDIA_VISIBLE_DEVICES` and `NVIDIA_DRIVER_CAPABILITIES`. See the included Dockerfile for an example.
