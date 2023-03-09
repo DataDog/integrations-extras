@@ -3,7 +3,7 @@ The [Ably][1] platform is used to power realtime use cases such as multiplayer, 
 
 Using Ably’s Datadog Integration, you can:
 - Use [Ably statistics][2] alongside other key metrics in Datadog
-- Correlate Ably message, channel and connection usage for collaborative analysis in Dashbaords
+- Correlate Ably message, channel and connection usage for collaborative analysis in Dashboards
 - Identify unexpected activity and troubleshoot potential issues with your applications powered by Ably
 
 
