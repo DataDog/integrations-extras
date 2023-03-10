@@ -1,9 +1,9 @@
 ## Overview
-The [Ably][1] platform is used to power realtime use cases such as multiplayer, chat, data synchronisation, data broadcast and notifications, for high-scale web and mobile applications around the world. Using our APIs, engineers are free to focus on building core functionality, rather than having to provision and maintain servers and cloud infrastructure.
+The [Ably][1] platform is used to power real-time use cases such as multiplayer, chat, data synchronization, data broadcast, and notifications, for high-scale web and mobile applications around the world. Using our APIs, engineers are free to focus on building core functionality, rather than having to provision and maintain servers and cloud infrastructure.
 
 Using Ably’s Datadog Integration, you can:
 - Use [Ably statistics][2] alongside other key metrics in Datadog
-- Correlate Ably message, channel and connection usage for collaborative analysis in Dashboards
+- Correlate Ably message, channel, and connection usage for collaborative analysis in Dashboards
 - Identify unexpected activity and troubleshoot potential issues with your applications powered by Ably
 
 
@@ -11,11 +11,11 @@ Using Ably’s Datadog Integration, you can:
 
 - **In Datadog**: Go to **Integrations**, select the Ably tile and click **Install Integration**.
 
-- **In Ably**: Go to https://ably.com, login and navigate to **Your Apps**.
+- **In Ably**: Go to https://ably.com, log in and navigate to **Your Apps**.
 
 ![Ably Screenshot][3]
 
-- Select the **Ably App** you would like to setup the **Datadog Integration** for and click **Integrations**.
+- Select the **Ably App** you would like to set up the **Datadog Integration** for and click **Integrations**.
 
 ![Ably Screenshot][4]
 
@@ -23,11 +23,11 @@ Using Ably’s Datadog Integration, you can:
 
 ![Ably Screenshot][5]
 
-Your Ably App statistics data will now appear in Datadog.
+Your Ably App statistics now appear in Datadog.
 
 ## Uninstallation
 
-- **In Ably**: Go to https://ably.com, login and navigate to **Your Apps**.
+- **In Ably**: Go to https://ably.com, log in and navigate to **Your Apps**.
 
 - Select the Ably App you would like to uninstall the **Datadog Integration** for.
 
@@ -35,7 +35,7 @@ Your Ably App statistics data will now appear in Datadog.
 
 ![Ably Screenshot][6]
 
-Your Ably App statistics data will now stop being sent to Datadog.
+Your Ably App statistics are no longer sent to Datadog.
 
 - **In Datadog**: Go to **Integrations**, select the Ably tile and click **Uninstall Integration**.
 
@@ -47,10 +47,10 @@ Additionally, ensure that all API keys associated with this integration have bee
 
 See [metadata.csv][7] for a list of metrics provided by this integration.
 
-For further details on the Ably statitics take a look at our [Application Statistics documentation][8]
+For further details on the Ably statistics, read the [Application Statistics documentation][8].
 
 ## Support
-Need help? Contact [Ably support][9]
+Need help? Contact [Ably support][9].
 
 [1]: https://ably.com
 [2]: https://ably.com/docs/general/statistics
