@@ -29,7 +29,7 @@ What does Resmo offer to Datadog users?
 
 ![Resmo Screenshot][8]
 
--Hit the create button, and that's it! You're ready to query your Datadog resources.
+6. Click the **create** button, and you're ready to query your Datadog resources.
 
 ## Uninstallation
 
