@@ -45,7 +45,7 @@ What does Resmo offer to Datadog users?
 See [Resmo Datadog Resources][9] for the list of resources collected from your Datadog account.
 
 ## Support
-Need help? Contact [Resmo support][10] or [Datadog support][11]
+Need help? Contact [Resmo support][10] or [Datadog support][11].
 
 [1]: https://resmo.com
 [2]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/integrations.png
