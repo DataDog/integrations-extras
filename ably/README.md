@@ -25,6 +25,13 @@ Using Ably’s Datadog Integration, you can:
 
 Your Ably App statistics now appear in Datadog.
 
+
+## Data Collected
+For further details on the Ably statistics, read the [Application Statistics documentation][8].
+
+### Metrics
+See [metadata.csv][7] for a list of metrics provided by this integration.
+
 ## Uninstallation
 
 - **In Ably**: Go to https://ably.com, log in and navigate to **Your Apps**.
@@ -42,12 +49,6 @@ Your Ably App statistics are no longer sent to Datadog.
 Once this integration has been uninstalled, any previous authorizations are revoked.
 
 Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
-
-### Metrics
-
-See [metadata.csv][7] for a list of metrics provided by this integration.
-
-For further details on the Ably statistics, read the [Application Statistics documentation][8].
 
 ## Support
 Need help? Contact [Ably support][9].
