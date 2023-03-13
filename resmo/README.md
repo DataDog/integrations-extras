@@ -58,3 +58,5 @@ Need help? Contact [Resmo support][10] or [Datadog support][11]
 [9]: https://docs.resmo.com/resources/datadog
 [10]: https://www.resmo.com/contact
 [11]: https://docs.datadoghq.com/help/
+[12]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
+[13]: https://docs.datadoghq.com/account_management/api-app-keys/#add-application-keys
