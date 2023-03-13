@@ -11,7 +11,7 @@ What does Resmo offer to Datadog users?
 
 ## Setup
 
-- **In Resmo**: Go to https://resmo.com, login and navigate to **Integrations**.<br/>
+1. Go to https://resmo.com, log in and navigate to **Integrations**.<br/>
 
 ![Resmo Screenshot][2]
 
