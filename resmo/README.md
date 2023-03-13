@@ -33,7 +33,7 @@ What does Resmo offer to Datadog users?
 
 ## Uninstallation
 
-- **In Resmo**: Go to Settings>Integrations and select the Datadog integration you wish to uninstall. <br />
+- **In Resmo**: Go to **Settings > Integrations** and select the Datadog integration you wish to uninstall. <br />
 
 - You have two options;
   - To temporarily pause the integration, click the **Disable** button.
