@@ -1,5 +1,5 @@
 ## Overview
-The [Resmo][1] is a continuous asset visibility, security, and compliance solution for cloud and SaaS. Integrate with your tools to start querying and securing your resources. Monitor them in one place, run security and compliance audits, and get alerted on violations.
+[Resmo][1] is a continuous asset visibility, security, and compliance solution for cloud and SaaS. Integrate with your tools to start querying and securing your resources. Monitor them in one place, run security and compliance audits, and get alerted on violations.
 Using our APIs, engineers are free to focus on building core functionality, rather than having to provision and maintain servers and cloud infrastructure.
 
 What does Resmo offer to Datadog users?
