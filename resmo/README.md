@@ -42,7 +42,7 @@ What does Resmo offer to Datadog users?
 
 ## Data Collected
 
-See [Resmo Datadog Resources][9] for the list of resources we collect from your Datadog account.
+See [Resmo Datadog Resources][9] for the list of resources collected from your Datadog account.
 
 ## Support
 Need help? Contact [Resmo support][10] or [Datadog support][11]
