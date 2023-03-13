@@ -20,7 +20,7 @@ What does Resmo offer to Datadog users?
 
 ![Resmo Screenshot][3]
 
-- Then, go to your Datadog account and create a new organization API key and a user Application key.<br />
+3. Go to your Datadog account and create a new organization [API key][12] and a user [Application key][13].<br />
   - Step 1: Go to Organization Settings>Application Keys on Datadog. <br />
 ![Resmo Screenshot][4]
   - Step 2: Click the +New Key button to create a key. Name your key and hit Create. <br />
