@@ -25,7 +25,7 @@ What does Resmo offer to Datadog users?
 
 ![Resmo Screenshot][7]
 
-- Select a site from the dropdown menu on the last field.
+5. Select a site from the dropdown menu on the last field.
 
 ![Resmo Screenshot][8]
 
