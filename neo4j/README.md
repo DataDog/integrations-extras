@@ -55,7 +55,7 @@ neo4j does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][7].
+Need help? Contact [Neo4j support][7].
 
 [1]: https://neo4j.com/
 [2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
@@ -63,7 +63,7 @@ Need help? Contact [Datadog support][7].
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
-[7]: https://docs.datadoghq.com/help
+[7]: mailto:support@neo4j.com
 [8]: https://app.datadoghq.com/account/settings#agent
 [9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
 [10]: https://docs.datadoghq.com/containers/cluster_agent/clusterchecks/?tab=helm#example-mysql-check-on-an-externally-hosted-database
