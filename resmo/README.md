@@ -54,13 +54,13 @@ See [Resmo Datadog Resources][9] for the list of resources we collect from your 
 Need help? Contact [Resmo support][10] or [Datadog support][11]
 
 [1]: https://resmo.com
-[2]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/integrations.png
-[3]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/setup-integration.png
-[4]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/datadog-application-keys.png
-[5]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/datadog-new-key.png
-[6]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/datadog-created-key.png
-[7]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/resmo-key-setup.png
-[8]: https://github.com/DataDog/integrations-extras/blob/master/resmo/assets/images/resmo-site-setup.png
+[2]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/integrations.png
+[3]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/setup-integration.png
+[4]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/datadog-application-keys.png
+[5]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/datadog-new-key.png
+[6]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/datadog-created-key.png
+[7]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/resmo-key-setup.png
+[8]: https://github.com/DataDog/integrations-extras/blob/master/resmo/images/resmo-site-setup.png
 [9]: https://docs.resmo.com/resources/datadog
 [10]: https://www.resmo.com/contact
 [11]: https://docs.datadoghq.com/help/
