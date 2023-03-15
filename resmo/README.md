@@ -39,8 +39,8 @@ See [Resmo Datadog Resources][9] for the list of resources collected from your D
 - **In Resmo**: Go to **Settings > Integrations** and select the Datadog integration you wish to uninstall. <br />
 
 - You have two options;
-  - To temporarily pause the integration, click the **Disable** button.
-  - To permanently remove the integration, click the **Delete** button.
+  1. To temporarily pause the integration, click the **Disable** button.
+  2. To permanently remove the integration, click the **Delete** button.
 
 ## Support
 Need help? Contact [Resmo support][10] or [Datadog support][11].
