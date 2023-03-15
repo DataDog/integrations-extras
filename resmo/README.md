@@ -15,7 +15,7 @@ What does Resmo offer to Datadog users?
 
 ![Resmo Screenshot][2]
 
-2. Click **Add Integration** and select **Datadog**. Write a descriptive name and optionally a description.<br />
+2. Click **Add Integration** and select **Datadog**. Write a descriptive name, and optionally a description.<br />
 
 ![Resmo Screenshot][3]
 
