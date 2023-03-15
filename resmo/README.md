@@ -42,10 +42,6 @@ See [Resmo Datadog Resources][9] for the list of resources collected from your D
   - To temporarily pause the integration, click the **Disable** button.
   - To permanently remove the integration, click the **Delete** button.
 
-## Data Collected
-
-See [Resmo Datadog Resources][9] for the list of resources collected from your Datadog account.
-
 ## Support
 Need help? Contact [Resmo support][10] or [Datadog support][11].
 
