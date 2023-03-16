@@ -10,23 +10,23 @@ def shared_service(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_ca_cert(field, value):
+def instance_ca_cert(_field, _value):
     return '/path/to/ca.pem'
 
 
-def instance_client_cert(field, value):
+def instance_client_cert(_field, _value):
     return '/path/to/client.pem'
 
 
-def instance_client_key(field, value):
+def instance_client_key(_field, _value):
     return '/path/to/client-key.pem'
 
 
-def instance_disable_generic_tags(field, value):
+def instance_disable_generic_tags(_field, _value):
     return False
 
 
-def instance_empty_default_hostname(field, value):
+def instance_empty_default_hostname(_field, _value):
     return False
 
 
@@ -38,7 +38,7 @@ def instance_metric_patterns(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_min_collection_interval(field, value):
+def instance_min_collection_interval(_field, _value):
     return 15
 
 
@@ -54,5 +54,5 @@ def instance_tags(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_timeout(field, value):
+def instance_timeout(_field, _value):
     return 1000

@@ -10,23 +10,23 @@ def shared_service(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_cumulative(field, value):
+def instance_cumulative(_field, _value):
     return True
 
 
-def instance_disable_generic_tags(field, value):
+def instance_disable_generic_tags(_field, _value):
     return False
 
 
-def instance_duration(field, value):
+def instance_duration(_field, _value):
     return 60
 
 
-def instance_empty_default_hostname(field, value):
+def instance_empty_default_hostname(_field, _value):
     return False
 
 
-def instance_env(field, value):
+def instance_env(_field, _value):
     return 'prod'
 
 
@@ -34,7 +34,7 @@ def instance_metric_patterns(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_min_collection_interval(field, value):
+def instance_min_collection_interval(_field, _value):
     return 1
 
 
@@ -62,9 +62,9 @@ def instance_tls_private_key_password(field, value):
     return get_default_field_value(field, value)
 
 
-def instance_tls_validate_hostname(field, value):
+def instance_tls_validate_hostname(_field, _value):
     return True
 
 
-def instance_tls_verify(field, value):
+def instance_tls_verify(_field, _value):
     return True
