@@ -1,0 +1,221 @@
+id: auth0
+metric_id: auth0
+facets:
+  - name: Event Name
+    source: log
+    path: evt.name
+    groups:
+      - Event
+  - name: Event Outcome
+    source: log
+    path: evt.outcome
+    groups:
+      - Event
+  - name: User-Agent
+    source: log
+    path: http.useragent
+    groups:
+      - Web Access
+  - name: Browser
+    source: log
+    path: http.useragent_details.browser.family
+    groups:
+      - Web Access
+  - name: Device
+    source: log
+    path: http.useragent_details.device.family
+    groups:
+      - Web Access
+  - name: OS
+    source: log
+    path: http.useragent_details.os.family
+    groups:
+      - Web Access
+  - name: City Name
+    source: log
+    path: network.client.geoip.city.name
+    groups:
+      - Geoip
+  - name: Continent Code
+    source: log
+    path: network.client.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Continent Name
+    source: log
+    path: network.client.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Country ISO Code
+    source: log
+    path: network.client.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Country Name
+    source: log
+    path: network.client.geoip.country.name
+    groups:
+      - Geoip
+  - name: Subdivison ISO Code
+    source: log
+    path: network.client.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Subdivison Name
+    source: log
+    path: network.client.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Client IP
+    source: log
+    path: network.client.ip
+    groups:
+      - Web Access
+  - name: User Email
+    source: log
+    path: usr.email
+    groups:
+      - User
+  - name: User ID
+    source: log
+    path: usr.id
+    groups:
+      - User
+  - name: User Name
+    source: log
+    path: usr.name
+    groups:
+      - User
+  - name: Event Category
+    source: log
+    path: evt.category
+    groups:
+      - Event
+  - name: Auth0 Event Code
+    source: log
+    path: data.type
+    groups:
+      - Auth0
+
+  - name: Target App
+    source: log
+    path: data.client_name
+    groups:
+      - Auth0
+
+pipeline:
+  type: pipeline
+  name: Auth0
+  enabled: true
+  filter:
+    query: source:auth0
+  processors:
+    - type: date-remapper
+      name: Define `data.date` as the official date of the log
+      enabled: true
+      sources:
+        - data.date
+    - type: attribute-remapper
+      name: Map `data.ip` to `network.client.ip`
+      enabled: true
+      sources:
+        - data.ip
+      target: network.client.ip
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: geo-ip-parser
+      name: Fetching GeoIp data for client ip
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+    - type: attribute-remapper
+      name: Map `data.user_agent` to `http.useragent`
+      enabled: true
+      sources:
+        - data.user_agent
+      target: http.useragent
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: user-agent-parser
+      name: ''
+      enabled: true
+      sources:
+        - http.useragent
+      target: http.useragent_details
+      encoded: false
+    - type: attribute-remapper
+      name: Map `data.user_name` to `usr.id`
+      enabled: true
+      sources:
+        - data.user_name
+      target: usr.id
+      preserveSource: true
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `data.user_name` to `usr.name`
+      enabled: true
+      sources:
+        - data.user_name
+      target: usr.name
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `data.details.request.auth.user.email` to `usr.email`
+      enabled: true
+      sources:
+        - data.details.request.auth.user.email
+      target: usr.email
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: lookup-processor
+      name: Map data.type to evt.name
+      enabled: true
+      source: data.type
+      target: evt.name
+      lookupTable: "admin_update_launch,auth0_update_launched\napi_limit,rate_limit_on_the_authentication_api\ncls,code_or_link_sent\ncoff,connector_offline\ncon,connector_online\ncs,code_sent\ndepnote,deprecation_notice\ndu,deleted_user\nf,failed_login\nfapi,failed_api_operation\nfc,failed_by_connector\nfce,failed_change_email\nfco,failed_by_cors\nfcoa,failed_cross-origin_authentication\nfcp,failed_change_password\nfcph,failed_post_change_password_hook\nfcpn,failed_change_phone_number\nfcpr,failed_change_password_request\nfcpro,failed_connector_provisioning\nfcu,failed_change_username\nfd,failed_delegation\nfdeac,failed_device_activation\nfdeaz,failed_device_authorization_request\nfdecc,user_canceled_device_confirmation\nfdu,failed_user_deletion\nfeacft,failed_exchange_authorization_code_for_access_token\nfeccft,failed_exchange_access_token_for_client_credentials_grant\nfede,failed_exchange_device_code_for_access_token\nfens,failed_exchange_for_native_social_login\nfeoobft,failed_exchange_password_and_oob_challenge_for_access_token\nfeotpft,failed_exchange_password_and_otp_challege_for_access_token\nfepft,failed_exchange_password_for_access_token\nfercft,failed_exchange_password_and_mfa_recovery_code_for_access_token\nfertft,failed_exchange_refresh_token_for_access_token\nflo,failed_logout\nfn,failed_sending_notification\nfp,failed_login_incorrect_password\nfs,failed_signup\nfsa,failed_silent_auth\nfu,failed_login_invalid_email_or_username\nfui,failed_users_import\nfv,failed_verification_email\nfvr,failed_verification_email_request\ngd_auth_failed,multifactor_auth_failed\ngd_auth_rejected,multifactor_auth_rejected\ngd_auth_succeed,multifactor_auth_success\ngd_enrollment_complete,multifactor_enrollment_complete\ngd_module_switch,multifactor_module_switch\ngd_otp_rate_limit_exceed,multifactor_too_many_failures\ngd_recovery_failed,multifactor_recovery_failed\ngd_recovery_rate_limit_exceed,multifactor_too_many_recovery_failures\ngd_recovery_succeed,multifactor_recovery_success\ngd_send_pn,multifactor_push_notification_sent\ngd_send_sms,multifactor_sms_sent\ngd_start_auth,multifactor_auth_started\ngd_start_enroll,multifactor_enroll_started\ngd_tenant_update,guardian_tenant_update\ngd_unenroll,multifactor_unenroll_device_account\ngd_update_device_account,multifactor_update_device_account\ngd_user_delete,multifactor_user_delete\nlimit_delegation,too_many_calls_to_delegation\nlimit_mu,blocked_ip_address\nlimit_wc,blocked_account\npwd_leak,breached_password\ns,success_login\nsapi,success_api_operation\nsce,success_change_email\nscoa,success_cross-origin_authentication\nscp,success_change_password\nscph,success_post_change_password_hook\nscpn,success_change_phone_number\nscpr,success_change_password_request\nscu,success_change_username\nsd,success_delegation\nsdu,success_user_deletion\nseacft,success_exchange_authorization_code\nseccft,success_exchange_client_credentials_grant\nsede,success_exchange_device_code\nsens,success_exchange_for_native_social_login\nseoobft,success_exchange_password_and_oob_challenge\nseotpft,success_exchange_password_and_otp_challege\nsepft,success_exchange_password\nsercft,success_exchange_password_and_mfa_recovery_code\nsertft,success_exchange_refresh_token\nslo,success_logout\nss,success_signup\nssa,success_silent_auth\nsui,success_users_import\nsv,success_verification_email\nsvr,success_verification_email_request\nsys_os_update_end,auth0_os_update_ended\nsys_os_update_start,auth0_os_update_started\nsys_update_end,auth0_update_ended\nsys_update_start,auth0_update_started\nublkdu,user_login_block_released\nw,warnings_during_login"
+      defaultLookup: type_unknown
+    - type: lookup-processor
+      name: Map data.type to message
+      enabled: true
+      source: data.type
+      target: message
+      lookupTable: "api_limit, The maximum number of requests to the Authentication API in given time has reached.\ncls, Passwordless login code/link has been sent\ncoff, AD/LDAP Connector is offline \ncon, AD/LDAP Connector is online and working\ncs, Passwordless login code has been sent\ndu, User has been deleted.\nfce, Failed to change user email\nfco, Origin is not in the Allowed Origins list for the specified application\nfcpro, Failed to provision a AD/LDAP connector\nfcu, Failed to change username\nfd, Failed to generate delegation token\nfdeac, Failed to activate device.\nfdeaz, Device authorization request failed.\nfdecc, User did not confirm device.\nfeacft, Failed to exchange authorization code for Access Token\nfeccft, Failed exchange of Access Token for a Client Credentials Grant\nfede, Failed to exchange Device Code for Access Token\nfens, Failed exchange for Native Social Login\nfeoobft, Failed exchange of Password and OOB Challenge for Access Token\nfeotpft, Failed exchange of Password and OTP Challenge for Access Token\nfepft,Failed exchange of Password for Access Token\nfercft, Failed Exchange of Password and MFA Recovery code for Access Token\nfertft, Failed Exchange of Refresh Token for Access Token\nflo, User logout failed\nfn, Failed to send email notification\nfui, Failed to import users\nfv, Failed to send verification email\nfvr, Failed to process verification email request\ngd_auth_failed, One-time password authentication failed.\ngd_auth_rejected, One-time password authentication rejected.\ngd_auth_succeed, One-time password authentication success.\ngd_recovery_failed, Multi-factor recovery code failed.\ngd_recovery_rate_limit_exceed, Multi-factor recovery code has failed too many times.\ngd_recovery_succeed, Multi-factor recovery code succeeded authorization.\ngd_send_pn, Push notification for MFA sent successfully sent.\ngd_send_sms, SMS for MFA sent successfully sent.\ngd_start_auth, Second factor authentication event started for MFA.\ngd_start_enroll, Multi-factor authentication enroll has started.\ngd_unenroll, Device used for second factor authentication has been unenrolled.\ngd_update_device_account, Device used for second factor authentication has been updated.\ngd_user_delete, Deleted multi-factor user account.\nlimit_delegation, Rate limit exceeded to /delegation endpoint\nlimit_mu, An IP address is blocked with 100 failed login attempts using different usernames all with incorrect passwords in 24 hours or 50 sign-up attempts per minute from the same IP address.\nlimit_wc, An IP address is blocked with 10 failed login attempts into a single account from the same IP address.\npwd_leak, Someone behind the IP address: ip attempted to login with a leaked password.\ns, Successful login event.\nsdu, User successfully deleted\nseacft, Successful exchange of authorization code for Access Token\nseccft, Successful exchange of Access Token for a Client Credentials Grant\nsede, Successful exchange of device code for Access Token\nsens, Native Social Login\nseoobft, Successful exchange of Password and OOB Challenge for Access Token\nseotpft, Successful exchange of Password and OTP Challenge for Access Token\nsepft, Successful exchange of Password for Access Token\nsercft, Successful exchange of Password and MFA Recovery code for Access Token\nsertft, Successful exchange of Refresh Token for Access Token\nslo, User successfully logged out\nsui, Successfully imported users\nublkdu, User block setup by anomaly detection has been released"
+      defaultLookup:
+    - type: category-processor
+      name: Categorize authentication events
+      enabled: true
+      categories:
+        - filter:
+            query: '@evt.name:(success_login OR success_signup OR failed_login OR failed_signup OR failed_silent_auth OR failed_login_incorrect_password OR failed_login_invalid_email_or_username)'
+          name: authentication
+      target: evt.category
+    - type: category-processor
+      name: Categorize outcome of authentication events
+      enabled: true
+      categories:
+        - filter:
+            query: '@evt.name:(success_login OR success_signup)'
+          name: success
+        - filter:
+            query: '@evt.name:(failed_login OR failed_signup OR failed_silent_auth OR failed_login_incorrect_password OR failed_login_invalid_email_or_username)'
+          name: failure
+      target: evt.outcome
+
+    - type: message-remapper
+      name: Define `message`, `data.description`, `evt.name` as the official message of the log
+      enabled: true
+      sources:
+        - message
+        - data.description
+        - evt.name
