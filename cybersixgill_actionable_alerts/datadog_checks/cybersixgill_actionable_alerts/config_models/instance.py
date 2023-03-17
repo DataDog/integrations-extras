@@ -5,7 +5,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, root_validator, validator
 
@@ -19,12 +19,27 @@ class InstanceConfig(BaseModel):
     class Config:
         allow_mutation = False
 
-    alerts_limit: Optional[str]
+    alerts_limit: Optional[int]
     cl_id: str
     cl_secret: str
     organization_id: Optional[str]
     threat_level: Optional[str]
-    threat_type: Optional[str]
+    threat_type: Optional[
+        Literal[
+            'Brand Protection',
+            'Data Leak',
+            'Malware',
+            'Phishing',
+            'Fraud',
+            'Vulnerability Exploit',
+            'Insider Threat',
+            'Defacement',
+            'Compromised Accounts',
+            'DDoS Attack',
+            'Web Attack',
+            'Trend Anomaly',
+        ]
+    ]
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):
