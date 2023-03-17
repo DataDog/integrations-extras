@@ -137,6 +137,7 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
                 txt_file_update.write(json.dumps(time_dict))
                 txt_file_update.close()
             self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.OK)
+            self.service_check(self.SERVICE_CHECK_HEALTH_NAME, AgentCheck.OK)
         except (Timeout, HTTPError, ConnectionError) as e:
             error_message = f"Request Timeout {e}"
             self.service_check(self.SERVICE_CHECK_CONNECT_NAME, AgentCheck.CRITICAl, message=error_message)
