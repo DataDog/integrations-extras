@@ -55,10 +55,10 @@ Need help? Contact [Ably support][9].
 
 [1]: https://ably.com
 [2]: https://ably.com/docs/general/statistics
-[3]: https://github.com/DataDog/integrations-extras/blob/master/ably/images/your-apps.png
-[4]: https://github.com/DataDog/integrations-extras/blob/master/ably/images/integrations.png
-[5]: https://github.com/DataDog/integrations-extras/blob/master/ably/images/setup-integration.png
-[6]: https://github.com/DataDog/integrations-extras/blob/master/ably/images/uninstall-integration.png
-[7]: https://github.com/DataDog/integrations-extras/blob/master/ably/metadata.csv
+[3]: https://github.com/DataDog/integrations-extras/master/ably/images/your-apps.png
+[4]: https://github.com/DataDog/integrations-extras/master/ably/images/integrations.png
+[5]: https://github.com/DataDog/integrations-extras/master/ably/images/setup-integration.png
+[6]: https://github.com/DataDog/integrations-extras/master/ably/images/uninstall-integration.png
+[7]: https://github.com/DataDog/integrations-extras/master/ably/metadata.csv
 [8]: https://ably.com/docs/general/statistics
 [9]: https://ably.com/support
