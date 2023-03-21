@@ -19,7 +19,11 @@ Using Ably's Datadog Integration, you can:
 
 ![Ably Screenshot][4]
 
-- Click the **Connect to Datadog** button.
+- Click the **Connect to Datadog** button to begin authorization of this integration.
+
+- You will be redirected to the Datadog authorization page.
+
+- Click the **Authorise** button to complete setup and be redirected back to the Ably site.
 
 ![Ably Screenshot][5]
 
