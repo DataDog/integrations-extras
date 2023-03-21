@@ -1,6 +1,8 @@
 ## Overview
 The [Ably][1] platform is used to power real-time use cases such as multiplayer, chat, data synchronization, data broadcast, and notifications for highly scalable web and mobile applications around the world. Using our APIs, engineers are free to focus on building core functionality, rather than having to provision and maintain servers and cloud infrastructure.
 
+The Ably Datadog Integration sends [Ably statistics][2] metrics directly to your Datadog account.
+
 Using Ably's Datadog Integration, you can:
 - Use [Ably statistics][2] alongside other key metrics in Datadog
 - Correlate Ably message, channel, and connection usage for collaborative analysis in Dashboards
