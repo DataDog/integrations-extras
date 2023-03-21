@@ -1,0 +1,26 @@
+{
+  "name": "[MongoDB Atlas] Memory usage is higher than average on host: {{host.name}} ",
+  "type": "query alert",
+  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.mem.virtual{*} by {host} + avg:mongodb.atlas.mem.resident{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
+  "message": "Notify your team when memory usage is higher than normal ({{value}} %)",
+  "tags": [
+    "integration:mongodb-atlas"
+  ],
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "critical_recovery": 0
+    },
+    "notify_audit": false,
+    "require_full_window": false,
+    "notify_no_data": false,
+    "no_data_timeframe": 10,
+    "renotify_interval": 0,
+    "threshold_windows": {
+      "trigger_window": "last_15m",
+      "recovery_window": "last_15m"
+    },
+    "escalation_message": "",
+    "new_group_delay": 60
+  }
+}
