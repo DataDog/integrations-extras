@@ -180,7 +180,7 @@ METRIC_MAP = {
     'page_cache_evictions_cooperative': 'page_cache.evictions_cooperative',
     'page_cache_flushes': 'page_cache.flushes',
     'page_cache_hits': 'page_cache.hits',
-    'page_cache_hit_ratio': 'page_cache.hit_ratios',
+    'page_cache_hit_ratio': 'page_cache.hit_ratio',
     'page_cache_merges': 'page_cache.merges',
     'page_cache_page_faults': 'page_cache.page_faults',
     'page_cache_page_fault_failures': 'page_cache.page_fault_failures',
