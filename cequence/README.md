@@ -46,8 +46,7 @@ Spartan can be configured to export all information needed.
 
 ## Troubleshooting
 
-Need help with Datadog? Contact [Datadog support][1].
-Need help with Cequence? Contact [Cequence support][8].
+Need help? Contact [Cequence support][8].
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://www.cequence.ai/
