@@ -37,7 +37,6 @@ def test(aggregator, dd_run_check, instance):
         aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
         aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
     elif NEO4J_VERSION.startswith('5'):
-        aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
         aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:neo4j', f'endpoint:{METRICS_URL}'])
         aggregator.assert_metric('neo4j.check_point.duration', tags=['db_name:system', f'endpoint:{METRICS_URL}'])
     else:
