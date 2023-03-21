@@ -15,7 +15,7 @@ Navigate to Datadog Integrations and select Cequence. Then select Install.
 ### Cequence Configuration
 
 1. Generate a new Integration API Key in your [Datadog portal][4].
-2. Use the following integration article to configure your Cequence Platform to Export Logs to Datadog [CLICK HERE][3]
+2. Use the following integration [article][3] to configure your Cequence Platform to Export Logs to Datadog 
  - Be sure to configure your Data Export to use the following datadog API ingest url. This is critical for the functionality of this integration
    https://http-intake.logs.datadoghq.com/api/v2/logs?ddsource=cequence
 
