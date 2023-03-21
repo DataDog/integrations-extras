@@ -5,7 +5,7 @@
 This check monitors [neo4j][1] through the Datadog Agent.
 In [Neo4j 5][9], all metric names now include dbms or database namespaces.
 
-This check has been tested against Neo4j 4 and Neo4j 5 databases. If there are any issues, contact DataDog support or support@neo4j.com
+This check has been tested against Neo4j 4 and Neo4j 5 databases. If there are any issues, contact DataDog support or support@neo4j.com.
 
 Please verify the metrics and checks that are submitted through this agent. Since Neo4j 4.0 and onward supports multiple databases, some metrics and checks are no longer published.
 
