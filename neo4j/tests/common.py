@@ -1,4 +1,4 @@
-import os
+# import os
 
 from datadog_checks.dev import get_docker_hostname, get_here
 
@@ -6,4 +6,5 @@ HERE = get_here()
 HOST = get_docker_hostname()
 PORT = '2004'
 METRICS_URL = f'http://{HOST}:{PORT}/metrics'
-NEO4J_VERSION = os.getenv('NEO4J_VERSION')
+NEO4J_VERSION = '5.5'
+# NEO4J_VERSION = os.getenv('NEO4J_VERSION')
