@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration provides Cequence Security customers with a preconfigured dashboard to view all of their Cequence Platform related logs in Datadog. This integration provides all of the necessary pipeline and dashboard configuration to provide Cequence Security customers with a seamless Datadog Dashboard integration.
+This integration provides Cequence Security customers with a preconfigured dashboard to view all of their API Runtime Inventory and Threat Detection data within Datadog. This integration provides a Dashboard layout to provide in depth insights into your API Security posture. The log data export configuration must take place within your [Cequence Security Unified Platform.][3]
 
 ## Setup
 
@@ -34,15 +34,15 @@ All Datadog accesss and export data is configured on the Cequence UAP Platform. 
 
 ### API Sentinel Detection Events
 
-Sentinel can be configured to export all information needed.
+API Sentinel can be configured to export all API Runtime events from the Cequence Platform to Datadog.
 
 ### API Spartan Detection Events
 
-Spartan can be configured to export all information needed.
+API Spartan can be configured to export all Detection events from the Cequence Platform to Datadog.
 
 ### API Spartan Mitigation Events
 
-Spartan can be configured to export all information needed.
+API Spartan can be configured to export all Mitigation events from the Cequence Platform to Datadog.
 
 ## Troubleshooting
 
