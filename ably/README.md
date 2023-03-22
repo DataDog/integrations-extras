@@ -54,10 +54,10 @@ Your Ably App statistics are no longer sent to Datadog.
 
 Once this integration has been uninstalled, any previous authorizations are revoked.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][9].
 
 ## Support
-Need help? Contact [Ably support][9].
+Need help? Contact [Ably support][10].
 
 [1]: https://ably.com
 [2]: https://ably.com/docs/general/statistics
@@ -67,4 +67,5 @@ Need help? Contact [Ably support][9].
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ably/images/uninstall-integration.png
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ably/metadata.csv
 [8]: https://ably.com/docs/general/statistics
-[9]: https://ably.com/support
+[9]: https://app.datadoghq.com/organization-settings/api-keys?filter=Ably
+[10]: https://ably.com/support
