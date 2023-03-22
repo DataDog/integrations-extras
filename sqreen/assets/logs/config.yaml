@@ -1,0 +1,183 @@
+id: sqreen
+metric_id: sqreen
+facets:
+  - name: Event Name
+    source: log
+    path: evt.name
+    groups:
+      - Event
+  - name: Method
+    source: log
+    path: http.method
+    groups:
+      - Web Access
+  - name: Status Code
+    source: log
+    path: http.status_code
+    groups:
+      - Web Access
+  - name: URL Host
+    source: log
+    path: http.url_details.host
+    groups:
+      - Web Access
+  - name: URL Path
+    source: log
+    path: http.url_details.path
+    groups:
+      - Web Access
+  - name: URL Port
+    source: log
+    path: http.url_details.port
+    groups:
+      - Web Access
+  - name: URL scheme
+    source: log
+    path: http.url_details.scheme
+    groups:
+      - Web Access
+  - name: City Name
+    source: log
+    path: network.client.geoip.city.name
+    groups:
+      - Geoip
+  - name: Continent Code
+    source: log
+    path: network.client.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Continent Name
+    source: log
+    path: network.client.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Country ISO Code
+    source: log
+    path: network.client.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Country Name
+    source: log
+    path: network.client.geoip.country.name
+    groups:
+      - Geoip
+  - name: Subdivison ISO Code
+    source: log
+    path: network.client.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Subdivison Name
+    source: log
+    path: network.client.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Client IP
+    source: log
+    path: network.client.ip
+    groups:
+      - Web Access
+  - name: User ID
+    source: log
+    path: usr.id
+    groups:
+      - User
+  - name: Sqreen Block Security Response Status
+    source: log
+    path: sqreen.context.http.response.blocked
+    groups:
+      - Sqreen
+  - name: Sqreen In-App WAF Ruleset
+    source: log
+    path: sqreen.payload.ruleset
+    groups:
+      - Sqreen
+  - name: Sqreen Playbook Name
+    source: log
+    path: sqreen.payload.playbook_slug
+    groups:
+      - Sqreen
+  - name: Sqreen Vulnerability Type
+    source: log
+    path: sqreen.payload.protection
+    groups:
+      - Sqreen
+  - name: Sqreen Incident Severity
+    source: log
+    path: sqreen.payload.severity
+    groups:
+      - Sqreen
+  - name: Sqreen Incident Title
+    source: log
+    path: sqreen.payload.name
+    groups:
+      - Sqreen
+  - name: Sqreen Incident ID
+    source: log
+    path: sqreen.payload.incident_id
+    groups:
+      - Sqreen
+  - name: Login/Signup Success
+    source: log
+    path: sqreen.payload.success
+    groups:
+      - Sqreen
+  - name: Sqreen Service ID
+    source: log
+    path: sqreen.service.context.sqreen_id
+    groups:
+      - Sqreen
+  - name: Sqreen Custom Event Name (SDK)
+    source: log
+    path: sqreen.payload.sdk_event_name
+    groups:
+      - Sqreen
+  - name: Sqreen Event Name
+    source: log
+    path: sqreen.event_name
+    groups:
+      - Sqreen
+
+  - name: Sqreen Event Version (Semver)
+    source: log
+    path: sqreen.event_version
+    groups:
+      - Sqreen
+
+  - name: Sqreen New Incident
+    source: log
+    path: sqreen.payload.event_type
+    groups:
+      - Sqreen
+
+pipeline:
+  type: pipeline
+  name: Sqreen
+  enabled: true
+  filter:
+    query: source:sqreen
+  processors:
+    - type: url-parser
+      name: URL parser
+      enabled: true
+      sources:
+        - http.url
+      target: http.url_details
+    - type: geo-ip-parser
+      name: GeoIP enrichment
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+      encoded: false
+    - type: attribute-remapper
+      name: Map `sqreen.context.actor.identifiers.username`, `sqreen.context.actor.identifiers.email`, `sqreen.context.actor.identifiers.uuid` to `usr.id`
+      enabled: true
+      sources:
+        - sqreen.context.actor.identifiers.username
+        - sqreen.context.actor.identifiers.email
+        - sqreen.context.actor.identifiers.uuid
+      target: usr.id
+      preserveSource: true
+      overrideOnConflict: true
+      sourceType: attribute
+      targetType: attribute
