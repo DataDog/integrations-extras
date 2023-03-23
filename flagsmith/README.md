@@ -49,7 +49,7 @@ flagsmith.init({
 
 1. On the [Flagsmith integration tile](https://app.datadoghq.com/integrations/flagsmith), make sure the integration is installed.
 2. Make sure you are logged into Flagsmith with the account you want to see in Datadog.
-1. In Datadog, navigate to an existing dashboard or create a new one.
+3. In Datadog, navigate to an existing dashboard or create a new one.
 1. Press the **Add Widgets** button to expose the widget drawer.
 1. Search for **Flagsmith** to find the Flagsmith widget in the **Apps** section of the widget drawer.
 1. Select the **Flagsmith widget icon** to add it your your dashboard and open the **Flagsmith editor** modal. You can choose to add either the Flag or Audit log viewer widget.
