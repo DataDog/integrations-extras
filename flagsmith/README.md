@@ -19,6 +19,10 @@ All flag change events are sent to Datadog. These events are tagged with the env
 
 Flagsmith's feature flag tracking integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
 
+### Dashboard widget
+
+Flagsmith's dashboard widget lets you view your Flagsmith Flags and Audit Logs directly in Datadog.
+
 ## Setup
 
 In the [Flagsmith Dashboard][2], select the Integrations Menu and then add the Datadog Integration. Enter your [Datadog API Key][3]. For Base URL, enter `https://api.datadoghq.com` if you are using the US Datadog site, or `https://api.datadoghq.eu` if you are using the EU Datadog site.
@@ -34,12 +38,25 @@ Feature flag tracking is available in the RUM Browser SDK. For detailed set up i
 ```javascript
 flagsmith.init({
      datadogRum: {
-         client: datadogRum,
-         trackTraits: true,
-     },
-     ...
- })
+        client: datadogRum,
+        trackTraits: true,
+    },
+    ...
+})
 ```
+
+### Flagsmith Dashboard widget
+
+1. On the [Flagsmith integration tile](https://app.datadoghq.com/integrations/flagsmith), make sure the integration is installed.
+1. Make sure you are logged into Flagsmith with the account you want to see in Datadog.
+1. In Datadog, navigate to an existing dashboard or create a new one.
+1. Press the **Add Widgets** button to expose the widget drawer.
+1. Search for **Flagsmith** to find the Flagsmith widget in the **Apps** section of the widget drawer.
+1. Select the **Flagsmith widget icon** to add it your your dashboard and open the **Flagsmith editor** modal. You can choose to add either the Flag or Audit log viewer widget.
+1. Select the Flagsmith Organisation, Project and Environment you want to add to your dashboard.
+1. Once selected, copy and paste the **Project ID** and **Environment ID** into Datadog.
+1. Select the page size and, optionally, a widget title and Flagsmith Tag to filter on.
+1. Click **Save** to finish configuring the dashboard widget.
 
 ## Data Collected
 
