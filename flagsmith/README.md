@@ -56,7 +56,7 @@ flagsmith.init({
 7. Select the Flagsmith Organization, Project and Environment you want to add to your dashboard.
 8. Once selected, copy and paste the **Project ID** and **Environment ID** into Datadog.
 9. Select the page size and, optionally, a widget title and Flagsmith Tag to filter on.
-1. Click **Save** to finish configuring the dashboard widget.
+10. Click **Save** to finish configuring the dashboard widget.
 
 ## Data Collected
 
