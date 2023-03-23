@@ -53,7 +53,7 @@ flagsmith.init({
 4. Press the **Add Widgets** button to expose the widget drawer.
 5. Search for **Flagsmith** to find the Flagsmith widget in the **Apps** section of the widget drawer.
 6. Select the **Flagsmith widget icon** to add it your your dashboard and open the **Flagsmith editor** modal. You can choose to add either the Flag or Audit log viewer widget.
-1. Select the Flagsmith Organisation, Project and Environment you want to add to your dashboard.
+7. Select the Flagsmith Organization, Project and Environment you want to add to your dashboard.
 1. Once selected, copy and paste the **Project ID** and **Environment ID** into Datadog.
 1. Select the page size and, optionally, a widget title and Flagsmith Tag to filter on.
 1. Click **Save** to finish configuring the dashboard widget.
