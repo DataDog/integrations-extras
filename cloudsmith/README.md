@@ -55,7 +55,7 @@ They are accessible with aggregation keys: `@aggregation_key:audit_log` and `@ag
 
 ## Troubleshooting
 
-Need help? Contact [Cloudsmith support][11].
+Need help? Contact [Cloudsmith support][10].
 
 [1]: https://cloudsmith.com
 [2]: https://app.datadoghq.com/account/settings#agent
