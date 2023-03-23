@@ -1,13 +1,13 @@
 # Agent Check: Flagsmith
 
 {{< callout url="#" btn_hidden="true" header="Join the Feature Flag Tracking Beta!">}}
-To enrich your RUM data with your Flagsmith feature flags and get visibility into performance monitoring and behavioral changes, join the <a href="https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/">Feature Flag Tracking</a> private beta. To request access, contact Datadog Support at support@datadoghq.com.
+To enrich your RUM data with your Flagsmith feature flags and get visibility into performance monitoring and behavioral changes, join the [Feature Flag Tracking][1] private beta. To request access, contact Datadog Support at support@datadoghq.com.
 
 {{< /callout >}}
 
 ## Overview
 
-[Flagsmith][1] facilitates feature management across web, mobile, and server side applications. The Datadog Flagsmith integration enables you to view information about flag changes directly within Datadog.
+[Flagsmith][2] facilitates feature management across web, mobile, and server side applications. The Datadog Flagsmith integration enables you to view information about flag changes directly within Datadog.
 
 Flagsmith provides the following integrations with Datadog:
 
@@ -47,7 +47,7 @@ flagsmith.init({
 
 ### Flagsmith Dashboard widget
 
-1. On the [Flagsmith integration tile](https://app.datadoghq.com/integrations/flagsmith), make sure the integration is installed.
+1. On the [Flagsmith integration tile][5], make sure the integration is installed.
 2. Make sure you are logged into Flagsmith with the account you want to see in Datadog.
 3. In Datadog, navigate to an existing dashboard or create a new one.
 4. Press the **Add Widgets** button to expose the widget drawer.
@@ -74,11 +74,12 @@ All Flagsmith events are sent to the Datadog event stream.
 
 ## Troubleshooting
 
-Need help? See the [Flagsmith documentation][4] or contact [Datadog Support][5].
+Need help? See the [Flagsmith documentation][6] or contact [Datadog Support][7].
 
 [1]: https://www.flagsmith.com/
 [2]: https://app.flagsmith.com/
 [3]: https://app.datadoghq.com/organization-settings/api-keys
-[4]: https://docs.flagsmith.com/integrations/datadog/
-[5]: https://docs.datadoghq.com/help/
-[6]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
+[4]: https://app.datadoghq.com/integrations/flagsmith
+[5]: https://docs.flagsmith.com/integrations/datadog/
+[6]: https://docs.datadoghq.com/help/
+[7]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
