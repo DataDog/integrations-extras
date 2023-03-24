@@ -35,7 +35,7 @@ The following configuration must take place within the Datadog Portal.
 4. Highlight the integration and Click + Install.
 
 ## Data Collected
-All Datadog accesss and export data is configured on the Cequence UAP Platform. The Cequence Platform will export these logs into the Datadog repository.
+All Datadog access and export data is configured on the Cequence UAP Platform. The Cequence Platform exports these logs to Datadog.
 
 ### API Sentinel Detection Events
 
