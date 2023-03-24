@@ -6,7 +6,12 @@ This integration provides Cequence Security customers with a preconfigured dashb
 
 ## Setup
 
-All configuration is automated by this Datadog Integration. All customers need to do is click +Install to install the Cequence Datadog Dashboard and all of the necessary components will be deployed in Datadog.
+No configuration is needed to install the Cequence Datadog dashboard.
+
+1. Log in to Datadog.
+2. Navigate to [Integrations][7].
+3. Search for Cequence.
+4. Highlight the integration and Click **+ Install**.
 
 ### Installation
 
