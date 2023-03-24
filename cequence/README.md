@@ -13,9 +13,6 @@ No configuration is needed to install the Cequence Datadog dashboard.
 3. Search for Cequence.
 4. Highlight the integration and Click **+ Install**.
 
-### Installation
-
-Navigate to Datadog Integrations and select Cequence. Then select Install.
 
 ### Cequence Configuration
 
