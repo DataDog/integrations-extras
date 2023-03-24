@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration provides Cequence Security customers with a preconfigured dashboard to view all of their API Runtime Inventory and Threat Detection data within Datadog. This integration provides a Dashboard layout to provide in depth insights into your API Security posture. The log data export configuration must take place within your [Cequence Security Unified Platform.][3]
+This integration provides Cequence Security customers with a preconfigured dashboard to view all of their API Runtime Inventory and Threat Detection log data within Datadog. This enables in-depth insights into your API Security posture. The log data export configuration must take place within your [Cequence Security Unified Platform][3].
 
 ## Setup
 
