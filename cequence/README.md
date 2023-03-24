@@ -22,15 +22,6 @@ No configuration is needed to install the Cequence Datadog dashboard.
    `https://http-intake.logs.datadoghq.com/api/v2/logs?ddsource=cequence`
 
 
-### Datadog Configuration
-
-The following configuration must take place within the Datadog Portal.
-
-1. Login to your Datadog portal.
-2. Navigate to [Integrations][7]
-3. Search for Cequence
-4. Highlight the integration and Click + Install.
-
 ## Data Collected
 All Datadog access and export data is configured on the Cequence UAP Platform. The Cequence Platform exports these logs to Datadog.
 
