@@ -42,6 +42,6 @@ Need help? [Contact Datadog Support][5]
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://docs.atlas.mongodb.com/tutorial/monitoring-integrations/#procedure
-[3]: https://github.com/DataDog/integrations-internal-core/blob/main/mongodb_atlas/metadata.csv
+[3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv
 [4]: https://www.mongodb.com/blog/post/push-your-mongodb-atlas-alerts-to-datadog
 [5]: https://docs.datadoghq.com/help/
