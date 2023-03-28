@@ -13,7 +13,9 @@ Using Ably's Datadog Integration, you can:
 
 - **In Datadog**: Go to **Integrations**, select the Ably tile and click **Install Integration**.
 
-- **In Ably**: Go to https://ably.com, log in and navigate to **Your Apps**.
+- Click **Connect Accounts** to begin authorization of this integration. You will be redirected to [Ably][1].
+
+- **In Ably**: Log in and navigate to **Your Apps**.
 
 ![Ably Screenshot][3]
 
