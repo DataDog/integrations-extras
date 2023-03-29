@@ -77,20 +77,20 @@ def test_good_response(aggregator, instance_pass):
     c.check(instance_pass)
 
     METRICS = {
-        "pihole.domains_being_blocked": 125230.0,
-        "pihole.ads_percent_blocked": 41.21003,
-        "pihole.ads_blocked_today": 5490.0,
-        "pihole.dns_queries_today": 13322.0,
-        "pihole.unique_domains": 928.0,
-        "pihole.reply_nxdomain": 15.0,
-        "pihole.queries_cached": 1130.0,
-        "pihole.queries_forwarded": 6702.0,
-        "pihole.clients_ever_seen": 4.0,
-        "pihole.unique_clients": 4.0,
-        "pihole.dns_queries_all_types": 13322.0,
-        "pihole.reply_cname": 173.0,
-        "pihole.reply_nodata": 12.0,
-        "pihole.reply_ip": 317.0,
+        "pihole.domains_being_blocked": "125,230",
+        "pihole.dns_queries_today": "13,322",
+        "pihole.ads_blocked_today": "5,490",
+        "pihole.ads_percentage_today": "5.6",
+        "pihole.unique_domains": "3,928",
+        "pihole.queries_forwarded": "6,702",
+        "pihole.queries_cached": "1,130",
+        "pihole.clients_ever_seen": "4",
+        "pihole.unique_clients": "4",
+        "pihole.dns_queries_all_types": "13,322",
+        "pihole.reply_nodata": "12",
+        "pihole.reply_nxdomain": "15",
+        "pihole.reply_cname": "173",
+        "pihole.reply_ip": "317",
     }
     for metric, value in METRICS.items():
         aggregator.assert_metric(name=metric, value=value)
