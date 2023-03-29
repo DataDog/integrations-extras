@@ -5,9 +5,8 @@ The Ably Datadog Integration sends [Ably statistics][2] metrics directly to your
 
 Using Ably's Datadog Integration, you can:
 - Use [Ably statistics][2] alongside other key metrics in Datadog
-- Correlate Ably message, channel, and connection usage for collaborative analysis in Dashboards
-- Identify unexpected activity and troubleshoot potential issues with your applications powered by Ably
-
+- Correlate Ably message, channel, and connection usage for collaborative analysis in Datadog dashboards
+- View and track Ably usage statistics in Datadog
 
 ## Setup
 
