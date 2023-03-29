@@ -45,7 +45,7 @@ class PiholeCheck(AgentCheck):
 
                     if data.get("ads_percentage_today"):
                         ads_percentage_today = data["ads_percentage_today"]
-                        self.gauge("pihole.ads_percent_blocked", float(ads_percentage_today.replace(",", "")), custom_tags)
+                        self.gauge("pihole.ads_percent_blocked", float(ads_percentage_today), custom_tags)
 
                     if data.get("unique_domains"):
                         unique_domains = data["unique_domains"]
