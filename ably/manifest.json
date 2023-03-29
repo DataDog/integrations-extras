@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "4596cd59-d3f2-4921-8133-3a448ccaea61",
+  "app_id": "ably",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect and graph Ably metrics",
+    "title": "Ably",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Ably - Dashboard",
+        "image_url": "images/ably-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cloud",
+      "Category::Metrics",
+      "Submitted Data Type::Metrics",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "Ably": "assets/dashboards/ably.json"
+    },
+    "integration": {
+      "source_type_name": "Ably",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": ["ably.channels.mean","ably.channels.min","ably.channels.peak","ably.connections.all.mean","ably.connections.all.min","ably.connections.all.peak"],
+        "prefix": "ably."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "support@ably.com",
+    "name": "Ably",
+    "homepage": "https://ably.com",
+    "sales_email": "sales@ably.com"
+  },
+  "oauth": {}
+}
