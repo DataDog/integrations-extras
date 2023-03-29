@@ -39,7 +39,7 @@ def test_service_check(aggregator, instance_pass):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_response(aggregator):
-    instance = {"host": "localhost:8888/fail"}
+    instance = {"host": "localhost:8888/fail", "token": "abcdefghijklmnop"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -50,7 +50,7 @@ def test_bad_response(aggregator):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_status(aggregator):
-    instance = {"host": "localhost:8888/bad_status"}
+    instance = {"host": "localhost:8888/bad_status", "token": "abcdefghijklmnop"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -61,7 +61,7 @@ def test_bad_status(aggregator):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_no_status(aggregator):
-    instance = {"host": "localhost:8888/no_status"}
+    instance = {"host": "localhost:8888/no_status", "token": "abcdefghijklmnop"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -80,6 +80,7 @@ def test_good_response(aggregator, instance_pass):
         "pihole.domains_being_blocked": "125,230",
         "pihole.dns_queries_today": "13,322",
         "pihole.ads_blocked_today": "5,490",
+        # The only non-comma delinated value
         "pihole.ads_percentage_today": "5.6",
         "pihole.unique_domains": "3,928",
         "pihole.queries_forwarded": "6,702",
