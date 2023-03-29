@@ -1,94 +1,145 @@
-from typing import Any
+from json import JSONDecodeError
+
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck
-
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
 
 
 class SonarrCheck(AgentCheck):
     # This will be the prefix of every metric and service check the integration sends
-    __NAMESPACE__ = 'sonarr'
+    __NAMESPACE__ = "sonarr"
 
     def __init__(self, name, init_config, instances):
         super(SonarrCheck, self).__init__(name, init_config, instances)
 
-        # Use self.instance to read the check configuration
-        # self.url = self.instance.get("url")
-
-        # If the check is going to perform SQL queries you should define a query manager here.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/databases/#datadog_checks.base.utils.db.core.QueryManager
-        # sample_query = {
-        #     "name": "sample",
-        #     "query": "SELECT * FROM sample_table",
-        #     "columns": [
-        #         {"name": "metric", "type": "gauge"}
-        #     ],
-        # }
-        # self._query_manager = QueryManager(self, self.execute_query, queries=[sample_query])
-        # self.check_initializations.append(self._query_manager.compile_queries)
+        self.url = self.instance.get("url")
+        self.http.options["headers"] = {"Authorization": self.instance.get("api_key")}
+        self.tags = self.instance.get("tags", [])
+        self.tags.append(f"url:{self.url}")
 
     def check(self, _):
-        # type: (Any) -> None
-        # The following are useful bits of code to help new users get started.
+        metrics = self._init_metrics()
 
-        # Perform HTTP Requests with our HTTP wrapper.
-        # More info at https://datadoghq.dev/integrations-core/base/http/
-        # try:
-        #     response = self.http.get(self.url)
-        #     response.raise_for_status()
-        #     response_json = response.json()
+        series = self._http_get("/api/v3/series")
 
-        # except Timeout as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request timeout: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+        self._process_series(series, metrics)
 
-        # except (HTTPError, InvalidURL, ConnectionError) as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request failed: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+        for show in series:
+            showID = show.get("id")
+            if showID is not None:
+                episodes = self._http_get(f"/api/v3/episode?seriesId={showID}")
+                self._process_episodes(episodes, metrics)
 
-        # except JSONDecodeError as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="JSON Parse failed: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+        missing = self._http_get("/api/v3/wanted/missing")
+        self._process_missing(missing, metrics)
 
-        # except ValueError as e:
-        #     self.service_check(
-        #         "can_connect", AgentCheck.CRITICAL, message=str(e)
-        #     )
-        #     raise
+        self._report_metrics(metrics)
+        self.service_check("can_connect", AgentCheck.OK)
 
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge("test", 1.23, tags=['foo:bar'])
+    def _http_get(self, endpoint):
+        """Perform HTTP request against sonarr API endpoint"""
+        try:
+            full_url = self.url + endpoint
+            response = self.http.get(full_url)
+            response.raise_for_status()
+            response_json = response.json()
 
-        # Perform database queries using the Query Manager
-        # self._query_manager.execute()
+        except Timeout as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="Request timeout: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # This is how you use the persistent cache. This cache file based and persists across agent restarts.
-        # If you need an in-memory cache that is persisted across runs
-        # You can define a dictionary in the __init__ method.
-        # self.write_persistent_cache("key", "value")
-        # value = self.read_persistent_cache("key")
+        except (HTTPError, InvalidURL, ConnectionError) as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="Request failed: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check("can_connect", AgentCheck.OK)
+        except JSONDecodeError as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="JSON Parse failed: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # If it didn't then it should send a critical service check
-        self.service_check("can_connect", AgentCheck.CRITICAL)
+        except ValueError as e:
+            self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
+            raise
+
+        else:
+            return response_json
+
+    def _init_metrics(self):
+        """Create and initialize a dictionnary to hold the gathered values
+        of the metrics that will be emitted by the check"""
+
+        return {
+            # series metrics
+            "series.file_size": 0,
+            "series.total": 0,
+            "series.downloaded": 0,
+            "series.monitored": 0,
+            "series.unmonitored": 0,
+            # seasons metrics
+            "seasons.total": 0,
+            "seasons.downloaded": 0,
+            "seasons.monitored": 0,
+            "seasons.unmonitored": 0,
+            # episodes metrics
+            "episodes.total": 0,
+            "episodes.downloaded": 0,
+            "episodes.monitored": 0,
+            "episodes.unmonitored": 0,
+            "episodes.missing": 0,
+        }
+
+    def _process_series(self, series, metrics):
+        """Compute metrics values from series response from the sonarr API"""
+        metrics["series.total"] = len(series)
+        for show in series:
+            if show.get("monitored"):
+                metrics["series.monitored"] += 1
+            else:
+                metrics["series.unmonitored"] += 1
+
+            show_statistics = show.get("statistics", {})
+
+            if show_statistics.get("percentOfEpisodes", 0) == 100.0:
+                metrics["series.downloaded"] += 1
+
+            metrics["seasons.total"] += show_statistics.get("seasonCount", 0)
+            metrics["episodes.total"] += show_statistics.get("totalEpisodeCount", 0)
+            metrics["episodes.downloaded"] += show_statistics.get("episodeFileCount", 0)
+            metrics["series.file_size"] += show_statistics.get("sizeOnDisk", 0)
+
+            for season in show.get("seasons", []):
+                if season.get("monitored"):
+                    metrics["seasons.monitored"] += 1
+                else:
+                    metrics["seasons.unmonitored"] += 1
+
+                if season.get("statistics", {}).get("percentOfEpisodes", 0) == 100.0:
+                    metrics["seasons.downloaded"] += 1
+
+    def _process_episodes(self, episodes, metrics):
+        """Compute metrics values from episodes response from the sonarr API"""
+        for episode in episodes:
+            if episode.get("monitored"):
+                metrics["episodes.monitored"] += 1
+            else:
+                metrics["episodes.unmonitored"] += 1
+
+    def _process_missing(self, missing, metrics):
+        """Compute metrics values from wanted/missing response from the sonarr API"""
+        metrics["episodes.missing"] = missing.get("totalRecords", 0)
+
+    def _report_metrics(self, metrics):
+        """Report metrics"""
+        for metric, value in metrics.items():
+            self.gauge(metric, value, tags=self.tags)
