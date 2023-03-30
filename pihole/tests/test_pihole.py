@@ -72,6 +72,7 @@ def test_no_status(aggregator):
 @pytest.mark.integrations
 #@pytest.mark.usefixtures('dd_environment_pass')
 def test_good_response(aggregator, instance_pass):
+    instance = {"host": "None", "type": "None"}
     c = PiholeCheck('pihole', {}, [instance_pass])
 
     c.check(instance_pass)
@@ -93,7 +94,7 @@ def test_good_response(aggregator, instance_pass):
         "pihole.dns_queries_all_types": "13,322",
         "pihole.reply_nodata": "12",
         "pihole.reply_nxdomain": "15",
-        "pihole.reply_cname": "173",
+        "pihole.reply_cname": "173.0",
         "pihole.reply_ip": "317",
     }
     for metric, value in METRICS.items():
