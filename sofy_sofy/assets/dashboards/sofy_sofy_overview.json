@@ -1,0 +1,406 @@
+{
+    "title": "Sofy Overview",
+    "description": "",
+    "widgets": [
+        {
+            "id": 7512285996161404,
+            "definition": {
+                "title": "CPU Utilization",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "CPU Utilization (%)",
+                                "formula": "query2"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "metrics",
+                                "name": "query2",
+                                "query": "avg:sofy.step.cpu_utilization{$TestName,$TestRunID,$TestRunStatus}.as_count()"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "include_zero": false
+                },
+                "markers": []
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 6679150543175680,
+            "definition": {
+                "title": "Average CPU Utilization (%)",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "sum:sofy.step.cpu_utilization{$TestName,$TestRunID}.as_count()",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2,
+                "timeseries_background": {
+                    "type": "bars",
+                    "yaxis": {}
+                }
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 4,
+                "height": 5
+            }
+        },
+        {
+            "id": 911137436239600,
+            "definition": {
+                "title": "Memory Utilization",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Memory Utilization (MB)",
+                                "style": {
+                                    "palette": "orange",
+                                    "palette_index": 4
+                                },
+                                "formula": "query2"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query2",
+                                "data_source": "metrics",
+                                "query": "avg:sofy.step.memory_utilization{$TestName,$TestRunID,$TestRunStatus}.as_count()"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "markers": [
+                    {
+                        "value": "y = 0",
+                        "display_type": "error dashed"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 5,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 7963874762650000,
+            "definition": {
+                "title": "Average Memory Utilization (MB)",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:sofy.step.memory_utilization{*}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2,
+                "timeseries_background": {
+                    "type": "bars",
+                    "yaxis": {}
+                }
+            },
+            "layout": {
+                "x": 6,
+                "y": 5,
+                "width": 4,
+                "height": 5
+            }
+        },
+        {
+            "id": 879361195756116,
+            "definition": {
+                "title": "Network Utilization",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Network Utilization (KB)",
+                                "formula": "query2"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query2",
+                                "data_source": "metrics",
+                                "query": "avg:sofy.step.network{$TestName,$TestRunID,$TestRunStatus}.as_count()"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ],
+                "yaxis": {
+                    "scale": "linear",
+                    "include_zero": true,
+                    "label": "",
+                    "min": "auto",
+                    "max": "auto"
+                }
+            },
+            "layout": {
+                "x": 0,
+                "y": 10,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 1353304787157948,
+            "definition": {
+                "title": "Average Network Utilization (KB)",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "sum:sofy.step.network{*}.as_count()",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2,
+                "timeseries_background": {
+                    "yaxis": {},
+                    "type": "bars"
+                }
+            },
+            "layout": {
+                "x": 6,
+                "y": 10,
+                "width": 4,
+                "height": 5
+            }
+        },
+        {
+            "id": 8994026169317536,
+            "definition": {
+                "title": "Load Time",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "UI Load Time (ms)",
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:sofy.step.ui_load{$TestName,$TestRunID,$TestRunStatus}.as_count()"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 15,
+                "width": 6,
+                "height": 5
+            }
+        },
+        {
+            "id": 5317311136701592,
+            "definition": {
+                "title": "Average Load Time (ms)",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:sofy.step.ui_load{*}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2,
+                "timeseries_background": {
+                    "yaxis": {},
+                    "type": "bars"
+                }
+            },
+            "layout": {
+                "x": 6,
+                "y": 15,
+                "width": 4,
+                "height": 5
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "TestName",
+            "prefix": "sofy.testrun.testname",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "TestRunID",
+            "prefix": "sofy.testrun.id",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "TestRunStatus",
+            "prefix": "sofy.testrun.status",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "z6k-k2u-isp"
+}
