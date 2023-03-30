@@ -77,10 +77,13 @@ def test_good_response(aggregator, instance_pass):
     c.check(instance_pass)
 
     METRICS = {
+        # Pihole metrics are actually strings
+        # and use thousand-separators
         "pihole.domains_being_blocked": "125,230",
         "pihole.dns_queries_today": "13,322",
         "pihole.ads_blocked_today": "5,490",
-        # The only non-comma delinated value
+        # The only non thousand-separator
+        # metric is ads_percentage_today
         "pihole.ads_percentage_today": "5.6",
         "pihole.unique_domains": "3,928",
         "pihole.queries_forwarded": "6,702",
