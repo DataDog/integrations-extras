@@ -70,7 +70,7 @@ def test_no_status(aggregator):
 
 # Testing known metric value using docker - valid response
 @pytest.mark.integrations
-@pytest.mark.usefixtures('dd_environment_pass')
+#@pytest.mark.usefixtures('dd_environment_pass')
 def test_good_response(aggregator, instance_pass):
     c = PiholeCheck('pihole', {}, [instance_pass])
 
