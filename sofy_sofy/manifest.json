@@ -45,10 +45,16 @@
     "dashboards": {
       "Sofy Overview": "assets/dashboards/sofy_sofy_overview.json"
     },
-    "metrics": {
-      "prefix": "sofy.",
-      "check": [],
-      "metadata_path": "metadata.csv"
+    "integration": {
+      "source_type_name": "Sofy",
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "sofy.",
+        "check": "sofy.step.cpu_utilization",
+        "metadata_path": "metadata.csv"
+      }
     }
   },
   "pricing": [],
