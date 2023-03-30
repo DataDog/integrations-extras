@@ -22,8 +22,8 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Pi-hole 
 
 ### Configuration
 
-1. In the root of your Agent's configuration directory copy the `conf.d/pihole.d/conf.yaml.example` to `conf.d/pihole.d/conf.yaml`
-2. Edit the `conf.d/pihole.d/conf.yaml` by adding an instance and including both the host and API token in order to start collecting your Pi-hole metrics. See the [sample pihole.d/conf.yaml][7] for all available configuration options.
+1. In the root of your Agent's configuration directory, copy `conf.d/pihole.d/conf.yaml.example` to `conf.d/pihole.d/conf.yaml`.
+2. Edit `conf.d/pihole.d/conf.yaml` by adding an instance and including both the host and API token in order to start collecting your Pi-hole metrics. See the [sample pihole.d/conf.yaml][7] for all available configuration options.
 
 3. [Restart the Agent][8].
 
