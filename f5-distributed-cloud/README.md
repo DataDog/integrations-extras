@@ -59,10 +59,26 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 	d. Select Configure in the Client Private Key field, and enter the secret in the box with type selected as Text.  
 	e. Select Blindfold, wait for the operation to complete, and click Apply.  
 
-**Step 4: Finish set up**
+**Step 4: Finish F5XC set up**
 
 - Select Save & Exit to complete creating the global log receiver. Verify that [logs][5] are received into your Datadog account.
 
+**Step 5: Create Datadog Log Facets**
+Once logs begin to arrive, it will be necessary to create [log facets][8] for data analysis and dashboard visualization.  Log facet creation is straightforward and can be accomplished from the Datadog log side panel with guidance available [here][9]. 
+
+Create facets for the following fields:
+
+- namespace
+- domain
+- country
+- src_ip
+- dst_site
+- dst_instance
+- method
+- req_size
+- rsp_size
+- path
+- connection_state
 
 ## Troubleshooting
 
@@ -79,3 +95,5 @@ Learn more about [F5 Distributed Cloud Services][3].
 [5]: https://app.datadoghq.com/logs
 [6]: https://docs.cloud.f5.com/docs/support/support
 [7]: https://youtu.be/VUtXCUngiw8
+[8]: https://docs.datadoghq.com/logs/explorer/facets/
+[9]: https://docs.datadoghq.com/logs/explorer/facets/#create-facets
