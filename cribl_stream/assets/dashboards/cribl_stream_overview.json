@@ -1,0 +1,638 @@
+{
+    "title": "Cribl Stream",
+    "description": "## \"Cribl Stream\"\n\nThe Cribl Stream integration for Datadog brings metrics from self-hosted Cribl Stream deployments into your monitoring dashboards. This allows operators to see the current usage of resources from the worker nodes as well as the health of the overall Cribl deployment.",
+    "widgets": [
+        {
+            "id": 2479617826040454,
+            "definition": {
+                "type": "image",
+                "url": "https://cribl.io/wp-content/uploads/2021/12/Cribl.FULL_COLOR.png",
+                "url_dark_theme": "https://cribl.io/wp-content/uploads/2021/12/Cribl.FULL_COLOR.WHT_ALT.png",
+                "sizing": "cover",
+                "has_background": true,
+                "has_border": false,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+            }
+        },
+        {
+            "id": 5319819259733070,
+            "definition": {
+                "type": "note",
+                "content": "Event Metrics",
+                "background_color": "white",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 1
+            }
+        },
+        {
+            "id": 1913741142136848,
+            "definition": {
+                "title": "Events In and Out",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            },
+                            {
+                                "formula": "query2"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.pipe.in_events{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            },
+                            {
+                                "query": "avg:cribl.logstream.pipe.out_events{*}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "area"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 1,
+                "width": 6,
+                "height": 3
+            }
+        },
+        {
+            "id": 8279215920121012,
+            "definition": {
+                "type": "note",
+                "content": "Stream Health\n",
+                "background_color": "white",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 1
+            }
+        },
+        {
+            "id": 1966180709445906,
+            "definition": {
+                "title": "% Events Reduction",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.host.in_events{*}",
+                                "aggregator": "avg"
+                            },
+                            {
+                                "name": "query2",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.pipe.out_events{*}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1 / query2"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 3,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 6031340002533014,
+            "definition": {
+                "title": "eps",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.pipe.in_events{*}.rollup(avg)",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 2,
+                "y": 3,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 8099990310992432,
+            "definition": {
+                "title": "bps",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.total.in_bytes{*}.rollup(avg)",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 4,
+                "y": 3,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 6127380693166444,
+            "definition": {
+                "title": "Bytes In and Out",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            },
+                            {
+                                "formula": "query2"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.total.in_bytes{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            },
+                            {
+                                "query": "avg:cribl.logstream.total.out_bytes{*}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            }
+                        ],
+                        "style": {
+                            "palette": "warm",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "area"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 4,
+                "width": 6,
+                "height": 3
+            }
+        },
+        {
+            "id": 1490425598803720,
+            "definition": {
+                "title": "% Volume Reduction",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.total.in_bytes{*}",
+                                "aggregator": "avg"
+                            },
+                            {
+                                "name": "query2",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.host.out_bytes{*}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1 / query2"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 0,
+                "y": 5,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 296138208134880,
+            "definition": {
+                "title": "Outputs with Backpressure",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:cribl.logstream.backpressure.outputs{output:*}",
+                                "aggregator": "avg"
+                            }
+                        ],
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "palette": "white_on_green",
+                                "value": 0
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_green",
+                                "value": 0
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 0
+            },
+            "layout": {
+                "x": 2,
+                "y": 5,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 8906729870675044,
+            "definition": {
+                "title": "Blocked Outputs",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_value",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "conditional_formats": [
+                            {
+                                "comparator": "<=",
+                                "palette": "white_on_green",
+                                "value": 0
+                            },
+                            {
+                                "comparator": ">",
+                                "palette": "white_on_red",
+                                "value": 0
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.blocked.outputs{*}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "avg"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 0
+            },
+            "layout": {
+                "x": 4,
+                "y": 5,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 5469520192514866,
+            "definition": {
+                "type": "note",
+                "content": "Infrastructure Metrics",
+                "background_color": "white",
+                "font_size": "36",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 6,
+                "height": 1
+            }
+        },
+        {
+            "id": 4613100519726884,
+            "definition": {
+                "type": "note",
+                "content": "Sources and Destinations",
+                "background_color": "white",
+                "font_size": "24",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 6,
+                "y": 7,
+                "width": 6,
+                "height": 1
+            }
+        },
+        {
+            "id": 7415830025332976,
+            "definition": {
+                "title": "Memory",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.system.mem_rss{*} by {cribl_wp}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "green",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "area"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 6,
+                "height": 3
+            }
+        },
+        {
+            "id": 3143781193363238,
+            "definition": {
+                "title": "Input Types",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.health.inputs{*} by {input_type}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "avg"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 8,
+                "width": 3,
+                "height": 4
+            }
+        },
+        {
+            "id": 1388161368382718,
+            "definition": {
+                "title": "Output Types",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.health.outputs{*} by {output}",
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "aggregator": "avg"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "layout": {
+                "x": 9,
+                "y": 8,
+                "width": 3,
+                "height": 4
+            }
+        },
+        {
+            "id": 7508787426076152,
+            "definition": {
+                "title": "CPU Percentage",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [
+                            {
+                                "query": "avg:cribl.logstream.system.cpu_perc{*} by {cribl_wp}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "cool",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "area"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 11,
+                "width": 6,
+                "height": 3
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "279-w26-aju"
+}
