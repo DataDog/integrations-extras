@@ -35,11 +35,14 @@ def test_check(
     instance_good,
     usage_resp_good,
     entitlements_test_json,
+    audit_log_resp_good,
 ):
 
     check = CloudsmithCheck('cloudsmith', {}, [instance_good])
     check.get_usage_info = MagicMock(return_value=usage_resp_good)
     check.get_entitlement_info = MagicMock(return_value=entitlements_test_json)
+    check.get_audit_log_info = MagicMock(return_value=audit_log_resp_good)
+
     check.check(None)
 
     aggregator.assert_service_check('cloudsmith.storage', CloudsmithCheck.OK)
@@ -49,23 +52,6 @@ def test_check(
     aggregator.assert_metric("cloudsmith.token_bandwidth_total", 37802418, count=1)
     aggregator.assert_metric("cloudsmith.token_count", 119, count=1)
     aggregator.assert_metric("cloudsmith.token_download_total", 240, count=1)
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-
-
-def test_check_bad_json(aggregator, instance_good, not_found_json):
-
-    check = CloudsmithCheck('cloudsmith', {}, [instance_good])
-    check.get_api_json = MagicMock(return_value=not_found_json)
-    check.check(None)
-
-    aggregator.assert_service_check('cloudsmith.storage', CloudsmithCheck.UNKNOWN)
-    aggregator.assert_service_check('cloudsmith.bandwidth', CloudsmithCheck.UNKNOWN)
-    aggregator.assert_metric("cloudsmith.bandwidth_used", -1, count=1)
-    aggregator.assert_metric("cloudsmith.storage_used", -1, count=1)
-    aggregator.assert_metric("cloudsmith.token_bandwidth_total", -1, count=1)
-    aggregator.assert_metric("cloudsmith.token_count", -1, count=1)
-    aggregator.assert_metric("cloudsmith.token_download_total", -1, count=1)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 

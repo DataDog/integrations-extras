@@ -59,14 +59,6 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
-      go_pprof_scraper:
-        target: 75
-        flags:
-        - go_pprof_scraper
-      gRPC_Check:
-        target: 75
-        flags:
-        - grpc_check
       JFrog_Platform:
         target: 75
         flags:
@@ -215,14 +207,6 @@ coverage:
         target: 50
         flags:
         - zabbix
-      fluxcd:
-        target: 75
-        flags:
-        - fluxcd
-      exim:
-        target: 75
-        flags:
-        - exim
       cfssl:
         target: 75
         flags:
@@ -231,6 +215,30 @@ coverage:
         target: 75
         flags:
         - exim
+      fiddler:
+        target: 75
+        flags:
+        - fiddler
+      filemage:
+        target: 75
+        flags:
+        - filemage
+      fluxcd:
+        target: 75
+        flags:
+        - fluxcd
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
+      go_pprof_scraper:
+        target: 75
+        flags:
+        - go_pprof_scraper
+      hikaricp:
+        target: 75
+        flags:
+        - hikaricp
       nvml:
         target: 75
         flags:
@@ -247,10 +255,6 @@ coverage:
         target: 75
         flags:
         - speedtest
-      hikaricp:
-        target: 75
-        flags:
-        - hikaricp        
 flags:
   aqua:
     carryforward: true
@@ -292,11 +296,21 @@ flags:
     paths:
     - exim/datadog_checks/exim
     - exim/tests
+  fiddler:
+    carryforward: true
+    paths:
+    - fiddler/datadog_checks/fiddler
+    - fiddler/tests
   filebeat:
     carryforward: true
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  filemage:
+    carryforward: true
+    paths:
+    - filemage/datadog_checks/filemage
+    - filemage/tests
   fluentbit:
     carryforward: true
     paths:
@@ -341,7 +355,7 @@ flags:
     carryforward: true
     paths:
     - hikaricp/datadog_checks/hikaricp
-    - hikaricp/tests    
+    - hikaricp/tests
   jfrog_platform:
     carryforward: true
     paths:

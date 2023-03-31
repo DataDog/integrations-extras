@@ -2,18 +2,28 @@
 
 ## Overview
 
-The [Blink][1] integration is a collection of no-code actions and triggers usable in Blink Automations. Instead of writing manual API calls and scripts, you can use Blink's visual editor to drag-and-drop Datadog API actions into your workflow or use one of the hundreds of existing pre-made automations from the [library][2].
+[Blink][1] is a low-code/no-code (LCNC) platform that enables automated incident response, cloud-native operations, and security operations workflows. Blink transforms manual tasks into interactive automations backed by the security and reliability of a cloud-native platform. Every script or ticket becomes a fully-managed automation.
 
-This integration enables you to:
-1. Trigger automations within Blink in response to new Datadog incidents 
-2. Create and update Datadog incidents in Blink 
-3. View incidents or events from the Datadog event stream in Blink
+The user interface and [automation library][2] come with premade Datadog-based automations and use-cases. Blink helps you achieve better cloud efficiency and more competitive SLA's, with fewer operational bottlenecks.
 
-View our full list of actions and capabilities on the [documentation site][3].
+This out-of-the-box integration enables you to:
+
+- Trigger event-based Blink automations using Datadog incidents.
+- Create and update Datadog incidents automatically from within Blink.
+- View incidents or events from the Datadog Events Explorer in Blink.
+- Automatically enrich and remediate Datadog incidents using Blink automations.
+
+For more information about Blink, see the [Blink documentation][3].
 
 ## Setup
 
 Visit [our documentation][4] for details on how to connect your Datadog workspace to Blink.
+
+## Uninstallation
+
+To uninstall the integration, simply delete the corresponding Datadog connection in your Blink workspace.
+
+Once deleted, any previous authorizations or access tokens are revoked. Ensure that all API keys associated with this integration have been disabled by searching for the integration name on the Datadog [API Keys][5] page.
 
 ## Data Collected
 
@@ -31,10 +41,11 @@ Blink does not include any metrics, however you can query and list metrics from 
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][5].
+Need help? Contact [Blink support][6].
 
 [1]: https://www.blinkops.com/
-[2]: https://library.blinkops.com/
+[2]: https://library.blinkops.com/automations?vendors=Datadog
 [3]: https://www.docs.blinkops.com/docs/Integrations/Datadog/Actions
 [4]: https://www.docs.blinkops.com/docs/Integrations/Datadog/
-[5]: https://docs.datadoghq.com/help/
+[5]: https://app.datadoghq.com/organization-settings/api-keys
+[6]: mailto:support@blinkops.com

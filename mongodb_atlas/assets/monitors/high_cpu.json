@@ -1,0 +1,29 @@
+{
+  "name": "[MongoDB Atlas] CPU usage is higher than average on host: {{host.name}} ",
+  "type": "query alert",
+  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.system.cpu.norm.irq{*} by {host} + avg:mongodb.atlas.system.cpu.norm.nice{*} by {host} + avg:mongodb.atlas.system.cpu.norm.user{*} by {host} + avg:mongodb.atlas.system.cpu.norm.guest{*} by {host} + avg:mongodb.atlas.system.cpu.norm.steal{*} by {host} + avg:mongodb.atlas.system.cpu.norm.iowait{*} by {host} + avg:mongodb.atlas.system.cpu.norm.kernel{*} by {host} + avg:mongodb.atlas.system.cpu.norm.softirq{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
+  "message": "Notify your team when CPU usage is higher than normal ({{value}} %)",
+  "tags": [
+    "integration:mongodb-atlas"
+  ],
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "critical_recovery": 0
+    },
+    "notify_audit": false,
+    "require_full_window": false,
+    "notify_no_data": false,
+    "no_data_timeframe": 10,
+    "renotify_interval": 0,
+    "threshold_windows": {
+      "trigger_window": "last_15m",
+      "recovery_window": "last_15m"
+    },
+    "escalation_message": "",
+    "new_group_delay": 60
+  },
+  "recommended_monitor_metadata": {
+	"description": "Notify your team when CPU usage is higher than normal ({{value}} %)"
+  }
+}

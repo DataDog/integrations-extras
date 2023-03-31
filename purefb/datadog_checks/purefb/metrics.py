@@ -20,6 +20,7 @@ METRIC_MAP = [
         'purefb_array_space_data_reduction_ratio': {'name': 'array.space_data_reduction_ratio'},
         'purefb_array_space_bytes': {'name': 'array.space_bytes'},
         'purefb_array_space_parity': {'name': 'array.space_parity'},
+        'purefb_array_space_utilization': {'name': 'array.space_utilization'},
         'purefb_buckets_performance_latency_usec': {'name': 'buckets.performance_latency_usec'},
         'purefb_buckets_performance_throughput_iops': {'name': 'buckets.performance_throughput_iops'},
         'purefb_buckets_performance_bandwidth_bytes': {'name': 'buckets.performance_bandwidth_bytes'},

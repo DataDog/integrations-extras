@@ -27,11 +27,11 @@ resources:
       DD_HOSTNAME: none
       DD_INSIDE_CI: 'true'
 variables:
-  - group: extras-variables
-  - name: DDEV_COLOR
-    value: 1
-  - name: DD_TRACE_AGENT_PORT
-    value: 8127
+- group: extras-variables
+- name: DDEV_COLOR
+  value: 1
+- name: DD_TRACE_AGENT_PORT
+  value: 8127
 jobs:
 - template: .azure-pipelines/templates/test-all.yml@integrations-core
   parameters:
@@ -62,8 +62,14 @@ jobs:
     - checkName: exim
       displayName: exim
       os: linux
+    - checkName: fiddler
+      displayName: fiddler
+      os: linux
     - checkName: filebeat
       displayName: Filebeat
+      os: linux
+    - checkName: filemage
+      displayName: filemage
       os: linux
     - checkName: fluentbit
       displayName: Fluent Bit

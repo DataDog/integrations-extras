@@ -51,10 +51,6 @@ jobs:
       run: |
         ddev validate config $CHANGED
 
-    - name: Run manifest validation
-      run: |
-        ddev validate manifest $CHANGED
-
     - name: Run dashboard validation
       run: |
         ddev validate dashboards $CHANGED
@@ -66,11 +62,11 @@ jobs:
     - name: Run imports validation
       run: |
         ddev validate imports $CHANGED
-        
+
     - name: Run JMX metrics validation
       run: |
         ddev validate jmx-metrics $CHANGED
-        
+
     - name: Run metadata validation
       run: |
         ddev validate metadata $CHANGED
@@ -78,7 +74,7 @@ jobs:
     - name: Run models validation
       run: |
         ddev validate models $CHANGED
-  
+
     - name: Run legacy signature validation
       run: |
         ddev validate legacy-signature $CHANGED
@@ -102,7 +98,7 @@ jobs:
     - name: Run saved views validation
       run: |
         ddev validate saved-views $CHANGED
-        
+
     - name: Run service checks validation
       run: |
         ddev validate service-checks $CHANGED

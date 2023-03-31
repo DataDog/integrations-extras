@@ -20,7 +20,9 @@ instances:
     # env: prod
 
     ## @param pprof_url - string - required
-    ## URL of the /debug/pprof endpoint to collect
+    ## URL of the /debug/pprof endpoint to collect. Profiles will be requested
+    ## from the URL obtained by appending "/profile", "/heap", etc. to the
+    ## given URL.
     #
     pprof_url: http://myservice:1234/debug/pprof/
 
@@ -69,13 +71,17 @@ instances:
     #
     service: <SERVICE>
 
-    ## @param min_collection_interval - number - optional - default: 60
-    ## How frequently profiles are collected.
-    ##
+    ## @param min_collection_interval - number - optional - default: 1
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    ##
+    ## This is a long-running check, and is intended to be started again as
+    ## soon as it finishes. Setting this to a larger value will cause longer
+    ## pauses between iterations of this check.
+    ##
+    ## If omitted, will default to 15 seconds.
     #
-    min_collection_interval: 60
+    min_collection_interval: 1
 
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.
@@ -94,3 +100,47 @@ instances:
     #   - <INCLUDE_REGEX>
     #   exclude:
     #   - <EXCLUDE_REGEX>
+
+    ## @param tls_verify - boolean - optional - default: true
+    ## Instructs the check to validate the TLS certificate(s) of the service(s).
+    #
+    # tls_verify: true
+
+    ## @param tls_ca_cert - string - optional
+    ## The path to a file of concatenated CA certificates in PEM format or a directory
+    ## containing several CA certificates in PEM format. If a directory, the directory
+    ## must have been processed using the c_rehash utility supplied with OpenSSL. See:
+    ## https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_ca_cert: <CA_CERT_PATH>
+
+    ## @param tls_cert - string - optional
+    ## The path to a single file in PEM format containing a certificate as well as any
+    ## number of CA certificates needed to establish the certificate's authenticity for
+    ## use when connecting to services. It may also contain an unencrypted private key to use.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_cert: <CERT_PATH>
+
+    ## @param tls_private_key - string - optional
+    ## The unencrypted private key to use for `tls_cert` when connecting to services. This is
+    ## required if `tls_cert` is set and it does not already contain a private key.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_private_key: <PRIVATE_KEY_PATH>
+
+    ## @param tls_private_key_password - string - optional
+    ## Optional password to decrypt tls_private_key.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_private_key_password: <PRIVATE_KEY_PASSWORD>
+
+    ## @param tls_validate_hostname - boolean - optional - default: true
+    ## Verifies that the server's cert hostname matches the one requested.
+    #
+    # tls_validate_hostname: true

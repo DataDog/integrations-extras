@@ -35,7 +35,7 @@ def instance_metric_patterns(field, value):
 
 
 def instance_min_collection_interval(field, value):
-    return 60
+    return 1
 
 
 def instance_profiles(field, value):
@@ -44,3 +44,27 @@ def instance_profiles(field, value):
 
 def instance_tags(field, value):
     return get_default_field_value(field, value)
+
+
+def instance_tls_ca_cert(field, value):
+    return get_default_field_value(field, value)
+
+
+def instance_tls_cert(field, value):
+    return get_default_field_value(field, value)
+
+
+def instance_tls_private_key(field, value):
+    return get_default_field_value(field, value)
+
+
+def instance_tls_private_key_password(field, value):
+    return get_default_field_value(field, value)
+
+
+def instance_tls_validate_hostname(field, value):
+    return True
+
+
+def instance_tls_verify(field, value):
+    return True

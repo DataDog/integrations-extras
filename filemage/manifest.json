@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "e8ffcc16-9430-4d73-8e01-4e135a872384",
+  "app_id": "filemage",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitoring Agent for FileMage services",
+    "title": "FileMage",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Carousel Logo",
+        "image_url": "images/carousel-logo.jpg"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "filemage",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "filemage.",
+        "check": "filemage.ftp.get",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Filemage Overview Dashboard": "assets/dashboards/overview.json"
+    },
+    "logs": {
+        "source": "filemage"
+    }
+  },
+  "author": {
+    "support_email": "tmoore@dopensource.com",
+    "name": "Community",
+    "homepage": "https://dopensource.com/",
+    "sales_email": "info@dopensource.com"
+  },
+  "oauth": {}
+}

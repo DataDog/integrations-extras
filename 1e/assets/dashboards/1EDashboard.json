@@ -1,0 +1,795 @@
+{
+  "title": "1E Dashboard",
+  "description": "This dashboard shows digital employee experience scores and device metrics reported by 1E.\n",
+  "widgets": [
+    {
+      "id": 6411227213956028,
+      "definition": {
+        "title": "1E",
+        "type": "group",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8598258476652952,
+            "definition": {
+              "type": "image",
+              "url": "https://www.1e.com/wp-content/uploads/2022/10/1E_Logo.svg",
+              "url_dark_theme": "https://www.1e.com/wp-content/uploads/2022/10/1E_Logo_White.svg",
+              "sizing": "contain",
+              "has_background": false,
+              "has_border": true,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 1527786589812688,
+            "definition": {
+              "type": "note",
+              "content": "# 1E Dashboard\n\nThis dashboard shows digital employee experience scores and device metrics reported by 1E.\n\nAt 1E, we reimagine how technology serves people and create new ways for IT to shape the future of work.\n\nVisit us at [https://www.1e.com](https://www.1e.com) to learn more.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 2, "y": 0, "width": 10, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 3 }
+    },
+    {
+      "id": 8355447238646974,
+      "definition": {
+        "title": "Score",
+        "type": "group",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1306608071465204,
+            "definition": {
+              "title": "Experience - Latest Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "green_on_white",
+                      "value": 80
+                    },
+                    {
+                      "comparator": "<",
+                      "palette": "red_on_white",
+                      "value": 65
+                    },
+                    {
+                      "comparator": ">=",
+                      "palette": "yellow_on_white",
+                      "value": 65
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "max:onee.experience.score{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 2 }
+          },
+          {
+            "id": 6387761960299992,
+            "definition": {
+              "title": "Stability - Latest Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "green_on_white",
+                      "value": 80
+                    },
+                    {
+                      "comparator": "<",
+                      "palette": "red_on_white",
+                      "value": 65
+                    },
+                    {
+                      "comparator": ">=",
+                      "palette": "yellow_on_white",
+                      "value": 65
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:onee.experience.stability_score{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": { "x": 0, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 3706005038754880,
+            "definition": {
+              "title": "Responsiveness - Latest Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "green_on_white",
+                      "value": 80
+                    },
+                    {
+                      "comparator": "<",
+                      "palette": "red_on_white",
+                      "value": 65
+                    },
+                    {
+                      "comparator": ">=",
+                      "palette": "yellow_on_white",
+                      "value": 65
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:onee.experience.responsiveness_score{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": { "x": 3, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 8922923145977886,
+            "definition": {
+              "title": "Performance - Latest Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "green_on_white",
+                      "value": 80
+                    },
+                    {
+                      "comparator": "<",
+                      "palette": "red_on_white",
+                      "value": 65
+                    },
+                    {
+                      "comparator": ">=",
+                      "palette": "yellow_on_white",
+                      "value": 65
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:onee.experience.performance_score{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": { "x": 6, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 8222788166586222,
+            "definition": {
+              "title": "Sentiment - Latest Score",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "green_on_white",
+                      "value": 80
+                    },
+                    {
+                      "comparator": "<",
+                      "palette": "red_on_white",
+                      "value": 65
+                    },
+                    {
+                      "comparator": ">=",
+                      "palette": "yellow_on_white",
+                      "value": 65
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:onee.experience.sentiment_score{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "precision": 0
+            },
+            "layout": { "x": 9, "y": 2, "width": 3, "height": 2 }
+          },
+          {
+            "id": 6776996502661848,
+            "definition": {
+              "title": "Score Trend",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Experience Score",
+                      "style": { "palette_index": 5, "palette": "cool" },
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Performance Score",
+                      "style": { "palette_index": 4, "palette": "green" },
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "Responsiveness Score",
+                      "style": { "palette_index": 15, "palette": "dd20" },
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "Sentiment Score",
+                      "style": { "palette_index": 4, "palette": "orange" },
+                      "formula": "query4"
+                    },
+                    {
+                      "alias": "Stability Score",
+                      "style": { "palette_index": 4, "palette": "purple" },
+                      "formula": "query5"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "max:onee.experience.score{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "max:onee.experience.performance_score{*}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    },
+                    {
+                      "query": "max:onee.experience.responsiveness_score{*}",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    },
+                    {
+                      "query": "max:onee.experience.sentiment_score{*}",
+                      "data_source": "metrics",
+                      "name": "query4"
+                    },
+                    {
+                      "query": "max:onee.experience.stability_score{*}",
+                      "data_source": "metrics",
+                      "name": "query5"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 4, "width": 12, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 3, "width": 12, "height": 7 }
+    },
+    {
+      "id": 4226194967804748,
+      "definition": {
+        "title": "Trends",
+        "type": "group",
+        "show_title": true,
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 422472597030940,
+            "definition": {
+              "title": "Online Device Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Online Devices",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.devices.online{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 1981887942242668,
+            "definition": {
+              "title": "Software Crashes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Software Crashes",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.software.crash{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 3778769181578482,
+            "definition": {
+              "title": "Software Hangs",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Software Hangs",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.software.hang{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4498161972623320,
+            "definition": {
+              "title": "OS Service Failures",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "OS Service Failures",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.operatingsystem.servicefailure{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 4667244561541088,
+            "definition": {
+              "title": "OS Boot Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "OS Boot Time",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.operatingsystem.boot{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 8260460593271962,
+            "definition": {
+              "title": "OS Upgrade",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "OS Upgrade",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.operatingsystem.upgrade{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 850366943169246,
+            "definition": {
+              "title": "OS Crashes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "OS Crashes",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.operatingsystem.crash{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 8108918741593178,
+            "definition": {
+              "title": "Software Installs",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Software Installs",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.software.install{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 8201013981868656,
+            "definition": {
+              "title": "Software Uninstalls",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Software Uninstalls",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.software.uninstall{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 8, "y": 4, "width": 4, "height": 2 }
+          },
+          {
+            "id": 8168265546022394,
+            "definition": {
+              "title": "Patch Installs",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Patch Installs",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.patch.install{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 6, "width": 4, "height": 2 }
+          },
+          {
+            "id": 7137602191569660,
+            "definition": {
+              "title": "Patch Uninstalls",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Patch Uninstalls",
+                      "style": { "palette_index": 1, "palette": "classic" },
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:onee.patch.uninstall{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": { "x": 4, "y": 6, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 9,
+        "is_column_break": true
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "is_read_only": false,
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "a8s-w6g-u4v"
+}
