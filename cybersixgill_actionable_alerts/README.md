@@ -22,10 +22,10 @@ datadog-agent integration install -t datadog-Cybersixgill Actionable Alerts==1.0
 6. Receive the welcome email with access to the Cybersixgill developer platform.
 7. Within the Cybersixgill developer platform, create the Client ID and Client secret.
 8. Copy the Client ID and Client secret and paste them into the Configuration.yaml file.
-9. Provide the min collection interval in seconds. For example, `min_collection_interval: 3600`
+9. Provide the minimum collection interval in seconds. For example, `min_collection_interval: 3600`
 
 ### Validation
-Verify that Cybersixgill events are generated in the [Datadog Event Explorer][3].
+Verify that Cybersixgill events are generated in the [Datadog Events Explorer][3].
 
 ## Data Collected
 
@@ -41,6 +41,6 @@ Need help? Contact [Cybersixgill support][4].
 [1]: https://app.datadoghq.com/account/settings#agent
 [2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/?tab=configurationtemplate#configure-the-developer-tool
 [3]: https://app.datadoghq.com/event/explorer
-[4]: support@cybersixgill.com
+[4]: mailto:support@cybersixgill.com
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cybersixgill_actionable_alerts/assets/service_checks.json
 
