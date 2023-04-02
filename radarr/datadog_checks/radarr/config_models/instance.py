@@ -27,12 +27,14 @@ class InstanceConfig(BaseModel):
     class Config:
         allow_mutation = False
 
+    api_key: str
     disable_generic_tags: Optional[bool]
     empty_default_hostname: Optional[bool]
     metric_patterns: Optional[MetricPatterns]
     min_collection_interval: Optional[float]
     service: Optional[str]
     tags: Optional[Sequence[str]]
+    url: str
 
     @root_validator(pre=True)
     def _initial_validation(cls, values):

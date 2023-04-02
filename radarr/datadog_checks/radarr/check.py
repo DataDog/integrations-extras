@@ -1,10 +1,8 @@
-from typing import Any
+from json import JSONDecodeError
+
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 
 from datadog_checks.base import AgentCheck
-
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
 
 
 class RadarrCheck(AgentCheck):
@@ -14,81 +12,93 @@ class RadarrCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         super(RadarrCheck, self).__init__(name, init_config, instances)
 
-        # Use self.instance to read the check configuration
-        # self.url = self.instance.get("url")
-
-        # If the check is going to perform SQL queries you should define a query manager here.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/databases/#datadog_checks.base.utils.db.core.QueryManager
-        # sample_query = {
-        #     "name": "sample",
-        #     "query": "SELECT * FROM sample_table",
-        #     "columns": [
-        #         {"name": "metric", "type": "gauge"}
-        #     ],
-        # }
-        # self._query_manager = QueryManager(self, self.execute_query, queries=[sample_query])
-        # self.check_initializations.append(self._query_manager.compile_queries)
+        self.url = self.instance.get("url")
+        self.http.options["headers"] = {"Authorization": self.instance.get("api_key")}
+        self.tags = self.instance.get("tags", [])
+        self.tags.append(f"url:{self.url}")
 
     def check(self, _):
-        # type: (Any) -> None
-        # The following are useful bits of code to help new users get started.
+        metrics = self._init_metrics()
 
-        # Perform HTTP Requests with our HTTP wrapper.
-        # More info at https://datadoghq.dev/integrations-core/base/http/
-        # try:
-        #     response = self.http.get(self.url)
-        #     response.raise_for_status()
-        #     response_json = response.json()
+        movies = self._http_get("/api/v3/movie")
 
-        # except Timeout as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request timeout: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+        self._process_movies(movies, metrics)
 
-        # except (HTTPError, InvalidURL, ConnectionError) as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="Request failed: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+        self._report_metrics(metrics)
+        self.service_check("can_connect", AgentCheck.OK)
 
-        # except JSONDecodeError as e:
-        #     self.service_check(
-        #         "can_connect",
-        #         AgentCheck.CRITICAL,
-        #         message="JSON Parse failed: {}, {}".format(self.url, e),
-        #     )
-        #     raise
+    def _http_get(self, endpoint):
+        """Perform HTTP request against radarr API endpoint"""
+        try:
+            full_url = self.url + endpoint
+            response = self.http.get(full_url)
+            response.raise_for_status()
+            response_json = response.json()
 
-        # except ValueError as e:
-        #     self.service_check(
-        #         "can_connect", AgentCheck.CRITICAL, message=str(e)
-        #     )
-        #     raise
+        except Timeout as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="Request timeout: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge("test", 1.23, tags=['foo:bar'])
+        except (HTTPError, InvalidURL, ConnectionError) as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="Request failed: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # Perform database queries using the Query Manager
-        # self._query_manager.execute()
+        except JSONDecodeError as e:
+            self.service_check(
+                "can_connect",
+                AgentCheck.CRITICAL,
+                message="JSON Parse failed: {}, {}".format(self.url, e),
+            )
+            raise
 
-        # This is how you use the persistent cache. This cache file based and persists across agent restarts.
-        # If you need an in-memory cache that is persisted across runs
-        # You can define a dictionary in the __init__ method.
-        # self.write_persistent_cache("key", "value")
-        # value = self.read_persistent_cache("key")
+        except ValueError as e:
+            self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
+            raise
 
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check("can_connect", AgentCheck.OK)
+        else:
+            return response_json
 
-        # If it didn't then it should send a critical service check
-        self.service_check("can_connect", AgentCheck.CRITICAL)
+    def _init_metrics(self):
+        """Create and initialize a dictionnary to hold the gathered values
+        of the metrics that will be emitted by the check"""
+
+        return {
+            # movies metrics
+            "movies.total": 0,
+            "movies.monitored": 0,
+            "movies.unmonitored": 0,
+            "movies.downloaded": 0,
+            "movies.wanted": 0,
+            "movies.missing": 0,
+            "movies.file_size": 0,
+        }
+
+    def _process_movies(self, movies, metrics):
+        """Compute metrics values from movies response from the radarr API"""
+        metrics["movies.total"] = len(movies)
+        for movie in movies:
+            if movie.get("hasFile"):
+                metrics["movies.downloaded"] += 1
+            if not movie.get("monitored"):
+                metrics["movies.unmonitored"] += 1
+            else:
+                metrics["movies.monitored"] += 1
+                if movie.get("isAvailable") and not movie.get("hasFile"):
+                    metrics["movies.missing"] += 1
+                elif not movie.get("hasFile"):
+                    metrics["movies.wanted"] += 1
+
+            metrics["movies.file_size"] += movie.get("sizeOnDisk", 0)
+
+    def _report_metrics(self, metrics):
+        """Report metrics"""
+        for metric, value in metrics.items():
+            self.gauge(metric, value, tags=self.tags)
