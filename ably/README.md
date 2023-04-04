@@ -32,12 +32,21 @@ Using Ably's Datadog Integration, you can:
 
 Your Ably App statistics now appear in Datadog.
 
-
 ## Data Collected
+
 For further details on the Ably statistics, read the [Application Statistics documentation][8].
 
 ### Metrics
+
 See [metadata.csv][7] for a list of metrics provided by this integration.
+
+### Events
+
+The Ably integration does not include any events.
+
+### Service Checks
+
+The Ably integration does not include any service checks.
 
 ## Uninstallation
 
