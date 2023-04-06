@@ -46,7 +46,7 @@ For more information about events and attributes, see [RUM iOS Data Collected][7
 
 ### Service Checks 
 
-The Android integration does not include any service checks.
+The iOS integration does not include any service checks.
 
 ## Troubleshooting
 
