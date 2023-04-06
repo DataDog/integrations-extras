@@ -1,0 +1,53 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "ef49bd18-f7d3-4bed-ad09-5da419e60ad6",
+  "app_id": "choreo",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Observe Ballerina components running in Choreo private data planes",
+    "title": "Choreo",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Dashboard for Ballerina components running in Choreo private data planes",
+        "image_url": "images/choreo_dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Choreo",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "choreo.",
+        "check": "choreo.ballerina.requests.total.value.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Choreo": "assets/dashboards/choreo.json"
+    }
+  },
+  "author": {
+    "support_email": "choreo-help@wso2.com",
+    "name": "Choreo",
+    "homepage": "https://wso2.com/choreo",
+    "sales_email": "choreo-help@wso2.com"
+  },
+  "oauth": {}
+}
