@@ -10,14 +10,14 @@ This integration enables you to observe [Ballerina][2] components running in Cho
 
 ### Installation
 
-Setting up Datadog observability for your Private Data Plane requires support from the WSO2 team. Please reach out to your WSO2 Account Manager or [contact us here][3] so that the WSO2 team can set up the Datadog agent in the cluster.
+Setting up Datadog observability for your private data plane requires support from the WSO2 team. Reach out to your WSO2 Account Manager or [contact us here][3] so that the WSO2 team can set up the Datadog Agent in the cluster.
 
-Once the Datadog agent has been installed by the WSO2 team, you can install this integration in your Datadog account.
+Once the Datadog Agent has been installed by the WSO2 team, you can install this integration in your Datadog account.
 
 
 ### Configuration
 
-For the Datadog agent to collect metrics from Ballerina components running in Choreo, the pods need to be annotated as follows. Please refer [Autodiscovery Integration Templates][4] for more information.
+For the Datadog Agent to collect metrics from Ballerina components running in Choreo, the pods need to be annotated as follows. See [Kubernetes Integrations Autodiscovery][4] for more information.
 
 ```yaml
 apiVersion: v1
