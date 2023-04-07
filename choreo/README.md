@@ -2,9 +2,9 @@
 
 ## Overview
 
-[Choreo][1]  is your SaaS application development suite designed to accelerate the creation of digital experiences. Build, deploy, monitor, and manage your cloud native applications while increasing developer productivity and focusing on innovation.
+[Choreo][1] is a SaaS application development suite designed to accelerate the creation of digital experiences. You can use Choreo to build, deploy, monitor, and manage your cloud-native applications, allowing you to increase developer productivity and focus on innovation.
 
-This integration makes it possible for you to observe [Ballerina][2] components running in Choreo private data planes. The Choreo integration creates a dashboard that can be used to view application metrics, system metrics, and logs related to your Ballerina components. 
+This integration enables you to observe [Ballerina][2] components running in Choreo private data planes. The Choreo integration creates a dashboard that can be used to view application metrics, system metrics, and logs related to your Ballerina components. 
 
 ## Setup
 
