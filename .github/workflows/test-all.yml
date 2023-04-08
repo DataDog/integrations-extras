@@ -1,4 +1,52 @@
+name: Test all
 
+on:
+  workflow_call:
+    inputs:
+      repo:
+        required: true
+        type: string
+
+      python-version:
+        required: false
+        default: "3.8"
+        type: string
+      standard:
+        required: false
+        default: false
+        type: boolean
+      latest:
+        required: false
+        default: false
+        type: boolean
+      test-py2:
+        required: false
+        default: false
+        type: boolean
+      test-py3:
+        required: false
+        default: true
+        type: boolean
+      agent-image:
+        required: false
+        default: ""
+        type: string
+      agent-image-py2:
+        required: false
+        default: ""
+        type: string
+      agent-image-windows:
+        required: false
+        default: ""
+        type: string
+      agent-image-windows-py2:
+        required: false
+        default: ""
+        type: string
+      setup-env-vars:
+        required: false
+        default: ""
+        type: string
 
 jobs:
   j7a4721a:
