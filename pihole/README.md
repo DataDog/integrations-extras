@@ -12,7 +12,7 @@ The Pi-hole check is not included in the [Datadog Agent][2] package, so you need
 
 For Agent v7.21+ / v6.21+, follow the instructions below to install the Pi-hole check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. Run the following command to install the Agent integration:
+1. Run the following command to install the Agent integration (see the CHANGELOG.md for versions of this integration available):
 
    ```shell
    sudo -u dd-agent -- datadog-agent integration install -t datadog-pihole==<INTEGRATION_VERSION>
@@ -23,7 +23,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Pi-hole 
 ### Configuration
 
 1. In the root of your Agent's configuration directory, copy `conf.d/pihole.d/conf.yaml.example` to `conf.d/pihole.d/conf.yaml`.
-2. Edit `conf.d/pihole.d/conf.yaml` by adding an instance and including both the host and API token in order to start collecting your Pi-hole metrics. See the [sample pihole.d/conf.yaml][7] for all available configuration options.
+2. Edit `conf.d/pihole.d/conf.yaml` by adding an instance which includes the host and (optionally-if the queries fail) the API token in order to start collecting your Pi-hole metrics. See the [sample pihole.d/conf.yaml][7] for all available configuration options.
 
 3. [Restart the Agent][8].
 
