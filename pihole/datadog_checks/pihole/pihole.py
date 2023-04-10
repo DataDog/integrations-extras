@@ -7,9 +7,6 @@ class PiholeCheck(AgentCheck):
         host = self.instance.get('host')
         if not host:  # Check if a host parameter exists in conf.yaml
             raise ConfigurationError('Error, please fix pihole.d/conf.yaml, host parameter is required')
-        token = self.instance.get('token')
-        if not token:
-            raise ConfigurationError('Error, please fix pihole.d/conf.yaml, token parameter is required')
 
     def _collect_response(self, url):
         response = self.http.get(url)
@@ -22,8 +19,11 @@ class PiholeCheck(AgentCheck):
         token = self.instance.get('token')
         custom_tags = self.instance.get("tags", [])
         custom_tags.append("target_host:{}".format(host))
-
-        url = 'http://' + host + '/admin/api.php?summary&auth=' + token  # Generate the properly formed url to hit a standard configuration of pihole
+        # If a token is passed in, then use it
+        if token:
+            url = 'http://' + host + '/admin/api.php?summary&auth=' + token
+        else:
+            url = 'http://' + host + '/admin/api.php?summary'
         data, status_code = self._collect_response(url)
         if status_code == 200:  # else is after all the metrics
 

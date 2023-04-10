@@ -39,7 +39,7 @@ def test_service_check(aggregator, instance_pass):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_response(aggregator):
-    instance = {"host": "localhost:8888/fail", "token": "abcdefghijklmnop"}
+    instance = {"host": "localhost:8888/fail"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -50,7 +50,7 @@ def test_bad_response(aggregator):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_bad_status(aggregator):
-    instance = {"host": "localhost:8888/bad_status", "token": "abcdefghijklmnop"}
+    instance = {"host": "localhost:8888/bad_status"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -61,7 +61,7 @@ def test_bad_status(aggregator):
 @pytest.mark.integrations
 @pytest.mark.usefixtures('dd_environment_pass')
 def test_no_status(aggregator):
-    instance = {"host": "localhost:8888/no_status", "token": "abcdefghijklmnop"}
+    instance = {"host": "localhost:8888/no_status"}
     c = PiholeCheck('pihole', {}, [instance])
     with pytest.raises(Exception):
         c.check(instance)
@@ -70,32 +70,27 @@ def test_no_status(aggregator):
 
 # Testing known metric value using docker - valid response
 @pytest.mark.integrations
-#@pytest.mark.usefixtures('dd_environment_pass')
+@pytest.mark.usefixtures('dd_environment_pass')
 def test_good_response(aggregator, instance_pass):
-    instance = {"host": "None", "type": "None"}
     c = PiholeCheck('pihole', {}, [instance_pass])
 
     c.check(instance_pass)
 
     METRICS = {
-        # Pihole metrics are actually strings
-        # and use thousand-separators
-        "pihole.domains_being_blocked": "125,230",
-        "pihole.dns_queries_today": "13,322",
-        "pihole.ads_blocked_today": "5,490",
-        # The only non thousand-separator
-        # metric is ads_percentage_today
-        "pihole.ads_percentage_today": "5.6",
-        "pihole.unique_domains": "3,928",
-        "pihole.queries_forwarded": "6,702",
-        "pihole.queries_cached": "1,130",
-        "pihole.clients_ever_seen": "4",
-        "pihole.unique_clients": "4",
-        "pihole.dns_queries_all_types": "13,322",
-        "pihole.reply_nodata": "12",
-        "pihole.reply_nxdomain": "15",
-        "pihole.reply_cname": "173.0",
-        "pihole.reply_ip": "317",
+        "pihole.domains_being_blocked": 125230.0,
+        "pihole.ads_percent_blocked": 41.21003,
+        "pihole.ads_blocked_today": 5490.0,
+        "pihole.dns_queries_today": 13322.0,
+        "pihole.unique_domains": 928.0,
+        "pihole.reply_nxdomain": 15.0,
+        "pihole.queries_cached": 1130.0,
+        "pihole.queries_forwarded": 6702.0,
+        "pihole.clients_ever_seen": 4.0,
+        "pihole.unique_clients": 4.0,
+        "pihole.dns_queries_all_types": 13322.0,
+        "pihole.reply_cname": 173.0,
+        "pihole.reply_nodata": 12.0,
+        "pihole.reply_ip": 317.0,
     }
     for metric, value in METRICS.items():
         aggregator.assert_metric(name=metric, value=value)

@@ -6,9 +6,8 @@ import pytest
 from datadog_checks.dev import docker_run, get_here
 
 HOST = 'localhost:8888/pass'
-TOKEN = 'abcdefghijklmnop'
 URL = 'http://localhost:8888/pass/admin/api.php'
-INSTANCE = {'host': HOST, 'token': TOKEN}
+INSTANCE = {'host': HOST}
 
 
 @pytest.fixture(scope='session')
