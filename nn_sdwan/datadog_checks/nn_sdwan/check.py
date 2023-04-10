@@ -42,20 +42,23 @@ class NnSdwanCheck(AgentCheck):
             return
 
         # Get metrics
-        try:
-            self.get_control_status()
-            self.get_top_application_stats()
-            self.get_application_aware_routing()
-            self.get_connection_summary_stats()
-            self.get_certificate_summary()
-            self.get_reboot_count()
-            self.get_vmanage_count()
-            self.get_site_health()
-            self.get_transport_interface()
-            self.get_wan_edge_health()
-            self.get_wan_edge_inventory()
-        except Exception:
-            return
+        for method in (
+            self.get_control_status,
+            self.get_top_application_stats,
+            self.get_application_aware_routing,
+            self.get_connection_summary_stats,
+            self.get_certificate_summary,
+            self.get_reboot_count,
+            self.get_vmanage_count,
+            self.get_site_health,
+            self.get_transport_interface,
+            self.get_wan_edge_health,
+            self.get_wan_edge_inventory,
+        ):
+            try:
+                method()
+            except Exception as e:
+                self.log.exception(e)
 
     def pingable(self, host: str):
         """
