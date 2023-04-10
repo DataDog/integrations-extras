@@ -32,105 +32,60 @@ class PiholeCheck(AgentCheck):
                     self.service_check('pihole.running', self.OK)
 
                     if data.get("domains_being_blocked"):
-                        try:
-                            # try to pass the value as an int
-                            domains_being_blocked = int(data["domains_being_blocked"])
-                        except ValueError:
-                            # If we can't pass it as an int, we know it is a string
-                            domains_being_blocked = data["domains_being_blocked"].replace(",", "")
-                        self.gauge("pihole.domains_being_blocked", float(domains_being_blocked), custom_tags)
+                        domains_being_blocked = float(data["domains_being_blocked"].replace(",", ""))
+                        self.gauge("pihole.domains_being_blocked", domains_being_blocked, custom_tags)
 
                     if data.get("dns_queries_today"):
-                        try:
-                            dns_queries_today = int(data["dns_queries_today"])
-                        except ValueError:
-                            dns_queries_today = data["dns_queries_today"].replace(",", "")
-                        self.gauge("pihole.dns_queries_today", float(dns_queries_today), custom_tags)
+                        dns_queries_today = float(data["dns_queries_today"].replace(",", ""))
+                        self.gauge("pihole.dns_queries_today", dns_queries_today, custom_tags)
 
                     if data.get("ads_blocked_today"):
-                        try:
-                            ads_blocked_today = int(data["ads_blocked_today"])
-                        except ValueError:
-                            ads_blocked_today = data["ads_blocked_today"].replace(",", "")
-                        self.gauge("pihole.ads_blocked_today", float(ads_blocked_today), custom_tags)
+                        ads_blocked_today = string(data["ads_blocked_today"].replace(",", ""))
+                        self.gauge("pihole.ads_blocked_today", ads_blocked_today, custom_tags)
 
                     if data.get("ads_percentage_today"):
-                        try:
-                            ads_percentage_today = int(data["ads_percentage_today"])
-                        except ValueError:
-                            # Since it is a string, pass and pray
-                            ads_percentage_today = data["ads_percentage_today"]
-                        self.gauge("pihole.ads_percent_blocked", float(ads_percentage_today), custom_tags)
+                        ads_percentage_today = float(data["ads_percentage_today"].replace(",", ""))
+                        self.gauge("pihole.ads_percent_blocked", ads_percentage_today, custom_tags)
 
                     if data.get("unique_domains"):
-                        try:
-                            unique_domains = int(data["unique_domains"])
-                        except ValueError:
-                            unique_domains = data["unique_domains"].replace(",", "")
-                        self.gauge("pihole.unique_domains", float(unique_domains), custom_tags)
+                        unique_domains = float(data["unique_domains"].replace(",", ""))
+                        self.gauge("pihole.unique_domains", unique_domains, custom_tags)
 
                     if data.get("queries_forwarded"):
-                        try:
-                            queries_forwarded = int(data["queries_forwarded"])
-                        except ValueError:
-                            queries_forwarded = data["queries_forwarded"].replace(",", "")
-                        self.gauge("pihole.queries_forwarded", float(queries_forwarded), custom_tags)
+                        queries_forwarded = float(data["queries_forwarded"].replace(",", ""))
+                        self.gauge("pihole.queries_forwarded", queries_forwarded, custom_tags)
 
                     if data.get("queries_cached"):
-                        try:
-                            queries_cached = int(data["queries_cached"])
-                        except ValueError:
-                            queries_cached = data["queries_cached"].replace(",", "")
-                        self.gauge("pihole.queries_cached", float(queries_cached), custom_tags)
+                        queries_cached = float(data["queries_cached"].replace(",", ""))
+                        self.gauge("pihole.queries_cached", queries_cached, custom_tags)
 
                     if data.get("clients_ever_seen"):
-                        try:
-                            clients_ever_seen = int(data["clients_ever_seen"])
-                        except ValueError:
-                            clients_ever_seen = data["clients_ever_seen"].replace(",", "")
-                        self.gauge("pihole.clients_ever_seen", float(clients_ever_seen), custom_tags)
+                        clients_ever_seen = float(data["clients_ever_seen"].replace(",", ""))
+                        self.gauge("pihole.clients_ever_seen", clients_ever_seen, custom_tags)
 
                     if data.get("unique_clients"):
-                        try:
-                            unique_clients = int(data["unique_clients"])
-                        except ValueError:
-                            unique_clients = data["unique_clients"].replace(",", "")
-                        self.gauge("pihole.unique_clients", float(unique_clients), custom_tags)
+                        unique_clients = float(data["unique_clients"].replace(",", ""))
+                        self.gauge("pihole.unique_clients", unique_clients, custom_tags)
 
                     if data.get("dns_queries_all_types"):
-                        try:
-                            dns_queries_all_types = int(data["dns_queries_all_types"])
-                        except ValueError:
-                            dns_queries_all_types = data["dns_queries_all_types"].replace(",", "")
-                        self.gauge("pihole.dns_queries_all_types", float(dns_queries_all_types), custom_tags)
+                        dns_queries_all_types = float(data["dns_queries_all_types"].replace(",", ""))
+                        self.gauge("pihole.dns_queries_all_types", dns_queries_all_types, custom_tags)
 
                     if data.get("reply_NODATA"):
-                        try:
-                            reply_NODATA = int(data["reply_NODATA"])
-                        except ValueError:
-                            reply_NODATA = data["reply_NODATA"].replace(",", "")
-                        self.gauge("pihole.reply_nodata", float(reply_NODATA), custom_tags)
+                        reply_NODATA = float(data["reply_NODATA"].replace(",", ""))
+                        self.gauge("pihole.reply_nodata", reply_NODATA, custom_tags)
 
                     if data.get("reply_NXDOMAIN"):
-                        try:
-                            reply_NXDOMAIN = int(data["reply_NXDOMAIN"])
-                        except ValueError:
-                            reply_NXDOMAIN = data["reply_NXDOMAIN"].replace(",", "")
-                        self.gauge("pihole.reply_nxdomain", float(reply_NXDOMAIN), custom_tags)
+                        reply_NXDOMAIN = float(data["reply_NXDOMAIN"].replace(",", ""))
+                        self.gauge("pihole.reply_nxdomain", reply_NXDOMAIN, custom_tags)
 
                     if data.get("reply_CNAME"):
-                        try:
-                            reply_CNAME = int(data["reply_CNAME"])
-                        except ValueError:
-                            reply_CNAME = data["reply_CNAME"].replace(",", "")
-                        self.gauge("pihole.reply_cname", float(reply_CNAME), custom_tags)
+                        reply_CNAME = int(data["reply_CNAME"].replace(",", ""))
+                        self.gauge("pihole.reply_cname", reply_CNAME, custom_tags)
 
                     if data.get("reply_IP"):
-                        try:
-                            reply_IP = int(data["reply_IP"])
-                        except ValueError:
-                            reply_IP = data["reply_IP"].replace(",", "")
-                        self.gauge("pihole.reply_ip", float(reply_IP), custom_tags)
+                        reply_IP = float(data["reply_IP"].replace(",", ""))
+                        self.gauge("pihole.reply_ip", reply_IP, custom_tags)
 
                 else:
                     self.log.warning(
