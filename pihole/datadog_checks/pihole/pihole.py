@@ -47,9 +47,9 @@ class PiholeCheck(AgentCheck):
 
                     if data.get("ads_blocked_today"):
                         try:
-                            ads_blocked_today = string(data["ads_blocked_today"].replace(",", ""))
+                            ads_blocked_today = float(data["ads_blocked_today"].replace(",", ""))
                         except AttributeError:
-                            ads_blocked_today = string(data["ads_blocked_today"])
+                            ads_blocked_today = float(data["ads_blocked_today"])
                         self.gauge("pihole.ads_blocked_today", ads_blocked_today, custom_tags)
 
                     if data.get("ads_percentage_today"):
@@ -117,9 +117,9 @@ class PiholeCheck(AgentCheck):
 
                     if data.get("reply_CNAME"):
                         try:
-                            reply_CNAME = int(data["reply_CNAME"].replace(",", ""))
+                            reply_CNAME = float(data["reply_CNAME"].replace(",", ""))
                         except AttributeError:
-                            reply_CNAME = int(data["reply_CNAME"])
+                            reply_CNAME = float(data["reply_CNAME"])
                         self.gauge("pihole.reply_cname", reply_CNAME, custom_tags)
 
                     if data.get("reply_IP"):
