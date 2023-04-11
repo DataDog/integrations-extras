@@ -62,4 +62,4 @@ Need help? Contact [Datadog support][3].
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/help/
 [4]: https://app.datadoghq.com/organization-settings/api-keys
-[5]: shipyard/images/datadog-input.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/shipyard-integration/shipyard/images/datadog-input.png
