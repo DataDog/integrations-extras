@@ -64,7 +64,7 @@ Advanced settings include configuring batch options and TLS. You can apply limit
 - Select Save & Exit to complete creating the global log receiver. Verify that [logs][5] are received into your Datadog account.
 
 **Step 5: Create Datadog Log Facets**
-Once logs begin to arrive, it will be necessary to create [log facets][8] for data analysis and dashboard visualization.  Log facet creation is straightforward and can be accomplished from the Datadog log side panel with guidance available [here][9]. 
+Once logs begin to arrive, it will be necessary to create [log facets][8] for data analysis and dashboard visualization. Log facet creation is straightforward and can be accomplished from the Datadog log side panel with guidance available [here][9]. 
 
 Create facets for the following fields:
 
