@@ -28,8 +28,8 @@ To install the Shipyard check on your host:
 0. Go to your [Datadog APIs page][4] and create an API key.
 1. In your Shipyard dashboard, go to settings. 
 2. Under the Datadog section enter your Datadog API key and the Datadog site URL. 
-![datadog-input][5]
    1. If you do not see a Datadog section here, email [support@shipyard.build](mailto:support@shipyard.build) to get this feature enabled for your organization.
+![datadog-input][5]
 3. Click the "install Datadog" button.
    1. Optionally, toggle the "enable Datadog logging for all environments" and Shipyard will automatically send the logs for all your environments. 
 4. To select specific environments from which you want to send logs, visit the [Configure Application page](https://docs.shipyard.build/docs/config) for each repo you want the logs for. 
