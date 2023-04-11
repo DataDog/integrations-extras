@@ -6,7 +6,7 @@ The Datadog Shipyard integration allows your Shipyard environemnt logs to be pas
 
 ## Setup
 
-This assumes you have a Shipyard account and dashboard set up. If you do not you can get started for [free here.](https://shipyard.build/signup)
+This assumes you have a Shipyard account and dashboard set up. If you do not you can get started for [free here](https://shipyard.build/signup).
 
 ### Installation
 
@@ -30,6 +30,7 @@ To install the Shipyard check on your host:
 0. Go to your [Datadog APIs page][4] and create an API key.
 1. In your Shipyard dashboard, go to settings. 
 2. Under the Datadog section enter your Datadog API key and the Datadog site URL. 
+https://raw.githubusercontent.com/DataDog/integrations-extras/master/shipyard/images/datadog-input.png
    1. If you do not see a Datadog section here, email [support@shipyard.build](mailto:support@shipyard.build) to get this feature enabled for your organization.
 3. Click the "install Datadog" button.
    1. Optionally, toggle the "enable Datadog logging for all environments" and Shipyard will automatically send the logs for all your environments. 
