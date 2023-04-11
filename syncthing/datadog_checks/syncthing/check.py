@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any  # noqa: F401
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 from simplejson import JSONDecodeError

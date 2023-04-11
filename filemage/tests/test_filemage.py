@@ -100,7 +100,7 @@ class MockProcess(object):
                     % ("s" if len(invalid_names) > 1 else "", ", ".join(map(repr, invalid_names)))
                 )
 
-        retdict = dict()
+        retdict = {}
         ls = attrs or valid_names
         for name in ls:
             try:

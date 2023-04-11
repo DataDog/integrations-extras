@@ -37,7 +37,7 @@ def dd_environment():
         # we can yield two dictionaries here, where the second one will be
         # configuration for the agent. We need this so we can start the trace
         # agent since it's off by default
-        yield INSTANCE, dict(env_vars=agent_env_vars)
+        yield INSTANCE, {"env_vars": agent_env_vars}
 
 
 @pytest.fixture
