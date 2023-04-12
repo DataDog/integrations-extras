@@ -4,14 +4,17 @@
 
 import logging
 import os
+
 # stdlib
 import threading
 import time
 import unittest
 
 import mock
+
 # project
 from aggregator import MetricsAggregator
+
 # 3p
 from nose.plugins.attrib import attr
 
@@ -122,8 +125,8 @@ class TestHbase_regionserver(unittest.TestCase):
                 if "hbase.regionserver.server.slow_append" in t['metric']
                 and "instance:hbase_regionserver-localhost-10102" in t['tags']
             ]
-            # hedged_metrics = [t for t in metrics if "hbase.regionserver.server.hedged_read" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
-            # pause_time_metrics = [t for t in metrics if "hbase.regionserver.server.pause_time" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
+            # hedged_metrics = [t for t in metrics if "hbase.regionserver.server.hedged_read" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]  # noqa: E501
+            # pause_time_metrics = [t for t in metrics if "hbase.regionserver.server.pause_time" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]  # noqa: E501
             time.sleep(1)
             count += 1
             if len(mutations_metrics) >= 2 and len(slow_appned_metrics) >= 1:
