@@ -1,0 +1,17 @@
+name: Publish test results for PRs
+
+on:
+  workflow_run:
+    workflows:
+    - PR
+    types:
+    - completed
+
+jobs:
+  publish:
+    uses: DataDog/integrations-core/.github/workflows/test-results-pr.yml@master
+    if: github.event.workflow_run.conclusion != 'skipped'
+    permissions:
+      checks: write
+      pull-requests: write
+    secrets: inherit

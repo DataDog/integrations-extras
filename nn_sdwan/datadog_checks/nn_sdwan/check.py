@@ -42,20 +42,23 @@ class NnSdwanCheck(AgentCheck):
             return
 
         # Get metrics
-        try:
-            self.get_control_status()
-            self.get_top_application_stats()
-            self.get_application_aware_routing()
-            self.get_connection_summary_stats()
-            self.get_certificate_summary()
-            self.get_reboot_count()
-            self.get_vmanage_count()
-            self.get_site_health()
-            self.get_transport_interface()
-            self.get_wan_edge_health()
-            self.get_wan_edge_inventory()
-        except Exception:
-            return
+        for method in (
+            self.get_control_status,
+            self.get_top_application_stats,
+            self.get_application_aware_routing,
+            self.get_connection_summary_stats,
+            self.get_certificate_summary,
+            self.get_reboot_count,
+            self.get_vmanage_count,
+            self.get_site_health,
+            self.get_transport_interface,
+            self.get_wan_edge_health,
+            self.get_wan_edge_inventory,
+        ):
+            try:
+                method()
+            except Exception as e:
+                self.log.exception(e)
 
     def pingable(self, host: str):
         """
@@ -122,7 +125,7 @@ class NnSdwanCheck(AgentCheck):
 
     def get_connection_summary_stats(self):
         conn_summary_stats = self.vmanage_api.get_connection_summary().get('connection_summary')
-        if len(conn_summary_stats.keys()) == 0:
+        if conn_summary_stats is None or len(conn_summary_stats) == 0:
             return
         for result in conn_summary_stats:
             tags = [f'device:{result["device"]}']

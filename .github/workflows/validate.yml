@@ -1,0 +1,35 @@
+name: Validate repository
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    uses: DataDog/integrations-core/.github/workflows/run-validations.yml@master
+    with:
+      repo: extras
+
+      # Validations
+      ci: true
+      codeowners: true
+      config: true
+      dashboards: true
+      imports: true
+      integration-style: true
+      jmx-metrics: true
+      legacy-signature: true
+      metadata: true
+      models: true
+      package: true
+      readmes: true
+      recommended-monitors: true
+      saved-views: true
+      service-checks: true
+    secrets: inherit
