@@ -5,9 +5,9 @@
 
 [Finout](https://finout.io) combines cloud providers, data warehouses, and CDNs in one bill, creating a business context view of your cloud spend in minutes.
 
-Finout’s cloud cost management tool uses your container metrics to break down Kubernetes costs without installing an agent. You can connect to any metric within Datadog and create a unit cost to improve cost observability.
+Finout's cloud cost management tool uses your container metrics to break down Kubernetes costs without installing an agent. You can connect to any metric within Datadog and create a unit cost to improve cost observability.
 
-Finout’s Datadog app allows you to add cost widgets into your Datadog dashboards and combine your AWS, Snowflake, Kubernetes, and Unit costs alongside your usage.
+Finout's Datadog app allows you to add cost widgets into your Datadog dashboards and combine your AWS, Snowflake, Kubernetes, and Unit costs alongside your usage.
 
 ## Setup
 

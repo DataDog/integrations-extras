@@ -1,0 +1,125 @@
+id: lambdatest
+facets:
+  - name: URL Path
+    source: log
+    path: http.url
+    groups:
+      - Web Access
+  - name: Browser
+    source: log
+    path: http.useragent_details.browser.family
+    groups:
+      - Web Access
+  - name: Device
+    source: log
+    path: http.useragent_details.device.family
+    groups:
+      - Web Access
+  - name: OS
+    source: log
+    path: http.useragent_details.os.family
+    groups:
+      - Web Access
+  - name: Product
+    source: log
+    path: product
+    groups:
+      - LAMBDATEST
+  - name: Test environment device
+    source: log
+    path: test_env_device
+    groups:
+      - LAMBDATEST
+  - name: Test environment Operating System
+    source: log
+    path: test_env_os
+    groups:
+      - LAMBDATEST
+  - name: Test environment Browser
+    source: log
+    path: test_env_browser
+    groups:
+      - LAMBDATEST
+
+pipeline:
+  type: pipeline
+  name: LAMBDATEST (Partner Integration)
+  enabled: true
+  filter:
+    query: source:lambdatest
+  processors:
+    - type: attribute-remapper
+      name: Map `hostname` to `syslog.hostname`
+      enabled: true
+      sources:
+        - hostname
+      target: syslog.hostname
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `duration_in_secs` to `test.duration`
+      enabled: true
+      sources:
+        - duration_in_secs
+      target: test.duration
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `test_env_browser` to `http.useragent_details.browser.family`
+      enabled: true
+      sources:
+        - test_env_browser
+      target: http.useragent_details.browser.family
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `test_env_device` to `http.useragent_details.device.family`
+      enabled: true
+      sources:
+        - test_env_device
+      target: http.useragent_details.device.family
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `test_env_os` to `http.useragent_details.os.family`
+      enabled: true
+      sources:
+        - test_env_os
+      target: http.useragent_details.os.family
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `test_url` to `http.url`
+      enabled: true
+      sources:
+        - test_url
+      target: http.url
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `tunnel_used` to `test.tunnel_used`
+      enabled: true
+      sources:
+        - tunnel_used
+      target: test.tunnel_used
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: service-remapper
+      name: Define `service` as the official service of the log
+      enabled: true
+      sources:
+        - service

@@ -53,7 +53,7 @@ setup(
     url='https://github.com/DataDog/integrations-extras',
     # Author details
     author='Alexander Bushnev',
-    author_email='Alexander@Bushnev.ru',
+    author_email='Alexander@Bushnev.pro',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers

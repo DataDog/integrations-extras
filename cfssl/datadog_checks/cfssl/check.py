@@ -2,7 +2,7 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 from json import JSONDecodeError
-from typing import Any
+from typing import Any  # noqa: F401
 
 from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
 from six.moves.urllib.parse import urljoin

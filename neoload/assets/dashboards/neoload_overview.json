@@ -1,0 +1,304 @@
+{
+    "title": "NeoLoad",
+    "description": "NeoLoad dashboard for analyzing performance tests",
+    "widgets": [{
+            "id": 7213586869898414,
+            "definition": {
+                "type": "image",
+                "url": "https://be.tricentis.com/media-assets/2022/07/PL-NeoLoad-1.png",
+                "url_dark_theme": "https://be-test.tricentis.com/media-assets/2022/10/Tricentis_NeoLoad-Secondary-White@2x.png",
+                "sizing": "none",
+                "margin": "sm",
+                "has_background": false,
+                "has_border": false,
+                "vertical_align": "center",
+                "horizontal_align": "left"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 2
+            }
+        }, {
+            "id": 793579956743484,
+            "definition": {
+                "title": "NeoLoad Virtual Users ",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": ["avg", "min", "max", "value", "sum"],
+                "type": "timeseries",
+                "requests": [{
+                        "formulas": [{
+                                "alias": "NeoLoad user load",
+                                "style": {
+                                    "palette_index": 1,
+                                    "palette": "classic"
+                                },
+                                "formula": "query1"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [{
+                                "query": "sum:NeoLoad.Controller.User.Load{$test-result-name,$test-result-id,$test-id,$test-name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ],
+                "events": [{
+                        "q": "source:my_apps"
+                    }
+                ],
+                "custom_links": [{
+                        "override_label": "events",
+                        "is_hidden": false
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 6,
+                "height": 2
+            }
+        }, {
+            "id": 7101843706787120,
+            "definition": {
+                "title": "Performance Engineering Events",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "event_timeline",
+                "query": "$test-result-name $test-result-id $test-name $test-id",
+                "tags_execution": "and"
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 4,
+                "height": 2
+            }
+        }, {
+            "id": 7686753511996862,
+            "definition": {
+                "title": "NeoLoad req/s",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": ["avg", "min", "max", "value", "sum"],
+                "type": "timeseries",
+                "requests": [{
+                        "formulas": [{
+                                "formula": "query2",
+                                "style": {
+                                    "palette_index": 4,
+                                    "palette": "green"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [{
+                                "query": "avg:NeoLoad.Request.PerSecond{$test-result-name,$test-result-id,$test-id,$test-name}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 2,
+                "width": 3,
+                "height": 3
+            }
+        }, {
+            "id": 3881498452398372,
+            "definition": {
+                "title": "NeoLoad requests errors",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": ["avg", "min", "max", "value", "sum"],
+                "type": "timeseries",
+                "requests": [{
+                        "formulas": [{
+                                "formula": "query1",
+                                "style": {
+                                    "palette_index": 5,
+                                    "palette": "warm"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [{
+                                "query": "sum:NeoLoad.Request.Errors{$test-result-name,$test-result-id,$test-id,$test-name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ],
+                "custom_links": [{
+                        "override_label": "events",
+                        "is_hidden": false
+                    }
+                ]
+            },
+            "layout": {
+                "x": 7,
+                "y": 2,
+                "width": 3,
+                "height": 3
+            }
+        }, {
+            "id": 7759398302419378,
+            "definition": {
+                "title": "Performance Engineering Events",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "event_stream",
+                "query": "$test-result-name $test-result-id $test-name $test-id",
+                "event_size": "l"
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 4,
+                "height": 5
+            }
+        }, {
+            "id": 8389637738594750,
+            "definition": {
+                "title": "NeoLoad Transactions/s",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": ["avg", "min", "max", "value", "sum"],
+                "type": "timeseries",
+                "requests": [{
+                        "formulas": [{
+                                "formula": "query1",
+                                "style": {
+                                    "palette_index": 8,
+                                    "palette": "dd20"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [{
+                                "query": "avg:NeoLoad.Transaction.PerSecond{$test-result-name,$test-result-id,$test-id,$test-name}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 5,
+                "width": 3,
+                "height": 3
+            }
+        }, {
+            "id": 5712085288055526,
+            "definition": {
+                "title": "NeoLoad network throughput",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": ["avg", "min", "max", "value", "sum"],
+                "type": "timeseries",
+                "requests": [{
+                        "formulas": [{
+                                "formula": "query2",
+                                "style": {
+                                    "palette_index": 4,
+                                    "palette": "cool"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "queries": [{
+                                "query": "sum:NeoLoad.Controller.Throughput{$test-result-name,$test-result-id,$test-id,$test-name}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            }
+                        ],
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 7,
+                "y": 5,
+                "width": 3,
+                "height": 3
+            }
+        }
+    ],
+    "template_variables": [{
+            "name": "test-result-name",
+            "prefix": "test-result-name",
+            "available_values": [],
+            "default": "*"
+        }, {
+            "name": "test-result-id",
+            "prefix": "test-result-id",
+            "available_values": [],
+            "default": "*"
+        }, {
+            "name": "test-name",
+            "prefix": "test-name",
+            "available_values": [],
+            "default": "*"
+        }, {
+            "name": "test-id",
+            "prefix": "test-id",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "wez-hb9-wqn"
+}
