@@ -1,5 +1,9 @@
 # CHANGELOG - Lighthouse
 
+## 2.1.1 / 2023-01-18
+
+* [Fixed] Add desktop emulation argument. See [#1729](https://github.com/DataDog/integrations-extras/pull/1729). Thanks [HoriaA](https://github.com/HoriaA).
+
 ## 2.1.0 / 2022-05-09
 
 * [Added] Enhance Lighthouse Integration - Multiple URLs, Form Factor Configuration, and New Metrics. See [#1123](https://github.com/DataDog/integrations-extras/pull/1123). Thanks [baerbradford](https://github.com/baerbradford).

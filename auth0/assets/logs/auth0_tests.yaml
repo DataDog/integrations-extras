@@ -1,0 +1,143 @@
+id: "auth0"
+tests:
+ -
+  sample: |-
+    {
+      "log_id" : "90020200123T15145913700000000000000000000000000000000000",
+      "data" : {
+        "date" : "2020-01-23T15:14:59.137Z",
+        "log_id" : "90020200123T15145913700000000000000000000000000000000000",
+        "user_name" : "cleveráguila",
+        "ip" : "79.153.77.39",
+        "description" : "waaaaa",
+        "strategy_type" : "database",
+        "type" : "feoobft",
+        "client_id" : "61PIEqk9Hd4hXJFZhoBZ5bNmN349coz1",
+        "hostname" : "awesome.bisonte.auth0.com",
+        "connection_id" : "con_DFOp2K6Ysya1y2OP",
+        "user_id" : "auth0|61PIEqk9Hd4hXJFZhoBZ5bNmN349coz1",
+        "connection" : "great-pollo",
+        "details" : "whatever...",
+        "strategy" : "auth0",
+        "client_name" : "greatballena",
+        "tenant" : "datadog",
+        "user_agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+      }
+    }
+  result:
+    custom:
+      data:
+        client_id: "61PIEqk9Hd4hXJFZhoBZ5bNmN349coz1"
+        client_name: "greatballena"
+        connection: "great-pollo"
+        connection_id: "con_DFOp2K6Ysya1y2OP"
+        date: "2020-01-23T15:14:59.137Z"
+        description: "waaaaa"
+        details: "whatever..."
+        hostname: "awesome.bisonte.auth0.com"
+        log_id: "90020200123T15145913700000000000000000000000000000000000"
+        strategy: "auth0"
+        strategy_type: "database"
+        tenant: "datadog"
+        type: "feoobft"
+        user_id: "auth0|61PIEqk9Hd4hXJFZhoBZ5bNmN349coz1"
+      evt:
+        name: "failed_exchange_password_and_oob_challenge_for_access_token"
+      http:
+        useragent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+        useragent_details:
+          browser:
+            family: "Chrome"
+            major: "71"
+            minor: "0"
+            patch: "3578"
+            patch_minor: "98"
+          device:
+            category: "Desktop"
+            family: "Other"
+          os:
+            family: "Windows"
+            major: "10"
+      log_id: "90020200123T15145913700000000000000000000000000000000000"
+      network:
+        client:
+          geoip: {}
+          ip: "79.153.77.39"
+      usr:
+        id: "cleveráguila"
+        name: "cleveráguila"
+    message: "Failed exchange of Password and OOB Challenge for Access Token"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1579792499137
+ -
+  sample: |-
+    {
+      "log_id" : "90020200123T15145913700000000000000000000000000000000000",
+      "data" : {
+        "date" : "2020-01-23T15:14:59.137Z",
+        "description" : "Auth0 has launched a new admin update",
+        "type" : "admin_update_launch"
+      }
+    }
+  result:
+    custom:
+      data:
+        date: "2020-01-23T15:14:59.137Z"
+        type: "admin_update_launch"
+      evt:
+        name: "auth0_update_launched"
+      log_id: "90020200123T15145913700000000000000000000000000000000000"
+    message: "Auth0 has launched a new admin update"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1579792499137
+ -
+  sample: |-
+    {
+      "log_id" : "90020200123T15145913700000000000000000000000000000000000",
+      "data" : {
+        "date" : "2020-01-23T15:14:59.137Z",
+        "description" : "Auth0 has detected a failed login",
+        "type" : "f"
+      }
+    }
+  result:
+    custom:
+      data:
+        date: "2020-01-23T15:14:59.137Z"
+        type: "f"
+      evt:
+        category: "authentication"
+        name: "failed_login"
+        outcome: "failure"
+      log_id: "90020200123T15145913700000000000000000000000000000000000"
+    message: "Auth0 has detected a failed login"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1579792499137
+ -
+  sample: |-
+    {
+      "log_id" : "90020200123T15145913700000000000000000000000000000000000",
+      "data" : {
+        "date" : "2020-01-23T15:14:59.137Z",
+        "description" : "Auth0 has detected a successful signup",
+        "type" : "ss"
+      }
+    }
+  result:
+    custom:
+      data:
+        date: "2020-01-23T15:14:59.137Z"
+        type: "ss"
+      evt:
+        category: "authentication"
+        name: "success_signup"
+        outcome: "success"
+      log_id: "90020200123T15145913700000000000000000000000000000000000"
+    message: "Auth0 has detected a successful signup"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1579792499137
+

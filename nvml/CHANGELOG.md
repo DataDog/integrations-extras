@@ -1,5 +1,9 @@
 # CHANGELOG - nvml
 
+## 1.0.6
+
+* Add compute_running_process metrics.
+
 ## 1.0.5
 
 * Add fan speed to monitored metrics.

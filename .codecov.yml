@@ -59,10 +59,6 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
-      gRPC_Check:
-        target: 75
-        flags:
-        - grpc_check
       JFrog_Platform:
         target: 75
         flags:
@@ -151,6 +147,10 @@ coverage:
         target: 75
         flags:
         - riak_repl
+      Scalr:
+        target: 75
+        flags:
+        - scalr
       Sendmail:
         target: 75
         flags:
@@ -207,18 +207,38 @@ coverage:
         target: 50
         flags:
         - zabbix
-      fluxcd:
-        target: 75
-        flags:
-        - fluxcd
-      exim:
-        target: 75
-        flags:
-        - exim
       cfssl:
         target: 75
         flags:
         - cfssl
+      exim:
+        target: 75
+        flags:
+        - exim
+      fiddler:
+        target: 75
+        flags:
+        - fiddler
+      filemage:
+        target: 75
+        flags:
+        - filemage
+      fluxcd:
+        target: 75
+        flags:
+        - fluxcd
+      gRPC_Check:
+        target: 75
+        flags:
+        - grpc_check
+      go_pprof_scraper:
+        target: 75
+        flags:
+        - go_pprof_scraper
+      hikaricp:
+        target: 75
+        flags:
+        - hikaricp
       nvml:
         target: 75
         flags:
@@ -231,14 +251,6 @@ coverage:
         target: 75
         flags:
         - pihole
-      PureFA:
-        target: 75
-        flags:
-        - purefa
-      PureFB:
-        target: 75
-        flags:
-        - purefb
       speedtest:
         target: 75
         flags:
@@ -284,11 +296,21 @@ flags:
     paths:
     - exim/datadog_checks/exim
     - exim/tests
+  fiddler:
+    carryforward: true
+    paths:
+    - fiddler/datadog_checks/fiddler
+    - fiddler/tests
   filebeat:
     carryforward: true
     paths:
     - filebeat/datadog_checks/filebeat
     - filebeat/tests
+  filemage:
+    carryforward: true
+    paths:
+    - filemage/datadog_checks/filemage
+    - filemage/tests
   fluentbit:
     carryforward: true
     paths:
@@ -319,11 +341,21 @@ flags:
     paths:
     - gnatsd_streaming/datadog_checks/gnatsd_streaming
     - gnatsd_streaming/tests
+  go_pprof_scraper:
+    carryforward: true
+    paths:
+    - go_pprof_scraper/datadog_checks/go_pprof_scraper
+    - go_pprof_scraper/tests
   grpc_check:
     carryforward: true
     paths:
     - grpc_check/datadog_checks/grpc_check
     - grpc_check/tests
+  hikaricp:
+    carryforward: true
+    paths:
+    - hikaricp/datadog_checks/hikaricp
+    - hikaricp/tests
   jfrog_platform:
     carryforward: true
     paths:
@@ -449,6 +481,11 @@ flags:
     paths:
     - riak_repl/datadog_checks/riak_repl
     - riak_repl/tests
+  scalr:
+    carryforward: true
+    paths:
+    - scalr/datadog_checks/scalr
+    - scalr/tests
   sendmail:
     carryforward: true
     paths:

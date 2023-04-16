@@ -1,0 +1,201 @@
+id: twingate
+facets:
+  - name: Event Name
+    source: log
+    path: evt.name
+    groups:
+      - Event
+  - name: City Name
+    source: log
+    path: network.client.geoip.city.name
+    groups:
+      - Geoip
+  - name: Continent Code
+    source: log
+    path: network.client.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Continent Name
+    source: log
+    path: network.client.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Country ISO Code
+    source: log
+    path: network.client.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Country Name
+    source: log
+    path: network.client.geoip.country.name
+    groups:
+      - Geoip
+  - name: Subdivison ISO Code
+    source: log
+    path: network.client.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Subdivison Name
+    source: log
+    path: network.client.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Client IP
+    source: log
+    path: network.client.ip
+    groups:
+      - Web Access
+  - name: Applied Rule
+    source: log
+    path: resource.applied_rule
+    groups:
+      - Twingate
+  - name: Connection ID
+    source: log
+    path: connection.id
+    groups:
+      - Twingate
+  - name: Connector Name
+    source: log
+    path: connector.name
+    groups:
+      - Twingate
+  - name: Connector ID
+    source: log
+    path: connector.id
+    groups:
+      - Twingate
+  - name: Device ID
+    source: log
+    path: device.id
+    groups:
+      - Twingate
+  - name: Connection Duration
+    source: log
+    path: connection.duration
+    type: double
+    facetType: range
+    unit:
+      family: time
+      name: nanosecond
+    groups:
+      - Twingate
+  - name: Resource Port
+    source: log
+    path: connection.resource_port
+    groups:
+      - Twingate
+  - name: Remote Network Name
+    source: log
+    path: remote_network.name
+    groups:
+      - Twingate
+  - name: Remote Network ID
+    source: log
+    path: remote_network.id
+    groups:
+      - Twingate
+  - name: Resource Address
+    source: log
+    path: resource.address
+    groups:
+      - Twingate
+  - name: Resource ID
+    source: log
+    path: resource.id
+    groups:
+      - Twingate
+pipeline:
+  type: pipeline
+  name: Twingate
+  enabled: true
+  filter:
+    query: source:twingate
+  processors:
+    - type: grok-parser
+      name: Remove Client IP Port
+      enabled: true
+      source: connection.client_ip
+      samples:
+        - 137.220.73.91
+      grok:
+        supportRules: ''
+        matchRules: rule %{ipv4:connection.client_ip}%{regex(".*")}
+    - type: attribute-remapper
+      name: Map `connection.client_ip` to `network.client.ip`
+      enabled: true
+      sources:
+        - connection.client_ip
+      sourceType: attribute
+      target: network.client.ip
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `connection.tx` to `network.bytes_read`
+      enabled: true
+      sources:
+        - connection.tx
+      sourceType: attribute
+      target: network.bytes_read
+      targetType: attribute
+      targetFormat: integer
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `connection.rx` to `network.bytes_written`
+      enabled: true
+      sources:
+        - connection.rx
+      sourceType: attribute
+      target: network.bytes_written
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `user` to `usr`
+      enabled: true
+      sources:
+        - user
+      sourceType: attribute
+      target: usr
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `connection.error_message` to `error.message`
+      enabled: true
+      sources:
+        - connection.error_message
+      sourceType: attribute
+      target: error.message
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: geo-ip-parser
+      name: Geo IP Processor
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+      ip_processing_behavior: do-nothing
+    - type: attribute-remapper
+      name: Map `connection.protocol` to `network.transport`
+      enabled: true
+      sources:
+        - connection.protocol
+      sourceType: attribute
+      target: network.transport
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `event_type` to `evt.name`
+      enabled: true
+      sources:
+        - event_type
+      sourceType: attribute
+      target: evt.name
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
