@@ -35,6 +35,6 @@ Need help? Contact [Datadog support][5].
 
 [1]: https://www.blinkops.com/
 [2]: https://library.blinkops.com/
-[3]: https://www.docs.blinkops.com/docs/Integrations/Datadog/Actions
-[4]: https://www.docs.blinkops.com/docs/Integrations/Datadog/
+[3]: https://www.docs.blinkops.com/docs/Integrations/datadog/actions/
+[4]: https://www.docs.blinkops.com/docs/Integrations/datadog/
 [5]: https://docs.datadoghq.com/help/
