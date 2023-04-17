@@ -70,7 +70,7 @@ METRIC_MAP = {
     'cluster_core_message_processing_timer_status_response': ('cluster.core_message_processing_timer_status_response'),
     'cluster_core_message_processing_timer_vote_request': ('cluster.core_message_processing_timer_vote_request'),
     'cluster_core_message_processing_timer_vote_response': ('cluster.core_message_processing_timer_vote_response'),
-    #raft
+    # raft
     'cluster_raft_append_index': 'cluster.raft_append_index',
     'cluster_raft_applied_index': 'cluster.raft_applied_index',
     'cluster_raft_commit_index': 'cluster.raft_commit_index',
@@ -131,7 +131,7 @@ METRIC_MAP = {
     'cluster_raft_raft_log_entry_prefetch_buffer_async_put': ('cluster.raft_raft_log_entry_prefetch_buffer_async_put'),
     'cluster_raft_raft_log_entry_prefetch_buffer_bytes': ('cluster.raft_raft_log_entry_prefetch_buffer_bytes'),
     'cluster_raft_raft_log_entry_prefetch_buffer_lag': ('cluster.raft_raft_log_entry_prefetch_buffer_lag'),
-    'cluster_raft_raft_log_entry_prefetch_buffer_size': ('cluster.raft_raft_log_entry_prefetch_buffer_size' ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_size': ('cluster.raft_raft_log_entry_prefetch_buffer_size'),
     'cluster_raft_raft_log_entry_prefetch_buffer_sync_put': ('cluster.raft_raft_log_entry_prefetch_buffer_sync_put'),
     'cluster_raft_replication_attempt': 'cluster.raft_replication_attempt',
     'cluster_raft_replication_fail': 'cluster.raft_replication_fail',
@@ -140,7 +140,7 @@ METRIC_MAP = {
     'cluster_raft_replication_success': 'cluster.raft_replication_success',
     'cluster_raft_term': 'cluster.raft_term',
     'cluster_raft_tx_retries': 'cluster.raft_tx_retries',
-    #replication
+    # replication
     'cluster_core_replication_attempt': 'cluster.core_replication_attempt',
     'cluster_core_replication_fail': 'cluster.core_replication_fail',
     'cluster_core_replication_maybe': 'cluster.core_replication_maybe',
