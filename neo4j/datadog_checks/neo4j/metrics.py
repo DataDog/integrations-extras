@@ -22,7 +22,6 @@ METRIC_MAP = {
     'cluster_core_in_flight_cache_max_elements': 'cluster.core_in_flight_cache_max_elements',
     'cluster_core_in_flight_cache_misses': 'cluster_core_in_flight_cache_misses',
     'cluster_core_in_flight_cache_total_bytes': 'cluster.core_in_flight_cache_total_bytes',
-    'cluster_core_in_flight_cache_misses': 'cluster_core_in_flight_cache_misses',
     'cluster_core_is_leader': 'cluster.core_is_leader',
     'cluster_core_last_leader_message': 'cluster.core_last_leader_message',
     'cluster_core_message_processing_delay': (
@@ -179,7 +178,6 @@ METRIC_MAP = {
     'cluster_raft_replication_success':'cluster.raft_replication_success',
     'cluster_raft_term':'cluster.raft_term',
     'cluster_raft_tx_retries':'cluster.raft_tx_retries',
-    
     #replication
     'cluster_core_replication_attempt':'cluster.core_replication_attempt',
     'cluster_core_replication_fail':'cluster.core_replication_fail',
@@ -234,7 +232,6 @@ METRIC_MAP = {
     'cluster_store_copy_pull_update_highest_tx_id_received': (
         'cluster.store_copy.pull_update_highest_tx_id_received'
     ),
-    
     # end causal clustering replicated data metrics
     'cluster.read_replica.pull_updates': 'cluster.read_replica.pull_updates',
     'cluster.read_replica.pull_update_highest_tx_id_requested': (
@@ -250,7 +247,6 @@ METRIC_MAP = {
     'causal_clustering_core_discovery_cluster_converged': 'causal_clustering.core.discovery.cluster.converged',
     'causal_clustering_core_discovery_cluster_members': 'causal_clustering.core.discovery.cluster.members',
     'causal_clustering_core_discovery_cluster_unreachable': 'causal_clustering.core.discovery.cluster.unreachable',
-
     # causal clustering replicated data metrics (4.3)
     'causal_clustering_core_discovery_replicated_data_member_data_invisible': (
         'causal_clustering.core.discovery.replicated_data.member_data.invisible'
