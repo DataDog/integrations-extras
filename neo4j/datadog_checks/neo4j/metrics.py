@@ -467,5 +467,4 @@ METRIC_MAP = {
     'vm_thread_count': 'vm.thread.count',
     'vm_thread_total': 'vm.thread.total',
     'vm_threads': 'vm.threads',
-
 }
