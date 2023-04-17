@@ -10,95 +10,232 @@ METRIC_MAP = {
     'bolt_messages_failed': 'bolt.messages_failed',
     'bolt_messages_received': 'bolt.messages_received',
     'bolt_messages_started': 'bolt.messages_started',
-    # causal clustering metrics
+    # causal clustering metrics (5.x)
     'cluster_catchup_tx_pull_requests_received': 'cluster.catchup_tx_pull_requests_received',
+    #cluster core
     'cluster_core_append_index': 'cluster.core.append_index',
+    'cluster_core_applied_index': 'cluster.core.applied_index',
     'cluster_core_commit_index': 'cluster.core.commit_index',
-    'cluster_core_discovery_cluster_converged': 'cluster.core.discovery.cluster.converged',
-    'cluster_core_discovery_cluster_members': 'cluster.core.discovery.cluster.members',
-    'cluster_core_discovery_cluster_unreachable': 'cluster.core.discovery.cluster.unreachable',
-    # causal clustering replicated data metrics (4.3)
-    'cluster_core_discovery_replicated_data_member_data_invisible': (
-        'cluster.core.discovery.replicated_data.member_data.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_member_data_visible': (
-        'cluster.core.discovery.replicated_data.member_data.visible'
-    ),
-    'cluster_core_discovery_replicated_data_raft_id_published_by_member_invisible': (
-        'cluster.core.discovery.replicated_data.raft_id_published_by_member.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_raft_id_published_by_member_visible': (
-        'cluster.core.discovery.replicated_data.raft_id_published_by_member.visible'
-    ),
-    'cluster_core_discovery_replicated_data_per_db_leader_name_invisible': (
-        'cluster.core.discovery.replicated_data.per_db_leader_name.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_per_db_leader_name_visible': (
-        'cluster.core.discovery.replicated_data.per_db_leader_name.visible'
-    ),
-    'cluster_core_discovery_replicated_data_member_db_state_invisible': (
-        'cluster.core.discovery.replicated_data.member_db_state.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_member_db_state_visible': (
-        'cluster.core.discovery.replicated_data.member_db_state.visible'
-    ),
-    'cluster_core_discovery_replicated_data_raft_member_mapping_invisible': (
-        'cluster.core.discovery.replicated_data.raft_member_mapping.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_raft_member_mapping_visible': (
-        'cluster.core.discovery.replicated_data.raft_member_mapping.visible'
-    ),
-    # causal clustering replicated data metrics (3.6)
-    'cluster_core_discovery_replicated_data_cluster_id_per_db_name_invisible': (
-        'cluster.core.discovery.replicated_data.cluster_id_per_db_name.invisible'
-    ),
-    'cluster_core_discovery_replicated_data_cluster_id_per_db_name_visible': (
-        'cluster.core.discovery.replicated_data.cluster_id_per_db_name.visible'
-    ),
-    # end causal clustering replicated data metrics
-    'cluster_core_in_flight_cache_element_count': 'cluster.core.in_flight_cache_element_count',
-    'cluster_core_in_flight_cache_hits': 'cluster.core.in_flight_cache.hits',
-    'cluster_core_in_flight_cache_max_bytes': 'cluster.core.in_flight_cache.max_bytes',
-    'cluster_core_in_flight_cache_max_elements': 'cluster.core.in_flight_cache.max_elements',
-    'cluster_core_in_flight_cache_misses': 'cluster.core.in_flight_cache.misses',
-    'cluster_core_in_flight_cache_total_bytes': 'cluster.core.in_flight_cache.total_bytes',
-    'cluster_core_is_leader': 'cluster.core.is_leader',
-    'cluster_core_message_processing_delay': 'cluster.core.message_processing_delay',
-    'cluster_core_message_processing_timer': 'cluster.core.message_processing_timer',
+    'cluster_core_in_flight_cache_element_count': 'cluster.core_in_flight_cache_element_count',
+    'cluster_core_in_flight_cache_hits': 'cluster.core_in_flight_cache_hits',
+    'cluster_core_in_flight_cache_max_bytes': 'cluster.core_in_flight_cache_max_bytes',
+    'cluster_core_in_flight_cache_max_elements': 'cluster.core_in_flight_cache_max_elements',
+    'cluster_core_in_flight_cache_misses': 'cluster_core_in_flight_cache_misses',
+    'cluster_core_in_flight_cache_total_bytes': 'cluster.core_in_flight_cache_total_bytes',
+    'cluster_core_in_flight_cache_misses': 'cluster_core_in_flight_cache_misses',
+    'cluster_core_is_leader': 'cluster.core_is_leader',
+    'cluster_core_last_leader_message': 'cluster.core_last_leader_message',
+    'cluster_core_message_processing_delay': (
+        'cluster.core_message_processing_delay'
+        ),
     'cluster_core_message_processing_timer_append_entries_request': (
         'cluster.core.message_processing_timer.append_entries_request'
     ),
     'cluster_core_message_processing_timer_append_entries_response': (
-        'cluster.core.message_processing_timer.append_entries_response'
+        'cluster.core_message_processing_timer_append_entries_response'
+    ),
+    'cluster_core_message_processing_timer': (
+        'cluster.core_message_processing_timer'
     ),
     'cluster_core_message_processing_timer_election_timeout': (
-        'cluster.core.message_processing_timer.election_timeout'
+        'cluster.core_message_processing_timer_election_timeout'
     ),
-    'cluster_core_message_processing_timer_heartbeat': ('cluster.core.message_processing_timer.heartbeat'),
     'cluster_core_message_processing_timer_heartbeat_response': (
-        'cluster.core.message_processing_timer.heartbeat_response'
+        'cluster.core_message_processing_timer_heartbeat_response'
     ),
     'cluster_core_message_processing_timer_heartbeat_timeout': (
-        'cluster.core.message_processing_timer.heartbeat_timeout'
+        'cluster.core_message_processing_timer_heartbeat_timeout'
     ),
+    'cluster_core_message_processing_timer_heartbeat': (
+        'cluster.core_message_processing_timer_heartbeat'
+        ),
+    'cluster_core_message_processing_timer_leadership_transfer_proposal': (
+        'cluster.core_message_processing_timer_leadership_transfer_proposal'
+        ),
+    'cluster_core_message_processing_timer_leadership_transfer_rejection': (
+        'cluster.core_message_processing_timer_leadership_transfer_rejection'
+        ),
+    'cluster_core_message_processing_timer_leadership_transfer_request': (
+        'cluster.core_message_processing_timer_leadership_transfer_request'
+        ),
     'cluster_core_message_processing_timer_log_compaction_info': (
-        'cluster.core.message_processing_timer.log_compaction_info'
-    ),
+        'cluster.core_message_processing_timer_log_compaction_info'
+        ),
     'cluster_core_message_processing_timer_new_batch_request': (
-        'cluster.core.message_processing_timer.new_batch_request'
-    ),
+        'cluster.core_message_processing_timer_new_batch_request'
+        ),
     'cluster_core_message_processing_timer_new_entry_request': (
-        'cluster.core.message_processing_timer.new_entry_request'
-    ),
+        'cluster.core_message_processing_timer_new_entry_request'
+        ),
     'cluster_core_message_processing_timer_pre_vote_request': (
-        'cluster.core.message_processing_timer.pre_vote_request'
-    ),
+        'cluster.core_message_processing_timer_pre_vote_request'
+        ),
     'cluster_core_message_processing_timer_pre_vote_response': (
-        'cluster.core.message_processing_timer.pre_vote_response'
+        'cluster.core_message_processing_timer_pre_vote_response'
+        ),
+    'cluster_core_message_processing_timer_prune_request': (
+        'cluster.core_message_processing_timer_prune_request'
+        ),
+    'cluster_core_message_processing_timer_status_response': (
+        'cluster.core_message_processing_timer_status_response'
+        ),
+    'cluster_core_message_processing_timer_vote_request': (
+        'cluster.core_message_processing_timer_vote_request'
+        ),
+    'cluster_core_message_processing_timer_vote_response': (
+        'cluster.core_message_processing_timer_vote_response'
+        ),
+    #raft
+    'cluster_raft_append_index':'cluster.raft_append_index',
+    'cluster_raft_applied_index':'cluster.raft_applied_index',
+    'cluster_raft_commit_index':'cluster.raft_commit_index',
+    'cluster_raft_in_flight_cache_element_count':'cluster.raft_in_flight_cache_element_count',
+    'cluster_raft_in_flight_cache_hits':'cluster.raft_in_flight_cache_hits',
+    'cluster_raft_in_flight_cache_max_bytes':'cluster.raft_in_flight_cache_max_bytes',
+    'cluster_raft_in_flight_cache_max_elements':'cluster.raft_in_flight_cache_max_elements',
+    'cluster_raft_in_flight_cache_misses':'cluster.raft_in_flight_cache_misses',
+    'cluster_raft_in_flight_cache_total_bytes':'cluster.raft_in_flight_cache_total_bytes',
+    'cluster_raft_is_leader':'cluster.raft_is_leader',
+    'cluster_raft_last_leader_message':'cluster.raft_last_leader_message',
+    'cluster_raft_message_processing_delay': (
+        'cluster.raft_message_processing_delay'
+        ),
+    'cluster_raft_message_processing_timer_append_entries_request': (
+        'cluster.raft_message_processing_timer_append_entries_request'
+        ),
+    'cluster_raft_message_processing_timer_append_entries_response': (
+        'cluster.raft_message_processing_timer_append_entries_response'
+        ),
+    'cluster_raft_message_processing_timer': (
+        'cluster.raft_message_processing_timer'
+        ),
+    'cluster_raft_message_processing_timer_election_timeout': (
+        'cluster.raft_message_processing_timer_election_timeout'
+        ),
+    'cluster_raft_message_processing_timer_heartbeat_response': (
+        'cluster.raft_message_processing_timer_heartbeat_response'
+        ),
+    'cluster_raft_message_processing_timer_heartbeat_timeout': (
+        'cluster.raft_message_processing_timer_heartbeat_timeout'
+        ),
+    'cluster_raft_message_processing_timer_heartbeat': (
+        'cluster.raft_message_processing_timer_heartbeat'
+        ),
+    'cluster_raft_message_processing_timer_leadership_transfer_proposal': (
+        'cluster.raft_message_processing_timer_leadership_transfer_proposal'
+        ),
+    'cluster_raft_message_processing_timer_leadership_transfer_rejection': (
+        'cluster.raft_message_processing_timer_leadership_transfer_rejection'
+        ),
+    'cluster_raft_message_processing_timer_leadership_transfer_request': (
+        'cluster.raft_message_processing_timer_leadership_transfer_request'
+        ),
+    'cluster_raft_message_processing_timer_log_compaction_info': (
+        'cluster.raft_message_processing_timer_log_compaction_info'
+        ),
+    'cluster_raft_message_processing_timer_new_batch_request': (
+        'cluster.raft_message_processing_timer_new_batch_request'
+        ),
+    'cluster_raft_message_processing_timer_new_entry_request': (
+        'cluster.raft_message_processing_timer_new_entry_request'
+        ),
+    'cluster_raft_message_processing_timer_pre_vote_request': (
+        'cluster.raft_message_processing_timer_pre_vote_request'
+        ),
+    'cluster_raft_message_processing_timer_pre_vote_response': (
+        'cluster.raft_message_processing_timer_pre_vote_response'
+        ),
+    'cluster_raft_message_processing_timer_prune_request': (
+        'cluster.raft_message_processing_timer_prune_request'
+        ),
+    'cluster_raft_message_processing_timer_status_response': (
+        'cluster.raft_message_processing_timer_status_response'
+        ),
+    'cluster_raft_message_processing_timer_vote_request': (
+        'cluster.raft_message_processing_timer_vote_request'
+        ),
+    'cluster_raft_message_processing_timer_vote_response': (
+        'cluster.raft_message_processing_timer_vote_response'
+        ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_async_put': (
+        'cluster.raft_raft_log_entry_prefetch_buffer_async_put'
+        ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_bytes': (
+        'cluster.raft_raft_log_entry_prefetch_buffer_bytes'
+        ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_lag': (
+        'cluster.raft_raft_log_entry_prefetch_buffer_lag'
+        ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_size': (
+        'cluster.raft_raft_log_entry_prefetch_buffer_size'
+        ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_sync_put': (
+        'cluster.raft_raft_log_entry_prefetch_buffer_sync_put'
+        ),
+    'cluster_raft_replication_attempt':'cluster.raft_replication_attempt',
+    'cluster_raft_replication_fail':'cluster.raft_replication_fail',
+    'cluster_raft_replication_maybe':'cluster.raft_replication_maybe',
+    'cluster_raft_replication_new':'cluster.raft_replication_new',
+    'cluster_raft_replication_success':'cluster.raft_replication_success',
+    'cluster_raft_term':'cluster.raft_term',
+    'cluster_raft_tx_retries':'cluster.raft_tx_retries',
+    
+    #replication
+    'cluster_core_replication_attempt':'cluster.core_replication_attempt',
+    'cluster_core_replication_fail':'cluster.core_replication_fail',
+    'cluster_core_replication_maybe':'cluster.core_replication_maybe',
+    'cluster_core_replication_new':'cluster.core_replication_new',
+    'cluster_core_replication_success':'cluster.core_replication_success',
+    'cluster_core_term':'cluster.core_term',
+    'cluster_core_tx_retries':'cluster.core_tx_retries',
+    # cluster discovery
+    'cluster_discovery_cluster_converged': 'cluster.discovery_cluster_converged',
+    'cluster_discovery_cluster_members': 'cluster.discovery_cluster_members',
+    'cluster_discovery_cluster_unreachable': 'cluster.discovery_cluster_unreachable',
+    'cluster_discovery_restart_failed__count': 'cluster.discovery.restart.failed_count',
+    'cluster_discovery_restart_success__count': 'cluster.discovery.restart.success_count',
+    'cluster_discovery_replicated_data_server_data_invisible': (
+        'cluster.discovery_replicated_data_server_data_invisible'
     ),
-    'cluster_core_message_processing_timer_prune_request': ('cluster.core.message_processing_timer.prune_request'),
-    'cluster_core_message_processing_timer_vote_request': ('cluster.core.message_processing_timer.vote_request'),
-    'cluster_core_message_processing_timer_vote_response': ('cluster.core.message_processing_timer.vote_response'),
+    'cluster_discovery_replicated_data_server_data_visible': (
+        'cluster.discovery_replicated_data_server_data_visible'
+    ),
+    'cluster_discovery_replicated_data_leader_data_invisible': (
+        'cluster.discovery_replicated_data_leader_data_invisible'
+    ),
+    'cluster_discovery_replicated_data_leader_data_visible': (
+        'cluster.discovery_replicated_data_leader_data_visible'
+    ),
+    'cluster_discovery_replicated_data_bootstrap_data_invisible': (
+        'cluster.discovery_replicated_data_bootstrap_data_invisible'
+    ),
+    'cluster_discovery_replicated_data_bootstrap_data_visible': (
+        'cluster.discovery_replicated_data_bootstrap_data_visible'
+    ),
+    'cluster_discovery_replicated_data_component_versions_invisible': (
+        'cluster.discovery_replicated_data_component_versions_invisible'
+    ),
+    'cluster_discovery_replicated_data_component_versions_visible': (
+        'cluster.discovery_replicated_data_component_versions)visible'
+    ),
+    'cluster_discovery_replicated_data_database_data_invisible': (
+        'cluster.discovery_replicated_data_database_data_invisible'
+    ),
+    'cluster_discovery_replicated_data_database_data_visible': (
+        'cluster.discovery_replicated_data_database_data_visible'
+    ),
+    # Store Copy
+    'cluster_store_copy_pull_updates': (
+        'cluster.store_copy.pull_updates'
+    ),
+    'cluster_store_copy_pull_update_highest_tx_id_requested': (
+        'cluster.store_copy.pull_update_highest_tx_id_requested'
+    ),
+    'cluster_store_copy_pull_update_highest_tx_id_received': (
+        'cluster.store_copy.pull_update_highest_tx_id_received'
+    ),
+    
+    # end causal clustering replicated data metrics
     'cluster.read_replica.pull_updates': 'cluster.read_replica.pull_updates',
     'cluster.read_replica.pull_update_highest_tx_id_requested': (
         'cluster.read_replica.pull_update_highest_tx_id_requested'
@@ -106,12 +243,117 @@ METRIC_MAP = {
     'cluster.read_replica.pull_update_highest_tx_id_received': (
         'cluster.read_replica.pull_update_highest_tx_id_received'
     ),
-    'cluster_core_replication_attempt': 'cluster.core.replication_attempt',
-    'cluster_core_replication_fail': 'cluster.core.replication_fail',
-    'cluster_core_replication_new': 'cluster.core.replication_new',
-    'cluster_core_replication_success': 'cluster.core.replication_success',
-    'cluster_core_term': 'cluster.core.term',
-    'cluster_core_tx_retries': 'cluster.core.tx_retries',
+    # causal clustering metrics (4.x)
+    'causal_clustering_catchup_tx_pull_requests_received': 'causal_clustering.catchup_tx_pull_requests_received',
+    'causal_clustering_core_append_index': 'causal_clustering.core.append_index',
+    'causal_clustering_core_commit_index': 'causal_clustering.core.commit_index',
+    'causal_clustering_core_discovery_cluster_converged': 'causal_clustering.core.discovery.cluster.converged',
+    'causal_clustering_core_discovery_cluster_members': 'causal_clustering.core.discovery.cluster.members',
+    'causal_clustering_core_discovery_cluster_unreachable': 'causal_clustering.core.discovery.cluster.unreachable',
+
+    # causal clustering replicated data metrics (4.3)
+    'causal_clustering_core_discovery_replicated_data_member_data_invisible': (
+        'causal_clustering.core.discovery.replicated_data.member_data.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_member_data_visible': (
+        'causal_clustering.core.discovery.replicated_data.member_data.visible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_invisible': (
+        'causal_clustering.core.discovery.replicated_data.raft_id_published_by_member.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_raft_id_published_by_member_visible': (
+        'causal_clustering.core.discovery.replicated_data.raft_id_published_by_member.visible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_per_db_leader_name_invisible': (
+        'causal_clustering.core.discovery.replicated_data.per_db_leader_name.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_per_db_leader_name_visible': (
+        'causal_clustering.core.discovery.replicated_data.per_db_leader_name.visible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_member_db_state_invisible': (
+        'causal_clustering.core.discovery.replicated_data.member_db_state.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_member_db_state_visible': (
+        'causal_clustering.core.discovery.replicated_data.member_db_state.visible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_raft_member_mapping_invisible': (
+        'causal_clustering.core.discovery.replicated_data.raft_member_mapping.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_raft_member_mapping_visible': (
+        'causal_clustering.core.discovery.replicated_data.raft_member_mapping.visible'
+    ),
+    # causal clustering replicated data metrics (3.6)
+    'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_invisible': (
+        'causal_clustering.core.discovery.replicated_data.cluster_id_per_db_name.invisible'
+    ),
+    'causal_clustering_core_discovery_replicated_data_cluster_id_per_db_name_visible': (
+        'causal_clustering.core.discovery.replicated_data.cluster_id_per_db_name.visible'
+    ),
+    # end causal clustering replicated data metrics
+    'causal_clustering_core_in_flight_cache_element_count': 'causal_clustering.core.in_flight_cache_element_count',
+    'causal_clustering_core_in_flight_cache_hits': 'causal_clustering.core.in_flight_cache.hits',
+    'causal_clustering_core_in_flight_cache_max_bytes': 'causal_clustering.core.in_flight_cache.max_bytes',
+    'causal_clustering_core_in_flight_cache_max_elements': 'causal_clustering.core.in_flight_cache.max_elements',
+    'causal_clustering_core_in_flight_cache_misses': 'causal_clustering.core.in_flight_cache.misses',
+    'causal_clustering_core_in_flight_cache_total_bytes': 'causal_clustering.core.in_flight_cache.total_bytes',
+    'causal_clustering_core_is_leader': 'causal_clustering.core.is_leader',
+    'causal_clustering_core_message_processing_delay': 'causal_clustering.core.message_processing_delay',
+    'causal_clustering_core_message_processing_timer': 'causal_clustering.core.message_processing_timer',
+    'causal_clustering_core_message_processing_timer_append_entries_request': (
+        'causal_clustering.core.message_processing_timer.append_entries_request'
+    ),
+    'causal_clustering_core_message_processing_timer_append_entries_response': (
+        'causal_clustering.core.message_processing_timer.append_entries_response'
+    ),
+    'causal_clustering_core_message_processing_timer_election_timeout': (
+        'causal_clustering.core.message_processing_timer.election_timeout'
+    ),
+    'causal_clustering_core_message_processing_timer_heartbeat': (
+        'causal_clustering.core.message_processing_timer.heartbeat'
+    ),
+    'causal_clustering_core_message_processing_timer_heartbeat_response': (
+        'causal_clustering.core.message_processing_timer.heartbeat_response'
+    ),
+    'causal_clustering_core_message_processing_timer_heartbeat_timeout': (
+        'causal_clustering.core.message_processing_timer.heartbeat_timeout'
+    ),
+    'causal_clustering_core_message_processing_timer_log_compaction_info': (
+        'causal_clustering.core.message_processing_timer.log_compaction_info'
+    ),
+    'causal_clustering_core_message_processing_timer_new_batch_request': (
+        'causal_clustering.core.message_processing_timer.new_batch_request'
+    ),
+    'causal_clustering_core_message_processing_timer_new_entry_request': (
+        'causal_clustering.core.message_processing_timer.new_entry_request'
+    ),
+    'causal_clustering_core_message_processing_timer_pre_vote_request': (
+        'causal_clustering.core.message_processing_timer.pre_vote_request'
+    ),
+    'causal_clustering_core_message_processing_timer_pre_vote_response': (
+        'causal_clustering.core.message_processing_timer.pre_vote_response'
+    ),
+    'causal_clustering_core_message_processing_timer_prune_request': (
+        'causal_clustering.core.message_processing_timer.prune_request'
+    ),
+    'causal_clustering_core_message_processing_timer_vote_request': (
+        'causal_clustering.core.message_processing_timer.vote_request'
+    ),
+    'causal_clustering_core_message_processing_timer_vote_response': (
+        'causal_clustering.core.message_processing_timer.vote_response'
+    ),
+    'causal_clustering.read_replica.pull_updates': 'causal_clustering.read_replica.pull_updates',
+    'causal_clustering.read_replica.pull_update_highest_tx_id_requested': (
+        'causal_clustering.read_replica.pull_update_highest_tx_id_requested'
+    ),
+    'causal_clustering.read_replica.pull_update_highest_tx_id_received': (
+        'causal_clustering.read_replica.pull_update_highest_tx_id_received'
+    ),
+    'causal_clustering_core_replication_attempt': 'causal_clustering.core.replication_attempt',
+    'causal_clustering_core_replication_fail': 'causal_clustering.core.replication_fail',
+    'causal_clustering_core_replication_new': 'causal_clustering.core.replication_new',
+    'causal_clustering_core_replication_success': 'causal_clustering.core.replication_success',
+    'causal_clustering_core_term': 'causal_clustering.core.term',
+    'causal_clustering_core_tx_retries': 'causal_clustering.core.tx_retries',
     # database checkpointing metrics
     'check_point_events': 'check_point.events',
     'check_point_total_time': 'check_point.total_time',
@@ -136,15 +378,18 @@ METRIC_MAP = {
     'ids_in_use_relationship': 'ids_in_use.relationship',
     'ids_in_use_relationship_type': 'ids_in_use.relationship_type',
     # database operation count metrics
-    'db_operations_count_create': 'db_operation_count.create',
-    'db_operations_count_start': 'db_operation_count.start',
-    'db_operations_count_stop': 'db_operation_count.stop',
-    'db_operations_count_drop': 'db_operation_count.drop',
-    'db_operations_count_failed': 'db_operation_count.failed',
-    'db_operations_count_recovered': 'db_operation_count.recovered',
+    'db_operation_count_create': 'db.operation.count.create',
+    'db_operation_count_start': 'db.operation.count.start',
+    'db_operation_count_stop': 'db.operation.count.stop',
+    'db_operation_count_drop': 'db.operation.count.drop',
+    'db_operation_count_failed': 'db.operation.count.failed',
+    'db_operation_count_recovered': 'db.operation.count.recovered',
     # database store size metrics
     'neo4j_store_size_total': 'neo4j.store.size_total',
     'neo4j_store_size_database': 'neo4j.store.size_database',
+    # database store size metrics (4.x)
+    'store_size_total': 'store.size.total',
+    'store_size_database': 'store.size.database',
     # database transaction log metrics
     'log_appended_bytes': 'log.appended_bytes',
     'log_append_batch_size': 'log.append_batch_size',
@@ -215,7 +460,19 @@ METRIC_MAP = {
     'vm_memory_pool_g1_old_gen': 'vm.memory.pool.g1_old_gen',
     'vm_memory_pool_g1_survivor_space': 'vm.memory.pool.g1_survivor_space',
     'vm_memory_pool_metaspace': 'vm.memory.pool.metaspace',
+    # JVM Other Metrics
+    'vm_pause_time': 'vm.pause_time',
+    'vm_heap_used': 'vm.heap.used',
+    'vm_heap_max': 'vm.heap.max',
+    'vm_heap_committed': 'vm.heap.committed',
+    'vm_file_descriptors_count': 'vm.file.descriptors.count',
+    'vm_file_descriptors_maximum': 'vm.file.descriptors.maximum',
     # dbms memory pools metrics
+    'pool_cluster_free': 'pool.cluster_free',
+    'pool_cluster_total_size': 'pool.cluster.total_size',
+    'pool_cluster_total_used': 'pool.cluster.total_used',
+    'pool_cluster_used_heap': 'pool.cluster.used_heap',
+    'pool_cluster_used_native': 'pool.cluster.used_native',
     'pool_page_cache_total_size': 'pool.page_cache.total_size',
     'pool_page_cache_free': 'pool.page_cache.free',
     'pool_page_cache_total_used': 'pool.page_cache.total_used',
@@ -245,8 +502,20 @@ METRIC_MAP = {
     'pool_bolt_total_used': 'pool.bolt.total_used',
     'pool_bolt_used_native': 'pool.bolt.used_native',
     'pool_bolt_used_heap': 'pool.bolt.used_heap',
+    # pool http
+    'pool_http_free': 'pool.http.free',
+    'pool_http_total_size': 'pool.http.total_size',
+    'pool_http_total_used': 'pool.http.total_used',
+    'pool_http_used_heap': 'pool.http.used_heap',
+    'pool_http_used_native': 'pool.http.used_native',
+    'pool_http_transaction_total_size': 'pool.http_transaction.total_size',
+    'pool_http_transaction_free': 'pool.http_transaction.free',
+    'pool_http_transaction_total_used': 'pool.http_transaction.total_used',
+    'pool_http_transaction_used_native': 'pool.http_transaction.used_native',
+    'pool_http_transaction_used_heap': 'pool.http_transaction.used_heap',
     # JVM threads metrics
     'vm_thread_count': 'vm.thread.count',
     'vm_thread_total': 'vm.thread.total',
     'vm_threads': 'vm.threads',
+
 }
