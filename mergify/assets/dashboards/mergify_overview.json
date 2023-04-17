@@ -1,0 +1,105 @@
+{
+  "title": "Mergify overview",
+  "description": "# Faster and Safer Code Merge\n\n**Merge Queue**: Queue, Update and Merge your Pull Requests.\n**Workflow Automation**: Automate your code merge processes.\n\nSave Time. Save Money. Secure your code.\nImprove your developer experience.\n\nThis is an example of Datadog merge queue dashboard you can get from https://mergify.com/.",
+  "widgets": [
+    {
+      "id": 6714248528946580,
+      "definition": {
+        "type": "image",
+        "url": "https://uploads-ssl.webflow.com/638f4ec77f1bd063218863f7/63d3fc51cc7a5229e8d897f2_mergify-logo-title-horizontal-white-p-500.png",
+        "sizing": "scale-down",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 6680129273384530,
+      "definition": {
+        "type": "note",
+        "content": "# Faster and Safer Code Merge\n\n**Merge Queue**: Queue, Update and Merge your Pull Requests.\n\n**Workflow Automation**: Automate your code merge processes.\n\nSave Time. Save Money. Secure your code.\nImprove your developer experience.\n\nThis is an example of Datadog merge queue dashboard you can get from https://mergify.com/.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": 4473883965068244,
+      "definition": {
+        "title": "Mergify merge queue length",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:mergify.merge_queue_length{$repository} by {branch}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "repository",
+      "prefix": "repository",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "5s8-u3t-m29"
+}
