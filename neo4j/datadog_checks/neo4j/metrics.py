@@ -47,7 +47,7 @@ METRIC_MAP = {
     ),
     'cluster_core_message_processing_timer_leadership_transfer_rejection': (
         'cluster.core_message_processing_timer_leadership_transfer_rejection'
-     ),
+    ),
     'cluster_core_message_processing_timer_leadership_transfer_request': (
         'cluster.core_message_processing_timer_leadership_transfer_request'
     ),
@@ -71,29 +71,25 @@ METRIC_MAP = {
     'cluster_core_message_processing_timer_vote_request': ('cluster.core_message_processing_timer_vote_request'),
     'cluster_core_message_processing_timer_vote_response': ('cluster.core_message_processing_timer_vote_response'),
     #raft
-    'cluster_raft_append_index':'cluster.raft_append_index',
-    'cluster_raft_applied_index':'cluster.raft_applied_index',
-    'cluster_raft_commit_index':'cluster.raft_commit_index',
-    'cluster_raft_in_flight_cache_element_count':'cluster.raft_in_flight_cache_element_count',
-    'cluster_raft_in_flight_cache_hits':'cluster.raft_in_flight_cache_hits',
-    'cluster_raft_in_flight_cache_max_bytes':'cluster.raft_in_flight_cache_max_bytes',
-    'cluster_raft_in_flight_cache_max_elements':'cluster.raft_in_flight_cache_max_elements',
-    'cluster_raft_in_flight_cache_misses':'cluster.raft_in_flight_cache_misses',
-    'cluster_raft_in_flight_cache_total_bytes':'cluster.raft_in_flight_cache_total_bytes',
-    'cluster_raft_is_leader':'cluster.raft_is_leader',
-    'cluster_raft_last_leader_message':'cluster.raft_last_leader_message',
-    'cluster_raft_message_processing_delay': (
-        'cluster.raft_message_processing_delay'
-    ),
+    'cluster_raft_append_index': 'cluster.raft_append_index',
+    'cluster_raft_applied_index': 'cluster.raft_applied_index',
+    'cluster_raft_commit_index': 'cluster.raft_commit_index',
+    'cluster_raft_in_flight_cache_element_count': 'cluster.raft_in_flight_cache_element_count',
+    'cluster_raft_in_flight_cache_hits': 'cluster.raft_in_flight_cache_hits',
+    'cluster_raft_in_flight_cache_max_bytes': 'cluster.raft_in_flight_cache_max_bytes',
+    'cluster_raft_in_flight_cache_max_elements': 'cluster.raft_in_flight_cache_max_elements',
+    'cluster_raft_in_flight_cache_misses': 'cluster.raft_in_flight_cache_misses',
+    'cluster_raft_in_flight_cache_total_bytes': 'cluster.raft_in_flight_cache_total_bytes',
+    'cluster_raft_is_leader': 'cluster.raft_is_leader',
+    'cluster_raft_last_leader_message': 'cluster.raft_last_leader_message',
+    'cluster_raft_message_processing_delay': ('cluster.raft_message_processing_delay'),
     'cluster_raft_message_processing_timer_append_entries_request': (
         'cluster.raft_message_processing_timer_append_entries_request'
     ),
     'cluster_raft_message_processing_timer_append_entries_response': (
         'cluster.raft_message_processing_timer_append_entries_response'
     ),
-    'cluster_raft_message_processing_timer': (
-        'cluster.raft_message_processing_timer'
-    ),
+    'cluster_raft_message_processing_timer': ('cluster.raft_message_processing_timer'),
     'cluster_raft_message_processing_timer_election_timeout': (
         'cluster.raft_message_processing_timer_election_timeout'
     ),
@@ -103,9 +99,7 @@ METRIC_MAP = {
     'cluster_raft_message_processing_timer_heartbeat_timeout': (
         'cluster.raft_message_processing_timer_heartbeat_timeout'
     ),
-    'cluster_raft_message_processing_timer_heartbeat': (
-        'cluster.raft_message_processing_timer_heartbeat'
-    ),
+    'cluster_raft_message_processing_timer_heartbeat': ('cluster.raft_message_processing_timer_heartbeat'),
     'cluster_raft_message_processing_timer_leadership_transfer_proposal': (
         'cluster.raft_message_processing_timer_leadership_transfer_proposal'
     ),
@@ -117,7 +111,7 @@ METRIC_MAP = {
     ),
     'cluster_raft_message_processing_timer_log_compaction_info': (
         'cluster.raft_message_processing_timer_log_compaction_info'
-     ),
+    ),
     'cluster_raft_message_processing_timer_new_batch_request': (
         'cluster.raft_message_processing_timer_new_batch_request'
     ),
@@ -130,48 +124,30 @@ METRIC_MAP = {
     'cluster_raft_message_processing_timer_pre_vote_response': (
         'cluster.raft_message_processing_timer_pre_vote_response'
     ),
-    'cluster_raft_message_processing_timer_prune_request': (
-        'cluster.raft_message_processing_timer_prune_request'
-    ),
-    'cluster_raft_message_processing_timer_status_response': (
-        'cluster.raft_message_processing_timer_status_response'
-    ),
-    'cluster_raft_message_processing_timer_vote_request': (
-        'cluster.raft_message_processing_timer_vote_request'
-    ),
-    'cluster_raft_message_processing_timer_vote_response': (
-        'cluster.raft_message_processing_timer_vote_response'
-    ),
-    'cluster_raft_raft_log_entry_prefetch_buffer_async_put': (
-        'cluster.raft_raft_log_entry_prefetch_buffer_async_put'
-    ),
-    'cluster_raft_raft_log_entry_prefetch_buffer_bytes': (
-        'cluster.raft_raft_log_entry_prefetch_buffer_bytes'
-    ),
-    'cluster_raft_raft_log_entry_prefetch_buffer_lag': (
-        'cluster.raft_raft_log_entry_prefetch_buffer_lag'
-    ),
-    'cluster_raft_raft_log_entry_prefetch_buffer_size': (
-        'cluster.raft_raft_log_entry_prefetch_buffer_size'
-    ),
-    'cluster_raft_raft_log_entry_prefetch_buffer_sync_put': (
-        'cluster.raft_raft_log_entry_prefetch_buffer_sync_put'
-    ),
-    'cluster_raft_replication_attempt':'cluster.raft_replication_attempt',
-    'cluster_raft_replication_fail':'cluster.raft_replication_fail',
-    'cluster_raft_replication_maybe':'cluster.raft_replication_maybe',
-    'cluster_raft_replication_new':'cluster.raft_replication_new',
-    'cluster_raft_replication_success':'cluster.raft_replication_success',
-    'cluster_raft_term':'cluster.raft_term',
-    'cluster_raft_tx_retries':'cluster.raft_tx_retries',
+    'cluster_raft_message_processing_timer_prune_request': ('cluster.raft_message_processing_timer_prune_request'),
+    'cluster_raft_message_processing_timer_status_response': ('cluster.raft_message_processing_timer_status_response'),
+    'cluster_raft_message_processing_timer_vote_request': ('cluster.raft_message_processing_timer_vote_request'),
+    'cluster_raft_message_processing_timer_vote_response': ('cluster.raft_message_processing_timer_vote_response'),
+    'cluster_raft_raft_log_entry_prefetch_buffer_async_put': ('cluster.raft_raft_log_entry_prefetch_buffer_async_put'),
+    'cluster_raft_raft_log_entry_prefetch_buffer_bytes': ('cluster.raft_raft_log_entry_prefetch_buffer_bytes'),
+    'cluster_raft_raft_log_entry_prefetch_buffer_lag': ('cluster.raft_raft_log_entry_prefetch_buffer_lag'),
+    'cluster_raft_raft_log_entry_prefetch_buffer_size': ('cluster.raft_raft_log_entry_prefetch_buffer_size' ),
+    'cluster_raft_raft_log_entry_prefetch_buffer_sync_put': ('cluster.raft_raft_log_entry_prefetch_buffer_sync_put'),
+    'cluster_raft_replication_attempt': 'cluster.raft_replication_attempt',
+    'cluster_raft_replication_fail': 'cluster.raft_replication_fail',
+    'cluster_raft_replication_maybe': 'cluster.raft_replication_maybe',
+    'cluster_raft_replication_new': 'cluster.raft_replication_new',
+    'cluster_raft_replication_success': 'cluster.raft_replication_success',
+    'cluster_raft_term': 'cluster.raft_term',
+    'cluster_raft_tx_retries': 'cluster.raft_tx_retries',
     #replication
-    'cluster_core_replication_attempt':'cluster.core_replication_attempt',
-    'cluster_core_replication_fail':'cluster.core_replication_fail',
-    'cluster_core_replication_maybe':'cluster.core_replication_maybe',
-    'cluster_core_replication_new':'cluster.core_replication_new',
-    'cluster_core_replication_success':'cluster.core_replication_success',
-    'cluster_core_term':'cluster.core_term',
-    'cluster_core_tx_retries':'cluster.core_tx_retries',
+    'cluster_core_replication_attempt': 'cluster.core_replication_attempt',
+    'cluster_core_replication_fail': 'cluster.core_replication_fail',
+    'cluster_core_replication_maybe': 'cluster.core_replication_maybe',
+    'cluster_core_replication_new': 'cluster.core_replication_new',
+    'cluster_core_replication_success': 'cluster.core_replication_success',
+    'cluster_core_term': 'cluster.core_term',
+    'cluster_core_tx_retries': 'cluster.core_tx_retries',
     # cluster discovery
     'cluster_discovery_cluster_converged': 'cluster.discovery_cluster_converged',
     'cluster_discovery_cluster_members': 'cluster.discovery_cluster_members',
