@@ -12,7 +12,7 @@ METRIC_MAP = {
     'bolt_messages_started': 'bolt.messages_started',
     # causal clustering metrics (5.x)
     'cluster_catchup_tx_pull_requests_received': 'cluster.catchup_tx_pull_requests_received',
-    #cluster core
+    # cluster core
     'cluster_core_append_index': 'cluster.core.append_index',
     'cluster_core_applied_index': 'cluster.core.applied_index',
     'cluster_core_commit_index': 'cluster.core.commit_index',
@@ -24,18 +24,14 @@ METRIC_MAP = {
     'cluster_core_in_flight_cache_total_bytes': 'cluster.core_in_flight_cache_total_bytes',
     'cluster_core_is_leader': 'cluster.core_is_leader',
     'cluster_core_last_leader_message': 'cluster.core_last_leader_message',
-    'cluster_core_message_processing_delay': (
-        'cluster.core_message_processing_delay'
-        ),
+    'cluster_core_message_processing_delay': ('cluster.core_message_processing_delay'),
     'cluster_core_message_processing_timer_append_entries_request': (
         'cluster.core.message_processing_timer.append_entries_request'
     ),
     'cluster_core_message_processing_timer_append_entries_response': (
         'cluster.core_message_processing_timer_append_entries_response'
     ),
-    'cluster_core_message_processing_timer': (
-        'cluster.core_message_processing_timer'
-    ),
+    'cluster_core_message_processing_timer': ('cluster.core_message_processing_timer'),
     'cluster_core_message_processing_timer_election_timeout': (
         'cluster.core_message_processing_timer_election_timeout'
     ),
@@ -45,45 +41,35 @@ METRIC_MAP = {
     'cluster_core_message_processing_timer_heartbeat_timeout': (
         'cluster.core_message_processing_timer_heartbeat_timeout'
     ),
-    'cluster_core_message_processing_timer_heartbeat': (
-        'cluster.core_message_processing_timer_heartbeat'
-        ),
+    'cluster_core_message_processing_timer_heartbeat': ('cluster.core_message_processing_timer_heartbeat'),
     'cluster_core_message_processing_timer_leadership_transfer_proposal': (
         'cluster.core_message_processing_timer_leadership_transfer_proposal'
-        ),
+    ),
     'cluster_core_message_processing_timer_leadership_transfer_rejection': (
         'cluster.core_message_processing_timer_leadership_transfer_rejection'
-        ),
+     ),
     'cluster_core_message_processing_timer_leadership_transfer_request': (
         'cluster.core_message_processing_timer_leadership_transfer_request'
-        ),
+    ),
     'cluster_core_message_processing_timer_log_compaction_info': (
         'cluster.core_message_processing_timer_log_compaction_info'
-        ),
+    ),
     'cluster_core_message_processing_timer_new_batch_request': (
         'cluster.core_message_processing_timer_new_batch_request'
-        ),
+    ),
     'cluster_core_message_processing_timer_new_entry_request': (
         'cluster.core_message_processing_timer_new_entry_request'
-        ),
+    ),
     'cluster_core_message_processing_timer_pre_vote_request': (
         'cluster.core_message_processing_timer_pre_vote_request'
-        ),
+    ),
     'cluster_core_message_processing_timer_pre_vote_response': (
         'cluster.core_message_processing_timer_pre_vote_response'
-        ),
-    'cluster_core_message_processing_timer_prune_request': (
-        'cluster.core_message_processing_timer_prune_request'
-        ),
-    'cluster_core_message_processing_timer_status_response': (
-        'cluster.core_message_processing_timer_status_response'
-        ),
-    'cluster_core_message_processing_timer_vote_request': (
-        'cluster.core_message_processing_timer_vote_request'
-        ),
-    'cluster_core_message_processing_timer_vote_response': (
-        'cluster.core_message_processing_timer_vote_response'
-        ),
+    ),
+    'cluster_core_message_processing_timer_prune_request': ('cluster.core_message_processing_timer_prune_request'),
+    'cluster_core_message_processing_timer_status_response': ('cluster.core_message_processing_timer_status_response'),
+    'cluster_core_message_processing_timer_vote_request': ('cluster.core_message_processing_timer_vote_request'),
+    'cluster_core_message_processing_timer_vote_response': ('cluster.core_message_processing_timer_vote_response'),
     #raft
     'cluster_raft_append_index':'cluster.raft_append_index',
     'cluster_raft_applied_index':'cluster.raft_applied_index',
@@ -98,79 +84,79 @@ METRIC_MAP = {
     'cluster_raft_last_leader_message':'cluster.raft_last_leader_message',
     'cluster_raft_message_processing_delay': (
         'cluster.raft_message_processing_delay'
-        ),
+    ),
     'cluster_raft_message_processing_timer_append_entries_request': (
         'cluster.raft_message_processing_timer_append_entries_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_append_entries_response': (
         'cluster.raft_message_processing_timer_append_entries_response'
-        ),
+    ),
     'cluster_raft_message_processing_timer': (
         'cluster.raft_message_processing_timer'
-        ),
+    ),
     'cluster_raft_message_processing_timer_election_timeout': (
         'cluster.raft_message_processing_timer_election_timeout'
-        ),
+    ),
     'cluster_raft_message_processing_timer_heartbeat_response': (
         'cluster.raft_message_processing_timer_heartbeat_response'
-        ),
+    ),
     'cluster_raft_message_processing_timer_heartbeat_timeout': (
         'cluster.raft_message_processing_timer_heartbeat_timeout'
-        ),
+    ),
     'cluster_raft_message_processing_timer_heartbeat': (
         'cluster.raft_message_processing_timer_heartbeat'
-        ),
+    ),
     'cluster_raft_message_processing_timer_leadership_transfer_proposal': (
         'cluster.raft_message_processing_timer_leadership_transfer_proposal'
-        ),
+    ),
     'cluster_raft_message_processing_timer_leadership_transfer_rejection': (
         'cluster.raft_message_processing_timer_leadership_transfer_rejection'
-        ),
+    ),
     'cluster_raft_message_processing_timer_leadership_transfer_request': (
         'cluster.raft_message_processing_timer_leadership_transfer_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_log_compaction_info': (
         'cluster.raft_message_processing_timer_log_compaction_info'
-        ),
+     ),
     'cluster_raft_message_processing_timer_new_batch_request': (
         'cluster.raft_message_processing_timer_new_batch_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_new_entry_request': (
         'cluster.raft_message_processing_timer_new_entry_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_pre_vote_request': (
         'cluster.raft_message_processing_timer_pre_vote_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_pre_vote_response': (
         'cluster.raft_message_processing_timer_pre_vote_response'
-        ),
+    ),
     'cluster_raft_message_processing_timer_prune_request': (
         'cluster.raft_message_processing_timer_prune_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_status_response': (
         'cluster.raft_message_processing_timer_status_response'
-        ),
+    ),
     'cluster_raft_message_processing_timer_vote_request': (
         'cluster.raft_message_processing_timer_vote_request'
-        ),
+    ),
     'cluster_raft_message_processing_timer_vote_response': (
         'cluster.raft_message_processing_timer_vote_response'
-        ),
+    ),
     'cluster_raft_raft_log_entry_prefetch_buffer_async_put': (
         'cluster.raft_raft_log_entry_prefetch_buffer_async_put'
-        ),
+    ),
     'cluster_raft_raft_log_entry_prefetch_buffer_bytes': (
         'cluster.raft_raft_log_entry_prefetch_buffer_bytes'
-        ),
+    ),
     'cluster_raft_raft_log_entry_prefetch_buffer_lag': (
         'cluster.raft_raft_log_entry_prefetch_buffer_lag'
-        ),
+    ),
     'cluster_raft_raft_log_entry_prefetch_buffer_size': (
         'cluster.raft_raft_log_entry_prefetch_buffer_size'
-        ),
+    ),
     'cluster_raft_raft_log_entry_prefetch_buffer_sync_put': (
         'cluster.raft_raft_log_entry_prefetch_buffer_sync_put'
-        ),
+    ),
     'cluster_raft_replication_attempt':'cluster.raft_replication_attempt',
     'cluster_raft_replication_fail':'cluster.raft_replication_fail',
     'cluster_raft_replication_maybe':'cluster.raft_replication_maybe',
@@ -195,15 +181,11 @@ METRIC_MAP = {
     'cluster_discovery_replicated_data_server_data_invisible': (
         'cluster.discovery_replicated_data_server_data_invisible'
     ),
-    'cluster_discovery_replicated_data_server_data_visible': (
-        'cluster.discovery_replicated_data_server_data_visible'
-    ),
+    'cluster_discovery_replicated_data_server_data_visible': ('cluster.discovery_replicated_data_server_data_visible'),
     'cluster_discovery_replicated_data_leader_data_invisible': (
         'cluster.discovery_replicated_data_leader_data_invisible'
     ),
-    'cluster_discovery_replicated_data_leader_data_visible': (
-        'cluster.discovery_replicated_data_leader_data_visible'
-    ),
+    'cluster_discovery_replicated_data_leader_data_visible': ('cluster.discovery_replicated_data_leader_data_visible'),
     'cluster_discovery_replicated_data_bootstrap_data_invisible': (
         'cluster.discovery_replicated_data_bootstrap_data_invisible'
     ),
@@ -223,15 +205,11 @@ METRIC_MAP = {
         'cluster.discovery_replicated_data_database_data_visible'
     ),
     # Store Copy
-    'cluster_store_copy_pull_updates': (
-        'cluster.store_copy.pull_updates'
-    ),
+    'cluster_store_copy_pull_updates': ('cluster.store_copy.pull_updates'),
     'cluster_store_copy_pull_update_highest_tx_id_requested': (
         'cluster.store_copy.pull_update_highest_tx_id_requested'
     ),
-    'cluster_store_copy_pull_update_highest_tx_id_received': (
-        'cluster.store_copy.pull_update_highest_tx_id_received'
-    ),
+    'cluster_store_copy_pull_update_highest_tx_id_received': ('cluster.store_copy.pull_update_highest_tx_id_received'),
     # end causal clustering replicated data metrics
     'cluster.read_replica.pull_updates': 'cluster.read_replica.pull_updates',
     'cluster.read_replica.pull_update_highest_tx_id_requested': (
