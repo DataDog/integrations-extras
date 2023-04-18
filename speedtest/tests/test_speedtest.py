@@ -1,10 +1,10 @@
-from typing import Any, Dict
+from typing import Any, Dict  # noqa: F401
 
 import mock
 import pytest
 
 from datadog_checks.base import ConfigurationError
-from datadog_checks.base.stubs.aggregator import AggregatorStub
+from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.speedtest import MEGABYTE_TO_MEBIBYTE, SpeedtestCheck
 
 MOCK_RESPONSE = {

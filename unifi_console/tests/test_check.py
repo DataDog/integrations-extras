@@ -3,12 +3,12 @@ import os
 
 import pytest
 from mock import patch
-from tests.common import HERE
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.unifi_console.check import UnifiConsoleCheck
 from datadog_checks.unifi_console.errors import APIConnectionError
 from datadog_checks.unifi_console.types import ControllerInfo, Count, Gauge, Rate
+from tests.common import HERE
 
 
 @pytest.mark.usefixtures("mock_api")

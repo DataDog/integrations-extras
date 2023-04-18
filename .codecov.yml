@@ -75,6 +75,10 @@ coverage:
         target: 75
         flags:
         - logstash
+      Mergify:
+        target: 75
+        flags:
+        - mergify
       NS1:
         target: 75
         flags:
@@ -385,6 +389,11 @@ flags:
     paths:
     - logstash/datadog_checks/logstash
     - logstash/tests
+  mergify:
+    carryforward: true
+    paths:
+    - mergify/datadog_checks/mergify
+    - mergify/tests
   neo4j:
     carryforward: true
     paths:
