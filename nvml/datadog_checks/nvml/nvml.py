@@ -204,7 +204,7 @@ class NvmlCheck(AgentCheck):
     def get_tags(self, device_id):
         with self.lock:
             # Note: device ID comes in as bytes, but we get strings from grpc
-            return self.known_tags.get(device_id, self.known_tags.get(device_id.decode("utf-8"), []))
+            return self.known_tags.get(device_id, self.known_tags.get(device_id, []))
 
     def get_pod_tags(self, namespace, pod_name):
         try:
