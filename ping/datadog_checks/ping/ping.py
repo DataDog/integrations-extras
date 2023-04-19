@@ -71,33 +71,33 @@ class PingCheck(AgentCheck):
         lines, err, retcode = get_subprocess_output(
             precmd + [cmd, countOption, "1", timeoutOption, str(timeout), target_host],
             self.log,
-            raise_on_empty_output=False, #set this to false so that the check doesn't seems to have failed just because the host is unreachable
+            raise_on_empty_output=False,  # Host unreachable != fail
         )
         self.log.debug("ping returned %s - %s - %s", retcode, lines, err)
-        if retcode == 0: #if ping successful
-            return lines #return the output.
-        return "" #if ping not successful, return an empty string without raising an error.
+        if retcode == 0:  # If ping successful
+            return lines  # Return the output
+        return ""  # If not, return empty string without errors
 
     def check(self, instance):
         host, custom_tags, timeout, response_time = self._load_conf(instance)
-        length = -1 #initialize length to -1 in case ping unsuccessful
+        length = -1  # Initialize length to -1 in case ping unsuccessful
         custom_tags.append("target_host:{}".format(host))
 
         lines = self._exec_ping(timeout, host)
         regex = re.compile(r"time[<=]((\d|\.)*)")
         result = regex.findall(lines)
-        if result: #if ping successful, get the length value
+        if result:  # If ping successful, get the length value
             length = result[0][0]
 
-        if lines == "": # if ping unsuccessful 
-            self.log.info("%s is DOWN or UNREACHABLE", host) #log the fact that the host in either down or unreachable with out raising an error
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.WARNING, custom_tags) #raise a warning status only when ping unsuccessful
-            self.gauge(self.SERVICE_CHECK_NAME, 0, custom_tags) #set the "network.ping.can_connect" metric to zero to indicate an unsuccessful ping
+        if lines == "":  # If ping unsuccessful
+            self.log.info("%s is DOWN or UNREACHABLE", host)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.WARNING, custom_tags)
+            self.gauge(self.SERVICE_CHECK_NAME, 0, custom_tags)
             
         else:
-            if response_time: # if ping successful 
-                self.gauge("network.ping.response_time", length, custom_tags) #set the "network.ping.response_time" metric to the value of "length"
+            if response_time:  # If ping successful
+                self.gauge("network.ping.response_time", length, custom_tags)
 
-            self.log.debug("%s is UP", host) #log the fact that the host is up
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags) #set the service check to OK if since ping is successful
-            self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags) #set the "network.ping.can_connect" metric to one to indicate a successful ping
+            self.log.debug("%s is UP", host)
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, custom_tags)
+            self.gauge(self.SERVICE_CHECK_NAME, 1, custom_tags)
