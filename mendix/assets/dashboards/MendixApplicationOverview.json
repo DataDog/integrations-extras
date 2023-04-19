@@ -1,1 +1,1029 @@
-{"title":"Mendix Application Overview","description":"This dashboard provides a high-level overview of key Mendix runtime and application environment metrics to help you monitor your Mendix application instances.\n\nMore details can be found in the [Monitoring with APM](https://docs.mendix.com/developerportal/operate/monitoring-with-apm/) docs.","widgets":[{"id":5118684248083416,"definition":{"title":"App Activity","background_color":"vivid_blue","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":4513608605655482,"definition":{"title":"Total Named Users","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"query":"avg:jmx.com.mendix.named_users{$MxApp}","data_source":"metrics","name":"query1","aggregator":"avg"}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"precision":2,"timeseries_background":{"type":"area","yaxis":{"include_zero":false}}},"layout":{"x":0,"y":0,"width":3,"height":3}},{"id":7631213635011898,"definition":{"title":"Average Microflow Time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"name":"query1","data_source":"metrics","query":"avg:mx.microflow.time.avg{$MxApp} by {microflow}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"include_zero":false}},"layout":{"x":3,"y":0,"width":5,"height":3}},{"id":4915559233884798,"definition":{"title":"Activity Overview","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","queries":[{"query":"avg:mx.activity.time.count{$MxApp} by {activity,microflow}.as_count()","data_source":"metrics","name":"query2","aggregator":"avg"}],"formulas":[{"formula":"query2"}],"style":{"palette":"datadog16"}}],"type":"sunburst","hide_total":true,"legend":{"type":"automatic"}},"layout":{"x":8,"y":0,"width":4,"height":6}},{"id":1456815595091644,"definition":{"title":"User Sessions","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Named User Sessions","formula":"query1"}],"response_format":"timeseries","queries":[{"query":"max:mx.runtime.stats.sessions.named_user_sessions{$MxApp,$AppInstance}","data_source":"metrics","name":"query1"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"alias":"Anonymous User Sessions","formula":"query0"}],"response_format":"timeseries","queries":[{"query":"avg:mx.runtime.stats.sessions.anonymous_sessions{$MxApp,$AppInstance}","data_source":"metrics","name":"query0"}],"style":{"palette":"warm","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":3,"width":3,"height":3}},{"id":2726268115613014,"definition":{"title":"Average request rate by handler name","title_size":"16","title_align":"left","show_legend":false,"type":"timeseries","requests":[{"response_format":"timeseries","queries":[{"data_source":"metrics","name":"query1","query":"avg:mx.runtime.stats.handler.requests{$MxApp} by {name}.as_rate()"}],"formulas":[{"formula":"query1"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":3,"y":3,"width":3,"height":3}},{"id":776606621458420,"definition":{"type":"note","content":"Activity and microflow metrics can be enabled by setting the `METRICS_AGENT_CONFIG`\n\nDetails documented [here](https://docs.mendix.com/developerportal/operate/monitoring-with-apm/#customizing)","background_color":"blue","font_size":"14","text_align":"left","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"right","has_padding":true},"layout":{"x":6,"y":3,"width":2,"height":3}}]},"layout":{"x":0,"y":0,"width":12,"height":7}},{"id":644169183897216,"definition":{"title":"App node","background_color":"blue","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":3317267970518550,"definition":{"title":"Average CPU Usage","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"% CPU","formula":"query1 * 100"}],"queries":[{"name":"query1","data_source":"metrics","query":"avg:system.cpu.usage{$MxApp} by {instance_index}"}],"response_format":"timeseries","style":{"palette":"semantic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":4,"height":3}},{"id":7491232610882368,"definition":{"title":"JVM usage","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Heap Memory Usage","formula":"query1"},{"alias":"Non-Heap Memory Usage","formula":"query2"}],"queries":[{"query":"avg:jvm.memory.used{$MxApp,area:heap}","data_source":"metrics","name":"query1"},{"query":"avg:jvm.memory.used{$MxApp,area:nonheap}","data_source":"metrics","name":"query2"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"bars"},{"formulas":[{"alias":"Total Memory","formula":"query1"}],"queries":[{"data_source":"metrics","name":"query1","query":"max:jvm.memory.max{$MxApp}"}],"response_format":"timeseries","style":{"palette":"warm","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":4,"y":0,"width":4,"height":3}},{"id":7424983378942400,"definition":{"title":"Jetty HTTP Connections","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Open Jetty Connections","formula":"query2"}],"queries":[{"name":"query2","data_source":"metrics","query":"sum:jetty.connections.current{$MxApp} by {instance_index}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"area"},{"formulas":[{"alias":"Max Jetty Connections","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"sum:jetty.connections.max{$MxApp} by {instance_index}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":8,"y":0,"width":4,"height":3}},{"id":3285190356073452,"definition":{"title":"JVM GC Time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query2"},{"formula":"query3"}],"queries":[{"name":"query2","data_source":"metrics","query":"avg:jvm.gc.major_collection_time{$MxApp}"},{"name":"query3","data_source":"metrics","query":"avg:jvm.gc.minor_collection_time{$MxApp}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"area"}]},"layout":{"x":0,"y":3,"width":4,"height":3}},{"id":5851569092081182,"definition":{"title":"JVM Usage - Heap","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"query":"avg:jvm.memory.used{$MxApp,area:heap} by {id}","data_source":"metrics","name":"query1"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"bars"},{"formulas":[{"alias":"Total memory - Heap","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"max:jvm.memory.max{$MxApp,area:heap}"}],"response_format":"timeseries","style":{"palette":"warm","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":4,"y":3,"width":4,"height":3}},{"id":4431531870240644,"definition":{"title":"Threadpool for handling external requests","show_legend":false,"legend_layout":"horizontal","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Max Threads","formula":"query0"}],"queries":[{"query":"max:jetty.threads.config.max{$MxApp} by {instance_index}","data_source":"metrics","name":"query0"}],"response_format":"timeseries","style":{"palette":"red","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"alias":"Live Thread Count","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"avg:jetty.threads.current{$MxApp} by {instance_index}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"include_zero":true,"scale":"linear","label":"","min":"auto","max":"auto"}},"layout":{"x":8,"y":3,"width":4,"height":3}}]},"layout":{"x":0,"y":7,"width":12,"height":7,"is_column_break":true}},{"id":2685518874118434,"definition":{"title":"Database Activity","background_color":"blue","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":3819121007258570,"definition":{"title":"Database Operations","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"INSERTS","formula":"query1"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:mx.runtime.stats.connectionbus.inserts{$MxApp}.as_rate()"}],"response_format":"timeseries","style":{"palette":"dog_classic"},"display_type":"line"},{"formulas":[{"alias":"DELETES","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"sum:mx.runtime.stats.connectionbus.deletes{$MxApp}.as_count()"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"alias":"SELECTS","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"sum:mx.runtime.stats.connectionbus.selects{$MxApp}.as_count()"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"alias":"TRANSACTIONS","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"sum:mx.runtime.stats.connectionbus.transactions{$MxApp}.as_count()"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"alias":"UPDATES","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"sum:mx.runtime.stats.connectionbus.updates{$MxApp}.as_count()"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":4,"height":3}},{"id":6099472795737104,"definition":{"title":"Database Connection Pool","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Connections","formula":"query1 + query2 + query3"}],"queries":[{"query":"max:commons.pool2.num.active{$MxApp}","data_source":"metrics","name":"query1"},{"query":"max:commons.pool2.num.waiters{$MxApp}","data_source":"metrics","name":"query2"},{"query":"max:commons.pool2.num.idle{$MxApp}","data_source":"metrics","name":"query3"}],"response_format":"timeseries","style":{"palette":"semantic","line_type":"solid","line_width":"normal"},"display_type":"area"},{"on_right_yaxis":true,"formulas":[{"alias":"Table Count","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"max:postgresql.table.count{*}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}],"yaxis":{"include_zero":false,"min":"0"}},"layout":{"x":4,"y":0,"width":4,"height":3}},{"id":1453585302350160,"definition":{"title":"Postgres Locks","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Locks","formula":"query0"}],"queries":[{"data_source":"metrics","name":"query0","query":"avg:postgresql.locks{$MxApp} by {lock_mode}"}],"response_format":"timeseries","style":{"palette":"warm","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":8,"y":0,"width":4,"height":3}}]},"layout":{"x":0,"y":14,"width":12,"height":4}}],"template_variables":[{"name":"MxApp","prefix":"service","available_values":[],"default":"*"},{"name":"AppInstance","prefix":"instance_index","available_values":[],"default":"*"}],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed","id":"hnt-2kw-8sa"}
+{
+  "title": "Mendix Application Overview",
+  "description": "This dashboard provides a high-level overview of key Mendix runtime and application environment metrics to help you monitor your Mendix application instances.",
+  "widgets": [
+    {
+      "id": 5118684248083416,
+      "definition": {
+        "title": "App Activity",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4513608605655482,
+            "definition": {
+              "title": "Average Named Users",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:jmx.com.mendix.named_users{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": false
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 7631213635011898,
+            "definition": {
+              "title": "Average Microflow Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:mx.microflow.time.avg{$MxApp,$Env,$AppInstance} by {microflow}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false
+              }
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 5,
+              "height": 3
+            }
+          },
+          {
+            "id": 4915559233884798,
+            "definition": {
+              "title": "Activity Overview",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:mx.activity.time.count{$MxApp,$Env,$AppInstance} by {activity,microflow}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "datadog16"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": true,
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 6
+            }
+          },
+          {
+            "id": 1456815595091644,
+            "definition": {
+              "title": "User Sessions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Named User Sessions",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:mx.runtime.stats.sessions.named_user_sessions{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Anonymous User Sessions",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:mx.runtime.stats.sessions.anonymous_sessions{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 2726268115613014,
+            "definition": {
+              "title": "Average request rate by handler name",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:mx.runtime.stats.handler.requests{$MxApp,$Env,$AppInstance} by {name}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 3,
+              "width": 3,
+              "height": 3
+            }
+          },
+          {
+            "id": 776606621458420,
+            "definition": {
+              "type": "note",
+              "content": "Activity and microflow metrics can be enabled by setting the `METRICS_AGENT_CONFIG`.",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "right",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 644169183897216,
+      "definition": {
+        "title": "App node",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3317267970518550,
+            "definition": {
+              "title": "Average CPU Usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "% CPU",
+                      "formula": "query1 * 100"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:system.cpu.usage{$MxApp,$Env,$AppInstance} by {instance_index}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7491232610882368,
+            "definition": {
+              "title": "JVM usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Heap Memory Usage",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Non-Heap Memory Usage",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:jvm.memory.used{$MxApp,area:heap,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:jvm.memory.used{$MxApp,area:nonheap,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Total Memory",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "max:jvm.memory.max{$MxApp,$Env,$AppInstance}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7424983378942400,
+            "definition": {
+              "title": "Jetty HTTP Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Open Jetty Connections",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:jetty.connections.current{$MxApp,$Env,$AppInstance} by {instance_index}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Max Jetty Connections",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:jetty.connections.max{$MxApp,$Env,$AppInstance} by {instance_index}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3285190356073452,
+            "definition": {
+              "title": "JVM GC Time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    },
+                    {
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "avg:jvm.gc.major_collection_time{$MxApp,$Env,$AppInstance}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "avg:jvm.gc.minor_collection_time{$MxApp,$Env,$AppInstance}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5851569092081182,
+            "definition": {
+              "title": "JVM Usage - Heap",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:jvm.memory.used{$MxApp,area:heap,$Env,$AppInstance} by {id}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Total memory - Heap",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "max:jvm.memory.max{$MxApp,area:heap,$Env,$AppInstance}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4431531870240644,
+            "definition": {
+              "title": "Threadpool for handling external requests",
+              "show_legend": false,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Max Threads",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:jetty.threads.config.max{$MxApp,$Env,$AppInstance} by {instance_index}",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Live Thread Count",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "avg:jetty.threads.current{$MxApp,$Env,$AppInstance} by {instance_index}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 2685518874118434,
+      "definition": {
+        "title": "Database Activity",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3819121007258570,
+            "definition": {
+              "title": "Database Operations",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "INSERTS",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:mx.runtime.stats.connectionbus.inserts{$MxApp,$Env,$AppInstance}.as_rate()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "DELETES",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:mx.runtime.stats.connectionbus.deletes{$MxApp,$Env,$AppInstance}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "SELECTS",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:mx.runtime.stats.connectionbus.selects{$MxApp,$Env,$AppInstance}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "TRANSACTIONS",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:mx.runtime.stats.connectionbus.transactions{$MxApp,$Env,$AppInstance}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "UPDATES",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "sum:mx.runtime.stats.connectionbus.updates{$MxApp,$Env,$AppInstance}.as_count()"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6099472795737104,
+            "definition": {
+              "title": "Database Connection Pool",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connections",
+                      "formula": "query1 + query2 + query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:commons.pool2.num.active{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "max:commons.pool2.num.waiters{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    },
+                    {
+                      "query": "max:commons.pool2.num.idle{$MxApp,$Env,$AppInstance}",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                },
+                {
+                  "on_right_yaxis": true,
+                  "formulas": [
+                    {
+                      "alias": "Table Count",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "max:postgresql.table.count{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1453585302350160,
+            "definition": {
+              "title": "Postgres Locks",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Locks",
+                      "formula": "query0"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query0",
+                      "query": "avg:postgresql.locks{$MxApp,$Env,$AppInstance} by {lock_mode}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "MxApp",
+      "prefix": "service",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "Env",
+      "prefix": "env",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "AppInstance",
+      "prefix": "instance_index",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "id": "pga-3qr-2v4"
+}
