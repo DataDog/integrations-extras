@@ -14,7 +14,7 @@ and optimize your development workflow using this Datadog integration.
 
 #### From release
 
-Run `datadog-agent integration install -t datadog-mergify==<INTEGRATION_VERSION>`
+Run `datadog-agent integration install -t datadog-mergify==<INTEGRATION_VERSION>`.
 
 #### From source
 
