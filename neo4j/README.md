@@ -2,12 +2,18 @@
 
 ## Overview
 
-This check monitors [neo4j][1] through the Datadog Agent.
+The Neo4j integration for Datadog enables data collection and alerting on a [Neo4j][1] metrics available at the Prometheus endpoint, using the Datadog platform.
+
+The integration allows you to monitor standalone Neo4j instances as well as Neo4j causal cluster instances.
+
+## Updates
 In [Neo4j 5][9], all metric names now include dbms or database namespaces.
+
+Default dashboards for Neo4j 4 and Neo4j 5 are included in this check.
 
 This check has been tested against Neo4j 4 and Neo4j 5 databases. If there are any issues, contact DataDog support or support@neo4j.com.
 
-Please verify the metrics and checks that are submitted through this agent. Since Neo4j 4.0 and onward supports multiple databases, some metrics and checks are no longer published.
+The metadata.csv description highlights Neo4j 4 or Neo4j 5 specific metrics. For example: "cluster catchup tx pull requests received (v5)"
 
 ## Setup
 
@@ -31,9 +37,7 @@ To install the neo4j check on your host:
 
 2. Edit the `neo4j.d/neo4j.yaml` file in the `conf.d/` folder at the root of your Agent's configuraiton directory. See the [sample neo4j.d/neo4j.yaml][10] for all available configuration options.
 
-3. The neo4j_url has been replaced by host. Please ensure any updates use host.
-
-4. [Restart the Agent][4].
+3. [Restart the Agent][4].
 
 ### Validation
 
@@ -51,7 +55,7 @@ Service check `neo4j.prometheus.health` is submitted in the base check
 
 ### Events
 
-neo4j does not include any events.
+Neo4j does not include any events.
 
 ## Troubleshooting
 
