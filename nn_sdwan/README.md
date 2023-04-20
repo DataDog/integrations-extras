@@ -19,7 +19,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 1. Run the following command to install the Agent integration:
 
    ``` bash
-   datadog-agent integration install -t nn_sdwan==1.0.0
+   datadog-agent integration install -t nn_sdwan==1.0.1
    ```
 
 2. Configure your integration similar to core [integrations][3].

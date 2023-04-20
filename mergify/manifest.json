@@ -1,0 +1,49 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "17230c84-50c7-4025-8fc8-69a9bc0bd502",
+  "app_id": "mergify",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Mergify merge queue statistics integration",
+    "title": "Mergify",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Mergify",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "mergify.",
+        "check": "mergify.merge_queue_length",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Mergify merge queue overview": "assets/dashboards/mergify_overview.json"
+    }
+  },
+  "author": {
+    "support_email": "support@mergify.com",
+    "name": "Mergify",
+    "homepage": "https://mergify.com",
+    "sales_email": "hello@mergify.com"
+  },
+  "oauth": {}
+}
