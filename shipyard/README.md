@@ -14,7 +14,7 @@ These instructions assume you have a Shipyard account and application set up. If
 2. In your Shipyard dashboard, go to **Settings**. 
 2. Under the Datadog section, enter your Datadog API key and the Datadog site URL.
    ![datadog-input][6]
-   1. If you do not see a Datadog section here, email [support@shipyard.build](3) to enable this feature for your organization.
+   1. If you do not see a Datadog section here, email [support@shipyard.build][3] to enable this feature for your organization.
    2. To get the Datadog site URL, use the [Getting Started with Datadog Sites](4) documentation and compare your dashboard's site URL to the ones in the table.
 3. Click the "install Datadog" button.
    1. Optionally, toggle the "enable Datadog logging for all environments," Shipyard will automatically send the logs for all your environments.
