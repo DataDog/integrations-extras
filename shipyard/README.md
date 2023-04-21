@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Datadog Shipyard integration passes your [Shipyard](1) ephemeral environment logs to your Datadog dashboard. This is useful for using Datadog's [log analysis and correlation](https://www.datadoghq.com/solutions/log-analysis-and-correlation/) functions and helping your team with [shift left testing](https://www.datadoghq.com/solutions/shift-left-testing/).
+The Datadog Shipyard integration passes your [Shipyard][1] ephemeral environment logs to your Datadog dashboard. This is useful for using Datadog's [log analysis and correlation][8] functions and helping your team with [shift-left testing][9].
 
 ## Setup
 
