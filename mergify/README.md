@@ -12,6 +12,12 @@ and optimize your development workflow using this Datadog integration.
 
 ### Installation
 
+#### From release
+
+Run `datadog-agent integration install -t datadog-mergify==<INTEGRATION_VERSION>`.
+
+#### From source
+
 To install the Mergify check on your host:
 
 1. Install the [developer tool][8] on any machine.
