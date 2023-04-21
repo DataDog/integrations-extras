@@ -11,7 +11,7 @@ These instructions assume you have a Shipyard account and application set up. If
 ### Configuration
 
 1. Navigate to the [API Keys page][5] and create an API key.
-1. In your Shipyard dashboard, go to settings. 
+2. In your Shipyard dashboard, go to **Settings**. 
 2. Under the Datadog section, enter your Datadog API key and the Datadog site URL.
    ![datadog-input][6]
    1. If you do not see a Datadog section here, email [support@shipyard.build](3) to enable this feature for your organization.
