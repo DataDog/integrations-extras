@@ -19,7 +19,7 @@ These instructions assume you have a Shipyard account and application set up. If
 3. Click **Install Datadog**.
    1. Optionally, toggle `enable Datadog logging for all environments`, Shipyard will automatically send the logs for all your environments.
 4. To select specific environments from which you want to send logs for each repo, see the [Configure Application page][10]. 
-   1. Select the third tab, "Notification Settings". 
+   1. Select the **Notification Settings** tab. 
    2. Toggle the "Enable Datadog logging" for this environment.
 
 ## Data Collected
