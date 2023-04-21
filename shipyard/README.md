@@ -6,7 +6,7 @@ The Datadog Shipyard integration passes your [Shipyard][1] ephemeral environment
 
 ## Setup
 
-These instructions assume you have a Shipyard account and application set up. If you do not, you can get started for [free here](2). You can also follow the [Shipyard docs](7) on how to set up the Datadog integration. 
+These instructions assume you have a Shipyard account and application set up. If you do not, you can get started [for free][2]. For more information about setting up the Datadog integration, see the [Shipyard documentation][7]. 
 
 ### Configuration
 
