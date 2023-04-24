@@ -1,9 +1,11 @@
-import pytest
-from datadog_checks.cybersixgill_actionable_alerts.config_models.shared import SharedConfig
+# import pytest
+# from datadog_checks.cybersixgill_actionable_alerts.config_models.shared import SharedConfig
+from datadog_checks.cybersixgill_actionable_alerts.config_models.shared import (
+    SharedConfig,
+)
 
 
 def test_shared_config_service():
-
     # Test that the service field is validated
     shared_config = SharedConfig(service="my_service")
     assert shared_config.service == "my_service"
@@ -11,6 +13,7 @@ def test_shared_config_service():
     # # Test that the service field is not validated if it is None
     # shared_config = SharedConfig(service=None)
     # assert shared_config.service is ''
+
 
 # def test_shared_config_defaults():
 #     # Test that the default values are applied
