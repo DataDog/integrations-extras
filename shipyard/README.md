@@ -2,7 +2,11 @@
 
 ## Overview
 
-The Datadog Shipyard integration passes your [Shipyard][1] ephemeral environment logs to your Datadog dashboard. This is useful for using Datadog's [log analysis and correlation][8] functions and helping your team with [shift-left testing][9].
+Shipyard unblocks DevOps teams from bulky, outdated production pipelines. We resolve the pre-production or staging bottleneck with our agile on-demand ephemeral (testing or preview) environments.
+
+The Datadog Shipyard integration automatically passes your [Shipyard][1] ephemeral environment logs to your Datadog dashboard. This is valuable for using Datadog's [log analysis and correlation][8] functions and helping your team with [shift-left testing][9].
+
+For every application you want the logs for, Shipyard sends the runtime logs of your application to Datadog. 
 
 ## Setup
 
