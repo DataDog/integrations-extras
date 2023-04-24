@@ -2,18 +2,9 @@
 
 ## Overview
 
-The Neo4j integration for Datadog enables data collection and alerting on a [Neo4j][1] metrics available at the Prometheus endpoint, using the Datadog platform.
+The Neo4j integration for Datadog enables data collection and alerting on key [Neo4j][1] metrics available at the Prometheus endpoint, using the Datadog platform.
 
 The integration allows you to monitor standalone Neo4j instances as well as Neo4j causal cluster instances.
-
-## Updates
-In [Neo4j 5][9], all metric names now include dbms or database namespaces.
-
-Default dashboards for Neo4j 4 and Neo4j 5 are included in this check.
-
-This check has been tested against Neo4j 4 and Neo4j 5 databases. If there are any issues, contact DataDog support or support@neo4j.com.
-
-The metadata.csv description highlights Neo4j 4 or Neo4j 5 specific metrics. For example: "cluster catchup tx pull requests received (v5)"
 
 ## Setup
 
@@ -29,7 +20,6 @@ To install the neo4j check on your host:
    ```shell
    datadog-agent integration install -t datadog-neo4j==<INTEGRATION_VERSION>
    ```
-
 
 ### Configuration
 
@@ -47,7 +37,15 @@ To install the neo4j check on your host:
 
 ### Metrics
 
-See [metadata.csv][6] for a list of metrics provided by this check.
+Neo4j version 4
+Neo4j 4 metrics are collected as documented [here][12]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+Neo4j version 5
+Neo4j 5 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
+
+See [metadata.csv][6] for the full list of metrics provided by this check.
 
 ### Service Checks
 
@@ -71,3 +69,5 @@ Need help? Contact [Neo4j support][7].
 [8]: https://app.datadoghq.com/account/settings#agent
 [9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
 [10]: https://docs.datadoghq.com/containers/cluster_agent/clusterchecks/?tab=helm#example-mysql-check-on-an-externally-hosted-database
+[11]: https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/
+[12]: https://neo4j.com/docs/operations-manual/4.4/monitoring/metrics/reference/
