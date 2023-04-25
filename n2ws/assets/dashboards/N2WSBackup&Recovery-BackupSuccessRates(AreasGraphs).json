@@ -1,1 +1,860 @@
-{"title":"N2WS Backup & Recovery - Backup Success Rates (Areas Graphs)","description":"## N2WS Backup & Recovery Dashboard\n\nThis dashboard summarizes data that was collected from all N2WS Backup & Recovery hosts that are connected to DataDog (cloned)","widgets":[{"id":2637556285457016,"layout":{"x":69,"y":16,"width":13,"height":8},"definition":{"title":"Accounts","title_size":"16","title_align":"left","time":{},"type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.accounts_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[{"link":"https://{{host.value}}/ui/dashboard/","label":"Go to host's Dashboard"}],"precision":0}},{"id":1132115760137398,"layout":{"x":69,"y":25,"width":13,"height":8},"definition":{"title":"Policies","title_size":"16","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.policies_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":6833713613288876,"layout":{"x":13,"y":0,"width":24,"height":6},"definition":{"type":"free_text","text":"N2WS Backup & Recovery  Servers Status","color":"#2B13E6","font_size":"56","text_align":"left"}},{"id":3660811894528512,"layout":{"x":0,"y":16,"width":37,"height":26},"definition":{"title":"Available hosts","title_size":"16","title_align":"left","type":"hostmap","requests":{"fill":{"q":"avg:system.cpu.user{*} by {host}"}},"node_type":"host","no_metric_hosts":false,"no_group_hosts":true,"custom_links":[{"link":"https://{{$ip.value}}/ui/dashboard/","label":"Go to host's Dashboard"}],"style":{"palette":"green_to_orange","palette_flip":false}}},{"id":4889683502691186,"layout":{"x":39,"y":16,"width":13,"height":8},"definition":{"title":"Backup to EBS","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"(sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user}))*100","aggregator":"avg","conditional_formats":[{"comparator":">","palette":"white_on_green","value":80},{"comparator":"<=","palette":"black_on_light_red","value":50},{"comparator":">","palette":"white_on_yellow","value":50},{"comparator":"<","palette":"white_on_yellow","value":80}]}],"custom_unit":"%","text_align":"left","precision":0}},{"id":4495620089867176,"layout":{"x":39,"y":25,"width":13,"height":8},"definition":{"title":"DR backups","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"(sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user}))*100","aggregator":"last","conditional_formats":[{"comparator":">","palette":"white_on_green","value":80},{"comparator":"<=","palette":"black_on_light_red","value":50},{"comparator":"<","palette":"white_on_yellow","value":80},{"comparator":">","palette":"white_on_yellow","value":50}]}],"custom_unit":"%","text_align":"left","precision":0}},{"id":7599208437230966,"layout":{"x":39,"y":34,"width":13,"height":8},"definition":{"title":"Backup to S3","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"(sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user}))*100","aggregator":"last","conditional_formats":[{"comparator":">","palette":"white_on_green","value":80},{"comparator":"<=","palette":"black_on_light_red","value":50},{"comparator":">","palette":"white_on_yellow","value":50},{"comparator":"<","palette":"white_on_yellow","value":80}]}],"custom_unit":"%","text_align":"left","precision":0}},{"id":4085517614690048,"layout":{"x":0,"y":0,"width":12,"height":8},"definition":{"type":"image","url":"https://n2ws.com/wp-content/uploads/2018/10/N2WS_Logo-Primary-2.svg","sizing":"fit"}},{"id":2595322878823152,"layout":{"x":119,"y":44,"width":37,"height":25},"definition":{"title":"Total amount of snapshots by type over time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"vertical","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"q":"sum:cpm_metric.dashboard_state.snapshots_ddb_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_efs_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_rds_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_rds_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_volume_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_rds_clus_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_redshift_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_volume_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_rds_clus_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_fsx_num{$host,$user} by {host}","on_right_yaxis":false,"metadata":[{"expression":"sum:cpm_metric.dashboard_state.snapshots_ddb_num{$host,$user} by {host}","alias_name":"DynamoDB snapshots "},{"expression":"sum:cpm_metric.dashboard_state.snapshots_efs_num{$host,$user} by {host}","alias_name":"EFS snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_rds_num{$host,$user} by {host}","alias_name":"RDS snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_dr_rds_num{$host,$user} by {host}","alias_name":"DR RDS snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_volume_num{$host,$user} by {host}","alias_name":"Volumes snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_rds_clus_num{$host,$user} by {host}","alias_name":"Aurora snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_redshift_num{$host,$user} by {host}","alias_name":"Redshift snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_dr_volume_num{$host,$user} by {host}","alias_name":"DR Volume snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_dr_rds_clus_num{$host,$user} by {host}","alias_name":"DR Aurora snapshots"},{"expression":"sum:cpm_metric.dashboard_state.snapshots_fsx_num{$host,$user} by {host}","alias_name":"FSx snapshots"}],"style":{"palette":"cool","line_type":"solid","line_width":"normal"},"display_type":"area"}],"yaxis":{"scale":"linear","label":"","include_zero":true,"min":"auto","max":"auto"},"markers":[]}},{"id":1844247243659372,"layout":{"x":0,"y":44,"width":37,"height":25},"definition":{"title":"Backups success over time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"q":"sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user} by {cpm}","on_right_yaxis":false,"metadata":[{"expression":"sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user} by {cpm}","alias_name":"Successful EBS backups"},{"expression":"sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user} by {cpm}","alias_name":"EBS backup failures"},{"expression":"sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user} by {cpm}","alias_name":"Partially successful backups"}],"style":{"palette":"warm","line_type":"solid","line_width":"normal"},"display_type":"area"}],"yaxis":{"scale":"linear","label":"","include_zero":true,"min":"auto","max":"auto"},"markers":[]}},{"id":5584509867253186,"layout":{"x":39,"y":44,"width":38,"height":25},"definition":{"title":"Backups DR success over time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"q":"sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user} by {cpm}","on_right_yaxis":false,"metadata":[{"expression":"sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user} by {cpm}","alias_name":"Successful DR backups"},{"expression":"sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user} by {cpm}","alias_name":"DR backups failure"},{"expression":"sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user} by {cpm}","alias_name":"Partially successful DR backups"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"area"}],"yaxis":{"scale":"linear","label":"","include_zero":true,"min":"auto","max":"auto"},"markers":[]}},{"id":614497561179518,"layout":{"x":79,"y":44,"width":38,"height":25},"definition":{"title":"S3 Backups success over time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"q":"sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user} by {cpm}","on_right_yaxis":false,"metadata":[{"expression":"sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user} by {cpm}","alias_name":"Successful S3 backups"},{"expression":"sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user} by {cpm}","alias_name":"S3 backups failure"},{"expression":"sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user} by {cpm}","alias_name":"Partially successful S3 backups"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"area"}],"yaxis":{"scale":"linear","label":"","include_zero":true,"min":"auto","max":"auto"},"markers":[]}},{"id":7180936149683416,"layout":{"x":0,"y":71,"width":59,"height":26},"definition":{"title":"Alerts gathering for all hosts","title_size":"16","title_align":"left","time":{"live_span":"1w"},"type":"event_stream","query":"sources:n2ws tags:$user hosts:$host.value","tags_execution":"and","event_size":"l"}},{"id":5945986900303426,"layout":{"x":99,"y":16,"width":12,"height":8},"definition":{"title":"Instances","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_instances_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":4419154600287480,"layout":{"x":99,"y":34,"width":12,"height":8},"definition":{"title":"EFS","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_efs_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":1935790075102,"layout":{"x":125,"y":25,"width":12,"height":8},"definition":{"title":"Redshift","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_redshift_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":7971473927039272,"layout":{"x":125,"y":16,"width":12,"height":8},"definition":{"title":"RDS","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_rds_db_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":3588851606457020,"layout":{"x":112,"y":16,"width":12,"height":8},"definition":{"title":"Volumes","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_volumes_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":2}},{"id":981117228066646,"layout":{"x":112,"y":25,"width":12,"height":8},"definition":{"title":"Dynamo DB","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_ddb_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":7374759144596838,"layout":{"x":99,"y":25,"width":12,"height":8},"definition":{"title":"Aurora","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_rds_clus_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","custom_links":[],"precision":0}},{"id":6182576205949094,"layout":{"x":0,"y":8,"width":37,"height":7},"definition":{"type":"note","content":"This dashboard summarizes data collected from N2WS Backup & Recovery hosts connected to DataDog","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":163195945008220,"layout":{"x":39,"y":8,"width":28,"height":7},"definition":{"type":"note","content":"Success Rate","background_color":"blue","font_size":"24","text_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left"}},{"id":2923528343457910,"layout":{"x":53,"y":16,"width":14,"height":8},"definition":{"type":"note","content":"Indicates percentage of backups that have succeeded. \nYou can view all backup logs in the Backup Monitor to investigate failures further.","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":8418227565588260,"layout":{"x":53,"y":25,"width":14,"height":8},"definition":{"type":"note","content":"Indicates percentage of DR (Disaster Recovery) backups that have succeeded. \nYou can view all backup logs in the Backup Monitor to investigate failures further.","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":8748196710797844,"layout":{"x":53,"y":34,"width":14,"height":8},"definition":{"type":"note","content":"Indicates percentage of S3 backups that have succeeded (Glacier backups aren't counted). \nYou can view all backup logs in the Backup Monitor to investigate failures further.","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":2007395944978376,"layout":{"x":69,"y":8,"width":28,"height":7},"definition":{"type":"note","content":"Total Summary","background_color":"blue","font_size":"24","text_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left"}},{"id":3127155320728790,"layout":{"x":83,"y":16,"width":14,"height":8},"definition":{"type":"note","content":"Total number of accounts on all hosts","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":7272280144470548,"layout":{"x":83,"y":25,"width":14,"height":8},"definition":{"type":"note","content":"Total number of policies on all hosts","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":7845771991582078,"layout":{"x":99,"y":8,"width":57,"height":7},"definition":{"type":"note","content":"How many Entities have you backed up?","background_color":"blue","font_size":"24","text_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left"}},{"id":822785988778976,"layout":{"x":138,"y":16,"width":18,"height":24},"definition":{"type":"note","content":"Tracks number of entities backed up by all N2WS Backup & Recovery hosts.\n\nPlease note that if an instance, for example, was backed up by 2 N2WS hosts, it will be  counted twice.","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":7702466249586728,"layout":{"x":60,"y":71,"width":16,"height":26},"definition":{"type":"note","content":"DataDog and N2WS Backup & Recovery hosts alerts","background_color":"blue","font_size":"24","text_align":"center","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":6184828882153520,"layout":{"x":79,"y":71,"width":21,"height":8},"definition":{"title":"Average Volume Capacity ","title_size":"13","title_align":"left","time":{},"type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.volumes_usage_percentage_num{$host,$user}","aggregator":"avg","conditional_formats":[{"comparator":">","palette":"white_on_red","value":80},{"comparator":"<=","palette":"white_on_yellow","value":20},{"comparator":">","palette":"white_on_green","value":20},{"comparator":"<","palette":"white_on_green","value":80}]}],"custom_unit":"%","text_align":"left","precision":0}},{"id":5044747906249744,"layout":{"x":79,"y":80,"width":21,"height":8},"definition":{"title":"Volumes above high watermark","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.volumes_above_high_watermark_num{$host,$user}","aggregator":"last","conditional_formats":[{"comparator":">=","palette":"white_on_red","value":1},{"comparator":"<","palette":"white_on_green","value":1}]}],"text_align":"left","precision":0}},{"id":7142455690032772,"layout":{"x":101,"y":71,"width":38,"height":8},"definition":{"type":"note","content":"The average capacity of volumes that were backed up by N2WS Backup & Recovery","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":6406821361983512,"layout":{"x":101,"y":80,"width":38,"height":8},"definition":{"type":"note","content":"Number of backed up volumes that their capacity is higher than the high watermark defined in N2WS Backup & Recovery","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":1223244874390138,"layout":{"x":101,"y":89,"width":38,"height":8},"definition":{"type":"note","content":"Number of backed up volumes that their capacity is lower than the low watermark defined in N2WS Backup & Recovery","background_color":"white","font_size":"14","text_align":"left","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":437205163209710,"layout":{"x":79,"y":89,"width":21,"height":8},"definition":{"title":"Volumes above high watermark","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.volumes_below_low_watermark_num{$host,$user}","aggregator":"last","conditional_formats":[{"comparator":">=","palette":"white_on_yellow","value":1},{"comparator":"<","palette":"white_on_green","value":1}]}],"text_align":"left","precision":0}},{"id":8357335241437432,"layout":{"x":140,"y":71,"width":16,"height":26},"definition":{"type":"note","content":"Backed Up Volumes Capacity Data","background_color":"blue","font_size":"24","text_align":"center","show_tick":true,"tick_pos":"50%","tick_edge":"left"}},{"id":5429797099678030,"layout":{"x":112,"y":34,"width":12,"height":8},"definition":{"title":"FSx","title_size":"13","title_align":"left","type":"query_value","requests":[{"q":"sum:cpm_metric.dashboard_state.protected_fsx_num{$host,$user}","aggregator":"last"}],"autoscale":true,"text_align":"left","precision":0}}],"template_variables":[{"name":"host","default":"*","prefix":"host"},{"name":"user","default":"*","prefix":"cpm"}],"layout_type":"free","is_read_only":false,"notify_list":[],"id":"y3z-98b-54d"}
+{
+  "title": "N2WS Backup & Recovery - Backup Success Rates (Areas Graphs)",
+  "description": "## N2WS Backup & Recovery Dashboard\n\nThis dashboard summarizes data that was collected from all N2WS Backup & Recovery hosts that are connected to DataDog (cloned)",
+  "widgets": [
+    {
+      "id": 2637556285457016,
+      "layout": { "x": 69, "y": 16, "width": 13, "height": 8 },
+      "definition": {
+        "title": "Accounts",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.accounts_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [
+          {
+            "link": "https://{{host.value}}/ui/dashboard/",
+            "label": "Go to host's Dashboard"
+          }
+        ],
+        "precision": 0
+      }
+    },
+    {
+      "id": 1132115760137398,
+      "layout": { "x": 69, "y": 25, "width": 13, "height": 8 },
+      "definition": {
+        "title": "Policies",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.policies_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 6833713613288876,
+      "layout": { "x": 13, "y": 0, "width": 24, "height": 6 },
+      "definition": {
+        "type": "free_text",
+        "text": "N2WS Backup & Recovery  Servers Status",
+        "color": "#2B13E6",
+        "font_size": "56",
+        "text_align": "left"
+      }
+    },
+    {
+      "id": 3660811894528512,
+      "layout": { "x": 0, "y": 16, "width": 37, "height": 26 },
+      "definition": {
+        "title": "Available hosts",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "hostmap",
+        "requests": { "fill": { "q": "avg:system.cpu.user{*} by {host}" } },
+        "node_type": "host",
+        "no_metric_hosts": false,
+        "no_group_hosts": true,
+        "custom_links": [
+          {
+            "link": "https://{{$ip.value}}/ui/dashboard/",
+            "label": "Go to host's Dashboard"
+          }
+        ],
+        "style": { "palette": "green_to_orange", "palette_flip": false }
+      }
+    },
+    {
+      "id": 4889683502691186,
+      "layout": { "x": 39, "y": 16, "width": 13, "height": 8 },
+      "definition": {
+        "title": "Backup to EBS",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "(sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user}))*100",
+            "aggregator": "avg",
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 80 },
+              {
+                "comparator": "<=",
+                "palette": "black_on_light_red",
+                "value": 50
+              },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 50 },
+              { "comparator": "<", "palette": "white_on_yellow", "value": 80 }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 4495620089867176,
+      "layout": { "x": 39, "y": 25, "width": 13, "height": 8 },
+      "definition": {
+        "title": "DR backups",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "(sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user}))*100",
+            "aggregator": "last",
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 80 },
+              {
+                "comparator": "<=",
+                "palette": "black_on_light_red",
+                "value": 50
+              },
+              { "comparator": "<", "palette": "white_on_yellow", "value": 80 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 50 }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 7599208437230966,
+      "layout": { "x": 39, "y": 34, "width": 13, "height": 8 },
+      "definition": {
+        "title": "Backup to S3",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "(sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user}/(sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user}+sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user}))*100",
+            "aggregator": "last",
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 80 },
+              {
+                "comparator": "<=",
+                "palette": "black_on_light_red",
+                "value": 50
+              },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 50 },
+              { "comparator": "<", "palette": "white_on_yellow", "value": 80 }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 4085517614690048,
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 8 },
+      "definition": {
+        "type": "image",
+        "url": "https://n2ws.com/wp-content/uploads/2018/10/N2WS_Logo-Primary-2.svg",
+        "sizing": "fit"
+      }
+    },
+    {
+      "id": 2595322878823152,
+      "layout": { "x": 119, "y": 44, "width": 37, "height": 25 },
+      "definition": {
+        "title": "Total amount of snapshots by type over time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "vertical",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.snapshots_ddb_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_efs_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_rds_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_rds_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_volume_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_rds_clus_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_redshift_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_volume_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_dr_rds_clus_num{$host,$user} by {host}, sum:cpm_metric.dashboard_state.snapshots_fsx_num{$host,$user} by {host}",
+            "on_right_yaxis": false,
+            "metadata": [
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_ddb_num{$host,$user} by {host}",
+                "alias_name": "DynamoDB snapshots "
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_efs_num{$host,$user} by {host}",
+                "alias_name": "EFS snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_rds_num{$host,$user} by {host}",
+                "alias_name": "RDS snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_dr_rds_num{$host,$user} by {host}",
+                "alias_name": "DR RDS snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_volume_num{$host,$user} by {host}",
+                "alias_name": "Volumes snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_rds_clus_num{$host,$user} by {host}",
+                "alias_name": "Aurora snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_redshift_num{$host,$user} by {host}",
+                "alias_name": "Redshift snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_dr_volume_num{$host,$user} by {host}",
+                "alias_name": "DR Volume snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_dr_rds_clus_num{$host,$user} by {host}",
+                "alias_name": "DR Aurora snapshots"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_state.snapshots_fsx_num{$host,$user} by {host}",
+                "alias_name": "FSx snapshots"
+              }
+            ],
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "area"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 1844247243659372,
+      "layout": { "x": 0, "y": 44, "width": 37, "height": 25 },
+      "definition": {
+        "title": "Backups success over time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user} by {cpm}",
+            "on_right_yaxis": false,
+            "metadata": [
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_success_num{$host,$user} by {cpm}",
+                "alias_name": "Successful EBS backups"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_fail_num{$host,$user} by {cpm}",
+                "alias_name": "EBS backup failures"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_partial_num{$host,$user} by {cpm}",
+                "alias_name": "Partially successful backups"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "area"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 5584509867253186,
+      "layout": { "x": 39, "y": 44, "width": 38, "height": 25 },
+      "definition": {
+        "title": "Backups DR success over time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user} by {cpm}",
+            "on_right_yaxis": false,
+            "metadata": [
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_dr_success_num{$host,$user} by {cpm}",
+                "alias_name": "Successful DR backups"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_dr_fail_num{$host,$user} by {cpm}",
+                "alias_name": "DR backups failure"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_dr_partial_num{$host,$user} by {cpm}",
+                "alias_name": "Partially successful DR backups"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "area"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 614497561179518,
+      "layout": { "x": 79, "y": 44, "width": 38, "height": 25 },
+      "definition": {
+        "title": "S3 Backups success over time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user} by {cpm}, sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user} by {cpm}",
+            "on_right_yaxis": false,
+            "metadata": [
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_s3_success_num{$host,$user} by {cpm}",
+                "alias_name": "Successful S3 backups"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_s3_fail_num{$host,$user} by {cpm}",
+                "alias_name": "S3 backups failure"
+              },
+              {
+                "expression": "sum:cpm_metric.dashboard_activity.backup_s3_partial_num{$host,$user} by {cpm}",
+                "alias_name": "Partially successful S3 backups"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "area"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear",
+          "label": "",
+          "include_zero": true,
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 7180936149683416,
+      "layout": { "x": 0, "y": 71, "width": 59, "height": 26 },
+      "definition": {
+        "title": "Alerts gathering for all hosts",
+        "title_size": "16",
+        "title_align": "left",
+        "time": { "live_span": "1w" },
+        "type": "event_stream",
+        "query": "sources:n2ws tags:$user hosts:$host.value",
+        "tags_execution": "and",
+        "event_size": "l"
+      }
+    },
+    {
+      "id": 5945986900303426,
+      "layout": { "x": 99, "y": 16, "width": 12, "height": 8 },
+      "definition": {
+        "title": "Instances",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_instances_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 4419154600287480,
+      "layout": { "x": 99, "y": 34, "width": 12, "height": 8 },
+      "definition": {
+        "title": "EFS",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_efs_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 1935790075102,
+      "layout": { "x": 125, "y": 25, "width": 12, "height": 8 },
+      "definition": {
+        "title": "Redshift",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_redshift_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 7971473927039272,
+      "layout": { "x": 125, "y": 16, "width": 12, "height": 8 },
+      "definition": {
+        "title": "RDS",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_rds_db_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 3588851606457020,
+      "layout": { "x": 112, "y": 16, "width": 12, "height": 8 },
+      "definition": {
+        "title": "Volumes",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_volumes_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 2
+      }
+    },
+    {
+      "id": 981117228066646,
+      "layout": { "x": 112, "y": 25, "width": 12, "height": 8 },
+      "definition": {
+        "title": "Dynamo DB",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_ddb_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 7374759144596838,
+      "layout": { "x": 99, "y": 25, "width": 12, "height": 8 },
+      "definition": {
+        "title": "Aurora",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_rds_clus_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "custom_links": [],
+        "precision": 0
+      }
+    },
+    {
+      "id": 6182576205949094,
+      "layout": { "x": 0, "y": 8, "width": 37, "height": 7 },
+      "definition": {
+        "type": "note",
+        "content": "This dashboard summarizes data collected from N2WS Backup & Recovery hosts connected to DataDog",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 163195945008220,
+      "layout": { "x": 39, "y": 8, "width": 28, "height": 7 },
+      "definition": {
+        "type": "note",
+        "content": "Success Rate",
+        "background_color": "blue",
+        "font_size": "24",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 2923528343457910,
+      "layout": { "x": 53, "y": 16, "width": 14, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Indicates percentage of backups that have succeeded. \nYou can view all backup logs in the Backup Monitor to investigate failures further.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 8418227565588260,
+      "layout": { "x": 53, "y": 25, "width": 14, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Indicates percentage of DR (Disaster Recovery) backups that have succeeded. \nYou can view all backup logs in the Backup Monitor to investigate failures further.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 8748196710797844,
+      "layout": { "x": 53, "y": 34, "width": 14, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Indicates percentage of S3 backups that have succeeded (Glacier backups aren't counted). \nYou can view all backup logs in the Backup Monitor to investigate failures further.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 2007395944978376,
+      "layout": { "x": 69, "y": 8, "width": 28, "height": 7 },
+      "definition": {
+        "type": "note",
+        "content": "Total Summary",
+        "background_color": "blue",
+        "font_size": "24",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 3127155320728790,
+      "layout": { "x": 83, "y": 16, "width": 14, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Total number of accounts on all hosts",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 7272280144470548,
+      "layout": { "x": 83, "y": 25, "width": 14, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Total number of policies on all hosts",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 7845771991582078,
+      "layout": { "x": 99, "y": 8, "width": 57, "height": 7 },
+      "definition": {
+        "type": "note",
+        "content": "How many Entities have you backed up?",
+        "background_color": "blue",
+        "font_size": "24",
+        "text_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 822785988778976,
+      "layout": { "x": 138, "y": 16, "width": 18, "height": 24 },
+      "definition": {
+        "type": "note",
+        "content": "Tracks number of entities backed up by all N2WS Backup & Recovery hosts.\n\nPlease note that if an instance, for example, was backed up by 2 N2WS hosts, it will be  counted twice.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 7702466249586728,
+      "layout": { "x": 60, "y": 71, "width": 16, "height": 26 },
+      "definition": {
+        "type": "note",
+        "content": "DataDog and N2WS Backup & Recovery hosts alerts",
+        "background_color": "blue",
+        "font_size": "24",
+        "text_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 6184828882153520,
+      "layout": { "x": 79, "y": 71, "width": 21, "height": 8 },
+      "definition": {
+        "title": "Average Volume Capacity ",
+        "title_size": "13",
+        "title_align": "left",
+        "time": {},
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.volumes_usage_percentage_num{$host,$user}",
+            "aggregator": "avg",
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 80 },
+              { "comparator": "<=", "palette": "white_on_yellow", "value": 20 },
+              { "comparator": ">", "palette": "white_on_green", "value": 20 },
+              { "comparator": "<", "palette": "white_on_green", "value": 80 }
+            ]
+          }
+        ],
+        "custom_unit": "%",
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 5044747906249744,
+      "layout": { "x": 79, "y": 80, "width": 21, "height": 8 },
+      "definition": {
+        "title": "Volumes above high watermark",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.volumes_above_high_watermark_num{$host,$user}",
+            "aggregator": "last",
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_red", "value": 1 },
+              { "comparator": "<", "palette": "white_on_green", "value": 1 }
+            ]
+          }
+        ],
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 7142455690032772,
+      "layout": { "x": 101, "y": 71, "width": 38, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "The average capacity of volumes that were backed up by N2WS Backup & Recovery",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 6406821361983512,
+      "layout": { "x": 101, "y": 80, "width": 38, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Number of backed up volumes that their capacity is higher than the high watermark defined in N2WS Backup & Recovery",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 1223244874390138,
+      "layout": { "x": 101, "y": 89, "width": 38, "height": 8 },
+      "definition": {
+        "type": "note",
+        "content": "Number of backed up volumes that their capacity is lower than the low watermark defined in N2WS Backup & Recovery",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 437205163209710,
+      "layout": { "x": 79, "y": 89, "width": 21, "height": 8 },
+      "definition": {
+        "title": "Volumes above high watermark",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.volumes_below_low_watermark_num{$host,$user}",
+            "aggregator": "last",
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_yellow", "value": 1 },
+              { "comparator": "<", "palette": "white_on_green", "value": 1 }
+            ]
+          }
+        ],
+        "text_align": "left",
+        "precision": 0
+      }
+    },
+    {
+      "id": 8357335241437432,
+      "layout": { "x": 140, "y": 71, "width": 16, "height": 26 },
+      "definition": {
+        "type": "note",
+        "content": "Backed Up Volumes Capacity Data",
+        "background_color": "blue",
+        "font_size": "24",
+        "text_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left"
+      }
+    },
+    {
+      "id": 5429797099678030,
+      "layout": { "x": 112, "y": 34, "width": 12, "height": 8 },
+      "definition": {
+        "title": "FSx",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "q": "sum:cpm_metric.dashboard_state.protected_fsx_num{$host,$user}",
+            "aggregator": "last"
+          }
+        ],
+        "autoscale": true,
+        "text_align": "left",
+        "precision": 0
+      }
+    }
+  ],
+  "template_variables": [
+    { "name": "host", "default": "*", "prefix": "host" },
+    { "name": "user", "default": "*", "prefix": "cpm" }
+  ],
+  "layout_type": "free",
+  "is_read_only": false,
+  "notify_list": []
+}
