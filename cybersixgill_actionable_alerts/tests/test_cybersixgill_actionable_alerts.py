@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import pytest
 
@@ -92,38 +92,80 @@ def test_invalid_config(aggregator):
         )
 
 
-def test_file_date(aggregator):
-    file_dir = os.path.dirname(__file__)
-    abs_file_path = os.path.join(file_dir, "date_threshold.txt")
+def test_file_data_with_null_date(aggregator):
+    from unittest import mock
 
-    if os.path.exists(abs_file_path):
-        with open(abs_file_path, "r") as file_data:
-            json.loads(file_data.read())
+    file_contents = json.dumps({'from_date': ""})
+    instance = {"cl_id": "clientid", "cl_secret": "clientsecret"}
+    with pytest.raises(Exception):
+        with mock.patch('builtins.open', mock.mock_open(read_data=file_contents)):
+            c = CybersixgillActionableAlertsCheck('cybersixgill_actionable_alerts', {}, [instance])
+            c.check(instance)
             aggregator.assert_service_check(
                 CybersixgillActionableAlertsCheck.SERVICE_CHECK_HEALTH_NAME,
                 CybersixgillActionableAlertsCheck.CRITICAL,
             )
-            # time_stamp_str = date_conv["from_date"]
-            # if time_stamp_str is not None:
-            #     from_datetime = datetime.strptime(time_stamp_str, "%Y-%m-%d %H:%M:%S")
-            # else:
-            #     from_datetime = datetime.now()
-            #     str_from_date = from_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            #     str_from_date = datetime.strptime(str_from_date, "%Y-%m-%d %H:%M:%S")
-            #     from_datetime = str_from_date - timedelta(days=90)
-            # assert isinstance(from_datetime, datetime)
-            # assert from_datetime < datetime.now()
 
 
-def test_empty_file_path():
-    abs_file_path = ""
-    if not os.path.exists(abs_file_path):
-        from_datetime = datetime.now()
-        str_from_date = from_datetime.strftime("%Y-%m-%d %H:%M:%S")
-        str_from_date = datetime.strptime(str_from_date, "%Y-%m-%d %H:%M:%S")
-        from_datetime = str_from_date - timedelta(days=90)
-        assert isinstance(from_datetime, datetime)
-        assert from_datetime < datetime.now()
+def test_file_data(aggregator):
+    from unittest import mock
+
+    file_contents = json.dumps({'from_date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+    instance = {"cl_id": "clientid", "cl_secret": "clientsecret"}
+    with pytest.raises(Exception):
+        with mock.patch('builtins.open', mock.mock_open(read_data=file_contents)):
+            c = CybersixgillActionableAlertsCheck('cybersixgill_actionable_alerts', {}, [instance])
+            c.check(instance)
+            aggregator.assert_service_check(
+                CybersixgillActionableAlertsCheck.SERVICE_CHECK_HEALTH_NAME,
+                CybersixgillActionableAlertsCheck.CRITICAL,
+            )
+
+
+def test_set_file_path_null(aggregator, monkeypatch):
+    instance = {"cl_id": "clientid", "cl_secret": "clientsecret"}
+    with pytest.raises(Exception):
+        monkeypatch.setattr(os.path, 'dirname', lambda path: '')
+        c = CybersixgillActionableAlertsCheck('cybersixgill_actionable_alerts', {}, [instance])
+        c.check(instance)
+        aggregator.assert_service_check(
+            CybersixgillActionableAlertsCheck.SERVICE_CHECK_HEALTH_NAME,
+            CybersixgillActionableAlertsCheck.CRITICAL,
+        )
+
+
+# def test_file_date(aggregator):
+#     file_dir = os.path.dirname(__file__)
+#     abs_file_path = os.path.join(file_dir, "date_threshold.txt")
+
+#     if os.path.exists(abs_file_path):
+#         with open(abs_file_path, "r") as file_data:
+#             json.loads(file_data.read())
+#             aggregator.assert_service_check(
+#                 CybersixgillActionableAlertsCheck.SERVICE_CHECK_HEALTH_NAME,
+#                 CybersixgillActionableAlertsCheck.CRITICAL,
+#             )
+#             # time_stamp_str = date_conv["from_date"]
+#             # if time_stamp_str is not None:
+#             #     from_datetime = datetime.strptime(time_stamp_str, "%Y-%m-%d %H:%M:%S")
+#             # else:
+#             #     from_datetime = datetime.now()
+#             #     str_from_date = from_datetime.strftime("%Y-%m-%d %H:%M:%S")
+#             #     str_from_date = datetime.strptime(str_from_date, "%Y-%m-%d %H:%M:%S")
+#             #     from_datetime = str_from_date - timedelta(days=90)
+#             # assert isinstance(from_datetime, datetime)
+#             # assert from_datetime < datetime.now()
+
+
+# def test_empty_file_path():
+#     abs_file_path = ""
+#     if not os.path.exists(abs_file_path):
+#         from_datetime = datetime.now()
+#         str_from_date = from_datetime.strftime("%Y-%m-%d %H:%M:%S")
+#         str_from_date = datetime.strptime(str_from_date, "%Y-%m-%d %H:%M:%S")
+#         from_datetime = str_from_date - timedelta(days=90)
+#         assert isinstance(from_datetime, datetime)
+#         assert from_datetime < datetime.now()
 
 
 def test_check(aggregator, instance, mocker):
