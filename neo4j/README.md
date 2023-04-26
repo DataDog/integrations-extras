@@ -2,9 +2,13 @@
 
 ## Overview
 
-The Neo4j integration for Datadog enables data collection and alerting on key [Neo4j][1] metrics available at the Prometheus endpoint, using the Datadog platform.
+Neo4j[1] is the leading enterprise-strength graph database that combines native graph storage, advanced security, scalable speed-optimized architecture, and ACID compliance to ensure predictability and integrity of relationship-based queries. Powered by a native graph database, Neo4j stores and manages data in its more natural, connected state, maintaining data relationships that deliver lightning-fast queries, deeper context for analytics, and a pain-free modifiable data model.
 
-The integration allows you to monitor standalone Neo4j instances as well as Neo4j causal cluster instances.
+Neo4j metrics enable database administers to monitor their Neo4j deployments. DBAs want to understand the memory usage (heap and page cache), number of transactions, cluster status, database size (including number of nodes, relationsihps and properties), and query performance. 
+
+With this integration, you can link to the Neo4j metrics that take you to the dashboards you need. This allows you and your DBAs to troubleshoot and monitor the health of your Neo4j databses based on the most relevant metrics. 
+
+This integration includes dashboards that contain the metrics that have been identified as the most important and most used for management of Neo4j databases.
 
 ## Setup
 
