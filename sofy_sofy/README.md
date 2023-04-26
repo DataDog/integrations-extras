@@ -2,7 +2,6 @@
 
 ## Overview
 
-### What is Sofy 
 Sofy is a no-code platform for creating automated tests on  mobile Apps. Users can integrated with their CI/CD pipelines to execute tests on real devices and view the results of their functional tests along with performance metrics.
 
 With this integration, you have deeper insight into your testing process by visualizing key metrics and trends such as load time, network, memory utilization and CPU. The out-of-the-box dashboard provides real-time visibility into your SOFY test results, enabling you to monitor and analyze performance over time and make data-driven decisions to improve overall software quality.
@@ -34,10 +33,10 @@ Get set up in just a few steps:
 
 
 ## Uninstallation
-* Remove that all API keys associated with this integration have been disabled by searching for IsDown on the [API Keys management page][4] in Datadog.
+* Remove that all API keys associated with this integration have been disabled by searching for SOFY on the [API Keys management page][4] in Datadog.
 
 ## Support
-For support or feature requests, contact SOFY through the [following channel][5]
+Need help? Contact [Sofy support][5].
 
 ## Further Reading
 Additional helpful documentation, links, and articles:
