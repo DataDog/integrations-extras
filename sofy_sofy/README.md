@@ -9,11 +9,7 @@ With this integration, you have deeper insight into your testing process by visu
 ## Data Collected
 ### Metrics
 
-You can monitor the following device metrics:
-* CPU Utilization
-* Memory Utilization
-* Load Time 
-* Network
+See [metadata.csv][8] for the full list of metrics provided by this check.
 
 
 ## Setup
@@ -21,15 +17,17 @@ Get set up in just a few steps:
 
 1. Go to your [Datadog Integrations page][1] and click on the SOFY tile. Then go to the **Configuration** tab and click **Install Integration** at the bottom.
 
-2. Log in to [SOFY][2]: Start by logging in to SOFY and navigating to the Account Setting page by selecting Account -> Account Setting from the left-hand navigation menu.
+1. Click **Connect Accounts** to begin authorization of the SOFY integration from the Login page in SOFY.
 
-3. Connect Datadog: Once on the Account Setting page, select the [Integration tab][3] and locate the Datadog tile. Click the "Connect" button to begin the integration process.
+3. Log in to [SOFY][2]: Start by logging in to SOFY and navigating to the Account Setting page by selecting Account -> Account Setting from the left-hand navigation menu.
 
-4. Follow OAuth Steps: SOFY will prompt you to follow a series of OAuth steps to authorize the integration with Datadog. Follow these steps carefully, making sure to grant the necessary permissions to allow SOFY to send data to Datadog.
+4. Connect Datadog: Once on the Account Setting page, select the [Integration tab][3] and locate the Datadog tile. Click the "Connect" button to begin the integration process.
 
-5. Visit Monitoring Tab: Once the integration is complete, navigate to the App Manager page by selecting it from the left-hand navigation menu. From there, click on the monitoring tab on the right-hand side of the page.
+5. Follow OAuth Steps: SOFY will prompt you to follow a series of OAuth steps to authorize the integration with Datadog. Follow these steps carefully, making sure to grant the necessary permissions to allow SOFY to send data to Datadog.
 
-6. Enable Datadog Monitoring: Finally, enable Datadog monitoring for the selected app by toggling the appropriate switch. SOFY will now begin sending data to Datadog after each run in the selected app, allowing you to monitor and analyze the results in real time.
+6. Visit Monitoring Tab: Once the integration is complete, navigate to the App Manager page by selecting it from the left-hand navigation menu. From there, click on the monitoring tab on the right-hand side of the page.
+
+7. Enable Datadog Monitoring: Finally, enable Datadog monitoring for the selected app by toggling the appropriate switch. SOFY will now begin sending data to Datadog after each run in the selected app, allowing you to monitor and analyze the results in real time.
 
 
 ## Uninstallation
@@ -51,3 +49,4 @@ Additional helpful documentation, links, and articles:
 [5]: https://support.sofy.ai/support/tickets/new
 [6]: https://sofy.ai/blog/
 [7]: https://docs.sofy.ai
+[8]: https://github.com/DataDog/integrations-extras/blob/master/sofy_sofy/metadata.csv
