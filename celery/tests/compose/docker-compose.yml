@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  redis:
+    image: "redis:latest"
+    networks:
+      - net
+    ports:
+      - "6379:6379"
+
+  celery:
+    build:
+      context: ./celery
+    environment:
+      - "CELERY_BROKER=redis://redis:6379/0"
+      - "CELERY_BACKEND=redis://redis:6379/1"
+    hostname: worker
+    depends_on:
+      - redis
+    networks:
+      - net
+
+networks:
+  net:
