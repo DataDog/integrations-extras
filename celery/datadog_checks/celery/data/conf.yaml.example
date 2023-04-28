@@ -14,6 +14,27 @@ init_config:
 instances:
 
   -
+    ## @param app - string - required
+    ## The name of the app to monitor. Will be added as tag "app:<APP>" to metrics.
+    #
+    app: myapp
+
+    ## @param broker - string - required
+    ## The broker you want to monitor. The check will use this broker to monitor all registered workers.
+    #
+    broker: "redis://localhost:6379/0"
+
+    ## @param remember_workers - boolean - optional - default: false
+    ## If set to `true`, the check will remember workers that answered to pings and when they stop responding
+    ## it will send `CRITICAL` for a certain number of times before forgetting them and stopping to send service-checks.
+    #
+    # remember_workers: false
+
+    ## @param worker_crit_max - integer - optional - default: 5
+    ## The maximum amount of times to send `CRITICAL` before forgetting workers that stopped pinging.
+    #
+    # workers_crit_max: 5
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##

@@ -1,10 +1,36 @@
 name: Celery
 files:
-- name: celery.yaml
-  options:
-  - template: init_config
+  - name: celery.yaml
     options:
-    - template: init_config/default
-  - template: instances
-    options:
-    - template: instances/default
+      - template: init_config
+        options:
+          - template: init_config/default
+
+      - template: instances
+        options:
+          - name: app
+            required: true
+            description: The name of the app to monitor. Will be added as tag "app:<APP>" to metrics.
+            value:
+              type: string
+              example: myapp
+          - name: broker
+            required: true
+            description: |
+              The broker you want to monitor. The check will use this broker to monitor all registered workers.
+            value:
+              type: string
+              example: redis://localhost:6379/0
+          - name: remember_workers
+            description: |
+              If set to `true`, the check will remember workers that answered to pings and when they stop responding
+              it will send `CRITICAL` for a certain number of times before forgetting them and stopping to send
+              service-checks.
+            value:
+              type: boolean
+              example: false
+          - name: worker_crit_max
+            description: The maximum amount of times to send `CRITICAL` before forgetting workers that stopped pinging.
+            value:
+              type: integer
+              example: 5
