@@ -1,10 +1,11 @@
 # (C) Datadog, Inc. 2023-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-from typing import Any, Mapping, Dict, List  # noqa: F401
+from typing import Any, Dict, List, Mapping  # noqa: F401
 
 import celery.app.control
 from celery import Celery
+
 from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
 
 _WORKERS_CRIT_MAX_DEFAULT = 5
@@ -35,12 +36,6 @@ class CeleryCheck(AgentCheck):
         if "remember_workers" in self.instance and not isinstance(self.instance.get("remember_workers"), bool):
             raise ConfigurationError("Instance incorrectly configured")
 
-        if "report_task_count" in self.instance and not isinstance(self.instance.get("report_task_count"), bool):
-            raise ConfigurationError("Instance incorrectly configured")
-
-        if "report_rusage" in self.instance and not isinstance(self.instance.get("report_rusage"), bool):
-            raise ConfigurationError("Instance incorrectly configured")
-
         if "workers_crit_max" in self.instance and not isinstance(self.instance.get("workers_crit_max"), int):
             raise ConfigurationError("Instance incorrectly configured")
 
@@ -48,11 +43,11 @@ class CeleryCheck(AgentCheck):
         self._app: str = self.instance.get("app")
         self._broker: str = self.instance.get("broker")
         self._remember_workers: bool = "remember_workers" in self.instance and self.instance.get("remember_workers")
-        self._report_task_count: bool = "report_task_count" in self.instance and self.instance.get("report_task_count")
-        self._report_rusage: bool = "report_rusage" in self.instance and self.instance.get("report_rusage")
-        self._workers_crit_max: int = \
-            int(self.instance.get("workers_crit_max")) if "workers_crit_max" in self.instance \
+        self._workers_crit_max: int = (
+            int(self.instance.get("workers_crit_max"))
+            if "workers_crit_max" in self.instance
             else _WORKERS_CRIT_MAX_DEFAULT
+        )
 
     def check(self, _):
         app: Celery = Celery(self._app, broker=self._broker)
@@ -65,10 +60,11 @@ class CeleryCheck(AgentCheck):
         active_workers: List[str] = []
         for worker_status in app.control.ping():
             for name, value in worker_status.items():
-                self.service_check(metric_map["SVC_CHECK"],
-                                   self.OK if value['ok'] == 'pong' else self.CRITICAL,
-                                   tags=[f"worker:{name}", f"app:{self._app}"],
-                                   )
+                self.service_check(
+                    metric_map["SVC_CHECK"],
+                    self.OK if value['ok'] == 'pong' else self.CRITICAL,
+                    tags=[f"worker:{name}", f"app:{self._app}"],
+                )
                 if self._remember_workers:
                     self._remembered_workers[name] = 0
                     active_workers.append(name)
@@ -79,10 +75,11 @@ class CeleryCheck(AgentCheck):
             # and remove it from the list
             for worker in list(self._remembered_workers.keys()):
                 if worker not in active_workers:
-                    self.service_check(metric_map["SVC_CHECK"],
-                                       self.CRITICAL,
-                                       tags=[f"worker:{worker}", f"app:{self._app}"],
-                                       )
+                    self.service_check(
+                        metric_map["SVC_CHECK"],
+                        self.CRITICAL,
+                        tags=[f"worker:{worker}", f"app:{self._app}"],
+                    )
                     self._remembered_workers[worker] += 1
                     if self._remembered_workers[worker] >= self._workers_crit_max:
                         del self._remembered_workers[worker]
@@ -101,17 +98,14 @@ class CeleryCheck(AgentCheck):
         # Send Worker Metrics
         for worker, stats in inspect.stats().items():
             self.gauge(metric_map["UPTIME"], stats['uptime'], tags=[f"worker:{worker}", f"app:{self._app}"])
-            self.gauge(metric_map["PREFETCH_COUNT"],
-                       stats["prefetch_count"],
-                       tags=[f"worker:{worker}", f"app:{self._app}"])
+            self.gauge(
+                metric_map["PREFETCH_COUNT"], stats["prefetch_count"], tags=[f"worker:{worker}", f"app:{self._app}"]
+            )
             # Report number of tasks that have been accepted per type since worker-startup
-            if self._report_task_count:
-                for task, count in stats['total'].items():
-                    self.gauge(metric_map["TASK_COUNT"],
-                               count,
-                               tags=[f"worker:{worker}", f"task:{task}", f"app:{self._app}"]
-                               )
+            for task, count in stats['total'].items():
+                self.gauge(
+                    metric_map["TASK_COUNT"], count, tags=[f"worker:{worker}", f"task:{task}", f"app:{self._app}"]
+                )
             # Report rusage values per worker
-            if self._report_rusage:
-                for metric, value in stats['rusage'].items():
-                    self.gauge(f"{metric_map['RUSAGE']}.{metric}", value, tags=[f"worker:{worker}", f"app:{self._app}"])
+            for metric, value in stats['rusage'].items():
+                self.gauge(f"{metric_map['RUSAGE']}.{metric}", value, tags=[f"worker:{worker}", f"app:{self._app}"])

@@ -27,8 +27,6 @@ class InstanceConfig(BaseModel):
     app: str
     broker: str
     remember_workers: Optional[bool]
-    report_task_count: Optional[bool]
-    report_rusage: Optional[bool]
     workers_crit_max: Optional[int]
     empty_default_hostname: Optional[bool]
     min_collection_interval: Optional[float]
