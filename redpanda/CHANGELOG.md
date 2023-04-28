@@ -1,5 +1,8 @@
 # CHANGELOG - redpanda
 
+## 1.1.1 / 2023-04-28
+* [Fixed] Remove the use_latest_spec option from the config file. See [#1835](https://github.com/DataDog/integrations-extras/pull/1835).
+
 ## 1.1.0 / 2022-03-24
 
 * [Added] Add RP consumer group offset. See [#1237](https://github.com/DataDog/integrations-extras/pull/1237). Thanks [bpraseed](https://github.com/bpraseed).

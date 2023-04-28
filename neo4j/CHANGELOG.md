@@ -1,5 +1,8 @@
 # CHANGELOG - neo4j
 
+## 2.0.2 / 2023-04-28
+* [Fixed] Remove the use_latest_spec option from the config file. See [#1835](https://github.com/DataDog/integrations-extras/pull/1835).
+
 ## 2.0.1 / 2022-08-22
 
 * [Added] Added causal_cluster read replica metrics. See [#1509](https://github.com/DataDog/integrations-extras/pull/1509).
