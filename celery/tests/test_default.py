@@ -42,9 +42,7 @@ def test_celery_default(aggregator, dd_run_check, check, worker_instance):
         # assert worker metrics
         aggregator.assert_metric('celery.worker.uptime', count=1, tags=expected_tags)
         aggregator.assert_metric('celery.worker.prefetch_count', count=1, tags=expected_tags)
-        aggregator.assert_metric(
-            'celery.worker.task_count', value=1, count=1, tags=expected_tags + ["task:tasks.add"]
-        )
+        aggregator.assert_metric('celery.worker.task_count', value=1, count=1, tags=expected_tags + ["task:tasks.add"])
         aggregator.assert_metric(
             'celery.worker.task_count', value=0, count=0, tags=expected_tags + ["task:tasks.slow_add"]
         )
@@ -80,9 +78,7 @@ def test_celery_default(aggregator, dd_run_check, check, worker_instance):
         aggregator.assert_metric('celery.worker.tasks.revoked', value=0, count=1, tags=expected_tags)
 
         task.get()  # wait for the slow task to finish and see if 'task_count' was updated
-        aggregator.assert_metric(
-            'celery.worker.task_count', value=1, count=1, tags=expected_tags + ["task:tasks.add"]
-        )
+        aggregator.assert_metric('celery.worker.task_count', value=1, count=1, tags=expected_tags + ["task:tasks.add"])
         aggregator.assert_metric(
             'celery.worker.task_count', value=1, count=1, tags=expected_tags + ["task:tasks.slow_add"]
         )
@@ -105,9 +101,7 @@ def test_celery_default(aggregator, dd_run_check, check, worker_instance):
         task.get()
         time.sleep(1)
         dd_run_check(celery_check)
-        aggregator.assert_metric(
-            'celery.worker.task_count', value=2, count=1, tags=expected_tags + ["task:tasks.add"]
-        )
+        aggregator.assert_metric('celery.worker.task_count', value=2, count=1, tags=expected_tags + ["task:tasks.add"])
         aggregator.assert_metric(
             'celery.worker.task_count', value=1, count=2, tags=expected_tags + ["task:tasks.slow_add"]
         )
@@ -132,9 +126,7 @@ def test_celery_default(aggregator, dd_run_check, check, worker_instance):
         task.wait(propagate=False)
         time.sleep(1)
         dd_run_check(celery_check)
-        aggregator.assert_metric(
-            'celery.worker.task_count', value=2, count=2, tags=expected_tags + ["task:tasks.add"]
-        )
+        aggregator.assert_metric('celery.worker.task_count', value=2, count=2, tags=expected_tags + ["task:tasks.add"])
         aggregator.assert_metric(
             'celery.worker.task_count', value=1, count=2, tags=expected_tags + ["task:tasks.slow_add"]
         )

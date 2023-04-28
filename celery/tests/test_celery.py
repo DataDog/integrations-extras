@@ -40,13 +40,16 @@ def test_config():
     with pytest.raises(ConfigurationError):
         CeleryCheck('celery', {}, [{"broker": "redis://redis:6379"}])
 
-    CeleryCheck('celery', {}, [{"app": "test", "broker": "redis://redis:6379"}])
-
     with pytest.raises(ConfigurationError):
         CeleryCheck('celery', {}, [{"app": "test", "broker": "redis://redis:6379", "remember_workers": 42}])
 
     with pytest.raises(ConfigurationError):
         CeleryCheck('celery', {}, [{"app": "test", "broker": "redis://redis:6379", "workers_crit_max": "fail"}])
+
+    with pytest.raises(ConfigurationError):
+        CeleryCheck('celery', {}, [{"app": "test", "broker": "redis://redis:6379", "tags": 42}])
+
+    CeleryCheck('celery', {}, [{"app": "test", "broker": "redis://redis:6379"}])
 
 
 def test__check_worker_ping(check, aggregator, worker_instance):
@@ -196,8 +199,9 @@ def test__remembered_workers(check, aggregator, worker_instance):
 
 
 def test__no_remembered_workers(check, aggregator, worker_instance):
-    worker_instance['remember_workers'] = False
-    check = check(worker_instance)
+    instance = worker_instance.copy()
+    instance['remember_workers'] = False
+    check = check(instance)
     app = mock.MagicMock()
     app.control.ping.return_value = [{'celery@4f8ff30e0459': {'ok': 'pong'}}, {'celery@173b8997ac64': {'ok': 'pong'}}]
     check._check_worker_ping(app)
@@ -209,3 +213,15 @@ def test__no_remembered_workers(check, aggregator, worker_instance):
     ok_tags = ["worker:celery@4f8ff30e0459", "app:tasks"]
     aggregator.assert_service_check('celery.worker.ping', CeleryCheck.OK, count=1, tags=ok_tags)
     aggregator.assert_service_check('celery.worker.ping', CeleryCheck.CRITICAL, count=0)
+
+
+def test__gen_tags(check, aggregator, worker_instance):
+    instance = worker_instance.copy()
+    instance["tags"] = ["tag1:value1", "tag2:value2"]
+    check = check(instance)
+    tags = check._gen_tags(worker="worker1")
+    assert "worker:worker1" in tags
+    assert "app:tasks" in tags
+    assert "tag1:value1" in tags
+    assert "tag2:value2" in tags
+    assert len(tags) == 4

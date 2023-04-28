@@ -49,6 +49,18 @@ class CeleryCheck(AgentCheck):
             else _WORKERS_CRIT_MAX_DEFAULT
         )
 
+        if "tags" in self.instance:
+            if isinstance(self.instance.get("tags"), List):
+                self._tags = self.instance.get("tags")
+            elif isinstance(self.instance.get("tags"), str):
+                self._tags = [self.instance.get("tags")]
+            else:
+                raise ConfigurationError("'tags' needs to be a list or string")
+        else:
+            self._tags = []
+        self._tags.append(f"app:{self._app}")
+        self._tag_cache = {}
+
     def check(self, _):
         app: Celery = Celery(self._app, broker=self._broker)
         self._check_worker_ping(app)
@@ -63,7 +75,7 @@ class CeleryCheck(AgentCheck):
                 self.service_check(
                     metric_map["SVC_CHECK"],
                     self.OK if value['ok'] == 'pong' else self.CRITICAL,
-                    tags=[f"worker:{name}", f"app:{self._app}"],
+                    tags=self._gen_tags(worker=name),
                 )
                 if self._remember_workers:
                     self._remembered_workers[name] = 0
@@ -78,7 +90,7 @@ class CeleryCheck(AgentCheck):
                     self.service_check(
                         metric_map["SVC_CHECK"],
                         self.CRITICAL,
-                        tags=[f"worker:{worker}", f"app:{self._app}"],
+                        tags=self._gen_tags(worker=worker),
                     )
                     self._remembered_workers[worker] += 1
                     if self._remembered_workers[worker] >= self._workers_crit_max:
@@ -86,26 +98,34 @@ class CeleryCheck(AgentCheck):
 
     def _check_task_metrics(self, inspect: celery.app.control.Inspect) -> None:
         for worker, tasks in inspect.active().items():
-            self.gauge(metric_map["ACTIVE_TASKS"], len(tasks), tags=[f"worker:{worker}", f"app:{self._app}"])
+            self.gauge(metric_map["ACTIVE_TASKS"], len(tasks), tags=self._gen_tags(worker=worker))
         for worker, tasks in inspect.scheduled().items():
-            self.gauge(metric_map["SCHEDULED_TASKS"], len(tasks), tags=[f"worker:{worker}", f"app:{self._app}"])
+            self.gauge(metric_map["SCHEDULED_TASKS"], len(tasks), tags=self._gen_tags(worker=worker))
         for worker, tasks in inspect.reserved().items():
-            self.gauge(metric_map["RESERVED_TASKS"], len(tasks), tags=[f"worker:{worker}", f"app:{self._app}"])
+            self.gauge(metric_map["RESERVED_TASKS"], len(tasks), tags=self._gen_tags(worker=worker))
         for worker, tasks in inspect.revoked().items():
-            self.gauge(metric_map["REVOKED_TASKS"], len(tasks), tags=[f"worker:{worker}", f"app:{self._app}"])
+            self.gauge(metric_map["REVOKED_TASKS"], len(tasks), tags=self._gen_tags(worker=worker))
 
     def _check_worker_metrics(self, inspect: celery.app.control.Inspect) -> None:
         # Send Worker Metrics
         for worker, stats in inspect.stats().items():
-            self.gauge(metric_map["UPTIME"], stats['uptime'], tags=[f"worker:{worker}", f"app:{self._app}"])
-            self.gauge(
-                metric_map["PREFETCH_COUNT"], stats["prefetch_count"], tags=[f"worker:{worker}", f"app:{self._app}"]
-            )
+            tags = self._gen_tags(worker=worker)
+            self.gauge(metric_map["UPTIME"], stats['uptime'], tags=tags)
+            self.gauge(metric_map["PREFETCH_COUNT"], stats["prefetch_count"], tags=tags)
             # Report number of tasks that have been accepted per type since worker-startup
             for task, count in stats['total'].items():
-                self.gauge(
-                    metric_map["TASK_COUNT"], count, tags=[f"worker:{worker}", f"task:{task}", f"app:{self._app}"]
-                )
+                self.gauge(metric_map["TASK_COUNT"], count, tags=tags + [f"task:{task}"])
             # Report rusage values per worker
             for metric, value in stats['rusage'].items():
-                self.gauge(f"{metric_map['RUSAGE']}.{metric}", value, tags=[f"worker:{worker}", f"app:{self._app}"])
+                self.gauge(f"{metric_map['RUSAGE']}.{metric}", value, tags=tags)
+
+    def _gen_tags(self, worker: str = "") -> List[str]:
+        if worker:
+            if worker not in self._tag_cache:
+                t = self._tags.copy()
+                t.append(f"worker:{worker}")
+                self._tag_cache[worker] = t
+            tags = self._tag_cache[worker]
+        else:
+            tags = self._tags
+        return tags
