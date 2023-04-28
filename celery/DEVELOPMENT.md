@@ -14,15 +14,5 @@
 
 ## To Do
 
- - Install dependencies
-   - Redis
-   - Celery
- - Tests
-   - Integration Tests
- - Add metadata
-   - `metadata.csv`
-   - `assets/service_checks.json`
-   - `manifest.json`
- - Add suggested dashboard
  - Add example configuration
  - Improve tag determination
