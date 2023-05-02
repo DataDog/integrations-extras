@@ -41,7 +41,7 @@ class Neo4jCheck(PrometheusCheck):
         # Determine if metrics.namespaces.enabled is set in the target Neo4j instance
         # Finding this dynamically lets users roll out this feature without interrupting their metrics,
         # as well as monitoring database fleets with mixed values for this setting.
-        is_namespaced = True
+        is_namespaced = False
         # convert the generator to a normal list
         new_metrics = list(metrics)
 
@@ -58,9 +58,8 @@ class Neo4jCheck(PrometheusCheck):
 
         for metric in filtered_metrics:
             if metric.name.startswith("neo4j_dbms_") or metric.name.startswith("neo4j_database_"):
-                continue
-            is_namespaced = False
-            break
+                is_namespaced = True
+                break
 
         meta_info_map = self._map_metadata_info(metadata_info_metric)
 
@@ -77,6 +76,9 @@ class Neo4jCheck(PrometheusCheck):
         for sample in info_metric.metric:
             identifier, labels = None, {}
             for label in sample.label:
+                # The metadata "id" label tells us which database the meta refers to. In the future
+                # this might tell us if it's a global meta or something not related to a specific
+                # database hence the generic name "id"
                 if label.name == "id":
                     identifier = label.value
                     continue
