@@ -6,7 +6,7 @@ Neo4j[1] is an enterprise-strength graph database that combines native graph sto
 
 Neo4j metrics enable database administers to monitor their Neo4j deployments. DBAs want to understand the memory usage (heap and page cache), number of transactions, cluster status, database size (including number of nodes, relationsihps and properties), and query performance. 
 
-With this integration, you can link to the Neo4j metrics that take you to the dashboards you need. This allows you and your DBAs to troubleshoot and monitor the health of your Neo4j databses based on the most relevant metrics. 
+With this integration, you receive the most important and most used Neo4j metrics, along with out-of-the-box dashboards, that allow you and your DBAs to troubleshoot and monitor the health of your Neo4j databases. 
 
 This integration includes dashboards that contain the metrics that have been identified as the most important and most used for management of Neo4j databases.
 
