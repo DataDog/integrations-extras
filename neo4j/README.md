@@ -29,9 +29,7 @@ To install the neo4j check on your host:
 
 1. Edit the `neo4j.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your neo4j performance data. See the [sample neo4j.d/conf.yaml][3] for all available configuration options.
 
-2. Edit the `neo4j.d/neo4j.yaml` file in the `conf.d/` folder at the root of your Agent's configuraiton directory. See the [sample neo4j.d/neo4j.yaml][10] for all available configuration options.
-
-3. [Restart the Agent][4].
+2. [Restart the Agent][4].
 
 ### Validation
 
@@ -42,10 +40,10 @@ To install the neo4j check on your host:
 ### Metrics
 
 Neo4j version 4
-Neo4j 4 metrics are collected as documented [here][12]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
 Neo4j version 5
-Neo4j 5 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
 Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
 
@@ -72,6 +70,5 @@ Need help? Contact [Neo4j support][7].
 [7]: mailto:support@neo4j.com
 [8]: https://app.datadoghq.com/account/settings#agent
 [9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
-[10]: https://docs.datadoghq.com/containers/cluster_agent/clusterchecks/?tab=helm#example-mysql-check-on-an-externally-hosted-database
-[11]: https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/
-[12]: https://neo4j.com/docs/operations-manual/4.4/monitoring/metrics/reference/
+[10]: https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/
+[11]: https://neo4j.com/docs/operations-manual/4.4/monitoring/metrics/reference/
