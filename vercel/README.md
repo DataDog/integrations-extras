@@ -46,5 +46,5 @@ Need help? Contact [Datadog support][8].
 [5]: /logs/
 [6]: /synthetics/
 [7]: https://app.datadoghq.com/organization-settings/api-keys
-[8]: https://vercel.com/integrations/datadog-logs
+[8]: https://vercel.com/integrations/datadog
 [9]: /help/
