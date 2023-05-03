@@ -2,13 +2,12 @@
 
 ## Overview
 
-Neo4j[1] is the leading enterprise-strength graph database that combines native graph storage, advanced security, scalable speed-optimized architecture, and ACID compliance to ensure predictability and integrity of relationship-based queries. Powered by a native graph database, Neo4j stores and manages data in its more natural, connected state, maintaining data relationships that deliver lightning-fast queries, deeper context for analytics, and a pain-free modifiable data model.
+Neo4j[1] is an enterprise-strength graph database that combines native graph storage, advanced security, scalable speed-optimized architecture, and ACID compliance to ensure predictability and integrity of relationship-based queries. Neo4j stores and manages data in its more natural, connected state, maintaining data relationships that deliver lightning-fast queries, deeper context for analytics, and a pain-free modifiable data model.
 
 Neo4j metrics enable database administers to monitor their Neo4j deployments. DBAs want to understand the memory usage (heap and page cache), number of transactions, cluster status, database size (including number of nodes, relationsihps and properties), and query performance. 
 
-With this integration, you can link to the Neo4j metrics that take you to the dashboards you need. This allows you and your DBAs to troubleshoot and monitor the health of your Neo4j databses based on the most relevant metrics. 
+With this integration, you receive the most important and most used Neo4j metrics, along with out-of-the-box dashboards, that allow you and your DBAs to troubleshoot and monitor the health of your Neo4j databases. 
 
-This integration includes dashboards that contain the metrics that have been identified as the most important and most used for management of Neo4j databases.
 
 ## Setup
 
@@ -39,10 +38,10 @@ To install the neo4j check on your host:
 
 ### Metrics
 
-Neo4j version 4
+**Neo4j Version 4**
 Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
-Neo4j version 5
+**Neo4j Version 5**
 Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
 Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
