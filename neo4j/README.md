@@ -41,7 +41,7 @@ To install the neo4j check on your host:
 **Neo4j Version 4**
 Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
-Neo4j version 5
+**Neo4j Version 5**
 Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
 
 Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
