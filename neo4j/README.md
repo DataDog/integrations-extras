@@ -8,7 +8,6 @@ Neo4j metrics enable database administers to monitor their Neo4j deployments. DB
 
 With this integration, you receive the most important and most used Neo4j metrics, along with out-of-the-box dashboards, that allow you and your DBAs to troubleshoot and monitor the health of your Neo4j databases. 
 
-This integration includes dashboards that contain the metrics that have been identified as the most important and most used for management of Neo4j databases.
 
 ## Setup
 
