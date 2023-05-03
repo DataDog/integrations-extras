@@ -27,6 +27,7 @@ class Config:
 
 class Neo4jCheck(PrometheusCheck):
     DEFAULT_METRIC_LIMIT = 0
+    METADATA_LABEL_PREFIX = "dbmeta"
 
     def check(self, instance):
         self._set_whitelisted_metrics()
@@ -40,22 +41,55 @@ class Neo4jCheck(PrometheusCheck):
         # Determine if metrics.namespaces.enabled is set in the target Neo4j instance
         # Finding this dynamically lets users roll out this feature without interrupting their metrics,
         # as well as monitoring database fleets with mixed values for this setting.
-        is_namespaced = True
+        is_namespaced = False
         # convert the generator to a normal list
         new_metrics = list(metrics)
 
+        filtered_metrics = []
+        metadata_info_metric = None
         for metric in new_metrics:
-            if metric.name.startswith("neo4j_dbms_") or metric.name.startswith("neo4j_database_"):
+            if metric.name == "metadata_info":
+                metadata_info_metric = metric
+
+                # We don't break here as we want to filter these out in case there are multiple entries
                 continue
-            is_namespaced = False
-            break
+
+            filtered_metrics.append(metric)
+
+        for metric in filtered_metrics:
+            if metric.name.startswith("neo4j_dbms_") or metric.name.startswith("neo4j_database_"):
+                is_namespaced = True
+                break
+
+        meta_info_map = self._map_metadata_info(metadata_info_metric)
 
         if is_namespaced:
-            self._check_namespaced_metrics(new_metrics, config)
+            self._check_namespaced_metrics(filtered_metrics, config, meta_info_map)
         else:
-            self._check_legacy_metrics(new_metrics, config)
+            self._check_legacy_metrics(filtered_metrics, config, meta_info_map)
 
-    def _check_namespaced_metrics(self, metrics, config):
+    def _map_metadata_info(self, info_metric):
+        meta_map = {}
+        if info_metric is None:
+            return {}
+
+        for sample in info_metric.metric:
+            identifier, labels = None, {}
+            for label in sample.label:
+                # The metadata "id" label tells us which database the meta refers to. In the future
+                # this might tell us if it's a global meta or something not related to a specific
+                # database hence the generic name "id"
+                if label.name == "id":
+                    identifier = label.value
+                    continue
+
+                labels[f"{self.METADATA_LABEL_PREFIX}.{label.name}"] = label.value
+
+            meta_map[identifier] = labels
+
+        return meta_map
+
+    def _check_namespaced_metrics(self, metrics, config, meta_map):
         for metric in metrics:
             if metric.name.startswith("neo4j_dbms_"):
                 db_name = GLOBAL_DB_NAME
@@ -70,9 +104,13 @@ class Neo4jCheck(PrometheusCheck):
             tags = ['db_name:{}'.format(db_name)]
             if config.instance_tags:
                 tags.extend(config.instance_tags.copy())
+
+            if meta_map:
+                tags.extend(self._get_metadata_tags_for_db(meta_map, db_name))
+
             self.process_metric(message=metric, custom_tags=tags)
 
-    def _check_legacy_metrics(self, metrics, config):
+    def _check_legacy_metrics(self, metrics, config, meta_map):
         for metric in metrics:
             metric.name = metric.name.replace('neo4j_', '', 1)
             db_name = GLOBAL_DB_NAME
@@ -85,6 +123,10 @@ class Neo4jCheck(PrometheusCheck):
             tags = ['db_name:{}'.format(db_name)]
             if config.instance_tags:
                 tags.extend(config.instance_tags.copy())
+
+            if meta_map:
+                tags.extend(self._get_metadata_tags_for_db(meta_map, db_name))
+
             self.process_metric(message=metric, custom_tags=tags)
 
     def _get_db_for_metric(self, dbs, metric_name):
@@ -92,6 +134,17 @@ class Neo4jCheck(PrometheusCheck):
             if metric_name.startswith('{}_'.format(db)):
                 return db
         return None
+
+    def _get_metadata_tags_for_db(self, meta_map, db_name):
+        if db_name not in meta_map:
+            return []
+
+        db_tags = meta_map[db_name]
+        tag_list = []
+        for dt_k, dt_v in db_tags.items():
+            tag_list.append(f"{dt_k}:{dt_v}")
+
+        return tag_list
 
     def _get_config(self, instance):
         host = self._get_value(instance=instance, key='host', required=True)
