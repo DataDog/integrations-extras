@@ -24,16 +24,16 @@ This integration allows organizations to monitor a user's resource access activi
 1. Set up [Datadog Docker integration][13]
       1. For host agent
          * Add additional configuration `container_exclude: ["image:.*"]` and `container_include: ["image:twingate/connector"]` to the configuration file `datadog.yaml`
-         * See example configuration [here][16]
+         * See `datadog.yaml` example configuration [here][16]
          * Add the `dd-agent` user to the `docker` group by using `usermod -a -G docker dd-agent`
       2. For container agent
          * add additional parameters `-e DD_CONTAINER_EXCLUDE="image:.*"` and `-e DD_CONTAINER_INCLUDE="image:twingate/connector"` in the docker run command
-      3. See example docker run command [here][18]
-      4. see [Container Discovery Management][14] for details
+         * See example docker run command [here][18]
+      3. see [Container Discovery Management][14] for details
 2. Set up Twingate Connector with additional docker parameters
    1. Additional label `com.datadoghq.ad.logs` is required by the Twingate Connector container
    2. The Twingate Connector container needs to be recreated to add the additional label 
-   3. See example Twingate connector deployment command with the additional label `com.datadoghq.ad.logs` [here][19]
+   3. See example Twingate connector deployment command with the additional container label `com.datadoghq.ad.logs` [here][19]
    5. See [Container Log Integration][15] for more details
 
 ### Twingate Analytics Dashboard
