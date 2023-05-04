@@ -2,20 +2,21 @@
 # All rights reserved
 # Licensed under Simplified BSD License (see LICENSE)
 
+import logging
+import os
+
 # stdlib
 import threading
 import time
 import unittest
-import os
-import mock
 
-# 3p
-from nose.plugins.attrib import attr
+import mock
 
 # project
 from aggregator import MetricsAggregator
-import logging
 
+# 3p
+from nose.plugins.attrib import attr
 
 log = logging.getLogger('hbase_regionserver_test')
 
@@ -36,8 +37,9 @@ LOG_INFO = {
 }
 
 with mock.patch('config.get_logging_config', return_value=LOG_INFO):
-    from jmxfetch import JMXFetch
     from dogstatsd import Server
+    from jmxfetch import JMXFetch
+
 
 class DummyReporter(threading.Thread):
     def __init__(self, metrics_aggregator):
@@ -59,9 +61,11 @@ class DummyReporter(threading.Thread):
         if metrics:
             self.metrics = metrics
 
+
 @attr(requires='hbase_regionserver')
 class TestHbase_regionserver(unittest.TestCase):
     """Basic Test for hbase_regionserver integration."""
+
     def setUp(self):
         aggregator = MetricsAggregator("test_host")
         self.server = Server(aggregator, "localhost", STATSD_PORT)
@@ -94,19 +98,38 @@ class TestHbase_regionserver(unittest.TestCase):
         self.assertTrue(len(metrics) > 0)
 
         self.assertTrue(
-            len([t for t in metrics if "jvm." in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]) >= 13, metrics)
+            len(
+                [
+                    t
+                    for t in metrics
+                    if "jvm." in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']
+                ]
+            )
+            >= 13,
+            metrics,
+        )
 
         # waiting for receiving metrics which appears after a while.
         count = 0
         while True:
             metrics = self.reporter.metrics
-            mutations_metrics = [t for t in metrics if "hbase.regionserver.server.mutations" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
-            slow_appned_metrics = [t for t in metrics if "hbase.regionserver.server.slow_append" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
-            # hedged_metrics = [t for t in metrics if "hbase.regionserver.server.hedged_read" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
-            # pause_time_metrics = [t for t in metrics if "hbase.regionserver.server.pause_time" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
+            mutations_metrics = [
+                t
+                for t in metrics
+                if "hbase.regionserver.server.mutations" in t['metric']
+                and "instance:hbase_regionserver-localhost-10102" in t['tags']
+            ]
+            slow_appned_metrics = [
+                t
+                for t in metrics
+                if "hbase.regionserver.server.slow_append" in t['metric']
+                and "instance:hbase_regionserver-localhost-10102" in t['tags']
+            ]
+            # hedged_metrics = [t for t in metrics if "hbase.regionserver.server.hedged_read" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]  # noqa: E501
+            # pause_time_metrics = [t for t in metrics if "hbase.regionserver.server.pause_time" in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]  # noqa: E501
             time.sleep(1)
             count += 1
-            if len(mutations_metrics) >= 2 and len(slow_appned_metrics) >= 1 :
+            if len(mutations_metrics) >= 2 and len(slow_appned_metrics) >= 1:
                 break
             elif count <= 60:
                 continue
@@ -116,7 +139,11 @@ class TestHbase_regionserver(unittest.TestCase):
 
         # hbase.regionserver.server.hedged_read* and hbase.regionserver.server.pause* is ignored here
         # because these metrics won't emit until these process will actually happen.
-        metrics = [t for t in self.reporter.metrics if "hbase." in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']]
+        metrics = [
+            t
+            for t in self.reporter.metrics
+            if "hbase." in t['metric'] and "instance:hbase_regionserver-localhost-10102" in t['tags']
+        ]
         num_total = 159
         num_hedged_read = 2
         num_pause = 14

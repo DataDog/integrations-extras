@@ -1,8 +1,10 @@
 import logging
+
+from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
+from simplejson import JSONDecodeError
+
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.errors import CheckException
-from requests.exceptions import Timeout, HTTPError, InvalidURL, ConnectionError
-from simplejson import JSONDecodeError
 
 logging.basicConfig(level=logging.INFO)
 
@@ -29,8 +31,12 @@ class VespaCheck(AgentCheck):
         try:
             json = self._get_metrics_json(url)
             if 'services' not in json:
-                self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.WARNING, tags=instance_tags,
-                                   message="No services in response from metrics proxy on {}".format(url))
+                self.service_check(
+                    self.METRICS_SERVICE_CHECK,
+                    AgentCheck.WARNING,
+                    tags=instance_tags,
+                    message="No services in response from metrics proxy on {}".format(url),
+                )
                 return
 
             for service in json['services']:
@@ -42,26 +48,36 @@ class VespaCheck(AgentCheck):
             self.log.info("Forwarded %s metrics to hq for %s services", self.metric_count, self.services_up)
             self.service_check(self.METRICS_SERVICE_CHECK, AgentCheck.OK, tags=instance_tags)
         except Timeout as e:
-            self._report_metrics_error("Timed out connecting to Vespa's node metrics api: {}".format(e),
-                                       AgentCheck.CRITICAL, instance_tags)
+            self._report_metrics_error(
+                "Timed out connecting to Vespa's node metrics api: {}".format(e), AgentCheck.CRITICAL, instance_tags
+            )
         except (HTTPError, InvalidURL, ConnectionError) as e:
-            self._report_metrics_error("Could not connect to Vespa's node metrics api: {}".format(e),
-                                       AgentCheck.CRITICAL, instance_tags)
+            self._report_metrics_error(
+                "Could not connect to Vespa's node metrics api: {}".format(e), AgentCheck.CRITICAL, instance_tags
+            )
         except JSONDecodeError as e:
-            self._report_metrics_error("Error parsing JSON from Vespa's node metrics api: {}".format(e),
-                                       AgentCheck.CRITICAL, instance_tags)
+            self._report_metrics_error(
+                "Error parsing JSON from Vespa's node metrics api: {}".format(e), AgentCheck.CRITICAL, instance_tags
+            )
         except Exception as e:
-            self._report_metrics_error("Unexpected error: {}".format(e),
-                                       AgentCheck.WARNING, instance_tags)
+            self._report_metrics_error("Unexpected error: {}".format(e), AgentCheck.WARNING, instance_tags)
 
     def _report_metrics_error(self, msg, level, instance_tags):
         self.log.warning(msg)
-        self.service_check(self.METRICS_SERVICE_CHECK, level, tags=instance_tags,
-                           message=msg if level != self.OK else "")
-        self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.WARNING, tags=instance_tags,
-                           message="Problem getting metrics from Vespa's node metrics api")
-        self.log.warning("Issued a warning to " + self.PROCESS_SERVICE_CHECK +
-                         " service check, as there is a problem getting metrics from Vespa.")
+        self.service_check(
+            self.METRICS_SERVICE_CHECK, level, tags=instance_tags, message=msg if level != self.OK else ""
+        )
+        self.service_check(
+            self.PROCESS_SERVICE_CHECK,
+            AgentCheck.WARNING,
+            tags=instance_tags,
+            message="Problem getting metrics from Vespa's node metrics api",
+        )
+        self.log.warning(
+            "Issued a warning to "  # noqa: G003
+            + self.PROCESS_SERVICE_CHECK
+            + " service check, as there is a problem getting metrics from Vespa."
+        )
 
     def _emit_metrics(self, service_name, metrics_elem, instance_tags):
         """
@@ -81,8 +97,7 @@ class VespaCheck(AgentCheck):
         self.metric_count += 1
 
     def _get_metrics_json(self, url):
-        """ Send rest request to metrics api and return the response as JSON
-        """
+        """Send rest request to metrics api and return the response as JSON"""
         self.log.info("Sending request to %s", url)
         response = self.http.get(url)
         response.raise_for_status()
@@ -113,10 +128,18 @@ class VespaCheck(AgentCheck):
             self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.OK, tags=tags)
             self.services_up += 1
         elif code == "down":
-            self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.CRITICAL, tags=tags,
-                               message="Service {} reports down: {}".format(service_name, description))
+            self.service_check(
+                self.PROCESS_SERVICE_CHECK,
+                AgentCheck.CRITICAL,
+                tags=tags,
+                message="Service {} reports down: {}".format(service_name, description),
+            )
             self.log.warning("Service %s reports down: %s", service_name, description)
         else:
-            self.service_check(self.PROCESS_SERVICE_CHECK, AgentCheck.WARNING, tags=tags,
-                               message="Service {} reports unknown status: {}".format(service_name, description))
+            self.service_check(
+                self.PROCESS_SERVICE_CHECK,
+                AgentCheck.WARNING,
+                tags=tags,
+                message="Service {} reports unknown status: {}".format(service_name, description),
+            )
             self.log.warning("Service %s reports unknown status: %s", service_name, description)

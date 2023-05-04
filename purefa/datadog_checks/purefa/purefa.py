@@ -18,6 +18,8 @@ class PureFACheck(OpenMetricsBaseCheckV2, ConfigMixin):
         default_config = {
             'openmetrics_endpoint': self.openmetrics_endpoint,
             'metrics': METRIC_MAP,
+            'share_labels': {'purefa_info': {'labels': ['version']}},
+            'cache_shared_labels': False,
         }
 
         return default_config

@@ -25,8 +25,8 @@ Once you have completed the development of your integration, submit a [pull requ
 
 For more information on integrations, please reference our [documentation][6] and [knowledge base][7]. You can also visit our [help page][8] to connect with us.
 
-[1]: https://dev.azure.com/datadoghq/integrations-extras/_apis/build/status/Master%20All?branchName=master
-[2]: https://dev.azure.com/datadoghq/integrations-extras/_build/latest?definitionId=7&branchName=master
+[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/badges/test-results.svg
+[2]: https://github.com/DataDog/integrations-extras/actions/workflows/master.yml
 [3]: https://www.datadoghq.com
 [4]: https://docs.datadoghq.com/developers/integrations/
 [5]: https://github.com/DataDog/integrations-extras/compare

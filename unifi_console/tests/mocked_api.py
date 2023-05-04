@@ -2,8 +2,6 @@ import json
 import os
 from typing import List
 
-from tests.common import HERE
-
 from datadog_checks.unifi_console.client import Client
 from datadog_checks.unifi_console.device import Device
 from datadog_checks.unifi_console.types import ControllerInfo
@@ -12,6 +10,7 @@ from datadog_checks.unifi_console.UDM import UDM
 from datadog_checks.unifi_console.USG import USG
 from datadog_checks.unifi_console.USW import USW
 from datadog_checks.unifi_console.USX import USX
+from tests.common import HERE
 
 
 class MockedAPI(object):

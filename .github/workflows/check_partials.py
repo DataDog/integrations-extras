@@ -1,5 +1,5 @@
-import re
 import argparse
+import re
 
 TAB_REGEX = r"\{\{< tabs >\}\}"
 CODE_BLOCK_REGEX = r"\{\{< code-block"
@@ -54,10 +54,10 @@ becomes:
     partial -->
 """
 
-parser=argparse.ArgumentParser()
+parser = argparse.ArgumentParser()
 
 parser.add_argument('--files', help="A list of modified files")
-args=parser.parse_args()
+args = parser.parse_args()
 
 for file in args.files.split(" "):
     with open(file, 'r', encoding='utf-8') as f:

@@ -28,21 +28,21 @@ To start collecting Real User Monitoring events from your application, see [Andr
 
 ### Collect traces
 
-To start sending your Android application's traces to Datadog, see [Connect RUM and Traces][3].
+To start sending your Android application's traces to Datadog, see [Android Trace Collection][3]. Additionally, you can [Connect RUM and Traces][4].
 
 ### Collect logs
 
-To start forwarding your Android application's logs to Datadog, see [Android Log Collection][4].
+To start forwarding your Android application's logs to Datadog, see [Android Log Collection][5].
 
 ## Data Collected
 
 ### Metrics
 
-The Android integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][5]. 
+The Android integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][6]. 
 
 ### Events
 
-For more information about events and attributes, see [RUM Android Data Collected][6].
+For more information about events and attributes, see [RUM Android Data Collected][7].
 
 ### Service Checks
 
@@ -50,19 +50,20 @@ The Android integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][7].
+Need help? Contact [Datadog Support][8].
 
 ## Further Reading
 
 Additional helpful documentation, links, and articles:
 
-- [Android and Android TV Monitoring][8]
+- [Android and Android TV Monitoring][9]
 
 [1]: https://app.datadoghq.com/integrations/rum-android
 [2]: https://docs.datadoghq.com/real_user_monitoring/android/?tabs=kotlin#setup
-[3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces?tab=androidrum#setup-rum
-[4]: https://docs.datadoghq.com/logs/log_collection/android/?tab=kotlin
-[5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
-[6]: https://docs.datadoghq.com/real_user_monitoring/android/data_collected/
-[7]: https://docs.datadoghq.com/help/
-[8]: https://docs.datadoghq.com/real_user_monitoring/android/
+[3]: https://docs.datadoghq.com/tracing/trace_collection/dd_libraries/android
+[4]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=androidrum#setup-rum
+[5]: https://docs.datadoghq.com/logs/log_collection/android/?tab=kotlin
+[6]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
+[7]: https://docs.datadoghq.com/real_user_monitoring/android/data_collected/
+[8]: https://docs.datadoghq.com/help/
+[9]: https://docs.datadoghq.com/real_user_monitoring/android/

@@ -1,0 +1,66 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a752523e-9c3d-458c-a91a-af0c9fae5adc",
+  "app_id": "agora-analytics",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "View Agora Analytics Collector metrics in Datadog",
+    "title": "Agora Analytics",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Agora Analytics Overview - Dashboard",
+        "image_url": "images/agora_analytics_dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Collaboration",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "Agora Analytics Overview": "assets/dashboards/agora_analytics_overview.json"
+    },
+    "integration": {
+      "source_type_name": "Agora Analytics",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "agora.",
+        "check": [
+          "agora.rtc.app_id.online_user",
+          "agora.rtc.app_id.online_channel",
+          "agora.rtc.app_id.audio_freeze_rate",
+          "agora.rtc.app_id.video_freeze_rate",
+          "agora.rtc.app_id.network_delay_rate",
+          "agora.rtc.app_id.join_attempt",
+          "agora.rtc.app_id.join_success_count",
+          "agora.rtc.app_id.join_success_rate",
+          "agora.rtc.app_id.join_success_in_5s_rate"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "homepage": "https://www.agora.io",
+    "name": "Agora",
+    "sales_email": "sales-us@agora.io",
+    "support_email": "support@agora.io"
+  },
+  "oauth": {}
+}

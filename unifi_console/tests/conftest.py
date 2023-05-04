@@ -2,9 +2,9 @@ import os
 
 import pytest
 from mock import patch
-from tests.mocked_api import MockedAPI
 
 from datadog_checks.unifi_console.unifi import Unifi
+from tests.mocked_api import MockedAPI
 
 
 @pytest.fixture
