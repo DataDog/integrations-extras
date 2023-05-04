@@ -59,7 +59,7 @@ def test_check(aggregator, instance):
 
 
 @pytest.mark.integration
-def test_check_urls_tags(aggregator, instance):
+def test_check_urls_tags(aggregator):
     common_tag = "key:value"
     instance = {
         "urls": ["https://www.google.com", "https://www.datadoghq.com"],
