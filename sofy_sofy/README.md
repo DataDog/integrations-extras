@@ -21,7 +21,7 @@ To set up the Sofy integration:
 
 3. Click **Connect Accounts** to redirect to the [Integration tab][3] under Account Settings in Sofy.
 
-4. Log in with your [Sofy][2] account and connect Datadog to Sofy: Start by logging in to [Sofy][2], and then click the **Connect** button on the Datadog tile to begin the integration process.
+4. Log into [Sofy][2], then click the **Connect** button on the Datadog tile to begin the integration process.
 
 5. Sofy will prompt you to follow a series of OAuth steps to authorize the integration with Datadog. Follow these steps carefully, making sure to grant the necessary permissions to allow Sofy to send data to Datadog.
 
