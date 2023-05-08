@@ -8,6 +8,8 @@ from .utils import build_check
 
 # A check object is mapped to a single instance in integration config.
 class TiDBCheck(OpenMetricsBaseCheck):
+    DEFAULT_METRIC_LIMIT = 0
+
     def __init__(self, name, init_config, instances=None):
 
         # Expand tidb check instance to openmetrics check instance
