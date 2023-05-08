@@ -27,7 +27,7 @@ To set up the Sofy integration:
 
 6. Once the integration is complete, navigate to the App Manager page by selecting it from the left-hand menu. From there, click on the monitoring tab on the right-hand side of the page. Enable Datadog monitoring for the selected app by toggling the appropriate switch.
 
-7. Sofy now sending data to Datadog after each run in the selected app, allowing you to monitor and analyze the results in real time.
+7. Sofy now starts sending data to Datadog after each run in the selected app, allowing you to monitor and analyze the results in real time.
 
 
 ## Uninstallation
