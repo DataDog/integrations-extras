@@ -15,7 +15,7 @@ This integration allows organizations to monitor a user's resource access activi
 #### Systemd Connector
 1. Set up [Datadog journald integration][5].
 2. Replace `journald.d/conf.yaml` with the following configuration:
-   ```
+   ```yaml
     logs:
       - type: journald
         container_mode: true
