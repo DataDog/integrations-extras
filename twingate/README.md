@@ -87,7 +87,7 @@ docker run -d --sysctl net.ipv4.ping_group_range="0 2147483647" \
   --restart=unless-stopped \
   $(docker run --help | grep -- --pull >/dev/null && echo "--pull=always") twingate/connector:1
 ```
-Note: The Twingate Connector container needs to be recreated to add the additional label 
+**Note**: The Twingate Connector container needs to be recreated to add the new label 
 
 ### Twingate Analytics Dashboard
 1. Go to the Datadog [Dashboard List][12].
