@@ -40,7 +40,7 @@ This integration allows organizations to monitor a user's resource access activi
 #### Docker Connector
 ##### Set up Datadog Docker integration for the Host Agent
 Add the following lines to the `datadog.yaml` configuration file:
-```
+```yaml
 logs_enabled: true
 listeners:
 - name: docker
