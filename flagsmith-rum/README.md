@@ -33,4 +33,4 @@ Need help? See the [Flagsmith documentation][3] or contact [Datadog Support][2].
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
 [2]: https://docs.datadoghq.com/help/
-[3]: https://docs.flagsmith.com/integrations/datadog
+[3]: https://docs.flagsmith.com/clients/javascript#datadog-rum-javascript-sdk-integration
