@@ -76,7 +76,7 @@ docker run -d --name datadog-agent \
 
 ##### Set up Twingate Connector with additional docker parameters
 Add the label `com.datadoghq.ad.logs` to the Twingate Connector docker run command:
-```
+```shell
 docker run -d --sysctl net.ipv4.ping_group_range="0 2147483647" \
   -l "com.datadoghq.ad.logs"='[{"service":"Twingate Connection","source":"Twingate","log_processing_rules":[{"type":"include_at_match","name":"analytics","pattern":"ANALYTICS"},{"type":"mask_sequences","name":"remove_analytics","replace_placeholder":"","pattern":"ANALYTICS "}]}]' \
   --env TENANT_URL="https://xxx.twingate.com" \
