@@ -8,8 +8,8 @@ from .common import METRICS_URL
 pytestmark = [pytest.mark.integration, pytest.mark.usefixtures('dd_environment_v5')]
 
 
-def test_v5(aggregator, dd_run_check, instance_neo4j5):
-    check = Neo4jCheck('neo4j', {}, [instance_neo4j5])
+def test_v5(aggregator, dd_run_check, instance):
+    check = Neo4jCheck('neo4j', {}, [instance])
     dd_run_check(check)
 
     aggregator.assert_service_check('neo4j.openmetrics.health', ServiceCheck.OK)

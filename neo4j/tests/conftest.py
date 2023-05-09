@@ -20,7 +20,7 @@ def dd_environment(instance):
 
 
 @pytest.fixture(scope='session')
-def dd_environment_v5(instance_neo4j5):
+def dd_environment_v5(instance):
     NEO4J_IMAGE = 'neo4j:enterprise'
     with docker_run(
         os.path.join(common.HERE, 'docker', 'docker-compose_v5.yaml'),
@@ -28,7 +28,7 @@ def dd_environment_v5(instance_neo4j5):
         log_patterns=['Remote interface available at'],
         endpoints=[common.METRICS_URL],
     ):
-        yield instance_neo4j5
+        yield instance
 
 
 @pytest.fixture(scope='session')
@@ -39,11 +39,3 @@ def instance():
         'neo4j_dbs': ['neo4j', 'system'],
     }
 
-
-@pytest.fixture(scope='session')
-def instance_neo4j5():
-    return {
-        'openmetrics_endpoint': common.METRICS_URL,
-        'neo4j_version': common.NEO4J_VERSION,
-        'neo4j_dbs': ['neo4j', 'system'],
-    }
