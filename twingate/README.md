@@ -14,27 +14,79 @@ This integration allows organizations to monitor a user's resource access activi
 ### Configure the Datadog Agent
 #### Systemd Connector
 1. Set up [Datadog journald integration][5].
-2. Replace the content of `journald.d/conf.yaml` with [this][17]
+2. Replace `journald.d/conf.yaml` with the following configuration:
+   ```
+    logs:
+      - type: journald
+        container_mode: true
+        include_units:
+          - twingate-connector.service
+        service: Twingate Connection
+        source: Twingate
+        log_processing_rules:
+        - type: include_at_match
+          name: analytics
+          pattern: ANALYTICS
+        - type: mask_sequences
+          name: remove_analytics
+          replace_placeholder: ""
+          pattern: "ANALYTICS "
+   ```
 3. Add the `dd-agent` user to the `systemd-journal` group by using `usermod -a -G systemd-journal dd-agent`.
 4. Restart the Datadog Agent by running `service datadog-agent restart`
 5. Confirm that the Twingate Analytic log appears in the [Log Explorer][10]
 
 
 #### Docker Connector
-1. Set up [Datadog Docker integration][13]
-      1. For host agent
-         * Add additional configuration `container_exclude: ["image:.*"]` and `container_include: ["image:twingate/connector"]` to the configuration file `datadog.yaml`
-         * See `datadog.yaml` example configuration [here][16]
-         * Add the `dd-agent` user to the `docker` group by using `usermod -a -G docker dd-agent`
-      2. For container agent
-         * add additional parameters `-e DD_CONTAINER_EXCLUDE="image:.*"` and `-e DD_CONTAINER_INCLUDE="image:twingate/connector"` in the docker run command
-         * See example docker run command [here][18]
-      3. see [Container Discovery Management][14] for details
-2. Set up Twingate Connector with additional docker parameters
-   1. Additional label `com.datadoghq.ad.logs` is required by the Twingate Connector container
-   2. The Twingate Connector container needs to be recreated to add the additional label 
-   3. See example Twingate connector deployment command with the additional container label `com.datadoghq.ad.logs` [here][19]
-   5. See [Container Log Integration][15] for more details
+##### (Host Agent) Set up Datadog Docker integration
+- Adding the following lines to `datadog.yaml`:
+```
+logs_enabled: true
+listeners:
+- name: docker
+config_providers:
+- name: docker
+polling: true
+logs_config:
+container_collect_all: true
+container_exclude: ["image:.*"]
+container_include: ["image:twingate/connector"]
+```
+- Add the `dd-agent` user to the `docker` group by using `usermod -a -G docker dd-agent`
+
+##### (Container Agent) Set up Datadog Docker integration
+- add additional parameters `-e DD_CONTAINER_EXCLUDE="image:.*"` and `-e DD_CONTAINER_INCLUDE="image:twingate/connector"` in the docker run command
+```
+docker run -d --name datadog-agent \
+           --cgroupns host \
+           --pid host \
+           -e DD_API_KEY=xxx \
+           -e DD_LOGS_ENABLED=true \
+           -e DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true \
+           -e DD_CONTAINER_EXCLUDE="image:.*" \
+           -e DD_CONTAINER_INCLUDE="image:twingate/connector" \
+           -v /var/run/docker.sock:/var/run/docker.sock:ro \
+           -v /var/lib/docker/containers:/var/lib/docker/containers:ro \
+           -v /proc/:/host/proc/:ro \
+           -v /opt/datadog-agent/run:/opt/datadog-agent/run:rw \
+           -v /sys/fs/cgroup/:/host/sys/fs/cgroup:ro \
+           gcr.io/datadoghq/agent:latest
+```
+
+##### Set up Twingate Connector with additional docker parameters
+Adding additional label `com.datadoghq.ad.logs` to the Twingate Connector docker run command:
+```
+docker run -d --sysctl net.ipv4.ping_group_range="0 2147483647" \
+  -l "com.datadoghq.ad.logs"='[{"service":"Twingate Connection","source":"Twingate","log_processing_rules":[{"type":"include_at_match","name":"analytics","pattern":"ANALYTICS"},{"type":"mask_sequences","name":"remove_analytics","replace_placeholder":"","pattern":"ANALYTICS "}]}]' \
+  --env TENANT_URL="https://xxx.twingate.com" \
+  --env ACCESS_TOKEN="xxx" \
+  --env REFRESH_TOKEN="xxx" \
+  --env TWINGATE_LABEL_HOSTNAME="`hostname`" \
+  --name "twingate-golden-seal" \
+  --restart=unless-stopped \
+  $(docker run --help | grep -- --pull >/dev/null && echo "--pull=always") twingate/connector:1
+```
+Note: The Twingate Connector container needs to be recreated to add the additional label 
 
 ### Twingate Analytics Dashboard
 1. Go to the Datadog [Dashboard List][12].
