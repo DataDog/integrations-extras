@@ -52,7 +52,7 @@ container_collect_all: true
 container_exclude: ["image:.*"]
 container_include: ["image:twingate/connector"]
 ```
-- Add the `dd-agent` user to the `docker` group by using `usermod -a -G docker dd-agent`
+- Add the `dd-agent` user to the `docker` group by using `usermod -a -G docker dd-agent`.
 - Restart the Datadog Agent by running `service datadog-agent restart`
 
 ##### Set up Datadog Docker integration for the Container Agent
