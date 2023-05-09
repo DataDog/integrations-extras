@@ -34,7 +34,7 @@ This integration allows organizations to monitor a user's resource access activi
    ```
 3. Add the `dd-agent` user to the `systemd-journal` group by using `usermod -a -G systemd-journal dd-agent`.
 4. Restart the Datadog Agent by running `service datadog-agent restart`.
-5. Confirm that the Twingate Analytic log appears in the [Log Explorer][10]
+5. Confirm that the Twingate Analytic log appears in the [Log Explorer][10].
 
 
 #### Docker Connector
