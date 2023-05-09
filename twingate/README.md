@@ -56,7 +56,7 @@ container_include: ["image:twingate/connector"]
 - Restart the Datadog Agent by running `service datadog-agent restart`
 
 ##### Set up Datadog Docker integration for the Container Agent
-- add additional parameters `-e DD_CONTAINER_EXCLUDE="image:.*"` and `-e DD_CONTAINER_INCLUDE="image:twingate/connector"` in the docker run command
+Add additional parameters `-e DD_CONTAINER_EXCLUDE="image:.*"` and `-e DD_CONTAINER_INCLUDE="image:twingate/connector"` in the docker run command.
 ```
 docker run -d --name datadog-agent \
            --cgroupns host \
