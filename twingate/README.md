@@ -108,7 +108,6 @@ Need help? Contact [Twingate Support][2].
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
 [12]: https://app.datadoghq.com/dashboard/lists
-[13]: https://docs.datadoghq.com/containers/docker/log/?tab=containerinstallation#installation
 [14]: https://docs.datadoghq.com/agent/guide/autodiscovery-management/?tab=agent_
 [15]: https://docs.datadoghq.com/containers/docker/log/?tab=containerinstallation#log-integrations
 [16]: https://gist.github.com/chenbishop/3f1b9833f274716949a40af385e2f5c2
