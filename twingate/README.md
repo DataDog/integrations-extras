@@ -110,4 +110,3 @@ Need help? Contact [Twingate Support][2].
 [12]: https://app.datadoghq.com/dashboard/lists
 [16]: https://gist.github.com/chenbishop/3f1b9833f274716949a40af385e2f5c2
 [18]: https://gist.github.com/chenbishop/3be2bcc90d7d77288a843de469f0b3d0
-[19]: https://gist.github.com/chenbishop/a5405cc00bc1ac50fdbd86ef4ad23599
