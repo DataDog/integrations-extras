@@ -108,7 +108,6 @@ Need help? Contact [Twingate Support][2].
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
 [12]: https://app.datadoghq.com/dashboard/lists
-[14]: https://docs.datadoghq.com/agent/guide/autodiscovery-management/?tab=agent_
 [16]: https://gist.github.com/chenbishop/3f1b9833f274716949a40af385e2f5c2
 [17]: https://gist.github.com/chenbishop/7df60e074e7e856e17d867b31f6e95a1
 [18]: https://gist.github.com/chenbishop/3be2bcc90d7d77288a843de469f0b3d0
