@@ -6,6 +6,8 @@ from datadog_checks.gitea.metrics import METRIC_MAP
 class GiteaCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     __NAMESPACE__ = "gitea"
 
+    DEFAULT_METRIC_LIMIT = 0
+
     def get_default_config(self):
         return {
             "metrics": [METRIC_MAP],

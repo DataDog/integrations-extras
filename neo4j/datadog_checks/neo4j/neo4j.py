@@ -10,6 +10,8 @@ GLOBAL_DB_NAME = 'global'
 class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     __NAMESPACE__ = 'neo4j'
 
+    DEFAULT_METRIC_LIMIT = 0
+
     def __init__(self, name, init_config, instances):
         super().__init__(name, init_config, instances)
 
