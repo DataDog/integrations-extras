@@ -1,7 +1,4 @@
-{{< callout url="#" btn_hidden="true" header="Join the Feature Flag Tracking Beta!">}}
-To enrich your RUM data with your Flagsmith feature flags and get visibility into performance monitoring and behavioral changes, join the <a href="https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/">Feature Flag Tracking</a> private beta. To request access, contact Datadog Support at support@datadoghq.com.
-
-{{< /callout >}}
+# Agent Check: Flagsmith / Datadog RUM
 
 ## Overview
 
@@ -29,8 +26,8 @@ flagsmith.init({
 
 ## Troubleshooting
 
-Need help? See the [Flagsmith documentation][3] or contact [Datadog Support][2].
+Need help? See the [Flagsmith documentation][2] or contact [Datadog Support][3].
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
-[2]: https://docs.datadoghq.com/help/
-[3]: https://docs.flagsmith.com/clients/javascript#datadog-rum-javascript-sdk-integration
+[2]: https://docs.flagsmith.com/clients/javascript#datadog-rum-javascript-sdk-integration
+[3]: https://docs.datadoghq.com/help/
