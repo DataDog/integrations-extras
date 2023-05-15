@@ -2,13 +2,13 @@
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
 
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict  # noqa: F401
 
 import pytest
 import requests
 
-from datadog_checks.base import AgentCheck, ConfigurationError
-from datadog_checks.base.stubs.aggregator import AggregatorStub
+from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
+from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.go_pprof_scraper import GoPprofScraperCheck
 
 INIT_CONFIG = {}

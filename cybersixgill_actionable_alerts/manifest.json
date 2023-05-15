@@ -1,0 +1,75 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b27feb80-b06f-4200-981a-e91a031d62e6",
+  "app_id": "cybersixgill-actionable-alerts",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor the activity of assets and provide real-time alerts on incoming threats",
+    "title": "Cybersixgill Actionable Alerts",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Dashboard image of alerts count",
+        "image_url": "images/dashboard_count.PNG"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard image of events list with title",
+        "image_url": "images/dashboard_emerging_alerts_count.PNG"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard image of emerging alerts count",
+        "image_url": "images/dashboard_events_list.PNG"
+      },
+      {
+        "media_type": "image",
+        "caption": "Dashboard image of imminent alerts count",
+        "image_url": "images/dashboard_imminent_alerts_count.PNG"
+      }
+    ],
+    "classifier_tags": [
+      "Offering::Integration",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Security",
+      "Category::Monitoring",
+      "Category::Event Management",
+      "Submitted Data Type::Events"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "cybersixgill_actionable_alerts",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": true
+      },
+      "metrics": {
+        "prefix": "cybersixgill_actionable_alerts.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "cybersixgill": "assets/dashboards/cybersixgill_actionable_alerts_overview.json"
+    }
+  },
+  "author": {
+    "support_email": "support@cyebrsixgill.com",
+    "name": "Cybersixgill",
+    "homepage": "https://www.cybersixgill.com/",
+    "sales_email": "info@cybersixgill.com"
+  },
+  "oauth": {}
+}

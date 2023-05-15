@@ -150,7 +150,7 @@ class EventStoreCheck(AgentCheck):
             es_paths = []
 
         if isinstance(json_obj, list):
-            json_obj = dict((str(k), v) for k, v in enumerate(json_obj))
+            json_obj = {str(k): v for k, v in enumerate(json_obj)}
 
         for key, value in json_obj.items():
             if isinstance(value, (dict, list)):
@@ -219,7 +219,7 @@ class EventStoreCheck(AgentCheck):
         split = metric_path.split('.')
         key = split[index]
         if isinstance(json_obj, list):
-            json_obj = dict((str(k), v) for k, v in enumerate(json_obj))
+            json_obj = {str(k): v for k, v in enumerate(json_obj)}
         try:
             v = json_obj[key]
             if isinstance(v, (dict, list)):

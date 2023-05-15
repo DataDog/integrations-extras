@@ -26,7 +26,7 @@ Agora Analytics does not include any service checks.
 
 ## Support
 
-Need help? Contact [Agora Support][2]
+Need help? Contact [Agora Support][2].
 
 [1]: https://docs.agora.io/en/agora-analytics/analyze/video-voice-sdk/datadog-integration
-[2]: support@agora.io
+[2]: mailto:support@agora.io

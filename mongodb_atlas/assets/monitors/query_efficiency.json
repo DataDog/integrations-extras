@@ -1,0 +1,28 @@
+{
+  "name": "[MongoDB Atlas] Efficiency of queries is degrading",
+  "type": "query alert",
+  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.metrics.queryexecutor.scannedobjectsperreturned{*}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
+  "message": "Notify your team when average query efficiency is degraded\n",
+  "tags": [
+    "integration:mongodb-atlas"
+  ],
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "critical_recovery": 0
+    },
+    "notify_audit": false,
+    "require_full_window": false,
+    "notify_no_data": false,
+    "no_data_timeframe": 10,
+    "renotify_interval": 0,
+    "threshold_windows": {
+      "trigger_window": "last_15m",
+      "recovery_window": "last_15m"
+    },
+    "escalation_message": ""
+  },
+  "recommended_monitor_metadata": {
+	"description": "Notify your team when average query efficiency is degraded\n."
+  }
+}

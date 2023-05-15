@@ -18,14 +18,13 @@
       }
     ],
     "classifier_tags": [
+      "Category::Automation",
+      "Offering::Integration",
+      "Submitted Data Type::Events",
+      "Submitted Data Type::Metrics",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS",
-      "Category::Automation",
-      "Category::Monitoring",
-      "Offering::Integration",
-      "Submitted Data Type::Metrics",
-      "Submitted Data Type::Events"
+      "Supported OS::macOS"
     ]
   },
   "assets": {
@@ -41,7 +40,10 @@
       "metrics": {
         "prefix": "census",
         "metadata_path": "metadata.csv",
-        "check": ["census.syncs.rows_processed", "census.syncs.sync_completed"]
+        "check": [
+          "census.syncs.rows_processed",
+          "census.syncs.sync_completed"
+        ]
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"

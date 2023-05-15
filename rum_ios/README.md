@@ -28,42 +28,43 @@ To start collecting Real User Monitoring events from your application, see [iOS 
 
 ### Collect traces 
 
-To start sending your iOS application's traces to Datadog, see [Connect RUM and Traces][3]. 
+To start sending your iOS application's traces to Datadog, see [iOS Trace Collection][3]. Additionally, you can [Connect RUM and Traces][4].
 
 ### Collect logs 
 
-To start forwarding your iOS application's logs to Datadog, see [iOS Log Collection][4].
+To start forwarding your iOS application's logs to Datadog, see [iOS Log Collection][5].
 
 ## Data Collected
 
 ### Metrics
 
-The iOS integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][5].
+The iOS integration does not include any metrics. To generate custom metrics from your RUM application, see [Generate Metrics][6].
 
 ### Events 
 
-For more information about events and attributes, see [RUM iOS Data Collected][6]. 
+For more information about events and attributes, see [RUM iOS Data Collected][7]. 
 
 ### Service Checks 
 
-The Android integration does not include any service checks.
+The iOS integration does not include any service checks.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][7]. 
+Need help? Contact [Datadog Support][8]. 
 
 ## Further Reading 
 
 Additional helpful documentation, links, and articles: 
 
-- [iOS and tvOS Monitoring][8]
+- [iOS and tvOS Monitoring][9]
 
 
 [1]: https://app.datadoghq.com/integrations/rum-ios 
 [2]: https://docs.datadoghq.com/real_user_monitoring/ios/?tabs=swift#setup
-[3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces?tab=iosrum#setup-rum 
-[4]: https://docs.datadoghq.com/logs/log_collection/ios/ 
-[5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
-[6]: https://docs.datadoghq.com/real_user_monitoring/ios/data_collected/ 
-[7]: https://docs.datadoghq.com/help/ 
-[8]: https://docs.datadoghq.com/real_user_monitoring/ios/
+[3]: https://docs.datadoghq.com/tracing/trace_collection/dd_libraries/ios/?tab=cocoapods
+[4]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=iosrum#setup-rum
+[5]: https://docs.datadoghq.com/logs/log_collection/ios/ 
+[6]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
+[7]: https://docs.datadoghq.com/real_user_monitoring/ios/data_collected/ 
+[8]: https://docs.datadoghq.com/help/ 
+[9]: https://docs.datadoghq.com/real_user_monitoring/ios/
