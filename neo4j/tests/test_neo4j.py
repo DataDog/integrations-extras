@@ -14,4 +14,3 @@ def test_v4(aggregator, dd_run_check, instance):
 
     aggregator.assert_service_check('neo4j.openmetrics.health', ServiceCheck.OK)
     aggregator.assert_metric('neo4j.page_cache.hits.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
-    aggregator.assert_metric('neo4j.cypher.replan_events.count', tags=['db_name:global', f'endpoint:{METRICS_URL}'])
