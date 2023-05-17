@@ -80,4 +80,4 @@ Need help? Contact [Datadog support][10].
 [9]: https://github.com/DataDog/integrations-extras/blob/master/fluentbit/assets/service_checks.json
 [10]: https://docs.datadoghq.com/help/
 [11]: https://docs.datadoghq.com/integrations/fluentbit/
-[12]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[12]: https://docs.datadoghq.com/developers/integrations/python/

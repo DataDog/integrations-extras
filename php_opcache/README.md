@@ -77,7 +77,7 @@ Need help? Contact [Datadog support][10].
 
 [1]: https://www.php.net/manual/en/book.opcache.php
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://docs.datadoghq.com/developers/integrations/python/
 [4]: https://app.datadoghq.com/account/settings#agent
 [5]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/datadog_checks/php_opcache/assets/exporter/opcache-dd-handler.php
 [6]: https://github.com/DataDog/integrations-extras/blob/master/php_opcache/datadog_checks/php_opcache/data/conf.yaml.example
