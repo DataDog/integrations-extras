@@ -26,14 +26,7 @@ $ convox deploy
 $ convox scale agent --count=3 --cpu=10 --memory=128
 ```
 
-In order to create `dd-agent` as a Convox standalone app, add a Dockerfile that contains the following:
-
-```go
-FROM datadog/agent:latest
-EXPOSE 8125/udp
-```
-
-Then, run `convox deploy` to deploy Datadog Agent into ECS.
+Run `convox deploy` to deploy Datadog Agent into ECS.
 
 ### Auto scaling
 
