@@ -1,0 +1,24 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
+instances:
+
+    ## @param statuscake_api_key - string - required
+    ## StatusCake API Key. See https://www.statuscake.com/blog/how-to-use-the-statuscake-api/ for more details.
+    #
+  - statuscake_api_key: 30digitapikeyfromstatuscake_OK
+
+    ## @param check_type - string - required
+    ## Type of checks to retreive. Valid types are 'ssl', 'uptime', and 'pagespeed'.
+    #
+    check_type: uptime

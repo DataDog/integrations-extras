@@ -1,0 +1,21 @@
+name: StatusCake
+files:
+- name: statuscake.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: statuscake_api_key
+      description: StatusCake API Key. See https://www.statuscake.com/blog/how-to-use-the-statuscake-api/ for more details.
+      required: true
+      value:
+        type: string
+        example: 30digitapikeyfromstatuscake_OK
+    - name: check_type
+      description: Type of checks to retreive. Valid types are 'ssl', 'uptime', and 'pagespeed'.
+      required: true
+      value:
+        type: string
+        example: uptime
