@@ -8,7 +8,7 @@ from .common import METRICS_URL
 pytestmark = [pytest.mark.integration, pytest.mark.usefixtures('dd_environment')]
 
 
-def test_v4(aggregator, dd_run_check, instance):
+def test_neo4j(aggregator, dd_run_check, instance):
     check = Neo4jCheck('neo4j', {}, [instance])
     dd_run_check(check)
 
