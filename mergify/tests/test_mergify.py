@@ -115,9 +115,9 @@ def test_check(dd_run_check, aggregator, instance, mocker):
     }
     for metric, value in expected_metrics.items():
         aggregator.assert_metric(
-            f"mergify.queue_checks_outcome.{metric}",
+            "mergify.queue_checks_outcome",
             value=value,
-            tags=default_queue_tags,
+            tags=default_queue_tags + [f"outcome_type:{metric}"],
         )
 
     # Hotfix queue
@@ -140,9 +140,102 @@ def test_check(dd_run_check, aggregator, instance, mocker):
     }
     for metric, value in expected_metrics.items():
         aggregator.assert_metric(
-            f"mergify.queue_checks_outcome.{metric}",
+            "mergify.queue_checks_outcome",
             value=value,
-            tags=hotfix_queue_tags,
+            tags=hotfix_queue_tags + [f"outcome_type:{metric}"],
+        )
+
+    # ######
+    aggregator.assert_service_check("mergify.can_connect", MergifyCheck.OK)
+
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+
+def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
+    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], MockResponse) -> None
+
+    headers = {"Content-Type": "application/json"}
+
+    def mock_requests_get(url, *args, **kwargs):
+        if url.endswith("time_to_merge?branch=main"):
+            return MockResponse(
+                file_path=MERGIFY_RESPONSE_FIXTURES / "time_to_merge_empty.json",
+                headers=headers,
+            )
+
+        if url.endswith("queue_checks_outcome?branch=main"):
+            return MockResponse(
+                file_path=MERGIFY_RESPONSE_FIXTURES / "queue_checks_outcome_empty.json",
+                headers=headers,
+            )
+
+        if url.endswith("queues"):
+            return MockResponse(
+                file_path=MERGIFY_RESPONSE_FIXTURES / "queues_empty.json",
+                headers=headers,
+            )
+
+        raise AssertionError(f"URL not mocked: {url}")
+
+    mocker.patch("requests.get", mock_requests_get)
+    check = MergifyCheck("mergify", {}, [instance])
+
+    dd_run_check(check)
+
+    aggregator.assert_metric(
+        "mergify.merge_queue_length",
+        value=0,
+        tags=instance["tags"] + ["branch:main", "repository:owner/repository"],
+    )
+    default_queue_tags = instance["tags"] + [
+        "branch:main",
+        "repository:owner/repository",
+        "partition:__default__",
+        "queue:default",
+    ]
+    hotfix_queue_tags = instance["tags"] + [
+        "branch:main",
+        "repository:owner/repository",
+        "partition:__default__",
+        "queue:hotfix",
+    ]
+
+    # ### Time to merge metrics should not be sent since they are set to None
+    # (no data yet)
+
+    # ### Queue checks outcome metrics
+    # Default queue
+    expected_metrics = {
+        "PR_DEQUEUED": 0,
+        "PR_AHEAD_DEQUEUED": 0,
+        "PR_AHEAD_FAILED_TO_MERGE": 0,
+        "PR_WITH_HIGHER_PRIORITY_QUEUED": 0,
+        "PR_QUEUED_TWICE": 0,
+        "SPECULATIVE_CHECK_NUMBER_REDUCED": 0,
+        "CHECKS_TIMEOUT": 0,
+        "CHECKS_FAILED": 0,
+        "QUEUE_RULE_MISSING": 0,
+        "UNEXPECTED_QUEUE_CHANGE": 0,
+        "PR_FROZEN_NO_CASCADING": 0,
+        "TARGET_BRANCH_CHANGED": 0,
+        "TARGET_BRANCH_MISSING": 0,
+        "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 0,
+        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 0,
+    }
+    for metric, value in expected_metrics.items():
+        aggregator.assert_metric(
+            "mergify.queue_checks_outcome",
+            value=value,
+            tags=default_queue_tags + [f"outcome_type:{metric}"],
+        )
+
+    # Hotfix queue
+    for metric, value in expected_metrics.items():
+        aggregator.assert_metric(
+            "mergify.queue_checks_outcome",
+            value=value,
+            tags=hotfix_queue_tags + [f"outcome_type:{metric}"],
         )
 
     # ######
