@@ -21,7 +21,7 @@ class SharedConfig(BaseModel):
 
     service: Optional[str]
 
-    @root_validator(pre=True, allow_reuse=True)
+    @root_validator(pre=True)
     def _initial_validation(cls, values):
         return validation.core.initialize_config(getattr(validators, 'initialize_shared', identity)(values))
 
