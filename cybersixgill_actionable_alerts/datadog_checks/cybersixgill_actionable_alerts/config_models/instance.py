@@ -41,7 +41,7 @@ class InstanceConfig(BaseModel):
         ]
     ]
 
-    @root_validator(pre=True)
+    @root_validator(pre=True, allow_reuse=True)
     def _initial_validation(cls, values):
         return validation.core.initialize_config(getattr(validators, 'initialize_instance', identity)(values))
 
