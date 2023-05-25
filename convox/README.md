@@ -66,5 +66,5 @@ Additional helpful documentation, links, and articles:
 [2]: https://docs.convox.com/integrations/monitoring/datadog
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html
 [4]: https://docs.datadoghq.com/help/
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/alai97/convox-integration-dockerfile-doc-update/convox/images/setting_environment_variables.png
+[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/setting_environment_variables.png
 [6]: https://www.datadoghq.com/blog/monitor-aws-ecs-convox-integration/
