@@ -28,7 +28,7 @@ To install the neo4j check on your host:
 
 1. Edit the `neo4j.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your neo4j performance data. See the [sample neo4j.d/conf.yaml][3] for all available configuration options.
 
-2. Neo4j uses port 5000 for clustering. It is recommended that you modify the datadog.yaml[12] file and change the default port for both dogstatsd_stats_port and expvar_port. If this is not changed, Neo4j may not start.
+2. Datadog listens on port 5000 for the dogstatsd_stats_port and expvar_port. In your neo4j.conf file, you will need to change the server.discovery.listen_address and the server.discovery.advertised_address to use a port other than 5000.
 
 3. [Restart the Agent][4].
 
