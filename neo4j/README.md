@@ -3,7 +3,25 @@
 ## Overview
 
 [Neo4j][1] is an enterprise-strength graph database that combines native graph storage, advanced security, scalable speed-optimized architecture, and ACID compliance to ensure predictability and integrity of relationship-based queries. Neo4j stores and manages data in its more natural, connected state, maintaining data relationships that deliver lightning-fast queries, deeper context for analytics, and a pain-free modifiable data model.
+### Metrics
 
+**Neo4j Version 4**
+Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+**Neo4j Version 5**
+Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
+
+See [metadata.csv][6] for the full list of metrics provided by this check.
+
+### Service Checks
+
+Service check `neo4j.prometheus.health` is submitted in the base check
+
+### Events
+
+Neo4j does not include any events.
 Neo4j metrics enable database administrators to monitor their Neo4j deployments. DBAs want to understand the memory usage (heap and page cache), number of transactions, cluster status, database size (including number of nodes, relationsihps and properties), and query performance. 
 
 With this integration, you receive the most important and most used Neo4j metrics, along with out-of-the-box dashboards that allow you and your DBAs to troubleshoot and monitor the health of your Neo4j databases. 
