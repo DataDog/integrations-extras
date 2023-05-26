@@ -1,3 +1,9 @@
+# Archival
+This repo was archived by the Apollo Security team on 2023-05-26
+
+This repo is a fork of `DataDog/integrations-extras`. Please see [the upstream repo](https://github.com/DataDog/integrations-extras) with issues or for new versions.
+
+
 # Datadog Agent Integrations
 
 [![Build Status][1]][2]
