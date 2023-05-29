@@ -12,7 +12,7 @@ DevCycle's feature flag tracking integration enriches your RUM data with your fe
 
 ### Feature flag tracking setup
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][4] guide.
+Feature flag tracking is available in the RUM Browser SDK. For detailed setup instructions, visit the [Getting started with Feature Flag data in RUM][4] guide.
 
 1. Update your Browser RUM SDK version 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
