@@ -33,7 +33,7 @@ To display a video in your media gallery, please send our team the zipped file
 or a link to download the video at `marketplace@datadog.com`. In addition,
 please upload a thumbnail image for your video as a part of the pull request.
 Once approved, we will upload the file to Vimeo and provide you with the
-vimeo_id to add to your manifest.json file.  Please note that the gallery can
+Vimeo ID to add to your `manifest.json` file.  Please note that the gallery can
 only hold one video.
 
 ```
