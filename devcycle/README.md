@@ -6,7 +6,7 @@ DevCycle provides the following integrations with Datadog:
 
 ### Feature flag tracking integration
 
-DevCycle's feature flag tracking integration enriches your RUM data with your feature's variable evaluations to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
+DevCycle's feature flag tracking integration enriches your RUM data with your feature's variable evaluations to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a specific user experience and if it is negatively affecting the user's performance.
 
 ## Setup
 
