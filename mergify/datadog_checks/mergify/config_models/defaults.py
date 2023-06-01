@@ -18,12 +18,16 @@ def instance_empty_default_hostname(field, value):
     return False
 
 
+def instance_mergify_api_url(field, value):
+    return 'https://api.mergify.com'
+
+
 def instance_metric_patterns(field, value):
     return get_default_field_value(field, value)
 
 
 def instance_min_collection_interval(field, value):
-    return 15
+    return 120
 
 
 def instance_service(field, value):
