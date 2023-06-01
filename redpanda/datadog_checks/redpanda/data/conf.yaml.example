@@ -202,7 +202,7 @@ instances:
     #
     # histogram_buckets_as_distributions: false
 
-    ## @param collect_counters_with_distributions - boolean - optional - default: false
+    ## @param collect_counters_with_distributions - boolean - optional - default: true
     ## Whether or not to also collect the observation counter metrics ending in `.sum` and `.count`
     ## when sending histogram buckets as Datadog distribution metrics. This implicitly enables the
     ## `histogram_buckets_as_distributions` option.
@@ -266,6 +266,11 @@ instances:
     ## than the full metric name.
     #
     # cache_metric_wildcards: true
+
+    ## @param use_latest_spec - boolean - optional - default: false
+    ## Whether or not the parser will strictly adhere to the latest version of the OpenMetrics specification.
+    #
+    # use_latest_spec: false
 
     ## @param telemetry - boolean - optional - default: false
     ## Whether or not to submit metrics prefixed by `<NAMESPACE>.telemetry.` for debugging purposes.
