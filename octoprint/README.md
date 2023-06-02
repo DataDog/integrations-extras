@@ -89,7 +89,7 @@ Need help? Contact [Datadog support][9].
 
 [1]: https://octoprint.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://docs.datadoghq.com/developers/integrations/python/
 [4]: https://app.datadoghq.com/account/settings#agent
 [5]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/datadog_checks/octoprint/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent

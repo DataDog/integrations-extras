@@ -14,7 +14,9 @@
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics",
+      "Category::Developer Tools"
     ]
   },
   "assets": {
@@ -29,6 +31,21 @@
       "metrics": {
         "prefix": "mergify.",
         "check": "mergify.merge_queue_length",
+        "metadata_path": "metadata.csv"
+      },
+      "metrics": {
+        "prefix": "mergify.",
+        "check": "mergify.time_to_merge.median",
+        "metadata_path": "metadata.csv"
+      },
+      "metrics": {
+        "prefix": "mergify.",
+        "check": "mergify.time_to_merge.mean",
+        "metadata_path": "metadata.csv"
+      },
+      "metrics": {
+        "prefix": "mergify.",
+        "check": "mergify.queue_checks_outcome",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {

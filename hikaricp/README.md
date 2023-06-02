@@ -59,6 +59,6 @@ Need help? Contact [Datadog support][9].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
-[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[10]: https://docs.datadoghq.com/developers/integrations/python/
 [11]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/assets/service_checks.json
 

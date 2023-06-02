@@ -1,7 +1,11 @@
 # CHANGELOG - neo4j
 
+## 3.0.0 / 2023-06-02
+* [Added] Update Neo4j Integration to support Neo4j 5. 
+* [Added] Added addtional [metrics](https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/) to support Neo4j 5.
+
 ## 2.0.2 / 2023-04-28
-* [Fixed] Remove the use_latest_spec option from the config file. See [#1835](https://github.com/DataDog/integrations-extras/pull/1835).
+* [Changed] Remove the use_latest_spec option from the config file.
 
 ## 2.0.1 / 2022-08-22
 
