@@ -1,6 +1,6 @@
 # CHANGELOG - neo4j
 
-## 3.0.0 / 2023-05-12
+## 3.0.0 / 2023-06-02
 * [Added] Update Neo4j Integration to support Neo4j 5. 
 * [Added] Added addtional [metrics](https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/) to support Neo4j 5.
 
