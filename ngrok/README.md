@@ -2,12 +2,8 @@
 
 ngrok delivers instant ingress to your applications in any cloud, private network, or devices with authentication, load balancing, and other critical controls via our global points of presence.
 
-The ngrok platform includes a Datadog event destination integration.  When used in conjunction with ngrok HTTP events the visualization of valuable application insights is made possible.  Using the the Datadog HTTPS logging endpoint, the integration can quickly be setup through the [ngrok dashboard UI][2].
+The ngrok platform includes a Datadog event destination integration.  When used in conjunction with ngrok HTTP events the visualization of valuable application insights is made possible along with the Datadog's advanced log analysis.  Using the the Datadog HTTPS logging endpoint, the integration can quickly be setup through the [ngrok dashboard UI][2].
 
-
-This integration includes:
-
-- Dashboard - *ngrok HTTP Events*
 
 
 ## Setup
@@ -60,13 +56,13 @@ Create facets for the following fields:
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Support][1] or [ngrok Docs][6].
+Need help? Contact [ngrok Support][1] or reference [ngrok Docs][6].
 
 ## Further Reading
 
 Learn more about [ngrok][3].
 
-[1]: http://docs.datadoghq.com/help/
+[1]: mailto:support@ngrok.com
 [2]: https://dashboard.ngrok.com
 [3]: https://ngrok.com/solutions
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
