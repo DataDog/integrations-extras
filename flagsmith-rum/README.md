@@ -8,7 +8,7 @@ The Datadog Flagsmith RUM integration enriches your RUM data with your feature f
 
 ## Setup
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][1] guide.
+Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][2] guide.
 
 1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
@@ -26,8 +26,9 @@ flagsmith.init({
 
 ## Troubleshooting
 
-Need help? See the [Flagsmith documentation][2] or contact [Datadog Support][3].
+Need help? See the [Flagsmith documentation][4] or contact [Datadog Support][3].
 
-[1]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
-[2]: https://docs.flagsmith.com/clients/javascript#datadog-rum-javascript-sdk-integration
-[3]: https://docs.datadoghq.com/help/
+[1]: https://flagsmith.com/
+[2]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
+[3]: https://docs.flagsmith.com/clients/javascript#datadog-rum-javascript-sdk-integration
+[4]: https://docs.datadoghq.com/help/
