@@ -8,7 +8,7 @@ The ngrok platform includes a Datadog event destination integration. With ngrok 
 
 ## Setup
 
-To forward ngrok events for consumption into Datadog there are two configurations to be made.
+To forward ngrok events for consumption into Datadog, you need to make two configurations.
 
 - ngrok Event Subscription: contains which events to be forwarded
 - ngrok Event Destination: the configuration for where the events defined in the Event Subscription will be forwarded to.
