@@ -29,7 +29,7 @@ The following example demonstrates how to configure an Event Subscription with a
 The steps are performed within the previously created Event Subscription configuration:
 
 1. Navigate to the "Event Destination" tab and select "Add Destination".
-2. From the dropdown choose Datadog and input the correct information:\
+2. From the dropdown menu, select Datadog and input the correct information:
     a. Select the correct [Datadog site][10] for your data.\
     b. Navigate to Datadog and [create an API key][4] within the organization settings.\
     c. Copy the API key and paste into the API Key field.\
