@@ -41,7 +41,7 @@ The steps are performed within the previously created Event Subscription configu
 
 
 **Step 3: Create Datadog Log Facets**
-Once logs begin to arrive, it will be necessary to create [log facets][8] for data analysis and dashboard visualization. Log facet creation is straight forward and can be accomplished from the Datadog log side panel with guidance available [here][9]. 
+Once logs begin to arrive, create [log facets][8] for data analysis and dashboard visualization. For more information about creating log facets, see the [Log Facets documentation][9]. 
 
 Create facets for the following fields:
 
