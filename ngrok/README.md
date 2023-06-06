@@ -56,7 +56,7 @@ Create facets for the following fields:
 
 ## Troubleshooting
 
-Need help? Contact [ngrok Support][1] or reference [ngrok Docs][6].
+Need help? Contact [ngrok Support][1] or reference the [ngrok documentation][6].
 
 ## Further Reading
 
