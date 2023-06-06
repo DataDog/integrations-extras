@@ -19,7 +19,7 @@ The following example demonstrates how to configure an Event Subscription with a
 
 1. In the ngrok Dashboard Console, navigate to Events page.
 2. Select "New Subscription".
-3. Provide a Description for Subscription and select "Add Source"
+3. Provide a Description for Subscription and select "Add Source".
 4. From the list, select "http_request_complete.v0" and select Add Event Source.
 
 
