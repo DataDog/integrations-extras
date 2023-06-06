@@ -36,8 +36,8 @@ The steps are performed within the previously created Event Subscription configu
     d. Optionally, define a Service Name, this be added as a key to the event data as **service:value**.\
     e. Optionally, define DD Tags, these are `key:value` pairs to be added as Datadog tags to the event data.\
     f. Optional, define a description, this is locally significant and helps identify the Datadog Event Destination.
-3. Select "Send Test Event"
-4. If presented with a Success message, select "Done".  If an error is presented validate the Datadog Site and API Key are correct.
+3. Select "Send Test Event".
+4. If presented with a Success message, select "Done".  If an error is presented, validate that the Datadog site and API key are correct.
 
 
 **Step 3: Create Datadog Log Facets**
