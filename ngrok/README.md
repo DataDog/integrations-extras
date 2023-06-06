@@ -66,7 +66,7 @@ Learn more about [ngrok][3].
 [2]: https://dashboard.ngrok.com
 [3]: https://ngrok.com/solutions
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
-[6]: https://ngrok.com/docs/integrations/datadog/event-destination/
+[6]: https://ngrok.com/docs/integrations/datadog/
 [7]: https://ngrok.com/docs/integrations/datadog/event-destination/
 [8]: https://docs.datadoghq.com/logs/explorer/facets/
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#create-facets
