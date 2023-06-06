@@ -30,7 +30,7 @@ The steps are performed within the previously created Event Subscription configu
 
 1. Navigate to the "Event Destination" tab and select "Add Destination".
 2. From the dropdown choose Datadog and input the correct information:\
-    a. Select the correct Datadog Site for your data - this can be found based upon the [url used to access Datadog][10].\
+    a. Select the correct [Datadog site][10] for your data.\
     b. Navigate to Datadog and [create an API key][4] within the organization settings.\
     c. Copy the API key and paste into the API Key field.\
     d. Optionally, define a Service Name, this be added as a key to the event data as **service:value**.\
