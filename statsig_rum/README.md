@@ -2,7 +2,7 @@
 
 ## Overview
 
-Statsig's feature flag tracking integration enriches your DataDog RUM data with feature gate information, allowing you to measure causality between your product features and your system and performance metrics.
+Statsig's feature flag tracking integration enriches your Datadog RUM data with feature gate information, allowing you to measure causality between your product features and your system and performance metrics.
 
 ## Setup
 
