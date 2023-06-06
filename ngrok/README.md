@@ -1,6 +1,6 @@
 ## Overview
 
-ngrok delivers instant ingress to your applications in any cloud, private network, or devices with authentication, load balancing, and other critical controls via our global points of presence.
+ngrok delivers instant ingress to your applications in any cloud, private network, or devices with authentication, load balancing, and other critical controls using our global points of presence.
 
 The ngrok platform includes a Datadog event destination integration.  When used in conjunction with ngrok HTTP events the visualization of valuable application insights is made possible along with the Datadog's advanced log analysis.  Using the the Datadog HTTPS logging endpoint, the integration can quickly be setup through the [ngrok dashboard UI][2].
 
