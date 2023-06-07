@@ -30,11 +30,11 @@ instances:
     #
     # service: <SERVICE>
 
-    ## @param min_collection_interval - number - optional - default: 15
+    ## @param min_collection_interval - number - optional - default: 120
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
     #
-    # min_collection_interval: 15
+    min_collection_interval: 120
 
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.
@@ -54,10 +54,10 @@ instances:
     #   exclude:
     #   - <EXCLUDE_REGEX>
 
-    ## @param mergify_api_url - string - required
+    ## @param mergify_api_url - string - optional - default: https://api.mergify.com
     ## URL of Mergify API
     #
-    mergify_api_url: https://api.mergify.com/
+    # mergify_api_url: https://api.mergify.com
 
     ## @param token - string - required
     ## The user token or application key used to connect to Mergify API

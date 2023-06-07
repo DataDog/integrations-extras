@@ -29,7 +29,7 @@ class InstanceConfig(BaseModel):
 
     disable_generic_tags: Optional[bool]
     empty_default_hostname: Optional[bool]
-    mergify_api_url: str
+    mergify_api_url: Optional[str]
     metric_patterns: Optional[MetricPatterns]
     min_collection_interval: Optional[float]
     repositories: Mapping[str, Any]

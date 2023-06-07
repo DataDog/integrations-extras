@@ -48,6 +48,24 @@ Run the [Agent's status subcommand][5] and look for `mergify` under the Checks s
 
 See [metadata.csv][6] for a list of metrics provided by this check.
 
+For the metric `mergify.queue_checks_outcome`, the available `outcome_type` tags are :
+- `PR_DEQUEUED`: The number of PRs that have been manually removed from the queue
+- `PR_AHEAD_DEQUEUED`: The number of PRs that have been removed from the queue because a PR ahead of it was removed from the queue
+- `PR_AHEAD_FAILED_TO_MERGE`: The number of PRs that have been removed from the queue because a PR ahead of it failed to merge
+- `PR_WITH_HIGHER_PRIORITY_QUEUED`: The number of PRs that have been removed from the queue because a PR with higher priority has been queued
+- `PR_QUEUED_TWICE`: The number of PRs that have been removed from the queue because they have been queued twice
+- `SPECULATIVE_CHECK_NUMBER_REDUCED`: The number of PRs that have been removed from the queue because the number of speculative checks in the config was changed
+- `CHECKS_TIMEOUT`: The number of PRs that have been removed from the queue because the speculative checks have timed out
+- `CHECKS_FAILED`: The number of PRs that have been removed from the queue because the speculative checks have failed
+- `QUEUE_RULE_MISSING`: The number of PRs that have been removed from the queue because the queue rule that was used to queue the PR has been removed from the config
+- `UNEXPECTED_QUEUE_CHANGE`: The number of PRs that have been removed from the queue because a user made an operation on the queued pull request
+- `PR_FROZEN_NO_CASCADING`: The number of PRs that have been removed from the queue because they were frozen by a freeze with no cascading effect
+- `TARGET_BRANCH_CHANGED`: The number of PRs that have been removed from the queue because the PR's target branch was changed
+- `TARGET_BRANCH_MISSING`: The number of PRs that have been removed from the queue because the PR's target branch does not exist anymore
+- `PR_UNEXPECTEDLY_FAILED_TO_MERGE`: The number of PRs that have been removed from the queue because they unexpectedly failed to get merged
+- `BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS`: The number of PRs that have been removed from the queue because the maximum batch failure resolution attempts have been reached
+
+
 ### Service Checks
 
 See [service_checks.json][7] for a list of service checks provided by this integration.

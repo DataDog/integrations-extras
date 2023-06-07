@@ -1,1 +1,325 @@
-{"title":"Cloudsmith Overview","description":"## Cloudsmith \nCloudsmith is a Cloud-native Package management tool. This integration allows Cloudsmith users to monitor their storage, bandwidth, and token usage in Datadog. \n\nCheck packages across your entire organization for storage and bandwidth usage and alert you when usage is getting close to your limit. Your status changes to a warning above 75% usage and critical above 85% usage. \n\nFor further reading, see the:\n\n- [Cloudsmith Documentation](https://cloudsmith.com)\n\nClone this template to make changes and add your own graphs and widgets. (cloned)","widgets":[{"id":2,"definition":{"title":"Cloudsmith","banner_img":"https://raw.githubusercontent.com/ciaracarey/test_cs_images/main/datadog-cloudsmith-logo-634x251.png","show_title":false,"type":"group","layout_type":"ordered","widgets":[{"id":1570560629046493,"definition":{"type":"note","content":"[Cloudsmith](https://cloudsmith.com) is a cloud-native, hosted, package management service with a deep focus on providing the best universal support for all native package and container technologies.\n\nThe integration with Datadog allows Cloudsmith users to monitor their storage, bandwidth, and token usage in Datadog.","background_color":"white","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":0,"y":0,"width":6,"height":2}}]},"layout":{"x":0,"y":0,"width":6,"height":5}},{"id":1,"definition":{"title":"Overview of usage","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":1390985517334205,"definition":{"title":"Percentage Storage Used","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","palette":"red_on_white","value":85},{"comparator":">","palette":"yellow_on_white","value":75}],"response_format":"scalar","queries":[{"query":"avg:cloudsmith.storage_used{*}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":2},"layout":{"x":0,"y":0,"width":3,"height":2}},{"id":3166709670495934,"definition":{"type":"note","content":"Track the storage and bandwidth usage of your packages in a Cloudsmith organisation. If your usage is above 75%, the status changes to amber and if you usage is above 85%, the status changes to red.\n\nSee [Track your Bandwidth & Storage limits with our Quota API](https://cloudsmith.com/blog/track-your-bandwidth-storage-limits-with-our-quota-api) for more details.\n\n","background_color":"white","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":3,"y":0,"width":3,"height":4}},{"id":6344085258702783,"definition":{"title":"Percentage Bandwidth Used","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">=","palette":"red_on_white","value":85},{"comparator":">","palette":"yellow_on_white","value":75}],"response_format":"scalar","queries":[{"query":"avg:cloudsmith.bandwidth_used{*}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":2},"layout":{"x":0,"y":2,"width":3,"height":2}}]},"layout":{"x":6,"y":0,"width":6,"height":5}},{"id":7490658912792070,"definition":{"title":"Audit Logs","title_size":"16","title_align":"left","time":{},"requests":[{"query":{"data_source":"event_stream","query_string":"source:cloudsmith @aggregation_key:audit_log","event_size":"s"},"response_format":"event_list","columns":[]}],"type":"list_stream"},"layout":{"x":0,"y":0,"width":12,"height":4}},{"id":3,"definition":{"title":"Token Overview","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":8971161252725269,"definition":{"type":"image","url":"https://cloudsmith.com/img/cloudsmith-mini-dark.svg","url_dark_theme":"https://cloudsmith.com/img/cloudsmith-mini.svg","sizing":"contain"},"layout":{"x":0,"y":0,"width":2,"height":2}},{"id":8871727855771134,"definition":{"type":"note","content":"Track your entitlement token usage for your organization. View the amount of tokens created, the total amount downloaded by all tokens, and the bandwidth used by tokens. \n\nEntitlement tokens are read-only tokens used for downloading files and gaining read-only access to repository contents. See [Entitlements](https://help.cloudsmith.io/docs/entitlements) for more information.","background_color":"white","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":2,"y":0,"width":8,"height":2}},{"id":6383822446946945,"definition":{"title":"Token Count","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"response_format":"scalar","queries":[{"query":"avg:cloudsmith.token_count{*}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":2},"layout":{"x":0,"y":2,"width":2,"height":2}},{"id":1745585157577347,"definition":{"title":"Total Downloads by Tokens","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"response_format":"timeseries","queries":[{"query":"avg:cloudsmith.token_download_total{*}","data_source":"metrics","name":"query1"}],"display_type":"line"}],"yaxis":{"include_zero":true,"scale":"linear","label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":2,"y":2,"width":4,"height":2}},{"id":5049902402844905,"definition":{"title":"Total Bandwidth Consumed by Tokens","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"response_format":"timeseries","queries":[{"query":"avg:cloudsmith.token_bandwidth_total{*}","data_source":"metrics","name":"query1"}],"display_type":"line"}],"yaxis":{"include_zero":true,"scale":"linear","label":"","min":"auto","max":"auto"},"markers":[]},"layout":{"x":6,"y":2,"width":4,"height":2}}]},"layout":{"x":0,"y":0,"width":12,"height":5,"is_column_break":true}},{"id":2282516981148608,"definition":{"title":"Vulnerabilities Scan Result","title_size":"16","title_align":"left","time":{},"requests":[{"query":{"data_source":"event_stream","query_string":"source:cloudsmith @aggregation_key:vulnerabilities","event_size":"s"},"response_format":"event_list","columns":[]}],"type":"list_stream"},"layout":{"x":0,"y":0,"width":12,"height":4}}],"template_variables":[],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed","id":"biv-6x6-2xq"}
+{
+  "title": "Cloudsmith Overview",
+  "description": "## Cloudsmith \nCloudsmith is a Cloud-native Package management tool. This integration allows Cloudsmith users to monitor their storage, bandwidth, and token usage in Datadog. \n\nCheck packages across your entire organization for storage and bandwidth usage and alert you when usage is getting close to your limit. Your status changes to a warning above 75% usage and critical above 85% usage. \n\nFor further reading, see the:\n\n- [Cloudsmith Documentation](https://cloudsmith.com)\n\nClone this template to make changes and add your own graphs and widgets. (cloned)",
+  "widgets": [
+    {
+      "id": 2,
+      "definition": {
+        "title": "Cloudsmith",
+        "banner_img": "https://raw.githubusercontent.com/ciaracarey/test_cs_images/main/datadog-cloudsmith-logo-634x251.png",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1570560629046493,
+            "definition": {
+              "type": "note",
+              "content": "[Cloudsmith](https://cloudsmith.com) is a cloud-native, hosted, package management service with a deep focus on providing the best universal support for all native package and container technologies.\n\nThe integration with Datadog allows Cloudsmith users to monitor their storage, bandwidth, and token usage in Datadog.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 1,
+      "definition": {
+        "title": "Overview of usage",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1390985517334205,
+            "definition": {
+              "title": "Percentage Storage Used",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">",
+                      "palette": "red_on_white",
+                      "value": 85
+                    },
+                    {
+                      "comparator": ">",
+                      "palette": "yellow_on_white",
+                      "value": 75
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.storage_used{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 0, "width": 3, "height": 2 }
+          },
+          {
+            "id": 3166709670495934,
+            "definition": {
+              "type": "note",
+              "content": "Track the storage and bandwidth usage of your packages in a Cloudsmith organisation. If your usage is above 75%, the status changes to amber and if you usage is above 85%, the status changes to red.\n\nSee [Track your Bandwidth & Storage limits with our Quota API](https://cloudsmith.com/blog/track-your-bandwidth-storage-limits-with-our-quota-api) for more details.\n\n",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 3, "y": 0, "width": 3, "height": 4 }
+          },
+          {
+            "id": 6344085258702783,
+            "definition": {
+              "title": "Percentage Bandwidth Used",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "palette": "red_on_white",
+                      "value": 85
+                    },
+                    {
+                      "comparator": ">",
+                      "palette": "yellow_on_white",
+                      "value": 75
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.bandwidth_used{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 2, "width": 3, "height": 2 }
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 5 }
+    },
+    {
+      "id": 7490658912792070,
+      "definition": {
+        "title": "Audit Logs",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "requests": [
+          {
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:audit_log",
+              "event_size": "s"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+    },
+    {
+      "id": 3,
+      "definition": {
+        "title": "Token Overview",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8971161252725269,
+            "definition": {
+              "type": "image",
+              "url": "https://cloudsmith.com/img/cloudsmith-mini-dark.svg",
+              "url_dark_theme": "https://cloudsmith.com/img/cloudsmith-mini.svg",
+              "sizing": "contain"
+            },
+            "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+          },
+          {
+            "id": 8871727855771134,
+            "definition": {
+              "type": "note",
+              "content": "Track your entitlement token usage for your organization. View the amount of tokens created, the total amount downloaded by all tokens, and the bandwidth used by tokens. \n\nEntitlement tokens are read-only tokens used for downloading files and gaining read-only access to repository contents. See [Entitlements](https://help.cloudsmith.io/docs/entitlements) for more information.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 2, "y": 0, "width": 8, "height": 2 }
+          },
+          {
+            "id": 6383822446946945,
+            "definition": {
+              "title": "Token Count",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.token_count{*}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 2, "width": 2, "height": 2 }
+          },
+          {
+            "id": 1745585157577347,
+            "definition": {
+              "title": "Total Downloads by Tokens",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.token_download_total{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": { "x": 2, "y": 2, "width": 4, "height": 2 }
+          },
+          {
+            "id": 5049902402844905,
+            "definition": {
+              "title": "Total Bandwidth Consumed by Tokens",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "avg:cloudsmith.token_bandwidth_total{*}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear",
+                "label": "",
+                "min": "auto",
+                "max": "auto"
+              },
+              "markers": []
+            },
+            "layout": { "x": 6, "y": 2, "width": 4, "height": 2 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 2282516981148608,
+      "definition": {
+        "title": "Vulnerabilities Scan Result",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "requests": [
+          {
+            "query": {
+              "data_source": "event_stream",
+              "query_string": "source:cloudsmith @aggregation_key:vulnerabilities",
+              "event_size": "s"
+            },
+            "response_format": "event_list",
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": { "x": 0, "y": 0, "width": 12, "height": 4 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

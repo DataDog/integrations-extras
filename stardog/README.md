@@ -4,7 +4,7 @@
 
 Get metrics from the Stardog service in real time to:
 
-- Visualize and monitor Stardog states
+- Visualize and monitor Stardog states.
 - Be notified about Stardog failovers and events.
 
 ## Setup

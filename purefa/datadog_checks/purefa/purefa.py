@@ -7,7 +7,7 @@ from .metrics import METRIC_MAP
 class PureFACheck(OpenMetricsBaseCheckV2, ConfigMixin):
     __NAMESPACE__ = "purefa"
 
-    DEFAULT_METRIC_LIMIT = 100000
+    DEFAULT_METRIC_LIMIT = 0
 
     def __init__(self, name, init_config, instances):
 

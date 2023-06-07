@@ -7,7 +7,7 @@ from .metrics import METRIC_MAP
 class PureFBCheck(OpenMetricsBaseCheckV2, ConfigMixin):
     __NAMESPACE__ = "purefb"
 
-    DEFAULT_METRIC_LIMIT = 100000
+    DEFAULT_METRIC_LIMIT = 0
 
     def __init__(self, name, init_config, instances):
 
