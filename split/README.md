@@ -1,10 +1,5 @@
 # Split
 
-{{< callout url="#" btn_hidden="true" header="Join the Feature Flag Tracking Beta!">}}
-To enrich your RUM data with your Split feature flags and get visibility into performance monitoring and behavioral changes, join the <a href="https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/">Feature Flag Tracking</a> private beta. To request access, contact Datadog Support at support@datadoghq.com.
-
-{{< /callout >}}
-
 ## Overview
 
 [Split][1] is a platform for [controlled rollouts][2], helping businesses of all sizes deliver exceptional user experiences and mitigate risk by providing an easy, secure way to target features to customers.
