@@ -1,0 +1,141 @@
+{
+    "title": "Aporia Alerts",
+    "description": null,
+    "widgets": [
+        {
+            "id": 71394847267016,
+            "definition": {
+                "title": "Aporia alerts over time by severity",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 5
+                                },
+                                "alias": "High Severity Alerts",
+                                "formula": "query1"
+                            },
+                            {
+                                "style": {
+                                    "palette": "orange",
+                                    "palette_index": 4
+                                },
+                                "alias": "Medium Severity Alerts",
+                                "formula": "query2"
+                            },
+                            {
+                                "style": {
+                                    "palette": "classic",
+                                    "palette_index": 1
+                                },
+                                "alias": "Low Severity Alerts",
+                                "formula": "query3"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "aporia-alert:true aporia-severity:high"
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query2",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "aporia-alert:true aporia-severity:medium"
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query3",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "aporia-alert:true aporia-severity:low"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 8,
+                "height": 5
+            }
+        },
+        {
+            "id": 4858415151519910,
+            "definition": {
+                "title": "Aporia Alerts",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "event_list",
+                        "query": {
+                            "query_string": "aporia-alert:true",
+                            "data_source": "event_stream",
+                            "event_size": "l"
+                        },
+                        "columns": []
+                    }
+                ],
+                "type": "list_stream"
+            },
+            "layout": {
+                "x": 8,
+                "y": 0,
+                "width": 4,
+                "height": 5
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
