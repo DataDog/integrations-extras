@@ -4,6 +4,8 @@ from datadog_checks.base import OpenMetricsBaseCheckV2
 class FluentBitCheck(OpenMetricsBaseCheckV2):
     __NAMESPACE__ = 'fluentbit'
 
+    DEFAULT_METRIC_LIMIT = 0
+
     def __init__(self, name, init_config, instances):
         super(FluentBitCheck, self).__init__(name, init_config, instances)
         self.check_initializations.appendleft(self._parse_config)
