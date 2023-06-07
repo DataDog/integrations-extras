@@ -399,9 +399,10 @@ class Neo4jCheck(PrometheusCheck):
             'db_query_execution_latency_millis': 'db.query.execution.latency.millis',
 
             # GDS metrics
-            'gds.graphs_created': 'gds.graphs_created',
-            'gds.aura.shutdown_time': 'gds.aura.shutdown_time',
-            'gds.aura.shutdown_failed': 'gds.aura.shutdown_failed',
-            'gds.aura.backup_time': 'gds.aura.backup_time',
-            'gds.aura.backup_failed': 'gds.aura.backup_failed',
+            'gds_graphs_created': 'gds.graphs_created',
+            'gds_models_created': 'gds.models_created',
+            'gds_aura_shutdown_time': 'gds.aura.shutdown_time',
+            'gds_aura_shutdown_failed': 'gds.aura.shutdown_failed',
+            'gds_aura_backup_time': 'gds.aura.backup_time',
+            'gds_aura_backup_failed': 'gds.aura.backup_failed',
         }
