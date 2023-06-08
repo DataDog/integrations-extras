@@ -20,5 +20,7 @@ In Notion navigate to Setting & Members > Connections > Workspace Connections > 
 ## Support 
 Need help? Contact [Notion Support][2]
 
+[1]: https://docs.datadoghq.com/security/cloud_siem/
+[2]: https://www.notion.so/notiondevs/SIEM-Integrations-Overview-309423e17dfa4c6d9a031cadff07ab6a?pvs=4#e384c9d013cb42cc9f98165730ab6f5c
 [1]: https://www.notion.so/notiondevs/SIEM-Integrations-Overview-309423e17dfa4c6d9a031cadff07ab6a?pvs=4#e384c9d013cb42cc9f98165730ab6f5c
 [2]: team@makenotion.com
