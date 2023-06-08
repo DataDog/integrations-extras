@@ -8,7 +8,7 @@ Notion is a Connected Workspace. It's where modern teams create and share docs, 
 
 In Notion navigate to Setting & Members > Connections > Workspace Connections > +Add Connection > Datadog. 
 
-This will start the OAuth flow with Datadog. Once you've successfully authenticated, you will be redirected back to Notion, an integration tile will be created in the workspace connections view. 
+This starts the OAuth flow with Datadog. After you are successfully authenticated, you are redirected back to Notion, and an integration tile is created in the workspace connections view. 
 
 ## Uninstallation
 In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
