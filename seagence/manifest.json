@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "e8f612d6-0333-446a-a27f-2041b31a4b2b",
+  "app_id": "marketplace-offering",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Defect Monitoring and Root Cause Automation using Seagence",
+    "title": "Seagence",
+    "media": [
+      {
+        "media_type": "video",
+        "caption": "Seagence defect monitoring explainer video",
+        "image_url": "images/thumbnail.png",
+        "vimeo_id": 123456789
+      },
+      {
+        "media_type": "image",
+        "caption": "Defect and Success Clusters",
+        "image_url": "images/defect-and-success-clusters.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Success and Defect Execution Paths",
+        "image_url": "images/defect-and-successexecution-paths-1440x810.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+	"integration": {
+      "source_type_name": "Seagence",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+	  "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+	},
+    "monitors": {"Seagence Defect Detection": "assets/monitors/defect_detection_monitor.json"},
+    "logs": {}
+  },
+  "author": {
+    "support_email": "support@seagence.com",
+    "name": "Seagence Technologies",
+    "homepage": "https://www.seagence.com/",
+    "sales_email": "info@seagence.com"
+  },
+  "oauth": {}
+}
