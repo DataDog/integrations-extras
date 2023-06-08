@@ -18,5 +18,5 @@ In Notion navigate to Setting & Members > Connections > Workspace Connections > 
 [Full list of events emitted from Notion][1]
 
 ## Support 
-Need help? Contact [Notion Support](team@makenotion.com)
+Need help? Contact [Notion Support][2]
 
