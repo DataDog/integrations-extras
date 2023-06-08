@@ -26,7 +26,7 @@ flagsmith.init({
 
 ## Troubleshooting
 
-Need help? See the [Flagsmith documentation][4] or contact [Datadog Support][3].
+Need help? See the [Flagsmith documentation][3] or contact [Datadog Support][4].
 
 [1]: https://flagsmith.com/
 [2]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
