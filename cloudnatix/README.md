@@ -16,7 +16,7 @@ To install the CloudNatix check on your cluster:
 
 ### Configuration
 
-There are no configuration at this time.
+There is no configuration at this time.
 
 ### Validation
 
@@ -28,7 +28,7 @@ and some graph appears.
 ### Metrics
 
 - cloudnatix.compute.daily_spend: the total spend of the cluster recognized by CloudNatix.
-- cloudnatix.workload.monthly_spend: the monthly spend of a workload estimatedy by CloudNatix.
+- cloudnatix.workload.monthly_spend: the monthly spend of a workload estimated by by CloudNatix.
 - cloudnatix.workload.monthly_projected_saving: the monthly saving of a workload
   when autopilot, estimated by CloudNatix.
 - cloudnatix.workload.resource: the kubernetes resource requests or limits of a workload.
