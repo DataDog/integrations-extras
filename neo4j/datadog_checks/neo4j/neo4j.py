@@ -30,7 +30,7 @@ class Neo4jCheck(PrometheusCheck):
     METADATA_LABEL_PREFIX = "dbmeta"
 
     def check(self, instance):
-        self._set_whitelisted_metrics()
+        self._set_allowlisted_metrics()
         config = self._get_config(instance=instance)
         self.exclude_labels = config.exclude_labels
 
@@ -112,7 +112,7 @@ class Neo4jCheck(PrometheusCheck):
         for metric in metrics:
             if metric.name == "metadata_info":
                 continue
-            
+
             metric.name = metric.name.replace('neo4j_', '', 1)
             db_name = GLOBAL_DB_NAME
             if config.neo4j_version.startswith("4.") or config.neo4j_version.startswith("5."):
@@ -162,12 +162,12 @@ class Neo4jCheck(PrometheusCheck):
             raise ConfigurationError('"{}" is a required configuration'.format(key))
         return value
 
-    def _set_whitelisted_metrics(self):
+    def _set_allowlisted_metrics(self):
         self.NAMESPACE = NAMESPACE
-        self.metrics_mapper = Neo4jCheck.get_whitelisted_metrics()
+        self.metrics_mapper = Neo4jCheck.get_allowlisted_metrics()
 
     @staticmethod
-    def get_whitelisted_metrics():
+    def get_allowlisted_metrics():
         return {
             # bolt metrics
             'bolt_accumulated_processing_time_total': 'bolt.accumulated_processing_time',
