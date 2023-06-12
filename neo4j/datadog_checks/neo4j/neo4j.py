@@ -398,11 +398,9 @@ class Neo4jCheck(PrometheusCheck):
             'db_query_execution_failure_total': 'db.query.execution.failure.total',
             'db_query_execution_latency_millis': 'db.query.execution.latency.millis',
 
-            # GDS metrics
-            'gds_graphs_created': 'gds.graphs_created',
-            'gds_models_created': 'gds.models_created',
-            'gds_aura_shutdown_time': 'gds.aura.shutdown_time',
-            'gds_aura_shutdown_failed': 'gds.aura.shutdown_failed',
-            'gds_aura_backup_time': 'gds.aura.backup_time',
-            'gds_aura_backup_failed': 'gds.aura.backup_failed',
+            # This will ensure we export metrics even if we don't match anything in the allowlist. The metrics that
+            # are found in the allowlist are mapped to the new names but if there is a KeyError, the integration will
+            # check for wildcards matching the metric.
+            # (Source: https://github.com/DataDog/integrations-core/blob/master/datadog_checks_base/datadog_checks/base/checks/prometheus/mixins.py#L516-L539)
+            '*': '*'
         }
