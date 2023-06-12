@@ -2,7 +2,7 @@
 
 ## Overview
 
-Statsig's feature flag tracking integration enriches your Datadog RUM data with feature gate information, allowing you to measure causality between your product features and your system and performance metrics.
+Statsig is a modern feature management and experimentation platform that empowers teams to 10x their experimentation velocity, shipping every feature in a data-driven way. Statsig's feature flag tracking integration enriches your Datadog RUM data with feature gate information, allowing you to measure causality between your product features and your system and performance metrics to derisk your product releases. 
 
 ## Setup
 
