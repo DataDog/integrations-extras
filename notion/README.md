@@ -22,6 +22,8 @@ Once connected, Notion will start sending near real-time data to Datadog.
 ## Uninstallation
 In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
 
+In Datadog navigate to Organization Settings > API Keys > Notion OAuth Client API Key > Revoke Key
+
 ## Data Collected
 
 [Full list of events emitted from Notion][1]
