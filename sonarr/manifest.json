@@ -1,0 +1,47 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a0ce5329-1aca-454e-bcc2-b21457574acc",
+  "app_id": "sonarr",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor Sonarr",
+    "title": "Sonarr",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Sonarr",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "sonarr.",
+        "check": "sonarr.series.total",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "logs": {}
+  },
+  "author": {
+    "support_email": "hadrien.patte@datadoghq.com",
+    "name": "Hadrien Patte",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "hadrien.patte@datadoghq.com"
+  },
+  "oauth": {}
+}
