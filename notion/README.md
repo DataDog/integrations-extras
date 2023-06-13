@@ -13,7 +13,9 @@ Search for "Notion".
 
 Go to the Configuration tab and click Install Integration at the bottom.
 
-In Notion navigate to Setting & Members > Connections > Workspace Connections > +Add Connection > Datadog. 
+Click Connect Accounts to redirect to Settings & Members in Notion
+
+Login to Notion then navigate to Connections > Workspace Connections > +Add Connection > Datadog. 
 
 Notion will prompt you to follow a series of OAuth steps to authorize the integration with Datadog.
 
