@@ -30,7 +30,6 @@ To remove the Datadog integration from Seagence:
 1. Ensure that all API keys associated with the integration have been disabled by searching for the integration name on the API Keys management page.
 1. Remove the `-javaagent` option from your application's Java runtime parameters. For more information, visit [getting started][3] on [Seagence][1].
 
-Also, remove -javaagent option from your application's java runtime parameters. For more information, please visit [getting started][3] on [Seagence][1].
 
 ## Data Collected
 
