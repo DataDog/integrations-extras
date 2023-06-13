@@ -19,6 +19,7 @@ Visit [Seagence][1] to sign up for free. Once registered, you can initiate the c
 2. Alternatively, log in into your Seagence account and go to **Settings** > **Integrations**. Add a Datadog connection and follow the prompts to set up OAuth2 and grant Seagence access to post Events to your Datadog account.
 
 ### Configuration
+
 Using -javaagent option, attach Seagence's java agent to your application. Java agent can be downloaded from your Seagence account. For more information, please visit [getting started][3] on [Seagence][1].
 
 ### Uninstallation
