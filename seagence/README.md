@@ -14,7 +14,9 @@ The Seagence integration comes with a dashboard called "Seagence - Defects Overv
 
 ### Installation
 
-Visit [Seagence][1] to sign up for free. Once registered, you can initiate Seagence<->Datadog connection in 2 ways. 1) Find the Seagence tile in Datadog's Integrations view and click "Install Integration". Then click connect button on the tile which will guide you through the Datadog OAUTH2 flow to grant Seagence access to post Events to your Datadog account. 2) Alternatively, login into your Seagence account, goto Settings -> Integrations page and add a Datadog connection. This also guides you through the Datadog OAUTH2 flow to grant Seagence necessary access.
+Visit [Seagence][1] to sign up for free. Once registered, you can initiate the connection between Seagence and Datadog in 2 ways:
+1. Find the Seagence tile in Datadog's Integrations view and click **Install Integration**. Click **Connect** on the tile, which guides you through the Datadog OAuth2 flow to grant Seagence access to post Events to your Datadog account.
+2. Alternatively, log in into your Seagence account and go to **Settings** > **Integrations**. Add a Datadog connection and follow the prompts to set up OAuth2 and grant Seagence access to post Events to your Datadog account.
 
 ### Configuration
 Using -javaagent option, attach Seagence's java agent to your application. Java agent can be downloaded from your Seagence account. For more information, please visit [getting started][3] on [Seagence][1].
