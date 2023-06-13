@@ -7,7 +7,8 @@
 Seagence integrates with Datadog using an API-based integration. Seagence's tiny Java agent is attached to your production application and posts collected data (ExecutionPaths, errors/exceptions, and contextual information) to the Seagence backend. Continuously analyzing the data stream from Seagence's Java agent, Seagence's backend, using ExecutionPath technology, detects defects when they occur, including their root cause, in real-time. This eliminates the need for debugging and troubleshooting. Using a Rest API, Seagence then posts detected defects and their root cause as Datadog Events to the Datadog backend. You can find the details of the defects in the "Seagence - Defects Overview" dashboard or you can set up a Datadog Monitor to trigger alerts. More details about defects can be found on [SeagenceWeb][2]. With a Seagence provided defect and the root cause in hand, you can fix your broken code.
 
 ### Usage
-The Seagence integration comes with a dashboard called "Seagence - Defects Overview". The top widget shows defects timeline and the bottom widget shows a list of defects including their root cause exception with complete stack trace. In the defects timeline view, defects are shown as verticle red bars. You can click any verticle bar to open the context menu then click "View related events" to open the defects as Datadog Events in "Events Explorer" dashboard.
+
+The Seagence integration comes with a dashboard called "Seagence - Defects Overview". The top widget shows the defects timeline and the bottom widget shows a list of defects including their root cause exception with complete stack trace. In the defects timeline view, defects are shown as vertical red bars. You can click any vertical bar to open the context menu. Click "View related events" to open the defects as Datadog Events in the "Events Explorer" dashboard.
 
 ## Setup
 
