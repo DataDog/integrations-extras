@@ -1,20 +1,26 @@
-# Seagence for Datadog
+# Seagence
 
 ## Overview
 
-[Seagence][1] is a defect monitoring platform for Java applications that detects defects including root cause in real-time.
+[Seagence][1] is a defect monitoring platform for Java applications. Using ExecutionPath technology (aka GPS Tracker for transactions) Seagence detects unknown defects caused by various issues like swallowed exceptions, multithreading issues, and others including defects that disguise in a 200 success HTTP response code.
 
-### Description
-
-Tired of debugging unknown defects impacting your customer experience? Using revolutionary ExecutionPath technology, discover how Seagence detects unknown defects caused by various issues like swallowed exceptions, multithreading issues, and others including defects that disguise in a 200 HTTP response code in your production Java applications. Seagence is the only solution that can detect unknown defects as they manifest. You fix your code without debugging.
+Seagence integrates with Datadog using API based integration. Seagence's tiny java agent is attached to your production application which posts collected data (ExecutionPaths, errors/exceptions, and contextual information) to Seagence backend. Continuously analyzing data stream from Seagence's java agent, Seagence's backend, using ExecutionPath technology, detects defects when they occur including their root cause in real-time eliminating the need for debugging and troubleshooting. Using Rest API, Seagence then posts detected defects and their root cause as Datadog Events to Datadog backend. You can find the details of defects in "Seagence - Defects Overview" dashboard or a Datadog Monitor can be setup to trigger alerts. More details about defects can be found on [SeagenceWeb][2]. With Seagence provided defect and root cause in hand, you fix your broken code.
 
 ### Usage
-
-Seagence integrates with Datadog using API based integration. Seagence's java agent is attached to your production application which will post collected data (ExecutionPaths and contextual information) to Seagence backend. When Seagence backend detects a defect, it posts the defect and it's root cause as a Datadog event to Datadog backend using Rest API. Upon defect event posted, a Datadog monitor (which is automatically setup) will raise alert.
+The Seagence integration comes with a dashboard called "Seagence - Defects Overview". The top widget shows defects timeline and the bottom widget shows a list of defects including their root cause exception with complete stack trace. In the defects timeline view, defects are shown as verticle red bars. You can click any verticle bar to open the context menu then click "View related events" to open the defects as Datadog Events in "Events Explorer" dashboard.
 
 ## Setup
 
-For Installation, Setup and Configuration instructions, please visit [getting started][3] on [Seagence website][1]
+### Installation
+Visit [Seagence][1] to sign up for free. Once registered, you can initiate Seagence<->Datadog connection in 2 ways. 1) Find the Seagence tile in Datadog's Integrations view and click "Install Integration". Then click connect button on the tile which will guide you through the Datadog OAUTH2 flow to grant Seagence access to post Events to your Datadog account. 2) Alternatively, login into your Seagence account, goto Settings -> Integrations page and add a Datadog connection. This also guides you through the Datadog OAUTH2 flow to grant Seagence necessary access.
+
+### Configuration
+Using -javaagent option, attach Seagence's java agent to your application. Java agent can be downloaded from your Seagence account. For more information, please visit [getting started][3] on [Seagence][1].
+
+### Uninstallation
+To remove the Datadog integration from Seagence, navigate to the Seagence's Integrations page and click Revoke. Additionally, uninstall this integration from Datadog by clicking the "Uninstall Integration" button at the bottom on the tile. Once you uninstall this integration, any previous authorizations are revoked. Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys management page.
+
+Also, remove -javaagent option from your application's java runtime parameters. For more information, please visit [getting started][3] on [Seagence][1].
 
 ## Data Collected
 
@@ -32,9 +38,10 @@ Seagence posts an event to datadog upon detecting a defect.
 
 ## Support
 
-Need help? Contact [Seagence support][2].
+Need help? Contact [Seagence support][4].
 
 
 [1]: https://www.seagence.com
-[2]: mailto:info@seagence.com
+[2]: https://app.seagence.com/SeagenceWeb/
 [3]: https://seagence.com/product/getting-started/
+[4]: mailto:info@seagence.com
