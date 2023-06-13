@@ -24,7 +24,11 @@ Using the `-javaagent` option, attach Seagence's Java agent to your application.
 
 ### Uninstallation
 
-To remove the Datadog integration from Seagence, navigate to the Seagence's Integrations page and click Revoke. Additionally, uninstall this integration from Datadog by clicking the "Uninstall Integration" button at the bottom on the tile. Once you uninstall this integration, any previous authorizations are revoked. Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys management page.
+To remove the Datadog integration from Seagence: 
+1. Navigate to the Seagence's Integrations page and click **Revoke**.
+1. Uninstall the integration from Datadog by clicking **Uninstall Integration**. Once you uninstall the integration, any previous authorizations are revoked.
+1. Ensure that all API keys associated with the integration have been disabled by searching for the integration name on the API Keys management page.
+1. Remove the `-javaagent` option from your application's Java runtime parameters. For more information, visit [getting started][3] on [Seagence][1].
 
 Also, remove -javaagent option from your application's java runtime parameters. For more information, please visit [getting started][3] on [Seagence][1].
 
