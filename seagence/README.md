@@ -14,9 +14,7 @@ The Seagence integration comes with a dashboard called "Seagence - Defects Overv
 
 ### Installation
 
-Visit [Seagence][1] to sign up for free. Once registered, you can initiate the connection between Seagence and Datadog in 2 ways:
-1. Navigate to the Seagence tile on the [Datadog Integrations page][5] and click **Install Integration**. Click **Connect Accounts** on the tile, which guides you through the Datadog OAuth2 flow to grant Seagence access to post Events to your Datadog account.
-2. Alternatively, log in into your Seagence account and go to **Settings** > **Integrations**. Add a Datadog connection and follow the prompts to set up OAuth2 and grant Seagence access to post Events to your Datadog account.
+Visit [Seagence][1] to sign up for free. Once registered, navigate to the Seagence tile on the [Datadog Integrations page][5] and click **Install Integration**. Click **Connect Accounts** on the tile, which guides you through the Datadog OAuth2 flow to grant Seagence access to post Events to your Datadog account.
 
 ### Configuration
 
@@ -24,11 +22,10 @@ Using the `-javaagent` option, attach Seagence's Java agent to your application.
 
 ### Uninstallation
 
-To remove the Datadog integration from Seagence: 
-1. Navigate to the Seagence's Integrations page and click **Revoke**.
+To remove the Datadog integration from Seagence:
 1. Uninstall the integration from Datadog by clicking **Uninstall Integration**. Once you uninstall the integration, any previous authorizations are revoked.
-1. Ensure that all API keys associated with the integration have been disabled by searching for the integration name on the [API Keys Management page][6].
-1. Remove the `-javaagent` option from your application's Java runtime parameters. For more information, visit [getting started][3] on [Seagence][1].
+2. Ensure that all API keys associated with the integration have been disabled by searching for the integration name on the [API Keys Management page][6].
+3. Remove the `-javaagent` option from your application's Java runtime parameters.
 
 
 ## Data Collected
