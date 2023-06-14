@@ -1,11 +1,7 @@
+from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
 
-from typing import Any  # noqa: F401
 
-from datadog_checks.base import AgentCheck  # noqa: F401
-# from datadog_checks.base import OpenMetricsBaseCheckV2
-
-class WayfinderCheck(AgentCheck):
-
+class WayfinderCheck(OpenMetricsBaseCheckV2):
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'wayfinder'
 
@@ -13,7 +9,21 @@ class WayfinderCheck(AgentCheck):
         super(WayfinderCheck, self).__init__(name, init_config, instances)
 
         # Use self.instance to read the check configuration
-        self.terranetes_controller_url = self.instance.get("terranetes_controller_url")
+        terranetes_url = self.instance.get("terranetes_controller_url")
+        self.terranetes_controller_url = terranetes_url
+        if not terranetes_url:
+            raise ConfigurationError(
+                'Configuration error. Missing URL for Terranenets endpoint. Please fix wayfinder.yaml'
+            )
+
+        self.metrics_map = {
+            'controller_runtime_reconcile_total': 'controller_runtime_reconcile_total',
+            'controller_runtime_webhook_requests_total': 'controller_runtime_webhook_requests.total',
+            'configuration_monthly_cost_total': 'configuration_monthly_cost_total',
+        }
+
+    def get_default_config(self):
+        return {'metrics': self.metrics_map}
 
     def _http_check(self, url, check_name):
         try:
@@ -27,7 +37,8 @@ class WayfinderCheck(AgentCheck):
             else:
                 self.service_check(check_name, self.WARNING)
 
-    def check(self, _):
-        # Terranetes health endpoint
-        terranetes_health_url = self.terranetes_controller_url + "/healthz"
-        self._http_check(terranetes_health_url, 'terranetes_controller.health')
+    def check(self, instance):
+        terranetes_health_endpoint = self.terranetes_controller_url + "/healthz"
+        self._http_check(terranetes_health_endpoint, 'terranetes_controller.health')
+
+        super(WayfinderCheck, self).check(instance)

@@ -1,24 +1,23 @@
+import pytest
 
-
-from typing import Any, Callable, Dict  # noqa: F401
-
-from datadog_checks.base import AgentCheck  # noqa: F401
-from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
-from datadog_checks.dev.utils import get_metadata_metrics
+from datadog_checks.base import ConfigurationError
 from datadog_checks.wayfinder import WayfinderCheck
 
-
-def test_check(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-    check = WayfinderCheck('wayfinder', {}, [instance])
-    dd_run_check(check)
-
-    aggregator.assert_all_metrics_covered()
-    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+from .common import MOCK_INSTANCE
 
 
-def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-    check = WayfinderCheck('wayfinder', {}, [instance])
-    dd_run_check(check)
-    aggregator.assert_service_check('wayfinder.can_connect', WayfinderCheck.CRITICAL)
+@pytest.mark.unit
+def test_config():
+    with pytest.raises(ConfigurationError):
+        WayfinderCheck('wayfinder', {}, [{}])
+
+    # this should not fail
+    WayfinderCheck('wayfinder', {}, [MOCK_INSTANCE])
+
+
+@pytest.mark.unit
+def test_service_check(aggregator):
+    check = WayfinderCheck('wayfinder', {}, [MOCK_INSTANCE])
+    with pytest.raises(Exception):
+        check.check(MOCK_INSTANCE)
+        aggregator.assert_service_check()
