@@ -54,3 +54,5 @@ Need help? Contact [Seagence support][4].
 [2]: https://app.seagence.com/SeagenceWeb/
 [3]: https://seagence.com/product/getting-started/
 [4]: mailto:info@seagence.com
+[5]: https://app.datadoghq.com/integrations
+[6]: https://app.datadoghq.com/organization-settings/api-keys
