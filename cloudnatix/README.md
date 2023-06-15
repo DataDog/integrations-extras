@@ -46,8 +46,9 @@ CloudNatix does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact support@cloudnatix.com.
+Need help? Contact [Cloudnatix support][4].
 
 [1]: https://cloudnatix.com/
 [2]: https://app.datadoghq.com/account/settings#agent/kubernetes
 [3]: https://docs.datadoghq.com/help/
+[4]: support@cloudnatix.com
