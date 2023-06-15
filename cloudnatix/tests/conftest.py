@@ -33,7 +33,9 @@ def dd_environment():
     # 3. Tears down the services when the tests are finished
     with docker_run(compose_file):
         wait_for_docker_ready()
-        yield
+        yield {
+            'openmetrics_endpoint': common.METRICS_URL,
+        }
 
 
 @pytest.fixture
