@@ -6,10 +6,12 @@ This check provides the data from [CloudNatix][1].
 
 CloudNatix connects to multiple VM & K8s Clusters, enabling automated
 capacity, cost & operation optimization using patent-pending Autopilot
-technology. CloudNatix Insights also gives DevOps teams proactive visibility into
-potential capacity and availability issues, turbocharging productivity.
+technology. CloudNatix Insights also gives DevOps teams proactive visibility
+into potential capacity and availability issues, turbocharging productivity.
 
-The CloudNatix integration provides cost and operational optimization insights to DataDog with an out-of-the-box dashboard. 
+The CloudNatix integration provides cost and operational optimization
+insights to DataDog with an out-of-the-box dashboard to quickly overview
+how much the clusters cost and the opportunities to reduce the cost.
 
 ## Setup
 
@@ -17,9 +19,9 @@ The CloudNatix integration provides cost and operational optimization insights t
 
 To install the CloudNatix check on your cluster:
 
-1. [Install CloudNatix](https://docs.cloudnatix.com/docs/tutorial) into your Kubernetes cluster.
+1. [Install CloudNatix][2] into your Kubernetes cluster.
 
-2. [Install the Datadog Agent][2] into your Kubernetes cluster.
+2. [Install the Datadog Agent][3] into your Kubernetes cluster.
 
 
 ### Validation
@@ -53,6 +55,6 @@ CloudNatix does not include any events.
 Need help? Contact [Cloudnatix support][4].
 
 [1]: https://cloudnatix.com/
-[2]: https://app.datadoghq.com/account/settings#agent/kubernetes
-[3]: https://docs.datadoghq.com/help/
+[2]: https://docs.cloudnatix.com/docs/tutorial
+[3]: https://app.datadoghq.com/account/settings#agent/kubernetes
 [4]: support@cloudnatix.com
