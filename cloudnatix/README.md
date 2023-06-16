@@ -9,9 +9,7 @@ capacity, cost & operation optimization using patent-pending Autopilot
 technology. CloudNatix Insights also gives DevOps teams proactive visibility into
 potential capacity and availability issues, turbocharging productivity.
 
-The out-of-the-box integration provides CloudNatix cost and operational
-optimization insights to DataDog and allows showing the data within a
-dashboard.
+The CloudNatix integration provides cost and operational optimization insights to DataDog with an out-of-the-box dashboard. 
 
 ## Setup
 
@@ -23,9 +21,6 @@ To install the CloudNatix check on your cluster:
 
 2. [Install the Datadog Agent][2] into your Kubernetes cluster.
 
-### Configuration
-
-There is no configuration at this time.
 
 ### Validation
 
