@@ -7,9 +7,6 @@ Notion is a Connected Workspace. It's where modern teams create and share docs, 
 ## Setup
 
 Datadog setup
-Open Datadog and go to Integrations > Integrations.
-
-Search for "Notion".
 
 Go to the Configuration tab and click Install Integration at the bottom.
 
