@@ -19,18 +19,19 @@ Notion will prompt you to follow a series of OAuth steps to authorize the integr
 Once connected, Notion will start sending near real-time data to Datadog.
 
 ## Uninstallation
-In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
+Once this integration has been uninstalled, any previous authorizations are revoked.
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][4].
 
-In Datadog navigate to Organization Settings > API Keys > Notion OAuth Client API Key > Revoke Key
+In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
 
 ## Data Collected
 
-[Full list of events emitted from Notion][1]
+[Full list of events emitted from Notion][2]
 
 ## Support 
-Need help? Contact [Notion Support][2]
+Need help? Contact [Notion Support][3]
 
 [1]: https://docs.datadoghq.com/security/cloud_siem/
 [2]: https://www.notion.so/notiondevs/SIEM-Integrations-Overview-309423e17dfa4c6d9a031cadff07ab6a?pvs=4#e384c9d013cb42cc9f98165730ab6f5c
-[1]: https://www.notion.so/notiondevs/SIEM-Integrations-Overview-309423e17dfa4c6d9a031cadff07ab6a?pvs=4#e384c9d013cb42cc9f98165730ab6f5c
-[2]: team@makenotion.com
+[3]: mailto:team@makenotion.com
+[4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Notion
