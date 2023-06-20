@@ -46,12 +46,24 @@ class MergifyCheck(AgentCheck):
             return
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(
-                "can_connect",
-                AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(url, e),
-            )
-            raise
+            if (
+                isinstance(e, HTTPError)
+                and e.response.status_code == 403
+                and e.response.json() is not None
+                and e.response.json().get("message", "") == "Organization or user has hit GitHub API rate limit"
+            ):
+                self.service_check(
+                    "can_connect",
+                    AgentCheck.WARNING,
+                    message="Rate limited on GitHub",
+                )
+            else:
+                self.service_check(
+                    "can_connect",
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
+                raise
 
         except JSONDecodeError as e:
             self.service_check(
