@@ -70,7 +70,13 @@ To install the Upbound UXP check on your host:
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
- path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl`.
+ path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl` or copy the build artifact
+ to an agent container, that may be running in Kubernetes with `kubectl cp
+ path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl -n <MONITORING_NAMESPACE>
+ <DATADOG_CONTAINER_NAME>:<PATH_TO_DIST_IN_CONTAINER>` and then install
+ it with `kubectl -n <MONITORING_NAMESPACE> exec -it <DATADOG_CONTAINER_NAME>
+ -- agent integration install -w -r
+ <PATH_TO_DIST_IN_CONTAINER>/<ARTIFACT_NAME>.whl`.
 
 ### Configuration
 
