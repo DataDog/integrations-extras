@@ -19,9 +19,10 @@ Notion will prompt you to follow a series of OAuth steps to authorize the integr
 Once connected, Notion will start sending near real-time data to Datadog.
 
 ## Uninstallation
-In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
+Once this integration has been uninstalled, any previous authorizations are revoked.
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][4].
 
-In Datadog navigate to Organization Settings > API Keys > Notion OAuth Client API Key > Revoke Key
+In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
 
 ## Data Collected
 
