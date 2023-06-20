@@ -10,12 +10,15 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the OctoPrint check on your host:
+To install the OctoPrint check on your host by running:
 
-1. Run `sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>`
-    - VERSION is currently `1.0.0`.  This may be verified in `./datadog_checks/octoprint/__about__.py`.
+```shell
+sudo -u dd-agent -- datadog-agent integration install datadog-octoprint==<VERSION>
+```
 
-#### (Optional) Install From Source
+**Note**: The `VERSION` is listed at the top of this page.
+
+#### Install from source (optional)
 
 1. Install the [developer toolkit][3] on any machine.
 
@@ -29,9 +32,9 @@ To install the OctoPrint check on your host:
 
 ### Configuration
 
-1. From the OctoPrint web interface, create an API key for use with Datadog.  This can be found within Settings --> Application Keys.
+1. From the OctoPrint web interface, create an API key for use with Datadog. This can be found within Settings --> Application Keys.
 
-2. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory.  Paste the OctoPrint API key as the value for `octo_api_key`. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
+2. Edit the `octoprint.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory. Paste the OctoPrint API key as the value for `octo_api_key`. See the [sample octoprint.d/conf.yaml][5] for all available configuration options.
 
 3. [Restart the Agent][6].
 
@@ -51,9 +54,9 @@ The logs that it collects by default (and their default locations) are:
 
 Any or all of these may be changed or removed by modifying the integration's `conf.yaml` file.
 
-#### Log Processing
+#### Log processing
 
-OctoPrint uses its own log format (not an object format), so making better use of the logs requires creation of a log processing pipeline with some parsing rules. For example:
+OctoPrint uses its own log format (not an object format). To make use of the logs, create a log processing pipeline with some parsing rules, for example:
 
 1. Main Pipeline: "OctoPrint"
     1. Sub Pipeline 1: "OctoPrint Print Job"
@@ -71,21 +74,22 @@ For more information, see the [Datadog Log Processing documentation][11].
 
 See [metadata.csv][8] for a list of metrics provided by this integration.
 
-### Service Checks
-
-OctoPrint does not include any service checks.
-
 ### Events
 
 OctoPrint does not include any events.
+
+### Service Checks
+
+See [service_checks.json][12] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][9].
 
+
 [1]: https://octoprint.org/
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[3]: https://docs.datadoghq.com/developers/integrations/python/
 [4]: https://app.datadoghq.com/account/settings#agent
 [5]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/datadog_checks/octoprint/data/conf.yaml.example
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
@@ -94,3 +98,4 @@ Need help? Contact [Datadog support][9].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://octoprint.org/download/
 [11]: https://docs.datadoghq.com/logs/processing/
+[12]: https://github.com/DataDog/integrations-extras/blob/master/octoprint/assets/service_checks.json

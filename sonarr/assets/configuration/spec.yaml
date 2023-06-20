@@ -1,0 +1,22 @@
+name: Sonarr
+files:
+- name: sonarr.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: URL/IP address of your Sonarr instance
+      value:
+        example: http://localhost:8989
+        type: string
+    - name: api_key
+      required: true
+      description: API key of your Sonarr instance
+      value:
+        example: CHANGEME
+        type: string
+    - template: instances/default

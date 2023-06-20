@@ -10,12 +10,10 @@ This integration helps you stay on top of your monitors' health. It enables you 
 - Analyze the metrics of Postman Monitoring runs in Datadog
 
 - Generate events for successful and failed monitoring runs.
+
 ## Setup
 
-You can find detailed instructions on [Postman's documentation page][3].
-
-
-
+You can find detailed instructions in [Postman's documentation][3]. Postman Integrations require a Postman [Team, Business, or Enterprise plan][8].
 
 ### Configuration
 
@@ -32,10 +30,6 @@ You can find detailed instructions on [Postman's documentation page][3].
 
 ![Configure Integration][4]
 
-### Validation
-
-
-
 ## Data Collected
 
 ### Metrics
@@ -48,8 +42,12 @@ Postman does not include any service checks.
 
 ### Events
 
-An event is generated each time a monitor runs in Postman. The severity of the event is "Low" if all the tests in the Postman 
-Monitor pass and "Normal" if some of them fail, or if there is an error in execution of any event.
+An event is generated each time a monitor runs in Postman. The severity of the event is based on the tests in the Postman monitor:
+
+| Severity | Description                                                           |
+|----------|-----------------------------------------------------------------------|
+| `Low`    | If all the tests pass                                                 |
+| `Normal` | If some tests fail, or an error occurs in the execution of any event. |
 
 ## Troubleshooting
 
@@ -60,5 +58,6 @@ Need help? Contact [Postman Support][2].
 [3]: https://learning.postman.com/docs/integrations/available-integrations/datadog/
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/postman/images/add-integration-datadog.jpeg
 [5]: https://github.com/DataDog/integrations-extras/blob/master/postman/metadata.csv
-[6]: https://app.datadoghq.com/account/settings#api
+[6]: https://app.datadoghq.com/organization-settings/api-keys
 [7]: https://go.postman.co/integrations/service/datadog
+[8]: https://www.postman.com/pricing/

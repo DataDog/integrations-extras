@@ -6,21 +6,21 @@ This check monitors [Speedtest][1] through the Datadog Agent.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
+The Speedtest check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Speedtest check on your host. See the dedicated Agent guide for [installing community integrations][4] to install checks with the [Agent prior to version 6.8][5] or the [Docker Agent][6]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Speedtest check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download and launch the Datadog Agent][3].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
    datadog-agent integration install -t datadog-speedtest==<INTEGRATION_VERSION>
    ```
-3. Configure your integration like [any other packaged integration][7].
 
-Note: For all hosts you need to also install [Speedtest CLI][1] on your host and accept the agreement as the Datadog Agent user (e.g. `sudo -u dd-agent speedtest`) prior to use.
+2. Configure your integration similar to core [integrations][4].
+
+**Note**: For all hosts, you need to install the [Speedtest CLI][1] and accept the agreement as the Datadog Agent user prior to use, for example: `sudo -u dd-agent speedtest`.
 
 ### Configuration
 
@@ -30,7 +30,7 @@ Note: For all hosts you need to also install [Speedtest CLI][1] on your host and
 
 ### Validation
 
-[Run the Agent's status subcommand][10] and look for `speedtest` under the Checks section.
+Run the [Agent's status subcommand][10] and look for `speedtest` under the Checks section.
 
 ## Data Collected
 
@@ -38,27 +38,26 @@ Note: For all hosts you need to also install [Speedtest CLI][1] on your host and
 
 See [metadata.csv][11] for a list of metrics provided by this check.
 
-### Service Checks
-
-Speedtest does not include any service checks.
-
 ### Events
 
-Speedtest does not include any events.
+The Speedtest check does not include any events.
+
+### Service Checks
+
+See [service_checks.json][13] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][12].
 
+
 [1]: https://www.speedtest.net/apps/cli
-[2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[3]: https://app.datadoghq.com/account/settings#agent
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[6]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[7]: https://docs.datadoghq.com/getting_started/integrations/
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
 [8]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/datadog_checks/speedtest/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [11]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/metadata.csv
 [12]: https://docs.datadoghq.com/help/
+[13]: https://github.com/DataDog/integrations-extras/blob/master/speedtest/assets/service_checks.json

@@ -3,6 +3,8 @@ METRIC_MAP = {
     'gatekeeper_constraint_templates': 'constraint_templates',
     'gatekeeper_constraint_template_ingestion_count': 'constraint_template_ingestion.count',
     'gatekeeper_constraint_template_ingestion_duration_seconds': 'constraint_template_ingestion.duration.seconds',
+    'gatekeeper_validation_request_count': 'validation.request.count',
+    'gatekeeper_validation_request_duration_seconds': 'validation.request.duration.seconds',
     'gatekeeper_request_count': 'request.count',
     'gatekeeper_request_duration_seconds': 'request.duration.seconds',
     'gatekeeper_violations': 'violations',
@@ -13,4 +15,8 @@ METRIC_MAP = {
     'gatekeeper_sync_last_run_time': 'sync.last_run_time',
     'gatekeeper_watch_manager_intended_watch_gvk': 'watch.intended',
     'gatekeeper_watch_manager_watched_gvk': 'watch.watched',
+    'gatekeeper_mutator_ingestion_count': 'mutator.ingestion.count',
+    'gatekeeper_mutator_ingestion_duration_seconds': 'mutator.ingestion.duration.seconds',
+    'gatekeeper_mutators': 'mutators',
+    'gatekeeper_mutator_conflicting_count': 'mutator.conflicting.count',
 }

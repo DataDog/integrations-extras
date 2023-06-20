@@ -8,21 +8,17 @@ The [StackPulse][1] integration enables you to trigger automatic playbooks in re
 
 To set up this integration, you must have an active [StackPulse account][2] and an Account Owner role in that account. You must also have proper admin permissions in Datadog.
 
-### In StackPulse
+### StackPulse
 
 1. On the **Integrations** page under **Monitoring**, locate the **Datadog** card and click [**New**][2].
-
-    ![Datadog Card][4]
 
 2. Provide a meaningful name for the integration and click **Add**.
 
 3. **Copy** the newly created webhook endpoint.
 
-### In Datadog
+### Datadog
 
 1. Navigate to **Integrations** and choose the [**Webhooks**][5] card.
-
-    ![Datadog Webhook Card][6]
 
 2. Click on **New** to add a new Webhook integration.
 
@@ -69,15 +65,13 @@ To set up this integration, you must have an active [StackPulse account][2] and 
     }
     ```
 
-5. Pick monitors for triggering StackPulse Playbooks, and in the **Alert Your Team** field, add a reference to the newly created Webhook integration. For further details, see the [DataDog documentation on managing monitors][7].
+5. Pick monitors for triggering StackPulse Playbooks, and in the **Alert Your Team** field, add a reference to the newly created Webhook integration. For more details, see [Manage Monitors][7].
 
 6. Navigate to **Integrations -> APIs** and choose the **API Keys** card. Under **New API Key**, input a meaningful name for the new key and click **Create API Key**, then **Copy** the new key.
 
-### Back In StackPulse
+### Back to StackPulse
 
 1. On the **Integrations** page under **Secrets**, locate the **Datadog API Keys** card and click [**Add**][8].
-
-    ![Datadog API Keys Card][9]
 
 2. Provide a meaningful name for the integration and click **Add**.
 
@@ -102,11 +96,8 @@ Need help? Contact [Datadog support][11].
 [1]: https://stackpulse.com
 [2]: https://stackpulse.com/get-started/
 [3]: https://app.stackpulse.io/integrations/datadog?create=true
-[4]: ./images/datadog_card.png
 [5]: https://app.datadoghq.com/account/settings#integrations/webhooks
-[6]: ./images/datadog_app_webhook.png
-[7]: https://docs.datadoghq.com/monitors/manage_monitor/
+[7]: https://docs.datadoghq.com/monitors/manage/
 [8]: https://app.stackpulse.io/integrations/datadog%20api%20keys?create=true
-[9]: ./images/datadog_api_card.png
 [10]: https://github.com/stackpulse/steps/tree/master/steps/datadog/post-event
 [11]: https://docs.datadoghq.com/help/

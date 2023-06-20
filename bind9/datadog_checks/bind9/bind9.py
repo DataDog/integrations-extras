@@ -19,7 +19,7 @@ class Bind9Check(AgentCheck):
         if not dns_url:
             raise ConfigurationError('The statistic channel URL must be specified in the configuration')
 
-        self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.OK, message='Connection to %s was successful' % dns_url)
+        self.service_check(self.BIND_SERVICE_CHECK, AgentCheck.OK)
 
         root = self.getStatsFromUrl(dns_url)
         self.collectTimeMetric(root, 'boot-time')

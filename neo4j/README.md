@@ -1,71 +1,83 @@
-# Neo4j Integration
+# Agent Check: neo4j
 
 ## Overview
 
-Get metrics from Neo4j service in real time to:
+[Neo4j][1] is an enterprise-strength graph database that combines native graph storage, advanced security, scalable speed-optimized architecture, and ACID compliance to ensure predictability and integrity of relationship-based queries. Neo4j stores and manages data in its more natural, connected state, maintaining data relationships that deliver lightning-fast queries, deeper context for analytics, and a pain-free modifiable data model.
 
-- Visualize and monitor Neo4j states.
-- Be notified about Neo4j failovers and events.
+Neo4j metrics enable database administrators to monitor their Neo4j deployments. DBAs want to understand the memory usage (heap and page cache), number of transactions, cluster status, database size (including number of nodes, relationsihps and properties), and query performance. 
+
+With this integration, visualize important Neo4j metrics in our out-of-the-box dashboards and enable your DBAs to troubleshoot and monitor the health of your Neo4j databases.
+
+### Metrics
+
+**Neo4j Version 4**
+Neo4j 4 metrics are collected as documented [here][11]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+**Neo4j Version 5**
+Neo4j 5 metrics are collected as documented [here][10]. The most commonly monitored metrics are provided in the out-of-the-box dashboards. 
+
+Please note each version collects a different set of metrics. The versions are listed in the description of the metric.
+
+See [metadata.csv][6] for the full list of metrics provided by this check.
+
+### Service Checks
+
+Service check `neo4j.prometheus.health` is submitted in the base check
+
+### Events
+
+Neo4j does not include any events.
 
 ## Setup
 
-The Neo4j check is **NOT** included in the [Datadog Agent][1] package.
+Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][2] for guidance on applying these instructions.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Neo4j check on your host. See the dedicated Agent guide for [installing community integrations][2] to install checks with the [Agent prior v6.8][3] or the [Docker Agent][4]:
+To install the neo4j check on your host:
 
-1. [Download and launch the Datadog Agent][1].
-2. Run the following command to install the integrations wheel with the Agent:
+1. Download and install the [Datadog Agent][8].
+2. To install the neo4j check on your host:
 
    ```shell
    datadog-agent integration install -t datadog-neo4j==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][5].
-
 ### Configuration
 
-1. Edit the `neo4j.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][6] to start collecting your Neo4j [metrics](#metric-collection). See the [sample neo4j.d/conf.yaml][7] for all available configuration options.
+1. Edit the `neo4j.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your neo4j performance data. See the [sample neo4j.d/conf.yaml][3] for all available configuration options.
 
-2. [Restart the Agent][8]
+2. Datadog listens on port 5000 for the dogstatsd_stats_port and expvar_port. In your neo4j.conf file, you will need to change the server.discovery.listen_address and the server.discovery.advertised_address to use a port other than 5000.
 
-## Validation
+3. [Restart the Agent][4].
 
-[Run the Agent's `status` subcommand][9] and look for `neo4j` under the Checks section.
+### Validation
+
+[Run the Agent's status subcommand][5] and look for `neo4j` under the Checks section.
 
 ## Data Collected
 
-### Metrics
+### Service Checks
 
-See [metadata.csv][10] for a list of metrics provided by this check.
+Service check `neo4j.prometheus.health` is submitted in the base check
 
 ### Events
 
-The Neo4j check does not include any events.
-
-### Service Checks
-
-This Neo4j check tags all service checks it collects with:
-
-- `server_name:<server_name_in_yaml>`
-- `url:<neo4j_url_in_yaml>`
-
-`neo4j.can_connect`:
-Returns `CRITICAL` if the Agent fails to receive a 200 from the _monitoring_ endpoint, otherwise returns `OK`.
+Neo4j does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][11].
+Need help? Contact [Neo4j support][7].
 
-[1]: https://app.datadoghq.com/account/settings#agent
-[2]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[5]: https://docs.datadoghq.com/getting_started/integrations/
-[6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
-[7]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/datadog_checks/neo4j/data/conf.yaml.example
-[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[9]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
-[10]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
-[11]: http://docs.datadoghq.com/help
+[1]: https://neo4j.com/
+[2]: https://docs.datadoghq.com/agent/autodiscovery/integrations
+[3]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/datadog_checks/neo4j/data/conf.yaml.example
+[4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[6]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
+[7]: mailto:support@neo4j.com
+[8]: https://app.datadoghq.com/account/settings#agent
+[9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
+[10]: https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/
+[11]: https://neo4j.com/docs/operations-manual/4.4/monitoring/metrics/reference/
+[12]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6v7

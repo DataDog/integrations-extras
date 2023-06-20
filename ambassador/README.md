@@ -23,9 +23,9 @@ valueFrom:
 
 With this setup, StatsD metrics are sent to the IP of the host, which redirects traffic to the Agent port 8125.
 
-See the [Ambassador documentation][5] for more information.
+See [Envoy statistics with StatsD][5] for more information.
 
-You can also send tracing data from Ambassador to Datadog APM. See the [Ambassador Datadog APM Tracing documentation][6] for more information.
+You can also send tracing data from Ambassador to Datadog APM. See [Distributed Tracing with Datadog][6] for more information.
 
 ## Data Collected
 
@@ -49,5 +49,5 @@ Need help? Contact [Datadog support][4].
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ambassador/images/upstream-req-time.png
 [3]: https://github.com/DataDog/integrations-extras/blob/master/ambassador/metadata.csv
 [4]: https://docs.datadoghq.com/help/
-[5]: https://www.getambassador.io/docs/latest/topics/running/statistics/#exposing-statistics-via-statsd
+[5]: https://www.getambassador.io/docs/edge-stack/latest/topics/running/statistics/envoy-statsd/
 [6]: https://www.getambassador.io/docs/latest/howtos/tracing-datadog/

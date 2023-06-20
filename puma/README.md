@@ -2,26 +2,23 @@
 
 ## Overview
 
-This check monitors [Puma][1] through the Datadog Agent via the Puma metrics endpoint provided by the [control/status][2] server.
+This check monitors [Puma][1] through the Datadog Agent with the Puma metrics endpoint provided by the [control and status][5] server.
 
 ## Setup
 
-Follow the instructions below to install and configure this check for an Agent running on a host. For containerized environments, see the [Autodiscovery Integration Templates][3] for guidance on applying these instructions.
+The Puma check is not included in the [Datadog Agent][2] package, so you need to install it.
 
 ### Installation
 
-If you are using Agent v6.8+ follow the instructions below to install the Puma check on your host. See the dedicated Agent guide for [installing community integrations][4] to install checks with the [Agent prior to version 6.8][5] or the [Docker Agent][6]:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the Puma check on your host. See [Use Community Integrations][3] to install with the Docker Agent or earlier versions of the Agent.
 
-1. [Download the Datadog Agent][7].
-
-2. Run the following command to install the integrations wheel with the Agent:
+1. Run the following command to install the Agent integration:
 
    ```shell
-      datadog-agent integration install -t datadog-puma==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-puma==<INTEGRATION_VERSION>
    ```
 
-3. Configure your integration like [any other packaged integration][8].
-
+2. Configure your integration similar to core [integrations][4].
 
 ### Configuration
 
@@ -31,7 +28,7 @@ If you are using Agent v6.8+ follow the instructions below to install the Puma c
 
 ### Validation
 
-[Run the Agent's status subcommand][11] and look for `puma` under the Checks section.
+Run the [Agent's status subcommand][11] and look for `puma` under the Checks section.
 
 ## Data Collected
 
@@ -39,28 +36,27 @@ If you are using Agent v6.8+ follow the instructions below to install the Puma c
 
 See [metadata.csv][12] for a list of metrics provided by this check.
 
-### Service Checks
-
-**puma.connection**: Returns `CRITICAL` if the Agent is unable to connect to the monitored Puma instance. Returns `OK` otherwise.
-
 ### Events
 
 Puma does not include any events.
+
+### Service Checks
+
+See [service_checks.json][14] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][13].
 
+
 [1]: https://puma.io/
-[2]: https://github.com/puma/puma#controlstatus-server
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[4]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/
-[5]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentpriorto68
-[6]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=docker
-[7]: https://app.datadoghq.com/account/settings#agent
-[8]: https://docs.datadoghq.com/getting_started/integrations/
+[2]: https://app.datadoghq.com/account/settings#agent
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
+[5]: https://github.com/puma/puma#controlstatus-server
 [9]: https://github.com/DataDog/integrations-extras/blob/master/puma/datadog_checks/puma/data/conf.yaml.example
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [11]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [12]: https://github.com/DataDog/integrations-extras/blob/master/puma/metadata.csv
 [13]: https://docs.datadoghq.com/help/
+[14]: https://github.com/DataDog/integrations-extras/blob/master/puma/assets/service_checks.json

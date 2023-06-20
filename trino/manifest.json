@@ -1,0 +1,46 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "5d6fa7f8-e827-408c-9cf1-8f2bd64b45d3",
+  "app_id": "trino",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collects performance and usage stats on Trino clusters",
+    "title": "Trino",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::macOS",
+      "Supported OS::Windows"
+    ]
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "help@datadoghq.com",
+    "name": "Community"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Trino",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "trino.",
+        "check": "trino.memory.reserved_distributed_bytes",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  }
+}

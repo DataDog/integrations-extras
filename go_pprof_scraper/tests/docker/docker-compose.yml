@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  pprof:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.pprof-server
+    ports:
+      - "8888:8888"
+  listener:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.mock-backend
+    ports:
+      - "9999:9999"

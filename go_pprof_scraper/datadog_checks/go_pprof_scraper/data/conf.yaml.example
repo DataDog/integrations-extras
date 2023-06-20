@@ -1,0 +1,146 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
+instances:
+
+  -
+    ## @param env - string - optional - default: prod
+    ## env tag to apply to uploaded profiles ("env:<ENV>")
+    #
+    # env: prod
+
+    ## @param pprof_url - string - required
+    ## URL of the /debug/pprof endpoint to collect. Profiles will be requested
+    ## from the URL obtained by appending "/profile", "/heap", etc. to the
+    ## given URL.
+    #
+    pprof_url: http://myservice:1234/debug/pprof/
+
+    ## @param duration - integer - optional - default: 60
+    ## Duration of profiles, in seconds
+    #
+    # duration: 30
+
+    ## @param profiles - list of strings - optional
+    ## List of profiles to collect. Valid options are "cpu", "heap", "mutex", "block", and "goroutine"
+    #
+    # profiles:
+    #   - cpu
+    #   - heap
+
+    ## @param cumulative - boolean - optional - default: true
+    ## Whether to collect heap, mutex, or block profiles as cumulative profiles
+    ## since the program started. If false, requests those profiles over the
+    ## period specified by "duration". The profiles will hold the difference
+    ## between the samples at the beginning and end of profiling.
+    ##
+    ## For the heap profile, the in-use (also known as "live heap") samples
+    ## may be negative if "cumulative" is false. This does not display
+    ## accurately in the profile UI, so Datadog does not recommend setting
+    ## "cumulative" to false.
+    ##
+    ## In order to use profile aggregation, "cumulative" must set to false.
+    ## Note that setting "cumulative" to false will cause the profiled
+    ## application to use more memory in order to compute the profiles.
+    #
+    # cumulative: true
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
+    ## @param service - string - required
+    ## Service name to tag on every profile uploaded for this instance.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
+    #
+    service: <SERVICE>
+
+    ## @param min_collection_interval - number - optional - default: 1
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    ##
+    ## This is a long-running check, and is intended to be started again as
+    ## soon as it finishes. Setting this to a larger value will cause longer
+    ## pauses between iterations of this check.
+    ##
+    ## If omitted, will default to 15 seconds.
+    #
+    min_collection_interval: 1
+
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
+    ##
+    ## This is useful for cluster-level checks.
+    #
+    # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
+
+    ## @param tls_verify - boolean - optional - default: true
+    ## Instructs the check to validate the TLS certificate(s) of the service(s).
+    #
+    # tls_verify: true
+
+    ## @param tls_ca_cert - string - optional
+    ## The path to a file of concatenated CA certificates in PEM format or a directory
+    ## containing several CA certificates in PEM format. If a directory, the directory
+    ## must have been processed using the c_rehash utility supplied with OpenSSL. See:
+    ## https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_ca_cert: <CA_CERT_PATH>
+
+    ## @param tls_cert - string - optional
+    ## The path to a single file in PEM format containing a certificate as well as any
+    ## number of CA certificates needed to establish the certificate's authenticity for
+    ## use when connecting to services. It may also contain an unencrypted private key to use.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_cert: <CERT_PATH>
+
+    ## @param tls_private_key - string - optional
+    ## The unencrypted private key to use for `tls_cert` when connecting to services. This is
+    ## required if `tls_cert` is set and it does not already contain a private key.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_private_key: <PRIVATE_KEY_PATH>
+
+    ## @param tls_private_key_password - string - optional
+    ## Optional password to decrypt tls_private_key.
+    ##
+    ## Setting this implicitly sets `tls_verify` to true.
+    #
+    # tls_private_key_password: <PRIVATE_KEY_PASSWORD>
+
+    ## @param tls_validate_hostname - boolean - optional - default: true
+    ## Verifies that the server's cert hostname matches the one requested.
+    #
+    # tls_validate_hostname: true

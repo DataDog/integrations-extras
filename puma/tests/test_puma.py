@@ -11,6 +11,12 @@ from datadog_checks.puma import PumaCheck
 
 @pytest.mark.unit
 def test_config(aggregator, instance):
+    with pytest.raises(ConfigurationError):
+        PumaCheck('puma', {}, [instance]).check({})
+
+
+@pytest.mark.unit
+def test_metrics_for_puma_in_cluster_mode(aggregator, instance):
     headers = {
         'server': 'FakeServer',
         'content-type': 'application/json',
@@ -43,13 +49,11 @@ def test_config(aggregator, instance):
     )
 
     response = Mock(headers=headers, content=content)
+
     check = PumaCheck('puma', {}, [instance])
     check._perform_request = MagicMock(return_value=response)
-
-    with pytest.raises(ConfigurationError):
-        check.check({})
-
     check.check({'control_url': "http://puma-control-url"})
+
     aggregator.assert_metric('puma.max_threads', value=40.0, tags=[])
     aggregator.assert_metric('puma.workers', value=2.0, tags=[])
     aggregator.assert_metric('puma.backlog', value=1.0, tags=[])
@@ -58,6 +62,33 @@ def test_config(aggregator, instance):
     aggregator.assert_metric('puma.running', value=40.0, tags=[])
     aggregator.assert_metric('puma.requests_count', value=270.0, tags=[])
     aggregator.assert_service_check('puma.connection', PumaCheck.OK)
+
+
+@pytest.mark.unit
+def test_metrics_for_puma_in_single_mode(aggregator, instance):
+    headers = {
+        'server': 'FakeServer',
+        'content-type': 'application/json',
+    }
+
+    content = json.dumps({"backlog": 1, "running": 2, "pool_capacity": 15, "max_threads": 20, "requests_count": 120})
+
+    response = Mock(headers=headers, content=content)
+
+    check = PumaCheck('puma', {}, [instance])
+    check._perform_request = MagicMock(return_value=response)
+    check.check({'control_url': "http://puma-control-url"})
+
+    aggregator.assert_metric('puma.max_threads', value=20.0, tags=[])
+    aggregator.assert_metric('puma.backlog', value=1.0, tags=[])
+    aggregator.assert_metric('puma.pool_capacity', value=15.0, tags=[])
+    aggregator.assert_metric('puma.running', value=2.0, tags=[])
+    aggregator.assert_metric('puma.requests_count', value=120.0, tags=[])
+    aggregator.assert_service_check('puma.connection', PumaCheck.OK)
+
+    # This behaviour does not bring any value only extra cost, will always be 0 in single mode.
+    aggregator.assert_metric('puma.workers', value=0.0, tags=[])
+    aggregator.assert_metric('puma.booted_workers', value=0.0, tags=[])
 
 
 @pytest.mark.integration

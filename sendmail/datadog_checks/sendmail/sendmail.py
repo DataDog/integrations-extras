@@ -24,7 +24,7 @@ class SendmailCheck(AgentCheck):
             self.gauge('sendmail.queue.size', queue_size, tags=tags + ['queue:total'])
             self.log.debug("Sendmail queue size: %s mails", queue_size)
             # Send an OK service check as well
-            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags, message='Sendmail OK')
+            self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.OK, tags)
         except OSError as e:
             self.log.info("Cannot get sendmail queue info: %s", e)
             self.service_check(self.SERVICE_CHECK_NAME, AgentCheck.CRITICAL, tags, message=str(e))
@@ -73,7 +73,7 @@ class SendmailCheck(AgentCheck):
         self.log.debug("Error: %s", err)
         count = mail_queue.splitlines()
         # Retrieve the last total number of requests
-        queue_count = int(count[-1][-1])
+        queue_count = int(count[-1].split()[-1])
         self.log.info("Number of mails in the queue: %s", queue_count)
 
         return queue_count

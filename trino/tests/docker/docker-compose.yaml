@@ -1,0 +1,36 @@
+version: '3'
+
+# Adapted from https://github.com/Lewuathe/docker-trino-cluster
+services:
+  trino-coordinator:
+    image: trinodb/trino:latest
+    container_name: trino_coordinator
+    ports:
+      - "8080:8080"
+      - "9080:9080"
+    volumes:
+      - ./config/coordinator/etc:/etc/trino:ro
+    networks:
+      - trino-network
+
+
+  trino-worker:
+    image: trinodb/trino:latest
+    container_name: trino_worker1
+    volumes:
+      - ./config/worker/etc:/etc/trino:ro
+    networks:
+      - trino-network
+
+
+  trino-worker-2:
+    image: trinodb/trino:latest
+    container_name: trino_worker2
+    volumes:
+      - ./config/worker/etc:/etc/trino:ro
+    networks:
+      - trino-network
+
+networks:
+  trino-network:
+    driver: bridge

@@ -1,7 +1,6 @@
 # (C) Datadog, Inc. 2018
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
-import requests
 import simplejson as json
 from six.moves.urllib.parse import urljoin
 
@@ -81,22 +80,16 @@ class AquaCheck(AgentCheck):
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8'}
         data = {"id": str(instance['api_user']), "password": str(instance['password'])}
-        res = requests.post(
-            instance['url'] + '/api/v1/login',
-            data=json.dumps(data),
-            headers=headers,
-            timeout=self.default_integration_http_timeout,
-        )
+        res = self.http.post(instance['url'] + '/api/v1/login', data=json.dumps(data), extra_headers=headers)
         res.raise_for_status()
         return json.loads(res.text)['token']
 
-    @classmethod
-    def _perform_query(cls, instance, route, token):
+    def _perform_query(self, instance, route, token):
         """
         Form queries and interact with the Aqua API.
         """
         headers = {'Content-Type': 'application/json', 'charset': 'UTF-8', 'Authorization': 'Bearer ' + token}
-        res = requests.get(urljoin(instance['url'], route), headers=headers, timeout=60)
+        res = self.http.get(urljoin(instance['url'], route), extra_headers=headers, timeout=60)
         res.raise_for_status()
         return json.loads(res.text)
 

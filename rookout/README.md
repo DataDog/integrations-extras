@@ -1,105 +1,59 @@
+# Rookout for Datadog
+
 ## Overview
 
-Collect custom metrics from your application with a few clicks and send it to Datadog. No need to write code, redeploy or restart your app.
+### Description
 
-- Enhance monitoring and expedite production debugging with Rookout's on-demand data collection
-- Collect custom metrics ad-hoc from Rookout without the need for new instrumentation
+[Rookout][1] is a disruptive developer solution for cloud native debugging and live data collection. Rookout's Non-Breaking Breakpoints let you collect any type of data on the fly with no extra coding, redeployments, or restarts.
 
-**Note: Since this integration enables you to collect custom metrics, there may be billing implications based on the number of custom metrics collected. More information on custom metrics can be [found here][1].**
+Rookout is designed from the ground up for production environments and modern architecture debugging, such as Kubernetes, microservices, serverless, and service-mesh based applications.
+
+The Rookout integration lets you collect metrics from your code running live in production or any other environment, without ever needing to stop or redeploy it.
+
+### Usage
+
+The Rookout integration has two components:
+
+- A context menu item for your dashboard widgets that lets you collect metric points from your code.
+- A custom widget showing you all the metric points you have set in Rookout.
+
+**Context Menu Item**
+
+When clicking on a timeseries widget that represents one or more servers or services, a new context menu item appears.
+
+Clicking on "Set metric points" opens the Rookout app, and automatically selects the correct instances for you.
+
+**Custom Dashboard Widget**
+
+Add the Rookout widget to your dashboard to see where you have set metric points.
 
 ## Setup
 
-### Installation
-
-Rookout sends data to Datadog via the DogStatsD service available from the Datadog Agent.
-
-1. Install the [Datadog Agent][2] and [Rookout][3]
-
-2. Log into [Rookout shell's webapp][4]
-
-3. In the right panel (Rules) click on the menu button
-
-    ![Rule actions menu][5]
-
-4. Click on _Create new template_ in order to edit a new rule template
-
-    ![Create new template button][6]
-
-5. Copy the Datadog Custom Metric rule template [available here][7] into the editor and replace the default rule template
-
-    ![Datadog Custom Metric rule template][8]
-
-6. Click the save icon to save the template
-
-    ![Click Save Icon][9]
-
-7. Add the newly created rule to any application as you would normally
-
 ### Configuration
 
-You can configure the rule to use specific actions, every rule should contain these attributes in the `processing.operations` object:
+To add the Rookout context menu item to a timeseries widget in your dashboard, you need to add a rookout label filter to its title.
 
-```json
-{
-  "name": "dogstatsd",
-  "action": "<ACTION>",
-  "metric": "<METRIC_NAME>",
-  "target": {
-    "host": "<HOST_NAME>",
-    "port": 8125
-  }
-}
-```
+For instance, if a timeseries shows some metric in a service called `cartservice`, you want the Rookout context menu item to automatically start a Rookout session with the label filter: `k8s_deployment:cartservice`.
 
-Depending on the actions, it needs different additional attributes:
-
-| Datadog Action |  Attributes |
-|----------------|-------------|
-|    increment   | value       |
-|    decrement   | value       |
-|      event     | title, text |
-|      gauge     | value       |
-|    histogram   | value       |
-|     timing     | value       |
-|  distribution  | value       |
-
-For more information about these actions you can see [Dogstatsd documentation][10]
-
-Any attribute must be formatted the following way to be accepted by our rule:
-
-```json
-"value": {
-    "name": "calc",
-    "path": "123"
-}
-```
-
-```json
-"value": {
-    "name": "calc",
-    "path": "\"string\""
-}
-```
+To do that, add `[k8s_deployment:cartservice]` to the title of the timeseries widget.
 
 ## Data Collected
 
-You can collect custom metrics and events by creating a Datadog output in your Rookout rule. Some commonly used patterns:
+### Metrics
 
-- Count the number of a times a method is invoked (increment)
-- Document process started in DataDog (event)
-- Record batch sizes (histogram)
+Rookout does not include any metrics.
+
+### Service Checks
+
+Rookout does not include any service checks.
+
+### Events
+
+Rookout does not include any events.
 
 ## Troubleshooting
 
-If you have any questions, contact us at support@rookout.com.
+Need help? Contact [Rookout support][2].
 
-[1]: https://docs.datadoghq.com/getting_started/custom_metrics/
-[2]: https://docs.datadoghq.com/agent/
-[3]: https://docs.rookout.com/docs/getting-started.html
-[4]: https://app.rookout.com
-[5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_rule_action.png
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_new_template.png
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/rule-template.json
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/datadog_rule_template.png
-[9]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rookout/images/click_save.png
-[10]: https://docs.datadoghq.com/developers/dogstatsd/
+[1]: https://rookout.com
+[2]: mailto:support@rookout.com

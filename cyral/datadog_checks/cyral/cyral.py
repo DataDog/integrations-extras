@@ -8,6 +8,8 @@ class CyralCheck(OpenMetricsBaseCheck):
     Collect metrics from Cyral
     """
 
+    DEFAULT_METRIC_LIMIT = 0
+
     def __init__(self, name, init_config, instances=None):
         instance = instances[0]
         endpoint = instance.get('prometheus_url')

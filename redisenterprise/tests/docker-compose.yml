@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  redis-enterprise:
+    image: redislabs/redis:latest
+    cap_add:
+      - SYS_RESOURCE
+    ports:
+      - "8443:8443"
+      - "9443:9443"
+      - "12000:12000"

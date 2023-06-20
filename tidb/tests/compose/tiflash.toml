@@ -1,0 +1,74 @@
+tmp_path = "/tmp/tiflash/data/tmp"
+display_name = "TiFlash"
+default_profile = "default"
+
+path = "/tmp/tiflash/data/db"
+capacity = "10737418240"
+
+mark_cache_size = 5368709120
+minmax_index_cache_size = 5368709120
+tcp_port = 9000
+http_port = 8123
+
+[flash]
+	tidb_status_addr = "tidb:10080"
+	service_addr = "0.0.0.0:3930"
+	[flash.flash_cluster]
+		update_rule_interval = 5
+	[flash.proxy]
+        addr = "0.0.0.0:20170"
+        advertise-addr = "tiflash:20170"
+        data-dir = "/data"
+        engine-addr = "tiflash:3930"
+        status-addr = "0.0.0.0:20292"
+        advertise-status-addr = "tiflash:20292"
+
+[status]
+    metrics_port = 8234
+
+[logger]
+	count = 10
+	size = "1000M"
+	level = "info"
+
+[application]
+	runAsDaemon = true
+
+[raft]
+	pd_addr = "pd:2379"
+    ignore_databases = "system,default"
+	storage_engine = "dt"
+    [raft.snapshot]
+        method = "file1"
+
+[quotas]
+	[quotas.default]
+		[quotas.default.interval]
+			result_rows = 0
+			read_rows = 0
+			execution_time = 0
+			queries = 0
+			errors = 0
+			duration = 3600
+
+[users]
+	[users.readonly]
+		quota = "default"
+		profile = "readonly"
+		password = ""
+		[users.readonly.networks]
+			ip = "::/0"
+	[users.default]
+		quota = "default"
+		profile = "default"
+		password = ""
+		[users.default.networks]
+			ip = "::/0"
+
+[profiles]
+	[profiles.readonly]
+		readonly = 1
+	[profiles.default]
+		load_balancing = "random"
+		use_uncompressed_cache = 0
+		max_memory_usage = 10000000000

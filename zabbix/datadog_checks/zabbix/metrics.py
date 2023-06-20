@@ -75,7 +75,6 @@ METRICS = {
     "Maximum number of processes": "processes_max",
     "Number of processes": "processes_count",
     "Number of running processes": "processes_running_count",
-    "Checksum of /etc/passwd": "checksum",
     "CPU utilization": "cpu.used",
     "Zabbix agent availability": "agent.avail",
     "Utilization of alert syncer internal processes, in %": "process.internal.alert_sync",

@@ -18,8 +18,6 @@ To get Blue Matador events into Datadog, use a [Datadog API key][4] to create a 
 
 **Note**: Already existing events are not imported into Datadog, but new events appear as they occur.
 
-For detailed setup instructions, see [Blue Matador's dedicated Datadog documentation][5].
-
 ## Data Collected
 
 ### Metrics
@@ -34,8 +32,12 @@ All events are sent to the Datadog event stream.
 
 The Blue Matador integration does not include any service checks.
 
+## Troubleshooting
+
+Need help? Contact the [maintainer][5] of this integration.
+
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/eventstream.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bluematador/images/dashboard.png
 [3]: https://www.bluematador.com/monitored-events
-[4]: https://app.datadoghq.com/account/settings#api
-[5]: https://www.bluematador.com/docs/datadog-integration
+[4]: https://app.datadoghq.com/organization-settings/api-keys
+[5]: https://github.com/DataDog/integrations-extras/blob/master/bluematador/manifest.json

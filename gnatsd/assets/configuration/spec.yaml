@@ -1,0 +1,32 @@
+name: Gnatsd
+files:
+- name: gnatsd.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/http
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: host
+      required: true
+      description: |
+        Gnatsd URL to connect to.
+      value:
+        type: string
+    - name: port
+      required: true
+      description: |
+        Gnatsd port to connect to when reaching `host`
+      value:
+        type: integer
+        example: 8222
+    - name: server_name
+      required: true
+      description: |
+        Name of the Gnatsd server to connect to.
+      value:
+        type: string
+        example: gnatsd_aws
+    - template: instances/http
+    - template: instances/default

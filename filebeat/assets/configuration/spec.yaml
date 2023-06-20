@@ -5,6 +5,10 @@ files:
   - template: init_config
     options:
     - template: init_config/default
+    - template: init_config/http
+      overrides:
+        timeout.value.display_default: 2
+        timeout.value.example: 2
   - template: instances
     options:
     - name: registry_file_path
@@ -16,6 +20,15 @@ files:
       value:
         type: string
         example: /var/lib/filebeat/registry
+    - name: ignore_registry
+      required: false
+      description: |
+        Whether to ignore the registry file check. 
+        
+        Useful if you only need the http service check.
+      value:
+        type: boolean
+        example: false
     - name: stats_endpoint
       required: true
       description: |
@@ -33,6 +46,7 @@ files:
       value:
         type: boolean
         example: false
+        display_default: false
     - name: only_metrics
       required: true
       description: |
@@ -46,9 +60,8 @@ files:
         example:
           - ^filebeat
           - ^publish\.events$
-    - name: timeout
-      description: Timeout in seconds for the connection `registry_file_path`.
-      value:
-        type: integer
-        example: 2
     - template: instances/default
+    - template: instances/http
+      overrides:
+        timeout.value.display_default: 2
+        timeout.value.example: 2

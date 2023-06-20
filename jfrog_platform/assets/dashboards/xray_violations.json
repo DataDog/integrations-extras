@@ -1,0 +1,816 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides an aggregated summary of all the license violations and security vulnerabilities found by Xray.  Information is segmented by watch policies and rules.  Trending information is provided on the type and severity of violations over time, as well as, insights on most frequently occurring CVEs, top impacted artifacts, and components.\n\nSource code is also available in  [Github](https://github.com/jfrog/log-analytics-datadog)\n",
+    "layout_type": "free",
+    "template_variables": [],
+    "title": "Xray Violations",
+    "widgets": [
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@watch_name"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Watches",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 7051598432706330,
+            "layout": {
+                "height": 14,
+                "width": 22,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@type:Security @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Vulnerabilities",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 4814640902931818,
+            "layout": {
+                "height": 14,
+                "width": 22,
+                "x": 23,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@type:License @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "License Issues",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 8589738227469196,
+            "layout": {
+                "height": 14,
+                "width": 23,
+                "x": 46,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Violations",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 1897684177452826,
+            "layout": {
+                "height": 14,
+                "width": 22,
+                "x": 70,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@infected_components"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@infected_components:* @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Infected Components",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 7177279170030264,
+            "layout": {
+                "height": 14,
+                "width": 22,
+                "x": 93,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 2,
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@impacted_artifacts"
+                            },
+                            "group_by": [],
+                            "index": "*",
+                            "search": {
+                                "query": "@impacted_artifacts:* @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Impacted Artifacts",
+                "title_align": "center",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 3476083908072860,
+            "layout": {
+                "height": 14,
+                "width": 23,
+                "x": 116,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "events": [
+                    {
+                        "q": "watch_name"
+                    }
+                ],
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "horizontal",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@watch_name",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "thick",
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violations per Watch",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7418717446170412,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 0,
+                "y": 15
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "horizontal",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@severity",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "-@severity:Unknown @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violations Severity",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 7863708181858712,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 70,
+                "y": 15
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@type",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    },
+                    {
+                        "apm_query": {
+                            "compute": {
+                                "aggregation": "count",
+                                "facet": "count"
+                            },
+                            "group_by": [],
+                            "index": "trace-search",
+                            "search": {
+                                "query": ""
+                            }
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violation Types over Time (stats)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 3685760597330954,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 0,
+                "y": 59
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@severity",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "-@severity:Unknown @log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violation over Time (By Severity)",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 8575700286805064,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 70,
+                "y": 59
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count",
+                                "interval": 7200000
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@infected_components",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Top Infected Components",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 3952006596410659,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 0,
+                "y": 81
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count",
+                                "interval": 7200000
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@impacted_artifacts",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Top Impacted Artifacts",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 990241712255793,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 70,
+                "y": 81
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@cve",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        }
+                    }
+                ],
+                "title": "Top Vulnerabilities",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 5527455642179598,
+            "layout": {
+                "height": 21,
+                "width": 108,
+                "x": 0,
+                "y": 103
+            }
+        },
+        {
+            "definition": {
+                "columns": [
+                    "@created",
+                    "@severity",
+                    "@cve",
+                    "@description",
+                    "@type",
+                    "@watch_name",
+                    "@impacted_artifacts"
+                ],
+                "indexes": [],
+                "message_display": "inline",
+                "query": "@log_source:jfrog.xray.siem.vulnerabilities",
+                "show_date_column": false,
+                "show_message_column": false,
+                "sort": {
+                    "column": "@watch_name",
+                    "order": "desc"
+                },
+                "title": "Violations Details",
+                "title_size": "20",
+                "type": "log_stream"
+            },
+            "id": 461988684234868,
+            "layout": {
+                "height": 36,
+                "width": 138,
+                "x": 0,
+                "y": 147
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@policies",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violations By Policy",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 5639986159788128,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 0,
+                "y": 37
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "count"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@rules",
+                                    "limit": 10,
+                                    "sort": {
+                                        "aggregation": "count",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                            }
+                        },
+                        "on_right_yaxis": false,
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Violations By Rule",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 6036947928195350,
+            "layout": {
+                "height": 21,
+                "width": 69,
+                "x": 70,
+                "y": 37
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@ip"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@impacted_artifacts",
+                                    "limit": 1000,
+                                    "sort": {
+                                        "aggregation": "cardinality",
+                                        "facet": "@ip",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
+                            }
+                        }
+                    }
+                ],
+                "title": "Top Vulnerable Artifact by Count of IP Download",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 3508728073260758,
+            "layout": {
+                "height": 21,
+                "width": 71,
+                "x": 0,
+                "y": 125
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "log_query": {
+                            "compute": {
+                                "aggregation": "cardinality",
+                                "facet": "@username"
+                            },
+                            "group_by": [
+                                {
+                                    "facet": "@impacted_artifacts",
+                                    "limit": 100,
+                                    "sort": {
+                                        "aggregation": "cardinality",
+                                        "facet": "@username",
+                                        "order": "desc"
+                                    }
+                                }
+                            ],
+                            "index": "*",
+                            "search": {
+                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
+                            }
+                        }
+                    }
+                ],
+                "title": "Top Vulnerable Artifact by Count of User Downloads",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 147216066910128,
+            "layout": {
+                "height": 21,
+                "width": 67,
+                "x": 72,
+                "y": 125
+            }
+        }
+    ]
+}

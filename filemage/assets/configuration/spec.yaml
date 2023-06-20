@@ -1,0 +1,33 @@
+name: filemage
+files:
+- name: filemage.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: filemage_service_checks
+      required: true
+      description: The filemage related services for service_up check.
+      value:
+        type: array
+        items:
+          type: string
+        example: ["postgres", "gateway"]
+        default: ["postgres", "gateway"]
+    - name: filemage_api_config
+      required: true
+      description: The filemage API connection settings.
+      value:
+        type: object
+        properties:
+          - name: rooturl
+            type: string
+          - name: apitoken
+            type: string
+          - name: verifyssl
+            type: boolean
+        example: {"rooturl": "https://localhost/", "apitoken": "secret", "verifyssl": false}
+      secret: true
+    - template: instances/default

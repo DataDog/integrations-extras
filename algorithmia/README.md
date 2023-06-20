@@ -23,10 +23,9 @@ API in Datadog.
 1. From your Algorithmia instance, configure Algorithmia Insights to connect to
    a Kafka broker (external to Algorithmia).
 
-2. Refer to the
-   [documentation in the Algorithmia integrations repository][3]
+2. See the [Algorithmia Integrations repository][3]
    to install, configure, and start the Datadog message forwarding service used
-   in this integration, which will forward metrics from a Kafka topic to the
+   in this integration, which forwards metrics from a Kafka topic to the
    metrics API in Datadog.
 
 
@@ -49,11 +48,11 @@ integration also includes a dashboard and monitor for this default metric.
 
 Additional metrics can include any user-defined, inference-related metrics that
 are specified in Algorithmia by the algorithm developer. User-defined metrics
-will depend on your specific machine learning framework and use case, but might
+depend on your specific machine learning framework and use case, but might
 include values such as prediction probabilities from a regression model in
 scikit-learn, confidence scores from an image classifier in TensorFlow, or input
-data from incoming API requests. Note that the message forwarding script
-provided in this integration will also prefix user-defined metrics with
+data from incoming API requests. **Note**: The message forwarding script
+provided in this integration prefixes user-defined metrics with
 `algorithmia.` in Datadog.
 
 ## Data Collected

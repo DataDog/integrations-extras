@@ -1,0 +1,18 @@
+ALL_METRICS = [
+    'nn_sdwan.app_aware_routing.jitter',
+    'nn_sdwan.app_aware_routing.latency',
+    'nn_sdwan.app_aware_routing.loss_percentage',
+    'nn_sdwan.app_aware_routing.rx_octets',
+    'nn_sdwan.app_aware_routing.tx_octets',
+    'nn_sdwan.cert_summary',
+    'nn_sdwan.connection_summary_stats_error',
+    'nn_sdwan.connection_summary_stats_total',
+    'nn_sdwan.device_control_status',
+    'nn_sdwan.reboot_count',
+    'nn_sdwan.site_health',
+    'nn_sdwan.top_app_stats',
+    'nn_sdwan.transport_interface',
+    'nn_sdwan.vmanage_count',
+    'nn_sdwan.wan_edge_health',
+    'nn_sdwan.wan_edge_inventory',
+]

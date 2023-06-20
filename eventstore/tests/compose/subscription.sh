@@ -4,7 +4,7 @@
 while ! curl -sS http://web:2113/info; do sleep 1; done; echo
 
 # Wait for the cluster quorum
-while curl -sS http://web:2113/info | grep -F state | grep -Evq 'master|slave|clone'; do sleep 1; done
+while curl -sS http://web:2113/info | grep -F state | grep -Evq 'master|slave|clone|readonlyreplica'; do sleep 1; done
 
 # Wait for the auth module to initialize
 while test "$(curl -sS -o /dev/null -u admin:changeit -w '%{http_code}' http://web:2113/info/options)" != "200"; do sleep 1; done

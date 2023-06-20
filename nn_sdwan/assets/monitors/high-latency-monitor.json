@@ -1,0 +1,23 @@
+{
+	"name": "Netnology SD-WAN High Latency Monitor [>100ms]",
+	"type": "query alert",
+	"query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.latency{*} > 100",
+	"message": "A link has detected high latency in excess of 100ms.",
+	"tags": [
+        "integration:nn_sdwan"
+    ],
+	"options": {
+		"thresholds": {
+			"critical": 100,
+			"warning": 60
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"escalation_message": ""
+	},
+    "recommended_monitor_metadata": {
+		"description": "Notify your team when SD-WAN link latency exceeds thresholds."
+	}
+}

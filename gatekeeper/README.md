@@ -12,6 +12,17 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
+#### Agent versions >=7.26.0 or >=6.26.0
+
+To use an integration from `integrations-extra` with the Docker Agent, Datadog recommends building the Agent with the integration installed. Use the following Dockerfile to build an updated version of the Agent that includes the `gatekeeper` integration from `integrations-extras`:
+
+```
+FROM gcr.io/datadoghq/agent:latest
+RUN agent integration install -r -t datadog-gatekeeper==<INTEGRATION_VERSION>
+```
+
+#### Agent versions <7.26.0 or <6.26.0
+
 To install the gatekeeper check on your Kubernetes cluster:
 
 1. Install the [developer toolkit][4].
@@ -99,26 +110,27 @@ To install the gatekeeper check on your Kubernetes cluster:
 
 See [metadata.csv][9] for a list of metrics provided by this check.
 
-### Service Checks
-
-`gatekeeper.health`
-Returns `CRITICAL` if the agent fails to connect to the gatekeeper health endpoint, `OK` if it returns 200, `WARNING` otherwise.
-
 ### Events
 
 Gatekeeper does not include any events.
+
+### Service Checks
+
+See [service_checks.json][11] for a list of service checks provided by this integration.
 
 ## Troubleshooting
 
 Need help? Contact [Datadog support][10].
 
+
 [1]: https://github.com/open-policy-agent/gatekeeper
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gatekeeper/images/gatekeeper_dashboard.png
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
-[4]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[4]: https://docs.datadoghq.com/developers/integrations/python/
 [5]: https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/?tab=k8sfile
 [6]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/datadog_checks/gatekeeper/data/conf.yaml.example
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[9]: https://github.com/DataDog/integrations-core/blob/master/gatekeeper/metadata.csv
+[9]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/metadata.csv
 [10]: https://docs.datadoghq.com/help/
+[11]: https://github.com/DataDog/integrations-extras/blob/master/gatekeeper/assets/service_checks.json

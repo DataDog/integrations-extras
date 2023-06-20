@@ -1,0 +1,57 @@
+name: Eventstore
+files:
+- name: eventstore.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/http
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: |
+        Base URL to your event store instance.
+      value:
+        type: string
+        example: http://localhost:2113
+    - name: endpoints
+      required: true
+      description: |
+        A list of API endpoints under the base URL to scrape for metrics:
+          - Generic stats: '/stats'
+          - Node information: '/info'
+          - Stats on projections: '/projections/all-non-transient'
+          - Stats on subscriptions: '/subscriptions'
+          - Clustering stats (enable only when running in a cluster, otherwise the whole instance will fail): '/gossip'
+      value: 
+        type: array
+        items:
+          type: string
+        example: 
+          - '/stats'
+    - name: name
+      description: |
+        The name to tag the instance by, eg: AppEventStore
+      value:
+        type: string
+        example: '<INSTANCE_NAME>'
+        display_default: <URL> + <ENDPOINT>
+    - name: json_path
+      required: true
+      description: |
+        A list of metrics you wish to capture, with wildcard support the metric you wish to capture 
+        must be defined above, a wildcard captures all available metrics at that point, e.g:
+          - es.* captures es.checksum and es.checksumNotFlushed but doesn't capture queues
+          - es.queue.*.* captures all metrics for all queues
+          - es.queue.*.length captures the length for all queues
+      value:
+        type: array
+        items: 
+          type: string
+        example:
+          - 'es.queue.*.*'
+          - 'proc.cpu'
+          - 'proc.tcp.*'
+    - template: instances/http
+    - template: instances/default

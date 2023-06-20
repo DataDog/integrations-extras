@@ -33,19 +33,19 @@ All configuration happens on Lacework Dashboard. Find details on how to set it u
 
 ### Metrics
 
-This Lacework integration does not not collect metrics
+The Lacework integration does not collect any metrics.
 
 ### Service Checks
 
-This Lacework intgeration does not include any service checks.
+The Lacework integration does not include any service checks.
 
-### Logs
+### Log collection
 
-Lacework can be configured to send Logs.
+The Lacework integration can be configured to send Logs.
 
 ### Events
 
-Lacework can be configured to send Events.
+The Lacework integration can be configured to send Events.
 
 ## Troubleshooting
 
@@ -53,5 +53,5 @@ Need help? Contact [Datadog support][7].
 
 [1]: https://docs.datadoghq.com/integrations/lacework/
 [2]: https://www.lacework.com/datadog/
-[3]: https://app.datadoghq.com/account/settings#api
+[3]: https://app.datadoghq.com/organization-settings/api-keys
 [7]: https://docs.datadoghq.com/help/

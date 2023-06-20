@@ -7,7 +7,7 @@ networks:
       - subnet: 172.30.30.0/29
 services:
   web:
-    image: &image eventstore/eventstore:release-5.0.8
+    image: &image eventstore/eventstore:21.10.1-bionic
     networks:
       ddev-esnet:
         ipv4_address: &web-ip 172.30.30.2
@@ -19,7 +19,12 @@ services:
       EVENTSTORE_EXT_IP: *web-ip
       EVENTSTORE_CLUSTER_SIZE: '3'
       EVENTSTORE_DISCOVER_VIA_DNS: 'false'
-      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.4:2112,172.30.30.5:2112
+      EVENTSTORE_INSECURE: 'true'
+      EVENTSTORE_RUN_PROJECTIONS: 'all'
+      EVENTSTORE_READ_ONLY_REPLICA: 'true'
+      EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.4:2113,172.30.30.5:2113
   es0:
     image: *image
     networks:
@@ -30,7 +35,11 @@ services:
       EVENTSTORE_EXT_IP: *es0-ip
       EVENTSTORE_CLUSTER_SIZE: '3'
       EVENTSTORE_DISCOVER_VIA_DNS: 'false'
-      EVENTSTORE_GOSSIP_SEED: 172.30.30.4:2112,172.30.30.5:2112
+      EVENTSTORE_INSECURE: 'true'
+      EVENTSTORE_RUN_PROJECTIONS: 'all'
+      EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.4:2113,172.30.30.5:2113
   es1:
     image: *image
     networks:
@@ -41,7 +50,11 @@ services:
       EVENTSTORE_EXT_IP: *es1-ip
       EVENTSTORE_CLUSTER_SIZE: '3'
       EVENTSTORE_DISCOVER_VIA_DNS: 'false'
-      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.5:2112
+      EVENTSTORE_INSECURE: 'true'
+      EVENTSTORE_RUN_PROJECTIONS: 'all'
+      EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.5:2113
   es2:
     image: *image
     networks:
@@ -52,7 +65,11 @@ services:
       EVENTSTORE_EXT_IP: *es2-ip
       EVENTSTORE_CLUSTER_SIZE: '3'
       EVENTSTORE_DISCOVER_VIA_DNS: 'false'
-      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2112,172.30.30.4:2112
+      EVENTSTORE_INSECURE: 'true'
+      EVENTSTORE_RUN_PROJECTIONS: 'all'
+      EVENTSTORE_ENABLE_EXTERNAL_TCP: 'true'
+      EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP: 'true'
+      EVENTSTORE_GOSSIP_SEED: 172.30.30.3:2113,172.30.30.4:2113
   subscription:
     image: curlimages/curl:latest
     networks:

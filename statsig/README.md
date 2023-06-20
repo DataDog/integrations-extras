@@ -13,10 +13,9 @@ No installation is required to setup the Statsig integration.
 ### Configuration
 
 1. Copy your Datadog API key.
-2. [Navigate to your Statsig console][1].
-3. Navigate to the Integrations tab in the left-hand column.
-4. Click on the Datadog card.
-5. Paste in your API key in the top field and click Confirm.
+2. [Navigate to the Integrations tab in the Statsig console][1].
+3. Click on the Datadog card.
+4. Paste in your API key in the top field and click Confirm.
 
 ## Data Collected
 
@@ -24,7 +23,7 @@ The Statsig integration does not collect any data from Datadog.
 
 ### Metrics
 
-See [metadata.csv][2] for a list of metrics provided by this integration and the description of each.
+See [metadata.csv][2] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -32,12 +31,20 @@ The Statsig integration does not include any service checks.
 
 ### Events
 
-The Statsig integration sends configuration change events on Statsig to Datadog. For instance new or updated feature gates or new integrations enabled.
+The Statsig integration sends configuration change events on Statsig to Datadog. For instance, updated feature gates or new integrations.
 
 ## Troubleshooting
 
-Need help? Contact Statsig Support at support@statsig.com or [contact us here][3]
+Need help? Contact [Statsig support][5] or see the [Statsig website][3].
 
-[1]: https://console.statsig.com
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Monitor feature releases with Statsig's offering in the Datadog Marketplace][4]
+
+[1]: https://console.statsig.com/integrations
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
 [3]: https://www.statsig.com/contact
+[4]: https://www.datadoghq.com/blog/feature-monitoring-statsig-datadog-marketplace/
+[5]: mailto:support@statsig.com

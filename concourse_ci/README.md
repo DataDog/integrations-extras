@@ -17,9 +17,9 @@ Concourse CI comes bundled with a Datadog metrics emitter. A prerequisite to con
 
 Configure ATC to use the Datadog emitter by setting the following options. It is important to use a prefix of `concourse.ci` to avoid emitting [custom metrics][3].
 
-### Datadog Metric Emitter Options
+### Metric emitter options
 
-See the Concourse CI [documentation][4] for more information.
+See [Configuring Metrics][4] in the Concourse CI documentation for more information.
 
 ```text
 Metric Emitter (Datadog):

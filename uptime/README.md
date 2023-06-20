@@ -13,7 +13,7 @@ Get events and metrics from your app in real time to:
 
 ### Configuration
 
-In order to activate the integration of Datadog within your Uptime account, go to [Notifications>Integrations][2] then choose Datadog as the provider type when adding a new push notifications profile.
+To activate the Datadog integration within your Uptime account, go to [Notifications > Integrations][2] then choose Datadog as the provider type when adding a new push notifications profile.
 
 The following describes the fields shown when configuring Datadog within your Uptime account:
 shell
@@ -23,7 +23,7 @@ shell
 
 - Application Key: <span class="app_key" data-name="uptime"></span>
 
-Once you've configured your Datadog profile, you will need to assign the profile to a contact group located under Alerting>Contacts. The profile is assigned at the Push Notifications field within the contact group.
+After configuring your Datadog profile, assign the profile to a contact group located under _Alerting > Contacts_. The profile is assigned in the **Push Notifications** field within the contact group.
 
 ## Data Collected
 

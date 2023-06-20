@@ -1,83 +1,83 @@
-metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name
-unbound.thread.num.queries,count,,query,,The number of queries received by thread,1,unbound,thread.num.queries
-unbound.thread.num.queries_ip_ratelimited,count,,query,,The number of queries rate limited by thread,1,unbound,thread.num.queries_ip_ratelimited
-unbound.thread.num.cachehits,count,,query,,The number of queries that were successfully answered using a cache lookup,1,unbound,thread.num.cachehits
-unbound.thread.num.cachemiss,count,,query,,The number of queries that needed recursive processing,1,unbound,thread.num.cachemiss
-unbound.thread.num.dnscrypt.crypted,count,,query,,The number of queries that were encrypted and successfully decapsulated by dnscrypt,1,unbound,thread.num.dnscrypt.cert
-unbound.thread.num.dnscrypt.cert,count,,query,,The number of queries that were requesting dnscrypt certificates,1,unbound,thread.num.dnscrypt.cert
-unbound.thread.num.dnscrypt.cleartext,count,,query,,The number of queries received on dnscrypt port that were cleartext and not a request for certificates,1,unbound,thread.num.dnscrypt.cleartext
-unbound.thread.num.dnscrypt.malformed,count,,request,,The number of requests that were neither cleartext nor valid dnscrypt messages,1,unbound,thread.num.dnscrypt.malformed
-unbound.thread.num.prefetch,count,,,,The number of cache prefetches performed,1,unbound,thread.num.prefetch
-unbound.thread.num.zero_ttl,count,,response,,The number of replies with ttl zero because they served an expired cache entry,1,unbound,thread.num.zero_ttl
-unbound.thread.num.recursivereplies,count,,response,,The number of replies sent to queries that needed recursive processing,1,unbound,thread.num.recursivereplies
-unbound.thread.requestlist.avg,gauge,,request,,The average number of requests in the internal recursive processing request list on insert of a new incoming recursive processing query,0,unbound,thread.requestlist.avg
-unbound.thread.requestlist.max,gauge,,request,,Maximum size attained by the internal recursive processing request list,1,unbound,thread.requestlist.max
-unbound.thread.requestlist.overwritten,count,,request,,The number of requests in the request list that were overwritten by newer entries,1,unbound,thread.requestlist.overwritten
-unbound.thread.requestlist.exceeded,gauge,,query,,Queries that were dropped because the request list was full,1,unbound,thread.requestlist.exceeded
-unbound.thread.requestlist.current.all,gauge,,request,,Current size of the request list,0,unbound,thread.requestlist.current
-unbound.thread.requestlist.current.user,gauge,,request,,Current size of the request list (only the requests from client queries),0,unbound,thread.requestlist.current.user
-unbound.thread.recursion.time.avg,gauge,,second,,Average time it took to answer queries that needed recursive processing,0,unbound,thread.recursion.time.avg
-unbound.thread.recursion.time.median,gauge,,second,,The median of the time it took to answer queries that needed recursive processing,0,unbound,thread.recursion.time.median
-unbound.thread.tcpusage,gauge,,buffer,,The currently held tcp buffers for incoming connections,0,unbound,thread.tcpusage
-unbound.total.num.queries,count,,query,,The total number of queries summed over threads,1,unbound,total.num.queries
-unbound.total.num.cachehits,count,,hit,,The total number of cache hits summed over threads,1,unbound,total.num.cachehits
-unbound.total.num.cachemiss,count,,miss,,The total number of cache misses summed over threads,1,unbound,total.num.cachemiss
-unbound.total.num.dnscrypt.crypted,count,,query,,The total number of dnscrypt crypted summed over threads,1,unbound,total.num.dnscrypt.crypted
-unbound.total.num.dnscrypt.cert,count,,query,,The total number of dnscrypt cert summed over threads,1,unbound,total.num.dnscrypt.cert
-unbound.total.num.dnscrypt.cleartext,count,,query,,The total number of dnscrypt cleartext summed over threads,1,unbound,total.num.dnscrypt.cleartext
-unbound.total.num.dnscrypt.malformed,count,,request,,The total number of dnscrypt malformed summed over threads,1,unbound,total.num.dnscrypt.malformed
-unbound.total.num.prefetch,count,,,,The total number of prefetch summed over threads,1,unbound,total.num.prefetch
-unbound.total.num.zero_ttl,count,,response,,The total number of zero ttl summed over threads,1,unbound,total.num.zero_ttl
-unbound.total.num.recursivereplies,count,,response,,The total number of recursive replies summed over threads,1,unbound,total.num.recursivereplies
-unbound.total.requestlist.avg,gauge,,request,,The total number of requests averaged over threads,0,unbound,total.requestlist.avg
-unbound.total.requestlist.max,gauge,,request,,The maximum of the thread requestlist.max values,1,unbound,total.requestlist.max
-unbound.total.requestlist.overwritten,gauge,,request,,The number of requests in the request list that were overwritten by newer entries summed over threads,1,unbound,total.requestlist.overwritten
-unbound.total.requestlist.exceeded,gauge,,query,,The total number of queries that were dropped because the request list was full summed over threads,1,unbound,total.requestlist.exceeded
-unbound.total.requestlist.current.all,gauge,,request,,The current size of all threads' request lists,1,unbound,total.requestlist.current.all
-unbound.total.recursion.time.avg,gauge,,second,,The average time it took to answer queries that needed recursive processing averaged over threads,0,unbound,total.recursion.time.avg
-unbound.total.recursion.time.median,gauge,,second,,The median of the time it took to answer queries that needed recursive processing averaged over threads,0,unbound,total.recursion.time.median
-unbound.time.now,gauge,,second,,The current time in seconds since 1970,1,unbound,time.now
-unbound.time.up,gauge,,second,,The uptime since server boot in seconds,0,unbound,time.up
-unbound.time.elapsed,gauge,,second,,The time since last statistics printout in seconds,0,unbound,time.elapsed
-unbound.mem.total.sbrk,gauge,,byte,,If sbrk(2) is available an estimate of the heap size of the program in bytes,0,unbound,mem.total.sbrk
-unbound.mem.cache.rrset,gauge,,byte,,Memory in bytes in use by the RRset cache,0,unbound,mem.cache.rrset
-unbound.mem.cache.message,gauge,,byte,,Memory in bytes in use by the message cache,0,unbound,mem.cache.message
-unbound.mem.cache.dnscrypt_shared_secret,gauge,,byte,,Memory in bytes in use by the dnscrypt shared secrets cache,0,unbound,mem.cache.dnscrypt_shared_secret
-unbound.mem.cache.dnscrypt_nonce,gauge,,byte,,Memory in bytes in use by the dnscrypt nonce cache,0,unbound,mem.cache.dnscrypt_nonce
-unbound.mem.mod.iterator,gauge,,byte,,Memory in bytes in use by the iterator module,0,unbound,mem.mod.iterator
-unbound.mem.mod.validator,gauge,,byte,,Memory in bytes in use by the validator module. Includes the key cache and negative cache.,0,unbound,mem.mod.validator
-unbound.mem.mod.respip,gauge,,byte,,Memory in bytes in use by the respip module,0,unbound,mem.mod.respid
-unbound.mem.streamwait,gauge,,byte,,Memory in bytes in use by the TCP and TLS stream wait buffers. These are answers waiting to be written back to the clients.,0,unbound,mem.streamwait
-unbound.num.query.type,count,,query,,The total number of queries over all threads by type,1,unbound,num.query.type
-unbound.num.query.class,count,,query,,The total number of queries over all threads by class,1,unbound,num.query.class
-unbound.num.query.opcode,count,,query,,The total number of queries over all threads by opcode,1,unbound,num.query.opcode
-unbound.num.query.tcp,count,,query,,The number of queries that were made using TCP towards the unbound server,1,unbound,num.query.tcp
-unbound.num.query.tcpout,count,,query,,The number of queries that the unbound server made using TCP outgoing towards other servers,1,unbound,num.query.tcpout
-unbound.num.query.tls,count,,query,,The number of queries that were made using TLS towards the unbound server. These are also counted in num.query.tcp because TLS uses TCP.,1,unbound,num.query.tls
-unbound.num.query.tls.resume,count,,,,The number of TLS session resumptions. These are queries over TLS towards the unbound server where the client negotiated a TLS session resumption key,1,unbound,num.query.tls.resume
-unbound.num.query.ipv6,count,,query,,The number of queries that were made using IPv6 towards the unbound server,1,unbound,num.query.ipv6
-unbound.num.query.flags,count,,query,,The number of queries by flag set in the header,1,unbound,num.query.flags
-unbound.num.query.edns.present,count,,query,,The number of queries that had an EDNS OPT record present,1,unbound,num.query.edns
-unbound.num.query.edns.DO,count,,query,,The number of queries that had an EDNS OPT record with the DO (DNSSEC OK) bit set,1,unbound,num.query.edns.DO
-unbound.num.query.ratelimited,count,,query,,The number of queries that are turned away from being sent to nameserver due to ratelimiting,1,unbound,num.query.ratelimited
-unbound.num.query.dnscrypt.shared_secret.cachemiss,count,,query,,The number of dnscrypt queries that did not find a shared secret in the cache,1,unbound,num.query.dnscrypt.shared_secret
-unbound.num.query.dnscrypt.replay,count,,query,,The number of dnscrypt queries that found a nonce hit in the nonce cache and hence are considered a query replay,1,unbound,num.query.dnscrypt.replay
-unbound.num.answer.rcode,count,,response,,The number of answers to queries from cache or from recursion by return code,1,unbound,num.answer.rcode
-unbound.num.answer.rcode.nodata,count,,response,,The number of answers to queries that had the pseudo return code nodata,1,unbound,num.answer.rcode.nodata
-unbound.num.answer.secure,count,,response,,The number of answers that were secure,1,unbound,num.answer.secure
-unbound.num.answer.bogus,count,,response,,The number of answers that were bogus,1,unbound,num.answer.bogus
-unbound.num.rrset.bogus,count,,,,The number of rrsets marked bogus by the validator,1,unbound,num.rrset.bogus
-unbound.unwanted.queries,count,,query,,The number of queries that were refused or dropped because they failed the access control settings,1,unbound,unwanted.queries
-unbound.unwanted.replies,count,,response,,The number of replies that were unwanted or unsolicited,1,unbound,unwanted.replies
-unbound.msg.cache.count,count,,item,,The number of items (DNS replies) in the message cache,0,unbound,msg.cache.count
-unbound.rrset.cache.count,count,,item,,The number of RRsets in the rrset cache,0,unbound,rrset.cache.count
-unbound.infra.cache.count,count,,item,,The number of items in the infra cache,0,unbound,infra.cache.count
-unbound.key.cache.count,count,,item,,The number of items in the key cache,0,unbound,key.cache.count
-unbound.dnscrypt_shared_secret.cache.count,count,,item,,The number of items in the shared secret cache,0,unbound,dnscrypt_shared_secret.cache.count
-unbound.dnscrypt_nonce.cache.count,count,,item,,The number of items in the client nonce cache,0,unbound,dnscrypt_nonce.cache.count
-unbound.num.query.authzone.up,count,,query,,The number of queries answered from auth-zone data (upstream queries),1,unbound,num.query.authzone.up
-unbound.num.query.authzone.down,count,,query,,The number of queries for downstream answered from auth-zone data,1,unbound,num.query.authzone.down
-unbound.num.query.aggressive.NOERROR,count,,query,,The number of queries answered using cached NSEC records with NODATA RCODE,1,unbound,num.query.aggressive.NOERROR
-unbound.num.query.aggressive.NXDOMAIN,count,,query,,The number of queries answered using cached NSEC records with NXDOMAIN RCODE,1,unbound,num.query.aggressive.NXDOMAIN
-unbound.num.query.subnet,count,,query,,The number of queries which received an answer and contained EDNS client subnet data,1,unbound,num.query.subnet
-unbound.num.query.subnet_cache,count,,query,,The number of queries answered from the EDNS client subnet cache,1,unbound,num.query.subnet_cache
+metric_name,metric_type,interval,unit_name,per_unit_name,description,orientation,integration,short_name,curated_metric
+unbound.thread.num.queries,count,,query,,The number of queries received by thread,1,unbound,thread.num.queries,
+unbound.thread.num.queries_ip_ratelimited,count,,query,,The number of queries rate limited by thread,1,unbound,thread.num.queries_ip_ratelimited,
+unbound.thread.num.cachehits,count,,query,,The number of queries that were successfully answered using a cache lookup,1,unbound,thread.num.cachehits,
+unbound.thread.num.cachemiss,count,,query,,The number of queries that needed recursive processing,1,unbound,thread.num.cachemiss,
+unbound.thread.num.dnscrypt.crypted,count,,query,,The number of queries that were encrypted and successfully decapsulated by dnscrypt,1,unbound,thread.num.dnscrypt.cert,
+unbound.thread.num.dnscrypt.cert,count,,query,,The number of queries that were requesting dnscrypt certificates,1,unbound,thread.num.dnscrypt.cert,
+unbound.thread.num.dnscrypt.cleartext,count,,query,,The number of queries received on dnscrypt port that were cleartext and not a request for certificates,1,unbound,thread.num.dnscrypt.cleartext,
+unbound.thread.num.dnscrypt.malformed,count,,request,,The number of requests that were neither cleartext nor valid dnscrypt messages,1,unbound,thread.num.dnscrypt.malformed,
+unbound.thread.num.prefetch,count,,,,The number of cache prefetches performed,1,unbound,thread.num.prefetch,
+unbound.thread.num.zero_ttl,count,,response,,The number of replies with ttl zero because they served an expired cache entry,1,unbound,thread.num.zero_ttl,
+unbound.thread.num.recursivereplies,count,,response,,The number of replies sent to queries that needed recursive processing,1,unbound,thread.num.recursivereplies,
+unbound.thread.requestlist.avg,gauge,,request,,The average number of requests in the internal recursive processing request list on insert of a new incoming recursive processing query,0,unbound,thread.requestlist.avg,
+unbound.thread.requestlist.max,gauge,,request,,Maximum size attained by the internal recursive processing request list,1,unbound,thread.requestlist.max,
+unbound.thread.requestlist.overwritten,count,,request,,The number of requests in the request list that were overwritten by newer entries,1,unbound,thread.requestlist.overwritten,
+unbound.thread.requestlist.exceeded,gauge,,query,,Queries that were dropped because the request list was full,1,unbound,thread.requestlist.exceeded,
+unbound.thread.requestlist.current.all,gauge,,request,,Current size of the request list,0,unbound,thread.requestlist.current,
+unbound.thread.requestlist.current.user,gauge,,request,,Current size of the request list (only the requests from client queries),0,unbound,thread.requestlist.current.user,
+unbound.thread.recursion.time.avg,gauge,,second,,Average time it took to answer queries that needed recursive processing,0,unbound,thread.recursion.time.avg,
+unbound.thread.recursion.time.median,gauge,,second,,The median of the time it took to answer queries that needed recursive processing,0,unbound,thread.recursion.time.median,
+unbound.thread.tcpusage,gauge,,buffer,,The currently held tcp buffers for incoming connections,0,unbound,thread.tcpusage,
+unbound.total.num.queries,count,,query,,The total number of queries summed over threads,1,unbound,total.num.queries,
+unbound.total.num.cachehits,count,,hit,,The total number of cache hits summed over threads,1,unbound,total.num.cachehits,
+unbound.total.num.cachemiss,count,,miss,,The total number of cache misses summed over threads,1,unbound,total.num.cachemiss,
+unbound.total.num.dnscrypt.crypted,count,,query,,The total number of dnscrypt crypted summed over threads,1,unbound,total.num.dnscrypt.crypted,
+unbound.total.num.dnscrypt.cert,count,,query,,The total number of dnscrypt cert summed over threads,1,unbound,total.num.dnscrypt.cert,
+unbound.total.num.dnscrypt.cleartext,count,,query,,The total number of dnscrypt cleartext summed over threads,1,unbound,total.num.dnscrypt.cleartext,
+unbound.total.num.dnscrypt.malformed,count,,request,,The total number of dnscrypt malformed summed over threads,1,unbound,total.num.dnscrypt.malformed,
+unbound.total.num.prefetch,count,,,,The total number of prefetch summed over threads,1,unbound,total.num.prefetch,
+unbound.total.num.zero_ttl,count,,response,,The total number of zero ttl summed over threads,1,unbound,total.num.zero_ttl,
+unbound.total.num.recursivereplies,count,,response,,The total number of recursive replies summed over threads,1,unbound,total.num.recursivereplies,
+unbound.total.requestlist.avg,gauge,,request,,The total number of requests averaged over threads,0,unbound,total.requestlist.avg,
+unbound.total.requestlist.max,gauge,,request,,The maximum of the thread requestlist.max values,1,unbound,total.requestlist.max,
+unbound.total.requestlist.overwritten,gauge,,request,,The number of requests in the request list that were overwritten by newer entries summed over threads,1,unbound,total.requestlist.overwritten,
+unbound.total.requestlist.exceeded,gauge,,query,,The total number of queries that were dropped because the request list was full summed over threads,1,unbound,total.requestlist.exceeded,
+unbound.total.requestlist.current.all,gauge,,request,,The current size of all threads' request lists,1,unbound,total.requestlist.current.all,
+unbound.total.recursion.time.avg,gauge,,second,,The average time it took to answer queries that needed recursive processing averaged over threads,0,unbound,total.recursion.time.avg,
+unbound.total.recursion.time.median,gauge,,second,,The median of the time it took to answer queries that needed recursive processing averaged over threads,0,unbound,total.recursion.time.median,
+unbound.time.now,gauge,,second,,The current time in seconds since 1970,1,unbound,time.now,
+unbound.time.up,gauge,,second,,The uptime since server boot in seconds,0,unbound,time.up,
+unbound.time.elapsed,gauge,,second,,The time since last statistics printout in seconds,0,unbound,time.elapsed,
+unbound.mem.total.sbrk,gauge,,byte,,If sbrk(2) is available an estimate of the heap size of the program in bytes,0,unbound,mem.total.sbrk,
+unbound.mem.cache.rrset,gauge,,byte,,Memory in bytes in use by the RRset cache,0,unbound,mem.cache.rrset,
+unbound.mem.cache.message,gauge,,byte,,Memory in bytes in use by the message cache,0,unbound,mem.cache.message,
+unbound.mem.cache.dnscrypt_shared_secret,gauge,,byte,,Memory in bytes in use by the dnscrypt shared secrets cache,0,unbound,mem.cache.dnscrypt_shared_secret,
+unbound.mem.cache.dnscrypt_nonce,gauge,,byte,,Memory in bytes in use by the dnscrypt nonce cache,0,unbound,mem.cache.dnscrypt_nonce,
+unbound.mem.mod.iterator,gauge,,byte,,Memory in bytes in use by the iterator module,0,unbound,mem.mod.iterator,
+unbound.mem.mod.validator,gauge,,byte,,Memory in bytes in use by the validator module. Includes the key cache and negative cache.,0,unbound,mem.mod.validator,
+unbound.mem.mod.respip,gauge,,byte,,Memory in bytes in use by the respip module,0,unbound,mem.mod.respid,
+unbound.mem.streamwait,gauge,,byte,,Memory in bytes in use by the TCP and TLS stream wait buffers. These are answers waiting to be written back to the clients.,0,unbound,mem.streamwait,
+unbound.num.query.type,count,,query,,The total number of queries over all threads by type,1,unbound,num.query.type,
+unbound.num.query.class,count,,query,,The total number of queries over all threads by class,1,unbound,num.query.class,
+unbound.num.query.opcode,count,,query,,The total number of queries over all threads by opcode,1,unbound,num.query.opcode,
+unbound.num.query.tcp,count,,query,,The number of queries that were made using TCP towards the unbound server,1,unbound,num.query.tcp,
+unbound.num.query.tcpout,count,,query,,The number of queries that the unbound server made using TCP outgoing towards other servers,1,unbound,num.query.tcpout,
+unbound.num.query.tls,count,,query,,The number of queries that were made using TLS towards the unbound server. These are also counted in num.query.tcp because TLS uses TCP.,1,unbound,num.query.tls,
+unbound.num.query.tls.resume,count,,,,The number of TLS session resumptions. These are queries over TLS towards the unbound server where the client negotiated a TLS session resumption key,1,unbound,num.query.tls.resume,
+unbound.num.query.ipv6,count,,query,,The number of queries that were made using IPv6 towards the unbound server,1,unbound,num.query.ipv6,
+unbound.num.query.flags,count,,query,,The number of queries by flag set in the header,1,unbound,num.query.flags,
+unbound.num.query.edns.present,count,,query,,The number of queries that had an EDNS OPT record present,1,unbound,num.query.edns,
+unbound.num.query.edns.DO,count,,query,,The number of queries that had an EDNS OPT record with the DO (DNSSEC OK) bit set,1,unbound,num.query.edns.DO,
+unbound.num.query.ratelimited,count,,query,,The number of queries that are turned away from being sent to nameserver due to ratelimiting,1,unbound,num.query.ratelimited,
+unbound.num.query.dnscrypt.shared_secret.cachemiss,count,,query,,The number of dnscrypt queries that did not find a shared secret in the cache,1,unbound,num.query.dnscrypt.shared_secret,
+unbound.num.query.dnscrypt.replay,count,,query,,The number of dnscrypt queries that found a nonce hit in the nonce cache and hence are considered a query replay,1,unbound,num.query.dnscrypt.replay,
+unbound.num.answer.rcode,count,,response,,The number of answers to queries from cache or from recursion by return code,1,unbound,num.answer.rcode,
+unbound.num.answer.rcode.nodata,count,,response,,The number of answers to queries that had the pseudo return code nodata,1,unbound,num.answer.rcode.nodata,
+unbound.num.answer.secure,count,,response,,The number of answers that were secure,1,unbound,num.answer.secure,
+unbound.num.answer.bogus,count,,response,,The number of answers that were bogus,1,unbound,num.answer.bogus,
+unbound.num.rrset.bogus,count,,,,The number of rrsets marked bogus by the validator,1,unbound,num.rrset.bogus,
+unbound.unwanted.queries,count,,query,,The number of queries that were refused or dropped because they failed the access control settings,1,unbound,unwanted.queries,
+unbound.unwanted.replies,count,,response,,The number of replies that were unwanted or unsolicited,1,unbound,unwanted.replies,
+unbound.msg.cache.count,count,,item,,The number of items (DNS replies) in the message cache,0,unbound,msg.cache.count,
+unbound.rrset.cache.count,count,,item,,The number of RRsets in the rrset cache,0,unbound,rrset.cache.count,
+unbound.infra.cache.count,count,,item,,The number of items in the infra cache,0,unbound,infra.cache.count,
+unbound.key.cache.count,count,,item,,The number of items in the key cache,0,unbound,key.cache.count,
+unbound.dnscrypt_shared_secret.cache.count,count,,item,,The number of items in the shared secret cache,0,unbound,dnscrypt_shared_secret.cache.count,
+unbound.dnscrypt_nonce.cache.count,count,,item,,The number of items in the client nonce cache,0,unbound,dnscrypt_nonce.cache.count,
+unbound.num.query.authzone.up,count,,query,,The number of queries answered from auth-zone data (upstream queries),1,unbound,num.query.authzone.up,
+unbound.num.query.authzone.down,count,,query,,The number of queries for downstream answered from auth-zone data,1,unbound,num.query.authzone.down,
+unbound.num.query.aggressive.NOERROR,count,,query,,The number of queries answered using cached NSEC records with NODATA RCODE,1,unbound,num.query.aggressive.NOERROR,
+unbound.num.query.aggressive.NXDOMAIN,count,,query,,The number of queries answered using cached NSEC records with NXDOMAIN RCODE,1,unbound,num.query.aggressive.NXDOMAIN,
+unbound.num.query.subnet,count,,query,,The number of queries which received an answer and contained EDNS client subnet data,1,unbound,num.query.subnet,
+unbound.num.query.subnet_cache,count,,query,,The number of queries answered from the EDNS client subnet cache,1,unbound,num.query.subnet_cache,

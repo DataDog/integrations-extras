@@ -1,0 +1,38 @@
+## All options defined here are available to all instances.
+#
+init_config:
+
+instances:
+  - tidb_metric_url: http://localhost:10080/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest0
+  - tikv_metric_url: http://localhost:20180/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest0
+  - tiflash_metric_url: http://localhost:8234/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest0
+  - tiflash_proxy_metric_url: http://localhost:20292/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest0
+
+  - tidb_metric_url: http://localhost:10080/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest1
+  - tikv_metric_url: http://localhost:20180/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest1
+  - tiflash_metric_url: http://localhost:8234/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest1
+  - tiflash_proxy_metric_url: http://localhost:20292/metrics
+    send_distribution_buckets: true
+    tags:
+      - cluster_name:ddtest1

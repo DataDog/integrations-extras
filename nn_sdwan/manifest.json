@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "8ff5c833-1498-4e63-9ef2-8deecf444d09",
+  "app_id": "nn-sdwan",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Cisco SDWAN Controller Metric Exporter",
+    "title": "Netnology Cisco SD-WAN",
+    "media": [],
+    "classifier_tags": [
+      "Category::Network",
+      "Category::Notification",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "author": {
+    "support_email": "info@netnology.io",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "info@netnology.io",
+    "name": "Netnology"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Netnology SD-WAN",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "nn_sdwan.",
+        "check": [
+          "nn_sdwan.device_control_status",
+          "nn_sdwan.app_aware_routing.latency"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Netnology SD-WAN Overview": "assets/dashboards/nn_sdwan_overview.json"
+    },
+    "monitors": {
+      "High Latency Monitor": "assets/monitors/high-latency-monitor.json",
+      "Packet Loss Monitor": "assets/monitors/packet-loss-monitor.json"
+    }
+  }
+}

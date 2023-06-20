@@ -26,7 +26,7 @@ def setup_cert_manager():
             "kubectl",
             "apply",
             "-f",
-            "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.3/deploy/gatekeeper.yaml",
+            "https://raw.githubusercontent.com/open-policy-agent/gatekeeper/release-3.9/deploy/gatekeeper.yaml",
         ]
     )
     run_command(
@@ -57,12 +57,16 @@ def dd_environment():
         with ExitStack() as stack:
             ip_ports_metrics = [
                 stack.enter_context(
-                    port_forward(kubeconfig, 'gatekeeper-system', 'gatekeeper-controller-manager', METRICS_PORT)
+                    port_forward(
+                        kubeconfig, 'gatekeeper-system', METRICS_PORT, 'deployment', 'gatekeeper-controller-manager'
+                    )
                 )
             ]
             ip_ports_health = [
                 stack.enter_context(
-                    port_forward(kubeconfig, 'gatekeeper-system', 'gatekeeper-controller-manager', HEALTH_PORT)
+                    port_forward(
+                        kubeconfig, 'gatekeeper-system', HEALTH_PORT, 'deployment', 'gatekeeper-controller-manager'
+                    )
                 )
             ]
 

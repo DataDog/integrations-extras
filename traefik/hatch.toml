@@ -1,0 +1,13 @@
+[env.collectors.datadog-checks]
+
+[[envs.default.matrix]]
+python = ["2.7", "3.8"]
+version = ["1.6", "1.7"]
+
+[envs.default.overrides]
+matrix.version.env-vars = [
+  { key = "TRAEFIK_VERSION", value = "v{matrix:version}" },
+]
+
+[envs.default]
+e2e-env = false

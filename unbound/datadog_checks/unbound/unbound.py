@@ -1,5 +1,6 @@
 import os
 import re
+import socket
 
 from datadog_checks.base import AgentCheck, ConfigurationError, is_affirmative
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output
@@ -33,7 +34,7 @@ class UnboundCheck(AgentCheck):
 
         command.extend((unbound_control, stats_command))
         if host:
-            command.extend(('-s', host))
+            command.extend(('-s', hostname_to_ip(host)))
         if config_file:
             command.extend(('-c', config_file))
 
@@ -272,3 +273,15 @@ def which(program, use_sudo, log):
                 return exe_file
 
     return None
+
+
+def hostname_to_ip(hostname):
+    if '@' not in hostname:
+        # gethostbyname() handles both hostnames & IPv4 addresses. If the
+        # hostname is an IPv4 address itself it is returned unchanged
+        return socket.gethostbyname(hostname)
+
+    strs = hostname.split("@")
+    ip_address = socket.gethostbyname(strs[0])
+
+    return ip_address + '@' + strs[1]

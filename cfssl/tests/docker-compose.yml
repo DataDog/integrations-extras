@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  cfssl:
+    image: cfssl/cfssl:latest
+    ports:
+      - "8888:8888"
+    command:
+      - serve
+      - -address
+      - 0.0.0.0

@@ -1,0 +1,58 @@
+name: Unifi Console
+files:
+  - name: unifi_console.yaml
+    options:
+      - template: init_config
+        options:
+          - template: init_config/http
+          - template: init_config/default
+      - template: instances
+        options:
+          - name: url
+            required: true
+            description: The controller url.
+            value:
+              type: string
+              example: https://127.0.0.1:8443
+          - name: user
+            required: true
+            description: User name
+            value:
+              type: string
+          - name: pwd
+            secret: true
+            required: true
+            description: Password
+            value:
+              type: string
+          - name: version
+            required: true
+            value:
+              type: string
+              default: UDMP-unifiOS
+              example: UDMP-unifiOS
+            description: |
+              Should be one of "UDMP-unifiOS", "unifiOS", or [v4|v5|v6|v7]
+              in this order of priority
+          - name: site
+            required: false
+            description: Site
+            value:
+              type: string
+              default: default
+              example: default
+          - template: instances/default
+            overrides:
+              empty_default_hostname.value.example: true
+              empty_default_hostname.description: |
+                The Unifi integration is a cluster-level check where metrics are usually unrelated to the host
+                on which the Agent runs. Setting this parameter to true, prevents the Agent from attaching the hostname
+                (and the host tags) to the metrics.
+          - template: instances/http
+            overrides:
+              persist_connections.value.example: true
+              persist_connections.description: |
+                The Unifi integration leverage the Controller API the uses cookies for request authentication
+              auth_type.hidden: true
+              username.hidden: true
+              password.hidden: true

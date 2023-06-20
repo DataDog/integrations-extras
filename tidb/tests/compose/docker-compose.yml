@@ -1,0 +1,71 @@
+version: '2.1'
+
+services:
+  pd:
+    image: pingcap/pd:v5.1.2
+    ports:
+      - "2379:2379"
+    command:
+      - --name=pd
+      - --client-urls=http://0.0.0.0:2379
+      - --peer-urls=http://0.0.0.0:2380
+      - --advertise-client-urls=http://pd:2379
+      - --advertise-peer-urls=http://pd:2380
+      - --initial-cluster=pd=http://pd:2380
+    restart: on-failure
+  tikv:
+    image: pingcap/tikv:v5.1.2
+    ports:
+      - "20180:20180"
+    command:
+      - --addr=0.0.0.0:20160
+      - --advertise-addr=tikv:20160
+      - --status-addr=0.0.0.0:20180
+      - --pd=pd:2379
+    depends_on:
+      - "pd"
+    restart: on-failure
+  tidb:
+    image: pingcap/tidb:v5.1.2
+    ports:
+      - "4000:4000"
+      - "10080:10080"
+    command:
+      - --host=0.0.0.0
+      - --advertise-address=tidb
+      - --store=tikv
+      - --path=pd:2379
+    depends_on:
+      - "tikv"
+    restart: on-failure
+  tiflash:
+    image: pingcap/tiflash:v5.1.2
+    volumes:
+      - ./tiflash.toml:/tiflash.toml:ro
+    ports:
+      - "9000:9000"
+      - "8123:8123"
+      - "8234:8234"
+      - "3930:3930"
+      - "20170:20170"
+      - "20292:20292"
+    command:
+      - --config=/tiflash.toml
+    depends_on:
+      - "tikv"
+      - "tidb"
+    restart: on-failure
+  error-metric-trigger:
+    image: mariadb:10.6.5
+    command:
+      - mysql
+      - -uroot
+      - -htidb
+      - -P4000
+      - -e
+      - "select * from foo.bar;"
+    depends_on:
+      - "tikv"
+      - "tidb"
+      - "tiflash"
+    restart: on-failure

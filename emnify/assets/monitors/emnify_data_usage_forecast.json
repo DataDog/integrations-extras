@@ -1,0 +1,24 @@
+{
+  "name": "[EMnify] Forecasted data usage has gone above expected",
+  "type": "query alert",
+  "query": "max(next_2w):forecast(sum:emnify.endpoint.volume{*}.as_count().rollup(sum, 86400), 'linear', 2, model='reactive', interval='60m', history='1mo') >= 1000000000",
+  "message": "It was forecasted that data usage over the next week would exceed what was set as the limit.",
+  "tags": ["integration:emnify"],
+  "options": {
+    "notify_audit": false,
+    "silenced": {},
+    "include_tags": true,
+    "thresholds": {
+      "critical": 1000000000
+    },
+    "require_full_window": false,
+    "new_host_delay": 300,
+    "notify_no_data": false,
+    "renotify_interval": 0
+  },
+  "priority": null,
+  "restricted_roles": null,
+  "recommended_monitor_metadata": {
+    "description": "Notify your team when forecasted daily use is higher than threshold."
+  }
+}

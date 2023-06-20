@@ -1,0 +1,34 @@
+{
+	"name": "Syncthing device {{device_name.name}} not connected on {{host.name}}",
+	"type": "query alert",
+	"query": "avg(last_5m):min:syncthing.stats.device.last_seen{*} by {device_name,host} > 259200",
+	"message": "@all",
+	"tags": [
+		"integration:syncthing"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 259200,
+			"warning": 86400
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": true,
+		"renotify_interval": 1440,
+		"include_tags": true,
+		"new_group_delay": 60,
+		"timeout_h": 0,
+		"no_data_timeframe": 1440,
+		"renotify_statuses": [
+			"alert",
+			"no data"
+		],
+		"escalation_message": "",
+		"silenced": {}
+	},
+	"priority": null,
+	"restricted_roles": null,
+	"recommended_monitor_metadata": {
+		"description": "Notify your team when the Syncthing device don't connected long time"
+	}
+}

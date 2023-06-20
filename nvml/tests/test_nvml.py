@@ -1,6 +1,7 @@
 # (C) Datadog, Inc. 2020-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
+from collections import namedtuple
 from types import SimpleNamespace
 
 import mock
@@ -66,6 +67,19 @@ class MockNvml:
     def nvmlDeviceGetPowerUsage(h):
         return 12
 
+    @staticmethod
+    def nvmlDeviceGetTemperature(h, b):
+        return 13
+
+    @staticmethod
+    def nvmlDeviceGetFanSpeed(h):
+        return 14
+
+    @staticmethod
+    def nvmlDeviceGetComputeRunningProcesses_v2(h):
+        Mock = namedtuple('Mock', ['pid', 'usedGpuMemory'])
+        return [Mock(pid=1, usedGpuMemory=11)]
+
 
 @pytest.mark.unit
 def test_check(aggregator, instance):
@@ -85,5 +99,8 @@ def test_check(aggregator, instance):
     aggregator.assert_metric('nvml.pcie_rx_throughput', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.pcie_tx_throughput', tags=expected_tags, count=1)
     aggregator.assert_metric('nvml.power_usage', tags=expected_tags, count=1)
+    aggregator.assert_metric('nvml.temperature', tags=expected_tags, count=1)
+    aggregator.assert_metric('nvml.fan_speed', tags=expected_tags, count=1)
+    aggregator.assert_metric('nvml.compute_running_process', tags=expected_tags + ["pid:1"], count=1)
 
     aggregator.assert_all_metrics_covered()
