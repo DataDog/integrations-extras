@@ -4,11 +4,7 @@
 
 [Seagence][1] is a defect monitoring platform for Java applications. Using ExecutionPath technology (aka GPS Tracker for transactions), Seagence detects unknown defects caused by various issues like swallowed exceptions, multithreading issues, and others including defects that disguise in a 200 success HTTP response code.
 
-Seagence integrates with Datadog using an API-based integration. Seagence's tiny Java agent is attached to your production application and posts collected data (ExecutionPaths, errors/exceptions, and contextual information) to the Seagence backend. Continuously analyzing the data stream from Seagence's Java agent, Seagence's backend, using ExecutionPath technology, detects defects when they occur, including their root cause, in real-time. This eliminates the need for debugging and troubleshooting. Using a Rest API, Seagence then posts detected defects and their root cause as Datadog Events to the Datadog backend. You can find the details of the defects in the "Seagence - Defects Overview" dashboard or you can set up a Datadog Monitor to trigger alerts. More details about defects can be found on [SeagenceWeb][2]. With a Seagence provided defect and the root cause in hand, you can fix your broken code.
-
-### Usage
-
-The Seagence integration comes with a dashboard called "Seagence - Defects Overview". The top widget shows the defects timeline and the bottom widget shows a list of defects including their root cause exception with complete stack trace. In the defects timeline view, defects are shown as vertical red bars. You can click any vertical bar to open the context menu. Click "View related events" to open the defects as Datadog Events in the "Events Explorer" dashboard.
+With the Seagence integration, Seagence continuously analyzes the data stream to detect defects when they occur including the root cause of the defect eliminating the need for debugging and troubleshooting. When a defect is detected, the integration will send an event to Datadog alerting you when there is a defect. Using the out-of-the-box dashboard, you have visibility into the detected defects and root cause to eliminate debugging and troubleshooting. More details can be found on [SeagenceWeb][2].
 
 ## Setup
 
