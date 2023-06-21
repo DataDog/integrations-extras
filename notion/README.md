@@ -6,17 +6,15 @@ Notion is a Connected Workspace. It's where modern teams create and share docs, 
 
 ## Setup
 
-Datadog setup
+1. Open the Notion tile and click _Install Integration_.
 
-Go to the Configuration tab and click Install Integration at the bottom.
+2. Click _Connect Accounts_ to redirect to _Settings & Members_ in Notion.
 
-Click Connect Accounts to redirect to Settings & Members in Notion
+3. Login to Notion, then navigate to _Connections_ > _Workspace Connections_ > _+Add Connection_ > _Datadog_. 
 
-Login to Notion then navigate to Connections > Workspace Connections > +Add Connection > Datadog. 
+4. Notion prompts you to follow a series of OAuth steps to authorize the integration with Datadog.
 
-Notion will prompt you to follow a series of OAuth steps to authorize the integration with Datadog.
-
-Once connected, Notion will start sending near real-time data to Datadog.
+Once connected, Notion starts sending near real-time data to Datadog.
 
 ## Uninstallation
 Once this integration has been uninstalled, any previous authorizations are revoked.
