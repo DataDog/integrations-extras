@@ -1,7 +1,7 @@
 {
 	"name": "Seagence Defect Detection Monitor",
 	"type": "event-v2 alert",
-	"query": "events(\"source:my_apps status:error service:seagence\").rollup(\"count\").last(\"5m\") > 0",
+	"query": "events(\"status:error service:seagence\").rollup(\"count\").last(\"5m\") > 0",
 	"message": "Seagence detected a defect. Visit SeagenceWeb for complete information.",
 	"tags": [
 		"integration:seagence"
