@@ -2,9 +2,9 @@
 
 ## Overview
 
-[Seagence][1] is a defect monitoring platform for Java applications. Using ExecutionPath technology (aka GPS Tracker for transactions), Seagence detects unknown defects caused by various issues like swallowed exceptions, multithreading issues, and others including defects that disguise in a 200 success HTTP response code.
+[Seagence][1] is a defect monitoring platform for Java applications. Using ExecutionPath technology (aka GPS Tracker for transactions), Seagence detects unknown defects caused by various issues like swallowed exceptions, multithreading issues, and others including defects that are disguised in a 200 success HTTP response code.
 
-With the Seagence integration, Seagence continuously analyzes the data stream to detect defects when they occur including the root cause of the defect eliminating the need for debugging and troubleshooting. When a defect is detected, the integration will send an event to Datadog alerting you when there is a defect. Using the out-of-the-box dashboard, you have visibility into the detected defects and root cause to eliminate debugging and troubleshooting. More details can be found on [SeagenceWeb][2].
+With this integration, Seagence continuously analyzes the data stream from Seagence agent to detect defects when they occur, including the root cause of the defect. When a defect is detected, the integration will send an event to Datadog to alert your team. Using the out-of-the-box dashboard, you have visibility into the detected defects and root causes to eliminate debugging and troubleshooting. More details can be found on [SeagenceWeb][2].
 
 ## Setup
 
@@ -36,7 +36,7 @@ Seagence does not include any service checks.
 
 ### Events
 
-Seagence posts an event to datadog upon detecting a defect.
+Seagence posts an event to Datadog upon detecting a defect.
 
 ## Support
 
