@@ -2,7 +2,7 @@
 
 [JFrog][1] is the world’s universal, hybrid and end-to-end DevOps platform. This integration helps any JFrog self-hosted customer seamlessly stream logs, violations and metrics from JFrog Artifactory and JFrog Xray straight into your Datadog tool. This integration comes ready with in-built support for Datadog [log pipelines][2] which enriches and indexes the logs and makes them more searchable and treatable using Datadog [facets][3].  
 
-Please let JFrog know how we can improve the integration. Feel free to visit our GitHub for more detailed documentation at: [github.com/jfrog/log-analytics-datadog][4].
+Let JFrog know how we can improve the integration. Feel free to visit our GitHub for more detailed documentation at: [github.com/jfrog/log-analytics-datadog][4].
 
 ## Setup
 ### Requirements
