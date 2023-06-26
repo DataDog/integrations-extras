@@ -2,4 +2,7 @@
 
 ## 0.1.0
 
-* [FEATURE] first version
+***Added***: 
+
+* first version
+
