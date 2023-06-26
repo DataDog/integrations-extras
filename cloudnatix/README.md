@@ -14,7 +14,7 @@ The CloudNatix integration provides cost and operational optimization insights t
 
 To install the CloudNatix check on your cluster:
 
-1. Build a new Docker image of Datadog agent with installing CloudNatix integration check.
+1. Build a new Docker image of Datadog agent that has the CloudNatix integration check installed.
    Please see [here](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker)
 2. [Install the Datadog Agent][3] into your Kubernetes cluster with the built Docker image.
 3. [Install CloudNatix][2] into your Kubernetes cluster. CloudNatix clusteragent will
