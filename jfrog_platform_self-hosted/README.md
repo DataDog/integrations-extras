@@ -253,7 +253,11 @@ This dashboard tracks System Metrics, and data metrics about Scanned Artifacts a
 
 See [metadata.csv][10] for a list of metrics provided by this integration
 
-## Troubleshooting
+## Support
+
+Need help? Contact [support@jfrog.com](support@jfrog.com) or open a support ticket on JFrog [Customer Support Portal][11]
+
+### Troubleshooting
 
 **Q : Who do I reach out to if I run into problems with this integration ?**
 
@@ -267,9 +271,6 @@ A: No.This integration is only built for JFrog customers who have on-prem or sel
 
 A: At launch, the SaaS version of the integration will only stream the following 3 logs from your SaaS JFrog instance to Datadog
 
-## Support
-
-Need help? Contact [support@jfrog.com](support@jfrog.com) or open a support ticket on JFrog [Customer Support Portal][11]
 
 [1]: https://jfrog.com/
 [2]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source
