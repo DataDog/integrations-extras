@@ -12,7 +12,7 @@ Let JFrog know how we can improve the integration. Feel free to visit our GitHub
 ### Fluentd Installation
 
 #### OS / Virtual Machine
-Ensure you have access to the Internet from VM. Recommended install is through fluentd's native OS based package installs:
+Ensure you have access to the Internet from a virtual machine (VM). We recommend installation through FluentD's native OS based package installs:
 
 | OS             | Package Manager        | Link                                                 |
 |----------------|------------------------|------------------------------------------------------|
