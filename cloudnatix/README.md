@@ -22,8 +22,7 @@ To install the CloudNatix check on your cluster:
 
 ### Validation
 
-Once set up, you will see several metrics.  Check the dashboard page
-and some graph appears.
+Once set up, you will see metrics with the prefix <> appear in the [Datadog Metrics Explorer](https://app.datadoghq.com/metric/explorer). 
 
 ## Data Collected
 
