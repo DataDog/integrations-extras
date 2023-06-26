@@ -46,3 +46,5 @@ Need help? Contact [Cloudnatix support][4].
 [2]: https://docs.cloudnatix.com/docs/tutorial
 [3]: https://app.datadoghq.com/account/settings#agent/kubernetes
 [4]: support@cloudnatix.com
+[5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv
+
