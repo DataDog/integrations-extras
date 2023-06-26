@@ -6,7 +6,7 @@ This check provides the data from [CloudNatix][1].
 
 CloudNatix connects to multiple VM & K8s Clusters, enabling automated capacity, cost & operation optimization using patent-pending Autopilot technology. CloudNatix Insights also gives DevOps teams proactive visibility into potential capacity and availability issues, turbocharging productivity.
 
-The CloudNatix integration provides cost and operational optimization insights to DataDog with an out-of-the-box dashboard to quickly overview how much the clusters cost and the opportunities to reduce the cost.
+The CloudNatix integration provides cost and operational optimization insights to DataDog with an out-of-the-box dashboard, allowing you to quickly view cluster cost and analyze opportunities to reduce cost.
 
 ## Setup
 
