@@ -1,0 +1,804 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides a usage statistics overview of JFrog Artifactory logs. Included are also some high-level views of audit, request, and application logs. \n\nThe source code is also available on [Github](https://github.com/jfrog/log-analytics-datadog)",
+    "layout_type": "free",
+    "template_variables": [
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "ip_address",
+            "prefix": "@ip_address"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "username",
+            "prefix": "@user_name"
+        },
+        {
+            "available_values": [],
+            "default": "*",
+            "name": "repo",
+            "prefix": "@repo"
+        }
+    ],
+    "title": "JFrog Artifactory Logs (Self-hosted)",
+    "widgets": [
+        {
+            "definition": {
+                "custom_links": [],
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "horizontal",
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@repo",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @repo:*?*"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Accessed Repos",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 1,
+            "layout": {
+                "height": 14,
+                "width": 48,
+                "x": 80,
+                "y": 42
+            }
+        },
+        {
+            "definition": {
+                "custom_links": [],
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "horizontal",
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@image",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @repo:*?* @image:*"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "cool"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Accessed Images",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 2,
+            "layout": {
+                "height": 14,
+                "width": 48,
+                "x": 80,
+                "y": 57
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@response_content_length"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@repo",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "cardinality",
+                                            "metric": "@response_content_length",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @response_content_length:>=0 -@repo:\"\""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Upload Data Transfers by Repo",
+                "type": "treemap"
+            },
+            "id": 3,
+            "layout": {
+                "height": 14,
+                "width": 39,
+                "x": 40,
+                "y": 57
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@request_content_length"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@repo",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "cardinality",
+                                            "metric": "@request_content_length",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request -@repo:\"\" @request_content_length:>=0"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Download Data Transfers by Repo",
+                "type": "treemap"
+            },
+            "id": 4,
+            "layout": {
+                "height": 14,
+                "width": 39,
+                "x": 40,
+                "y": 42
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@request_content_length"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@remote_address",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "cardinality",
+                                            "metric": "@request_content_length",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @request_content_length:>0"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Download IP's by Data Volume",
+                "type": "treemap"
+            },
+            "id": 5,
+            "layout": {
+                "height": 14,
+                "width": 39,
+                "x": 0,
+                "y": 42
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@response_content_length"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@remote_address",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "cardinality",
+                                            "metric": "@response_content_length",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @response_content_length:>=0"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Upload IP's by Data Volume",
+                "type": "treemap"
+            },
+            "id": 6,
+            "layout": {
+                "height": 14,
+                "width": 39,
+                "x": 0,
+                "y": 57
+            }
+        },
+        {
+            "definition": {
+                "legend": {
+                    "hide_percent": true,
+                    "type": "inline"
+                },
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@ip",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED*"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Denied Actions by IP",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 7,
+            "layout": {
+                "height": 19,
+                "width": 24,
+                "x": 0,
+                "y": 16
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@username",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\" -@username:\"NA \""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Denied Logins By Username",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 9,
+            "layout": {
+                "height": 19,
+                "width": 24,
+                "x": 104,
+                "y": 16
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@username",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DEPLOY\""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {},
+                "title": "Accepted Deploys by Username",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 10,
+            "layout": {
+                "height": 19,
+                "width": 28,
+                "x": 50,
+                "y": 16
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 0,
+                "requests": [
+                    {
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "red_on_white",
+                                "value": 1
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.service @log_level:ERROR"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Artifactory Log Error Count",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 11,
+            "layout": {
+                "height": 15,
+                "width": 47,
+                "x": 32,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@return_status",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.request @return_status:5**"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "semantic"
+                        }
+                    }
+                ],
+                "title": "Artifactory HTTP 5xx Errors",
+                "type": "treemap"
+            },
+            "id": 12,
+            "layout": {
+                "height": 15,
+                "width": 48,
+                "x": 80,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "sizing": "zoom",
+                "type": "image",
+                "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png"
+            },
+            "id": 17,
+            "layout": {
+                "height": 8,
+                "width": 30,
+                "x": 0,
+                "y": 0.15972222222222224
+            }
+        },
+        {
+            "definition": {
+                "legend": {
+                    "type": "inline"
+                },
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@ip",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Denied Logins By IP",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 19,
+            "layout": {
+                "height": 19,
+                "width": 24,
+                "x": 79,
+                "y": 16
+            }
+        },
+        {
+            "definition": {
+                "background_color": "gray",
+                "content": "Request logs to give more information about docker images and repositories",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": true,
+                "text_align": "center",
+                "tick_edge": "bottom",
+                "tick_pos": "50%",
+                "type": "note"
+            },
+            "id": 7856194180362354,
+            "layout": {
+                "height": 5,
+                "width": 120,
+                "x": 4,
+                "y": 36
+            }
+        },
+        {
+            "definition": {
+                "background_color": "gray",
+                "content": "Track bursts of application errors that may otherwise go undetected",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": true,
+                "text_align": "left",
+                "tick_edge": "right",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "center"
+            },
+            "id": 8136550716453830,
+            "layout": {
+                "height": 6,
+                "width": 30,
+                "x": 0,
+                "y": 9
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@username",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* -@username:\"NA \""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Denied Actions By Username",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 6709248351589576,
+            "layout": {
+                "height": 19,
+                "width": 24,
+                "x": 25,
+                "y": 16
+            }
+        }
+    ]
+}

@@ -1,0 +1,244 @@
+{
+    "author_name": "Datadog",
+    "description": "This dashboard provides a summary of access, service, and traffic log volumes associated with Xray. Additionally, customers are also able to track various HTTP response codes, HTTP 500 errors, and log errors for greater operational insight\n\nThe source code is also available on [Github](https://github.com/jfrog/log-analytics-datadog) ",
+    "layout_type": "free",
+    "template_variables": [],
+    "title": "JFrog Xray Logs (Self-hosted)",
+    "widgets": [
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "bars",
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@log_source",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.*"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Log Volume",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 1322847789608144,
+            "layout": {
+                "height": 25,
+                "width": 101,
+                "x": 27,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@return_status",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.xray.request"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "HTTP Response Codes",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 4340280841552919,
+            "layout": {
+                "height": 24,
+                "width": 64,
+                "x": 64,
+                "y": 26
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@return_status",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@return_status:5* @log_source:jfrog.xray.*"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "HTTP 5xx Errors",
+                "type": "treemap"
+            },
+            "id": 6154399056908282,
+            "layout": {
+                "height": 24,
+                "width": 63,
+                "x": 0.08333333333333333,
+                "y": 26
+            }
+        },
+        {
+            "definition": {
+                "autoscale": true,
+                "precision": 0,
+                "requests": [
+                    {
+                        "conditional_formats": [
+                            {
+                                "comparator": ">",
+                                "palette": "red_on_white",
+                                "value": 1
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.*.service @log_level:ERROR"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Log Errors",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "query_value"
+            },
+            "id": 5395304232705292,
+            "layout": {
+                "height": 12,
+                "width": 25,
+                "x": 0,
+                "y": 13
+            }
+        },
+        {
+            "definition": {
+                "sizing": "cover",
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/xray.png"
+            },
+            "id": 2240306719227518,
+            "layout": {
+                "height": 12,
+                "width": 25,
+                "x": 0,
+                "y": 0
+            }
+        }
+    ]
+}

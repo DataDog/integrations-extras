@@ -6,11 +6,43 @@
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
+    "troubleshooting": "README.md#Troubleshooting",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "View and analyze JFrog Artifactory and Xray Metrics and events.",
-    "title": "JFrog Platform",
-    "media": [],
+    "description": "View and analyze JFrog Artifactory and Xray Logs, Violations and Metrics",
+    "title": "JFrog Platform (Self-hosted)",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "JFrog Artifactory Logs dashboard",
+        "image_url": "images/jfrog_artifactory_logs.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "JFrog Logo",
+        "image_url": "images/JFrog+Logo.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "JFrog Artifactory Metrics dashboard",
+        "image_url": "images/jfrog_artifactory_metrics.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "JFrog Xray Logs dashboard",
+        "image_url": "images/jfrog_xray_logs.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "JFrog Xray Violations dashboard",
+        "image_url": "images/jfrog_xray_violations.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "JFrog Xray Metrics dashboard",
+        "image_url": "images/jfrog_xray_metrics.png"
+      }
+    ],
     "classifier_tags": [
       "Category::Containers",
       "Category::Log Collection",
@@ -22,36 +54,29 @@
     ]
   },
   "author": {
-    "support_email": "integrations@jfrog.com",
-    "homepage": "https://github.com/DataDog/integrations-extras",
+    "support_email": "support@jfrog.com",
+    "homepage": "https://github.com/jfrog/log-analytics-datadog",
     "sales_email": "integrations@jfrog.com",
     "name": "JFrog"
   },
   "oauth": {},
   "assets": {
     "integration": {
-      "source_type_name": "JFrog Platform",
-      "configuration": {
-        "spec": "assets/configuration/spec.yaml"
-      },
+      "source_type_name": "JFrog Platform (Self-hosted)",
       "events": {
         "creates_events": false
       },
       "metrics": {
         "prefix": "jfrog.",
-        "check": "jfrog.artifactory.app_disk_free_bytes",
         "metadata_path": "metadata.csv"
-      },
-      "service_checks": {
-        "metadata_path": "assets/service_checks.json"
       }
     },
     "dashboards": {
-      "Jfrog Artifactory Dashboard": "assets/dashboards/jfrog_artifactory_dashboard.json",
-      "Xray Metrics": "assets/dashboards/xray_metrics.json",
-      "Artifactory Metrics": "assets/dashboards/artifactory_metrics.json",
-      "Xray Logs": "assets/dashboards/xray_logs.json",
-      "Xray Violations": "assets/dashboards/xray_violations.json"
+      "JFrog Artifactory Logs (Self-hosted)": "assets/dashboards/jfrog_artifactory_logs_(self-hosted).json",
+      "JFrog Artifactory Metrics (Self-hosted)": "assets/dashboards/jfrog_artifactory_metrics_(self-hosted).json",
+      "JFrog Xray Logs (Self-hosted)": "assets/dashboards/jfrog_xray_logs_(self-hosted).json",
+      "JFrog Xray Metrics (Self-hosted)": "assets/dashboards/jfrog_xray_metrics_(self-hosted).json",
+      "JFrog Xray Violations (Self-hosted)": "assets/dashboards/jfrog_xray_violations_(self-hosted).json"
     }
   }
 }

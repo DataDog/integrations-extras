@@ -1,210 +1,285 @@
 ## Overview
-The following describes how to configure Datadog to gather Metrics and Logs from JFrog Artifactory and JFrog Xray.
 
-### JFrog Artifactory and Xray
-JFrog Enterprise with Xray features Artifactory Enterprise and Xray. Together, they empower DevOps teams to improve their productivity to increase velocity and deliver high quality software releases with confidence. 
+[JFrog][1] is the world’s universal, hybrid and end-to-end DevOps platform. This integration helps any JFrog self-hosted customer seamlessly stream logs, violations and metrics from JFrog Artifactory and JFrog Xray straight into your Datadog tool. This integration comes ready with in-built support for Datadog [log pipelines][2] which enriches and indexes the logs and makes them more searchable and treatable using Datadog [facets][3].  
 
-Artifactory supports multiple build packages, artifacts, and metadata. It allows DevOps teams to have the freedom of choice of build packages like Bower, Chef, CocoaPods, Conan, Conda, CRAN, Debian, Docker, Golang, Gradle, Git LFS, Helm, Ivy, Maven, npm, NuGet, Opkg, P2, PHP Composer, Puppet, PyPI, RPM, RubyGems, SBT, Vagrant & VCS, CI/CD platforms, and devops tools.
-
-Artifactory Enterprise supports multi-region, multi-cloud, and hybrid replication for geographically distributed teams allowing you to replicate between a source repository and multiple targets simultaneously and security features such as IP filtering, CNAME, and data encryption at rest. Artifactory supports Kubernetes for microservices and containerized applications. Manage your deployments and gain insight into dependencies using Artifactory as your Kubernetes registry. 
-
-JFrog Xray is a continuous security and universal artifact analysis solution that provides multi-layered analysis of your containers and software artifacts for vulnerabilities and license compliance issues. It is the only Software Composition Analysis solution that natively integrates with JFrog Artifactory for optimized scanning and unified operation. Supports all major package types, understands how to unpack them, and uses recursive scanning to see into all of the underlying layers and dependencies, even those packaged in Docker images, and zip files.
-
-### JFrog Artifactory and Xray logs Datadog dashboard
-
-The JFrog Datadog integration allows you to send Artifactory/Xray logs to the log stream in Datadog. You can use it to enhance your existing dashboards or to gain more insight into JFrog Artifactory's usage statistics or JFrog Xray's scanned components details.
-
-![dashboard][1]
-
-![dashboard][16]
-
-![dashboard][17]
-
-### JFrog Artifactory and Xray metrics API dashboard
-
-JFrog Artifactory and Xray metrics API integration with Datadog allows you to send metrics from the OpenMetrics API endpoint to Datadog. With this integration, you can gain insights into the system performance, storage consumption, and connection statistics associated with JFrog Artifactory/Xray, as well as, insights into the count and type of artifacts and components scanned by Xray. After setting up the configuration, these metrics are available as out-of-the-box dashboards and may be used to enhance existing dashboards within Datadog.
-
-![artifactory][2]
-
-![xray][3]
+Please let JFrog know how we can improve the integration. Feel free to visit our GitHub for more detailed documentation at: [github.com/jfrog/log-analytics-datadog][4].
 
 ## Setup
+### Requirements
+
+* Your [Datadog API key][5].
+
+### Fluentd Installation
+
+#### OS / Virtual Machine
+Ensure you have access to the Internet from VM. Recommended install is through fluentd's native OS based package installs:
+
+| OS             | Package Manager        | Link                                                 |
+|----------------|------------------------|------------------------------------------------------|
+| CentOS/RHEL    | Linux - RPM (YUM)      | https://docs.fluentd.org/installation/install-by-rpm |
+| Debian/Ubuntu  | Linux - APT            | https://docs.fluentd.org/installation/install-by-deb |
+| MacOS/Darwin   | MacOS - DMG            | https://docs.fluentd.org/installation/install-by-dmg |
+| Windows        | Windows - MSI          | https://docs.fluentd.org/installation/install-by-msi |
+| Gem Install**	 | MacOS & Linux - Gem			 | https://docs.fluentd.org/installation/install-by-gem | 
 
 
-### Metrics collection
+```text
+** For Gem based install, Ruby Interpreter has to be setup first, following is the recommended process to install Ruby
 
-#### Note:
+1. Install Ruby Version Manager (RVM) as described in https://rvm.io/rvm/install#installation-explained, ensure to follow all the onscreen instructions provided to complete the rvm installation
+	* For installation across users a SUDO based install is recommended, the installation is as described in https://rvm.io/support/troubleshooting#sudo
 
-Metrics collection is available only for [JFrog Platform Self-Hosted users. JFrog Cloud is not supported.][22]
+2. Once rvm installation is complete, verify the RVM installation executing the command 'rvm -v'
 
-#### Setup and Configure
+3. Now install ruby v2.7.0 or above executing the command 'rvm install <ver_num>', ex: 'rvm install 2.7.5'
 
-1. Enable Metrics for Artifactory and Xray:
+4. Verify the ruby installation, execute 'ruby -v', gem installation 'gem -v' and 'bundler -v' to ensure all the components are intact
 
-    1. [Enable Metrics for Artifactory][7]
-    2. [Create admin access tokens for Artifactory and Xray][8]
+5. Post completion of Ruby, Gems installation, the environment is ready to further install new gems, execute the following gem install commands one after other to setup the needed ecosystem
 
-2. Datadog Configuration
+	'gem install fluentd'
 
-    Follow the instructions below to configure this check for an Agent running on a host. For containerized environments, see the Containerized section.
+```
 
-    These values override the configuration specified below
-    ```text
-    ARTIFACTORY_HOST_NAME_OR_IP   -> IP address or DNS of Artifactory 
-    ARTIFACTORY_ADMIN_TOKEN       -> Admin token for Artifactory
-    XRAY_ADMIN_TOKEN              -> Admin token for Xray
-    ```
-    To configure this check for an Agent running on a host:
+After FluentD is successfully installed, the below plugins are required to be installed
 
-    1. Edit the openmetrics.d/conf.yaml file at the root of your [Agent's configuration directory][9] to start collecting your Artifactory and Xray Metrics. See the [sample openmetrics.d/conf.yaml][10] for all available configuration options
-        ```text
-        instances:
-           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/artifactory/api/v1/metrics
-             scheme: http
-             headers:
-               Authorization: "Bearer <ARTIFACTORY_ADMIN_TOKEN>"
-             static_configs:
-               - targets: ["<ARTIFACTORY_HOST_NAME_OR_IP>:80"]
-             namespace: jfrog.artifactory
-             metrics:
-               - sys*
-               - jfrt*
-               - app*
-           - prometheus_url: http://<ARTIFACTORY_HOST_NAME_OR_IP>:80/xray/api/v1/metrics
-               scheme: http
-               headers:
-                 Authorization: "Bearer <XRAY_ADMIN_TOKEN>"
-               namespace: jfrog.xray
-               metrics:
-                 - app*
-                 - db*
-                 - go*
-                 - queue*
-                 - sys*
-                 - jfxr*
-        ```
-    2. [Restart the Agent][11]. For containerized environments, see the [Autodiscovery Integration Templates][12] for guidance on applying the parameters specified above. To validate that the changes are applied, [run the Agent's status subcommand][13] and look for `openmetrics` under the Checks section.
+````text
+gem install fluent-plugin-concat
+gem install fluent-plugin-datadog
+gem install fluent-plugin-jfrog-siem
+gem install fluent-plugin-jfrog-metrics
+gem install fluent-plugin-jfrog-send-metrics
+````
 
-### Log collection - Using FluentD
+##### Configure Fluentd
+We rely heavily on environment variables so that the correct log files are streamed to your observability dashboards. Ensure that you fill in the .env file with correct values. Download the .env file from [here][6]
 
-#### Requirements
+* **JF_PRODUCT_DATA_INTERNAL**: The environment variable JF_PRODUCT_DATA_INTERNAL must be defined to the correct location. For each JFrog service you will find its active log files in the `$JFROG_HOME/<product>/var/log` directory
+* **DATADOG_API_KEY**: APIkey from [Datadog][5]
+* **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
+* **JPD_ADMIN_USERNAME**: Artifactory username for authentication
+* **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
+* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
 
-* Your [Datadog API key][6].
+Apply the .env files and then run the fluentd wrapper with one argument pointed to the `fluent.conf.*` file configured.
 
-#### Setup and Configure
-1. Install Fluentd using the [jFrog documentation][18] based on your installation type, and define the environment variable.
+````text
+source .env_jfrog
+./fluentd $JF_PRODUCT_DATA_INTERNAL/fluent.conf.<product_name>
+````
 
-2. Configure Fluentd with Artifactory by downloading the Artifactory Fluentd configuration file to a directory you have permissions to write in, such as `$JF_PRODUCT_DATA_INTERNAL` locations.
-    
-    ```text
-    cd $JF_PRODUCT_DATA_INTERNAL
-    wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.rt
-    ```
-    
-    Override the match directive (last section) of the downloaded `fluent.conf.rt` with the details given below:
-    
-    ```
-    <match jfrog.**>
-      @type datadog
-      @id datadog_agent_jfrog_artifactory
-      api_key API_KEY
-      include_tag_key true
-      dd_source fluentd
-    </match>
-    ```
-    
-    - `API_KEY` (required) is the API key from [Datadog][4].
-    - `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in datadog.
-    - `include_tag_key` defaults to false and adds the `fluentd` tag in the JSON record if set to true.
+#### Docker
+In order to run fluentd as a docker image to send the logs, violations and metrics data to datadog, the following commands needs to be executed on the host that runs the docker.
 
-3. Configure Fluentd with Xray by downloading the Xray Fluentd configuration file to a directory you have permissions to write, such as the `$JF_PRODUCT_DATA_INTERNAL` locations.
-    
-    ```text
-    cd $JF_PRODUCT_DATA_INTERNAL
-    wget https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/fluent.conf.xray
-    ```
-    
-    Fill in the `JPD_URL`, `USER`, `JFROG_API_KEY` fields in the source directive of the downloaded `fluent.conf.xray` with the details given below:
-    
-    ```text
-    <source>
-      @type jfrog_siem
-      tag jfrog.xray.siem.vulnerabilities
-      jpd_url JPD_URL
-      username USER
-      apikey JFROG_API_KEY
-      pos_file "#{ENV['JF_PRODUCT_DATA_INTERNAL']}/log/jfrog_siem.log.pos"
-    </source>
-    ```
-    
-    * `JPD_URL` (required) is the Artifactory JPD URL of the format `http://<ip_address>`, which is used to pull Xray Violations.
-    * `USER` (required) is the Artifactory username for authentication.
-    * `JFROG_API_KEY` (required) is the [Artifactory API Key][19] for authentication.
-    
-    Override the match directive (last section) of the downloaded `fluent.conf.xray` with the details given below:
-    
-    ```
-    <match jfrog.**>
-      @type datadog
-      @id datadog_agent_jfrog_xray
-      api_key API_KEY
-      include_tag_key true
-      dd_source fluentd
-    </match>
-    ```
-    
-    * `API_KEY`  (required) is the API key from [Datadog][4].
-    * `dd_source` is the name of the log integration in your logs in order to trigger the integration automatic setup in Datadog.
-    * `include_tag_key` defaults to false and adds the `fluentd` tag in the json record if set to true.
-    
-4. Enable the integration by running `td-agent` on `artifactory` and `xray` instances:
+1. Check the docker installation is functional, execute command 'docker version' and 'docker ps'.
 
-    ``` 
-    td-agent
-    ```
+2. Once the version and process are listed successfully, build the intended docker image for Datadog using the docker file,
 
-    The API key is configured in `td-agent`, which starts sending logs to Datadog. For other types of installation, see the [JFrog documentation][18].
+   * Download Dockerfile from [here][8] to any directory which has write permissions.
 
-    Add all attributes as facets from **Facets** > **Add** (on the left side of the screen in Logs) > **Search**.
+3. Download the Dockerenvfile.txt file needed to run Jfrog/FluentD Docker Images for Datadog,
+
+   * Download Dockerenvfile.txt from [here][9] to the directory where the docker file was downloaded.
+
+```text
+
+For Datadog as the observability platform, execute these commands to setup the docker container running the fluentd installation
+
+1. Execute 'docker build --build-arg SOURCE="JFRT" --build-arg TARGET="DATADOG" -t <image_name> .'
+
+    Command example
+
+    'docker build --build-arg SOURCE="JFRT" --build-arg TARGET="DATADOG" -t jfrog/fluentd-datadog-rt .'
+
+    The above command will build the docker image.
+
+2. Fill the necessary information in the Dockerenvfile.txt file
+
+    JF_PRODUCT_DATA_INTERNAL: The environment variable JF_PRODUCT_DATA_INTERNAL must be defined to the correct location. For each JFrog service you will find its active log files in the `$JFROG_HOME/<product>/var/log` directory
+    DATADOG_API_KEY: APIkey from [Datadog](https://docs.datadoghq.com/account_management/api-app-keys/)
+    JPD_URL: Artifactory JPD URL of the format `http://<ip_address>`
+    JPD_ADMIN_USERNAME: Artifactory username for authentication
+    JFROG_ADMIN_TOKEN: Artifactory [Access Token](https://jfrog.com/help/r/how-to-generate-an-access-token-video/artifactory-creating-access-tokens-in-artifactory) for authentication
+    COMMON_JPD: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+
+3. Execute 'docker run -it --name jfrog-fluentd-datadog-rt -v <path_to_logs>:/var/opt/jfrog/artifactory --env-file Dockerenvfile.txt <image_name>' 
+
+    The <path_to_logs> should be an absolute path where the Jfrog Artifactory Logs folder resides, i.e for an Docker based Artifactory Installation,  ex: /var/opt/jfrog/artifactory/var/logs on the docker host.
+
+    Command example
+
+    'docker run -it --name jfrog-fluentd-datadog-rt -v $JFROG_HOME/artifactory/var/:/var/opt/jfrog/artifactory --env-file Dockerenvfile.txt jfrog/fluentd-datadog-rt'
 
 
-### JFrog platform tile 
+```
 
-If you have not installed the JFrog platform tile yet, install the tile.
+#### Kubernetes Deployment with Helm
+Recommended installation for Kubernetes is to utilize the helm chart with the associated values.yaml in this repo.
+
+| Product        | Example Values File             |
+|----------------|---------------------------------|
+| Artifactory    | helm/artifactory-values.yaml    |
+| Artifactory HA | helm/artifactory-ha-values.yaml |
+| Xray           | helm/xray-values.yaml           |
+
+Add JFrog Helm repository:
+
+```text
+helm repo add jfrog https://charts.jfrog.io
+helm repo update
+```
+Replace placeholders with your ``masterKey`` and ``joinKey``. To generate each of them, use the command
+``openssl rand -hex 32``
+
+##### Artifactory ⎈:
+For Artifactory installation, download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
+
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **DATADOG_API_KEY**: APIkey from [Datadog][5]
+* **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
+* **JPD_ADMIN_USERNAME**: Artifactory username for authentication
+* **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
+* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+
+Apply the .env files and then run the helm command below
+
+````text
+source .env_jfrog
+````
+```text
+helm upgrade --install artifactory  jfrog/artifactory \
+       --set artifactory.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
+       --set artifactory.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
+       --set datadog.api_key=$DATADOG_API_KEY  \
+       --set jfrog.observability.jpd_url=$JPD_URL \
+       --set jfrog.observability.username=$JPD_ADMIN_USERNAME \
+       --set jfrog.observability.access_token=$JFROG_ADMIN_TOKEN \
+       --set jfrog.observability.common_jpd=$COMMON_JPD \
+       -f helm/artifactory-values.yaml
+```
+
+##### Artifactory-HA ⎈:
+For HA installation, please create a license secret on your cluster prior to installation.
+
+```text
+kubectl create secret generic artifactory-license --from-file=<path_to_license_file>artifactory.cluster.license 
+```
+Download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
+
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **DATADOG_API_KEY**: APIkey from [Datadog][5]
+* **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
+* **JPD_ADMIN_USERNAME**: Artifactory username for authentication
+* **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
+* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+
+Apply the .env files and then run the helm command below
+
+````text
+source .env_jfrog
+````
+```text
+helm upgrade --install artifactory-ha  jfrog/artifactory-ha \
+       --set artifactory.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
+       --set artifactory.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
+       --set datadog.api_key=$DATADOG_API_KEY  \
+       --set jfrog.observability.jpd_url=$JPD_URL \
+       --set jfrog.observability.username=$JPD_ADMIN_USERNAME \
+       --set jfrog.observability.access_token=$JFROG_ADMIN_TOKEN \
+       --set jfrog.observability.common_jpd=$COMMON_JPD \
+       -f helm/artifactory-ha-values.yaml
+```
+
+##### Xray ⎈:
+For Artifactory installation, download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
+
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **DATADOG_API_KEY**: APIkey from [Datadog][5]
+* **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
+* **JPD_ADMIN_USERNAME**: Artifactory username for authentication
+* **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
+* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+
+Apply the .env files and then run the helm command below
+
+````text
+source .env_jfrog
+````
+
+Use the same `joinKey` as you used in Artifactory installation to allow Xray node to successfully connect to Artifactory.
+
+```text
+helm upgrade --install xray jfrog/xray --set xray.jfrogUrl=http://my-artifactory-nginx-url \
+       --set xray.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
+       --set xray.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
+       --set datadog.api_key=$DATADOG_API_KEY  \
+       --set jfrog.observability.jpd_url=$JPD_URL \
+       --set jfrog.observability.username=$JPD_ADMIN_USERNAME \
+       --set jfrog.observability.access_token=$JFROG_ADMIN_TOKEN \
+       --set jfrog.observability.common_jpd=$COMMON_JPD \
+       -f helm/xray-values.yaml
+```
+
+### JFrog Platform (Self-hosted) tile 
+
+If you have not installed the JFrog Platform (Self-hosted) tile yet, install the tile.
 
 ### JFrog dashboards
 
-Go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Artifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
+Once the JFrog Platform (Self-hosted) tile is installed, go to Dashboard -> Dashboard List, find `JFrog Artifactory Dashboard`, `Artifactory Metrics`, `Xray Metrics`, `Xray Logs`, `Xray Violations` and explore it.
+
+#### JFrog Artifactory Dashboard
+This dashboard is divided into three sections Application, Audit and Requests
+* **Application** - This section tracks Log Volume(information about different log sources) and Artifactory Errors over time(bursts of application errors that may otherwise go undetected)
+* **Audit** - This section tracks audit logs help you determine who is accessing your Artifactory instance and from where. These can help you track potentially malicious requests or processes (such as CI jobs) using expired credentials.
+* **Requests** - This section tracks HTTP response codes, Top 10 IP addresses for uploads and downloads
+
+#### JFrog Artifactory Metrics dashboard
+This dashboard tracks Artifactory System Metrics, JVM memory, Garbage Collection, Database Connections, and HTTP Connections metrics
+
+#### JFrog Xray Logs dashboard
+Thi dashboard provides a summary of access, service and traffic log volumes associated with Xray. Additionally, customers are also able to track various HTTP response codes, HTTP 500 errors, and log errors for greater operational insight
+
+#### JFrog Xray Violations Dashboard
+This dashboard provides an aggregated summary of all the license violations and security vulnerabilities found by Xray. Information is segmented by watch policies and rules. Trending information is provided on the type and severity of violations over time, as well as, insights on most frequently occurring CVEs, top impacted artifacts and components.
+
+#### JFrog Xray Metrics Dashboard
+This dashboard tracks System Metrics, and data metrics about Scanned Artifacts and Scanned Components
+
 
 ### Data Collected
 
 #### Metrics
 
-See [metadata.csv][14] for a list of metrics provided by this check.
+See [metadata.csv][10] for a list of metrics provided by this integration
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][15].
+**Q : Who do I reach out to if I run into problems with this integration ?**
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/dashboard.png
-[2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/artifactory_metrics_dashboard.png
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_metrics_dashboard.png
-[4]: https://docs.datadoghq.com/account_management/api-app-keys/
-[5]: https://helm.sh/
-[6]: https://app.datadoghq.com/organization-settings/api-keys
-[7]: https://github.com/jfrog/metrics#setup
-[8]: https://www.jfrog.com/confluence/display/JFROG/Access+Tokens#AccessTokens-GeneratingAdminTokens
-[9]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/?tab=agentv6v7#agent-configuration-directory
-[10]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/datadog_checks/jfrog_platform/data/conf.yaml.example
-[11]: https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#restart-the-agent
-[12]: https://docs.datadoghq.com/agent/kubernetes/integrations/?tab=kubernetes
-[13]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[14]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
-[15]: https://docs.datadoghq.com/help/
-[16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_logs.png
-[17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/jfrog_platform/images/xray_violations.png
-[18]: https://github.com/jfrog/log-analytics-datadog/blob/master/README.md
-[19]: https://www.jfrog.com/confluence/display/JFROG/User+Profile#UserProfile-APIKey
-[20]: https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection
-[21]: https://docs.datadoghq.com/agent/logs/advanced_log_collection/?tab=configurationfile#tail-directories-by-using-wildcards
-[22]: https://www.jfrog.com/confluence/display/JFROG/Open+Metrics
+A: You are welcome to reach out to JFrog directly by writing to us at [support@jfrog.com](support@jfrog.com) or opening a support ticket on our [Customer Support Portal][11]
+
+**Q : I have JFrog Cloud Enterprise + license. Will I be able to use this integration?**
+
+A: No.This integration is only built for JFrog customers who have on-prem or self-hosted JFrog subscription. JFrog is working on a SaaS Log streaming solution which will allow our SaaS customers to stream logs to Datadog. We hope to launch that solution in late 2023.
+
+**Q : I am about to upgrade from on-prem to JFrog Cloud. Can I expect all the same logs to stream into Datadog from my SaaS instance post migration when I install the SaaS version of the integration?**
+
+A: At launch, the SaaS version of the integration will only stream the following 3 logs from your SaaS JFrog instance to Datadog
+
+## Support
+
+Need help? Contact [support@jfrog.com](support@jfrog.com) or open a support ticket on JFrog [Customer Support Portal][11]
+
+[1]: https://jfrog.com/
+[2]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source
+[3]: https://docs.datadoghq.com/logs/explorer/facets/
+[4]: https://github.com/jfrog/log-analytics-datadog
+[5]: https://app.datadoghq.com/organization-settings/api-keys
+[6]: https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/.env_jfrog
+[7]: https://jfrog.com/help/r/how-to-generate-an-access-token-video/artifactory-creating-access-tokens-in-artifactory
+[8]: https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/docker-build/Dockerfile
+[9]: https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/docker-build/Dockerenvfile.txt
+[10]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
+[11]: https://support.jfrog.com/s/login/?language=en_US&ec=302&startURL=%2Fs%2F
+
