@@ -144,7 +144,7 @@ See [service_checks.json][7] for a list of service checks provided by this integ
 
 Need help? Contact [Datadog support][8].
 
-[1]: https://vectorized.io
+[1]: https://redpanda.com
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/datadog_checks/redpanda/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
