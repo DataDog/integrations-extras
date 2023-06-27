@@ -8,6 +8,7 @@ Let JFrog know how we can improve the integration. Feel free to visit our GitHub
 ### Requirements
 
 * Your [Datadog API key][5].
+* If you have not installed the JFrog Platform (Self-hosted) tile yet, install the tile.
 
 ### Fluentd Installation
 
@@ -26,60 +27,52 @@ Ensure you have access to the Internet from a virtual machine (VM). We recommend
 ```text
 ** For Gem based install, Ruby Interpreter has to be setup first, following is the recommended process to install Ruby
 
-1. Install Ruby Version Manager (RVM) as described in https://rvm.io/rvm/install#installation-explained, ensure to follow all the onscreen instructions provided to complete the rvm installation
-	* For installation across users a SUDO based install is recommended, the installation is as described in https://rvm.io/support/troubleshooting#sudo
+1. Install Ruby Version Manager (RVM) outlined in the [RVM documentation][12]. 
+	* Use the `SUDO` command  for multi-user installation. For more information, see the [RVM troubleshooting documentation][13].
 
-2. Once rvm installation is complete, verify the RVM installation executing the command 'rvm -v'
+2. After the RVM installation is complete, execute the command 'rvm -v' to verify.
 
-3. Now install ruby v2.7.0 or above executing the command 'rvm install <ver_num>', ex: 'rvm install 2.7.5'
+3. Install Ruby v2.7.0 or above with the command `rvm install <ver_num>`, (for example, `rvm install 2.7.5`).
 
-4. Verify the ruby installation, execute 'ruby -v', gem installation 'gem -v' and 'bundler -v' to ensure all the components are intact
+4. Verify the ruby installation, execute `ruby -v`, gem installation `gem -v` and `bundler -v` to ensure all the components are intact.
 
-5. Post completion of Ruby, Gems installation, the environment is ready to further install new gems, execute the following gem install commands one after other to setup the needed ecosystem
+5. Install the FluentD gem with the command `gem install fluentd`.
 
-	'gem install fluentd'
-
+6. After FluentD is successfully installed, install the following plugins.
 ```
-
-After FluentD is successfully installed, the below plugins are required to be installed
-
-````text
+```shell
 gem install fluent-plugin-concat
 gem install fluent-plugin-datadog
 gem install fluent-plugin-jfrog-siem
 gem install fluent-plugin-jfrog-metrics
 gem install fluent-plugin-jfrog-send-metrics
-````
+```
 
 ##### Configure Fluentd
-We rely heavily on environment variables so that the correct log files are streamed to your observability dashboards. Ensure that you fill in the .env file with correct values. Download the .env file from [here][6]
+We rely on environment variables to stream log files to your observability dashboards. Ensure that you fill in the `.env` file with the correct values. You can download the `.env` file [here][6].
 
-* **JF_PRODUCT_DATA_INTERNAL**: The environment variable JF_PRODUCT_DATA_INTERNAL must be defined to the correct location. For each JFrog service you will find its active log files in the `$JFROG_HOME/<product>/var/log` directory
+* **JF_PRODUCT_DATA_INTERNAL**: The environment variable JF_PRODUCT_DATA_INTERNAL must be defined to the correct location. For each JFrog service, you can find its active log files in the `$JFROG_HOME/<product>/var/log` directory
 * **DATADOG_API_KEY**: APIkey from [Datadog][5]
-* **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
+* **JPD_URL**: Artifactory JPD URL with the format `http://<ip_address>`
 * **JPD_ADMIN_USERNAME**: Artifactory username for authentication
 * **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
-* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+* **COMMON_JPD**: This flag should be set as true only for non-Kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (for example, `https://sample_base_url/artifactory` or `https://sample_base_url/xray`)
 
 Apply the .env files and then run the fluentd wrapper with one argument pointed to the `fluent.conf.*` file configured.
 
-````text
+```shell
 source .env_jfrog
 ./fluentd $JF_PRODUCT_DATA_INTERNAL/fluent.conf.<product_name>
-````
+```
 
 #### Docker
-In order to run fluentd as a docker image to send the logs, violations and metrics data to datadog, the following commands needs to be executed on the host that runs the docker.
+In order to run FluentD as a docker image to send the logs, violations, and metrics data to Datadog, execute the following commands on the host that runs the docker.
 
-1. Check the docker installation is functional, execute command 'docker version' and 'docker ps'.
+1. Execute the `docker version` and `docker ps` commands to verify that the Docker installation is functional.
 
-2. Once the version and process are listed successfully, build the intended docker image for Datadog using the docker file,
+2. If the version and process are listed successfully, build the intended docker image for Datadog using the docker file. You can download [this Dockerfile][8] to any directory that has write permissions.
 
-   * Download Dockerfile from [here][8] to any directory which has write permissions.
-
-3. Download the Dockerenvfile.txt file needed to run Jfrog/FluentD Docker Images for Datadog,
-
-   * Download Dockerenvfile.txt from [here][9] to the directory where the docker file was downloaded.
+3. Download the `Dockerenvfile.txt` file needed to run `Jfrog/FluentD` Docker Images for Datadog. You can download [this Dockerenvfile.txt][9] to the directory where the docker file was downloaded.
 
 ```text
 
@@ -124,7 +117,7 @@ Recommended installation for Kubernetes is to utilize the helm chart with the as
 
 Add JFrog Helm repository:
 
-```text
+```shell
 helm repo add jfrog https://charts.jfrog.io
 helm repo update
 ```
@@ -134,19 +127,19 @@ Replace placeholders with your ``masterKey`` and ``joinKey``. To generate each o
 ##### Artifactory ⎈:
 For Artifactory installation, download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
 
-* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying Docker images. Not a required field for k8s installation
 * **DATADOG_API_KEY**: APIkey from [Datadog][5]
 * **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
 * **JPD_ADMIN_USERNAME**: Artifactory username for authentication
 * **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
-* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+* **COMMON_JPD**: This flag should be set as true only for non-Kubernetes installations or installations where the JPD base URL is the same to access both Artifactory and Xray (for example, `https://sample_base_url/artifactory` or `https://sample_base_url/xray`)
 
-Apply the .env files and then run the helm command below
+Apply the `.env` files and run the helm command below
 
-````text
+```shell
 source .env_jfrog
-````
-```text
+```
+```shell
 helm upgrade --install artifactory  jfrog/artifactory \
        --set artifactory.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
        --set artifactory.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
@@ -161,24 +154,24 @@ helm upgrade --install artifactory  jfrog/artifactory \
 ##### Artifactory-HA ⎈:
 For HA installation, please create a license secret on your cluster prior to installation.
 
-```text
+```shell
 kubectl create secret generic artifactory-license --from-file=<path_to_license_file>artifactory.cluster.license 
 ```
 Download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
 
-* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying Docker images. Not a required field for k8s installation
 * **DATADOG_API_KEY**: APIkey from [Datadog][5]
 * **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
 * **JPD_ADMIN_USERNAME**: Artifactory username for authentication
 * **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
-* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+* **COMMON_JPD**: This flag should be set as true only for non-Kubernetes installations or installations where the JPD base URL is the same to access both Artifactory and Xray (for example, `https://sample_base_url/artifactory` or `https://sample_base_url/xray`)
 
-Apply the .env files and then run the helm command below
+Apply the `.env` files and run the helm command below
 
-````text
+```shell
 source .env_jfrog
-````
-```text
+```
+```shell
 helm upgrade --install artifactory-ha  jfrog/artifactory-ha \
        --set artifactory.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
        --set artifactory.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
@@ -193,22 +186,22 @@ helm upgrade --install artifactory-ha  jfrog/artifactory-ha \
 ##### Xray ⎈:
 For Artifactory installation, download the .env file from [here][6]. Fill in the .env_jfrog file with correct values.
 
-* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying docker images. Not a required field for k8s installation
+* **JF_PRODUCT_DATA_INTERNAL**: Helm based installs will already have this defined based upon the underlying Docker images. Not a required field for k8s installation
 * **DATADOG_API_KEY**: APIkey from [Datadog][5]
 * **JPD_URL**: Artifactory JPD URL of the format `http://<ip_address>`
 * **JPD_ADMIN_USERNAME**: Artifactory username for authentication
 * **JFROG_ADMIN_TOKEN**: Artifactory [Access Token][7] for authentication
-* **COMMON_JPD**: This flag should be set as true only for non-kubernetes installations or installations where JPD base URL is same to access both Artifactory and Xray (ex: https://sample_base_url/artifactory or https://sample_base_url/xray)
+* **COMMON_JPD**: This flag should be set as true only for non-Kubernetes installations or installations where the JPD base URL is the same to access both Artifactory and Xray (for example, `https://sample_base_url/artifactory` or `https://sample_base_url/xray`)
 
-Apply the .env files and then run the helm command below
+Apply the `.env` files and run the helm command below
 
-````text
+```shell
 source .env_jfrog
-````
+```
 
 Use the same `joinKey` as you used in Artifactory installation to allow Xray node to successfully connect to Artifactory.
 
-```text
+```shell
 helm upgrade --install xray jfrog/xray --set xray.jfrogUrl=http://my-artifactory-nginx-url \
        --set xray.masterKey=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
        --set xray.joinKey=EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE \
@@ -220,9 +213,6 @@ helm upgrade --install xray jfrog/xray --set xray.jfrogUrl=http://my-artifactory
        -f helm/xray-values.yaml
 ```
 
-### JFrog Platform (Self-hosted) tile 
-
-If you have not installed the JFrog Platform (Self-hosted) tile yet, install the tile.
 
 ### JFrog dashboards
 
@@ -259,10 +249,6 @@ Need help? Contact [support@jfrog.com](support@jfrog.com) or open a support tick
 
 ### Troubleshooting
 
-**Q : Who do I reach out to if I run into problems with this integration ?**
-
-A: You are welcome to reach out to JFrog directly by writing to us at [support@jfrog.com](support@jfrog.com) or opening a support ticket on our [Customer Support Portal][11]
-
 **Q : I have JFrog Cloud Enterprise + license. Will I be able to use this integration?**
 
 A: No.This integration is only built for JFrog customers who have on-prem or self-hosted JFrog subscription. JFrog is working on a SaaS Log streaming solution which will allow our SaaS customers to stream logs to Datadog. We hope to launch that solution in late 2023.
@@ -283,4 +269,5 @@ A: At launch, the SaaS version of the integration will only stream the following
 [9]: https://raw.githubusercontent.com/jfrog/log-analytics-datadog/master/docker-build/Dockerenvfile.txt
 [10]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
 [11]: https://support.jfrog.com/s/login/?language=en_US&ec=302&startURL=%2Fs%2F
-
+[12]: https://rvm.io/rvm/install#installation-explained
+[13]: https://rvm.io/support/troubleshooting#sudo
