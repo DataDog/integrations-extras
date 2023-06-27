@@ -1,41 +1,98 @@
-# Agent Check: wayfinder
+# Agent Check: Wayfinder
 
 ## Overview
 
-This check monitors [wayfinder][1].
+[Wayfinder](https://docs.appvia.io/wayfinder) is an infrastructure management
+platform that enables developer self-service though centralised configuration.
+This check monitors Wayfinder key management components through the Datadog Agent.
 
 ## Setup
 
+Follow the instructions below to install the integration in Wayfinder Kubernetes management cluster.
+
 ### Installation
 
-To install the wayfinder check on your host:
+For containerized environments, the best way to use this integration with the Docker Agent is to build the Agent with the Wayfinder integration installed. 
 
+Pre-requisites:
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
+Network policy must be configured to allow the Datadog Agent to connect to Wayfinder components. Network policy below assumes Datadog is deployed to datadog namespace and Wayfinder is deployed to wayfinder namespace.
 
-2. Run `ddev release build wayfinder` to build the package.
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: datadog-agent
+  namespace: wayfinder
+spec:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: datadog
+      podSelector:
+        matchLabels:
+          app: datadog-agent
+    ports:
+    - port: 9090
+      protocol: TCP
+  podSelector:
+    matchExpressions:
+    - key: name
+      operator: In
+      values:
+      - wayfinder-controllers
+      - wayfinder-apiserver
+      - wayfinder-webhooks
+  policyTypes:
+  - Ingress
+```
 
-3. [Download the Datadog Agent][2].
+To build an updated version of the Agent:
 
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/wayfinder/dist/<ARTIFACT_NAME>.whl`.
+1. Use the following Dockerfile:
+
+```dockerfile
+FROM gcr.io/datadoghq/agent:latest
+
+ARG INTEGRATION_VERSION=1.0.0
+
+RUN agent integration install -r -t datadog-wayfinder==${INTEGRATION_VERSION}
+```
+
+2. Build the image and push it to your private Docker registry.
+
+3. Upgrade the Datadog Agent container image. If you are using a Helm chart, modify the `agents.image` section in the `values.yaml` file to replace the default agent image:
+
+```yaml
+agents:
+  enabled: true
+  image:
+    tag: <NEW_TAG>
+    repository: <YOUR_PRIVATE_REPOSITORY>/<AGENT_NAME>
+```
+
+4. Use the new `values.yaml` file to upgrade the Agent:
+
+```shell
+helm upgrade -f values.yaml <RELEASE_NAME> datadog/datadog
+```
 
 ### Configuration
 
-1. <List of steps to setup this Integration>
+1. Edit the `wayfinder/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Wayfinder data. See the [sample wayfinder/conf.yaml][4] for all available configuration options.
+
+2. [Restart the Agent][5].
 
 ### Validation
 
-<Steps to validate integration is functioning as expected>
+[Run the Agent's status subcommand][6] and look for `wayfinder` under the Checks section.
 
 ## Data Collected
 
 ### Metrics
 
-wayfinder does not include any metrics.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
