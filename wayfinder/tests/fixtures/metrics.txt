@@ -1,0 +1,43 @@
+# HELP controller_runtime_active_workers Number of currently used workers per controller
+# TYPE controller_runtime_active_workers gauge
+controller_runtime_active_workers{controller="accessrolebindings"} 0
+controller_runtime_active_workers{controller="accessroles"} 0
+# HELP controller_runtime_max_concurrent_reconciles Maximum number of concurrent reconciles per controller
+# TYPE controller_runtime_max_concurrent_reconciles gauge
+controller_runtime_max_concurrent_reconciles{controller="accessrolebindings"} 10
+controller_runtime_max_concurrent_reconciles{controller="accessroles"} 10
+# HELP controller_runtime_reconcile_errors_total Total number of reconciliation errors per controller
+# TYPE controller_runtime_reconcile_errors_total counter
+controller_runtime_reconcile_errors_total{controller="accessrolebindings"} 984
+controller_runtime_reconcile_errors_total{controller="accessroles"} 0
+# TYPE controller_runtime_reconcile_time_seconds histogram
+controller_runtime_reconcile_time_seconds_bucket{controller="accessrolebindings",le="0.005"} 0
+controller_runtime_reconcile_time_seconds_bucket{controller="accessrolebindings",le="0.01"} 0
+controller_runtime_reconcile_time_seconds_sum{controller="accessrolebindings"} 590.3583318210007
+controller_runtime_reconcile_time_seconds_count{controller="accessrolebindings"} 1002
+# HELP controller_runtime_reconcile_total Total number of reconciliations per controller
+# TYPE controller_runtime_reconcile_total counter
+controller_runtime_reconcile_total{controller="accessrolebindings",result="error"} 984
+controller_runtime_reconcile_total{controller="accessrolebindings",result="requeue"} 0
+# HELP workqueue_adds_total Total number of adds handled by workqueue
+# TYPE workqueue_adds_total counter
+workqueue_adds_total{name="accessrolebindings"} 1002
+workqueue_adds_total{name="accessroles"} 416
+# HELP workqueue_depth Current depth of workqueue
+# TYPE workqueue_depth gauge
+workqueue_depth{name="accessrolebindings"} 0
+workqueue_depth{name="accessroles"} 0
+# HELP workqueue_queue_duration_seconds How long in seconds an item stays in workqueue before being requested
+# TYPE workqueue_queue_duration_seconds histogram
+workqueue_queue_duration_seconds_bucket{name="accessrolebindings",le="1e-08"} 0
+workqueue_queue_duration_seconds_bucket{name="accessrolebindings",le="1e-07"} 0
+workqueue_queue_duration_seconds_sum{name="accessrolebindings"} 186.65434465899963
+workqueue_queue_duration_seconds_count{name="accessrolebindings"} 1002
+# HELP workqueue_retries_total Total number of retries handled by workqueue
+# TYPE workqueue_retries_total counter
+workqueue_retries_total{name="accessrolebindings"} 984
+workqueue_retries_total{name="accessroles"} 0
+# HELP workqueue_unfinished_work_seconds How many seconds of work has been done that is in progress and hasn't been observed by work_duration. Large values indicate stuck threads. One can deduce the number of stuck threads by observing the rate at which this increases.
+# TYPE workqueue_unfinished_work_seconds gauge
+workqueue_unfinished_work_seconds{name="accessrolebindings"} 0
+workqueue_unfinished_work_seconds{name="accessroles"} 0
