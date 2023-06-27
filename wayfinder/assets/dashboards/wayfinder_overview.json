@@ -1,0 +1,148 @@
+{
+  "title": "Wayfinder",
+  "description": null,
+  "widgets": [
+    {
+      "id": 6109974031300300,
+      "definition": {
+        "title": "openmetrics.health:apiserver",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "type": "check_status",
+        "check": "wayfinder.openmetrics.health",
+        "grouping": "check",
+        "group": "kube_deployment:wayfinder-apiserver",
+        "group_by": ["kube_deployment"],
+        "tags": []
+      },
+      "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 3029920456438864,
+      "definition": {
+        "title": "openmetrics.health:webhooks",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "type": "check_status",
+        "check": "wayfinder.openmetrics.health",
+        "grouping": "check",
+        "group": "kube_deployment:wayfinder-webhooks",
+        "group_by": ["kube_deployment"],
+        "tags": []
+      },
+      "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 7242923929198952,
+      "definition": {
+        "title": "openmetrics.health:controller",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {},
+        "type": "check_status",
+        "check": "wayfinder.openmetrics.health",
+        "grouping": "check",
+        "group": "kube_deployment:wayfinder-apiserver",
+        "group_by": ["kube_deployment"],
+        "tags": []
+      },
+      "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+    },
+    {
+      "id": 5292446925349497,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:wayfinder.workqueue.depth{*}"
+              }
+            ],
+            "formulas": [{ "formula": "query1" }],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 3752165290599579,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:wayfinder.workqueue.unfinished_work_seconds{*}"
+              }
+            ],
+            "formulas": [{ "formula": "query1" }],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 679151739945583,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:wayfinder.controller_runtime.reconcile_errors_total.count{*}.as_count()"
+              }
+            ],
+            "formulas": [{ "formula": "query1" }],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
