@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check provides the data from [CloudNatix][1].
+This check provides data from [CloudNatix][1].
 
 CloudNatix connects to multiple VM & K8s Clusters, enabling automated capacity, cost & operation optimization using patent-pending Autopilot technology. CloudNatix Insights also gives DevOps teams proactive visibility into potential capacity and availability issues, turbocharging productivity.
 
