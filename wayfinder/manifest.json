@@ -2,13 +2,13 @@
   "manifest_version": "2.0.0",
   "app_uuid": "a68bad83-ba55-4350-a913-2f98bb667bad",
   "app_id": "wayfinder",
-  "display_on_public_website": false,
+  "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "",
+    "description": "Send Wayfinder metrics to Datadog",
     "title": "wayfinder",
     "media": [],
     "classifier_tags": [
@@ -28,7 +28,7 @@
       },
       "metrics": {
         "prefix": "wayfinder.",
-        "check": "",
+        "check": "wayfinder.workqueue.depth",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
@@ -38,9 +38,7 @@
     "dashboards": {
       "Wayfinder": "assets/dashboards/wayfinder_overview.json"
     },
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
+    "logs": {}
   },
   "author": {
     "support_email": "jonny.scott@appvia.io",
