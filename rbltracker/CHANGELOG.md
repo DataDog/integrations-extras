@@ -1,7 +1,8 @@
 # CHANGELOG - RBLTracker
 
-1.0.0 / Unreleased
-==================
-### Changes
+## 1.0.0 / Unreleased
 
-* [FEATURE] Initial RBLTracker tile.
+***Added***: 
+
+* Initial RBLTracker tile.
+
