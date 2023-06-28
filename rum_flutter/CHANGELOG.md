@@ -1,7 +1,8 @@
 # CHANGELOG - Flutter
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Flutter RUM Integration Tile.
+***Added***: 
+
+* Initial Flutter RUM Integration Tile.
+
