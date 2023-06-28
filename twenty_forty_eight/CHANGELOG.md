@@ -1,7 +1,7 @@
 # CHANGELOG - Twenty Forty Eight
 
-1.0.0 / 2021 - 12 - 10
-==================
-### Changes
+## 1.0.0 / 2021 - 12 - 10
 
-* [FEATURE] 2048 game widget
+***Added***: 
+
+* 2048 game widget
