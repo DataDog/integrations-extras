@@ -100,7 +100,7 @@ Need help? Contact [Twingate Support][2].
 
 Additional helpful documentation, links, and articles:
 
-- [Monitor network access with Twingate’s offering in the Datadog Marketplace][13]
+- [Monitor network access with Twingate's offering in the Datadog Marketplace][13]
 
 [1]: https://www.twingate.com/
 [2]: https://help.twingate.com/hc/en-us
