@@ -3,7 +3,7 @@
 ## Overview
 
 [Wayfinder][1] is an infrastructure management platform that enables developer
-self-service though a centralized configuration. This check monitors Wayfinder
+self-service through a centralized configuration. This check monitors Wayfinder
 key management components through the Datadog Agent.
 
 ## Setup
