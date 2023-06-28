@@ -1,7 +1,8 @@
 # CHANGELOG - Squadcast Integration
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Squadcast Integration Tile.
+***Added***: 
+
+* Initial Squadcast Integration Tile.
+
