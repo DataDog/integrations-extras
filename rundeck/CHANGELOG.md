@@ -1,7 +1,8 @@
 # CHANGELOG - Rundeck Integration
 
-1.0.0 / Initial Setup instructions
-==================
-### Changes
+## 1.0.0 / 2020-04-21
 
-* [FEATURE] Initial Rundeck Integration Tile.
+***Added***: 
+
+* Initial Rundeck Integration Tile.
+
