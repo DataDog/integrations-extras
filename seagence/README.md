@@ -16,7 +16,7 @@ Visit [Seagence][1] to sign up for free. Once registered, navigate to the Seagen
 
 Using the `-javaagent` option, attach Seagence's Java agent to your application. Download the Java agent from your Seagence account. For more information, visit [getting started][3] on [Seagence][1].
 
-### Uninstallation
+## Uninstallation
 
 To remove the Datadog integration from Seagence:
 1. Uninstall the integration from Datadog by clicking **Uninstall Integration**. Once you uninstall the integration, any previous authorizations are revoked.
