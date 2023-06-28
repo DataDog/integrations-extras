@@ -2,9 +2,9 @@
 
 ## Overview
 
-[Wayfinder](https://docs.appvia.io/wayfinder) is an infrastructure management
-platform that enables developer self-service though a centralised configuration.
-This check monitors Wayfinder key management components through the Datadog Agent.
+[Wayfinder][1] is an infrastructure management platform that enables developer
+self-service though a centralised configuration. This check monitors Wayfinder
+key management components through the Datadog Agent.
 
 ## Setup
 
