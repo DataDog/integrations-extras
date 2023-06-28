@@ -1,7 +1,7 @@
 # CHANGELOG - k6 Integration
 
-1.0.0 / Unreleased
-==================
-### Changes
+## 1.0.0 / Unreleased
 
-* [FEATURE] Initial k6 Integration Tile.
+***Added***: 
+
+* Initial k6 Integration Tile.
