@@ -1,7 +1,8 @@
 # CHANGELOG - Expo
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Expo RUM Integration Tile.
+***Added***: 
+
+* Initial Expo RUM Integration Tile.
+
