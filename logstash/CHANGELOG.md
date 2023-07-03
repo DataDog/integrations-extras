@@ -2,16 +2,18 @@
 
 Logstash Datadog Agent integration changes.
 
-1.1.0
-==================
+## 1.1.0
 
-### Changes
 
-* [ADDED] expanded queue statistics.
+***Added***: 
 
-1.0.0/ Unreleased
-==================
+* expanded queue statistics.
 
-### Changes
 
-* [FEATURE] adds logstash integration.
+## 1.0.0/ Unreleased
+
+
+***Added***: 
+
+* adds logstash integration.
+
