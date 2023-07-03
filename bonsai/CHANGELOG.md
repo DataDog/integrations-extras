@@ -1,7 +1,8 @@
 # CHANGELOG - Bonsai Integration
 
-1.0.0 / Unreleased
-==================
-### Changes
+## 1.0.0 / Unreleased
 
-* [FEATURE] Initial Bonsai Integration Tile.
+***Added***: 
+
+* Initial Bonsai Integration Tile.
+
