@@ -1,7 +1,8 @@
 # CHANGELOG - Signal Sciences Integration
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Signal Sciences Integration Tile.
+***Added***: 
+
+* Initial Signal Sciences Integration Tile.
+
