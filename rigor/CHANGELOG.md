@@ -1,7 +1,8 @@
 # CHANGELOG - Rigor Integration
 
-1.0.0 / Unreleased
-==================
-### Changes
+## 1.0.0 / Unreleased
 
-* [FEATURE] Initial Rigor Integration Tile.
+***Added***: 
+
+* Initial Rigor Integration Tile.
+
