@@ -1,7 +1,8 @@
 # CHANGELOG - Amixr Integration
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial Amixr Integration Tile.
+***Added***: 
+
+* Initial Amixr Integration Tile.
+
