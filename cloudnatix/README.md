@@ -4,7 +4,7 @@
 
 This check provides data from [CloudNatix][1].
 
-CloudNatix connects to multiple VM & K8s Clusters, enabling automated capacity, cost & operation optimization using patent-pending Autopilot technology. CloudNatix Insights also gives DevOps teams proactive visibility into potential capacity and availability issues, turbocharging productivity.
+CloudNatix connects to multiple VM-based and Kubernetes clusters, enabling automated capacity, cost, and operation optimization with patent-pending Autopilot technology. CloudNatix Insights gives DevOps teams proactive visibility into potential capacity and availability issues.
 
 The CloudNatix integration provides cost and operational optimization insights to Datadog with an out-of-the-box dashboard, allowing you to quickly view cluster cost and analyze opportunities to reduce cost.
 
@@ -14,10 +14,9 @@ The CloudNatix integration provides cost and operational optimization insights t
 
 To install the CloudNatix check on your cluster:
 
-1. Build a new Docker image of Datadog agent that has the CloudNatix integration check installed.
-      * Please see [here](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker) for details.
+1. Build a Docker image of the Datadog Agent that has the CloudNatix integration check installed. For more information, see [Use Community Integrations][7].
 2. [Install the Datadog Agent][2] into your Kubernetes cluster with the built Docker image.
-3. [Install CloudNatix][3] into your Kubernetes cluster. CloudNatix clusteragent will
+3. [Install CloudNatix][3] into your Kubernetes cluster. The CloudNatix Cluster Agent will
    automatically configure itself to work with the Datadog integration.
 
 ### Validation
@@ -48,3 +47,4 @@ Need help? Contact [Cloudnatix support][6].
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv
 [6]: support@cloudnatix.com
+[7]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
