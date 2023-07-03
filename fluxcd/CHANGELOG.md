@@ -2,4 +2,7 @@
 
 ## 1.0.0
 
-* [Added] Initial Fluxcd Integration.
+***Added***: 
+
+* Initial Fluxcd Integration.
+
