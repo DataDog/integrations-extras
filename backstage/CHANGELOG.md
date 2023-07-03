@@ -1,7 +1,8 @@
 # CHANGELOG - Backstage Integration
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Backstage Datadog Integration
+***Added***: 
+
+* Backstage Datadog Integration
+
