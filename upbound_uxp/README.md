@@ -2,22 +2,57 @@
 
 ## Overview
 
-This check monitors [Upbound UXP](https://docs.upbound.io/uxp/).
-It looks for UXP and provider pods by default in the upbound-system Kubernetes
-namespace. The Upbound and provider pods emit metrics at port 8080/metrics in
+Upbound provides a control plane framework for businesses
+to accelerate their journey building custom clouds on top
+of arbitrary cloud resources. This increases the agility and
+reduces the cognitive load for their users. It can help enforcing
+governance and compliance and then enable better auditability
+because of the guard rails that their platform teams
+implement with the Universal Crossplane.
+Its merit is the velocity increase and risk reduction
+while keeping options open when building cloud platforms.
+
+Businesses may offer their own internal
+cloud API to their teams through writing
+composite resource definitions. Their
+cloud can then map that API to downstream providers.
+The providers create and lifecycle manage the external
+cloud resources orchestrated through Universal
+Crossplane when a user claims resources.
+Amazon AWS, Microsoft Azure and Google
+GCP are out of the box supported cloud providers.
+
+This Datadog integration facilitates the monitoring
+of Universal Crossplane and provider Kubernetes pods.
+The value of observing the metrics is to be aware of
+the health of this self managed infrastructure provisioning
+and resource lifecycle management ecosystem to rest assured
+that the infrastructure is properly managed, or that actions
+may be needed to correct its configuration. The metrics
+inform about performance and resource consumption. This
+helps validating the Univeral Crossplane management cluster
+sizing and enables optimization.
+
+The checks monitor [Upbound UXP](https://docs.upbound.io/uxp/)
+related metrics.
+
+It looks for UXP and provider pods by default
+in the upbound-system Kubernetes
+namespace. The Upbound and provider
+pods emit metrics at port 8080/metrics in
 a Prometheus compatible format.
 
 ## Setup
 
 ### Prerequisites
 
-The DataDog agent requires permissions to discover UXP and provider pods.
-Create a service account, a cluster role, and a cluster role binding.
+The Datadog agent requires permissions to discover UXP and provider pods.
+Create a service account, a cluster role, and a cluster role binding
 to grant those permissions.
 
-Note, that the datadog agent in the configuration
+Note that the datadog agent in the configuration
 below resides in an arbitrary `monitoring` namespace.
-Your agent may reside in a namesapce of your choice.
+Your agent may reside in a namespace of your choice.
 Configure the service account and cluster role accordingly.
 
 ```
