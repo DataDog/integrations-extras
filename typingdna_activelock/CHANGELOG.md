@@ -3,4 +3,7 @@
 
 ## 1.0.0 / 2022-12-22
 
-* [FEATURE] adds ActiveLock integration.
+***Added***: 
+
+* adds ActiveLock integration.
+
