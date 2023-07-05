@@ -5,6 +5,14 @@
 Let JFrog know how we can improve the integration. Feel free to visit our GitHub for more detailed documentation at: [github.com/jfrog/log-analytics-datadog][4].
 
 ## Setup
+
+`Note! You must follow the order of the steps throughout Datadog Configuration`
+1. [Requirements](#requirements)
+2. [Fluentd Installation](#fluentd-installation)
+   * [OS / Virtual Machine](#os--virtual-machine)
+   * [Docker](#docker)
+   * [Kubernetes Deployment with Helm](#kubernetes-deployment-with-helm)
+
 ### Requirements
 
 * Your [Datadog API key][5].
