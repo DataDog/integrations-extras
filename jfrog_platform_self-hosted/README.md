@@ -4,6 +4,8 @@
 
 Let JFrog know how we can improve the integration. Feel free to visit our GitHub for more detailed documentation at: [github.com/jfrog/log-analytics-datadog][4].
 
+### **IMPORTANT NOTE : The existing agent check to gather JFrog metrics has been replaced with Fluentd. Agent check will be deprecated by July 31st 2023.** 
+
 ## Setup
 
 `Note! You must follow the order of the steps throughout Datadog Configuration`
