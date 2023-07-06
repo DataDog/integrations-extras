@@ -1,5 +1,4 @@
-## IMPORTANT NOTE
-**The existing agent check to gather JFrog metrics has been replaced with Fluentd. Agent check will deprecate on July 31st 2023**
+<div class="alert alert-warning">The existing agent check to gather JFrog metrics has been replaced with Fluentd. Agent check will deprecate on July 31st 2023.</div>gi
 
 ## Overview
 
