@@ -33,8 +33,8 @@ Ensure you have access to the Internet from a virtual machine (VM). We recommend
 | Windows        | Windows - MSI          | https://docs.fluentd.org/installation/install-by-msi |
 | Gem Install**	 | MacOS & Linux - Gem			 | https://docs.fluentd.org/installation/install-by-gem | 
 
-```text
-** For Gem based install, Ruby Interpreter has to be setup first, following is the recommended process to install Ruby
+##### Gem based install
+For Gem based install, Ruby Interpreter has to be setup first, following is the recommended process to install Ruby
 
 1. Install Ruby Version Manager (RVM) outlined in the [RVM documentation][12]. 
 	* Use the `SUDO` command  for multi-user installation. For more information, see the [RVM troubleshooting documentation][13].
@@ -48,7 +48,7 @@ Ensure you have access to the Internet from a virtual machine (VM). We recommend
 5. Install the FluentD gem with the command `gem install fluentd`.
 
 6. After FluentD is successfully installed, install the following plugins.
-```
+
 ```shell
 gem install fluent-plugin-concat
 gem install fluent-plugin-datadog
