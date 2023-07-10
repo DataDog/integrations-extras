@@ -179,7 +179,7 @@ Need help? Contact [Datadog support][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/tidb/metadata.csv
 [7]: https://docs.datadoghq.com/help/
-[8]: https://app.datadoghq.com/account/settings#agent
+[8]: https://app.datadoghq.com/account/settings/agent/latest
 [9]: https://docs.datadoghq.com/agent/kubernetes/log/
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://github.com/DataDog/integrations-extras/blob/master/tidb/assets/service_checks.json

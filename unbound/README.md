@@ -56,7 +56,7 @@ Need help? Contact [Datadog support][11].
 
 
 [1]: https://nlnetlabs.nl/documentation/unbound/unbound-control/
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/unbound/datadog_checks/unbound/data/conf.yaml.example
