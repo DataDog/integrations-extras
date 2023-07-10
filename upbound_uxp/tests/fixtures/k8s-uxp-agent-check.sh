@@ -43,7 +43,7 @@ if [[ $# -eq 1 ]]; then
 fi
 
 echo_info "Hatch Config"
-KUBERNETES_PRESENT=$(hatch run pip3.8 list|grep kubernetes)
+KUBERNETES_PRESENT=$(hatch run pip3.9 list|grep kubernetes)
 if [[ ${KUBERNETES_PRESENT} == "Checking dependencies" ]]; then
     hatch run pip3.9 install kubernetes
     hatch run pip3.9 install datadog_agent
