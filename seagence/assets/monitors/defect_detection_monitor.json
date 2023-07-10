@@ -1,0 +1,39 @@
+{
+	"name": "Seagence Defect Detection Monitor",
+	"type": "event-v2 alert",
+	"query": "events(\"status:error service:seagence\").rollup(\"count\").last(\"5m\") > 0",
+	"message": "Seagence detected a defect. Visit SeagenceWeb for complete information.",
+	"tags": [
+		"integration:seagence"
+	],
+	"options": {
+		"thresholds": {
+			"critical": 0,
+			"period": {
+				"digit": 5,
+				"name": "5 minute average",
+				"no_data_timeframe": 10,
+				"seconds": 300,
+				"tense": "last",
+				"text": "5 minutes",
+				"unit": "minutes",
+				"value": "last_5m",
+				"timeString": "5m",
+				"unitAbbreviation": "m"
+			},
+			"timeAggregator": "avg",
+			"comparison": ">"
+		},
+		"enable_logs_sample": false,
+		"notify_audit": false,
+		"restriction_query": null,
+		"on_missing_data": "show_no_data",
+		"include_tags": false,
+		"silenced": {}
+	},
+	"recommended_monitor_metadata": {
+		"description": "Alert when Seagence detects a defect."
+	},
+	"priority": null,
+	"restricted_roles": null
+}

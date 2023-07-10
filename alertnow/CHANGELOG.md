@@ -1,7 +1,8 @@
 # CHANGELOG - AlertNow Integration
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial AlertNow Integration Tile.
+***Added***: 
+
+* Initial AlertNow Integration Tile.
+

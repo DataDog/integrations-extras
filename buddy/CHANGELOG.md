@@ -1,7 +1,8 @@
 # CHANGELOG - Buddy Integration
 
-1.0.0 / Unreleased
-==================
-### Changes
+## 1.0.0 / Unreleased
 
-* [FEATURE] Initial Buddy tile.
+***Added***: 
+
+* Initial Buddy tile.
+

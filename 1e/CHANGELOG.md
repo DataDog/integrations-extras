@@ -2,6 +2,7 @@
 
 ## 1.0.0 / 2023-02-09
 
-### Changes
+***Added***: 
 
-- [FEATURE] Initial release with 1E Metrics Integration.
+* Initial release with 1E Metrics Integration.
+

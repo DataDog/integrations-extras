@@ -1,7 +1,8 @@
 # CHANGELOG - iOS
 
-1.0.0
-==================
-### Changes
+## 1.0.0
 
-* [FEATURE] Initial iOS RUM Integration Tile.
+***Added***: 
+
+* Initial iOS RUM Integration Tile.
+

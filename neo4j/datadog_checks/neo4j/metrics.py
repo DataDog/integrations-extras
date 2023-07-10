@@ -485,4 +485,8 @@ METRIC_MAP = {
     'vm_thread_count': 'vm.thread.count',
     'vm_thread_total': 'vm.thread.total',
     'vm_threads': 'vm.threads',
+    # Routed queries metrics
+    'routing_query_count_local': 'routing.query.count.local',
+    'routing_query_count_remote_internal': 'routing.query.count.remote_internal',
+    'routing_query_count_remote_external': 'routing.query.count.remote_external',
 }

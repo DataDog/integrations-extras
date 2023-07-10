@@ -1,7 +1,7 @@
 # CHANGELOG - Data Runner
 
-1.0.0 / 2021 - 12 - 10
-==================
-### Changes
+## 1.0.0 / 2021 - 12 - 10
 
-* [FEATURE] The Data Runner widget
+***Added***: 
+
+* The Data Runner widget

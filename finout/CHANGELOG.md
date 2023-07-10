@@ -2,6 +2,8 @@
 
 ## 1.0.0
 
-### Changes
 
-* [FEATURE] Initial release - Finout Datadog Application
+***Added***: 
+
+* Initial release - Finout Datadog Application
+

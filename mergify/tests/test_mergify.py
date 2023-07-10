@@ -10,6 +10,8 @@ from datadog_checks.mergify import MergifyCheck
 
 MERGIFY_RESPONSE_FIXTURES = Path(__file__).absolute().parent / "fixtures"
 
+HEADERS = {"Content-Type": "application/json"}
+
 
 def test_emits_critical_service_check_when_service_is_down(aggregator, instance):
     # type: (AggregatorStub, Dict[str, Any]) -> None
@@ -18,28 +20,42 @@ def test_emits_critical_service_check_when_service_is_down(aggregator, instance)
     aggregator.assert_service_check("mergify.can_connect", MergifyCheck.CRITICAL)
 
 
+def test_emits_warning_when_ratelimited(aggregator, instance, mocker):
+    # type: (AggregatorStub, Dict[str, Any]) -> None
+    check = MergifyCheck("mergify", {}, [instance])
+
+    def mock_requests_get(url, *args, **kwargs):
+        return MockResponse(
+            status_code=403,
+            file_path=MERGIFY_RESPONSE_FIXTURES / "ratelimited_github.json",
+            headers=HEADERS,
+        )
+
+    mocker.patch("requests.get", mock_requests_get)
+    check.run()
+    aggregator.assert_service_check("mergify.can_connect", MergifyCheck.WARNING)
+
+
 def test_check(dd_run_check, aggregator, instance, mocker):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], MockResponse) -> None
-
-    headers = {"Content-Type": "application/json"}
 
     def mock_requests_get(url, *args, **kwargs):
         if url.endswith("time_to_merge?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "time_to_merge_main.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         if url.endswith("queue_checks_outcome?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queue_checks_outcome_main.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         if url.endswith("queues"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queues.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         raise AssertionError(f"URL not mocked: {url}")
@@ -155,25 +171,23 @@ def test_check(dd_run_check, aggregator, instance, mocker):
 def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any], MockResponse) -> None
 
-    headers = {"Content-Type": "application/json"}
-
     def mock_requests_get(url, *args, **kwargs):
         if url.endswith("time_to_merge?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "time_to_merge_empty.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         if url.endswith("queue_checks_outcome?branch=main"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queue_checks_outcome_empty.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         if url.endswith("queues"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queues_empty.json",
-                headers=headers,
+                headers=HEADERS,
             )
 
         raise AssertionError(f"URL not mocked: {url}")
