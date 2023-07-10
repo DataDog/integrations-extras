@@ -52,8 +52,8 @@ setup(
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='Markus Schweig',
-    author_email='markus.schweig@upbound.io',
+    author='Upbound',
+    author_email='support@upbound.io',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
