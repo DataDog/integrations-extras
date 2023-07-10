@@ -1,7 +1,7 @@
 {
     "author_name": "Datadog",
     "description": "This dashboard provides an aggregated summary of all the license violations and security vulnerabilities found by Xray.  Information is segmented by watch policies and rules.  Trending information is provided on the type and severity of violations over time, as well as, insights on the most frequently occurring CVEs, top impacted artifacts, and components.\n\nThe source code is also available on [Github](https://github.com/jfrog/log-analytics-datadog)",
-    "layout_type": "free",
+    "layout_type": "ordered",
     "template_variables": [],
     "title": "JFrog Xray Violations (Self-hosted)",
     "widgets": [
@@ -43,8 +43,8 @@
             },
             "id": 7051598432706330,
             "layout": {
-                "height": 13,
-                "width": 21,
+                "height": 2,
+                "width": 2,
                 "x": 0,
                 "y": 0
             }
@@ -86,9 +86,9 @@
             },
             "id": 4814640902931818,
             "layout": {
-                "height": 13,
-                "width": 21,
-                "x": 22,
+                "height": 2,
+                "width": 2,
+                "x": 2,
                 "y": 0
             }
         },
@@ -129,9 +129,9 @@
             },
             "id": 8589738227469196,
             "layout": {
-                "height": 13,
-                "width": 21,
-                "x": 44,
+                "height": 2,
+                "width": 2,
+                "x": 4,
                 "y": 0
             }
         },
@@ -167,9 +167,9 @@
             },
             "id": 1897684177452826,
             "layout": {
-                "height": 13,
-                "width": 21,
-                "x": 66,
+                "height": 2,
+                "width": 2,
+                "x": 6,
                 "y": 0
             }
         },
@@ -206,9 +206,9 @@
             },
             "id": 7177279170030264,
             "layout": {
-                "height": 13,
-                "width": 20,
-                "x": 88,
+                "height": 2,
+                "width": 2,
+                "x": 8,
                 "y": 0
             }
         },
@@ -245,9 +245,9 @@
             },
             "id": 3476083908072860,
             "layout": {
-                "height": 13,
-                "width": 20,
-                "x": 109,
+                "height": 2,
+                "width": 2,
+                "x": 10,
                 "y": 0
             }
         },
@@ -301,10 +301,63 @@
             },
             "id": 7418717446170412,
             "layout": {
-                "height": 21,
-                "width": 32,
+                "height": 3,
+                "width": 3,
                 "x": 0,
-                "y": 14
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@policies",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Violations per Policy",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 5639986159788128,
+            "layout": {
+                "height": 3,
+                "width": 3,
+                "x": 3,
+                "y": 2
             }
         },
         {
@@ -354,10 +407,63 @@
             },
             "id": 7863708181858712,
             "layout": {
-                "height": 21,
-                "width": 32,
-                "x": 33,
-                "y": 14
+                "height": 3,
+                "width": 3,
+                "x": 6,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@rules",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "datadog16"
+                        }
+                    }
+                ],
+                "title": "Violations per Rule",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "sunburst"
+            },
+            "id": 6036947928195350,
+            "layout": {
+                "height": 3,
+                "width": 3,
+                "x": 9,
+                "y": 2
             }
         },
         {
@@ -448,10 +554,10 @@
             },
             "id": 3685760597330954,
             "layout": {
-                "height": 19,
-                "width": 65,
+                "height": 3,
+                "width": 6,
                 "x": 0,
-                "y": 36
+                "y": 5
             }
         },
         {
@@ -517,10 +623,58 @@
             },
             "id": 8575700286805064,
             "layout": {
-                "height": 19,
-                "width": 63,
-                "x": 66,
-                "y": 36
+                "height": 3,
+                "width": 6,
+                "x": 6,
+                "y": 5
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@cve",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @cve:*"
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "title": "Top Vulnerabilities",
+                "type": "treemap"
+            },
+            "id": 5527455642179598,
+            "layout": {
+                "height": 2,
+                "width": 4,
+                "x": 0,
+                "y": 8
             }
         },
         {
@@ -573,10 +727,10 @@
             },
             "id": 3952006596410659,
             "layout": {
-                "height": 21,
-                "width": 43,
-                "x": 44,
-                "y": 56
+                "height": 2,
+                "width": 4,
+                "x": 4,
+                "y": 8
             }
         },
         {
@@ -629,10 +783,10 @@
             },
             "id": 990241712255793,
             "layout": {
-                "height": 21,
-                "width": 41,
-                "x": 88,
-                "y": 56
+                "height": 2,
+                "width": 4,
+                "x": 8,
+                "y": 8
             }
         },
         {
@@ -641,21 +795,27 @@
                     {
                         "formulas": [
                             {
-                                "formula": "query1"
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 5,
+                                    "order": "desc"
+                                }
                             }
                         ],
                         "queries": [
                             {
                                 "compute": {
-                                    "aggregation": "count"
+                                    "aggregation": "cardinality",
+                                    "metric": "@ip"
                                 },
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@cve",
-                                        "limit": 10,
+                                        "facet": "@impacted_artifacts",
+                                        "limit": 1000,
                                         "sort": {
-                                            "aggregation": "count",
+                                            "aggregation": "cardinality",
+                                            "metric": "@ip",
                                             "order": "desc"
                                         }
                                     }
@@ -665,22 +825,82 @@
                                 ],
                                 "name": "query1",
                                 "search": {
-                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @cve:*"
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
                                 }
                             }
                         ],
                         "response_format": "scalar"
                     }
                 ],
-                "title": "Top Vulnerabilities",
-                "type": "treemap"
+                "style": {},
+                "title": "Top Vulnerable Artifact by Count of IP Download",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
             },
-            "id": 5527455642179598,
+            "id": 3508728073260758,
             "layout": {
-                "height": 21,
-                "width": 43,
+                "height": 2,
+                "width": 6,
                 "x": 0,
-                "y": 56
+                "y": 10
+            }
+        },
+        {
+            "definition": {
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1",
+                                "limit": {
+                                    "count": 5,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "compute": {
+                                    "aggregation": "cardinality",
+                                    "metric": "@username"
+                                },
+                                "data_source": "logs",
+                                "group_by": [
+                                    {
+                                        "facet": "@impacted_artifacts",
+                                        "limit": 100,
+                                        "sort": {
+                                            "aggregation": "cardinality",
+                                            "metric": "@username",
+                                            "order": "desc"
+                                        }
+                                    }
+                                ],
+                                "indexes": [
+                                    "*"
+                                ],
+                                "name": "query1",
+                                "search": {
+                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
+                                }
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {},
+                "title": "Top Vulnerable Artifact by Count of User Downloads",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "toplist"
+            },
+            "id": 147216066910128,
+            "layout": {
+                "height": 2,
+                "width": 6,
+                "x": 6,
+                "y": 10
             }
         },
         {
@@ -740,230 +960,10 @@
             },
             "id": 461988684234868,
             "layout": {
-                "height": 36,
-                "width": 129,
+                "height": 5,
+                "width": 12,
                 "x": 0,
-                "y": 100
-            }
-        },
-        {
-            "definition": {
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "compute": {
-                                    "aggregation": "count"
-                                },
-                                "data_source": "logs",
-                                "group_by": [
-                                    {
-                                        "facet": "@policies",
-                                        "limit": 10,
-                                        "sort": {
-                                            "aggregation": "count",
-                                            "order": "desc"
-                                        }
-                                    }
-                                ],
-                                "indexes": [
-                                    "*"
-                                ],
-                                "name": "query1",
-                                "search": {
-                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities"
-                                }
-                            }
-                        ],
-                        "response_format": "scalar",
-                        "style": {
-                            "palette": "datadog16"
-                        }
-                    }
-                ],
-                "title": "Violations per Policy",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "sunburst"
-            },
-            "id": 5639986159788128,
-            "layout": {
-                "height": 21,
-                "width": 31,
-                "x": 98,
-                "y": 14
-            }
-        },
-        {
-            "definition": {
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "compute": {
-                                    "aggregation": "count"
-                                },
-                                "data_source": "logs",
-                                "group_by": [
-                                    {
-                                        "facet": "@rules",
-                                        "limit": 10,
-                                        "sort": {
-                                            "aggregation": "count",
-                                            "order": "desc"
-                                        }
-                                    }
-                                ],
-                                "indexes": [
-                                    "*"
-                                ],
-                                "name": "query1",
-                                "search": {
-                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities"
-                                }
-                            }
-                        ],
-                        "response_format": "scalar",
-                        "style": {
-                            "palette": "datadog16"
-                        }
-                    }
-                ],
-                "title": "Violations per Rule",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "sunburst"
-            },
-            "id": 6036947928195350,
-            "layout": {
-                "height": 21,
-                "width": 31,
-                "x": 66,
-                "y": 14
-            }
-        },
-        {
-            "definition": {
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1",
-                                "limit": {
-                                    "count": 5,
-                                    "order": "desc"
-                                }
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "compute": {
-                                    "aggregation": "cardinality",
-                                    "metric": "@ip"
-                                },
-                                "data_source": "logs",
-                                "group_by": [
-                                    {
-                                        "facet": "@impacted_artifacts",
-                                        "limit": 1000,
-                                        "sort": {
-                                            "aggregation": "cardinality",
-                                            "metric": "@ip",
-                                            "order": "desc"
-                                        }
-                                    }
-                                ],
-                                "indexes": [
-                                    "*"
-                                ],
-                                "name": "query1",
-                                "search": {
-                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
-                                }
-                            }
-                        ],
-                        "response_format": "scalar"
-                    }
-                ],
-                "style": {},
-                "title": "Top Vulnerable Artifact by Count of IP Download",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "toplist"
-            },
-            "id": 3508728073260758,
-            "layout": {
-                "height": 21,
-                "width": 65,
-                "x": 0,
-                "y": 78
-            }
-        },
-        {
-            "definition": {
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1",
-                                "limit": {
-                                    "count": 5,
-                                    "order": "desc"
-                                }
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "compute": {
-                                    "aggregation": "cardinality",
-                                    "metric": "@username"
-                                },
-                                "data_source": "logs",
-                                "group_by": [
-                                    {
-                                        "facet": "@impacted_artifacts",
-                                        "limit": 100,
-                                        "sort": {
-                                            "aggregation": "cardinality",
-                                            "metric": "@username",
-                                            "order": "desc"
-                                        }
-                                    }
-                                ],
-                                "indexes": [
-                                    "*"
-                                ],
-                                "name": "query1",
-                                "search": {
-                                    "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"ACCEPTED DOWNLOAD\""
-                                }
-                            }
-                        ],
-                        "response_format": "scalar"
-                    }
-                ],
-                "style": {},
-                "title": "Top Vulnerable Artifact by Count of User Downloads",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "toplist"
-            },
-            "id": 147216066910128,
-            "layout": {
-                "height": 21,
-                "width": 63,
-                "x": 66,
-                "y": 78
+                "y": 12
             }
         }
     ]

@@ -1,7 +1,7 @@
 {
     "author_name": "Datadog",
     "description": "This dashboard provides an overview of the system performance of JFrog Xray.  Included also, are some high-level statistics on the number and type of artifacts and components that are scanned by Xray.\n\nExample configuration and setup are also available at [Github](https://github.com/jfrog/log-analytics-datadog) ",
-    "layout_type": "free",
+    "layout_type": "ordered",
     "template_variables": [
         {
             "available_values": [],
@@ -12,6 +12,20 @@
     ],
     "title": "JFrog Xray Metrics (Self-hosted)",
     "widgets": [
+        {
+            "definition": {
+                "sizing": "cover",
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/xray.png"
+            },
+            "id": 3579529804067270,
+            "layout": {
+                "height": 2,
+                "width": 2,
+                "x": 0,
+                "y": 0
+            }
+        },
         {
             "definition": {
                 "legend_columns": [
@@ -161,10 +175,81 @@
             },
             "id": 5598058711878380,
             "layout": {
-                "height": 24,
-                "width": 104,
-                "x": 24,
+                "height": 4,
+                "width": 10,
+                "x": 2,
                 "y": 0
+            }
+        },
+        {
+            "definition": {
+                "background_color": "gray",
+                "content": "Tracks system performance metrics associated with JFrog Xray\n",
+                "font_size": "14",
+                "has_padding": true,
+                "show_tick": true,
+                "text_align": "center",
+                "tick_edge": "right",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "center"
+            },
+            "id": 7593791732506644,
+            "layout": {
+                "height": 2,
+                "width": 2,
+                "x": 0,
+                "y": 2
+            }
+        },
+        {
+            "definition": {
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "legend_layout": "auto",
+                "markers": [],
+                "requests": [
+                    {
+                        "display_type": "line",
+                        "queries": [
+                            {
+                                "data_source": "metrics",
+                                "name": "query1",
+                                "query": "sum:jfrog.xray.jfxr_data_artifacts_total{$PackageType} by {package_type}.as_count()"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "line_type": "solid",
+                            "line_width": "normal",
+                            "palette": "dog_classic"
+                        }
+                    }
+                ],
+                "show_legend": true,
+                "title": "Xray Scanned Artifacts Data Metrics",
+                "title_align": "left",
+                "title_size": "16",
+                "type": "timeseries",
+                "yaxis": {
+                    "include_zero": true,
+                    "label": "",
+                    "max": "auto",
+                    "min": "auto",
+                    "scale": "linear"
+                }
+            },
+            "id": 4710270725792214,
+            "layout": {
+                "height": 4,
+                "width": 6,
+                "x": 0,
+                "y": 4
             }
         },
         {
@@ -212,95 +297,10 @@
             },
             "id": 7617532773060648,
             "layout": {
-                "height": 30,
-                "width": 64,
-                "x": 64,
-                "y": 25
-            }
-        },
-        {
-            "definition": {
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "legend_layout": "auto",
-                "markers": [],
-                "requests": [
-                    {
-                        "display_type": "line",
-                        "queries": [
-                            {
-                                "data_source": "metrics",
-                                "name": "query1",
-                                "query": "sum:jfrog.xray.jfxr_data_artifacts_total{$PackageType} by {package_type}.as_count()"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "dog_classic"
-                        }
-                    }
-                ],
-                "show_legend": true,
-                "title": "Xray Scanned Artifacts Data Metrics",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
-                    "include_zero": true,
-                    "label": "",
-                    "max": "auto",
-                    "min": "auto",
-                    "scale": "linear"
-                }
-            },
-            "id": 4710270725792214,
-            "layout": {
-                "height": 30,
-                "width": 62,
-                "x": 1,
-                "y": 25
-            }
-        },
-        {
-            "definition": {
-                "sizing": "cover",
-                "type": "image",
-                "url": "https://raw.githubusercontent.com/jfrogtraining/integrations-extras/master/jfrog_platform/assets/images/xray.png"
-            },
-            "id": 3579529804067270,
-            "layout": {
-                "height": 11,
-                "width": 22,
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "definition": {
-                "background_color": "gray",
-                "content": "Tracks system performance metrics associated with JFrog Xray\n",
-                "font_size": "14",
-                "has_padding": true,
-                "show_tick": true,
-                "text_align": "center",
-                "tick_edge": "right",
-                "tick_pos": "50%",
-                "type": "note",
-                "vertical_align": "center"
-            },
-            "id": 7593791732506644,
-            "layout": {
-                "height": 12,
-                "width": 22,
-                "x": 0,
-                "y": 12
+                "height": 4,
+                "width": 6,
+                "x": 6,
+                "y": 4
             }
         }
     ]
