@@ -66,6 +66,24 @@ echo_step_completed "Found DATADOG_API_KEY and DATADOG_APP_KEY"
 
 KUBECONFIG="/tmp/uxp.kubeconfig"
 if [[ ${MODE} == "kind" ]]; then
+    KIND_PATH=$(which kind)
+    if [[ ${KIND_PATH} == "" ]]; then
+	echo_info "kind application not found"
+	OS=$(uname)
+	ARCH=$(uname -m)
+	echo_info "Installing kind on ${OS}/${ARCH}"
+	if [[ ${OS} == "Darwin" ]]; then
+	    brew install kind
+	elif [[ ${OS} == "Linux" ]]; then
+	    # For AMD64 / x86_64
+	    [ ${ARCH} = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+            # For ARM64
+            [ ${ARCH} = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-arm64
+            chmod +x ./kind
+            sudo mv ./kind /usr/local/bin/kind
+	fi
+	echo_step_completed "Installed kind"
+    fi
     echo_info "Creating local kind test UXP cluster"
     kind create cluster --name uxp --kubeconfig ${KUBECONFIG}
 fi
