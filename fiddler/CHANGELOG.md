@@ -5,5 +5,3 @@
 ***Added***: 
 
 * Fiddler Datadog integration.
-
-

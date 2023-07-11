@@ -12,13 +12,11 @@
 
 * Do not use requests directly. See [#1090](https://github.com/DataDog/integrations-extras/pull/1090).
 
-
 ## 0.2.0
 
 ***Added***: 
 
 * configuration now allows scheme parameter
-
 
 ## 0.1.0
 

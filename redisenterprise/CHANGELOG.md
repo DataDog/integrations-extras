@@ -15,19 +15,13 @@
 * Sync config. See [#1689](https://github.com/DataDog/integrations-extras/pull/1689).
 * Update conf.yaml.example files. See [#1147](https://github.com/DataDog/integrations-extras/pull/1147).
 
-
 ## 1.1.1
-
-### Bug fix for monitors
 
 ***Fixed***: 
 
 * Unable to get monitor results without a hostname set - fixed
 
-
 ## 1.1.0
-
-### Add in new Active Active metrics
 
 ***Added***: 
 
@@ -37,23 +31,14 @@
 
 * the http wrapper now allows get params, so revert usage of python requests
 
-
-
 ## 1.0.0
-
-### Fix redirect error on cluster follower
 
 ***Fixed***: 
 
 * The http wrapper did not honor settings to not follow redirects - confirmed with Datadog team
 
-
-
 ## 0.3.1
-
-### Fix for cluster with no databases created
 
 ***Fixed***: 
 
 * This stops the integration from throwing an error when there are no databases create on the cluster
-

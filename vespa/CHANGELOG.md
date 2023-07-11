@@ -10,5 +10,3 @@
 
 * Normalize vespa service check names. See [#1035](https://github.com/DataDog/integrations-extras/pull/1035).
 * DOCS-1135 Update integration install instructions (part 8). See [#993](https://github.com/DataDog/integrations-extras/pull/993).
-
-

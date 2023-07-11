@@ -6,7 +6,6 @@
 
 * Add API rate limit handler
 
-
 ## 0.0.5
 
 ***Added***: 
@@ -19,7 +18,6 @@
 
 * Fixed some typos
 
-
 ## 0.0.4
 
 ***Added***: 
@@ -28,10 +26,8 @@
 * Changes to allow reporting of more than one network usage statistic
 * Improved test coverage
 
-
 ## 0.0.1
 
 ***Added***: 
 
 * First version
-

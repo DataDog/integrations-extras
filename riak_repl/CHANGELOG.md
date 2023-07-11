@@ -6,7 +6,6 @@
 
 * Add a condition to check that `rt_sink_connected_to` is a dict before collecting `sink_stats`
 
-
 ## 1.0.0
 
 ***Added***: 
@@ -19,17 +18,14 @@
 
 * Implement tests to ensure replication is enabled before expecting stats
 
-
 ## 0.0.2
 
 ***Added***: 
 
 * Adds basic fullsync_coordinator metrics
 
-
 ## 0.0.1
 
 ***Added***: 
 
 * Adds riak-repl integration
-
