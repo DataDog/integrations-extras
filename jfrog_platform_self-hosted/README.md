@@ -39,7 +39,7 @@ Follow the instructions in the order listed:
 * Install the JFrog Platform (Self-hosted) integration.
 
 ### Fluentd Installation
-We recommend following the installation guide that matches your environment
+We recommend following the installation guide that matches your environment:
 
 * [OS / Virtual Machine][8]
 * [Docker][9]
@@ -63,7 +63,7 @@ A: No. This integration is only built for JFrog customers who have the on-prem o
 
 **Q : I am about to upgrade from on-prem to JFrog Cloud. Can I expect all the same logs to stream into Datadog from my SaaS instance post-migration when I install the SaaS version of the integration?**
 
-A: At launch, the SaaS version of the integration will only stream the artifactory-request, access-audit and access-security-audit logs from your SaaS JFrog instance to Datadog
+A: At launch, the SaaS version of the integration will only stream the artifactory-request, access-audit and access-security-audit logs from your SaaS JFrog instance to Datadog.
 
 
 [1]: https://jfrog.com/
