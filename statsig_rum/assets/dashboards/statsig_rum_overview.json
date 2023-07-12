@@ -1,6 +1,6 @@
 {
     "title": "Statsig Feature Flag RUM Integration",
-    "description": "Statsig's feature flag tracking integration enriches your Datadog RUM data with feature gate information, allowing you to measure causality between your product features and your system and performance metrics to derisk your product releases.",
+    "description": null,
     "widgets": [
         {
             "id": 3021474805862974,
@@ -19,808 +19,29 @@
             "layout": {
                 "x": 0,
                 "y": 0,
-                "width": 7,
-                "height": 2
+                "width": 6,
+                "height": 3
             }
         },
         {
-            "id": 1484360067702720,
+            "id": 8473631303544766,
             "definition": {
-                "title": "Feature Usage: * on *",
-                "background_color": "purple",
-                "show_title": true,
-                "type": "group",
-                "layout_type": "ordered",
-                "widgets": [
-                    {
-                        "id": 8531489407337714,
-                        "definition": {
-                            "title": "Usage by country",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "geomap",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1",
-                                            "limit": {
-                                                "count": 10,
-                                                "order": "desc"
-                                            }
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@geo.country_iso_code",
-                                                    "sort": {
-                                                        "aggregation": "count",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 10
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "style": {
-                                "palette": "hostmap_blues",
-                                "palette_flip": false
-                            },
-                            "view": {
-                                "focus": "WORLD"
-                            }
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 5,
-                            "height": 4
-                        }
-                    },
-                    {
-                        "id": 4240556105678000,
-                        "definition": {
-                            "title": "Count of *",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 5,
-                            "y": 0,
-                            "width": 2,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 7731818720608118,
-                        "definition": {
-                            "title": "* over time (vs. week before)",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": true,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "alias": "this week",
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "on_right_yaxis": false,
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:action"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "bars"
-                                },
-                                {
-                                    "formulas": [
-                                        {
-                                            "alias": "past week",
-                                            "formula": "week_before(query0)"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "on_right_yaxis": false,
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:action"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query0",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "grey",
-                                        "line_type": "dotted",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "yaxis": {
-                                "include_zero": true,
-                                "scale": "linear",
-                                "label": "",
-                                "min": "auto",
-                                "max": "auto"
-                            },
-                            "markers": []
-                        },
-                        "layout": {
-                            "x": 7,
-                            "y": 0,
-                            "width": 5,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 5472745277314944,
-                        "definition": {
-                            "title": "Usage frequency (as percent of all * views)",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "(query2 / query3) * 100"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query2",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        },
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query3",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": false,
-                            "custom_unit": "%",
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 5,
-                            "y": 3,
-                            "width": 2,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 6208846532910668,
-                        "definition": {
-                            "title": "All actions on *",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1",
-                                            "limit": {
-                                                "order": "desc"
-                                            }
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@action.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@action.name",
-                                                    "sort": {
-                                                        "metric": "@action.id",
-                                                        "aggregation": "cardinality",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 10
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "type": "sunburst",
-                            "legend": {
-                                "type": "automatic"
-                            }
-                        },
-                        "layout": {
-                            "x": 7,
-                            "y": 3,
-                            "width": 5,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 4949211654260420,
-                        "definition": {
-                            "type": "note",
-                            "content": "If this value is `100%`, check that there is an action name set. If the title of this group begins with `Feature Usage: *`, there is no action specified. Choose an action name to see what percentage of page visitors take this action. ",
-                            "background_color": "purple",
-                            "font_size": "14",
-                            "text_align": "left",
-                            "vertical_align": "center",
-                            "show_tick": true,
-                            "tick_pos": "50%",
-                            "tick_edge": "right",
-                            "has_padding": true
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 4,
-                            "width": 5,
-                            "height": 2
-                        }
-                    }
-                ]
+                "type": "note",
+                "content": "## Getting Started\n\nGet started with Web JS integration [using this guide](https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/?tab=browser#statsig-integration)\n\n## Recommended setup\n- Add a template variable to monitor the feature flag of interest\n- Use `@feature_flags.FLAG_NAME` \n- Scope any existing graphs using your feature flag to understand how a new feature is impacting your performance",
+                "background_color": "yellow",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "bottom",
+                "has_padding": true
             },
             "layout": {
-                "x": 0,
-                "y": 2,
-                "width": 12,
-                "height": 7
-            }
-        },
-        {
-            "id": 1230815127374630,
-            "definition": {
-                "title": "* Page Views",
-                "background_color": "blue",
-                "show_title": true,
-                "type": "group",
-                "layout_type": "ordered",
-                "widgets": [
-                    {
-                        "id": 78042073345762,
-                        "definition": {
-                            "title": "Views of *",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 2,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 1366907056712984,
-                        "definition": {
-                            "title": "Views of * over time (vs. week before)",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": false,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "alias": "this week",
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "on_right_yaxis": false,
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "bars"
-                                },
-                                {
-                                    "formulas": [
-                                        {
-                                            "alias": "week before",
-                                            "formula": "week_before(query0)"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "on_right_yaxis": false,
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.id",
-                                                "aggregation": "cardinality"
-                                            },
-                                            "name": "query0",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "grey",
-                                        "line_type": "dotted",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "yaxis": {
-                                "include_zero": true,
-                                "scale": "linear",
-                                "label": "",
-                                "min": "auto",
-                                "max": "auto"
-                            },
-                            "markers": []
-                        },
-                        "layout": {
-                            "x": 2,
-                            "y": 0,
-                            "width": 5,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 3821622475419556,
-                        "definition": {
-                            "type": "note",
-                            "content": "Take note of any large discrepancies between views from the current week and the previous week. If necessary, use the global time picker to go back in time to check if this trend persists.\n",
-                            "background_color": "blue",
-                            "font_size": "14",
-                            "text_align": "left",
-                            "vertical_align": "top",
-                            "show_tick": true,
-                            "tick_pos": "50%",
-                            "tick_edge": "left",
-                            "has_padding": true
-                        },
-                        "layout": {
-                            "x": 7,
-                            "y": 0,
-                            "width": 5,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 3220529761946448,
-                        "definition": {
-                            "title": "Average time spent on *",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@view.time_spent",
-                                                "aggregation": "avg"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": []
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 2,
-                            "width": 2,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 5728049261061504,
-                        "definition": {
-                            "title": "Time spent on *",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": false,
-                            "type": "distribution",
-                            "xaxis": {
-                                "max": "auto",
-                                "scale": "linear",
-                                "min": "auto",
-                                "include_zero": true
-                            },
-                            "yaxis": {
-                                "max": "auto",
-                                "scale": "linear",
-                                "min": "auto",
-                                "include_zero": true
-                            },
-                            "requests": [
-                                {
-                                    "style": {
-                                        "palette": "dog_classic"
-                                    },
-                                    "request_type": "histogram",
-                                    "query": {
-                                        "data_source": "rum",
-                                        "name": "query1",
-                                        "indexes": [
-                                            "*"
-                                        ],
-                                        "search": {
-                                            "query": "@type:view"
-                                        },
-                                        "group_by": [],
-                                        "compute": {
-                                            "metric": "@view.time_spent",
-                                            "aggregation": "avg"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        "layout": {
-                            "x": 2,
-                            "y": 2,
-                            "width": 5,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 5578902979680606,
-                        "definition": {
-                            "title": "Views by Country",
-                            "type": "geomap",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1",
-                                            "limit": {
-                                                "count": 10,
-                                                "order": "desc"
-                                            }
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@geo.country_iso_code",
-                                                    "sort": {
-                                                        "aggregation": "count",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 10
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "style": {
-                                "palette": "hostmap_blues",
-                                "palette_flip": false
-                            },
-                            "view": {
-                                "focus": "WORLD"
-                            }
-                        },
-                        "layout": {
-                            "x": 7,
-                            "y": 2,
-                            "width": 5,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 1372940846826936,
-                        "definition": {
-                            "title": "Which pages do people come from?",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": "@type:view"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@view.referrer",
-                                                    "sort": {
-                                                        "aggregation": "count",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 10
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            "type": "sunburst"
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 4,
-                            "width": 7,
-                            "height": 4
-                        }
-                    },
-                    {
-                        "id": 4190012046781206,
-                        "definition": {
-                            "title": "Top actions from * ",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "toplist",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1",
-                                            "limit": {
-                                                "count": 10,
-                                                "order": "desc"
-                                            }
-                                        }
-                                    ],
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "search": {
-                                                "query": ""
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "aggregation": "count"
-                                            },
-                                            "name": "query1",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@action.name",
-                                                    "sort": {
-                                                        "aggregation": "count",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 10
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "layout": {
-                            "x": 7,
-                            "y": 5,
-                            "width": 5,
-                            "height": 3
-                        }
-                    }
-                ]
-            },
-            "layout": {
-                "x": 0,
-                "y": 9,
-                "width": 12,
-                "height": 9
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
             }
         },
         {
@@ -862,7 +83,7 @@
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@type:view"
+                                                "query": "@type:view $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -877,7 +98,7 @@
                                         },
                                         {
                                             "search": {
-                                                "query": "@type:view @view.error.count:>0"
+                                                "query": "@type:view @view.error.count:>0 $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -944,7 +165,7 @@
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@type:error -@error.source:network"
+                                                "query": "@type:error -@error.source:network $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -976,7 +197,7 @@
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@type:error -@error.source:network"
+                                                "query": "@type:error -@error.source:network $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -1042,7 +263,7 @@
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@resource.status_code:>=500"
+                                                "query": "@resource.status_code:>=500 $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -1074,7 +295,7 @@
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@resource.status_code:>=500"
+                                                "query": "@resource.status_code:>=500 $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
@@ -1110,79 +331,276 @@
                             "width": 4,
                             "height": 2
                         }
-                    },
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 3,
+                "width": 12,
+                "height": 3
+            }
+        },
+        {
+            "id": 1230815127374630,
+            "definition": {
+                "title": "* Page Views",
+                "background_color": "blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
                     {
-                        "id": 567593316227816,
+                        "id": 78042073345762,
                         "definition": {
-                            "title": "Issues on *",
+                            "title": "Views of *",
                             "title_size": "16",
                             "title_align": "left",
-                            "requests": [
-                                {
-                                    "query": {
-                                        "query_string": "",
-                                        "data_source": "rum_issue_stream"
-                                    },
-                                    "columns": [
-                                        {
-                                            "field": "details",
-                                            "width": "auto"
-                                        },
-                                        {
-                                            "field": "count",
-                                            "width": "auto"
-                                        },
-                                        {
-                                            "field": "volume",
-                                            "width": "auto"
-                                        }
-                                    ],
-                                    "response_format": "event_list"
-                                }
-                            ],
-                            "type": "list_stream"
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 2,
-                            "width": 4,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 5549132853523598,
-                        "definition": {
-                            "title": "Top actions triggering errors by number of impacted users",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "type": "query_table",
+                            "type": "query_value",
                             "requests": [
                                 {
                                     "formulas": [
                                         {
-                                            "formula": "query1",
-                                            "cell_display_mode": "bar",
-                                            "limit": {
-                                                "count": 900,
-                                                "order": "desc"
-                                            },
-                                            "conditional_formats": []
-                                        },
-                                        {
-                                            "formula": "query2",
-                                            "cell_display_mode": "bar"
+                                            "formula": "query1"
                                         }
                                     ],
                                     "response_format": "scalar",
                                     "queries": [
                                         {
                                             "search": {
-                                                "query": "@type:action @action.error.count:>0"
+                                                "query": "@type:view $view.name"
                                             },
                                             "data_source": "rum",
                                             "compute": {
-                                                "metric": "@session.id",
+                                                "metric": "@view.id",
                                                 "aggregation": "cardinality"
+                                            },
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": []
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1366907056712984,
+                        "definition": {
+                            "title": "Views of * over time (vs. week before)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "this week",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "on_right_yaxis": false,
+                                    "queries": [
+                                        {
+                                            "search": {
+                                                "query": "@type:view $view.name"
+                                            },
+                                            "data_source": "rum",
+                                            "compute": {
+                                                "metric": "@view.id",
+                                                "aggregation": "cardinality"
+                                            },
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": []
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "bars"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "week before",
+                                            "formula": "week_before(query0)"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "on_right_yaxis": false,
+                                    "queries": [
+                                        {
+                                            "search": {
+                                                "query": "@type:view $view.name"
+                                            },
+                                            "data_source": "rum",
+                                            "compute": {
+                                                "metric": "@view.id",
+                                                "aggregation": "cardinality"
+                                            },
+                                            "name": "query0",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": []
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "grey",
+                                        "line_type": "dotted",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "yaxis": {
+                                "include_zero": true,
+                                "scale": "linear",
+                                "label": "",
+                                "min": "auto",
+                                "max": "auto"
+                            },
+                            "markers": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 5,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 3821622475419556,
+                        "definition": {
+                            "type": "note",
+                            "content": "Take note of any large discrepancies between views from the current week and the previous week. If necessary, use the global time picker to go back in time to check if this trend persists.\n",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 7,
+                            "y": 0,
+                            "width": 5,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5578902979680606,
+                        "definition": {
+                            "title": "Views by Country",
+                            "type": "geomap",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "limit": {
+                                                "count": 10,
+                                                "order": "desc"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "search": {
+                                                "query": "@type:view $view.name"
+                                            },
+                                            "data_source": "rum",
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "group_by": [
+                                                {
+                                                    "facet": "@geo.country_iso_code",
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc"
+                                                    },
+                                                    "limit": 10
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "style": {
+                                "palette": "hostmap_blues",
+                                "palette_flip": false
+                            },
+                            "view": {
+                                "focus": "WORLD"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 4190012046781206,
+                        "definition": {
+                            "title": "Top actions from * ",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "limit": {
+                                                "count": 10,
+                                                "order": "desc"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "search": {
+                                                "query": "$view.name"
+                                            },
+                                            "data_source": "rum",
+                                            "compute": {
+                                                "aggregation": "count"
                                             },
                                             "name": "query1",
                                             "indexes": [
@@ -1192,57 +610,21 @@
                                                 {
                                                     "facet": "@action.name",
                                                     "sort": {
-                                                        "metric": "@session.id",
-                                                        "aggregation": "cardinality",
+                                                        "aggregation": "count",
                                                         "order": "desc"
                                                     },
-                                                    "limit": 30
-                                                },
-                                                {
-                                                    "facet": "@view.url_path_group",
-                                                    "sort": {
-                                                        "metric": "@session.id",
-                                                        "aggregation": "cardinality",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 30
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "search": {
-                                                "query": "@type:action @action.error.count:>0"
-                                            },
-                                            "data_source": "rum",
-                                            "compute": {
-                                                "metric": "@action.error.count",
-                                                "aggregation": "avg"
-                                            },
-                                            "name": "query2",
-                                            "indexes": [
-                                                "*"
-                                            ],
-                                            "group_by": [
-                                                {
-                                                    "facet": "@action.name",
-                                                    "sort": {
-                                                        "metric": "@action.error.count",
-                                                        "aggregation": "avg",
-                                                        "order": "desc"
-                                                    },
-                                                    "limit": 1000
+                                                    "limit": 10
                                                 }
                                             ]
                                         }
                                     ]
                                 }
-                            ],
-                            "has_search_bar": "never"
+                            ]
                         },
                         "layout": {
-                            "x": 4,
+                            "x": 6,
                             "y": 2,
-                            "width": 8,
+                            "width": 6,
                             "height": 3
                         }
                     }
@@ -1250,13 +632,20 @@
             },
             "layout": {
                 "x": 0,
-                "y": 18,
+                "y": 6,
                 "width": 12,
                 "height": 6
             }
         }
     ],
-    "template_variables": [],
+    "template_variables": [
+        {
+            "name": "view.name",
+            "prefix": "@view.name",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
     "layout_type": "ordered",
     "notify_list": [],
     "reflow_type": "fixed"
