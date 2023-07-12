@@ -23,10 +23,20 @@
     "monitors": {},
     "logs": {"source": "singlestoredb-cloud"},
     "saved_views": {},
-    "metrics": {
-      "prefix": "singlestoredb_cloud.",
-      "check": "singlestoredb_cloud.cpu_resource_limits",
-      "metadata_path": "metadata.csv"
+    "integration": {
+      "source_type_name": "SinglestoreDB Cloud",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "singlestoredb_cloud.",
+        "check": "singlestoredb_cloud.cpu_resource_limits",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
     }
   },
   "author": {
