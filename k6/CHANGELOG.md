@@ -1,6 +1,6 @@
 # CHANGELOG - k6 Integration
 
-## 1.0.0 / Unreleased
+## 1.0.0
 
 ***Added***: 
 

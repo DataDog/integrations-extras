@@ -3,4 +3,5 @@
 ## 1.0.0
 
 ***Added***:
-- Initial release with metrics, monitors and dashboard.
+
+* Initial release with metrics, monitors and dashboard.

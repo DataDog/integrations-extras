@@ -1,6 +1,6 @@
 # CHANGELOG - Buddy Integration
 
-## 1.0.0 / Unreleased
+## 1.0.0
 
 ***Added***: 
 
