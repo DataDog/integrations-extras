@@ -10,7 +10,28 @@
     "changelog": "CHANGELOG.md",
     "description": "Monitor and centralize Datadog incidents with TaskCall.",
     "title": "TaskCall",
-    "media": [],
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Incident Notifications",
+        "image_url": "images/incident_notifications.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Incident Details",
+        "image_url": "images/incident_details.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Impact Visibility and Status Dashboard",
+        "image_url": "images/impact_visibility_status_dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "On-Call Management",
+        "image_url": "images/on_call_management.png"
+      }
+    ],
     "classifier_tags": [
       "Category::Alerting",
       "Category::Collaboration",
@@ -24,10 +45,21 @@
     ]
   },
   "assets": {
-    "dashboards": {},
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
+    "integration": {
+      "source_type_name": "TaskCall",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "taskcall.",
+        "check": [],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   },
   "author": {
     "support_email": "support@taskcallapp.com",
