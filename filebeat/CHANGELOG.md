@@ -34,7 +34,7 @@
 
 * Add [Service check](https://docs.datadoghq.com/developers/service_checks/agent_service_checks_submission/)
 
-## 0.2.0 / Unreleased
+## 0.2.0
 
 ***Added***: 
 
