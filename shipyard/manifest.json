@@ -8,18 +8,13 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Send Shipyard logs to Datadog dashboard",
+    "description": "Send Shipyard logs to Datadog",
     "title": "Shipyard",
     "media": [
       {
         "media_type": "image",
-        "caption": "Datadog connection settings in your Shipyard dashboard",
-        "image_url": "images/datadog-input.png"
-      },
-      {
-        "media_type": "image",
-        "caption": "Shipyard logo in teal",
-        "image_url": "images/shipyard-teal.png"
+        "caption": "Shipyard logo",
+        "image_url": "images/shipyard.svg"
       }
     ],
     "classifier_tags": [
@@ -29,15 +24,29 @@
       "Submitted Data Type::Logs",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Offering::Integration"
     ]
   },
   "assets": {
     "dashboards": {
-      "Shipyard Sample Dashboard": "assets/dashboards/shipyard_overview.json"},
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
+      "Shipyard Sample Dashboard": "assets/dashboards/shipyard_overview.json"
+    },
+    "integration": {
+      "source_type_name": "shipyard",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "shipyard."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
   },
   "author": {
     "support_email": "support@shipyard.build",
