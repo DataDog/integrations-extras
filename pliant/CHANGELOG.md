@@ -5,5 +5,3 @@
 ***Added***: 
 
 * Initial Pliant Integration Tile.
-
-

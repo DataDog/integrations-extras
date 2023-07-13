@@ -6,8 +6,6 @@
 
 * Fix response parsing. See [#724](https://github.com/DataDog/integrations-extras/pull/724).
 
-
-
 ## 1.0.0 / 2020-07-27
 
 ***Added***: 
@@ -22,4 +20,3 @@
 * Make this more robust to api errors.
 * Cluster metrics sent with 0 values if unable to connect to Storm UI. Now bails on ConnectionErrors.
 * If on Agent6 - TypeError: gauge() got an unexpected keyword argument 'metric'
-

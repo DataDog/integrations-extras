@@ -5,5 +5,3 @@
 ***Added***: 
 
 * Allow the use of hostname for server address. See [#937](https://github.com/DataDog/integrations-extras/pull/937).
-
-

@@ -5,5 +5,3 @@
 ***Added***: 
 
 * Initial Botprise Integration Tile.
-
-
