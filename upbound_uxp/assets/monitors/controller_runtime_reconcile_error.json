@@ -1,0 +1,26 @@
+{
+	"id": 125257299,
+	"name": "Upbound UXP {{host.name}} encountered reconciliation errors",
+	"type": "query alert",
+	"query": "sum(last_5m):per_minute(sum:uxp.controller_runtime_reconcile_errors_total{*}.as_count()) > 100",
+	"message": "{{#is_alert}}\n  High reconciliation error rate.\n{{/is_alert}} \n\n{{#is_recovery}}\n  Reconciliation error rate recovered.\n{{/is_recovery}}",
+	"tags": [],
+	"options": {
+		"thresholds": {
+			"critical": 100,
+			"warning": 80,
+			"critical_recovery": 0,
+			"warning_recovery": 50
+		},
+		"notify_audit": false,
+		"require_full_window": false,
+		"notify_no_data": false,
+		"renotify_interval": 0,
+		"include_tags": false,
+		"escalation_message": "",
+		"new_host_delay": 300,
+		"silenced": {}
+	},
+	"priority": 3,
+	"restricted_roles": null
+}
