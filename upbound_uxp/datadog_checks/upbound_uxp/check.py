@@ -18,6 +18,8 @@ from prometheus_client.parser import text_string_to_metric_families
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
+from .__about__ import __version__
+
 # Agent Behavior
 #
 # When no metrics are specified, a predefined min set is used and
