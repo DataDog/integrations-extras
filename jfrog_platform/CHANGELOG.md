@@ -2,13 +2,13 @@
 
 ## 1.2.0 / 2021-05-21
 
-***Added***: 
+***Added***:
 
 * Add Jfrog Xray Logs and vulnerability dashboards
 
 ## 1.1.0 / 2021-05-14
 
-***Added***: 
+***Added***:
 
 * Add Jfrog Artifactory and Xray Metrics openmetrics checks and dashboards
 

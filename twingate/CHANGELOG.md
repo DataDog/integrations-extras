@@ -2,7 +2,7 @@
 
 ## 1.0.0 / 2022-10-20
 
-***Added***: 
+***Added***:
 
 * Initial Twingate Integration Tile.
 

@@ -2,6 +2,6 @@
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * adds speedtest integration.

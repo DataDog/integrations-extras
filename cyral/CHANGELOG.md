@@ -2,6 +2,6 @@
 
 ## 0.1.0
 
-***Added***: 
+***Added***:
 
 * adds cyral integration.

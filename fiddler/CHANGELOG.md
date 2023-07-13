@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2023-02-05
 
-***Added***: 
+***Added***:
 
 * Fiddler Datadog integration.

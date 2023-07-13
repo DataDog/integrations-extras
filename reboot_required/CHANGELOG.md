@@ -2,7 +2,7 @@
 
 ## 1.0.0 / 2018-06-14
 
-***Added***: 
+***Added***:
 
 * Add reboot_required integration.
 

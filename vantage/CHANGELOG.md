@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2022-10-12
 
-***Added***: 
+***Added***:
 
 * adds Vantage integration.

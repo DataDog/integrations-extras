@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2021-12-10
 
-***Added***: 
+***Added***:
 
 * The Data Runner widget

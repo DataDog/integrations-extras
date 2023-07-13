@@ -4,7 +4,7 @@
 
 ## 1.1.0 / 2022-02-03
 
-***Added***: 
+***Added***:
 
 * Status Dashboard by PagerDuty widget
 * Incidents by PagerDuty widget

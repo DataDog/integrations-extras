@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2020-08-06
 
-***Added***: 
+***Added***:
 
 * Initial Botprise Integration Tile.

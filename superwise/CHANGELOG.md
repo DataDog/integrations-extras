@@ -2,7 +2,7 @@
 
 ## 1.0.0 / 2021-12-29
 
-***Added***: 
+***Added***:
 
 * Add Superwise integration.
 

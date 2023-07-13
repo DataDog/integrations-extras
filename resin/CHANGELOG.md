@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2019-12-31
 
-***Added***: 
+***Added***:
 
 * adds resin integration

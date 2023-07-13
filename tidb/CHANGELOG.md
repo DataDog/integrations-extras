@@ -2,7 +2,7 @@
 
 ## 2.1.0 / 2021-11-30
 
-***Added***: 
+***Added***:
 
 * Update default metrics.
 * Update the default dashboard.
@@ -12,12 +12,12 @@
 
 ## 2.0.0 / 2021-10-13
 
-***Removed***: 
+***Removed***:
 
 * Removed the useless service monitor.
 * Removed buggy `auto_conf.yaml`.
 
-***Changed***: 
+***Changed***:
 
 * Made the one screen dashboard better.
 * Improved the readme document.
@@ -25,22 +25,22 @@
 * Refactored unit tests.
 * Refactored integration configurations.
 
-***Added***: 
+***Added***:
 
 * Added a service check.
 
 ## 1.0.0 / 2021-05-25
 
-***Removed***: 
+***Removed***:
 
 * Removed useless monitor.
 
-***Added***: 
+***Added***:
 
 * Made user doc more understandable.
 
 ## 0.1.0 / 2021-05-10
 
-***Added***: 
+***Added***:
 
 * Added TiDB integration.

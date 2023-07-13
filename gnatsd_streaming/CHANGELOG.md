@@ -2,7 +2,7 @@
 
 ## 0.1.0
 
-***Added***: 
+***Added***:
 
 * adds gnatsd_streaming integration.
 
