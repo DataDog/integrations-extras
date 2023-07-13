@@ -6,6 +6,7 @@
 # and provider Kubernetes pods.
 
 import json
+import logging
 import os
 import re
 import subprocess
@@ -242,7 +243,8 @@ class UpboundUxpCheck(AgentCheck):
 
     # Read agent configuration and initialize it
     def __init__(self, name, init_config, instances):
-        print("DataDog Upbound Universal Crossplane Integration")
+        self.log = logging.getLogger("Upbound UXP")
+        self.log.info("DataDog Upbound Universal Crossplane Integration")
 
         if instances is not None:
             for instance in instances:
@@ -322,7 +324,7 @@ class UpboundUxpCheck(AgentCheck):
 
                 self.metrics_set = self._merge_conf()
                 if self.verbose:
-                    print(self.metrics_set)
+                    self.log.debug(self.metrics_set)
 
         super(UpboundUxpCheck, self).__init__(name, init_config, instances)
 
@@ -407,7 +409,7 @@ class UpboundUxpCheck(AgentCheck):
                                             if metric[k] is not None:
                                                 self.metrics_map[k] = metric[k]
                         except Exception as e:
-                            print(e)
+                            self.log.exception(e)
                             continue
 
         # When there are no pod annotations, use the default metrics set
@@ -456,8 +458,8 @@ class UpboundUxpCheck(AgentCheck):
             # apiserver-cluster-role, and a role binding
             # for the agent service have been configured.
 
-            print("\nUnable to list pods. Please check the apiserver cluster role configuration.\n")
-            print(e)
+            self.log.error("\nUnable to list pods. Please check the apiserver cluster role configuration.\n")
+            self.log.exception(e)
             sys.stdout.flush()
             return
 
@@ -477,10 +479,10 @@ class UpboundUxpCheck(AgentCheck):
                 if len(self.metrics_prefix) > 0:
                     metrics_prefix = self.metrics_prefix + '.'
             if self.verbose:
-                print("Observing metrics set")
-                print(self.metrics_set)
-                print("Mapping metrics names")
-                print(self.metrics_map)
+                self.log.debug("Observing metrics set")
+                self.log.debug(self.metrics_set)
+                self.log.debug("Mapping metrics names")
+                self.log.debug(self.metrics_map)
 
             metrics = ''
             try:
@@ -494,7 +496,7 @@ class UpboundUxpCheck(AgentCheck):
                     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
                     port_forward_info = p.stdout.readline()
                     if self.verbose:
-                        print(port_forward_info)
+                        self.log.debug(port_forward_info)
                     response = requests.get('http://localhost:' + port_forward_target_str + self.uxp_url)
                     metrics = response.text
                     p.terminate()
@@ -505,7 +507,7 @@ class UpboundUxpCheck(AgentCheck):
                 # We were unable to get metrics for this pod.
                 # Let's continue with the next one.
 
-                print(e)
+                self.log.exception(e)
                 sys.stdout.flush()
                 self.service_check(
                     self.SERVICE_CHECK_CONNECT_NAME,
@@ -526,7 +528,7 @@ class UpboundUxpCheck(AgentCheck):
                         try:
                             metric_type = line.split(' ')[3]
                         except Exception as e:
-                            print(e)
+                            self.log.exception(e)
                             metric_type = ''
 
                     # Continue to metrics line
@@ -543,7 +545,7 @@ class UpboundUxpCheck(AgentCheck):
 
                         if name in metrics_map_keys:
                             if self.verbose:
-                                print("Sending metric: " + name + " as: " + self.metrics_map[name])
+                                self.log.debug("Sending metric: %s as: %s", name, self.metrics_map[name])
                             name = self.metrics_map[name]
                         name = metrics_prefix + name
 
@@ -557,34 +559,36 @@ class UpboundUxpCheck(AgentCheck):
                         # counter: _total
                         if metric_type == 'counter':
                             if self.verbose:
-                                print("%s: Name: %s, Tags: %s, Value: %s" % (metric_type, name, tags, str(value)))
+                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
                             try:
                                 self.count(name, value, tags=tags)
                             except Exception as e:
-                                print(e)
+                                self.log.exception(e)
                         # histogram: _bucket
                         elif metric_type == 'histogram':
                             if self.verbose:
-                                print("%s: Name: %s, Tags: %s, Value: %s" % (metric_type, name, tags, str(value)))
+                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
                             try:
                                 self.histogram(name, value, tags=tags)
                             except Exception as e:
-                                print(e)
+                                self.log.exception(e)
                         # summary: _sum
                         elif metric_type == 'summary':
                             if self.verbose:
-                                print("%s: Name: %s, Labels: %s, Value: %s" % (metric_type, name, tags, str(value)))
+                                self.log.debug(
+                                    "%s: Name: %s, Labels: %s, Value: %s", metric_type, name, tags, str(value)
+                                )
                             try:
                                 self.count(name, value, tags=tags)
                             except Exception as e:
-                                print(e)
+                                self.log.exception(e)
                         # gauge: no _bucket, _sum, _total postfix
                         elif metric_type == 'gauge':
                             if self.verbose:
-                                print("%s: Name: %s, Tags: %s, Value: %s" % (metric_type, name, tags, str(value)))
+                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
                             try:
                                 self.gauge(name, value, tags=tags)
                             except Exception as e:
-                                print(e)
+                                self.log.exception(e)
                         else:
-                            print('WARNING: metric type ' + metric_type + ' unkown for ' + name)
+                            self.log.warning("WARNING: metric type %s unknown for %s", metric_type, name)
