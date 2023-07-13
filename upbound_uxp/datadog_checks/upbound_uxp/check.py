@@ -30,8 +30,6 @@ from datadog_checks.base import AgentCheck, ConfigurationError
 # When pod annotations are not ignored, they will be preferred and
 # overwrite any other metrics selections.
 
-__version__ = "0.0.1"
-
 # Prometheus parser indexes
 NAME_IDX = 0
 LABEL_IDX = 1
