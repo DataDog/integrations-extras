@@ -569,7 +569,8 @@ class UpboundUxpCheck(AgentCheck):
                             if self.verbose:
                                 self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
                             try:
-                                self.histogram(name, value, tags=tags)
+                                # self.histogram(name, value, tags=tags)
+                                self.gauge(name, value, tags=tags)
                             except Exception as e:
                                 self.log.exception(e)
                         # summary: _sum
