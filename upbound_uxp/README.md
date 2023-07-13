@@ -4,19 +4,13 @@
 
 Upbound provides a control plane framework for businesses
 to accelerate their journey building custom clouds on top
-of arbitrary cloud resources. This increases the agility and
-reduces the cognitive load for their users. It can help enforcing
-governance and compliance and then enable better auditability
-because of the guard rails that their platform teams
-implement with the Universal Crossplane.
-Its merit is the velocity increase and risk reduction
-while keeping options open when building cloud platforms.
+of arbitrary cloud resources, making the process quicker, more flexible, and reducing cognitive load for users. With Upbound, users can reduce risk and make themselves audit-ready by enforcing governance and compliance with the Universal Crossplane.
 
-Businesses may offer their own internal
-cloud API to their teams through writing
+Universal Crossplane users and customers can offer
+their own internal cloud API to their teams through writing
 composite resource definitions. Their
-cloud can then map that API to downstream providers.
-The providers create and lifecycle manage the external
+custom cloud service can then map that API to downstream providers.
+The providers create and manage the lifecycle of the external
 cloud resources orchestrated through Universal
 Crossplane when a user claims resources.
 Amazon AWS, Microsoft Azure and Google
@@ -24,19 +18,19 @@ GCP are out of the box supported cloud providers.
 
 This Datadog integration facilitates the monitoring
 of Universal Crossplane and provider Kubernetes pods.
-The value of observing the metrics is to be aware of
-the health of this self managed infrastructure provisioning
-and resource lifecycle management ecosystem to rest assured
-that the infrastructure is properly managed, or that actions
-may be needed to correct its configuration. The metrics
-inform about performance and resource consumption. This
-helps validating the Univeral Crossplane management cluster
-sizing and enables optimization.
+Metrics are sent from Upbound's pods in the self hosted
+customer environment to the customer's Datadog account.
+They that track the health of this self-managed
+infrastructure provisioning and resource lifecycle
+management ecosystem, including data on performance
+and resource consumption.
+
+The metrics inform about performance and resource
+consumption. This helps validating the Univeral Crossplane
+management cluster sizing and enables optimization.
 
 The checks monitor [Upbound UXP](https://docs.upbound.io/uxp/)
-related metrics.
-
-It looks for UXP and provider pods by default
+related metrics. It looks for UXP and provider pods by default
 in the upbound-system Kubernetes
 namespace. The Upbound and provider
 pods emit metrics at port 8080/metrics in
@@ -48,9 +42,9 @@ a Prometheus compatible format.
 
 The Datadog agent requires permissions to discover UXP and provider pods.
 Create a service account, a cluster role, and a cluster role binding
-to grant those permissions.
+to grant those permissions following the example below.
 
-Note that the datadog agent in the configuration
+Note that the Datadog agent in the configuration
 below resides in an arbitrary `monitoring` namespace.
 Your agent may reside in a namespace of your choice.
 Configure the service account and cluster role accordingly.
@@ -96,22 +90,33 @@ To install the Upbound UXP check on your host:
 
 
 1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit)
- on any machine.
+(https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit) on any machine.
 
 2. Run `ddev release build upbound_uxp` to build the package.
 
-3. [Download the Datadog Agent]["Datadog to supply the URL for the agent location"].
+3. Upload the build artifact to any host with an Agent and run
+```
+datadog-agent integration install
+  -w path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl
+```
 
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl` or copy the build artifact
- to an agent container, that may be running in Kubernetes with `kubectl cp
- path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl -n <MONITORING_NAMESPACE>
- <DATADOG_CONTAINER_NAME>:<PATH_TO_DIST_IN_CONTAINER>` and then install
- it with `kubectl -n <MONITORING_NAMESPACE> exec -it <DATADOG_CONTAINER_NAME>
- -- agent integration install -w -r
- <PATH_TO_DIST_IN_CONTAINER>/<ARTIFACT_NAME>.whl`.
+OR
+
+Copy the build artifact to an agent container,
+that may be running in Kubernetes with the following command.
+```
+kubectl -n <MONITORING_NAMESPACE>
+  cp path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl
+     <DATADOG_CONTAINER_NAME>:<PATH_TO_DIST_IN_CONTAINER>
+```
+
+4. Install it with
+```
+kubectl -n <MONITORING_NAMESPACE> exec
+  -it <DATADOG_CONTAINER_NAME>
+  -- agent integration install -w -r
+     <PATH_TO_DIST_IN_CONTAINER>/<ARTIFACT_NAME>.whl`
+```
 
 ### Configuration
 
@@ -137,7 +142,7 @@ DDEV_SKIP_GENERIC_TAGS_CHECK=True ddev test upbound_uxp
 
 ### Metrics
 
-See [metadata.csv](metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv][10] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -160,4 +165,4 @@ Need help? Contact [Datadog support][3].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
-
+[10]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/metadata.csv
