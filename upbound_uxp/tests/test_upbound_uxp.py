@@ -7,10 +7,10 @@ from datadog_checks.upbound_uxp import UpboundUxpCheck
 @pytest.mark.integration
 @pytest.mark.usefixtures('dd_environment')
 def test_service_check(aggregator, instance):
-    c = UpboundUxpCheck('upbound_uxp.can_connect', {}, [instance])
+    c = UpboundUxpCheck('uxp.can_connect', {}, [instance])
 
     c.check(instance)
-    aggregator.assert_service_check('uxp.upbound_uxp.can_connect', UpboundUxpCheck.OK)
+    aggregator.assert_service_check('uxp.can_connect', UpboundUxpCheck.OK)
 
 
 @pytest.mark.unit
@@ -183,7 +183,7 @@ def test_emits_ok_service_check_when_service_is_up(dd_run_check, aggregator, ins
     # aggregator.assert_metric('uxp.upjet_terraform_cli_duration_count')
     # aggregator.assert_metric('uxp.upjet_terraform_cli_duration_sum')
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check('uxp.upbound_uxp.can_connect', UpboundUxpCheck.OK)
+    aggregator.assert_service_check('uxp.can_connect', UpboundUxpCheck.OK)
 
 
 @pytest.mark.unit
@@ -194,8 +194,8 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
         "uxp_url": "/metrics",
         "uxp_port": "999",  # Purposefully configuring wrong port to simulate error
     }
-    check = UpboundUxpCheck('upbound_uxp.can_connect', {}, [instance])
+    check = UpboundUxpCheck('uxp.can_connect', {}, [instance])
     dd_run_check(check)
     aggregator.assert_metric('uxp.datadog_agent_checks')  # count
-    aggregator.assert_service_check('uxp.upbound_uxp.can_connect', UpboundUxpCheck.CRITICAL)
+    aggregator.assert_service_check('uxp.can_connect', UpboundUxpCheck.CRITICAL)
     aggregator.assert_all_metrics_covered()

@@ -234,7 +234,7 @@ class UpboundUxpCheck(AgentCheck):
     ```
     """
 
-    SERVICE_CHECK_CONNECT_NAME = 'upbound_uxp.can_connect'
+    SERVICE_CHECK_CONNECT_NAME = 'can_connect'
 
     # Prefix of every metric and service check that
     # the upbound-uxp integration sends
