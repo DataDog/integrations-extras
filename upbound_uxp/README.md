@@ -26,7 +26,7 @@ management ecosystem, including data on performance
 and resource consumption.
 
 The metrics inform about performance and resource
-consumption. This helps validating the Univeral Crossplane
+consumption. This helps validating the Universal Crossplane
 management cluster sizing and enables optimization.
 
 The checks monitor [Upbound UXP](https://docs.upbound.io/uxp/)
