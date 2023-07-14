@@ -12,7 +12,7 @@ You can start the configuration process either from the Cloud Portal or the Data
 ### Install the SingleStore Integration in Datadog
 
 1. Select **Integrations** on the left navigation pane in Datadog. 
-2. On the **Integrations** tab, search **SingleStore**, and then select **SingleStore** from the search results.
+2. On the **Integrations** tab, search for **SingleStore** and select it from the search results.
 3. Select **Install Integration** and wait for installation to complete before proceeding.
 4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1].
 
