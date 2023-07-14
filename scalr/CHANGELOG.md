@@ -2,6 +2,6 @@
 
 ## 1.0.0 / 2022-12-07
 
-***Added***: 
+***Added***:
 
 * Initial Scalr Integration Tile.

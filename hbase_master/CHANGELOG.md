@@ -2,13 +2,13 @@
 
 ## 1.0.0 / 2017-05-29
 
-***Added***: 
+***Added***:
 
 * Adds HBase Master Integration. See [#59][1]
 
 ## 1.1.0 / 2020-08-21
 
-***Fixed***: 
+***Fixed***:
 
 * Update configuration to use `metrics.yaml` for JMX. See [#697][2]
 

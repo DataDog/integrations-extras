@@ -1,8 +1,8 @@
 # CHANGELOG - TiDB
 
-## 2.1.0 / 2021-Nov-30
+## 2.1.0 / 2021-11-30
 
-***Added***: 
+***Added***:
 
 * Update default metrics.
 * Update the default dashboard.
@@ -10,15 +10,14 @@
 * Let users to customize metric namespace.
 * Add more tests.
 
+## 2.0.0 / 2021-10-13
 
-## 2.0.0 / 2021-Oct-13
+***Removed***:
 
-***Added***: 
+* Removed the useless service monitor.
+* Removed buggy `auto_conf.yaml`.
 
-* Added a service check.
-
-
-***Added***: 
+***Changed***:
 
 * Made the one screen dashboard better.
 * Improved the readme document.
@@ -26,28 +25,22 @@
 * Refactored unit tests.
 * Refactored integration configurations.
 
+***Added***:
 
-***Removed***: 
+* Added a service check.
 
-* Removed the useless service monitor.
-* Removed buggy `auto_conf.yaml`.
+## 1.0.0 / 2021-05-25
 
-
-## 1.0.0 / 2021-May-25
-
-***Added***: 
-
-* Made user doc more understandable.
-
-
-***Removed***: 
+***Removed***:
 
 * Removed useless monitor.
 
+***Added***:
 
-## 0.1.0 / 2021-May-10
+* Made user doc more understandable.
 
-***Added***: 
+## 0.1.0 / 2021-05-10
+
+***Added***:
 
 * Added TiDB integration.
-

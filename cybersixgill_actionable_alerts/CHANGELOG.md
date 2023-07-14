@@ -2,12 +2,12 @@
 
 ## 1.0.1 / 2023-06-19
 
-***Fixed***: 
+***Fixed***:
 
 * Minor fixes in Cybersixgill Integration
 
 ## 1.0.0 / 2023-04-04
 
-***Added***: 
+***Added***:
 
 * Initial Cybersixgill Integration

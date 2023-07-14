@@ -2,7 +2,7 @@
 
 ## 1.0.0 / 2022-10-15
 
-***Added***: 
+***Added***:
 
 * Initial Zenduty Integration Tile.
 

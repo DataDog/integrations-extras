@@ -1,8 +1,8 @@
 # CHANGELOG - Nomad
 
-## 1.0.0 / Unreleased
+## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Initial Nomad tile.
 

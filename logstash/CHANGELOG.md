@@ -2,12 +2,12 @@
 
 ## 1.1.0
 
-***Added***: 
+***Added***:
 
 * expanded queue statistics.
 
-## 1.0.0/ Unreleased
+## 1.0.0
 
-***Added***: 
+***Added***:
 
 * adds logstash integration.

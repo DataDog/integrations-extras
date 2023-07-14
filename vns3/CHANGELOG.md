@@ -2,12 +2,12 @@
 
 ## 1.0.1
 
-***Fixed***: 
+***Fixed***:
 
 * fix the metadata.csv file to match supported `metric_type` names.
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Initial VNS3 tile.

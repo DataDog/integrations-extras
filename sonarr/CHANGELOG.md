@@ -2,7 +2,7 @@
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Create Sonarr integration. See [#1798](https://github.com/DataDog/integrations-extras/pull/1798).
 

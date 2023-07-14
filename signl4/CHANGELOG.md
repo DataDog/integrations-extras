@@ -2,7 +2,7 @@
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Initial SIGNL4 Webhook Integration.
 

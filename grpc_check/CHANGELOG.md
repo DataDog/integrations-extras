@@ -2,7 +2,7 @@
 
 ## 1.0.2 / 2022-11-09
 
-***Fixed***: 
+***Fixed***:
 
 * Fix timeout default value. See [#1601](https://github.com/DataDog/integrations-extras/pull/1601).
 

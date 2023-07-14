@@ -1,8 +1,8 @@
 # CHANGELOG - Datadog-Gremlin Events Integration
 
-## 1.0.0 / Unreleased
+## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Initial Datadog-Gremlin Events Integration Tile.
 

@@ -2,7 +2,7 @@
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Initial JavaScript RUM Integration Tile.
 

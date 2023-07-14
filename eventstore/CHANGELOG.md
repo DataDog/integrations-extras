@@ -2,28 +2,28 @@
 
 ## 2.0.0
 
-***Removed***: 
+***Removed***:
 
 * Support for EventStoreDB <=v5.0 
 
-***Added***: 
+***Added***:
 
 * Support EventStoreDB >=v20.6.0
 
 ## 1.1.0
 
-***Added***: 
+***Added***:
 
 * Allow passing a custom CA bundle
 
 ## 1.0.0
 
-***Added***: 
+***Added***:
 
 * Add metrics from multiple API endpoints
 
 ## 0.1.0
 
-***Added***: 
+***Added***:
 
 * first version
