@@ -46,5 +46,5 @@ Need help? Contact [Cloudnatix support][6].
 [3]: https://docs.cloudnatix.com/docs/tutorial
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv
-[6]: support@cloudnatix.com
+[6]: mailto:support@cloudnatix.com
 [7]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
