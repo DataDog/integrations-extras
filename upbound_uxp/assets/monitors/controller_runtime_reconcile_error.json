@@ -1,10 +1,11 @@
 {
-	"id": 125257299,
 	"name": "Upbound UXP {{host.name}} encountered reconciliation errors",
 	"type": "query alert",
 	"query": "sum(last_5m):per_minute(sum:uxp.controller_runtime_reconcile_errors_total{*}.as_count()) > 100",
 	"message": "{{#is_alert}}\n  High reconciliation error rate.\n{{/is_alert}} \n\n{{#is_recovery}}\n  Reconciliation error rate recovered.\n{{/is_recovery}}",
-	"tags": [],
+	"tags": [
+	    "integration:upbound_uxp"
+	],
 	"options": {
 		"thresholds": {
 			"critical": 100,
@@ -24,6 +25,6 @@
 	"priority": 3,
 	"recommended_monitor_metadata": {
 	    "description": "Get notified when reconciliation errors reach the defined threshold which represents a growing gap in represented managed resource and real resource states."
-	}
+	},
 	"restricted_roles": null
 }
