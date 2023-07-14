@@ -6,13 +6,13 @@ SingleStoreDB Cloud is a distributed, relational database with optimized speed a
 
 Start the configuration process from Datadog and complete the configuration in the SingleStore Cloud Portal. SingleStore recommends the following approach:
 
-1. [Install the SingleStore Integration in Datadog](#install-the-singlestore-integration-in-datadog)
+1. [Install the SingleStoreDB Cloud Integration in Datadog](#install-the-singlestoredb-cloud-integration-in-datadog)
 2. [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal)
 
-### Install the SingleStore Integration in Datadog
+### Install the SingleStoreDB Cloud Integration in Datadog
 
 1. Select **Integrations** on the left navigation pane in Datadog. 
-2. On the **Integrations** tab, search for **SingleStore** and select it from the search results.
+2. On the **Integrations** tab, search for **SingleStoreDB Cloud** and select it from the search results.
 3. Select **Install Integration** and wait for installation to complete before proceeding.
 4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1].
 
@@ -34,7 +34,7 @@ You can now monitor your SingleStoreDB Cloud databases using Datadog.
 
 Follow these steps to uninstall the Datadog integration:
 
-1. **Uninstall the SingleStore integration on Datadog**: On the Datadog dashboard, select **Integrations > SingleStore > Configure > Uninstall Integration**. Once this integration is uninstalled, all previous authorizations are revoked.
+1. **Uninstall the SingleStoreDB Cloud integration on Datadog**: On the Datadog dashboard, select **Integrations > SingleStoreDB Cloud > Configure > Uninstall Integration**. Once this integration is uninstalled, all previous authorizations are revoked.
 2. **Remove the Datadog integration on the Cloud Portal**: On the Cloud Portal, go to **Monitoring > Integration**. Select **Delete** for each Datadog configuration you want to remove. 
 
 Additionally, remove all the API keys associated with this integration.
