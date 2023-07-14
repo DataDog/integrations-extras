@@ -11,4 +11,3 @@
 ***Added***:
 
 * Initial Gitea Integration.
-
