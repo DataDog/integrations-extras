@@ -16,7 +16,7 @@ You can start the configuration process either from the Cloud Portal or the Data
 3. Select **Install Integration** and wait for installation to complete before proceeding.
 4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1].
 
-You only need to perform these steps once to connect your first workspace group with Datadog. Once the integration is installed and the accounts are connected, follow the steps specified under [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal) to connect consecutive workspace groups. 
+The steps above only need to be performed once to connect your first workspace group with Datadog. Once the integration is installed and the accounts are connected, follow the steps specified under [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal) to connect consecutive workspace groups. 
 
 ### Configure the Datadog Integration in the Cloud Portal
 
