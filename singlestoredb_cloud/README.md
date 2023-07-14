@@ -4,7 +4,7 @@ SingleStoreDB Cloud is a distributed, relational database with optimized speed a
 
 ## Setup
 
-You can start the configuration process either from the Cloud Portal or the Datadog dashboard. SingleStore recommends the following approach:
+Start the configuration process from Datadog and complete the configuration in the SingleStore Cloud Portal. SingleStore recommends the following approach:
 
 1. [Install the SingleStore Integration in Datadog](#install-the-singlestore-integration-in-datadog)
 2. [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal)
