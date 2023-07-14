@@ -47,6 +47,14 @@ To stop monitoring a specific workspace group (and not uninstall the integration
 
 See [metadata.csv][2] for a list of metrics provided by this integration.
 
+### Service Checks
+
+SingleStoreDB Cloud does not include any service checks. 
+
+### Events
+
+SingleStoreDB Cloud does not include any events. 
+
 ## Troubleshooting
 
 Need help? Contact [Datadog support][3].
