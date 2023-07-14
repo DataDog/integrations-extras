@@ -1,0 +1,72 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "caebfbe2-48ba-443f-b2c6-bd80122b2605",
+  "app_id": "cloudnatix",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Provides automated capacity, cost, and operation optimization from CloudNatix.",
+    "title": "CloudNatix",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "CloudNatix Datadog dashboard that provides insights on cluster spending, usage, and cost optimization.",
+        "image_url": "images/cloudnatix-dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Visualize the amount of estimated possible savings per workload",
+        "image_url": "images/cloudnatix-projected-saving.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Cloud",
+      "Category::AWS",
+      "Category::Azure",
+      "Category::Google Cloud",
+      "Category::Kubernetes",
+      "Category::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Submitted Data Type::Metrics",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards": {"cloudnatix_overview": "assets/dashboards/cloudnatix_overview.json"},
+    "integration": {
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "metrics": {
+        "prefix": "cloudnatix.",
+        "check": [
+          "cloudnatix.vpa",
+          "cloudnatix.vpa.recommendation",
+          "cloudnatix.workload.resource",
+          "cloudnatix.workload.monthly_spend",
+          "cloudnatix.workload.monthly_projected_saving",
+          "cloudnatix.pod_evition_by_vpa",
+          "cloudnatix.compute.daily_spend"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_name": "CloudNatix"
+    }
+  },
+  "author": {
+    "support_email": "support@cloudnatix.com",
+    "name": "CloudNatix",
+    "homepage": "https://cloudnatix.com/",
+    "sales_email": "sales@cloudnatix.com"
+  },
+  "oauth": {},
+  "pricing": []
+}
