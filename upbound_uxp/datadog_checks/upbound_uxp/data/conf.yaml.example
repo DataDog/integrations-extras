@@ -5,6 +5,7 @@ init_config:
     ## @param service - string - optional
     ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
     ##
+    ## Additionally, this sets the default `service` for every log source.
     #
     # service: <SERVICE>
 
@@ -13,138 +14,42 @@ init_config:
 instances:
 
   -
-    ## @param uxp_url - string - optional - default: "/metrics"
-    #@ A Crossplane and provider metric url path that defaults to '/metrics'
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
     #
-    # uxp_url: "/metrics"
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
 
-    ## @param uxp_port - string - optional - default: "8080"
-    ## The port at which the metrics url is available. Defaults to 8080.
-    ## Note that this parameter is a string.
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
+    ##
+    ## Overrides any `service` defined in the `init_config` section.
     #
-    # uxp_port: "8080"
+    # service: <SERVICE>
 
-    ## @param verbose - boolean - optional - default: false
-    ## The verbose option is a chatty output of useful information.
-    ## When running agent tests with ddev test -d upbound_uxp, the
-    ## -d debug flag lets you see the verbose output. Otherwise it
-    ## remains hidden.
-    #
-    # verbose: <BOOLEAN>
-
-    ## @param namespace - string - optional - default: upbound-system
-    ## The Kuberneres namespace to observe for pods.
-    ## Defaults to upbound-system. For Crossplane open source monitoring, set
-    ## this to crossplane-system or an arbirary namespace where your
-    ## Crossplane and provider pods reside.
-    #
-    # namespace: <NAMESPACE>
-
-    ## @param min_collection_interval - number - optional - default: 30
+    ## @param min_collection_interval - number - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
     #
     # min_collection_interval: 15
 
-    ## @param - metrics_limit - throttle metrics sent to Datadog - optional
-    ## Upper number of metrics to send to Datadog service.
-    ## Defaults to unlimited. A value under 15000 should
-    ## suffice to cover cardinality for the maximum number of
-    ## unique metrics samples.
-    #
-    # metrics_limit: <INTEGER>
-
-    ## @param - metrics_default - preselected set of metrics - optional
-    ## Select from a predefined set of metrics to collect: none, min, more, max.
-    ## None: collect no metrics unless Crossplane and/or provider pods
-    ##       are annotated, or unless metrics are individually specified
-    ##       in the conf.yaml file.
-    ## Min:  collect an opinionated minimum recommended set of metrics.
-    ## More: collect a bigger opinionated set compared to the min set.
-    ## Max:  collect all the metrics that are exposed by the Crossplane
-    ##       and provider pods in the specified or default upbound-system
-    ##       namespace.
-    ## Additionally specified metrics will be collected when exposed by
-    ## an observed pod.
-    #
-    # metrics_default: <ONE_OF_none, min, more, max>
-
-    ## @param metrics_ignore_pod_annotations - Use conf.yaml spec - optional
-    ## When Crossplane and provider pods are annotated, then that will
-    ## supersede the metrics collection spec in the conf.yaml file.
-    ## It allows for different metrics to be collected from different
-    ## pods, e.g. crossplane, provider-aws-ec2. ..., provider-helm, etc.
-    ## However, then pods are annotated and when the annotations should be
-    ## ignored and the config in the conf.yaml should take preference, then
-    ## set the metrics_ignore_pod_annotations to true. Defaults to false.
-    #
-    # metrics_ignore_pod_annotations: <BOOLEAN>
-
-    ## @param metrics_prefix - optional prefix between uxp. and name - optional
-    ## Metrics are exposed and sent to datadog with a name that is prepended
-    ## with uxp, e.g. uxp.uxp.controller_runtime_reconcile_total. The
-    ## metrics_prefix allows an additional prefix to the metrics name to be
-    ## placed between 'uxp.' and the metric name. For example,
-    ## uxp.foobar.uxp.controller_runtime_reconcile_total. This can be useful
-    ## to distinguish metrics from multiple UXP deployments on the same or
-    ## different management clusters.
-    #
-    # metrics_prefix: <PREFIX>
-
-    ## @param metrics - array - optional - default: []
-    ## Individual metrics can be specified for inclusion in the collection
-    ## and forwarding to the Datadog service. The NAME_OF_EMITTED_METRIC
-    ## has to match the name of an emitted pod metric. When omitting a
-    ## MAPPED_NAME_OF_EMITTED_METRIC, the metric will be forwarded with
-    ## its NAME_OF_EMITTED_METRIC prepended with 'uxp.', such as
-    ## uxp.controller_runtime_reconcile_total. When a mapping name is
-    ## present for the metric, a controller_runtime_reconcile_total metric
-    ## will be collected and forwarded as uxp.ctrl_rt_reconcile_total if that
-    ## is the specified MAPPED_NAME_OF_EMITTED_METRIC.
+    ## @param empty_default_hostname - boolean - optional - default: false
+    ## This forces the check to send metrics with no hostname.
     ##
-    ## The a la carte metrics specification for inclusion is adding the
-    ## specified metrics to the metrics_default of none, min, more or max.
-    ## It will be superseded when the pods are individually annotated,
-    ## unless metrics_ignore_pod_annotations is set to true.
+    ## This is useful for cluster-level checks.
     #
-    # metrics: [
-    #   {<NAME_OF_EMITTED_METRIC>: <MAPPED_NAME_OF_EMITTED_METRIC>},
-    #   ...
-    #   {<NAME_OF_ANOTHER_EMITTED_METRICS>},
-    #   ...
-    # ]
+    # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
     #
-    # Example:
-    #
-    # metrics: [
-    #   {"certwatcher_read_certificate_errors": "read_cert_err_total"},
-    #   {"certwatcher_read_certificate": "read_cert_total"},
-    #   {"controller_runtime_active_workers": "ctrl_runtime_active_workers"},
-    #   {"controller_runtime_max_concurrent_reconciles": "ctrl_runtime_max_concurrent_reconciles"},
-    #   {"controller_runtime_reconcile_errors": "ctrl_runtime_reconcile_errors_total"},
-    #   {"controller_runtime_reconcile_time_seconds": "ctrl_runtime_reconcile_time_sec_bucket"},
-    #   {"controller_runtime_reconcile": "ctrl_runtime_reconcile_total"},
-    #   {"go_gc_duration_seconds": "go_gc_duration_sec"},
-    #   {"go_goroutines"},
-    #   {"go_info"},
-    #   {"go_memstats_alloc_bytes"},
-    #   {"go_memstats_buck_hash_sys_bytes"},
-    #   {"go_memstats_frees"},
-    #   {"go_memstats_gc_sys_bytes"},
-    #   {"go_threads"},
-    #   {"process_cpu_seconds": "proc_cpu_sec_total"},
-    #   {"process_max_fds": "proc_max_fds"},
-    #   {"process_open_fds": "proc_open_fds"},
-    #   {"process_resident_memory_bytes": "proc_resident_mem_bytes"},
-    #   {"process_start_time_seconds": "proc_start_time_sec"},
-    #   {"process_virtual_memory_bytes": "proc_virt_mem_bytes"},
-    #   {"process_virtual_memory_max_bytes": "proc_virt_mem_max_bytes"},
-    #   {"rest_client_requests"},
-    #   {"workqueue_adds": "workq_adds_total"},
-    #   {"workqueue_depth": "workq_depth"},
-    #   {"workqueue_longest_running_processor_seconds": "workq_longest_running_proc_sec"},
-    #   {"workqueue_queue_duration_seconds": "workqueue_q_duration_sec_bucket"},
-    #   {"workqueue_retries": "workq_retries_total"},
-    #   {"workqueue_unfinished_work_seconds": "workq_unfinished_work_sec"},
-    #   {"workqueue_work_duration_seconds": "workq_work_duration_sec_bucket"},
-    # ]
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
