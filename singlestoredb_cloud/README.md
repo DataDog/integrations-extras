@@ -30,7 +30,7 @@ To connect your SingleStoreDB Cloud workspace group with Datadog:
 
 You can now monitor your SingleStoreDB Cloud databases using Datadog.
 
-### Uninstall the Datadog Integration
+### Uninstall the Datadog integration
 
 Follow these steps to uninstall the Datadog integration:
 
