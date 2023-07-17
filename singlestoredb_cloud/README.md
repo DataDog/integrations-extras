@@ -33,7 +33,7 @@ You can now monitor your SingleStoreDB Cloud databases using Datadog.
 
 Follow these steps to uninstall the Datadog integration:
 
-1. **Uninstall the SingleStoreDB Cloud integration on Datadog**: On the Datadog dashboard, select **Integrations > SingleStoreDB Cloud > Configure > Uninstall Integration**. Once this integration is uninstalled, all previous authorizations are revoked.
+1. **Uninstall the SingleStoreDB Cloud integration on Datadog**: In Datadog, navigate to the [SingleStore DB Cloud integration tile][4] and click **Uninstall Integration**. Once this integration is uninstalled, all previous authorizations are revoked.
 2. **Remove the Datadog integration on the Cloud Portal**: On the Cloud Portal, go to **Monitoring > Integration**. Select **Delete** for each Datadog configuration you want to remove. 
 
 Additionally, remove all the API keys associated with this integration.
