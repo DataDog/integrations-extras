@@ -104,7 +104,7 @@ REDPANDA_RAFT = {
 }
 
 REDPANDA_REACTOR = {
-    'redpanda_cpu_busy_seconds_total': 'reactor.cpu_busy_ms',
+    'redpanda_cpu_busy_seconds_total': 'reactor.cpu_busy_seconds',
 }
 
 REDPANDA_SCHEDULER = {

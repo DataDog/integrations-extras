@@ -115,7 +115,7 @@ INSTANCE_METRIC_GROUP_MAP = {
         'redpanda.raft.recovery_bandwidth',
     ],
     'redpanda.reactor': [
-        'redpanda.reactor.cpu_busy_ms',
+        'redpanda.reactor.cpu_busy_seconds',
     ],
     'redpanda.scheduler': [
         'redpanda.scheduler.runtime_seconds.count',
