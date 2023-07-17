@@ -1,0 +1,419 @@
+{
+    "title": "Sym",
+    "description": null,
+    "widgets": [
+        {
+            "id": 2927737356480636,
+            "definition": {
+                "title": "Sym Log Count",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count",
+                                    "interval": 7200000
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "service:sym"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 8109381793551439,
+            "definition": {
+                "title": "Sym Approve Events",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "service:sym @event.type:approve @state.status:completed"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "a"
+                            }
+                        ],
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "value": 1,
+                                "palette": "green_on_white"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 2,
+                "y": 0,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 2314287635788532,
+            "definition": {
+                "title": "Sym Deny Events",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                    {
+                        "response_format": "scalar",
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "service:sym @event.type:deny @state.status:completed"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "formulas": [
+                            {
+                                "formula": "a"
+                            }
+                        ],
+                        "conditional_formats": [
+                            {
+                                "comparator": ">=",
+                                "value": 1,
+                                "palette": "red_on_white"
+                            }
+                        ]
+                    }
+                ],
+                "autoscale": true,
+                "precision": 2
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 2,
+                "height": 2
+            }
+        },
+        {
+            "id": 661469021238317,
+            "definition": {
+                "title": "Sym Logs",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                    {
+                        "response_format": "event_list",
+                        "query": {
+                            "data_source": "logs_stream",
+                            "query_string": "service:sym -@run.srn:*\\:run\\:flow_selection\\:* ",
+                            "indexes": [],
+                            "storage": "hot",
+                            "sort": {
+                                "order": "desc",
+                                "column": "timestamp"
+                            }
+                        },
+                        "columns": [
+                            {
+                                "field": "status_line",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "timestamp",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@actor.username",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@event.type",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@event.channel",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@state.status",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@state.errors",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@fields.target.label",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@fields.duration",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@fields.reason",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "@run.srn",
+                                "width": "auto"
+                            }
+                        ]
+                    }
+                ],
+                "type": "list_stream"
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 8
+            }
+        },
+        {
+            "id": 8680953559535649,
+            "definition": {
+                "title": "Top Requested Targets",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "a",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@fields.target.label",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "search": {
+                                    "query": "service:sym @event.type:request @state.status:completed"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {}
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+            }
+        },
+        {
+            "id": 2705608163106166,
+            "definition": {
+                "title": "Top Approvers",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "a",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@actor.username",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "search": {
+                                    "query": "service:sym @event.type:approve @state.status:completed"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {}
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 3,
+                "height": 2
+            }
+        },
+        {
+            "id": 7947789468680928,
+            "definition": {
+                "title": "Top Requesters",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "a",
+                                "limit": {
+                                    "count": 10,
+                                    "order": "desc"
+                                }
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "a",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "@actor.username",
+                                        "limit": 10,
+                                        "sort": {
+                                            "aggregation": "count",
+                                            "order": "desc"
+                                        },
+                                        "should_exclude_missing": true
+                                    }
+                                ],
+                                "search": {
+                                    "query": "service:sym @event.type:request @state.status:completed"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "scalar"
+                    }
+                ],
+                "style": {}
+            },
+            "layout": {
+                "x": 3,
+                "y": 4,
+                "width": 3,
+                "height": 2
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
