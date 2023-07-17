@@ -61,4 +61,5 @@ Need help? Contact [Datadog support][3].
 [1]: https://portal.singlestore.com
 [2]: https://github.com/DataDog/integrations-extras/blob/master/singlestoredb_cloud/metadata.csv
 [3]: https://docs.datadoghq.com/help/
+[4]: https://app.datadoghq.com/integrations/singlestoredb-cloud
 
