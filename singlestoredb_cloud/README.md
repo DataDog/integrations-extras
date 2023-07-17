@@ -13,7 +13,7 @@ Start the configuration process from Datadog and complete the configuration in t
 
 1. Navigate to the [SingleStoreDB Cloud][4] integration tile in Datadog.
 3. Select **Install Integration** and wait for installation to complete before proceeding.
-4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1].
+4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1] to authorize the integration through OAuth.
 
 The steps above only need to be performed once to connect your first workspace group with Datadog. Once the integration is installed and the accounts are connected, follow the steps specified under [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal) to connect consecutive workspace groups. 
 
