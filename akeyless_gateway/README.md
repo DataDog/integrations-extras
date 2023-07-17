@@ -12,7 +12,7 @@ This integration allows you to visualize and monitor performance of your [Akeyle
 
 ### Configure
 
-**Standalone Gateway on Docker**
+**For a Standalone Gateway Running on Docker**
 
 To configure the Akeyless Gateway integration on a [Standalone Gateway](https://docs.akeyless.io/docs/install-and-configure-the-gateway):
 
@@ -36,7 +36,7 @@ service:
 docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081 -p 5696:5696 -e ENABLE_METRICS="true" -v $PWD/otel-config.yaml:/akeyless/otel-config.yaml  --name <your-gateway-name> akeyless/base:latest-akeyless
 ```
 
-**Gateway on Kubernetes**
+**For a Gateway Running on Kubernetes**
 
 To configure the Akeyless Gateway integration on a [Gateway on K8s](https://docs.akeyless.io/docs/gateway-k8s):
 
