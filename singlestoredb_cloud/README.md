@@ -1,13 +1,8 @@
 ## Overview
 
-SingleStoreDB Cloud is a distributed, relational database with optimized speed and scalability to support data-intensive and real-time applications. With this integration, you can monitor your SingleStoreDB Cloud databases. To integrate Datadog with SingleStoreDB Cloud, install the Datadog SingleStore integration and then configure it in the [Cloud Portal][1]. 
+SingleStoreDB Cloud is a distributed, relational database with optimized speed and scalability to support data-intensive and real-time applications. Using this Integration, you can monitor overall health and performance of a SinglestoreDB Cloud Workspace Group/Cluster. To integrate Datadog with SingleStoreDB Cloud, install the Datadog SingleStore integration and then configure it in the [Cloud Portal][1]. 
 
 ## Setup
-
-Start the configuration process from Datadog and complete the configuration in the SingleStore Cloud Portal:
-
-1. [Install the SingleStoreDB Cloud Integration in Datadog](#install-the-singlestoredb-cloud-integration-in-datadog)
-2. [Configure the Datadog Integration in the Cloud Portal](#configure-the-datadog-integration-in-the-cloud-portal)
 
 ### Install the SingleStoreDB Cloud integration in Datadog
 
