@@ -14,25 +14,45 @@
     "classifier_tags": [
       "Category::Security",
       "Category::Kubernetes",
-      "Submitted Data Type::Metrics",
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS"
     ]
   },
-  "assets": {
-    "dashboards": {
-      "Akeyless Gateway Dashboard": "assets/dashboards/akeyless-gateway-dashboard.json"
-    },
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
-  },
   "author": {
     "support_email": "support@akeyless.io",
-    "name": "Akeyless Security",
     "homepage": "https://www.akeyless.io",
-    "sales_email": ""
+    "sales_email": "sales@akeyless.io",
+    "name": "Akeyless Security"
   },
-  "oauth": {}
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Akeyless Gateway",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "akeyless",
+        "check": [
+          "akeyless.gw.system.cpu",
+          "akeyless.gw.system.disk",
+          "akeyless.gw.system.load",
+          "akeyless.gw.system.memory",
+          "akeyless.gw.system.network",
+          "akeyless_gw_quota_current_transactions_number",
+          "akeyless_gw_quota_gw_admin_client_transactions",
+          "akeyless_gw_quota_total_transactions_limit"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "akeyless_gateway_dashboard": "assets/dashboards/akeyless_gateway_dashboard.json"
+    }
+  }
 }
