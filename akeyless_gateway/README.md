@@ -1,4 +1,4 @@
-# Agent Check: Akeyless Gateway
+# Akeyless Gateway
 
 ## Overview
 
