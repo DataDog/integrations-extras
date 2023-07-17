@@ -86,4 +86,4 @@ Akeyless Gateway does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Akeyless Support][mailto:support@akeyless.io].
+Need help? Contact [Akeyless Support](mailto:support@akeyless.io).
