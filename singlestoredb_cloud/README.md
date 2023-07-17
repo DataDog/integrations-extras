@@ -38,7 +38,7 @@ Follow these steps to uninstall the Datadog integration:
 
 Additionally, remove all the API keys associated with this integration.
 
-To stop monitoring a specific workspace group (and retain the integration), select **Delete** (**Cloud Portal > Monitoring > Integration**) to remove the Datadog configuration for this workspace group.
+To stop monitoring a specific workspace group (and retain the integration), navigate to the SingleStore DB Cloud Portal and select **Delete** (**Cloud Portal > Monitoring > Integration**) to remove the Datadog configuration for this workspace group.
 
 ## Data Collected
 
