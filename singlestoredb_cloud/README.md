@@ -11,8 +11,7 @@ Start the configuration process from Datadog and complete the configuration in t
 
 ### Install the SingleStoreDB Cloud integration in Datadog
 
-1. Select **Integrations** on the left navigation pane in Datadog. 
-2. On the **Integrations** tab, search for **SingleStoreDB Cloud** and select it from the search results.
+1. Navigate to the [SingleStoreDB Cloud][4] integration tile in Datadog.
 3. Select **Install Integration** and wait for installation to complete before proceeding.
 4. On the **Configure** tab, select **Connect Accounts**. This action takes you to the [Cloud Portal][1].
 
