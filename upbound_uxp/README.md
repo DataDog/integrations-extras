@@ -6,8 +6,8 @@ Upbound provides a control plane framework for businesses
 to accelerate their journey building custom clouds on top
 of arbitrary cloud resources, making the process quicker, more flexible, and reducing cognitive load for users. With Upbound, users can reduce risk and make themselves audit-ready by enforcing governance and compliance with the Universal Crossplane.
 
-Universal Crossplane users and customers can offer
-their own internal cloud API to their teams through writing
+Universal Crossplane users can offer
+their own internal cloud API to their teams through
 composite resource definitions. Their
 custom cloud service can then map that API to downstream providers.
 The providers create and manage the lifecycle of the external
@@ -22,11 +22,10 @@ Metrics are sent from Upbound's pods in the self hosted
 customer environment to the customer's Datadog account.
 They track the health of this self-managed
 infrastructure provisioning and resource lifecycle
-management ecosystem, including data on performance
-and resource consumption.
+management ecosystem.
 
-The metrics inform about performance and resource
-consumption. This helps validating the Universal Crossplane
+The metrics inform about performance
+and resource consumption. This helps validate Universal Crossplane
 management cluster sizing and enables optimization.
 
 The checks monitor [Upbound UXP](https://docs.upbound.io/uxp/)
@@ -132,7 +131,7 @@ for available configuration options.
 [Run the Agent's status subcommand] and look for `upbound_uxp`
 under the Checks section.
 
-Run tests as follows.
+Run tests as follows:
 ```
 DDEV_SKIP_GENERIC_TAGS_CHECK=True ddev test upbound_uxp
 ```
