@@ -36,7 +36,7 @@ const client = factory.client();
 
 ## Troubleshooting
 
-Need help? See [Split’s JavaScript SDK documentation documentation][4] or contact [Datadog Support][5].
+Need help? See [Split JavaScript SDK documentation documentation][4] or contact [Datadog Support][5].
 
 [1]: https://split.io
 [2]: https://www.split.io/product/
