@@ -1,4 +1,4 @@
-# CHANGELOG - Flagsmith
+# CHANGELOG - Split
 
 ## 1.0.0 / 2023-07-11
 
