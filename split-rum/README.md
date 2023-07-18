@@ -1,4 +1,3 @@
-# Agent Check: Split / Datadog RUM
 
 ## Overview
 
