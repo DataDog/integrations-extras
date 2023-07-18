@@ -2,7 +2,7 @@
 
 ## Overview
 
-Shipyard enables teams by providing on-demand (ephemeral) environments for every code change (PR). We lower teams' preproduction cloud costs by 70%, increase developer velocity by 50%, and give DevOps/SRE ~30% of their week back! Shipyard works in your existing CI workflow, empowering teams to test before they merge.
+Shipyard enables teams by providing on-demand (ephemeral) environments for every code change (PR). Shipyard works in your existing CI workflow, empowering teams to test before they merge.
 
 The Shipyard Datadog integration automatically passes your [Shipyard][1] ephemeral environment logs to Datadog for all applications on which you have enabled Datadog logging.
 
@@ -14,7 +14,7 @@ This is useful for:
 
 ## Setup
 
-*These instructions assume you have a Shipyard account. If you do not, you can get started [for free][2].*
+**Note:** These instructions assume you have a Shipyard account. If you do not, you can get started [for free][2].
 
 ### Configuration
 
