@@ -28,7 +28,7 @@ This is useful for:
    1. *(Optional)* Toggle **Enable Datadog logging for all environments** if you would like Shipyard to automatically send logs for **all** of your environments.
 5. To enable Datadog logging for select environments, see the [Configure Application page][10]. 
    1. Select the **Notification and General Settings** tab. 
-   2. Toggle `Enable Datadog logging for this environment`.
+   2. Toggle **Enable Datadog logging for this environment**.
 
 For more information about setting up the Shipyard Datadog integration, see the [Shipyard documentation][7]. 
 
