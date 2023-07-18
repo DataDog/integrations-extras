@@ -3,6 +3,7 @@
 ## 1.1.0 / 2022-04-13
 
 ***Added:***
+
 * Add new metrics and monitors
 
     Metrics:
@@ -14,8 +15,8 @@
     - Service error
     - Device not connected
 
-
 ## 1.0.0 / 2022-04-13
 
 ***Added:***
+
 * Initial version
