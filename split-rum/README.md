@@ -11,7 +11,8 @@ Feature flag tracking is available in the RUM Browser SDK. For detailed set up i
 
 1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize Split’s SDK and create an impression listener, reporting feature flag evaluations to Datadog using the following snippet of code.
+3. Initialize Split’s SDK and create an impression listener, reporting feature flag evaluations to Datadog using the following snippet of code:
+
 
 ```javascript
 const factory = SplitFactory({
