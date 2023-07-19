@@ -13,7 +13,7 @@ TaskCall's integration allows Datadog users to bolster their operations by impro
 - Repeating alerts are automatically silenced to avoid interrupting the on-call responders when they are already looking at the incident.
 - The integration is bi-directional. Status and priority are synced up between Datadog and TaskCall.
 - Incidents are automatically resolved in TaskCall when alert conditions are no longer present.
-- The integration is available on all TaskCall subscription plans.
+- This integration is available on all TaskCall subscription plans.
 
 
 ## Setup
