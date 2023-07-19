@@ -88,3 +88,8 @@ Need help? Contact [support@aisera.com](mailto:support@aisera.com).
 [8]: https://docs.datadoghq.com/account_management/api-app-keys/#add-application-keys
 
 
+[6]: https://github.com/DataDog/integrations-extras/blob/master/aisera/metadata.csv
+[7]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
+[8]: https://docs.datadoghq.com/account_management/api-app-keys/#add-application-keys
+
+
