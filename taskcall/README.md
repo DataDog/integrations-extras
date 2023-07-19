@@ -24,7 +24,7 @@ The integration needs to be configured from both TaskCall and Datadog.
 
 1. [Create a TaskCall account][1] if you do not already have one.
 2. **In Datadog**: Go to the **Integrations** page. Search for **TaskCall**.
-3. Once you find the TaskCall integration tile, click on it. Then go to the **Configure** tab and click **Connect Accounts**. You will be redirected to TaskCall.
+3. On the TaskCall integration tile, go to the **Configure** tab and click **Connect Accounts**. You will be redirected to TaskCall.
 4. **In TaskCall**: Give the integration a **name** and select the **service** you want the integration to be on.
 
 ![TaskCall Authorization][5]
