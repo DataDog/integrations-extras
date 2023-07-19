@@ -95,7 +95,7 @@ Please refer to the [TaskCall Datadog Integration Guide][3] for more information
 ## Uninstallation
 
 - In TaskCall, delete the integration from Services > Integrations.
-- In Datadog, find the TaskCall integration tile on the Integrations page and uninstall it. You must also delete the webhook you created to send notifications to TaskCall.
+- Navigate to the [TaskCall integration tile][6] in Datadog and uninstall it. You must also delete the webhook you created to send notifications to TaskCall.
 - Once this integration has been uninstalled, any previous authorizations are revoked.
 - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
 
