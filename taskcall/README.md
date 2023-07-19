@@ -36,7 +36,7 @@ The integration needs to be configured from both TaskCall and Datadog.
 
 ### Create Webhook in Datadog
 
-1. Go to Integrations > Integrations.
+1. Go to [**Integrations** > **Integrations**][7].
 2. Find **Webhooks** and click on it.
 3. Click on the **New Webhook** button.
 4. Give it a name and paste the **Integration Url** you copied over from TaskCall.
