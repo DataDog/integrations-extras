@@ -4,7 +4,7 @@
 
 TaskCall is a real-time incident response system that reduces system downtime by automating the response process. It continuously accepts feeds from monitoring tools to provide a comprehensive view of your system. It uses its on-call management and incident response mechanisms to assemble the right team and resolve incidents in the fastest possible time.
 
-TaskCall's integration allows Datadog users to bolster their operations by improving their incident awareness and simplifying the process in which they are handled. Incidents sync up bi-directionally between the two platforms. Once Datadog alerts are received in TaskCall, users will be able to systematically manage all incidents without being interrupted. Users will also benefit from improved impact visibility from dependency graphs and status dashboards. With a better understanding of the state of your overall infrastructure, efficient resolutions can be achieved.
+TaskCall's integration allows Datadog users to bolster their operations by improving their incident awareness and simplifying the process in which they are handled. Incidents sync up bi-directionally between the two platforms. Once Datadog alerts are received in TaskCall, users can systematically manage all incidents without being interrupted. Users also benefit from improved impact visibility from dependency graphs and status dashboards. With a better understanding of the state of your overall infrastructure, efficient resolutions can be achieved.
 
 
 ## Key Features
