@@ -90,7 +90,7 @@ The integration needs to be configured from both TaskCall and Datadog.
 ```
 6. Once the details have been entered, click Save.
 
-Please refer to the [TaskCall Datadog Integration Guide][3] for more information.
+For more information, see the [TaskCall Datadog Integration Guide][3].
 
 ## Uninstallation
 
