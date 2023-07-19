@@ -110,3 +110,4 @@ Please refer to the [TaskCall Datadog Integration Guide][3] for more information
 [4]: https://www.taskcallapp.com/contact-us
 [5]: https://taskcallapp.com/images/vendors/datadog/DatadogTaskCallAuthorization.png
 [6]: https://app.datadoghq.com/integrations/taskcall
+[7]: https://app.datadoghq.com/integrations
