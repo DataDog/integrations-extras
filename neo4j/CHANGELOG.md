@@ -1,5 +1,7 @@
 # CHANGELOG - neo4j
 
+## Unreleased
+
 ## 3.0.1 / 2023-07-05
 
 ***Added***:

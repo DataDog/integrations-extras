@@ -1,5 +1,7 @@
 # CHANGELOG - nn-sdwan
 
+## Unreleased
+
 ## 1.0.1 / 2023-04-11
 
 ***Added***:

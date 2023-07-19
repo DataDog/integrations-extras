@@ -1,5 +1,7 @@
 # CHANGELOG - Finout
 
+## Unreleased
+
 ## 1.0.0
 
 ***Added***:

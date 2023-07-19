@@ -1,5 +1,7 @@
 # CHANGELOG - PagerDuty
 
+## Unreleased
+
 ## 1.0.0 / 2021-10-20
 
 ## 1.1.0 / 2022-02-03

@@ -1,5 +1,7 @@
 # CHANGELOG - Mergify
 
+## Unreleased
+
 ## 1.0.1
 
 ***Added:***

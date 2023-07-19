@@ -1,5 +1,7 @@
 # CHANGELOG - RedisEnterprise
 
+## Unreleased
+
 ## 1.2.0 / 2023-06-14
 
 ***Added***:

@@ -1,5 +1,7 @@
 # CHANGELOG - Unbound
 
+## Unreleased
+
 ## 1.0.1 / 2021-08-08
 
 ***Added***:

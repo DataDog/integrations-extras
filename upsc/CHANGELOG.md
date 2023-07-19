@@ -1,5 +1,7 @@
 # CHANGELOG - UPSC
 
+## Unreleased
+
 ## 1.0.1 / 2022-07-01
 
 ***Fixed***:

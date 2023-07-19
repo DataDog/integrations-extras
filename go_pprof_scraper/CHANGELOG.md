@@ -1,5 +1,7 @@
 # CHANGELOG - Go-pprof-scraper
 
+## Unreleased
+
 ## 1.0.4 / 2023-01-17
 
 ***Added***:
