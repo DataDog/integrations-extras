@@ -41,7 +41,7 @@ The integration needs to be configured from both TaskCall and Datadog.
 
 Please refer to the [TaskCall Datadog Integration Guide][3] for more information.
 
-### Uninstallation
+## Uninstallation
 
 - In TaskCall, delete the integration from Services > Integrations.
 - In Datadog, delete the webhook you created.
