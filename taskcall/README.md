@@ -30,7 +30,7 @@ The integration needs to be configured from both TaskCall and Datadog.
 ![TaskCall Authorization][5]
 
 5. Click **Integrate**. You will be redirected to a Datadog authorization page.
-6. **In Datadog**: You must authorize the integration. (Please make sure you have the correct permissions to authorize the integration)
+6. Authorize the integration, ensuring that you have the correct permissions to do so.
 7. Once you authorize the integration you will be redirected to TaskCall.
 8. **In TaskCall**: Copy the **Integration Url** that is issued for the integration. You will need this to set up the webhook in Datadog.
 
