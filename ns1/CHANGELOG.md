@@ -1,5 +1,7 @@
 # CHANGELOG - ns1
 
+## Unreleased
+
 ## 0.0.6
 
 ***Added***:

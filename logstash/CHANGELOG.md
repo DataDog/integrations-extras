@@ -1,5 +1,7 @@
 # CHANGELOG - Logstash
 
+## Unreleased
+
 ## 1.1.0
 
 ***Added***:

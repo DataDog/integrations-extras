@@ -1,5 +1,7 @@
 # CHANGELOG - Gnatsd_streaming
 
+## Unreleased
+
 ## 0.1.0
 
 ***Added***:

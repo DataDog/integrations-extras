@@ -1,5 +1,7 @@
 # CHANGELOG - cybersixgill_actionable_alerts
 
+## Unreleased
+
 ## 1.0.1 / 2023-06-19
 
 ***Fixed***:

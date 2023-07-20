@@ -1,5 +1,7 @@
 # CHANGELOG - gRPC Check
 
+## Unreleased
+
 ## 1.0.2 / 2022-11-09
 
 ***Fixed***:
