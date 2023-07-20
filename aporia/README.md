@@ -19,7 +19,8 @@ Next, [login to your Aporia account][2], visit the Aporia integrations page, and
 
 ### Configuration
 
-Once integrated, you can configure monitors in Aporia to send their Alerts to Datadog as well. You can track these alerts in Datadog and define follow-up actions as you see fit.
+Once integrated, you can configure monitors in Aporia to send alerts to Datadog as well. You can track these alerts in Datadog and define follow-up actions as you see fit.
+
 
 ### Validation
 
