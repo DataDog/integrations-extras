@@ -5,7 +5,8 @@
 Aporia is the ML observability platform, empowering ML teams with vigilant model monitoring and real-time alerts for drift, bias, performance, and data integrity while providing seamless metric tracking through tailor-made dashboards. Aporia's Production Investigation Room serves as a collaborative notebook, streamlining root cause analysis and explainability to unlock actionable insights for optimizing model performance.
 
 
-This integration allows Datadog users to report their Aporia alerts to Datadog for a unified monitoring system. Datadog users will be able to receive, view, and track live ML alerts from Aporia within their Datadog account. Users will be able to know exactly which model and monitor fired the alert, with specific configuration details and additional information about the alert. Within their Datadog account, users will be able to view and track alerts over time by their severity.
+This integration allows Datadog users to report their Aporia alerts to Datadog for a unified monitoring system. Datadog users can receive, view, and track live ML alerts from Aporia within their Datadog account. Users are able to know exactly which model and monitor fired the alert, with specific configuration details and additional information about the alert. Users can also view and track alerts over time by severity within their Datadog account.
+
 
 ## Setup
 
