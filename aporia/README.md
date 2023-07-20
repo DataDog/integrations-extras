@@ -27,8 +27,10 @@ Once integrated, go to the Datadog integration page in Aporia and send a validat
 
 ## Uninstallation
 
-To remove the Datadog integration from Aporia, navigate to the Aporia integrations page and go to your Datadog integration. Then click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button below. Once you uninstall this integration, any previous authorizations are revoked.
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][3].
+To remove the Datadog integration from Aporia, navigate to the Aporia integrations page and go to your Datadog integration. Click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button on the integration tile. 
+
+Once you uninstall this integration, any previous authorizations are revoked. Ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][3].
+
 
 ## Troubleshooting
 
