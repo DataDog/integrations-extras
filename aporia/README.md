@@ -20,7 +20,8 @@ Once integrated, you can configure monitors in Aporia to send their Alerts to Da
 
 ### Validation
 
-Once integrated, go to the Datadog integration page in Aporia. There you are able to send a validation event to make sure the integration works properly.
+Once integrated, go to the Datadog integration page in Aporia and send a validation event to make sure the integration works properly.
+
 
 ## Uninstallation
 
