@@ -11,7 +11,8 @@ This integration allows Datadog users to report their Aporia alerts to Datadog f
 
 ### Installation
 
-First you'll need an Aporia account. Visit [Aporia][1] for more info and to book a demo.
+First you'll need an Aporia account. Visit [Aporia][1] for more information and to book a demo.
+
 Next, [login to your Aporia account][2], visit the Aporia integrations page, and add a Datadog integration. This guides you through the Datadog OAuth2 flow to grant Aporia the necessary permissions to your Datadog account.
 
 
