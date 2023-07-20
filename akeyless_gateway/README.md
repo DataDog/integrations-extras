@@ -10,7 +10,9 @@ This integration allows you to visualize and monitor performance of your [Akeyle
 
 Akeyless offers a unique Gateway, which adds an extra level of protection between your private network and the cloud. Acting as a SaaS extension of our core services, our stateless Gateway enables a transparent internal operation with a robust out-of-the-box mechanism to ensure service continuity and recovery while you are not required to change any network infrastructure in order to work with your internal resources.
 
-**Prerequisites**
+To configure the integration with Datadog to view important Akeyless Gateway metrics, follow the below instructions for the method you are using (or have used) for your Gateway deployment.
+
+### Prerequisites
 - An Akeyless Gateway either running or being deployed for the first time
 
 ### Configure
