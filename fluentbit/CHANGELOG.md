@@ -1,5 +1,7 @@
 # CHANGELOG - Fluent Bit
 
+## Unreleased
+
 ## 1.0.2 / 2023-04-28
 
 ***Fixed***:

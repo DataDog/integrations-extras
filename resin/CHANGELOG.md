@@ -1,5 +1,7 @@
 # CHANGELOG - Resin
 
+## Unreleased
+
 ## 1.0.0 / 2019-12-31
 
 ***Added***:

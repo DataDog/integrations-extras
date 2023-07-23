@@ -1,5 +1,7 @@
 # CHANGELOG - Filebeat Integration
 
+## Unreleased
+
 ## 1.3.0 
 
 ***Added***:

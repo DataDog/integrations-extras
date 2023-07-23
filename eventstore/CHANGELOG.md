@@ -1,5 +1,7 @@
 # CHANGELOG - eventstore
 
+## Unreleased
+
 ## 2.0.0
 
 ***Removed***:
