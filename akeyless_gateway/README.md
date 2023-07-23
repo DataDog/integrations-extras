@@ -17,6 +17,8 @@ To configure the integration with Datadog to view important Akeyless Gateway met
 
 ### Configure
 
+This integration works with one Gateway or multiple instances using the same API key. Metrics can be shown per `host` or `instance` in the **Akeyless GW** dashboard.
+
 #### For a Gateway Running on Kubernetes
 
 To configure the Akeyless Gateway integration on a [Gateway running on K8s](https://docs.akeyless.io/docs/gateway-k8s):
@@ -38,7 +40,12 @@ metrics:
           exporters: [datadog]
 ```
 
-2. If you have not yet deployed the Gateway, continue with your Installation as usual.
+2. If you have not yet deployed the Gateway, continue with your Installation as usual and run the following command when ready to deploy:
+
+```
+helm install <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
+```
+
 3. If you are updating an existing Gateway on Kubernetes, run the following commands to update:
 
 ```
@@ -82,7 +89,7 @@ Upon successful setup of the Gateway, go to the Metrics page on the Datadog plat
 
 ### Metrics
 
-See [metadata.csv](https://github.com/DataDog/integrations-extras/blob/master/akeyless_gateway/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv](/integrations-extras/blob/master/akeyless_gateway/metadata.csv) for a list of metrics provided by this integration.
 
 ### Service Checks
 
