@@ -99,6 +99,6 @@ Akeyless Gateway does not include any service checks.
 
 Akeyless Gateway does not include any events.
 
-## Troubleshooting
+## Support
 
 Need help? Contact [Akeyless Support](mailto:support@akeyless.io).
