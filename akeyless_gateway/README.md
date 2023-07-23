@@ -89,7 +89,7 @@ Upon successful setup of the Gateway, go to the Metrics page on the Datadog plat
 
 ### Metrics
 
-See [metadata.csv](/integrations-extras/blob/master/akeyless_gateway/metadata.csv) for a list of metrics provided by this integration.
+See [metadata.csv](/integrations-extras/akeyless_gateway/metadata.csv) for a list of metrics provided by this integration.
 
 ### Service Checks
 
