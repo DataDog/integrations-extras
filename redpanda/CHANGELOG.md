@@ -1,5 +1,7 @@
 # CHANGELOG - redpanda
 
+## Unreleased
+
 ## 1.1.1 / 2023-04-28
 
 ***Fixed***:

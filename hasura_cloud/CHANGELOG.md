@@ -1,5 +1,7 @@
 # CHANGELOG - Hasura Cloud
 
+## Unreleased
+
 ## 1.1.1 / 2022-10-17
 
 ***Fixed***:

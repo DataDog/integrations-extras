@@ -1,5 +1,7 @@
 # CHANGELOG - puma
 
+## Unreleased
+
 ## 1.2.0 / 2022-02-16
 
 ***Added***:
