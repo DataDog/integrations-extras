@@ -1,57 +1,19 @@
 {
     "title": "Sym",
-    "description": null,
+    "description": "## Sym Logs\nThis dashboard provides a stream of event logs from Sym, covering everything from `prompt` to `approve`. Included are helpful filters for:\n- Requests over time\n- Top requested targers\n- Top requesting and approving users\n\n\nFor more information about Sym's reporting features, see:\n- [Sym Reporting Overview](https://docs.symops.com/docs/reporting)",
     "widgets": [
         {
-            "id": 2927737356480636,
+            "id": 526230023549200,
             "definition": {
-                "title": "Sym Log Count",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "formula": "query1"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "data_source": "logs",
-                                "name": "query1",
-                                "indexes": [
-                                    "*"
-                                ],
-                                "compute": {
-                                    "aggregation": "count",
-                                    "interval": 7200000
-                                },
-                                "group_by": [],
-                                "search": {
-                                    "query": "service:sym"
-                                },
-                                "storage": "hot"
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "line_type": "solid",
-                            "line_width": "normal"
-                        },
-                        "display_type": "bars"
-                    }
-                ]
+                "type": "image",
+                "url": "https://assets.symops.com/platform/sym-logo-150x150.png",
+                "url_dark_theme": "",
+                "sizing": "contain",
+                "margin": "md",
+                "has_background": false,
+                "has_border": false,
+                "vertical_align": "center",
+                "horizontal_align": "center"
             },
             "layout": {
                 "x": 0,
@@ -66,7 +28,6 @@
                 "title": "Sym Approve Events",
                 "title_size": "16",
                 "title_align": "left",
-                "time": {},
                 "type": "query_value",
                 "requests": [
                     {
@@ -118,7 +79,6 @@
                 "title": "Sym Deny Events",
                 "title_size": "16",
                 "title_align": "left",
-                "time": {},
                 "type": "query_value",
                 "requests": [
                     {
@@ -241,6 +201,64 @@
             }
         },
         {
+            "id": 2927737356480636,
+            "definition": {
+                "title": "Sym Log Count",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "logs",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count",
+                                    "interval": 7200000
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "service:sym"
+                                },
+                                "storage": "hot"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+            }
+        },
+        {
             "id": 8680953559535649,
             "definition": {
                 "title": "Top Requested Targets",
@@ -292,7 +310,7 @@
             },
             "layout": {
                 "x": 0,
-                "y": 2,
+                "y": 4,
                 "width": 6,
                 "height": 2
             }
@@ -349,7 +367,7 @@
             },
             "layout": {
                 "x": 0,
-                "y": 4,
+                "y": 6,
                 "width": 3,
                 "height": 2
             }
@@ -406,7 +424,7 @@
             },
             "layout": {
                 "x": 3,
-                "y": 4,
+                "y": 6,
                 "width": 3,
                 "height": 2
             }
