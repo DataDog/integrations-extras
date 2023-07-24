@@ -1,4 +1,2 @@
 # CHANGELOG - CockroachDB Dedicated
 
-## Unreleased
-

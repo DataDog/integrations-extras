@@ -1,4 +1,2 @@
 # CHANGELOG - Apache APISIX
 
-## Unreleased
-

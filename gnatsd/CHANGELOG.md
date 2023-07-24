@@ -1,7 +1,5 @@
 # CHANGELOG - Gnatsd
 
-## Unreleased
-
 ## 2.0.0 / 2022-02-23
 
 ***Changed***:

@@ -1,7 +1,5 @@
 # CHANGELOG - Sortdb
 
-## Unreleased
-
 ## 1.0.0 / 2018-06-14
 
 ***Added***:

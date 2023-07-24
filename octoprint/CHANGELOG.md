@@ -1,4 +1,2 @@
 # CHANGELOG - octoprint
 
-## Unreleased
-

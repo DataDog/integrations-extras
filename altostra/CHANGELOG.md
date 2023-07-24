@@ -1,4 +1,2 @@
 # CHANGELOG - Altostra
 
-## Unreleased
-

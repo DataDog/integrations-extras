@@ -1,7 +1,5 @@
 # CHANGELOG - TiDB
 
-## Unreleased
-
 ## 2.1.0 / 2021-11-30
 
 ***Added***:

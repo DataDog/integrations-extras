@@ -1,7 +1,5 @@
 # CHANGELOG - PureFB
 
-## Unreleased
-
 ## 1.0.3 / 2023-04-28
 
 ***Fixed***:

@@ -1,4 +1,2 @@
 # CHANGELOG - Algorithmia
 
-## Unreleased
-
