@@ -22,3 +22,7 @@ await statsig.initialize('client-<STATSIG CLIENT KEY>',
   }
 ); 
 ```
+
+## Support 
+
+Join the [Statsig Slack community](https://join.slack.com/t/statsigcommunity/shared_invite/zt-pbp005hg-VFQOutZhMw5Vu9eWvCro9g) for support on enabling this integration. 
