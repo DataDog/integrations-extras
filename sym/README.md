@@ -2,9 +2,9 @@
 
 ## Overview
 
-[Sym][1] is a platform that allows you to define simple automations that turn just-in-time access policies into easy-to-operate workflows, executed in Slack. Define access flows in Terraform, customize and integrate with other systems in code, and then use our API or Slack App to request and approve/deny access.
+[Sym][1] is a platform that allows you to define simple automations that turn just-in-time access policies into easy-to-operate workflows, executed in Slack. Define access flows in Terraform, customize and integrate with other systems in code, and use our API or Slack App to request and approve/deny access.
 
-This integration enables customers to send Sym audit logs directly to Datadog via a Sym Log Destination. 
+This integration enables customers to send Sym audit logs directly to Datadog using a Sym Log Destination. 
 
 These logs are sent in real time for every event processed by the Sym platform, such as `request` or `approve`.
 
@@ -19,7 +19,7 @@ To set up the Sym integration:
 
 ### Configuration
 
-Check out the [Sym Docs][3] for detailed instructions on how to configure your Datadog Log Destination in Terraform.
+For more information about configuring your Datadog Log Destination in Terraform, see the [Sym documentation][3].
 
 ### Validation
 
