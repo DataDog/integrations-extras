@@ -22,14 +22,11 @@ Metrics are sent from Upbound's pods in the self hosted
 customer environment to the customer's Datadog account.
 They track the health of this self-managed
 infrastructure provisioning and resource lifecycle
-management ecosystem.
-
-The metrics inform about performance
+management ecosystem.  The metrics inform about performance
 and resource consumption. This helps validate Universal Crossplane
 management cluster sizing and enables optimization.
 
-The checks monitor [Upbound UXP](https://docs.upbound.io/uxp/)
-related metrics. It looks for UXP and provider pods by default
+This check looks for UXP and provider pods by default
 in the upbound-system Kubernetes
 namespace. The Upbound and provider
 pods emit metrics at port 8080/metrics in
@@ -100,7 +97,7 @@ datadog-agent integration install
 
 OR
 
-Copy the build artifact to an agent container,
+Copy the build artifact to an agent container
 that may be running in Kubernetes with the following command.
 ```
 kubectl -n <MONITORING_NAMESPACE>
