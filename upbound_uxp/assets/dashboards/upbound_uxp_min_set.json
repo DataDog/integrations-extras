@@ -1,7 +1,24 @@
 {
 	"title": "Upbound UXP Min Set",
-	"description": "## Upbound UXP Min Set\n\nThis dashboard covers graphs for the UXP Min Set metrics. They are as follows\n\n# Upjet provider Terraform CLI invocations\nupjet_terraform_active_cli_invocations\n\n# Upjet provider Terraform running processes\nupjet_terraform_running_processes\n\n# Total number of reconciliations per controller\ncontroller_runtime_reconcile_total\n\n# Number of goroutines that currently exist\ngo_goroutines\n\n# Number of bytes allocated and still in use\ngo_memstats_alloc_bytes\n\n# Number of bytes allocated and still in use\ngo_memstats_alloc_bytes_total\n\n# Total user and system CPU time spent in seconds\nprocess_cpu_seconds_total\n\n# Resident memory size in bytes\nprocess_resident_memory_bytes\n\n# Start time of the process since unix epoch in seconds\nprocess_start_time_seconds\n\n# Number of HTTP requests partitioned by status code, method, and host.\nrest_client_requests_total\n\n# Total number of adds handled by workqueue\nworkqueue_adds_total\n\n# Current depth of workqueue\nworkqueue_depth\n\n# How long in seconds processing an item from workqueue takes\nworkqueue_work_duration_seconds_bucket\nworkqueue_work_duration_seconds_count\nworkqueue_work_duration_seconds_sum\n\n",
+	"description": "## Upbound UXP Min Set\n\nThis dashboard covers graphs for the UXP Min Set metrics. They are as follows\n\n- Upjet provider Terraform CLI invocations\n- Upjet provider Terraform running processes\n- Total number of reconciliations per controller\n- Number of goroutines that currently exist\n- Number of bytes allocated and still in use\n- Number of bytes allocated and still in use\n- Total user and system CPU time spent in seconds\n- Resident memory size in bytes\n- Start time of the process since unix epoch in seconds\n- Number of HTTP requests partitioned by status code, method, and host.\n- Total number of adds handled by workqueue\n- Current depth of workqueue\n- How long in seconds processing an item from workqueue takes",
 	"widgets": [{
+		"id": 1436105568556493,
+		"definition": {
+			"type": "image",
+			"url": "https://static.upbound.io/marketing/upbound_uxp_logo.svg",
+			"sizing": "cover",
+			"has_background": true,
+			"has_border": true,
+			"vertical_align": "center",
+			"horizontal_align": "center"
+		},
+		"layout": {
+			"x": 0,
+			"y": 0,
+			"width": 2,
+			"height": 2
+		}
+	}, {
 		"id": 7058913334764000,
 		"definition": {
 			"title": "Kubernetes Upbound-System Container Restarts",
@@ -10,7 +27,6 @@
 			"show_legend": true,
 			"legend_layout": "auto",
 			"legend_columns": ["avg", "min", "max", "value", "sum"],
-			"time": {},
 			"type": "timeseries",
 			"requests": [{
 				"formulas": [{
@@ -31,15 +47,14 @@
 			}]
 		},
 		"layout": {
-			"x": 0,
+			"x": 2,
 			"y": 0,
-			"width": 4,
+			"width": 2,
 			"height": 2
 		}
 	}, {
 		"id": 852694346314535,
 		"definition": {
-			"time": {},
 			"title": "Kubernetes API Server Request Duration Seconds By Resource",
 			"type": "treemap",
 			"requests": [{
@@ -70,7 +85,6 @@
 			"show_legend": true,
 			"legend_layout": "auto",
 			"legend_columns": ["avg", "min", "max", "value", "sum"],
-			"time": {},
 			"type": "timeseries",
 			"requests": [{
 				"response_format": "timeseries",
