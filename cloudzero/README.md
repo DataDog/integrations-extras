@@ -2,58 +2,45 @@
 
 ## Overview
 
-This check monitors [CloudZero][1].
+### Overview
+CloudZero helps engineering teams build cost-effective software. Through its innovative platform, CloudZero allocates 100% of customers' cloud, PaaS, and SaaS spend - regardless of their tagging quality - and presents it in a single unified view. It then combines hourly spend data with business- and system-level telemetry to put cloud data in a business context, through precise unit cost metrics like cost per customer, per product, per feature, per team, and more. CloudZero's AI-powered anomaly detection alerts engineers to abnormal spend events, pointing them directly to the affected infrastructure, and promoting engineering engagement in cloud cost management.
+
+### Benefits
+Once connected, the CloudZero platform regularly ingests your Datadog billing information for both committed and on-demand costs across all Datadog products. CloudZero unifies this data with the rest of your cloud costs, giving you a comprehensive assessment of your total cloud investment. The platform then puts 100% of your cloud spend through numerous analytics features, revealing opportunities for efficiency and letting you craft and send custom reports.
 
 ## Setup
 
 ### Installation
 
-To install the CloudZero check on your host:
-
-
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
-
-2. Run `ddev release build cloudzero` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/cloudzero/dist/<ARTIFACT_NAME>.whl`.
+Log in to your [CloudZero account](https://app.cloudzero.com) and navigate to the Connections settings. Create a new connection to Datadog. Once a connection is created, you will click "Authorize Datadog Account" to authorize CloudZero to pull data from your Datadog account into the CloudZero platform.
 
 ### Configuration
 
-1. <List of steps to setup this Integration>
+You will be able to adjust settings from the connection details page for your
+Datadog connection in CloudZero.
 
 ### Validation
 
-<Steps to validate integration is functioning as expected>
-
-## Data Collected
-
-### Metrics
-
-CloudZero does not include any metrics.
-
-### Service Checks
-
-CloudZero does not include any service checks.
-
-### Events
-
-CloudZero does not include any events.
+1. From the list of [connections](http://app.cloudzero.com/organization/connections), you will be able to see the status of your connection to Datadog. 
+2. Click on the name of your Datadog connection to view more details about the
+   amount and timing of data that has been pulled from Datadog.
+3. Once data ingestion has successfully run, you will see Datadog costs included in the
+   [Cost Explorer](http://app.cloudzero.com/explorer). 
 
 ### Uninstallation
 - Once this integration has been uninstalled, any previous authorizations are revoked.
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page](https://app.datadoghq.com/organization-settings/api-keys?_gl=1*pc1ehd*_gcl_aw*R0NMLjE2ODY4NTM2MzIuQ2owS0NRanc3YXFrQmhEUEFSSXNBS0dhMG9Ma2Y4VWlPcmo2SHhoVkpFbE1yb0ZWdW1iSHVDVmhwYzdPb1psWXdHdy12NG9qV21SWjNmY2FBczJiRUFMd193Y0I.*_gcl_au*MTUyMDYzMDY1Mi4xNjgzNzI2OTI1*_ga*MTEyODQ5ODQyNy4xNjgzNzI2OTI1*_ga_KN80RDFSQK*MTY4OTA4NjY3NC4xNS4xLjE2ODkwODY5MzkuMC4wLjA.*_fplc*SG9HMWQ2YUNXT2JYJTJGSzJQMXo5RGRMcTRnQzUyUUt6SWdENkRPTU5yc3ZwNjhRb1NZUWpTMHR2RnZmZGxFSEpvTlZpRGUzSGJvaFpnR21KNDJCbExTZzhUUUlrMXlIdXYlMkZzUWZtRyUyQndQR1RuY0I1WGJZN3dmbngxT2lzdnNnJTNEJTNE).
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page](https://app.datadoghq.com/organization-settings/api-keys).
+
+## Data Collected
+
+### Billing Information
+The CloudZero platform regularly ingests your Datadog billing information. This data is unified with the rest of your cloud costs, giving you a comprehensive assessment of your total cloud investment. 
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact [CloudZero support][3].
 
 [1]: **LINK_TO_INTEGRATION_SITE**
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/help/
+[3]: mailto:support@cloudzero.com
 
