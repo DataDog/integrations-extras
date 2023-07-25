@@ -15,7 +15,7 @@ These logs are sent in real time for every event processed by the Sym platform, 
 To set up the Sym integration:
 1. From the Sym Datadog Integration tile, click on "Connect Accounts".
 2. Datadog will redirect you to Sym to begin the OAuth authorization flow. Enter your Sym Org ID here to continue to log in to Sym.
-3. After successfully authenticating, a `sym_log_destination` Terraform resource will display. Copy and paste this into your Sym Terraform Configuration.
+3. After successfully authorizing, a `sym_log_destination` Terraform resource will display. Copy and paste this into your Sym Terraform Configuration.
 
 ### Configuration
 
@@ -23,10 +23,16 @@ For more information about configuring your Datadog Log Destination in Terraform
 
 ### Validation
 
-After you have Terraformed your Datadog Log Destination, you can confirm its existence with:
+After you have Terraformed your Datadog Log Destination, you can confirm its existence with the following `symflow` CLI command:
 ```
  symflow resources list sym_log_destination
 ```
+
+### Uninstallation
+
+- Uninstall the integration by disabling the Sym application in the OAuth Apps section of your Datadog Organization settings.
+- Once this integration has been uninstalled, any previous authorizations are revoked.
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
 
 ## Troubleshooting
 
