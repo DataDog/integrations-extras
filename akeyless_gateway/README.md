@@ -40,7 +40,7 @@ metrics:
           exporters: [datadog]
 ```
 
-2. If you have not yet deployed the Gateway, continue with your Installation as usual and run the following command when ready to deploy:
+2. If you have not yet deployed the Gateway, continue with your installation as usual and run the following command when ready to deploy:
 
 ```
 helm install <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
