@@ -102,3 +102,6 @@ Akeyless Gateway does not include any events.
 ## Support
 
 Need help? Contact [Akeyless Support](mailto:support@akeyless.io).
+
+
+[1]: https://docs.datadoghq.com/getting_started/site/
