@@ -51,15 +51,20 @@ fi
 echo_step_completed "Hatch Config"
 
 echo_info "Checking for DATADOG_API_KEY and DATADOG_APP_KEY"
-hatch run export DATADOG_API_KEY=${DATADOG_API_KEY}
-hatch run export DATADOG_APP_KEY=${DATADOG_APP_KEY}
+#hatch run export DATADOG_API_KEY=${DATADOG_API_KEY}
+#hatch run export DATADOG_APP_KEY=${DATADOG_APP_KEY}
+export DATADOG_API_KEY=${DATADOG_API_KEY}
+export DATADOG_APP_KEY=${DATADOG_APP_KEY}
 if [[ ${DATADOG_API_KEY} == "" ]]; then
-    hatch run export DATADOG_API_KEY=${DD_API_KEY}
+    #hatch run export DATADOG_API_KEY=${DD_API_KEY}
+    export DATADOG_API_KEY=${DD_API_KEY}
 fi
 if [[ ${DATADOG_APP_KEY} == "" ]]; then
-    hatch run export DATADOG_APP_KEY=${DD_APP_KEY}
+    #hatch run export DATADOG_APP_KEY=${DD_APP_KEY}
+    export DATADOG_APP_KEY=${DD_APP_KEY}
 fi
-hatch run export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
+#hatch run export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
+export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
 if [[ ${DATADOG_API_KEY} == "" ]]; then
     echo "export DATADOG_API_KEY in your environment"
     exit
