@@ -1,4 +1,2 @@
 # CHANGELOG - Sendmail
 
-## Unreleased
-

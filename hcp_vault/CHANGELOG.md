@@ -1,4 +1,2 @@
 # CHANGELOG - HCPVault
 
-## Unreleased
-

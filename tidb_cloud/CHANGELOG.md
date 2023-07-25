@@ -1,4 +1,2 @@
 # CHANGELOG - TiDB Cloud
 
-## Unreleased
-

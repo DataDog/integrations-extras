@@ -1,3 +1,1 @@
 # CHANGELOG - Embrace Mobile
-
-## Unreleased

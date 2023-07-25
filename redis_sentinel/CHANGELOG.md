@@ -1,4 +1,2 @@
 # CHANGELOG - Redis Sentinel
 
-## Unreleased
-

@@ -1,7 +1,5 @@
 # CHANGELOG - jfrog_platform
 
-## Unreleased
-
 ## 1.2.0 / 2021-05-21
 
 ***Added***:
