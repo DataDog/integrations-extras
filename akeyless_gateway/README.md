@@ -4,7 +4,7 @@
 
 The Akeyless Platform is a unified secrets management system that enables you to store, protect, rotate, and dynamically create credentials, certificates, and encryption keys. Our platform supports several use cases, including managing static and dynamic credentials, certificate automation, encryption and digital signing, and zero-trust application access that secures remote access to your internal resources.
 
-This integration allows you to visualize and monitor performance of your [Akeyless Gateway](https://docs.akeyless.io/docs/api-gw). The Telemetry Metrics are based on time series telemetry data metrics from the application and the runtime environment, storing them in a unique database or index, and analyzing data trends over time.
+This integration allows you to visualize and monitor performance of your [Akeyless Gateway](https://docs.akeyless.io/docs/api-gw). Telemetry metrics are sourced from the application and the runtime environment.
 
 ## Setup
 
