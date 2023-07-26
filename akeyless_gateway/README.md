@@ -56,7 +56,7 @@ helm upgrade <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
 
 To configure the Akeyless Gateway integration on a [Standalone Gateway](https://docs.akeyless.io/docs/install-and-configure-the-gateway):
 
-1. Create a local file called `otel-config.yaml` with the below configuration. Set the relevant API Key of your Datadog server, and the relevant site. If your Datadog server is running in the EU site, use `datadoghq.eu`. Default is `datadoghq.us`.
+1. Create a local file called `otel-config.yaml` with the below configuration. Set the relevant API Key of your Datadog server, and the relevant [Datadog site][1] (i.e. `app.datadoghq.com`).
 
 ```
 exporters:
@@ -70,12 +70,12 @@ service:
       exporters: [datadog]
 ```
 
-2. If you have not yet deployed the Gateway, run the below command to spin up your Akeyless Gateway with the `ENABLE_METRICS=true` variable and mounting the `otel-config.yaml` file.
+2. If you have not yet deployed the Gateway, run the below command to spin up your Akeyless Gateway with the `ENABLE_METRICS=true` variable and mounting the `otel-config.yaml` file:
 
 ```
 docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081 -p 5696:5696 -e ENABLE_METRICS="true" -v $PWD/otel-config.yaml:/akeyless/otel-config.yaml --name <your-gateway-name> akeyless/base:latest-akeyless
 ```
-3. If you are updating an existing Gateway, use the same `Admin Access ID` and `Cluster Name` for the updated Gateway in order to retrieve the latest settings and data from the previously removed Docker instance.
+3. If you are updating an existing Gateway, use the same `Admin Access ID` and `Cluster Name` for the updated Gateway in order to retrieve the latest settings and data from the previously removed Docker instance:
 
 ```
 docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081 -p 5696:5696 -e ADMIN_ACCESS_ID="p-xxxxxx" -e ADMIN_ACCESS_KEY="62Hu...xxx....qlg=" -e ENABLE_METRICS="true" -v $PWD/otel-config.yaml:/akeyless/otel-config.yaml --name <your-gateway-name> akeyless/base:latest-akeyless
