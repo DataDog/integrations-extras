@@ -52,7 +52,7 @@ helm install <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
 helm upgrade <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
 ```
 
-#### For a Standalone Gateway Running on Docker
+#### For a standalone Gateway running on Docker
 
 To configure the Akeyless Gateway integration on a [Standalone Gateway](https://docs.akeyless.io/docs/install-and-configure-the-gateway):
 
