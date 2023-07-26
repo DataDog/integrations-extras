@@ -19,7 +19,7 @@ To configure the integration with Datadog to view important Akeyless Gateway met
 
 This integration works with one Gateway or multiple instances using the same API key. Metrics can be shown per `host` or `instance` in the **Akeyless GW** dashboard.
 
-#### For a Gateway Running on Kubernetes
+#### For a Gateway running on Kubernetes
 
 To configure the Akeyless Gateway integration on a [Gateway running on K8s](https://docs.akeyless.io/docs/gateway-k8s):
 
