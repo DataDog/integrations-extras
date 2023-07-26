@@ -14,6 +14,10 @@ Once connected, the CloudZero platform regularly ingests your Datadog billing in
 
 Log in to your [CloudZero account](https://app.cloudzero.com) and navigate to the Connections settings. Create a new connection to Datadog. Once a connection is created, you will click "Authorize Datadog Account" to authorize CloudZero to pull data from your Datadog account into the CloudZero platform.
 
+Alternatively, you can initiate the CloudZero/Datadog integration by clicking Install
+Integration. Next click "Connect Accounts" to begin the OAuth workflow and
+create a connection in the CloudZero platform.
+
 ### Configuration
 
 You will be able to adjust settings from the connection details page for your
@@ -30,11 +34,6 @@ Datadog connection in CloudZero.
 ### Uninstallation
 - Once this integration has been uninstalled, any previous authorizations are revoked.
 - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page](https://app.datadoghq.com/organization-settings/api-keys).
-
-## Data Collected
-
-### Billing Information
-The CloudZero platform regularly ingests your Datadog billing information. This data is unified with the rest of your cloud costs, giving you a comprehensive assessment of your total cloud investment. 
 
 ## Troubleshooting
 
