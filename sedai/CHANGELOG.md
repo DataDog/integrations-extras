@@ -1,4 +1,2 @@
 # CHANGELOG - Sedai
 
-## Unreleased
-

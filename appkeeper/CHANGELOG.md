@@ -1,4 +1,2 @@
 # CHANGELOG - AppKeeper
 
-## Unreleased
-

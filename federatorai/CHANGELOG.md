@@ -1,4 +1,2 @@
 # CHANGELOG - Federator.ai
 
-## Unreleased
-

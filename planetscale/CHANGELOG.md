@@ -1,4 +1,2 @@
 # CHANGELOG - planetscale
 
-## Unreleased
-

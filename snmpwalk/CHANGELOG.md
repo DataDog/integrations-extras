@@ -1,4 +1,2 @@
 # CHANGELOG - Snmpwalk
 
-## Unreleased
-
