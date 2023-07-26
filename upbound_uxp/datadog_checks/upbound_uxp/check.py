@@ -362,8 +362,14 @@ class UpboundUxpCheck(AgentCheck):
                 new_kv = re.sub('.+?(, )', '', v)
                 tags.append(new_kv)
                 v = re.sub(', .*$', '', v)
-            tags.append(k + ":" + v)
+            if k == "host":
+                tags.append("uxp_host:" + v)
+            elif k == "version":
+                tags.append("uxp_version:" + v)
+            else:
+                tags.append(k + ":" + v)
         tags.append("pod:" + pod_name)
+
         return tags
 
     # Merge metrics from DataDog agent config
