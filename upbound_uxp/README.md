@@ -29,7 +29,7 @@ management cluster sizing and enables optimization.
 This check looks for UXP and provider pods by default
 in the upbound-system Kubernetes
 namespace. The Upbound and provider
-pods emit metrics at port 8080/metrics in
+pods expose metrics on the `/metrics` URL from port `8080` in
 a Prometheus compatible format.
 
 ## Setup
