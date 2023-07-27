@@ -125,7 +125,7 @@ for available configuration options.
 
 ### Validation
 
-Run the agent status subcommand and look for `upbound_uxp`
+Run the `agent status` subcommand and look for `upbound_uxp`
 under the Checks section. Sample output may look like below:
 ```
     upbound_uxp (0.0.1)
