@@ -30,7 +30,7 @@ After you have Terraformed your Datadog Log Destination, you can confirm its exi
 
 ### Uninstallation
 
-- Uninstall the integration by disabling the Sym application in the OAuth Apps section of your Datadog Organization settings.
+- Uninstall the integration by clicking the Uninstall button on the integration tile.
 - Once this integration has been uninstalled, any previous authorizations are revoked.
 - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
 
