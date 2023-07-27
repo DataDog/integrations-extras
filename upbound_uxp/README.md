@@ -125,8 +125,21 @@ for available configuration options.
 
 ### Validation
 
-[Run the Agent's status subcommand] and look for `upbound_uxp`
-under the Checks section.
+Run the agent status subcommand and look for `upbound_uxp`
+under the Checks section. Sample output may look like below:
+```
+    upbound_uxp (0.0.1)
+    -------------------
+      Instance ID: upbound_uxp:9ca7c5002ecb33af [OK]
+      Configuration Source: file:/etc/datadog-agent/conf.d/upbound_uxp.d/auto_conf.yaml
+      Total Runs: 201
+      Metric Samples: Last Run: 210, Total: 41,792
+      Events: Last Run: 0, Total: 0
+      Service Checks: Last Run: 1, Total: 201
+      Average Execution Time : 41ms
+      Last Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
+      Last Successful Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
+```
 
 Run tests as follows:
 ```
