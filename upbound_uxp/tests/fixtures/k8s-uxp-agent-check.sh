@@ -65,15 +65,19 @@ if [[ ${DATADOG_APP_KEY} == "" ]]; then
 fi
 #hatch run export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
 export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
-if [[ ${DATADOG_API_KEY} == "" ]]; then
-    echo "export DATADOG_API_KEY in your environment"
-    exit
-fi
-if [[ ${DATADOG_APP_KEY} == "" ]]; then
-    echo "export DATADOG_APP_KEY in your environment"
-    exit
-fi
-echo_step_completed "Found DATADOG_API_KEY and DATADOG_APP_KEY"
+
+# Exploring Datadog Github test behavior
+# when API and APP keys are potentially not
+# present.
+#if [[ ${DATADOG_API_KEY} == "" ]]; then
+#    echo "export DATADOG_API_KEY in your environment"
+#    exit
+#fi
+#if [[ ${DATADOG_APP_KEY} == "" ]]; then
+#    echo "export DATADOG_APP_KEY in your environment"
+#    exit
+#fi
+#echo_step_completed "Found DATADOG_API_KEY and DATADOG_APP_KEY"
 
 KUBECONFIG="/tmp/uxp.kubeconfig"
 if [[ ${MODE} == "kind" ]]; then
