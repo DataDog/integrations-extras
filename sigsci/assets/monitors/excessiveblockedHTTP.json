@@ -3,7 +3,9 @@
 	"type": "query alert",
 	"query": "avg(last_4h):anomalies(sum:sigsci.agent.waf.block{*}.as_count(), 'agile', 2, direction='above', alert_window='last_5m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
 	"message": "Signal Sciences Web Application Firewall has been blocking an unusually high number of web requests. This may be indicative of a volumetric attack against one or more of your web properties or API endpoints. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
-	"tags": [],
+	"tags": [
+		"integration:sigsci"
+	],
 	"options": {
 		"notify_audit": false,
 		"locked": false,
