@@ -2,7 +2,7 @@
 
 ## Overview
 
-CloudZero helps engineering teams build cost-effective software. Through its innovative platform, CloudZero allocates 100% of customers' cloud, PaaS, and SaaS spend—regardless of their tagging quality—and presents it in a single unified view. It then combines hourly spend data with business- and system-level telemetry to put cloud data in a business context through precise unit cost metrics like cost per customer, per product, per feature, per team, and more. CloudZero's AI-powered anomaly detection alerts engineers to abnormal spend events by pointing them directly to the affected infrastructure, and promotes engineering engagement in cloud cost management.
+CloudZero helps engineering teams build cost-effective software. Through its innovative platform, CloudZero allocates 100% of customers' cloud, PaaS, and SaaS spend-regardless of their tagging quality-and presents it in a single unified view. It then combines hourly spend data with business- and system-level telemetry to put cloud data in a business context through precise unit cost metrics like cost per customer, per product, per feature, per team, and more. CloudZero's AI-powered anomaly detection alerts engineers to abnormal spend events by pointing them directly to the affected infrastructure, and promotes engineering engagement in cloud cost management.
 
 ### Benefits
 
@@ -12,11 +12,11 @@ Once connected, the CloudZero platform regularly ingests your Datadog billing in
 
 ### Installation
 
-Log in to your [CloudZero account][4] and navigate to the Connections settings. Create a new connection to Datadog. 
+Log in to your [CloudZero account][1] and navigate to the Connections settings. Create a new connection to Datadog. 
 
 Once a connection is created, click **Authorize Datadog Account** to authorize CloudZero to pull data from your Datadog account into the CloudZero platform.
 
-Alternatively, you can initiate the CloudZero/Datadog integration by clicking **Install Integration** on the [Datadog integration tile][1]. Next, click **Connect Accounts** under the Configure tab to begin the OAuth workflow and create a connection in the CloudZero platform.
+Alternatively, you can initiate the CloudZero/Datadog integration by clicking **Install Integration** on the [Datadog integration tile][2]. Next, click **Connect Accounts** under the Configure tab to begin the OAuth workflow and create a connection in the CloudZero platform.
 
 ### Configuration
 
@@ -24,22 +24,21 @@ You can adjust settings from the connection details page for your Datadog connec
 
 ### Validation
 
-1. From the list of [connections][5], you can see the status of your connection to Datadog. 
+1. From the list of [connections][3], you can see the status of your connection to Datadog. 
 2. Click on the name of your Datadog connection to view more details about the amount and timing of data that has been pulled from Datadog.
-3. Once data ingestion has successfully run, you will see Datadog costs included in the [Cost Explorer][6].
+3. Once data ingestion has successfully run, you will see Datadog costs included in the [Cost Explorer][4].
 
 ### Uninstallation
 - Once this integration has been uninstalled, any previous authorizations are revoked.
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][7].
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
 ## Troubleshooting
 
-Need help? Contact [CloudZero support][3].
+Need help? Contact [CloudZero support][6].
 
-[1]: https://app.datadoghq.com/integrations/cloudzero
-[2]: https://app.datadoghq.com/account/settings#agent
-[3]: mailto:support@cloudzero.com
-[4]: https://app.cloudzero.com
-[5]: http://app.cloudzero.com/organization/connections
-[6]: http://app.cloudzero.com/explorer
-[7]: https://app.datadoghq.com/organization-settings/api-keys
+[1]: https://app.cloudzero.com
+[2]: https://app.datadoghq.com/integrations/cloudzero
+[3]: https://app.cloudzero.com/organization/connections
+[4]: https://app.cloudzero.com/explorer
+[5]: https://app.datadoghq.com/organization-settings/api-keys
+[6]: mailto:support@cloudzero.com
