@@ -163,6 +163,8 @@ ${HELM} install datadog-upbound \
     datadog/datadog
 echo_step_completed "Installed Datadog Agent Pod"
 
+exit -1
+
 echo_info "Waiting for Datadog Pod readiness"
 ${KUBECTL} wait -n monitoring pods --all --for condition=Ready --timeout=15m
 echo_step_completed "Installed Datadog Pods"
