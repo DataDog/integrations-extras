@@ -102,10 +102,8 @@ if [[ ${MODE} == "kind" ]]; then
     echo_info "Creating local kind test UXP cluster"
     kind create cluster --name uxp --kubeconfig ${KUBECONFIG}
 fi
-KUBECTL="kubectl --kubeconfig ${KUBECONFIG}"
-HELM="helm --kubeconfig ${KUBECONFIG}"
-
-exit -1
+KUBECTL="kubectl --context kind-uxp --kubeconfig ${KUBECONFIG}"
+HELM="helm --context kind-uxp --kubeconfig ${KUBECONFIG}"
 
 echo_info "Installing UXP"
 up uxp --kubeconfig ${KUBECONFIG} install --set metrics.enabled=true
