@@ -7,7 +7,7 @@ With The Datadog Split RUM integration, product teams can view feature flag info
 
 ## Setup
 
-Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][3] guide.
+Feature flag tracking is available in the RUM Browser SDK. For detailed setup instructions, see the [Getting started with Feature Flag data in RUM][3] guide.
 
 1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
