@@ -79,7 +79,7 @@ export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
 #fi
 #echo_step_completed "Found DATADOG_API_KEY and DATADOG_APP_KEY"
 
-KUBECONFIG="/tmp/uxp.kubeconfig"
+KUBECONFIG="~/uxp.kubeconfig"
 if [[ ${MODE} == "kind" ]]; then
     KIND_PATH=$(which kind)
     if [[ ${KIND_PATH} == "" ]]; then
@@ -104,6 +104,8 @@ if [[ ${MODE} == "kind" ]]; then
 fi
 KUBECTL="kubectl --kubeconfig ${KUBECONFIG}"
 HELM="helm --kubeconfig ${KUBECONFIG}"
+
+exit -1
 
 echo_info "Installing UXP"
 up uxp --kubeconfig ${KUBECONFIG} install --set metrics.enabled=true
@@ -162,8 +164,6 @@ ${HELM} install datadog-upbound \
     --set datadog.appKeyExistingSecret=$DATADOG_SECRET_NAME \
     datadog/datadog
 echo_step_completed "Installed Datadog Agent Pod"
-
-exit -1
 
 echo_info "Waiting for Datadog Pod readiness"
 ${KUBECTL} wait -n monitoring pods --all --for condition=Ready --timeout=15m
