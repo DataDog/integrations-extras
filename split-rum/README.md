@@ -1,7 +1,7 @@
 
 ## Overview
 
-[Split][1] is the Intelligent Feature Management [platform][2] that pairs the speed and reliability of feature flags with data to measure the impact of every feature. With Split, organizations have a secure way to release features, target them to customers, and measure the impact of features on their customer experience metrics.
+[Split][1] is an Intelligent Feature Management [platform][2] that pairs the speed and reliability of feature flags with data to measure the impact of every feature. With Split, organizations have a secure way to release features, target them to customers, and measure the impact of features on their customer experience metrics.
 
 With The Datadog Split RUM integration, product teams now have visibility of feature flag information overlaid on RUM data, so you can proactively monitor the real-time activity and experience of individual users and, if necessary, quickly roll back or shut off features that may be causing degradations.
 
