@@ -245,6 +245,7 @@ class UpboundUxpCheck(AgentCheck):
     def __init__(self, name, init_config, instances):
         self.log = logging.getLogger("Upbound UXP")
         self.log.info("DataDog Upbound Universal Crossplane Integration")
+        self.home = os.getenv('HOME')
 
         if instances is not None:
             for instance in instances:
@@ -438,7 +439,7 @@ class UpboundUxpCheck(AgentCheck):
         try:
             if 'KUBERNETES_SERVICE_HOST' not in os.environ and 'KUBERNETES_SERVICE_PORT' not in os.environ:
                 incluster = False
-                config.load_kube_config("/tmp/uxp.kubeconfig")
+                config.load_kube_config(self.home + "/uxp.kubeconfig")
             else:
                 config.load_incluster_config()
         except Exception as e:
@@ -494,7 +495,7 @@ class UpboundUxpCheck(AgentCheck):
             try:
                 if not incluster:
                     port_forward_target_str = str(port_forward_target)
-                    cmd1 = 'kubectl --kubeconfig /tmp/uxp.kubeconfig '
+                    cmd1 = 'kubectl --kubeconfig ' + self.home + '/uxp.kubeconfig '
                     cmd2 = '-n upbound-system port-forward '
                     cmd3 = 'pods/' + pod.metadata.name + ' '
                     cmd4 = port_forward_target_str + ':' + self.uxp_port

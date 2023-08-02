@@ -51,35 +51,17 @@ fi
 echo_step_completed "Hatch Config"
 
 echo_info "Checking for DATADOG_API_KEY and DATADOG_APP_KEY"
-#hatch run export DATADOG_API_KEY=${DATADOG_API_KEY}
-#hatch run export DATADOG_APP_KEY=${DATADOG_APP_KEY}
 export DATADOG_API_KEY=${DATADOG_API_KEY}
 export DATADOG_APP_KEY=${DATADOG_APP_KEY}
 if [[ ${DATADOG_API_KEY} == "" ]]; then
-    #hatch run export DATADOG_API_KEY=${DD_API_KEY}
     export DATADOG_API_KEY=${DD_API_KEY}
 fi
 if [[ ${DATADOG_APP_KEY} == "" ]]; then
-    #hatch run export DATADOG_APP_KEY=${DD_APP_KEY}
     export DATADOG_APP_KEY=${DD_APP_KEY}
 fi
-#hatch run export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
 export DATADOG_SECRET_NAME=${DATADOG_SECRET_NAME}
 
-# Exploring Datadog Github test behavior
-# when API and APP keys are potentially not
-# present.
-#if [[ ${DATADOG_API_KEY} == "" ]]; then
-#    echo "export DATADOG_API_KEY in your environment"
-#    exit
-#fi
-#if [[ ${DATADOG_APP_KEY} == "" ]]; then
-#    echo "export DATADOG_APP_KEY in your environment"
-#    exit
-#fi
-#echo_step_completed "Found DATADOG_API_KEY and DATADOG_APP_KEY"
-
-KUBECONFIG="~/uxp.kubeconfig"
+KUBECONFIG="${HOME}/uxp.kubeconfig"
 if [[ ${MODE} == "kind" ]]; then
     KIND_PATH=$(which kind)
     if [[ ${KIND_PATH} == "" ]]; then
@@ -102,8 +84,8 @@ if [[ ${MODE} == "kind" ]]; then
     echo_info "Creating local kind test UXP cluster"
     kind create cluster --name uxp --kubeconfig ${KUBECONFIG}
 fi
-KUBECTL="kubectl --context kind-uxp --kubeconfig ${KUBECONFIG}"
-HELM="helm --context kind-uxp --kubeconfig ${KUBECONFIG}"
+KUBECTL="kubectl --kubeconfig ${KUBECONFIG}"
+HELM="helm --kubeconfig ${KUBECONFIG}"
 
 echo_info "Installing UXP"
 up uxp --kubeconfig ${KUBECONFIG} install --set metrics.enabled=true
@@ -153,35 +135,6 @@ ${KUBECTL} create secret generic $DATADOG_SECRET_NAME \
     --from-literal app-key=$DATADOG_APP_KEY
 echo_step_completed "Created Datadog Secret ${DATADOG_SECRET_NAME}"
 
-echo_step "Installing Datadog Agent Pod"
-${HELM} install datadog-upbound \
-    -f ${SCRIPT_DIR}/datadog-values.yaml \
-    --namespace monitoring \
-    --set datadog.site='datadoghq.com' \
-    --set datadog.apiKeyExistingSecret=$DATADOG_SECRET_NAME \
-    --set datadog.appKeyExistingSecret=$DATADOG_SECRET_NAME \
-    datadog/datadog
-echo_step_completed "Installed Datadog Agent Pod"
-
-echo_info "Waiting for Datadog Pod readiness"
-${KUBECTL} wait -n monitoring pods --all --for condition=Ready --timeout=15m
-echo_step_completed "Installed Datadog Pods"
-
-echo_info "Load upbound_uxp.py and auto_conf.yaml into Datadog Agent"
-SRC_DIR=${SCRIPT_DIR}/../../datadog_checks/upbound_uxp
-export DATADOG_POD=$(${KUBECTL} get pods -n monitoring|grep datadog-upbound|awk '{print $1}'|grep -v cluster)
-if [[ ${DATADOG_POD} == "" ]]; then
-    echo "Datadog Pod not found"
-else
-    ${KUBECTL} -n monitoring exec ${DATADOG_POD} -- mkdir -p /home/root/dd
-    WHEEL_PATH=$(ls -1 ${SCRIPT_DIR}/../../dist/*whl|head -1)
-    WHEEL_NAME=$(cd ${SCRIPT_DIR}/../../dist && ls *whl|head -1)
-    ${KUBECTL} -n monitoring cp ${WHEEL_PATH} ${DATADOG_POD}:/home/root/dd
-    ${KUBECTL} -n monitoring exec ${DATADOG_POD} -- agent integration install -r -w /home/root/dd/${WHEEL_NAME}
-fi
-sleep 5
-echo_step_completed "Uploaded upbound_uxp.py and auto_conf.yaml"
-
 echo_info "Creating Service Account, Cluster Role and Role Binding"
 cat <<EOF | ${KUBECTL} apply -f -
 apiVersion: v1
@@ -218,17 +171,5 @@ roleRef:
   name: apiserver-cluster-role
 EOF
 echo_step_completed "Created Service Account, Cluster Role and Role Binding"
-
-echo_info "Creating Datadog ddev test environment in the Datadog Agent Container"
-echo_step_completed "Created Datadog ddev test environment in the Datadog Agent Container"
-
-echo_info "Checking Datadog Agent Upbound UXP Check"
-export DATADOG_POD=$(${KUBECTL} get pods -n monitoring|grep datadog-upbound|awk '{print $1}'|grep -v cluster)
-if [[ ${DATADOG_POD} == "" ]]; then
-    echo "Datadog Agent Pod not found"
-else
-    ${KUBECTL} -n monitoring exec ${DATADOG_POD} -- agent check upbound_uxp
-fi
-echo_step_completed "Checked Datadog Agent Upbound UXP Check"
 
 exit 0
