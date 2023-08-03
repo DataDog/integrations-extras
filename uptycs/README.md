@@ -41,22 +41,18 @@ You'll also need Datadog API keys.
 2. Create a Datadog Integration Destination on Uptycs platform with Datadog API keys.
    1. Go to the Configuration > Destinations.
    2. Click on New destination.
-   3. Select Webhook destination type.
-   3. Provide a name, the DataDog Log collection URL, the API Key as a header.
+   3. Select DataDog destination type.
+   3. Provide a name, the DataDog domain, the API Key. Your can also add custom template for alert or detection in the template field.
 
       ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_1.png)
 
-   4. Provide your own custom template for alert or detection in the template field.
-
-      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_2.png)
-
-   5. Click **save**.
+   4. Click **save**.
 3. Now that the destination is set up, let's create forwarding rule for it.
    1. Go to Configuration > Detection Forwarding Rules > New rule
    2. Provide a name, description, and choose the relevant criteria for the rule.
    3. Select the created destination in the Destinations options.
 
-      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_3.png)
+      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_2.png)
 
    4. Select Enable Rule and click **save**.
 4. The Created destination can be used for alert forwarding.
@@ -65,7 +61,7 @@ You'll also need Datadog API keys.
    3. Select the created destination in the 'Destinations' options.
    4. Select options 'Notify on Every Alert', 'Close After Delivery'.
 
-      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_4.png)
+      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_3.png)
 
    5. Click **save**.
 6. Once Uptycs generates an alert or detection, it will be delivered as a DataDog Event.
