@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "bed39b01-bbc5-4819-9744-7cf4a3d90f6d",
+  "app_id": "mariadb-skysql",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor SkySQL MariaDB instances with DataDog.",
+    "title": "MariaDB SkySQL",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "image caption",
+        "image_url": "images/image1.jpeg"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "MariaDB SkySQL",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "mariadb_skysql.",
+        "check": "",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "MariaDB SkySQL Overview Dashboard": "assets/dashboards/mariadb_skysql_overview.json"
+    },
+    "monitors": {},
+    "logs": {},
+    "saved_views": {}
+  },
+  "author": {
+    "support_email": "support@mariadb.com",
+    "name": "skysql observability",
+    "homepage": "https://skysql.mariadb.com",
+    "sales_email": "sales@mariadb.com"
+  },
+  "oauth": {}
+}
