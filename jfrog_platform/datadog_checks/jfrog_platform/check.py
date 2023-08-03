@@ -6,6 +6,8 @@ class JfrogPlatformCheck(OpenMetricsBaseCheck):
     Collect metrics from JFrog
     """
 
+    DEFAULT_METRIC_LIMIT = 0
+
     def __init__(self, name, init_config, instances=None):
 
         instance = instances[0]

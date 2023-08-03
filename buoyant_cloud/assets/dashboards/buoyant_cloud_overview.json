@@ -1,6 +1,6 @@
 {
   "title": "Buoyant Cloud",
-  "description": "This dashboard shows a timeline of recent Buoyant Cloud events.",
+  "description": "This dashboard shows a timeline of recent Buoyant Cloud events and metrics.",
   "widgets": [
     {
       "id": 7240387577160408,
@@ -16,8 +16,181 @@
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 3,
-        "height": 3
+        "width": 4,
+        "height": 4
+      }
+    },
+    {
+      "id": 259995501411224,
+      "definition": {
+        "title": "SUCCESS RATE",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "100 * query1 / query2"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name,classification:success}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              },
+              {
+                "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name}",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "%",
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": {
+            "include_zero": false
+          }
+        }
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 5313632015611568,
+      "definition": {
+        "title": "Request Rate",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": {
+            "include_zero": false
+          }
+        }
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 432600338486784,
+      "definition": {
+        "title": "CPU Usage",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:buoyant_cloud.pod.container_cpu_usage_seconds.rate1m{$cluster,$namespace,$workload_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "cores",
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": {
+            "include_zero": false
+          }
+        }
+      },
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 6976117688437352,
+      "definition": {
+        "title": "Memory usage",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.sum{$cluster,$namespace,$workload_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "",
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": {
+            "include_zero": false
+          }
+        }
+      },
+      "layout": {
+        "x": 8,
+        "y": 2,
+        "width": 4,
+        "height": 2
       }
     },
     {
@@ -26,16 +199,532 @@
         "title": "All events",
         "title_size": "16",
         "title_align": "left",
-        "time": {},
         "type": "event_timeline",
-        "query": "source:buoyantcloud",
+        "query": "(cluster:$cluster.value OR cluster_name:$cluster.value) namespace:$namespace.value (display_name:$workload_name.value OR workload_name:$workload_name.value) source:(buoyant_cloud OR alert)",
         "tags_execution": "and"
       },
       "layout": {
-        "x": 3,
-        "y": 0,
-        "width": 9,
+        "x": 0,
+        "y": 4,
+        "width": 12,
         "height": 3
+      }
+    },
+    {
+      "id": 7486245084692076,
+      "definition": {
+        "title": "Errors and warnings",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "query": {
+              "query_string": "status:(warn OR error) (cluster:$cluster.value OR cluster_name:$cluster.value) namespace:$namespace.value (display_name:$workload_name.value OR workload_name:$workload_name.value) source:(buoyant_cloud OR alert)",
+              "data_source": "event_stream",
+              "event_size": "s"
+            },
+            "columns": [],
+            "response_format": "event_list"
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 5627936766104994,
+      "definition": {
+        "title": "HTTP",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 926709614870620,
+            "definition": {
+              "title": "Success Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "SR %",
+                      "formula": "100 * query1 / query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name,classification:success} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 8789745539064276,
+            "definition": {
+              "title": "Request Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Request Rate",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_response.rate1m{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 3979460901315976,
+            "definition": {
+              "title": "P95 Latency",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p95",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_response_latency_ms.p95{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 3946937764667450,
+      "definition": {
+        "title": "TCP",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2795782895408338,
+            "definition": {
+              "title": "Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connections",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_tcp_open_connections.sum{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 3813809210397016,
+            "definition": {
+              "title": "Read bytes / sec",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Read bytes / sec",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_tcp_read_bytes.rate1m{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 3600629564407768,
+            "definition": {
+              "title": "Read bytes / sec",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Write bytes / sec",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.workload.inbound_tcp_write_bytes.rate1m{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 12,
+        "height": 5,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 7510633055215910,
+      "definition": {
+        "title": "Resource usage",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6350493216724996,
+            "definition": {
+              "title": "CPU (cores)",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "CPU (cores)",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.pod.container_cpu_usage_seconds.rate1m{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 4183334215230158,
+            "definition": {
+              "title": "Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Memory",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.pod.container_memory_working_set_bytes.sum{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false,
+                "scale": "log"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 2092546736464892,
+            "definition": {
+              "title": "Pod Count",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "value"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Pod count",
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                    {
+                      "query": "sum:buoyant_cloud.node.machine_memory_bytes.sum{$cluster,$namespace,$workload_name} by {cluster_name,namespace,workload_name}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": false
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 5
       }
     },
     {
@@ -44,41 +733,48 @@
         "title": "All events",
         "title_size": "16",
         "title_align": "left",
-        "time": {},
-        "type": "event_stream",
-        "query": "source:buoyantcloud",
-        "event_size": "s"
+        "requests": [
+          {
+            "query": {
+              "query_string": "(cluster:$cluster.value OR cluster_name:$cluster.value) namespace:$namespace.value (display_name:$workload_name.value OR workload_name:$workload_name.value) source:(buoyant_cloud OR alert)",
+              "data_source": "event_stream",
+              "event_size": "s"
+            },
+            "columns": [],
+            "response_format": "event_list"
+          }
+        ],
+        "type": "list_stream"
       },
       "layout": {
         "x": 0,
-        "y": 3,
-        "width": 6,
-        "height": 4
-      }
-    },
-    {
-      "id": 7486245084692076,
-      "definition": {
-        "title": "Warning events",
-        "title_size": "16",
-        "title_align": "left",
-        "time": {},
-        "type": "event_stream",
-        "query": "status:warn source:buoyantcloud",
-        "event_size": "s"
-      },
-      "layout": {
-        "x": 6,
-        "y": 3,
-        "width": 6,
-        "height": 4
+        "y": 0,
+        "width": 12,
+        "height": 5
       }
     }
   ],
-  "template_variables": [],
+  "template_variables": [
+    {
+      "name": "cluster",
+      "prefix": "cluster_name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "namespace",
+      "prefix": "namespace",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "workload_name",
+      "prefix": "workload_name",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
   "layout_type": "ordered",
-  "is_read_only": false,
   "notify_list": [],
-  "reflow_type": "fixed",
-  "id": "u7g-8q5-xa5"
+  "reflow_type": "fixed"
 }

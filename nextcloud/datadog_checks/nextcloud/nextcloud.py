@@ -78,7 +78,7 @@ class NextcloudCheck(AgentCheck):
         return json_data
 
     def parse_tags(self, json_data):
-        self.tags = list()
+        self.tags = []
         for tag in NextcloudCheck.GLOBAL_TAGS:
             value = self.json_nested_get(json_data, tag["json_path"])
             self.tags.append("{}:{}".format(tag["name"], value))

@@ -1,1 +1,360 @@
-{"title":"Fiddler Model Performance","description":"## Fiddler Model Performance Dashboard\n\nThis dashboard displays the model performance metrics that was pulled into DataDog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data.","widgets":[{"id":8730254853653876,"definition":{"type":"image","url":"https://global-uploads.webflow.com/5e067beb4c88a64e31622d4b/623e2b19056c2266cff2d854_fiddler-ai-logo.svg","sizing":"contain","margin":"lg","has_background":true,"has_border":true,"vertical_align":"center","horizontal_align":"center"},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":939346948899802,"definition":{"type":"note","content":"Building trust into AI","background_color":"white","font_size":"56","text_align":"center","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":6,"y":0,"width":6,"height":2}},{"id":3011627381688894,"definition":{"title":"Model Accuracy","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","palette":"white_on_green","value":0.8},{"comparator":">","palette":"white_on_yellow","value":0.6},{"comparator":">","palette":"white_on_red","value":0}],"response_format":"scalar","queries":[{"query":"avg:fiddler.accuracy{$project,$model}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":2,"timeseries_background":{"type":"area","yaxis":{"include_zero":false}}},"layout":{"x":0,"y":2,"width":4,"height":2}},{"id":52421755218508,"definition":{"title":"Prediction Drift","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","palette":"white_on_red","value":0.7},{"comparator":">","palette":"white_on_yellow","value":0.3},{"comparator":">","palette":"white_on_green","value":0}],"response_format":"scalar","queries":[{"query":"avg:fiddler.histogram_drift{feature:prob_loan_status}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":2,"timeseries_background":{"type":"area","yaxis":{"include_zero":false}}},"layout":{"x":4,"y":2,"width":4,"height":2}},{"id":1697409658936488,"definition":{"title":"Model Traffic","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","palette":"custom_bg","value":2},{"comparator":">","palette":"custom_bg","value":0}],"response_format":"scalar","queries":[{"query":"avg:fiddler.traffic_count{$project,$model}","data_source":"metrics","name":"query1","aggregator":"avg"}]}],"autoscale":true,"precision":1,"timeseries_background":{"type":"bars","yaxis":{}}},"layout":{"x":8,"y":2,"width":4,"height":2}},{"id":5289184382622970,"definition":{"title":"Model Traffic","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.traffic_count{*} by {model}","data_source":"metrics","name":"query1"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"formula":"query0"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.traffic_count{*} by {model}","data_source":"metrics","name":"query0"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":4,"width":6,"height":3}},{"id":3361228858411406,"definition":{"title":"Model Performance Metrics","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"},{"formula":"query2"},{"formula":"query3"},{"formula":"query4"},{"formula":"query5"},{"formula":"query6"},{"formula":"query7"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.fpr{$project,$model}","data_source":"metrics","name":"query1"},{"query":"avg:fiddler.f1_score{$project,$model}","data_source":"metrics","name":"query2"},{"query":"avg:fiddler.tpr{$project,$model}","data_source":"metrics","name":"query3"},{"query":"avg:fiddler.accuracy{$project,$model}","data_source":"metrics","name":"query4"},{"query":"avg:fiddler.auc{$project,$model}","data_source":"metrics","name":"query5"},{"query":"avg:fiddler.precision{$project,$model}","data_source":"metrics","name":"query6"},{"query":"avg:fiddler.recall{$project,$model}","data_source":"metrics","name":"query7"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":4,"width":6,"height":3}},{"id":894816583866318,"definition":{"title":"Output Drift","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.histogram_drift{feature:probability_churn}","data_source":"metrics","name":"query1"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"},{"formulas":[{"formula":"query0"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.histogram_drift{feature:prob_loan_status}","data_source":"metrics","name":"query0"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":7,"width":6,"height":3}},{"id":6241039958772764,"definition":{"title":"Feature Averages Over Time","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"query":"avg:fiddler.output_average{$project,$model,$feature} by {feature}","data_source":"metrics","name":"query1"}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":7,"width":6,"height":3}}],"template_variables":[{"name":"project","prefix":"project","available_values":[],"default":"*"},{"name":"model","prefix":"model","available_values":[],"default":"*"},{"name":"feature","prefix":"feature","available_values":[],"default":"*"}],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed","id":"zeh-g4g-tkv"}
+{
+  "title": "Fiddler Model Performance",
+  "description": "## Fiddler Model Performance Dashboard\n\nThis dashboard displays the model performance metrics that was pulled into DataDog from the Fiddler Model Performance Management tool. You can customize this dashboard to show all of your model specific metrics and data.",
+  "widgets": [
+    {
+      "id": 8730254853653876,
+      "definition": {
+        "type": "image",
+        "url": "https://global-uploads.webflow.com/5e067beb4c88a64e31622d4b/623e2b19056c2266cff2d854_fiddler-ai-logo.svg",
+        "sizing": "contain",
+        "margin": "lg",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": { "x": 0, "y": 0, "width": 6, "height": 2 }
+    },
+    {
+      "id": 939346948899802,
+      "definition": {
+        "type": "note",
+        "content": "Building trust into AI",
+        "background_color": "white",
+        "font_size": "56",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 2 }
+    },
+    {
+      "id": 3011627381688894,
+      "definition": {
+        "title": "Model Accuracy",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 0.8 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 0.6 },
+              { "comparator": ">", "palette": "white_on_red", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:fiddler.accuracy{$project,$model}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": { "include_zero": false }
+        }
+      },
+      "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 52421755218508,
+      "definition": {
+        "title": "Prediction Drift",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 0.7 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 0.3 },
+              { "comparator": ">", "palette": "white_on_green", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:fiddler.histogram_drift{feature:prob_loan_status}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "area",
+          "yaxis": { "include_zero": false }
+        }
+      },
+      "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 1697409658936488,
+      "definition": {
+        "title": "Model Traffic",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "custom_bg", "value": 2 },
+              { "comparator": ">", "palette": "custom_bg", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:fiddler.traffic_count{$project,$model}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1,
+        "timeseries_background": { "type": "bars", "yaxis": {} }
+      },
+      "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 5289184382622970,
+      "definition": {
+        "title": "Model Traffic",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.traffic_count{*} by {model}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.traffic_count{*} by {model}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 4, "width": 6, "height": 3 }
+    },
+    {
+      "id": 3361228858411406,
+      "definition": {
+        "title": "Model Performance Metrics",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query2" },
+              { "formula": "query3" },
+              { "formula": "query4" },
+              { "formula": "query5" },
+              { "formula": "query6" },
+              { "formula": "query7" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.fpr{$project,$model}",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "avg:fiddler.f1_score{$project,$model}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "avg:fiddler.tpr{$project,$model}",
+                "data_source": "metrics",
+                "name": "query3"
+              },
+              {
+                "query": "avg:fiddler.accuracy{$project,$model}",
+                "data_source": "metrics",
+                "name": "query4"
+              },
+              {
+                "query": "avg:fiddler.auc{$project,$model}",
+                "data_source": "metrics",
+                "name": "query5"
+              },
+              {
+                "query": "avg:fiddler.precision{$project,$model}",
+                "data_source": "metrics",
+                "name": "query6"
+              },
+              {
+                "query": "avg:fiddler.recall{$project,$model}",
+                "data_source": "metrics",
+                "name": "query7"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 4, "width": 6, "height": 3 }
+    },
+    {
+      "id": 894816583866318,
+      "definition": {
+        "title": "Output Drift",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.histogram_drift{feature:probability_churn}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.histogram_drift{feature:prob_loan_status}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 7, "width": 6, "height": 3 }
+    },
+    {
+      "id": 6241039958772764,
+      "definition": {
+        "title": "Feature Averages Over Time",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:fiddler.output_average{$project,$model,$feature} by {feature}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 7, "width": 6, "height": 3 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "project",
+      "prefix": "project",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "model",
+      "prefix": "model",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "feature",
+      "prefix": "feature",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

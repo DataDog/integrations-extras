@@ -57,14 +57,13 @@ Need help? Contact [Datadog Support][6].
 
 Additional helpful documentation, links, and articles: 
 
-- [Flutter Monitoring][7]
+- [Flutter Monitoring][5]
 
 
 [1]: https://app.datadoghq.com/integrations/rum-flutter 
 [2]: https://docs.datadoghq.com/real_user_monitoring/flutter/#setup
-[3]: https://docs.datadoghq.com/real_user_monitoring/flutter/#send-logs
+[3]: https://docs.datadoghq.com/logs/log_collection/flutter/
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics 
 [5]: https://docs.datadoghq.com/real_user_monitoring/flutter/
 [6]: https://docs.datadoghq.com/help/ 
-[7]: https://docs.datadoghq.com/real_user_monitoring/flutter/
 

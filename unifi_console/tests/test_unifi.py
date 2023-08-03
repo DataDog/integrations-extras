@@ -4,7 +4,6 @@ import os
 import pytest
 from mock import MagicMock, patch
 from requests import HTTPError, Timeout
-from tests.common import HERE
 
 from datadog_checks.unifi_console.config import UnifiConfig
 from datadog_checks.unifi_console.errors import APIConnectionError, Unauthorized
@@ -18,6 +17,7 @@ from datadog_checks.unifi_console.types import (
     ControllerInfo,
 )
 from datadog_checks.unifi_console.unifi import Unifi
+from tests.common import HERE
 
 
 @pytest.mark.parametrize(

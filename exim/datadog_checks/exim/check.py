@@ -1,6 +1,6 @@
 import re
 from collections import namedtuple
-from typing import Any
+from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck
 from datadog_checks.base.utils.subprocess_output import get_subprocess_output

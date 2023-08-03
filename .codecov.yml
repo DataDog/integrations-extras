@@ -23,6 +23,10 @@ coverage:
         target: 75
         flags:
         - bind9
+      CloudNatix:
+        target: 75
+        flags:
+        - cloudnatix
       Cloudsmith:
         target: 75
         flags:
@@ -75,6 +79,10 @@ coverage:
         target: 75
         flags:
         - logstash
+      Mergify:
+        target: 75
+        flags:
+        - mergify
       NS1:
         target: 75
         flags:
@@ -159,6 +167,10 @@ coverage:
         target: 75
         flags:
         - snmpwalk
+      Sonarr:
+        target: 75
+        flags:
+        - sonarr
       Sortdb:
         target: 75
         flags:
@@ -211,6 +223,10 @@ coverage:
         target: 75
         flags:
         - cfssl
+      cybersixgill_actionable_alerts:
+        target: 75
+        flags:
+        - cybersixgill_actionable_alerts
       exim:
         target: 75
         flags:
@@ -276,11 +292,21 @@ flags:
     paths:
     - cfssl/datadog_checks/cfssl
     - cfssl/tests
+  cloudnatix:
+    carryforward: true
+    paths:
+    - cloudnatix/datadog_checks/cloudnatix
+    - cloudnatix/tests
   cloudsmith:
     carryforward: true
     paths:
     - cloudsmith/datadog_checks/cloudsmith
     - cloudsmith/tests
+  cybersixgill_actionable_alerts:
+    carryforward: true
+    paths:
+    - cybersixgill_actionable_alerts/datadog_checks/cybersixgill_actionable_alerts
+    - cybersixgill_actionable_alerts/tests
   cyral:
     carryforward: true
     paths:
@@ -376,6 +402,11 @@ flags:
     paths:
     - logstash/datadog_checks/logstash
     - logstash/tests
+  mergify:
+    carryforward: true
+    paths:
+    - mergify/datadog_checks/mergify
+    - mergify/tests
   neo4j:
     carryforward: true
     paths:
@@ -496,6 +527,11 @@ flags:
     paths:
     - snmpwalk/datadog_checks/snmpwalk
     - snmpwalk/tests
+  sonarr:
+    carryforward: true
+    paths:
+    - sonarr/datadog_checks/sonarr
+    - sonarr/tests
   sortdb:
     carryforward: true
     paths:

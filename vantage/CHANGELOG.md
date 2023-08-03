@@ -1,5 +1,7 @@
 # CHANGELOG - Vantage
 
-## 1.0.0 / 10-12-2022
+## 1.0.0 / 2022-10-12
 
-* [FEATURE] adds Vantage integration.
+***Added***:
+
+* adds Vantage integration.

@@ -1,0 +1,29 @@
+{
+  "name": "[MongoDB Atlas] Write Latency is higher than average for host: {{host.name}} ",
+  "type": "query alert",
+  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.oplatencies.writes.avg{*} by {host}, 'basic', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true') >= 1",
+  "message": "Notify your team when write latency is higher than usual ({{value}} ms)\n",
+  "tags": [
+    "integration:mongodb-atlas"
+  ],
+  "options": {
+    "thresholds": {
+      "critical": 1,
+      "critical_recovery": 0
+    },
+    "notify_audit": false,
+    "require_full_window": false,
+    "notify_no_data": false,
+    "no_data_timeframe": 10,
+    "renotify_interval": 0,
+    "threshold_windows": {
+      "trigger_window": "last_15m",
+      "recovery_window": "last_15m"
+    },
+    "escalation_message": "",
+    "new_group_delay": 60
+  },
+  "recommended_monitor_metadata": {
+	"description": "Notify your team when write latency is higher than usual ({{value}} ms)\n"
+  }
+}

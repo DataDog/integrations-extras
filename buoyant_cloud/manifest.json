@@ -55,8 +55,6 @@
     ],
     "classifier_tags": [
       "Category::Cloud",
-      "Category::Marketplace",
-      "Category::Monitoring",
       "Category::Network",
       "Category::Security",
       "Offering::Integration",
@@ -74,7 +72,9 @@
       },
       "metrics": {
         "prefix": "buoyant_cloud.",
-        "check": [],
+        "check": [
+          "buoyant_cloud.cp_workload.inbound_response.rate1m"
+        ],
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
