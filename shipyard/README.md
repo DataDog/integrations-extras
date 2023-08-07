@@ -55,7 +55,7 @@ Need help? Contact [Shipyard support][3].
 [3]: mailto:support@shipyard.build
 [4]: https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site
 [5]: https://app.datadoghq.com/organization-settings/api-keys
-[6]: https://raw.githubusercontent.com/mesmith027/DataDog-integrations-extras/shipyard-integration/shipyard/images/datadog-input.png
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shipyard/images/datadog-input.png
 [7]: https://docs.shipyard.build/docs/integrations/#send-logs-to-datadog
 [8]: https://www.datadoghq.com/solutions/log-analysis-and-correlation/
 [9]: https://www.datadoghq.com/solutions/shift-left-testing/
