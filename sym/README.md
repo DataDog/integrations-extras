@@ -28,7 +28,7 @@ After you have Terraformed your Datadog Log Destination, you can confirm its exi
  symflow resources list sym_log_destination
 ```
 
-### Uninstallation
+## Uninstallation
 
 - Uninstall the integration by clicking the Uninstall button on the integration tile.
 - Once this integration has been uninstalled, any previous authorizations are revoked.
