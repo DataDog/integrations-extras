@@ -11,18 +11,21 @@ from datadog_checks.upbound_uxp import UpboundUxpCheck
 def dd_environment():
     print("conftest: dd_environment spinning up")
     cmd = ('kind', 'get', 'clusters')
-    p = subprocess.run(cmd, capture_output=True, text=True)
-    cluster_present = False
-    for cluster in p.stdout.split('\n'):
-        if cluster == "uxp":
-            print("conftest: dd_environment using existing uxp cluster")
-            cluster_present = True
-            break
-    if not cluster_present:
-        print("conftest: dd_environment: creating new uxp cluster")
-        os.system("tests/fixtures/k8s-uxp-agent-check.sh")
-    yield
-    print("conftest: dd_environment cleaning up")
+    try:
+        p = subprocess.run(cmd, timeout=600, capture_output=True, text=True)
+        cluster_present = False
+        for cluster in p.stdout.split('\n'):
+            if cluster == "uxp":
+                print("conftest: dd_environment using existing uxp cluster")
+                cluster_present = True
+                break
+        if not cluster_present:
+            print("conftest: dd_environment: creating new uxp cluster")
+            os.system("tests/fixtures/k8s-uxp-agent-check.sh")
+        yield
+        print("conftest: dd_environment cleaning up")
+    except TimeoutExpired ex:
+        print(ex)
 
 
 @pytest.fixture
