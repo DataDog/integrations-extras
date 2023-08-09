@@ -28,7 +28,7 @@ You can adjust settings from the connection details page for your Datadog connec
 2. Click on the name of your Datadog connection to view more details about the amount and timing of data that has been pulled from Datadog.
 3. Once data ingestion has successfully run, see Datadog costs included in the [Cost Explorer][4].
 
-### Uninstallation
+## Uninstallation
 - Once this integration has been uninstalled, any previous authorizations are revoked.
 - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
