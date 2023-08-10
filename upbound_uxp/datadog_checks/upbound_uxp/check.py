@@ -496,7 +496,7 @@ class UpboundUxpCheck(AgentCheck):
                 if not incluster:
                     port_forward_target_str = str(port_forward_target)
                     cmd1 = 'kubectl --kubeconfig ' + self.home + '/uxp.kubeconfig '
-                    cmd2 = '-n upbound-system port-forward '
+                    cmd2 = '-n ' + self.namespace + ' port-forward '
                     cmd3 = 'pods/' + pod.metadata.name + ' '
                     cmd4 = port_forward_target_str + ':' + self.uxp_port
                     cmd = cmd1 + cmd2 + cmd3 + cmd4
