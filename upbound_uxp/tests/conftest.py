@@ -24,7 +24,7 @@ def dd_environment():
             os.system("tests/fixtures/k8s-uxp-agent-check.sh")
         yield
         print("conftest: dd_environment cleaning up")
-    except TimeoutExpired ex:
+    except TimeoutExpired as ex:
         print(ex)
 
 
