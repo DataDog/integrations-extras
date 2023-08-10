@@ -54,7 +54,7 @@ MariaDB SkySQL does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact support [MariaDB SkySQL][9].
+Need help? Contact [MariaDB SkySQL support][9].
 
 [1]: https://skysql.mariadb.com
 [2]: https://app.datadoghq.com/account/settings#agent
