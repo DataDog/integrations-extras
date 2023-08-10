@@ -10,6 +10,8 @@ from celery import Celery
 from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
 
 _WORKERS_CRIT_MAX_DEFAULT = 5
+_PING_TIMEOUT = 5.0
+_INSPECT_TIMEOUT = 5.0
 logger = logging.getLogger(__name__)
 
 metric_map: Mapping[str, str] = {
@@ -76,24 +78,27 @@ class CeleryCheck(AgentCheck):
     def check(self, _):
         app: Celery = Celery(self._app, broker=self._broker)
         self._check_worker_ping(app)
-        inspect: celery.app.control.Inspect = app.control.inspect()
+        inspect: celery.app.control.Inspect = app.control.inspect(timeout=_INSPECT_TIMEOUT)
         self._check_task_metrics(inspect)
         self._check_worker_metrics(inspect)
 
     def _check_worker_ping(self, app: Celery) -> None:
         active_workers: List[str] = []
-        for worker_status in app.control.ping():
+        for worker_status in app.control.ping(timeout=_PING_TIMEOUT):
             for name, value in worker_status.items():
                 tags = self._gen_tags(worker=name)
-                self.service_check(
-                    metric_map["SVC_CHECK"],
-                    self.OK if value['ok'] == 'pong' else self.CRITICAL,
-                    tags=tags,
-                )
-                self.gauge(metric_map["ACTIVE"], 1, tags=tags)
-                if self._remember_workers:
-                    self._remembered_workers[name] = 0
+                if 'ok' in value and value['ok'] == 'pong':
+                    self.service_check(metric_map["SVC_CHECK"], self.OK, tags=tags)
+                    self.gauge(metric_map["ACTIVE"], 1, tags=tags)
+                    if self._remember_workers:
+                        self._remembered_workers[name] = 0
                     active_workers.append(name)
+                else:
+                    logger.debug(f"Worker not pinging properly: {name}: {value}")
+                    self.service_check(metric_map["SVC_CHECK"], self.CRITICAL, tags=tags)
+                    self.gauge(metric_map["ACTIVE"], 0, tags=tags)
+                    if self._remember_workers:
+                        self._remembered_workers[name] = 0
         if self._remember_workers:
             # we check if all workers we discovered earlier pinged this time,
             # if one didn't report, we report 'critical' for it
@@ -101,21 +106,17 @@ class CeleryCheck(AgentCheck):
             # and remove it from the list
             for worker in list(self._remembered_workers.keys()):
                 if worker not in active_workers:
-                    self.service_check(
-                        metric_map["SVC_CHECK"],
-                        self.CRITICAL,
-                        tags=self._gen_tags(worker=worker),
-                    )
+                    self.service_check(metric_map["SVC_CHECK"], self.CRITICAL, tags=self._gen_tags(worker=worker))
                     self._remembered_workers[worker] += 1
+                    logger.debug(f"No response from worker '{worker}'")
                     if self._remembered_workers[worker] >= self._workers_crit_max:
                         del self._remembered_workers[worker]
+                        logger.info(f"Worker '{worker}' did not respond {self._workers_crit_max} times and was removed "
+                                    "from the list of remembered workers")
         for worker in self._expected_workers:
-            if worker not in active_workers and worker not in self._remember_workers:
-                self.service_check(
-                    metric_map["SVC_CHECK"],
-                    self.CRITICAL,
-                    tags=self._gen_tags(worker=worker),
-                )
+            if worker not in active_workers:
+                self.service_check(metric_map["SVC_CHECK"], self.CRITICAL, tags=self._gen_tags(worker=worker))
+                logger.debug(f"Expected worker '{worker}' did not ping")
 
     def _check_task_metrics(self, inspect: celery.app.control.Inspect) -> None:
         for worker, tasks in inspect.active().items():
