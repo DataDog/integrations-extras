@@ -111,8 +111,10 @@ class CeleryCheck(AgentCheck):
                     logger.debug(f"No response from worker '{worker}'")
                     if self._remembered_workers[worker] >= self._workers_crit_max:
                         del self._remembered_workers[worker]
-                        logger.info(f"Worker '{worker}' did not respond {self._workers_crit_max} times and was removed "
-                                    "from the list of remembered workers")
+                        logger.info(
+                            f"Worker '{worker}' did not respond {self._workers_crit_max} times and was removed "
+                            "from the list of remembered workers"
+                        )
         for worker in self._expected_workers:
             if worker not in active_workers:
                 self.service_check(metric_map["SVC_CHECK"], self.CRITICAL, tags=self._gen_tags(worker=worker))
