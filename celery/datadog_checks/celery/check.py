@@ -1,17 +1,20 @@
 # (C) Datadog, Inc. 2023-present
 # All rights reserved
 # Licensed under a 3-clause BSD style license (see LICENSE)
+import logging
+import re
 from typing import Any, Dict, List, Mapping  # noqa: F401
 
 import celery.app.control
 from celery import Celery
-
 from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
 
 _WORKERS_CRIT_MAX_DEFAULT = 5
+logger = logging.getLogger(__name__)
 
 metric_map: Mapping[str, str] = {
     "SVC_CHECK": 'ping',
+    "ACTIVE": 'active',
     "ACTIVE_TASKS": 'tasks.active',
     "RESERVED_TASKS": 'tasks.reserved',
     "REVOKED_TASKS": 'tasks.revoked',
@@ -49,15 +52,24 @@ class CeleryCheck(AgentCheck):
             else _WORKERS_CRIT_MAX_DEFAULT
         )
 
+        self._group_regexes: List[str] = self.instance.get("group_regexes") if "group_regexes" in self.instance else []
+        self._expected_workers: List[str] = []
+        if "expected_workers" in self.instance:
+            if isinstance(self.instance.get("expected_workers"), List):
+                self._expected_workers = self.instance.get("expected_workers")
+            elif isinstance(self.instance.get("expected_workers"), str):
+                self._expected_workers = [self.instance.get("expected_workers")]
+            else:
+                raise ConfigurationError("'expected_workers' needs to be a list of strings or string")
+
+        self._tags: List[str] = []
         if "tags" in self.instance:
             if isinstance(self.instance.get("tags"), List):
                 self._tags = self.instance.get("tags")
             elif isinstance(self.instance.get("tags"), str):
                 self._tags = [self.instance.get("tags")]
             else:
-                raise ConfigurationError("'tags' needs to be a list or string")
-        else:
-            self._tags = []
+                raise ConfigurationError("'tags' needs to be a list of strings or string")
         self._tags.append(f"app:{self._app}")
         self._tag_cache = {}
 
@@ -72,11 +84,13 @@ class CeleryCheck(AgentCheck):
         active_workers: List[str] = []
         for worker_status in app.control.ping():
             for name, value in worker_status.items():
+                tags = self._gen_tags(worker=name)
                 self.service_check(
                     metric_map["SVC_CHECK"],
                     self.OK if value['ok'] == 'pong' else self.CRITICAL,
-                    tags=self._gen_tags(worker=name),
+                    tags=tags,
                 )
+                self.gauge(metric_map["ACTIVE"], 1, tags=tags)
                 if self._remember_workers:
                     self._remembered_workers[name] = 0
                     active_workers.append(name)
@@ -95,6 +109,13 @@ class CeleryCheck(AgentCheck):
                     self._remembered_workers[worker] += 1
                     if self._remembered_workers[worker] >= self._workers_crit_max:
                         del self._remembered_workers[worker]
+        for worker in self._expected_workers:
+            if worker not in active_workers and worker not in self._remember_workers:
+                self.service_check(
+                    metric_map["SVC_CHECK"],
+                    self.CRITICAL,
+                    tags=self._gen_tags(worker=worker),
+                )
 
     def _check_task_metrics(self, inspect: celery.app.control.Inspect) -> None:
         for worker, tasks in inspect.active().items():
@@ -124,6 +145,31 @@ class CeleryCheck(AgentCheck):
             if worker not in self._tag_cache:
                 t = self._tags.copy()
                 t.append(f"worker:{worker}")
+
+                # evaluate all grouping-regexes
+                for regex in self._group_regexes:
+                    m = re.match(regex, worker)
+                    if m:
+                        # check if we have named groups
+                        group_dict = m.groupdict()
+                        if group_dict:
+                            # check each named group
+                            for tag in group_dict.keys():
+                                # check if the group should be converted into a named tag, or not
+                                if not tag.startswith('ungrouped'):
+                                    # convert named group into a named tag
+                                    t.append(f"{tag}:{group_dict[tag]}")
+                                else:
+                                    # add tag without the group name
+                                    t.append(group_dict[tag])
+                        else:
+                            # we only have un-named groups, so we add them as they are
+                            for tag in m.groups():
+                                t.append(tag)
+                    else:
+                        # if the regex didn't match, we print a warning, this will be printed only once for each worker
+                        self.warning(f"The group-regex '{regex}' didn't match worker '{worker}'")
+
                 self._tag_cache[worker] = t
             tags = self._tag_cache[worker]
         else:
