@@ -54,7 +54,7 @@ Need help? Contact [Datadog support][4] or [Scalr support][12].
 - [Scalr customer documentation][13]
 - [Scalr Datadog integration documentation][11]
 
-[1]: https://app.datadoghq.com/account/settings#agent
+[1]: https://app.datadoghq.com/account/settings/agent/latest
 [2]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [3]: https://docs.datadoghq.com/getting_started/integrations/
 [4]: https://docs.datadoghq.com/help/

@@ -105,7 +105,7 @@ Additional helpful documentation, links, and articles:
 [1]: https://www.twingate.com/
 [2]: https://help.twingate.com/hc/en-us
 [3]: https://docs.twingate.com/docs/connector-real-time-logs
-[4]: https://app.datadoghq.com/account/settings#agent
+[4]: https://app.datadoghq.com/account/settings/agent/latest
 [5]: https://docs.datadoghq.com/agent/logs/?tab=journald
 [6]: https://docs.datadoghq.com/logs/explorer/facets/#manage-facets
 [7]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source#create-a-pipeline

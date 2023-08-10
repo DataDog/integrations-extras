@@ -1,5 +1,15 @@
 # CHANGELOG - hikaricp
 
+## 1.1.0 / 2023-08-09
+
+***Added***:
+
+* Added hikaricp.connections.max (pool max size). See [#1890](https://github.com/DataDog/integrations-extras/pull/1890). Thanks [styner9](https://github.com/styner9).
+
+***Fixed***:
+
+* Add DEFAULT_METRIC_LIMIT = 0 for OpenMetrics-based integrations. See [#1843](https://github.com/DataDog/integrations-extras/pull/1843).
+
 ## 1.0.1 / 2023-04-28
 
 ***Fixed***:

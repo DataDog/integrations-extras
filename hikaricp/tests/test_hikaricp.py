@@ -7,6 +7,7 @@ EXPECTED_METRICS = {
     "hikaricp.connections",
     "hikaricp.connections.active",
     "hikaricp.connections.idle",
+    "hikaricp.connections.max",
     "hikaricp.connections.pending",
     "hikaricp.connections.timeout.count",
     "hikaricp.connections.acquire.seconds.count",
