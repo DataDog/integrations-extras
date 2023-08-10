@@ -2,7 +2,10 @@
 
 ## Overview
 
-This check monitors [MariaDB SkySQL][1]. SkySQL is the only database-as-a-service that combines the ease and innovation of MariaDB with the limitless scalability, high performance and availability, and the security of the cloud.. Build faster, deploy easily, and manage all of your databases from a single pane via DataDog.  Designed for a hybrid and multi-cloud future, built on Kubernetes, and engineered for mission-critical transactional and analytical deployments, it’s the database-as-a-service you’ve been waiting for.  Ensure your data and cloud scale to your innovating data utilization needs, in an efficient, economical manner.
+This check monitors [MariaDB SkySQL][1]. SkySQL is a multi-cloud database-as-a-service offering from MariaDB Plc.
+
+Integration with DataDog allows full monitoring of all your MariaDB server deployments: Enterprise Server (Single and Replicated), Xpand, Columnstore, as well as MaxScale. Database administrators can track system resource metrics, such as memory, CPU, disk, and network utilization in addition to database specific telemetry such as query performance, connections, threads, cluster, replication status and many others.
+
 
 ## Setup
 
@@ -21,7 +24,9 @@ To install the MariaDB SkySQL check on your host:
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
- path/to/mariadb_skysql/dist/<ARTIFACT_NAME>.whl`.
+ path/to/mariadb_skysql/dist/datadog_mariadb_skysql-<INTEGRATION_VERSION>.whl`.
+ e.g.
+     datadog-agent integration install -w ./integrations-extras/mariadb_skysql/dist/datadog_mariadb_skysql-0.0.1-py3-none-any.whl
 
 ### Configuration
 
@@ -49,9 +54,9 @@ MariaDB SkySQL does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][9].
+Need help? Contact support [MariaDB SkySQL][9].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://skysql.mariadb.com
 [2]: https://app.datadoghq.com/account/settings#agent
 [3]: https://docs.datadoghq.com/agent/faq/agent-configuration-files/#agent-configuration-directory
 [4]: https://github.com/DataDog/integrations-extras/blob/master/mariadb_skysql/datadog_checks/mariadb_skysql/data/conf.yaml.example
@@ -59,4 +64,4 @@ Need help? Contact [Datadog support][9].
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/mariadb_skysql/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/mariadb_skysql/assets/service_checks.json
-[9]: https://docs.datadoghq.com/help/
+[9]: https://cloud.mariadb.com/csm
