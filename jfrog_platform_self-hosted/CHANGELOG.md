@@ -1,6 +1,8 @@
-# CHANGELOG - jfrog_platform_self-hosted
+# CHANGELOG - JFrog Platform Self-Hosted
 
-## [1.3.0] - Jun 26th, 2023
+## 1.3.0 / 2023-08-11
+
+***Fixed***:
 * Modified installation steps for sending logs, metrics and violations data to Datadog
 * Supporting only OS/VM, docker and k8s forms of installation for JFrog Platform
 * Updated documentation
