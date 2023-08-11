@@ -1,9 +1,7 @@
 # CHANGELOG - Datadog-DoControl Integration
 
-1.0.0
+## 1.0.0
 
-==================
+***Added***:
 
-## Changes
-
-* [FEATURE] Initial Datadog-DoControl Integration Tile.
+* Initial Datadog-DoControl Integration Tile.

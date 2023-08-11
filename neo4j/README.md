@@ -76,7 +76,7 @@ Need help? Contact [Neo4j support][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/neo4j/metadata.csv
 [7]: mailto:support@neo4j.com
-[8]: https://app.datadoghq.com/account/settings#agent
+[8]: https://app.datadoghq.com/account/settings/agent/latest
 [9]: https://neo4j.com/docs/upgrade-migration-guide/current/version-5/migration/install-and-configure/#_performance_metrics
 [10]: https://neo4j.com/docs/operations-manual/5/monitoring/metrics/reference/
 [11]: https://neo4j.com/docs/operations-manual/4.4/monitoring/metrics/reference/

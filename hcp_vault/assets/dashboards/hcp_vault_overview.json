@@ -16,8 +16,7 @@
                         "id": 5633470244696532,
                         "definition": {
                             "type": "note",
-                            "content": "[HCP Vault Cluster Link](https://portal.cloud.hashicorp.com/services/vault/$cluster.value?project_id=$project.value)\n\nWith HCP Vault, you can leverage a SaaS service with secret management and encryption capabilities. This dashboard provides a high-level overview of your Vault clusters so you can monitor performance and cluster health.",
-                            "background_color": "purple",
+                            "content": "[HCP Vault Cluster Link](https://portal.cloud.hashicorp.com/services/vault/$cluster.value?project_id=$project_id.value)\n\nWith HCP Vault, you can leverage a SaaS service with secret management and encryption capabilities. This dashboard provides a high-level overview of your Vault clusters so you can monitor performance and cluster health.",                            "background_color": "purple",
                             "font_size": "14",
                             "text_align": "left",
                             "vertical_align": "top",
@@ -75,7 +74,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_core_unsealed{$cluster}",
+                                            "query": "sum:hcp.vault_core_unsealed{$cluster,$project_id}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "last"
@@ -107,7 +106,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "max:hcp.vault_secret_kv_count{$cluster} by {mount_point}",
+                                            "query": "max:hcp.vault_secret_kv_count{$cluster,$project_id} by {mount_point}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -138,7 +137,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_identity_entity_count{$cluster} by {namespace}",
+                                            "query": "avg:hcp.vault_identity_entity_count{$cluster,$project_id} by {namespace}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -163,7 +162,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_expire_num_leases{$cluster}",
+                                            "query": "avg:hcp.vault_expire_num_leases{$cluster,$project_id}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "last"
@@ -219,7 +218,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_token_count{$cluster}",
+                                            "query": "avg:hcp.vault_token_count{$cluster,$project_id}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "last"
@@ -261,7 +260,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_token_count_by_policy{$cluster} by {policy}",
+                                            "query": "avg:hcp.vault_token_count_by_policy{$cluster,$project_id} by {policy}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -301,7 +300,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_token_count_by_ttl{$cluster} by {creation_ttl}",
+                                            "query": "avg:hcp.vault_token_count_by_ttl{$cluster,$project_id} by {creation_ttl}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -325,7 +324,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_token_count_by_auth{$cluster} by {auth_method}",
+                                            "query": "avg:hcp.vault_token_count_by_auth{$cluster,$project_id} by {auth_method}",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "avg"
@@ -369,7 +368,7 @@
                                     "on_right_yaxis": false,
                                     "queries": [
                                         {
-                                            "query": "avg:hcp.vault_token_creation{$cluster} by {auth_method,creation_ttl}.as_count()",
+                                            "query": "avg:hcp.vault_token_creation{$cluster,$project_id} by {auth_method,creation_ttl}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -418,12 +417,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:host.cpu_seconds_total{$cluster} by {cluster_id}.as_rate()",
+                                            "query": "sum:host.cpu_seconds_total{$cluster,$project_id} by {cluster_id}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:host.cpu_seconds_total{$cluster,mode:idle} by {cluster_id}.as_rate()",
+                                            "query": "sum:host.cpu_seconds_total{$cluster,mode:idle,$project_id} by {cluster_id}.as_rate()",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -459,12 +458,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:host.filesystem_total_bytes{$cluster} by {cluster_id}",
+                                            "query": "avg:host.filesystem_total_bytes{$cluster,$project_id} by {cluster_id}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "avg:host.filesystem_free_bytes{$cluster} by {cluster_id}",
+                                            "query": "avg:host.filesystem_free_bytes{$cluster,$project_id} by {cluster_id}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -500,12 +499,12 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:host.memory_total_bytes{$cluster} by {cluster_id}",
+                                            "query": "sum:host.memory_total_bytes{$cluster,$project_id} by {cluster_id}",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
                                         {
-                                            "query": "sum:host.memory_available_bytes{$cluster} by {cluster_id}",
+                                            "query": "sum:host.memory_available_bytes{$cluster,$project_id} by {cluster_id}",
                                             "data_source": "metrics",
                                             "name": "query2"
                                         }
@@ -530,7 +529,7 @@
             "layout": {"x": 8, "y": 11, "width": 4, "height": 7}
         }
     ],
-    "template_variables": [{"name": "cluster", "default": "*", "prefix": "cluster_id", "available_values": []}],
+    "template_variables": [{"name": "cluster", "default": "*", "prefix": "cluster_id", "available_values": []},{"name": "project_id", "default": "*", "prefix": "project_id", "available_values": []}],
     "layout_type": "ordered",
     "is_read_only": false,
     "notify_list": [],

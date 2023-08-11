@@ -2,6 +2,7 @@ METRIC_MAP = {
     "hikaricp_connections": "connections",
     "hikaricp_connections_active": "connections.active",
     "hikaricp_connections_idle": "connections.idle",
+    "hikaricp_connections_max": "connections.max",
     "hikaricp_connections_pending": "connections.pending",
     "hikaricp_connections_timeout": "connections.timeout",
     "hikaricp_connections_acquire_seconds": "connections.acquire.seconds",

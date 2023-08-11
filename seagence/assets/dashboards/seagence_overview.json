@@ -1,0 +1,158 @@
+{
+   "title": "Seagence - Defects Overview",
+   "description": "This dashboard provides a high-level overview of defects detected by Seagence.",
+   "widgets": [
+      {
+         "id": 2642781236158738,
+         "definition": {
+            "type": "image",
+            "url": "https://seagence.com/wp-content/uploads/2023/06/logo_with_wordmark_production-transparent-763x344-1.png",
+            "sizing": "cover",
+            "has_background": true,
+            "has_border": true,
+            "vertical_align": "center",
+            "horizontal_align": "center"
+         },
+         "layout": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 2
+         }
+      },
+      {
+         "id": 8585688290342750,
+         "definition": {
+            "title": "Defects Timeline",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "time": {},
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "style": {
+                           "palette": "warm",
+                           "palette_index": 5
+                        },
+                        "alias": "defects",
+                        "formula": "query1"
+                     }
+                  ],
+                  "queries": [
+                     {
+                        "data_source": "events",
+                        "name": "query1",
+                        "indexes": [
+                           "*"
+                        ],
+                        "compute": {
+                           "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                           "query": "service:seagence"
+                        }
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                     "palette": "dog_classic",
+                     "line_type": "solid",
+                     "line_width": "normal"
+                  },
+                  "display_type": "bars"
+               }
+            ]
+         },
+         "layout": {
+            "x": 4,
+            "y": 0,
+            "width": 8,
+            "height": 4
+         }
+      },
+      {
+         "id": 4016470968177076,
+         "definition": {
+            "type": "note",
+            "content": "In the timeline view, defects are shown as vertical red bars. You can click any vertical bar to open the context menu. Click 'View related events' to open the defects as Datadog Events in the 'Events Explorer' dashboard.",
+            "background_color": "purple",
+            "font_size": "14",
+            "text_align": "left",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "left",
+            "has_padding": true
+         },
+         "layout": {
+            "x": 0,
+            "y": 2,
+            "width": 4,
+            "height": 2
+         }
+      },
+      {
+         "id": 492341163776362,
+         "definition": {
+            "type": "note",
+            "content": "This widget shows a list of defects including their root cause exception with complete stack trace.",
+            "background_color": "purple",
+            "font_size": "14",
+            "text_align": "left",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "left",
+            "has_padding": true
+         },
+         "layout": {
+            "x": 0,
+            "y": 4,
+            "width": 2,
+            "height": 2
+         }
+      },
+      {
+         "id": 4782735587208150,
+         "definition": {
+            "title": "Defects List",
+            "title_size": "16",
+            "title_align": "left",
+            "requests": [
+               {
+                  "response_format": "event_list",
+                  "query": {
+                     "query_string": "service:seagence",
+                     "data_source": "event_stream",
+                     "event_size": "l"
+                  },
+                  "columns": []
+               }
+            ],
+            "type": "list_stream"
+         },
+         "layout": {
+            "x": 2,
+            "y": 4,
+            "width": 10,
+            "height": 10
+         }
+      }
+   ],
+   "template_variables": [],
+   "layout_type": "ordered",
+   "notify_list": [],
+   "reflow_type": "fixed"
+}

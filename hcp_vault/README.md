@@ -38,7 +38,8 @@ To enable metrics streaming:
 5. Click Save. 
 **Note**: HCP Vault supports metrics streaming to only one metrics endpoint at a time.
 
-6. Navigate to Datadog, and enable the integration by clicking Install on the integration tile. This installs a HCP Vault dashboard with widgets that make the most of your HCP Vault telemetry. You can find the dashboard by searching for "HCP Vault Overview" in the dashboard list. 
+6. Navigate to Datadog, and enable the integration by clicking Install on the integration tile. This installs a HCP Vault dashboard with widgets that make the most of your HCP Vault telemetry. You can find the dashboard by searching for "HCP Vault Overview" in the dashboard list.
+   **Note**: On the dashboard, give the values of `cluster` & `project_id` to select the metrics for the right cluster. The `cluster` is the name of the cluster that you have set on cluster creation. The `project_id` is the present in the URL on HCP portal `https://portal.cloud.hashicorp.com/orgs/xxxx/projects/xxxx`
 
 ## Data Collected
 
