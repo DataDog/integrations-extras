@@ -1,10 +1,7 @@
 # CHANGELOG - Cyral
 
-0.1.0/ Unreleased
-==================
+## 0.1.0
 
-### Changes
+***Added***:
 
-* [FEATURE] adds cyral integration.
-
-
+* adds cyral integration.

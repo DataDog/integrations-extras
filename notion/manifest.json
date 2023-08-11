@@ -1,0 +1,59 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "0a709534-658c-4d8f-99a3-566dd7cd809b",
+  "app_id": "notion",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitor your Notion workspace events and customize detections in Datadog",
+    "title": "Notion",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Setting up the Datadog integration in Notion",
+        "image_url": "images/Notion_DD.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Notion event logs in Datadog",
+        "image_url": "images/Notion_DD_2.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Log Collection",
+      "Category::Collaboration",
+      "Supported OS::Any",
+      "Submitted Data Type::Logs",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards":
+    {"notion_events": "assets/dashboards/notion_events.json"},
+    "integration": {
+      "source_type_name": "notion",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "notion."
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "team@makenotion.com",
+    "name": "Notion Labs, Inc.",
+    "homepage": "https://www.notion.so/",
+    "sales_email": "integrations@makenotion.com"
+  },
+  "oauth": {}
+}

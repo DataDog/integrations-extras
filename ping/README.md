@@ -84,7 +84,7 @@ Need help? Contact [Datadog support][11].
 
 
 [1]: https://en.wikipedia.org/wiki/Ping_%28networking_utility%29
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ping/datadog_checks/ping/data/conf.yaml.example
