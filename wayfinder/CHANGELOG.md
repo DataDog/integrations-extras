@@ -1,4 +1,6 @@
-# CHANGELOG - wayfinder
+# Changelog - Wayfinder
 
-## 1.0.0 / 2023-06-12
-* [Added] Initial Release
+## 1.0.0
+***Added:***
+
+* Initial release

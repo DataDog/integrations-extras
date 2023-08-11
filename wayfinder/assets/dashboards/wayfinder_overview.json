@@ -1,11 +1,11 @@
 {
   "title": "Wayfinder",
-  "description": null,
+  "description": "## ![WayFinder](https://docs.appvia.io/img/appvia-logo.svg)\n\nDashboard for monitoring [Appvia Wayfinder](https://www.appvia.io/product/), an infrastructure management platform that enables developer self-service though centralized configuration. \n\nUseful links:\n \n[Wayfinder Wiki](https://docs.appvia.io/wayfinder/)",
   "widgets": [
     {
       "id": 6109974031300300,
       "definition": {
-        "title": "openmetrics.health:apiserver",
+        "title": "API Server Endpoint",
         "title_size": "16",
         "title_align": "left",
         "time": {},
@@ -13,42 +13,62 @@
         "check": "wayfinder.openmetrics.health",
         "grouping": "check",
         "group": "kube_deployment:wayfinder-apiserver",
-        "group_by": ["kube_deployment"],
+        "group_by": [
+          "kube_deployment"
+        ],
         "tags": []
       },
-      "layout": { "x": 0, "y": 0, "width": 2, "height": 2 }
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
     },
     {
       "id": 3029920456438864,
       "definition": {
-        "title": "openmetrics.health:webhooks",
+        "title": "Webhooks Endpoint",
         "title_size": "16",
         "title_align": "left",
-        "time": {},
         "type": "check_status",
         "check": "wayfinder.openmetrics.health",
         "grouping": "check",
         "group": "kube_deployment:wayfinder-webhooks",
-        "group_by": ["kube_deployment"],
+        "group_by": [
+          "kube_deployment"
+        ],
         "tags": []
       },
-      "layout": { "x": 2, "y": 0, "width": 2, "height": 2 }
+      "layout": {
+        "x": 2,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
     },
     {
       "id": 7242923929198952,
       "definition": {
-        "title": "openmetrics.health:controller",
+        "title": "Controller Endpoint",
         "title_size": "16",
         "title_align": "left",
         "time": {},
         "type": "check_status",
         "check": "wayfinder.openmetrics.health",
         "grouping": "check",
-        "group": "kube_deployment:wayfinder-apiserver",
-        "group_by": ["kube_deployment"],
+        "group": "kube_deployment:wayfinder-controllers",
+        "group_by": [
+          "kube_deployment"
+        ],
         "tags": []
       },
-      "layout": { "x": 4, "y": 0, "width": 2, "height": 2 }
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 2,
+        "height": 2
+      }
     },
     {
       "id": 5292446925349497,
@@ -68,7 +88,11 @@
                 "query": "sum:wayfinder.workqueue.depth{*}"
               }
             ],
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -78,7 +102,12 @@
           }
         ]
       },
-      "layout": { "x": 6, "y": 0, "width": 4, "height": 2 }
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
     },
     {
       "id": 3752165290599579,
@@ -98,7 +127,11 @@
                 "query": "sum:wayfinder.workqueue.unfinished_work_seconds{*}"
               }
             ],
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -108,7 +141,12 @@
           }
         ]
       },
-      "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
     },
     {
       "id": 679151739945583,
@@ -128,7 +166,11 @@
                 "query": "sum:wayfinder.controller_runtime.reconcile_errors_total.count{*}.as_count()"
               }
             ],
-            "formulas": [{ "formula": "query1" }],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
             "style": {
               "palette": "dog_classic",
               "line_type": "solid",
@@ -138,7 +180,12 @@
           }
         ]
       },
-      "layout": { "x": 4, "y": 2, "width": 4, "height": 2 }
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
     }
   ],
   "template_variables": [],
