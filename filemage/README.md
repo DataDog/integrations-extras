@@ -75,7 +75,7 @@ The FileMage integration does not include any events.
 Need help? Contact [dOpenSource][4].
 
 [1]: https://www.filemage.io/
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/getting_started/integrations/
 [4]: https://dopensource.com/
 [5]: https://github.com/DataDog/integrations-extras/blob/master/filemage/datadog_checks/filemage/data/conf.yaml.example

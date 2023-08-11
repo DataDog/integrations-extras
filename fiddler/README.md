@@ -46,7 +46,7 @@ See [service_checks.json][9] for a list of service checks provided by this integ
 Need help? Contact [Fiddler support][10].
 
 [1]: https://fiddler.ai
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [5]: https://github.com/DataDog/integrations-extras/blob/master/fiddler/datadog_checks/fiddler/data/conf.yaml.example

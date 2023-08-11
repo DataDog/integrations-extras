@@ -1,6 +1,7 @@
 # CHANGELOG - Komodor
-1.0.0 
-=====
-### Initial version
 
-* [FEATURE] Initial Komodor Automation tile.
+## 1.0.0 
+
+***Added***:
+
+* Initial Komodor Automation tile.

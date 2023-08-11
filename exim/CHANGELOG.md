@@ -2,4 +2,6 @@
 
 ## 1.0.0
 
-- Initial release with metrics and service check integration.
+***Added***
+
+* Initial release with metrics and service check integration.

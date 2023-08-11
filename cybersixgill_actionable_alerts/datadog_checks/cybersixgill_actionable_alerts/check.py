@@ -18,8 +18,8 @@ class CybersixgillActionableAlertsCheck(AgentCheck):
         super(CybersixgillActionableAlertsCheck, self).__init__(name, init_config, instances)
 
     def check(self, instance):
-        cl_id = self.instance.get('client_id')
-        cl_secret = self.instance.get('client_secret')
+        cl_id = self.instance.get('cl_id')
+        cl_secret = self.instance.get('cl_secret')
         if not cl_id and cl_secret:
             raise ConfigurationError
         alerts_limit = self.instance.get('alerts_limit')

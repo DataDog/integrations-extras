@@ -23,6 +23,10 @@ coverage:
         target: 75
         flags:
         - bind9
+      CloudNatix:
+        target: 75
+        flags:
+        - cloudnatix
       Cloudsmith:
         target: 75
         flags:
@@ -163,6 +167,10 @@ coverage:
         target: 75
         flags:
         - snmpwalk
+      Sonarr:
+        target: 75
+        flags:
+        - sonarr
       Sortdb:
         target: 75
         flags:
@@ -288,6 +296,11 @@ flags:
     paths:
     - cfssl/datadog_checks/cfssl
     - cfssl/tests
+  cloudnatix:
+    carryforward: true
+    paths:
+    - cloudnatix/datadog_checks/cloudnatix
+    - cloudnatix/tests
   cloudsmith:
     carryforward: true
     paths:
@@ -518,6 +531,11 @@ flags:
     paths:
     - snmpwalk/datadog_checks/snmpwalk
     - snmpwalk/tests
+  sonarr:
+    carryforward: true
+    paths:
+    - sonarr/datadog_checks/sonarr
+    - sonarr/tests
   sortdb:
     carryforward: true
     paths:

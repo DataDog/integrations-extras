@@ -1,8 +1,7 @@
 # CHANGELOG - Portworx
 
-0.1.0/ Unreleased
-==================
+## 0.1.0
 
-### Changes
+***Added***:
 
-* [FEATURE] adds portworx integration.
+* adds portworx integration.

@@ -28,7 +28,6 @@ class RedisSentinelCheck(AgentCheck):
         return host, port, passwd
 
     def check(self, instance):
-        self.log.info(instance)
 
         host, port, password = self._load_config(instance)
 

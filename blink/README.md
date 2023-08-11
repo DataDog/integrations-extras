@@ -45,7 +45,7 @@ Need help? Contact [Blink support][6].
 
 [1]: https://www.blinkops.com/
 [2]: https://library.blinkops.com/automations?vendors=Datadog
-[3]: https://www.docs.blinkops.com/docs/Integrations/datadog/actions/
-[4]: https://www.docs.blinkops.com/docs/Integrations/datadog/
+[3]: https://www.docs.blinkops.com/docs/integrations/datadog/actions
+[4]: https://www.docs.blinkops.com/docs/integrations/datadog
 [5]: https://app.datadoghq.com/organization-settings/api-keys
 [6]: mailto:support@blinkops.com

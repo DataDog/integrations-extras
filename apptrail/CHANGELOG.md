@@ -2,4 +2,6 @@
 
 ## 1.0.0
 
-- Initial release with Apptrail Datadog Logs integration.
+***Added:***
+
+* Initial release with Apptrail Datadog Logs integration.

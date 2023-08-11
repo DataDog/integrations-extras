@@ -64,7 +64,7 @@ Need help? Contact [Datadog support][12].
 [1]: https://docs.gitea.io/en-us/ 
 [2]: https://docs.datadoghq.com/agent/
 [3]: https://docs.gitea.io/en-us/
-[4]: https://app.datadoghq.com/account/settings#agent
+[4]: https://app.datadoghq.com/account/settings/agent/latest
 [5]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [6]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/gitea/datadog_checks/gitea/data/conf.yaml.example
