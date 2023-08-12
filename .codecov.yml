@@ -63,10 +63,10 @@ coverage:
         target: 75
         flags:
         - gnatsd_streaming
-      JFrog_Platform_(Self-hosted):
+      JFrog_Platform:
         target: 75
         flags:
-        - jfrog_platform
+        - jfrog_platform_self_hosted
       Kernelcare:
         target: 75
         flags:
@@ -382,6 +382,11 @@ flags:
     paths:
     - hikaricp/datadog_checks/hikaricp
     - hikaricp/tests
+  jfrog_platform_self_hosted:
+    carryforward: true
+    paths:
+    - jfrog_platform_self_hosted/datadog_checks/jfrog_platform_self_hosted
+    - jfrog_platform_self_hosted/tests
   kernelcare:
     carryforward: true
     paths:
