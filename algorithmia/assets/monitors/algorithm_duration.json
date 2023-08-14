@@ -1,28 +1,35 @@
 {
-	"name": "[Algorithmia] Excessive Algorithm Runtime",
-	"type": "query alert",
-	"query": "avg(last_5m):avg:algorithmia.duration_milliseconds{*} > 10000",
-	"message": "Some algorithms queries are running for more than 10 seconds.\n\nThis can result in delays in real-time API responses from your algorithms and a backlogged queue.\n\nReview the documentation at https://algorithmia.com/developers/algorithm-development/advanced-algorithm-development/dealing-with-bottlenecks for more guidance on optimizing your algorithm's runtime.",
-	"tags": [
-		"integration:algorithmia"
-	],
-	"options": {
-		"notify_audit": false,
-		"locked": false,
-		"timeout_h": 0,
-		"new_host_delay": 300,
-		"require_full_window": false,
-		"notify_no_data": false,
-		"renotify_interval": "0",
-		"escalation_message": "",
-		"no_data_timeframe": null,
-		"include_tags": true,
-		"thresholds": {
-			"critical": 10000,
-			"warning": 5000
-		}
-	},
-	"recommended_monitor_metadata": {
-		"description": "Get notified when algorithms are taking more that 10 seconds to execute in Algorithmia."
-	}
+  "version": 2,
+  "created_at": "2020-10-26",
+  "last_updated_at": "2021-02-16",
+  "title": "Excessive Algorithm Runtime",
+  "tags": [
+    "integration:algorithmia"
+  ],
+  "description": "Get notified when algorithms are taking more that 10 seconds to execute in Algorithmia.",
+  "definition": {
+    "message": "Some algorithms queries are running for more than 10 seconds.\n\nThis can result in delays in real-time API responses from your algorithms and a backlogged queue.\n\nReview the documentation at https://algorithmia.com/developers/algorithm-development/advanced-algorithm-development/dealing-with-bottlenecks for more guidance on optimizing your algorithm's runtime.",
+    "name": "[Algorithmia] Excessive Algorithm Runtime",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": "0",
+      "require_full_window": false,
+      "thresholds": {
+        "critical": 10000,
+        "warning": 5000
+      },
+      "timeout_h": 0
+    },
+    "query": "avg(last_5m):avg:algorithmia.duration_milliseconds{*} \u003e 10000",
+    "tags": [
+      "integration:algorithmia"
+    ],
+    "type": "query alert"
+  }
 }

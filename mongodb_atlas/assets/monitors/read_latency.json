@@ -1,29 +1,36 @@
 {
-  "name": "[MongoDB Atlas] Read Latency is higher than average for host: {{host.name}} ",
-  "type": "query alert",
-  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.oplatencies.reads.avg{*} by {host}, 'basic', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true') >= 1",
-  "message": "Notify your team when read latency is higher than usual ({{value}} ms)\n",
+  "version": 2,
+  "created_at": "2023-03-30",
+  "last_updated_at": "2023-03-30",
+  "title": "Read Latency is higher than average for host: {{host.name}}",
   "tags": [
     "integration:mongodb-atlas"
   ],
-  "options": {
-    "thresholds": {
-      "critical": 1,
-      "critical_recovery": 0
+  "description": "Notify your team when read latency is higher than usual ({{value}} ms)\n",
+  "definition": {
+    "message": "Notify your team when read latency is higher than usual ({{value}} ms)\n",
+    "name": "[MongoDB Atlas] Read Latency is higher than average for host: {{host.name}} ",
+    "options": {
+      "escalation_message": "",
+      "new_group_delay": 60,
+      "no_data_timeframe": 10,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "threshold_windows": {
+        "recovery_window": "last_15m",
+        "trigger_window": "last_15m"
+      },
+      "thresholds": {
+        "critical": 1,
+        "critical_recovery": 0
+      }
     },
-    "notify_audit": false,
-    "require_full_window": false,
-    "notify_no_data": false,
-    "no_data_timeframe": 10,
-    "renotify_interval": 0,
-    "threshold_windows": {
-      "trigger_window": "last_15m",
-      "recovery_window": "last_15m"
-    },
-    "escalation_message": "",
-    "new_group_delay": 60
-  },
-  "recommended_monitor_metadata": {
-	"description": "Notify your team when read latency is higher than usual ({{value}} ms)\n"
+    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.oplatencies.reads.avg{*} by {host}, 'basic', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true') \u003e= 1",
+    "tags": [
+      "integration:mongodb-atlas"
+    ],
+    "type": "query alert"
   }
 }

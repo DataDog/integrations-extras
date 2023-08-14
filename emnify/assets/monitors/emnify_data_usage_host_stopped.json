@@ -1,31 +1,40 @@
 {
-  "name": "[EMnify] Data exchange has stopped unexpectedly for a device",
-  "type": "query alert",
-  "query": "avg(last_1d):anomalies(avg:emnify.endpoint.volume{*} by {host}.as_count().fill(zero, 0).rollup(sum, 900), 'robust', 2, direction='below', interval=300, alert_window='last_1h', seasonality='hourly', timezone='utc', count_default_zero='true') >= 0.5",
-  "message": "It was expected that the device was going to keep exchanging data when actually it did not.",
-  "tags": ["integration:emnify"],
-  "options": {
-    "notify_audit": false,
-    "silenced": {
-      "*": null
+  "version": 2,
+  "created_at": "2022-09-30",
+  "last_updated_at": "2022-09-30",
+  "title": "Data exchange has stopped unexpectedly for a device",
+  "tags": [
+    "integration:emnify"
+  ],
+  "description": "Notify your team when data usage has stopped.",
+  "definition": {
+    "message": "It was expected that the device was going to keep exchanging data when actually it did not.",
+    "name": "[EMnify] Data exchange has stopped unexpectedly for a device",
+    "options": {
+      "include_tags": true,
+      "new_group_delay": 60,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "silenced": {
+        "*": null
+      },
+      "threshold_windows": {
+        "recovery_window": "last_1h",
+        "trigger_window": "last_1h"
+      },
+      "thresholds": {
+        "critical": 0.5,
+        "critical_recovery": 0
+      }
     },
-    "include_tags": true,
-    "thresholds": {
-      "critical": 0.5,
-      "critical_recovery": 0
-    },
-    "require_full_window": false,
-    "notify_no_data": false,
-    "renotify_interval": 0,
-    "new_group_delay": 60,
-    "threshold_windows": {
-      "recovery_window": "last_1h",
-      "trigger_window": "last_1h"
-    }
-  },
-  "priority": null,
-  "restricted_roles": null,
-  "recommended_monitor_metadata": {
-    "description": "Notify your team when data usage has stopped."
+    "priority": null,
+    "query": "avg(last_1d):anomalies(avg:emnify.endpoint.volume{*} by {host}.as_count().fill(zero, 0).rollup(sum, 900), 'robust', 2, direction='below', interval=300, alert_window='last_1h', seasonality='hourly', timezone='utc', count_default_zero='true') \u003e= 0.5",
+    "restricted_roles": null,
+    "tags": [
+      "integration:emnify"
+    ],
+    "type": "query alert"
   }
 }
