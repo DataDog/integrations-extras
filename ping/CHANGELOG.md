@@ -4,10 +4,10 @@
 
 ***Fixed***:
 
-* Fix compatibility with non-US Windows. See [#992](https://github.com/DataDog/integrations-extras/pull/992).
+* Fix compatibility with non-US Windows ([#992](https://github.com/DataDog/integrations-extras/pull/992))
 
 ## 1.0.1 / 2021-03-04
 
 ***Fixed***:
 
-* Fix ping check with bad float conversion. See [#818](https://github.com/DataDog/integrations-extras/pull/818).
+* Fix ping check with bad float conversion ([#818](https://github.com/DataDog/integrations-extras/pull/818))

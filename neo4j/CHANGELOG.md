@@ -23,21 +23,21 @@
 
 ***Added***:
 
-* Added causal_cluster read replica metrics. See [#1509](https://github.com/DataDog/integrations-extras/pull/1509).
+* Added causal_cluster read replica metrics ([#1509](https://github.com/DataDog/integrations-extras/pull/1509))
 
 ## 2.0.0 / 2022-02-24
 
 ***Changed***:
 
-* Update Neo4j Integration to Support Neo4j 4.x. See [#944](https://github.com/DataDog/integrations-extras/pull/944). Thanks [davidfauth](https://github.com/davidfauth).
+* Update Neo4j Integration to Support Neo4j 4.x ([#944](https://github.com/DataDog/integrations-extras/pull/944). Thanks [davidfauth](https://github.com/davidfauth))
 
 ***Added***:
 
-* Add curated_metric column to metadata.csv files. See [#1209](https://github.com/DataDog/integrations-extras/pull/1209).
-* Validate config files. See [#1001](https://github.com/DataDog/integrations-extras/pull/1001).
+* Add curated_metric column to metadata.csv files ([#1209](https://github.com/DataDog/integrations-extras/pull/1209))
+* Validate config files ([#1001](https://github.com/DataDog/integrations-extras/pull/1001))
 
 ## 1.0.1 / 2021-07-28
 
 ***Added***:
 
-* Update neo4j check to use requests wrapper. See [#894](https://github.com/DataDog/integrations-extras/pull/894).
+* Update neo4j check to use requests wrapper ([#894](https://github.com/DataDog/integrations-extras/pull/894))
