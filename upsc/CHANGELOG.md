@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* Fix encoding errors when capturing output and improve device handling. See [#1354](https://github.com/DataDog/integrations-extras/pull/1354).
+* Fix encoding errors when capturing output and improve device handling ([#1354](https://github.com/DataDog/integrations-extras/pull/1354))
 
 ## 0.1.0
 
