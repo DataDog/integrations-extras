@@ -1,7 +1,7 @@
 # Cribl Stream
 
 ## Overview
-[Cribl Stream][1] helps you process machine data – logs, instrumentation data, application data, metrics, and so on – in real time, and deliver it to your analysis platform of choice. It allows you to:
+[Cribl Stream][1] helps you process machine data logs, instrumentation data, application data, and metrics in real time, and deliver it to your analysis platform of choice. It allows you to:
 
 - Add context to your data, by enriching it with information from external data sources.
 - Help secure your data, by redacting, obfuscating, or encrypting sensitive fields.
@@ -32,23 +32,23 @@ Navigate to [_API Keys_][7] under Organization Settings and create an API Key fo
 
 #### Cribl
 1. In Cribl, navigate to _Quick Connects_ and click the _+Add Source_ button. 
-![step1](/images/cribl_dd_1.png)
+![step1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/cribl_stream/images/images/cribl_dd_1.png)
 2. Scroll down to _System Internal_ , hover over _Cribl Internal_ and choose _Select Existing_. Enable both _CriblLogs_ and _CriblMetrics_.  
  - **Note**: Both sources must have **Quick Connect** enabled instead of **Routes**.
-![step3](/images/cribl_dd_3.png)
+![step3](https://raw.githubusercontent.com/DataDog/integrations-extras/master/cribl_stream/images/images/cribl_dd_3.png)
 
 3. Click the _+Add Destination_ button.
 4. Scroll to the _Datadog_ tile and click _+Add New_.
 5. Give a name to the input (for example, Cribl_Datadog).
-![step4](/images/cribl_dd_4.png)
+![step4](https://raw.githubusercontent.com/DataDog/integrations-extras/master/cribl_stream/images/images/cribl_dd_4.png)
 
 6. Next, enter your _Datadog API Key_ and select your Datadog site.
 7. Add any Datadog tags, a Message Field, Source, or Host information. For more information, see the [Cribl Datadog Destination documentation][3].
 8. Click _Save_.
 10. Select _Passthru_ to connect Cribl Metrics to your Datadog destination.
-![step5](/images/cribl_dd_6.png)
+![step5](https://raw.githubusercontent.com/DataDog/integrations-extras/master/cribl_stream/images/images/cribl_dd_6.png)
 
-![complete](/images/cribl_dd_5.png)
+![complete](https://raw.githubusercontent.com/DataDog/integrations-extras/master/cribl_stream/images/images/cribl_dd_5.png)
 
 
 ## Uninstallation
