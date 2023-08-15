@@ -1,0 +1,1992 @@
+{
+    "title": "MongoDB Atlas Overview",
+    "description": "This dashboard provides an overview of the resource utilization, throughput, and performance of your MongoDB Atlas databases so you can identify and troubleshoot performance issues in one place. \n\nFor further reading on monitoring MongoDB Atlas:\n\n- [How to monitor MongoDB Atlas with Datadog](https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/)\n\n- [How to monitor MongoDB Atlas for Government with Datadog](https://www.datadoghq.com/blog/monitor-mongodb-atlas-for-government-datadog/)\n\n- [Datadog's MongoDB Atlas integration docs](https://docs.datadoghq.com/integrations/mongodb_atlas/#overview). \n\nClone this template dashboard to make changes and add your own graph widgets",
+    "widgets": [
+        {
+            "id": 8645320192335596,
+            "definition": {
+                "title": "New group",
+                "type": "group",
+                "banner_img": "/static/images/integration_dashboard/mongodb-atlas_hero_1.png",
+                "show_title": false,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 92513589796682,
+                        "definition": {
+                            "type": "note",
+                            "content": "This dashboard provides a high-level overview of your MongoDB Atlas deployment so you can quickly identify potential slowdowns and resource limitations.\n\nView key metrics at a glance, such as: total throughput, query efficiency, replication lag, memory + CPU usage, disk space, and more.",
+                            "background_color": "white",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 3,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 33392014797002,
+                        "definition": {
+                            "type": "note",
+                            "content": "**Refer to the following resources for more information**\n\n- [How to monitor MongoDB Atlas with Datadog](https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/)\n\n- [How to monitor MongoDB Atlas for Government](https://www.datadoghq.com/blog/monitor-mongodb-atlas-for-government-datadog/)\n\n- [Datadog's MongoDB Atlas integration documentation](https://docs.datadoghq.com/integrations/mongodb_atlas/#overview) ",
+                            "background_color": "white",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 3,
+                            "y": 0,
+                            "width": 3,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 6
+            }
+        },
+        {
+            "id": 6884695495117940,
+            "definition": {
+                "title": "Overview",
+                "type": "group",
+                "background_color": "white",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6705643367977742,
+                        "definition": {
+                            "title": "CPU Usage (%)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1 + query2 + query3 + query4 + query5 + query6 + query7 + query8"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 80
+                                        },
+                                        {
+                                            "comparator": ">=",
+                                            "palette": "white_on_yellow",
+                                            "value": 60
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 60
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.guest{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.iowait{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.irq{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.kernel{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.nice{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query5",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.softirq{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query6",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.steal{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query7",
+                                            "aggregator": "last"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.system.cpu.norm.user{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query8",
+                                            "aggregator": "last"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "%",
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 5170133619023806,
+                        "definition": {
+                            "title": "Read Latency (avg)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 500
+                                        },
+                                        {
+                                            "comparator": ">=",
+                                            "palette": "white_on_yellow",
+                                            "value": 100
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 100
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.oplatencies.reads.avg{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "ms",
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 8495121744910658,
+                        "definition": {
+                            "title": "Write Latency (avg)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 500
+                                        },
+                                        {
+                                            "comparator": ">=",
+                                            "palette": "white_on_yellow",
+                                            "value": 100
+                                        },
+                                        {
+                                            "comparator": "<",
+                                            "palette": "white_on_green",
+                                            "value": 100
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.oplatencies.writes.avg{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_unit": "ms",
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 5299403362155304,
+                        "definition": {
+                            "title": "Process Memory Usage",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.mem.resident{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 234364063269232,
+                        "definition": {
+                            "title": "Connection Count",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.connections.current{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "last"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 1,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 8969482959938708,
+                        "definition": {
+                            "title": "Free Disk Space",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.system.disk.space.free{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "custom_links": [],
+                            "precision": 0
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 1,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 7030526338777788,
+                        "definition": {
+                            "title": "MongoDB Atlas Monitors",
+                            "title_size": "13",
+                            "title_align": "left",
+                            "type": "manage_status",
+                            "summary_type": "monitors",
+                            "display_format": "countsAndList",
+                            "color_preference": "text",
+                            "hide_zero_counts": true,
+                            "show_last_triggered": false,
+                            "show_priority": false,
+                            "query": "metric:mongodb.atlas.*",
+                            "sort": "status,asc",
+                            "count": 50,
+                            "start": 0
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 6,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 6
+            }
+        },
+        {
+            "id": 4046157836463318,
+            "definition": {
+                "title": "Throughput",
+                "type": "group",
+                "background_color": "vivid_green",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 7952587989437332,
+                        "definition": {
+                            "title": "Read Requests by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Getmore Operations",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Query Operations",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.getmore{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.query{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "green",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 2355825141969202,
+                        "definition": {
+                            "title": "Document Reads",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Documents Returned",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.metrics.document.returned{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "green",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "bars"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 551400053621862,
+                        "definition": {
+                            "title": "Total Primary Operations",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Insert",
+                                            "conditional_formats": [],
+                                            "limit": {
+                                                "count": 500,
+                                                "order": "desc"
+                                            },
+                                            "cell_display_mode": "bar",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Update",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "Delete",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "alias": "Command",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query6"
+                                        },
+                                        {
+                                            "alias": "Query",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query5"
+                                        },
+                                        {
+                                            "alias": "Getmore",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query7"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.insert{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcountersrepl.update{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query3",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.delete{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.command{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query6",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.query{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query5",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.getmore{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query7",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4095891942301222,
+                        "definition": {
+                            "title": "Write Requests by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Delete Operations",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Insert Operations",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "Update Operations",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.delete{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.insert{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcounters.update{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {clustername}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "purple",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 2666331664155922,
+                        "definition": {
+                            "title": "Document Writes",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Documents Deleted",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Documents Inserted",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "Documents Updated",
+                                            "formula": "query3"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.metrics.document.deleted{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.metrics.document.inserted{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.metrics.document.updated{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "purple",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "bars"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 2147428680461194,
+                        "definition": {
+                            "type": "note",
+                            "content": "Replication Operations are executed when the primary server node copies data onto secondary server nodes. \n\nThis can help increase data availability and act as a backup, in case the primary server fails.",
+                            "background_color": "green",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 2,
+                            "width": 1,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7474482186364392,
+                        "definition": {
+                            "title": "Total Replication Operations",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Insert",
+                                            "conditional_formats": [],
+                                            "limit": {
+                                                "count": 500,
+                                                "order": "desc"
+                                            },
+                                            "cell_display_mode": "bar",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "Update",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Delete",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "alias": "Command",
+                                            "conditional_formats": [],
+                                            "cell_display_mode": "bar",
+                                            "formula": "query5"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.opcountersrepl.insert{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query2",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcountersrepl.update{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcountersrepl.delete{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query4",
+                                            "aggregator": "avg"
+                                        },
+                                        {
+                                            "query": "sum:mongodb.atlas.opcountersrepl.command{$scope,$organization,$project,$replica-set,$process-state,$process-type}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query5",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 9,
+                            "y": 2,
+                            "width": 3,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 12,
+                "height": 5
+            }
+        },
+        {
+            "id": 1563224401664346,
+            "definition": {
+                "title": "Performance",
+                "type": "group",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2216032145595040,
+                        "definition": {
+                            "title": "Query Efficiency",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Scanned Objects / Returned Objects",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.metrics.queryexecutor.scannedobjectsperreturned{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Index Items Scanned / Returned Objects",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.metrics.queryexecutor.scannedperreturned{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1318904631630884,
+                        "definition": {
+                            "type": "note",
+                            "content": "Query Efficiency Ratios measure the number of objects or item indexes scanned vs the number objects returned. \n\n***Lower*** values indicate more efficient queries.",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1975249564686306,
+                        "definition": {
+                            "title": "Replication Lag",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Seconds",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.replset.replicationlag{$scope,$organization,$project,$replica-set,*,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4912091206994608,
+                        "definition": {
+                            "type": "note",
+                            "content": "Replication lag refers to the amount of time it takes to copy (i.e. replicate) a write operation on the primary to a secondary. \n\nSome small delay period may be acceptable, but significant problems emerge as replication lag grows, including building cache pressure on the primary and inconsistent distributed read operations.",
+                            "background_color": "purple",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 10,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1372477451201328,
+                        "definition": {
+                            "title": "Max Queue Depth",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Request Queue Length",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.max.queuedepth{$scope,$process-state,$process-type,$replica-set,$project,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 2807925721166144,
+                        "definition": {
+                            "title": "Operations Latency",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Read Latency",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Write Latency",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.oplatencies.reads.avg{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "avg:mongodb.atlas.oplatencies.writes.avg{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7355976043222620,
+                        "definition": {
+                            "title": "Total cursors",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Open Cursors",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "sum:mongodb.atlas.cursors.totalopen{$scope,$organization,$project,$replica-set,*,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "bars"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 11,
+                "width": 12,
+                "height": 5
+            }
+        },
+        {
+            "id": 3169921030702398,
+            "definition": {
+                "title": "Resource Utilization",
+                "type": "group",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 4539745454186298,
+                        "definition": {
+                            "type": "note",
+                            "content": "Atlas limits the number of concurrent connections based on the instance size of your cluster.\n\nIf it reaches that limit, further connections will be refused. You can configure a monitor to automatically get notified when the number of current connections is approaching the limit. This limit is determined by cluster tier. ",
+                            "background_color": "blue",
+                            "font_size": "12",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "25%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 4837938245834488,
+                        "definition": {
+                            "title": "Connections",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Current Connections",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.connections.current{$scope,$replica-set,$project,*,$process-type,$process-state,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "bars"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7186356145545726,
+                        "definition": {
+                            "type": "note",
+                            "content": "The ***Disk Space*** graph shows the ratio of free vs used disk space and represents the physical limitation what data can be stored.\n\nThe ***Storage*** graph is made up of:\n\n**Storage Space:** The total amount of storage in bytes allocated to this collection for document storage.\nIf collection data is compressed (which is the default for WiredTiger), the storage size reflects the compressed size and may be smaller than the value returned by **Data Size**.\n\n**Data Size:** Total data size across all databases in bytes. Data compression does not affect this value.",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "center",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 2,
+                            "height": 6
+                        }
+                    },
+                    {
+                        "id": 2933238606157528,
+                        "definition": {
+                            "title": "Disk Space",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Free",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Used",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.space.free{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.space.used{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 0,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 160448634951616,
+                        "definition": {
+                            "type": "note",
+                            "content": "Unoptimized queries might lead to CPU alerts. Also, your current cluster tier might not support the current workload.\n\n**To solve immediate problems:**\nConsider adding one or more indexes to improve query performance.\n\n**For a long-term solution:**\nYou may need to upgrade your cluster to a higher tier to reduce the CPU usage percentage utilized by the current workload.",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 2,
+                            "width": 2,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 2739340004330694,
+                        "definition": {
+                            "title": "Max CPU Usage (%)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Guest",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "IOwait",
+                                            "formula": "query2"
+                                        },
+                                        {
+                                            "alias": "irq",
+                                            "formula": "query3"
+                                        },
+                                        {
+                                            "alias": "Kernel",
+                                            "formula": "query4"
+                                        },
+                                        {
+                                            "alias": "Nice",
+                                            "formula": "query5"
+                                        },
+                                        {
+                                            "alias": "Softirq",
+                                            "formula": "query6"
+                                        },
+                                        {
+                                            "alias": "Stolen",
+                                            "formula": "query7"
+                                        },
+                                        {
+                                            "alias": "User",
+                                            "formula": "query8"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.guest{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.iowait{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.irq{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query3"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.kernel{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query4"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.nice{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query5"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.softirq{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query6"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.steal{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query7"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.user{*,*,*,*,*,*,*,$scope,$organization,$project,$replica-set,$process-state,$process-type}",
+                                            "data_source": "metrics",
+                                            "name": "query8"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "markers": [
+                                {
+                                    "value": "y > 100",
+                                    "display_type": "error dashed"
+                                },
+                                {
+                                    "value": "y > 60",
+                                    "display_type": "warning dashed"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7891915029340290,
+                        "definition": {
+                            "title": "Storage",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Storage Space",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Data Size",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.stats.totalstoragesize{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.stats.totaldatasize{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 2,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 8255154466853430,
+                        "definition": {
+                            "title": "Top Hosts (CPU usage)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "limit": {
+                                                "count": 10,
+                                                "order": "desc"
+                                            }
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 80
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_yellow",
+                                            "value": 60
+                                        },
+                                        {
+                                            "comparator": "<=",
+                                            "palette": "white_on_green",
+                                            "value": 60
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic"
+                                    },
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.cpu.norm.user{$scope,$replica-set,*,$process-state,$process-type,$project,$organization} by {hostnameport}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 4,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 8834009885924418,
+                        "definition": {
+                            "title": "Top Hosts (Disk Space Used)",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "limit": {
+                                                "count": 10,
+                                                "order": "desc"
+                                            }
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 80
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_yellow",
+                                            "value": 60
+                                        },
+                                        {
+                                            "comparator": "<=",
+                                            "palette": "white_on_green",
+                                            "value": 60
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "dog_classic"
+                                    },
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.space.percentused{$scope,$replica-set,$project,*,$process-state,$process-type,$organization} by {hostnameport}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 4,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 807331053856666,
+                        "definition": {
+                            "type": "note",
+                            "content": "Disk I/O usage allows you see hardware trends overtime.\n\nHigh spikes in ***Disk I/O Used %*** can be caused by:\n\n- Unoptimized queries.\n\n- A one-time event which causes a spike in disk utilization such as an index build.",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 6,
+                            "width": 2,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 3036924084948814,
+                        "definition": {
+                            "title": "IOPS Throughput",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "I/O Read",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.system.disk.iops.reads{$scope,$replica-set,$project,*,$process-type,$process-state,$organization}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "green",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                },
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "I/O Write",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.system.disk.iops.writes{$scope,$replica-set,$project,*,$process-type,$process-state,$organization}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 6,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 1459212863348792,
+                        "definition": {
+                            "type": "note",
+                            "content": "Memory refers to the total physical RAM available on each data bearing node of your Atlas cluster. \n\nThe working set is the sum of all the indexes plus the set of documents that are accessed frequently. If your working set fits in RAM, then MongoDB can serve queries from memory, which provides the fastest query response times.",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "right",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 6,
+                            "width": 2,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 1405358024956816,
+                        "definition": {
+                            "title": "Max Memory Usage",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Resident",
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Virtual",
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.mem.resident{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.mem.virtual{$scope,$replica-set,$project,*,$process-state,$process-type,$organization}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 6,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 8108501536196612,
+                        "definition": {
+                            "title": "Average IOPS Usage",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "horizontal",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Disk I/O Used (%)",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.system.disk.iops.percentutilization{$scope,$replica-set,$project,*,$process-type,$process-state,$organization}.as_rate()",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "cool",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ],
+                            "markers": [
+                                {
+                                    "value": "y > 100",
+                                    "display_type": "error dashed"
+                                },
+                                {
+                                    "value": "y > 50",
+                                    "display_type": "warning dashed"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 8,
+                            "width": 4,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5130903309765422,
+                        "definition": {
+                            "title": "Memory Used by Week",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "change",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "week_before(query1)"
+                                        },
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "order_by": "change",
+                                    "order_dir": "desc",
+                                    "compare_to": "hour_before",
+                                    "response_format": "scalar",
+                                    "increase_good": false,
+                                    "queries": [
+                                        {
+                                            "query": "avg:mongodb.atlas.mem.resident{$scope,$process-state,$process-type,$replica-set,$project,$organization} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query1",
+                                            "aggregator": "avg"
+                                        }
+                                    ],
+                                    "change_type": "absolute"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 8,
+                            "y": 8,
+                            "width": 4,
+                            "height": 2
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 16,
+                "width": 12,
+                "height": 11,
+                "is_column_break": true
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "scope",
+            "default": "*",
+            "prefix": "",
+            "available_values": []
+        },
+        {
+            "name": "organization",
+            "default": "*",
+            "prefix": "organizationname",
+            "available_values": []
+        },
+        {
+            "name": "project",
+            "default": "*",
+            "prefix": "projectname",
+            "available_values": []
+        },
+        {
+            "name": "replica-set",
+            "default": "*",
+            "prefix": "replicasetname",
+            "available_values": []
+        },
+        {
+            "name": "process-state",
+            "default": "*",
+            "prefix": "processstate",
+            "available_values": []
+        },
+        {
+            "name": "process-type",
+            "default": "*",
+            "prefix": "processtype",
+            "available_values": []
+        }
+    ],
+    "layout_type": "ordered",
+    "is_read_only": false,
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "id": "vsx-wiw-vt4"
+}
