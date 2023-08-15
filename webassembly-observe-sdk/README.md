@@ -4,9 +4,16 @@
 
 This integration provides traces, logs, and metrics from WebAssembly code running in your application.
 
-There are open-source SDKs avaiable to integrate into your application, which emit telemtry data into your Datadog Agent.
+Since WebAssembly code is executed in a secure & constrained environment, traditional techniques to monitor code do not work. Our specialized observability stack
+makes it easy to continuously monitor WASM modules at the same level you expect of your other applications.
+
+Datadog customers can use our open source SDKs and Adapters to emit spans, logs, and metrics from their WASM programs.
 
 Please see the [`dylibso/observe-sdk`](https://github.com/dylibso/observe-sdk) repository to install the Datadog Adapter for you application.
+
+In addition, Dylibso provides automatic instrumention tooling which can take any existing WASM module and losslessly recompile it to include function and memory allocation tracing. For
+more information, contact [support@dylibso.com](mailto:support@dylibso.com).
+
 
 ## Setup
 
@@ -47,7 +54,7 @@ WebAssembly Observe SDK collects logs and traces from your application.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][1].
+Need help? Contact [Dylibso support][1].
 
-[1]: https://docs.datadoghq.com/help/
+[1]: mailto:support@dylibso.com
 
