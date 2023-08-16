@@ -27,7 +27,7 @@
         "critical_recovery": 0
       }
     },
-    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.system.cpu.norm.irq{*} by {host} + avg:mongodb.atlas.system.cpu.norm.nice{*} by {host} + avg:mongodb.atlas.system.cpu.norm.user{*} by {host} + avg:mongodb.atlas.system.cpu.norm.guest{*} by {host} + avg:mongodb.atlas.system.cpu.norm.steal{*} by {host} + avg:mongodb.atlas.system.cpu.norm.iowait{*} by {host} + avg:mongodb.atlas.system.cpu.norm.kernel{*} by {host} + avg:mongodb.atlas.system.cpu.norm.softirq{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') \u003e= 1",
+    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.system.cpu.norm.irq{*} by {host} + avg:mongodb.atlas.system.cpu.norm.nice{*} by {host} + avg:mongodb.atlas.system.cpu.norm.user{*} by {host} + avg:mongodb.atlas.system.cpu.norm.guest{*} by {host} + avg:mongodb.atlas.system.cpu.norm.steal{*} by {host} + avg:mongodb.atlas.system.cpu.norm.iowait{*} by {host} + avg:mongodb.atlas.system.cpu.norm.kernel{*} by {host} + avg:mongodb.atlas.system.cpu.norm.softirq{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
     "tags": [
       "integration:mongodb-atlas"
     ],

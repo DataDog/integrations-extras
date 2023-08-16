@@ -9,7 +9,7 @@
   "description": "Notify your team when packet loss percentage exceeds thresholds.",
   "definition": {
     "message": "Packet loss at or exceeding 1% detected.",
-    "name": "Netnology SD-WAN Packet Loss Monitor [\u003e1%]",
+    "name": "Netnology SD-WAN Packet Loss Monitor [>1%]",
     "options": {
       "escalation_message": "",
       "notify_audit": false,
@@ -20,7 +20,7 @@
         "critical": 1
       }
     },
-    "query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.loss_percentage{*} \u003e 1",
+    "query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.loss_percentage{*} > 1",
     "tags": [
       "integration:nn_sdwan"
     ],

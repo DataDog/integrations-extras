@@ -27,7 +27,7 @@
         "critical_recovery": 0
       }
     },
-    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.mem.virtual{*} by {host} + avg:mongodb.atlas.mem.resident{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') \u003e= 1",
+    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.mem.virtual{*} by {host} + avg:mongodb.atlas.mem.resident{*} by {host}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
     "tags": [
       "integration:mongodb-atlas"
     ],

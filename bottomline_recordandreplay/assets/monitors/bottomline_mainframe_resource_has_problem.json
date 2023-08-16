@@ -18,7 +18,7 @@
       "on_missing_data": "default",
       "restriction_query": null,
       "thresholds": {
-        "comparison": "\u003e",
+        "comparison": ">",
         "critical": 1000000000,
         "period": {
           "digit": 5,
@@ -37,7 +37,7 @@
       }
     },
     "priority": 3,
-    "query": "logs(\"*\").index(\"*\").rollup(\"avg\", \"@bottomline.mainframe.activity.resource.duration\").by(\"@bottomline.mainframe.activity.resource.code\").last(\"5m\") \u003e 1000000000",
+    "query": "logs(\"*\").index(\"*\").rollup(\"avg\", \"@bottomline.mainframe.activity.resource.duration\").by(\"@bottomline.mainframe.activity.resource.code\").last(\"5m\") > 1000000000",
     "restricted_roles": null,
     "tags": [
       "integration:bottomline_recordandreplay"

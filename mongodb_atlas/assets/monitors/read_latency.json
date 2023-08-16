@@ -27,7 +27,7 @@
         "critical_recovery": 0
       }
     },
-    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.oplatencies.reads.avg{*} by {host}, 'basic', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true') \u003e= 1",
+    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.oplatencies.reads.avg{*} by {host}, 'basic', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true') >= 1",
     "tags": [
       "integration:mongodb-atlas"
     ],

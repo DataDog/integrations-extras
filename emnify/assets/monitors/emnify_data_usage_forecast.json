@@ -23,7 +23,7 @@
       }
     },
     "priority": null,
-    "query": "max(next_2w):forecast(sum:emnify.endpoint.volume{*}.as_count().rollup(sum, 86400), 'linear', 2, model='reactive', interval='60m', history='1mo') \u003e= 1000000000",
+    "query": "max(next_2w):forecast(sum:emnify.endpoint.volume{*}.as_count().rollup(sum, 86400), 'linear', 2, model='reactive', interval='60m', history='1mo') >= 1000000000",
     "restricted_roles": null,
     "tags": [
       "integration:emnify"

@@ -29,7 +29,7 @@
       },
       "timeout_h": 0
     },
-    "query": "avg(last_1h):( avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,prediction_window:24_hours} by {host} / avg:kubernetes.memory.capacity{*} by {host} ) * 100 \u003e 90",
+    "query": "avg(last_1h):( avg:federatorai.prediction.node.max{source_metric:kubernetes.memory.usage,prediction_window:24_hours} by {host} / avg:kubernetes.memory.capacity{*} by {host} ) * 100 > 90",
     "tags": [
       "integration:federatorai"
     ],

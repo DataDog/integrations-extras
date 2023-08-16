@@ -30,7 +30,7 @@
       "timeout_h": 1
     },
     "priority": null,
-    "query": "sum(last_12h):anomalies(sum:emnify.endpoint.volume_rx{*} by {host}.as_count().fill(zero, 0).rollup(sum, 300), 'basic', 2, direction='above', interval=120, alert_window='last_30m', count_default_zero='true') \u003e= 1",
+    "query": "sum(last_12h):anomalies(sum:emnify.endpoint.volume_rx{*} by {host}.as_count().fill(zero, 0).rollup(sum, 300), 'basic', 2, direction='above', interval=120, alert_window='last_30m', count_default_zero='true') >= 1",
     "restricted_roles": null,
     "tags": [
       "integration:emnify"

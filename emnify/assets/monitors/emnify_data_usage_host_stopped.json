@@ -30,7 +30,7 @@
       }
     },
     "priority": null,
-    "query": "avg(last_1d):anomalies(avg:emnify.endpoint.volume{*} by {host}.as_count().fill(zero, 0).rollup(sum, 900), 'robust', 2, direction='below', interval=300, alert_window='last_1h', seasonality='hourly', timezone='utc', count_default_zero='true') \u003e= 0.5",
+    "query": "avg(last_1d):anomalies(avg:emnify.endpoint.volume{*} by {host}.as_count().fill(zero, 0).rollup(sum, 900), 'robust', 2, direction='below', interval=300, alert_window='last_1h', seasonality='hourly', timezone='utc', count_default_zero='true') >= 0.5",
     "restricted_roles": null,
     "tags": [
       "integration:emnify"
