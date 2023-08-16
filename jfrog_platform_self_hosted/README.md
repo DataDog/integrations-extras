@@ -29,9 +29,6 @@ This dashboard provides an aggregated summary of all the license violations and 
 This dashboard tracks System Metrics and data metrics about Scanned Artifacts and Scanned Components.
 
 ## Setup
-Follow the instructions in the order listed:
-1. [Requirements](#requirements)
-2. [Fluentd Installation](#fluentd-installation)
 
 ### Requirements
 
@@ -45,9 +42,9 @@ We recommend following the installation guide that matches your environment:
 * [Docker][9]
 * [Kubernetes Deployment with Helm][10]
 
-### Data Collected
+## Data Collected
 
-#### Metrics
+### Metrics
 
 See [metadata.csv][6] for a list of metrics provided by this integration
 
