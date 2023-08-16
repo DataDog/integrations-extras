@@ -2,17 +2,18 @@
 
 ## Overview
 
-This integration provides traces, logs, and metrics from WebAssembly code running in your application.
+This integration provides function traces from WebAssembly code running in your application. Gain insights into WebAssembly code performance and behavior
+including function call duration, execution tracing, and memory allocation.
 
 Since WebAssembly code is executed in a secure & constrained environment, traditional techniques to monitor code do not work. Our specialized observability stack
 makes it easy to continuously monitor WASM modules at the same level you expect of your other applications.
 
-Datadog customers can use our open source SDKs and Adapters to emit spans, logs, and metrics from their WASM programs.
+Datadog customers can use our open source SDKs and Adapters to emit full traces from their WASM programs.
 
 Please see the [`dylibso/observe-sdk`](https://github.com/dylibso/observe-sdk) repository to install the Datadog Adapter for you application.
 
 In addition, Dylibso provides automatic instrumention tooling which can take any existing WASM module and losslessly recompile it to include function and memory allocation tracing. For
-more information, contact [support@dylibso.com](mailto:support@dylibso.com).
+more information, contact [support@dylibso.com](mailto:support@dylibso.com) or learn more about [automatic WebAssembly instrumentation](https://dylibso.com/products/observe).
 
 
 ## Setup
@@ -36,17 +37,9 @@ Once you have imported and configured your Datadog Adapter from the available op
 
 1. Redeploy your application so the Datadog Adapter is included where you're calling WebAssembly code.
 2. Ensure that a WebAssembly module (.wasm) has been loaded and you are calling one of its exported functions.
-3. Check in your Datadog dashboard for a trace, log, or metric sent from your service.
+3. Check in your Datadog dashboard for traces sent from your service.
 
 ## Data Collected
-
-### Metrics
-
-WebAssembly Observe SDK can emit standard and custom metrics from your application, depending on your needs.
-
-### Service Checks
-
-WebAssembly Observe SDK does not include any service checks.
 
 ### Events
 
