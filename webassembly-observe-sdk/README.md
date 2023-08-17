@@ -15,7 +15,7 @@ Datadog customers can use our open source SDKs and Adapters to emit full traces 
 Please see the [`dylibso/observe-sdk`][2] repository to install the Datadog Adapter for you application.
 
 In addition, Dylibso provides automatic instrumentation tooling which can take any existing WASM module and recompile it to include function and memory allocation tracing. For
-more information, contact [support@dylibso.com](mailto:support@dylibso.com) or learn more about [automatic WebAssembly instrumentation](https://dylibso.com/products/observe).
+more information, contact [support@dylibso.com](mailto:support@dylibso.com) or learn more about [automatic WebAssembly instrumentation][3].
 
 
 ## Setup
