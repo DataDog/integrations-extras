@@ -10,7 +10,7 @@ This integration provides function traces from WebAssembly (WASM) code running i
 Since WebAssembly code is executed in a secure and constrained environment, traditional techniques to monitor code do not work. Our specialized observability stack
 allows you to continuously monitor WASM modules at the same level you expect of your other applications.
 
-Datadog customers can use our open source SDKs and Adapters to emit full traces from their WASM programs.
+Datadog customers can use our open source SDKs and Adapters to emit full traces from your WASM programs.
 
 Please see the [`dylibso/observe-sdk`][2] repository to install the Datadog Adapter for you application.
 
