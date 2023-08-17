@@ -52,3 +52,4 @@ Need help? Contact [Dylibso support][1].
 
 [1]: mailto:support@dylibso.com
 [2]: https://github.com/dylibso/observe-sdk
+[3]: https://dylibso.com/products/observe
