@@ -37,7 +37,7 @@ In order to connect the SDK and Adapter to your Datadog Agent, you must have the
 After you have imported and configured your Datadog Adapter from the available options within the Observe SDK:
 
 1. Redeploy your application so the Datadog Adapter is included where you're calling WebAssembly code.
-2. Ensure that a WebAssembly module (.wasm) has been loaded and you are calling one of its exported functions.
+2. Ensure that a WebAssembly module (`.wasm`) has been loaded and you are calling one of its exported functions.
 3. Check in your Datadog dashboard for traces sent from your service.
 
 ## Data Collected
