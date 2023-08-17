@@ -3,7 +3,9 @@
 ## Overview
 
 This integration provides function traces from WebAssembly (WASM) code running in your application. Gain insight into WebAssembly code performance as well as the following behavior:
-including function call duration, execution tracing, and memory allocation.
+- Function call duration
+- Execution tracing
+- Memory allocation
 
 Since WebAssembly code is executed in a secure & constrained environment, traditional techniques to monitor code do not work. Our specialized observability stack
 makes it easy to continuously monitor WASM modules at the same level you expect of your other applications.
