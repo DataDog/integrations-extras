@@ -30,7 +30,7 @@ Depending on the programming language your application is written in, choose one
 In order to connect the SDK and Adapter to your Datadog Agent, you must have the following information ready:
 
 1. Your Datadog Agent host URL
-2. The service name of the application where the SDK & Adapter are imported
+2. The service name of the application where the SDK and Adapter are imported.
 
 ### Validation
 
