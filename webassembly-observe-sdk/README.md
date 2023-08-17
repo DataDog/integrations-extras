@@ -50,4 +50,4 @@ WebAssembly Observe SDK collects logs and traces from your application.
 Need help? Contact [Dylibso support][1].
 
 [1]: mailto:support@dylibso.com
-
+[2]: https://github.com/dylibso/observe-sdk
