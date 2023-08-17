@@ -24,7 +24,6 @@ more information, contact [support@dylibso.com](mailto:support@dylibso.com) or l
 
 Depending on the programming language your application is written in, choose one of the appropriate Datadog Adapters from [`dylibso/observe-sdk`][2] on GitHub.
 
- [`dylibso/observe-sdk`](https://github.com/dylibso/observe-sdk) on GitHub
 
 ### Configuration
 
