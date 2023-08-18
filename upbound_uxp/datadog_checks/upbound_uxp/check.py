@@ -504,11 +504,15 @@ class UpboundUxpCheck(AgentCheck):
                     port_forward_info = p.stdout.readline()
                     if self.verbose:
                         self.log.debug(port_forward_info)
-                    response = requests.get('http://localhost:' + port_forward_target_str + self.uxp_url)
+                    response = requests.get('http://localhost:' +
+                                            port_forward_target_str +
+                                            self.uxp_url, timeout=200)
                     metrics = response.text
                     p.terminate()
                 else:
-                    response = requests.get('http://' + pod.status.pod_ip + ':' + self.uxp_port + self.uxp_url)
+                    response = requests.get('http://' + pod.status.pod_ip + ':'
+                                            + self.uxp_port + self.uxp_url,
+                                            timeout=200)
                     metrics = response.text
             except Exception as e:
                 # We were unable to get metrics for this pod.
