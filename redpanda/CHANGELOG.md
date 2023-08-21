@@ -28,4 +28,4 @@
 
 ***Added***:
 
-* Add Redpanda integration ([#1020](https://github.com/DataDog/integrations-extras/pull/1020)) Redpanda integration. See [#1020](https://github.com/DataDog/integrations-extras/pull/1020).
+* Add Redpanda integration ([#1020](https://github.com/DataDog/integrations-extras/pull/1020))
