@@ -739,7 +739,7 @@
     {
       "id": 7587056566081532,
       "definition": {
-        "title": "Memory Utilisation (%)",
+        "title": "Memory Utilization (%)",
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
@@ -817,7 +817,7 @@
     {
       "id": 1145928577188698,
       "definition": {
-        "title": "Kafka API Bytes Written",
+        "title": "Kafka API Bytes Received",
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
@@ -872,7 +872,7 @@
     {
       "id": 7220404869369238,
       "definition": {
-        "title": "Kafka API Bytes Read",
+        "title": "Kafka API Bytes Sent",
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
@@ -894,7 +894,7 @@
             ],
             "queries": [
               {
-                "query": "sum:redpanda.kafka.request_bytes.count{$topic,$server} by {redpanda_topic}.as_rate()",
+                "query": "sum:redpanda.kafka.request_bytes.count{$topic,redpanda_request:consume} by {redpanda_topic}.as_rate()",
                 "data_source": "metrics",
                 "name": "query1"
               }
