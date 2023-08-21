@@ -3,19 +3,16 @@
   "description": "## ![WayFinder](https://docs.appvia.io/img/appvia-logo.svg)\n\nDashboard for monitoring [ Appvia Wayfinder](https://www.appvia.io/product/), an infrastructure management platform that enables developer self-service though centralised configuration. \n\nUseful links:\n \n[Wayfinder Wiki](https://docs.appvia.io/wayfinder/)",
   "widgets": [
     {
-      "id": 6109974031300300,
+      "id": 644305468836786,
       "definition": {
-        "title": "API Server Endpoint",
-        "title_size": "16",
-        "title_align": "left",
-        "type": "check_status",
-        "check": "wayfinder.openmetrics.health",
-        "grouping": "check",
-        "group": "kube_deployment:wayfinder-apiserver",
-        "group_by": [
-          "kube_deployment"
-        ],
-        "tags": []
+        "type": "image",
+        "url": "https://docs.appvia.io/img/appvia-logo.svg",
+        "sizing": "contain",
+        "margin": "md",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
       },
       "layout": {
         "x": 0,
@@ -69,41 +66,24 @@
       }
     },
     {
-      "id": 5292446925349497,
+      "id": 6109974031300300,
       "definition": {
-        "title": "",
+        "title": "API Server Endpoint",
         "title_size": "16",
         "title_align": "left",
-        "show_legend": false,
-        "type": "timeseries",
-        "requests": [
-          {
-            "response_format": "timeseries",
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "sum:wayfinder.workqueue.depth{*}"
-              }
-            ],
-            "formulas": [
-              {
-                "formula": "query1"
-              }
-            ],
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "line"
-          }
-        ]
+        "type": "check_status",
+        "check": "wayfinder.openmetrics.health",
+        "grouping": "check",
+        "group": "kube_deployment:wayfinder-apiserver",
+        "group_by": [
+          "kube_deployment"
+        ],
+        "tags": []
       },
       "layout": {
         "x": 6,
         "y": 0,
-        "width": 4,
+        "width": 2,
         "height": 2
       }
     },
@@ -186,21 +166,89 @@
       }
     },
     {
-      "id": 644305468836786,
+      "id": 5292446925349497,
       "definition": {
-        "type": "image",
-        "url": "https://docs.appvia.io/img/appvia-logo.svg",
-        "sizing": "contain",
-        "margin": "md",
-        "has_background": false,
-        "has_border": false,
-        "vertical_align": "center",
-        "horizontal_align": "center"
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:wayfinder.workqueue.depth{*}"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
       },
       "layout": {
-        "x": 8,
-        "y": 2,
-        "width": 2,
+        "x": 0,
+        "y": 4,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 1957837969048482,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "sum:wayfinder.controller_runtime.active_workers{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": {
+        "x": 4,
+        "y": 4,
+        "width": 4,
         "height": 2
       }
     }
