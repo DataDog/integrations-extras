@@ -4,7 +4,7 @@
 
 This check monitors [MariaDB SkySQL][1]. SkySQL is a multi-cloud database-as-a-service offering from MariaDB Plc.
 
-Integration with DataDog allows full monitoring of all your MariaDB server deployments: Enterprise Server (Single and Replicated), Xpand, Columnstore, as well as MaxScale. Database administrators can track system resource metrics, such as memory, CPU, disk, and network utilization in addition to database specific telemetry such as query performance, connections, threads, cluster, replication status and many others.
+Integration with Datadog allows full monitoring of all your MariaDB SkySQL server deployments: Enterprise Server (Single and Replicated), Xpand, Columnstore, as well as MaxScale. Database administrators can track system resource metrics, such as memory, CPU, disk, and network utilization in addition to database specific telemetry such as query performance, connections, threads, cluster, replication status and many others.
 
 
 ## Setup
@@ -23,10 +23,8 @@ To install the MariaDB SkySQL check on your host:
 3. [Download the Datadog Agent][2].
 
 4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/mariadb_skysql/dist/datadog_mariadb_skysql-<INTEGRATION_VERSION>.whl`.
- e.g.
-     datadog-agent integration install -w ./integrations-extras/mariadb_skysql/dist/datadog_mariadb_skysql-0.0.1-py3-none-any.whl
+ run `datadog-agent integration install -w ./integrations-extras/mariadb_skysql/dist/datadog_mariadb_skysql-0.0.1-py3-none-any.whl`.
+ This command assumes that the build directory is in ./integration-extras/mariadb_skysql/dist. You may need to modify this path to match your agent environment settings.
 
 ### Configuration
 
