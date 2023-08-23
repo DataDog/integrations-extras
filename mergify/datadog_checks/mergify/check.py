@@ -43,7 +43,7 @@ class MergifyCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request timeout: {}, {}".format(url, e),
             )
-            return
+            raise
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
             if (
