@@ -1,10 +1,9 @@
 from datadog_checks.base import ConfigurationError, OpenMetricsBaseCheckV2
-from datadog_checks.wayfinder.config_models import ConfigMixin
 
 from .metrics import METRIC_MAP
 
 
-class WayfinderCheck(OpenMetricsBaseCheckV2, ConfigMixin):
+class WayfinderCheck(OpenMetricsBaseCheckV2):
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'wayfinder'
 
