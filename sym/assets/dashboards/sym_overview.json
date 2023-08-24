@@ -135,7 +135,7 @@
                         "response_format": "event_list",
                         "query": {
                             "data_source": "logs_stream",
-                            "query_string": "service:sym -@run.srn:*\\:run\\:flow_selection\\:* ",
+                            "query_string": "service:sym -@run.srn:*\\:run\\:flow_selection\\:*",
                             "indexes": [],
                             "storage": "hot",
                             "sort": {
@@ -153,7 +153,7 @@
                                 "width": "auto"
                             },
                             {
-                                "field": "@actor.username",
+                                "field": "usr.email",
                                 "width": "auto"
                             },
                             {
@@ -345,7 +345,7 @@
                                 },
                                 "group_by": [
                                     {
-                                        "facet": "@actor.username",
+                                        "facet": "@usr.email",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -402,7 +402,7 @@
                                 },
                                 "group_by": [
                                     {
-                                        "facet": "@actor.username",
+                                        "facet": "@usr.email",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
