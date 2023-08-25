@@ -44,7 +44,7 @@ After you have imported and configured your Datadog Adapter from the available o
 
 ### Events
 
-WebAssembly Observe SDK collects logs and traces from your application.
+WebAssembly Observe SDK collects traces of function execution and memory allocation events from your application.
 
 ## Troubleshooting
 
