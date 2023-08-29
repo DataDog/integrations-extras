@@ -163,7 +163,7 @@
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@return_status",
+                                        "facet": "@http.status_code",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -176,13 +176,17 @@
                                 ],
                                 "name": "query1",
                                 "search": {
-                                    "query": "@return_status:5* @log_source:jfrog.xray.*"
+                                    "query": "@http.status_code:5* @log_source:jfrog.xray.*"
                                 }
                             }
                         ],
-                        "response_format": "scalar"
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "semantic"
+                        }
                     }
                 ],
+                "time": {},
                 "title": "HTTP 5xx Errors",
                 "type": "treemap"
             },
@@ -211,7 +215,7 @@
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@return_status",
+                                        "facet": "@http.status_code",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -228,9 +232,13 @@
                                 }
                             }
                         ],
-                        "response_format": "scalar"
+                        "response_format": "scalar",
+                        "style": {
+                            "palette": "semantic"
+                        }
                     }
                 ],
+                "time": {},
                 "title": "HTTP Response Codes",
                 "title_align": "left",
                 "title_size": "16",

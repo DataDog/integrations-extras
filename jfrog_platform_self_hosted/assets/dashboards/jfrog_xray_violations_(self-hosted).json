@@ -72,7 +72,7 @@
                                 ],
                                 "name": "query1",
                                 "search": {
-                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @category:Security"
+                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @jfrog.category:Security"
                                 }
                             }
                         ],
@@ -115,7 +115,7 @@
                                 ],
                                 "name": "query1",
                                 "search": {
-                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @category:License"
+                                    "query": "@log_source:jfrog.xray.siem.vulnerabilities @jfrog.category:License"
                                 }
                             }
                         ],
@@ -377,7 +377,7 @@
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@severity",
+                                        "facet": "@jfrog.severity",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -494,7 +494,7 @@
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@category",
+                                        "facet": "@jfrog.category",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -540,6 +540,7 @@
                     }
                 ],
                 "show_legend": true,
+                "time": {},
                 "title": "Violation Types over Time (stats)",
                 "title_align": "left",
                 "title_size": "16",
@@ -574,7 +575,11 @@
                 "requests": [
                     {
                         "display_type": "bars",
-                        "on_right_yaxis": false,
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
                         "queries": [
                             {
                                 "compute": {
@@ -583,7 +588,7 @@
                                 "data_source": "logs",
                                 "group_by": [
                                     {
-                                        "facet": "@severity",
+                                        "facet": "@jfrog.severity",
                                         "limit": 10,
                                         "sort": {
                                             "aggregation": "count",
@@ -596,7 +601,7 @@
                                 ],
                                 "name": "query1",
                                 "search": {
-                                    "query": "-@severity:Unknown @log_source:jfrog.xray.siem.vulnerabilities"
+                                    "query": "-@jfrog.severity:Unknown @log_source:jfrog.xray.siem.vulnerabilities"
                                 }
                             }
                         ],
@@ -609,6 +614,7 @@
                     }
                 ],
                 "show_legend": true,
+                "time": {},
                 "title": "Violation over Time (By Severity)",
                 "title_align": "left",
                 "title_size": "16",
@@ -806,7 +812,7 @@
                             {
                                 "compute": {
                                     "aggregation": "cardinality",
-                                    "metric": "@ip"
+                                    "metric": "@network.client.ip"
                                 },
                                 "data_source": "logs",
                                 "group_by": [
@@ -815,7 +821,7 @@
                                         "limit": 1000,
                                         "sort": {
                                             "aggregation": "cardinality",
-                                            "metric": "@ip",
+                                            "metric": "@network.client.ip",
                                             "order": "desc"
                                         }
                                     }
@@ -833,6 +839,7 @@
                     }
                 ],
                 "style": {},
+                "time": {},
                 "title": "Top Vulnerable Artifact by Count of IP Download",
                 "title_align": "left",
                 "title_size": "16",
@@ -863,7 +870,7 @@
                             {
                                 "compute": {
                                     "aggregation": "cardinality",
-                                    "metric": "@username"
+                                    "metric": "@usr.id"
                                 },
                                 "data_source": "logs",
                                 "group_by": [
@@ -872,7 +879,7 @@
                                         "limit": 100,
                                         "sort": {
                                             "aggregation": "cardinality",
-                                            "metric": "@username",
+                                            "metric": "@usr.id",
                                             "order": "desc"
                                         }
                                     }
@@ -890,6 +897,7 @@
                     }
                 ],
                 "style": {},
+                "time": {},
                 "title": "Top Vulnerable Artifact by Count of User Downloads",
                 "title_align": "left",
                 "title_size": "16",
@@ -917,7 +925,7 @@
                                 "width": "auto"
                             },
                             {
-                                "field": "@severity",
+                                "field": "@jfrog.severity",
                                 "width": "auto"
                             },
                             {
@@ -929,7 +937,7 @@
                                 "width": "auto"
                             },
                             {
-                                "field": "@category",
+                                "field": "@jfrog.category",
                                 "width": "auto"
                             },
                             {

@@ -117,7 +117,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@return_status",
+                                                    "facet": "@http.status_code",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -130,7 +130,7 @@
                                             ],
                                             "name": "query1",
                                             "search": {
-                                                "query": "@log_source:jfrog.rt.artifactory.request @return_status:5**"
+                                                "query": "@log_source:jfrog.rt.artifactory.request @http.status_code:5**"
                                             }
                                         }
                                     ],
@@ -140,6 +140,7 @@
                                     }
                                 }
                             ],
+                            "time": {},
                             "title": "Artifactory HTTP 5xx Errors",
                             "type": "treemap"
                         },
@@ -211,7 +212,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@username",
+                                                    "facet": "@usr.id",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -265,7 +266,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@ip",
+                                                    "facet": "@network.client.ip",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -288,7 +289,6 @@
                                     }
                                 }
                             ],
-                            "time": {},
                             "title": "Denied Logins By IP",
                             "title_align": "left",
                             "title_size": "16",
@@ -319,7 +319,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@username",
+                                                    "facet": "@usr.id",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -332,7 +332,7 @@
                                             ],
                                             "name": "query1",
                                             "search": {
-                                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\" -@username:\"NA \""
+                                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:\"DENIED LOGIN\" -@usr.id:\"NA \""
                                             }
                                         }
                                     ],
@@ -342,7 +342,6 @@
                                     }
                                 }
                             ],
-                            "time": {},
                             "title": "Denied Logins By Username",
                             "title_align": "left",
                             "title_size": "16",
@@ -376,7 +375,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@ip",
+                                                    "facet": "@network.client.ip",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -399,7 +398,6 @@
                                     }
                                 }
                             ],
-                            "time": {},
                             "title": "Denied Actions by IP",
                             "title_align": "left",
                             "title_size": "16",
@@ -430,7 +428,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@username",
+                                                    "facet": "@usr.id",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "count",
@@ -443,7 +441,7 @@
                                             ],
                                             "name": "query1",
                                             "search": {
-                                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* -@username:\"NA \""
+                                                "query": "@log_source:jfrog.rt.artifactory.access @action_response:DENIED* -@usr.id:\"NA \""
                                             }
                                         }
                                     ],
@@ -453,7 +451,6 @@
                                     }
                                 }
                             ],
-                            "time": {},
                             "title": "Denied Actions By Username",
                             "title_align": "left",
                             "title_size": "16",
@@ -523,7 +520,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@remote_address",
+                                                    "facet": "@network.client.ip",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "cardinality",
@@ -696,7 +693,7 @@
                                             "data_source": "logs",
                                             "group_by": [
                                                 {
-                                                    "facet": "@remote_address",
+                                                    "facet": "@network.client.ip",
                                                     "limit": 10,
                                                     "sort": {
                                                         "aggregation": "cardinality",
