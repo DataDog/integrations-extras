@@ -43,7 +43,7 @@ You'll also need Datadog API keys.
 2. Create a Datadog Integration Destination on the Uptycs platform using your Datadog API key.
    1. Go to Configuration > Destinations.
    2. Click on New destination.
-   3. Select **DataDog** destination type.
+   3. Select **Datadog** destination type.
    4. Provide a name for the destination, your Datadog domain, and your API Key. You can also add custom templates for alerts or detections in the template field.
 
       ![Integration setup part 1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_1.png)
@@ -56,14 +56,14 @@ You'll also need Datadog API keys.
 
       ![Integration setup part 2](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_2.png)
 
-   4. Select Enable Rule and click **save**.
-4. The Created destination can be used for alert forwarding.
+   4. Select Enable Rule and click **Save**.
+4. The created destination can be used for alert forwarding.
    1. Go to Configuration > Alert Rules.
    2. Select an Alert Rule or bulk select several rules.
    3. In the 'Destinations' options, select the newly created destination.
-   4. Select options 'Notify on Every Alert', 'Close After Delivery'.
+   4. Select the options for 'Notify on Every Alert' and 'Close After Delivery'.
 
-      ![my screenshot](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_3.png)
+      ![Integration Setup part 3](https://raw.githubusercontent.com/DataDog/integrations-extras/master/uptycs/images/integration_setup_3.png)
 
    5. Click **Save**.
 6. Once Uptycs generates an alert or detection, it will be delivered as a Datadog Event.
