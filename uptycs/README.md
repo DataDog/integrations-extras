@@ -2,7 +2,7 @@
 
 ## Overview
 
-Uptycs mitigates risk by prioritizing your responses to threats, vulnerabilities, misconfigurations, sensitive data exposure, and compliance requirements across your modern attack surface — all accessible through a single user interface and data model. This includes the capability to correlate threat activity as it traverses on-prem and cloud boundaries, providing a more comprehensive enterprise-wide security posture. Looking for acronym coverage? We've got you covered with CNAPP, CWPP, CSPM, KSPM, CIEM, CDR, and XDR. Start with your Detection Cloud, utilize Google-like search, and the attack surface coverage you need today. Stay prepared for what lies ahead.
+Uptycs mitigates risk by prioritizing your responses to threats, vulnerabilities, misconfigurations, sensitive data exposure, and compliance requirements across your modern attack surface - all accessible through a single user interface and data model. This includes the capability to correlate threat activity as it traverses on-prem and cloud boundaries, providing a more comprehensive enterprise-wide security posture. Looking for acronym coverage? We've got you covered with CNAPP, CWPP, CSPM, KSPM, CIEM, CDR, and XDR. Start with your Detection Cloud, utilize Google-like search, and the attack surface coverage you need today. Stay prepared for what lies ahead.
 
 For more, please visit: [Uptycs][1]
 
