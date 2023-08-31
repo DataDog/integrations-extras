@@ -4,9 +4,9 @@
 
 Uptycs mitigates risk by prioritizing your responses to threats, vulnerabilities, misconfigurations, sensitive data exposure, and compliance requirements across your modern attack surface - all accessible through a single user interface and data model. This includes the capability to correlate threat activity as it traverses on-prem and cloud boundaries, providing a more comprehensive enterprise-wide security posture. Looking for acronym coverage? We've got you covered with CNAPP, CWPP, CSPM, KSPM, CIEM, CDR, and XDR. Start with your Detection Cloud, utilize Google-like search, and the attack surface coverage you need today. Stay prepared for what lies ahead.
 
-For more, please visit: [Uptycs][1]
+For more, please visit [the Uptycs website][1]
 
-The [Uptycs][1] integration enables you to ingest your Uptycs alerts and detection into Datadog events.
+The Uptycs integration enables you to ingest your Uptycs alerts and detection into Datadog events.
 
 ### Alert Details
 
@@ -40,7 +40,7 @@ You'll also need Datadog API keys.
 ### Configuration
 
 1. Create a [Datadog API key][3].
-2. Create a Datadog Integration Destination on the Uptycs platform using your Datadog API key.
+2. Create a Datadog Integration Destination on the Uptycs platform using your Datadog API key:
    1. Go to Configuration > Destinations.
    2. Click on New destination.
    3. Select **Datadog** destination type.
@@ -67,10 +67,6 @@ You'll also need Datadog API keys.
 
    5. Click **Save**.
 6. Once Uptycs generates an alert or detection, it will be delivered as a Datadog Event.
-
-### Service Checks
-
-Uptycs does not include any service checks.
 
 ## Troubleshooting
 
