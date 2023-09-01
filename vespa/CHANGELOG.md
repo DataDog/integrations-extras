@@ -4,9 +4,9 @@
 
 ***Removed***:
 
-* Remove message from OK service checks. See [#1004](https://github.com/DataDog/integrations-extras/pull/1004).
+* Remove message from OK service checks ([#1004](https://github.com/DataDog/integrations-extras/pull/1004))
 
 ***Fixed***:
 
-* Normalize vespa service check names. See [#1035](https://github.com/DataDog/integrations-extras/pull/1035).
-* DOCS-1135 Update integration install instructions (part 8). See [#993](https://github.com/DataDog/integrations-extras/pull/993).
+* Normalize vespa service check names ([#1035](https://github.com/DataDog/integrations-extras/pull/1035))
+* DOCS-1135 Update integration install instructions (part 8) ([#993](https://github.com/DataDog/integrations-extras/pull/993))

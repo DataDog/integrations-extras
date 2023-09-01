@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* Remove the use_latest_spec option from the config file. See [#1835](https://github.com/DataDog/integrations-extras/pull/1835).
+* Remove the use_latest_spec option from the config file ([#1835](https://github.com/DataDog/integrations-extras/pull/1835))
 
 ## 1.1.0
 
