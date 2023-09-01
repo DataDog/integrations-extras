@@ -47,6 +47,7 @@ KUBERNETES_PRESENT=$(hatch run pip3.9 list|grep kubernetes)
 if [[ ${KUBERNETES_PRESENT} == "Checking dependencies" ]]; then
     hatch run pip3.9 install kubernetes
     hatch run pip3.9 install datadog_agent
+    hatch run pip3.9 install pydantic
 fi
 echo_step_completed "Hatch Config"
 
