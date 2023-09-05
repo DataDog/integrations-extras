@@ -6,6 +6,15 @@ import pytest
 
 from datadog_checks.upbound_uxp import UpboundUxpCheck
 
+@pytest.fixture(scope='session')
+def dd_environment_mock():
+    with docker_run(
+        common.COMPOSE_FILE,
+        endpoints=[
+            'http://{}:{}/metrics'.format(common.HOST, common.PORT),
+        ],
+    ):
+        yield common.INSTANCE, common.E2E_METADATA
 
 @pytest.fixture(scope='session')
 def dd_environment():
