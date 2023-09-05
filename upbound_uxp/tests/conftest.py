@@ -4,20 +4,25 @@ from unittest import mock
 
 import pytest
 
+from datadog_checks.dev import docker_run
 from datadog_checks.upbound_uxp import UpboundUxpCheck
 
+from . import common
+
+
 @pytest.fixture(scope='session')
-def dd_environment_mock():
+def dd_environment():
     with docker_run(
         common.COMPOSE_FILE,
         endpoints=[
             'http://{}:{}/metrics'.format(common.HOST, common.PORT),
         ],
     ):
-        yield common.INSTANCE, common.E2E_METADATA
+        yield {"openmetrics_endpoint": 'http://{}:{}/metrics'.format(common.HOST, common.PORT)}
+
 
 @pytest.fixture(scope='session')
-def dd_environment():
+def dd_environment_k8s():
     print("conftest: dd_environment spinning up")
     cmd = ('kind', 'get', 'clusters')
     try:
@@ -40,10 +45,7 @@ def dd_environment():
 @pytest.fixture
 def instance():
     print("conftest: instance")
-    return {
-        "verbose": False,
-        "metrics_default": "min",
-    }
+    return {"verbose": False, "metrics_default": "min", "uxp_hosts": ["localhost"]}
 
 
 @pytest.fixture

@@ -1,10 +1,8 @@
-version: "3"
-
 services:
   mock-uxp-endpoint:
     image: caddy:2.1.1-alpine
     container_name: mock-uxp-endpoint
     volumes:
-      - ./exporter_metrics:/usr/share/caddy
+      - ./fixtures:/usr/share/caddy
     ports:
       - 8080:80

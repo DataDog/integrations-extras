@@ -202,6 +202,10 @@ class UpboundUxpCheck(AgentCheck):
             {
                 "uxp_url": "/metrics",
                 "uxp_port": "8080",
+                # for known static UXP host address
+                "uxp_hosts": [
+                    "localhost"
+                ]
                 # print useful info when verbose is true
                 "verbose": true,
                 # kubernetes namespace to check for
@@ -268,6 +272,12 @@ class UpboundUxpCheck(AgentCheck):
                     self.uxp_port = '8080'
                 else:
                     self._raise_if_type_err(self.uxp_port, 'uxp_port', 'str')
+
+                self.uxp_hosts = instance.get('uxp_hosts')
+                if self.uxp_hosts is None:
+                    self.uxp_hosts = []
+                else:
+                    self._raise_if_type_err(self.uxp_hosts, 'uxp_hosts', 'list')
 
                 self.namespace = instance.get('namespace')
                 if self.namespace is None:
@@ -430,6 +440,33 @@ class UpboundUxpCheck(AgentCheck):
     def check(self, instance):
         incluster = True
 
+        if self.uxp_hosts:
+            for host in self.uxp_hosts:
+                try:
+                    response = requests.get('http://' + host + ':' + self.uxp_port + self.uxp_url, timeout=200)
+                    metrics = response.text
+                except Exception as e:
+                    # We were unable to get metrics for this host.
+                    # Let's continue with the next one.
+
+                    self.log.exception(e)
+                    sys.stdout.flush()
+                    self.service_check(
+                        self.SERVICE_CHECK_CONNECT_NAME,
+                        self.CRITICAL,
+                        message="Error {0}".format(e),
+                        tags=None,
+                        hostname=host,
+                    )
+                    continue
+
+                self.get_metrics(metrics, host)
+
+            self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
+            self.check_count = self.check_count + 1
+            self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK)
+            return
+
         self.count('datadog_agent_checks', self.check_count, ['agent_integration_version=' + __version__])
         self.check_count = self.check_count + 1
 
@@ -450,16 +487,18 @@ class UpboundUxpCheck(AgentCheck):
                 self.SERVICE_CHECK_CONNECT_NAME, self.CRITICAL, message="Error {0}".format(e), tags=None, hostname=None
             )
             raise
-
             return
 
         self.service_check(self.SERVICE_CHECK_CONNECT_NAME, self.OK, message=None, tags=None, hostname=None)
 
         v1 = client.CoreV1Api()
         pods = []
+
         try:
             pods = v1.list_namespaced_pod(self.namespace)
         except Exception as e:
+            raise
+
             # There can be an exception if the agent is not
             # allowed to list the pods. Verify that the
             # apiserver-cluster-role, and a role binding
@@ -480,16 +519,6 @@ class UpboundUxpCheck(AgentCheck):
             # the minimum default is selected automatically.
 
             self.metrics_set = self._merge_annotations(pod.metadata.annotations, pod.metadata.name)
-            metrics_map_keys = self.metrics_map.keys()
-            metrics_prefix = ''
-            if self.metrics_prefix is not None:
-                if len(self.metrics_prefix) > 0:
-                    metrics_prefix = self.metrics_prefix + '.'
-            if self.verbose:
-                self.log.debug("Observing metrics set")
-                self.log.debug(self.metrics_set)
-                self.log.debug("Mapping metrics names")
-                self.log.debug(self.metrics_map)
 
             metrics = ''
             try:
@@ -527,78 +556,91 @@ class UpboundUxpCheck(AgentCheck):
                 )
                 continue
 
-            metric_type = ''
-            for line in metrics.split('\n'):
-                if line.startswith('#'):
-                    # Determine metrics type based on info
-                    # in the metrics feed, example format is
-                    # TYPE workqueue_work_duration_seconds histogram
-                    if line.startswith('# TYPE'):
+                self.get_metrics(metrics, pod.metadata.name)
+
+    def get_metrics(self, metrics, target_name):
+        metrics_map_keys = list(self.metrics_map.keys())
+
+        metric_type = ''
+        metrics_prefix = ''
+        if self.metrics_prefix is not None:
+            if len(self.metrics_prefix) > 0:
+                metrics_prefix = self.metrics_prefix + '.'
+        if self.verbose:
+            self.log.debug("Observing metrics set")
+            self.log.debug(self.metrics_set)
+            self.log.debug("Mapping metrics names")
+            self.log.debug(self.metrics_map)
+
+        for line in metrics.split('\n'):
+            if line.startswith('#'):
+                # Determine metrics type based on info
+                # in the metrics feed, example format is
+                # TYPE workqueue_work_duration_seconds histogram
+                if line.startswith('# TYPE'):
+                    try:
+                        metric_type = line.split(' ')[3]
+                    except Exception as e:
+                        self.log.exception(e)
+                        metric_type = ''
+
+                # Continue to metrics line
+                continue
+
+            for family in text_string_to_metric_families(line):
+                for sample in family.samples:
+                    name = sample[NAME_IDX]
+                    tags = self._labels_to_tags(sample[LABEL_IDX], target_name)
+                    value = sample[VALUE_IDX]
+
+                    if self.metrics_default != 'max' and name not in self.metrics_set:
+                        continue
+
+                    if name in metrics_map_keys:
+                        if self.verbose:
+                            self.log.debug("Sending metric: %s as: %s", name, self.metrics_map[name])
+                        name = self.metrics_map[name]
+                    name = metrics_prefix + name
+
+                    if name.endswith('sum'):
+                        metric_type = 'summary'
+                    if name.endswith('count'):
+                        metric_type = 'counter'
+                    if name.endswith('bucket'):
+                        metric_type = 'histogram'
+
+                    # counter: _total
+                    if metric_type == 'counter':
+                        if self.verbose:
+                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
                         try:
-                            metric_type = line.split(' ')[3]
+                            self.count(name, value, tags=tags)
                         except Exception as e:
                             self.log.exception(e)
-                            metric_type = ''
-
-                    # Continue to metrics line
-                    continue
-
-                for family in text_string_to_metric_families(line):
-                    for sample in family.samples:
-                        name = sample[NAME_IDX]
-                        tags = self._labels_to_tags(sample[LABEL_IDX], pod.metadata.name)
-                        value = sample[VALUE_IDX]
-
-                        if self.metrics_default != 'max' and name not in self.metrics_set:
-                            continue
-
-                        if name in metrics_map_keys:
-                            if self.verbose:
-                                self.log.debug("Sending metric: %s as: %s", name, self.metrics_map[name])
-                            name = self.metrics_map[name]
-                        name = metrics_prefix + name
-
-                        if name.endswith('sum'):
-                            metric_type = 'summary'
-                        if name.endswith('count'):
-                            metric_type = 'counter'
-                        if name.endswith('bucket'):
-                            metric_type = 'histogram'
-
-                        # counter: _total
-                        if metric_type == 'counter':
-                            if self.verbose:
-                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                            try:
-                                self.count(name, value, tags=tags)
-                            except Exception as e:
-                                self.log.exception(e)
-                        # histogram: _bucket
-                        elif metric_type == 'histogram':
-                            if self.verbose:
-                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                            try:
-                                # self.histogram(name, value, tags=tags)
-                                self.gauge(name, value, tags=tags)
-                            except Exception as e:
-                                self.log.exception(e)
-                        # summary: _sum
-                        elif metric_type == 'summary':
-                            if self.verbose:
-                                self.log.debug(
-                                    "%s: Name: %s, Labels: %s, Value: %s", metric_type, name, tags, str(value)
-                                )
-                            try:
-                                self.count(name, value, tags=tags)
-                            except Exception as e:
-                                self.log.exception(e)
-                        # gauge: no _bucket, _sum, _total postfix
-                        elif metric_type == 'gauge':
-                            if self.verbose:
-                                self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
-                            try:
-                                self.gauge(name, value, tags=tags)
-                            except Exception as e:
-                                self.log.exception(e)
-                        else:
-                            self.log.warning("WARNING: metric type %s unknown for %s", metric_type, name)
+                    # histogram: _bucket
+                    elif metric_type == 'histogram':
+                        if self.verbose:
+                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
+                        try:
+                            # self.histogram(name, value, tags=tags)
+                            self.gauge(name, value, tags=tags)
+                        except Exception as e:
+                            self.log.exception(e)
+                    # summary: _sum
+                    elif metric_type == 'summary':
+                        if self.verbose:
+                            self.log.debug("%s: Name: %s, Labels: %s, Value: %s", metric_type, name, tags, str(value))
+                        try:
+                            self.count(name, value, tags=tags)
+                        except Exception as e:
+                            self.log.exception(e)
+                    # gauge: no _bucket, _sum, _total postfix
+                    elif metric_type == 'gauge':
+                        if self.verbose:
+                            self.log.debug("%s: Name: %s, Tags: %s, Value: %s", metric_type, name, tags, str(value))
+                        try:
+                            self.gauge(name, value, tags=tags)
+                        except Exception as e:
+                            self.log.exception(e)
+                    else:
+                        self.log.warning("WARNING: metric type %s unknown for %s", metric_type, name)
