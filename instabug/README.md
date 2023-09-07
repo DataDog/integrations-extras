@@ -33,7 +33,7 @@ Need help? Contact [Instabug Support][3].
 
 Additional helpful documentation, links, and articles:
 
-- [Leverage user context to debug mobile performance issues with Instabug and Datadog][5]
+- [Leverage user context to debug mobile performance issues with the Instabug Datadog Marketplace offering][5]
 
 [1]: http://instabug.com
 [2]: https://dashboard.instabug.com/signup
