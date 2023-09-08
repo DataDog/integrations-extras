@@ -11,7 +11,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    yield
+    token_path = os.path.join(HERE, 'fixtures', 'token.txt')
+    with open(token_path, 'r') as t:
+        data = t.read()
+    yield {
+        'openmetrics_endpoint': MOCKED_MARIADB_SKYSQL_INSTANCE.get("mariadb_skysql_endpoint"),
+        'extra_headers': {'Authorization': data},
+    }
 
 
 @pytest.fixture
