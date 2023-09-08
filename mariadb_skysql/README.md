@@ -23,7 +23,7 @@ To install the MariaDB SkySQL check on your host:
 3. [Download the Datadog Agent][2].
 
 4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w ./integrations-extras/mariadb_skysql/dist/datadog_mariadb_skysql-0.0.1-py3-none-any.whl`.
+ run `datadog-agent integration install -t datadog-mariadb_skysql==0.0.1`
  This command assumes that the build directory is in ./integration-extras/mariadb_skysql/dist. You may need to modify this path to match your agent environment settings.
 
 ### Configuration
