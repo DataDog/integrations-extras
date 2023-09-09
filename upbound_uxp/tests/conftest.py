@@ -1,5 +1,4 @@
 import os
-import subprocess
 from unittest import mock
 
 import pytest
@@ -19,27 +18,6 @@ def dd_environment():
         ],
     ):
         yield {"openmetrics_endpoint": 'http://{}:{}/metrics'.format(common.HOST, common.PORT)}
-
-
-@pytest.fixture(scope='session')
-def dd_environment_k8s():
-    print("conftest: dd_environment spinning up")
-    cmd = ('kind', 'get', 'clusters')
-    try:
-        p = subprocess.run(cmd, timeout=600, capture_output=True, text=True)
-        cluster_present = False
-        for cluster in p.stdout.split('\n'):
-            if cluster == "uxp":
-                print("conftest: dd_environment using existing uxp cluster")
-                cluster_present = True
-                break
-        if not cluster_present:
-            print("conftest: dd_environment: creating new uxp cluster")
-            os.system("tests/fixtures/k8s-uxp-agent-check.sh")
-        yield
-        print("conftest: dd_environment cleaning up")
-    except subprocess.TimeoutExpired as ex:
-        print(ex)
 
 
 @pytest.fixture
