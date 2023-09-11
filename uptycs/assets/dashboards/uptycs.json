@@ -1,292 +1,427 @@
 {
-   "title": "Uptycs Events",
-   "description": "## Uptycs Events Dashboard\nUse this dashboard to analyze Uptycs alerts and detections delivered as Datadog events.\nIt shows trend and distribution of events per host or asset.",
-   "widgets": [
-     {
-       "id": 182258039736658,
-       "definition": {
-         "type": "image",
-         "url": "https://www.uptycs.com/hubfs/uptycs_logo_2C_on-light_rgb.svg",
-         "url_dark_theme": "https://www.uptycs.com/hs-fs/hubfs/Logo.png",
-         "sizing": "none",
-         "margin": "md",
-         "has_background": false,
-         "has_border": true,
-         "vertical_align": "center",
-         "horizontal_align": "center"
-       },
-       "layout": {
-         "x": 0,
-         "y": 0,
-         "width": 4,
-         "height": 2
-       }
-     },
-     {
-       "id": 8252470885140242,
-       "definition": {
-         "title": "Uptycs Events by Host",
-         "title_size": "16",
-         "title_align": "left",
-         "show_legend": true,
-         "legend_layout": "auto",
-         "legend_columns": [
-           "avg",
-           "min",
-           "max",
-           "value",
-           "sum"
-         ],
-         "type": "timeseries",
-         "requests": [
-           {
-             "formulas": [
-               {
-                 "formula": "query1"
-               }
-             ],
-             "queries": [
-               {
-                 "data_source": "events",
-                 "name": "query1",
-                 "indexes": [
-                   "*"
-                 ],
-                 "compute": {
-                   "aggregation": "count"
-                 },
-                 "group_by": [
-                   {
-                     "facet": "host",
-                     "limit": 10,
-                     "sort": {
-                       "order": "desc",
-                       "aggregation": "count"
-                     }
-                   }
-                 ],
-                 "search": {
-                   "query": ""
-                 }
-               }
-             ],
-             "response_format": "timeseries",
-             "style": {
-               "palette": "warm",
-               "line_type": "solid",
-               "line_width": "normal"
-             },
-             "display_type": "line"
-           },
-           {
-             "formulas": [
-               {
-                 "formula": "query1"
-               }
-             ],
-             "queries": [
-               {
-                 "data_source": "events",
-                 "name": "query1",
-                 "indexes": [
-                   "*"
-                 ],
-                 "compute": {
-                   "aggregation": "count"
-                 },
-                 "group_by": [],
-                 "search": {
-                   "query": "source:my_apps"
-                 }
-               }
-             ],
-             "response_format": "timeseries",
-             "style": {
-               "palette": "purple",
-               "line_type": "solid",
-               "line_width": "normal"
-             },
-             "display_type": "overlay"
-           }
-         ],
-         "yaxis": {
-           "scale": "linear"
-         },
-         "markers": []
-       },
-       "layout": {
-         "x": 4,
-         "y": 0,
-         "width": 4,
-         "height": 2
-       }
-     },
-     {
-       "id": 3330878144736274,
-       "definition": {
-         "title": "Uptycs Events Distibution",
-         "title_size": "16",
-         "title_align": "left",
-         "requests": [
-           {
-             "response_format": "scalar",
-             "queries": [
-               {
-                 "data_source": "events",
-                 "name": "query1",
-                 "indexes": [
-                   "*"
-                 ],
-                 "compute": {
-                   "aggregation": "count"
-                 },
-                 "group_by": [
-                   {
-                     "facet": "host",
-                     "limit": 10,
-                     "sort": {
-                       "order": "desc",
-                       "aggregation": "count"
-                     }
-                   }
-                 ],
-                 "search": {
-                   "query": ""
-                 }
-               }
-             ],
-             "formulas": [
-               {
-                 "formula": "query1"
-               }
-             ],
-             "style": {
-               "palette": "semantic"
-             }
-           }
-         ],
-         "type": "sunburst",
-         "legend": {
-           "type": "automatic"
-         }
-       },
-       "layout": {
-         "x": 8,
-         "y": 0,
-         "width": 4,
-         "height": 2
-       }
-     },
-     {
-       "id": 5515850259201990,
-       "definition": {
-         "title": "Events priority Distribution",
-         "title_size": "16",
-         "title_align": "left",
-         "requests": [
-           {
-             "response_format": "scalar",
-             "queries": [
-               {
-                 "data_source": "events",
-                 "name": "query1",
-                 "indexes": [
-                   "*"
-                 ],
-                 "compute": {
-                   "aggregation": "count"
-                 },
-                 "group_by": [
-                   {
-                     "facet": "@priority",
-                     "limit": 10,
-                     "sort": {
-                       "order": "desc",
-                       "aggregation": "count"
-                     }
-                   }
-                 ],
-                 "search": {
-                   "query": ""
-                 }
-               }
-             ],
-             "formulas": [
-               {
-                 "formula": "query1"
-               }
-             ],
-             "style": {
-               "palette": "datadog16"
-             }
-           }
-         ],
-         "type": "sunburst"
-       },
-       "layout": {
-         "x": 0,
-         "y": 2,
-         "width": 4,
-         "height": 2
-       }
-     },
-     {
-       "id": 6101484934218156,
-       "definition": {
-         "title": "Top Events",
-         "title_size": "16",
-         "title_align": "left",
-         "type": "query_table",
-         "requests": [
-           {
-             "response_format": "scalar",
-             "formulas": [
-               {
-                 "formula": "query1",
-                 "limit": {
-                   "count": 10,
-                   "order": "desc"
-                 }
-               }
-             ],
-             "queries": [
-               {
-                 "data_source": "events",
-                 "name": "query1",
-                 "indexes": [
-                   "*"
-                 ],
-                 "compute": {
-                   "aggregation": "count"
-                 },
-                 "group_by": [
-                   {
-                     "facet": "message",
-                     "limit": 10,
-                     "sort": {
-                       "order": "desc",
-                       "aggregation": "count"
-                     }
-                   }
-                 ],
-                 "search": {
-                   "query": ""
-                 }
-               }
-             ]
-           }
-         ]
-       },
-       "layout": {
-         "x": 4,
-         "y": 2,
-         "width": 4,
-         "height": 2
-       }
-     }
-   ],
-   "template_variables": [],
-   "layout_type": "ordered",
-   "notify_list": [],
-   "reflow_type": "fixed"
- }
+  "title": "Uptycs Events",
+  "description": "## Uptycs Events Dashboard\nUse this dashboard to analyze Uptycs alerts and detections delivered as Datadog events.\nIt shows trend and distribution of events per host or asset.",
+  "widgets": [
+    {
+      "id": 182258039736658,
+      "definition": {
+        "type": "image",
+        "url": "https://www.uptycs.com/hubfs/uptycs_logo_2C_on-light_rgb.svg",
+        "url_dark_theme": "https://www.uptycs.com/hs-fs/hubfs/Logo.png",
+        "sizing": "none",
+        "margin": "md",
+        "has_background": false,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 1380417506449076,
+      "definition": {
+        "type": "note",
+        "content": "Uptycs detects and responds to threats everywhere across your cloud, endpoints, containers, and K8s systems, addressing the challenges of a growing cloud footprint and expanding attack surfaces, including your developers’ laptops. Uptycs works smarter by creating high fidelity alerts and providing deep insights on attack path analysis. \n\nThis integration empowers you to seamlessly transmit Uptycs alerts to Datadog as events, streamlining the process of identifying trending and top alert-generating hosts through a user-friendly dashboard.",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 2
+      }
+    },
+    {
+      "id": 2928323793783238,
+      "definition": {
+        "title": "Total messages",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "search": {
+                  "query": ""
+                },
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": []
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": {
+          "type": "bars"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 5515850259201990,
+      "definition": {
+        "title": "Events priority Distribution",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "@priority",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": ""
+                }
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst"
+      },
+      "layout": {
+        "x": 4,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 3330878144736274,
+      "definition": {
+        "title": "Uptycs Events Distibution",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "host",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": ""
+                }
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "style": {
+              "palette": "semantic"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend": {
+          "type": "automatic"
+        }
+      },
+      "layout": {
+        "x": 7,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 1994223599379068,
+      "definition": {
+        "type": "note",
+        "content": "These charts shows priority level of events and the top ten assets with most number of alerts respectively.",
+        "background_color": "yellow",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 2,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "id": 8252470885140242,
+      "definition": {
+        "title": "Uptycs Events by Host",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "host",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": ""
+                }
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [
+              {
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [],
+                "search": {
+                  "query": "source:my_apps"
+                }
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "purple",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "overlay"
+          }
+        ],
+        "yaxis": {
+          "scale": "linear"
+        },
+        "markers": []
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 10,
+        "height": 2
+      }
+    },
+    {
+      "id": 1412663735707814,
+      "definition": {
+        "type": "note",
+        "content": "Trending chart for the top ten assets with most number of alerts",
+        "background_color": "yellow",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": true,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 10,
+        "y": 4,
+        "width": 2,
+        "height": 2
+      }
+    },
+    {
+      "id": 6101484934218156,
+      "definition": {
+        "title": "Top Events",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "events",
+                "name": "query1",
+                "indexes": [
+                  "*"
+                ],
+                "compute": {
+                  "aggregation": "count"
+                },
+                "group_by": [
+                  {
+                    "facet": "message",
+                    "limit": 10,
+                    "sort": {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search": {
+                  "query": ""
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 6,
+        "width": 6,
+        "height": 2
+      }
+    },
+    {
+      "id": 3426242985638412,
+      "definition": {
+        "title": "",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "event_list",
+            "query": {
+              "query_string": "",
+              "data_source": "event_stream",
+              "event_size": "s"
+            },
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 6,
+        "y": 6,
+        "width": 6,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
