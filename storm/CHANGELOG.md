@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* Fix response parsing. See [#724](https://github.com/DataDog/integrations-extras/pull/724).
+* Fix response parsing ([#724](https://github.com/DataDog/integrations-extras/pull/724))
 
 ## 1.0.0 / 2020-07-27
 
