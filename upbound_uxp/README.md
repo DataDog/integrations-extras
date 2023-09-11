@@ -51,7 +51,7 @@ kind: ServiceAccount
 metadata:
   name: datadog-upbound
   namespace: monitoring
----
+ ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -65,7 +65,7 @@ rules:
     verbs: ["get", "list" ]
   - nonResourceURLs: ["/metrics"]
     verbs: ["get"]
----
+ ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
