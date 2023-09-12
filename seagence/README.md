@@ -12,7 +12,7 @@ With this integration, Seagence backend continuously analyzes the data stream fr
 
 Visit [Seagence][1] to sign up for free. Once registered, navigate to the Seagence tile on the [Datadog Integrations page][5] and click **Install Integration**. Click **Connect Accounts** on the tile, which guides you through the Datadog OAuth2 flow to grant Seagence access to post Events to your Datadog account.
 
-After connecting accounts, go to "Assets" tab on the tile > Recommended Monitors > Click on "Seagence Defect Detection Monitor". This will redirect you to create the out-of-the-box monitor. Click "Create" at the bottom of the page to install the Seagence monitor.
+After connecting your accounts, go to the "Assets" tab on the tile. Click **Recommended Monitors** > **Seagence Defect Detection Monitor**. This will redirect you to create the out-of-the-box monitor. Click **Create** at the bottom of the page to install the Seagence monitor.
 
 ### Configuration
 
@@ -23,7 +23,7 @@ Using the `-javaagent` option, attach Seagence's Java agent to your application.
 To remove the Datadog integration from Seagence:
 1. Uninstall the integration from Datadog by clicking **Uninstall Integration**. Once you uninstall the integration, any previous authorizations are revoked.
 2. Ensure that all API keys associated with the integration have been disabled by searching for the integration name on the [API Keys Management page][6].
-3. Delete the associated monitor by going into Monitors > Manage Monitors > Hover mouse on "Seagence Defect Detection Monitor" > Click "Delete" button.
+3. Delete the associated monitor by going to **Monitors** > **Manage Monitors**. Hover over **Seagence Defect Detection Monitor** and click **Delete**.
 4. Remove the `-javaagent` option from your application's Java runtime parameters.
 
 
