@@ -438,6 +438,9 @@ class UpboundUxpCheck(AgentCheck):
         return m
 
     def check(self, instance):
+        if self.verbose:
+            self.log.debug("check called")
+
         incluster = True
 
         if self.uxp_hosts:
@@ -556,7 +559,7 @@ class UpboundUxpCheck(AgentCheck):
                 )
                 continue
 
-                self.get_metrics(metrics, pod.metadata.name)
+            self.get_metrics(metrics, pod.metadata.name)
 
     def get_metrics(self, metrics, target_name):
         metrics_map_keys = list(self.metrics_map.keys())
