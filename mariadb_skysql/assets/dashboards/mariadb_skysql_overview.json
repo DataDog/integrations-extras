@@ -1,1 +1,281 @@
-{"title":"Mariadb SkySQL Demo Dashboard","description":"MariaDB SkySQL\n\nA few simple widgets","widgets":[{"id":7838720704878060,"definition":{"title":"CPU Utilization","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"CPU","formula":"query1"},{"alias":"CPU","formula":"query2"}],"queries":[{"name":"query1","data_source":"metrics","query":"avg:skysql.mariadb_server_cpu{*} by {service_name}"},{"name":"query2","data_source":"metrics","query":"avg:skysql.mariadb_xpand_cpu_load{*} by {service_name}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":4,"height":2}},{"id":1959175062128904,"definition":{"title":"QPS","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"time":{},"type":"timeseries","requests":[{"formulas":[{"alias":"QPS","formula":"per_second(query2)"},{"alias":"QPS","formula":"per_second(query3)"}],"queries":[{"data_source":"metrics","name":"query2","query":"sum:skysql.mariadb_global_status_queries{*} by {service_name}"},{"data_source":"metrics","name":"query3","query":"sum:mariadb_skysql.mariadb_xpand_qps{*} by {service_name}"}],"response_format":"timeseries","style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":4,"y":0,"width":4,"height":2}},{"id":1785092463263356,"definition":{"title":"Queries","title_size":"16","title_align":"left","time":{},"requests":[{"response_format":"scalar","formulas":[{"formula":"query1","limit":{"order":"desc"}}],"queries":[{"query":"sum:skysql.mariadb_global_status_commands.count{*} by {command,service_name}.as_count()","data_source":"metrics","name":"query1","aggregator":"sum"}],"style":{"palette":"semantic"}}],"type":"sunburst","legend":{"type":"automatic"}},"layout":{"x":8,"y":0,"width":4,"height":4}}],"template_variables":[],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed","id":"rrr-qpp-2ir"}
+{
+  "title": "Mariadb SkySQL Demo Dashboard",
+  "description": "MariaDB SkySQL\n\nA few simple widgets",
+  "widgets": [
+    {
+      "id": 7838720704878060,
+      "definition": {
+        "title": "CPU Utilization",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "alias": "CPU", "formula": "query1" },
+              { "alias": "CPU", "formula": "query2" }
+            ],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_server_cpu{*} by {service_name}"
+              },
+              {
+                "name": "query2",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_xpand_cpu_load{*} by {service_name}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 1959175062128904,
+      "definition": {
+        "title": "QPS",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "alias": "QPS", "formula": "per_second(query2)" },
+              { "alias": "QPS", "formula": "per_second(query3)" }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:skysql.mariadb_global_status_queries{*} by {service_name}"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "sum:mariadb_skysql.mariadb_xpand_qps{*} by {service_name}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 4, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 2373553075642516,
+      "definition": {
+        "title": "Network In",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "per_second(query1)" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_global_status_bytes_received{*}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 0, "width": 4, "height": 2 }
+    },
+    {
+      "id": 3799964696554286,
+      "definition": {
+        "title": "Commands",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "sum:skysql.mariadb_global_status_commands.count{*} by {server_name,command}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 1785092463263356,
+      "definition": {
+        "title": "Queries",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "formulas": [{ "formula": "query1", "limit": { "order": "desc" } }],
+            "queries": [
+              {
+                "query": "sum:skysql.mariadb_global_status_commands.count{*} by {command,service_name}.as_count()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "sum"
+              }
+            ],
+            "style": { "palette": "semantic" }
+          }
+        ],
+        "type": "sunburst",
+        "legend": { "type": "automatic" }
+      },
+      "layout": { "x": 4, "y": 2, "width": 4, "height": 4 }
+    },
+    {
+      "id": 8814564131584049,
+      "definition": {
+        "title": "Network Out",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_global_status_bytes_sent{*}"
+              }
+            ],
+            "formulas": [{ "formula": "per_second(query1)" }],
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 2, "width": 4, "height": 2 }
+    },
+    {
+      "id": 7578663854637988,
+      "definition": {
+        "title": "Slow Queries",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": false,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_global_status_slow_queries{*} by {server_name}"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 4, "width": 4, "height": 2 }
+    },
+    {
+      "id": 1732268750411086,
+      "definition": {
+        "title": "Connections",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "name": "query1",
+                "data_source": "metrics",
+                "query": "avg:skysql.mariadb_global_status_threads_connected{*} by {server_type,namespace}"
+              }
+            ],
+            "formulas": [{ "formula": "query1" }],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      },
+      "layout": { "x": 8, "y": 4, "width": 4, "height": 2 }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
