@@ -1,5 +1,11 @@
 # CHANGELOG - Lighthouse
 
+## 2.2.0 / 2023-09-14
+
+***Fixed***:
+
+* Fix bug with metric tags when specifying both tags and urls in config ([#1743](https://github.com/DataDog/integrations-extras/pull/1743). Thanks [beepboop271](https://github.com/beepboop271))
+
 ## 2.1.1 / 2023-01-18
 
 ***Fixed***:
