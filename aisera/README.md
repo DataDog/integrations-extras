@@ -56,11 +56,15 @@ You'll also need Datadog API and Application keys.
           ![my screenshot](images/aisera-major_incident_detail_2.png)
           ![my screenshot](images/aisera-major_incident_detail_3.png)
           ![my screenshot](images/aisera-major_incident_detail_4.png)
-8. Once Aisera detects a major incident:
+
+Once Aisera detects a major incident:
+
 - It notifies the designated persona on the channel of their choice.
 - Aisera creates an incident in Datadog for Datadog Admins to have a visibility of the
-10. We can also put Approvals in place so that before we approvals before any remediation step can run.
-11. Aisera can also run any remediation task (Any API call/ Shell/Python/Powershell script/ Terraform manifests etc..) leveraging the No-code platform it provides.
+
+Aisera can require approvals before a remediation task can run.
+
+Aisera can also run any remediation task (Any API call/ Shell/Python/Powershell script/ Terraform manifests etc..), leveraging the no-code platform it provides.
 
 ## Data Collected
 
