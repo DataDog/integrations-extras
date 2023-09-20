@@ -2,7 +2,7 @@
 
 ## Overview
 
- [Aisera's][1] domain-agnostic [AIOps][2] platform identifies complex behaviors and patterns while analyzing correlations and causality on alerts and incidents across applications, services, and systems. 
+[Aisera's][1] domain-agnostic [AIOps][2] platform identifies complex behaviors and patterns while analyzing correlations and causality on alerts and incidents across applications, services, and systems. 
 These advanced capabilities enable accurate prediction of outages and major incidents (MIs) while automating the task to find the root cause and executing runbooks for auto-remediation.
 
 The [Aisera][1] integration enables you to ingest your Datadog alerts/metrics into Aisera.Along with other historical and real-time data across your technology stack, Aisera [AiOps][2] automatically predicts major incidents and delivers proactive notifications in a conversational manner.
