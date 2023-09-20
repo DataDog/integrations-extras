@@ -31,7 +31,7 @@ You'll also need Datadog API and Application keys.
       ![my screenshot](images/data_source_setup_2.png)
 5. Run the data source. You can also choose to run this data source based on a schedule.
 6. Once the alerts have been ingested, Aisera AIOps pipelines will run.
-7. AiOps pipelines will generate major incidents/clusters based on the category and severioty of incidents recieved.
+7. AiOps pipelines generate major incidents/clusters based on the category and severity of incidents received.
    1. Each major incident contains the following main components.
       1. **Title**: Brief info about the major incident 
       2. **Status**: Open/Close  
