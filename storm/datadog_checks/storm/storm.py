@@ -352,7 +352,7 @@ class StormCheck(AgentCheck):
         :return: Version info
         :rtype: StormCheck.StormVersion
         """
-        if len(cluster_stats) >= 0:
+        if len(cluster_stats) > 0:
             version = (
                 _get_string(cluster_stats, _get_string(cluster_stats, 'unknown', 'stormVersion'), 'version')
                 .replace(' ', '_')
