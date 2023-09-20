@@ -1,7 +1,6 @@
 # CHANGELOG - Aisera Integration
 
-1.0.0
-==================
-### Changes
+1.0.0 / 2023-07-21
+***Added***:
 
-* [FEATURE] Initial Aisera Integration Tile.
+*Initial Release
