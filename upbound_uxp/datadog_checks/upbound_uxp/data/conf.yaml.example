@@ -36,75 +36,20 @@ instances:
     #
     # min_collection_interval: 15
 
-    ## @param uxp_url - string - optional - default: "/metrics"
-    ## This changes at which path metrics are scraped.
-    #
-    # uxp_url: "/metrics"
-
-    ## @param uxp_port - string - optional - default: "8080"
-    ## This changes at which port metrics are scraped.
-    #
-    # uxp_port: "8080"
-
-    ## @param uxp_hosts - array of strings - optional - default: []
-    ## Specifies hosts where to pck up metrics.
-    ## Note, the datadog agent auto discovers Crossplane
-    ## and provider pods automatically. A usecase is for
-    ## out of cluster agent tests.
-    #
-    # uxp_hosts: [
-    #   "localhost"
-    # ]
-
-    ## @param verbose - boolean - optional - default: false
-    ## The agent provides additonal logging output when
-    ## verbose is selected.
-    #
-    # verbose: false
-
-    ## @param namespace - string - optional - default: upbound-system
-    ## The namespace where the Crossplane and Provider pods reside.
-    #
-    # namespace: "upbound-system"
-
-    ## @params metrics_default - string - optional - default: min
-    ## Easy selection of metrics default set. Values can be
-    ##  none # indicates no default metrics and implies that custom
-    ##       # seletion will be provided in "metrics" field.
-    ##  min  # indicates opinionated min set
-    ##  more # indicates min set plus additional metrics
-    ##  max  # indicates all metrics that the Crossplane pod and providers
-    ##       # emit will be collected and forwarded to the datadoghq
-    ##       # account identified by the Datadog API key specified during
-    ##       # agent installation.
-    #
-    # metrics_default: "min"
-
-    ## @params metrics_ignore_pod_annotations - boolean - optional - default: true
-    ## By default the agent determines which metrics to scrape based
-    ## on this configuration file. When metrics_ignore_pod_annotations is set
-    ## to false, then the agent will also apply pod annotations.
-    #
-    # metrics_ignore_pod_annotations: true
-
-    ## @params prefix - string - optional - default: ""
-    ## Prefix that will be inserted between uxp. and (mapped)
-    ## metrics name.
-    #
-    # metrics_prefix: ""
-
-    ## @params metrics - array of strings - optional - default: []
-    ## Specification of individually picked metrics.
-    #
-    # metrics: [
-    #   {"go_goroutines": "company_prefix_go_goroutines"},
-    #   # only one value needed when name mapping is not needed
-    #   {"go_memstats_heap_alloc_bytes"},
-    # ]
-
     ## @param empty_default_hostname - boolean - optional - default: false
     ## This forces the check to send metrics with no hostname.
     ##
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
+
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
