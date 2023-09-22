@@ -38,7 +38,7 @@ Integrate with ilert to:
 #### Add ilert Webhook as alerting channel
 
 1. Go to Datadog integrations page and [**install Webhooks integration**][8]:
-2. Click a Webhooks integration, scroll to bottom and add a new webhook:
+2. On the Webhooks integration page, scroll to the bottom and add a new webhook:
 
    ![Datadog Webhook New][4]
 
