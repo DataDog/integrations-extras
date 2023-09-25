@@ -84,7 +84,34 @@ roleRef:
   name: apiserver-cluster-role
 ```
 
+The Upbound UXP integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
+
 ### Installation
+
+For Agent v7.21+ / v6.21+, follow the instructions below to install the check on your host. 
+
+1. Using the Dockerfile example in [Use Community Integrations](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker), build a custom image of the Agent that includes the Upbound integration
+
+2. Run the following command to install the Agent integration:
+
+   ``` bash
+   datadog-agent integration install -t datadog-upbound-uxp==1.0.0
+   ```
+
+3. Configure your integration similar to [core integrations](https://docs.datadoghq.com/getting_started/integrations/).
+
+### Configuration
+
+1. Edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Upbound UXP performance data. See the [sample upbound_uxp.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/datadog_checks/upbound_uxp/data/conf.yaml.example) for all available configuration options.
+
+2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#start-stop-and-restart-the-agent).
+
+### Validation
+
+[Run the Agent's status subcommand](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information) and look for `upbound_uxp` under the Checks section.
+
+
+### Installation for Developers and Contributors
 
 To install the Upbound UXP check on your host:
 
