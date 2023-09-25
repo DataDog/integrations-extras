@@ -1,33 +1,40 @@
 {
-	"name": "SigSci - excessive blocked http requests",
-	"type": "query alert",
-	"query": "avg(last_4h):anomalies(sum:sigsci.agent.waf.block{*}.as_count(), 'agile', 2, direction='above', alert_window='last_5m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
-	"message": "Signal Sciences Web Application Firewall has been blocking an unusually high number of web requests. This may be indicative of a volumetric attack against one or more of your web properties or API endpoints. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
-	"tags": [
-		"integration:sigsci"
-	],
-	"options": {
-		"notify_audit": false,
-		"locked": false,
-		"timeout_h": 0,
-		"silenced": {},
-		"include_tags": true,
-		"no_data_timeframe": null,
-		"require_full_window": true,
-		"new_host_delay": 300,
-		"notify_no_data": false,
-		"renotify_interval": 0,
-		"escalation_message": "",
-		"threshold_windows": {
-			"recovery_window": "last_15m",
-			"trigger_window": "last_5m"
-		},
-		"thresholds": {
-			"critical": 1,
-			"critical_recovery": 0
-		}
-	},
-	"recommended_monitor_metadata": {
-		"description": "Notify your team when Signal Sciences Web Application Firewall has been blocking an unusually high number of web requests."
-	}
+  "version": 2,
+  "created_at": "2020-07-30",
+  "last_updated_at": "2023-07-31",
+  "title": "SigSci - excessive blocked http requests",
+  "tags": [
+    "integration:sigsci"
+  ],
+  "description": "Notify your team when Signal Sciences Web Application Firewall has been blocking an unusually high number of web requests.",
+  "definition": {
+    "message": "Signal Sciences Web Application Firewall has been blocking an unusually high number of web requests. This may be indicative of a volumetric attack against one or more of your web properties or API endpoints. Details are available in your Signal Sciences console at https://dashboard.signalsciences.net/.",
+    "name": "SigSci - excessive blocked http requests",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": true,
+      "silenced": {},
+      "threshold_windows": {
+        "recovery_window": "last_15m",
+        "trigger_window": "last_5m"
+      },
+      "thresholds": {
+        "critical": 1,
+        "critical_recovery": 0
+      },
+      "timeout_h": 0
+    },
+    "query": "avg(last_4h):anomalies(sum:sigsci.agent.waf.block{*}.as_count(), 'agile', 2, direction='above', alert_window='last_5m', interval=60, count_default_zero='true', seasonality='daily') >= 1",
+    "tags": [
+      "integration:sigsci"
+    ],
+    "type": "query alert"
+  }
 }

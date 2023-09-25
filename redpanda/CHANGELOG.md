@@ -1,5 +1,11 @@
 # CHANGELOG - redpanda
 
+## 2.0.0 / 2023-08-21
+
+***Added***:
+
+* Moved to support Public Metrics endpoint from Redpanda and Redpanda Cloud. See [#1864](https://github.com/DataDog/integrations-extras/pull/1864).
+
 ## 1.1.1 / 2023-04-28
 
 ***Fixed***:

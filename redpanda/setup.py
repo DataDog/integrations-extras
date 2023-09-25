@@ -53,7 +53,7 @@ setup(
     url='https://github.com/DataDog/integrations-extras',
     # Author details
     author='Roko Kruze',
-    author_email='support@vectorized.io',
+    author_email='support@redpanda.com',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers

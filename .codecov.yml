@@ -66,7 +66,7 @@ coverage:
       JFrog_Platform:
         target: 75
         flags:
-        - jfrog_platform
+        - jfrog_platform_self_hosted
       Kernelcare:
         target: 75
         flags:
@@ -211,6 +211,10 @@ coverage:
         target: 75
         flags:
         - unifi_console
+      Upbound_UXP:
+        target: 75
+        flags:
+        - upbound_uxp
       Vespa:
         target: 75
         flags:
@@ -382,11 +386,11 @@ flags:
     paths:
     - hikaricp/datadog_checks/hikaricp
     - hikaricp/tests
-  jfrog_platform:
+  jfrog_platform_self_hosted:
     carryforward: true
     paths:
-    - jfrog_platform/datadog_checks/jfrog_platform
-    - jfrog_platform/tests
+    - jfrog_platform_self_hosted/datadog_checks/jfrog_platform_self_hosted
+    - jfrog_platform_self_hosted/tests
   kernelcare:
     carryforward: true
     paths:
@@ -582,6 +586,11 @@ flags:
     paths:
     - unifi_console/datadog_checks/unifi_console
     - unifi_console/tests
+  upbound_uxp:
+    carryforward: true
+    paths:
+    - upbound_uxp/datadog_checks/upbound_uxp
+    - upbound_uxp/tests
   upsc:
     carryforward: true
     paths:

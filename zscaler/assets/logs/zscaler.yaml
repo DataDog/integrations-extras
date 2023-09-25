@@ -11,6 +11,11 @@ facets:
     path: http.method
     groups:
       - Web Access
+  - name: Referer
+    source: log
+    path: http.referer
+    groups:
+      - Web Access
   - name: Status Code
     source: log
     path: http.status_code
@@ -106,6 +111,41 @@ facets:
     path: network.client.port
     groups:
       - Web Access
+  - name: Destination City Name
+    source: log
+    path: network.destination.geoip.city.name
+    groups:
+      - Geoip
+  - name: Destination Continent Code
+    source: log
+    path: network.destination.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Destination Continent Name
+    source: log
+    path: network.destination.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Destination Country ISO Code
+    source: log
+    path: network.destination.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Destination Country Name
+    source: log
+    path: network.destination.geoip.country.name
+    groups:
+      - Geoip
+  - name: Destination Subdivision ISO Code
+    source: log
+    path: network.destination.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Destination Subdivision Name
+    source: log
+    path: network.destination.geoip.subdivision.name
+    groups:
+      - Geoip
   - name: Destination IP
     source: log
     path: network.destination.ip
@@ -161,11 +201,6 @@ facets:
     name: Zscaler Reason
     groups:
       - zscaler
-  - path: network.destination.geoip.country.iso_code
-    source: log
-    name: Destination IP ISO Code
-    groups:
-      - Geoip
   - path: zscaler.ipcat
     source: log
     name: Zscaler IP Category
