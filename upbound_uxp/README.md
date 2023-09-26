@@ -102,13 +102,13 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 2. Run the following command to install the Agent integration:
 
    ``` bash
-   datadog-agent integration install -t datadog-upbound-uxp==0.0.1
+   datadog-agent integration install -t datadog-upbound-uxp==1.0.0
    ```
    
 3. Push the agent image to your registry:
 
    ``` bash
-   docker push -t <REGISTRY>:<PORT>/<DATADOG-UPBOUND>:v0.0.1
+   docker push -t <REGISTRY>:<PORT>/<DATADOG-UPBOUND>:v1.0.0
    ```
    
 4. Create datadog-values.yaml:
@@ -139,7 +139,7 @@ python_version: 3.9
 agents:
   image:
     repository: <REGISTRY>:<PORT>/<DATADOG-UPBOUND>
-    tag: v0.0.1
+    tag: v1.0.0
     doNotCheckTag: true
 clusterAgent:
   containerName: datadog-cluster-agent
