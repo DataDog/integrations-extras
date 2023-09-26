@@ -45,15 +45,18 @@ below resides in an arbitrary `monitoring` namespace.
 Your agent may reside in a namespace of your choice.
 Configure the service account and cluster role accordingly.
 
-```
+``` bash
+cat <<EOF >sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: datadog-upbound
   namespace: monitoring
+EOF
 ```
 
-```
+``` bash
+cat <<EOF >cr.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -67,9 +70,11 @@ rules:
     verbs: ["get", "list" ]
   - nonResourceURLs: ["/metrics"]
     verbs: ["get"]
+EOF
 ```
 
-```
+``` bash
+cat <<EOF >crb.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -82,7 +87,9 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: apiserver-cluster-role
+EOF
 ```
+
 
 The Upbound UXP integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
 
@@ -95,12 +102,98 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
 2. Run the following command to install the Agent integration:
 
    ``` bash
-   datadog-agent integration install -t datadog-upbound-uxp==1.0.0
+   datadog-agent integration install -t datadog-upbound-uxp==0.0.1
    ```
+   
+3. Push the agent image to your registry:
+
+   ``` bash
+   docker push -t <REGISTRY>:<PORT>/<DATADOG-UPBOUND>:v0.0.1
+   ```
+   
+4. Create datadog-values.yaml:
+
+Replace `<REGISTRY>:<PORT>/<DATADOG-UPBOUND>` 
+with your information prior to running the 
+following.
+
+``` bash
+cat <<EOF >datadog-values.yaml
+datadog:
+  logLevel: WARN
+  logsEnabled: true
+  logsConfigContainerCollectAll: true
+  processAgentEnabled: true
+  leaderElection: true
+  prometheusScrape:
+    enabled: true
+    serviceEndpoints: true
+  env:
+  - name: DD_HOSTNAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  kubelet:
+    tlsVerify: false
+python_version: 3.9
+agents:
+  image:
+    repository: <REGISTRY>:<PORT>/<DATADOG-UPBOUND>
+    tag: v0.0.1
+    doNotCheckTag: true
+clusterAgent:
+  containerName: datadog-cluster-agent
+  enabled: true
+  replicas: 2
+  createPodDisruptionBudget: true
+  metricsProvider:
+    enabled: true
+EOF
+```
+
+5. Deploy Image
+
+  ``` bash
+  kubectl create namespace monitoring
+  ```
+
+  Ensure that your shell environment variables contain the correct API and APP keys and a `DATADOG_SECRET_NAME`.
+  You may generate the keys from the Datadog console if you do not have them.
+  
+  ``` bash
+  kubectl create secret generic $DATADOG_SECRET_NAME \
+    --namespace monitoring \
+    --from-literal api-key=$DATADOG_API_KEY \
+    --from-literal app-key=$DATADOG_APP_KEY
+  ```
+
+  ``` bash
+  helm repo add datadog https://helm.datadoghq.com
+  ```
+
+  ``` bash
+  helm repo update
+  ```
+
+  ``` bash
+  helm install datadog-upbound \
+    -f ./datadog-values.yaml \
+    --namespace monitoring \
+    --set datadog.site='datadoghq.com' \
+    --set datadog.apiKeyExistingSecret=$DATADOG_SECRET_NAME \
+    --set datadog.appKeyExistingSecret=$DATADOG_SECRET_NAME \
+    datadog/datadog
+  ```
+
+  ``` bash
+  kubectl apply -f ./sa.yaml
+  kubectl apply -f ./cr.yaml
+  kubectl apply -f ./crb.yaml
+  ```
 
 ### Configuration
 
-1. Edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Upbound UXP performance data.
+1. The agent will collect default information without conf.yaml changes. For customizations, edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your custom Upbound UXP performance data. 
 
 See example configuration parameters below.
 ```
@@ -258,7 +351,7 @@ See [metadata.csv][10] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Upbound UXP does not include any service checks.
+Upbound UXP includes a `uxp.can_connect` service check.
 
 ### Events
 
