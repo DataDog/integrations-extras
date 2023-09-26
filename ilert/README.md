@@ -21,7 +21,7 @@ Integrate with ilert to:
 
    ![ilert Alert Source New][2]
 
-3. Assign a name
+3. Assign a name.
 
    ![ilert Alert Source New 2][10]
 
