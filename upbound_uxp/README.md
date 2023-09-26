@@ -197,7 +197,7 @@ instances:
 ```
 See [conf.yaml.example][4] for a generic configuration example.
 
-2. [Restart the Agent][5]).
+2. [Restart the Agent][5].
 
 3. Pod Annotations
 You may annotate your Crossplane and Provider pods directly with
