@@ -80,7 +80,7 @@ Your ilert triggered and resolved events appear in the ilert platform dashboard.
 
 ### Service Checks
 
-ilert integration does not include any service checks.
+The ilert integration does not include any service checks.
 
 ## Troubleshooting
 
