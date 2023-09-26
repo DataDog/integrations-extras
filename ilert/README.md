@@ -25,7 +25,7 @@ Integrate with ilert to:
 
    ![ilert Alert Source New 2][10]
 
-4. Select a desired escalation policy
+4. Select a desired escalation policy.
 
    ![ilert Alert Source New 3][11]
 
