@@ -90,7 +90,7 @@ The Upbound UXP integration is not included in the [Datadog Agent][2] package, s
 
 For Agent v7.21+ / v6.21+, follow the instructions below to install the check on your host. 
 
-1. Using the Dockerfile example in [Use Community Integrations][3], build a custom image of the Agent that includes the Upbound integration
+1. Using the Dockerfile example in [Use Community Integrations][3], build a custom image of the Agent that includes the Upbound integration.
 
 2. Run the following command to install the Agent integration:
 
