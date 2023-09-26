@@ -90,7 +90,7 @@ The Upbound UXP integration is not included in the [Datadog Agent][2] package, s
 
 For Agent v7.21+ / v6.21+, follow the instructions below to install the check on your host. 
 
-1. Using the Dockerfile example in [Use Community Integrations](https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker), build a custom image of the Agent that includes the Upbound integration
+1. Using the Dockerfile example in [Use Community Integrations][3], build a custom image of the Agent that includes the Upbound integration
 
 2. Run the following command to install the Agent integration:
 
@@ -98,23 +98,9 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the check on
    datadog-agent integration install -t datadog-upbound-uxp==1.0.0
    ```
 
-3. Configure your integration similar to [core integrations](https://docs.datadoghq.com/getting_started/integrations/).
-
 ### Configuration
 
-1. Edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Upbound UXP performance data. See the [sample upbound_uxp.d/conf.yaml](https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/datadog_checks/upbound_uxp/data/conf.yaml.example) for all available configuration options.
-
-2. [Restart the Agent](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#start-stop-and-restart-the-agent).
-
-### Validation
-
-[Run the Agent's status subcommand](https://docs.datadoghq.com/agent/guide/agent-commands/?tab=agentv6v7#agent-status-and-information) and look for `upbound_uxp` under the Checks section.
-
-### Configuration
-
-1. Edit the `upbound_uxp/conf.yaml` file, in the `conf.d` folder
-at the root of your Agent's configuration directory to start
-collecting your upbound_uxp performance data.
+1. Edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Upbound UXP performance data.
 
 See example configuration parameters below.
 ```
@@ -211,7 +197,7 @@ instances:
 ```
 See [conf.yaml.example][4] for a generic configuration example.
 
-2. Restart the Agent.
+2. [Restart the Agent][5]).
 
 3. Pod Annotations
 You may annotate your Crosslane and Provider pods directly with
@@ -262,21 +248,7 @@ customAnnotations:
 
 ### Validation
 
-Run the `agent status` subcommand and look for `upbound_uxp`
-under the Checks section. Sample output may look like below:
-```
-    upbound_uxp (0.0.1)
-    -------------------
-      Instance ID: upbound_uxp:9ca7c5002ecb33af [OK]
-      Configuration Source: file:/etc/datadog-agent/conf.d/upbound_uxp.d/auto_conf.yaml
-      Total Runs: 201
-      Metric Samples: Last Run: 210, Total: 41,792
-      Events: Last Run: 0, Total: 0
-      Service Checks: Last Run: 1, Total: 201
-      Average Execution Time : 41ms
-      Last Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
-      Last Successful Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
-```
+[Run the Agent's status subcommand][6] and look for `upbound_uxp` under the Checks section.
 
 ## Data Collected
 
@@ -296,9 +268,9 @@ Upbound UXP does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://app.datadoghq.com/integrations/upbound-uxp
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 [4]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/datadog_checks/upbound_uxp/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
@@ -307,4 +279,3 @@ Need help? Contact [Datadog support][3].
 [9]: https://docs.datadoghq.com/help/
 [10]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/metadata.csv
 [11]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
-[12]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
