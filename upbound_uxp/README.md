@@ -138,8 +138,8 @@ instances:
     # uxp_port: "8080"
 
     ## @param uxp_hosts - array of strings - optional - default: []
-    ## Specifies hosts where to pck up metrics.
-    ## Note, the datadog agent auto discovers Crossplane
+    ## Specifies hosts from which to collect metrics.
+    ## Note, the Datadog Agent discovers Crossplane
     ## and provider pods automatically. A usecase is for
     ## out of cluster agent tests.
     #
@@ -161,12 +161,12 @@ instances:
     ## @params metrics_default - string - optional - default: min
     ## Easy selection of metrics default set. Values can be
     ##  none # indicates no default metrics and implies that custom
-    ##       # seletion will be provided in "metrics" field.
+    ##       # selection will be provided in "metrics" field.
     ##  min  # indicates opinionated min set
     ##  more # indicates min set plus additional metrics
     ##  max  # indicates all metrics that the Crossplane pod and providers
-    ##       # emit will be collected and forwarded to the datadoghq
-    ##       # account identified by the Datadog API key specified during
+    ##       # emit will be collected and forwarded to the Datadog
+    ##       # organization identified by the Datadog API key specified during
     ##       # agent installation.
     #
     # metrics_default: "min"
@@ -200,7 +200,7 @@ See [conf.yaml.example][4] for a generic configuration example.
 2. [Restart the Agent][5]).
 
 3. Pod Annotations
-You may annotate your Crosslane and Provider pods directly with
+You may annotate your Crossplane and Provider pods directly with
 a subset of the metrics you wish to collect from them.
 
 A sample annotation may look as follows:
