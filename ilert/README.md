@@ -17,7 +17,7 @@ Integrate with ilert to:
 
 1. Switch to the **Alert Sources** tab and click on the "Create new alert source" button
 
-2. Search for "**Datadog**", select the **Datadog** tile and click on next.
+2. Search for "**Datadog**", select the **Datadog** tile and click on Next.
 
    ![ilert Alert Source New][2]
 
