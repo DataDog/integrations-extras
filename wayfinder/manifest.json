@@ -1,0 +1,67 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a68bad83-ba55-4350-a913-2f98bb667bad",
+  "app_id": "wayfinder",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send Wayfinder metrics to Datadog",
+    "title": "Wayfinder",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Wayfinder Sample Datadog Dashboard",
+        "image_url": "images/wayfinder-datadog-dash.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Wayfinder UI",
+        "image_url": "images/wayfinder-ui.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Containers",
+      "Category::Developer Tools",
+      "Category::Kubernetes",
+      "Category::Metrics",
+      "Category::Orchestration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "wayfinder",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "wayfinder.",
+        "check": "wayfinder.workqueue.depth",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "Wayfinder": "assets/dashboards/wayfinder_overview.json"
+    },
+    "logs": {}
+  },
+  "author": {
+    "support_email": "support@appvia.io",
+    "name": "Appvia",
+    "homepage": "https://www.appvia.io/product/",
+    "sales_email": "info@appvia.io"
+  },
+  "oauth": {}
+}
