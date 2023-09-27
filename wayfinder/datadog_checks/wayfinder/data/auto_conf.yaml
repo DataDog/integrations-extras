@@ -1,0 +1,19 @@
+## Defines container the check should be run against. For more information, see:
+## https://docs.datadoghq.com/agent/guide/ad_identifiers/
+#
+ad_identifiers:
+  -  wayfinder
+
+## All options defined here are available to all instances.
+#
+init_config:
+
+## Every instance is scheduled independently of the others.
+#
+instances:
+    ## @param openmetrics_endpoint - string - required
+    ## The URL exposing metrics in the OpenMetrics format.
+    ## By default, the Wayfinder integration collects metrics from the controller, apiserver and webhooks components.
+    - openmetrics_endpoint: "http://%%host%%:9090/metrics"
+
+
