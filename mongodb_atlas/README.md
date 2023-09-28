@@ -38,10 +38,11 @@ Need help? [Contact Datadog Support][5]
 
 ## Further Reading
 
-{{< partial name="whats-next/whats-next.html" >}}
+- [Monitor MongoDB Atlas with Datadog][6]
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://docs.atlas.mongodb.com/tutorial/monitoring-integrations/#procedure
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv
 [4]: https://www.mongodb.com/blog/post/push-your-mongodb-atlas-alerts-to-datadog
 [5]: https://docs.datadoghq.com/help/
+[6]: https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/
