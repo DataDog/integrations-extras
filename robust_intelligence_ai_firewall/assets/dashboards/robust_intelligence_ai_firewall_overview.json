@@ -1,0 +1,781 @@
+{
+  "title": "Robust Intelligence AI Firewall Results",
+  "description": "[[suggested_dashboards]]",
+  "widgets": [
+    {
+      "id": 5105430024734006,
+      "definition": {
+        "title": "Flagged requests %",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true}.as_count()",
+                "aggregator": "sum"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{*}.as_count()",
+                "aggregator": "sum"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "100 * query1 / query2"
+              }
+            ],
+            "conditional_formats": [
+              {
+                "comparator": ">",
+                "palette": "white_on_red",
+                "value": 20
+              },
+              {
+                "comparator": ">",
+                "palette": "white_on_yellow",
+                "value": 5
+              },
+              {
+                "comparator": "<=",
+                "palette": "white_on_green",
+                "value": 5
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "%",
+        "precision": 2
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": 6476252737184134,
+      "definition": {
+        "title": "Histogram of actions",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 4
+                },
+                "alias": "Flagged",
+                "formula": "query1"
+              },
+              {
+                "style": {
+                  "palette": "green",
+                  "palette_index": 4
+                },
+                "alias": "Allowed",
+                "formula": "query2"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:false}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 3192174819248068,
+      "definition": {
+        "title": "Histogram of flagged tests",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 5
+                },
+                "alias": "Factual Inconsistency",
+                "formula": "query1"
+              },
+              {
+                "style": {
+                  "palette": "orange",
+                  "palette_index": 4
+                },
+                "alias": "PII Detection",
+                "formula": "query2"
+              },
+              {
+                "style": {
+                  "palette": "classic",
+                  "palette_index": 4
+                },
+                "alias": "Prompt Injection",
+                "formula": "query3"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 8
+                },
+                "alias": "Prompt Extraction",
+                "formula": "query4"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 17
+                },
+                "alias": "Toxicity",
+                "formula": "query5"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 15
+                },
+                "alias": "PII Extraction",
+                "formula": "query6"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query4",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query5",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query6",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 2049374713297996,
+      "definition": {
+        "title": "Tests flagged on Output",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 5
+                },
+                "alias": "Factual Inconsistency",
+                "formula": "query1"
+              },
+              {
+                "style": {
+                  "palette": "orange",
+                  "palette_index": 4
+                },
+                "alias": "PII Detection",
+                "formula": "query2"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 17
+                },
+                "alias": "Toxicity",
+                "formula": "query5"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, validation_type:output, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, validation_type:output, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query5",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, validation_type:output, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 1060742250500148,
+      "definition": {
+        "title": "Tests flagged on Input",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "classic",
+                  "palette_index": 4
+                },
+                "alias": "Prompt Injection",
+                "formula": "query3"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 8
+                },
+                "alias": "Prompt Extraction",
+                "formula": "query4"
+              },
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 15
+                },
+                "alias": "PII Extraction",
+                "formula": "query6"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, validation_type:input, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query4",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, validation_type:input, flagged:true}.as_count()"
+              },
+              {
+                "data_source": "metrics",
+                "name": "query6",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, validation_type:input, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 2,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 8699458007096508,
+      "definition": {
+        "title": "Factual Inconsistency flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 5
+                },
+                "alias": "Factual Inconsistency",
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 4,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 385928067681282,
+      "definition": {
+        "title": "Prompt Injection flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "warm",
+                  "palette_index": 1
+                },
+                "alias": "Prompt Injection",
+                "formula": "query3"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query3",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 4,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 831467269284648,
+      "definition": {
+        "title": "Toxicity flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 17
+                },
+                "alias": "Toxicity",
+                "formula": "query5"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query5",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 6,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 7048696337606646,
+      "definition": {
+        "title": "Prompt Extraction flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 8
+                },
+                "alias": "Prompt Extraction",
+                "formula": "query4"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query4",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 6,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 1604475424760328,
+      "definition": {
+        "title": "PII Detection flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "orange",
+                  "palette_index": 4
+                },
+                "alias": "PII Detection",
+                "formula": "query2"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query2",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 3,
+        "y": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 4820748980573556,
+      "definition": {
+        "title": "PII Extraction flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "dd20",
+                  "palette_index": 15
+                },
+                "alias": "PII Extraction",
+                "formula": "query6"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query6",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 8,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 4195755353419826,
+      "definition": {
+        "title": "Off Topic flags",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": [
+          "avg",
+          "min",
+          "max",
+          "value",
+          "sum"
+        ],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "style": {
+                  "palette": "classic",
+                  "palette_index": 0
+                },
+                "alias": "Factual Inconsistency",
+                "formula": "query1"
+              }
+            ],
+            "queries": [
+              {
+                "data_source": "metrics",
+                "name": "query1",
+                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
+              }
+            ],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }
+        ]
+      },
+      "layout": {
+        "x": 7,
+        "y": 10,
+        "width": 4,
+        "height": 2
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
