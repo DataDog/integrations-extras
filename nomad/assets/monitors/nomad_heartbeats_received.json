@@ -1,27 +1,34 @@
 {
-	"name": "[Nomad] Less Than 5 Nomad Client Heartbeats Received",
-	"type": "query alert",
-	"query": "max(last_5m):max:nomad.nomad.heartbeat.active{*} < 5",
-	"message": "nomad-client is only reporting {{value}} client heartbeats active\n\nDocumentation: [Nomad client count below configured level](https://hashicorp.atlassian.net/wiki/spaces/CLOUD/pages/612466710/Nomad+server+count+below+configured+level)\n\nNotify:",
-	"tags": [
-		"integration:nomad"
-	],
-	"options": {
-		"notify_audit": false,
-		"locked": false,
-		"timeout_h": 60,
-		"new_host_delay": 300,
-		"require_full_window": true,
-		"notify_no_data": false,
-		"renotify_interval": 60,
-		"escalation_message": "",
-		"no_data_timeframe": null,
-		"include_tags": true,
-		"thresholds": {
-			"critical": 5
-		}
+  "version": 2,
+  "created_at": "2020-07-30",
+  "last_updated_at": "2023-07-31",
+  "title": "Less Than 5 Nomad Client Heartbeats Received",
+  "tags": [
+    "integration:nomad"
+  ],
+  "description": "Get notified when Nomad is reporting client heartbeats below a threshold.",
+  "definition": {
+    "message": "nomad-client is only reporting {{value}} client heartbeats active\n\nDocumentation: [Nomad client count below configured level](https://hashicorp.atlassian.net/wiki/spaces/CLOUD/pages/612466710/Nomad+server+count+below+configured+level)\n\nNotify:",
+    "name": "[Nomad] Less Than 5 Nomad Client Heartbeats Received",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 60,
+      "require_full_window": true,
+      "thresholds": {
+        "critical": 5
+      },
+      "timeout_h": 1
     },
-    "recommended_monitor_metadata": {
-		"description": "Get notified when Nomad is reporting client heartbeats below a threshold."
-	}
+    "query": "max(last_5m):max:nomad.nomad.heartbeat.active{*} < 5",
+    "tags": [
+      "integration:nomad"
+    ],
+    "type": "query alert"
+  }
 }

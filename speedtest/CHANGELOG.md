@@ -1,8 +1,7 @@
 # CHANGELOG - speedtest
 
-1.0.0/ Released
-=================
+## 1.0.0
 
-### Changes
+***Added***:
 
-* [FEATURE] adds speedtest integration.
+* adds speedtest integration.

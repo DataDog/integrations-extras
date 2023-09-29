@@ -2,5 +2,6 @@
 
 ## 1.0.0 / 2022-11-20
 
+***Added***:
 
-* [FEATURE] Initial Datadog-Blink Integration Tile.
+* Initial Datadog-Blink Integration Tile.

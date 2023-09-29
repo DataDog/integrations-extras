@@ -1,32 +1,35 @@
 {
-    "name": "[php_opcache] Cache Full has been detected.",
-    "type": "query alert",
-    "query": "max(last_5m):avg:php_opcache.cache.cache_full{*} by {host} > 1",
+  "version": 2,
+  "created_at": "2020-12-16",
+  "last_updated_at": "2023-07-31",
+  "title": "Cache Full has been detected.",
+  "tags": [
+    "integration:php-opcache"
+  ],
+  "description": "Notifies when OPcache Full detected",
+  "definition": {
     "message": "OPcache Full has been detected. All cache purged.",
-    "tags": [
-        "integration:php_opcache"
-    ],
+    "name": "[php_opcache] Cache Full has been detected.",
     "options": {
-        "notify_audit": false,
-        "locked": false,
-        "timeout_h": 0,
-        "new_host_delay": 300,
-        "require_full_window": false,
-        "notify_no_data": false,
-        "renotify_interval": 0,
-        "escalation_message": "",
-        "no_data_timeframe": null,
-        "include_tags": true,
-        "thresholds": {
-            "critical": 1,
-            "critical_recovery": 0
-        },
-        "threshold_windows": {
-            "trigger_window": "last_15m",
-            "recovery_window": "last_15m"
-        }
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "thresholds": {
+        "critical": 1,
+        "critical_recovery": 0
+      },
+      "timeout_h": 0
     },
-    "recommended_monitor_metadata": {
-        "description": "Notifies when OPcache Full detected"
-    }
+    "query": "max(last_5m):avg:php_opcache.cache.cache_full{*} by {host} > 1",
+    "tags": [
+      "integration:php_opcache"
+    ],
+    "type": "query alert"
+  }
 }

@@ -14,7 +14,7 @@ class MergifyCheck(AgentCheck):
 
     def __init__(self, name, init_config, instances):
         super(MergifyCheck, self).__init__(name, init_config, instances)
-        self.api_url = self.instance["mergify_api_url"]
+        self.api_url = self.instance.get("mergify_api_url", "https://api.mergify.com")
         self.token = self.instance["token"]
         self.repositories = self.instance.get("repositories", {})
         self.tags = self.instance.get("tags", [])
@@ -43,15 +43,27 @@ class MergifyCheck(AgentCheck):
                 AgentCheck.CRITICAL,
                 message="Request timeout: {}, {}".format(url, e),
             )
-            return
+            raise
 
         except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(
-                "can_connect",
-                AgentCheck.CRITICAL,
-                message="Request failed: {}, {}".format(url, e),
-            )
-            raise
+            if (
+                isinstance(e, HTTPError)
+                and e.response.status_code == 403
+                and e.response.json() is not None
+                and e.response.json().get("message", "") == "Organization or user has hit GitHub API rate limit"
+            ):
+                self.service_check(
+                    "can_connect",
+                    AgentCheck.WARNING,
+                    message="Rate limited on GitHub",
+                )
+            else:
+                self.service_check(
+                    "can_connect",
+                    AgentCheck.CRITICAL,
+                    message="Request failed: {}, {}".format(url, e),
+                )
+                raise
 
         except JSONDecodeError as e:
             self.service_check(
@@ -100,6 +112,9 @@ class MergifyCheck(AgentCheck):
                         queue_tags.append(f"queue:{queue_data['queue_name']}")
 
                         for stat_name, stat_value in queue_data["time_to_merge"].items():
+                            if stat_value is None:
+                                continue
+
                             self.gauge(
                                 f"time_to_merge.{stat_name}",
                                 stat_value,
@@ -129,7 +144,7 @@ class MergifyCheck(AgentCheck):
                                 continue
 
                             self.gauge(
-                                f"queue_checks_outcome.{outcome_type}",
+                                "queue_checks_outcome",
                                 number_of_outcome,
-                                tags=queue_tags,
+                                tags=queue_tags + [f"outcome_type:{outcome_type}"],
                             )

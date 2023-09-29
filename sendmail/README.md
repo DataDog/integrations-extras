@@ -50,7 +50,7 @@ Need help? Contact [Datadog support][11].
 
 
 [1]: https://www.proofpoint.com/us/open-source-email-solution
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://github.com/DataDog/integrations-extras/blob/master/sendmail/datadog_checks/sendmail/data/conf.yaml.example

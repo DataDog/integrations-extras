@@ -14,7 +14,7 @@ To install the Cybersixgill actionable alerts check on your host:
 3. [Install the Datadog Agent][1] on your host.
 4. Once the Agent is installed, run the following command to install the integration:
 ```
-datadog-agent integration install -t datadog-Cybersixgill Actionable Alerts==1.0.0
+datadog-agent integration install -t datadog-cybersixgill-actionable-alerts==1.0.1
 ```
 
 ### Configuration
@@ -38,7 +38,7 @@ This integration sends API-type events to Datadog.
 ## Troubleshooting
 Need help? Contact [Cybersixgill support][4].
 
-[1]: https://app.datadoghq.com/account/settings#agent
+[1]: https://app.datadoghq.com/account/settings/agent/latest
 [2]: https://docs.datadoghq.com/developers/integrations/new_check_howto/?tab=configurationtemplate#configure-the-developer-tool
 [3]: https://app.datadoghq.com/event/explorer
 [4]: mailto:support@cybersixgill.com

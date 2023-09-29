@@ -2,4 +2,6 @@
 
 ## 1.0.0
 
-- Initial release with service check integration.
+***Added***:
+
+* Initial release with service check integration.

@@ -1,8 +1,8 @@
 # CHANGELOG - Split.io
 
+## 1.0.0
 
-1.0.0 / Unreleased
-==================
-### Changes
+***Added***:
 
-* [FEATURE] Initial Split.io tile.
+* Initial Split.io tile.
+

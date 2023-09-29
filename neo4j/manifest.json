@@ -10,23 +10,39 @@
     "changelog": "CHANGELOG.md",
     "description": "Gathers Neo4j metrics",
     "title": "Neo4j",
-    "media": [],
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Neo4j 5 Dashboard",
+        "image_url": "images/Neo4j_5_Dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Neo4j 5 Database",
+        "image_url": "images/neo4j_graph.png"
+      }
+    ],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::macOS",
       "Supported OS::Windows",
-      "Category::Data Store"
+      "Category::Data Stores"
     ]
   },
   "author": {
-    "support_email": "neo4j-cloud@neotechnology.com",
+    "support_email": "support@neotechnology.com",
     "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "neo4j-cloud@neotechnology.com",
+    "sales_email": "support@neotechnology.com",
     "name": "Neo4j"
   },
   "oauth": {},
   "assets": {
-    "integration": {
+      "dashboards": {
+        "Neo4j V4 Dashboard": "assets/dashboards/Neo4j4.xDefaultDashboard.json",
+        "Neo4j V5 Dashboard": "assets/dashboards/Neo4j5DefaultDashboard.json",
+        "Neo4j V5 Cluster Dashboard": "assets/dashboards/Neo4j5ClusterDashboard.json"
+      },
+      "integration": {
       "source_type_name": "Neo4j",
       "configuration": {
         "spec": "assets/configuration/spec.yaml"
@@ -36,7 +52,7 @@
       },
       "metrics": {
         "prefix": "neo4j.",
-        "check": "neo4j.page_cache_hits_total",
+        "check": "neo4j.dbms.page_cache.hits",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {

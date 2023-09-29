@@ -84,7 +84,6 @@ class RedisenterpriseCheck(AgentCheck):
                     'redisenterprise.running',
                     self._get_version(host, port, service_check_tags),
                     tags=service_check_tags,
-                    hostname=host,
                 )
 
             self.last_timestamp_seen = datetime.utcnow()
@@ -279,41 +278,28 @@ class RedisenterpriseCheck(AgentCheck):
             stats = self._api_fetch_json("bdbs/stats/last", service_check_tags)
         except Exception as e:
             if e.response.status_code == 404:
-                self.gauge('redisenterprise.database_count', 0, tags=service_check_tags, hostname=host)
+                self.gauge('redisenterprise.database_count', 0, tags=service_check_tags)
                 return 0
             else:
                 raise e
-        self.gauge('redisenterprise.database_count', len(stats), tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.database_count', len(stats), tags=service_check_tags)
         for i in stats:
             tgs = []
             tgs.append('database:{}'.format(bdb_dict[int(i)]['name']))
             # add the stats only available from the bdb_dict
-            self.gauge(
-                'redisenterprise.endpoints', bdb_dict[int(i)]['endpoints'], tags=tgs + service_check_tags, hostname=host
-            )
-            self.gauge(
-                'redisenterprise.memory_limit',
-                bdb_dict[int(i)]['limit'],
-                tags=tgs + service_check_tags,
-                hostname=host,
-            )
+            self.gauge('redisenterprise.endpoints', bdb_dict[int(i)]['endpoints'], tags=tgs + service_check_tags)
+            self.gauge('redisenterprise.memory_limit', bdb_dict[int(i)]['limit'], tags=tgs + service_check_tags)
             # derive our own stats from others
             self.gauge(
                 'redisenterprise.used_memory_percent',
                 100 * stats[i]['used_memory'] / bdb_dict[int(i)]['limit'],
                 tags=tgs + service_check_tags,
-                hostname=host,
             )
             # derive our cache hit rate - be sure not to divide by 0
             if (
                 stats[i]['read_hits'] + stats[i]['read_misses'] + stats[i]['write_hits'] + stats[i]['write_misses']
             ) == 0:
-                self.gauge(
-                    'redisenterprise.cache_hit_rate',
-                    0.0,
-                    tags=tgs + service_check_tags,
-                    hostname=host,
-                )
+                self.gauge('redisenterprise.cache_hit_rate', 0.0, tags=tgs + service_check_tags)
             else:
                 self.gauge(
                     'redisenterprise.cache_hit_rate',
@@ -326,7 +312,6 @@ class RedisenterpriseCheck(AgentCheck):
                         + stats[i]['write_misses']
                     ),
                     tags=tgs + service_check_tags,
-                    hostname=host,
                 )
             # derive flash object percentage being sure that the key exists and is not 0
             if 'bigstore_objs_flash' in stats[i].keys():
@@ -349,8 +334,8 @@ class RedisenterpriseCheck(AgentCheck):
         stats = self._api_fetch_json("license", service_check_tags)
         expire = datetime.strptime(stats['expiration_date'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.now()
-        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags, hostname=host)
-        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.license_days', (expire - now).days, tags=service_check_tags)
+        self.gauge('redisenterprise.license_shards', stats['shards_limit'], tags=service_check_tags)
 
         # Check the time remaining on the license as a service check
         license_check = self.OK
@@ -358,19 +343,14 @@ class RedisenterpriseCheck(AgentCheck):
             license_check = self.CRITICAL
         elif (expire - now).days < 7:
             license_check = self.WARNING
-        self.service_check(
-            'redisenterprise.license_status',
-            license_check,
-            tags=service_check_tags,
-            hostname=host,
-        )
+        self.service_check('redisenterprise.license_status', license_check, tags=service_check_tags)
 
     def _shard_usage(self, bdb_dict, service_check_tags, host):
         """Sum up the number of shards"""
         used = 0
         for x in bdb_dict.values():
             used += x['shards_used']
-        self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags, hostname=host)
+        self.gauge('redisenterprise.total_shards_used', used, tags=service_check_tags)
 
     def _get_nodes(self, host, port, service_check_tags):
         """Collect Enterprise Node Information"""
@@ -385,4 +365,4 @@ class RedisenterpriseCheck(AgentCheck):
                 res['total_active_nodes'] += 1
 
         for x in res.keys():
-            self.gauge('redisenterprise.{}'.format(x), res[x], tags=service_check_tags, hostname=host)
+            self.gauge('redisenterprise.{}'.format(x), res[x], tags=service_check_tags)
