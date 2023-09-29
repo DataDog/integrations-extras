@@ -3,10 +3,10 @@
 ## Overview
 
 [Robust Intelligence’s AI Firewall][1] wraps a protective layer around your AI models. It helps:
-1. **Block malicious inputs in real time.** Attacks on AI systems are increasing in frequency and sophistication. The nature of large language models (LLMs) make them a disproportionally high target, but all model types are at risk. AI Firewall inspects every input and automatically blocks malicious payloads before they can do damage to your model. Risks includes prompt injection, prompt extraction, and PII detection.
-2. **Validate model outputs in real time.** AI models will inevitably generate undesired responses due to both malicious and inadvertent user actions. AI Firewall scans model outputs to ensure they are absent of sensitive information, hallucinations, or otherwise harmful content. Responses that fall outside your organization’s standards will be blocked from the application. This includes sensitive data from fine-tuning or connected databases used for retrieval-augmented generation.
+1. **Block malicious inputs in real time.** Attacks on AI systems are increasing in frequency and sophistication. The nature of large language models (LLMs) make them a disproportionally high target, but all model types are at risk. AI Firewall inspects every input and automatically blocks malicious payloads before they can do damage to your model. Risks includes prompt injection, prompt extraction, and PII exfiltration.
+2. **Validate model outputs in real time.** AI models will inevitably generate undesired responses due to both malicious and inadvertent user actions. AI Firewall scans model outputs to ensure they are free of sensitive information, hallucinations, or otherwise harmful content. Responses that fall outside your organization’s standards will be blocked from the application. This includes sensitive data from fine-tuning or connected databases used for retrieval-augmented generation.
 
-This integration monitors the AI Firewall results through the Datadog Agent. This includes metrics for allowed datapoints, blocked datapoints, reasons data points were blocked.
+This integration monitors the AI Firewall results through the Datadog Agent. This includes metrics for allowed datapoints, blocked datapoints, and reasons data points were blocked.
 
 ## Setup
 
@@ -50,11 +50,11 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Robust I
 
 ### Metrics
 
-Robust Intelligence AI Firewall does not include any metrics.
+See [metadata.csv][7] for a list of metrics provided by this check.
 
 ### Service Checks
 
-See [metadata.csv][7] for a list of metrics provided by this check.
+Robust Intelligence AI Firewall does not include any service checks.
 
 ### Events
 
