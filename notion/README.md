@@ -22,7 +22,7 @@ Once connected, Notion starts sending near real-time data to Datadog.
 Once this integration has been uninstalled, any previous authorizations are revoked.
 Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][4].
 
-In Notion navigate to Setting & Members > Connections > Workspace Connections > ... next to Datadog > Disconnect
+In Notion, navigate to _Setting & Members_ > _Connections_ > _Workspace Connections_ > ... next to _Datadog_ > _Disconnect_.
 
 ## Support 
 Need help? Contact [Notion Support][3].
