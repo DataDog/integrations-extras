@@ -2,7 +2,12 @@
 
 ## Overview
 
-The [YugabyteDB Managed][1] integration with Datadog provides users with the ability to export metrics from their YugabyteDB Managed clusters into Datadog to monitor and alert on.
+[YugabyteDB][9] is a cloud-native, distributed database that is API compatible with PostgreSQL.
+
+[YugabyteDB Managed][1], YugabyteDB's DBaaS, offers an out-of-box integration to provide customers the ability to export metrics from a cluster into Datadog. The integration comes pre-bundled with a dashboard to provide visibility into all the most important metrics needed to monitor the health and performance of a YugabyteDB Managed cluster such as:
+- Node resource usage (disk, memory, CPU, networking, etc).
+- Read/write operation throughput and latencies (both YSQL and YCQL).
+- Advanced Master and Tablet Server telemetry (internal RPC throughput/latencies, WAL size, etc)
 
 ## Setup
 - **Note:** This feature is not available for [Sandbox Clusters][5].
@@ -30,7 +35,7 @@ To enable the YugabyteDB Managed integration with Datadog:
 
 ### Configuration
 
-Open your Datadog dashboard list and select the `YugabyteDB Managed Overview` dashboard. This integration-bundled dashboard contains pre-built graphs that provide monitoring visibility for your YugabyteDB Managed clusters.
+Open your Datadog dashboard list and select the `YugabyteDB Managed Overview` dashboard to start viewing telemetry.
 
 ## Uninstallation
 
@@ -67,4 +72,5 @@ Need help? Contact [YugabyteDB support][8].
 [6]: https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-monitor/metrics-export/#datadog
 [7]: https://github.com/DataDog/integrations-extras/blob/master/yugabytedb_managed/metadata.csv
 [8]: https://support.yugabyte.com/
+[9]: https://yugabyte.com/
 
