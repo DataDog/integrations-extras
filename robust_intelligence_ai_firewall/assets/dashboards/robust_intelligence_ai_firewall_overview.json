@@ -173,26 +173,10 @@
               {
                 "style": {
                   "palette": "dd20",
-                  "palette_index": 8
-                },
-                "alias": "Prompt Extraction",
-                "formula": "query4"
-              },
-              {
-                "style": {
-                  "palette": "dd20",
                   "palette_index": 17
                 },
                 "alias": "Toxicity",
                 "formula": "query5"
-              },
-              {
-                "style": {
-                  "palette": "dd20",
-                  "palette_index": 15
-                },
-                "alias": "PII Extraction",
-                "formula": "query6"
               }
             ],
             "queries": [
@@ -213,18 +197,8 @@
               },
               {
                 "data_source": "metrics",
-                "name": "query4",
-                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, flagged:true}.as_count()"
-              },
-              {
-                "data_source": "metrics",
                 "name": "query5",
                 "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true}.as_count()"
-              },
-              {
-                "data_source": "metrics",
-                "name": "query6",
-                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, flagged:true}.as_count()"
               }
             ],
             "response_format": "timeseries",
@@ -338,7 +312,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -417,7 +390,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -470,7 +442,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -523,7 +494,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -562,59 +532,6 @@
       }
     },
     {
-      "id": 7048696337606646,
-      "definition": {
-        "title": "Prompt Extraction flags",
-        "title_size": "16",
-        "title_align": "left",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "legend_columns": [
-          "avg",
-          "min",
-          "max",
-          "value",
-          "sum"
-        ],
-        "time": {},
-        "type": "timeseries",
-        "requests": [
-          {
-            "formulas": [
-              {
-                "style": {
-                  "palette": "dd20",
-                  "palette_index": 8
-                },
-                "alias": "Prompt Extraction",
-                "formula": "query4"
-              }
-            ],
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query4",
-                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, flagged:true}.as_count()"
-              }
-            ],
-            "response_format": "timeseries",
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "bars"
-          }
-        ]
-      },
-      "layout": {
-        "x": 7,
-        "y": 6,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
       "id": 1604475424760328,
       "definition": {
         "title": "PII Detection flags",
@@ -629,7 +546,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -661,114 +577,8 @@
         ]
       },
       "layout": {
-        "x": 3,
-        "y": 8,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 4820748980573556,
-      "definition": {
-        "title": "PII Extraction flags",
-        "title_size": "16",
-        "title_align": "left",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "legend_columns": [
-          "avg",
-          "min",
-          "max",
-          "value",
-          "sum"
-        ],
-        "time": {},
-        "type": "timeseries",
-        "requests": [
-          {
-            "formulas": [
-              {
-                "style": {
-                  "palette": "dd20",
-                  "palette_index": 15
-                },
-                "alias": "PII Extraction",
-                "formula": "query6"
-              }
-            ],
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query6",
-                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, flagged:true}.as_count()"
-              }
-            ],
-            "response_format": "timeseries",
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "bars"
-          }
-        ]
-      },
-      "layout": {
         "x": 7,
-        "y": 8,
-        "width": 4,
-        "height": 2
-      }
-    },
-    {
-      "id": 4195755353419826,
-      "definition": {
-        "title": "Off Topic flags",
-        "title_size": "16",
-        "title_align": "left",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "legend_columns": [
-          "avg",
-          "min",
-          "max",
-          "value",
-          "sum"
-        ],
-        "time": {},
-        "type": "timeseries",
-        "requests": [
-          {
-            "formulas": [
-              {
-                "style": {
-                  "palette": "classic",
-                  "palette_index": 0
-                },
-                "alias": "Factual Inconsistency",
-                "formula": "query1"
-              }
-            ],
-            "queries": [
-              {
-                "data_source": "metrics",
-                "name": "query1",
-                "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
-              }
-            ],
-            "response_format": "timeseries",
-            "style": {
-              "palette": "dog_classic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "bars"
-          }
-        ]
-      },
-      "layout": {
-        "x": 7,
-        "y": 10,
+        "y": 6,
         "width": 4,
         "height": 2
       }
