@@ -4,7 +4,7 @@
 
 Notion is a Connected Workspace. It's where modern teams create and share docs, take notes, manage projects, and organize knowledge, all in one place. Install Notion's integration with Datadog to manage and monitor your workspace activity in [Datadog Cloud SIEM][1]. You can import your workspace's audit logs for real-time monitoring, alerting, and analysis. From there, you can detect and investigate potential security issues, suspicious behavior, and troubleshoot access with confidence and ease.
 
-To see the full list of events emitted by Notion, see our [documentation][2].
+To see the full list of events emitted by Notion, see the [official Notion documentation][2].
 
 ## Setup
 
