@@ -2,7 +2,7 @@
 
 ## Overview
 
-[JFrog][1] is a universal, hybrid, and end-to-end DevOps platform. This integration helps any JFrog cloud customer seamlessly stream logs from JFrog Artifactory straight into Datadog. This integration comes packaged with Datadog [log pipelines][2] which enrich and index logs to make them more searchable and treatable using Datadog [facets][3].
+[JFrog][1] is a universal hybrid, end-to-end DevOps platform. This integration allows any JFrog cloud customer to seamlessly stream logs from JFrog Artifactory into Datadog. This integration provides Datadog [log pipelines][2] which enrich and index logs to make them more searchable and treatable using Datadog [facets][3].
 
 ### JFrog dashboards
 
