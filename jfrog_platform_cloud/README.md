@@ -26,5 +26,5 @@ Need help? Contact [JFrog Support][5].
 [2]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source
 [3]: https://docs.datadoghq.com/logs/explorer/facets/
 [4]: https://app.datadoghq.com/organization-settings/api-keys
-
+[5]: https://support.jfrog.com/
 
