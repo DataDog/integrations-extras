@@ -115,13 +115,13 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.yb_ysqlserver_connection_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}",
+                      "query": "sum:ybdb.yb_ysqlserver_connection_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.rollup(avg, 30)",
                       "aggregator": "last"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {cluster-id,node_idx}",
+                      "query": "sum:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {cluster-id,node_idx}.rollup(avg, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -157,13 +157,13 @@
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_filesystem_free_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}",
+                      "query": "avg:ybdb.node_filesystem_free_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.rollup(avg, 30)",
                       "aggregator": "last"
                     },
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_filesystem_size_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}",
+                      "query": "avg:ybdb.node_filesystem_size_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.rollup(avg, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -217,13 +217,13 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_cpu_seconds_total{$cluster-id,!mode:idle,$node,$cloud,$region,$zone,$cluster-type}.as_rate()",
+                      "query": "avg:ybdb.node_cpu_seconds_total{$cluster-id,!mode:idle,$node,$cloud,$region,$zone,$cluster-type}.as_rate().rollup(avg, 30)",
                       "aggregator": "last"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_cpu_seconds_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.as_rate()",
+                      "query": "avg:ybdb.node_cpu_seconds_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.as_rate().rollup(avg, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -277,13 +277,13 @@
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_memory_MemAvailable_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}",
+                      "query": "avg:ybdb.node_memory_MemAvailable_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.rollup(avg, 30)",
                       "aggregator": "last"
                     },
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.node_memory_MemTotal_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}",
+                      "query": "avg:ybdb.node_memory_MemTotal_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type}.rollup(avg, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -396,7 +396,6 @@
                 "max",
                 "value"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -450,22 +449,22 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -503,7 +502,6 @@
                 "max",
                 "value"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -553,42 +551,42 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query5",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query6",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query7",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query8",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ysql_export,server_type:yb_ysqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -639,7 +637,7 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.yb_ysqlserver_connection_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.yb_ysqlserver_connection_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -695,7 +693,6 @@
                 "max",
                 "value"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -771,32 +768,32 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query5",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query6",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -834,7 +831,6 @@
                 "max",
                 "value"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -904,62 +900,62 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:selectstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:insertstmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query5",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query6",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:updatestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query7",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query8",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:deletestmt,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query9",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query10",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:otherstmts,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query11",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query12",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:ycql_export,server_type:yb_cqlserver,service_type:sqlprocessor,service_method:transaction,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -986,7 +982,7 @@
           {
             "id": 7514150573689064,
             "definition": {
-              "title": "YCQL Local vs. Remote Operations",
+              "title": "YBClient Local vs. Remote Operations",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
@@ -1003,69 +999,69 @@
                   "formulas": [
                     {
                       "alias": "Local Read",
-                      "formula": "exclude_null(clamp_min(derivative(query1), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query1), 0))"
                     },
                     {
                       "alias": "Local Write",
-                      "formula": "exclude_null(clamp_min(derivative(query2), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query2), 0))"
                     },
                     {
                       "alias": "Remote Read",
-                      "formula": "exclude_null(clamp_min(derivative(query3), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query3), 0))"
                     },
                     {
                       "alias": "Remote Write",
-                      "formula": "exclude_null(clamp_min(derivative(query4), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query4), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:read AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:local} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:read AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:local} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:write AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:local} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:write AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:local} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:read AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:remote} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:read AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:remote} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:write AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:remote} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id AND $node AND $cloud AND $region AND $zone AND service_type:write AND $cluster-type AND (export_type:tserver_export OR export_type:ycql_export) AND service_method:remote} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1140,12 +1136,12 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_cpu_seconds_total{$cluster-id,!mode:idle,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,cluster-id,node_type}.as_rate()"
+                      "query": "sum:ybdb.node_cpu_seconds_total{$cluster-id,!mode:idle,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,cluster-id,node_type}.as_rate().rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_cpu_seconds_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,cluster-id,node_type}.as_rate()"
+                      "query": "sum:ybdb.node_cpu_seconds_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,cluster-id,node_type}.as_rate().rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1218,12 +1214,12 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_memory_MemTotal_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_memory_MemTotal_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_memory_MemAvailable_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_memory_MemAvailable_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1276,7 +1272,20 @@
                           "unit_name": "byte"
                         }
                       },
-                      "formula": "exclude_null(clamp_min(query1, 0))"
+                      "formula": "exclude_null(clamp_min(query3, 0))"
+                    },
+                    {
+                      "alias": "Provisioned",
+                      "style": {
+                        "palette": "red"
+                      },
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "byte"
+                        }
+                      },
+                      "formula": "query1"
                     },
                     {
                       "alias": "Used",
@@ -1286,19 +1295,19 @@
                           "unit_name": "byte"
                         }
                       },
-                      "formula": "exclude_null(clamp_min(query1 - query2, 0))"
+                      "formula": "exclude_null(clamp_min(exclude_null(clamp_min(query3, 0)) - query1, 0))"
                     }
                   ],
                   "queries": [
                     {
-                      "name": "query1",
+                      "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_filesystem_size_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_filesystem_size_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
-                      "name": "query2",
+                      "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_filesystem_free_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_filesystem_free_bytes{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1342,37 +1351,37 @@
                   "formulas": [
                     {
                       "alias": "Transmitted",
-                      "formula": "exclude_null(clamp_min(derivative(query1), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query1), 0))"
                     },
                     {
                       "alias": "Received",
-                      "formula": "exclude_null(clamp_min(derivative(query2), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query2), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_network_transmit_bytes_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_network_transmit_bytes_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.as_count().rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_network_receive_bytes_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.node_network_receive_bytes_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.as_count().rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1416,37 +1425,37 @@
                   "formulas": [
                     {
                       "alias": "Read",
-                      "formula": "exclude_null(clamp_min(abs(derivative(query1)), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(abs(derivative(query1)), 0))"
                     },
                     {
                       "alias": "Write",
-                      "formula": "exclude_null(clamp_min(abs(derivative(query2)), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(abs(derivative(query2)), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_disk_reads_completed_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,node_type,cloud,region,zone,cluster-id}"
+                      "query": "sum:ybdb.node_disk_reads_completed_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,node_type,cloud,region,zone,cluster-id}.as_count().rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.node_disk_writes_completed_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,node_type,cloud,region,zone,cluster-id}"
+                      "query": "sum:ybdb.node_disk_writes_completed_total{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {node_idx,node_type,cloud,region,zone,cluster-id}.as_count().rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1509,37 +1518,37 @@
                   "formulas": [
                     {
                       "alias": "Write",
-                      "formula": "exclude_null(clamp_min(derivative(query2), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query2), 0))"
                     },
                     {
                       "alias": "Read",
-                      "formula": "exclude_null(clamp_min(derivative(query3), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query3), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1596,12 +1605,12 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,$cluster-type,server_type:yb_master} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,$cluster-type,server_type:yb_master} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,$cluster-type,server_type:yb_master} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,$cluster-type,server_type:yb_master} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1645,37 +1654,37 @@
                   "formulas": [
                     {
                       "alias": "Read",
-                      "formula": "exclude_null(clamp_min(derivative(query1), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query1), 0))"
                     },
                     {
                       "alias": "Write",
-                      "formula": "exclude_null(clamp_min(derivative(query3), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query3), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.log_reader_bytes_read{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.log_reader_bytes_read{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.log_bytes_logged{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.log_bytes_logged{$cluster-id,$node,$cloud,$region,$zone,export_type:master_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1737,37 +1746,37 @@
                   "formulas": [
                     {
                       "alias": "Write",
-                      "formula": "exclude_null(clamp_min(derivative(query2), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query2), 0))"
                     },
                     {
                       "alias": "Read",
-                      "formula": "exclude_null(clamp_min(derivative(query3), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "operation",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(derivative(query3), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1805,7 +1814,6 @@
                 "max",
                 "value"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -1835,22 +1843,22 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:read,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_sum{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query4",
                       "data_source": "metrics",
-                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "avg:ybdb.rpc_latency_count{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,server_type:yb_tserver,service_type:tabletserverservice,service_method:write,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
@@ -1894,37 +1902,37 @@
                   "formulas": [
                     {
                       "alias": "Read",
-                      "formula": "exclude_null(clamp_min(exclude_null(derivative(query1)), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(exclude_null(derivative(query1)), 0))"
                     },
                     {
                       "alias": "Write",
-                      "formula": "exclude_null(clamp_min(exclude_null(derivative(query3)), 0))",
                       "number_format": {
                         "unit": {
                           "type": "canonical_unit",
                           "unit_name": "byte",
                           "per_unit_name": "second"
                         }
-                      }
+                      },
+                      "formula": "exclude_null(clamp_min(exclude_null(derivative(query3)), 0))"
                     }
                   ],
                   "queries": [
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.log_reader_bytes_read{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.log_reader_bytes_read{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     },
                     {
                       "name": "query3",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.log_bytes_logged{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}"
+                      "query": "sum:ybdb.log_bytes_logged{$cluster-id,$node,$cloud,$region,$zone,export_type:tserver_export,$cluster-type} by {node_idx,cloud,region,zone,node_type,cluster-id}.rollup(avg, 30)"
                     }
                   ],
                   "response_format": "timeseries",
