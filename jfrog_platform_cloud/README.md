@@ -15,7 +15,7 @@ This dashboard provides a summary of access logs and information about various H
 
 ### Installation
 
-Contact JFrog representative to enable the integration. Be ready to provide your [Datadog API key][4].
+Contact a JFrog representative to enable the integration. Be ready to provide your [Datadog API key][4].
 
 [1]: https://jfrog.com/
 [2]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source
