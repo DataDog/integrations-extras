@@ -9,7 +9,7 @@
 You can find the dashboard packaged with this integration under the Assets tab on the integration tile.
 
 #### JFrog Platform Cloud Log Analytics
-This dashboard provides summary of access logs and gives customer an information about various HTTP response codes, HTTP 500 errors, calls volume and users operations for greater operational insight.
+This dashboard provides a summary of access logs and information about various HTTP response codes, HTTP 500 errors, call volume, and user operations.
 
 ## Setup
 
