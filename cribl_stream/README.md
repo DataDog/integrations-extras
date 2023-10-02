@@ -10,20 +10,15 @@
 This is for the self-hosted Cribl Stream version. 
 
 Use the out-of-the-box dashboard to view the performance of the Stream with base metrics like events per second, bytes per second, input types, output types, and infrastructure metrics. Monitor reduction percentages by events or bytes, which is useful for improving search performance or licensing and infrastructure costs for the systems of analysis.
+
 ## Data Collected
 ### Metrics
 See [metadata.csv][5] for a list of metrics provided by this integration.
 ### Events
 The Cribl Stream integration does not include any events.
-### Service Checks
-For a complete list, please see the [metadata.csv][5] .
-
-### Dashboards
-
-Use the out-of-the-box dashboard to view the performance of the Stream with base metrics like events per second, bytes per second, input types, output types, and infrastructure metrics. Monitor reduction percentages by events or bytes, which is useful for improving search performance or licensing and infrastructure costs for the systems of analysis.
 
 ## Setup
-You can send your Cribl Stream [internal metrics][6] to the Datadog API, allowing you to monitor your applications and infrastructure without the Datadog Agent. 
+You can send your Cribl Stream [internal metrics][6] to the Datadog API. 
 
 ### Installation
 
