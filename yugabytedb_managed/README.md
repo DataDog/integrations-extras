@@ -2,55 +2,54 @@
 
 ## Overview
 
-[YugabyteDB][9] is a cloud-native, distributed database that is API compatible with PostgreSQL.
+[YugabyteDB][1] is a cloud-native, distributed database that is API compatible with PostgreSQL.
 
-[YugabyteDB Managed][1], YugabyteDB's DBaaS, offers an out-of-box integration to provide customers the ability to export metrics from a cluster into Datadog. The integration comes pre-bundled with a dashboard to provide visibility into all the most important metrics needed to monitor the health and performance of a YugabyteDB Managed cluster such as:
-- Node resource usage (disk, memory, CPU, networking, etc).
+[YugabyteDB Managed][2] is YugabyteDB's fully-managed Database-as-a-service (DBaaS). Install YugabyteDB's integration to export metrics from a cluster into Datadog. The integration comes with an out-of-the-box dashboard to provide visibility into all the most important metrics needed to monitor the health and performance of a YugabyteDB Managed cluster such as:
+- Node resource usage (disk, memory, CPU, networking, and more).
 - Read/write operation throughput and latencies (both YSQL and YCQL).
-- Advanced Master and Tablet Server telemetry (internal RPC throughput/latencies, WAL size, etc)
+- Advanced Master and Tablet Server telemetry (for example, internal RPC throughput/latencies and WAL size).
 
 ## Setup
-- **Note:** This feature is not available for [Sandbox Clusters][5].
-- Additional setup documentation can be found [here][6].
+<div class="alert alert-warning">This feature is not available for <a href="https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-basics/create-clusters/create-clusters-free/">Sandbox Clusters</a>.</div>
+<div class="alert alert-warning">For more information on setup, see the <a href="https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-monitor/metrics-export/#datadog">YugabyteDB documentation</a>.</div>
 
 ### Installation
 
 To enable the YugabyteDB Managed integration with Datadog:
 
 #### Create a configuration
-1. Within YugabyteDB Managed, go to the **Metrics** tab under the **Integrations** page from the navigation panel on the left side of the page.
-2. Select the **Add Export Configuration** button.
-3. Choose the **Datadog** provider.
+1. In YugabyteDB Managed, navigate to the **Integrations > Metrics** tab.
+2. Click **Create Export Configuration** or **Add Export Configuration**.
+3. Select the **Datadog** provider.
 4. Fill in the **API key** and **Site** fields with the corresponding values.
-   - The **API key** is associated with your Datadog organization. If you don't have an API key to use with your YugabyteDB Managed cluster, you need to create one in your [Datadog Organization Settings][2]. For further instructions, see the [Datadog documentation][3].
-   - Your **Site** corresponds to your Datadog Site URL. For more details, see the [Datadog documentation][4].
-5. You can validate the provided configuration by clicking the **Test Configuration** button before selecting **Create Configuration**.
+For more information, see the [Datadog API and Application Keys][3] documentation.
+   - Your **Site** corresponds to your [Datadog Site URL][4].
+5. Click **Test Configuration** to validate the configuration.
+6. Click **Create Configuration**.
 
 #### Associate a configuration to a cluster
-1. Within YugabyteDB Managed, go to the **Metrics** tab under the **Integrations** page from the navigation panel on the left side of the page.
+1. In YugabyteDB Managed, navigate to the **Integrations > Metrics** tab.
 2. Find your cluster in the **Export Metrics by Cluster** table.
-3. Open the dropdown for your cluster under the **Export Configuration** dropdown and select the desired configuration.
-4. Wait for the **Export Status** to show `Active`.
-   - **Note:** Your cluster cannot be paused or have another operation in progress when associating a configuration.
+3. Select the desired configuration from the **Export Configuration** dropdown menu.
+4. Wait for the **Export Status** to show `Active`. <br> **Note**: Your cluster cannot associate a configuration when paused or when another operation in progress.
 
-### Configuration
+## Dashboard
 
-Open your Datadog dashboard list and select the `YugabyteDB Managed Overview` dashboard to start viewing telemetry.
+In the Datadog dashboard list search for and select the `YugabyteDB Managed Overview` dashboard to view your telemetry.
 
 ## Uninstallation
 
 To disable metrics being exported to Datadog:
-1. Within YugabyteDB Managed, go to the **Metrics** tab under the **Integrations** page from the navigation panel on the left side of the page.
+1. In YugabyteDB Managed, navigate to the **Integrations > Metrics** tab.
 2. Find your cluster in the **Export Metrics by Cluster** table.
 3. Open the dropdown for your cluster under the **Export Configuration** dropdown and select `None`.
-4. Wait for the **Export Status** to show `-`.
-   - **Note:** Your cluster cannot be paused or have another operation in progress when removing a configuration.
+4. Wait for the **Export Status** to show `-`. <br> **Note**: Your cluster cannot associate a configuration when paused or when another operation in progress.
 
 ## Data Collected
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by this integration.
+See [metadata.csv][5] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -62,15 +61,12 @@ YugabyteDB Managed does not include any events.
 
 ## Support
 
-Need help? Contact [YugabyteDB support][8].
+Need help? Contact [YugabyteDB support][6].
 
-[1]: https://www.yugabyte.com/managed/
-[2]: https://app.datadoghq.com/organization-settings/api-keys
+[1]: https://yugabyte.com/
+[2]: https://www.yugabyte.com/managed/
 [3]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [4]: https://docs.datadoghq.com/getting_started/site/
-[5]: https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-basics/create-clusters/create-clusters-free/
-[6]: https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-monitor/metrics-export/#datadog
-[7]: https://github.com/DataDog/integrations-extras/blob/master/yugabytedb_managed/metadata.csv
-[8]: https://support.yugabyte.com/
-[9]: https://yugabyte.com/
+[5]: https://github.com/DataDog/integrations-extras/blob/master/yugabytedb_managed/metadata.csv
+[6]: https://support.yugabyte.com/
 
