@@ -1,0 +1,628 @@
+{
+	"title": "Upbound UXP Overview",
+	"description": "## Upbound UXP Min Set\n\nThis dashboard covers graphs for the Universal Crossplane (UXP) Overview metrics. They include Crossplane and provider pod information, including REST client requests, controller runtime reconciliation errors, workqueue depths, and Go memory statistics.",
+	"widgets": [{
+		"id": 8639447832002408,
+		"definition": {
+			"type": "image",
+			"url": "https://static.upbound.io/marketing/upbound_uxp_logo.svg",
+			"sizing": "cover",
+			"has_background": true,
+			"has_border": true,
+			"vertical_align": "center",
+			"horizontal_align": "center"
+		},
+		"layout": {
+			"x": 0,
+			"y": 0,
+			"width": 2,
+			"height": 2
+		}
+	}, {
+		"id": 7058913334764000,
+		"definition": {
+			"title": "Kubernetes Upbound-System Container Restarts",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:kubernetes.containers.restarts{kube_namespace:upbound-system} by {kube_container_name}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 2,
+			"y": 0,
+			"width": 2,
+			"height": 2
+		}
+	}, {
+		"id": 852694346314535,
+		"definition": {
+			"title": "Kubernetes API Server Request Duration Seconds By Resource",
+			"type": "treemap",
+			"requests": [{
+				"response_format": "scalar",
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:kube_apiserver.request_duration_seconds.count{group:} by {resource}",
+					"aggregator": "avg"
+				}],
+				"formulas": [{
+					"formula": "query1"
+				}]
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 0,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8807870180367880,
+		"definition": {
+			"title": "Kubernetes API Server Etcd Request Duration Seconds",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"response_format": "timeseries",
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:kube_apiserver.etcd_request_duration_seconds.sum{*} by {host}"
+				}],
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 0,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 6058734657813571,
+		"definition": {
+			"title": "Rest Client Requests Total",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "sum:uxp.rest_client_requests_total{*} by {host,pod,method}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 0,
+			"y": 2,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 2395363743244600,
+		"definition": {
+			"title": "Controller Runtime Reconcile Errors",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "per_minute(query1)"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.controller_runtime_reconcile_errors_total{*}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 2,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 4062197409118308,
+		"definition": {
+			"title": "Process Open File Descriptors",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:uxp.process_open_fds{*} by {host,pod}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 2,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 6974392427993167,
+		"definition": {
+			"title": "Process CPU Seconds Total",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.process_cpu_seconds_total{*} by {host,pod}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 0,
+			"y": 4,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8246050534616739,
+		"definition": {
+			"title": "Process Resident Memory Bytes",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.process_resident_memory_bytes{*} by {host,pod}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 4,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8583070210807976,
+		"definition": {
+			"title": "Process Start Time Seconds",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.process_start_time_seconds{*} by {host,pod}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 4,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 4944114324490950,
+		"definition": {
+			"title": "Go Goroutines",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "per_minute(query1)"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:uxp.go_goroutines{*} by {pod,host}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 0,
+			"y": 6,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8655832006769687,
+		"definition": {
+			"title": "Go Memstats Alloc Bytes",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "per_minute(query1)"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.go_memstats_alloc_bytes{*} by {host,pod}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 6,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8677874650172048,
+		"definition": {
+			"title": "Go Memstats Alloc Bytes Total",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.go_memstats_alloc_bytes_total{*} by {host,pod}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 6,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 7370648797108836,
+		"definition": {
+			"title": "Workqueue Work Duration Seconds Bucket",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "per_minute(query1)"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.workqueue_work_duration_seconds_bucket.max{*} by {host,pod,name,le}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 0,
+			"y": 8,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 8383428569535810,
+		"definition": {
+			"title": "Workqueue Adds Total",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "sum:uxp.workqueue_adds_total{*} by {host,pod,name}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 8,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 823949909374051,
+		"definition": {
+			"title": "Workqueue Work Duration Seconds Count",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:uxp.workqueue_work_duration_seconds_bucket.count{*} by {host,pod,name,le}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 8,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 5126533313330222,
+		"definition": {
+			"title": "Workqueue Unfinished Work Seconds",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "avg:uxp.workqueue_unfinished_work_seconds{*}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 0,
+			"y": 10,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 4395817810242775,
+		"definition": {
+			"title": "Workqueue Depth",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "per_minute(query1)"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "max:uxp.workqueue_depth{*}"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 4,
+			"y": 10,
+			"width": 4,
+			"height": 2
+		}
+	}, {
+		"id": 6712236079650739,
+		"definition": {
+			"title": "Workqueue Work Duration Seconds Sum",
+			"title_size": "16",
+			"title_align": "left",
+			"show_legend": true,
+			"legend_layout": "auto",
+			"legend_columns": ["avg", "min", "max", "value", "sum"],
+			"type": "timeseries",
+			"requests": [{
+				"formulas": [{
+					"formula": "query1"
+				}],
+				"queries": [{
+					"name": "query1",
+					"data_source": "metrics",
+					"query": "sum:uxp.workqueue_work_duration_seconds_sum{*} by {host,pod,name}.as_count()"
+				}],
+				"response_format": "timeseries",
+				"style": {
+					"palette": "dog_classic",
+					"line_type": "solid",
+					"line_width": "normal"
+				},
+				"display_type": "line"
+			}]
+		},
+		"layout": {
+			"x": 8,
+			"y": 10,
+			"width": 4,
+			"height": 2
+		}
+	}],
+	"template_variables": [],
+	"layout_type": "ordered",
+	"notify_list": [],
+	"reflow_type": "fixed"
+}

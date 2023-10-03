@@ -1,0 +1,283 @@
+{
+  "title": "Wayfinder",
+  "description": "## ![WayFinder](https://docs.appvia.io/img/appvia-logo.svg)\n\nDashboard for monitoring [ Appvia Wayfinder](https://www.appvia.io/product/), an infrastructure management platform that enables developer self-service though centralised configuration. \n\nUseful links:\n \n[Wayfinder Wiki](https://docs.appvia.io/wayfinder/)",
+  "widgets": [
+      {
+          "id": 644305468836786,
+          "definition": {
+              "type": "image",
+              "url": "https://docs.appvia.io/img/appvia-logo.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+          },
+          "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 2,
+              "height": 2
+          }
+      },
+      {
+          "id": 3029920456438864,
+          "definition": {
+              "title": "Webhooks Endpoint",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "check_status",
+              "check": "wayfinder.openmetrics.health",
+              "grouping": "check",
+              "group": "kube_deployment:wayfinder-webhooks",
+              "group_by": [
+                  "kube_deployment"
+              ],
+              "tags": []
+          },
+          "layout": {
+              "x": 2,
+              "y": 0,
+              "width": 2,
+              "height": 2
+          }
+      },
+      {
+          "id": 7242923929198952,
+          "definition": {
+              "title": "Controller Endpoint",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "check_status",
+              "check": "wayfinder.openmetrics.health",
+              "grouping": "check",
+              "group": "kube_deployment:wayfinder-controllers",
+              "group_by": [
+                  "kube_deployment"
+              ],
+              "tags": []
+          },
+          "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 2
+          }
+      },
+      {
+          "id": 6109974031300300,
+          "definition": {
+              "title": "API Server Endpoint",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "check_status",
+              "check": "wayfinder.openmetrics.health",
+              "grouping": "check",
+              "group": "kube_deployment:wayfinder-apiserver",
+              "group_by": [
+                  "kube_deployment"
+              ],
+              "tags": []
+          },
+          "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 2,
+              "height": 2
+          }
+      },
+      {
+          "id": 3752165290599579,
+          "definition": {
+              "title": "Unfinished Work Seconds",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                  {
+                      "response_format": "timeseries",
+                      "queries": [
+                          {
+                              "data_source": "metrics",
+                              "name": "query1",
+                              "query": "sum:wayfinder.workqueue.unfinished_work_seconds{*}"
+                          }
+                      ],
+                      "formulas": [
+                          {
+                              "formula": "query1"
+                          }
+                      ],
+                      "style": {
+                          "palette": "dog_classic",
+                          "line_type": "solid",
+                          "line_width": "normal"
+                      },
+                      "display_type": "line"
+                  }
+              ]
+          },
+          "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+          }
+      },
+      {
+          "id": 679151739945583,
+          "definition": {
+              "title": "Controller Reconcile Errors ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                  {
+                      "response_format": "timeseries",
+                      "queries": [
+                          {
+                              "data_source": "metrics",
+                              "name": "query1",
+                              "query": "sum:wayfinder.controller_runtime.reconcile_errors_total.count{*}.as_count()"
+                          }
+                      ],
+                      "formulas": [
+                          {
+                              "formula": "query1"
+                          }
+                      ],
+                      "style": {
+                          "palette": "dog_classic",
+                          "line_type": "solid",
+                          "line_width": "normal"
+                      },
+                      "display_type": "line"
+                  }
+              ]
+          },
+          "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+          }
+      },
+      {
+          "id": 5292446925349497,
+          "definition": {
+              "title": "Work Queue",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                  {
+                      "response_format": "timeseries",
+                      "queries": [
+                          {
+                              "data_source": "metrics",
+                              "name": "query1",
+                              "query": "sum:wayfinder.workqueue.depth{*}"
+                          }
+                      ],
+                      "formulas": [
+                          {
+                              "formula": "query1"
+                          }
+                      ],
+                      "style": {
+                          "palette": "dog_classic",
+                          "line_type": "solid",
+                          "line_width": "normal"
+                      },
+                      "display_type": "line"
+                  }
+              ]
+          },
+          "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+          }
+      },
+      {
+          "id": 1957837969048482,
+          "definition": {
+              "title": "Controller Active Workers",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                  {
+                      "formulas": [
+                          {
+                              "formula": "query1"
+                          }
+                      ],
+                      "queries": [
+                          {
+                              "name": "query1",
+                              "data_source": "metrics",
+                              "query": "sum:wayfinder.controller_runtime.active_workers{*}"
+                          }
+                      ],
+                      "response_format": "timeseries",
+                      "style": {
+                          "palette": "dog_classic",
+                          "line_type": "solid",
+                          "line_width": "normal"
+                      },
+                      "display_type": "line"
+                  }
+              ]
+          },
+          "layout": {
+              "x": 4,
+              "y": 4,
+              "width": 4,
+              "height": 2
+          }
+      }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

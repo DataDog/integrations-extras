@@ -1,0 +1,1803 @@
+{
+    "title": "Notion Dashboard",
+    "description": "The Notion Dashboard is a comprehensive visual representation of key performance and usage metrics for your Notion workspace. This Datadog dashboard provides real-time insights into the health, activity, and performance of your Notion workspace, enabling you to make data-driven decisions.",
+    "widgets": [
+      {
+        "id": 6925166592875258,
+        "definition": {
+          "type": "image",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png?20200221181224",
+          "sizing": "contain",
+          "margin": "sm",
+          "has_background": true,
+          "has_border": true,
+          "vertical_align": "center",
+          "horizontal_align": "center"
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 2
+        }
+      },
+      {
+        "id": 4208998972814164,
+        "definition": {
+          "title": "Page Events",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 4336068990274744,
+              "definition": {
+                "title": "Top 20 Most Viewed Pages - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "a",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@event.page.viewed.target.page_id",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@event.page.viewed.page_name",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": "source:notion @event.type:page.viewed"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "alias": "Number of times viewed",
+                        "formula": "a",
+                        "limit": {
+                          "count": 20,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 8
+              }
+            },
+            {
+              "id": 2619668539119840,
+              "definition": {
+                "title": "Pages Created - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Created",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:page.created"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "blue",
+                      "line_type": "solid",
+                      "line_width": "thick"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 1352855303420124,
+              "definition": {
+                "title": "Pages Created - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.created"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "text_align": "center",
+                "precision": 0
+              },
+              "layout": {
+                "x": 10,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 7967108084429084,
+              "definition": {
+                "title": "Pages Deleted - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Deleted",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.deleted"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "thick"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 2,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 8145981159553304,
+              "definition": {
+                "title": "Pages Deleted - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.deleted"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 10,
+                "y": 2,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 106341470513318,
+              "definition": {
+                "title": "Pages Restored - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Deleted",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.restored_from_trash"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "thick"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 4,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 4602909283705734,
+              "definition": {
+                "title": "Pages Restored - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.restored_from_trash"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 10,
+                "y": 4,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 1181073518028714,
+              "definition": {
+                "title": "Pages with Content Edits - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages with content edits",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.page.content_edited.target.page_id",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.content_edited"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 6,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 1443774176146942,
+              "definition": {
+                "title": "Pages with Content Edits - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.page.content_edited.target.page_id",
+                          "interval": 86400000
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.content_edited"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 10,
+                "y": 6,
+                "width": 2,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 2,
+          "width": 12,
+          "height": 1
+        }
+      },
+      {
+        "id": 7192705366904722,
+        "definition": {
+          "title": "User Activity",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 6598327845459634,
+              "definition": {
+                "title": "Number of Logins - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Number of Logins",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.login"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 2876931754200436,
+              "definition": {
+                "title": "Number of Logins - Past Week",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1w"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.login"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 3443177357523068,
+              "definition": {
+                "title": "Number of Logins - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.login"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 9,
+                "y": 0,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 2374956151163170,
+              "definition": {
+                "title": "Number of Logouts - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Number of Logouts",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.logout"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 3399926427980358,
+              "definition": {
+                "title": "Number of Logouts - Past Week",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1w"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.logout"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 6,
+                "y": 2,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 8725827567889684,
+              "definition": {
+                "title": "Number of Logouts - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:user.logout"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 9,
+                "y": 2,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 7546523301238644,
+              "definition": {
+                "title": "Number of Guests Removed - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Number of Guests Removed ",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 4077765011708218,
+              "definition": {
+                "title": "Number of Guests Removed - Past Week",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1w"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 6,
+                "y": 4,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 535980222929220,
+              "definition": {
+                "title": "Number of Guests Removed - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 9,
+                "y": 4,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 4819726074668252,
+              "definition": {
+                "title": "Number of Users who have Removed, Updated or Added their passwords - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Number of Users who have Removed, Updated or Added their passwords",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.actor.id"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "source:notion @event.type:(user.settings.login_method.password_removed OR user.settings.login_method.password_updated OR user.settings.login_method.password_added)"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 6,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 3,
+          "width": 12,
+          "height": 1
+        }
+      },
+      {
+        "id": 6156079423206862,
+        "definition": {
+          "title": "Data Export",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 2916872417173708,
+              "definition": {
+                "title": "Top 10 Most Exported Pages - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@event.page.exported.target.page_id",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@event.page.exported.page_name",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": "source:notion @event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "alias": "Exported Count",
+                        "formula": "query1",
+                        "limit": {
+                          "count": 100,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 4860010429530742,
+              "definition": {
+                "title": "Pages Exported - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Exported ",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 4580506446910640,
+              "definition": {
+                "title": "Pages Exported - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 10,
+                "y": 0,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 7375358336007652,
+              "definition": {
+                "title": "Top 10 Page Exporters (Users) - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@event.actor.person.email",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@event.actor.id",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": "source:notion @event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "alias": "Number of Pages Exported",
+                        "formula": "query1",
+                        "limit": {
+                          "count": 100,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 4326564948303628,
+              "definition": {
+                "title": "Pages on which an integration was added or updated - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages on which an integration was added or updated",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 2,
+                "width": 4,
+                "height": 2
+              }
+            },
+            {
+              "id": 4764433991931398,
+              "definition": {
+                "title": "Pages on which an integration was added or updated - Past 24 hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.exported"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 10,
+                "y": 2,
+                "width": 2,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 12,
+          "height": 1
+        }
+      },
+      {
+        "id": 8763651556096714,
+        "definition": {
+          "title": "Public/External Exposure",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 8711762875858194,
+              "definition": {
+                "title": "Pages Shared to Web - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Shared to Web",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.shared_to_public_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 1882588748590136,
+              "definition": {
+                "title": "Pages Shared to Web - Past Week",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1w"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.shared_to_public_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 1811418849110210,
+              "definition": {
+                "title": "Pages Shared to Web - Past 24 Hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.shared_to_public_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 9,
+                "y": 0,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 6351406053635982,
+              "definition": {
+                "title": "Pages shared with guests - Past Month",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {
+                  "live_span": "1mo"
+                },
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Pages Shared with guests",
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 658320621850924,
+              "definition": {
+                "title": "Pages shared with guests - Past Week",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1w"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 6,
+                "y": 2,
+                "width": 3,
+                "height": 2
+              }
+            },
+            {
+              "id": 3232763984257404,
+              "definition": {
+                "title": "Pages shared with guests - Past 24 Hours",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                  "live_span": "1d"
+                },
+                "type": "query_value",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "cardinality",
+                          "metric": "@event.timestamp"
+                        },
+                        "group_by": [],
+                        "search": {
+                          "query": "@event.type:page.permissions.guest_role_added"
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ],
+                "autoscale": true,
+                "precision": 0
+              },
+              "layout": {
+                "x": 9,
+                "y": 2,
+                "width": 3,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 5,
+          "width": 12,
+          "height": 1
+        }
+      }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+  }
