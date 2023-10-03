@@ -1,4 +1,3 @@
-
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import OpenMetricsBaseCheckV2  # noqa: F401
@@ -18,9 +17,6 @@ class RobustIntelligenceAiFirewallCheck(OpenMetricsBaseCheckV2, ConfigMixin):
         self.openmetrics_endpoint = self.instance.get('openmetrics_endpoint')
 
     def get_default_config(self):
-        default_config = {
-            'openmetrics_endpoint': self.openmetrics_endpoint,
-            'metrics': METRIC_MAP
-        }
+        default_config = {'openmetrics_endpoint': self.openmetrics_endpoint, 'metrics': METRIC_MAP}
 
         return default_config

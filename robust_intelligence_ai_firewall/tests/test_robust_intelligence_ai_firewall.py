@@ -1,5 +1,3 @@
-
-
 from typing import Any, Callable, Dict  # noqa: F401
 
 from datadog_checks.base import AgentCheck  # noqa: F401
@@ -21,4 +19,6 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = RobustIntelligenceAiFirewallCheck('robust_intelligence_ai_firewall', {}, [instance])
     dd_run_check(check)
-    aggregator.assert_service_check('robust_intelligence_ai_firewall.can_connect', RobustIntelligenceAiFirewallCheck.CRITICAL)
+    aggregator.assert_service_check(
+        'robust_intelligence_ai_firewall.can_connect', RobustIntelligenceAiFirewallCheck.CRITICAL
+    )
