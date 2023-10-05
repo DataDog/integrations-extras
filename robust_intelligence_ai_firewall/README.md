@@ -2,11 +2,11 @@
 
 ## Overview
 
-[Robust Intelligence’s AI Firewall][1] wraps a protective layer around your AI models. It helps:
-1. **Block malicious inputs in real time.** Attacks on AI systems are increasing in frequency and sophistication. The nature of large language models (LLMs) make them a disproportionally high target, but all model types are at risk. AI Firewall inspects every input and automatically blocks malicious payloads before they can do damage to your model. Risks includes prompt injection, prompt extraction, and PII exfiltration.
-2. **Validate model outputs in real time.** AI models will inevitably generate undesired responses due to both malicious and inadvertent user actions. AI Firewall scans model outputs to ensure they are free of sensitive information, hallucinations, or otherwise harmful content. Responses that fall outside your organization’s standards will be blocked from the application. This includes sensitive data from fine-tuning or connected databases used for retrieval-augmented generation.
+The [Robust Intelligence AI Firewall][1] is a protective layer for AI models.
 
-This integration monitors the AI Firewall results through the Datadog Agent. This includes metrics for allowed datapoints, blocked datapoints, and reasons data points were blocked.
+The AI Firewall inspects incoming user prompts to block malicious payloads, including any that attempt prompt injection, prompt extraction, or PII detection. The AI Firewall scans LLM model output to ensure it's free of false information, sensitive data, and harmful content. Responses that fall outside your organization’s standards are blocked from the application.
+
+This integration monitors the AI Firewall results through the Datadog Agent. It provides users with observability of their AI security issues. This includes metrics for allowed data points and blocked data points, as well as why each data point was blocked.
 
 ## Setup
 
@@ -19,7 +19,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Robust I
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-robust-intelligence-ai-firewall==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-robust-intelligence-ai-firewall==1.0.0
    ```
 
 2. Configure your integration similar to core [integrations][3].
