@@ -4,10 +4,10 @@ Visualize the Runtime Integrity of your Invary managed operating systems.
 
 ## Overview
 
-Invary validates the Runtime Integrity of operating systems and detects rootkits that can deceive other systems.  This integration comes with a pre-built dashboard to visualize your Runtime Integrity, providing confidence in your runtime security or spotlighting endpoints that lack integrity and may be compromised.  The Invary dashboard also provides insights into your operating system inventory at runtime, including distributions and kernel versions in use. 
+Invary validates the Runtime Integrity of operating systems and detects rootkits that can deceive other systems. This integration comes with an out-of-the-box dashboard that visualizes your Runtime Integrity, providing confidence in your runtime security or spotlighting endpoints that lack integrity and may be compromised. The Invary dashboard also provides insights into your operating system inventory at runtime, including distributions and kernel versions in use. 
 
 
-This integration utilizes the [Invary API][1].
+This integration uses the [Invary API][1].
 
 ## Setup
 
@@ -16,7 +16,7 @@ This integration utilizes the [Invary API][1].
 
 ### Installation
 
-The Invary integration allows for the forwarding of your endpoint and appraisal details from the Invary SaaS platform to your Datadog instance. No additional installation is needed on your server.
+The Invary integration allows you to forward details about your endpoint and appraisal from the Invary SaaS platform to your Datadog instance. No additional installation is needed on your server.
 
 ### Configuration
 
