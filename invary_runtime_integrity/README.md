@@ -12,7 +12,7 @@ This integration utilizes the [Invary API][1].
 ## Setup
 
 - Once this integration has been uninstalled, any previous authorizations are revoked. 
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][3].
 
 ### Installation
 
