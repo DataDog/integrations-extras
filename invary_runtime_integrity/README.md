@@ -1,6 +1,6 @@
 # Invary Runtime Integrity
 
-Visualize the Runtime Integrity of your Invary managed operating systems
+Visualize the Runtime Integrity of your Invary managed operating systems.
 
 ## Overview
 
@@ -20,19 +20,19 @@ The Invary integration allows for the forwarding of your endpoint and appraisal 
 
 ### Configuration
 
-1. Complete the OAuth Authorization flow allowing Invary to communicate with your Datadog instance
-2. Review the "Invary Runtime Integrity" dashboard for an aggregate look at your Runtime Integrity 
+1. Complete the OAuth Authorization flow allowing Invary to communicate with your Datadog instance.
+2. Review the "Invary Runtime Integrity" dashboard for an aggregate look at your Runtime Integrity.
 
 ### Validation
 
-1. Review the "Invary Runtime Integrity" dashboard for timely and expected appraisal information
-2. Query your Logs with the 'source:invary' base query
+1. Review the "Invary Runtime Integrity" dashboard for timely and expected appraisal information.
+2. Query your logs with the 'source:invary' base query.
 
 ## Data Collected
 
 ### Logs
 
-Invary forwards your Runtime Integrity appraisal results with the 'source:invary' tag 
+Invary forwards your Runtime Integrity appraisal results with the 'source:invary' tag. 
 
 ## Troubleshooting
 
@@ -40,4 +40,5 @@ Need help? Contact [Invary Support][2].
 
 [1]: https://developers.invary.com/
 [2]: mailto:support@invary.com
+[3]: https://app.datadoghq.com/organization-settings/api-keys
 
