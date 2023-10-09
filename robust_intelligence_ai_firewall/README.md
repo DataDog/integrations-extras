@@ -22,11 +22,11 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Robust I
    datadog-agent integration install -t datadog-robust-intelligence-ai-firewall==1.0.0
    ```
 
-2. Configure your integration similar to core [integrations][3].
+2. Configure your integration similar to core [integrations][3]. Refer to the Configuration section below for steps specific to this integration.
 
 ### Configuration
 
-1. Edit the `robust_intelligence_ai_firewall.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Robust Intelligence AI Firewall performance data.
+1. Edit the `robust_intelligence_ai_firewall.d/conf.yaml` file in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Robust Intelligence AI Firewall performance data.
     ```yaml
     init_config:
 
@@ -36,11 +36,32 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Robust I
         ## internal metrics per loaded plugin in Prometheus
         ## format.
         #
-      - metrics_endpoint: http://localhost:8080/metrics
+      - openmetrics_endpoint: http://localhost:8080/metrics
     ```
    See the [sample robust_intelligence_ai_firewall.d/conf.yaml][4] file for all available configuration options.
+2. To configuring the integration for AI Firewall running in a containerized environment, add the following annotation to the pods.
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   # (...)
+   metadata:
+     name: '<POD_NAME>'
+     annotations:
+       ad.datadoghq.com/<CONTAINER_IDENTIFIER>.checks: |
+         {
+           "robust_intelligence_ai_firewall": {
+             "init_config": {},
+             "instances": [
+               {
+                 "openmetrics_endpoint": "http://%%host%%:8080/metrics"
+               }
+             ]
+           }
+         }
+       # (...)
+   ```
 
-2. [Restart the Agent][5].
+3. [Restart the Agent][5].
 
 ### Validation
 
