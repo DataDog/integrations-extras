@@ -6,8 +6,8 @@
       "id": 6225493483652460,
       "definition": {
         "type": "image",
-        "url": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/yugabytedb_managed/assets/logos/yugabytedb_managed_logo.svg",
-        "url_dark_theme": "https://raw.githubusercontent.com/DataDog/integrations-extras/master/yugabytedb_managed/assets/logos/yugabytedb_managed_logo_dark.svg",
+        "url": "https://cloud.yugabyte.com/logo-big.png",
+        "url_dark_theme": "",
         "sizing": "contain",
         "margin": "md",
         "has_background": false,
@@ -80,13 +80,13 @@
                     {
                       "name": "query1",
                       "data_source": "metrics",
-                      "query": "max:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {cluster-id,node_idx}",
-                      "aggregator": "last"
+                      "query": "max:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {host}",
+                      "aggregator": "sum"
                     }
                   ],
                   "formulas": [
                     {
-                      "formula": "clamp_min(default_zero(default_zero(count_not_null(query1))), 0)"
+                      "formula": "default_zero(count_not_null(query1))"
                     }
                   ]
                 }
@@ -121,7 +121,7 @@
                     {
                       "name": "query2",
                       "data_source": "metrics",
-                      "query": "sum:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {cluster-id,node_idx}.rollup(avg, 30)",
+                      "query": "sum:ybdb.up{$cluster-id,$node,$cloud,$region,$zone,$cluster-type} by {host}.rollup(avg, 30)",
                       "aggregator": "last"
                     }
                   ],
@@ -335,7 +335,7 @@
       "id": 2166788917909912,
       "definition": {
         "type": "note",
-        "content": "#### This dashboard enables monitoring of YugabyteDB Managed clusters on telemetry such as:\n- Infrastructure related metrics (CPU usage, memory usage, etc).\n- YSQL related metrics (ops/sec, latencies, etc).\n- YCQL related metrics (ops/sec, latencies, etc).\n- Tablet server (tserver) related metrics.\n- Master server (master) related metrics.",
+        "content": "#### This dashboard enables monitoring of YugabyteDB Managed clusters on telemetry such as:\n- Infrastructure related metrics (CPU usage, memory usage, etc)\n- YSQL related metrics (ops/sec, latencies, etc)\n- YCQL related metrics (ops/sec, latencies, etc)\n- Tablet server (tserver) related metrics\n- Master server (master) related metrics",
         "background_color": "white",
         "font_size": "14",
         "text_align": "left",
@@ -356,7 +356,7 @@
       "id": 837427857260520,
       "definition": {
         "type": "note",
-        "content": "#### Metrics displayed can be filtered on dimensions such as:\n- Cloud (azure, aws, gcp).\n- Region.\n- Zone.\n- Cluster ID.\n- Cluster type (primary or read_replica).\n- Node index.",
+        "content": "#### Metrics displayed can be filtered on dimensions such as:\n- Cloud (azure, aws, or gcp)\n- Region\n- Zone\n- Cluster ID\n- Cluster type (primary or read_replica)\n- Node index",
         "background_color": "white",
         "font_size": "14",
         "text_align": "left",
