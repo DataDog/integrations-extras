@@ -78,7 +78,7 @@ class RadarrCheck(AgentCheck):
             "movies.downloaded": 0,
             "movies.wanted": 0,
             "movies.missing": 0,
-            "movies.file_size": 0,
+            "movies.filesize_bytes": 0,
         }
 
     def _process_movies(self, movies, metrics):
@@ -96,7 +96,7 @@ class RadarrCheck(AgentCheck):
                 elif not movie.get("hasFile"):
                     metrics["movies.wanted"] += 1
 
-            metrics["movies.file_size"] += movie.get("sizeOnDisk", 0)
+            metrics["movies.filesize_bytes"] += movie.get("sizeOnDisk", 0)
 
     def _report_metrics(self, metrics):
         """Report metrics"""

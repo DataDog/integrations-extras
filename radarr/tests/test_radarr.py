@@ -10,8 +10,6 @@ def test_check(aggregator, instance):
 
     with pytest.raises(ConnectionError):
         check.check(instance)
-        aggregator.assert_all_metrics_covered()
-        aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
 def test_emits_critical_service_check_when_service_is_down(aggregator, instance):
@@ -61,7 +59,7 @@ def test_process_movies(aggregator, instance):
     assert metrics["movies.downloaded"] == 1
     assert metrics["movies.wanted"] == 1
     assert metrics["movies.missing"] == 1
-    assert metrics["movies.file_size"] == 64334621
+    assert metrics["movies.filesize_bytes"] == 64334621
 
 
 @pytest.mark.integration
@@ -85,3 +83,14 @@ def test_service_check(aggregator, instance):
     check.check(instance)
 
     aggregator.assert_service_check('radarr.can_connect', RadarrCheck.OK)
+
+    aggregator.assert_metric("radarr.movies.total")
+    aggregator.assert_metric("radarr.movies.monitored")
+    aggregator.assert_metric("radarr.movies.unmonitored")
+    aggregator.assert_metric("radarr.movies.downloaded")
+    aggregator.assert_metric("radarr.movies.wanted")
+    aggregator.assert_metric("radarr.movies.missing")
+    aggregator.assert_metric("radarr.movies.filesize_bytes")
+
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
