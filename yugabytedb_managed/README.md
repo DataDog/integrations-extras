@@ -12,7 +12,7 @@
 ## Setup
 <div class="alert alert-warning">This feature is not available for <a href="https://docs.yugabyte.com/preview/yugabyte-cloud/cloud-basics/create-clusters/create-clusters-free/">Sandbox Clusters</a>.</div>
 
-For more information on setup, see the [YugabyteDB documentation][3]
+For more information on setup, see the [YugabyteDB documentation][3].
 
 ### Installation
 
