@@ -4,7 +4,8 @@
 
 This check monitors [MariaDB SkySQL][1]. SkySQL is a multi-cloud database-as-a-service offering from MariaDB Plc.
 
-Integration with Datadog allows full monitoring of all your MariaDB SkySQL server deployments: Enterprise Server (Single and Replicated), Xpand, Columnstore, as well as MaxScale. Database administrators can track system resource metrics, such as memory, CPU, disk, and network utilization in addition to database specific telemetry such as query performance, connections, threads, cluster, replication status, and many others.
+The MariaDB SkySQL integration allows full monitoring of all your MariaDB SkySQL server deployments: Enterprise Server (Single and Replicated), Xpand, Columnstore, as well as MaxScale. Database administrators can track system resource metrics, such as memory, CPU, disk, and network utilization in addition to database specific telemetry such as query performance, connections, threads, cluster, replication status, and many others.
+
 
 
 ## Setup
@@ -12,7 +13,6 @@ Integration with Datadog allows full monitoring of all your MariaDB SkySQL serve
 ### Installation
 
 To install the MariaDB SkySQL check on your host:
-
 
 1. Install the [developer toolkit][10] on any machine.
 
