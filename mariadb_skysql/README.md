@@ -38,15 +38,15 @@ To install the MariaDB SkySQL check on your host:
 
 ### Metrics
 
-See [metadata.csv][7] for a list of metrics provided by MariaDB SkySQL.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-See [service_checks.json][8] for a list of service checks provided by MariaDB SkySQL.
+See [service_checks.json][8] for a list of service checks provided by this integration.
 
 ### Events
 
-MariaDB SkySQL does not include any events.
+The MariaDB SkySQL check does not include any events.
 
 ## Troubleshooting
 
