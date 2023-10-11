@@ -21,7 +21,7 @@ These logs will allow customers to readily know who accessed what repositories a
 
 ### Installation
 
-Contact [JFrog Partners team](mailto:partner-support@jfrog.com) to enable the integration for your cloud instance. Be ready to provide your [Datadog API key][3].
+Contact [JFrog Partners team](mailto:partner-support@jfrog.com) to enable the integration for your cloud instance. Be ready to provide your [Datadog API key][2].
 
 ## Support
 
