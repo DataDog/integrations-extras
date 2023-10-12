@@ -26,13 +26,13 @@ The Invary integration allows you to forward details about your endpoint and app
 ### Validation
 
 1. Review the "Invary Runtime Integrity" dashboard for timely and expected appraisal information.
-2. Query your logs with the 'source:invary' base query.
+2. Query your logs with the `source:invary` base query.
 
 ## Data Collected
 
 ### Logs
 
-Invary forwards your Runtime Integrity appraisal results with the 'source:invary' tag. 
+Invary forwards your Runtime Integrity appraisal results with the `source:invary` tag. 
 
 ## Troubleshooting
 
