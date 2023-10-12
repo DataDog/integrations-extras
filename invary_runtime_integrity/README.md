@@ -1,18 +1,14 @@
 # Invary Runtime Integrity
 
-Visualize the Runtime Integrity of your Invary managed operating systems.
-
 ## Overview
 
-Invary validates the Runtime Integrity of operating systems and detects rootkits that can deceive other systems. This integration comes with an out-of-the-box dashboard that visualizes your Runtime Integrity, providing confidence in your runtime security or spotlighting endpoints that lack integrity and may be compromised. The Invary dashboard also provides insights into your operating system inventory at runtime, including distributions and kernel versions in use. 
+Visualize the Runtime Integrity of your Invary managed operating systems.
 
+Invary validates the Runtime Integrity of operating systems and detects rootkits that can deceive other systems. This integration comes with an out-of-the-box dashboard that visualizes your Runtime Integrity, providing confidence in your runtime security or spotlighting endpoints that lack integrity and may be compromised. The Invary dashboard also provides insights into your operating system inventory at runtime, including distributions and kernel versions in use. 
 
 This integration uses the [Invary API][1].
 
 ## Setup
-
-- Once this integration has been uninstalled, any previous authorizations are revoked. 
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][3].
 
 ### Installation
 
@@ -28,11 +24,25 @@ The Invary integration allows you to forward details about your endpoint and app
 1. Review the "Invary Runtime Integrity" dashboard for timely and expected appraisal information.
 2. Query your logs with the `source:invary` base query.
 
+### Uninstallation
+
+- Once this integration has been uninstalled, any previous authorizations are revoked. 
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][3].
+
 ## Data Collected
 
 ### Logs
 
 Invary forwards your Runtime Integrity appraisal results with the `source:invary` tag. 
+
+### Metrics
+The Invary Runtime Integrity integration does not include any metrics.
+
+### Service Checks
+The Invary Runtime Integrity integration does not include any service checks.
+
+### Events
+The Invary Runtime Integrity integration does not include any events.
 
 ## Troubleshooting
 
