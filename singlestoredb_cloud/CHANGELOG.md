@@ -4,4 +4,4 @@
 * [Added] Initial Release
 
 ## 1.0.1 / 2023-10-16
-* [Added] Updated dashboard for better experience
+* [Changed] Updated dashboard for better experience
