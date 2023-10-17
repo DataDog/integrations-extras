@@ -6,7 +6,7 @@ The [Robust Intelligence AI Firewall][1] is a protective layer for AI models.
 
 The AI Firewall inspects incoming user prompts to block malicious payloads, including any that attempt prompt injection, prompt extraction, or PII detection. The AI Firewall scans LLM model output to ensure it's free of false information, sensitive data, and harmful content. Responses that fall outside your organization’s standards are blocked from the application.
 
-This integration monitors the AI Firewall results through the Datadog Agent. It provides users with observability of their AI security issues. This includes metrics for allowed data points and blocked data points, as well as why each data point was blocked.
+This integration monitors the AI Firewall results through the Datadog Agent. It provides users with observability of their AI security issues including metrics for allowed data points, blocked data points, and insight on why each data point was blocked.
 
 ## Setup
 
