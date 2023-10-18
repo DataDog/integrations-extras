@@ -89,7 +89,7 @@ See [metadata.csv][13] for a list of metrics provided by this integration.
 
 ### Events
 
-All Signal Sciences events are sent to your [Datadog Event Stream][9]
+Events are created and sent to your [Datadog Event Stream][9] when an IP address is flagged in Signal Sciences.
 
 ### Service Checks
 

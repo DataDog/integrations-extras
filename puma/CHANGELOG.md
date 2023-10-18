@@ -1,5 +1,11 @@
 # CHANGELOG - puma
 
+## 1.2.1 / 2023-10-05
+
+***Fixed***:
+
+* Update conf.yaml to reflect http prefix ([#1887](https://github.com/DataDog/integrations-extras/pull/1887))
+
 ## 1.2.0 / 2022-02-16
 
 ***Added***:
