@@ -53,7 +53,7 @@ metadata:
   namespace: monitoring
 ```
 
-``` 
+```
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -84,71 +84,171 @@ roleRef:
   name: apiserver-cluster-role
 ```
 
+The Upbound UXP integration is not included in the [Datadog Agent][2] package, so you need to install it manually.
+
 ### Installation
 
-To install the Upbound UXP check on your host:
+For Agent v7.21+ / v6.21+, follow the instructions below to install the check on your host. 
 
+1. Using the Dockerfile example in [Use Community Integrations][3], build a custom image of the Agent that includes the Upbound integration.
 
-1. Install the [developer toolkit][11] on any machine.
+2. Run the following command to install the Agent integration:
 
-2. Run `ddev release build upbound_uxp` to build the package.
-
-3. Upload the build artifact to any host with an Agent and run
-```
-datadog-agent integration install
-  -w path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl
-```
-
-OR
-
-Copy the build artifact to an agent container
-that may be running in Kubernetes with the following command.
-```
-kubectl -n <MONITORING_NAMESPACE>
-  cp path/to/upbound_uxp/dist/<ARTIFACT_NAME>.whl
-     <DATADOG_CONTAINER_NAME>:<PATH_TO_DIST_IN_CONTAINER>
-```
-
-4. Install it with
-```
-kubectl -n <MONITORING_NAMESPACE> exec
-  -it <DATADOG_CONTAINER_NAME>
-  -- agent integration install -w -r
-     <PATH_TO_DIST_IN_CONTAINER>/<ARTIFACT_NAME>.whl`
-```
+   ``` bash
+   datadog-agent integration install -t datadog-upbound-uxp==1.0.0
+   ```
 
 ### Configuration
 
-1. Edit the `upbound_uxp/conf.yaml` file, in the `conf.d` folder
-at the root of your Agent's configuration directory to start
-collecting your upbound_uxp performance data. See the
-[sample upbound_uxp/conf.yaml][4]
-for available configuration options.
+1. Edit the `upbound_uxp.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your Upbound UXP performance data.
 
-2. Restart the Agent.
+See example configuration parameters below.
+```
+## Options defined here are available for Upbound UXP integrated instances.
+#
+init_config:
+
+    ## @param service - string - optional
+    ## Attach the tag `service:<SERVICE>` to every metric, event,
+    ## and service check emitted by this integration.
+    ##
+    ## Additionally, this sets the default `service` for every log source.
+    #
+    # service: <SERVICE>
+
+## Every instance is scheduled independently of the others.
+#
+instances:
+
+    ## @param min_collection_interval - number - optional - default: 15
+    ## This changes the collection interval of the check. For more information, see:
+    ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
+    #
+    #
+    # min_collection_interval: 15
+
+    ## @param uxp_url - string - optional - default: "/metrics"
+    ## This changes at which path metrics are scraped.
+    #
+    # uxp_url: "/metrics"
+
+    ## @param uxp_port - string - optional - default: "8080"
+    ## This changes at which port metrics are scraped.
+    #
+    # uxp_port: "8080"
+
+    ## @param uxp_hosts - array of strings - optional - default: []
+    ## Specifies hosts from which to collect metrics.
+    ## Note, the Datadog Agent discovers Crossplane
+    ## and provider pods automatically. A usecase is for
+    ## out of cluster agent tests.
+    #
+    # uxp_hosts: [
+    #   "localhost"
+    # ]
+
+    ## @param verbose - boolean - optional - default: false
+    ## The agent provides additonal logging output when
+    ## verbose is selected.
+    #
+    # verbose: false
+
+    ## @param namespace - string - optional - default: upbound-system
+    ## The namespace where the Crossplane and Provider pods reside.
+    #
+    # namespace: "upbound-system"
+
+    ## @params metrics_default - string - optional - default: min
+    ## Easy selection of metrics default set. Values can be
+    ##  none # indicates no default metrics and implies that custom
+    ##       # selection will be provided in "metrics" field.
+    ##  min  # indicates opinionated min set
+    ##  more # indicates min set plus additional metrics
+    ##  max  # indicates all metrics that the Crossplane pod and providers
+    ##       # emit will be collected and forwarded to the Datadog
+    ##       # organization identified by the Datadog API key specified during
+    ##       # agent installation.
+    #
+    # metrics_default: "min"
+
+    ## @params metrics_ignore_pod_annotations - boolean - optional - default: true
+    ## By default the agent determines which metrics to scrape based
+    ## on this configuration file. When metrics_ignore_pod_annotations is set
+    ## to false, then the agent will also apply pod annotations.
+    #
+    # metrics_ignore_pod_annotations: true
+
+    ## @params prefix - string - optional - default: ""
+    ## Prefix that will be inserted between uxp. and (mapped)
+    ## metrics name.
+    #
+    # metrics_prefix: ""
+
+    ## @params metrics - array of strings - optional - default: []
+    ## Specification of individually picked metrics.
+    ## For a full list of metrics set metrics_default to "max" and
+    ## look at your Datadog metrics explorer in the Datadog console.
+    #
+    # metrics: [
+    #   {"go_goroutines": "company_prefix_go_goroutines"},
+    #   # only one value needed when name mapping is not needed
+    #   {"go_memstats_heap_alloc_bytes"},
+    # ]
+```
+See [conf.yaml.example][4] for a generic configuration example.
+
+2. [Restart the Agent][5].
+
+3. Pod Annotations
+You may annotate your Crossplane and Provider pods directly with
+a subset of the metrics you wish to collect from them.
+
+A sample annotation may look as follows:
+```
+customAnnotations:
+  # Picked up by Universal Crossplane Datadog Integration
+  # Pattern to match: ad.datadoghq.com/uxp.<pod-name without pod hash>.instances
+  ad.datadoghq.com/uxp.crossplane.instances: |
+    [
+      {
+        "metrics": [
+          {"controller_runtime_active_workers": "crossplane_controller_runtime_active_workers"},
+          {"controller_runtime_reconcile_errors": "controller_runtime_reconcile_errors_total"},
+          {"controller_runtime_reconcile": "controller_runtime_reconcile_total"},
+          {"go_gc_duration_seconds": "crossplane_go_gc_duration_seconds"},
+          {"go_goroutines": "crossplane_go_goroutines"}
+          {"go_memstats_mcache_inuse_bytes": "crossplane_go_memstats_mcache_inuse_bytes"},
+          {"go_memstats_mcache_sys_bytes": "crossplane_go_memstats_mcache_sys_bytes"},
+          {"go_memstats_mspan_inuse_bytes": "crossplane_go_memstats_mspan_inuse_bytes"},
+          {"go_memstats_mspan_sys_bytes": "crossplane_go_memstats_mspan_sys_bytes"},
+          {"go_memstats_next_gc_bytes": "crossplane_go_memstats_next_gc_bytes"},
+          {"go_memstats_other_sys_bytes": "crossplane_go_memstats_other_sys_bytes"},
+          {"go_memstats_stack_inuse_bytes": "crossplane_go_memstats_stack_inuse_bytes"},
+          {"go_memstats_stack_sys_bytes": "crossplane_go_memstats_stack_sys_bytes"},
+          {"go_memstats_sys_bytes": "crossplane_go_memstats_sys_bytes"},
+          {"go_threads": "crossplane_go_threads"},
+          {"leader_election_master_status": "crossplane_leader_election_master_status"},
+          {"process_cpu_seconds": "crossplane_process_cpu_seconds_total"},
+          {"process_max_fds": "crossplane_process_max_fds"},
+          {"process_open_fds": "crossplane_process_open_fds"},
+          {"process_resident_memory_bytes": "crossplane_process_resident_memory_bytes"},
+          {"process_start_time_seconds": "crossplane_process_start_time_seconds"},
+          {"process_virtual_memory_bytes": "crossplane_process_virtual_memory_bytes"},
+          {"process_virtual_memory_max_bytes": "crossplane_process_virtual_memory_max_bytes"},
+          {"rest_client_requests": "crossplane_rest_client_requests_total"},
+          {"workqueue_adds": "crossplane_workqueue_adds_total"},
+          {"workqueue_depth": "crossplane_workqueue_depth"},
+          {"workqueue_retries": "crossplane_workqueue_retries_total"},
+          {"workqueue_unfinished_work_seconds": "crossplane_workqueue_unfinished_work_seconds"},
+          {"workqueue_work_duration_seconds": "crossplane_workqueue_work_duration_seconds_bucket"}
+        ]
+      }
+    ]
+```
 
 ### Validation
 
-Run the `agent status` subcommand and look for `upbound_uxp`
-under the Checks section. Sample output may look like below:
-```
-    upbound_uxp (0.0.1)
-    -------------------
-      Instance ID: upbound_uxp:9ca7c5002ecb33af [OK]
-      Configuration Source: file:/etc/datadog-agent/conf.d/upbound_uxp.d/auto_conf.yaml
-      Total Runs: 201
-      Metric Samples: Last Run: 210, Total: 41,792
-      Events: Last Run: 0, Total: 0
-      Service Checks: Last Run: 1, Total: 201
-      Average Execution Time : 41ms
-      Last Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
-      Last Successful Execution Date : 2023-07-27 15:30:53 UTC (1690471853000)
-```
-
-Run tests as follows:
-```
-DDEV_SKIP_GENERIC_TAGS_CHECK=True ddev test upbound_uxp
-```
+[Run the Agent's status subcommand][6] and look for `upbound_uxp` under the Checks section.
 
 ## Data Collected
 
@@ -168,9 +268,9 @@ Upbound UXP does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://app.datadoghq.com/integrations/upbound-uxp
 [2]: https://app.datadoghq.com/account/settings#agent
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
 [4]: https://github.com/DataDog/integrations-extras/blob/master/upbound_uxp/datadog_checks/upbound_uxp/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
