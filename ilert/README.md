@@ -72,7 +72,7 @@ Integrate with ilert to:
 
 ### Metrics
 
-To export metrics from Datadog and display them on your ilert status page, follow the instructions in the [ilert documentation][9].
+The ilert integration does not include any metrics.
 
 ### Events
 
