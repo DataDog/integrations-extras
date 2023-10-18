@@ -7,7 +7,6 @@ Integrate with ilert to:
 - Trigger and resolve incidents from Datadog
 - Tackle incidents and set up escalation policies as they occur
 - Set up a daily reminder of who is on-call
-- Export metrics from Datadog to ilert to provide information about the health of your services on ilert status pages
 
 ## Setup
 
