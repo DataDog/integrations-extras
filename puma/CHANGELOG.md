@@ -1,8 +1,10 @@
 # CHANGELOG - puma
 
-## 1.3.0 / 2023-06-15
+## 1.2.1 / 2023-10-05
 
-* [Fixed] Update conf.yaml to refect http prefix. See [#1887](https://github.com/DataDog/integrations-extras/pull/1887).
+***Fixed***:
+
+* Update conf.yaml to refect http prefix ([#1887](https://github.com/DataDog/integrations-extras/pull/1887))
 
 ## 1.2.0 / 2022-02-16
 
