@@ -4,7 +4,7 @@
 
 ***Fixed***:
 
-* Update conf.yaml to refect http prefix ([#1887](https://github.com/DataDog/integrations-extras/pull/1887))
+* Update conf.yaml to reflect http prefix ([#1887](https://github.com/DataDog/integrations-extras/pull/1887))
 
 ## 1.2.0 / 2022-02-16
 
