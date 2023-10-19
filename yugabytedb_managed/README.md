@@ -30,7 +30,7 @@ To enable the YugabyteDB Managed integration with Datadog:
 3. Select the desired configuration from the **Export Configuration** dropdown menu.
 4. Wait for the **Export Status** to show `Active`.
 
-**Note**: Your cluster cannot associate a configuration when paused or when another operation in progress.
+**Note**: Your cluster cannot associate a configuration when paused or when another operation is in progress.
 
 For more information on setup, see the [YugabyteDB documentation][4].
 
@@ -42,7 +42,7 @@ To disable metrics being exported to Datadog:
 3. Open the dropdown for your cluster under the **Export Configuration** dropdown and select `None`.
 4. Wait for the **Export Status** to show `-`.
 
-**Note**: Your cluster cannot associate a configuration when paused or when another operation in progress.
+**Note**: Your cluster cannot associate a configuration when paused or when another operation is in progress.
 
 ## Data Collected
 
