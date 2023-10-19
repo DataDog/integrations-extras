@@ -1,0 +1,22 @@
+name: Radarr
+files:
+- name: radarr.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: url
+      required: true
+      description: URL/IP address of your Radarr instance
+      value:
+        example: http://localhost:7878
+        type: string
+    - name: api_key
+      required: true
+      description: API key of your Radarr instance
+      value:
+        example: CHANGEME
+        type: string
+    - template: instances/default
