@@ -15,7 +15,7 @@ At the initial release this integration will stream the following artifactory lo
 - **artifactory-request.log**
 - **access-security-audit.log**
 
-These logs will allow customers to readily know who accessed what repositories and how often. The logs will also show what IP addresses accessed those repositories. The logs are critical for customers from a security and compliance perspective. In future updates to this integration JFrog will be adding many more log types like traffic.log, artifactory-access.log and more request logs.
+These logs will allow customers to readily know who accessed what repositories and how often. The logs will also show what IP addresses accessed those repositories. Log types such as traffic.log, artifactory-access.log and more request logs will be added to this integration in future updates.
 
 ## Setup
 
