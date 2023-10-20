@@ -15,7 +15,7 @@ This integration streams two log types from Tailscale:
 
 [Configuration Audit Logs][4]:
 
-Configuration audit logs let you identify who did what and when in your tailnet. These logs record actions that modify a tailnet’s configuration, including the type of action, the actor, the target resource, and the time.
+Configuration audit logs let you identify who did what and when in your tailnet. These logs record actions that modify a tailnet's configuration, including the type of action, the actor, the target resource, and the time.
 
 [Network Flow logs][5]:
 
