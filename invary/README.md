@@ -1,4 +1,4 @@
-# Invary Runtime Integrity
+# Invary
 
 ## Overview
 
