@@ -16,7 +16,7 @@ This integration streams two log types from Tailscale:
 [Configuration Audit Logs][4]:
 
 Configuration audit logs let you identify who did what and when in your tailnet. These logs record actions that modify a tailnet’s configuration, including the type of action, the actor, the target resource, and the time.
- 
+
 [Network Flow logs][5]:
 
 Network flow logs tell you which nodes connected to which other nodes and when on your Tailscale network. You can export network logs for long-term storage, security analysis, threat detection, or incident investigation.
