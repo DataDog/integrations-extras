@@ -2,7 +2,7 @@
 
 ## Overview
 
-Tailscale (https://tailscale.com/) is a peer-to-peer VPN service that simplifies and secures network connectivity.
+[Tailscale][1] is a peer-to-peer VPN service that simplifies and secures network connectivity.
 
 With this integration, you can:
 
@@ -13,15 +13,15 @@ With this integration, you can:
 
 This integration streams two log types from Tailscale:
 
-[Configuration Audit Logs](https://tailscale.com/kb/1203/audit-logging/):
+[Configuration Audit Logs][4]:
 
-These logs let you identify who did what, and when, in your tailnet. Configuration audit logs record actions that modify a tailnet’s configuration, including the type of action, the actor, the target resource, and the time.
+Configuration audit logs let you identify who did what and when in your tailnet. These logs record actions that modify a tailnet’s configuration, including the type of action, the actor, the target resource, and the time.
  
-[Network Flow logs](https://tailscale.com/kb/1219/network-flow-logs/):
+[Network Flow logs][5]:
 
-These logs let you understand which nodes connected to which other nodes, and when, on your Tailscale network. You can export network logs for long-term storage and/or for security analysis, threat detection, and incident investigation.
+Network flow logs tell you which nodes connected to which other nodes and when on your Tailscale network. You can export network logs for long-term storage, security analysis, threat detection, or incident investigation.
 
-After parsing your Tailscale logs, Datadog then populates the out-of-the-box Tailscale overview dashboard with insights into security-related events from your Physical and Virtual Traffic.
+After parsing your Tailscale logs, Datadog then populates the out-of-the-box Tailscale overview dashboard with insights into security-related events from your physical and virtual traffic.
 
 ## Setup
 
@@ -36,11 +36,9 @@ To enable log streaming:
 
 1. Login to your Tailscale admin console
 2. Navigate to the Logs tab
-3. Select the "Start streaming..." button
-From the menu, select Datadog and add a URL + token or API key (https://docs.datadoghq.com/account_management/api-app-keys/)
-4. Select the "Start streaming" button
-
-<Steps to validate integration is functioning as expected>
+3. Select the **Start streaming** button
+From the menu, select Datadog and add a URL + token or [API key][6]
+4. Select the **Start streaming** button
 
 ## Data Collected
 
@@ -60,7 +58,10 @@ Tailscale does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://tailscale.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
+[4]: https://tailscale.com/kb/1203/audit-logging/
+[5]: https://tailscale.com/kb/1219/network-flow-logs/
+[6]: https://docs.datadoghq.com/account_management/api-app-keys/
 
