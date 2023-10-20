@@ -263,6 +263,10 @@ coverage:
         target: 75
         flags:
         - hikaricp
+      mariadb-skysql:
+        target: 75
+        flags:
+        - mariadb_skysql
       nvml:
         target: 75
         flags:
@@ -414,6 +418,11 @@ flags:
     paths:
     - logstash/datadog_checks/logstash
     - logstash/tests
+  mariadb_skysql:
+    carryforward: true
+    paths:
+    - mariadb_skysql/datadog_checks/mariadb_skysql
+    - mariadb_skysql/tests
   mergify:
     carryforward: true
     paths:
