@@ -2,7 +2,26 @@
 
 ## Overview
 
-This check monitors [Tailscale][1].
+Tailscale (https://tailscale.com/) is a peer-to-peer VPN service that simplifies and secures network connectivity.
+
+With this integration, you can:
+
+1. Control your Tailscale data retention.
+2. Build custom widgets and dashboards.
+3. Setup your own or leverage out of the box detection rules
+4. Cross-reference Tailscale events with the data from other services in your stack.
+
+This integration streams two log types from Tailscale:
+
+[Configuration Audit Logs](https://tailscale.com/kb/1203/audit-logging/):
+
+These logs let you identify who did what, and when, in your tailnet. Configuration audit logs record actions that modify a tailnet’s configuration, including the type of action, the actor, the target resource, and the time.
+ 
+[Network Flow logs](https://tailscale.com/kb/1219/network-flow-logs/):
+
+These logs let you understand which nodes connected to which other nodes, and when, on your Tailscale network. You can export network logs for long-term storage and/or for security analysis, threat detection, and incident investigation.
+
+After parsing your Tailscale logs, Datadog then populates the out-of-the-box Tailscale overview dashboard with insights into security-related events from your Physical and Virtual Traffic.
 
 ## Setup
 
@@ -13,9 +32,13 @@ No additional installation is needed on your server.
 
 ### Configuration
 
-1. <List of steps to setup this Integration>
+To enable log streaming:
 
-### Validation
+1. Login to your Tailscale admin console
+2. Navigate to the Logs tab
+3. Select the "Start streaming..." button
+From the menu, select Datadog and add a URL + token or API key (https://docs.datadoghq.com/account_management/api-app-keys/)
+4. Select the "Start streaming" button
 
 <Steps to validate integration is functioning as expected>
 
