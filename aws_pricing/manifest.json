@@ -8,7 +8,7 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Collect AWS Pricing information for services by rate code.",
+    "description": "Collect AWS Pricing information for services.",
     "title": "AWS Pricing",
     "media": [],
     "classifier_tags": [
@@ -21,22 +21,24 @@
     ]
   },
   "author": {
-    "support_email": "tsein@brightcove.com",
+    "support_email": "dyoung@pagerduty.com",
     "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "tsein@brightcove.com",
+    "sales_email": "dyoung@pagerduty.com",
     "name": "Community"
   },
   "oauth": {},
   "assets": {
     "integration": {
       "source_type_name": "AWS Pricing",
-      "configuration": {},
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
       "events": {
         "creates_events": false
       },
       "metrics": {
         "prefix": "aws.pricing.",
-        "check": "aws.pricing.amazonecs",
+        "check": "aws.pricing.amazonec2",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {

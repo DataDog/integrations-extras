@@ -1,0 +1,25 @@
+name: AWS Pricing
+files:
+- name: aws_pricing.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - name: region_name
+      required: false
+      description: The AWS region to query for pricing data. 
+      default: us-east-1
+      value:
+        type: string
+        example: us-east-1
+    - name: services
+      required: false
+      description: A list of service codes to query for price lists.
+      default: []
+    - name: filters
+      required: false
+      description: A list of filters to apply to the price list query.
+      default: []
+    - template: instances/default

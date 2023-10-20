@@ -1,7 +1,6 @@
 [build-system]
 requires = [
-    "hatchling>=0.12.0",
-    "setuptools; python_version < '3.0'",
+    "hatchling>=0.13.0",
 ]
 build-backend = "hatchling.build"
 
@@ -10,6 +9,7 @@ name = "datadog-aws-pricing"
 description = "The AWS Pricing check"
 readme = "README.md"
 license = "BSD-3-Clause"
+requires-python = ">=3.9"
 keywords = [
     "datadog",
     "datadog agent",
@@ -18,28 +18,27 @@ keywords = [
 ]
 authors = [
     { email = "tsein@brightcove.com" },
+    { name = "Devin Young", email = "dyoung@pagerduty.com" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: BSD License",
-    "Programming Language :: Python :: 2.7",
-    "Programming Language :: Python :: 3.8",
-    "Topic :: System :: Monitoring",
     "Private :: Do Not Upload",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: System :: Monitoring",
 ]
 dependencies = [
-    "datadog-checks-base>=4.2.0",
+    "boto3>=1.28.0",
+    "datadog-checks-base>=32.6.0",
 ]
 dynamic = [
     "version",
 ]
 
 [project.optional-dependencies]
-deps = [
-    "boto3",
-]
+deps = []
 
 [project.urls]
 Source = "https://github.com/DataDog/integrations-extras"

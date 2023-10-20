@@ -1,114 +1,51 @@
 import pytest
-from mock import Mock, patch
+from botocore.exceptions import ClientError
 
 from datadog_checks.aws_pricing import AwsPricingCheck
-from datadog_checks.base.errors import CheckException
+from datadog_checks.dev.utils import get_metadata_metrics
 
 
-def test_check_ok(aggregator, pricing_client_stubber):
-    # Mock client responses
-    pricing_client_stubber.stub_describe_services_response(['AmazonEC2'])
-    pricing_client_stubber.stub_get_products_response(
-        [
-            {
-                'service_code': 'AmazonEC2',
-                'term_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4',
-                'rate_code': 'YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7',
-                'unit': 'Hrs',
-                'price': '123',
-            }
-        ]
+@pytest.mark.unit
+def test_check_no_filters(aggregator, instance_good, mock_client):
+    check = AwsPricingCheck("aws_pricing", {}, [instance_good])
+
+    caller, _ = mock_client
+    caller.assert_called_once_with("pricing", region_name="us-east-1")
+
+    check.check(None)
+    aggregator.assert_service_check("aws.pricing.status", AwsPricingCheck.OK)
+
+    # Should send 2 metrics with no filters
+    aggregator.assert_metric("aws.pricing.amazonec2", 5655.0, count=2)
+
+    aggregator.assert_all_metrics_covered()
+    aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+
+
+@pytest.mark.unit
+def test_no_services_warning(aggregator, instance_no_services, mock_client):
+    check = AwsPricingCheck("aws_pricing", {}, [instance_no_services])
+
+    caller, _ = mock_client
+    caller.assert_called_once_with("pricing", region_name="us-east-1")
+
+    check.check(None)
+    aggregator.assert_service_check("aws.pricing.status", AwsPricingCheck.WARNING)
+
+    # Should send 0 metrics with no services
+    aggregator.assert_metric("aws.pricing.amazonec2", count=0)
+
+
+@pytest.mark.unit
+def test_client_error(aggregator, instance_good, mock_client):
+    check = AwsPricingCheck("aws_pricing", {}, [instance_good])
+
+    caller, client = mock_client
+    caller.assert_called_once_with("pricing", region_name="us-east-1")
+
+    client.get_products.side_effect = ClientError(
+        {"Error": {"Code": "AccessDenied", "Message": "Access Denied"}}, "get_products"
     )
 
-    # Mock instance configuration
-    instance = {'region_name': 'us-east-1', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
-
-    # Run check
-    with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        check = AwsPricingCheck('aws_pricing', {})
-        check.check(instance)
-
-    # Validate results
-    aggregator.assert_metric('aws.pricing.amazonec2', 123)
-    aggregator.assert_all_metrics_covered()
-
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.OK)
-    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
-
-
-def test_check_warning(aggregator, pricing_client_stubber):
-    # Mock client responses
-    pricing_client_stubber.stub_describe_services_response(['AmazonEC2'])
-    pricing_client_stubber.stub_get_products_response([])
-
-    # Mock instance configuration
-    instance = {'region_name': 'us-east-1', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
-
-    # Run check
-    with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        check = AwsPricingCheck('aws_pricing', {})
-        check.check(instance)
-
-    # Validate results
-    missing_rate_codes = {'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
-    message = 'Pricing data not found for these service rate codes: {}'.format(missing_rate_codes)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.WARNING, message=message)
-    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
-
-
-def test_check_checkexception(aggregator, pricing_client_stubber):
-    # Mock client responses
-    pricing_client_stubber.stub_describe_services_response(['AmazonEC2'])
-
-    # Run check and validate exception
-    with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        check = AwsPricingCheck('aws_pricing', {})
-        with pytest.raises(CheckException):
-            check.check({})
-
-    # Validate results
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL)
-    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
-
-
-def test_check_describe_services_clienterror(aggregator, pricing_client_stubber):
-    # Mock client responses
-    code = 'TEST_DESCRIBE_SERVICES_ERROR_CODE'
-    message = 'TEST_DESCRIBE_SERVICES_ERROR_MESSAGE'
-    pricing_client_stubber.stub_describe_services_error(code, message)
-
-    # Mock instance configuration
-    instance = {'region_name': 'us-east-1', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
-
-    # Run check
-    with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        with pytest.raises(CheckException):
-            check = AwsPricingCheck('aws_pricing', {})
-            check.check(instance)
-
-    # Validate results
-    message = 'An error occurred ({}) when calling the DescribeServices operation: {}'.format(code, message)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=message)
-    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
-
-
-def test_check_get_products_clienterror(aggregator, pricing_client_stubber):
-    # Mock client responses
-    pricing_client_stubber.stub_describe_services_response(['AmazonEC2'])
-    code = 'TEST_GET_PRODUCTS_ERROR_CODE'
-    message = 'TEST_GET_PRODUCTS_ERROR_MESSAGE'
-    pricing_client_stubber.stub_get_products_error(code, message)
-
-    # Mock instance configuration
-    instance = {'region_name': 'us-east-1', 'AmazonEC2': ['YQHNG5NBWUE3D67S.4NA7Y494T4.6YS6EN2CT7']}
-
-    # Run check
-    with pricing_client_stubber, patch('boto3.client', Mock(return_value=pricing_client_stubber.get_client())):
-        with pytest.raises(CheckException):
-            check = AwsPricingCheck('aws_pricing', {})
-            check.check(instance)
-
-    # Validate results
-    message = 'An error occurred ({}) when calling the GetProducts operation: {}'.format(code, message)
-    aggregator.assert_service_check('aws_pricing.status', AwsPricingCheck.CRITICAL, message=message)
-    assert len(aggregator.service_checks('aws_pricing.status')) == 1, 'Too many service checks were emitted'
+    check.check(None)
+    aggregator.assert_service_check("aws.pricing.status", AwsPricingCheck.CRITICAL)

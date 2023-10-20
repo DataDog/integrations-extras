@@ -1,18 +1,32 @@
-import boto3
+import json
+import os
+
+import mock
 import pytest
 
-from tests.pricing_client_stubber import PricingClientStubber
+from datadog_checks.dev import get_here
+from datadog_checks.dev.utils import read_file
 
 
-@pytest.fixture()
-def pricing_client():
-    pricing_client = boto3.client('pricing', region_name='us-east-1')
+@pytest.fixture
+def mock_client():
+    client = mock.MagicMock()
+    client.get_products = mock.MagicMock()
+    client.get_products.side_effect = lambda *args, **kwargs: json.loads(
+        read_file(os.path.join(get_here(), "fixtures", "get_products.json"))
+    )
 
-    return pricing_client
+    with mock.patch("boto3.client", return_value=client) as m:
+        yield m, client
 
 
-@pytest.fixture()
-def pricing_client_stubber(pricing_client):
-    pricing_client_stubber = PricingClientStubber(pricing_client)
+@pytest.fixture
+def instance_good():
+    instance = {"region_name": "us-east-1", "services": ["AmazonEC2"], "filters": []}
+    return instance
 
-    return pricing_client_stubber
+
+@pytest.fixture
+def instance_no_services():
+    instance = {"region_name": "us-east-1", "services": [], "filters": []}
+    return instance

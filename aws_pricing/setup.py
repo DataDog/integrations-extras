@@ -45,15 +45,15 @@ CHECKS_BASE_REQ = parse_pyproject_array('dependencies')[0]
 setup(
     name='datadog-aws_pricing',
     version=ABOUT['__version__'],
-    description='The Aws_pricing check',
+    description='The AWS Pricing check',
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='datadog agent aws_pricing check',
     # The project's main homepage.
     url='https://github.com/DataDog/integrations-extras',
     # Author details
-    author='Travis Sein',
-    author_email='tsein@brightcove.com',
+    author='Devin Young',
+    author_email='dyoung@pagerduty.com',
     # License
     license='BSD-3-Clause',
     # See https://pypi.org/classifiers
@@ -64,13 +64,12 @@ setup(
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.9',
     ],
     # The package we're going to ship
     packages=['datadog_checks.aws_pricing'],
     # Run-time dependencies
-    install_requires=[CHECKS_BASE_REQ, 'boto3'],
+    install_requires=[CHECKS_BASE_REQ],
     extras_require={'deps': parse_pyproject_array('deps')},
     # Extra files to ship with the wheel package
     include_package_data=True,
