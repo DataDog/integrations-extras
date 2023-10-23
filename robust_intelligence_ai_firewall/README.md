@@ -39,7 +39,8 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Robust I
       - openmetrics_endpoint: http://localhost:8080/metrics
     ```
    See the [sample robust_intelligence_ai_firewall.d/conf.yaml][4] file for all available configuration options.
-2. To configuring the integration for AI Firewall running in a containerized environment, add the following annotation to the pods.
+
+2. To configure the integration for AI Firewall running in a containerized environment, add the following annotation to pods:
    ```yaml
    apiVersion: v1
    kind: Pod
