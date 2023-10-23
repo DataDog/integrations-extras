@@ -18,7 +18,7 @@ Upstash utilizes the Redis and Kafka APIs, and is designed for:
 
 ### Installation
 
-Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integrations page][1] and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Upstash access to your database metrics.
+Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integration tile][5] in Datadog and install the integration. Once installed, navigate to the **Configure** tab and click **Connect Accounts**. This will guide you through the Datadog OAuth flow to grant Upstash access to your database metrics.
 
 ### Uninstallation
 
