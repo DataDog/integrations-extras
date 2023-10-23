@@ -24,7 +24,7 @@ Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash inte
 
 To remove the Datadog integration from Upstash, navigate to the [Upstash integrations page][1] and click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button on the [integration tile][5]. Once you uninstall this integration, any previous authorizations are revoked.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the `upstash` integration name on the [API Keys page][3].
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for `upstash` on the [API Keys management page][3].
 
 ## Support
 
@@ -32,6 +32,4 @@ Need help? Contact [Upstash support](mailto:support@upstash.com).
 
 
 [1]: https://console.upstash.com/integration/datadog
-[2]: https://app.datadoghq.com/organization-settings/oauth-applications
-[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=Upstash
-[4]: https://upstash.com
+[2]: https://upstash.com
