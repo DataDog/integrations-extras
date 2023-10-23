@@ -55,7 +55,7 @@ setup(
         'Intended Audience :: System Administrators',
         'Topic :: System :: Monitoring',
         'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.11',
     ],
     # The package we're going to ship
     packages=['datadog_checks.cloudnatix'],
