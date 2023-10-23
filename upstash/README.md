@@ -2,15 +2,17 @@
 
 ## Overview
 
-Upstash is serverless data provider enabling Redis®, Kafka, or messaging/scheduling solutions for diverse range of applications while solving for speed, simplicity and best developer experience. Specifically it utilizes Redis and Kafka API and designed for:
+Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. 
 
-* Serverless functions (AWS Lambda ...)
-* Cloudflare Workers (see the example)
+Upstash utilizes the Redis and Kafka APIs, and is designed for:
+
+* Serverless functions (AWS Lambda)
+* Cloudflare Workers
 * Fastly Compute@Edge
-* Next.js Edge, Remix ...
-* Client side web/mobile applications
+* Next.js Edge, Remix, and more
+* Client-side web or mobile applications
 * AI development
-* WebAssembly and other environments where HTTP is preferred over TCP connections.
+* WebAssembly and other environments where HTTP is preferred over TCP connections
 
 ## Setup
 
@@ -23,9 +25,9 @@ Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash inte
 
 ## Uninstallation
 
-To remove the Datadog integration from Upstash, navigate to the [Upstash integrations page][1] and click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button below. Once you uninstall this integration, any previous authorizations are revoked.
+To remove the Datadog integration from Upstash, navigate to the [Upstash integrations page][1] and click **Remove**. Additionally, uninstall this integration from Datadog by clicking the **Uninstall Integration** button on the [integration tile][5]. Once you uninstall this integration, any previous authorizations are revoked.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][3].
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the `upstash` integration name on the [API Keys page][3].
 
 ## Support
 
