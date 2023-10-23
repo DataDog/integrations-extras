@@ -2,7 +2,7 @@
 
 ## Overview
 
-[JFrog][1] is a universal hybrid, end-to-end DevOps platform. JFrog Artifactory is the single solution for housing and managing all the artifacts, binaries, packages, files, containers, and components for use throughout your software supply chain.
+[JFrog](https://jfrog.com/) is a universal hybrid, end-to-end DevOps platform. JFrog Artifactory is the single solution for housing and managing all the artifacts, binaries, packages, files, containers, and components for use throughout your software supply chain.
 JFrog Artifactory serves as your central hub for DevOps, integrating with your tools and processes to improve automation, increase integrity, and incorporate best practices along the way.
 
 JFrog's SaaS Log Streamer is a log streaming solution built by JFrog for SaaS customers. This solution will stream JFrog Artifactory logs from the customer's JFrog SaaS instance straight into their Datadog instance.
@@ -21,13 +21,10 @@ These logs will allow customers to readily know who accessed what repositories a
 
 ### Installation
 
-Contact [JFrog Partners team](mailto:partner-support@jfrog.com) to enable the integration for your cloud instance. Be ready to provide your [Datadog API key][2].
+On [MyJFrog Portal](https://my.jfrog.com) go to Settings -> JFrog Cloud Log Streaming - BETA, enable Log Streamer.
+Select vendor DataDog. Save your base64 encrypted [DataDog API key](https://app.datadoghq.com/organization-settings/api-keys) to file and select it in the UI form, add DataDog intake URL (`https://http-intake.logs.datadoghq.com/api/v2/logs`), `ddtags` and click Save.
+Your logs will start streaming into DataDog in 24 hours or less.
 
 ## Support
 
-Need help? Contact [JFrog Support][3].
-
-[1]: https://jfrog.com/
-[2]: https://app.datadoghq.com/organization-settings/api-keys
-[3]: https://support.jfrog.com/
-
+Need help? Contact [JFrog Support](https://support.jfrog.com/).
