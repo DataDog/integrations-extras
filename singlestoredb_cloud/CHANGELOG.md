@@ -8,6 +8,6 @@
 
 ## 1.0.0 / 2023-07-10
 
-***Added***: 
+***Added***:
 
 * Initial Release
