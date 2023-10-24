@@ -1,0 +1,24 @@
+{
+    "id": 11520177,
+    "name": "[Fluxcd] Error Count",
+    "type": "query alert",
+    "query": "sum(last_5m):sum:fluxcd.controller.runtime.reconcile.errors.count{*} by {kube_namespace,controller}.as_count() >= 1",
+    "message": "{{#is_alert}}\nController {{controller.name}} has encountered {{value}} state reconcile errors namespace:{{kube_namespace.name}} for the last 5 minutes.\n{{/is_alert}}",
+    "tags": ["integration:fluxcd"],
+    "options": {
+      "thresholds": {
+        "critical": 1
+      },
+      "notify_audit": false,
+      "on_missing_data": "default",
+      "include_tags": true,
+      "new_group_delay": 60,
+      "avalanche_window": 10,
+      "silenced": {}
+    },
+    "recommended_monitor_metadata": {
+      "description": "Notify your team when an reconciliation error occurs for your develoment state controller."
+    },
+    "priority": null,
+    "restricted_roles": null
+  }
