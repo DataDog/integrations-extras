@@ -21,7 +21,7 @@ These logs will allow customers to readily know who accessed what repositories a
 
 ### Installation
 
-On [MyJFrog Portal](https://my.jfrog.com) go to Settings -> JFrog Cloud Log Streaming - BETA, enable Log Streamer.
+On the [MyJFrog Portal](https://my.jfrog.com), go to Settings -> JFrog Cloud Log Streaming - BETA, and enable the Log Streamer.
 Select vendor DataDog. Save your base64 encrypted [DataDog API key](https://app.datadoghq.com/organization-settings/api-keys) to file and select it in the UI form, add DataDog intake URL (`https://http-intake.logs.datadoghq.com/api/v2/logs`), `ddtags` and click Save.
 Your logs will start streaming into DataDog in 24 hours or less.
 
