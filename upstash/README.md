@@ -33,3 +33,8 @@ Need help? Contact [Upstash support](mailto:support@upstash.com).
 
 [1]: https://console.upstash.com/integration/datadog
 [2]: https://upstash.com
+[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=Upstash
+[4]: https://upstash.com
+[5]: https://app.datadoghq.com/integrations/upstash
+[6]: https://github.com/DataDog/integrations-extras/blob/master/upstash/metadata.csv
+[7]: mailto:support@upstash.com
