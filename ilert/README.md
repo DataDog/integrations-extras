@@ -63,7 +63,7 @@ Integrate with ilert to:
 
    ![Datadog Webhook View][5]
 
-4. Click save button to finish setting up this check.
+4. Click Save.
 
    View the [ilert Datadog Integration documentation][6] for more details.
 
