@@ -41,7 +41,7 @@ Integrate with ilert to:
 
    ![Datadog Webhook New][4]
 
-3. Enter a name, the **Datadog webhook URL** from ilert alert source and **template payload**:
+3. Enter a name, the **Datadog webhook URL** generated earlier from the ilert alert source, and the **template payload**:
 
    ```json
    {
