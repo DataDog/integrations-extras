@@ -19,6 +19,8 @@ These logs will allow customers to readily know who accessed what repositories a
 
 ## Setup
 
+**Note:** The integration requires JFrog Enterprise Plus subscription. 
+
 ### Installation
 
 Create [DataDog API key](https://app.datadoghq.com/organization-settings/api-keys), encrypt it with base64 and save it to a text file.  
