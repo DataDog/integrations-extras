@@ -92,7 +92,7 @@ Need help? Contact [Datadog Support][7].
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-webhook-view.png
 [6]: https://docs.ilert.com/integrations/datadog?utm_medium=organic&utm_source=integration&utm_campaign=datadog
 [7]: https://docs.datadoghq.com/help/
-[8]: https://app.datadoghq.com/account/settings#integrations
+[8]: https://app.datadoghq.com/integrations/webhooks
 [9]: https://docs.ilert.com/incident-comms-and-status-pages/metrics/import-metrics-from-datadog
 [10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-new-2.png
 [11]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/ilert/images/datadog-alert-source-new-3.png
