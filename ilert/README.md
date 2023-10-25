@@ -65,8 +65,6 @@ Integrate with ilert to:
 
 4. Click Save.
 
-   View the [ilert Datadog Integration documentation][6] for more details.
-
 ## Data Collected
 
 ### Metrics
