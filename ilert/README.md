@@ -28,7 +28,7 @@ Integrate with ilert to:
 
    ![ilert Alert Source New 3][11]
 
-5. On the next page a **Webhook URL** is generated. You need this URL at the bottom of the setup in Datadog.
+5. On the next page a **Webhook URL** is generated. You need this URL for the integration setup within Datadog.
 
    ![ilert Alert Source View][3]
 
