@@ -25,20 +25,13 @@ After parsing your Tailscale logs, Datadog then populates the out-of-the-box Tai
 
 ## Setup
 
-### Installation
-
-The Tailscale check is included in the [Datadog Agent][2] package.
-No additional installation is needed on your server.
-
-### Configuration
-
 To enable log streaming:
 
 1. Login to your Tailscale admin console
 2. Navigate to the Logs tab
-3. Select the **Start streaming** button
-From the menu, select Datadog and add a URL + token or [API key][6]
-4. Select the **Start streaming** button
+3. Select the **Start streaming...** button
+4. From the menu, select Datadog and add a URL + token or [API key][6]
+5. Select the **Start streaming** button
 
 ## Data Collected
 
