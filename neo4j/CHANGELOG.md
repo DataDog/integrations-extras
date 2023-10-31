@@ -1,8 +1,12 @@
 # CHANGELOG - neo4j
 
-## 3.0.1 / 2023-07-05
-
 ## 3.0.2 / 2023-10-31
+
+***Changed***:
+
+Config models update - PR [2088](https://github.com/DataDog/integrations-extras/pull/2088)
+
+## 3.0.1 / 2023-07-05
 
 ***Added***:
 
