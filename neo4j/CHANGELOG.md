@@ -4,7 +4,7 @@
 
 ***Changed***:
 
-Config models update - PR [2088](https://github.com/DataDog/integrations-extras/pull/2088)
+* Config models update - PR [2088](https://github.com/DataDog/integrations-extras/pull/2088)
 
 ## 3.0.1 / 2023-07-05
 
