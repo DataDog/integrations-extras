@@ -2,6 +2,8 @@
 
 ## 1.1.0 / 2023-08-09
 
+## 1.1.1 / 2023-10-31
+
 ***Added***:
 
 * Added hikaricp.connections.max (pool max size) ([#1890](https://github.com/DataDog/integrations-extras/pull/1890). Thanks [styner9](https://github.com/styner9))
