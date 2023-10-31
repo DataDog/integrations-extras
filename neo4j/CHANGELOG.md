@@ -2,6 +2,8 @@
 
 ## 3.0.1 / 2023-07-05
 
+## 3.0.2 / 2023-10-31
+
 ***Added***:
 
 * Added server routing metrics which were introduced in Neo4j 5.10
