@@ -1,6 +1,7 @@
 ## Overview
 
 The [ilert][1] integration sends Datadog alerts to ilert and seamlessly takes actions on these alerts within the ilert platform.
+ilert is an incident management platform that enables teams to cover all stages of the incident cycle. ilert provides reliable and actionable alerting, call routing, flexible on-call schedules, status pages, various ChatOps features, AI assistance in incident communications, and post-mortem creation. With ilert, DevOps teams increase uptime and respond to incidents faster.
 
 Integrate with ilert to:
 
