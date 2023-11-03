@@ -56,6 +56,7 @@
               "title": "Flagged requests %",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -64,13 +65,13 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true}.as_count()",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true, $scope}.as_count()",
                       "aggregator": "sum"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{*}.as_count()",
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{$scope}.as_count()",
                       "aggregator": "sum"
                     }
                   ],
@@ -124,6 +125,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -149,12 +151,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:false}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.firewall_requests.count{flagged:false, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -189,6 +191,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -230,22 +233,22 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -298,6 +301,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -331,17 +335,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, validation_type:output, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, validation_type:output, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, validation_type:output, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, validation_type:output, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, validation_type:output, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, validation_type:output, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -376,6 +380,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -409,17 +414,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, validation_type:input, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, validation_type:input, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query4",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, validation_type:input, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_extraction, validation_type:input, flagged:true, $scope}.as_count()"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query6",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, validation_type:input, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_extraction, validation_type:input, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -454,6 +459,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -471,7 +477,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:prompt_injection, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -506,6 +512,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -523,7 +530,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:factual_inconsistency, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -558,6 +565,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -575,7 +583,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:pii_detection, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -610,6 +618,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -627,7 +636,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query5",
-                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true}.as_count()"
+                      "query": "sum:robust_intelligence_ai_firewall.rule_evaluated.count{rule:toxicity, flagged:true, $scope}.as_count()"
                     }
                   ],
                   "response_format": "timeseries",
@@ -653,7 +662,8 @@
         "x": 0,
         "y": 6,
         "width": 12,
-        "height": 5
+        "height": 5,
+        "is_column_break": true
       }
     }
   ],
