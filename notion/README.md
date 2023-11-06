@@ -28,6 +28,6 @@ In Notion, navigate to _Setting & Members_ > _Connections_ > _Workspace Connecti
 Need help? Contact [Notion Support][3].
 
 [1]: https://docs.datadoghq.com/security/cloud_siem/
-[2]: https://www.notion.so/notiondevs/SIEM-Integrations-Overview-309423e17dfa4c6d9a031cadff07ab6a?pvs=4#e384c9d013cb42cc9f98165730ab6f5c
+[2]: https://www.notion.so/help/audit-log
 [3]: mailto:team@makenotion.com
 [4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Notion
