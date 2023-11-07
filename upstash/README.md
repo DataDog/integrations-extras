@@ -23,7 +23,7 @@ Upstash can push calculated metrics into Datadog to:
     * Read/Write Latency (p99)
     * Keyspace
     * Number of Connections
-    * Bandwith
+    * Bandwidth
     * Total Data Size
     * Throughput
 
