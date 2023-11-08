@@ -8,6 +8,4 @@ def dd_environment():
 
 @pytest.fixture
 def instance():
-    return {
-        'openmetrics_endpoint': 'http://localhost:8080/metrics'
-    }
+    return {'openmetrics_endpoint': 'http://localhost:8080/metrics'}
