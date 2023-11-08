@@ -2,11 +2,10 @@ from typing import Any  # noqa: F401
 
 from datadog_checks.base import OpenMetricsBaseCheckV2  # noqa: F401
 
-from .config_models import ConfigMixin
 from .metrics import METRIC_MAP
 
 
-class RobustIntelligenceAiFirewallCheck(OpenMetricsBaseCheckV2, ConfigMixin):
+class RobustIntelligenceAiFirewallCheck(OpenMetricsBaseCheckV2):
 
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'robust_intelligence_ai_firewall'
