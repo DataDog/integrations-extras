@@ -1,0 +1,104 @@
+id: "tailscale"
+tests:
+ -
+  sample: |-
+    {
+      "timestamp": "2023-11-07T21:30:11.915Z",
+      "tags": [
+        "source:tailscale",
+        "datadog.submission_auth:private_api_key"
+      ],
+      "service": "logstream-network",
+      "attributes": {
+        "service": "logstream-network",
+        "start": "2023-11-07T21:29:09.384145903Z",
+        "host": "nYo4622CNTRL",
+        "physicalTraffic": [
+          {
+            "rxBytes": 2896,
+            "dst": "107.3.154.30:58895",
+            "txBytes": 3440,
+            "src": "100.85.80.41:0",
+            "rxPkts": 18,
+            "txPkts": 22
+          },
+          {
+            "rxBytes": 640,
+            "dst": "143.110.224.209:41641",
+            "txBytes": 640,
+            "src": "100.92.240.74:0",
+            "rxPkts": 5,
+            "txPkts": 5
+          }
+        ],
+        "end": "2023-11-07T21:29:13.45839718Z",
+        "virtualTraffic": [
+          {
+            "dst": "100.85.80.41:45326",
+            "txBytes": 52,
+            "src": "100.108.83.117:22",
+            "proto": 6,
+            "txPkts": 1
+          },
+          {
+            "rxBytes": 420,
+            "dst": "100.92.240.74:0",
+            "txBytes": 420,
+            "src": "100.108.83.117:0",
+            "proto": 1,
+            "rxPkts": 5,
+            "txPkts": 5
+          },
+          {
+            "dst": "100.85.80.41:57118",
+            "txBytes": 2459,
+            "src": "100.108.83.117:22",
+            "proto": 6,
+            "txPkts": 21
+          }
+        ]
+      }
+    }
+  result:
+    custom:
+      timestamp: '2023-11-07T21:30:11.915Z'
+      tags:
+      - source:tailscale
+      - datadog.submission_auth:private_api_key
+      service: logstream-network
+      attributes:
+        service: logstream-network
+        start: '2023-11-07T21:29:09.384145903Z'
+        host: nYo4622CNTRL
+        physicalTraffic:
+        - rxBytes: 2896
+          dst: 107.3.154.30:58895
+          txBytes: 3440
+          src: 100.85.80.41:0
+          rxPkts: 18
+          txPkts: 22
+        - rxBytes: 640
+          dst: 143.110.224.209:41641
+          txBytes: 640
+          src: 100.92.240.74:0
+          rxPkts: 5
+          txPkts: 5
+        end: '2023-11-07T21:29:13.45839718Z'
+        virtualTraffic:
+        - dst: 100.85.80.41:45326
+          txBytes: 52
+          src: 100.108.83.117:22
+          proto: 6
+          txPkts: 1
+        - rxBytes: 420
+          dst: 100.92.240.74:0
+          txBytes: 420
+          src: 100.108.83.117:0
+          proto: 1
+          rxPkts: 5
+          txPkts: 5
+        - dst: 100.85.80.41:57118
+          txBytes: 2459
+          src: 100.108.83.117:22
+          proto: 6
+          txPkts: 21
