@@ -2,9 +2,7 @@
 
 ## Overview
 
-Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. 
-
-Upstash utilizes the Redis and Kafka APIs, and is designed for:
+Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. Upstash utilizes the Redis and Kafka APIs, and is designed for:
 
 * Serverless functions (AWS Lambda)
 * Cloudflare Workers
