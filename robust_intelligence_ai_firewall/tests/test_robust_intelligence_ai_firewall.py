@@ -1,6 +1,8 @@
 import os
 from typing import Any, Callable, Dict  # noqa: F401
 
+import pytest
+
 from datadog_checks.base import AgentCheck  # noqa: F401
 from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
 from datadog_checks.dev import get_here
@@ -13,6 +15,7 @@ METRICS = [
 ]
 
 
+@pytest.mark.e2e
 def test_check(dd_run_check, aggregator, instance, mock_http_response):
     fixtures_path = os.path.join(get_here(), 'fixtures', 'firewall_metrics.txt')
     mock_http_response(file_path=fixtures_path)
