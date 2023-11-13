@@ -35,15 +35,21 @@ METRIC_MAP = [
         "purefa_hw_component_status": {"name": "hw.component_status"},
         "purefa_hw_component_temperature_celsius": {"name": "hw.component_temperature_celsius"},
         "purefa_hw_component_voltage_volt": {"name": "hw.component_voltage_volt"},
-        "purefa_network_interface_performance_bandwidth_bytes": {"name": "network.interface_performance_bandwidth_bytes"},
+        "purefa_network_interface_performance_bandwidth_bytes": {
+            "name": "network.interface_performance_bandwidth_bytes"
+        },
         "purefa_network_interface_performance_errors": {"name": "network.interface_performance_errors"},
-        "purefa_network_interface_performance_throughput_pkts": {"name": "network.interface_performance_throughput_pkts"},
+        "purefa_network_interface_performance_throughput_pkts": {
+            "name": "network.interface_performance_throughput_pkts"
+        },
         "purefa_pod_performance_average_bytes": {"name": "pod.performance_average_bytes"},
         "purefa_pod_performance_replication_bandwidth_bytes": {"name": "pod.performance_replication_bandwidth_bytes"},
         "purefa_pod_performance_throughput_iops": {"name": "pod.performance_throughput_iops"},
         "purefa_pod_replica_links_lag_average_sec": {"name": "pod.replica_links_lag_average_sec"},
         "purefa_pod_replica_links_lag_max_sec": {"name": "pod.replica_links_lag_max_sec"},
-        "purefa_pod_replica_links_performance_bandwidth_bytes": {"name": "pod.replica_links_performance_bandwidth_bytes"},
+        "purefa_pod_replica_links_performance_bandwidth_bytes": {
+            "name": "pod.replica_links_performance_bandwidth_bytes"
+        },
         "purefa_pod_space_data_reduction_ratio": {"name": "pod.space_data_reduction_ratio"},
         "purefa_volume_performance_average_bytes": {"name": "volume.performance_average_bytes"},
         "purefa_volume_performance_bandwidth_bytes": {"name": "volume.performance_bandwidth_bytes"},
