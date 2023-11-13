@@ -1,0 +1,693 @@
+{
+    "author_name": "Invary",
+    "description": "The Invary Runtime Integrity dashboard gives you visibility into the most recent and trending appraisals for your endpoints and insights on their operating systems.",
+    "layout_type": "ordered",
+    "template_variables": [],
+    "title": "Invary Runtime Integrity",
+    "widgets": [
+        {
+            "definition": {
+                "background_color": "transparent",
+                "content": "![Invary](https://storage.googleapis.com/static.invary.com/logo/black/solid.png)\n\n**The Invary Runtime Integrity dashboard gives you visibility into the most recent and trending appraisals for your endpoints and insights on their operating systems.**\n\nFurther reading for Runtime Integrity:\n\n- [Complete Your Zero Trust Architecture](https://www.invary.com/use-case/complete-your-zero-trust-crchitecture)\n- [Cloud Native Defense](https://www.invary.com/use-case/cloud-native-defense)\n- [Prevent Ransomware & Data Breaches](https://www.invary.com/use-case/prevent-ransomware-data-breaches)\n- [Restore Confidence In Your Security Stack](https://www.invary.com/use-case/restore-confidence-in-your-security-stack)\n- [Validate Your Runtime Integrity](https://www.invary.com/use-case/validate-your-runtime-integrity)\n",
+                "font_size": "14",
+                "has_padding": false,
+                "show_tick": false,
+                "text_align": "left",
+                "tick_edge": "left",
+                "tick_pos": "50%",
+                "type": "note",
+                "vertical_align": "top"
+            },
+            "id": 6908036442127802,
+            "layout": {
+                "height": 4,
+                "width": 4,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Overview",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "autoscale": true,
+                            "precision": 2,
+                            "requests": [
+                                {
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": "=",
+                                            "palette": "black_on_light_green",
+                                            "value": 0
+                                        },
+                                        {
+                                            "comparator": ">",
+                                            "palette": "white_on_red",
+                                            "value": 0
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "default_zero(query1)"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "@status:FAILED source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "title": "Failed Appraisals",
+                            "type": "query_value"
+                        },
+                        "id": 1165469580719311,
+                        "layout": {
+                            "height": 4,
+                            "width": 2,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "style": {
+                                        "palette": "classic"
+                                    }
+                                }
+                            ],
+                            "title": "Appraisals",
+                            "type": "treemap"
+                        },
+                        "id": 5381252279183566,
+                        "layout": {
+                            "height": 4,
+                            "width": 2,
+                            "x": 2,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "legend_layout": "auto",
+                            "requests": [
+                                {
+                                    "display_type": "bars",
+                                    "formulas": [
+                                        {
+                                            "alias": "Successful",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "on_right_yaxis": false,
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "@status:SUCCESSFUL source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "semantic"
+                                    }
+                                },
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "Failed",
+                                            "formula": "query0"
+                                        }
+                                    ],
+                                    "on_right_yaxis": true,
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query0",
+                                            "search": {
+                                                "query": "@status:FAILED source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "thick",
+                                        "palette": "red"
+                                    }
+                                },
+                                {
+                                    "display_type": "line",
+                                    "formulas": [
+                                        {
+                                            "alias": "Errored",
+                                            "formula": "query0"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "count",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query0",
+                                            "search": {
+                                                "query": "@status:ERROR source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "line_type": "solid",
+                                        "line_width": "normal",
+                                        "palette": "orange"
+                                    }
+                                }
+                            ],
+                            "show_legend": false,
+                            "time": {
+                                "live_span": "1w"
+                            },
+                            "title": "Appraisal Results - 1 Week",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "timeseries"
+                        },
+                        "id": 2381483455502152,
+                        "layout": {
+                            "height": 4,
+                            "width": 4,
+                            "x": 0,
+                            "y": 4
+                        }
+                    }
+                ]
+            },
+            "id": 5322202037118538,
+            "layout": {
+                "height": 9,
+                "width": 4,
+                "x": 4,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Insights",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "hide_total": true,
+                            "legend": {
+                                "hide_percent": false,
+                                "hide_value": false,
+                                "type": "inline"
+                            },
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "host"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@kernel.release",
+                                                    "limit": 15,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "metric": "host",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "title": "Top Kernel Versions",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "sunburst"
+                        },
+                        "id": 7303610616334211,
+                        "layout": {
+                            "height": 4,
+                            "width": 4,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "host"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@distribution.vendor",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "metric": "host",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "style": {
+                                        "palette": "classic"
+                                    }
+                                }
+                            ],
+                            "title": "Top Distributions",
+                            "type": "treemap"
+                        },
+                        "id": 128892802256397,
+                        "layout": {
+                            "height": 4,
+                            "width": 4,
+                            "x": 0,
+                            "y": 4
+                        }
+                    }
+                ]
+            },
+            "id": 5091340754293007,
+            "layout": {
+                "height": 9,
+                "width": 4,
+                "x": 8,
+                "y": 0
+            }
+        },
+        {
+            "definition": {
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Endpoints by Tags",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "host"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@node.tags",
+                                                    "limit": 15,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "metric": "host",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "style": {
+                                        "palette": "classic"
+                                    }
+                                }
+                            ],
+                            "title": "Top Tags",
+                            "type": "treemap"
+                        },
+                        "id": 767192731768747,
+                        "layout": {
+                            "height": 2,
+                            "width": 4,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1",
+                                            "limit": {
+                                                "count": 100,
+                                                "order": "desc"
+                                            }
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "compute": {
+                                                "aggregation": "cardinality",
+                                                "metric": "host"
+                                            },
+                                            "data_source": "logs",
+                                            "group_by": [
+                                                {
+                                                    "facet": "@node.tags",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "metric": "host",
+                                                        "order": "desc"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@status",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "aggregation": "cardinality",
+                                                        "metric": "host",
+                                                        "order": "desc"
+                                                    }
+                                                }
+                                            ],
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "name": "query1",
+                                            "search": {
+                                                "query": "source:invary"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar"
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "legend": "automatic",
+                                    "type": "stacked"
+                                }
+                            },
+                            "title": "Top Tags by Result",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "toplist"
+                        },
+                        "id": 3585850030260936,
+                        "layout": {
+                            "height": 2,
+                            "width": 4,
+                            "x": 0,
+                            "y": 2
+                        }
+                    }
+                ]
+            },
+            "id": 8531583947189822,
+            "layout": {
+                "height": 5,
+                "width": 4,
+                "x": 0,
+                "y": 4
+            }
+        },
+        {
+            "definition": {
+                "layout_type": "ordered",
+                "show_title": true,
+                "title": "Logs",
+                "type": "group",
+                "widgets": [
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "columns": [
+                                        {
+                                            "field": "status_line",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "timestamp",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "host",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "service",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "content",
+                                            "width": "compact"
+                                        }
+                                    ],
+                                    "query": {
+                                        "data_source": "logs_stream",
+                                        "indexes": [],
+                                        "query_string": "source:invary -@status:SUCCESSFUL",
+                                        "storage": "hot"
+                                    },
+                                    "response_format": "event_list"
+                                }
+                            ],
+                            "title": "Failed Appraisals",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "list_stream"
+                        },
+                        "id": 8831256602296564,
+                        "layout": {
+                            "height": 7,
+                            "width": 6,
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    {
+                        "definition": {
+                            "requests": [
+                                {
+                                    "columns": [
+                                        {
+                                            "field": "status_line",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "timestamp",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "host",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "service",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "content",
+                                            "width": "compact"
+                                        }
+                                    ],
+                                    "query": {
+                                        "data_source": "logs_stream",
+                                        "indexes": [],
+                                        "query_string": "source:invary",
+                                        "storage": "hot"
+                                    },
+                                    "response_format": "event_list"
+                                }
+                            ],
+                            "time": {},
+                            "title": "Latest Appraisals",
+                            "title_align": "left",
+                            "title_size": "16",
+                            "type": "list_stream"
+                        },
+                        "id": 4254997148222751,
+                        "layout": {
+                            "height": 7,
+                            "width": 6,
+                            "x": 6,
+                            "y": 0
+                        }
+                    }
+                ]
+            },
+            "id": 8735013112723070,
+            "layout": {
+                "height": 8,
+                "is_column_break": true,
+                "width": 12,
+                "x": 0,
+                "y": 9
+            }
+        }
+    ]
+}
