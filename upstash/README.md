@@ -33,7 +33,19 @@ To remove the Datadog integration from Upstash, navigate to the [Upstash integra
 
 Additionally, ensure that all API keys associated with this integration have been disabled by searching for `upstash` on the [API Keys management page][3].
 
+## Data Collected
 
+### Metrics
+
+See [metadata.csv][6] for a list of metrics provided by this integration.
+### Events
+The Upstash integration does not include any events.
+ 
+### Service Checks
+
+The Upstash integration does not include any service checks.
+
+## Support
 Need help? Contact [Upstash support][7].
 
 [1]: https://console.upstash.com/integration/datadog
