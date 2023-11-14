@@ -1,6 +1,6 @@
 # CHANGELOG - JFrog Platform Cloud
 
-## 1.0.0 / 2023-09-27
+## 1.0.0 / 2023-12-04
 
 ***Added***:
 
