@@ -12,11 +12,9 @@ Once connected, the CloudZero platform regularly ingests your Datadog billing in
 
 ### Installation
 
-Log in to your [CloudZero account][1] and navigate to the Connections settings. Create a new connection to Datadog. 
+Click **Install Integration** on the [Datadog integration tile][2]. Once the integration is installed, click **Connect Accounts** under the **Configure** tab to authorize CloudZero to access your Datadog account. This will take you to the CloudZero application where you will create a connection adding a name and selecting the site to which your parent Datadog account is assigned.
 
-Once a connection is created, click **Authorize Datadog Account** to authorize CloudZero to pull data from your Datadog account into the CloudZero platform.
-
-Alternatively, you can initiate the Datadog CloudZero integration by clicking **Install Integration** on the [Datadog integration tile][2]. Next, click **Connect Accounts** under the **Configure** tab to begin the OAuth workflow and create a connection in the CloudZero platform.
+Once a connection is created, click **Continue** to authorize CloudZero to pull data from your Datadog account into the CloudZero platform.
 
 ### Configuration
 
@@ -24,11 +22,12 @@ You can adjust settings from the connection details page for your Datadog connec
 
 ### Validation
 
-1. From the list of [connections][3], you can see the status of your connection to Datadog. 
+1. From the list of [connections][3], you can see the status of your connection to Datadog.
 2. Click on the name of your Datadog connection to view more details about the amount and timing of data that has been pulled from Datadog.
 3. Once data ingestion has successfully run, see Datadog costs included in the [Cost Explorer][4].
 
 ## Uninstallation
+
 - Once this integration has been uninstalled, any previous authorizations are revoked.
 - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
