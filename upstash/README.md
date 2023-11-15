@@ -12,7 +12,7 @@ Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/sch
 * AI development
 * WebAssembly and other environments where HTTP is preferred over TCP connections
 
-With this integration, Upstash pushes calculated metrics to centralize your monitoring stack and gain a comprehensive view of your data including: 
+To centralize your monitoring stack and enable a comprehensive view of your data, the Upstash integration sends the following metrics to Datadog:
     * Hit/Miss Rate
     * Read/Write Latency (p99)
     * Keyspace
