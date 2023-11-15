@@ -1,7 +1,5 @@
 # Akamai DataStream 2
 
-![akamai dashboard][7]
-
 ## Overview
 
 Akamai DataStream 2 captures performance, security, and CDN health logs for your properties on the Akamai Intelligent Edge Platform. This integration streams the data in near real-time to Datadog.
@@ -57,4 +55,3 @@ Additional helpful documentation, links, and articles:
 [4]: https://www.datadoghq.com/blog/monitor-akamai-datastream2/
 [5]: https://docs.datadoghq.com/getting_started/site/
 [6]: https://techdocs.akamai.com/datastream2/docs
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/akamai_datastream_2/images/akamai_2_dashboard.png
