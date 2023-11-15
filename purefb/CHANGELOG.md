@@ -1,5 +1,11 @@
 # CHANGELOG - PureFB
 
+## 1.0.4 / 2023-10-31
+
+***Added***:
+
+* Added support for the `purefb.nfs.export_rule` metric introduced in `pure-fb-openmetrics-exporter v1.0.3`.
+
 ## 1.0.3 / 2023-04-28
 
 ***Fixed***:
