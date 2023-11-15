@@ -25,7 +25,7 @@ To centralize your monitoring stack and enable a comprehensive view of your data
 
 ### Installation
 
-Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integration tile][5] in Datadog and install the integration. Once installed, navigate to the **Configure** tab and click **Connect Accounts**. This will guide you through the Datadog OAuth flow to grant Upstash access to your database metrics.
+Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integration tile][5] in Datadog and install the integration. Once installed, navigate to the **Configure** tab and click **Connect Accounts**. This guides you through the Datadog OAuth flow to grant Upstash access to your database metrics.
 
 ### Uninstallation
 
