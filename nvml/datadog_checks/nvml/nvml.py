@@ -172,7 +172,7 @@ class NvmlCheck(AgentCheck):
             self.gauge('fan_speed', fan_speed, tags=tags)
 
         with NvmlCall("compute_running_processes", self.log):
-            compute_running_processes = NvmlCheck.N.nvmlDeviceGetComputeRunningProcesses_v2(handle)
+            compute_running_processes = NvmlCheck.N.nvmlDeviceGetComputeRunningProcesses(handle)
             for compute_running_process in compute_running_processes:
                 self.gauge(
                     'compute_running_process',

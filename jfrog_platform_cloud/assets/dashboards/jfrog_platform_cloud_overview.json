@@ -1,0 +1,1709 @@
+{
+  "title": "JFrog Platform Cloud",
+  "description": "The dashboard consolidates Artifactory `access-audit.log`, `artifactory-request.log` and `access-security-audit.log`  to show HTTP Requests, Requests Logs, Operations and Audit Operations summary. ",
+  "widgets":
+  [
+    {
+      "id": 5428031384897882,
+      "definition":
+      {
+        "type": "image",
+        "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png",
+        "sizing": "zoom"
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 0,
+        "width": 4,
+        "height": 2
+      }
+    },
+    {
+      "id": 342325943651526,
+      "definition":
+      {
+        "type": "note",
+        "content": "JFrog Platform Cloud Log Analytics",
+        "background_color": "vivid_green",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "bottom",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 0,
+        "width": 8,
+        "height": 1
+      }
+    },
+    {
+      "id": 7680307917471464,
+      "definition":
+      {
+        "type": "note",
+        "content": "This dashboard provides a high-level summary of the usage of the JFrog Artifactory Cloud instance. This includes an overview of access requests, and audit events as well as a summary of various operations performed on JFrog Artifactory. \n",
+        "background_color": "transparent",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 1,
+        "width": 8,
+        "height": 1
+      }
+    },
+    {
+      "id": 7062113875348576,
+      "definition":
+      {
+        "title": "HTTP Requests",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets":
+        [
+          {
+            "id": 8689810235081354,
+            "definition":
+            {
+              "title": "Artifactory Request Service Calls by HTTP Status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5148450235568604,
+            "definition":
+            {
+              "title": "Artifactory HTTP 5xx Errors",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "@http.status_code:5**"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4889553931730096,
+            "definition":
+            {
+              "title": "Accessed Images",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests":
+              [
+                {
+                  "response_format": "scalar",
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@image",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@image:\"\""
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1",
+                      "limit":
+                      {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "custom_links":
+              [],
+              "style":
+              {
+                "scaling": "absolute"
+              }
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2908928446042288,
+            "definition":
+            {
+              "title": "GET requests duration and request/response content length",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "avg",
+                        "metric": "@duration"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@response_content_length"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query3",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@request_content_length"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2681104632333994,
+            "definition":
+            {
+              "title": "POST requests duration and request/response content length",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query2"
+                    },
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query2",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "avg",
+                        "metric": "@duration"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@response_content_length"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    },
+                    {
+                      "data_source": "logs",
+                      "name": "query3",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@request_content_length"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3993886759854140,
+            "definition":
+            {
+              "title": "Top Requests by IP Address",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests":
+              [
+                {
+                  "response_format": "scalar",
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@network.client.ip",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1",
+                      "limit":
+                      {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "style":
+              {}
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 2,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 7778958239985040,
+      "definition":
+      {
+        "title": "Request Logs",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets":
+        [
+          {
+            "id": 2753182882123610,
+            "definition":
+            {
+              "title": "Upload IP's by Data Volume",
+              "type": "treemap",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@response_content_length"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@network.client.ip",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@response_content_length"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "@response_content_length:>=0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2144407389885262,
+            "definition":
+            {
+              "title": "Accessed Repos",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@repo",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "@repo:*?* service:jfrog.saas.rt.artifactory.request"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": true,
+                "label": "",
+                "scale": "linear",
+                "min": "auto",
+                "max": "auto"
+              },
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1588173780881222,
+            "definition":
+            {
+              "title": "Download Data Transfers by Repo",
+              "type": "treemap",
+              "requests":
+              [
+                {
+                  "response_format": "scalar",
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@request_content_length"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@repo",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@request_content_length"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "-@repo:\"\" service:jfrog.saas.rt.artifactory.request @image:*"
+                      }
+                    }
+                  ],
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2663839120063626,
+            "definition":
+            {
+              "title": "Download IP's by Data Volume",
+              "type": "treemap",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@request_content_length"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@network.client.ip",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@request_content_length"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "@request_content_length:>0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                      }
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5728484469490822,
+            "definition":
+            {
+              "title": "Accessed Images",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@image",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "@repo:*?* @image:* service:jfrog.saas.rt.artifactory.request"
+                      }
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": true,
+                "label": "",
+                "scale": "linear",
+                "min": "auto",
+                "max": "auto"
+              },
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6046676301037008,
+            "definition":
+            {
+              "title": "Upload Data Transfers by Repo",
+              "type": "treemap",
+              "requests":
+              [
+                {
+                  "response_format": "scalar",
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "cardinality",
+                        "metric": "@response_content_length"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@repo",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@response_content_length"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "-@repo:\"\" service:jfrog.saas.rt.artifactory.request @image:*"
+                      }
+                    }
+                  ],
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 9,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 2477922006930220,
+      "definition":
+      {
+        "title": "Operations",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets":
+        [
+          {
+            "id": 4547593150222648,
+            "definition":
+            {
+              "title": "Operations by Users",
+              "title_size": "16",
+              "title_align": "left",
+              "requests":
+              [
+                {
+                  "response_format": "scalar",
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@evt.type",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@logged_principal",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "service:jfrog.saas.rt.access.security.audit -@logged_principal:*@*"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "style":
+                  {
+                    "palette": "datadog16"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend":
+              {
+                "type": "table"
+              }
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 0,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 697325418751468,
+            "definition":
+            {
+              "title": "Operations on Tokens",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@entity_name",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:TKN -@entity_name:*@*"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": false
+              },
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7190308466599464,
+            "definition":
+            {
+              "title": "Operations on Permissions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:PRM -@jfrog.entity_name:*@*"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": false
+              },
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4166798501049040,
+            "definition":
+            {
+              "title": "Operations on Users",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "number_format":
+                      {
+                        "unit":
+                        {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@evt.type",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:USR"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": false
+              },
+              "markers":
+              [],
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1718995079627460,
+            "definition":
+            {
+              "title": "Operations on Groups",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:GRP -@entity_name:*@*"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis":
+              {
+                "include_zero": false
+              },
+              "custom_links":
+              []
+            },
+            "layout":
+            {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 16,
+        "width": 12,
+        "height": 7
+      }
+    },
+    {
+      "id": 6912842210683506,
+      "definition":
+      {
+        "title": "Audit Operations",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets":
+        [
+          {
+            "id": 5251851887096738,
+            "definition":
+            {
+              "title": "Artifactory Access Security Audit Events ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.security.audit"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6324405992194226,
+            "definition":
+            {
+              "title": "Artifactory Access Audit Events ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.audit"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 6,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 23,
+        "width": 12,
+        "height": 4
+      }
+    }
+  ],
+  "template_variables":
+  [],
+  "layout_type": "ordered",
+  "notify_list":
+  [],
+  "reflow_type": "fixed"
+}

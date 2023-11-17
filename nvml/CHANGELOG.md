@@ -1,5 +1,9 @@
 # CHANGELOG - nvml
 
+## 1.0.9 / 2023-10-31
+
+* Fix the API call compatibility issue ([related issue](https://github.com/DataDog/integrations-extras/issues/2159)).
+
 ## 1.0.8 / 2023-08-14
 
 * Upgrade grpcio dependency to solve some linux/arm64 build errors ([related issue](https://github.com/DataDog/integrations-extras/issues/1752)).
