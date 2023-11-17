@@ -2,7 +2,7 @@
 
 ## Overview
 
-Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. Upstash utilizes the Redis and Kafka APIs, and is designed for:
+Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/scheduling solutions for a diverse range of applications that provides speed, simplicity, and a seamless developer experience. Upstash uses the Redis and Kafka APIs, and is designed for:
 
 * Serverless functions (AWS Lambda)
 * Cloudflare Workers
@@ -12,7 +12,7 @@ Upstash is a serverless data provider enabling Redis®, Kafka, and messaging/sch
 * AI development
 * WebAssembly and other environments where HTTP is preferred over TCP connections
 
-With this integration, Upstash pushes calculated metrics to centralize your monitoring stack and gain a comprehensive view of your data including: 
+To centralize your monitoring stack and enable a comprehensive view of your data, the Upstash integration sends the following metrics to Datadog:
     * Hit/Miss Rate
     * Read/Write Latency (p99)
     * Keyspace
@@ -25,7 +25,7 @@ With this integration, Upstash pushes calculated metrics to centralize your moni
 
 ### Installation
 
-Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integration tile][5] in Datadog and install the integration. Once installed, navigate to the **Configure** tab and click **Connect Accounts**. This will guide you through the Datadog OAuth flow to grant Upstash access to your database metrics.
+Visit [Upstash][4] to sign up for free. Once registered, visit the [Upstash integration tile][5] in Datadog and install the integration. Once installed, navigate to the **Configure** tab and click **Connect Accounts**. This guides you through the Datadog OAuth flow to grant Upstash access to your database metrics.
 
 ### Uninstallation
 
