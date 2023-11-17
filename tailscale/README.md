@@ -8,8 +8,7 @@ With this integration, you can:
 
 1. Control your Tailscale data retention.
 2. Build custom widgets and dashboards.
-3. Setup your own or leverage out of the box detection rules
-4. Cross-reference Tailscale events with the data from other services in your stack.
+3. Cross-reference Tailscale events with the data from other services in your stack.
 
 This integration streams two log types from Tailscale:
 
