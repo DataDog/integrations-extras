@@ -7,12 +7,12 @@
 	"definition": {
 		"name": "Unusually High Physical Traffic To Destination: {{[@physicalTraffic.dst].name}} ",
 		"type": "log alert",
-		"query": "formula(\"derivative(query)\").last(\"15m\") > 100000",
+		"query": "formula(\"derivative(query)\").last(\"15m\") > 500000",
 		"message": "Use this monitor to set an alert if the rate of change for physical traffic from a specific source is abnormally high. The correct threshold value to use will vary by environment. To determine the correct value for your organization, use the average rate of change for  the physical traffic widget in the out-of-the-box dashboard. A good starting value is 5x the average value you've seen over the last 4 hours. The value can be adjusted as needed.",
 		"tags": [],
 		"options": {
 			"thresholds": {
-				"critical": 50000
+				"critical": 500000
 			},
 			"enable_logs_sample": true,
 			"notify_audit": false,
