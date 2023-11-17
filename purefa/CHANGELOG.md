@@ -14,6 +14,10 @@
 * Added support for the `purefa.host.connectivity_info` metric introduced in `pure-fb-openmetrics-exporter v1.0.10`.
 * Added support for the `purefa.drive.capacity_bytes` metric introduced in `pure-fb-openmetrics-exporter v1.0.11`.
 
+***Fixed***:
+
+* Bump the minimum base check version to 33.1.0 ([2184](https://github.com/DataDog/integrations-extras/pull/2184))
+
 ## 1.1.1 / 2023-04-28
 
 ***Fixed***:
