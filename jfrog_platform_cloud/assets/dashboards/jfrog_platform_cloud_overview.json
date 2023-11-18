@@ -93,6 +93,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -119,7 +121,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.http.status_code",
+                          "facet": "@http.status_code",
                           "limit": 10,
                           "sort":
                           {
@@ -171,6 +173,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -197,7 +201,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.http.status_code",
+                          "facet": "@http.status_code",
                           "limit": 10,
                           "sort":
                           {
@@ -208,7 +212,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.status_code:5** "
+                        "query": "@http.status_code:5** "
                       },
                       "storage": "hot"
                     }
@@ -321,6 +325,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -369,14 +375,14 @@
                       ],
                       "compute":
                       {
-                        "aggregation": "cardinality",
-                        "metric": "@jfrog.cloud.duration"
+                        "aggregation": "avg",
+                        "metric": "@duration"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -396,7 +402,7 @@
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -416,7 +422,7 @@
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     }
@@ -457,6 +463,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -505,14 +513,14 @@
                       ],
                       "compute":
                       {
-                        "aggregation": "cardinality",
-                        "metric": "@jfrog.cloud.duration"
+                        "aggregation": "avg",
+                        "metric": "@duration"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -532,7 +540,7 @@
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -552,7 +560,7 @@
                       [],
                       "search":
                       {
-                        "query": "@jfrog.cloud.http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
+                        "query": "@http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     }
@@ -583,6 +591,8 @@
               "title": "Top Requests by IP Address",
               "title_size": "16",
               "title_align": "left",
+              "time":
+              {},
               "type": "toplist",
               "requests":
               [
@@ -604,7 +614,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.network.client.ip",
+                          "facet": "@network.client.ip",
                           "limit": 10,
                           "sort":
                           {
@@ -615,7 +625,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@jfrog.cloud.network.client.ip:127.0.0.1 "
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       },
                       "storage": "hot"
                     }
@@ -699,7 +709,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.network.client.ip",
+                          "facet": "@network.client.ip",
                           "limit": 10,
                           "sort":
                           {
@@ -711,7 +721,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.response_content_length:>=0 service:jfrog.saas.rt.artifactory.request -@jfrog.cloud.network.client.ip:127.0.0.1 "
+                        "query": "@jfrog.cloud.response_content_length:>=0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       }
                     }
                   ],
@@ -820,8 +830,6 @@
             "id": 1588173780881222,
             "definition":
             {
-              "time":
-              {},
               "title": "Download Data Transfers by Repo",
               "type": "treemap",
               "requests":
@@ -912,7 +920,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.network.client.ip",
+                          "facet": "@network.client.ip",
                           "limit": 10,
                           "sort":
                           {
@@ -924,7 +932,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.request_content_length:>0 service:jfrog.saas.rt.artifactory.request -@jfrog.cloud.network.client.ip:127.0.0.1 "
+                        "query": "@jfrog.cloud.request_content_length:>0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       }
                     }
                   ],
@@ -984,15 +992,6 @@
                       },
                       "group_by":
                       [
-                        {
-                          "facet": "@image",
-                          "limit": 10,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
                         {
                           "facet": "@jfrog.cloud.image",
                           "limit": 10,
@@ -1079,7 +1078,7 @@
                       ],
                       "search":
                       {
-                        "query": "-@repo:\"\" service:jfrog.saas.rt.artifactory.request @image:* -@jfrog.cloud.repo:\"\" "
+                        "query": "service:jfrog.saas.rt.artifactory.request @image:* -@jfrog.cloud.repo:\"\" "
                       }
                     }
                   ],
@@ -1150,7 +1149,16 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.evt.name",
+                          "facet": "@jfrog.cloud.logged_principal",
+                          "limit": 5,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@evt.name",
                           "limit": 5,
                           "sort":
                           {
@@ -1160,15 +1168,6 @@
                         },
                         {
                           "facet": "@jfrog.cloud.evt.type",
-                          "limit": 5,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
-                        {
-                          "facet": "@jfrog.cloud.logged_principal",
                           "limit": 5,
                           "sort":
                           {
@@ -1255,7 +1254,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.evt.name",
+                          "facet": "@jfrog.cloud.entity_name",
                           "limit": 5,
                           "sort":
                           {
@@ -1264,7 +1263,7 @@
                           }
                         },
                         {
-                          "facet": "@jfrog.cloud.entity_name",
+                          "facet": "@evt.name",
                           "limit": 5,
                           "sort":
                           {
@@ -1350,7 +1349,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.evt.name",
+                          "facet": "@evt.name",
                           "limit": 10,
                           "sort":
                           {
@@ -1454,7 +1453,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @jfrog.cloud.evt.name:USR "
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:USR "
                       },
                       "storage": "hot"
                     }
@@ -1531,7 +1530,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@jfrog.cloud.evt.name",
+                          "facet": "@evt.name",
                           "limit": 10,
                           "sort":
                           {
@@ -1610,8 +1609,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1680,8 +1677,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
