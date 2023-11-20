@@ -111,29 +111,29 @@ metrics:
     query: source:vercel @source:lambda REPORT
     groupBys:
       - path: '@projectName'
-        tagName: projectName
+        tagName: projectname
       - path: '@deploymentName'
-        tagName: deploymentName
+        tagName: deploymentname
       - path: '@functionName'
-        tagName: functionName
+        tagName: functionname
   - name: vercel.functions.errors
     query: source:vercel @source:lambda status:error
     groupBys:
       - path: '@projectName'
-        tagName: projectName
+        tagName: projectname
       - path: '@deploymentName'
-        tagName: deploymentName
+        tagName: deploymentname
       - path: '@functionName'
-        tagName: functionName
+        tagName: functionname
   - name: vercel.functions.duration
     query: source:vercel @source:lambda
     groupBys:
       - path: '@projectName'
-        tagName: projectName
+        tagName: projectname
       - path: '@deploymentName'
-        tagName: deploymentName
+        tagName: deploymentname
       - path: '@functionName'
-        tagName: functionName
+        tagName: functionname
     aggregation:
       path: '@lambda.duration'
       includePercentiles: true
@@ -141,11 +141,11 @@ metrics:
     query: source:vercel @source:lambda
     groupBys:
       - path: '@projectName'
-        tagName: projectName
+        tagName: projectname
       - path: '@deploymentName'
-        tagName: deploymentName
+        tagName: deploymentname
       - path: '@functionName'
-        tagName: functionName
+        tagName: functionname
     aggregation:
       path: '@lambda.execution'
       includePercentiles: false
@@ -153,8 +153,8 @@ metrics:
     query: source:vercel "Build completed in"
     groupBys:
       - path: '@projectName'
-        tagName: projectName
+        tagName: projectname
       - path: '@deploymentName'
-        tagName: deploymentName
+        tagName: deploymentname
       - path: '@functionName'
-        tagName: functionName
+        tagName: functionname
