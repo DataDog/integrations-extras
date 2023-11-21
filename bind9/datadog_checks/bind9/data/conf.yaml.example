@@ -1,8 +1,21 @@
 init_config:
+    ## @param timeout - int - optional - default: 5
+    ## How long to wait for a response from the DNS server stats endpoint
+    #
+    # timeout: 5
 
 instances:
 
-      ## @param url - string - required
-      ## Base statistic URL of your bind9 instance.
-      #
-    - url : http://10.10.1.101:8080
+    ## @param url - string - required
+    ## Base statistic URL of your bind9 instance.
+    #
+  - url: http://10.10.1.101:8080
+
+    ## @param tags - list of strings - optional
+    ## A list of tags to attach to every metric and service check emitted by this instance.
+    ##
+    ## Learn more about tagging at https://docs.datadoghq.com/tagging
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
