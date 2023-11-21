@@ -5,4 +5,4 @@
 from .__about__ import __version__
 from .bind9 import Bind9Check
 
-__all__ = ['__version__', 'Bind9Check']
+__all__ = ["__version__", "Bind9Check"]

@@ -4,4 +4,4 @@
 from datadog_checks.dev import get_here
 
 HERE = get_here()
-URL = 'http://10.10.1.101:8080'
+URL = "http://10.10.1.101:8080"
