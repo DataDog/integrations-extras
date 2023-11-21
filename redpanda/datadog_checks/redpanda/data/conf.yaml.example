@@ -48,7 +48,7 @@ instances:
     ## @param openmetrics_endpoint - string - required
     ## The URL exposing metrics in the OpenMetrics format.
     #
-  - openmetrics_endpoint: http://localhost:9644/metrics
+  - openmetrics_endpoint: http://localhost:9644/public_metrics
 
     ## @param use_openmetrics - boolean - optional - default: true
     ## Use the latest OpenMetrics implementation for more features and better performance.
@@ -60,14 +60,12 @@ instances:
     ## List of additional Redpanda metric groups to collect in addition to the default metrics
     #
     # metric_groups:
-    #   - redpanda.alien
-    #   - redpanda.internal_rpc
-    #   - redpanda.io_queue
-    #   - redpanda.memory
-    #   - redpanda.raft
-    #   - redpanda.rpc_client
+    #   - redpanda.cloud
+    #   - redpanda.controller
+    #   - redpanda.node_status
+    #   - redpanda.pandaproxy
     #   - redpanda.scheduler
-    #   - redpanda.stall
+    #   - redpanda.schemaregistry
 
     ## @param raw_metric_prefix - string - optional
     ## A prefix that is removed from all exposed metric names, if present.
@@ -179,6 +177,11 @@ instances:
     #
     # enable_health_service_check: true
 
+    ## @param ignore_connection_errors - boolean - optional - default: false
+    ## Whether or not to ignore connection errors when scraping `openmetrics_endpoint`.
+    #
+    # ignore_connection_errors: false
+
     ## @param hostname_label - string - optional
     ## Override the hostname for every metric submission with the value of one of its labels.
     #
@@ -204,12 +207,12 @@ instances:
     #
     # histogram_buckets_as_distributions: false
 
-    ## @param collect_counters_with_distributions - boolean - optional - default: false
+    ## @param collect_counters_with_distributions - boolean - optional - default: true
     ## Whether or not to also collect the observation counter metrics ending in `.sum` and `.count`
     ## when sending histogram buckets as Datadog distribution metrics. This implicitly enables the
     ## `histogram_buckets_as_distributions` option.
     #
-    # collect_counters_with_distributions: false
+    collect_counters_with_distributions: true
 
     ## @param use_process_start_time - boolean - optional - default: false
     ## Whether to enable a heuristic for reporting counter values on the first scrape. When true,

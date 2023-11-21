@@ -1,0 +1,13 @@
+name: Robust Intelligence AI Firewall
+files:
+- name: robust_intelligence_ai_firewall.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      options:
+      overrides:
+        openmetrics_endpoint.value.example: http://localhost:8080/metrics

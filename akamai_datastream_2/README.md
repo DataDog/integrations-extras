@@ -15,6 +15,14 @@ Click **Install Integration** to enable a preset dashboard for viewing Akamai Da
 To configure Akamai DataStream 2 to send logs to Datadog, follow [these instructions on the
 Akamai techdocs site][2], make sure to set the log source to `akamai.datastream` and the log format to `JSON`.
 
+Ensure the logs are being sent to the right datacenter by configuring the correct URL:  
+US1 `http-intake.logs.datadoghq.com/v1/input`  
+US3 `http-intake.logs.us3.datadoghq.com/v1/input`  
+US5 `http-intake.logs.us5.datadoghq.com/v1/input`  
+EU `http-intake.logs.datadoghq.eu/v1/input`  
+AP1 `http-intake.logs.ap1.datadoghq.com/v1/input`  
+US1-FED `http-intake.logs.ddog-gov.com/v1/input`  
+
 ### Validation
 
 To validate that this integration is configured properly, [search for logs with the source `akamai.datastream`][3]. You may have to wait a few minutes after configuring the datastream in Akamai before logs are visible in Datadog.

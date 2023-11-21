@@ -1,28 +1,35 @@
 {
-  "name": "[MongoDB Atlas] Efficiency of queries is degrading",
-  "type": "query alert",
-  "query": "avg(last_4h):anomalies(avg:mongodb.atlas.metrics.queryexecutor.scannedobjectsperreturned{*}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
-  "message": "Notify your team when average query efficiency is degraded\n",
+  "version": 2,
+  "created_at": "2023-03-30",
+  "last_updated_at": "2023-03-30",
+  "title": "Efficiency of queries is degrading",
   "tags": [
     "integration:mongodb-atlas"
   ],
-  "options": {
-    "thresholds": {
-      "critical": 1,
-      "critical_recovery": 0
+  "description": "Notify your team when average query efficiency is degraded\n.",
+  "definition": {
+    "message": "Notify your team when average query efficiency is degraded\n",
+    "name": "[MongoDB Atlas] Efficiency of queries is degrading",
+    "options": {
+      "escalation_message": "",
+      "no_data_timeframe": 10,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "threshold_windows": {
+        "recovery_window": "last_15m",
+        "trigger_window": "last_15m"
+      },
+      "thresholds": {
+        "critical": 1,
+        "critical_recovery": 0
+      }
     },
-    "notify_audit": false,
-    "require_full_window": false,
-    "notify_no_data": false,
-    "no_data_timeframe": 10,
-    "renotify_interval": 0,
-    "threshold_windows": {
-      "trigger_window": "last_15m",
-      "recovery_window": "last_15m"
-    },
-    "escalation_message": ""
-  },
-  "recommended_monitor_metadata": {
-	"description": "Notify your team when average query efficiency is degraded\n."
+    "query": "avg(last_4h):anomalies(avg:mongodb.atlas.metrics.queryexecutor.scannedobjectsperreturned{*}, 'agile', 2, direction='above', interval=60, alert_window='last_15m', count_default_zero='true', seasonality='hourly') >= 1",
+    "tags": [
+      "integration:mongodb-atlas"
+    ],
+    "type": "query alert"
   }
 }

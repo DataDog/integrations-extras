@@ -1,10 +1,16 @@
 # CHANGELOG - PureFB
 
+## 1.0.4 / 2023-10-31
+
+***Added***:
+
+* Added support for the `purefb.nfs.export_rule` metric introduced in `pure-fb-openmetrics-exporter v1.0.3`.
+
 ## 1.0.3 / 2023-04-28
 
 ***Fixed***:
 
-* Remove the use_latest_spec option from the config file. See [#1835](https://github.com/DataDog/integrations-extras/pull/1835).
+* Remove the use_latest_spec option from the config file ([#1835](https://github.com/DataDog/integrations-extras/pull/1835))
 
 ## 1.0.2 / 2022-12-14
 

@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "created_at": "2020-08-07",
+  "last_updated_at": "2020-08-18",
+  "title": "Node CPU Load Prediction in Next 24 Hours is High on {{host.name}}",
+  "tags": [
+    "integration:federatorai"
+  ],
+  "description": "Notify your team when the CPU utilization prediction of the host in the next 24 hours is over the threshold",
+  "definition": {
+    "message": "{{#is_alert}} \n1. CPU utilization prediction **{{value}}%** for **{{host.name}}**  in the next 24 hours is more than **{{threshold}}%**.\n2. Add additional node to share workload. \n{{/is_alert}} \n{{#is_warning}} CPU utilization prediction **{{value}}%** for **{{host.name}}**  in the next 24 hours is more than **{{warn_threshold}}%**.{{/is_warning}} \n{{#is_alert_recovery}} CPU utilization prediction for **{{host.name}}** is now **{{value}}%**.{{/is_alert_recovery}}\n{{#is_warning_recovery}}CPU utilization prediction for **{{host.name}}** is now **{{value}}%**.{{/is_warning_recovery}}",
+    "name": "[Federator.ai] Node CPU Load Prediction in Next 24 Hours is High on {{host.name}}",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "silenced": {},
+      "thresholds": {
+        "critical": 90,
+        "critical_recovery": 80,
+        "warning": 80,
+        "warning_recovery": 70
+      },
+      "timeout_h": 0
+    },
+    "query": "avg(last_1h):avg:federatorai.prediction.node.max{source_metric:kubernetes.cpu.usage.total,prediction_window:24_hours} by {host} / ( avg:kubernetes.cpu.capacity{*} by {host} * 1000 ) * 100 > 90",
+    "tags": [
+      "integration:federatorai"
+    ],
+    "type": "query alert"
+  }
+}

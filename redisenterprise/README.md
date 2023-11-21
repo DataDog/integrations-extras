@@ -117,7 +117,7 @@ Contact the [Redis Field Engineering Team][11].
 
 
 [1]: http://www.redislabs.com
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentv721v621
 [4]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=agentearlierversions
 [5]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker

@@ -42,7 +42,7 @@ To use the Datadog API, you need to enter an [API key and an application key][5]
 Need help? Contact [Datadog support][1].
 
 [1]: https://docs.datadoghq.com/help/
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://app.datadoghq.com/infrastructure/map
 [4]: https://docs.datadoghq.com/metrics/
 [5]: https://docs.datadoghq.com/account_management/api-app-keys/

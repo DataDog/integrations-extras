@@ -1,22 +1,29 @@
 {
-	"name": "Netnology SD-WAN Packet Loss Monitor [>1%]",
-	"type": "query alert",
-	"query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.loss_percentage{*} > 1",
-	"message": "Packet loss at or exceeding 1% detected.",
-	"tags": [
-        "integration:nn_sdwan"
+  "version": 2,
+  "created_at": "2022-06-02",
+  "last_updated_at": "2022-06-02",
+  "title": "Netnology SD-WAN Packet Loss Monitor [>1%]",
+  "tags": [
+    "integration:nn-sdwan"
+  ],
+  "description": "Notify your team when packet loss percentage exceeds thresholds.",
+  "definition": {
+    "message": "Packet loss at or exceeding 1% detected.",
+    "name": "Netnology SD-WAN Packet Loss Monitor [>1%]",
+    "options": {
+      "escalation_message": "",
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 0,
+      "require_full_window": false,
+      "thresholds": {
+        "critical": 1
+      }
+    },
+    "query": "avg(last_5m):avg:nn_sdwan.app_aware_routing.loss_percentage{*} > 1",
+    "tags": [
+      "integration:nn_sdwan"
     ],
-	"options": {
-		"thresholds": {
-			"critical": 1
-		},
-		"notify_audit": false,
-		"require_full_window": false,
-		"notify_no_data": false,
-		"renotify_interval": 0,
-		"escalation_message": ""
-	},
-    "recommended_monitor_metadata": {
-		"description": "Notify your team when packet loss percentage exceeds thresholds."
-	}
+    "type": "query alert"
+  }
 }
