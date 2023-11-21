@@ -36,7 +36,7 @@ class Bind9Check(AgentCheck):
 
     def getStatsFromUrl(self, dns_url):
         # Try to get timeout from init_config, otherwise default to 5 seconds
-        timeout = self.init_config.get('timeout', 5)
+        timeout = self.init_config.get('timeout', str(5))
 
         try:
             response = requests.get(dns_url, timeout=timeout)
