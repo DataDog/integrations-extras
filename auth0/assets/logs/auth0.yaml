@@ -96,10 +96,14 @@ facets:
     path: data.type
     groups:
       - Auth0
-
   - name: Target App
     source: log
     path: data.client_name
+    groups:
+      - Auth0
+  - name: Target Hostname
+    source: log
+    path: data.hostname
     groups:
       - Auth0
 
@@ -149,10 +153,10 @@ pipeline:
       target: http.useragent_details
       encoded: false
     - type: attribute-remapper
-      name: Map `data.user_name` to `usr.id`
+      name: Map `data.user_id` to `usr.id`
       enabled: true
       sources:
-        - data.user_name
+        - data.user_id
       target: usr.id
       preserveSource: true
       overrideOnConflict: false

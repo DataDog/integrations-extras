@@ -8,12 +8,15 @@ files:
   - template: instances
     options:
     - template: instances/default
+      overrides:
+        min_collection_interval.value.example: 120
+        min_collection_interval.enabled: true
     - name: mergify_api_url
-      required: true
+      required: false
       description: URL of Mergify API
       value:
         type: string
-        example: https://api.mergify.com/
+        example: https://api.mergify.com
     - name: token
       required: true
       description: The user token or application key used to connect to Mergify API

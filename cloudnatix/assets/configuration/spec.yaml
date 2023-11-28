@@ -1,0 +1,12 @@
+name: CloudNatix
+version: '1.0.0'
+
+files:
+- name: cloudnatix.yaml
+  options:
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.required: false
+        openmetrics_endpoint.value.example: http://clusteragent.cloudnatix.svc.cluster.local:8082/metrics

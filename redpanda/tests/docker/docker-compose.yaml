@@ -14,17 +14,18 @@ services:
     - --kafka-addr
     - PLAINTEXT://0.0.0.0:9092
     - --advertise-kafka-addr
-    - PLAINTEXT://redpanda:29092
-    image: docker.vectorized.io/vectorized/redpanda:${REDPANDA_VERSION}
+    - PLAINTEXT://redpanda:9092
+    image: docker.redpanda.com/vectorized/redpanda:${REDPANDA_VERSION}
     container_name: redpanda
     ports:
       - 9092:9092
       - 9644:9644
+      - 8081:8081
     expose:
       - 9092
       - 9644
+      - 8081
     networks:
       - redpandanet
-
 networks:
   redpandanet: {}

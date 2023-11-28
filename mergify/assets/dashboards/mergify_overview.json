@@ -42,13 +42,36 @@
       }
     },
     {
+      "id": 7480048851742829,
+      "definition": {
+        "title": "Mergify - Service Check",
+        "title_size": "16",
+        "title_align": "left",
+        "time": {
+          "live_span": "10m"
+        },
+        "type": "check_status",
+        "check": "mergify.can_connect",
+        "grouping": "cluster",
+        "group": "",
+        "group_by": [],
+        "tags": []
+      },
+      "layout": {
+        "x": 0,
+        "y": 2,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
       "id": 4473883965068244,
       "definition": {
         "title": "Mergify merge queue length",
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
-        "legend_layout": "auto",
+        "legend_layout": "horizontal",
         "legend_columns": [
           "avg",
           "min",
@@ -56,7 +79,6 @@
           "value",
           "sum"
         ],
-        "time": {},
         "type": "timeseries",
         "requests": [
           {
@@ -69,7 +91,7 @@
               {
                 "name": "query1",
                 "data_source": "metrics",
-                "query": "avg:mergify.merge_queue_length{$repository} by {branch}"
+                "query": "max:mergify.merge_queue_length{$repository} by {branch,repository}"
               }
             ],
             "response_format": "timeseries",
@@ -83,10 +105,83 @@
         ]
       },
       "layout": {
-        "x": 0,
+        "x": 3,
         "y": 2,
-        "width": 12,
+        "width": 9,
         "height": 2
+      }
+    },
+    {
+      "id": 295070581551368,
+      "definition": {
+        "title": "Median time to merge per repository per branch per queue",
+        "type": "treemap",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "queries": [
+              {
+                "name": "query2",
+                "data_source": "metrics",
+                "query": "avg:mergify.time_to_merge.median{$repository} by {repository,branch,queue}",
+                "aggregator": "last"
+              }
+            ],
+            "formulas": [
+              {
+                "formula": "query2"
+              }
+            ]
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 4,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "id": 5619028571653368,
+      "definition": {
+        "title": "Queue checks outcomes",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "scalar",
+            "formulas": [
+              {
+                "formula": "query1",
+                "limit": {
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries": [
+              {
+                "query": "sum:mergify.queue_checks_outcome{$repository} by {outcome_type}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ],
+            "style": {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend": {
+          "type": "automatic"
+        }
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 4
       }
     }
   ],

@@ -76,7 +76,7 @@ class MockNvml:
         return 14
 
     @staticmethod
-    def nvmlDeviceGetComputeRunningProcesses_v2(h):
+    def nvmlDeviceGetComputeRunningProcesses(h):
         Mock = namedtuple('Mock', ['pid', 'usedGpuMemory'])
         return [Mock(pid=1, usedGpuMemory=11)]
 

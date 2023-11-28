@@ -1,0 +1,69 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "2ef15aea-af91-4769-940c-2b124e4d04a6",
+  "app_id": "cribl-stream",
+  "display_on_public_website": false,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect observability data in a vendor-neutral data telemetry pipeline",
+    "title": "Cribl Stream",
+    "media": [
+      {
+        "media_type": "video",
+        "caption": "Observability Changes Everything",
+        "image_url": "images/observability_changes.png",
+        "vimeo_id": 567294419
+      },
+      {
+        "media_type": "image",
+        "caption": "Cribl Stream Dashboard for Datadog",
+        "image_url": "images/cribl_dashboard_for_datadog.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Submitted Data Type::Metrics",
+      "Category::AWS",
+      "Category::Azure",
+      "Category::Cloud",
+      "Category::Containers",
+      "Category::Kubernetes",
+      "Category::Google Cloud",
+      "Category::Log Collection",
+      "Category::Security",
+      "Category::Metrics"
+    ]
+  },
+  "author": {
+    "support_email": "support@cribl.io",
+    "name": "Cribl",
+    "homepage": "https://cribl.io",
+    "sales_email": "sales@cribl.io"
+  },
+  "oauth": {},
+  "assets": {
+    "dashboards": {
+      "cribl_stream_overview": "assets/dashboards/cribl_stream_overview.json"
+    },
+    "integration": {
+      "source_type_name": "Cribl",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+    "metrics": {
+      "prefix": "cribl.logstream.",
+      "check": "cribl.logstream.health.outputs",
+      "metadata_path": "metadata.csv"
+    },
+      "service_checks": {
+    "metadata_path": "assets/service_checks.json"
+    }
+  }
+ }
+}

@@ -1,0 +1,171 @@
+id: ngrok
+facets:
+  - name: Event Name
+    source: log
+    path: evt.name
+    groups:
+      - Event
+  - name: Method
+    source: log
+    path: http.method
+    groups:
+      - Web Access
+  - name: Status Code
+    source: log
+    path: http.status_code
+    groups:
+      - Web Access
+  - name: URL Path
+    source: log
+    path: http.url_details.path
+    groups:
+      - Web Access
+  - name: Version
+    source: log
+    path: http.version
+    groups:
+      - Web Access
+  - name: City Name
+    source: log
+    path: network.client.geoip.city.name
+    groups:
+      - Geoip
+  - name: Continent Code
+    source: log
+    path: network.client.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Continent Name
+    source: log
+    path: network.client.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Country ISO Code
+    source: log
+    path: network.client.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Country Name
+    source: log
+    path: network.client.geoip.country.name
+    groups:
+      - Geoip
+  - name: Subdivision ISO Code
+    source: log
+    path: network.client.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Subdivision Name
+    source: log
+    path: network.client.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Client IP
+    source: log
+    path: network.client.ip
+    groups:
+      - Web Access
+  - name: Destination Port
+    source: log
+    path: network.destination.port
+    groups:
+      - Web Access
+  - path: object.conn.server_name
+    source: log
+    name: Ngrok Endpoint
+    groups:
+      - Ngrok
+pipeline:
+  type: pipeline
+  name: ngrok
+  enabled: true
+  filter:
+    query: source:ngrok
+  processors:
+    - type: attribute-remapper
+      name: Map `object.conn.client_ip` to `network.client.ip`
+      enabled: true
+      sources:
+        - object.conn.client_ip
+      sourceType: attribute
+      target: network.client.ip
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `object.conn.server_port` to `network.destination.port`
+      enabled: true
+      sources:
+        - object.conn.server_port
+      sourceType: attribute
+      target: network.destination.port
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `event_type` to `evt.name`
+      enabled: true
+      sources:
+        - event_type
+      sourceType: attribute
+      target: evt.name
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: date-remapper
+      name: Define `event_timestamp` as the official date of the log
+      enabled: true
+      sources:
+        - event_timestamp
+    - type: attribute-remapper
+      name: Map `object.http.request.method` to `http.method`
+      enabled: true
+      sources:
+        - object.http.request.method
+      sourceType: attribute
+      target: http.method
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `object.http.request.url.path` to `http.url_details.path`
+      enabled: true
+      sources:
+        - object.http.request.url.path
+      sourceType: attribute
+      target: http.url_details.path
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `object.http.request.version` to `http.version`
+      enabled: true
+      sources:
+        - object.http.request.version
+      sourceType: attribute
+      target: http.version
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `object.http.response.status_code` to `http.status_code`
+      enabled: true
+      sources:
+        - object.http.response.status_code
+      sourceType: attribute
+      target: http.status_code
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: geo-ip-parser
+      name: geoip parser
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+      ip_processing_behavior: do-nothing
+    - type: status-remapper
+      name: Define `status` as the official status of the log
+      enabled: true
+      sources:
+        - status

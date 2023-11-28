@@ -51,7 +51,7 @@ HikariCP does not include any events.
 Need help? Contact [Datadog support][9].
 
 [1]: https://github.com/brettwooldridge/HikariCP
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/datadog_checks/hikaricp/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
@@ -59,6 +59,6 @@ Need help? Contact [Datadog support][9].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
-[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[10]: https://docs.datadoghq.com/developers/integrations/python/
 [11]: https://github.com/DataDog/integrations-extras/blob/master/hikaricp/assets/service_checks.json
 

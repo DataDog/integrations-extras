@@ -1,8 +1,7 @@
 # CHANGELOG - Pliant Integration
 
-1.0.0 / Initial Setup instructions
-==================
-### Changes
+## 1.0.0 / 2020-05-26
 
-* [FEATURE] Initial Pliant Integration Tile.
+***Added***:
 
+* Initial Pliant Integration Tile.

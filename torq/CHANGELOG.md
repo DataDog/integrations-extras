@@ -1,9 +1,8 @@
 # CHANGELOG - Datadog-Torq Integration
 
-1.0.0
+## 1.0.0
 
-==================
+***Added***:
 
-## Changes
+* Initial Datadog-Torq Integration Tile.
 
-* [FEATURE] Initial Datadog-Torq Integration Tile.

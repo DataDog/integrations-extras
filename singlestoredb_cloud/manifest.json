@@ -1,0 +1,54 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "c7638089-0864-4ddc-bd32-b731c58fe567",
+  "app_id": "singlestoredb-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send your SinglestoreDB Cloud metrics to Datadog",
+    "title": "SingleStoreDB Cloud",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "SinglestoreDB Cloud - Dashboard",
+        "image_url": "images/singlestoredb-cloud-dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Data Stores",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "dashboards": {"singlestoredb_cloud_overview": "assets/dashboards/singlestoredb_cloud_overview.json"},
+    "integration": {
+      "source_type_name": "SinglestoreDB Cloud",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "singlestoredb_cloud.",
+        "check": "singlestoredb_cloud.cpu_resource_limits",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "support@singlestore.com",
+    "name": "Singlestore",
+    "homepage": "https://www.singlestore.com",
+    "sales_email": "info@singlestore.com"
+  },
+  "oauth": {}
+}

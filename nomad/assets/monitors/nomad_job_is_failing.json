@@ -1,30 +1,37 @@
 {
-	"name": "[Nomad] Job Is Failing",
-	"type": "query alert",
-	"query": "avg(last_5m):diff(max:nomad.nomad.job_summary.failed{*} by {job,task_group}) > 3",
-	"message": "{{#is_alert}}\nObserved at least 3 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\n\nThis is an indicator of the following scenarios:\n\n- A misconfiguration in the job\n- The job is not starting successfully\n\nNotify:\n{{/is_alert}}\n\n{{#is_warning}}\nObserved 1 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\nNotify:\n{{/is_warning}}\n\n{{#is_alert_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_alert_recovery}}\n\n{{#is_warning_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_warning_recovery}}",
-	"tags": [
-		"integration:nomad"
-	],
-	"options": {
-		"notify_audit": false,
-		"locked": false,
-		"timeout_h": 60,
-		"new_host_delay": 300,
-		"require_full_window": true,
-		"notify_no_data": false,
-		"renotify_interval": 60,
-		"escalation_message": "",
-		"no_data_timeframe": null,
-		"include_tags": true,
-		"thresholds": {
-			"critical": 3,
-			"warning": 1,
-			"warning_recovery": 0,
-			"critical_recovery": 1
-		}
+  "version": 2,
+  "created_at": "2020-07-30",
+  "last_updated_at": "2023-07-31",
+  "title": "Job Is Failing",
+  "tags": [
+    "integration:nomad"
+  ],
+  "description": "Get notified when Nomad has at least 3 failures of a job.",
+  "definition": {
+    "message": "{{#is_alert}}\nObserved at least 3 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\n\nThis is an indicator of the following scenarios:\n\n- A misconfiguration in the job\n- The job is not starting successfully\n\nNotify:\n{{/is_alert}}\n\n{{#is_warning}}\nObserved 1 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\nNotify:\n{{/is_warning}}\n\n{{#is_alert_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_alert_recovery}}\n\n{{#is_warning_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_warning_recovery}}",
+    "name": "[Nomad] Job Is Failing",
+    "options": {
+      "escalation_message": "",
+      "include_tags": true,
+      "locked": false,
+      "new_host_delay": 300,
+      "no_data_timeframe": null,
+      "notify_audit": false,
+      "notify_no_data": false,
+      "renotify_interval": 60,
+      "require_full_window": true,
+      "thresholds": {
+        "critical": 3,
+        "critical_recovery": 1,
+        "warning": 1,
+        "warning_recovery": 0
+      },
+      "timeout_h": 1
     },
-    "recommended_monitor_metadata": {
-		"description": "Get notified when Nomad has at least 3 failures of a job."
-	}
+    "query": "avg(last_5m):diff(max:nomad.nomad.job_summary.failed{*} by {job,task_group}) > 3",
+    "tags": [
+      "integration:nomad"
+    ],
+    "type": "query alert"
+  }
 }

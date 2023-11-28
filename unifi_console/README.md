@@ -51,7 +51,7 @@ Need help? Contact [Datadog support][9].
 
 
 [1]: https://ui.com/consoles
-[2]: https://app.datadoghq.com/account/settings#agent
+[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
@@ -59,5 +59,5 @@ Need help? Contact [Datadog support][9].
 [7]: https://github.com/DataDog/integrations-extras/blob/master/unifi_console/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/unifi_console/assets/service_checks.json
 [9]: https://docs.datadoghq.com/help/
-[10]: https://docs.datadoghq.com/developers/integrations/new_check_howto/#developer-toolkit
+[10]: https://docs.datadoghq.com/developers/integrations/python/
 [11]: https://github.com/DataDog/integrations-extras/blob/master/unifi_console/datadog_checks/unifi_console/data/conf.yaml.example

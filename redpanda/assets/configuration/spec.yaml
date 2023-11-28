@@ -22,19 +22,19 @@ files:
         items:
           type: string
         example:
-        - redpanda.alien
-        - redpanda.internal_rpc
-        - redpanda.io_queue
-        - redpanda.memory
-        - redpanda.raft
-        - redpanda.rpc_client
-        - redpanda.scheduler
-        - redpanda.stall
+          - redpanda.cloud
+          - redpanda.controller
+          - redpanda.node_status
+          - redpanda.pandaproxy
+          - redpanda.scheduler
+          - redpanda.schemaregistry
     - template: instances/openmetrics
       overrides:
-        openmetrics_endpoint.value.example: http://localhost:9644/metrics
+        openmetrics_endpoint.value.example: http://localhost:9644/public_metrics
         openmetrics_endpoint.display_priority: 1
         collect_histogram_buckets.hidden: true
+        collect_counters_with_distributions.enabled: true
+        collect_counters_with_distributions.value.example: true
   - template: logs
     example:
     - type: journald

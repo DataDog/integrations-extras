@@ -33,7 +33,7 @@ To build an updated version of the Agent:
 ```dockerfile
 FROM gcr.io/datadoghq/agent:latest
 
-ARG INTEGRATION_VERSION=1.0.0
+ARG INTEGRATION_VERSION=2.0.0
 
 RUN agent integration install -r -t datadog-redpanda==${INTEGRATION_VERSION}
 ```
@@ -144,7 +144,7 @@ See [service_checks.json][7] for a list of service checks provided by this integ
 
 Need help? Contact [Datadog support][8].
 
-[1]: https://vectorized.io
+[1]: https://redpanda.com
 [2]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [3]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/datadog_checks/redpanda/data/conf.yaml.example
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
@@ -152,6 +152,6 @@ Need help? Contact [Datadog support][8].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/metadata.csv
 [7]: https://github.com/DataDog/integrations-extras/blob/master/redpanda/assets/service_checks.json
 [8]: https://docs.datadoghq.com/help/
-[9]: https://app.datadoghq.com/account/settings#agent
+[9]: https://app.datadoghq.com/account/settings/agent/latest
 [10]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent
 [11]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
