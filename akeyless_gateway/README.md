@@ -40,7 +40,7 @@ metrics:
           exporters: [datadog]
 ```
 
-2. If you have not yet deployed the Gateway, continue with your installation as usual and run the following command when ready to deploy:
+2. If you have not yet deployed the Gateway, continue with your installation as usual and run the following command when you are ready to deploy:
 
 ```
 helm install <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
@@ -54,9 +54,9 @@ helm upgrade <your-gateway-name> akeyless/akeyless-api-gateway -f values.yaml
 
 #### For a standalone Gateway running on Docker
 
-To configure the Akeyless Gateway integration on a [Standalone Gateway](https://docs.akeyless.io/docs/install-and-configure-the-gateway):
+To configure the Akeyless Gateway integration on a [Standalone Gateway][4]:
 
-1. Create a local file called `otel-config.yaml` with the below configuration. Set the relevant API Key of your Datadog server, and the relevant [Datadog site][1] (i.e. `app.datadoghq.com`).
+1. Create a local file called `otel-config.yaml` with the following configuration. Set the relevant API Key of your Datadog server, and the relevant [Datadog site][1] such as `app.datadoghq.com`.
 
 ```
 exporters:
@@ -70,7 +70,7 @@ service:
       exporters: [datadog]
 ```
 
-2. If you have not yet deployed the Gateway, run the below command to spin up your Akeyless Gateway with the `ENABLE_METRICS=true` variable and mounting the `otel-config.yaml` file:
+2. If you have not yet deployed the Gateway, run the following command to spin up your Akeyless Gateway with the `ENABLE_METRICS=true` variable and mount the `otel-config.yaml` file:
 
 ```
 docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081 -p 5696:5696 -e ENABLE_METRICS="true" -v $PWD/otel-config.yaml:/akeyless/otel-config.yaml --name <your-gateway-name> akeyless/base:latest-akeyless
@@ -83,7 +83,7 @@ docker run -d -p 8000:8000 -p 8200:8200 -p 18888:18888 -p 8080:8080 -p 8081:8081
 
 ### Validation
 
-Upon successful setup of the Gateway, go to the Metrics page on the Datadog platform, and filter the Akeyless metrics on the summary page.
+Upon successful setup of the Gateway, go to the [Metrics Explorer][5] on the Datadog site, and filter the Akeyless metrics on the summary page.
 
 ## Data Collected
 
