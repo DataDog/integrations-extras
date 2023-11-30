@@ -97,7 +97,7 @@ The Akeyless Gateway integration does not include any service checks.
 
 ### Events
 
-Akeyless Gateway does not include any events.
+The Akeyless Gateway integration does not include any events.
 
 ## Support
 
