@@ -105,3 +105,9 @@ Need help? Contact [Akeyless Support](mailto:support@akeyless.io).
 
 
 [1]: https://docs.datadoghq.com/getting_started/site/
+[2]: https://docs.akeyless.io/docs/api-gw
+[3]: https://docs.akeyless.io/docs/gateway-k8s
+[4]: https://docs.akeyless.io/docs/install-and-configure-the-gateway
+[5]: TBD
+[6]: https://github.com/DataDog/integrations-extras/blob/master/akeyless_gateway/metadata.csv
+[7]: mailto:support@akeyless.io
