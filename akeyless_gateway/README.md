@@ -93,7 +93,7 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Akeyless Gateway does not include any service checks.
+The Akeyless Gateway integration does not include any service checks.
 
 ### Events
 
