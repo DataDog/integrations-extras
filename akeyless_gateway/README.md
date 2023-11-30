@@ -23,7 +23,7 @@ This integration works with one Gateway or multiple instances using the same API
 
 To configure the Akeyless Gateway integration on a [Gateway running on K8s][3]:
 
-1. In your `values.yaml` file you use to deploy your Gateway on Kubernetes, under the `metrics` section, add the below configuration. Set the relevant API Key of your Datadog server, and the relevant [Datadog site][1] (i.e. `app.datadoghq.com`).
+1. In your `values.yaml` file you use to deploy your Gateway on Kubernetes, under the `metrics` section, add the following configuration. Set the relevant API Key of your Datadog server, and the relevant [Datadog site][1] such as: `app.datadoghq.com`.
 
 ```
 metrics:
