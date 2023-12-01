@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Ping Identity][1].
+Ping Identity delivers intelligent identity solutions for the enterprise. We enable companies to achieve Zero Trust identity-defined security and more personalized, streamlined user experiences.
 
 ## Setup
 
