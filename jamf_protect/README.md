@@ -76,12 +76,12 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
     7.  If successful, click **Create Configuration**.
 
 ### Network Traffic Stream
-1.  Click **Integrations**
-2.  Click **Data Streams**
-3.  Click **New Configuration**
-4.  Select **Threat Events**
-    a.  Select **Generic HTTP**
-5.  Click **Continue**
+1.  Click **Integrations**.
+2.  Click **Data Streams**.
+3.  Click **New Configuration**.
+4.  Select **Threat Events**.
+    a.  Select **Generic HTTP**.
+5.  Click **Continue**.
     a.  **Configuration** **Name:** Datadog (Threat)
     b.  **Protocol:** **HTTPS**
     c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
@@ -89,13 +89,13 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
     e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=networktraffic`
 6.  **Additional Headers:**
     i.  **Header Name:** DD-API-KEY
-        1.  Click **Create option "DD-API-KEY"**
+        1.  Click **Create option "DD-API-KEY"**.
     ii.  **Header Value:** <API_Key>
         1.  **Header Name**: DD-APPLICATION-KEY
-    iv.  Click **Create option "DD-APPLICATION-KEY"**
+    iv.  Click **Create option "DD-APPLICATION-KEY"**.
         1.  **Header Value:** <APPLICATION_KEY>
-    6.  Click **Test Configuration**
-    7.  If successful, click **Create Configuration**
+    6.  Click **Test Configuration**.
+    7.  If successful, click **Create Configuration**.
 
 
 ### Validation
