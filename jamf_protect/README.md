@@ -9,7 +9,7 @@ This check monitors [Jamf Protect][1], which enables endpoint security, threat d
 
 ### Installation
 
-Navigate to the Integrations Page and search for the "Jamf Protect" tile. 
+Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
 ### Configuration
 **Prerequisite: Determine your Datadog Intake URL:**
