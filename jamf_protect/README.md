@@ -12,8 +12,10 @@ This check monitors [Jamf Protect][1], which enables endpoint security, threat d
 Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
 ### Configuration
-**Prerequisite: Determine your Datadog Intake URL:**
-Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs/#send-logs), determine what your intake URL is by selecting your Datadog Site in the top right corner. If you don't know what your Datadog Site is, please see [these docs](https://docs.datadoghq.com/getting_started/site/).**macOS Security Portal:**
+
+### Determine your Datadog Intake URL
+
+Using the [Datadog API Logs documentation][7], determine what your intake URL is by selecting your [Datadog Site][8] on the top right corner. 
 
 
 ### macOS Security Portal
