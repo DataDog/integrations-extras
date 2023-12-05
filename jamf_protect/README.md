@@ -100,7 +100,7 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
 
 ### Validation
 
-Navigate to Datadogs logs product and search for `source:jamf` to validate you're receiving logs.
+Navigate to the [Logs Explorer][5] and search for `source:jamf` to validate you are receiving logs.
 
 ## Data Collected
 [Jamf Audit Logs][1]
