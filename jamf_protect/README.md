@@ -103,7 +103,10 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
 Navigate to the [Logs Explorer][5] and search for `source:jamf` to validate you are receiving logs.
 
 ## Data Collected
-[Jamf Audit Logs][1]
+
+### Logs
+
+The Jamf Protect integration allows you to send [Jamf Audit Logs][4] to Datadog.
 
 ### Metrics
 
