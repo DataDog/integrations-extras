@@ -39,16 +39,16 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
         i.  **Name**: DD-APPLICATION-KEY
         ii.  **Value**: <APPLICATION_KEY>
 
-6.  Click **+ Telemetry Collection Endpoints**
+6.  Click **+ Telemetry Collection Endpoints**.
     a.  **URL: **`https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=telemetry`
-    b.  Click** + Add HTTP Header**
+    b.  Click** + Add HTTP Header**.
         i.  **Name**: DD-API-KEY
         ii.  **Value**: <API_Key>
-    c.  Click **+ Add HTTP Header**
+    c.  Click **+ Add HTTP Header**.
         i.  **Name**: DD-APPLICATION-KEY
         ii.  **Value**: <APPLICATION_KEY>
 
-7.  Click **Save**
+7.  Click **Save**.
 
 
 ### Jamf Security Cloud:
