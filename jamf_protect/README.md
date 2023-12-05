@@ -17,16 +17,16 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
 
 
 ### macOS Security Portal
-1.  Click **Actions**
-2.  Click **Create Actions**
-3.  **Name:** Datadog
-4.  Click **Remote Alert Collection Endpoints**
-    a.  **URL: **`https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
-    b.  **Min Severity & Max Severity:** Set by you
-    c.  **Click + Add HTTP Header**
+1.  Click **Actions**.
+2.  Click **Create Actions**.
+3.  **Name:** Datadog.
+4.  Click **Remote Alert Collection Endpoints**.
+    a.  **URL:** `https://${DATADOG_INTAKE_URL}/api/v2/logs?ddsource=jamfprotect&service=alerts`
+    b.  Set **Min Severity & Max Severity:**.
+    c.  Click **+ Add HTTP Header**.
         i.  Name: DD-API-KEY
         ii.  Value: <API_Key>
-    d.  Click **+ Add HTTP Header**
+    d.  Click **+ Add HTTP Header**.
 
         i.  Name: DD-APPLICATION-KEY
         ii.  Value: <APPLICATION_KEY>
