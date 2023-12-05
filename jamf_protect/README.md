@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Jamf Protect][1].
+This check monitors [Jamf Protect][1], which enables endpoint security, threat defense, and content filtering for Apple Mobile and Mac.
 
 ## Setup
 
