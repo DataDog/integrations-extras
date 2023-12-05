@@ -1,4 +1,4 @@
-# Agent Check: Ping Identity
+# Ping Identity
 
 ## Overview
 
