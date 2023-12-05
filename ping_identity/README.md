@@ -1,4 +1,4 @@
-# Ping Identity
+# Ping Identity - Datadog API Connector
 
 ## Overview
 
@@ -46,3 +46,5 @@ Ping Identity does not include any events.
 ## Troubleshooting
 
 Need help? Contact tap-global@pingidentity.com.
+
+You can view general information on the DaVinci platform [here](https://docs.pingidentity.com/r/en-us/davinci/davinci_landing_page).
