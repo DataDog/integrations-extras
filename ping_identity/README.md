@@ -4,7 +4,9 @@
 
 Ping Identity delivers intelligent identity solutions for the enterprise. We enable companies to achieve Zero Trust identity-defined security and more personalized, streamlined user experiences.
 
-Datadog integrates directly with the PingOne DaVinci platform through the Datadog API connector. The connector boasts over 350+ unique capabilites, each with a unique Datadag API endpoint to complete CRUD actions for many different Datadog components.
+Datadog integrates directly with the PingOne DaVinci platform through the Datadog API connector. PingOne DaVinci is an orchestration platform that lets you create flows using connections and logical operators. These flows guide users through defined processes that can present customized pages, modify values, or perform other actions. 
+
+The Datadog API connector boasts over 350+ unique capabilites, each with a unique Datadag API endpoint to complete CRUD actions for many different Datadog components.
 
 ## Setup
 
