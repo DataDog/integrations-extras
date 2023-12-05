@@ -53,13 +53,13 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
 
 ### Jamf Security Cloud:
 
-**Threat Events Stream**
-1.  Click **Integrations**
-2.  Click **Data Streams**
-3.  Click **New Configuration**
-4.  Select **Threat Events**
-    a.  Select **Generic HTTP**
-5.  Click **Continue**
+
+1.  Click **Integrations** in the Threat Events Stream.
+2.  Click **Data Streams**.
+3.  Click **New Configuration**.
+4.  Select **Threat Events**.
+    a.  Select **Generic HTTP**.
+5.  Click **Continue**.
     a.  **Configuration** **Name:** Datadog (Threat)
     b.  **Protocol:** **HTTPS**
     c.  **Server** **Hostname/IP:** `${DATADOG_INTAKE_URL}`
@@ -67,13 +67,13 @@ Using Datadog's [Logs Documentation](https://docs.datadoghq.com/api/latest/logs
     e.  **Endpoint:** `api/v2/logs?ddsource=jamfprotect&service=threatevents`
     f.  **Additional Headers:**
         i.  **Header Name:** DD-API-KEY
-            1.  Click **Create option "DD-API-KEY"**
+            1.  Click **Create option "DD-API-KEY"**.
     i.  **Header Value:** <API_Key>
     ii.  **Header Name**: DD-APPLICATION-KEY
-        1.  Click **Create option "DD-APPLICATION-KEY"**
+        1.  Click **Create option "DD-APPLICATION-KEY"**.
     iii.  **Header Value:** <APPLICATION_KEY>
-        1.  Click **Test Configuration**
-    7.  If successful, click **Create Configuration**
+        1.  Click **Test Configuration**.
+    7.  If successful, click **Create Configuration**.
 
 ### Network Traffic Stream
 1.  Click **Integrations**
