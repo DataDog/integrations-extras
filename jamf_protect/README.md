@@ -53,7 +53,7 @@ Using the [Datadog API Logs documentation][7], determine what your intake URL i
 7.  Click **Save**.
 
 
-### Jamf Security Cloud:
+### Jamf Security Cloud
 
 
 1.  Click **Integrations** in the Threat Events Stream.
