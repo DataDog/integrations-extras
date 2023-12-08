@@ -1,7 +1,5 @@
 ## Overview
 
-![MongoDB Atlas dashboard][8]
-
 MongoDB Atlas can push calculated metrics into Datadog to:
 
 - Visualize key MongoDB Atlas metrics.
@@ -54,4 +52,3 @@ Additional helpful documentation, links, and articles:
 [5]: https://docs.datadoghq.com/help/
 [6]: https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/
 [7]: https://www.mongodb.com/products/platform/atlas-for-government
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/mongodb_atlas/images/mongodb_atlas_dashboard.png
