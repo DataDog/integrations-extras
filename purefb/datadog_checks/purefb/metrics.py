@@ -53,5 +53,6 @@ METRIC_MAP = [
         'purefb_array_clients_performance_avg_size_bytes': {'name': 'array.clients_performance_avg_size_bytes'},
         'purefb_file_system_usage_users_bytes': {'name': 'file.system_usage_users_bytes'},
         'purefb_file_system_usage_groups_bytes': {'name': 'file.system_usage_groups_bytes'},
+        'purefb_nfs_export_rule': {'name': 'nfs.export_rule'},
     }
 ]

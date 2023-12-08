@@ -1,0 +1,83 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "c5cf1ad4-fa3f-4835-9f3b-f467288b382a",
+  "app_id": "yugabytedb-managed",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Export YugabyteDB Managed cluster metrics to Datadog",
+    "title": "YugabyteDB Managed",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "The YugabyteDB Managed Overview dashboard",
+        "image_url": "images/overview.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Graphs to monitor YSQL metrics",
+        "image_url": "images/ysql.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Graphs to monitor YCQL metrics",
+        "image_url": "images/ycql.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Graphs to monitor node/infrastructure metrics",
+        "image_url": "images/infrastructure.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Graphs to monitor master server metrics",
+        "image_url": "images/master.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Graphs to monitor tablet-server metrics",
+        "image_url": "images/tserver.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Data Stores",
+      "Supported OS::Linux",
+      "Category::Cloud",
+      "Category::AWS",
+      "Category::Azure",
+      "Category::Google Cloud",
+      "Category::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "yugabytedb_managed_overview": "assets/dashboards/yugabytedb_managed_overview.json"
+    },
+    "integration": {
+      "source_type_name": "YugabyteDB Managed",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "ybdb.",
+        "check": "ybdb.up",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "support@yugabyte.com",
+    "name": "YugabyteDB",
+    "homepage": "https://yugabyte.com/",
+    "sales_email": "sales@yugabyte.com"
+  },
+  "oauth": {}
+}

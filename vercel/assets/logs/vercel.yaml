@@ -106,3 +106,55 @@ pipeline:
       enabled: true
       sources:
         - proxy.timestamp
+metrics:
+  - name: vercel.functions.invocations
+    query: source:vercel @source:lambda REPORT
+    groupBys:
+      - path: '@projectName'
+        tagName: projectname
+      - path: '@deploymentName'
+        tagName: deploymentname
+      - path: '@functionName'
+        tagName: functionname
+  - name: vercel.functions.errors
+    query: source:vercel @source:lambda status:error
+    groupBys:
+      - path: '@projectName'
+        tagName: projectname
+      - path: '@deploymentName'
+        tagName: deploymentname
+      - path: '@functionName'
+        tagName: functionname
+  - name: vercel.functions.duration
+    query: source:vercel @source:lambda
+    groupBys:
+      - path: '@projectName'
+        tagName: projectname
+      - path: '@deploymentName'
+        tagName: deploymentname
+      - path: '@functionName'
+        tagName: functionname
+    aggregation:
+      path: '@lambda.duration'
+      includePercentiles: true
+  - name: vercel.functions.execution
+    query: source:vercel @source:lambda
+    groupBys:
+      - path: '@projectName'
+        tagName: projectname
+      - path: '@deploymentName'
+        tagName: deploymentname
+      - path: '@functionName'
+        tagName: functionname
+    aggregation:
+      path: '@lambda.execution'
+      includePercentiles: false
+  - name: vercel.builds.number_of_builds
+    query: source:vercel "Build completed in"
+    groupBys:
+      - path: '@projectName'
+        tagName: projectname
+      - path: '@deploymentName'
+        tagName: deploymentname
+      - path: '@functionName'
+        tagName: functionname

@@ -1,0 +1,1345 @@
+{
+  "title": "Tailscale Overview",
+  "description": "Use this dashboard to monitor your Tailscale configurations and network events.\n\nOnce you’ve enabled the Tailscale integration in your Datadog account, you’ll be able to easily search, filter, and alert on all Tailscale events in Datadog.\n\nFor further reading, see:\n- [Tailscale Integration Documentation](https://docs.datadoghq.com/integrations/tailscale)",
+  "widgets": [{
+    "id": 208926208052360,
+    "definition": {
+      "title": "New group",
+      "banner_img": "/static/images/integration_dashboard/tailscale_hero_1.png",
+      "show_title": false,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 8452023254516950,
+        "definition": {
+          "type": "note",
+          "content": "Use this dashboard to monitor your Tailscale configurations and network events.\n\nOnce you’ve enabled the Tailscale integration in your Datadog account, you’ll be able to easily search, filter, and alert on all Tailscale events in Datadog.\n\nFor further reading, see:\n- [Tailscale Integration Documentation](https://docs.datadoghq.com/integrations/tailscale)\n",
+          "background_color": "transparent",
+          "font_size": "16",
+          "text_align": "left",
+          "vertical_align": "top",
+          "show_tick": false,
+          "tick_pos": "50%",
+          "tick_edge": "left",
+          "has_padding": true
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 0,
+      "width": 6,
+      "height": 7
+    }
+  }, {
+    "id": 1755220487940636,
+    "definition": {
+      "title": "Tailscale Log Overview",
+      "background_color": "white",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 4697192409202358,
+        "definition": {
+          "title": "Log Count by Source \"source:tailscale\"",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "horizontal",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "service",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale $Host $UserId $UserEmail $UserName"
+              },
+              "storage": "hot"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "bars"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 5533912564747694,
+        "definition": {
+          "title": "Top Events",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "toplist",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@evt.name",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "response_format": "scalar"
+          }],
+          "custom_links": [],
+          "style": {
+            "display": {
+              "type": "stacked",
+              "legend": "automatic"
+            }
+          }
+        },
+        "layout": {
+          "x": 0,
+          "y": 3,
+          "width": 3,
+          "height": 3
+        }
+      }, {
+        "id": 900826603116242,
+        "definition": {
+          "title": "Top Hosts",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "toplist",
+          "requests": [{
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count",
+                "interval": 1800000
+              },
+              "group_by": [{
+                "facet": "@host",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale $Host $UserId $UserEmail $UserName"
+              },
+              "storage": "hot"
+            }],
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }]
+          }],
+          "style": {}
+        },
+        "layout": {
+          "x": 3,
+          "y": 3,
+          "width": 3,
+          "height": 3
+        }
+      }]
+    },
+    "layout": {
+      "x": 6,
+      "y": 0,
+      "width": 6,
+      "height": 7
+    }
+  }, {
+    "id": 7862456626413360,
+    "definition": {
+      "title": "Datadog Cloud SIEM",
+      "title_align": "center",
+      "background_color": "gray",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 4388769903080630,
+        "definition": {
+          "type": "note",
+          "content": "\nDatadog Cloud SIEM analyzes and correlates Tailscale logs to detect threats to your environment in real time. If you don't see signals please make sure you're signed up for [Datadog Cloud SIEM](https://app.datadoghq.com/security). ",
+          "background_color": "gray",
+          "font_size": "14",
+          "text_align": "center",
+          "vertical_align": "center",
+          "show_tick": true,
+          "tick_pos": "50%",
+          "tick_edge": "top",
+          "has_padding": true
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 1
+        }
+      }, {
+        "id": 3715544844076168,
+        "definition": {
+          "title": "CRITICALs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_value",
+          "requests": [{
+            "conditional_formats": [{
+              "custom_bg_color": "#bc303c",
+              "comparator": ">=",
+              "palette": "custom_bg",
+              "value": 0
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [],
+              "search": {
+                "query": "status:critical source:tailscale $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "default_zero(query1)"
+            }]
+          }],
+          "autoscale": true,
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=source:tailscale status:critical&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}"
+          }],
+          "precision": 2
+        },
+        "layout": {
+          "x": 0,
+          "y": 1,
+          "width": 2,
+          "height": 2
+        }
+      }, {
+        "id": 3412894243467074,
+        "definition": {
+          "title": "HIGHs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_value",
+          "requests": [{
+            "conditional_formats": [{
+              "custom_bg_color": "#d33043",
+              "comparator": ">=",
+              "palette": "custom_bg",
+              "value": 0
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [],
+              "search": {
+                "query": "status:high source:tailscale $UserId $UserName $UserEmail $UserEmail"
+              }
+            }],
+            "formulas": [{
+              "formula": "default_zero(query1)"
+            }]
+          }],
+          "autoscale": true,
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=source:tailscale status:high&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}"
+          }],
+          "precision": 2
+        },
+        "layout": {
+          "x": 2,
+          "y": 1,
+          "width": 2,
+          "height": 2
+        }
+      }, {
+        "id": 594399954188742,
+        "definition": {
+          "title": "Security Signals",
+          "type": "toplist",
+          "requests": [{
+            "conditional_formats": [{
+              "comparator": ">",
+              "palette": "custom_bg",
+              "value": 0,
+              "custom_bg_color": "#b9bbbe"
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@workflow.rule.name",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }]
+          }],
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.name:{{@workflow.rule.name.value}}&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}"
+          }],
+          "style": {}
+        },
+        "layout": {
+          "x": 4,
+          "y": 1,
+          "width": 4,
+          "height": 4
+        }
+      }, {
+        "id": 8488773619401418,
+        "definition": {
+          "title": "Security Signals by User",
+          "type": "toplist",
+          "requests": [{
+            "conditional_formats": [{
+              "comparator": ">",
+              "palette": "custom_bg",
+              "value": 0,
+              "custom_bg_color": "#b9bbbe"
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@usr.email",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }]
+          }],
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.type%3A(%22Log%20Detection%22%20OR%20%22Signal%20Correlation%22)%20@usr.email%3A{{@usr.email.value}}%20&column=time&order=desc&view=signal&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}&paused=false"
+          }],
+          "style": {}
+        },
+        "layout": {
+          "x": 8,
+          "y": 1,
+          "width": 4,
+          "height": 4
+        }
+      }, {
+        "id": 4946696828889408,
+        "definition": {
+          "title": "MEDIUMs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_value",
+          "requests": [{
+            "conditional_formats": [{
+              "custom_bg_color": "#e5a21c",
+              "comparator": ">=",
+              "palette": "custom_bg",
+              "value": 0
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [],
+              "search": {
+                "query": "status:medium source:tailscale $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "default_zero(query1)"
+            }]
+          }],
+          "autoscale": true,
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=source:tailscale status:medium&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}&="
+          }],
+          "precision": 2
+        },
+        "layout": {
+          "x": 0,
+          "y": 3,
+          "width": 2,
+          "height": 2
+        }
+      }, {
+        "id": 8050134317040728,
+        "definition": {
+          "title": "LOWs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_value",
+          "requests": [{
+            "conditional_formats": [{
+              "custom_bg_color": "#ffb52b",
+              "comparator": ">=",
+              "palette": "custom_bg",
+              "value": 0
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [],
+              "search": {
+                "query": "source:tailscale status:low $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "default_zero(query1)"
+            }]
+          }],
+          "autoscale": true,
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=source:tailscale status:low&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}"
+          }],
+          "precision": 2
+        },
+        "layout": {
+          "x": 2,
+          "y": 3,
+          "width": 2,
+          "height": 1
+        }
+      }, {
+        "id": 7865420710370160,
+        "definition": {
+          "title": "INFOs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "query_value",
+          "requests": [{
+            "conditional_formats": [{
+              "custom_bg_color": "#84c1e0",
+              "comparator": ">=",
+              "palette": "custom_bg",
+              "value": 0
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "security_signals",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [],
+              "search": {
+                "query": "status:info source:tailscale $Host $UserId $UserEmail $UserName"
+              }
+            }],
+            "formulas": [{
+              "formula": "default_zero(query1)"
+            }]
+          }],
+          "autoscale": true,
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=source%3Atailscale%20status%3Ainfo"
+          }],
+          "precision": 2
+        },
+        "layout": {
+          "x": 2,
+          "y": 4,
+          "width": 2,
+          "height": 1
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 7,
+      "width": 12,
+      "height": 6
+    }
+  }, {
+    "id": 1612221712410756,
+    "definition": {
+      "title": "Tailscale Network Overview",
+      "background_color": "gray",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 1786454983021730,
+        "definition": {
+          "title": "Physical Traffic Source Activity over time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@physicalTraffic.src",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              }
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "grey",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }],
+          "yaxis": {
+            "include_zero": false
+          },
+          "custom_links": []
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 2481241446781684,
+        "definition": {
+          "title": "Physical Traffic Destination Activity over time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@physicalTraffic.dst",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              }
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "grey",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }],
+          "yaxis": {
+            "include_zero": false
+          },
+          "custom_links": []
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 5761346393135934,
+        "definition": {
+          "title": "Virtual Traffic Source Activity over time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@virtualTraffic.src",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              }
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "blue",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }],
+          "yaxis": {
+            "include_zero": false
+          },
+          "custom_links": []
+        },
+        "layout": {
+          "x": 0,
+          "y": 3,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 248440170134928,
+        "definition": {
+          "title": "Virtual Traffic Destination Activity over time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@virtualTraffic.dst",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              }
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "blue",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }],
+          "yaxis": {
+            "include_zero": false
+          },
+          "custom_links": []
+        },
+        "layout": {
+          "x": 6,
+          "y": 3,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 840096162403282,
+        "definition": {
+          "title": "Exit Traffic Source Activity over time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@exitTraffic.src",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              }
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "thin"
+            },
+            "display_type": "bars"
+          }],
+          "yaxis": {
+            "include_zero": false
+          },
+          "custom_links": []
+        },
+        "layout": {
+          "x": 0,
+          "y": 6,
+          "width": 12,
+          "height": 3
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 13,
+      "width": 12,
+      "height": 10
+    }
+  }, {
+    "id": 1593356069915256,
+    "definition": {
+      "title": "Tailscale Configuration Overview",
+      "background_color": "gray",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 4997948138336430,
+        "definition": {
+          "title": "Events by User",
+          "title_size": "16",
+          "title_align": "left",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 500,
+                "order": "desc"
+              }
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@evt.name",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config"
+              }
+            }],
+            "response_format": "scalar",
+            "style": {
+              "palette": "classic"
+            }
+          }],
+          "type": "sunburst",
+          "legend": {
+            "type": "automatic"
+          },
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.type:(\"Log Detection\" OR \"Signal Correlation\") {{@evt.name}}{{$usr.id}}{{$usr.name}}{{$usr.email}}{{$host}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 5,
+          "height": 6
+        }
+      }, {
+        "id": 8655372848548292,
+        "definition": {
+          "title": "Configuration Log Stream",
+          "requests": [{
+            "response_format": "event_list",
+            "query": {
+              "data_source": "logs_stream",
+              "query_string": "source:tailscale service:logstream-config",
+              "indexes": [],
+              "storage": "hot",
+              "sort": {
+                "order": "desc",
+                "column": "@usr.id"
+              }
+            },
+            "columns": [{
+              "field": "status_line",
+              "width": "auto"
+            }, {
+              "field": "timestamp",
+              "width": "auto"
+            }, {
+              "field": "@usr.id",
+              "width": "auto"
+            }, {
+              "field": "@usr.name",
+              "width": "auto"
+            }, {
+              "field": "@usr.email",
+              "width": "auto"
+            }, {
+              "field": "evt.name",
+              "width": "auto"
+            }]
+          }],
+          "type": "list_stream"
+        },
+        "layout": {
+          "x": 5,
+          "y": 0,
+          "width": 7,
+          "height": 6
+        }
+      }, {
+        "id": 3843621245941244,
+        "definition": {
+          "title": "Top User Names",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "toplist",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@usr.name",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config"
+              }
+            }],
+            "conditional_formats": [{
+              "comparator": ">",
+              "value": 0,
+              "palette": "custom_bg",
+              "custom_bg_color": "#b9bbbe"
+            }]
+          }],
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.type%3A(%22Log%20Detection%22%20OR%20%22Signal%20Correlation%22)%20{{$usr.id}}{{@usr.name}}{{$usr.email}}{{$host}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+          }],
+          "style": {
+            "scaling": "absolute"
+          }
+        },
+        "layout": {
+          "x": 0,
+          "y": 6,
+          "width": 4,
+          "height": 2
+        }
+      }, {
+        "id": 4570392461259890,
+        "definition": {
+          "title": "Top User Emails",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "toplist",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@usr.email",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config"
+              }
+            }],
+            "conditional_formats": [{
+              "comparator": ">",
+              "value": 0,
+              "palette": "custom_bg",
+              "custom_bg_color": "#b9bbbe"
+            }]
+          }],
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.type%3A(%22Log%20Detection%22%20OR%20%22Signal%20Correlation%22)%20{{$usr.id}}{{$usr.name}}{{@usr.email}}{{$host}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+          }],
+          "style": {}
+        },
+        "layout": {
+          "x": 4,
+          "y": 6,
+          "width": 4,
+          "height": 2
+        }
+      }, {
+        "id": 8927213037414860,
+        "definition": {
+          "title": "Top User IDs",
+          "title_size": "16",
+          "title_align": "left",
+          "type": "toplist",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "limit": {
+                "count": 10,
+                "order": "desc"
+              }
+            }],
+            "response_format": "scalar",
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@usr.id",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config"
+              }
+            }],
+            "conditional_formats": [{
+              "comparator": ">",
+              "value": 0,
+              "palette": "custom_bg",
+              "custom_bg_color": "#b9bbbe"
+            }]
+          }],
+          "custom_links": [{
+            "label": "View related Security Signals",
+            "link": "/security?query=@workflow.rule.type%3A(%22Log%20Detection%22%20OR%20%22Signal%20Correlation%22)%20{{@usr.id}}{{$usr.name}}{{$usr.email}}{{$host}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true"
+          }],
+          "style": {}
+        },
+        "layout": {
+          "x": 8,
+          "y": 6,
+          "width": 4,
+          "height": 2
+        }
+      }, {
+        "id": 4156087377798532,
+        "definition": {
+          "title": "Top Activity Origins ",
+          "type": "treemap",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@origin",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config -@origin:\"\""
+              }
+            }],
+            "response_format": "scalar",
+            "style": {
+              "palette": "classic"
+            }
+          }],
+          "custom_links": [{
+            "link": "/security?query=@workflow.rule.type:(\"Log Detection\" OR \"Signal Correlation\") {{$evt.name}}{{$usr.id}}{{@usr.name}}{{$usr.email}}{{$source}}{{$service}}{{$env}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true",
+            "label": "View related Security Signals"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 8,
+          "width": 12,
+          "height": 4
+        }
+      }, {
+        "id": 7857049045009932,
+        "definition": {
+          "title": "Top Targets Resources",
+          "type": "treemap",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "query1",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "count"
+              },
+              "group_by": [{
+                "facet": "@target.type",
+                "limit": 10,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "count"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale service:logstream-config"
+              }
+            }],
+            "response_format": "scalar",
+            "style": {
+              "palette": "datadog16"
+            }
+          }],
+          "custom_links": [{
+            "link": "/security?query=@workflow.rule.type:(\"Log Detection\" OR \"Signal Correlation\") {{$evt.name}}{{$usr.id}}{{@usr.name}}{{$usr.email}}{{$source}}{{$service}}{{$env}}&start={{timestamp_start}}&end={{timestamp_end}}&paused=true",
+            "label": "View related Security Signals"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 12,
+          "width": 12,
+          "height": 4
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 23,
+      "width": 12,
+      "height": 17,
+      "is_column_break": true
+    }
+  }, {
+    "id": 8363979771164524,
+    "definition": {
+      "title": "Tailscale Destination Traffic Overview",
+      "background_color": "gray",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 957318194226790,
+        "definition": {
+          "title": "Average Rate of Change of Physical Traffic",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": false,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "time": {},
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "abs(derivative(a))"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "a",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "max",
+                "metric": "@physicalTraffic.rxBytes"
+              },
+              "group_by": [{
+                "facet": "@physicalTraffic.dst",
+                "limit": 100,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "max",
+                  "metric": "@physicalTraffic.rxBytes"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              },
+              "storage": "hot"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 3
+        }
+      }, {
+        "id": 6057961989932010,
+        "definition": {
+          "title": "Average Rate of Change of Virtual Traffic",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": false,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "time": {},
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "abs(derivative(a))"
+            }],
+            "queries": [{
+              "data_source": "logs",
+              "name": "a",
+              "indexes": ["*"],
+              "compute": {
+                "aggregation": "avg",
+                "metric": "@virtualTraffic.txBytes"
+              },
+              "group_by": [{
+                "facet": "@virtualTraffic.dst",
+                "limit": 100,
+                "sort": {
+                  "order": "desc",
+                  "aggregation": "avg",
+                  "metric": "@virtualTraffic.txBytes"
+                }
+              }],
+              "search": {
+                "query": "source:tailscale"
+              },
+              "storage": "hot"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 3
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 40,
+      "width": 12,
+      "height": 4
+    }
+  }],
+  "template_variables": [{
+    "name": "Host",
+    "prefix": "@host",
+    "available_values": [],
+    "default": "*"
+  }, {
+    "name": "UserId",
+    "prefix": "@usr.id",
+    "available_values": [],
+    "default": "*"
+  }, {
+    "name": "UserEmail",
+    "prefix": "@usr.email",
+    "available_values": [],
+    "default": "*"
+  }, {
+    "name": "UserName",
+    "prefix": "@usr.name",
+    "available_values": [],
+    "default": "*"
+  }],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}

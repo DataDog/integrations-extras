@@ -151,5 +151,5 @@ Need help? Contact [1E Support][1].
 [5]: https://docs.datadoghq.com/
 [6]: https://docs.datadoghq.com/help/
 [7]: https://www.postman.com/
-[8]: https://help.1e.com/display/TCNSDK/Tachyon+PowerShell+Toolkit
+[8]: https://help.1e.com/TCN81/en/736741-764706-using-the-1e-powershell-toolkit.html
 [9]: https://github.com/DataDog/integrations-extras/blob/master/1e/metadata.csv
