@@ -2,33 +2,33 @@
 
 ## Overview
 
-[EMQX][1] is a highly scalable, open-source MQTT broker designed for IoT (Internet of Things) . MQTT stands for Message Queuing Telemetry Transport, which is a lightweight, publish-subscribe network protocol that transports messages between devices.
+[EMQX][1] is a highly scalable, open-source MQTT broker designed for IoT (Internet of Things). MQTT stands for Message Queuing Telemetry Transport, which is a lightweight, publish-subscribe network protocol that transports messages between devices.
 
-**Key Features of EMQX**:
+**Key features of EMQX:**
 - Scalability: EMQX can handle millions of concurrent MQTT connections, making it suitable for IoT applications that require handling a large number of devices.
 - Reliability: It provides stable and reliable message delivery, ensuring that data is successfully transferred between devices and servers.
-- Low Latency: Designed for scenarios requiring low-latency communication.
-- High Throughput: Capable of processing a high volume of messages efficiently.
+- Low latency: Designed for scenarios requiring low-latency communication.
+- High throughput: Capable of processing a high volume of messages efficiently.
 - Clustering: EMQX can be deployed in a distributed cluster to enhance performance and reliability.
 
 Integrating EMQX with Datadog is valuable for several reasons:
 
-Types of Data Sent to Datadog:
+**Types of data sent to Datadog:**
 - Metrics: This includes performance metrics like message throughput (messages sent/received per second), number of connected clients and more.
 
-- Node Performance: Monitoring individual node performance in a cluster, such as latency, load, and operational metrics.
+- Node performance: Monitoring individual node performance in a cluster, such as latency, load, and operational metrics.
 
-- Operational Health: Data about the health of the MQTT broker, including, error rates, and other critical indicators.
+- Operational health: Data about the health of the MQTT broker, including, error rates, and other critical indicators.
 
-**Why It's Valuable**:
-- Dashboard Visualization: Datadog provides a visual dashboard that helps in understanding the data and metrics at a glance, which is easier than interpreting raw data.
-  Scalability Insights: Understanding how the system performs under different loads can guide decisions on scaling the infrastructure.
+**Why it's valuable:**
+- Dashboard visualization: Datadog provides a visual dashboard that helps in understanding the data and metrics at a glance, which is easier than interpreting raw data.
+  Scalability insights: Understanding how the system performs under different loads can guide decisions on scaling the infrastructure.
 
 - Troubleshooting: Identifying patterns and anomalies in the data can help in diagnosing and resolving issues quickly.
 
-- Customized Alerts: Setting up alerts based on specific metrics or thresholds can help in proactively managing the system.
+- Customized alerts: Setting up alerts based on specific metrics or thresholds can help in proactively managing the system.
   
-The integration of EMQX with Datadog enriches the monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
+The integration of EMQX with Datadog enriches monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
 
 ## Setup
 
@@ -42,7 +42,7 @@ Run `datadog-agent integration install -t datadog-emqx==1.0.0`.
 
 ### Configuration
 
-1. Edit the `emqx/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory to start collecting your EMQX performance data.
+1. Edit the `emqx/conf.yaml` file, located in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting your EMQX performance data.
    
 2. [Restart the Agent][4].
 
