@@ -1,0 +1,244 @@
+id: jamfprotect
+metric_id: jamf-protect
+facets:
+  - name: Event Name
+    source: log
+    path: evt.name
+    groups:
+      - Event
+  - name: Event Outcome
+    source: log
+    path: evt.outcome
+    groups:
+      - Event
+  - name: City Name
+    source: log
+    path: network.client.geoip.city.name
+    groups:
+      - Geoip
+  - name: Country Name
+    source: log
+    path: network.client.geoip.country.name
+    groups:
+      - Geoip
+  - name: Subdivision Name
+    source: log
+    path: network.client.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Client IP
+    source: log
+    path: network.client.ip
+    groups:
+      - Web Access
+  - name: Client Port
+    source: log
+    path: network.client.port
+    groups:
+      - Web Access
+  - name: Destination City Name
+    source: log
+    path: network.destination.geoip.city.name
+    groups:
+      - Geoip
+  - name: Destination Continent Code
+    source: log
+    path: network.destination.geoip.continent.code
+    groups:
+      - Geoip
+  - name: Destination Continent Name
+    source: log
+    path: network.destination.geoip.continent.name
+    groups:
+      - Geoip
+  - name: Destination Country ISO Code
+    source: log
+    path: network.destination.geoip.country.iso_code
+    groups:
+      - Geoip
+  - name: Destination Country Name
+    source: log
+    path: network.destination.geoip.country.name
+    groups:
+      - Geoip
+  - name: Destination Subdivision ISO Code
+    source: log
+    path: network.destination.geoip.subdivision.iso_code
+    groups:
+      - Geoip
+  - name: Destination Subdivision Name
+    source: log
+    path: network.destination.geoip.subdivision.name
+    groups:
+      - Geoip
+  - name: Destination IP
+    source: log
+    path: network.destination.ip
+    groups:
+      - Web Access
+  - name: Destination Port
+    source: log
+    path: network.destination.port
+    groups:
+      - Web Access
+  - name: User ID
+    source: log
+    path: usr.id
+    groups:
+      - User
+  - name: User Email
+    source: log
+    path: usr.email
+    groups:
+      - User
+  - name: User Name
+    source: log
+    path: usr.name
+    groups:
+      - User
+  - name: Event Category
+    source: log
+    path: evt.category
+    groups:
+      - Event
+  - name: Event Type
+    source: log
+    path: evt.type
+    groups:
+      - Event
+pipeline:
+  type: pipeline
+  name: Jamf Protect
+  enabled: true
+  filter:
+    query: source:jamfprotect
+  processors:
+    - type: attribute-remapper
+      name: Map `event.device.userDeviceName` to `host`
+      enabled: true
+      sources:
+        - event.device.userDeviceName
+      target: host
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `socket_inet.ip_address`, `event.destination.ip` to `network.destination.ip`
+      enabled: true
+      sources:
+        - socket_inet.ip_address
+        - event.destination.ip
+      target: network.destination.ip
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `socket_inet.port`, `event.destination.port` to `network.destination.port`
+      enabled: true
+      sources:
+        - socket_inet.port
+        - event.destination.port
+      target: network.destination.port
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `subject.terminal_id.ip_address`, `input.host.ips`, `event.source.ip` to `network.client.ip`
+      enabled: true
+      sources:
+        - subject.terminal_id.ip_address
+        - input.host.ips
+        - event.source.ip
+      target: network.client.ip
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `subject.terminal_id.port`, `event.source.port` to `network.client.port`
+      enabled: true
+      sources:
+        - subject.terminal_id.port
+        - event.source.port
+      target: network.client.port
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `subject.user_id` to `usr.id`
+      enabled: true
+      sources:
+        - subject.user_id
+      target: usr.id
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `event.user.email` to `usr.email`
+      enabled: true
+      sources:
+        - event.user.email
+      target: usr.email
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `subject.user_name`, `event.user.name` to `usr.name`
+      enabled: true
+      sources:
+        - subject.user_name
+        - event.user.name
+      target: usr.name
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `header.event_name`, `input.match.event.name`, `event.eventType.name` to `evt.name`
+      enabled: true
+      sources:
+        - header.event_name
+        - input.match.event.name
+        - event.eventType.name
+      target: evt.name
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `return.description` to `evt.outcome`
+      enabled: true
+      sources:
+        - return.description
+      target: evt.outcome
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `input.match.event.category`, `event.eventType.description` to `evt.category`
+      enabled: true
+      sources:
+        - input.match.event.category
+        - event.eventType.description
+      target: evt.category
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
+    - type: attribute-remapper
+      name: Map `input.eventType` to `evt.type`
+      enabled: true
+      sources:
+        - input.eventType
+      target: evt.type
+      preserveSource: false
+      overrideOnConflict: false
+      sourceType: attribute
+      targetType: attribute
