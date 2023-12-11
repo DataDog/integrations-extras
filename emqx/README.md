@@ -20,14 +20,6 @@ Integrating EMQX with Datadog is valuable for several reasons:
 
 - Operational health: Data about the health of the MQTT broker, including, error rates, and other critical indicators.
 
-**Why it's valuable:**
-- Dashboard visualization: Datadog provides a visual dashboard that helps in understanding the data and metrics at a glance, which is easier than interpreting raw data.
-  Scalability insights: Understanding how the system performs under different loads can guide decisions on scaling the infrastructure.
-
-- Troubleshooting: Identifying patterns and anomalies in the data can help in diagnosing and resolving issues quickly.
-
-- Customized alerts: Setting up alerts based on specific metrics or thresholds can help in proactively managing the system.
-  
 The integration of EMQX with Datadog enriches monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
 
 ## Setup
