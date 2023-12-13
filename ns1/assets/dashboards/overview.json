@@ -1132,10 +1132,22 @@
                             "type": "change",
                             "requests": [
                                 {
+                                    "formulas": [
+                                        {
+                                            "formula": "top(query1, 10, \"mean\", \"desc\")",
+                                            "alias": "TTL"
+                                        }
+                                    ],
                                     "order_by": "change",
                                     "order_dir": "desc",
                                     "compare_to": "hour_before",
-                                    "q": "top(max:ns1.ttl{*} by {record}, 10, 'mean', 'desc')",
+                                    "queries": [
+                                        {
+                                            "query": "max:ns1.ttl{*} by {record}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
                                     "show_present": true,
                                     "increase_good": true,
                                     "change_type": "absolute"
@@ -1225,10 +1237,10 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:ns1.usage.zone{*} by {zone}",
+                                            "query": "sum:ns1.usage.zone{*} by {zone}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "aggregator": "avg"
+                                            "aggregator": "sum"
                                         }
                                     ]
                                 }

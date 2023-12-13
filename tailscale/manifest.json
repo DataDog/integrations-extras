@@ -1,0 +1,49 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "e3f4a5cf-3594-43fc-9d4e-4e86b9c91ea2",
+  "app_id": "tailscale",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "View Tailscale audit and network flow logs in Datadog.",
+    "title": "Tailscale",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Security",
+      "Category::Log Collection",
+      "Category::Network"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Tailscale",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+        "tailscale-overview": "assets/dashboards/tailscale_overview.json"
+    },
+    "monitors": {
+      "Virtual Bytes Received by Destination": "assets/monitors/virtual_traffic_received.json",
+      "Physical Bytes Received by Destination": "assets/monitors/physical_traffic_received.json"
+    }
+  },
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "name": "Datadog",
+    "homepage": "https://www.datadoghq.com",
+    "sales_email": "info@datadoghq.com"
+  },
+  "oauth": {}
+}
