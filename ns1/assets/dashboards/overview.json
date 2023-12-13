@@ -1237,10 +1237,10 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "avg:ns1.usage.zone{*} by {zone}",
+                                            "query": "sum:ns1.usage.zone{*} by {zone}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query1",
-                                            "aggregator": "avg"
+                                            "aggregator": "sum"
                                         }
                                     ]
                                 }
