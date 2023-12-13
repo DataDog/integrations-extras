@@ -17,7 +17,7 @@ At the initial release this integration will stream the following artifactory lo
 
 These logs will allow customers to readily know who accessed what repositories and how often. The logs will also show what IP addresses accessed those repositories. Log types such as traffic.log, artifactory-access.log and more request logs will be added to this integration in future updates.
 
-JFrog’s SaaS Log Streaming is currently in Beta. While in Beta, the cloud log streaming feature will only be available inside the MyJFrog portal for select JFrog Enterprise + customers. JFrog plans to GA this feature later in Q2 2024 at which point it will be available to all JFrog Enterprise + customers.
+JFrog's SaaS Log Streaming is currently in Beta. While in Beta, the cloud log streaming feature will only be available inside the MyJFrog portal for select JFrog Enterprise + customers. JFrog plans to GA this feature later in Q2 2024 at which point it will be available to all JFrog Enterprise + customers.
 
 ## Setup
 
