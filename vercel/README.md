@@ -44,5 +44,5 @@ Need help? Contact [Datadog support][8].
 [4]: https://vercel.com/docs/serverless-functions/introduction
 [5]: /logs/
 [6]: /synthetics/
-[7]: /setup/vercel
+[7]: https://app.datadoghq.com/setup/vercel
 [8]: /help/
