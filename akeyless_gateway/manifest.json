@@ -1,0 +1,68 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "a71a3b29-5921-4bc9-8a7e-38de5a940ad8",
+  "app_id": "akeyless-gateway",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Track your Akeyless Gateway key metrics.",
+    "title": "Akeyless Gateway",
+    "media": [
+      {
+        "caption": "Akeyless Gateway metrics dashboard",
+        "image_url": "images/AKs-Graphs-Light.png",
+        "media_type": "image"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Security",
+      "Category::Kubernetes",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "author": {
+    "support_email": "support@akeyless.io",
+    "homepage": "https://www.akeyless.io",
+    "sales_email": "sales@akeyless.io",
+    "name": "Akeyless Security"
+  },
+  "oauth": {},
+  "assets": {
+    "integration": {
+      "source_type_name": "Akeyless Gateway",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "akeyless",
+        "check": [
+          "akeyless.gw.system.cpu",
+          "akeyless.gw.system.disk",
+          "akeyless.gw.system.load",
+          "akeyless.gw.system.memory",
+          "akeyless.gw.system.network",
+          "akeyless.gw.quota.current_transactions_number",
+          "akeyless.gw.quota.gw_admin_client_transactions",
+          "akeyless.gw.quota.total_transactions_limit",
+          "akeyless.gw.system.http_response_status_code",
+          "akeyless.gw.system.request_count"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "akeyless_gateway_dashboard": "assets/dashboards/akeyless_gateway_dashboard.json"
+    }
+  }
+}

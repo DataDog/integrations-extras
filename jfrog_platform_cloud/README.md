@@ -17,13 +17,15 @@ At the initial release this integration will stream the following artifactory lo
 
 These logs will allow customers to readily know who accessed what repositories and how often. The logs will also show what IP addresses accessed those repositories. Log types such as traffic.log, artifactory-access.log and more request logs will be added to this integration in future updates.
 
+JFrog's SaaS Log Streaming is currently in Beta. While in Beta, the cloud log streaming feature will only be available inside the MyJFrog portal for select JFrog Enterprise + customers. JFrog plans to GA this feature later in Q2 2024 at which point it will be available to all JFrog Enterprise + customers.
+
 ## Setup
 
-**Note:** The integration requires JFrog Enterprise Plus subscription. 
+**Note:** The integration requires JFrog Enterprise Plus subscription.
 
 ### Installation
 
-Create [DataDog API key](https://app.datadoghq.com/organization-settings/api-keys).  
+Create [DataDog API key](https://app.datadoghq.com/organization-settings/api-keys).
 
 On the [MyJFrog Portal](https://my.jfrog.com), go to Settings -> JFrog Cloud Log Streaming - BETA, and enable the Log Streamer.
 Select Datadog as the vendor. Add your Datadog API key, the Datadog intake URL for your [Datadog site](https://docs.datadoghq.com/getting_started/site/) (`https://http-intake.logs.datadoghq.com/api/v2/logs`), and `ddtags`. Click Save.

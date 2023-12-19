@@ -1,5 +1,11 @@
 # CHANGELOG - Gitea
 
+## 1.0.2 / 2023-11-22
+
+***Fixed***:
+
+* Add the `ignore_connection_errors` option in the config file ([#2204](https://github.com/DataDog/integrations-extras/pull/2204))
+
 ## 1.0.1 / 2023-04-28
 
 ***Fixed***:
