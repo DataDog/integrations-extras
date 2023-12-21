@@ -151,7 +151,7 @@ Using the [Datadog API Logs documentation][7], determine what your intake URL i
 
 ### Validation
 
-Navigate to the [Logs Explorer][5] and search for `source:jamf` to validate you are receiving logs.
+Navigate to the [Logs Explorer][5] and search for `source:jamfprotect` to validate you are receiving logs.
 
 ## Data Collected
 
