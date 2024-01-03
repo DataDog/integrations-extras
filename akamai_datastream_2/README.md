@@ -19,7 +19,7 @@ Akamai techdocs site][2], make sure to set the log source to `akamai.datastream`
 
 Ensure that you have the Datadog Site selector on the right of the page set to your [Datadog Site][4], and copy the logs endpoint URL below:  
 
-`{{< region-param key="http_endpoint" code="true" >}}/v1/input`
+`https://{{< region-param key="http_endpoint" code="true" >}}/v1/input`
 
 ### Validation
 
