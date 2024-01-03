@@ -2,11 +2,11 @@
   "version": 2,
   "created_at": "2020-08-07",
   "last_updated_at": "2020-08-18",
-  "title": "Node CPU Load Prediction in Next 24 Hours is High on {{host.name}}",
+  "title": "Node CPU Load prediction is high",
   "tags": [
     "integration:federatorai"
   ],
-  "description": "Notify your team when the CPU utilization prediction of the host in the next 24 hours is over the threshold",
+  "description": "CPU load measures how much processing capacity is being used by the Kubernetes Nodes within the Federator.ai-managed infrastructure. This monitor predicts CPU usage to indicate that the nodes may be at risk of CPU resource saturation.",
   "definition": {
     "message": "{{#is_alert}} \n1. CPU utilization prediction **{{value}}%** for **{{host.name}}**  in the next 24 hours is more than **{{threshold}}%**.\n2. Add additional node to share workload. \n{{/is_alert}} \n{{#is_warning}} CPU utilization prediction **{{value}}%** for **{{host.name}}**  in the next 24 hours is more than **{{warn_threshold}}%**.{{/is_warning}} \n{{#is_alert_recovery}} CPU utilization prediction for **{{host.name}}** is now **{{value}}%**.{{/is_alert_recovery}}\n{{#is_warning_recovery}}CPU utilization prediction for **{{host.name}}** is now **{{value}}%**.{{/is_warning_recovery}}",
     "name": "[Federator.ai] Node CPU Load Prediction in Next 24 Hours is High on {{host.name}}",
