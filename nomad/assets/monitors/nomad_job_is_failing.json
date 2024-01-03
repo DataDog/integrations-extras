@@ -2,11 +2,11 @@
   "version": 2,
   "created_at": "2020-07-30",
   "last_updated_at": "2023-07-31",
-  "title": "Job Is Failing",
+  "title": "Nomad jobs are failing",
   "tags": [
     "integration:nomad"
   ],
-  "description": "Get notified when Nomad has at least 3 failures of a job.",
+  "description": "A Nomad job can fail due to an issue or error that occurs during the execution. This monitor tracks changes in job failures for specific job and task group combinations, which may indicate problems or issues affecting the execution of specific Nomad jobs.",
   "definition": {
     "message": "{{#is_alert}}\nObserved at least 3 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\n\nThis is an indicator of the following scenarios:\n\n- A misconfiguration in the job\n- The job is not starting successfully\n\nNotify:\n{{/is_alert}}\n\n{{#is_warning}}\nObserved 1 failures of job: {{job.name}} task: {{task_group.name}} in the last 5 minutes.\nNotify:\n{{/is_warning}}\n\n{{#is_alert_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_alert_recovery}}\n\n{{#is_warning_recovery}}\nFailure of job: {{job.name}} task: {{task_group.name}} has recovered from previous failures.\nNotify:\n{{/is_warning_recovery}}",
     "name": "[Nomad] Job Is Failing",
