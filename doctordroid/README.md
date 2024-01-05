@@ -10,7 +10,7 @@ Doctor Droid is an observability analytics platform that analyzes alerts history
 ## Setup
 
 ### Installation
-Visit [Doctor Droid](https://alertops-app.drdroid.io/)  to sign up for free. Once registered, visit the [integrations page](https://alertops-app.drdroid.io/integrations)  and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Doctor Droid access to your API Keys to query APM & Infra metrics for you.
+Visit [Doctor Droid][1] to sign up for free. Once registered, visit the [integrations page][2]  and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Doctor Droid access to your API Keys to query APM & Infra metrics for you.
 
 ### Configuration
 After you add the integration, explore your alerts history within Doctor Droid to discover trends. You can create reports and playbooks to enrich your generated alerts data.
