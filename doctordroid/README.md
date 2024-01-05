@@ -19,7 +19,7 @@ After you add the integration, explore your alerts history within Doctor Droid t
 
 To remove the Datadog integration from Doctor Droid, navigate to the [Doctor Droid integrations page](https://alertops-app.drdroid.io/integrations),  and click  **Delete**. Additionally, uninstall this integration from Datadog by clicking the  **Uninstall Integration**  button below. Once you uninstall this integration, any previous authorizations are revoked.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the  [API Keys management page](https://app.datadoghq.com/organization-settings/api-keys?filter=DoctorDroid).
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the  [API Keys management page][3].
 
 ## Support
 
