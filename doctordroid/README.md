@@ -29,3 +29,7 @@ Additionally, ensure that all API keys associated with this integration have bee
 ## Support
 
 Need help? Contact  [Doctor Droid support](mailto:support@drdroid.io).
+
+[1]: https://alertops-app.drdroid.io/
+[2]: https://alertops-app.drdroid.io/integrations
+[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=DoctorDroid
