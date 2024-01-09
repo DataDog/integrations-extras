@@ -1,28 +1,70 @@
 {
   "title": "Doctor Droid Dashboard",
-  "description": "## Doctor Droid Dashboard\n\nWatch production monitors and their events enriched by doctor droid with diagnosis and analysis",
+  "description": "[[suggested_dashboards]]",
   "widgets": [
     {
-      "id": 2313374756749114,
+      "id": 4343979668337352,
       "definition": {
-        "title": "Monitor Summary",
-        "type": "manage_status",
-        "display_format": "countsAndList",
-        "color_preference": "text",
-        "hide_zero_counts": true,
-        "query": "tag:(env:prod)",
-        "sort": "status,asc",
-        "count": 50,
-        "start": 0,
-        "summary_type": "monitors",
-        "show_priority": false,
-        "show_last_triggered": false
+        "type": "image",
+        "url": "https://drdroid-public-content.s3.us-west-2.amazonaws.com/Horizontal+Logo.png",
+        "sizing": "contain",
+        "has_background": false,
+        "has_border": false,
+        "vertical_align": "center",
+        "horizontal_align": "center"
       },
       "layout": {
         "x": 0,
         "y": 0,
-        "width": 12,
+        "width": 3,
+        "height": 3
+      }
+    },
+    {
+      "id": 4982536015367336,
+      "definition": {
+        "title": "Impacted Resource Analysis",
+        "title_size": "16",
+        "title_align": "left",
+        "requests": [
+          {
+            "response_format": "event_list",
+            "query": {
+              "query_string": "source:dr-droid ",
+              "data_source": "event_stream",
+              "event_size": "l"
+            },
+            "columns": []
+          }
+        ],
+        "type": "list_stream"
+      },
+      "layout": {
+        "x": 3,
+        "y": 0,
+        "width": 9,
         "height": 9
+      }
+    },
+    {
+      "id": 1625742481085650,
+      "definition": {
+        "type": "note",
+        "content": "# Overview\n\nDoctor Droid is an observability analytics platform that analyzes alerts history and fetches metrics from upstream and downstream services. Use the integration to:\n- Decide better thresholds for alerts\n- Identify alerting coverage for your services\n- Enrich alerts for faster diagnosis",
+        "background_color": "white",
+        "font_size": "14",
+        "text_align": "left",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      },
+      "layout": {
+        "x": 0,
+        "y": 3,
+        "width": 3,
+        "height": 5
       }
     }
   ],
