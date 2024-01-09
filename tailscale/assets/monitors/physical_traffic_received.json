@@ -1,0 +1,56 @@
+{
+	"version": 2,
+	"created_at": "2023-11-07",
+	"last_updated_at": "2023-11-07",
+	"title": "High Physical Traffic Received by Destination",
+	"description": "Use this monitor to set an alert if the rate of change for physical traffic from a specific source is abnormally high.",
+	"definition": {
+		"name": "Unusually High Physical Traffic To Destination: {{[@physicalTraffic.dst].name}} ",
+		"type": "log alert",
+		"query": "formula(\"derivative(query)\").last(\"15m\") > 500000",
+		"message": "Use this monitor to set an alert if the rate of change for physical traffic from a specific source is abnormally high. The correct threshold value to use will vary by environment. To determine the correct value for your organization, use the average rate of change for  the physical traffic widget in the out-of-the-box dashboard. A good starting value is 5x the average value you've seen over the last 4 hours. The value can be adjusted as needed.",
+		"tags": [],
+		"options": {
+			"thresholds": {
+				"critical": 500000
+			},
+			"enable_logs_sample": true,
+			"notify_audit": false,
+			"restriction_query": null,
+			"on_missing_data": "default",
+			"include_tags": true,
+			"new_group_delay": 60,
+			"variables": [
+				{
+					"data_source": "logs",
+					"name": "query",
+					"indexes": [
+						"*"
+					],
+					"compute": {
+						"aggregation": "cardinality",
+						"metric": "@physicalTraffic.rxBytes"
+					},
+					"group_by": [
+						{
+							"facet": "@physicalTraffic.dst",
+							"limit": 10,
+							"sort": {
+								"order": "desc",
+								"aggregation": "cardinality",
+								"metric": "@physicalTraffic.rxBytes"
+							}
+						}
+					],
+					"search": {
+						"query": "source:tailscale"
+					},
+					"storage": "hot"
+				}
+			]
+		}
+	},
+	"tags": [
+		"integration:tailscale"
+	]
+}
