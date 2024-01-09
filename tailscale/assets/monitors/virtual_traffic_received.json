@@ -1,0 +1,56 @@
+{
+	"version": 2,
+	"created_at": "2023-11-07",
+	"last_updated_at": "2023-11-07",
+	"title": "High Virtual Traffic Received by Destination",
+	"description": "Use this monitor to set an alert if the rate of change for virtual traffic from a specific source is abnormally high.",
+	"definition": {
+		"name": "Unusually High Virtual Traffic To Destination: {{[@virtualTraffic.dst].name}} ",
+		"type": "log alert",
+		"query": "formula(\"derivative(query)\").last(\"15m\") > 10000",
+		"message": "Use this monitor to set an alert if the rate of change virtual from a specific source is abnormally high.The correct threshold value to use will vary by environment. To determine the correct value for your organization, use the average rate of change for  the physical traffic widget in the out-of-the-box dashboard. A good starting value is 5x the average value you've seen over the last 4 hours. The value can be adjusted as needed.",
+		"tags": [],
+		"options": {
+			"thresholds": {
+				"critical": 10000
+			},
+			"enable_logs_sample": true,
+			"notify_audit": false,
+			"restriction_query": null,
+			"on_missing_data": "default",
+			"include_tags": true,
+			"new_group_delay": 60,
+			"variables": [
+				{
+					"data_source": "logs",
+					"name": "query",
+					"indexes": [
+						"*"
+					],
+					"compute": {
+						"aggregation": "avg",
+						"metric": "@virtualTraffic.rxBytes"
+					},
+					"group_by": [
+						{
+							"facet": "@virtualTraffic.dst",
+							"limit": 50,
+							"sort": {
+								"order": "desc",
+								"aggregation": "avg",
+								"metric": "@virtualTraffic.rxBytes"
+							}
+						}
+					],
+					"search": {
+						"query": "source:tailscale"
+					},
+					"storage": "hot"
+				}
+			]
+		}
+	},
+	"tags": [
+		"integration:tailscale"
+	]
+}

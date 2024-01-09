@@ -14,8 +14,7 @@ Integrate Vercel with Datadog to:
 
 ## Setup
 
-- Generate a [Datadog API key][7]
-- Configure the logs integration through the [Vercel Marketplace][8]
+- [Configure the Vercel integration][7]
 
 ## Data Collected
 
@@ -45,6 +44,5 @@ Need help? Contact [Datadog support][8].
 [4]: https://vercel.com/docs/serverless-functions/introduction
 [5]: /logs/
 [6]: /synthetics/
-[7]: https://app.datadoghq.com/organization-settings/api-keys
-[8]: https://vercel.com/integrations/datadog
-[9]: /help/
+[7]: https://app.datadoghq.com/setup/vercel
+[8]: /help/

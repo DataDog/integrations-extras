@@ -8,8 +8,7 @@ With this integration, you can:
 
 1. Control your Tailscale data retention.
 2. Build custom widgets and dashboards.
-3. Setup your own or leverage out of the box detection rules
-4. Cross-reference Tailscale events with the data from other services in your stack.
+3. Cross-reference Tailscale events with the data from other services in your stack.
 
 This integration streams two log types from Tailscale:
 
@@ -51,10 +50,16 @@ Tailscale does not include any events.
 
 Need help? Contact [Datadog support][3].
 
+## Further Reading
+
+Additional helpful documentation, links, and articles:
+
+- [Monitor the state of your Tailscale private network with Datadog][7]
+
 [1]: https://tailscale.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/
 [4]: https://tailscale.com/kb/1203/audit-logging/
 [5]: https://tailscale.com/kb/1219/network-flow-logs/
 [6]: https://docs.datadoghq.com/account_management/api-app-keys/
-
+[7]: https://www.datadoghq.com/blog/monitor-tailscale-with-datadog/
