@@ -4,4 +4,4 @@
 
 ***Added***:
 
-* adds Doctor Droid integration.
+* Adds Doctor Droid integration.
