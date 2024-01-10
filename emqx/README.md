@@ -13,6 +13,8 @@
 
 Integrating EMQX with Datadog is valuable for several reasons:
 
+The integration of EMQX with Datadog enriches monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
+
 **Types of data sent to Datadog:**
 - Metrics: This includes performance metrics like message throughput (messages sent/received per second), number of connected clients and more.
 
@@ -20,15 +22,12 @@ Integrating EMQX with Datadog is valuable for several reasons:
 
 - Operational health: Data about the health of the MQTT broker, including, error rates, and other critical indicators.
 
-The integration of EMQX with Datadog enriches monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
 
 ## Setup
 
 ### Installation
 
-First, [download and launch the Datadog Agent][2].
-
-Then, manually install the EMQX check. [Instructions vary depending on the environment][3].
+Manually install the EMQX check (note that [instructions may change based on your environment][2]):
 
 Run `datadog-agent integration install -t datadog-emqx==1.0.0`.
 
