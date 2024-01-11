@@ -11,7 +11,6 @@
 - High throughput: Capable of processing a high volume of messages efficiently.
 - Clustering: EMQX can be deployed in a distributed cluster to enhance performance and reliability.
 
-Integrating EMQX with Datadog is valuable for several reasons:
 
 The integration of EMQX with Datadog enriches monitoring capabilities, providing valuable insights into the performance and health of MQTT brokers. This is especially beneficial in IoT applications where efficient, reliable, and real-time data transmission is critical.
 
