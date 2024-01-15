@@ -28,7 +28,7 @@ To remove the Datadog integration from Doctor Droid:
 
 After you uninstall this integration, any previous authorizations are revoked.
 
-Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the  [API Keys management page][3].
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys management page][3].
 
 ## Support
 
