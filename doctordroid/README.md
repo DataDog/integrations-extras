@@ -36,6 +36,6 @@ Need help? Contact  [Doctor Droid support](mailto:support@drdroid.io).
 
 [1]: https://alertops-app.drdroid.io/
 [2]: https://alertops-app.drdroid.io/integrations
-[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=DoctorDroid
+[3]: https://app.datadoghq.com/organization-settings/api-keys?filter=Doctor%20Droid
 [4]: https://app.datadoghq.com/integrations
 [5]: https://app.datadoghq.com/integrations?integrationId=doctordroid
