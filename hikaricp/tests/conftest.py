@@ -24,8 +24,8 @@ def check(instance):
 
 
 @pytest.fixture()
-def mock_metrics():
-    fixture_file = os.path.join(os.path.dirname(__file__), "fixtures", "metrics.txt")
+def mock_micrometer_metrics():
+    fixture_file = os.path.join(os.path.dirname(__file__), "fixtures", "metrics-micrometer.txt")
 
     with open(fixture_file, "r") as f:
         content = f.read()

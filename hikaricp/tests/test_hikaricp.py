@@ -3,8 +3,8 @@ import pytest
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.hikaricp.check import HikaricpCheck
 
-EXPECTED_METRICS = {
-    "hikaricp.connections",
+EXPECTED_MICROMETER_METRICS = {
+     "hikaricp.connections",
     "hikaricp.connections.active",
     "hikaricp.connections.idle",
     "hikaricp.connections.max",
@@ -23,9 +23,9 @@ EXPECTED_METRICS = {
 
 
 @pytest.mark.unit
-def test_mock_assert_metrics(dd_run_check, aggregator, check, mock_metrics):
+def test_mock_assert_micrometer_metrics(dd_run_check, aggregator, check, mock_micrometer_metrics):
     dd_run_check(check)
-    for metric_name in EXPECTED_METRICS:
+    for metric_name in EXPECTED_MICROMETER_METRICS:
         aggregator.assert_metric(metric_name)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
