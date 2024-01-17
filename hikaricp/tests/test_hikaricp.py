@@ -40,6 +40,7 @@ EXPECTED_PROMETHEUS_METRICS = {
     "hikaricp.connections.usage.millis.quantile",
 }
 
+
 @pytest.mark.unit
 def test_mock_assert_micrometer_metrics(dd_run_check, aggregator, check, mock_micrometer_metrics):
     dd_run_check(check)
@@ -48,6 +49,7 @@ def test_mock_assert_micrometer_metrics(dd_run_check, aggregator, check, mock_mi
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
     aggregator.assert_service_check("hikaricp.openmetrics.health", status=HikaricpCheck.OK)
+
 
 @pytest.mark.unit
 def test_mock_assert_prometheus_metrics(dd_run_check, aggregator, check, mock_prometheus_metrics):

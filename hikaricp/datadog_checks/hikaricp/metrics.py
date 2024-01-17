@@ -15,7 +15,6 @@ METRIC_MAP = {
     "hikaricp_connections_usage_seconds": "connections.usage.seconds",
     "hikaricp_connections_usage_seconds_max": "connections.usage.seconds.max",
     "hikaricp_connections_usage_seconds_sum": "connections.usage.seconds.sum",
-
     ## Additional Prometheus Metrics
     "hikaricp_active_connections": "connections.active",
     "hikaricp_idle_connections": "connections.idle",
