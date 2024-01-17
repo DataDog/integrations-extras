@@ -1,5 +1,6 @@
 id: akamai.datastream
 metric_id: akamai-datastream-2
+backend_only: false
 facets:
   - name: Duration
     source: log
@@ -137,7 +138,7 @@ facets:
     type: integer
     groups:
       - Akamai DataStream 2
-  - name: URL Port # needed because http.url_details.port has an ambiguous type
+  - name: URL Port  # needed because http.url_details.port has an ambiguous type
     source: log
     path: akamai.datastream.reqPort
     type: integer

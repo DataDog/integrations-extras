@@ -1,5 +1,6 @@
 id: sqreen
 metric_id: sqreen
+backend_only: false
 facets:
   - name: Event Name
     source: log
@@ -136,19 +137,16 @@ facets:
     path: sqreen.event_name
     groups:
       - Sqreen
-
   - name: Sqreen Event Version (Semver)
     source: log
     path: sqreen.event_version
     groups:
       - Sqreen
-
   - name: Sqreen New Incident
     source: log
     path: sqreen.payload.event_type
     groups:
       - Sqreen
-
 pipeline:
   type: pipeline
   name: Sqreen
