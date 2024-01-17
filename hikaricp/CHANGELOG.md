@@ -1,5 +1,19 @@
 # CHANGELOG - hikaricp
 
+## 1.2.0 / 2024-01-16
+
+***Added***:
+* Added collection for prometheus-style named metrics:
+  * hikaricp_active_connections
+  * hikaricp_idle_connections
+  * hikaricp_max_connections
+  * hikaricp_min_connections
+  * hikaricp_pending_threads
+  * hikaricp_connection_timeout
+  * hikaricp_connection_acquired_nanos
+  * hikaricp_connection_creation_millis
+  * hikaricp_connection_usage_millis
+
 ## 1.1.1 / 2023-10-31
 
 ***Changed***:
