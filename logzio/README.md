@@ -6,7 +6,7 @@ Logz.io is a unified SaaS platform that collects and analyzes logs, metrics, and
 
 This integration allows you to
 
-- View Logz.io alerts in Datadog
+- View real-time Logz.io alerts in Datadog
 
 ![import_alert_from_logz][1]
 
