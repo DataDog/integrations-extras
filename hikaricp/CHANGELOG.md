@@ -3,6 +3,7 @@
 ## 1.2.0 / 2024-01-16
 
 ***Added***:
+
 * Added collection for prometheus-style named metrics:
   * hikaricp_active_connections
   * hikaricp_idle_connections
