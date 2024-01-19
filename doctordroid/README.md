@@ -1,11 +1,12 @@
 # Doctor Droid
 
 ## Overview
+Doctor Droid is an alert enrichment & investigation tool that will help your team streamline debugging & diagnosis workflows:
+* When an alert is triggered, it automatically fetches metrics from Datadog, Cloud Provider & other observability tools and _surfaces relevant data back to your team_.
+* Publishes investigation insights on Datadog dashboard and respective monitors within seconds, allowing for easy access and review within the existing workflow.
+* Capability to customize basis your team's requirements and application's architecture.
 
-Doctor Droid is an observability analytics platform that analyzes alerts history and fetches metrics from upstream and downstream services. Use the integration to:
-- Decide better thresholds for alerts
-- Identify alerting coverage for your services
-- Enrich alerts for faster diagnosis
+Our Datadog integration fetches metrics, traces and/or events basis the features you are using within Datadog & the type of investigation required.
 
 ## Setup
 
