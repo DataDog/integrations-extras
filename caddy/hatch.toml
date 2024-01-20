@@ -1,0 +1,10 @@
+[env.collectors.datadog-checks]
+
+[[envs.default.matrix]]
+python = ["3.11"]
+version = ["2.7"]
+
+[envs.default.overrides]
+matrix.version.env-vars = [
+  { key = "CADDY_VERSION", value = "2.7.6", if = ["2.7"] },
+]
