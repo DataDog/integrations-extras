@@ -38,7 +38,7 @@ Your logs will start streaming into Datadog in 24 hours or less.
 Need help? Contact [JFrog Support][5]. 
 
 [1]: https://jfrog.com/
-[2]: https://app.datadoghq.com/organization-settings/api-keys?filter=JFrog%20Platform%20Cloud
+[2]: https://app.datadoghq.com/organization-settings/api-keys
 [3]: https://my.jfrog.com
 [4]: https://docs.datadoghq.com/getting_started/site/
 [5]: https://support.jfrog.com/
