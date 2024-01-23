@@ -23,7 +23,22 @@ For Agent v7.33.0+, follow the instructions below to install the Trino check on 
 
 ### Configuration
 
-1. Edit the `trino.d/conf.yaml` file, in the `conf.d/` folder at the root of your
+1. This integration uses JMX to collect metrics from Trino. For the integration to be able to do that you need to enable JMX on Trino by adding the following properties to Trino's `config.properties` file:
+
+   ```properties
+   jmx.rmiregistry.port=9080
+   jmx.rmiserver.port=9081
+   ```
+
+   Also add the following properties to Trino's `jvm.config` file:
+
+   ```
+   -Dcom.sun.management.jmxremote
+   -Dcom.sun.management.jmxremote.port=9080
+   -Dcom.sun.management.jmxremote.rmi.port=9081
+   ```
+   
+2. Edit the `trino.d/conf.yaml` file, in the `conf.d/` folder at the root of your
    Agent's configuration directory, to start collecting your Trino performance data.
    See the [sample trino.d/conf.yaml][3] for all available configuration options.
 
@@ -32,7 +47,7 @@ For Agent v7.33.0+, follow the instructions below to install the Trino check on 
    To learn how to customize the metrics to collect, read  [JMX Checks][5].
    If you need to monitor more metrics, contact [Datadog support][6].
 
-2. [Restart the Agent][7]
+3. [Restart the Agent][7]
 
 ### Validation
 
