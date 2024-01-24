@@ -172,4 +172,3 @@ def instance_empty():
 @pytest.fixture
 def instance_1():
     return json.loads(CONFIG_1)
-

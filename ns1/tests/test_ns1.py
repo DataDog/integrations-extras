@@ -37,6 +37,7 @@ def test_parse_metrics(aggregator, instance):
     assert len(metric) > 0
     assert check.api_endpoint is not None
 
+
 def test_url_gen(aggregator, instance_1, requests_mock):
     check = Ns1Check('ns1', {}, [instance_1])
     aggregator.assert_all_metrics_covered()
