@@ -15,9 +15,10 @@ We use monitors data, logs and events to correlate alerts and reduce noise.
 The Keep integration is installed using the (Integration Tile)[https://app.datadoghq.com/integrations/keephq] on your Datadog account, with OAuth2.
 
 Users will:
-1. Be redirected to Keep's platform
-2. Click on the Datadog tile to initate an OAuth flow
-3. Review and confirm the required scopes in their Datadog account
+1. Clicking on Keep's integration tile -> Install Integration
+2. User will be redirected to Keep's platform for sign-in
+3. User will be redirected back to Datadog to review and confirm the required scopes from their Datadog account
+4. User will be redirected back to Keep's platform to see whether installation was successfully completed
 
 ## Uninstallation
 
@@ -49,9 +50,8 @@ Keep does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog Partners Support][3] team.
+Need help? Contact (Keep's support)[mailto:rnd@keephq.dev?subject=[Datadog]%20OAuth%20Integration%20Support] team.
 
 [1]: https://www.keephq.dev/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/help/
 
