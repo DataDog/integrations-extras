@@ -1,8 +1,6 @@
 import json
-import logging
 
 import pytest
-from requests.exceptions import HTTPError
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
