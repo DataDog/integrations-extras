@@ -1,0 +1,828 @@
+{
+  "title": "Zenoh routers - Overview",
+  "description": "",
+  "widgets": [
+    {
+      "definition": {
+        "title": "Network status",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "definition": {
+              "title": "Sent bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:zenoh.router.tx_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Received bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:zenoh.router.rx_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Send/received difference bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 - query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:zenoh.router.rx_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "sum:zenoh.router.tx_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "auto"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Sent transport messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:zenoh.router.tx_t_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Received transport messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "sum:zenoh.router.rx_t_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "definition": {
+        "title": "Sessions",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "definition": {
+              "title": "Sessions by type",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.sessions{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,whatami}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "definition": {
+              "title": "Sessions by router and type",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "5m"
+              },
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 500,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:zenoh.router.sessions{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,whatami}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "last"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "hide_total": false,
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 8,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 5,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "definition": {
+        "title": "Messages count by type",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "definition": {
+              "title": "Put messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_put_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_put_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Reply messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_reply_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_reply_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Query messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_query_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_query_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Del messages per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_del_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_del_msgs{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 9,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 10,
+        "width": 12,
+        "height": 3
+      }
+    },
+    {
+      "definition": {
+        "title": "Messages payload size by type",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "definition": {
+              "title": "Put payload bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_put_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_put_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Reply payload bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_reply_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_reply_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          },
+          {
+            "definition": {
+              "title": "Query payload bytes per second",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Sent",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "Reseived",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:zenoh.router.tx_z_query_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "avg:zenoh.router.rx_z_query_pl_bytes{host:$host.value,name:$router.value,zenoh_version:$zenoh_version.value} by {name,space}",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 3,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 13,
+        "width": 12,
+        "height": 1
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "host",
+      "prefix": "host",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "router",
+      "prefix": "name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "zenoh_version",
+      "prefix": "zenoh_version",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
