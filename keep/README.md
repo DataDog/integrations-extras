@@ -23,16 +23,16 @@ Users will:
 ## Uninstallation
 
 - Once this integration has been uninstalled, any previous authorizations are revoked. 
-- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
-- Confirm that `Webhooks` integration does not contain `keep-datadog-webhook-integration-UUID` in the Datadog's (Integrations Page)[https://app.datadoghq.com/integrations].
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][3].
+- Confirm that the `Webhooks` integration does not contain `keep-datadog-webhook-integration-UUID` on the [Integrations page][4].
 
 ### Validation
 
 To validate Keep's integration is properly working, follow the next steps:
-1. Head over to Datadog's (Integrations Page)[https://app.datadoghq.com/integrations]
-2. Search for `Webhooks`
-3. Click the `Webhooks` tile
-4. In the installed `Webhooks` list, look for a `Webhook` that starts with `keep-datadog-webhook-integration-UUID`
+1. Navigate to the [Integrations page][4].
+2. Search for `Webhooks`.
+3. Click the `Webhooks` tile.
+4. In the installed `Webhooks` list, look for a `Webhook` that starts with `keep-datadog-webhook-integration-UUID`.
 
 ## Data Collected
 
@@ -42,16 +42,19 @@ Keep sends metrics about the fatigueness of specific connected monitors.
 
 ### Service Checks
 
-Keep does not include any service checks.
+The Keep integration does not include any service checks.
 
 ### Events
 
-Keep does not include any events.
+The Keep integration does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact (Keep's support)[mailto:rnd@keephq.dev?subject=[Datadog]%20OAuth%20Integration%20Support] team.
+Need help? Contact [Keep's Support team][5].
 
-[1]: https://www.keephq.dev/
-[2]: https://app.datadoghq.com/account/settings/agent/latest
-
+[1]: https://app.datadoghq.com/integrations/keephq
+[2]: /developers/authorization/oauth2_in_datadog/
+[3]: https://app.datadoghq.com/organization-settings/api-keys
+[4]: https://app.datadoghq.com/integrations
+[5]: mailto:rnd@keephq.dev?subject=[Datadog]%20OAuth%20Integration%20Support
+[6]: https://www.keephq.dev/
