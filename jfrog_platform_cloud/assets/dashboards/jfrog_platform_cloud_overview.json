@@ -93,8 +93,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -173,8 +171,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -243,8 +239,6 @@
               "title": "Accessed Images",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -277,7 +271,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@image:\"\" -@http.url:\"/api/v1/system/readiness\" -@http.url:\"/api/v1/system/liveness\" "
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@jfrog.cloud.image:\"\" -@http.url:\"/api/v1/system/readiness\" -@http.url:\"/api/v1/system/liveness\""
                       },
                       "storage": "hot"
                     }
@@ -327,8 +321,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -465,8 +457,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -593,8 +583,6 @@
               "title": "Top Requests by IP Address",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -754,8 +742,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1037,8 +1023,6 @@
             "id": 6046676301037008,
             "definition":
             {
-              "time":
-              {},
               "title": "Upload Data Transfers by Repo",
               "type": "treemap",
               "requests":
@@ -1094,6 +1078,91 @@
               "width": 4,
               "height": 3
             }
+          },
+          {
+            "id": 2850205570886034,
+            "definition":
+            {
+              "title": "User Request Activity",
+              "title_size": "16",
+              "title_align": "left",
+              "time":
+              {},
+              "type": "toplist",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1",
+                      "limit":
+                      {
+                        "count": 100,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@usr.id",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@http.useragent:\"Prometheus/2.47.2\" -@usr.id:*@* -@usr.id:_system_ -@usr.id:non_authenticated_user"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "style":
+              {
+                "display":
+                {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 3
+            }
           }
         ]
       },
@@ -1102,7 +1171,7 @@
         "x": 0,
         "y": 9,
         "width": 12,
-        "height": 7
+        "height": 10
       }
     },
     {
@@ -1172,7 +1241,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit -@jfrog.cloud.logged_principal:*@* "
+                        "query": "service:jfrog.saas.rt.access.security.audit -@jfrog.cloud.logged_principal:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1253,20 +1322,11 @@
                             "order": "desc",
                             "aggregation": "count"
                           }
-                        },
-                        {
-                          "facet": "@evt.name",
-                          "limit": 5,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
                         }
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @jfrog.cloud.evt.name:TKN -@jfrog.cloud.entity_name:*@* "
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:TKN"
                       },
                       "storage": "hot"
                     }
@@ -1313,6 +1373,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -1346,11 +1408,20 @@
                             "order": "desc",
                             "aggregation": "count"
                           }
+                        },
+                        {
+                          "facet": "@jfrog.cloud.evt.type",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
                         }
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @jfrog.cloud.evt.name:PRM -@jfrog.cloud.entity_name:*@* "
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:PRM -@jfrog.cloud.entity_name:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1397,8 +1468,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1443,7 +1512,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @jfrog.cloud.evt.name:USR "
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:USR"
                       },
                       "storage": "hot"
                     }
@@ -1518,7 +1587,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@evt.name",
+                          "facet": "@jfrog.cloud.evt.type",
                           "limit": 10,
                           "sort":
                           {
@@ -1529,7 +1598,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @jfrog.cloud.evt.name:GRP -@jfrog.cloud.entity_name:*@* "
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:GRP -@jfrog.cloud.entity_name:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1564,7 +1633,7 @@
       "layout":
       {
         "x": 0,
-        "y": 16,
+        "y": 19,
         "width": 12,
         "height": 7
       }
@@ -1721,7 +1790,7 @@
       "layout":
       {
         "x": 0,
-        "y": 23,
+        "y": 26,
         "width": 12,
         "height": 4
       }
