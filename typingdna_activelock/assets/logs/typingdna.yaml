@@ -1,177 +1,178 @@
 id: typingdna
 metric_id: typingdna-activelock
+backend_only: false
 facets:
-  - name: typingdna.result
-    source: log
+  - groups:
+      - TypingDNA
+    name: typingdna.result
     path: typingdna.result
-    groups:
-      - TypingDNA
-  - name: typingdna.username
     source: log
+  - groups:
+      - TypingDNA
+    name: typingdna.username
     path: typingdna.username
+    source: log
+  - facetType: range
     groups:
       - TypingDNA
-  - path: activity.cpm
-    source: log
     name: activity.cpm
+    path: activity.cpm
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: activity.chars
-    source: log
     name: activity.chars
+    path: activity.chars
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: activity.minutes
-    source: log
     name: activity.minutes
+    path: activity.minutes
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: batch_similarity.app
-    source: log
     name: batch_similarity.app
+    path: batch_similarity.app
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: batch_similarity.keyboard
-    source: log
     name: batch_similarity.keyboard
+    path: batch_similarity.keyboard
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: batch_similarity.timespan
-    source: log
     name: batch_similarity.timespan
+    path: batch_similarity.timespan
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: extra.ignored_data
-    source: log
     name: extra.ignored_data
+    path: extra.ignored_data
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: extra.keyboard_percentage
-    source: log
     name: extra.keyboard_percentage
+    path: extra.keyboard_percentage
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: extra.sanity
-    source: log
     name: extra.sanity
+    path: extra.sanity
+    source: log
+    type: integer
+  - facetType: range
     groups:
       - TypingDNA
-    type: integer
-    facetType: range
-  - path: training_strength
-    source: log
     name: training_strength
-    groups:
-      - TypingDNA
-    type: integer
-    facetType: range
-  - name: typingdna.version
+    path: training_strength
     source: log
+    type: integer
+  - groups:
+      - TypingDNA
+    name: typingdna.version
     path: typingdna.version
-    groups:
-      - TypingDNA
-  - path: main_app
     source: log
+  - groups:
+      - TypingDNA
     name: main_app
+    path: main_app
+    source: log
+  - facetType: range
     groups:
       - TypingDNA
-  - name: typingdna.score
-    source: log
+    name: typingdna.score
     path: typingdna.score
-    groups:
-      - TypingDNA
-    type: double
-    facetType: range
-  - path: keyboard_id
     source: log
+    type: double
+  - groups:
+      - TypingDNA
     name: keyboard_id
-    groups:
-      - TypingDNA
-  - path: installID
+    path: keyboard_id
     source: log
+  - groups:
+      - TypingDNA
     name: installID
+    path: installID
+    source: log
+  - facetType: range
     groups:
       - TypingDNA
-  - path: typingdna.speed
-    source: log
     name: typingdna.speed
-    groups:
-      - TypingDNA
+    path: typingdna.speed
+    source: log
     type: integer
-    facetType: range
-  - path: keyboard_type
-    source: log
+  - groups:
+      - TypingDNA
     name: keyboard_type
-    groups:
-      - TypingDNA
-  - path: license_id
+    path: keyboard_type
     source: log
+  - groups:
+      - TypingDNA
     name: license_id
+    path: license_id
+    source: log
+  - facetType: range
     groups:
       - TypingDNA
-  - name: moods.calm
-    source: log
+    name: moods.calm
     path: moods.calm
+    source: log
+    type: double
+  - facetType: range
     groups:
       - TypingDNA
-    type: double
-    facetType: range
-  - name: moods.energetic
-    source: log
+    name: moods.energetic
     path: moods.energetic
+    source: log
+    type: double
+  - facetType: range
     groups:
       - TypingDNA
-    type: double
-    facetType: range
-  - name: moods.focused
-    source: log
+    name: moods.focused
     path: moods.focused
+    source: log
+    type: double
+  - facetType: range
     groups:
       - TypingDNA
-    type: double
-    facetType: range
-  - name: moods.happy
-    source: log
+    name: moods.happy
     path: moods.happy
+    source: log
+    type: double
+  - facetType: range
     groups:
       - TypingDNA
-    type: double
-    facetType: range
-  - name: moods.stressed
-    source: log
+    name: moods.stressed
     path: moods.stressed
+    source: log
+    type: double
+  - facetType: range
     groups:
       - TypingDNA
-    type: double
-    facetType: range
-  - name: moods.tired
-    source: log
+    name: moods.tired
     path: moods.tired
-    groups:
-      - TypingDNA
-    type: double
-    facetType: range
-  - path: package_id
     source: log
-    name: package_id
-    groups:
+    type: double
+  - groups:
       - TypingDNA
+    name: package_id
+    path: package_id
+    source: log
 pipeline:
   type: pipeline
   name: TypingDNA

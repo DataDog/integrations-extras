@@ -1,31 +1,32 @@
 id: logstash
 metric_id: logstash
+backend_only: false
 facets:
-  - name: Method
-    source: log
+  - groups:
+      - Web Access
+    name: Method
     path: http.method
-    groups:
-      - Web Access
-  - name: Status Code
     source: log
+  - groups:
+      - Web Access
+    name: Status Code
     path: http.status_code
-    groups:
-      - Web Access
-  - name: URL Path
     source: log
+  - groups:
+      - Web Access
+    name: URL Path
     path: http.url_details.path
-    groups:
-      - Web Access
-  - name: Version
     source: log
+  - groups:
+      - Web Access
+    name: Version
     path: http.version
-    groups:
-      - Web Access
-  - name: Logger Name
     source: log
-    path: logger.name
-    groups:
+  - groups:
       - Source Code
+    name: Logger Name
+    path: logger.name
+    source: log
 pipeline:
   type: pipeline
   name: Logstash

@@ -1,46 +1,46 @@
 id: lambdatest
+backend_only: false
 facets:
-  - name: URL Path
-    source: log
+  - groups:
+      - Web Access
+    name: URL Path
     path: http.url
-    groups:
-      - Web Access
-  - name: Browser
     source: log
+  - groups:
+      - Web Access
+    name: Browser
     path: http.useragent_details.browser.family
-    groups:
-      - Web Access
-  - name: Device
     source: log
+  - groups:
+      - Web Access
+    name: Device
     path: http.useragent_details.device.family
-    groups:
-      - Web Access
-  - name: OS
     source: log
+  - groups:
+      - Web Access
+    name: OS
     path: http.useragent_details.os.family
-    groups:
-      - Web Access
-  - name: Product
     source: log
+  - groups:
+      - LAMBDATEST
+    name: Product
     path: product
-    groups:
-      - LAMBDATEST
-  - name: Test environment device
     source: log
+  - groups:
+      - LAMBDATEST
+    name: Test environment device
     path: test_env_device
-    groups:
-      - LAMBDATEST
-  - name: Test environment Operating System
     source: log
+  - groups:
+      - LAMBDATEST
+    name: Test environment Operating System
     path: test_env_os
-    groups:
-      - LAMBDATEST
-  - name: Test environment Browser
     source: log
-    path: test_env_browser
-    groups:
+  - groups:
       - LAMBDATEST
-
+    name: Test environment Browser
+    path: test_env_browser
+    source: log
 pipeline:
   type: pipeline
   name: LAMBDATEST (Partner Integration)
