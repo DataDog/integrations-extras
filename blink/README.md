@@ -23,7 +23,7 @@ Visit [our documentation][4] for details on how to connect your Datadog workspac
 
 To uninstall the integration, simply delete the corresponding Datadog connection in your Blink workspace.
 
-Once deleted, any previous authorizations or access tokens are revoked. Ensure that all API keys associated with this integration have been disabled by searching for the integration name on the Datadog [API Keys][5] page.
+Once deleted, any previous authorizations or access tokens are revoked.
 
 ## Data Collected
 
@@ -41,11 +41,10 @@ Blink does not include any metrics, however you can query and list metrics from 
 
 ## Troubleshooting
 
-Need help? Contact [Blink support][6].
+Need help? Contact [Blink support][5].
 
 [1]: https://www.blinkops.com/
 [2]: https://library.blinkops.com/automations?vendors=Datadog
 [3]: https://www.docs.blinkops.com/docs/integrations/datadog/actions
 [4]: https://www.docs.blinkops.com/docs/integrations/datadog
-[5]: https://app.datadoghq.com/organization-settings/api-keys
-[6]: mailto:support@blinkops.com
+[5]: mailto:support@blinkops.com

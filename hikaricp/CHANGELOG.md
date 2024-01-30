@@ -1,5 +1,11 @@
 # CHANGELOG - hikaricp
 
+## 1.2.0 / 2024-01-16
+
+***Added***:
+
+* Added collection for prometheus-style named metrics
+
 ## 1.1.1 / 2023-10-31
 
 ***Changed***:
