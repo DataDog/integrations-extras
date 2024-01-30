@@ -10,19 +10,13 @@
     "changelog": "CHANGELOG.md",
     "description": "Endpoint security and mobile threat defense (MTD) for Mac and mobile devices.",
     "title": "Jamf Protect",
-    "media": [
-      {
-        "media_type": "image",
-        "caption": "Jamf Protect",
-        "image_url": "images/jamf_protect.png"
-      }
-    ],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
       "Category::Security"
-    ]
+    ],
+    "media": []
   },
   "author": {
     "support_email": "support@jamf.com",
@@ -37,9 +31,14 @@
       "events": {
         "creates_events": false
       },
-      "service_checks": { 
+      "service_checks": {
         "metadata_path": "assets/service_checks.json"
-      }
+      },
+      "source_type_id": 10433,
+      "auto_install": true
+    },
+    "dashboards": {
+      "jamf-protect-overview": "assets/dashboards/jamf_protect_overview.json"
     }
   }
 }

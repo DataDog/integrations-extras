@@ -1,110 +1,111 @@
 id: twingate
+backend_only: false
 facets:
-  - name: Event Name
-    source: log
-    path: evt.name
-    groups:
+  - groups:
       - Event
-  - name: City Name
+    name: Event Name
+    path: evt.name
     source: log
+  - groups:
+      - Geoip
+    name: City Name
     path: network.client.geoip.city.name
-    groups:
-      - Geoip
-  - name: Continent Code
     source: log
+  - groups:
+      - Geoip
+    name: Continent Code
     path: network.client.geoip.continent.code
-    groups:
-      - Geoip
-  - name: Continent Name
     source: log
+  - groups:
+      - Geoip
+    name: Continent Name
     path: network.client.geoip.continent.name
-    groups:
-      - Geoip
-  - name: Country ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Country ISO Code
     path: network.client.geoip.country.iso_code
-    groups:
-      - Geoip
-  - name: Country Name
     source: log
+  - groups:
+      - Geoip
+    name: Country Name
     path: network.client.geoip.country.name
-    groups:
-      - Geoip
-  - name: Subdivision ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision ISO Code
     path: network.client.geoip.subdivision.iso_code
-    groups:
-      - Geoip
-  - name: Subdivision Name
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision Name
     path: network.client.geoip.subdivision.name
-    groups:
-      - Geoip
-  - name: Client IP
     source: log
-    path: network.client.ip
-    groups:
+  - groups:
       - Web Access
-  - name: Applied Rule
+    name: Client IP
+    path: network.client.ip
     source: log
+  - groups:
+      - Twingate
+    name: Applied Rule
     path: resource.applied_rule
-    groups:
-      - Twingate
-  - name: Connection ID
     source: log
+  - groups:
+      - Twingate
+    name: Connection ID
     path: connection.id
-    groups:
-      - Twingate
-  - name: Connector Name
     source: log
+  - groups:
+      - Twingate
+    name: Connector Name
     path: connector.name
-    groups:
-      - Twingate
-  - name: Connector ID
     source: log
+  - groups:
+      - Twingate
+    name: Connector ID
     path: connector.id
-    groups:
-      - Twingate
-  - name: Device ID
     source: log
+  - groups:
+      - Twingate
+    name: Device ID
     path: device.id
+    source: log
+  - facetType: range
     groups:
       - Twingate
-  - name: Connection Duration
-    source: log
+    name: Connection Duration
     path: connection.duration
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: nanosecond
-    groups:
+  - groups:
       - Twingate
-  - name: Resource Port
-    source: log
+    name: Resource Port
     path: connection.resource_port
-    groups:
-      - Twingate
-  - name: Remote Network Name
     source: log
+  - groups:
+      - Twingate
+    name: Remote Network Name
     path: remote_network.name
-    groups:
-      - Twingate
-  - name: Remote Network ID
     source: log
+  - groups:
+      - Twingate
+    name: Remote Network ID
     path: remote_network.id
-    groups:
-      - Twingate
-  - name: Resource Address
     source: log
+  - groups:
+      - Twingate
+    name: Resource Address
     path: resource.address
-    groups:
-      - Twingate
-  - name: Resource ID
     source: log
-    path: resource.id
-    groups:
+  - groups:
       - Twingate
+    name: Resource ID
+    path: resource.id
+    source: log
 pipeline:
   type: pipeline
   name: Twingate

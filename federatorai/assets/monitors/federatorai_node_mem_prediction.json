@@ -2,11 +2,11 @@
   "version": 2,
   "created_at": "2020-08-07",
   "last_updated_at": "2020-08-18",
-  "title": "Node Memory Usage Prediction in Next 24 Hours is High on {{host.name}}",
+  "title": "Node memory usage prediction is high",
   "tags": [
     "integration:federatorai"
   ],
-  "description": "Notify your team when the memory utilization prediction of the host in 24 hours is over the threshold",
+  "description": "Memory usage refers to the utilization of RAM within the computing environment managed by Federator.ai. This monitor predicts memory usage on Kubernetes nodes to indicate potential memory resource issues in the Federator.ai-managed environment.",
   "definition": {
     "message": "{{#is_alert}} Memory utilization prediction **{{value}}%** for **{{host.name}}** in the next 24 hours is over **{{threshold}}%**. {{/is_alert}} \n{{#is_warning}}Memory utilization prediction **{{value}}%** for **{{host.name}}** in the next 24 hours is over **{{warn_threshold}}%**. {{/is_warning}} \n{{#is_alert_recovery}} Memory utilization prediction for **{{host.name}}** in the next 24 hours is now **{{value}}%**. {{/is_alert_recovery}} \n{{#is_warning_recovery}} Memory utilization prediction for **{{host.name}}** in the next 24 hours is now **{{value}}%**. {{/is_warning_recovery}}",
     "name": "[Federator.ai] Node Memory Usage Prediction in Next 24 Hours is High on {{host.name}}",

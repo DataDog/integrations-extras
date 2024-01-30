@@ -1,50 +1,51 @@
 id: invary
+backend_only: false
 facets:
-  - path: distribution.codename
-    source: log
+  - groups:
+      - Invary
     name: distribution codename
-    groups:
-      - Invary
-  - path: kernel.name
+    path: distribution.codename
     source: log
+  - groups:
+      - Invary
     name: kernel
-    groups:
-      - Invary
-  - path: measurement.modules
+    path: kernel.name
     source: log
+  - groups:
+      - Invary
     name: measurement modules
-    groups:
-      - Invary
-  - path: node.uptime
+    path: measurement.modules
     source: log
+  - groups:
+      - Invary
     name: uptime
-    groups:
-      - Invary
-  - path: distribution.release
+    path: node.uptime
     source: log
+  - groups:
+      - Invary
     name: distribution release
-    groups:
-      - Invary
-  - path: measurement.nodes
+    path: distribution.release
     source: log
+  - groups:
+      - Invary
     name: measurement nodes
-    groups:
-      - Invary
-  - path: node.processor
+    path: measurement.nodes
     source: log
+  - groups:
+      - Invary
     name: processor
-    groups:
-      - Invary
-  - path: measurement.edges
+    path: node.processor
     source: log
+  - groups:
+      - Invary
     name: measurement edges
-    groups:
-      - Invary
-  - path: kernel.release
+    path: measurement.edges
     source: log
-    name: kernel release
-    groups:
+  - groups:
       - Invary
+    name: kernel release
+    path: kernel.release
+    source: log
 pipeline:
   type: pipeline
   name: Invary

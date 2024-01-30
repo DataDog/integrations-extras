@@ -1,0 +1,1400 @@
+{
+  "title": "Jamf Protect Overview",
+  "description": "This is an overview of your organization's Jamf Protect telemetry, unified logs and alerts. From here you can discover insights on the system, user, application and network activity originating from your endpoints.\n",
+  "widgets": [
+    {
+      "id": 3411659769839050,
+      "definition": {
+        "title": "New group",
+        "banner_img": "/static/images/integration_dashboard/jamf-protect_hero_1.png",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4567712873518980,
+            "definition": {
+              "type": "note",
+              "content": "Use this dashboard to monitor your Jamf Protect telemetry, unified logs and alerts, giving you greater visibility into security-related events generated from your Jamf deployment.\n\nOnce you’ve enabled the Jamf Protect integration in your Datadog account, you’ll be able to easily search, filter, and alert on all Jamf protect events in Datadog.\n",
+              "background_color": "transparent",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 4 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 0, "width": 6, "height": 7 }
+    },
+    {
+      "id": 6238873771110860,
+      "definition": {
+        "title": "Jamf Protect Log Overview",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6978415046412996,
+            "definition": {
+              "title": "Log Count by Source \"source:jamfprotect\"",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "service",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 0, "width": 6, "height": 3 }
+          },
+          {
+            "id": 4851388585749648,
+            "definition": {
+              "title": "Top events",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 1800000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {}
+            },
+            "layout": { "x": 0, "y": 3, "width": 3, "height": 3 }
+          },
+          {
+            "id": 2684113093452886,
+            "definition": {
+              "title": "Top event types",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 1800000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.type",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {}
+            },
+            "layout": { "x": 3, "y": 3, "width": 3, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 6, "y": 0, "width": 6, "height": 7 }
+    },
+    {
+      "id": 77147853323066,
+      "definition": {
+        "title": "Jamf Protect Telemetry Overview",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8504655868543246,
+            "definition": {
+              "type": "note",
+              "content": "Datadog analyzes Jamf Protect Telemetry log data and allows you gain insights into system and user activity related to your macOS computers and their environments.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "top",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+          },
+          {
+            "id": 4091728296896086,
+            "definition": {
+              "title": "Unique hosts",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "host"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [{ "formula": "query1" }]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 1, "width": 4, "height": 4 }
+          },
+          {
+            "id": 635326685251126,
+            "definition": {
+              "title": "Jamf Telemetry Log Stream",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $host $evt.type $host ",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    { "field": "status_line", "width": "auto" },
+                    { "field": "timestamp", "width": "auto" },
+                    { "field": "service", "width": "auto" },
+                    { "field": "host", "width": "auto" },
+                    { "field": "@evt.name", "width": "auto" },
+                    { "field": "@evt.outcome", "width": "auto" },
+                    { "field": "content", "width": "auto" }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": { "x": 4, "y": 1, "width": 8, "height": 4 }
+          },
+          {
+            "id": 7810423276113114,
+            "definition": {
+              "title": "Events by Outcome",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@evt.outcome",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect -@evt.outcome:\"\" $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 5, "width": 6, "height": 3 }
+          },
+          {
+            "id": 5665552424307638,
+            "definition": {
+              "title": "Events detected over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "cool",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 6, "y": 5, "width": 6, "height": 3 }
+          },
+          {
+            "id": 1733649487636286,
+            "definition": {
+              "title": "Count of Events by User",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@evt.name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@usr.name",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@evt.name"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 0, "y": 8, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2292206226856134,
+            "definition": {
+              "title": "Count of Events by Host",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "cardinality",
+                        "metric": "@evt.name"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "host",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "cardinality",
+                            "metric": "@evt.name"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 6, "y": 8, "width": 6, "height": 3 }
+          },
+          {
+            "id": 2897220975771628,
+            "definition": {
+              "title": "Top Parent Processes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@subject.responsible_process_name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 0, "y": 11, "width": 6, "height": 3 }
+          },
+          {
+            "id": 8240367591496150,
+            "definition": {
+              "title": "Top Child Processes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@subject.process_name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:telemetry $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "conditional_formats": [
+                    {
+                      "comparator": ">=",
+                      "value": 0,
+                      "palette": "white_on_green"
+                    }
+                  ]
+                }
+              ],
+              "style": {
+                "display": { "type": "stacked", "legend": "automatic" }
+              }
+            },
+            "layout": { "x": 6, "y": 11, "width": 6, "height": 3 }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 15,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 2515240157647934,
+      "definition": {
+        "title": "Jamf Unified Logs Overview",
+        "background_color": "vivid_yellow",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5669780634824496,
+            "definition": {
+              "type": "note",
+              "content": "Datadog surfaces Jamf Protect's Unified Logging and surfaces events related to your macOS endpoints.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "top",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+          },
+          {
+            "id": 3058418092109734,
+            "definition": {
+              "title": "Events by Category",
+              "type": "treemap",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 43200000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.category",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:unifiedlogs @evt.category:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "datadog16" }
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 1, "width": 12, "height": 4 }
+          },
+          {
+            "id": 8251701694740378,
+            "definition": {
+              "title": "Events by Name",
+              "type": "treemap",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 3600000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@evt.name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:unifiedlogs @evt.name:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "datadog16" }
+                }
+              ]
+            },
+            "layout": { "x": 0, "y": 5, "width": 12, "height": 4 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 22, "width": 12, "height": 10 }
+    },
+    {
+      "id": 1656125181101132,
+      "definition": {
+        "title": "Jamf Network Activity",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2170873114403238,
+            "definition": {
+              "type": "note",
+              "content": "Datadog analyzes Jamf Protect logs and surfaces insights related to network activity on your macOS computers and their environments.",
+              "background_color": "purple",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "top",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+          },
+          {
+            "id": 5185982168297072,
+            "definition": {
+              "title": "DNS Request Activity by User",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 3600000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@usr.email",
+                          "limit": 5,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        },
+                        {
+                          "facet": "@dns.question.name",
+                          "limit": 5,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        },
+                        {
+                          "facet": "@dns.question.type",
+                          "limit": 5,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        },
+                        {
+                          "facet": "@dns.flags.rcode",
+                          "limit": 5,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        },
+                        {
+                          "facet": "@event.threat.result",
+                          "limit": 5,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect service:networktraffic $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "cell_display_mode": "bar",
+                      "formula": "query1",
+                      "limit": { "count": 3125, "order": "desc" }
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "auto"
+            },
+            "layout": { "x": 0, "y": 1, "width": 12, "height": 3 }
+          },
+          {
+            "id": 474550201998836,
+            "definition": {
+              "title": "Top Client Ports",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 500, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@network.client.port",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect @network.client.port:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "classic" }
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 0, "y": 4, "width": 5, "height": 3 }
+          },
+          {
+            "id": 549674244502064,
+            "definition": {
+              "title": "Client IP Activity over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 3600000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@network.client.ip",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": { "x": 5, "y": 4, "width": 7, "height": 3 }
+          },
+          {
+            "id": 7493929051655272,
+            "definition": {
+              "title": "Top Destination Ports",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 500, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@network.destination.port",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect @network.destination.port:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "classic" }
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 0, "y": 7, "width": 5, "height": 3 }
+          },
+          {
+            "id": 6308693959797070,
+            "definition": {
+              "title": "Destination IP Activity over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 3600000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@network.destination.ip",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "area"
+                }
+              ]
+            },
+            "layout": { "x": 5, "y": 7, "width": 7, "height": 3 }
+          },
+          {
+            "id": 4583459547835146,
+            "definition": {
+              "title": "Top DNS Types",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 500, "order": "desc" }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "@dns.question.type",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect @dns.question.type:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": { "palette": "datadog16" }
+                }
+              ],
+              "type": "sunburst",
+              "legend": { "type": "automatic" }
+            },
+            "layout": { "x": 0, "y": 10, "width": 5, "height": 3 }
+          },
+          {
+            "id": 3814290112625358,
+            "definition": {
+              "title": "Top DNS Questions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": ["avg", "min", "max", "value", "sum"],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [{ "formula": "query1" }],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": {
+                        "aggregation": "count",
+                        "interval": 3600000
+                      },
+                      "group_by": [
+                        {
+                          "facet": "@dns.question.name",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect @dns.question.name:* $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": { "x": 5, "y": 10, "width": 7, "height": 3 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 32, "width": 12, "height": 14 }
+    },
+    {
+      "id": 6852512583411226,
+      "definition": {
+        "title": "Datadog Cloud SIEM",
+        "title_align": "center",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1028149818859252,
+            "definition": {
+              "type": "note",
+              "content": "\nDatadog Cloud SIEM surfaces Jamf Protect alerts within your environment in real time. If you don't see signals please make sure you're signed up for [Datadog Cloud SIEM](https://app.datadoghq.com/security). ",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": { "x": 0, "y": 0, "width": 12, "height": 1 }
+          },
+          {
+            "id": 6545014117089288,
+            "definition": {
+              "title": "CRITICALs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#bc303c",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [],
+                      "search": {
+                        "query": "status:critical source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [{ "formula": "default_zero(query1)" }]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query=source%3Ajamfprotect%20status%3Acritical&start={{timestamp_start}}&end={{timestamp_end}}&paused=true&="
+                }
+              ],
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 1, "width": 2, "height": 2 }
+          },
+          {
+            "id": 7895726442239212,
+            "definition": {
+              "title": "HIGHs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#d33043",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [],
+                      "search": {
+                        "query": "status:high source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [{ "formula": "default_zero(query1)" }]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query=source%3Ajamfprotect%20status%3Ahigh&start={{timestamp_start}}&end={{timestamp_end}}&paused=true&="
+                }
+              ],
+              "precision": 2
+            },
+            "layout": { "x": 2, "y": 1, "width": 2, "height": 2 }
+          },
+          {
+            "id": 8419090205563496,
+            "definition": {
+              "title": "Security Signals by host",
+              "type": "toplist",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    { "comparator": ">", "palette": "white_on_red", "value": 0 }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [
+                        {
+                          "facet": "host",
+                          "limit": 10,
+                          "sort": { "order": "desc", "aggregation": "count" }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": { "count": 10, "order": "desc" }
+                    }
+                  ]
+                }
+              ],
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query={{host}}&column=time&order=desc&view=signal&start={{timestamp_widget_start}}&end={{timestamp_widget_end}}&paused=false"
+                }
+              ],
+              "style": {}
+            },
+            "layout": { "x": 4, "y": 1, "width": 8, "height": 4 }
+          },
+          {
+            "id": 701807553573174,
+            "definition": {
+              "title": "MEDIUMs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#e5a21c",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [],
+                      "search": {
+                        "query": "status:medium source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [{ "formula": "default_zero(query1)" }]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query=source%3Ajamfprotect%20status%3Amedium&start={{timestamp_start}}&end={{timestamp_end}}&paused=true&="
+                }
+              ],
+              "precision": 2
+            },
+            "layout": { "x": 0, "y": 3, "width": 2, "height": 2 }
+          },
+          {
+            "id": 3856273502646822,
+            "definition": {
+              "title": "LOWs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#ffb52b",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [],
+                      "search": {
+                        "query": "status:low source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [{ "formula": "default_zero(query1)" }]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query=source%3Ajamfprotect%20status%3Alow&start={{timestamp_start}}&end={{timestamp_end}}&paused=true&="
+                }
+              ],
+              "precision": 2
+            },
+            "layout": { "x": 2, "y": 3, "width": 2, "height": 1 }
+          },
+          {
+            "id": 4077872862168478,
+            "definition": {
+              "title": "INFOs",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "conditional_formats": [
+                    {
+                      "custom_bg_color": "#84c1e0",
+                      "comparator": ">=",
+                      "palette": "custom_bg",
+                      "value": 0
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "security_signals",
+                      "name": "query1",
+                      "indexes": ["*"],
+                      "compute": { "aggregation": "count" },
+                      "group_by": [],
+                      "search": {
+                        "query": "status:info source:jamfprotect $network.client.ip $usr.name $usr.id $usr.email $evt.name $evt.type $host "
+                      }
+                    }
+                  ],
+                  "formulas": [{ "formula": "default_zero(query1)" }]
+                }
+              ],
+              "autoscale": true,
+              "custom_links": [
+                {
+                  "label": "View related Security Signals",
+                  "link": "/security?query=source%3Ajamfprotect%20status%3Ainfo&start={{timestamp_start}}&end={{timestamp_end}}&paused=true&="
+                }
+              ],
+              "precision": 2
+            },
+            "layout": { "x": 2, "y": 4, "width": 2, "height": 1 }
+          }
+        ]
+      },
+      "layout": { "x": 0, "y": 46, "width": 12, "height": 6 }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "network.client.ip",
+      "prefix": "@network.client.ip",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "usr.name",
+      "prefix": "@usr.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "usr.id",
+      "prefix": "@usr.id",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "usr.email",
+      "prefix": "@usr.email",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "evt.name",
+      "prefix": "@evt.name",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "evt.type",
+      "prefix": "@evt.type",
+      "available_values": [],
+      "default": "*"
+    },
+    { "name": "host", "prefix": "host", "available_values": [], "default": "*" }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed",
+  "is_read_only": true,
+  "author_name": "Datadog"
+}

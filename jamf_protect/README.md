@@ -1,17 +1,16 @@
 # Jamf Protect
 
 ## Overview
+[Jamf Protect][1] is a comprehensive security solution designed specifically for Apple endpoints, including macOS, iOS and iPadOS endpoints and other supported platforms. Jamf Protect enhances Apple's built-in security features and provides real-time detection of malicious applications, scripts, and user activities. 
 
-This check monitors [Jamf Protect][1], which enables endpoint security, threat defense, and content filtering for Apple Mobile and Mac.
+Jamf Protect not only detects known malware, adware, but also prevents unknown threats and blocks command and control traffic and risky domains. Furthermore, it provides granular insights into endpoint activity, ensuring endpoint health and compliance, and supports incident response with automated workflows. This integration will collect logs from Jamf Protect events which can be analyzed using Datadog. This integration monitors Jamf Protect logs for both macOS Security and Jamf Security Cloud.
 
 ## Setup
-
 
 ### Installation
 
 Navigate to the [Integrations page][6] and search for the "Jamf Protect" tile. 
 
-### Configuration
 
 ### Determine your Datadog Intake URL
 
@@ -151,7 +150,7 @@ Using the [Datadog API Logs documentation][7], determine what your intake URL i
 
 ### Validation
 
-Navigate to the [Logs Explorer][5] and search for `source:jamf` to validate you are receiving logs.
+Navigate to the [Logs Explorer][5] and search for `source:jamfprotect` to validate you are receiving logs.
 
 ## Data Collected
 
@@ -183,4 +182,3 @@ Need help? Contact [Datadog support][3].
 [6]: https://app.datadoghq.com/integrations
 [7]: https://docs.datadoghq.com/api/latest/logs/#send-logs
 [8]: https://docs.datadoghq.com/getting_started/site/
-

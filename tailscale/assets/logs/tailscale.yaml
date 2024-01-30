@@ -1,66 +1,67 @@
 id: tailscale
 metric_id: tailscale
+backend_only: false
 facets:
-  - name: Event Name
-    source: log
-    path: evt.name
-    groups:
+  - groups:
       - Event
-  - name: User Email
+    name: Event Name
+    path: evt.name
     source: log
+  - groups:
+      - User
+    name: User Email
     path: usr.email
-    groups:
-      - User
-  - name: User ID
     source: log
+  - groups:
+      - User
+    name: User ID
     path: usr.id
-    groups:
-      - User
-  - name: User Name
     source: log
+  - groups:
+      - User
+    name: User Name
     path: usr.name
-    groups:
-      - User
-  - name: User Type
     source: log
+  - groups:
+      - User
+    name: User Type
     path: usr.type
-    groups:
-      - User
-  - name: Target ID
     source: log
+  - groups:
+      - Tailscale
+    name: Target ID
     path: target.id
-    groups:
-      - Tailscale
-  - name: Target Name
     source: log
+  - groups:
+      - Tailscale
+    name: Target Name
     path: target.name
-    groups:
-      - Tailscale
-  - name: Target Property
     source: log
+  - groups:
+      - Tailscale
+    name: Target Property
     path: target.property
-    groups:
-      - Tailscale
-  - name: Target Type
     source: log
+  - groups:
+      - Tailscale
+    name: Target Type
     path: target.type
-    groups:
-      - Tailscale
-  - name: New Value
     source: log
+  - groups:
+      - Tailscale
+    name: New Value
     path: new
-    groups:
-      - Tailscale
-  - name: New Capabilities
     source: log
+  - groups:
+      - Tailscale
+    name: New Capabilities
     path: new.capabilities
-    groups:
-      - Tailscale
-  - name: Old Value
     source: log
-    path: old
-    groups:
+  - groups:
       - Tailscale
+    name: Old Value
+    path: old
+    source: log
 pipeline:
   type: pipeline
   name: tailscale

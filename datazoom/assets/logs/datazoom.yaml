@@ -1,245 +1,246 @@
 id: datazoom
+backend_only: false
 facets:
-  - name: Browser
-    source: log
+  - groups:
+      - Web Access
+    name: Browser
     path: http.useragent_details.browser.family
-    groups:
-      - Web Access
-  - name: OS
     source: log
+  - groups:
+      - Web Access
+    name: OS
     path: http.useragent_details.os.family
-    groups:
-      - Web Access
-  - name: Country ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Country ISO Code
     path: network.client.geoip.country.iso_code
-    groups:
-      - Geoip
-  - name: Subdivision ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision ISO Code
     path: network.client.geoip.subdivision.iso_code
-    groups:
-      - Geoip
-  - name: Subdivision Name
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision Name
     path: network.client.geoip.subdivision.name
-    groups:
-      - Geoip
-  - name: User ID
     source: log
-    path: usr.id
-    groups:
+  - groups:
       - User
-  - path: network.client.geoip.location.longitude
+    name: User ID
+    path: usr.id
     source: log
+  - groups:
+      - Geoip
     name: Longitude
-    groups:
-      - Geoip
-  - path: network.client.geoip.location.latitude
+    path: network.client.geoip.location.longitude
     source: log
+  - groups:
+      - Geoip
     name: Latitude
-    groups:
-      - Geoip
-  - path: network.client.geoip.postal_code
+    path: network.client.geoip.location.latitude
     source: log
+  - groups:
+      - Geoip
     name: Postal Code
-    groups:
-      - Geoip
-  - path: user_details.content_session_id
+    path: network.client.geoip.postal_code
     source: log
+  - groups:
+      - Datazoom
     name: user_details.content_session_id
-    groups:
-      - Datazoom
-  - path: player.player_name
+    path: user_details.content_session_id
     source: log
+  - groups:
+      - Datazoom
     name: player.player_name
-    groups:
-      - Datazoom
-  - path: player.streaming_protocol
+    path: player.player_name
     source: log
+  - groups:
+      - Datazoom
     name: player.streaming_protocol
-    groups:
-      - Datazoom
-  - path: player.player_version
+    path: player.streaming_protocol
     source: log
+  - groups:
+      - Datazoom
     name: player.player_version
-    groups:
-      - Datazoom
-  - name: Buffer duration content
+    path: player.player_version
     source: log
+  - facetType: range
+    groups:
+      - Event
+    name: Buffer duration content
     path: event.metrics.buffer_duration_content_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.stall_duration_content_ms
-    source: log
     name: Stall duration content
+    path: event.metrics.stall_duration_content_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.num_errors
-    source: log
     name: event.metrics.num_errors
+    path: event.metrics.num_errors
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.buffer_duration_ads_ms
-    source: log
     name: Buffer duration ads
+    path: event.metrics.buffer_duration_ads_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.stall_count_content
-    source: log
     name: event.metrics.stall_count_content
+    path: event.metrics.stall_count_content
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.engagement_duration_ms
-    source: log
     name: Engagement duration
+    path: event.metrics.engagement_duration_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.playback_duration_ads_ms
-    source: log
     name: Playback duration
+    path: event.metrics.playback_duration_ads_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.num_errors_ads
-    source: log
     name: event.metrics.num_errors_ads
-    groups:
-      - Event
-  - path: event.metrics.bandwidth_kbps
+    path: event.metrics.num_errors_ads
     source: log
+  - groups:
+      - Event
     name: event.metrics.bandwidth_kbps
+    path: event.metrics.bandwidth_kbps
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.time_since_last_heartbeat_ms
-    source: log
     name: Time since last heartbeat
+    path: event.metrics.time_since_last_heartbeat_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.num_content_plays
-    source: log
     name: event.metrics.num_content_plays
-    groups:
-      - Event
-  - path: event.metrics.num_errors_content
+    path: event.metrics.num_content_plays
     source: log
+  - groups:
+      - Event
     name: event.metrics.num_errors_content
+    path: event.metrics.num_errors_content
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.buffer_length_ms
-    source: log
     name: Buffer length
+    path: event.metrics.buffer_length_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.rendition_video_bitrate_kbps
-    source: log
     name: event.metrics.rendition_video_bitrate_kbps
+    path: event.metrics.rendition_video_bitrate_kbps
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.metrics.playback_duration_content_ms
-    source: log
     name: Playback duration content
+    path: event.metrics.playback_duration_content_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
+  - groups:
       - Event
-  - path: event.metrics.num_ad_plays
-    source: log
     name: event.metrics.num_ad_plays
-    groups:
-      - Event
-  - path: event.metrics.playhead_position_sec
+    path: event.metrics.num_ad_plays
     source: log
+  - groups:
+      - Event
     name: event.metrics.playhead_position_sec
-    groups:
-      - Event
-  - path: video.media_type
+    path: event.metrics.playhead_position_sec
     source: log
+  - groups:
+      - Datazoom
     name: Video Media Type
-    groups:
-      - Datazoom
-  - path: device.device_type
+    path: video.media_type
     source: log
+  - groups:
+      - Datazoom
     name: Device Type
-    groups:
-      - Datazoom
-  - path: device.os_version
+    path: device.device_type
     source: log
+  - groups:
+      - Datazoom
     name: OS Version
-    groups:
-      - Datazoom
-  - path: device.browser_version
+    path: device.os_version
     source: log
-    name: Browser Version
-    groups:
+  - groups:
       - Web Access
-  - path: event.attributes.error_code
+    name: Browser Version
+    path: device.browser_version
     source: log
+  - groups:
+      - Event
     name: event.attributes.error_code
+    path: event.attributes.error_code
+    source: log
+  - facetType: range
     groups:
       - Event
-  - path: event.attributes.startup_duration_content_ms
-    source: log
     name: Startup duration content
+    path: event.attributes.startup_duration_content_ms
+    source: log
     type: double
-    facetType: range
     unit:
       family: time
       name: millisecond
-    groups:
-      - Event
-  - path: network.isp
-    source: log
-    name: Network ISP
-    groups:
+  - groups:
       - Web Access
-  - path: network.asn
+    name: Network ISP
+    path: network.isp
     source: log
+  - groups:
+      - Network
     name: Client ASN
-    groups:
-      - Network
-  - path: network.asn_org
+    path: network.asn
     source: log
-    name: ASN Org
-    groups:
+  - groups:
       - Network
+    name: ASN Org
+    path: network.asn_org
+    source: log
 pipeline:
   type: pipeline
   name: Datazoom Time Pipeline

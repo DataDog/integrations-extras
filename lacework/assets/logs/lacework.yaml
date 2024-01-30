@@ -1,17 +1,17 @@
 id: lacework
 metric_id: lacework
+backend_only: false
 facets:
-  - name: Event Name
-    source: log
+  - groups:
+      - Event
+    name: Event Name
     path: evt.name
-    groups:
-      - Event
-  - name: Event Category
     source: log
-    path: evt.category
-    groups:
+  - groups:
       - Event
-
+    name: Event Category
+    path: evt.category
+    source: log
 pipeline:
   type: pipeline
   name: Lacework

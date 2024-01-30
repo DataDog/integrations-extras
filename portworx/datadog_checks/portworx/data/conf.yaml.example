@@ -16,6 +16,8 @@ instances:
    ## Matching prometheus metrics with the corresponding Datadog metrics.
    #
    metrics:
+   - px_alerts_poolexpandsuccessful: alerts.pool_expand_successful
+   - px_alerts_poolexpandfailed: alerts.pool_expand_failed
    - px_cluster_cpu_percent: cluster.cpu_percent
    - px_cluster_disk_available_bytes: cluster.disk_available_bytes
    - px_cluster_disk_total_bytes: cluster.disk_total_bytes
@@ -41,14 +43,24 @@ instances:
    - px_disk_stats_write_latency_seconds: disk_stats.write_latency_seconds
    - px_disk_stats_write_seconds: disk_stats.write_seconds
    - px_disk_stats_writes: disk_stats.writes
+   - px_disk_stats_num_reads: disk_stats.num_reads
+   - px_disk_stats_num_writes: disk_stats.num_writes
    - px_network_io_bytessent: network_io.bytessent
    - px_network_io_received_bytes: network_io.received_bytes
+   - px_node_status_node_status: node_status.status
+   - px_node_status_license_expiry: node_status.licence_expiry
    - px_pool_stats_pool_flushed_bytes: pool_stats.flushed_bytes
    - px_pool_stats_pool_flushms: pool_stats.flushms
    - px_pool_stats_pool_num_flushes: pool_stats.num_flushes
    - px_pool_stats_pool_write_latency_seconds: pool_stats.write_latency_seconds
    - px_pool_stats_pool_writethroughput: pool_stats.writethroughput
    - px_pool_stats_pool_written_bytes: pool_stats.written_bytes
+   - px_pool_stats_available_bytes: pool_stats.available_bytes
+   - px_pool_stats_used_bytes: pool_stats.used_bytes
+   - px_pool_stats_total_bytes: pool_stats.total_bytes
+   - px_pool_stats_status: pool_stats.status
+   - px_pool_stats_write_latency_seconds: pool_stats.write_latency_seconds.main
+   - px_pool_stats_writethroughput: pool_stats.write_throughput.main
    - px_proc_stats_cpu_percenttime: proc.cpu_percenttime
    - px_proc_stats_res: proc.res
    - px_proc_stats_virt: proc.virt
@@ -72,5 +84,15 @@ instances:
    - px_volume_vol_write_latency_seconds: volume.vol_write_latency_seconds
    - px_volume_writethroughput: volume.writethroughput
    - px_volume_written_bytes: volume.written_bytes
+   - px_volume_replication_status: volume.replication_status
+   - px_volume_state: volume.state
+   - px_volume_attached_state: volume.attached_state
+   - px_volume_read_iops: volume.read_iops
+   - px_volume_read_bytes: volume.read_bytes
+   - px_volume_read_latency_seconds: volume.read_latency_seconds
+   - px_volume_write_iops: volume.write_iops
+   - px_volume_write_latency_seconds: volume.write_latency_seconds
+   - px_volume_num_discard_ops: volume.discard_ops
+   - px_volume_discarded_bytes: volume.discarded_bytes
    - fs_usage_bytes: fs.usage_bytes
    - fs_capacity_bytes: fs.capacity_bytes

@@ -1,24 +1,25 @@
 # Buddy Integration
 
 ## Overview
+Buddy is a continuous integration automation platform that can be used to build, test, and deploy web sites and applications. 
 
-Enable this integration to:
+The Buddy integration enables you to:
 
-- Send events about deployments to Datadog
-- Correlate deployment details with your Datadog metrics
-- Detect the sources of performance spikes
+- Send events about your Buddy deployments to Datadog.
+- Correlate deployment details with your Datadog metrics.
+- Detect sources of performance spikes in your pipelines.
 
 ![datadog-integration][1]
 
 ## Setup
 
-- In your Datadog account settings go to [Integrations -> APIs][2] and copy the **API Key** token
+- In your Datadog account settings go to [Integrations -> APIs][2] and copy the **API Key** token.
 
-- [Sign in to your Buddy account][3] and go to the pipeline with the deployment action that you want to track
+- [Sign in to your Buddy account][3] and go to the pipeline with the deployment action that you want to track.
 
-- Click the plus at the end of the pipeline and select **Datadog** in the **Notifications** section
+- Click the plus at the end of the pipeline and select **Datadog** in the **Notifications** section.
 
-- Enter the name of your Datadog account and paste the API key that you copied
+- Enter the name of your Datadog account and paste the API key that you copied.
 
 - Use [Buddy parameters][4] to define the title of the event and content sent, for example:
 
