@@ -2,7 +2,7 @@
 
 ## Overview
 
-Keep is an open-source AIOps alert management and automation platform, which offers a platform for consolidating, automating, and reducing noise across various parts of your observability stack. Keep integration with Datadog harnesses the strengths of both platforms, providing a unified and efficient approach to alert management and event correlation.
+Keep is an open-source AIOps alert management and automation platform, which offers a platform for consolidating, automating, and reducing noise across various parts of your observability stack. With this integration, you can harness the strength of both platforms, providing a unified and efficient approach to alert management and event correlation.
 
 Keep uses Datadog monitors data, logs and events to correlate alerts and reduce noise.
 
@@ -24,11 +24,11 @@ For more information about (Keep)[6], see (Keep's documentation)[8].
 
 The Keep integration is installed using the (Integration Tile)[https://app.datadoghq.com/integrations/keephq] on your Datadog account, with OAuth2.
 
-Users will:
-1. Clicking on Keep's integration tile -> Install Integration
-2. User will be redirected to Keep's platform for sign-in
-3. User will be redirected back to Datadog to review and confirm the required scopes from their Datadog account
-4. User will be redirected back to Keep's platform to see whether installation was successfully completed
+To setup the Keep integration
+1. Click on Keep's integration tile and select Install Integration
+2. Users will be redirected to Keep's platform to sign-in to their Keep account
+3. Users will be redirected back to Datadog to review and confirm the required scopes from their Datadog account
+4. Once confirmed, users will be redirected back to Keep's platform to see whether installation was successfully completed
 
 Once installed successfully, Keep will automatically create a new `Webhook` integration in your Datadog, and will modify your monitors to send alerts.
 
