@@ -49,7 +49,7 @@ To validate that the Keep integration is properly working, follow the next steps
 
 ### Metrics
 
-Keep sends metrics about the fatigueness of specific connected monitors. 
+The Keep integration does not include any metrics.
 
 ### Service Checks
 
