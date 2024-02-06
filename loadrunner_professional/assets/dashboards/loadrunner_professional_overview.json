@@ -1,0 +1,280 @@
+{
+    "title": "LoadRunner Professional Dashboard",
+    "description": "LoadRunner Professional Dashboard shows the running vusers, transactions statistics and previous Controller runs. For detailed transactions statistics the user can filter after the trasaction's name tag.",
+    "widgets": [
+        {
+            "id": 3331011244853298,
+            "definition": {
+                "title": "Running Vusers",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "value"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "style": {
+                                    "palette": "green",
+                                    "palette_index": 5
+                                },
+                                "formula": "query1"
+                            },
+                            {
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 1
+                                },
+                                "formula": "query2"
+                            },
+                            {
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 4
+                                },
+                                "formula": "query3"
+                            },
+                            {
+                                "style": {
+                                    "palette": "classic",
+                                    "palette_index": 1
+                                },
+                                "formula": "query4"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "query": "sum:loadrunner.vusers.running{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            },
+                            {
+                                "query": "sum:loadrunner.vusers.ready{*}",
+                                "data_source": "metrics",
+                                "name": "query2"
+                            },
+                            {
+                                "query": "sum:loadrunner.vusers.error{*}",
+                                "data_source": "metrics",
+                                "name": "query3"
+                            },
+                            {
+                                "query": "sum:loadrunner.vusers.finished{*}",
+                                "data_source": "metrics",
+                                "name": "query4"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 3411266076211982,
+            "definition": {
+                "title": "Transaction Response Time",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "style": {
+                                    "palette": "green",
+                                    "palette_index": 5
+                                },
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "name": "query1",
+                                "data_source": "metrics",
+                                "query": "avg:loadrunner.transaction.response_time{*}"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "green",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 3270041111053032,
+            "definition": {
+                "title": "Transaction Statistics",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "style": {
+                                    "palette": "green",
+                                    "palette_index": 5
+                                },
+                                "formula": "query4"
+                            },
+                            {
+                                "style": {
+                                    "palette": "purple",
+                                    "palette_index": 4
+                                },
+                                "formula": "query1"
+                            },
+                            {
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 5
+                                },
+                                "formula": "query3"
+                            },
+                            {
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 1
+                                },
+                                "formula": "query5"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "query": "avg:loadrunner.total.transactions.passed.per.sec{*}",
+                                "data_source": "metrics",
+                                "name": "query4"
+                            },
+                            {
+                                "query": "avg:loadrunner.transaction.passed{*}",
+                                "data_source": "metrics",
+                                "name": "query1"
+                            },
+                            {
+                                "query": "avg:loadrunner.transaction.failed{*}",
+                                "data_source": "metrics",
+                                "name": "query3"
+                            },
+                            {
+                                "query": "avg:loadrunner.transaction.stopped{*}",
+                                "data_source": "metrics",
+                                "name": "query5"
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 8,
+                "y": 0,
+                "width": 4,
+                "height": 4
+            }
+        },
+        {
+            "id": 8619048658444704,
+            "definition": {
+                "title": "LoadRunner Scenario Runs",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {
+                    "live_span": "1y"
+                },
+                "requests": [
+                    {
+                        "response_format": "event_list",
+                        "query": {
+                            "data_source": "logs_stream",
+                            "query_string": "service:loadrunner_professional source:loadrunner",
+                            "indexes": [],
+                            "storage": "hot"
+                        },
+                        "columns": [
+                            {
+                                "field": "status_line",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "timestamp",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "host",
+                                "width": "auto"
+                            },
+                            {
+                                "field": "content",
+                                "width": "auto"
+                            }
+                        ]
+                    }
+                ],
+                "type": "list_stream"
+            },
+            "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 12,
+                "height": 4
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}

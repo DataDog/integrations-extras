@@ -1,0 +1,75 @@
+id: "loadrunner-professional"
+tests:
+  - sample: >+
+      
+      		"host": "controller_host",
+      		"service": "loadrunner_professional",
+      		"attributes": {
+      			"hostname": "controller_host",
+      			"service": "loadrunner_professional",
+      			"scenario_started": {
+      				"summary": {
+      					"mode": "Scenario Scheduling",
+      					"load_behavior": "Initialize each Vuser just before it runs",
+      					"goal_profile_name": "Schedule 1",
+      					"scenario_duration": "Start 50 Vusers: 5 every 00:00:05 (HH:MM:SS); Run for 00:02:00 (HH:MM:SS); Stop all Vusers: 5 every 00:00:05 (HH:MM:SS)",
+      					"scenario_type": "Manual Scenario"
+      				},
+      				"general": {
+      					"path": "Scenario1",
+      					"start_time": 1707216334,
+      					"product": "LoadRunner Controller",
+      					"result_file": "C:\\res_datadog\\res_datadog.lrr",
+      					"time_zone": "-7200 seconds",
+      					"version": "2024.1.0.0",
+      					"resultname": "res_datadog",
+      					"daylight_bias": "0 minutes"
+      				},
+      				"scripts": [
+      					{
+      						"path": "C:\\Users\\username\\Desktop\\transactions_differ",
+      						"name": "transactions_differ_1",
+      						"type": "Multi+QTWeb"
+      					},
+      					{
+      						"path": "C:\\Users\\username\\Desktop\\transactions_differ",
+      						"name": "transactions_differ",
+      						"type": "Multi+QTWeb"
+      					}
+      				]
+      			}
+      		}
+      	
+    result: null
+  - sample: |+
+      
+      		"host": "controller_host",
+      		"service": "loadrunner_professional",
+      		"attributes": {
+      			"hostname": "controller_host",
+      			"service": "loadrunner_professional",
+      			"scenario_ended": {
+      				"execution": {
+      					"start_time": 1707216334,
+      					"stop_time": 1707216403,
+      					"total_duration": "69 seconds"
+      				},
+      				"general": {
+      					"path": "Scenario1",
+      					"start_time": 1707216334,
+      					"product": "LoadRunner Controller",
+      					"result_file": "C:\\res_datadog\\res_datadog.lrr",
+      					"time_zone": "-7200 seconds",
+      					"version": "2024.1.0.0",
+      					"resultname": "res_datadog",
+      					"daylight_bias": "0 minutes"
+      				}
+      			}
+      		}
+      	
+    result: null
+
+# The `result` field should be left blank to start. Once you submit your log asset files with
+# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
+# run your raw logs against your pipeline and return the result. If the result output in the
+# validation is accurate, take the output and add it to the `result` field in your test YAML file.
