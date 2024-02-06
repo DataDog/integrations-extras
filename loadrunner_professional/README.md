@@ -48,11 +48,11 @@ LoadRunner Professional does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? See [LoadRunner Professional docs][4] or contact [Datadog support][3].
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/loadrunner_professional/images/datadog_configuration_window.png
 [3]: https://docs.datadoghq.com/help/
-
+[4]: https://admhelp.microfocus.com/lr
 [5]: https://github.com/DataDog/integrations-extras/blob/master/loadrunner_professional/metadata.csv
 
