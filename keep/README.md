@@ -22,7 +22,7 @@ For more information, see the [official Keep documentation][8].
 
 ### Installation
 
-Use the [integration tile ][9] on your Datadog account to install the Keep integration with [OAuth2][2].
+Use the [integration tile][9] on your Datadog account to install the Keep integration with [OAuth2][2].
 
 To set up the Keep integration:
 
