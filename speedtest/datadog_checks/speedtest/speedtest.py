@@ -4,7 +4,7 @@ from typing import Any, Dict  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-BYTE_TO_MEBIBYTE = 1 / 1024 ** 2
+BYTE_TO_MEBIBYTE = 1.0 / 1024**2
 
 
 class SpeedtestCheck(AgentCheck):
@@ -62,9 +62,9 @@ class SpeedtestCheck(AgentCheck):
 
         """
         From speedtest man page regarding OUTPUT:
-         - Latency and jitter will be represented in milliseconds. 
-         - Download and upload units will depend on the output format as well as if a unit was specified. The  human-readable format defaults to Mbps and any machine-readable formats (csv, tsv, json, jsonl, json-pretty) use bytes as the unit of measure with max precision.
-         - Packet loss is represented as a percentage, or Not available when packet loss is unavailable in the executing network environment.
+         - Latency and jitter will be represented in milliseconds.
+         - Any machine-readable formats (json) use bytes as the unit of measure.
+         - Packet loss is represented as a percentage, or Not available when packet loss is unavailable.
         """
         payload = json.loads(result.strip())
         return payload
