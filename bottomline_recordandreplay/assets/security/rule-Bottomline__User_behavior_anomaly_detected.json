@@ -1,0 +1,34 @@
+{
+  "name": "Anomalous user behavior detected",
+  "partnerRuleId":"ext-005-btm",
+  "isEnabled": false,
+  "queries": [
+    {
+      "query": "@bottomline.mainframe.activity.type:Access ",
+      "groupByFields": [],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": ""
+    }
+  ],
+  "options": {
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400,
+    "detectionMethod": "anomaly_detection",
+    "evaluationWindow": 1800
+  },
+  "cases": [
+    {
+      "name": "",
+      "status": "medium",
+      "notifications": [],
+      "condition": ""
+    }
+  ],
+  "message": "User anomaly detection",
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": []
+}

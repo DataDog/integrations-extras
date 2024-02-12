@@ -1,0 +1,36 @@
+{
+  "name": "Unusually high volume of customer maintenance",
+  "partnerRuleId":"ext-004-btm",
+  "isEnabled": false,
+  "queries": [
+    {
+      "query": "@bottomline.mainframe.activity.resource.code:BNKCSTF ",
+      "groupByFields": [
+        "@bottomline.mainframe.activity.usr.id"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "aggregation": "count",
+      "name": ""
+    }
+  ],
+  "options": {
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400,
+    "detectionMethod": "threshold",
+    "evaluationWindow": 900
+  },
+  "cases": [
+    {
+      "name": "Customer Maintenance by User",
+      "status": "high",
+      "notifications": [],
+      "condition": "a > 40"
+    }
+  ],
+  "message": "@{{bottomline.mainframe.activity.usr.id}} performed high volume of customer maintenance",
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": []
+}
