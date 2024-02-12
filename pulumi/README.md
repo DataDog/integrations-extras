@@ -6,7 +6,7 @@
 
 The Pulumi integration is used to provision any of the cloud resources available in Datadog. This integration must be configured with credentials to deploy and update resources in Datadog.
 
-**Note**: You will need to set AWS IAM Permissions in order for the integration to make changes. You can find steps on setting AWS IAM Permissions in our [AWS Integration documentation][7].
+**Note**: You need to set AWS IAM Permissions for the integration to make changes. You can find steps on setting AWS IAM Permissions in our [AWS Integration documentation][7].
 
 ## Setup
 
