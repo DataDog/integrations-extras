@@ -165,12 +165,16 @@ class SpeedtestCheck(AgentCheck):
         download_data = payload.get("download")
         bandwidth_dl = float(download_data.get("bandwidth", 0))
         self.gauge("speedtest.download.bandwidth", bandwidth_dl * BYTE_TO_MEBIBYTE, tags)
+        self.gauge("speedtest.download.bandwidth.bit_per_sec", bandwidth_dl * 8, tags)
+        self.gauge("speedtest.download.bandwidth.byte_per_sec", bandwidth_dl, tags)
         self.gauge("speedtest.download.bytes", float(download_data.get("bytes")), tags)
         self.gauge("speedtest.download.elapsed", float(download_data.get("elapsed")), tags)
 
         upload_data = payload.get("upload")
         bandwidth_ul = float(upload_data.get("bandwidth", 0))
         self.gauge("speedtest.upload.bandwidth", bandwidth_ul * BYTE_TO_MEBIBYTE, tags)
+        self.gauge("speedtest.upload.bandwidth.bit_per_sec", bandwidth_ul * 8, tags)
+        self.gauge("speedtest.upload.bandwidth.byte_per_sec", bandwidth_ul, tags)
         self.gauge("speedtest.upload.bytes", float(upload_data.get("bytes")), tags)
         self.gauge("speedtest.upload.elapsed", float(upload_data.get("elapsed")), tags)
 
