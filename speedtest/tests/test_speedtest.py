@@ -5,14 +5,14 @@ import pytest
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.base.stubs.aggregator import AggregatorStub  # noqa: F401
-from datadog_checks.speedtest import MEGABYTE_TO_MEBIBYTE, SpeedtestCheck
+from datadog_checks.speedtest import BYTE_TO_MEBIBYTE, SpeedtestCheck
 
 MOCK_RESPONSE = {
     "type": "result",
     "timestamp": "2020-06-14T19:41:48Z",
     "ping": {"jitter": 10, "latency": 20},
-    "download": {"bandwidth": 30 / MEGABYTE_TO_MEBIBYTE, "bytes": 40, "elapsed": 50},
-    "upload": {"bandwidth": 60 / MEGABYTE_TO_MEBIBYTE, "bytes": 70, "elapsed": 80},
+    "download": {"bandwidth": 30 / BYTE_TO_MEBIBYTE, "bytes": 40, "elapsed": 50},
+    "upload": {"bandwidth": 60 / BYTE_TO_MEBIBYTE, "bytes": 70, "elapsed": 80},
     "packetLoss": 90,
     "isp": "Some ISP",
     "interface": {
