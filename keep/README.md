@@ -4,7 +4,7 @@
 
 [Keep][6] is an open source AIOps alert management and automation platform, which offers capabilities for consolidating, automating, and reducing noise across various parts of your observability stack. With this integration, you can harness the strength of both platforms, providing a unified and efficient approach to alert management and event correlation.
 
-Keep uses Datadog monitors data, logs, and events to correlate alerts and reduce noise.
+Keep uses Datadog's monitors, logs, and events data to correlate alerts and reduce noise.
 
 Key features of this integration include:
 
