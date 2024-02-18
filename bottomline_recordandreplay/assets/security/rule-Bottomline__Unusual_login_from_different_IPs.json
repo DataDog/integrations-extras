@@ -1,0 +1,38 @@
+{
+  "name": "Unusual login from different IPs",
+  "partnerRuleId":"ext-003-btm",
+  "isEnabled": false,
+  "queries": [
+    {
+      "query": "@bottomline.mainframe.activity.resource.code:Login ",
+      "groupByFields": [
+        "@bottomline.mainframe.activity.usr.id"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [
+        "@network.client.ip"
+      ],
+      "aggregation": "cardinality",
+      "name": ""
+    }
+  ],
+  "options": {
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400,
+    "detectionMethod": "threshold",
+    "evaluationWindow": 300
+  },
+  "cases": [
+    {
+      "name": "Login by User",
+      "status": "high",
+      "notifications": [],
+      "condition": "a > 1"
+    }
+  ],
+  "message": "@{{bottomline.mainframe.activity.usr.id}} logged in from different IPs within short period.",
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": []
+}
