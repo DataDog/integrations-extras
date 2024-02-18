@@ -6,7 +6,7 @@ from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.zenoh_router import ZenohRouterCheck
 
 
-def test_check(dd_run_check, aggregator, instance, requests_mock):
+def test_check(dd_run_check, aggregator, instance, mock_http_response):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     STATS_RESPONSE = '''
 [
@@ -134,7 +134,7 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
   }
 ]'''
 
-    requests_mock.get('http://localhost/@/router/*?_stats=true', text=STATS_RESPONSE)
+    mock_http_response(STATS_RESPONSE)
 
     check = ZenohRouterCheck('zenoh_router', {}, [instance])
     dd_run_check(check)
@@ -142,55 +142,60 @@ def test_check(dd_run_check, aggregator, instance, requests_mock):
     dd_run_check(check)
 
     gtags = ['name:mediahome', 'zenoh_version:v0', 'zid:9bafaff963b9465d80552419bf397add']
-    aggregator.assert_metric('zenoh.router.sessions', value=2, tags=gtags + ['whatami:client'])
-    aggregator.assert_metric('zenoh.router.sessions', value=2, tags=gtags + ['whatami:router'])
-    aggregator.assert_metric('zenoh.router.sessions', value=4, tags=gtags + ['whatami:peer'])
 
-    aggregator.assert_metric('zenoh.router.rx_bytes', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.rx_n_dropped', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.rx_n_msgs', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.rx_t_msgs', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.rx_z_del_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_del_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_put_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_put_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_put_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_put_pl_bytes', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_query_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_query_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_query_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_query_pl_bytes', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_reply_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_reply_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.rx_z_reply_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.rx_z_reply_pl_bytes', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_bytes', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.tx_n_dropped', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.tx_n_msgs', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.tx_t_msgs', tags=gtags + ['space:'])
-    aggregator.assert_metric('zenoh.router.tx_z_del_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_del_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_put_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_put_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_put_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_put_pl_bytes', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_query_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_query_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_query_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_query_pl_bytes', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_reply_msgs', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_reply_msgs', tags=gtags + ['space:admin'])
-    aggregator.assert_metric('zenoh.router.tx_z_reply_pl_bytes', tags=gtags + ['space:user'])
-    aggregator.assert_metric('zenoh.router.tx_z_reply_pl_bytes', tags=gtags + ['space:admin'])
+    expected = [
+        {'name': 'zenoh.router.sessions', 'value': 2, 'tags': gtags + ['whatami:client']},
+        {'name': 'zenoh.router.sessions', 'value': 2, 'tags': gtags + ['whatami:router']},
+        {'name': 'zenoh.router.sessions', 'value': 4, 'tags': gtags + ['whatami:peer']},
+        {'name': 'zenoh.router.rx_bytes', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.rx_n_dropped', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.rx_n_msgs', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.rx_t_msgs', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.rx_z_del_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_del_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_put_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_put_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_put_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_put_pl_bytes', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_query_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_query_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_query_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_query_pl_bytes', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_reply_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_reply_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.rx_z_reply_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.rx_z_reply_pl_bytes', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_bytes', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.tx_n_dropped', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.tx_n_msgs', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.tx_t_msgs', 'tags': gtags + ['space:']},
+        {'name': 'zenoh.router.tx_z_del_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_del_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_put_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_put_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_put_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_put_pl_bytes', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_query_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_query_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_query_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_query_pl_bytes', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_reply_msgs', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_reply_msgs', 'tags': gtags + ['space:admin']},
+        {'name': 'zenoh.router.tx_z_reply_pl_bytes', 'tags': gtags + ['space:user']},
+        {'name': 'zenoh.router.tx_z_reply_pl_bytes', 'tags': gtags + ['space:admin']},
+    ]
+
+    for e in expected:
+        aggregator.assert_metric(e['name'], value=e.get('value', None), tags=e['tags'])
 
     aggregator.assert_all_metrics_covered()
     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
 
 
-def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance, requests_mock):
+def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance, mock_http_response):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
 
-    requests_mock.get('http://localhost/@/router/*?_stats=true', text='')
+    mock_http_response('')
 
     check = ZenohRouterCheck('zenoh_router', {}, [instance])
     dd_run_check(check)

@@ -3,9 +3,6 @@
 import time
 from collections import defaultdict
 
-from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-from simplejson import JSONDecodeError
-
 from datadog_checks.base import AgentCheck  # noqa: F401
 
 
@@ -87,26 +84,5 @@ class ZenohRouterCheck(AgentCheck):
 
             self.service_check('can_connect', AgentCheck.OK)
 
-        except Timeout as e:
-            self.service_check(
-                'can_connect',
-                AgentCheck.CRITICAL,
-                message='Request timeout: {}, {}'.format(url, e),
-            )
-
-        except (HTTPError, InvalidURL, ConnectionError) as e:
-            self.service_check(
-                'can_connect',
-                AgentCheck.CRITICAL,
-                message='Request failed: {}, {}'.format(url, e),
-            )
-
-        except JSONDecodeError as e:
-            self.service_check(
-                'can_connect',
-                AgentCheck.CRITICAL,
-                message='JSON Parse failed: {}, {}'.format(url, e),
-            )
-
-        except BaseException as e:
+        except Exception as e:
             self.service_check('can_connect', AgentCheck.CRITICAL, message=str(e))
