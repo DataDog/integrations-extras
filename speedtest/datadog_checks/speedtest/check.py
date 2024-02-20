@@ -1,1 +1,1 @@
-from .speedtest import MEGABYTE_TO_MEBIBYTE, SpeedtestCheck  # noqa
+from .speedtest import BYTE_TO_MEBIBYTE, SpeedtestCheck  # noqa
