@@ -23,7 +23,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the ping che
 
    ```shell
    # Linux
-   datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
+   sudo -u dd-agent -- datadog-agent integration install -t datadog-ping==<INTEGRATION_VERSION>
    
    # Windows
    agent.exe integration install -t datadog-ping==<INTEGRATION_VERSION>

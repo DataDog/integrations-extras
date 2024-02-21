@@ -4,7 +4,7 @@ from typing import Any, Dict  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError
 
-MEGABYTE_TO_MEBIBYTE = 1048576.0 / 1000000.0
+BYTE_TO_MEBIBYTE = 1.0 / 1024**2
 
 
 class SpeedtestCheck(AgentCheck):
@@ -57,8 +57,15 @@ class SpeedtestCheck(AgentCheck):
         return cmd
 
     def _call_command(self, cmd):
-        # we keep this private so we can mock this in tests
+        # We keep this private so we can mock this in tests
         result = subprocess.check_output(cmd, shell=True)
+
+        """
+        From speedtest man page regarding OUTPUT:
+         - Latency and jitter will be represented in milliseconds.
+         - Any machine-readable formats (json) use bytes as the unit of measure.
+         - Packet loss is represented as a percentage, or Not available when packet loss is unavailable.
+        """
         payload = json.loads(result.strip())
         return payload
 
@@ -156,12 +163,18 @@ class SpeedtestCheck(AgentCheck):
         self.gauge("speedtest.ping.latency", float(ping_data.get("latency")), tags)
 
         download_data = payload.get("download")
-        self.gauge("speedtest.download.bandwidth", float(download_data.get("bandwidth")) * MEGABYTE_TO_MEBIBYTE, tags)
+        bandwidth_dl = float(download_data.get("bandwidth", 0))
+        self.gauge("speedtest.download.bandwidth", bandwidth_dl * BYTE_TO_MEBIBYTE, tags)
+        self.gauge("speedtest.download.bandwidth.bit_per_sec", bandwidth_dl * 8, tags)
+        self.gauge("speedtest.download.bandwidth.byte_per_sec", bandwidth_dl, tags)
         self.gauge("speedtest.download.bytes", float(download_data.get("bytes")), tags)
         self.gauge("speedtest.download.elapsed", float(download_data.get("elapsed")), tags)
 
         upload_data = payload.get("upload")
-        self.gauge("speedtest.upload.bandwidth", float(upload_data.get("bandwidth")) * MEGABYTE_TO_MEBIBYTE, tags)
+        bandwidth_ul = float(upload_data.get("bandwidth", 0))
+        self.gauge("speedtest.upload.bandwidth", bandwidth_ul * BYTE_TO_MEBIBYTE, tags)
+        self.gauge("speedtest.upload.bandwidth.bit_per_sec", bandwidth_ul * 8, tags)
+        self.gauge("speedtest.upload.bandwidth.byte_per_sec", bandwidth_ul, tags)
         self.gauge("speedtest.upload.bytes", float(upload_data.get("bytes")), tags)
         self.gauge("speedtest.upload.elapsed", float(upload_data.get("elapsed")), tags)
 
