@@ -6,7 +6,7 @@ pipeline:
   name: LoadRunner Scenario Information Pipeline
   enabled: true
   filter:
-    query: "source:loadrunner "
+    query: "source:loadrunner"
   processors:
     - type: attribute-remapper
       name: LoadRunner Hostname Tag Creation
@@ -14,17 +14,7 @@ pipeline:
       sources:
         - hostname
       sourceType: attribute
-      target: lr_hostname
-      targetType: tag
-      preserveSource: false
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: LoadRunner Service Tag Creation
-      enabled: true
-      sources:
-        - service
-      sourceType: attribute
-      target: lr_service
+      target: host
       targetType: tag
       preserveSource: false
       overrideOnConflict: false
@@ -35,7 +25,7 @@ pipeline:
         - scenario_started.general.version
         - scenario_ended.general.version
       sourceType: attribute
-      target: lr_version
+      target: version
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
@@ -45,7 +35,7 @@ pipeline:
       sources:
         - scenario_started.summary.mode
       sourceType: attribute
-      target: lr_scenario_mode
+      target: loadrunner.scenario.mode
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
@@ -55,7 +45,7 @@ pipeline:
       sources:
         - scenario_started.summary.scenario_type
       sourceType: attribute
-      target: lr_scenario_type
+      target: loadrunner.scenario.type
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
@@ -65,7 +55,7 @@ pipeline:
       sources:
         - scenario_started.summary.load_behavior
       sourceType: attribute
-      target: lr_scenario_load_behavior
+      target: loadrunner.scenario.load_behavior
       targetType: tag
       preserveSource: true
       overrideOnConflict: false
