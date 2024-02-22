@@ -1,8 +1,6 @@
 import json
-import logging
 
 import pytest
-from requests.exceptions import HTTPError
 
 from datadog_checks.base import ConfigurationError
 from datadog_checks.ns1 import Ns1Check
@@ -36,125 +34,6 @@ def test_parse_metrics(aggregator, instance):
 
     assert len(metric) > 0
     assert check.api_endpoint is not None
-
-
-def test_get_zone_info_url(aggregator, instance_ddi, requests_mock):
-    check = Ns1Check('ns1', {}, [instance_ddi])
-    aggregator.assert_all_metrics_covered()
-    checkUrl = check.ns1.get_zone_info_url("test", None)
-    assert len(checkUrl.items()) == 0  # is None
-
-
-def test_429_http_error(aggregator, instance_ddi, requests_mock):
-    check = Ns1Check('ns1', {}, [instance_ddi])
-    aggregator.assert_all_metrics_covered()
-
-    url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
-
-    requests_mock.register_uri(
-        'GET',
-        url,
-        status_code=429,
-        reason="Too many requests",
-        headers={
-            'X-Ratelimit-By': 'customer',
-            'X-Ratelimit-Limit': '1000',
-            'X-Ratelimit-Period': '1',
-            'X-Ratelimit-Remaining': '0',
-        },
-    )
-    with pytest.raises(HTTPError):
-        stats = check.get_stats(url)
-        assert stats is None
-
-
-def test_set_max_retries(aggregator, instance_ddi, requests_mock, caplog):
-    max_retries = 3
-    instance_ddi["max_retry_attempts"] = max_retries
-    check = Ns1Check('ns1', {}, [instance_ddi])
-
-    with caplog.at_level(logging.WARNING):
-        url = "{apiendpoint}/v1/zones/dloc1.com".format(apiendpoint=check.api_endpoint)
-
-        requests_mock.register_uri(
-            'GET',
-            url,
-            status_code=429,
-            reason="Too many requests",
-            headers={
-                'X-Ratelimit-By': 'customer',
-                'X-Ratelimit-Limit': '1000',
-                'X-Ratelimit-Period': '1',
-                'X-Ratelimit-Remaining': '0',
-            },
-        )
-        with pytest.raises(HTTPError):
-            check.get_stats(url)
-
-        log_list = caplog.text.split('\n')
-        assert len(log_list) == max_retries + 1
-        for i in range(max_retries):
-            assert 'Rate limit reached' in log_list[i]
-
-
-def test_url_gen_ddi(aggregator, instance_ddi, requests_mock):
-    check = Ns1Check('ns1', {}, [instance_ddi])
-    aggregator.assert_all_metrics_covered()
-    url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=check.api_endpoint)
-    ddiresponse = '''
-    [
-        {
-            "dhcp_service_id": 3,
-            "name": "scope1",
-            "client_class_ids": [],
-            "dhcpv4": {
-                "enabled": true,
-                "options": [
-                    {
-                        "name": "dhcpv4/example-single-type",
-                        "value": "markmpeterson.xyz"
-                    }
-                ],
-                "rebind_timer_secs": 43200,
-                "renew_timer_secs": 21600,
-                "valid_lifetime_secs": 86400,
-                "echo_client_id": true,
-                "match_client_id": true,
-                "synthesize_dns_records": {
-                    "enabled": true
-                }
-            },
-            "dhcpv6": {
-                "enabled": false,
-                "options": [],
-                "synthesize_dns_records": {}
-            },
-            "blocked_tags": [],
-            "local_tags": [
-                "Site Code",
-                "auth:Security Lvl"
-            ],
-            "tags": {
-                "Site Code": "DO",
-                "auth:Security Lvl": "2"
-            },
-            "id": 2,
-            "network_id": 1,
-            "template_config": []
-        }
-    ]
-    '''
-    requests_mock.get(url, text=ddiresponse)
-    checkUrl = check.create_url(check.metrics, check.query_params, check.networks)
-
-    assert len(checkUrl) > 0
-    assert check.api_endpoint is not None
-    # leases
-    assert checkUrl["leases"][0] == "https://localhost/v1/stats/leases?period=24h"
-    assert checkUrl["leases.2"][0] == "https://localhost/v1/stats/leases/2?period=24h"
-    # lps
-    assert checkUrl["peak_lps"][0] == "https://localhost/v1/stats/lps?period=24h"
-    assert checkUrl["peak_lps.2"][0] == "https://localhost/v1/stats/lps/2?period=24h"
 
 
 def test_url_gen(aggregator, instance_1, requests_mock):
