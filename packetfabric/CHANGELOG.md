@@ -1,4 +1,4 @@
-# CHANGELOG - Packetfabric
+# CHANGELOG - PacketFabric
 
 ## 1.0.0 / 2024-02-20
 
