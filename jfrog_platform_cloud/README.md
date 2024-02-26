@@ -27,9 +27,9 @@ JFrog's SaaS Log Streaming is currently in beta. While in beta, the cloud log st
 ### Installation
 
 1. Create a [Datadog API key][2].
-1. On the [MyJFrog Portal][3], go to Settings > JFrog Cloud Log Streaming - BETA, and enable the Log Streamer.
-1. Select Datadog as the vendor. 
-1. Add your Datadog API key, the Datadog intake URL for your [Datadog site][4] (`https://http-intake.logs.datadoghq.com/api/v2/logs`), and `ddtags`. Click Save.
+2. On the [MyJFrog Portal][3], go to Settings > JFrog Cloud Log Streaming - BETA, and enable the Log Streamer.
+3. Select Datadog as the vendor. 
+4. Add your Datadog API key, select the Datadog intake URL for your [Datadog site][4] from the dropdown menu, and add `ddtags` if needed. Click Save.
 
 Your logs will start streaming into Datadog in 24 hours or less.
 
