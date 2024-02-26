@@ -1,39 +1,51 @@
 
 from typing import Any  # noqa: F401
 
-from datadog_checks.base import AgentCheck  # noqa: F401
+from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
 
-# from datadog_checks.base.utils.db import QueryManager
-# from requests.exceptions import ConnectionError, HTTPError, InvalidURL, Timeout
-# from json import JSONDecodeError
+from datadog_checks.base import OpenMetricsBaseCheckV2
 
 
-class RedisEnterpriseCheck(AgentCheck):
+class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
 
     # This will be the prefix of every metric and service check the integration sends
-    __NAMESPACE__ = 'redis_enterprise'
+    # __NAMESPACE__ = 'redis_enterprise'
 
     def __init__(self, name, init_config, instances):
+
         super(RedisEnterpriseCheck, self).__init__(name, init_config, instances)
 
+        print(f'config: {init_config}')
+        print(f'instances: {instances}')
+
         # Use self.instance to read the check configuration
-        # self.url = self.instance.get("url")
+        self.endpoint = self.instance.get('openmetrics_endpoint')
+        if self.endpoint is None:
+            raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
 
-        # If the check is going to perform SQL queries you should define a query manager here.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/databases/#datadog_checks.base.utils.db.core.QueryManager
-        # sample_query = {
-        #     "name": "sample",
-        #     "query": "SELECT * FROM sample_table",
-        #     "columns": [
-        #         {"name": "metric", "type": "gauge"}
-        #     ],
-        # }
-        # self._query_manager = QueryManager(self, self.execute_query, queries=[sample_query])
-        # self.check_initializations.append(self._query_manager.compile_queries)
+    def can_connect(self, hostname=None, message=None, tags=None):
+        print(f'hostname: {hostname}, message: {message}, tags: {tags}')
+        return False
 
-    def check(self, _):
+    def check(self, instance):
         # type: (Any) -> None
+
+        # If your check ran successfully, you can send the status.
+        # More info at
+        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
+        # self.service_check("can_connect", AgentCheck.OK)
+
+        # If it didn't then it should send a critical service check
+        # self.service_check("can_connect", AgentCheck.CRITICAL)
+
+        try:
+            super().check(instance)
+            self.service_check("redis_enterprise.can_connect", AgentCheck.OK)
+
+        except Exception as e:
+            self.log.error(f'exception: {e}')
+            self.service_check("redis_enterprise.can_connect", AgentCheck.CRITICAL)
+
         # The following are useful bits of code to help new users get started.
 
         # Perform HTTP Requests with our HTTP wrapper.
@@ -86,11 +98,3 @@ class RedisEnterpriseCheck(AgentCheck):
         # You can define a dictionary in the __init__ method.
         # self.write_persistent_cache("key", "value")
         # value = self.read_persistent_cache("key")
-
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check("can_connect", AgentCheck.OK)
-
-        # If it didn't then it should send a critical service check
-        self.service_check("can_connect", AgentCheck.CRITICAL)

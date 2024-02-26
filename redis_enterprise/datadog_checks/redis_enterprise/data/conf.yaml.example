@@ -9,9 +9,25 @@ init_config:
     #
     # service: <SERVICE>
 
+    ## @param tls_verify - boolean - required
+    ## as the exporter only responds to https requests but doesn't have a certificate this must be set
+    tls_verify: false
+
+
 ## Every instance is scheduled independently of the others.
 #
 instances:
+
+    ## @param openmetrics_endpoint - string - required
+    ## The URL exposing metrics in the OpenMetrics format.
+    #
+  - openmetrics_endpoint: http://%%host%%:8070/metrics
+
+    ## @param use_openmetrics - boolean - optional - default: true
+    ## Use the latest OpenMetrics implementation for more features and better performance.
+    ## If running on Agent v6, you must set the `python_version` option in `datadog.yaml` to `"3"`.
+    #
+    use_openmetrics: true
 
   -
     ## @param tags - list of strings - optional
@@ -30,6 +46,11 @@ instances:
     #
     # service: <SERVICE>
 
+    ## @param namespace - string - optional - default: rdse
+    ## We use rdse to distinguish from the cloud product, rdsc; however you may wish to subscript thusly, rdse-dev, etc
+    #
+    namespace: "rdse"
+
     ## @param min_collection_interval - number - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
@@ -42,3 +63,9 @@ instances:
     ## This is useful for cluster-level checks.
     #
     # empty_default_hostname: false
+
+    ## @param enable_health_service_check - boolean - optional - default: true
+    ## Whether or not to send a service check named `<NAMESPACE>.openmetrics.endpoint` which reports
+    ## the health of the `openmetrics_endpoint`.
+    #
+    # enable_health_service_check: true

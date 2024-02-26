@@ -2,7 +2,7 @@
 
 ## Overview
 
-This check monitors [Redis Enterprise][1].
+[Redis Enterprise][1] Software is a self-managed data platform that unlocks the full potential of Redis at enterprise scale. The speed you know and love, plus compliance, reliability, and unmatched resiliency for enterprise needs.
 
 ## Setup
 
@@ -35,7 +35,7 @@ To install the Redis Enterprise check on your host:
 
 ### Metrics
 
-Redis Enterprise does not include any metrics.
+See [metadata.csv][7] for a list of metrics provided by this integration.
 
 ### Service Checks
 
@@ -49,7 +49,7 @@ Redis Enterprise does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
+[1]: https://redis.com/redis-enterprise-software/overview/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
 [4]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/datadog_checks/redis_enterprise/data/conf.yaml.example
