@@ -2,13 +2,13 @@
   "manifest_version": "2.0.0",
   "app_uuid": "0b59b80e-db72-44a6-8c2b-67475d10ad71",
   "app_id": "redis-cloud",
-  "display_on_public_website": false,
+  "display_on_public_website": true,
   "tile": {
     "overview": "README.md#Overview",
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "",
+    "description": "Redis Cloud Integration",
     "title": "Redis Cloud",
     "media": [],
     "classifier_tags": [
@@ -19,7 +19,7 @@
       "Category::Caching",
       "Category::Data Stores",
       "Category::Cloud",
-      "Offering::",
+      "Offering::Integration",
       "Queried Data Type::Metrics",
       "Submitted Data Type::Metrics"
     ]
@@ -36,24 +36,22 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "redis_cloud.",
-        "check": "",
+        "prefix": "rdsc",
+        "check": "rdsc.bdb_conns",
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
       }
     },
-    "dashboards": {},
-    "monitors": {},
-    "logs": {},
-    "saved_views": {}
+    "dashboards": {"active-active": "assets/dashboards/redis_active-active_dashboard.json"},
+    "logs": {}
   },
   "author": {
     "support_email": "field.engineers@redis.com",
     "name": "john burke",
-    "homepage": "redis.",
-    "sales_email": ""
+    "homepage": "https://redis.com",
+    "sales_email": "us@redis.com"
   },
   "oauth": {}
 }
