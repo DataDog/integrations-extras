@@ -1,55 +1,56 @@
 id: sym
+backend_only: false
 facets:
-  - name: User Email
-    source: log
+  - groups:
+      - User
+    name: User Email
     path: usr.email
-    groups:
-      - User
-  - name: User ID
     source: log
+  - groups:
+      - User
+    name: User ID
     path: usr.id
-    groups:
-      - User
-  - path: state.status
     source: log
+  - groups:
+      - Sym
     name: Status
-    groups:
-      - Sym
-  - path: fields.target.type
+    path: state.status
     source: log
+  - groups:
+      - Sym
     name: Target Type
-    groups:
-      - Sym
-  - path: run.actors.approve.username
+    path: fields.target.type
     source: log
+  - groups:
+      - Sym
     name: Approvers
-    groups:
-      - Sym
-  - path: event.channel
+    path: run.actors.approve.username
     source: log
+  - groups:
+      - Sym
     name: Channel
-    groups:
-      - Sym
-  - path: run.flow
+    path: event.channel
     source: log
+  - groups:
+      - Sym
     name: Sym Flow
-    groups:
-      - Sym
-  - path: fields.target.label
+    path: run.flow
     source: log
+  - groups:
+      - Sym
     name: Target Name
-    groups:
-      - Sym
-  - path: event.type
+    path: fields.target.label
     source: log
+  - groups:
+      - Sym
     name: Event Type
-    groups:
-      - Sym
-  - path: run.actors.request.username
+    path: event.type
     source: log
-    name: Requesters
-    groups:
+  - groups:
       - Sym
+    name: Requesters
+    path: run.actors.request.username
+    source: log
 pipeline:
   type: pipeline
   name: Sym

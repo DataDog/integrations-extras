@@ -138,7 +138,7 @@
                   "response_format": "timeseries",
                   "style":
                   {
-                    "palette": "dog_classic",
+                    "palette": "semantic",
                     "line_type": "solid",
                     "line_width": "normal"
                   },
@@ -208,7 +208,7 @@
                       ],
                       "search":
                       {
-                        "query": "@http.status_code:5**"
+                        "query": "source:jfrog_artifactory @http.status_code:5** "
                       },
                       "storage": "hot"
                     }
@@ -260,7 +260,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@image",
+                          "facet": "@jfrog.cloud.image",
                           "limit": 10,
                           "sort":
                           {
@@ -271,7 +271,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@image:\"\""
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@jfrog.cloud.image:\"\" -@http.url:\"/api/v1/system/readiness\" -@http.url:\"/api/v1/system/liveness\""
                       },
                       "storage": "hot"
                     }
@@ -376,7 +376,7 @@
                       [],
                       "search":
                       {
-                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -390,13 +390,13 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@response_content_length"
+                        "metric": "@jfrog.cloud.response_content_length"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -410,13 +410,13 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@request_content_length"
+                        "metric": "@jfrog.cloud.request_content_length"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@http.method:GET -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:GET -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     }
@@ -512,7 +512,7 @@
                       [],
                       "search":
                       {
-                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -526,13 +526,13 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@response_content_length"
+                        "metric": "@jfrog.cloud.response_content_length"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     },
@@ -546,13 +546,13 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@request_content_length"
+                        "metric": "@jfrog.cloud.request_content_length"
                       },
                       "group_by":
                       [],
                       "search":
                       {
-                        "query": "@http.method:POST -@response_content_length:\"-1\""
+                        "query": "source:jfrog_artifactory @http.method:POST -@jfrog.cloud.response_content_length:\"-1\" "
                       },
                       "storage": "hot"
                     }
@@ -615,7 +615,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       },
                       "storage": "hot"
                     }
@@ -692,7 +692,7 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@response_content_length"
+                        "metric": "@jfrog.cloud.response_content_length"
                       },
                       "group_by":
                       [
@@ -703,13 +703,13 @@
                           {
                             "order": "desc",
                             "aggregation": "cardinality",
-                            "metric": "@response_content_length"
+                            "metric": "@jfrog.cloud.response_content_length"
                           }
                         }
                       ],
                       "search":
                       {
-                        "query": "@response_content_length:>=0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                        "query": "@jfrog.cloud.response_content_length:>=0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       }
                     }
                   ],
@@ -733,6 +733,15 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": false,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
               "type": "timeseries",
               "requests":
               [
@@ -759,7 +768,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@repo",
+                          "facet": "@jfrog.cloud.repo",
                           "limit": 10,
                           "sort":
                           {
@@ -770,7 +779,7 @@
                       ],
                       "search":
                       {
-                        "query": "@repo:*?* service:jfrog.saas.rt.artifactory.request"
+                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request "
                       }
                     }
                   ],
@@ -825,24 +834,24 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@request_content_length"
+                        "metric": "@jfrog.cloud.response_content_length"
                       },
                       "group_by":
                       [
                         {
-                          "facet": "@repo",
+                          "facet": "@jfrog.cloud.repo",
                           "limit": 10,
                           "sort":
                           {
                             "order": "desc",
                             "aggregation": "cardinality",
-                            "metric": "@request_content_length"
+                            "metric": "@jfrog.cloud.response_content_length"
                           }
                         }
                       ],
                       "search":
                       {
-                        "query": "-@repo:\"\" service:jfrog.saas.rt.artifactory.request @image:*"
+                        "query": "-@jfrog.cloud.repo:\"\" service:jfrog.saas.rt.artifactory.request @jfrog.cloud.image:* "
                       }
                     }
                   ],
@@ -890,7 +899,7 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@request_content_length"
+                        "metric": "@jfrog.cloud.request_content_length"
                       },
                       "group_by":
                       [
@@ -901,13 +910,13 @@
                           {
                             "order": "desc",
                             "aggregation": "cardinality",
-                            "metric": "@request_content_length"
+                            "metric": "@jfrog.cloud.request_content_length"
                           }
                         }
                       ],
                       "search":
                       {
-                        "query": "@request_content_length:>0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1"
+                        "query": "@jfrog.cloud.request_content_length:>0 service:jfrog.saas.rt.artifactory.request -@network.client.ip:127.0.0.1 "
                       }
                     }
                   ],
@@ -966,7 +975,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@image",
+                          "facet": "@jfrog.cloud.image",
                           "limit": 10,
                           "sort":
                           {
@@ -977,7 +986,7 @@
                       ],
                       "search":
                       {
-                        "query": "@repo:*?* @image:* service:jfrog.saas.rt.artifactory.request"
+                        "query": "@jfrog.cloud.repo:*?* @jfrog.cloud.image:* service:jfrog.saas.rt.artifactory.request "
                       }
                     }
                   ],
@@ -1032,24 +1041,24 @@
                       "compute":
                       {
                         "aggregation": "cardinality",
-                        "metric": "@response_content_length"
+                        "metric": "@jfrog.cloud.request_content_length"
                       },
                       "group_by":
                       [
                         {
-                          "facet": "@repo",
+                          "facet": "@jfrog.cloud.repo",
                           "limit": 10,
                           "sort":
                           {
                             "order": "desc",
                             "aggregation": "cardinality",
-                            "metric": "@response_content_length"
+                            "metric": "@jfrog.cloud.request_content_length"
                           }
                         }
                       ],
                       "search":
                       {
-                        "query": "-@repo:\"\" service:jfrog.saas.rt.artifactory.request @image:*"
+                        "query": "service:jfrog.saas.rt.artifactory.request @jfrog.cloud.image:* -@jfrog.cloud.repo:\"\" "
                       }
                     }
                   ],
@@ -1069,6 +1078,91 @@
               "width": 4,
               "height": 3
             }
+          },
+          {
+            "id": 2850205570886034,
+            "definition":
+            {
+              "title": "User Request Activity",
+              "title_size": "16",
+              "title_align": "left",
+              "time":
+              {},
+              "type": "toplist",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1",
+                      "limit":
+                      {
+                        "count": 100,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [
+                        {
+                          "facet": "@usr.id",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "@http.status_code",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@http.useragent:\"Prometheus/2.47.2\" -@usr.id:jf*@* -@usr.id:_system_ -@usr.id:non_authenticated_user -@usr.id:token*@*"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "style":
+              {
+                "display":
+                {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 6,
+              "width": 12,
+              "height": 3
+            }
           }
         ]
       },
@@ -1077,7 +1171,7 @@
         "x": 0,
         "y": 9,
         "width": 12,
-        "height": 7
+        "height": 10
       }
     },
     {
@@ -1118,8 +1212,17 @@
                       "group_by":
                       [
                         {
+                          "facet": "@jfrog.cloud.logged_principal",
+                          "limit": 5,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
                           "facet": "@evt.name",
-                          "limit": 10,
+                          "limit": 5,
                           "sort":
                           {
                             "order": "desc",
@@ -1127,17 +1230,8 @@
                           }
                         },
                         {
-                          "facet": "@evt.type",
-                          "limit": 10,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
-                        {
-                          "facet": "@logged_principal",
-                          "limit": 10,
+                          "facet": "@jfrog.cloud.evt.type",
+                          "limit": 5,
                           "sort":
                           {
                             "order": "desc",
@@ -1147,7 +1241,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit -@logged_principal:*@*"
+                        "query": "service:jfrog.saas.rt.access.security.audit -@jfrog.cloud.logged_principal:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1221,17 +1315,8 @@
                       "group_by":
                       [
                         {
-                          "facet": "@evt.name",
-                          "limit": 10,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
-                        {
-                          "facet": "@entity_name",
-                          "limit": 10,
+                          "facet": "@jfrog.cloud.entity_name",
+                          "limit": 5,
                           "sort":
                           {
                             "order": "desc",
@@ -1241,7 +1326,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:TKN -@entity_name:*@*"
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:TKN"
                       },
                       "storage": "hot"
                     }
@@ -1321,11 +1406,20 @@
                             "order": "desc",
                             "aggregation": "count"
                           }
+                        },
+                        {
+                          "facet": "@jfrog.cloud.evt.type",
+                          "limit": 10,
+                          "sort":
+                          {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
                         }
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:PRM -@jfrog.entity_name:*@*"
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:PRM -@jfrog.cloud.entity_name:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1405,7 +1499,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@evt.type",
+                          "facet": "@jfrog.cloud.evt.type",
                           "limit": 10,
                           "sort":
                           {
@@ -1491,7 +1585,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@evt.name",
+                          "facet": "@jfrog.cloud.evt.type",
                           "limit": 10,
                           "sort":
                           {
@@ -1502,7 +1596,7 @@
                       ],
                       "search":
                       {
-                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:GRP -@entity_name:*@*"
+                        "query": "service:jfrog.saas.rt.access.security.audit @evt.name:GRP -@jfrog.cloud.entity_name:*@*"
                       },
                       "storage": "hot"
                     }
@@ -1537,7 +1631,7 @@
       "layout":
       {
         "x": 0,
-        "y": 16,
+        "y": 19,
         "width": 12,
         "height": 7
       }
@@ -1694,7 +1788,7 @@
       "layout":
       {
         "x": 0,
-        "y": 23,
+        "y": 26,
         "width": 12,
         "height": 4
       }
