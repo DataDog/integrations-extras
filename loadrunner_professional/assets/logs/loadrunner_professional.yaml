@@ -1,5 +1,6 @@
-id: loadrunner_professional
-metric_id: loadrunner_professional
+id: loadrunner
+metric_id: loadrunner-professional
+backend_only: false
 facets: null
 pipeline:
   type: pipeline
@@ -9,7 +10,7 @@ pipeline:
     query: "source:loadrunner"
   processors:
     - type: attribute-remapper
-      name: LoadRunner Hostname Tag Creation
+      name: Map attribute `hostname` to tag `host`
       enabled: true
       sources:
         - hostname
@@ -19,7 +20,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: LoadRunner Version Tag Creation
+      name: Map attribute `scenario_started.general.version`, `scenario_ended.general.version` to tag `version`
       enabled: true
       sources:
         - scenario_started.general.version
@@ -30,7 +31,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: LoadRunner Scenario Mode Tag Creation
+      name: Map attribute `scenario_started.summary.mode` to tag `loadrunner.scenario.mode`
       enabled: true
       sources:
         - scenario_started.summary.mode
@@ -40,7 +41,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: LoadRunner Scenario Type Tag Creation
+      name: Map attribute `scenario_started.summary.scenario_type` to tag `loadrunner.scenario.type`
       enabled: true
       sources:
         - scenario_started.summary.scenario_type
@@ -50,7 +51,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: LoadRunner Scenario Load Behavior Tag Creation
+      name: Map attribute `scenario_started.summary.load_behavior` to tag `loadrunner.scenario.load_behavior`
       enabled: true
       sources:
         - scenario_started.summary.load_behavior
