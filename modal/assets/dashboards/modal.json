@@ -1,0 +1,309 @@
+{
+  "title": "Modal Overview",
+  "description": "Logs and Metrics for your Modal applications",
+  "widgets": [
+    {
+      "id": 2612265848004825,
+      "definition": {
+        "title": "Modal Audit Logs",
+        "banner_img": "https://github.com/DataDog/integrations-extras/assets/10536690/576be65b-e4f3-4fce-83e2-42e3c7ff65ae",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 961790136530845,
+            "definition": {
+              "type": "note",
+              "content": "# Modal\n\nGet detailed visibility into your:\n\n- Audit logs\n- Function logs (coming soon)\n- Utilization metrics (coming soon)",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4599509251662375,
+            "definition": {
+              "title": "Audit logs across all Modal applications",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "data_source": "logs_stream",
+                    "query_string": "source:modal service:modal.audit-logs",
+                    "indexes": [],
+                    "storage": "hot"
+                  },
+                  "columns": [
+                    {
+                      "field": "status_line",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "timestamp",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "host",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "service",
+                      "width": "auto"
+                    },
+                    {
+                      "field": "content",
+                      "width": "compact"
+                    }
+                  ]
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 8,
+              "height": 3
+            }
+          },
+          {
+            "id": 3182229123548591,
+            "definition": {
+              "title": "Aggregate count of audit logs",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:modal service:modal.audit-logs"
+                      },
+                      "storage": "hot"
+                    }
+                  ]
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              },
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "hosts",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "traces",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3793871630180570,
+            "definition": {
+              "title": "Audit logs by source/service",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "a",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [
+                        {
+                          "facet": "source",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        },
+                        {
+                          "facet": "service",
+                          "limit": 10,
+                          "sort": {
+                            "order": "desc",
+                            "aggregation": "count"
+                          }
+                        }
+                      ],
+                      "search": {
+                        "query": "source:modal service:modal.audit-logs"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "alias": "Count",
+                      "formula": "a",
+                      "limit": {
+                        "count": 100,
+                        "order": "desc"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "custom_links": [
+                {
+                  "override_label": "containers",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "hosts",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "logs",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "traces",
+                  "is_hidden": true
+                },
+                {
+                  "override_label": "profiles",
+                  "is_hidden": true
+                }
+              ]
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 5612536058431307,
+            "definition": {
+              "title": "Audit logs over time",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes": [
+                        "*"
+                      ],
+                      "compute": {
+                        "aggregation": "count"
+                      },
+                      "group_by": [],
+                      "search": {
+                        "query": "source:modal service:modal.audit-logs"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 8,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
