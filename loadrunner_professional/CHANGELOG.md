@@ -1,6 +1,6 @@
 # CHANGELOG - LoadRunner Professional
 
-## 1.0.0 / 2024-01-18
+## 1.0.0 / 2024-03-02
 
 ***Added***:
 
