@@ -2,7 +2,7 @@
 
 ## Overview
 
-OpenText™ LoadRunner Professional is a load testing solution that enables you to test the performance of diverse application types to identify and resolve issues before applications go live.
+OpenText LoadRunner Professional is a load testing solution that enables you to test the performance of diverse application types to identify and resolve issues before applications go live.
 
 LoadRunner Controller is a tool for creating and controlling LoadRunner Professional scenarios. A scenario defines the events that occur during each testing session. It controls the number of users to emulate (virtual users, or Vusers), the actions they perform, and the machines on which they run their emulations. You use scenarios to create load tests to check the reliability and strength of your servers.
 
