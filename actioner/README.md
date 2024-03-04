@@ -12,8 +12,6 @@ Follow the steps below to establish connection between Actioner and Datadog acco
 2. Go to profile settings page from the bottom-left corner. Switch to my connections tab. 
 3. Click on the "Add connection", select Datadog connection. Proceed with the "Connect" 
 
-![PlanetScale Organization Settings][3]
-
 ## Data Collected
 
 ### Metrics
