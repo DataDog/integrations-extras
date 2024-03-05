@@ -1,0 +1,80 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "fa40ec7e-e8f6-4c4b-a675-31716b23a9df",
+  "app_id": "emqx",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect performance, health data, message throughput and message latency on MQTT brokers, and more.",
+    "title": "EMQX",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "EMQX Broker Metrics in Datadog dashboard(1)",
+        "image_url": "images/emqx-overview-1.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "EMQX Broker Metrics in Datadog dashboard(2)",
+        "image_url": "images/emqx-overview-2.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "EMQX Broker Metrics in Datadog dashboard(3)",
+        "image_url": "images/emqx-overview-3.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "EMQX Broker Metrics in Datadog dashboard(4)",
+        "image_url": "images/emqx-overview-4.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "EMQX Broker Metrics in Datadog dashboard(5)",
+        "image_url": "images/emqx-overview-5.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Metrics",
+      "Category::IoT",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "emqx",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "emqx.",
+        "check": ["emqx.cluster.nodes_running"],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 6726047,
+      "auto_install": true
+    },
+      "dashboards": {
+        "EMQX Overview": "assets/dashboards/overview.json"
+      }
+  },
+  "author": {
+    "support_email": "contact@emqx.io",
+    "name": "EMQX",
+    "homepage": "https://www.emqx.com/en",
+    "sales_email": "contact@emqx.io"
+  },
+  "oauth": {}
+}
