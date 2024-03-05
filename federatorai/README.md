@@ -3,17 +3,18 @@
 ## Overview
 
 
-[ProphetStor Federator.ai][1] is an AI-based solution that helps enterprises manage and optimize resources for applications on Kubernetes and virtual machines (VMs) in VMware clusters.
+[ProphetStor Federator.ai][1] is an AI-based solution designed to enhance computing resource management for Kubernetes and Virtual Machine (VM) clusters. With its holistic observability of IT operations, including multi-tenant Large Language Model (LLM) training, resources for mission-critical applications, namespaces, nodes, and clusters can be efficiently allocated, and KPIs can be effectively achieved with minimum resource wastage.
 
 Using advanced machine learning algorithms to predict application workloads, Federator.ai offers:
-* AI-based workload prediction for containerized applications in Kubernetes clusters as well as VMs in VMware clusters and Amazon Web Services (AWS) Elastic Compute Cloud (EC2)
+* AI-based workload prediction for containerized applications in Kubernetes clusters, as well as VMs in VMware clusters, Amazon Web Services (AWS) Elastic Compute Cloud (EC2), Azure Virtual Machine, and Google Compute Engine
 * Resource recommendations based on workload prediction, application, Kubernetes, and other related metrics
 * Automatic provisioning of CPU/memory for generic Kubernetes application controllers/namespaces
 * Automatic scaling of Kubernetes application containers, Kafka consumer groups, and NGINX Ingress upstream services
 * Multicloud cost analysis and recommendations based on workload predictions for Kubernetes clusters and VM clusters
 * Actual cost and potential savings based on recommendations for clusters, Kubernetes applications, VMs, and Kubernetes namespaces
+* MultiTenant LLM training observability and actionable resource optimizations without performance compromise
 
-By integrating with ProphetStor Federator.ai, you can track and predict the resource usages of Kubernetes containers, namespaces, and cluster nodes to make the right recommendations to prevent costly over-provisioning or performance-impacting under-provisioning. With easy integration to CI/CD pipeline, Federator.ai enables continuous optimization of containers whenever they are deployed in a Kubernetes cluster. Using application workload predictions, Federator.ai auto-scales application containers at the right time and optimizes performance with the right number of container replicas through Kubernetes HPA or [Datadog Watermark Pod Autoscaling (WPA)][3].
+[ProphetStor Federator.ai][1] provides full-stack observability through its APIs integrated with Datadog Agents, from application-level workloads, including LLM training, to cluster-level resource consumption. This integration fosters a dynamic loop between live monitoring and predictive analytics, continuously improving resource management, optimizing costs, and ensuring efficient application operation. You can easily track and predict the resource usages of Kubernetes containers, namespaces, and cluster nodes to make the right recommendations to prevent costly over-provisioning or performance-impacting under-provisioning. With easy integration to CI/CD pipeline, Federator.ai enables continuous optimization of containers whenever they are deployed in a Kubernetes cluster. Using application workload predictions, Federator.ai auto-scales application containers at the right time and optimizes performance with the right number of container replicas through Kubernetes HPA or [Datadog Watermark Pod Autoscaling (WPA)][3].
 
 For additional information on Federator.ai, see the [ProphetStor Federator.ai Feature Demo][2] and [ProphetStor Federator.ai for Datadog][14] videos.
 
