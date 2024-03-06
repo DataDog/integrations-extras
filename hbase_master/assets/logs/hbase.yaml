@@ -1,16 +1,17 @@
 id: hbase
 metric_id: hbase-master
+backend_only: false
 facets:
-  - name: Logger Name
-    source: log
+  - groups:
+      - Source Code
+    name: Logger Name
     path: logger.name
-    groups:
-      - Source Code
-  - name: Logger Class
     source: log
-    path: logger.class
-    groups:
+  - groups:
       - Source Code
+    name: Logger Class
+    path: logger.class
+    source: log
 pipeline:
   type: pipeline
   name: Hbase

@@ -1,0 +1,42 @@
+{
+  "name": "Detected login from two IPs with impossible travel time",
+  "partnerRuleId":"ext-002-btm",
+  "isEnabled": false,
+  "queries": [
+    {
+      "query": "@bottomline.mainframe.activity.resource.code:Login ",
+      "groupByFields": [
+        "@bottomline.mainframe.activity.usr.id"
+      ],
+      "hasOptionalGroupByFields": false,
+      "distinctFields": [],
+      "metric": "@network.client.geoip",
+      "metrics": [
+        "@network.client.geoip"
+      ],
+      "aggregation": "geo_data",
+      "name": ""
+    }
+  ],
+  "options": {
+    "keepAlive": 3600,
+    "maxSignalDuration": 86400,
+    "detectionMethod": "impossible_travel",
+    "evaluationWindow": 900,
+    "impossibleTravelOptions": {
+      "baselineUserLocations": true
+    }
+  },
+  "cases": [
+    {
+      "name": "",
+      "status": "high",
+      "notifications": []
+    }
+  ],
+  "message": "User logged in from two IPs in short period with impossible travel time",
+  "tags": [],
+  "hasExtendedTitle": true,
+  "type": "log_detection",
+  "filters": []
+}

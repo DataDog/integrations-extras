@@ -1,31 +1,32 @@
 id: contrastsecurity
 metric_id: contrastsecurity
+backend_only: false
 facets:
-  - name: Event Outcome
-    source: log
+  - groups:
+      - Event
+    name: Event Outcome
     path: evt.outcome
-    groups:
-      - Event
-  - name: Method
     source: log
+  - groups:
+      - Web Access
+    name: Method
     path: http.method
-    groups:
-      - Web Access
-  - name: Status Code
     source: log
+  - groups:
+      - Web Access
+    name: Status Code
     path: http.status_code
-    groups:
-      - Web Access
-  - name: Logger Name
     source: log
-    path: logger.name
-    groups:
+  - groups:
       - Source Code
-  - name: Action
+    name: Logger Name
+    path: logger.name
     source: log
-    path: evt.action
-    groups:
+  - groups:
       - Event
+    name: Action
+    path: evt.action
+    source: log
 pipeline:
   type: pipeline
   name: Contrast Security

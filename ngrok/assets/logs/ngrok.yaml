@@ -1,80 +1,81 @@
 id: ngrok
+backend_only: false
 facets:
-  - name: Event Name
-    source: log
-    path: evt.name
-    groups:
+  - groups:
       - Event
-  - name: Method
+    name: Event Name
+    path: evt.name
     source: log
+  - groups:
+      - Web Access
+    name: Method
     path: http.method
-    groups:
-      - Web Access
-  - name: Status Code
     source: log
+  - groups:
+      - Web Access
+    name: Status Code
     path: http.status_code
-    groups:
-      - Web Access
-  - name: URL Path
     source: log
+  - groups:
+      - Web Access
+    name: URL Path
     path: http.url_details.path
-    groups:
-      - Web Access
-  - name: Version
     source: log
+  - groups:
+      - Web Access
+    name: Version
     path: http.version
-    groups:
-      - Web Access
-  - name: City Name
     source: log
+  - groups:
+      - Geoip
+    name: City Name
     path: network.client.geoip.city.name
-    groups:
-      - Geoip
-  - name: Continent Code
     source: log
+  - groups:
+      - Geoip
+    name: Continent Code
     path: network.client.geoip.continent.code
-    groups:
-      - Geoip
-  - name: Continent Name
     source: log
+  - groups:
+      - Geoip
+    name: Continent Name
     path: network.client.geoip.continent.name
-    groups:
-      - Geoip
-  - name: Country ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Country ISO Code
     path: network.client.geoip.country.iso_code
-    groups:
-      - Geoip
-  - name: Country Name
     source: log
+  - groups:
+      - Geoip
+    name: Country Name
     path: network.client.geoip.country.name
-    groups:
-      - Geoip
-  - name: Subdivision ISO Code
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision ISO Code
     path: network.client.geoip.subdivision.iso_code
-    groups:
-      - Geoip
-  - name: Subdivision Name
     source: log
+  - groups:
+      - Geoip
+    name: Subdivision Name
     path: network.client.geoip.subdivision.name
-    groups:
-      - Geoip
-  - name: Client IP
     source: log
+  - groups:
+      - Web Access
+    name: Client IP
     path: network.client.ip
-    groups:
-      - Web Access
-  - name: Destination Port
     source: log
+  - groups:
+      - Web Access
+    name: Destination Port
     path: network.destination.port
-    groups:
-      - Web Access
-  - path: object.conn.server_name
     source: log
-    name: Ngrok Endpoint
-    groups:
+  - groups:
       - Ngrok
+    name: Ngrok Endpoint
+    path: object.conn.server_name
+    source: log
 pipeline:
   type: pipeline
   name: ngrok

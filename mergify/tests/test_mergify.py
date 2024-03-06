@@ -46,7 +46,7 @@ def test_check(dd_run_check, aggregator, instance, mocker):
                 headers=HEADERS,
             )
 
-        if url.endswith("queue_checks_outcome?branch=main"):
+        if url.endswith("merge_queue_checks_outcome"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queue_checks_outcome_main.json",
                 headers=HEADERS,
@@ -113,21 +113,30 @@ def test_check(dd_run_check, aggregator, instance, mocker):
 
     # Default queue
     expected_metrics = {
-        "PR_DEQUEUED": 16,
-        "PR_AHEAD_DEQUEUED": 15,
-        "PR_AHEAD_FAILED_TO_MERGE": 14,
-        "PR_WITH_HIGHER_PRIORITY_QUEUED": 13,
-        "PR_QUEUED_TWICE": 12,
-        "SPECULATIVE_CHECK_NUMBER_REDUCED": 11,
-        "CHECKS_TIMEOUT": 10,
-        "CHECKS_FAILED": 9,
-        "QUEUE_RULE_MISSING": 8,
-        "UNEXPECTED_QUEUE_CHANGE": 7,
+        "BASE_BRANCH_CHANGED": 12,
+        "BASE_BRANCH_MISSING": 9,
+        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 5,
+        "BRANCH_UPDATE_FAILED": 4,
+        "CHECKS_FAILED": 1,
+        "CHECKS_TIMEOUT": 7,
+        "CONFLICT_WITH_BASE_BRANCH": 8,
+        "CONFLICT_WITH_PULL_AHEAD": 2,
+        "DRAFT_PULL_REQUEST_CHANGED": 9,
+        "INCOMPATIBILITY_WITH_BRANCH_PROTECTIONS": 11,
+        "MERGE_QUEUE_RESET": 5,
+        "PR_AHEAD_DEQUEUED": 0,
+        "PR_AHEAD_FAILED_TO_MERGE": 2,
+        "PR_CHECKS_STOPPED_BECAUSE_MERGE_QUEUE_PAUSE": 7,
+        "PR_DEQUEUED": 12,
         "PR_FROZEN_NO_CASCADING": 6,
-        "TARGET_BRANCH_CHANGED": 4,
-        "TARGET_BRANCH_MISSING": 3,
-        "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 2,
-        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 1,
+        "PR_QUEUED_TWICE": 1,
+        "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 3,
+        "PR_WITH_HIGHER_PRIORITY_QUEUED": 7,
+        "PULL_REQUEST_UPDATED": 10,
+        "QUEUE_RULE_MISSING": 0,
+        "SPECULATIVE_CHECK_NUMBER_REDUCED": 4,
+        "SUCCESS": 4,
+        "UNEXPECTED_QUEUE_CHANGE": 30,
     }
     for metric, value in expected_metrics.items():
         aggregator.assert_metric(
@@ -138,21 +147,30 @@ def test_check(dd_run_check, aggregator, instance, mocker):
 
     # Hotfix queue
     expected_metrics = {
-        "PR_DEQUEUED": 1,
-        "PR_AHEAD_DEQUEUED": 2,
-        "PR_AHEAD_FAILED_TO_MERGE": 3,
-        "PR_WITH_HIGHER_PRIORITY_QUEUED": 4,
-        "PR_QUEUED_TWICE": 5,
-        "SPECULATIVE_CHECK_NUMBER_REDUCED": 6,
-        "CHECKS_TIMEOUT": 7,
-        "CHECKS_FAILED": 8,
-        "QUEUE_RULE_MISSING": 9,
-        "UNEXPECTED_QUEUE_CHANGE": 10,
-        "PR_FROZEN_NO_CASCADING": 11,
-        "TARGET_BRANCH_CHANGED": 13,
-        "TARGET_BRANCH_MISSING": 14,
-        "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 15,
-        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 16,
+        "BASE_BRANCH_CHANGED": 1,
+        "BASE_BRANCH_MISSING": 2,
+        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 3,
+        "BRANCH_UPDATE_FAILED": 4,
+        "CHECKS_FAILED": 5,
+        "CHECKS_TIMEOUT": 6,
+        "CONFLICT_WITH_BASE_BRANCH": 7,
+        "CONFLICT_WITH_PULL_AHEAD": 8,
+        "DRAFT_PULL_REQUEST_CHANGED": 9,
+        "INCOMPATIBILITY_WITH_BRANCH_PROTECTIONS": 10,
+        "MERGE_QUEUE_RESET": 11,
+        "PR_AHEAD_DEQUEUED": 12,
+        "PR_AHEAD_FAILED_TO_MERGE": 13,
+        "PR_CHECKS_STOPPED_BECAUSE_MERGE_QUEUE_PAUSE": 14,
+        "PR_DEQUEUED": 15,
+        "PR_FROZEN_NO_CASCADING": 16,
+        "PR_QUEUED_TWICE": 17,
+        "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 18,
+        "PR_WITH_HIGHER_PRIORITY_QUEUED": 19,
+        "PULL_REQUEST_UPDATED": 20,
+        "QUEUE_RULE_MISSING": 21,
+        "SPECULATIVE_CHECK_NUMBER_REDUCED": 22,
+        "SUCCESS": 23,
+        "UNEXPECTED_QUEUE_CHANGE": 24,
     }
     for metric, value in expected_metrics.items():
         aggregator.assert_metric(
@@ -178,7 +196,7 @@ def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
                 headers=HEADERS,
             )
 
-        if url.endswith("queue_checks_outcome?branch=main"):
+        if url.endswith("merge_queue_checks_outcome"):
             return MockResponse(
                 file_path=MERGIFY_RESPONSE_FIXTURES / "queue_checks_outcome_empty.json",
                 headers=HEADERS,
@@ -221,21 +239,30 @@ def test_check_empty_values(dd_run_check, aggregator, instance, mocker):
     # ### Queue checks outcome metrics
     # Default queue
     expected_metrics = {
-        "PR_DEQUEUED": 0,
+        "BASE_BRANCH_CHANGED": 0,
+        "BASE_BRANCH_MISSING": 0,
+        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 0,
+        "BRANCH_UPDATE_FAILED": 0,
+        "CHECKS_FAILED": 0,
+        "CHECKS_TIMEOUT": 0,
+        "CONFLICT_WITH_BASE_BRANCH": 0,
+        "CONFLICT_WITH_PULL_AHEAD": 0,
+        "DRAFT_PULL_REQUEST_CHANGED": 0,
+        "INCOMPATIBILITY_WITH_BRANCH_PROTECTIONS": 0,
+        "MERGE_QUEUE_RESET": 0,
         "PR_AHEAD_DEQUEUED": 0,
         "PR_AHEAD_FAILED_TO_MERGE": 0,
-        "PR_WITH_HIGHER_PRIORITY_QUEUED": 0,
-        "PR_QUEUED_TWICE": 0,
-        "SPECULATIVE_CHECK_NUMBER_REDUCED": 0,
-        "CHECKS_TIMEOUT": 0,
-        "CHECKS_FAILED": 0,
-        "QUEUE_RULE_MISSING": 0,
-        "UNEXPECTED_QUEUE_CHANGE": 0,
+        "PR_CHECKS_STOPPED_BECAUSE_MERGE_QUEUE_PAUSE": 0,
+        "PR_DEQUEUED": 0,
         "PR_FROZEN_NO_CASCADING": 0,
-        "TARGET_BRANCH_CHANGED": 0,
-        "TARGET_BRANCH_MISSING": 0,
+        "PR_QUEUED_TWICE": 0,
         "PR_UNEXPECTEDLY_FAILED_TO_MERGE": 0,
-        "BATCH_MAX_FAILURE_RESOLUTION_ATTEMPTS": 0,
+        "PR_WITH_HIGHER_PRIORITY_QUEUED": 0,
+        "PULL_REQUEST_UPDATED": 0,
+        "QUEUE_RULE_MISSING": 0,
+        "SPECULATIVE_CHECK_NUMBER_REDUCED": 0,
+        "SUCCESS": 0,
+        "UNEXPECTED_QUEUE_CHANGE": 0,
     }
     for metric, value in expected_metrics.items():
         aggregator.assert_metric(

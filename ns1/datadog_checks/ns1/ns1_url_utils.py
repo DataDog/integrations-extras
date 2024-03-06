@@ -160,47 +160,6 @@ class Ns1Url:
                     urlList[urlkey] = [url, metric_record, tags, metric_type]
         return urlList
 
-    # generate url for DDI lease and lps statistics
-    def get_ddi_url(self, key, val, scopegroups):
-        urlList = {}
-        metric_lease = "leases"
-        metric_lps = "peak_lps"
-        metric_type_count = "count"
-        metric_type_gauge = "gauge"
-
-        # first get account-wide lease and lps stats
-        tags = ["scope_group:account_wide"]
-        url = NS1_ENDPOINTS["ddi.leases"].format(apiendpoint=self.api_endpoint)
-        urlList["leases"] = [url, metric_lease, tags, metric_type_count]
-
-        url = NS1_ENDPOINTS["ddi.lps"].format(apiendpoint=self.api_endpoint)
-        urlList["peak_lps"] = [url, metric_lps, tags, metric_type_gauge]
-
-        # if scope groups are specified, get stats for those requested
-        if not val:
-            return urlList
-
-        for scope_id in val:
-            if scope_id in scopegroups:
-
-                tags = ["scope_group:{scope_name}".format(scope_name=scopegroups[scope_id])]
-                url = NS1_ENDPOINTS["ddi.leases.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
-                urlList["leases.{scope_group_id}".format(scope_group_id=scope_id)] = [
-                    url,
-                    metric_lease,
-                    tags,
-                    metric_type_count,
-                ]
-                url = NS1_ENDPOINTS["ddi.lps.scope"].format(apiendpoint=self.api_endpoint, scope_group_id=scope_id)
-                urlList["peak_lps.{scope_group_id}".format(scope_group_id=scope_id)] = [
-                    url,
-                    metric_lps,
-                    tags,
-                    metric_type_gauge,
-                ]
-
-        return urlList
-
     def get_zone_info_url(self, key, val):
         urlList = {}
 
