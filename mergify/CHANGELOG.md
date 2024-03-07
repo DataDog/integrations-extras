@@ -1,5 +1,11 @@
 # CHANGELOG - Mergify
 
+## 1.0.2
+
+***Changed:***
+
+* Using a faster endpoint to gather the `queue_checks_outcome` metrics.
+
 ## 1.0.1
 
 ***Added:***

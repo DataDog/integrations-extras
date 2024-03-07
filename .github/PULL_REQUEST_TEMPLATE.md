@@ -12,6 +12,7 @@ What inspired you to submit this pull request?
 - [ ] Feature or bugfix has tests
 - [ ] Git history is clean
 - [ ] If PR impacts documentation, docs team has been notified or an issue has been opened on the [documentation repo](https://github.com/DataDog/documentation/issues/new)
+- [ ] If this PR includes a log pipeline, please add a description describing the remappers and processors. 
 
 ### Additional Notes
 

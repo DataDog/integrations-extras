@@ -6,7 +6,7 @@ CONFIG = {
     'api_endpoint': 'https://my.nsone.net',
     # The api authentication key.
     'api_key': 'testkey',
-    'metrics': {'qps': [{"test.com": None}], 'usage': [{"test.com": None}], 'pulsar': None, 'ddi': None},
+    'metrics': {'qps': [{"test.com": None}], 'usage': [{"test.com": None}], 'pulsar': None},
 }
 
 CONFIG_NOMETRICS = {
@@ -45,25 +45,12 @@ CONFIG_2 = """{
       }
     ],
     "pulsar": null,
-    "ddi": null,
     "account":[
         {"billing": null},
         {"ttl": ["dloc.com", "dloc1.com", "dloc2.com"]}
     ]
   }
 }"""
-CONFIG_DDI = """
-{
-  "api_endpoint": "https://localhost",
-  "api_key": "testkey",
-  "min_collection_interval": 15,
-  "metrics": {
-    "ddi": [
-      2
-    ]
-  }
-}
-"""
 CONFIG_1 = """
 {
   "api_endpoint": "https://my.nsone.net",
@@ -185,8 +172,3 @@ def instance_empty():
 @pytest.fixture
 def instance_1():
     return json.loads(CONFIG_1)
-
-
-@pytest.fixture
-def instance_ddi():
-    return json.loads(CONFIG_DDI)
