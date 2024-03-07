@@ -47,6 +47,8 @@ Need help? Contact [Seagence support][4].
 
 ## Further Reading
 
+Additional helpful documentation, links, and articles:
+
 - [Detect Java code-level issues with Seagence and Datadog][7]
 
 [1]: https://www.seagence.com
