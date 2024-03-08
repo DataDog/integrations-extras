@@ -15,23 +15,27 @@ To install the Redis Enterprise check on your host:
 (https://docs.datadoghq.com/developers/integrations/python/)
  on any machine.
 
-2. Run `ddev release build redis_enterprise` to build the package.
+2. Checkout the [repository][2] 
 
-3. [Download the Datadog Agent][2].
+3. Run `ddev release build redis_enterprise` to build the package.
+
+3. [Download the Datadog Agent][3].
 
 4. Upload the build artifact to any host with an Agent and
  run `datadog-agent integration install -w
- path/to/redis_enterprise/dist/<ARTIFACT_NAME>.whl`.
+ path/to/redis_enterprise/dist/<ARTIFACT_NAME>.whl`. For information regarding starting and stopping the agent, see [start, stop, and restart the agent][5]. For other information about the agent, see [agent status and information][6].
 
 ### Configuration
 
-!!! Add list of steps to set up this integration !!!
+5. Set the openmetrics_endpoint to point to your cluster. See the [example][4].
 
 ### Validation
 
-!!! Add steps to validate integration is functioning as expected !!!
+6. Ensure you can ping the machine, particularly in a cloud environment. Run wget or curl to ensure that you can receive metrics.
 
 ## Data Collected
+
+The current release gathers all metrics for databases, nodes, and shard.
 
 ### Metrics
 
@@ -47,15 +51,15 @@ Redis Enterprise does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact [Redis Field Engineering][9].
 
 [1]: https://redis.com/redis-enterprise-software/overview/
-[2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/agent/kubernetes/integrations/
+[2]: https://github.com/redis-field-engineering/datadog-integrations-extras
+[3]: https://app.datadoghq.com/account/settings/agent/latest
 [4]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/datadog_checks/redis_enterprise/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/metadata.csv
 [8]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/assets/service_checks.json
-[9]: https://docs.datadoghq.com/help/
+[9]: mailto:field.engineers@redis.com
 
