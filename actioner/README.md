@@ -2,17 +2,12 @@
 
 ## Overview
 
-Actioner is a no-code app builder that lets you build your own apps for Slack and workflow automations without coding
-anything.
-This integration establishes necessary connection which lets you use Datadog API Actions in Actioner. Actioner does not
-publish or fetch data by itself, but a workflow in which Datadog API calls are made can be constructed.
-
+Actioner is a no-code app builder that allows you to build your own apps for Slack and workflow automations without requiring any coding.
+This integration establishes the required connection to use Datadog API Actions in Actioner. Actioner does not
+publish or fetch data, however, you can create a workflow to accomplish this using Datadog API calls.
 ## Setup
 
-Once you install the integration, click the "Connect Account" button in Datadog. This should redirect you to Actioner
-account,
-where you can establish OAuth2 connection.
-
+After you install the integration, click the **Connect Account** button in Datadog to be redirected to your Actioner account to set up the OAuth2 connection.
 ## Data Collected
 
 ### Metrics
