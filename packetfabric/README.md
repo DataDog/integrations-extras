@@ -27,9 +27,9 @@ Once authorized, the metrics will be sent from PacketFabric to Datadog every 15 
 ## Data Collected
 
 ### Metrics
-This intergrations sends the following metrics data to Datadog
-- ifd_traffic_rate_metric
-- ifl_traffic_rate_metric
+This intergration sends the following metrics data to Datadog
+- `ifd_traffic_rate_metric`
+- `ifl_traffic_rate_metric`
 
 See [metadata.csv][4] for a list of metrics provided by this integration.
 
