@@ -12,7 +12,8 @@ from datadog_checks.redis_enterprise import RedisEnterpriseCheck
 def test_check(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = RedisEnterpriseCheck(
-        'redis_enterprise', {}, [{'openmetrics_endpoint': 'https://localhost:8070', 'tls_verify': 'false'}])
+        'redis_enterprise', {}, [{'openmetrics_endpoint': 'https://localhost:8070', 'tls_verify': 'false'}]
+    )
     dd_run_check(check)
 
     aggregator.assert_all_metrics_covered()
@@ -23,7 +24,8 @@ def test_check(dd_run_check, aggregator, instance):
 def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
     check = RedisEnterpriseCheck(
-        'redis_enterprise', {}, [{'openmetrics_endpoint': 'https://localhost:8071', 'tls_verify': 'false'}])
+        'redis_enterprise', {}, [{'openmetrics_endpoint': 'https://localhost:8071', 'tls_verify': 'false'}]
+    )
 
     dd_run_check(check)
     aggregator.assert_service_check('redis_enterprise.can_connect', RedisEnterpriseCheck.CRITICAL)
