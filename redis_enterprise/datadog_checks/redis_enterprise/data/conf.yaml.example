@@ -13,7 +13,13 @@ init_config:
 #
 instances:
 
+    ## @param openmetrics_endpoint - the url for the cluster's metrics - required
+    ## This URL is of the form https://<host>:<port>/metrics, where default port is 8070
+
   - openmetrics_endpoint:<URL>
+
+    ## @param namespace - the namespace used by the metrics - required
+    ## this value is used by the various dashboards provided; change it and it must be replaced in the dashboard's .json
     namespace: "rdse"
   
     ## @param tags - list of strings - optional
