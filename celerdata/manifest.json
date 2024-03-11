@@ -1,0 +1,48 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "790d8932-0833-43ac-b9d8-d6d0a4f11517",
+  "app_id": "celerdata",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Gathers CelerData metrics and logs",
+    "title": "CelerData",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Category::Data Stores",
+      "Category::Log Collection"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 10130457,
+      "source_type_name": "celerdata",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "celerdata.",
+        "check": "celerdata.starrocks_fe_job",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "support@celerdata.com",
+    "name": "CelerData",
+    "homepage": "https://celerdata.com",
+    "sales_email": "Sales@celerdata.com"
+  },
+  "oauth": {}
+}
