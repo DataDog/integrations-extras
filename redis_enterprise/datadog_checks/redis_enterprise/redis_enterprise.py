@@ -1,6 +1,6 @@
 from typing import Any  # noqa: F401
-from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
-from datadog_checks.base import OpenMetricsBaseCheckV2
+
+from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2  # noqa: F401
 
 
 class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
@@ -40,7 +40,7 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
             self.service_check("redis_enterprise.can_connect", AgentCheck.OK)
 
         except Exception as e:
-            self.log.error(f'exception: {e}')
+            self.log.error('exception: %s', e)
             self.service_check("redis_enterprise.can_connect", AgentCheck.CRITICAL)
 
         # The following are useful bits of code to help new users get started.
