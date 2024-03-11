@@ -1,4 +1,3 @@
-
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError  # noqa: F401
