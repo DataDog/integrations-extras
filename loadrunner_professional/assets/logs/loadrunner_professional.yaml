@@ -10,16 +10,6 @@ pipeline:
     query: "source:loadrunner_professional"
   processors:
     - type: attribute-remapper
-      name: Map attribute `hostname` to tag `host`
-      enabled: true
-      sources:
-        - hostname
-      sourceType: attribute
-      target: host
-      targetType: tag
-      preserveSource: false
-      overrideOnConflict: false
-    - type: attribute-remapper
       name: Map attribute `scenario_started.general.version`, `scenario_ended.general.version` to tag `version`
       enabled: true
       sources:
