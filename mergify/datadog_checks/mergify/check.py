@@ -28,13 +28,13 @@ class MergifyCheck(AgentCheck):
 
         self.send_queues_metrics()
         self.send_time_to_merge_metrics()
-        self.send_queue_failure_metrics()
+        self.send_merge_queue_checks_outcome_metrics()
 
         self.service_check("can_connect", AgentCheck.OK)
 
-    def get_request(self, url):
+    def get_request(self, url, params=None):
         try:
-            response = self.http.get(url, headers=self.headers)
+            response = self.http.get(url, headers=self.headers, params=params)
             response.raise_for_status()
             return response.json()
         except Timeout as e:
@@ -121,30 +121,23 @@ class MergifyCheck(AgentCheck):
                                 tags=queue_tags,
                             )
 
-    def send_queue_failure_metrics(self):
+    def send_merge_queue_checks_outcome_metrics(self):
         for repository, branches in self.repositories.items():
-            for branch in branches:
-                default_tags = self.tags.copy()
-                default_tags.append(f"repository:{repository}")
-                default_tags.append(f"branch:{branch}")
+            default_tags = self.tags.copy()
+            default_tags.append(f"repository:{repository}")
 
-                url = f"{self.api_url}/v1/repos/{repository}/stats/queue_checks_outcome?branch={branch}"
-                response_json = self.get_request(url)
+            url = f"{self.api_url}/v1/repos/{repository}/stats/merge_queue_checks_outcome"
+            response_json = self.get_request(url, params={"base_ref": branches})
 
-                for partition_data in response_json:
-                    partition_tags = default_tags.copy()
-                    partition_tags.append(f"partition:{partition_data['partition_name']}")
+            for group in response_json["groups"]:
+                group_tags = default_tags.copy()
+                group_tags.append(f"branch:{group['base_ref']}")
+                group_tags.append(f"partition:{group['partition_name']}")
+                group_tags.append(f"queue:{group['queue_name']}")
 
-                    for queue_data in partition_data["queues"]:
-                        queue_tags = partition_tags.copy()
-                        queue_tags.append(f"queue:{queue_data['queue_name']}")
-
-                        for outcome_type, number_of_outcome in queue_data["queue_checks_outcome"].items():
-                            if outcome_type == "SUCCESS":
-                                continue
-
-                            self.gauge(
-                                "queue_checks_outcome",
-                                number_of_outcome,
-                                tags=queue_tags + [f"outcome_type:{outcome_type}"],
-                            )
+                for outcome_type, number_of_outcome in group["stats"].items():
+                    self.gauge(
+                        "queue_checks_outcome",
+                        number_of_outcome,
+                        tags=group_tags + [f"outcome_type:{outcome_type}"],
+                    )

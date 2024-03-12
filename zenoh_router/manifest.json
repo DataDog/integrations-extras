@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "8ef30e8d-955c-4456-b176-a01f2560bda1",
+  "app_id": "zenoh-router",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect network metrics from the Zenoh routers.",
+    "title": "Zenoh router",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Network",
+      "Category::IoT",
+      "Offering::Integration",
+      "Queried Data Type::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "source_type_name": "Zenoh router",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "zenoh.router.",
+        "check": "zenoh.router.sessions",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_id": 10445,
+      "auto_install": true
+    },
+    "dashboards": {
+      "Zenoh routers - Overview": "assets/dashboards/zenoh_routers_overview.json"
+	},
+    "monitors": {
+      "[Zenoh router] Disconnected": "assets/monitors/zenoh_router_disconnected.json"
+	}
+  },
+  "author": {
+    "support_email": "alexander@bushnev.pro",
+    "name": "ZettaScale",
+    "homepage": "https://zenoh.io/",
+    "sales_email": "contact@zettascale.tech"
+  }
+}

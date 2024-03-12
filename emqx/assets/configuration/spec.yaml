@@ -1,0 +1,13 @@
+name: emqx
+files:
+- name: emqx.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.display_priority: 5
+        openmetrics_endpoint.value.example: http://localhost:18083/api/v5/prometheus/stats

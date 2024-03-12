@@ -201,6 +201,25 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
+  jfe56917:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: emqx
+      target: emqx
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
   j8c2c004:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
@@ -999,10 +1018,10 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  jf772a8e:
+  j154ce9f:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Scalr
+      job-name: Scalr (Community Version)
       target: scalr
       platform: linux
       runner: '["ubuntu-22.04"]'
@@ -1037,10 +1056,10 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  j6c988ec:
+  j190d837:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Snmpwalk
+      job-name: snmpwalk
       target: snmpwalk
       platform: linux
       runner: '["ubuntu-22.04"]'
@@ -1341,11 +1360,30 @@ jobs:
       test-py3: ${{ inputs.test-py3 }}
       setup-env-vars: "${{ inputs.setup-env-vars }}"
     secrets: inherit
-  ja67c5ea:
+  j0a99eb2:
     uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
     with:
-      job-name: Zabbix
+      job-name: Zabbix (Community Version)
       target: zabbix
+      platform: linux
+      runner: '["ubuntu-22.04"]'
+      repo: "${{ inputs.repo }}"
+      python-version: "${{ inputs.python-version }}"
+      standard: ${{ inputs.standard }}
+      latest: ${{ inputs.latest }}
+      agent-image: "${{ inputs.agent-image }}"
+      agent-image-py2: "${{ inputs.agent-image-py2 }}"
+      agent-image-windows: "${{ inputs.agent-image-windows }}"
+      agent-image-windows-py2: "${{ inputs.agent-image-windows-py2 }}"
+      test-py2: ${{ inputs.test-py2 }}
+      test-py3: ${{ inputs.test-py3 }}
+      setup-env-vars: "${{ inputs.setup-env-vars }}"
+    secrets: inherit
+  j7f4936a:
+    uses: DataDog/integrations-core/.github/workflows/test-target.yml@master
+    with:
+      job-name: Zenoh router
+      target: zenoh_router
       platform: linux
       runner: '["ubuntu-22.04"]'
       repo: "${{ inputs.repo }}"
