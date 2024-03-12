@@ -7,7 +7,7 @@ pipeline:
   name: LoadRunner Scenario Information Pipeline
   enabled: true
   filter:
-    query: "source:loadrunner"
+    query: "source:loadrunner_professional"
   processors:
     - type: attribute-remapper
       name: Map attribute `hostname` to tag `host`
@@ -31,7 +31,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map attribute `scenario_started.summary.mode` to `loadrunner.scenario.mode`
+      name: Map `scenario_started.summary.mode` to `loadrunner.scenario.mode`
       enabled: true
       sources:
         - scenario_started.summary.mode
@@ -41,7 +41,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map attribute `scenario_started.summary.scenario_type` to `loadrunner.scenario.type`
+      name: Map `scenario_started.summary.scenario_type` to `loadrunner.scenario.type`
       enabled: true
       sources:
         - scenario_started.summary.scenario_type
@@ -51,7 +51,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map attribute `scenario_started.summary.load_behavior` to `loadrunner.scenario.load_behavior`
+      name: Map `scenario_started.summary.load_behavior` to `loadrunner.scenario.load_behavior`
       enabled: true
       sources:
         - scenario_started.summary.load_behavior
