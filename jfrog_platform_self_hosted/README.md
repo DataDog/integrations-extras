@@ -68,7 +68,7 @@ A: At launch, the SaaS version of the integration will only stream the artifacto
 [3]: https://docs.datadoghq.com/logs/explorer/facets/
 [4]: https://github.com/jfrog/log-analytics-datadog
 [5]: https://app.datadoghq.com/organization-settings/api-keys
-[6]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/jfrog_platform_self_hosted/metadata.csv
 [7]: https://support.jfrog.com/s/login/?language=en_US&ec=302&startURL=%2Fs%2F
 [8]: https://github.com/jfrog/log-analytics-datadog#os--virtual-machine
 [9]: https://github.com/jfrog/log-analytics-datadog#docker
