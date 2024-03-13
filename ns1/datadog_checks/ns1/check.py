@@ -101,12 +101,6 @@ class Ns1Check(AgentCheck):
             elif key == "account":
                 checkUrl.update(self.ns1.get_zone_info_url(key, val))
                 checkUrl.update(self.ns1.get_plan_details_url(key, val))
-            elif key == "ddi":
-                if val:
-                    scopegroups = self.get_ddi_scope_groups()
-                else:
-                    scopegroups = None
-                checkUrl.update(self.ns1.get_ddi_url(key, val, scopegroups))
             elif key == "pulsar":
                 checkUrl.update(self.ns1.get_pulsar_url(query_params))
             elif key == "pulsar_by_app":
@@ -116,16 +110,6 @@ class Ns1Check(AgentCheck):
                 checkUrl.update(self.ns1.get_pulsar_by_record_url(val, query_params))
 
         return checkUrl
-
-    def get_ddi_scope_groups(self):
-        url = "{apiendpoint}/v1/dhcp/scopegroup".format(apiendpoint=self.api_endpoint)
-        res = self.get_stats(url)
-        scopegroups = {}
-        for group in res:
-            group_id = group["id"]
-            group_name = group["name"]
-            scopegroups[group_id] = group_name
-        return scopegroups
 
     def get_networks(self, networks):
         url = "{apiendpoint}/v1/networks".format(apiendpoint=self.api_endpoint)

@@ -684,7 +684,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "sum:ns1.usage.zone{*} by {zone}.as_count()",
+                                            "query": "sum:ns1.usage{*} by {zone}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         }
@@ -1134,18 +1134,23 @@
                                 {
                                     "formulas": [
                                         {
-                                            "formula": "top(query1, 10, \"mean\", \"desc\")",
+                                            "formula": "hour_before(query1)",
                                             "alias": "TTL"
+                                        },
+                                        {
+                                            "formula": "query1"
                                         }
                                     ],
                                     "order_by": "change",
                                     "order_dir": "desc",
+                                    "response_format": "scalar",
                                     "compare_to": "hour_before",
                                     "queries": [
                                         {
                                             "query": "max:ns1.ttl{*} by {record}",
                                             "data_source": "metrics",
-                                            "name": "query1"
+                                            "name": "query1",
+                                            "aggregator": "max"
                                         }
                                     ],
                                     "show_present": true,
@@ -1237,7 +1242,7 @@
                                     "response_format": "scalar",
                                     "queries": [
                                         {
-                                            "query": "sum:ns1.usage.zone{*} by {zone}.as_count()",
+                                            "query": "sum:ns1.usage{*} by {zone}.as_count()",
                                             "data_source": "metrics",
                                             "name": "query1",
                                             "aggregator": "sum"
@@ -1769,251 +1774,6 @@
                 "y": 23,
                 "width": 12,
                 "height": 9
-            }
-        },
-        {
-            "id": 5765020399633656,
-            "definition": {
-                "title": "DDI",
-                "type": "group",
-                "background_color": "gray",
-                "show_title": true,
-                "layout_type": "ordered",
-                "widgets": [
-                    {
-                        "id": 6525656749049262,
-                        "definition": {
-                            "title": "Total Leases Past Month",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "time": {
-                                "live_span": "1mo"
-                            },
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "query": "sum:ns1.leases{*}.as_count()",
-                                            "data_source": "metrics",
-                                            "name": "query1",
-                                            "aggregator": "sum"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 2,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 8624903458797122,
-                        "definition": {
-                            "title": "Total Leases Past Hour",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "time": {
-                                "live_span": "1h"
-                            },
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "query": "sum:ns1.leases{*}.as_count()",
-                                            "data_source": "metrics",
-                                            "name": "query1",
-                                            "aggregator": "sum"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 2,
-                            "y": 0,
-                            "width": 2,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 2758989510117812,
-                        "definition": {
-                            "title": "Max Leases in 1 Hour Past Month",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "time": {
-                                "live_span": "1mo"
-                            },
-                            "type": "query_value",
-                            "requests": [
-                                {
-                                    "response_format": "scalar",
-                                    "queries": [
-                                        {
-                                            "query": "sum:ns1.leases{*}.as_count().rollup(sum, 3600)",
-                                            "data_source": "metrics",
-                                            "name": "query1",
-                                            "aggregator": "max"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "autoscale": true,
-                            "precision": 2
-                        },
-                        "layout": {
-                            "x": 4,
-                            "y": 0,
-                            "width": 2,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 3644296560193926,
-                        "definition": {
-                            "title": "Number of Leases and Changes",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "time": {
-                                "live_span": "1h"
-                            },
-                            "type": "change",
-                            "requests": [
-                                {
-                                    "change_type": "absolute",
-                                    "order_dir": "desc",
-                                    "compare_to": "hour_before",
-                                    "q": "avg:ns1.leases{*} by {scope_group}",
-                                    "increase_good": true,
-                                    "order_by": "change"
-                                }
-                            ]
-                        },
-                        "layout": {
-                            "x": 6,
-                            "y": 0,
-                            "width": 6,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 3706297393436218,
-                        "definition": {
-                            "title": "Number of Leases by Scope Group",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": true,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "response_format": "timeseries",
-                                    "queries": [
-                                        {
-                                            "query": "sum:ns1.leases{*} by {scope_group}.as_count()",
-                                            "data_source": "metrics",
-                                            "name": "query1"
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "yaxis": {
-                                "include_zero": true,
-                                "scale": "linear",
-                                "label": "",
-                                "min": "auto",
-                                "max": "auto"
-                            },
-                            "markers": []
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 2,
-                            "width": 6,
-                            "height": 2
-                        }
-                    },
-                    {
-                        "id": 5626005280457770,
-                        "definition": {
-                            "title": "Peak LPS by Scope Group",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": true,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "response_format": "timeseries",
-                                    "queries": [
-                                        {
-                                            "query": "sum:ns1.peak_lps{*} by {scope_group}",
-                                            "data_source": "metrics",
-                                            "name": "query1"
-                                        }
-                                    ],
-                                    "style": {
-                                        "palette": "dog_classic",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "yaxis": {
-                                "include_zero": true,
-                                "scale": "linear",
-                                "label": "",
-                                "min": "auto",
-                                "max": "auto"
-                            },
-                            "markers": []
-                        },
-                        "layout": {
-                            "x": 6,
-                            "y": 2,
-                            "width": 6,
-                            "height": 2
-                        }
-                    }
-                ]
-            },
-            "layout": {
-                "x": 0,
-                "y": 32,
-                "width": 12,
-                "height": 5
             }
         }
     ],
