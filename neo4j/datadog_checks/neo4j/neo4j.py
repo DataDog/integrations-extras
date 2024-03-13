@@ -46,7 +46,7 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
                 else:
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                    if self.config.neo4j_dbs and version.parse(self.config.neo4j_version) >= version.parse('4.3'):
+                    if self.config.neo4j_dbs and version.parse(self.config.neo4j_version) >= version.parse("4.3"):
                         if metric.name.startswith('neo4j_'):
                             raw_metric_name = metric.name.replace('neo4j_', '', 1)
                         else:
