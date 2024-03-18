@@ -5,3 +5,9 @@
 ***Added***:
 
 * Upstash Datadog Integration
+
+## 1.0.1 / 2024-03-18
+
+***Added***:
+
+* Upstash Kafka Metrics enabled
