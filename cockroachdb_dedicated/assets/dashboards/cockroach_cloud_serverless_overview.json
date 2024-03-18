@@ -1,0 +1,2552 @@
+{
+  "title": "CockroachDB Cloud Serverless (Limited Preview)",
+  "description": "## CockroachDB Cloud Serverless (Limited Preview)\n\nThis dashboard provides a high-level view of your CockroachDB Serverless cluster, including:\nA high-level view of SQL performance & latency.\n- Information about resource consumption to help aid in capacity planning.",
+  "widgets": [
+    {
+      "id": 8635810201263258,
+      "definition": {
+        "title": "New group",
+        "banner_img": "https://res.infoq.com/news/2021/10/cockroachdb-serverless/en/headerimage/cockroach_db_header-1634549116493.jpg",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7027263531960678,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a high-level view of your CockroachDB cluster, including:\n- A high-level view of SQL performance & latency.\n- Information about resource consumption to help aid in capacity planning.\n- Ability to drill down to specific regions within your cluster.",
+              "background_color": "transparent",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 4
+            }
+          },
+          {
+            "id": 8131082657770196,
+            "definition": {
+              "type": "note",
+              "content": "#### Further reading on the Cockroach Cloud integration:\n- [Datadog's docs on the Cockroach Cloud  integration](https://docs.datadoghq.com/integrations/cockroachdb_dedicated)\n- [Cockroach Labs' Datadog integration docs](https://www.cockroachlabs.com/docs/cockroachcloud/monitoring-page.html#monitor-with-datadog)\n",
+              "background_color": "transparent",
+              "font_size": "16",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 3,
+              "y": 0,
+              "width": 3,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 782550878758906,
+      "definition": {
+        "title": "Activity Summary",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7838830465398464,
+            "definition": {
+              "title": "SQL Statements, P99",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.service.latency{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "ms",
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2526915054656628,
+            "definition": {
+              "title": "Service Latency: 99th Percentile",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1 / 1000000"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.txn.latency{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": false,
+              "custom_unit": "ms",
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 8533260048455964,
+      "definition": {
+        "title": "Overview",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4951811637444188,
+            "definition": {
+              "title": "SQL Connections",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connections Per Second",
+                      "formula": "default_zero(per_second(query1))"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.conns{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "scale": "linear"
+              },
+              "markers": []
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 806253703222822,
+            "definition": {
+              "type": "note",
+              "content": "Rate of SQL connection attempts.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 6743199474847626,
+            "definition": {
+              "title": "SQL Statements",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "min",
+                "max",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Insert",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.insert.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Select",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.select.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Update",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.update.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Delete",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.delete.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7369727806832230,
+            "definition": {
+              "type": "note",
+              "content": "A moving average of the number of SELECT, INSERT, UPDATE, and DELETE statements successfully executed per second.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 6827499129241152,
+            "definition": {
+              "title": "Service Latency: 99th Percentile",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p99",
+                      "formula": "default_zero(query1) / 1000000",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.service.latency{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1249303266221180,
+            "definition": {
+              "type": "note",
+              "content": "Over the last minute, this cluster executed 99% of SQL statements within this time. This time only includes SELECT, INSERT, UPDATE and DELETE statements and does not include network latency between the cluster and client.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 7656853063317864,
+            "definition": {
+              "title": "Request Units",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "RU",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.request_units{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1737414654900128,
+            "definition": {
+              "type": "note",
+              "content": "The CPU and I/O resources being used by queries in the cluster. Simple queries consume few RUs, while complicated queries with many reads and writes consume more RUs.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 2159470479294726,
+            "definition": {
+              "title": "Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Bytes",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "kilobyte"
+                        }
+                      },
+                      "formula": "query3 / 1024"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.storage_bytes{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4627115609898984,
+            "definition": {
+              "type": "note",
+              "content": "The amount of data being stored in the cluster. This is the logical number of live bytes and does not account for compression or replication.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 6,
+              "width": 2,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 10
+      }
+    },
+    {
+      "id": 8003220898607202,
+      "definition": {
+        "title": "Request Units",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4049159710202292,
+            "definition": {
+              "title": "Request Units",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "RU",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.tenant.sql_usage.request_units{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 7954069862193936,
+            "definition": {
+              "type": "note",
+              "content": "The CPU and I/O resources being used by queries in the cluster. Simple queries consume few RUs, while complicated queries with many reads and writes consume more RUs.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 1416042771744362,
+            "definition": {
+              "title": "CPU",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "cpu",
+                      "formula": "default_zero(query1) * 333.3333"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.sql_pods_cpu_seconds{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1971364057759994,
+            "definition": {
+              "type": "note",
+              "content": "The number of RUs that were consumed because of SQL CPU usage. Correlate this metric with Request Units (RUs) and determine if your workload is CPU bound.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 7529810084675084,
+            "definition": {
+              "title": "Egress",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Client traffic",
+                      "formula": "default_zero(query3) / 1024"
+                    },
+                    {
+                      "alias": "Bulk I/O operations",
+                      "formula": "default_zero(query1) / 1024"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.pgwire_egress_bytes{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.external_io_egress_bytes{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 5002177819522632,
+            "definition": {
+              "type": "note",
+              "content": "The number of RUs that were consumed because of byte traffic to the client and cluster bulk I/O operations (e.g., CDC). Correlate this metric with Request Units (RUs).",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 2008636780629738,
+            "definition": {
+              "title": "Reads",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Requests",
+                      "formula": "default_zero(query1) / 8"
+                    },
+                    {
+                      "alias": "Batches",
+                      "formula": "default_zero(query2) / 2"
+                    },
+                    {
+                      "alias": "Bytes",
+                      "formula": "default_zero(query3) / 1024 / 64"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.read_requests{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.read_batches{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.read_bytes{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 239677142875976,
+            "definition": {
+              "type": "note",
+              "content": "The number of RUs that were consumed due to KV reads, broken down by requests, batches, and bytes. SQL statements are translated into lower-level KV read requests that are sent in batches. Correlate these metrics with Request Units (RUs).",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 3964940250968876,
+            "definition": {
+              "title": "Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Requests",
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "alias": "Batches",
+                      "formula": "default_zero(query2)"
+                    },
+                    {
+                      "alias": "Bytes",
+                      "formula": "default_zero(query3) / 1024"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.write_requests{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.write_batches{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.write_bytes{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 8795041787820418,
+            "definition": {
+              "type": "note",
+              "content": "The number of RUs that were consumed due to KV writes, broken down by requests, batches, and bytes. SQL statements are translated into lower-level KV write requests that are sent in batches. Correlate these metrics with Request Units (RUs).",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 6,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 3138716994097406,
+            "definition": {
+              "title": "Cross-region Networking",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Network traffic",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.tenant.sql_usage.cross_region_network_ru{$Cluster}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3764683764771466,
+            "definition": {
+              "type": "note",
+              "content": "The number of RUs that were consumed due to cross-region networking. Correlate these metrics with Request Units (RUs).",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 6,
+              "width": 2,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 17,
+        "width": 12,
+        "height": 10,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 6847880046439812,
+      "definition": {
+        "title": "SQL",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7977558114644004,
+            "definition": {
+              "title": "SQL Connection Rate",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connections Per Second",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.new_conns.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1928283031242920,
+            "definition": {
+              "type": "note",
+              "content": "Rate of SQL connection attempts.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4612192271915838,
+            "definition": {
+              "title": "Connection Latency: 99th Percentile",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p99",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query1) / 1000000"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.conn.latency{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 8077656645051682,
+            "definition": {
+              "type": "note",
+              "content": "Latency to establish and authenticate a SQL connection.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 8387088883894436,
+            "definition": {
+              "title": "Open SQL Sessions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Connections",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.conns{$Cluster}",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4218362510234354,
+            "definition": {
+              "type": "note",
+              "content": "The total number of open SQL Sessions.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 5923134192625778,
+            "definition": {
+              "title": "Open SQL Transactions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Open Transactions",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.txns.open{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1245930991391368,
+            "definition": {
+              "type": "note",
+              "content": "The total number of open SQL transactions.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 6674462475472702,
+            "definition": {
+              "title": "Transactions",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Begin",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.txn.begin.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Commit",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.txn.commit.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Rollback",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.txn.rollback.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Abort",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.txn.abort.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1843598916208238,
+            "definition": {
+              "type": "note",
+              "content": "The total number of transactions initiated, committed, rolled back, or aborted per second.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 6,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 7157959503980258,
+            "definition": {
+              "title": "Transaction Restarts",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Write Too Old",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.txn.restarts.writetooold{$Cluster}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Forwarded Timestamp",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.txn.restarts.serializable{$Cluster}.as_rate()",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 6,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4030524918892762,
+            "definition": {
+              "type": "note",
+              "content": "The number of transactions restarted broken down by errors. Refer to the transaction retry error reference.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 6,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 6375983941304400,
+            "definition": {
+              "title": "Transaction Latency: 99th Percentile",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p99",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query1) / 1000000"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.txn.latency{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 9,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1827683661232408,
+            "definition": {
+              "type": "note",
+              "content": "Over the last minute, this cluster executed 99% of transactions within this time. This time does not include network latency between the cluster and client.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 9,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 2559283592141386,
+            "definition": {
+              "title": "Active SQL Statements",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Active Statements",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.statements.active{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 9,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 905663155580656,
+            "definition": {
+              "type": "note",
+              "content": "The total number of running SQL statements.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 9,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 7191057770262672,
+            "definition": {
+              "title": "Service Latency: 99th Percentile",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p99",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query1) / 1000000"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.service.latency{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 12,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4220588608277214,
+            "definition": {
+              "type": "note",
+              "content": "Over the last minute, this cluster executed 99% of SQL statements within this time. This time only includes SELECT, INSERT, UPDATE and DELETE statements and does not include network latency between the cluster and client.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 12,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 5812011552785118,
+            "definition": {
+              "title": "SQL Statements",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "min",
+                "max",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Insert",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.insert.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Select",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.sql.select.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Update",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.update.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                },
+                {
+                  "formulas": [
+                    {
+                      "alias": "Delete",
+                      "formula": "default_zero(query0)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.delete.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query0"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 12,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 231133543355080,
+            "definition": {
+              "type": "note",
+              "content": "A moving average of the number of SELECT, INSERT, UPDATE, and DELETE statements successfully executed per second.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 12,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 8153798343825926,
+            "definition": {
+              "title": "SQL Statement Errors",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Errors",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.failure.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 15,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6960575227640992,
+            "definition": {
+              "type": "note",
+              "content": "The number of statements which returned a planning, runtime, or client-side retry error.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 15,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4131244288804984,
+            "definition": {
+              "title": "SQL Statement Contention",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Contention",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:crdb_cloud.sql.distsql.contended.queries.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 15,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 4161385216355412,
+            "definition": {
+              "type": "note",
+              "content": "The total number of SQL statements that experienced contention.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 15,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 4360482651358524,
+            "definition": {
+              "title": "Full Scans",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Full Scans",
+                      "formula": "default_zero(query1)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.full.scan.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 18,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 3884820359029682,
+            "definition": {
+              "type": "note",
+              "content": "The total number of full table/index scans.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 18,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 5555927670927358,
+            "definition": {
+              "title": "Schema Changes",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "DDL Statements",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.sql.ddl.count{$Cluster}.as_rate().rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 18,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1715322795282292,
+            "definition": {
+              "type": "note",
+              "content": "The total number of DDL statements per second.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 18,
+              "width": 2,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 27,
+        "width": 12,
+        "height": 22
+      }
+    },
+    {
+      "id": 678470534448650,
+      "definition": {
+        "title": "Changefeeds",
+        "background_color": "blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5203120089548500,
+            "definition": {
+              "title": "Changefeed Status",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Running",
+                      "formula": "default_zero(query1)"
+                    },
+                    {
+                      "alias": "Failures",
+                      "formula": "default_zero(query2)"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.changefeed.running{$Cluster}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    },
+                    {
+                      "query": "sum:crdb_cloud.changefeed.failures{$Cluster}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query2"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 6766355742123040,
+            "definition": {
+              "type": "note",
+              "content": "The number of all changefeeds by status - Running, Paused, and Failed. The currently running changefeeeds includes sinkless.\n\nMonitor and alert on the Paused changefeeds metric to safeguard against an inadvertent operational error of leaving a changefeed job in a paused state for an extended period of time. Changefeed jobs should not be paused for a long time because the protected timestamp prevents garbage collection.\n\nThe Failed changefeeds metrics tracks the permanent changefeed job failures that the jobs system will not try to restart. Any increase in this counter should be investigated. An alert on this metric is recommended.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 5591536992130460,
+            "definition": {
+              "title": "Emitted Messages",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Emitted Messages",
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.changefeed.emitted.messages{$Cluster}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 0,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 1286682169563362,
+            "definition": {
+              "type": "note",
+              "content": "The total number of messages emitted by all changefeeds.\n\nThis metric characterizes the rate of changes being streamed from the CockroachDB cluster.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 0,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 1200226066770774,
+            "definition": {
+              "title": "Commit Latency",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "p99",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "millisecond"
+                        }
+                      },
+                      "formula": "default_zero(query1) / 1000000"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "max:crdb_cloud.changefeed.commit.latency{$Cluster}.rollup(sum, 30)",
+                      "data_source": "metrics",
+                      "name": "query1"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 166111290403902,
+            "definition": {
+              "type": "note",
+              "content": "The difference between the event MVCC timestamp and the time it was acknowledged by the downstream sink. If the sink batches events, then the difference between the oldest event in the batch and acknowledgement is recorded. Latency during backfill is excluded.\n\nThis metric characterizes the end-to-end lag between a committed change and that change applied at the destination.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          },
+          {
+            "id": 6109186366820708,
+            "definition": {
+              "title": "Retryable Errors",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "Retryable Errors",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "sum:crdb_cloud.changefeed.error.retries{$Cluster}.as_count()",
+                      "data_source": "metrics",
+                      "name": "query3"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 6,
+              "y": 3,
+              "width": 4,
+              "height": 3
+            }
+          },
+          {
+            "id": 2795017174881922,
+            "definition": {
+              "type": "note",
+              "content": "The total number of retryable errors encountered by all changefeeds.\n\nThis metric tracks transient changefeed errors. Alert on \"too many\" errors, such as 50 retries in 15 minutes. For example, during a rolling upgrade this counter will increase because the changefeed jobs will restart following node restarts. There is an exponential backoff, up to 10 minutes. But if there is no rolling upgrade in process or other cluster maintenance, and the error rate is high, investigate the changefeed job.",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 10,
+              "y": 3,
+              "width": 2,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 49,
+        "width": 12,
+        "height": 7
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "Cluster",
+      "prefix": "cluster",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
