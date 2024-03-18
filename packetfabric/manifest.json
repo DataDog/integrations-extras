@@ -1,0 +1,62 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b8e02be2-3d0b-4dd2-a014-f78fdab1710a",
+  "app_id": "packetfabric",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Sync PacketFabric metrics with Datadog",
+    "title": "PacketFabric",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "A PacketFabric Marketplace Integration Metrics dashboard",
+        "image_url": "images/metrics_dashboard.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Cloud",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": false,
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "packetfabric.",
+        "check": [
+          "packetfabric.ifd_traffic_rate_metric",
+          "packetfabric.ifl_traffic_rate_metric"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "source_type_name": "PacketFabric",
+      "source_type_id": 8623825
+    },
+    "dashboards": {
+      "dashboard_short_name": "assets/dashboards/metrics_dashboard.json"
+    }
+  },
+  "author": {
+    "support_email": "support@packetfabric.com",
+    "name": "PacketFabric",
+    "homepage": "https://packetfabric.com",
+    "sales_email": "sales@packetfabric.com"
+  },
+  "oauth": {}
+}
