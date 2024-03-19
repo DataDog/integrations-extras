@@ -1,0 +1,90 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "e6b5ab52-139d-4dde-a4ad-94fedeac7f29",
+  "app_id": "loadrunner-professional",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Send LoadRunner Professional metrics and information about scenario runs to Datadog",
+    "title": "LoadRunner Professional",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Controller Design Tab",
+        "image_url": "images/controller_design.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Controller Run Tab",
+        "image_url": "images/controller_run.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Analysis Summary Report",
+        "image_url": "images/analysis_summary.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Vugen New Script",
+        "image_url": "images/vugen_new.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Datadog Configuration Window",
+        "image_url": "images/datadog_configuration_window.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Windows",
+      "Supported OS::Linux",
+      "Category::Testing",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics",
+      "Submitted Data Type::Logs"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "loadrunner_professional_overview": "assets/dashboards/loadrunner_professional_overview.json"
+    },
+    "logs": {
+      "source": "loadrunner"
+    },
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 8492858,
+      "source_type_name": "LoadRunner Professional",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "loadrunner.",
+        "metadata_path": "metadata.csv",
+        "check": [
+          "loadrunner.vusers.running",
+          "loadrunner.vusers.ready",
+          "loadrunner.vusers.finished",
+          "loadrunner.vusers.error",
+          "loadrunner.total.transactions.passed.per.sec",
+          "loadrunner.transaction.response_time",
+          "loadrunner.transaction.passed",
+          "loadrunner.transaction.failed",
+          "loadrunner.transaction.stopped"
+        ]
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "support_email": "MFI-Supportline@opentext.com",
+    "name": "OpenText",
+    "homepage": "https://www.microfocus.com/en-us/products/loadrunner-professional/overview",
+    "sales_email": "dmcleish@opentext.com"
+  }
+}
