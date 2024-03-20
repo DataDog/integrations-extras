@@ -6,10 +6,7 @@
 
 You can use PacketFabric to quickly and easily build a robust network between cloud platforms, SaaS providers, and hundreds of colocation centers around the [world][2].
 
-With this integration, you can leverage Datadog to monitor your PacketFabric network using the following metrics: 
-
-* `ifd_traffic_rate_metric`
-* `ifl_traffic_rate_metric`
+With this integration, you can leverage Datadog to monitor your PacketFabric network traffic data.
 
 ![metrics dashboard][3]
 
@@ -27,10 +24,6 @@ Once authorized, the metrics will be sent from PacketFabric to Datadog every 15 
 ## Data Collected
 
 ### Metrics
-This intergration sends the following metrics data to Datadog
-- `ifd_traffic_rate_metric`
-- `ifl_traffic_rate_metric`
-
 See [metadata.csv][4] for a list of metrics provided by this integration.
 
 
