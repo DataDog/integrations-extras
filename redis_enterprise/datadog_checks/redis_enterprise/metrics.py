@@ -164,8 +164,14 @@ METRIC_MAP = {
     'redis_process_cpu_system_seconds_total': {'name': 'redis_process_cpu_system_seconds_total', 'type': 'gauge'},
     'redis_process_cpu_usage_percent': {'name': 'redis_process_cpu_usage_percent', 'type': 'gauge'},
     'redis_process_cpu_user_seconds_total': {'name': 'redis_process_cpu_user_seconds_total', 'type': 'gauge'},
-    'redis_process_main_thread_cpu_system_seconds_total': {'name': 'redis_process_main_thread_cpu_system_seconds_total', 'type': 'gauge'},
-    'redis_process_main_thread_cpu_user_seconds_total': {'name': 'redis_process_main_thread_cpu_user_seconds_total', 'type': 'gauge'},
+    'redis_process_main_thread_cpu_system_seconds_total': {
+        'name': 'redis_process_main_thread_cpu_system_seconds_total',
+        'type': 'gauge'
+    },
+    'redis_process_main_thread_cpu_user_seconds_total': {
+        'name': 'redis_process_main_thread_cpu_user_seconds_total',
+        'type': 'gauge'
+    },
     'redis_process_max_fds': {'name': 'redis_process_max_fds', 'type': 'gauge'},
     'redis_process_open_fds': {'name': 'redis_process_open_fds', 'type': 'gauge'},
     'redis_process_resident_memory_bytes': {'name': 'redis_process_resident_memory_bytes', 'type': 'gauge'},
