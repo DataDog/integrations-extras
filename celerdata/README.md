@@ -2,12 +2,9 @@
 
 ## Overview
 
-[CelerData][1] is the only SQL engine that is fast enough to run the most demanding workloads directly on your data lakehouse, all powered by StarRocks and cloud-managed by CelerData.
+[CelerData][1], based on the open-source project StarRocks, is a commercial SQL engine designed for high-speed data analytics directly on your data lakehouse. It offers a cloud-managed solution that enhances the performance and scalability of running complex queries and workloads.
 
-StarRocks metrics enable database administrators to monitor their deployments. StarRocks provides a Prometheus-compatible information collection interface. 
-
-With this integration, we collect metrics and logs from StarRocks.
-
+This integration allows users to collect Prometheus metrics and logs. By leveraging this integration, customers can gain insights into query performance, system health, and resource utilization, enabling them to optimize their data analytics operations effectively.
 
 ## Setup
 
@@ -21,7 +18,7 @@ To install the CelerData check on your host:
 2. To install the celerdata check on your host:
 
    ```shell
-   datadog-agent integration install -t datadog-celerdata==<INTEGRATION_VERSION>
+   datadog-agent integration install -t datadog-celerdata==1.0.0
    ```
 
 ### Configuration
