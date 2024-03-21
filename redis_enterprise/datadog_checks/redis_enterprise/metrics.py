@@ -1,4 +1,3 @@
-
 METRIC_MAP = {
     'bdb_avg_latency': 'bdb_avg_latency',
     'bdb_avg_latency_max': 'bdb_avg_latency_max',
