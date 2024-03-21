@@ -13,15 +13,33 @@ init_config:
 #
 instances:
 
-    ## @param openmetrics_endpoint - the url for the cluster's metrics - required
-    ## This URL is of the form https://<host>:<port>/metrics, where default port is 8070
+    ## @param openmetrics_endpoint - string - required
+    ## The URL exposing metrics in the OpenMetrics format.
+    #
+  - openmetrics_endpoint: http://localhost:8070/metrics
 
-  - openmetrics_endpoint:<URL>
+    ## @param use_openmetrics - boolean - optional - default: true
+    ## Use the latest OpenMetrics implementation for more features and better performance.
+    ## If running on Agent v6, you must set the `python_version` option in `datadog.yaml` to `"3"`.
+    #
+    use_openmetrics: true
 
-    ## @param namespace - the namespace used by the metrics - required
-    ## this value is used by the various dashboards provided; change it and it must be replaced in the dashboard's .json
+    ## @param namespace - string - optional - default rdse
+    ## set the prefix for all metrics reported by this instance
+    ## we use rdse to distinguish an endpoint from rdsc - redis cloud
+    #
     namespace: "rdse"
-  
+
+    ## @param tls_verify - boolean - required
+    ## redis metrics endpoints only respond to https requests but don't have ceritificates out-of-the-box
+    #
+    tls_verify: false
+
+    ## @param tls_ignore_warning - boolean - optional
+    ## by setting this to true we reduce log spew - otherwise we would receive warnings about the certificate
+    #
+    tls_ignore_warning: true
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
@@ -31,392 +49,21 @@ instances:
     #   - <KEY_1>:<VALUE_1>
     #   - <KEY_2>:<VALUE_2>
 
-    ## @param service - string - optional
-    ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
-    ##
-    ## Overrides any `service` defined in the `init_config` section.
-    #
-    # service: <SERVICE>
-
     ## @param min_collection_interval - number - optional - default: 15
     ## This changes the collection interval of the check. For more information, see:
     ## https://docs.datadoghq.com/developers/write_agent_check/#collection-interval
     #
-    # min_collection_interval: 15
+    min_collection_interval: 15
 
-    metrics:
-      - bdb_avg_read_latency_max
-      - bdb_avg_write_latency_max
-      - bdb_conns
-      - bdb_egress_bytes
-      - bdb_ingress_bytes
-      - bdb_memory_limit
-      - bdb_total_req
-      - bdb_up
-      - bdb_used_memory
-      - bdb_avg_latency
-      - bdb_no_of_keys
-      - bdb_avg_latency_max
-      - bdb_avg_read_latency
-      - bdb_avg_write_latency
-      - bdb_egress_bytes_max
-      - bdb_evicted_objects
-      - bdb_evicted_objects_max
-      - bdb_expired_objects
-      - bdb_expired_objects_max
-      - bdb_fork_cpu_system
-      - bdb_fork_cpu_system_max
-      - bdb_fork_cpu_user
-      - bdb_fork_cpu_user_max
-      - bdb_ingress_bytes_max
-      - bdb_instantaneous_ops_per_sec
-      - bdb_main_thread_cpu_system
-      - bdb_main_thread_cpu_system_max
-      - bdb_main_thread_cpu_user
-      - bdb_main_thread_cpu_user_max
-      - bdb_mem_frag_ratio
-      - bdb_mem_size_lua
-      - bdb_monitor_sessions_count
-      - bdb_other_req
-      - bdb_other_req_max
-      - bdb_other_res
-      - bdb_other_res_max
-      - bdb_pubsub_channels
-      - bdb_pubsub_channels_max
-      - bdb_pubsub_patterns
-      - bdb_pubsub_patterns_max
-      - bdb_read_hits
-      - bdb_read_hits_max
-      - bdb_read_misses
-      - bdb_read_misses_max
-      - bdb_read_req
-      - bdb_read_req_max
-      - bdb_read_res
-      - bdb_read_res_max
-      - bdb_shard_cpu_system
-      - bdb_shard_cpu_system_max
-      - bdb_shard_cpu_user
-      - bdb_shard_cpu_user_max
-      - bdb_total_connections_received
-      - bdb_total_connections_received_max
-      - bdb_total_req_max
-      - bdb_total_res
-      - bdb_total_res_max
-      - bdb_write_hits
-      - bdb_write_hits_max
-      - bdb_write_misses
-      - bdb_write_misses_max
-      - bdb_write_req
-      - bdb_write_req_max
-      - bdb_write_res
-      - bdb_write_res_max
-      - bdb_crdt_syncer_ingress_bytes
-      - bdb_crdt_syncer_ingress_bytes_decompressed
-      - bdb_crdt_syncer_local_ingress_lag_time
-      - bdb_crdt_syncer_status
-      - bdb_replicaof_syncer_ingress_bytes
-      - bdb_replicaof_syncer_ingress_bytes_decompressed
-      - bdb_replicaof_syncer_local_ingress_lag_time
-      - bdb_replicaof_syncer_status
-      - bdb_crdt_syncer_egress_bytes
-      - bdb_crdt_syncer_egress_bytes_decompressed
-      - bdb_crdt_syncer_egress_bytes_decompressed_max
-      - bdb_crdt_syncer_egress_bytes_max
-
-      - node_available_memory
-      - node_available_flash
-      - node_available_flash_no_overbooking
-      - node_available_memory
-      - node_available_memory_no_overbooking
-      - node_avg_latency
-      - node_bigstore_free
-      - node_bigstore_iops
-      - node_bigstore_kv_ops
-      - node_bigstore_throughput
-      - node_conns
-      - node_cpu_idle
-      - node_cpu_idle_max
-      - node_cpu_idle_median
-      - node_cpu_idle_min
-      - node_cpu_iowait
-      - node_cpu_iowait_max
-      - node_cpu_iowait_median
-      - node_cpu_iowait_min
-      - node_cpu_irqs
-      - node_cpu_irqs_max
-      - node_cpu_irqs_median
-      - node_cpu_irqs_min
-      - node_cpu_nice
-      - node_cpu_nice_max
-      - node_cpu_nice_median
-      - node_cpu_nice_min
-      - node_cpu_steal
-      - node_cpu_steal_max
-      - node_cpu_steal_median
-      - node_cpu_steal_min
-      - node_cpu_system
-      - node_cpu_system_max
-      - node_cpu_system_median
-      - node_cpu_system_min
-      - node_cpu_user
-      - node_cpu_user_max
-      - node_cpu_user_median
-      - node_cpu_user_min
-      - node_cur_aof_rewrites
-      - node_egress_bytes_max
-      - node_egress_bytes_median
-      - node_egress_bytes_min
-      - node_ephemeral_storage_avail
-      - node_ephemeral_storage_free
-      - node_free_memory
-      - node_ingress_bytes_max
-      - node_ingress_bytes_median
-      - node_ingress_bytes_min
-      - node_provisional_memory
-      - node_provisional_memory_no_overbooking
-
-      - "redis_active_defrag_running":
-        "type": "gauge"
-      - "redis_allocator_active":
-        "type": "counter"
-      - "redis_allocator_allocated":
-        "type": "gauge"
-      - "redis_allocator_resident":
-        "type": "gauge"
-      - "redis_aof_last_cow_size":
-        "type": "gauge"
-      - "redis_aof_rewrite_in_progress":
-        "type": "gauge"
-      - "redis_aof_rewrites":
-        "type": "counter"
-      - "redis_big_inst_avg_del_io_queue":
-        "type": "gauge"
-      - "redis_big_inst_avg_io_blocked_clients":
-        "type": "gauge"
-      - "redis_big_inst_avg_io_postponed_clients":
-        "type": "gauge"
-      - "redis_big_inst_avg_read_io_queueL":
-        "type": "gauge"
-      - "redis_big_inst_avg_write_io_queue":
-        "type": "gauge"
-      - "redis_big_io_dels":
-        "type": "counter"
-      - "redis_big_io_ratio_flash":
-        "type": "gauge"
-      - "redis_big_io_ratio_redis":
-        "type": "gauge"
-      - "redis_big_io_read_bytes":
-        "type": "gauge"
-      - "redis_big_io_reads":
-        "type": "gauge"
-      - "redis_big_io_write_bytes":
-        "type": "gauge"
-      - "redis_big_io_writes":
-        "type": "gauge"
-      - "redis_big_user_io_ratio_flash":
-        "type": "gauge"
-      - "redis_big_user_io_ratio_redis":
-        "type": "gauge"
-      - "redis_bigdb_clean":
-        "type": "gauge"
-      - "redis_bigdb_dirty":
-        "type": "gauge"
-      - "redis_bigdb_disk":
-        "type": "gauge"
-      - "redis_bigdb_ram":
-        "type": "gauge"
-      - "redis_blocked_clients":
-        "type": "gauge"
-      - "redis_blocking_reads":
-        "type": "gauge"
-      - "redis_blocking_writes":
-        "type": "gauge"
-      - "redis_connected_clients":
-        "type": "gauge"
-      - "redis_connected_slaves":
-        "type": "gauge"
-      - "redis_current_cow_size":
-        "type": "gauge"
-      - "redis_current_cow_size_age":
-        "type": "gauge"
-      - "redis_current_fork_perc":
-        "type": "gauge"
-      - "redis_db0_avg_ttl":
-        "type": "counter"
-      - "redis_db0_expires":
-        "type": "gauge"
-      - "redis_db0_keys":
-        "type": "gauge"
-      - "redis_db_avg_ttl":
-        "type": "counter"
-      - "redis_db_expires":
-        "type": "gauge"
-      - "redis_db_keys":
-        "type": "gauge"
-      - "redis_disk_allocation":
-        "type": "gauge"
-      - "redis_disk_fragmentation_ratio":
-        "type": "histogram"
-      - "redis_dump_payload_sanitizations":
-        "type": "gauge"
-      - "redis_evicted_keys":
-        "type": "gauge"
-      - "redis_expire_cycle_cpu_milliseconds":
-        "type": "gauge"
-      - "redis_expired_keys":
-        "type": "gauge"
-      - "redis_forwarding_state":
-        "type": "gauge"
-      - "redis_instantaneous_input_kbps":
-        "type": "gauge"
-      - "redis_instantaneous_ops_per_sec":
-        "type": "gauge"
-      - "redis_instantaneous_output_kbps":
-        "type": "gauge"
-      - "redis_keys_trimmed":
-        "type": "gauge"
-      - "redis_keyspace_read_hits":
-        "type": "gauge"
-      - "redis_keyspace_read_misses":
-        "type": "gauge"
-      - "redis_keyspace_write_hits":
-        "type": "gauge"
-      - "redis_keyspace_write_misses":
-        "type": "gauge"
-      - "redis_lazyfreed_objects":
-        "type": "gauge"
-      - "redis_master_link_status":
-        "type": "gauge"
-      - "redis_master_repl_offset":
-        "type": "gauge"
-      - "redis_master_repl_offset2":
-        "type": "gauge"
-      - "redis_master_repl_offset3":
-        "type": "gauge"
-      - "redis_master_repl_offset4":
-        "type": "gauge"
-      - "redis_master_sync_attempts":
-        "type": "gauge"
-      - "redis_master_sync_in_progress":
-        "type": "gauge"
-      - "redis_max_process_mem":
-        "type": "counter"
-      - "redis_max_ram":
-        "type": "counter"
-      - "redis_maxclients":
-        "type": "counter"
-      - "redis_maxmemory":
-        "type": "counter"
-      - "redis_mem_aof_buffer":
-        "type": "gauge"
-      - "redis_mem_clients_normal":
-        "type": "gauge"
-      - "redis_mem_clients_slaves":
-        "type": "gauge"
-      - "redis_mem_fragmentation_ratio":
-        "type": "histogram"
-      - "redis_mem_not_counted_for_evict":
-        "type": "gauge"
-      - "redis_mem_replication_backlog":
-        "type": "gauge"
-      - "redis_module_fork_in_progress":
-        "type": "gauge"
-      - "redis_prefetch_nonblocking":
-        "type": "gauge"
-      - "redis_process_cpu_system_seconds_total":
-        "type": "counter"
-      - "redis_process_cpu_usage_percent":
-        "type": "gauge"
-      - "redis_process_cpu_user_seconds_total":
-        "type": "counter"
-      - "redis_process_main_thread_cpu_system_seconds_total":
-        "type": "counter"
-      - "redis_process_main_thread_cpu_user_seconds_total":
-        "type": "counter"
-      - "redis_process_max_fds":
-        "type": "counter"
-      - "redis_process_open_fds":
-        "type": "gauge"
-      - "redis_process_resident_memory_bytes":
-        "type": "gauge"
-      - "redis_process_start_time_seconds":
-        "type": "counter"
-      - "redis_process_virtual_memory_bytes":
-        "type": "gauge"
-      - "redis_pubsub_channels":
-        "type": "gauge"
-      - "redis_pubsub_patterns":
-        "type": "gauge"
-      - "redis_ram_clean_evictions":
-        "type": "counter"
-      - "redis_ram_del_hit_ratio_flash":
-        "type": "gauge"
-      - "redis_ram_del_hit_ratio_ram":
-        "type": "gauge"
-      - "redis_ram_dirty_evictions":
-        "type": "counter"
-      - "redis_ram_fetch_hit_ratio_flash":
-        "type": "gauge"
-      - "redis_ram_fetch_hit_ratio_ram":
-        "type": "gauge"
-      - "redis_ram_overhead":
-        "type": "gauge"
-      - "redis_ram_write_hit_ratio_flash":
-        "type": "gauge"
-      - "redis_ram_write_hit_ratio_ram":
-        "type": "gauge"
-      - "redis_rdb_bgsave_in_progress":
-        "type": "gauge"
-      - "redis_rdb_changes_since_last_save":
-        "type": "gauge"
-      - "redis_rdb_last_cow_size":
-        "type": "counter"
-      - "redis_rdb_last_save_time":
-        "type": "counter"
-      - "redis_rdb_saves":
-        "type": "gauge"
-      - "redis_repl_touch_bytes":
-        "type": "counter"
-      - "redis_sync_full":
-        "type": "gauge"
-      - "redis_sync_partial_err":
-        "type": "gauge"
-      - "redis_sync_partial_ok":
-        "type": "gauge"
-      - "redis_total_commands_processed":
-        "type": "counter"
-      - "redis_total_connections_received":
-        "type": "counter"
-      - "redis_total_error_replies":
-        "type": "counter"
-      - "redis_total_forks":
-        "type": "counter"
-      - "redis_total_net_input_bytes":
-        "type": "counter"
-      - "redis_total_net_output_bytes":
-        "type": "counter"
-      - "redis_up":
-        "type": "gauge"
-      - "redis_used_disk":
-        "type": "gauge"
-      - "redis_used_memory":
-        "type": "gauge"
-      - "redis_used_memory_dataset":
-        "type": "gauge"
-      - "redis_used_memory_lua":
-        "type": "gauge"
-      - "redis_used_memory_overhead":
-        "type": "gauge"
-      - "redis_used_memory_peak":
-        "type": "counter"
-      - "redis_used_memory_rss":
-        "type": "gauge"
-      - "redis_used_memory_scripts":
-        "type": "gauge"
-      - "redis_used_memory_startup":
-        "type": "gauge"
-      - "redis_used_ram":
-        "type": "gauge"
-      - "redis_wait_busy_key":
-        "type": "gauge"
-
+    ## @param metric_patterns - mapping - optional
+    ## A mapping of metrics to include or exclude, with each entry being a regular expression.
+    ##
+    ## Metrics defined in `exclude` will take precedence in case of overlap.
+    ##
+    ##
+    #
+    # metric_patterns:
+    #   include:
+    #   - <INCLUDE_REGEX>
+    #   exclude:
+    #   - <EXCLUDE_REGEX>
