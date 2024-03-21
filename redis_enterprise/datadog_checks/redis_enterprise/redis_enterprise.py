@@ -1,6 +1,7 @@
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2  # noqa: F401
+from datadog_checks.redis_enterprise.metrics import METRIC_MAP
 
 
 class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
@@ -19,6 +20,11 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         self.endpoint = self.instance.get('openmetrics_endpoint')
         if self.endpoint is None:
             raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
+
+    def get_default_config(self):
+        return {
+            "metrics": [METRIC_MAP],
+        }
 
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
