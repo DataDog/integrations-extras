@@ -21,6 +21,14 @@ With this integration, you can leverage Datadog to monitor your PacketFabric net
 
 Once authorized, the metrics will be sent from PacketFabric to Datadog every 15 minutes as part of a scheduled task. 
 
+
+## Uninstallation
+
+Once this integration has been uninstalled, any previous authorizations are revoked. 
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.  
+
+
 ## Data Collected
 
 ### Metrics
