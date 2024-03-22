@@ -39,7 +39,7 @@ To install the CelerData check on your host:
 
 StarRocks metrics are collected as documented [here][9].
 
-See [metadata.csv][6] for the full list of metrics provided by this check.
+See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
