@@ -25,7 +25,7 @@ To install the CelerData check on your host:
 
 1. Edit the `celerdata.d/conf.yaml` file, in the `conf.d/` folder at the root of your Agent's configuration directory, to start collecting metrics and logs. See the [celerdata.d/conf.yaml.example][3] for all available configuration options.
 
-2. Datadog listens on port 5000 for the dogstatsd_stats_port and expvar_port. In your celerdata.conf file, you will need to change the server.discovery.listen_address and the server.discovery.advertised_address to use a port other than 5000.
+2. Datadog listens on port 5000 for the `dogstatsd_stats_port` and `expvar_port`. In your `celerdata.conf` file, you will need to change the `server.discovery.listen_address` and the `server.discovery.advertised_address` to use a port other than 5000.
 
 3. [Restart the Agent][4].
 
