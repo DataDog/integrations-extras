@@ -1,0 +1,52 @@
+id: loadrunner_professional
+metric_id: loadrunner-professional
+backend_only: false
+facets: []
+pipeline:
+  type: pipeline
+  name: LoadRunner Scenario Information Pipeline
+  enabled: true
+  filter:
+    query: "source:loadrunner_professional"
+  processors:
+    - type: attribute-remapper
+      name: Map attribute `scenario_started.general.version`, `scenario_ended.general.version` to tag `version`
+      enabled: true
+      sources:
+        - scenario_started.general.version
+        - scenario_ended.general.version
+      sourceType: attribute
+      target: version
+      targetType: tag
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `scenario_started.summary.mode` to `loadrunner.scenario.mode`
+      enabled: true
+      sources:
+        - scenario_started.summary.mode
+      sourceType: attribute
+      target: loadrunner.scenario.mode
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `scenario_started.summary.scenario_type` to `loadrunner.scenario.type`
+      enabled: true
+      sources:
+        - scenario_started.summary.scenario_type
+      sourceType: attribute
+      target: loadrunner.scenario.type
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `scenario_started.summary.load_behavior` to `loadrunner.scenario.load_behavior`
+      enabled: true
+      sources:
+        - scenario_started.summary.load_behavior
+      sourceType: attribute
+      target: loadrunner.scenario.load_behavior
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false

@@ -9,13 +9,18 @@
     "uninstallation": "README.md#Uninstallation",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "Visualize data on bandwidth, keyspace, latency, and hit/miss rates from Upstash",
+    "description": "Visualize metrics for databases and kafka clusters from Upstash",
     "title": "Upstash",
     "media": [
       {
         "media_type": "image",
         "caption": "Upstash Database Metrics",
         "image_url": "images/upstash-dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Upstash Kafka Metrics",
+        "image_url": "images/upstash-kafka-overview-dashboard.png"
       }
     ],
     "classifier_tags": [
@@ -38,9 +43,11 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "upstash.db.",
-        "check": "upstash.db.totaldatasize",
-        "metadata_path": "metadata.csv"
+        "prefix": "upstash.",
+        "metadata_path": "metadata.csv",
+        "check": [
+          "upstash.metadata.metric_publish"
+        ]
       },
       "service_checks": {
         "metadata_path": "assets/service_checks.json"
@@ -48,7 +55,9 @@
       "source_type_id": 10412
     },
     "dashboards": {
-      "Upstash-Overview": "assets/dashboards/upstash_overview.json"
+      "Upstash-Overview": "assets/dashboards/upstash_overview.json",
+      "Upstash-Kafka-Overview": "assets/dashboards/upstash_kafka_overview.json"
+
     }
   },
   "author": {
