@@ -15,7 +15,7 @@ Follow the instructions below to install and configure this check for an Agent r
 To install the CelerData check on your host:
 
 1. Download and install the [Datadog Agent][8].
-2. To install the celerdata check on your host:
+2. Install the CelerData check on your host with the following command:
 
    ```shell
    datadog-agent integration install -t datadog-celerdata==1.0.0
