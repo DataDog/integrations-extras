@@ -12,7 +12,7 @@ Follow the instructions below to install and configure this check for an Agent r
 
 ### Installation
 
-To install the CelerData check on your host:
+To collect StarRocks [metrics][9] and logs:
 
 1. Download and install the [Datadog Agent][8].
 2. Install the CelerData check on your host with the following command:
