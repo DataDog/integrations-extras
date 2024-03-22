@@ -42,7 +42,7 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-In the base check, Service check `celerdata_fe.prometheus.health` is submitted for FE component and `celerdata_be.prometheus.health` is submitted for BE component 
+See [service_checks.json][10] for a list of service checks provided by this integration.
 
 ### Events
 
