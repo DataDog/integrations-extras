@@ -58,7 +58,7 @@ Need help? Contact [CelerData support][7].
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/celerdata/metadata.csv
-[7]: todo@starrocks.com
+[7]: support@starrocks.com
 [8]: https://app.datadoghq.com/account/settings/agent/latest
 [9]: https://docs.starrocks.io/docs/administration/metrics/ 
 [10]: https://github.com/DataDog/integrations-extras/blob/master/celerdata/service_checks.json
