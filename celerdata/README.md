@@ -46,7 +46,7 @@ See [service_checks.json][10] for a list of service checks provided by this inte
 
 ### Events
 
-CelerData does not include any events.
+The CelerData integration does not include any events.
 
 ## Troubleshooting
 
