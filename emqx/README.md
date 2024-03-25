@@ -28,7 +28,7 @@ The integration of EMQX with Datadog enriches monitoring capabilities, providing
 
 Manually install the EMQX check (note that [instructions may change based on your environment][2]):
 
-Run `datadog-agent integration install -t datadog-emqx==1.0.0`.
+Run `datadog-agent integration install -t datadog-emqx==1.1.0`.
 
 ### Configuration
 
