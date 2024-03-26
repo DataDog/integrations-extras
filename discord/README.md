@@ -1,55 +1,35 @@
-# Agent Check: Discord
+# Discord
 
 ## Overview
 
-This check monitors [Discord][1].
+Discord is a communication app that lets people connect with each other through text, voice, and video calls. By integrating Datadog with Discord using webhooks you can receive notifications to never miss an important event.
 
 ## Setup
 
-### Installation
+1. Follow the [instructions](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) from Discord on how to create a webhook for a channel you want to recieve notifications to.
 
-To install the Discord check on your host:
+2. Navigate to the [webhook integration tile](https://app.datadoghq.com/integrations/webhooks) in Datadog and click "New" in the Webhooks section under the Configuration tab.
 
+3. Name your webhook and paste the URL you copied from Discord. Note that you do not need to add an auth-method.
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
+4. You can customize your payload or copy-paste the template below. See the [webhook documentation](https://docs.datadoghq.com/integrations/webhooks/#usage) for more details on available variables.
 
-2. Run `ddev release build discord` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/discord/dist/<ARTIFACT_NAME>.whl`.
-
-### Configuration
-
-!!! Add list of steps to set up this integration !!!
-
-### Validation
-
-!!! Add steps to validate integration is functioning as expected !!!
-
-## Data Collected
-
-### Metrics
-
-Discord does not include any metrics.
-
-### Service Checks
-
-Discord does not include any service checks.
-
-### Events
-
-Discord does not include any events.
+```json
+{
+   "embeds":[
+      {
+         "title":"$EVENT_TITLE",
+         "description":"$EVENT_MSG",
+         "url":"$LINK",
+         "color":"3407966",
+         "image":{
+            "url":"$SNAPSHOT"
+         }
+      }
+   ]
+}
+```
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
-
-[1]: **LINK_TO_INTEGRATION_SITE**
-[2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/help/
-
+Need help? Contact [Datadog support](https://docs.datadoghq.com/help/)
