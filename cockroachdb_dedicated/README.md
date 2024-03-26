@@ -2,9 +2,7 @@
  
 ## Overview
 
-The CockroachDB Cloud integration for Datadog enables data collection and alerting on a subset of CockroachDB metrics using the Datadog platform. For more context, go to [CockroachDB Essential Metrics][1].
-
-**NOTE**: link for Essential Metrics Standard does NOT exist yet in public docs
+The CockroachDB Cloud integration for Datadog enables data collection and alerting on a subset of CockroachDB metrics using the Datadog platform. 
 
 ## Setup
  
@@ -95,8 +93,8 @@ Need help? Contact [Datadog support][12].
 [2]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [3]: https://docs.datadoghq.com/getting_started/site/
 [4]: https://docs.datadoghq.com/infrastructure/list/
-[5]: https://docs.datadoghq.com/dashboards/#dashboard-list
-[6]: https://docs.datadoghq.com/dashboards/#clone-dashboard
+[5]: https://app.datadoghq.com/dashboard/lists
+[6]: https://docs.datadoghq.com/dashboards/configure/#configuration-actions
 [7]: https://docs.datadoghq.com/dashboards/#new-dashboard
 [8]: https://docs.datadoghq.com/integrations/cockroachdb_dedicated/#data-collected
 [9]: https://docs.datadoghq.com/metrics/explorer/
