@@ -37,7 +37,7 @@ See [metadata.csv][4] for a list of metrics provided by this integration.
 
 ## Support
 
-Need help? Contact [packetfabric support](mailto:support@packetfabric.com).
+Need help? Contact [PacketFabric Support](mailto:support@packetfabric.com).
 
 [1]: https://packetfabric.com
 [2]: https://packetfabric.com/locations
