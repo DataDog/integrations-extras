@@ -1,0 +1,205 @@
+{
+    "title": "PacketFabric Metrics Dashboard",
+    "description": "PacketFabric Metrics Dashboard",
+    "widgets": [
+        {
+            "id": 6804467254389060,
+            "definition": {
+                "type": "image",
+                "url": "https://packetfabric.com/wp-content/themes/packet-fabric/assets/images//brand-assets/brand-primary-logo-light_revised-01.svg",
+                "url_dark_theme": "https://packetfabric.com/wp-content/themes/packet-fabric/assets/images//brand-assets/brand-primary-logo-dark_revised-01.svg",
+                "sizing": "cover",
+                "has_background": false,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 4,
+                "height": 2
+            }
+        },
+        {
+            "id": 175153342819654,
+            "definition": {
+                "type": "note",
+                "content": "[PacketFabric](https://packetfabric.com) is a global Network as a Service (NaaS) provider that offers secure, private, and on-demand connectivity services. \n\nThe following graphs provide real-time information on the traffic within your PacketFabric network. \n\nIf you are experiencing traffic anomalies, first check [our troubleshooting documentation](https://docs.packetfabric.com/ts/troubleshooting_ifd/). If you still need help, [open a support ticket](https://docs.packetfabric.com/ts/support/support_ticket/) or call our support line at 1-844-475-8322 #2. ",
+                "background_color": "white",
+                "font_size": "16",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+            },
+            "layout": {
+                "x": 4,
+                "y": 0,
+                "width": 8,
+                "height": 2
+            }
+        },
+        {
+            "id": 4911814312169176,
+            "definition": {
+                "title": "Network Summary",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2119410003068506,
+                        "definition": {
+                            "title": "Physical Interfaces Traffic Rate Metrics",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:ifd_traffic_rate_metric{*}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 10,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 2523458566626476,
+                        "definition": {
+                            "type": "note",
+                            "content": "Traffic rate metrics for physical interfaces (IFD). \n\nUpdated every 15 minutes. ",
+                            "background_color": "gray",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 10,
+                            "y": 0,
+                            "width": 2,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 8954267971892974,
+                        "definition": {
+                            "title": "Logical Interfaces Traffic Rate Metrics",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": true,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "name": "query1",
+                                            "data_source": "metrics",
+                                            "query": "avg:ifl_traffic_rate_metric{*}"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 10,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 7668210533301478,
+                        "definition": {
+                            "type": "note",
+                            "content": "Traffic rate metrics for logical interfaces (IFL).\n\nUpdated every 15 minutes. ",
+                            "background_color": "white",
+                            "font_size": "16",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": true,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 10,
+                            "y": 3,
+                            "width": 2,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 12,
+                "height": 7,
+                "is_column_break": true
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
