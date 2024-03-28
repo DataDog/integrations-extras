@@ -1,6 +1,6 @@
 # CHANGELOG - moovingon.ai
 
-## R80.5 / 2024-03-28
+## 1.0.0 / 2024-03-28
 
 ***Added***:
 
