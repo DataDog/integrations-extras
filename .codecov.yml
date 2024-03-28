@@ -231,6 +231,10 @@ coverage:
         target: 75
         flags:
         - zenoh_router
+      celerdata:
+        target: 75
+        flags:
+        - celerdata
       cfssl:
         target: 75
         flags:
@@ -307,6 +311,11 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
+  celerdata:
+    carryforward: true
+    paths:
+    - celerdata/datadog_checks/celerdata
+    - celerdata/tests
   cfssl:
     carryforward: true
     paths:
