@@ -32,25 +32,19 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
                 elif metric.name.startswith("neo4j_database_"):
-                    db_name, _, final_metric_name = metric.name.replace(
-                        "neo4j_database_", "", 1
-                    ).partition("_")
+                    db_name, _, final_metric_name = metric.name.replace("neo4j_database_", "", 1).partition("_")
                     if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
                         cached_metric_data[metric.name] = None
                         return
                 elif metric.name.startswith("neo4j_transaction_"):
-                    db_name, _, final_metric_name = metric.name.replace(
-                        "neo4j_transaction_", "", 1
-                    ).partition("_")
+                    db_name, _, final_metric_name = metric.name.replace("neo4j_transaction_", "", 1).partition("_")
                     if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
                         cached_metric_data[metric.name] = None
                         return
                 else:
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith(
-                        "5."
-                    ):
+                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith("5."):
                         if metric.name.startswith("neo4j_"):
                             raw_metric_name = metric.name.replace("neo4j_", "", 1)
                         else:
@@ -63,9 +57,7 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
                                 break
 
                 db_tag = f"db_name:{db_name}"
-                transformer = NATIVE_TRANSFORMERS[metric.type](
-                    self, final_metric_name, {}, {}
-                )
+                transformer = NATIVE_TRANSFORMERS[metric.type](self, final_metric_name, {}, {})
                 cached_metric_data[metric.name] = (transformer, db_tag)
 
             new_sample_data = []
@@ -78,9 +70,7 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
         return custom_transformer
 
     def configure_additional_transformers(self):
-        metric_transformer = self.scrapers[
-            self.config.openmetrics_endpoint
-        ].metric_transformer
+        metric_transformer = self.scrapers[self.config.openmetrics_endpoint].metric_transformer
 
         for raw_metric_name, metric_name in METRIC_MAP.items():
             metric_transformer.add_custom_transformer(
