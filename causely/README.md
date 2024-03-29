@@ -2,29 +2,27 @@
 
 ## Overview
 
+In the fast-paced world of cloud-native development, ensuring application health and performance is critical. The application of Causal AI, with its ability to understand cause and effect relationships in complex distributed systems, offers the potential to streamline this process.
 
-Our [Causal AI platform][1] automatically captures, represents and analyzes causality. We enable self-managed, resilient applications by bridging observability with automated orchestration.  Instead of constant noisy alerts, Causely tells you exactly what you need to know about all active and emerging application failures:
+A key enabler for this is application instrumentation that facilitates an understanding of application services and how they interact with one another. Datadog Application Performance Monitoring (APM) provides deep visibility into applications, enabling the identification of performance bottlenecks, troubleshoot issues, and optimize services.
 
-- Why did it happen?
-- What was the root cause?
-- How can it be fixed?
+The [Causal AI platform][1] automatically captures, represents and analyzes causality. It enables self-managed, resilient applications by bridging observability with automated orchestration. 
 
-## What Causely offers:
+Instead of flood of alerts, Causely tells you exactly what you need to know about all active and emerging application failures. With Causely, understand why a failure happened, what the root cause was, and how to fix it.
 
-### Assure Continuous Application Reliability
-- Guarantee that KPIs, SLAs, SLOs, and SLIs are consistently met to maintain application reliability and performance.
-### Improve Operational Efficiency
-- Reduce labor, data, and tooling costs by focusing on faster Mean Time to Repair (MTTR) and implementing efficient operational processes.
-### Accelerate The Delivery Of Features & Innovations
-- Enhance the speed and reliability of shipping new services and features to market, ensuring a competitive edge and meeting customer demands promptly.
+Use Causely to:
+
+- **Assure continuous application reliability**: Guarantee that KPIs, SLAs, SLOs, and SLIs are consistently met to maintain application reliability and performance.
+- **Improve operational efficiency**: Reduce labor, data, and tooling costs by focusing on faster Mean Time to Repair (MTTR) and implementing efficient operational processes.
+- **Accelerate the delivery of features and innovations**: Enhance the speed and reliability of shipping new services and features to market, ensuring a competitive edge and meeting customer demands promptly.
 
 ## Setup
 
 The Causely integration uses a [Datadog API key][2], which needs to be created by a Datadog admin.
 
-To connect Datadog with Causely, create monitors in Datadog. Refer to Datadog's [Alerting documentation][3].
+To connect Datadog with Causely, create monitors in Datadog. For more information, see the [Alerting documentation][3].
 
-See the [Causely documentation][4] to learn how to configure the Causely integration for Datadog.
+To learn how to configure the Causely integration for Datadog, see the [Causely documentation][4].
 
 ## Support
 
