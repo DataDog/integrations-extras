@@ -28,7 +28,7 @@ class AuthToken(BaseModel):
 class ExtraMetric(BaseModel):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra='allow',
+        extra="allow",
         frozen=True,
     )
     name: Optional[str] = None
@@ -47,7 +47,7 @@ class MetricPatterns(BaseModel):
 class Metric(BaseModel):
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra='allow',
+        extra="allow",
         frozen=True,
     )
     name: Optional[str] = None
@@ -95,9 +95,13 @@ class InstanceConfig(BaseModel):
     enable_health_service_check: Optional[bool] = None
     exclude_labels: Optional[tuple[str, ...]] = None
     exclude_metrics: Optional[tuple[str, ...]] = None
-    exclude_metrics_by_labels: Optional[MappingProxyType[str, Union[bool, tuple[str, ...]]]] = None
+    exclude_metrics_by_labels: Optional[
+        MappingProxyType[str, Union[bool, tuple[str, ...]]]
+    ] = None
     extra_headers: Optional[MappingProxyType[str, Any]] = None
-    extra_metrics: Optional[tuple[Union[str, MappingProxyType[str, Union[str, ExtraMetric]]], ...]] = None
+    extra_metrics: Optional[
+        tuple[Union[str, MappingProxyType[str, Union[str, ExtraMetric]]], ...]
+    ] = None
     headers: Optional[MappingProxyType[str, Any]] = None
     histogram_buckets_as_distributions: Optional[bool] = None
     hostname_format: Optional[str] = None
@@ -114,9 +118,11 @@ class InstanceConfig(BaseModel):
     kerberos_principal: Optional[str] = None
     log_requests: Optional[bool] = None
     metric_patterns: Optional[MetricPatterns] = None
-    metrics: Optional[tuple[Union[str, MappingProxyType[str, Union[str, Metric]]], ...]] = None
+    metrics: Optional[
+        tuple[Union[str, MappingProxyType[str, Union[str, Metric]]], ...]
+    ] = None
     min_collection_interval: Optional[float] = None
-    namespace: Optional[str] = Field(None, pattern='\\w*')
+    namespace: Optional[str] = Field(None, pattern="\\w*")
     neo4j_dbs: Optional[tuple[str, ...]] = None
     neo4j_version: Optional[str] = None
     non_cumulative_histogram_buckets: Optional[bool] = None
@@ -149,21 +155,27 @@ class InstanceConfig(BaseModel):
     use_process_start_time: Optional[bool] = None
     username: Optional[str] = None
 
-    @model_validator(mode='before')
+    @model_validator(mode="before")
     def _initial_validation(cls, values):
-        return validation.core.initialize_config(getattr(validators, 'initialize_instance', identity)(values))
+        return validation.core.initialize_config(
+            getattr(validators, "initialize_instance", identity)(values)
+        )
 
-    @field_validator('*', mode='before')
+    @field_validator("*", mode="before")
     def _validate(cls, value, info):
         field = cls.model_fields[info.field_name]
         field_name = field.alias or info.field_name
-        if field_name in info.context['configured_fields']:
-            value = getattr(validators, f'instance_{info.field_name}', identity)(value, field=field)
+        if field_name in info.context["configured_fields"]:
+            value = getattr(validators, f"instance_{info.field_name}", identity)(
+                value, field=field
+            )
         else:
-            value = getattr(defaults, f'instance_{info.field_name}', lambda: value)()
+            value = getattr(defaults, f"instance_{info.field_name}", lambda: value)()
 
         return validation.utils.make_immutable(value)
 
-    @model_validator(mode='after')
+    @model_validator(mode="after")
     def _final_validation(cls, model):
-        return validation.core.check_model(getattr(validators, 'check_instance', identity)(model))
+        return validation.core.check_model(
+            getattr(validators, "check_instance", identity)(model)
+        )
