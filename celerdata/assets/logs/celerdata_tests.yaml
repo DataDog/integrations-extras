@@ -1,17 +1,30 @@
-id: celerdata
+id: "celerdata"
 tests:
-  - sample: >-
-      2024-03-28 19:58:43,380 INFO (nioEventLoopGroup-4-3|154)
-      [RestBaseAction.handleRequest():73] receive http request. url=/api/health
-
-      I0328 18:39:15.387961   687 daemon.cpp:177] Current memory statistics: process(126340128), query_pool(0), load(0), metadata(106535), compaction(0), schema_change(0), column_pool(0), page_cache(0), update(0), chunk_allocator(0), clone(0), consistency(0)
-
-      2024-03-28 19:58:43,380 INFO (nioEventLoopGroup-4-3|154) [RestBaseAction.handleRequest():73] receive http request. url=/api/health
-
-      I0328 18:39:15.387961   687 daemon.cpp:177] Current memory statistics: process(126340128), query_pool(0), load(0), metadata(106535), compaction(0), schema_change(0), column_pool(0), page_cache(0), update(0), chunk_allocator(0), clone(0), consistency(0)
-    result: null
-
-# The `result` field should be left blank to start. Once you submit your log asset files with
-# your integration pull-request in a Datadog GitHub repository, Datadog's validations will
-# run your raw logs against your pipeline and return the result. If the result output in the
-# validation is accurate, take the output and add it to the `result` field in your test YAML file.
+ -
+  sample: "2024-03-28 10:21:53,960 INFO (main|1) [AuthorizationMgr.initBuiltinRoleUnlocked():282] create built-in role cluster_admin[-3]"
+  result:
+    custom:
+      class_name: "AuthorizationMgr"
+      file_line: 282.0
+      loglevel: "INFO"
+      method_name: "initBuiltinRoleUnlocked"
+      timestamp: 1711621313960
+    message: "create built-in role cluster_admin[-3]"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1711621313960
+ -
+  sample: "I0328 10:22:09.303526 1066 olap_server.cpp:844] try to perform path gc by tablet!"
+  result:
+    custom:
+      file_line: 844.0
+      file_name: "olap_server.cpp"
+      loglevel: "I"
+      thread_id: 1066.0
+      timestamp: 39003729303
+    message: "try to perform path gc by tablet!"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 39003729303

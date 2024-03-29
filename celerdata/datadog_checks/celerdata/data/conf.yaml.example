@@ -2,13 +2,24 @@
 #
 instances:
 
+  -
+    ## @param tags - list of strings - optional
+    ## Tags to be sent with the metrics.
+    ## If you're collecting metrics of FE component, use tags which has service:fe.
+    ## If you're collecting metrics of BE component, use tags which has service:be.
+    ## If you're collecting metrics of CN component, use tags which has service:cn.
+    #
+    # tags:
+    #   - <KEY_1>:<VALUE_1>
+    #   - <KEY_2>:<VALUE_2>
+
     ## @param openmetrics_endpoint - string - required
     ## The URL exposing metrics in the OpenMetrics format.
     ## You should configure this based on the component you're monitoring.
     ## For FE component, use something like http://127.0.0.1:8030/metrics
-    ## For BE component, use something like http://127.0.0.1:8040/metrics
+    ## For BE/CN component, use something like http://127.0.0.1:8040/metrics
     #
-  - openmetrics_endpoint: http://127.0.0.1:8030/metrics
+    openmetrics_endpoint: http://127.0.0.1:8030/metrics
 
     ## @param raw_metric_prefix - string - optional
     ## A prefix that is removed from all exposed metric names, if present.
@@ -539,15 +550,6 @@ instances:
     #
     # allow_redirects: true
 
-    ## @param tags - list of strings - optional
-    ## A list of tags to attach to every metric and service check emitted by this instance.
-    ##
-    ## Learn more about tagging at https://docs.datadoghq.com/tagging
-    #
-    # tags:
-    #   - <KEY_1>:<VALUE_1>
-    #   - <KEY_2>:<VALUE_2>
-
     ## @param service - string - optional
     ## Attach the tag `service:<SERVICE>` to every metric, event, and service check emitted by this integration.
     ##
@@ -624,7 +626,7 @@ instances:
 #     source: celerdata
 #   - type: file
 #     path: /path/to/be.INFO
-#     service: starrocks_be
+#     service: be
 #     source: celerdata
 #   - type: file
 #     path: /path/to/be.out
