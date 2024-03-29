@@ -10,6 +10,18 @@ METRIC_MAP = {
     'bolt_messages_failed': 'bolt.messages_failed',
     'bolt_messages_received': 'bolt.messages_received',
     'bolt_messages_started': 'bolt.messages_started',
+    'bolt_driver_api_managed_transaction_function_calls': (
+        'bolt_driver_api_managed_transaction_function_calls'
+    ),
+    'bolt_driver_api_unmanaged_transaction_function_calls': (
+        'bolt_driver_api_unmanaged_transaction_function_calls'
+    ),
+    'bolt_driver_api_implicit_transaction_function_calls': (
+        'bolt_driver_api_implicit_transaction_function_calls'
+    ),
+    'bolt_driver_api_execute_calls': (
+        'bolt_driver_api_execute_calls'
+    ),
     # causal clustering metrics (5.x)
     'cluster_catchup_tx_pull_requests_received': 'cluster.catchup_tx_pull_requests_received',
     # cluster core
@@ -340,6 +352,7 @@ METRIC_MAP = {
     # database data count metrics
     'neo4j_count_node': 'node_count',
     'neo4j_count_relationship': 'relationship_count',
+    'neo4j_count_relationship_types': 'relationships_types_count',
     # database data metrics
     'ids_in_use_node': 'ids_in_use.node',
     'ids_in_use_property': 'ids_in_use.property',
@@ -391,6 +404,8 @@ METRIC_MAP = {
     'page_cache_eviction_exceptions': 'page_cache.eviction_exceptions',
     'page_cache_evictions': 'page_cache.evictions',
     'page_cache_evictions_cooperative': 'page_cache.evictions_cooperative',
+    'page_cache_evictions_flushes': 'page_cache.evictions_flushes',
+    'page_cache_evictions_cooperative_flushes': 'page_cache.evictions_cooperative_flushes',
     'page_cache_flushes': 'page_cache.flushes',
     'page_cache_hits': 'page_cache.hits',
     'page_cache_hit_ratio': 'page_cache.hit_ratio',
