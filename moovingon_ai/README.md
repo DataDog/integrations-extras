@@ -10,7 +10,7 @@ With [moovingon.ai](http://moovingon.ai/), you can achieve unparalleled control 
 
 ### Installation
 
-To install moovingon.ai Datadog integration, please log into the moovingon.ai platform:
+To install the moovingon.ai Datadog integration, log into the moovingon.ai platform, then follow the below steps:
 
 1. Navigate to **Integrations** and select **Add Datadog**.
 
