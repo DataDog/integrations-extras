@@ -1,7 +1,7 @@
 # moovingon.ai
 
 ## Overview
-[moovingon.ai](http://moovingon.ai/) offers a platform to help organizations manage their 24/7 operations using automated processes and centralized monitoring management. The platform includes alert aggregation and correlation, automatically linked with runbooks and an analytics engine for reports and dashboards.
+[moovingon.ai][1] offers a platform to help organizations manage their 24/7 operations using automated processes and centralized monitoring management. The platform includes alert aggregation and correlation, automatically linked with runbooks and an analytics engine for reports and dashboards.
 
 This integration will enable you to:
 
