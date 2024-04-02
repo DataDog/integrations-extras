@@ -1,9 +1,13 @@
 # moovingon.ai
 
 ## Overview
-[moovingon.ai](http://moovingon.ai/) revolutionizes the management of 24/7 operations for organizations through advanced AIOps and runbook automation. It serves start-ups, scale-ups, and global enterprises alike by seamlessly integrating into your infrastructure and simplifying the complexities of cloud operations management.
+[moovingon.ai](http://moovingon.ai/) offers a platform to help organizations manage their 24/7 operations using automated processes and centralized monitoring management. The platform includes alert aggregation and correlation, automatically linked with runbooks and an analytics engine for reports and dashboards.
 
-With [moovingon.ai](http://moovingon.ai/), you can achieve unparalleled control and efficiency. It orchestrates monitoring, productivity, and escalation processes across your entire organization. Our technology adapts to your unique tech stack and workflows, providing a centralized hub for comprehensive observability and consistent operations. Experience over 90% automated healing to focus on strategic initiatives and reduce operational costs.
+This integration will enable you to:
+
+1. Consolidate all your datadog alerts under a centralized platform.
+2. Automatically link incident remediation runbooks with alerts. 
+3. Log all remediation activities in datadog events. 
 
 
 ## Setup
