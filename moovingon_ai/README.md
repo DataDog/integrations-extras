@@ -31,7 +31,9 @@ moovingon.ai does not include any metrics.
 ### Service Checks
 
 moovingon.ai does not include any service checks.
+### Events
 
+The moovingon integration includes events.
 
 ## Troubleshooting
 
