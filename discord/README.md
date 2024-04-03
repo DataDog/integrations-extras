@@ -1,6 +1,6 @@
 ## Overview
 
-Discord is a communication app that lets people connect with each other through text, voice, and video calls. By integrating Datadog with Discord using webhooks you can receive notifications to never miss an important event.
+Discord is a communication app that lets people connect with each other through text, voice, and video calls. By integrating Datadog with Discord using webhooks, you can receive notifications and never miss an important event.
 
 ## Setup
 
