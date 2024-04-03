@@ -30,4 +30,6 @@ Discord is a communication app that lets people connect with each other through 
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support](https://docs.datadoghq.com/help/)
+Need help? Contact [Datadog support][1]
+
+[1]: https://docs.datadoghq.com/help/
