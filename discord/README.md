@@ -4,7 +4,7 @@ Discord is a communication app that lets people connect with each other through 
 
 ## Setup
 
-1. Follow the [instructions](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) from Discord on how to create a webhook for a channel you want to recieve notifications to.
+1. Follow Discord's [instructions](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) on how to create a webhook to send notifications to a specific channel.
 
 2. Navigate to the [webhook integration tile](https://app.datadoghq.com/integrations/webhooks) in Datadog and click "New" in the Webhooks section under the Configuration tab.
 
