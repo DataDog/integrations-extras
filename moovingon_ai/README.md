@@ -14,15 +14,13 @@ This integration will enable you to:
 
 ### Installation
 
-To install the moovingon.ai Datadog integration, log into the moovingon.ai platform, then follow the below steps:
+1. Click on **Connect Accounts** in order to login into moovingon.ai.
 
-1. Navigate to **Integrations** and select **Add Datadog**.
-
-2. Enter a name for the integration and **Submit**.
+2. Enter a name for the datadog integration and **Submit**.
 
 3. Proceed to the Datadog OAuth2 screen and click on the **authorize** button.
 
-4. **(Optional)** To receive events from all monitors, edit and click on **install/update the webhook**.
+4. **(Optional)** To receive events from all monitors, click on **install/update the webhook**.
 
 ### Metrics
 
