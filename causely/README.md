@@ -2,10 +2,6 @@
 
 ## Overview
 
-In the fast-paced world of cloud-native development, ensuring application health and performance is critical. The application of Causal AI, with its ability to understand cause and effect relationships in complex distributed systems, offers the potential to streamline this process.
-
-A key enabler for this is application instrumentation that facilitates an understanding of application services and how they interact with one another. Datadog Application Performance Monitoring (APM) provides deep visibility into applications, enabling the identification of performance bottlenecks, troubleshoot issues, and optimize services.
-
 The [Causal AI platform][1] automatically captures, represents and analyzes causality. It enables self-managed, resilient applications by bridging observability with automated orchestration. 
 
 Instead of flood of alerts, Causely tells you exactly what you need to know about all active and emerging application failures. With Causely, understand why a failure happened, what the root cause was, and how to fix it.
@@ -18,11 +14,7 @@ Use Causely to:
 
 ## Setup
 
-The Causely integration uses a [Datadog API key][2], which needs to be created by a Datadog admin.
-
-To connect Datadog with Causely, create monitors in Datadog. For more information, see the [Alerting documentation][3].
-
-To learn how to configure the Causely integration for Datadog, see the [Causely documentation][4].
+Causely uses the [Datadog API key][2] to fetch the configured monitors and use the triggered Watchdog events as input to the Causal AI reasoning platform. Causely analyzes the events and identifies the root cause of the anomalies and alerts.  To learn how to configure the Causely integration for Datadog, see the [Causely documentation][4].
 
 ## Support
 
