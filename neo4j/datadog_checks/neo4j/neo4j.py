@@ -1,14 +1,16 @@
+from packaging import version
+
 from datadog_checks.base import OpenMetricsBaseCheckV2
 from datadog_checks.base.checks.openmetrics.v2.transform import NATIVE_TRANSFORMERS
 
 from .config_models import ConfigMixin
 from .metrics import METRIC_MAP
 
-GLOBAL_DB_NAME = "global"
+GLOBAL_DB_NAME = 'global'
 
 
 class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
-    __NAMESPACE__ = "neo4j"
+    __NAMESPACE__ = 'neo4j'
 
     DEFAULT_METRIC_LIMIT = 0
 
@@ -28,35 +30,35 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
 
                 transformer, db_tag = data
             else:
-                if metric.name.startswith("neo4j_dbms_"):
+                if metric.name.startswith('neo4j_dbms_'):
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                elif metric.name.startswith("neo4j_database_"):
-                    db_name, _, final_metric_name = metric.name.replace("neo4j_database_", "", 1).partition("_")
+                elif metric.name.startswith('neo4j_database_'):
+                    db_name, _, final_metric_name = metric.name.replace('neo4j_database_', '', 1).partition('_')
                     if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
                         cached_metric_data[metric.name] = None
                         return
-                elif metric.name.startswith("neo4j_transaction_"):
-                    db_name, _, final_metric_name = metric.name.replace("neo4j_transaction_", "", 1).partition("_")
+                elif metric.name.startswith('neo4j_transaction_'):
+                    db_name, _, final_metric_name = metric.name.replace('neo4j_transaction_', '', 1).partition('_')
                     if self.config.neo4j_dbs and db_name not in self.config.neo4j_dbs:
                         cached_metric_data[metric.name] = None
                         return
                 else:
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith("5."):
-                        if metric.name.startswith("neo4j_"):
-                            raw_metric_name = metric.name.replace("neo4j_", "", 1)
+                    if self.config.neo4j_dbs and version.parse(self.config.neo4j_version) >= version.parse("4.3"):
+                        if metric.name.startswith('neo4j_'):
+                            raw_metric_name = metric.name.replace('neo4j_', '', 1)
                         else:
                             raw_metric_name = metric.name
 
                         for db in self.config.neo4j_dbs:
-                            prefix = f"{db}_"
+                            prefix = f'{db}_'
                             if raw_metric_name.startswith(prefix):
                                 db_name = db
                                 break
 
-                db_tag = f"db_name:{db_name}"
+                db_tag = f'db_name:{db_name}'
                 transformer = NATIVE_TRANSFORMERS[metric.type](self, final_metric_name, {}, {})
                 cached_metric_data[metric.name] = (transformer, db_tag)
 
@@ -74,7 +76,5 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
 
         for raw_metric_name, metric_name in METRIC_MAP.items():
             metric_transformer.add_custom_transformer(
-                f".*?{raw_metric_name}$",
-                self.configure_transformer(metric_name),
-                pattern=True,
+                f'.*?{raw_metric_name}$', self.configure_transformer(metric_name), pattern=True
             )
