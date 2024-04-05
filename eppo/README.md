@@ -2,56 +2,45 @@
 
 ## Overview
 
-[Eppo][1]
+[Eppo][1] is the experimentation and feature management platform that makes advanced A/B testing accessible to everyone in your organization.
 
 The Datadog Eppo RUM integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
 
 ## Setup
 
-### Installation
+Feature flag tracking is available in the RUM Browser SDK. For detailed set up instructions, visit the [Getting started with Feature Flag data in RUM][2] guide.
 
-To install the Eppo check on your host:
+1. Update your Browser RUM SDK version to 4.25.0 or above.
+2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
+3. Initialize Eppo's SDK with the `datadogRum` option, which reports feature flag evaluations to Datadog using the snippet of code shown below. A javascript example is below.
 
+```typescript
+const assignmentLogger: IAssignmentLogger = {
+  logAssignment(assignment) {
+    // Send the assignment event to customers' event logging
+    analytics.track({
+      userId: assignment.subject,
+      event: "Eppo Randomized Assignment",
+      type: "track",
+      properties: { ...assignment },
+    });
 
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
+    // Assuming `exposure` is defined in this context and has a property `variation`
+    datadogRum.addFeatureFlagEvaluation(assignment.experiment, exposure.variation);
+  },
+};
 
-2. Run `ddev release build eppo` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/eppo/dist/<ARTIFACT_NAME>.whl`.
-
-### Configuration
-
-!!! Add list of steps to set up this integration !!!
-
-### Validation
-
-!!! Add steps to validate integration is functioning as expected !!!
-
-## Data Collected
-
-### Metrics
-
-Eppo does not include any metrics.
-
-### Service Checks
-
-Eppo does not include any service checks.
-
-### Events
-
-Eppo does not include any events.
+await eppoInit({
+  apiKey: "<API_KEY>",
+  assignmentLogger,
+});
+```
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? See the [Eppo documentation][3] or contact [Datadog Support][4].
 
 [1]: https://www.geteppo.com/
-[2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/help/
-
+[2]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
+[3]: https://docs.geteppo.com/sdks/datadog
+[4]: https://docs.datadoghq.com/help/
