@@ -5,9 +5,9 @@
 
 This integration will enable you to:
 
-1. Consolidate all your datadog alerts under a centralized platform.
-2. Automatically link incident remediation runbooks with alerts. 
-3. Log all remediation activities in datadog events. 
+1. **Streamline Alert Management**: Easily generate alerts to moovingon.ai, automating necessary steps for swift issue resolution.
+2. **Comprehensive Tracking**: Transmit every action performed in moovingon.ai to Datadog events, establishing clear timeline between monitoring data and remediation efforts within Datadog.
+3. **Dashboard Access**: Access a centralized dashboard for holistic oversight and analysis of your alerts, remediation processes, and monitoring activities.
 
 
 ## Setup
