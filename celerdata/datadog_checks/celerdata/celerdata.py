@@ -1,4 +1,5 @@
 from datadog_checks.base import OpenMetricsBaseCheckV2
+from datadog_checks.celerdata.metrics import METRIC_MAP
 
 
 class CelerdataCheck(OpenMetricsBaseCheckV2):
@@ -12,6 +13,6 @@ class CelerdataCheck(OpenMetricsBaseCheckV2):
         Returns the default OpenMetrics configuration.
         """
         return {
-            'metrics': ['.*'],
+            'metrics': [METRIC_MAP],
             'exclude_metrics': [r'.*8060.*'],
         }

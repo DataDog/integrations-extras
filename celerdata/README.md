@@ -2,9 +2,9 @@
 
 ## Overview
 
-[CelerData][1], based on the open source project StarRocks, is a commercial SQL engine designed for high-speed data analytics directly on your data lake house. It offers a cloud-managed solution that enhances the performance and scalability of running complex queries and workloads.
+[CelerData][1] is the enterprise version of the open source OLAP database StarRocks.  StarRocks/CelerData is designed for low latency analytics directly on your data lake house.
 
-This integration allows users to collect Prometheus metrics and logs. By leveraging this integration, customers can gain insights into query performance, system health, and resource utilization, enabling them to optimize their data analytics operations effectively.
+This integration allows users to collect metrics and logs. By leveraging this integration, customers can gain insights into query performance, system health, and resource utilization, enabling them to have visibility into the database.
 
 ## Setup
 
