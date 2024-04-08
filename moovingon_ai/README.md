@@ -1,13 +1,15 @@
 # moovingon.ai
 
 ## Overview
-[moovingon.ai][1] offers a platform to help organizations manage their 24/7 operations using automated processes and centralized monitoring management. The platform includes alert aggregation and correlation, automatically linked with runbooks and an analytics engine for reports and dashboards.
+[moovingon.ai][1] is a platform for cloud operations and NOC management. It consolidates alerts across your observability suite and associates them with automated runbooks for alert and incident remediation. By integrating this, you can utilize the power of Datadog and moovingon.ai for efficient, automated incident management.
 
-This integration will enable you to:
+moovingon.ai uses Datadog’s monitors, logs, and event data for alert correlation and aggregation.
+Key features of this integration include:
 
-1. **Streamline Alert Management**: Easily generate alerts to moovingon.ai, automating necessary steps for swift issue resolution.
-2. **Comprehensive Tracking**: Transmit every action performed in moovingon.ai to Datadog events, establishing clear timeline between monitoring data and remediation efforts within Datadog.
-3. **Dashboard Access**: Access a centralized dashboard for holistic oversight and analysis of your alerts, remediation processes, and monitoring activities.
+1. **Focused Alert Management**: Bring all your Datadog alerts together in moovinon.ai easy-to-view dashboard, giving you simple control and clear visibility.
+2. **Comprehensive incident management**: Log all remediation actions performed in moovingon.ai in Datadog events for compliance and remediation clarity.
+3. **Extensive Analysis**: Utilize the analytics provided by moovingon.ai to derive insights from Datadog alerts. This assists in proactive decision-making and trend analysis.
+
 
 
 ## Setup
@@ -15,12 +17,17 @@ This integration will enable you to:
 ### Installation
 
 1. Click on **Connect Accounts** in order to login into moovingon.ai.
-
 2. Enter a name for the datadog integration and **Submit**.
-
 3. Proceed to the Datadog OAuth2 screen and click on the **authorize** button.
-
 4. **(Optional)** To receive events from all monitors, click on **install/update the webhook**.
+
+## Uninstallation
+
+1. Inside the moovingon.ai account, Go to **Settings** --> **Templates** and remove all the related datadog templates.
+2. Go to **Setings** --> **Integrations** and remove the datadog integration.
+3. Inside Datadog, **Integrations**  --> **Integrations**.
+4. Click the moovingon.ai tile and click on **Uninstall integration**.
+
 
 ### Metrics
 
