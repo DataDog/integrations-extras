@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  redis:
+    image: redislabs/redis:latest
+    platform: linux/amd64
+    cap_add:
+      - SYS_RESOURCE
+    ports:
+     - "6379:6379"
+     - "8070:8070"
+     - "8443:8443"
+     - "9443:9443"
+     - "12000-12001:12000-12001"
+    networks:
+      - datadog
+networks:
+  datadog: {}

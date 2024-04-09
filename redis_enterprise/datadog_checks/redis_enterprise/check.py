@@ -1,30 +1,60 @@
 from typing import Any  # noqa: F401
-
-from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2  # noqa: F401
-from datadog_checks.redis_enterprise.metrics import METRIC_MAP
+from collections import ChainMap
+import itertools
+from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
+from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
+from .metrics import DEFAULT_METRICS, ADDITIONAL_METRICS
 
 
 class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
 
     # This will be the prefix of every metric and service check the integration sends
-    # __NAMESPACE__ = 'redis_enterprise'
+    __NAMESPACE__ = 'rdse'
 
     def __init__(self, name, init_config, instances):
 
         super(RedisEnterpriseCheck, self).__init__(name, init_config, instances)
+        self.check_initializations.appendleft(self._parse_config)
 
-        print(f'config: {init_config}')
-        print(f'instances: {instances}')
+    def _parse_config(self):
+        self.scraper_configs = []
+        metrics_endpoint = self.instance.get('openmetrics_endpoint')
+        metrics = self.get_default_config()
 
-        # Use self.instance to read the check configuration
-        self.endpoint = self.instance.get('openmetrics_endpoint')
-        if self.endpoint is None:
-            raise ConfigurationError("Unable to find openmetrics_endpoint in config file.")
+        additional = []
+        groups = self.instance.get('metric_groups', [])
+        for g in groups:
+            if g not in ADDITIONAL_METRICS:
+                raise ConfigurationError(f'invalid metric in config: {g}')
+            additional.append(ADDITIONAL_METRICS[g])
+
+        if len(additional) > 0:
+            self.service_check("more_groups", AgentCheck.OK)
+            metrics += additional
+
+        config = {
+            'openmetrics_endpoint': metrics_endpoint,
+            'namespace': self.__NAMESPACE__,
+            'metrics': metrics,
+            'metadata_label_map': {'version': 'version'},
+        }
+
+        config.update(self.instance)
+        self.scraper_configs.append(config)
 
     def get_default_config(self):
-        return {
-            "metrics": [METRIC_MAP],
-        }
+
+        metrics = []
+        for dm in DEFAULT_METRICS:
+            metrics.append(dm)
+        return metrics
+
+    def create_scraper(self, config):
+        return OpenMetricsCompatibilityScraper(self, self.get_config_with_defaults(config))
+
+    def get_config_with_defaults(self, config):
+        metrics = config.pop('metrics')
+        return ChainMap(config, {'metrics': metrics})
 
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
@@ -33,21 +63,18 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
     def check(self, instance):
         # type: (Any) -> None
 
-        # If your check ran successfully, you can send the status.
-        # More info at
-        # https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck.service_check
-        # self.service_check("can_connect", AgentCheck.OK)
-
-        # If it didn't then it should send a critical service check
-        # self.service_check("can_connect", AgentCheck.CRITICAL)
+        # smoke test
+        url = instance.get('openmetrics_endpoint')
+        if not url:
+            raise ConfigurationError('Configuration error, please fix conf.yaml')
 
         try:
             super().check(instance)
-            self.service_check("redis_enterprise.can_connect", AgentCheck.OK)
+            self.service_check("can_connect", AgentCheck.OK)
 
         except Exception as e:
             self.log.error('exception: %s', e)
-            self.service_check("redis_enterprise.can_connect", AgentCheck.CRITICAL)
+            self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
 
         # The following are useful bits of code to help new users get started.
 
@@ -87,17 +114,3 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         #         "can_connect", AgentCheck.CRITICAL, message=str(e)
         #     )
         #     raise
-
-        # This is how you submit metrics
-        # There are different types of metrics that you can submit (gauge, event).
-        # More info at https://datadoghq.dev/integrations-core/base/api/#datadog_checks.base.checks.base.AgentCheck
-        # self.gauge("test", 1.23, tags=['foo:bar'])
-
-        # Perform database queries using the Query Manager
-        # self._query_manager.execute()
-
-        # This is how you use the persistent cache. This cache file based and persists across agent restarts.
-        # If you need an in-memory cache that is persisted across runs
-        # You can define a dictionary in the __init__ method.
-        # self.write_persistent_cache("key", "value")
-        # value = self.read_persistent_cache("key")
