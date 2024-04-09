@@ -4,7 +4,7 @@
 
 [Eppo][1] is the experimentation and feature management platform that makes advanced A/B testing accessible to everyone in your organization.
 
-The Datadog Eppo RUM integration enriches your RUM data with your feature flags to provide visibility into performance monitoring and behavioral changes. Determine which users are shown a user experience and if it is negatively affecting the user's performance.
+The Datadog Eppo RUM integration enriches your Datadog RUM data with your feature flag information, including flag name and variation, to provide visibility into performance monitoring and behavioral changes. You can use this to determine which users are shown a feature and if it is negatively affecting the user's performance.
 
 ## Setup
 
@@ -38,9 +38,8 @@ await eppoInit({
 
 ## Troubleshooting
 
-Need help? See the [Eppo documentation][3] or contact [Datadog Support][4].
+Need help? See the [Eppo documentation][3].
 
 [1]: https://www.geteppo.com/
 [2]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
 [3]: https://docs.geteppo.com/sdks/datadog
-[4]: https://docs.datadoghq.com/help/
