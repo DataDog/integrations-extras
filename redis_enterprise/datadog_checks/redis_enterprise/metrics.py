@@ -66,7 +66,7 @@ REDIS_DATABASE = {
     'bdb_write_req': 'bdb_write_req',
     'bdb_write_req_max': 'bdb_write_req_max',
     'bdb_write_res': 'bdb_write_res',
-    'bdb_write_res_max': 'bdb_write_res_max'
+    'bdb_write_res_max': 'bdb_write_res_max',
 }
 
 REDIS_NODE = {
@@ -120,7 +120,7 @@ REDIS_NODE = {
     'node_provisional_memory': 'node_provisional_memory',
     'node_provisional_memory_no_overbooking': 'node_provisional_memory_no_overbooking',
     'node_total_req': 'node_total_req',
-    'node_up': 'node_up'
+    'node_up': 'node_up',
 }
 
 REDIS_SHARD = {
@@ -187,14 +187,14 @@ REDIS_SHARD = {
     'redis_total_net_output_bytes': {'name': 'redis_total_net_output_bytes', 'type': 'gauge'},
     'redis_up': {'name': 'redis_up', 'type': 'gauge'},
     'redis_used_disk': {'name': 'redis_used_disk', 'type': 'gauge'},
-    'redis_used_memory': {'name': 'redis_used_memory', 'type': 'gauge'}
+    'redis_used_memory': {'name': 'redis_used_memory', 'type': 'gauge'},
 }
 
 REDIS_REPLICATION = {
     'bdb_crdt_syncer_ingress_bytes': {'name': 'bdb_crdt_syncer_ingress_bytes', 'type': 'gauge'},
     'bdb_crdt_syncer_ingress_bytes_decompressed': {
         'name': 'bdb_crdt_syncer_ingress_bytes_decompressed',
-        'type': 'gauge'
+        'type': 'gauge',
     },
     'bdb_crdt_syncer_local_ingress_lag_time': {'name': 'bdb_crdt_syncer_local_ingress_lag_time', 'type': 'gauge'},
     'bdb_crdt_syncer_status': {'name': 'bdb_crdt_syncer_status', 'type': 'gauge'},
