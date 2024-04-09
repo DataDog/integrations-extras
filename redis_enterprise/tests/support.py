@@ -40,7 +40,7 @@ EPHEMERAL = [
     'rdse.redis_master_link_status',
     'rdse.redis_master_sync_in_progress',
     'rdse.redis_mem_fragmentation_ratio',
-    'rdse.redis_used_disk'
+    'rdse.redis_used_disk',
 ]
 
 # enterprise metrics use the namespace 'rdse'
@@ -110,7 +110,7 @@ METRICS_MAP = {
         'rdse.bdb_write_req',
         'rdse.bdb_write_req_max',
         'rdse.bdb_write_res',
-        'rdse.bdb_write_res_max'
+        'rdse.bdb_write_res_max',
     ],
     'RDSE.NODE': [
         'rdse.no_of_expires',
@@ -163,8 +163,8 @@ METRICS_MAP = {
         'rdse.node_provisional_memory',
         'rdse.node_provisional_memory_no_overbooking',
         'rdse.node_total_req',
-        'rdse.node_up']
-    ,
+        'rdse.node_up',
+    ],
     'RDSE.SHARD': [
         'rdse.redis_active_defrag_running',
         'rdse.redis_allocator_active',
@@ -223,7 +223,7 @@ METRICS_MAP = {
         'rdse.redis_total_net_output_bytes',
         'rdse.redis_up',
         'rdse.redis_used_disk',
-        'rdse.redis_used_memory'
+        'rdse.redis_used_memory',
     ],
     'RDSE.REPLICATION': [
         'rdse.bdb_crdt_syncer_ingress_bytes',
@@ -237,7 +237,7 @@ METRICS_MAP = {
         'rdse.bdb_replicaof_syncer_ingress_bytes',
         'rdse.bdb_replicaof_syncer_ingress_bytes_decompressed',
         'rdse.bdb_replicaof_syncer_local_ingress_lag_time',
-        'rdse.bdb_replicaof_syncer_status'
+        'rdse.bdb_replicaof_syncer_status',
     ],
     'RDSE.SHARDREPL': [
         'rdse.redis_crdt_backlog_histlen',
@@ -274,9 +274,8 @@ METRICS_MAP = {
         'rdse.redis_crdt_replica_slot_coverage_by_only_ovc',
         'rdse.redis_crdt_replica_slots',
         'rdse.redis_crdt_stale_replica',
-        'rdse.redis_crdt_ts_key_headers'
+        'rdse.redis_crdt_ts_key_headers',
     ],
-
     'RDSE.PROXY': [
         'rdse.dmcproxy_process_cpu_system_seconds_total',
         'rdse.dmcproxy_process_cpu_usage_percent',
@@ -287,7 +286,7 @@ METRICS_MAP = {
         'rdse.dmcproxy_process_open_fds',
         'rdse.dmcproxy_process_resident_memory_bytes',
         'rdse.dmcproxy_process_start_time_seconds',
-        'rdse.dmcproxy_process_virtual_memory_bytes'
+        'rdse.dmcproxy_process_virtual_memory_bytes',
     ],
     'RDSE.LISTENER': [
         'rdse.listener_acc_latency_total',
@@ -342,19 +341,19 @@ METRICS_MAP = {
         'rdse.listener_total_started_res_max',
         'rdse.listener_write_req',
         'rdse.listener_write_req_max',
-        'rdse.listener_write_res'
+        'rdse.listener_write_res',
     ],
     'RDSE.BIGSTORE': [
         'rdse.node_bigstore_free',
         'rdse.node_bigstore_iops',
         'rdse.node_bigstore_kv_ops',
-        'rdse.node_bigstore_throughput'
+        'rdse.node_bigstore_throughput',
     ],
     'RDSE.FLASH': [
         'rdse.node_available_flash',
         'rdse.node_available_flash_no_overbooking',
         'rdse.node_provisional_flash',
-        'rdse.node_provisional_flash_no_overbooking'
+        'rdse.node_provisional_flash_no_overbooking',
     ]
 }
 
@@ -371,7 +370,7 @@ ADDITIONAL_METRICS = [
     'RDSE.PROXY',
     'RDSE.LISTENER',
     'RDSE.BIGSTORE',
-    'RDSE.FLASH'
+    'RDSE.FLASH',
 ]
 
 

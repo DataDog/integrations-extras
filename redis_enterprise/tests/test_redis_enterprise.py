@@ -9,15 +9,7 @@ import pytest
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.redis_enterprise.check import RedisEnterpriseCheck
 
-from .support import (
-    CHECK,
-    DEFAULT_METRICS,
-    ADDITIONAL_METRICS,
-    INSTANCE,
-    ERSATZ_INSTANCE,
-    EPHEMERAL,
-    METRICS_MAP
-)
+from .support import CHECK, DEFAULT_METRICS, ADDITIONAL_METRICS, INSTANCE, ERSATZ_INSTANCE, EPHEMERAL, METRICS_MAP
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -27,9 +19,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def test_instance_check(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
 
-    check = RedisEnterpriseCheck(
-        'redis_enterprise', {}, [instance]
-    )
+    check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
     dd_run_check(check)
 
     metrics_list = []
@@ -48,9 +38,7 @@ def test_instance_check(dd_run_check, aggregator, instance):
 def test_default_check(dd_run_check, aggregator, instance):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
 
-    check = RedisEnterpriseCheck(
-        'redis_enterprise', {}, [instance]
-    )
+    check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
     dd_run_check(check)
 
     metrics_list = []
@@ -71,9 +59,7 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 
     instance = deepcopy(ERSATZ_INSTANCE)
     instance.update({'tls_verify': 'false'})
-    check = RedisEnterpriseCheck(
-        'redis_enterprise', {}, [instance]
-    )
+    check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
 
     dd_run_check(check)
     aggregator.assert_service_check('rdse.can_connect', RedisEnterpriseCheck.CRITICAL)
