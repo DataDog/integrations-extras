@@ -354,7 +354,7 @@ METRICS_MAP = {
         'rdse.node_available_flash_no_overbooking',
         'rdse.node_provisional_flash',
         'rdse.node_provisional_flash_no_overbooking',
-    ]
+    ],
 }
 
 
