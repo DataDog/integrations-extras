@@ -1,15 +1,13 @@
 import ssl
-import itertools
-from typing import Any, Callable, Dict  # noqa: F401
-
 from copy import deepcopy
+from typing import Any, Callable, Dict  # noqa: F401
 
 import pytest
 
 from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.redis_enterprise.check import RedisEnterpriseCheck
 
-from .support import CHECK, DEFAULT_METRICS, ADDITIONAL_METRICS, INSTANCE, ERSATZ_INSTANCE, EPHEMERAL, METRICS_MAP
+from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
 
 ssl._create_default_https_context = ssl._create_unverified_context
 

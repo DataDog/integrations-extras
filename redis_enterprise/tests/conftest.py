@@ -1,12 +1,13 @@
 import os
-import requests
-import pytest
 import subprocess
+
 import mock
+import pytest
+import requests
 
-from datadog_checks.dev import docker_run, get_docker_hostname, get_here
+from datadog_checks.dev import docker_run, get_here
 
-from .support import ENDPOINT, CONFTEST
+from .support import CONFTEST, ENDPOINT
 
 CHECK = 'redis_enterprise'
 CWD = get_here()
