@@ -6,14 +6,6 @@ NS1_ENDPOINTS = {
     "qps.usage.zone": r"{apiendpoint}/v1/stats/{key}/{domain}{query}",
     # qps and usage stats per dns record
     "qps.usage.record": r"{apiendpoint}/v1/stats/{key}/{domain}/{record}/{rectype}{query}",
-    # lease stats account wide
-    "ddi.leases": "{apiendpoint}/v1/stats/leases?period=24h",
-    # lps account wide
-    "ddi.lps": "{apiendpoint}/v1/stats/lps?period=24h",
-    # leases for scope
-    "ddi.leases.scope": "{apiendpoint}/v1/stats/leases/{scope_group_id}?period=24h",
-    # lps for scope
-    "ddi.lps.scope": "{apiendpoint}/v1/stats/lps/{scope_group_id}?period=24h",
     # ttl for zone
     "ttl": r"{apiendpoint}/v1/zones/{domain}",
     # account plan limits

@@ -91,9 +91,9 @@ jmx_metrics:
         tag.isActiveMaster:
           metric_type: gauge
           alias: hbase.master.server.tag.is_active_master
-          values: {true: 1, false: 0, default: 0}
-          # Note: If using Agent 6, boolean keys must be in quotes
-          # values: {"true": 1, "false": 0, default: 0}
+          # Note: If using Agent 5, boolean keys must be without quotes
+          # values: {true: 1, false: 0, default: 0}
+          values: {"true": 1, "false": 0, default: 0}
         # Number of RegionServers
         numRegionServers:
           metric_type: gauge

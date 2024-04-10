@@ -227,6 +227,10 @@ coverage:
         target: 50
         flags:
         - zabbix
+      Zenoh_router:
+        target: 75
+        flags:
+        - zenoh_router
       cfssl:
         target: 75
         flags:
@@ -235,6 +239,10 @@ coverage:
         target: 75
         flags:
         - cybersixgill_actionable_alerts
+      emqx:
+        target: 75
+        flags:
+        - emqx
       exim:
         target: 75
         flags:
@@ -324,6 +332,11 @@ flags:
     paths:
     - cyral/datadog_checks/cyral
     - cyral/tests
+  emqx:
+    carryforward: true
+    paths:
+    - emqx/datadog_checks/emqx
+    - emqx/tests
   eventstore:
     carryforward: true
     paths:
@@ -624,3 +637,8 @@ flags:
     paths:
     - zabbix/datadog_checks/zabbix
     - zabbix/tests
+  zenoh_router:
+    carryforward: true
+    paths:
+    - zenoh_router/datadog_checks/zenoh_router
+    - zenoh_router/tests

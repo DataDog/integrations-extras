@@ -1,0 +1,67 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "faa29018-d015-4134-956e-40912d774640",
+  "app_id": "modal",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Troubleshooting",
+    "uninstallation": "README.md#Uninstallation",
+    "changelog": "CHANGELOG.md",
+    "description": "Collect logs and metrics for your Modal applications",
+    "title": "Modal",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Run your generative AI models, large-scale batch jobs, job queues, and much more through Modal.",
+        "image_url": "images/modal-product-hero.jpg"
+      },
+      {
+        "media_type": "image",
+        "caption": "See audit logs, function logs, and utilization metrics in the Modal Datadog dashboard",
+        "image_url": "images/modal-datadog-dashboard.jpg"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cloud",
+      "Category::Metrics",
+      "Category::Log Collection",
+      "Category::AI/ML",
+      "Submitted Data Type::Logs",
+      "Offering::Integration"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "Modal": "assets/dashboards/modal.json"
+    },
+    "integration": {
+      "auto_install": true,
+      "source_type_name": "Modal",
+      "source_type_id": 7324533,
+      "events": {
+        "creates_events": false
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      },
+      "metrics": {
+        "metadata_path": "metadata.csv",
+        "check": [],
+        "prefix": "modal."
+      },
+      "configuration": {}
+    },
+    "oauth": "assets/oauth_clients.json"
+  },
+  "author": {
+    "support_email": "support@modal.com",
+    "name": "Modal Labs",
+    "homepage": "https://modal.com",
+    "sales_email": "support@modal.com"
+  }
+}

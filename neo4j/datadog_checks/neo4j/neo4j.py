@@ -1,3 +1,5 @@
+from packaging import version
+
 from datadog_checks.base import OpenMetricsBaseCheckV2
 from datadog_checks.base.checks.openmetrics.v2.transform import NATIVE_TRANSFORMERS
 
@@ -44,7 +46,7 @@ class Neo4jCheck(OpenMetricsBaseCheckV2, ConfigMixin):
                 else:
                     db_name = GLOBAL_DB_NAME
                     final_metric_name = metric_name
-                    if self.config.neo4j_dbs and self.config.neo4j_version.startswith('5.'):
+                    if self.config.neo4j_dbs and version.parse(self.config.neo4j_version) >= version.parse("4.3"):
                         if metric.name.startswith('neo4j_'):
                             raw_metric_name = metric.name.replace('neo4j_', '', 1)
                         else:
