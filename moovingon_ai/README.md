@@ -10,8 +10,6 @@ Key features of this integration include:
 2. **Comprehensive incident management**: Log all remediation actions performed in moovingon.ai in Datadog events for compliance and remediation clarity.
 3. **Extensive Analysis**: Utilize the analytics provided by moovingon.ai to derive insights from Datadog alerts. This assists in proactive decision-making and trend analysis.
 
-
-
 ## Setup
 
 ### Installation
