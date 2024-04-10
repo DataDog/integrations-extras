@@ -5,7 +5,7 @@ docker compose up -d
 container_name="tests-redis-1"
 
 echo "waiting for the servers..."
-sleep 60
+sleep 10
 echo "creating cluster..."
 
 while [[ "$(curl -o /dev/null  --cipher ECDHE-RSA-AES128-GCM-SHA256 -w ''%{http_code}'' -X POST -H 'Content-Type:application/json' -d '{"action":"create_cluster","cluster":{"name":"datadog.local"},"node":{"paths":{"persistent_path":"/var/opt/redislabs/persist","ephemeral_path":"/var/opt/redislabs/tmp"}},"credentials":{"username":"datadog@redis.com","password":"burythebone"}}' -k https://localhost:9443/v1/bootstrap/create_cluster)" != "200" ]]; do sleep 5; done
@@ -46,6 +46,6 @@ docker exec -it "${container_name}" bash -c "/opt/redislabs/bin/supervisorctl re
 # cleanup
 rm cluster nodes users database
 
-#docker exec --user root "${container_name}" bash -c "rm /opt/create_cluster.*"
-
+echo "waiting for metrics to be available"
+sleep 50
 echo "done"
