@@ -37,7 +37,6 @@ To collect StarRocks [metrics][9] and logs:
 
 ### Metrics
 
-
 See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
