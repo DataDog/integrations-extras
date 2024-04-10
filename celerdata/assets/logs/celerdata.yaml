@@ -16,6 +16,7 @@ pipeline:
       samples:
         - 2024-03-28 10:21:53,960 INFO (main|1) [AuthorizationMgr.initBuiltinRoleUnlocked():282] create built-in role cluster_admin[-3]
         - 2024-03-28 18:58:43,380 INFO (nioEventLoopGroup-4-3|154) [RestBaseAction.handleRequest():73] receive http request. url=/api/health
+        - 2024-04-10 10:32:23.937+08:00 INFO (stateChangeExecutor|95) [StateChangeExecutor.runOneCycle():179] finished to transfer FE type from INIT to LEADER
         - I0328 10:22:09.303526 1066 olap_server.cpp:844] try to perform path gc by tablet!
       grok:
         supportRules: ""
@@ -27,6 +28,8 @@ pipeline:
 
 
           be.info %{regex("\\w"):loglevel}%{date("MMdd HH:mm:ss.SSSSSS"):timestamp}\s+%{number:thread_id} %{data:file_name}\:%{number:file_line}\] %{data:message}
+
+          fe.log2 %{date("yyyy-MM-dd' 'HH:mm:ss.SSSZZ"):timestamp} %{word:loglevel} \(%{data}\|%{number}\) \[%{word:class_name}.%{word:method_name}\(\):%{number:file_line}\] %{data:message}
     - type: status-remapper
       name: Define `loglevel` as the official status of the log
       enabled: true
