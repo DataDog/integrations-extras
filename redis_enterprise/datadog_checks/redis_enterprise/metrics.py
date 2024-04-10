@@ -6,7 +6,6 @@ REDIS_DATABASE = {
     'bdb_avg_read_latency_max': 'bdb_avg_read_latency_max',
     'bdb_avg_write_latency': 'bdb_avg_write_latency',
     'bdb_avg_write_latency_max': 'bdb_avg_write_latency_max',
-    #'bdb_conns': {'name': 'bdb_conns', 'type': 'gauge'},
     'bdb_conns': 'bdb_conns',
     'bdb_egress_bytes': 'bdb_egress_bytes',
     'bdb_egress_bytes_max': 'bdb_egress_bytes_max',
