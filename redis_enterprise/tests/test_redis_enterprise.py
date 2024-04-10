@@ -4,7 +4,7 @@ from typing import Any, Callable, Dict  # noqa: F401
 
 import pytest
 
-#from datadog_checks.dev.utils import get_metadata_metrics
+# from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.redis_enterprise.check import RedisEnterpriseCheck
 
 from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
