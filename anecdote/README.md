@@ -25,7 +25,7 @@ To validate the connection health you can check Anecdote's dashboard, where you 
 ## Data Collected
 
 ### Metrics
-See metadata.csv for a list of metrics provided by this integration.
+See `metadata.csv` for a list of metrics provided by this integration.
 
 ## Support
 
