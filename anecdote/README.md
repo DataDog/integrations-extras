@@ -15,7 +15,7 @@ Anecdote monitors customer feedback from more than 80 sources, including support
 - Sign in into your [Anecdote account][1].
 - Navigate to the Integrations section.
 - Find the Datadog integration.
-- Enter the region where your Datadog Workspace is located; you will then be redirected to the Datadog website where you need to authenticate.
+- Enter the region where your Datadog Workspace is located. You will then be redirected to the Datadog website where you need to authenticate your Datadog account with the integration.
 - After logging in, install the Anecdote application within Datadog, and you will receive the Anecdote dashboard titled "Anecdote: Bug Reports".
 
 ### Validation
