@@ -29,7 +29,7 @@ See metadata.csv for a list of metrics provided by this integration.
 
 ## Support
 
-Need help? Contact [Anecdote Support][1].
+Need help? Contact [Anecdote Support][2].
 
 [1]: app.anecdoteai.com
 [2]: mailto:hello@anec.app
