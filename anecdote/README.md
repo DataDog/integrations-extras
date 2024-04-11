@@ -2,7 +2,7 @@
 
 ## Overview
 
-Anecdote is an AI-driven platform that automatically detects, tracks, organizes, and prioritizes bugs reported by your customers in your customer feedback.  
+Anecdote is an AI-driven platform that automatically detects, tracks, organizes, and prioritizes bugs reported by users from your customer feedback.  
 
 With Anecdote, developers can ensure that no customer-reported bug goes unnoticed. Our app meticulously analyzes all of your fragmented feedback sources in near-real time, making it simpler to address issues promptly.
 
