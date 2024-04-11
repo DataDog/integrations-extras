@@ -1,7 +1,7 @@
 # moovingon.ai
 
 ## Overview
-[moovingon.ai][1] is a platform for cloud operations and NOC management. It consolidates alerts across your observability suite and associates them with automated runbooks for alert and incident remediation. By integrating this, you can utilize the power of Datadog and moovingon.ai for efficient, automated incident management.
+[moovingon.ai][1] is a platform for cloud operations and NOC management. It consolidates alerts across your observability suite and associates them with automated runbooks for alert and incident remediation. With this integration, you can utilize the power of Datadog and moovingon.ai for efficient, automated incident management.
 
 moovingon.ai uses Datadog's monitors, logs, and event data for alert correlation and aggregation.
 Key features of this integration include:
