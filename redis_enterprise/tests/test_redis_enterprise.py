@@ -87,6 +87,10 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     aggregator.assert_service_check('rdse.more_groups', count=1)
 
 
+@pytest.mark.e2e
+def test_end_to_end():
+    pass
+
 # @pytest.mark.unit
 # def test_instance_full_additional_check(aggregator, dd_run_check, mock_http_response):
 #     instance = deepcopy(INSTANCE)
