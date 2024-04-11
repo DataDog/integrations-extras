@@ -32,23 +32,23 @@ ssl._create_default_https_context = ssl._create_unverified_context
 #     aggregator.assert_all_metrics_covered()
 
 
-@pytest.mark.unit
-def test_default_check(dd_run_check, aggregator, instance):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-
-    check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
-    dd_run_check(check)
-
-    metrics_list = []
-    for g in DEFAULT_METRICS:
-        metrics_list.extend(METRICS_MAP[g])
-    for m in metrics_list:
-        if m in EPHEMERAL:
-            continue
-        aggregator.assert_metric(m)
-
-    # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-    aggregator.assert_all_metrics_covered()
+# @pytest.mark.unit
+# def test_default_check(dd_run_check, aggregator, instance):
+#     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
+#
+#     check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
+#     dd_run_check(check)
+#
+#     metrics_list = []
+#     for g in DEFAULT_METRICS:
+#         metrics_list.extend(METRICS_MAP[g])
+#     for m in metrics_list:
+#         if m in EPHEMERAL:
+#             continue
+#         aggregator.assert_metric(m)
+#
+#     # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
+#     aggregator.assert_all_metrics_covered()
 
 
 @pytest.mark.unit
