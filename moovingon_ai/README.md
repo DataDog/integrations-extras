@@ -7,7 +7,7 @@ moovingon.ai uses Datadog's monitors, logs, and event data for alert correlation
 Key features of this integration include:
 
 1. **Focused Alert Management**: Bring all your Datadog alerts together in moovinon.ai easy-to-view dashboard, giving you simple control and clear visibility.
-2. **Comprehensive incident management**: Log all remediation actions performed in moovingon.ai in Datadog events for compliance and remediation clarity.
+2. **Comprehensive incident management**: All remediation actions performed in moovingon.ai are sent to Datadog as events for compliance and remediation clarity
 3. **Extensive Analysis**: Utilize the analytics provided by moovingon.ai to derive insights from Datadog alerts. This assists in proactive decision-making and trend analysis.
 
 ## Setup
