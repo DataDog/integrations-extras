@@ -12,7 +12,7 @@ Anecdote monitors customer feedback from more than 80 sources, including support
 
 ### Configuration
 
-- Sign in into you [Anecdote account] [2].
+- Sign in into your [Anecdote account][1].
 - Navigate to the Integrations section.
 - Find the Datadog integration.
 - Enter the region where your Datadog Workspace is located; you will then be redirected to the Datadog website where you need to authenticate.
