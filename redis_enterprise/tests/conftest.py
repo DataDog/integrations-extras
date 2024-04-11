@@ -37,6 +37,9 @@ def dd_environment():
     #     instances = {'instances': [{'openmetrics_endpoint': ENDPOINT}, {'tls_verify': 'false'}]}
     #
     #     yield instances
+    instances = {'instances': [{'openmetrics_endpoint': ENDPOINT}, {'tls_verify': 'false'}]}
+
+    yield instances
 
 
 @pytest.fixture(scope='session')
