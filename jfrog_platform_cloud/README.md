@@ -20,6 +20,88 @@ These logs will allow customers to readily know who accessed what repositories a
 
 JFrog's SaaS Log Streaming is currently in beta. While in beta, the cloud log streaming feature will only be available inside the MyJFrog portal for select JFrog Enterprise and customers. JFrog plans to GA this feature later in Q2 2024 at which point it will be available to all JFrog Enterprise and customers.
 
+## Widgets description
+
+**Artifactory Requests (Request Log)**
+
+1. Artifactory calls by HTTP status.
+
+The number of Artifactory requests, grouped by HTTP response code.
+
+2. Artifactory HTTP 4xx errors.
+
+Then number of Artifactory requests with HTTP response code matching 4xx.
+
+3. Top requests by IP address.
+
+Top list of IP addresses with the number of requests, associated with these IP addresses.
+
+4. Requests duration and request/response content length.
+
+Correlation between request/response length and the duration of the call.
+
+5. Artifactory HTTP 5xx errors. 
+
+The number of Artifactory requests with HTTP response code matching 5xx.
+
+6. User request activity
+
+The number of requests created by particular users.
+
+7. Log volume, number of records.
+
+Total number of logs streamed to DataDog.
+
+8. Accessed resources by username, instance name and IP address
+
+The list of resource paths, accessed by users, includes the path, username and instance name and grouped by IP address. 
+
+9. Accessed docker repos (top chart). 
+
+Top list or accesses docker repositories.
+
+10. Accessed docker repos (timeseries).
+
+The graph of accessed Docker repositories as a timeseries. 
+
+11. Accessed docker images by name and response code (top chart).
+
+Top list or accesses docker images, grouped by HTTP response code.
+
+12. Accessed docker images (timeseries).
+
+The graph of accessed Docker images as a timeseries.
+
+**Operations (Audit Logs)**
+
+1. Operations by users. 
+
+Operations, performed by users, associated with event name (TKN, GRP, USR etc.) and event type (CRUD).
+
+2. Operations on tokens.
+
+List of all operations (CRUD), performed on tokens as a timeseries, grouped by `entity_name`, which is a performing user. 
+
+3. Operations on permissions
+
+List of all operations (CRUD), performed on permission targets.
+
+4. Operations on users. 
+
+List of all operations (CRUD), performed on users.
+
+5. Operations on groups. 
+
+List of all operations (CRUD), performed on groups.
+
+6. Artifactory access security audit events.
+
+Total number of access security audit logs streamed to DataDog.
+
+7. Artifactory access audit events. 
+
+Total number of access audit logs streamed to DataDog.
+
 ## Setup
 
 **Note:** The integration requires a JFrog Enterprise Plus subscription.
