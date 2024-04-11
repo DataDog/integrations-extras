@@ -31,6 +31,6 @@ See metadata.csv for a list of metrics provided by this integration.
 
 Need help? Contact [Anecdote Support][1].
 
-[1]: hello@anec.app
+[1]: app.anecdoteai.com
 [2]: mailto:hello@anec.app
 
