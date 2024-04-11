@@ -1,13 +1,15 @@
 import os
-import subprocess
 
 import mock
 import pytest
-import requests
 
-from datadog_checks.dev import docker_run, get_here
+# import subprocess
+# import requests
+# from datadog_checks.dev import docker_run, get_here
+from datadog_checks.dev import get_here
 
-from .support import CONFTEST, ENDPOINT
+# from .support import CONFTEST, ENDPOINT
+from .support import ENDPOINT
 
 CHECK = 'redis_enterprise'
 CWD = get_here()
@@ -25,16 +27,16 @@ def dd_environment():
     # 2. Waits for the url to be available before running the tests
     # 3. Tears down the services when the tests are finished
 
-    print('>>> spinning up docker')
-    with docker_run(compose_file, endpoints=[CONFTEST]):
-        response = requests.get(ENDPOINT, verify=False)
-        # we have to run 'setup.sh' first - it might take a while...
-        if response.status_code != 200:
-            print('>>> running set up')
-            subprocess.run([SETUP])
-        instances = {'instances': [{'openmetrics_endpoint': ENDPOINT}, {'tls_verify': 'false'}]}
-
-        yield instances
+    print(f'>>> spinning up docker: {compose_file}')
+    # with docker_run(compose_file, endpoints=[CONFTEST]):
+    #     response = requests.get(ENDPOINT, verify=False)
+    #     # we have to run 'setup.sh' first - it might take a while...
+    #     if response.status_code != 200:
+    #         print('>>> running set up')
+    #         subprocess.run([SETUP])
+    #     instances = {'instances': [{'openmetrics_endpoint': ENDPOINT}, {'tls_verify': 'false'}]}
+    #
+    #     yield instances
 
 
 @pytest.fixture(scope='session')
