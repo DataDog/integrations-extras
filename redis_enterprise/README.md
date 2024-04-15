@@ -9,8 +9,6 @@ The [Redis Enterprise][1] integration provides metrics for three critical aspect
 
 ### Installation
 
-Run the following command to install the Agent integration:
-
 1. Run the following command to install the Agent integration:
    ```shell
    datadog-agent integration install -t datadog-redis_enterprise==1.0

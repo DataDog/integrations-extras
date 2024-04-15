@@ -12,45 +12,6 @@ from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANC
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-# @pytest.mark.integration
-# @pytest.mark.usefixtures("dd_environment")
-# def test_instance_check(dd_run_check, aggregator, instance):
-#     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#
-#     check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#     aggregator.assert_all_metrics_covered()
-
-
-# @pytest.mark.unit
-# def test_default_check(dd_run_check, aggregator, instance):
-#     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#
-#     check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#     aggregator.assert_all_metrics_covered()
-
-
 @pytest.mark.unit
 def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator):
     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
@@ -92,26 +53,6 @@ def test_end_to_end():
     pass
 
 
-# @pytest.mark.unit
-# def test_instance_full_additional_check(aggregator, dd_run_check, mock_http_response):
-#     instance = deepcopy(INSTANCE)
-#     # add all additional metric groups for validation
-#     instance['metric_groups'] = ADDITIONAL_METRICS
-#
-#     check = RedisEnterpriseCheck(CHECK, {}, [instance])
-#
-#     dd_run_check(check)
-#
-#     groups_to_check = ADDITIONAL_METRICS
-#
-#     for g in groups_to_check:
-#         for m in METRICS_MAP[g]:
-#             aggregator.assert_metric(m)
-#
-#     aggregator.assert_all_metrics_covered()
-#     aggregator.assert_service_check('rdse.openmetrics.health', count=1)
-
-
 @pytest.mark.unit
 def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_response):
     instance = deepcopy(INSTANCE)
@@ -136,24 +77,3 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
         dd_run_check(check)
 
     aggregator.assert_service_check('rdse.node_imaginary', count=0)
-
-
-# @pytest.mark.integration
-# @pytest.mark.usefixtures("dd_environment")
-# def test_check(aggregator, dd_run_check):
-#
-#     instances = INSTANCE
-#     instances.update({'tls_verify': 'false'})
-#
-#     check = RedisEnterpriseCheck(CHECK, {}, [instances])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     aggregator.assert_all_metrics_covered()
