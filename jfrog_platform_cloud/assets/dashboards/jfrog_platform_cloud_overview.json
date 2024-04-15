@@ -21,7 +21,7 @@
         "x": 0,
         "y": 0,
         "width": 4,
-        "height": 2
+        "height": 3
       }
     },
     {
@@ -52,7 +52,7 @@
       "definition":
       {
         "type": "note",
-        "content": "This dashboard provides a high-level summary of the usage of the JFrog Artifactory Cloud instance. This includes an overview of access requests, and audit events as well as a summary of various operations performed on JFrog Artifactory. \n",
+        "content": "This dashboard provides a high-level summary of the usage of the JFrog Artifactory Cloud instance. This includes an overview of access requests, and audit events as well as a summary of various operations performed on JFrog Artifactory. \n\n## Widgets description\n\n**Artifactory Requests (Request Log)**\n\n1. **Artifactory calls by HTTP status.** The number of Artifactory requests, grouped by HTTP response code.\n2. **Artifactory HTTP 4xx errors.** Then number of Artifactory requests with HTTP response code matching 4xx.\n3. **Top requests by IP address.** Top list of IP addresses with the number of requests, associated with these IP addresses.\n4. **Requests duration and request/response content length.** Correlation between request/response length and the duration of the call.\n5. **Artifactory HTTP 5xx errors.** The number of Artifactory requests with HTTP response code matching 5xx.\n6. **User request activity.** The number of requests created by particular users.\n7. **Log volume, number of records.** Total number of logs streamed to DataDog.\n8. **Accessed resources by username, instance name and IP address.** The list of resource paths, accessed by users, includes the path, username and instance name and grouped by IP address. \n9. **Accessed docker repos (top chart).** Top list or accesses docker repositories.\n10. **Accessed docker repos (timeseries).** The graph of accessed Docker repositories as a timeseries.\n11. **Accessed docker images by name and response code (top chart).** Top list or accesses docker images, grouped by HTTP response code.\n12. **Accessed docker images (timeseries).** The graph of accessed Docker images as a timeseries.\n\n**Operations (Audit Logs)**\n\n1. **Operations by users.** Operations, performed by users, associated with event name (TKN, GRP, USR etc.) and event type (CRUD).\n2. **Operations on tokens.** List of all operations (CRUD), performed on tokens as a timeseries, grouped by `entity_name`, which is a performing user.\n3. **Operations on permissions.** List of all operations (CRUD), performed on permission targets.\n4. **Operations on users.** List of all operations (CRUD), performed on users.\n5. **Operations on groups.** List of all operations (CRUD), performed on groups.\n6. **Artifactory access security audit events.** Total number of access security audit logs streamed to DataDog.\n7. **Artifactory access audit events.** Total number of access audit logs streamed to DataDog.",
         "background_color": "transparent",
         "font_size": "14",
         "text_align": "left",
@@ -67,7 +67,7 @@
         "x": 4,
         "y": 1,
         "width": 8,
-        "height": 1
+        "height": 2
       }
     },
     {
@@ -683,8 +683,6 @@
               "title": "8. Accessed resources by username, instance name and IP address",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -1109,7 +1107,7 @@
       "layout":
       {
         "x": 0,
-        "y": 2,
+        "y": 3,
         "width": 12,
         "height": 16
       }
@@ -1571,7 +1569,7 @@
       "layout":
       {
         "x": 0,
-        "y": 18,
+        "y": 19,
         "width": 12,
         "height": 7
       }
