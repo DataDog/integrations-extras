@@ -17,7 +17,7 @@ Key features of this integration include:
 1. Click on **Connect Accounts** in order to log into moovingon.ai.
 2. Enter a name for the Datadog integration and **Submit**.
 3. Proceed to the Datadog OAuth2 screen and click on the **Authorize** button.
-4. Optionally, if you want to handle all notifications from Datadog monitors inside moovingon.ai, click on **Install/Update the webhook**. Alternatively, simply attach the @webhook-moovingon_ai tag to the desired monitor.
+4. Optionally, to handle all notifications from Datadog monitors within moovingon.ai, click on **Install/Update the webhook**. Alternatively, simply attach the @webhook-moovingon_ai tag to the desired monitor.
 
 ## Uninstallation
 
