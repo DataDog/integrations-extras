@@ -7,6 +7,7 @@ Actioner is a no-code app builder that allows you to build your own apps for Sla
 ## Setup
 
 After you install the integration, click the **Connect Account** button in Datadog to be redirected to your Actioner account to set up the OAuth2 connection.
+
 ## Data Collected
 
 ### Metrics
