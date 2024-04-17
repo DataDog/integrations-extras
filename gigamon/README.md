@@ -27,7 +27,7 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
 ### Metadata Attributes
 Gigamon Protobook provides a complete list of supported protocols and their attributes of metadata. These protocols can also be viewed as groups by Tags, Family and Classification method.
 
-You can access the Application Protobook from the [GigaVUE‑FM][4].
+You can access the Application Protobook from the [GigaVUE FM][4].
 
 ### Events
 The Cribl Stream integration does not include any events.
