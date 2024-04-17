@@ -20,14 +20,14 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
     a. Alias : Name of the Exporter (String )
     b. Ingestor : Provide Port as "514" and Type as "ami"
     c. Cloud Tool Exports: Create new exporter tool by selecting '+' and add details as shown in the below diagram 
-    ![1](images/gigamon1.png)
-    ![2](images/gigamon2.png)
+    ![1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon1.png)
+    ![2](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon2.png)
 
 ## Data Collected
 ### Metadata Attributes
 Gigamon Protobook provides a complete list of supported protocols and their attributes of metadata. These protocols can also be viewed as groups by Tags, Family and Classification method.
 
-You can access the Application Protobook from the [GigaVUE‑FM][4] 
+You can access the Application Protobook from the [GigaVUE‑FM][4].
 
 ### Events
 The Cribl Stream integration does not include any events.
