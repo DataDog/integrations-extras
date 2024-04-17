@@ -12,7 +12,9 @@ Feature flag tracking is available in the RUM Browser SDK. For detailed set up i
 
 1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize Eppo's SDK with the `datadogRum` option, which reports feature flag evaluations to Datadog using the snippet of code shown below. A javascript example is below.
+3. Initialize Eppo's SDK with the `datadogRum` option, which reports feature flag evaluations to Datadog. 
+
+The following is a JavaScript example:
 
 ```typescript
 const assignmentLogger: IAssignmentLogger = {
