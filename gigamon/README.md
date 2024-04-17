@@ -20,8 +20,8 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
     a. Alias : Name of the Exporter (String )
     b. Ingestor : Provide Port as "514" and Type as "ami"
     c. Cloud Tool Exports: Create new exporter tool by selecting '+' and add details as shown in the below diagram 
-    ![1](gigamon/images/gigamon1.png)
-    ![2](gigamon/images/gigamon2.png)
+    ![1](images/gigamon1.png)
+    ![2](images/gigamon2.png)
 
 ## Data Collected
 ### Metadata Attributes
