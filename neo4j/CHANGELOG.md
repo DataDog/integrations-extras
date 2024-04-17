@@ -1,5 +1,11 @@
 # CHANGELOG - neo4j
 
+## 3.0.3 / 2024-04-05
+
+***Fixed***:
+
+* Fixes db_name tagging regression introduced by 00830c1 - PR [2314](https://github.com/DataDog/integrations-extras/pull/2314)
+
 ## 3.0.2 / 2023-10-31
 
 ***Changed***:
