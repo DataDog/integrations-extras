@@ -6,7 +6,14 @@ Anecdote is an AI-driven platform that automatically detects, tracks, organizes,
 
 With Anecdote, developers can ensure that no customer-reported bug goes unnoticed. Our app meticulously analyzes all of your fragmented feedback sources in near-real-time, making it easier to promptly address issues.
 
-Anecdote monitors customer feedback from more than 80 sources, including support tickets from Zendesk, Intercom, Freshdesk, and others; public reviews from platforms like the App Store, Google Play, and Trustpilot; social media comments on Twitter, Reddit, Facebook; and customer surveys from SurveyMonkey, Typeform, Medallia, etc. By aggregating and analyzing user-reported bugs in a unified dashboard, developers gain a comprehensive view of customer feedback, enabling them to prioritize and address issues more effectively.
+Anecdote monitors customer feedback from more than 80 sources, including:
+
+- Support tickets (Zendesk, Intercom, Freshdesk, and others)
+- Public reviews (App Store, Google Play, and Trustpilot)
+- Social media comments on Twitter, Reddit, Facebook
+- Customer surveys (SurveyMonkey, Typeform, Medallia, and others)
+
+By aggregating and analyzing user-reported bugs in a unified dashboard, developers gain a comprehensive view of customer feedback, enabling them to prioritize and address issues more effectively.
 
 ## Setup
 
