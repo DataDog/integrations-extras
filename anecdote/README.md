@@ -27,7 +27,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 ### Validation
 
-To validate the connection health you can check Anecdote's dashboard, where you can see bug reports.
+To validate the connection health, you can check Anecdote's dashboard, where you can see bug reports.
 
 ## Data Collected
 
