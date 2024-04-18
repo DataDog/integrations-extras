@@ -19,17 +19,12 @@ pipeline:
         - 2024-04-10 10:32:23.937+08:00 INFO (stateChangeExecutor|95) [StateChangeExecutor.runOneCycle():179] finished to transfer FE type from INIT to LEADER
         - I0328 10:22:09.303526 1066 olap_server.cpp:844] try to perform path gc by tablet!
       grok:
-        supportRules: ""
+        supportRules: >-
+          fe_other_log %{word:loglevel} \(%{notSpace}\|%{integer}\) \[%{word:class_name}.%{word:method_name}\(\):%{integer:file_line}\] %{data:message}
         matchRules: >-
-          fe.log %{date("yyyy-MM-dd HH:mm:ss,SSS"):timestamp} %{word:loglevel}
-          \(%{data}\|%{number}\)
-          \[%{word:class_name}.%{word:method_name}\(\):%{number:file_line}\]
-          %{data:message}
-
-
-          be.info %{regex("\\w"):loglevel}%{date("MMdd HH:mm:ss.SSSSSS"):timestamp}\s+%{number:thread_id} %{data:file_name}\:%{number:file_line}\] %{data:message}
-
-          fe.log2 %{date("yyyy-MM-dd' 'HH:mm:ss.SSSZZ"):timestamp} %{word:loglevel} \(%{data}\|%{number}\) \[%{word:class_name}.%{word:method_name}\(\):%{number:file_line}\] %{data:message}
+          fe.log %{date("yyyy-MM-dd HH:mm:ss,SSS"):timestamp} %{fe_other_log}
+          fe.log2 %{date("yyyy-MM-dd' 'HH:mm:ss.SSSZZ"):timestamp} %{fe_other_log}
+          be.info %{regex("\\w"):loglevel}%{date("MMdd HH:mm:ss.SSSSSS"):timestamp}\s+%{integer:thread_id} %{notSpace:file_name}\:%{integer:file_line}\] %{data:message}
     - type: status-remapper
       name: Define `loglevel` as the official status of the log
       enabled: true

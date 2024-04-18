@@ -5,7 +5,7 @@ tests:
   result:
     custom:
       class_name: "AuthorizationMgr"
-      file_line: 282.0
+      file_line: 282
       loglevel: "INFO"
       method_name: "initBuiltinRoleUnlocked"
       timestamp: 1711621313960
@@ -15,16 +15,44 @@ tests:
      - "source:LOGS_SOURCE"
     timestamp: 1711621313960
  -
-  sample: "I0328 10:22:09.303526 1066 olap_server.cpp:844] try to perform path gc by tablet!"
+  sample: "2024-03-28 18:58:43,380 INFO (nioEventLoopGroup-4-3|154) [RestBaseAction.handleRequest():73] receive http request. url=/api/health"
   result:
     custom:
-      file_line: 844.0
-      file_name: "olap_server.cpp"
-      loglevel: "I"
-      thread_id: 1066.0
-      timestamp: 39003729303
-    message: "try to perform path gc by tablet!"
+      class_name: "RestBaseAction"
+      file_line: 73
+      loglevel: "INFO"
+      method_name: "handleRequest"
+      timestamp: 1711652323380
+    message: "receive http request. url=/api/health"
     status: "info"
     tags:
      - "source:LOGS_SOURCE"
-    timestamp: 39003729303
+    timestamp: 1711652323380
+ -
+   sample: "2024-04-10 10:32:23.937+08:00 INFO (stateChangeExecutor|95) [StateChangeExecutor.runOneCycle():179] finished to transfer FE type from INIT to LEADER"
+   result:
+     custom:
+       class_name: "StateChangeExecutor"
+       file_line: 179
+       loglevel: "INFO"
+       method_name: "runOneCycle"
+       timestamp: 1712716343937
+     message: "finished to transfer FE type from INIT to LEADER"
+     status: "info"
+     tags:
+       - "source:LOGS_SOURCE"
+     timestamp: 1712716343937
+ -
+   sample: "I0328 10:22:09.303526 1066 olap_server.cpp:844] try to perform path gc by tablet!"
+   result:
+     custom:
+       file_line: 844
+       file_name: "olap_server.cpp"
+       loglevel: "I"
+       thread_id: 1066
+       timestamp: 39003729303
+     message: "try to perform path gc by tablet!"
+     status: "info"
+     tags:
+       - "source:LOGS_SOURCE"
+     timestamp: 39003729303
