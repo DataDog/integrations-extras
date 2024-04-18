@@ -15,7 +15,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Fiddler 
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t datadog-fiddler==2.0.0
+   datadog-agent integration install -t datadog-fiddler==3.0.0
    ```
 
 2. Configure your integration similar to Agent-based [integrations][4].
