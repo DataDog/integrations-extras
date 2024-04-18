@@ -23,7 +23,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 - Navigate to the Integrations section.
 - Find the Datadog integration.
 - Enter the region where your Datadog Workspace is located. You will then be redirected to the Datadog website where you need to authenticate your Datadog account with the integration.
-- After logging in, install the Anecdote application within Datadog, and you will receive the Anecdote dashboard titled "Anecdote: Bug Reports".
+- After logging in, install the Anecdote application within Datadog. This adds "Anecdote: Bug Reports" to your list of Dashboards in Datadog.
 
 ### Validation
 
