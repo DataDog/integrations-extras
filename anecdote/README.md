@@ -19,7 +19,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 ### Configuration
 
-- Sign in into your [Anecdote account][1].
+- Sign into your [Anecdote account][1].
 - Navigate to the Integrations section.
 - Find the Datadog integration.
 - Enter the region where your Datadog Workspace is located. You will then be redirected to the Datadog website where you need to authenticate your Datadog account with the integration.
