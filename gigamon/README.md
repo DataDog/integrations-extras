@@ -3,7 +3,7 @@
 ## Overview
 [Gigamon][1]  Application Metadata Intelligence empowers your Observability, Security Information and Event Management (SIEM), and Network Performance Monitoring tools with critical metadata attributes across thousands of business, consumer, and IT applications and services. Get deep application visibility to rapidly pinpoint performance bottlenecks, quality issues, and potential network security risks. Gigamon's Application Metadata Intelligence (AMI) helps you monitor and manage complex digital applications for your digital transformation initiatives. This can be achieved through the Gigamon Solution by sending the AMI metadata to Datadog. Some benefits to highlight are Rich Actionable Insights, Boost Security Posture etc.
 
-For more information, [contact][6] 
+
 
 ## Setup
 Gigamon Sends AMI metadata [AMX][2] to the Datadog API using http post. 
@@ -24,7 +24,9 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
 ## Data Collected
 
 ### Metadata Attributes
-Gigamon deep packet inspection extracts 7500+ application metadata attributes & forwards to Datadog. Gigamon Application Metadata Protobook provides a complete list of supported protocols and their attributes. These protocols can also be viewed as groups by Tags, Family and Classification method.
+Gigamon deep packet inspection extracts 7500+ application metadata attributes & forwards to Datadog. Gigamon Application Metadata Protobook provides a complete list of supported protocols and their attributes. These protocols can also be viewed as groups by Tags, Family and Classification method. 
+
+Gigamon Application Metadata Exporter (AMX) application converts the output from the Application Metadata Intelligence (AMI) in CEF format into JSON format and sends it to Datadog.
 
 You can access the Application Metadata Protobook from the [GigaVUE FM][4].
 
@@ -36,4 +38,4 @@ Need help? Contact [Gigamon Support][5].
 [3]: https://docs.gigamon.com/doclib66/Content/GigaVUE_Cloud_Suites.html?tocpath=GigaVUE%20Cloud%20Suite%7C_____0
 [4]: https://docs.gigamon.com/doclib66/Content/GV-GigaSMART/Application%20Protocol%20Bundle.html
 [5]: https://www.gigamon.com/support/support-and-services/contact-support.html
-[6]: alliances@gigamon.com 
+
