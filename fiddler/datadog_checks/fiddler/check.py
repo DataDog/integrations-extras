@@ -169,9 +169,26 @@ class FiddlerCheck(AgentCheck):
         value_list = result['data'][-1] if result['data'] else 0
         gauge_results = []
 
-        # Update metric names if necessary
-        metric_mapping = {'traffic': 'traffic_count', 'jsd': 'histogram_drift'}
+        # metric name mapping from 23.7 -> 23.5 format
+        metric_mapping = {
+            'traffic': 'traffic_count',
+            'jsd': 'histogram_drift',
+            'expected_calibration_error': 'expected_callibration_error',
+            'calibrated_threshold': 'callibrated_threshold',
+            'geometric_mean': 'g_mean',
+            'log_loss': 'binary_cross_enrtopy',
+            'recall': 'tpr',
+            'ndcg_mean': 'mean_ndcg',
+        }
         metric = metric_mapping.get(metric, metric)
+
+        # di metric name mapping from 23.7 -> 23.5 format
+        di_metric_mapping = {
+            'null_violation_count': 'is_null_violation',
+            'range_violation_count': 'is_range_violation',
+            'type_violation_count': 'is_type_violation',
+            'any_violation_count': '__ANY__',
+        }
 
         for col_idx, col_name in enumerate(result['col_names']):
             if col_name == 'timestamp':
@@ -181,7 +198,8 @@ class FiddlerCheck(AgentCheck):
 
             # Determine the column name based on metric type and structure
             if metric_type == 'data_integrity' and len(col_name_list) == 2:
-                col_name = f'{col_name_list[1]}/{col_name_list[0]}'
+                fixed_metric_name = di_metric_mapping.get(col_name_list[0], col_name_list[0])
+                col_name = f'{col_name_list[1]}/{fixed_metric_name}'
             elif len(col_name_list) >= 2:
                 col_name = col_name_list[1]
 
@@ -279,6 +297,7 @@ class FiddlerCheck(AgentCheck):
                     'metric': metric['key'],
                     'metric_type': metric['type'],
                     'model_name': model,
+                    'baseline_name': 'DEFAULT',
                 }
             )
 
