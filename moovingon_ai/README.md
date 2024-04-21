@@ -44,5 +44,5 @@ The moovingon integration includes events.
 Need help? Contact [moovingon.ai support][2].
 
 [1]: https://moovingon.ai/
-[2]: support@moovingon.com
+[2]: mailto:support@moovingon.com
 
