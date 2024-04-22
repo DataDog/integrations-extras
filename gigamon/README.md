@@ -13,7 +13,7 @@ Gigamon sends AMI metadata [AMX][2] to the Datadog API using HTTP `POST`.
 GigaVUE V Series Node is a virtual machine running in the customer's infrastructure which processes and distributes network traffic. Gigamon Application Metadata Exporter (AMX) converts the output from the AMI in CEF format into JSON and sends it to Datadog. The AMX application can be deployed only on a V Series Node and can be connected to AMI running on a physical node or a virtual machine. The AMX application and the AMI are managed by GigaVUE-FM. 
 
 1. After you install AMX in your environment, create a monitoring session in [FM][3]. 
-2. Edit the exporter and provide required fields as shown below:
+2. Edit the exporter and provide the following required fields:
     a. Alias : Name of the Exporter (String )
     b. Ingestor : Provide Port as "514" and Type as "ami"
     c. Cloud Tool Exports: Create new exporter tool by selecting '+' and add details as shown in the below diagram 
