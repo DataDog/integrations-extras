@@ -2,7 +2,7 @@
 
 ## Overview
 
-The [Redis Enterprise][1] integration provides metrics for three critical aspects of a cluster; database, node, and shard. This integration enables fine-grained reporting that makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
+Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. The [Redis Enterprise][1] integration provides metrics for three critical aspects of a cluster; database, node, and shard. This integration enables fine-grained reporting that makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
 
 
 ## Setup
@@ -11,7 +11,7 @@ The [Redis Enterprise][1] integration provides metrics for three critical aspect
 
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise==1.0
+   datadog-agent integration install -t datadog-redis_enterprise==1.0.0
    ```
    
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
