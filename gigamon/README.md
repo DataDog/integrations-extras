@@ -6,7 +6,7 @@
 
 
 ## Setup
-Gigamon Sends AMI metadata [AMX][2] to the Datadog API using http post. 
+Gigamon sends AMI metadata [AMX][2] to the Datadog API using HTTP `POST`. 
 
 ### Installation
 
