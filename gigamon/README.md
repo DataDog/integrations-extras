@@ -26,7 +26,7 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
 ### Metadata Attributes
 Gigamon deep packet inspection extracts 7500+ application metadata attributes and forwards them to Datadog. Gigamon Application Metadata Protobook provides a complete list of supported protocols and their attributes. These protocols can also be viewed as groups by Tags, Family, and Classification method. 
 
-Gigamon Application Metadata Exporter (AMX) application converts the output from the Application Metadata Intelligence (AMI) in CEF format into JSON format and sends it to Datadog.
+Gigamon AMX converts the output from the AMI in CEF format into JSON and sends it to Datadog.
 
 You can access the Application Metadata Protobook from the [GigaVUE FM][4].
 
