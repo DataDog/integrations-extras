@@ -1,7 +1,7 @@
 # Gigamon
 
 ## Overview
-[Gigamon][1]  Application Metadata Intelligence empowers your Observability, Security Information and Event Management (SIEM), and Network Performance Monitoring tools with critical metadata attributes across thousands of business, consumer, and IT applications and services. Get deep application visibility to rapidly pinpoint performance bottlenecks, quality issues, and potential network security risks. Gigamon's Application Metadata Intelligence (AMI) helps you monitor and manage complex digital applications for your digital transformation initiatives. This can be achieved through the Gigamon Solution by sending the AMI metadata to Datadog. Some benefits to highlight are Rich Actionable Insights, Boost Security Posture etc.
+[Gigamon][1]  Application Metadata Intelligence (AMI) empowers your Observability, Security Information and Event Management (SIEM), and Network Performance Monitoring tools with critical metadata attributes across thousands of business, consumer, and IT applications and services. Get deep application visibility to quickly pinpoint performance bottlenecks, quality issues, and potential network security risks. Gigamon's AMI helps you monitor and manage complex digital applications for your digital transformation initiatives. This can be achieved through the Gigamon Solution by sending the AMI metadata to Datadog. Some benefits to highlight are Rich Actionable Insights, Boost Security Posture, etc.
 
 
 
