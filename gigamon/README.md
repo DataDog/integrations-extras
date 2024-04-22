@@ -14,9 +14,9 @@ GigaVUE V Series Node is a virtual machine running in the customer's infrastruct
 
 1. After you install AMX in your environment, create a monitoring session in [FM][3]. 
 2. Edit the exporter and provide the following required fields:
-    a. Alias : Name of the Exporter (String )
-    b. Ingestor : Provide Port as "514" and Type as "ami"
-    c. Cloud Tool Exports: Create new exporter tool by selecting '+' and add details as shown in the below diagram 
+    a. Alias: Name of the exporter (String).
+    b. Ingestor: Specify the Port as "514" and Type as "ami".
+    c. Cloud Tool Exports: Create a new exporter tool by selecting '+' and add details as shown in the following diagram:
     ![1](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon1.png)
     ![2](https://raw.githubusercontent.com/DataDog/integrations-extras/master/gigamon/images/images/gigamon2.png)
     
