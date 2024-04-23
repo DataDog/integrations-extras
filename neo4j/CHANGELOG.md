@@ -1,5 +1,16 @@
 # CHANGELOG - neo4j
 
+## 3.0.4 / 2024-04-06
+
+***Changed***:
+
+* Updated the conf.yaml.example to clarify how to monitor multiple databases and set the example database version to 5.18.
+* Updated the conf.yaml.example to remove references to Neo4j 3.5
+
+***Added***:
+
+* Added additional bolt, page_cache eviction and relationship type  metrics which have been introduced since Neo4j 5.10
+
 ## 3.0.3 / 2024-04-05
 
 ***Fixed***:
