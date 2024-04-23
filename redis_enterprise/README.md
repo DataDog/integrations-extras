@@ -2,7 +2,11 @@
 
 ## Overview
 
-Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. The [Redis Enterprise][1] integration provides metrics for three critical aspects of a cluster; database, node, and shard. This integration enables fine-grained reporting that makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
+Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. 
+
+The [Redis Enterprise][1] integration is intended for use in on-premsises or private cloud installations running the enterprise version of Redis software. It is not for use with Redis Cloud installations, for that see the separate Redis Cloud integration.
+
+This integration provides metrics for three critical aspects of a cluster; database, node, and shard, and makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
 
 
 ## Setup
