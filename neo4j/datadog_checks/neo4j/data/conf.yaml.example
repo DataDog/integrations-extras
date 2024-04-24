@@ -7,16 +7,20 @@ instances:
     #
   - openmetrics_endpoint: http://localhost:2004/metrics
 
-    ## @param neo4j_version - string - optional - default: 4.3
+    ## @param neo4j_version - string - optional - default: 5.18
     ## The Neo4j version to gather metric from.
     #
-    # neo4j_version: '4.3'
+    # neo4j_version: '5.18'
 
     ## @param neo4j_dbs - list of strings - optional
     ## The Neo4j databases to gather metric from.
-    ## This is a Neo4j 4.x feature and it has no effect if neo4j_version is set to 3.5.
+    ## This is a Neo4j 4.x and 5.x feature.
+    ## If left empty, then all Neo4j database metrics for all databases will be loaded.
+    ## This value can also be specified as neo4j_dbs['neo4j','customers']
     #
-    # neo4j_dbs: []
+    # neo4j_dbs:
+    #   - neo4j
+    #   - customers
 
     ## @param raw_metric_prefix - string - optional
     ## A prefix that is removed from all exposed metric names, if present.
