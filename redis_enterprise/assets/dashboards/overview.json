@@ -1,0 +1,1149 @@
+{
+  "title": "Redis Enterprise Overview",
+  "description": "This should include the same copy as the high-level overview  in the About section of the dashboard including helpful links.\n\nClone this template dashboard to make changes and add your own graph widgets. ",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About Redis Enterprise",
+        "banner_img": "https://raw.githubusercontent.com/DataDog/integrations-extras/58e0302ab52d7e1425cdcc5eb14dd16b9898db9e/redis_enterprise/assets/logos/logo.svg",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "Redis Enterprise and Redis Cloud expose database metrics using a Prometheus endpoint. To collect and view these metrics, you will need an observabilty platform, such as Datadog.\n\nPlease see Redis [Monitoring with metrics and alerts](https://docs.redis.com/latest/rs/clusters/monitoring/) to learn more. ",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "This integration makes it possible to:\n\n- Collect and display metrics not available in the admin console\n\n- Set up automatic alerts for node or cluster events\n\n- Display these metrics alongside data from other systems",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 7
+      }
+    },
+    {
+      "id": 1741971994096136,
+      "definition": {
+        "title": "Cluster Overview",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8029506703102670,
+            "definition": {
+              "title": "Used Memory",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_used_memory{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {},
+                "type": "bars"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 3546285905369666,
+            "definition": {
+              "title": "Number of Keys",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_no_of_keys{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": false
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 8680298604183056,
+            "definition": {
+              "title": "Operations/sec",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_instantaneous_ops_per_sec{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 7
+      }
+    },
+    {
+      "id": 690893075866548,
+      "definition": {
+        "title": "Latency",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 1508854872890636,
+            "definition": {
+              "type": "note",
+              "content": "Latency is the length of time it takes for the system to respond.",
+              "background_color": "orange",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2184303700391838,
+            "definition": {
+              "title": "Cluster Latencies",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "value"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "microsecond"
+                        }
+                      },
+                      "alias": "average",
+                      "formula": "query1"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "microsecond"
+                        }
+                      },
+                      "alias": "read",
+                      "formula": "query3"
+                    },
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "microsecond"
+                        }
+                      },
+                      "alias": "write",
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query1",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_avg_latency{$cluster}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_avg_read_latency{$cluster}"
+                    },
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_avg_write_latency{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "orange",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 8288121356023062,
+      "definition": {
+        "title": "Cluster Nodes",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 8689997792026362,
+            "definition": {
+              "type": "note",
+              "content": "Latency is the length of time it takes for the system to respond.",
+              "background_color": "purple",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2709994875687846,
+            "definition": {
+              "title": "Node Latencies",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "free",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "available",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "available",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.node_free_memory{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.node_available_memory{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:rdse.node_provisional_memory{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 4
+            }
+          },
+          {
+            "id": 8022280383623370,
+            "definition": {
+              "type": "free_text",
+              "text": "Text Widget",
+              "color": "#2B13E6",
+              "font_size": "auto",
+              "text_align": "left"
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 7923328091977648,
+      "definition": {
+        "title": "Node Shards",
+        "background_color": "vivid_purple",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2466142917303718,
+            "definition": {
+              "type": "note",
+              "content": "Latency is the length of time it takes for the system to respond.",
+              "background_color": "purple",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 7705863720522018,
+            "definition": {
+              "title": "CPU Usage",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "user",
+                      "formula": "query1",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "idle",
+                      "formula": "query2",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "iowait",
+                      "formula": "query3",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "nice",
+                      "formula": "query4",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "steal",
+                      "formula": "query5",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    },
+                    {
+                      "alias": "system",
+                      "formula": "query6",
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit",
+                          "unit_name": "fraction"
+                        }
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.node_cpu_user{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.node_cpu_idle{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:rdse.node_cpu_iowait{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query4",
+                      "query": "avg:rdse.node_cpu_nice{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query5",
+                      "query": "avg:rdse.node_cpu_steal{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query6",
+                      "query": "avg:rdse.node_cpu_system{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "datadog16",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 6
+            }
+          },
+          {
+            "id": 6268722600355224,
+            "definition": {
+              "type": "free_text",
+              "text": "Text Widget",
+              "color": "#2B13E6",
+              "font_size": "auto",
+              "text_align": "left"
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 12,
+        "height": 8
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Memory",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5205778284461508,
+            "definition": {
+              "type": "note",
+              "content": "Memory limits how much data Redis can store.\n",
+              "background_color": "blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 5161979676758438,
+            "definition": {
+              "title": "Cluster Memory by Database",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 500,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_used_memory{$cluster} by {bdb_name}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "style": {
+                    "palette": "datadog16"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 7,
+        "is_column_break": true
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "Keys",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4698654642100834,
+            "definition": {
+              "type": "note",
+              "content": "Keys represent individual pieces of data in Redis\n\n",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 1290921415908062,
+            "definition": {
+              "title": "Cluster Keys by Database",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 500,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "query": "avg:rdse.bdb_no_of_keys{$cluster} by {bdb_name}",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "style": {
+                    "palette": "semantic"
+                  }
+                }
+              ],
+              "type": "sunburst",
+              "legend": {
+                "type": "automatic"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 6,
+              "height": 5
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 3112318046315726,
+      "definition": {
+        "title": "Requests",
+        "background_color": "vivid_yellow",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3606284556444836,
+            "definition": {
+              "type": "note",
+              "content": "Requests represent read, write, and all other requests",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 2538664554748292,
+            "definition": {
+              "title": "Cluster Requests",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "horizontal",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "read",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "write",
+                      "formula": "query3"
+                    },
+                    {
+                      "alias": "other",
+                      "formula": "query4"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "name": "query2",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_read_req{$cluster}"
+                    },
+                    {
+                      "name": "query3",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_write_req{$cluster}"
+                    },
+                    {
+                      "name": "query4",
+                      "data_source": "metrics",
+                      "query": "avg:rdse.bdb_other_req{$cluster}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "warm",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 5
+      }
+    },
+    {
+      "id": 4219969013847768,
+      "definition": {
+        "title": "Cluster Databases",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6536426319322986,
+            "definition": {
+              "type": "note",
+              "content": "Latency is the length of time it takes for the system to respond.",
+              "background_color": "pink",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 4769253717429932,
+            "definition": {
+              "title": "Database Input/Output",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    },
+                    {
+                      "formula": "query2"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_egress_bytes{$cluster} by {bdb_name}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.bdb_ingress_bytes{$cluster} by {bdb_name}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 4
+            }
+          },
+          {
+            "id": 1219215552390850,
+            "definition": {
+              "type": "free_text",
+              "text": "Text Widget",
+              "color": "#6915F0",
+              "font_size": "auto",
+              "text_align": "left"
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 12,
+        "width": 12,
+        "height": 6
+      }
+    },
+    {
+      "id": 7495716450414166,
+      "definition": {
+        "title": "Database Shards",
+        "background_color": "vivid_pink",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 5309930525296140,
+            "definition": {
+              "type": "note",
+              "content": "Latency is the length of time it takes for the system to respond.",
+              "background_color": "pink",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 1
+            }
+          },
+          {
+            "id": 6432709391941936,
+            "definition": {
+              "title": "Shard Keys",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "alias": "evicted",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "expired",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "trimmed",
+                      "formula": "query3"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_evicted_keys{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdse.redis_expired_keys{*}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:rdse.redis_keys_trimmed{*}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "dog_classic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "line"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 1,
+              "width": 8,
+              "height": 6
+            }
+          },
+          {
+            "id": 4260530789093450,
+            "definition": {
+              "type": "free_text",
+              "text": "Text Widget",
+              "color": "#6915F0",
+              "font_size": "auto",
+              "text_align": "left"
+            },
+            "layout": {
+              "x": 8,
+              "y": 1,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 18,
+        "width": 12,
+        "height": 8
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "cluster",
+      "prefix": "cluster",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
