@@ -272,16 +272,26 @@ facets:
     name: Zscaler Department
     path: zscaler.department
     source: log
-  - groups:
+  - facetType: range
+    groups:
       - zscaler
-    name: Zscaler Dummy Facet 1
+    name: Zscaler Dummy Facet 1 (range)
     path: zscaler.dummy.one
     source: log
-  - groups:
+    type: integer
+    unit:
+      family: bytes
+      name: byte
+  - facetType: range
+    groups:
       - zscaler
     name: Zscaler Dummy Facet 2
     path: zscaler.dummy.two
     source: log
+    type: integer
+    unit:
+      family: bytes
+      name: byte
 pipeline:
   type: pipeline
   name: Zscaler
