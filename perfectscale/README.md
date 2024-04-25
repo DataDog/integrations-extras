@@ -28,7 +28,9 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
     ![Perfectscale Screenshot][5]
     - Copy your API Key for the next step
     ![Perfectscale Screenshot][6]
- 4. [Create a DataDog profile][7]. The profile configuration:
+ 4. [Create a Datadog profile][7].
+
+    The profile configuration:
     - datadog_api_key: <API_KEY>
     - datadog_site_region: datadoghq.com
 
@@ -46,7 +48,7 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
 
 ### Uninstallation
 
-To stop using PerfectScale Datadog Integration, simply unassign your Datadog profile from a cluster. [Here][8] is the instruction.
+To stop using PerfectScale Datadog Integration, simply unassign your Datadog profile from a cluster. Check out the [full instructions][8] here.
 
 ## Troubleshooting
 
