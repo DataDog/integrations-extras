@@ -48,12 +48,6 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
 
 To stop using PerfectScale DataDog Integration, simply unassign your DataDog profile from a cluster. [Here][8] is the instruction.
 
-
-### Validation
-
-!!! Add steps to validate integration is functioning as expected !!!
-
-
 ## Troubleshooting
 
 Need help with the integration? Contact our [support][9].
