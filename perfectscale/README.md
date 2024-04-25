@@ -5,7 +5,7 @@
 
 PerfectScale is a comprehensive cloud-agnostic solution that enables teams with continuous and autonomous Kubernetes optimization capabilities. Our main goal is to empower teams to effortlessly manage their infrastructure, make quick, data-driven decisions, and reach peak performance at the lowest possible cost.
 
-This integration enables you to receive PerfectScale Alerts directly into your DataDog dashboard, ensuring you stay informed about any resilience risks identified in your Kubernetes environment, and helping you prioritize tasks to eliminate the issues before they impact performance and user experience.
+This integration enables you to receive PerfectScale Alerts directly into your Datadog dashboard, ensuring you stay informed about any resilience risks identified in your Kubernetes environment, and helping you prioritize tasks to eliminate the issues before they impact performance and user experience.
 
 
 
@@ -20,7 +20,7 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
 ### Configuration
 
  1. [Sign-in][2] to PerfectScale.
- 2. In order to start using DataDog integration, the cluster should be connected to PerfectScale. If it is not done yet, add the cluster in 3 simple steps following the instructions in our [Documentation][3].
+ 2. In order to start using Datadog integration, the cluster should be connected to PerfectScale. If it is not done yet, add the cluster in 3 simple steps following the instructions in our [Documentation][3].
 ![Perfectscale Screenshot][4]
  3. Create an API Key in DataDog:
     - Go to Organizations settings
@@ -46,7 +46,7 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
 
 ### Uninstallation
 
-To stop using PerfectScale DataDog Integration, simply unassign your DataDog profile from a cluster. [Here][8] is the instruction.
+To stop using PerfectScale Datadog Integration, simply unassign your Datadog profile from a cluster. [Here][8] is the instruction.
 
 ## Troubleshooting
 
