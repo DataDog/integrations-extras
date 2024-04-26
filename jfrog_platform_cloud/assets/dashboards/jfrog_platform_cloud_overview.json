@@ -98,8 +98,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -178,8 +176,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -248,8 +244,6 @@
               "title": "Top requests by IP address",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -397,8 +391,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -535,8 +527,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -605,8 +595,6 @@
               "title": "User request activity",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -759,8 +747,6 @@
               "title": "Log volume, number of records",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "requests":
               [
                 {
@@ -835,8 +821,6 @@
               "title": "Accessed resources by username, instance name and IP address",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -986,8 +970,6 @@
               "title": "Accessed docker repos (top chart)",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -1030,7 +1012,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request"
+                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request (@http.method:(HEAD OR PUT)) @http.url:*/manifests/*"
                       }
                     }
                   ],
@@ -1072,8 +1054,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1111,7 +1091,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request"
+                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
                       }
                     }
                   ],
@@ -1187,8 +1167,6 @@
               "title": "Accessed docker images by name and response code (top chart)",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -1230,7 +1208,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker*"
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker* @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
                       },
                       "storage": "hot"
                     }
@@ -1284,8 +1262,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1323,7 +1299,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker*"
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker* @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
                       }
                     }
                   ],
@@ -1416,7 +1392,7 @@
       "id": 2477922006930220,
       "definition":
       {
-        "title": "Operations (Audit Logs)",
+        "title": "Operations (Audit and Access Logs)",
         "background_color": "vivid_green",
         "show_title": true,
         "type": "group",
@@ -1430,8 +1406,6 @@
               "title": "Operations by users",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "requests":
               [
                 {
@@ -1529,8 +1503,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1661,8 +1633,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1756,8 +1726,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1851,8 +1819,6 @@
                 "value",
                 "sum"
               ],
-              "time":
-              {},
               "type": "timeseries",
               "requests":
               [
@@ -1988,6 +1954,188 @@
               "width": 4,
               "height": 1
             }
+          },
+          {
+            "id": 5251851887096738,
+            "definition":
+            {
+              "title": "Artifactory access security audit events ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.security.audit"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 6324405992194226,
+            "definition":
+            {
+              "title": "Artifactory access audit events ",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns":
+              [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "type": "timeseries",
+              "requests":
+              [
+                {
+                  "formulas":
+                  [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries":
+                  [
+                    {
+                      "data_source": "logs",
+                      "name": "query1",
+                      "indexes":
+                      [
+                        "*"
+                      ],
+                      "compute":
+                      {
+                        "aggregation": "count"
+                      },
+                      "group_by":
+                      [],
+                      "search":
+                      {
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.audit"
+                      },
+                      "storage": "hot"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style":
+                  {
+                    "palette": "semantic",
+                    "line_type": "solid",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout":
+            {
+              "x": 6,
+              "y": 8,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2295515437988666,
+            "definition":
+            {
+              "type": "note",
+              "content": " Total number of access security audit logs streamed to DataDog.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout":
+            {
+              "x": 0,
+              "y": 11,
+              "width": 6,
+              "height": 1
+            }
+          },
+          {
+            "id": 2113340899650454,
+            "definition":
+            {
+              "type": "note",
+              "content": " Total number of access audit logs streamed to DataDog.",
+              "background_color": "green",
+              "font_size": "14",
+              "text_align": "center",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": false
+            },
+            "layout":
+            {
+              "x": 6,
+              "y": 11,
+              "width": 6,
+              "height": 1
+            }
           }
         ]
       },
@@ -1996,38 +2144,20 @@
         "x": 0,
         "y": 23,
         "width": 12,
-        "height": 9
+        "height": 13
       }
     },
     {
-      "id": 5251851887096738,
+      "id": 3596681096391102,
       "definition":
       {
-        "title": "Artifactory access security audit events ",
+        "title": "Action types",
         "title_size": "16",
         "title_align": "left",
-        "show_legend": true,
-        "legend_layout": "auto",
-        "legend_columns":
-        [
-          "avg",
-          "min",
-          "max",
-          "value",
-          "sum"
-        ],
-        "time":
-        {},
-        "type": "timeseries",
+        "type": "toplist",
         "requests":
         [
           {
-            "formulas":
-            [
-              {
-                "formula": "query1"
-              }
-            ],
             "queries":
             [
               {
@@ -2042,38 +2172,60 @@
                   "aggregation": "count"
                 },
                 "group_by":
-                [],
+                [
+                  {
+                    "facet": "@jfrog.cloud.action_response",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
                 "search":
                 {
-                  "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.security.audit"
+                  "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.access"
                 },
                 "storage": "hot"
               }
             ],
-            "response_format": "timeseries",
-            "style":
-            {
-              "palette": "semantic",
-              "line_type": "solid",
-              "line_width": "normal"
-            },
-            "display_type": "bars"
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar"
           }
-        ]
+        ],
+        "style":
+        {
+          "display":
+          {
+            "type": "stacked",
+            "legend": "automatic"
+          }
+        }
       },
       "layout":
       {
         "x": 0,
         "y": 0,
-        "width": 6,
+        "width": 4,
         "height": 3
       }
     },
     {
-      "id": 6324405992194226,
+      "id": 2185644837800014,
       "definition":
       {
-        "title": "Artifactory access audit events ",
+        "title": "Top users (over time)",
         "title_size": "16",
         "title_align": "left",
         "show_legend": true,
@@ -2086,8 +2238,6 @@
           "value",
           "sum"
         ],
-        "time":
-        {},
         "type": "timeseries",
         "requests":
         [
@@ -2112,10 +2262,20 @@
                   "aggregation": "count"
                 },
                 "group_by":
-                [],
+                [
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
                 "search":
                 {
-                  "query": "source:jfrog_artifactory service:jfrog.saas.rt.access.audit"
+                  "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.access"
                 },
                 "storage": "hot"
               }
@@ -2123,28 +2283,102 @@
             "response_format": "timeseries",
             "style":
             {
-              "palette": "semantic",
+              "palette": "dog_classic",
               "line_type": "solid",
               "line_width": "normal"
             },
-            "display_type": "bars"
+            "display_type": "line"
           }
         ]
       },
       "layout":
       {
-        "x": 6,
+        "x": 4,
         "y": 0,
-        "width": 6,
+        "width": 4,
         "height": 3
       }
     },
     {
-      "id": 2295515437988666,
+      "id": 4205154410194246,
+      "definition":
+      {
+        "title": "Accepted deploys by username",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests":
+        [
+          {
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"ACCEPTED DEPLOY\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "style":
+        {
+          "display":
+          {
+            "type": "stacked",
+            "legend": "automatic"
+          }
+        }
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 1033484241783706,
       "definition":
       {
         "type": "note",
-        "content": " Total number of access security audit logs streamed to DataDog.",
+        "content": "Actions by type.",
         "background_color": "green",
         "font_size": "14",
         "text_align": "center",
@@ -2158,16 +2392,16 @@
       {
         "x": 0,
         "y": 3,
-        "width": 6,
+        "width": 4,
         "height": 1
       }
     },
     {
-      "id": 2113340899650454,
+      "id": 7358561038658014,
       "definition":
       {
         "type": "note",
-        "content": " Total number of access audit logs streamed to DataDog.",
+        "content": "Top users activity, timeseries.",
         "background_color": "green",
         "font_size": "14",
         "text_align": "center",
@@ -2179,9 +2413,765 @@
       },
       "layout":
       {
-        "x": 6,
+        "x": 4,
         "y": 3,
-        "width": 6,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 2058312962280890,
+      "definition":
+      {
+        "type": "note",
+        "content": "Top list of deployed artifacts bt username.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 3,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 1341172384303516,
+      "definition":
+      {
+        "title": "Denied actions by IP",
+        "title_size": "16",
+        "title_align": "left",
+        "requests":
+        [
+          {
+            "response_format": "scalar",
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@network.client.ip",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:DENIED*"
+                },
+                "storage": "hot"
+              }
+            ],
+            "style":
+            {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend":
+        {
+          "type": "automatic"
+        }
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 4,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 1450557222117854,
+      "definition":
+      {
+        "title": "Denied logins by IP",
+        "title_size": "16",
+        "title_align": "left",
+        "requests":
+        [
+          {
+            "response_format": "scalar",
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@network.client.ip",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"DENIED LOGIN\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "style":
+            {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend":
+        {
+          "type": "automatic"
+        }
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 4,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 3655855608472182,
+      "definition":
+      {
+        "title": "Denied logins by username",
+        "title_size": "16",
+        "title_align": "left",
+        "requests":
+        [
+          {
+            "response_format": "scalar",
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"DENIED LOGIN\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "style":
+            {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend":
+        {
+          "type": "automatic"
+        }
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 4,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 5592607983359890,
+      "definition":
+      {
+        "type": "note",
+        "content": "All types of denied actions by IP address.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 7,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 4018089721220852,
+      "definition":
+      {
+        "type": "note",
+        "content": "Denied logins per IP address.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 7,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 5198324813995334,
+      "definition":
+      {
+        "type": "note",
+        "content": "Denied logins by username.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 7,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 383644367746952,
+      "definition":
+      {
+        "title": "Denied downloads by username and instance",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests":
+        [
+          {
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@repository_path",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@jfrog.cloud.instance_name",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"DENIED DOWNLOAD\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 1000,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "style":
+        {
+          "display":
+          {
+            "type": "stacked"
+          },
+          "scaling": "absolute"
+        }
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 8,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 8226783869382820,
+      "definition":
+      {
+        "title": "Denied actions by username",
+        "title_size": "16",
+        "title_align": "left",
+        "requests":
+        [
+          {
+            "response_format": "scalar",
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 10,
+                  "order": "desc"
+                }
+              }
+            ],
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:DENIED*"
+                },
+                "storage": "hot"
+              }
+            ],
+            "style":
+            {
+              "palette": "datadog16"
+            }
+          }
+        ],
+        "type": "sunburst",
+        "legend":
+        {
+          "type": "automatic"
+        }
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 8,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 1271382445096390,
+      "definition":
+      {
+        "title": "Accepted downloads by username and instance",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests":
+        [
+          {
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@repository_path",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@jfrog.cloud.instance_name",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"ACCEPTED DOWNLOAD\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 1000,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "style":
+        {
+          "display":
+          {
+            "type": "stacked"
+          },
+          "scaling": "absolute"
+        }
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 8,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 5718262370064838,
+      "definition":
+      {
+        "type": "note",
+        "content": "Denied downloads by username and instance name.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 11,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 6534978313816022,
+      "definition":
+      {
+        "type": "note",
+        "content": "All types of denied actions by IP address.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 4,
+        "y": 11,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 6560456722318720,
+      "definition":
+      {
+        "type": "note",
+        "content": "Accepted downloads by username and instance name.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 8,
+        "y": 11,
+        "width": 4,
+        "height": 1
+      }
+    },
+    {
+      "id": 4912442587893846,
+      "definition":
+      {
+        "title": "Accepted deployments by username and instance",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "toplist",
+        "requests":
+        [
+          {
+            "queries":
+            [
+              {
+                "data_source": "logs",
+                "name": "query1",
+                "indexes":
+                [
+                  "*"
+                ],
+                "compute":
+                {
+                  "aggregation": "count"
+                },
+                "group_by":
+                [
+                  {
+                    "facet": "@repository_path",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@jfrog.cloud.instance_name",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  },
+                  {
+                    "facet": "@usr.id",
+                    "limit": 10,
+                    "sort":
+                    {
+                      "order": "desc",
+                      "aggregation": "count"
+                    }
+                  }
+                ],
+                "search":
+                {
+                  "query": "source:jfrog_artifactory @jfrog.cloud.action_response:\"ACCEPTED DEPLOY\""
+                },
+                "storage": "hot"
+              }
+            ],
+            "formulas":
+            [
+              {
+                "formula": "query1",
+                "limit":
+                {
+                  "count": 1000,
+                  "order": "desc"
+                }
+              }
+            ],
+            "response_format": "scalar"
+          }
+        ],
+        "style":
+        {
+          "display":
+          {
+            "type": "stacked"
+          },
+          "scaling": "absolute"
+        }
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 12,
+        "width": 4,
+        "height": 3
+      }
+    },
+    {
+      "id": 8465364030975940,
+      "definition":
+      {
+        "type": "note",
+        "content": "Accepted deployments by username and instance name.",
+        "background_color": "green",
+        "font_size": "14",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": false
+      },
+      "layout":
+      {
+        "x": 0,
+        "y": 15,
+        "width": 4,
         "height": 1
       }
     }
