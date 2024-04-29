@@ -2,24 +2,23 @@
 
 ## Overview
 
-This check monitors [Redis Cloud][1].
+Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. 
+
+The [Redis Cloud][1] integration is intended for use with Redis CLoud deployments of Redis software. It is not for use with Redis Enterprise installations, for that see the separate Redis Enterprise integration.
+
+This integration provides metrics for three critical aspects of a cluster; database, node, and shard, and makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
+
 
 ## Setup
 
 ### Installation
 
-To install the Redis Cloud check on your host:
-
-
-Run the following command to install the Agent integration:
-
 1. Run the following command to install the Agent integration:
    ```shell
-   datadog-agent integration install -t datadog-redis_enterprise==1.0
+   datadog-agent integration install -t datadog-redis_cloud==1.0.0
    ```
    
 2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
-
 
 3. [Restart][3] the agent.
 
@@ -27,6 +26,7 @@ Run the following command to install the Agent integration:
 ### Configuration
 
 Set the `openmetrics_endpoint` to point to your cluster. See the [example][4].
+
 
 ### Validation
 
@@ -47,23 +47,22 @@ See [metadata.csv][6] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Redis Enterprise does not include any service checks.
+Redis Cloud does not include any service checks.
 
 
 ### Events
 
-Redis Enterprise does not include any events.
+Redis Cloud does not include any events.
 
 
 ## Troubleshooting
 
 Need help? Contact [Redis Field Engineering][7].
 
-
-[1]: https://redis.io/cloud/
+[1]: https://redis.io/docs/latest/operate/rc/
 [2]: https://docs.datadoghq.com/getting_started/integrations/
 [3]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[4]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/datadog_checks/redis_enterprise/data/conf.yaml.example
+[4]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/datadog_checks/redis_cloud/data/conf.yaml.example
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
-[6]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/metadata.csv
+[6]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/metadata.csv
 [7]: mailto:field.engineers@redis.com

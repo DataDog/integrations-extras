@@ -4,51 +4,11 @@ from typing import Any, Callable, Dict  # noqa: F401
 
 import pytest
 
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.redis_cloud.check import RedisCloudCheck
 
 from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
 
 ssl._create_default_https_context = ssl._create_unverified_context
-
-
-# @pytest.mark.integration
-# @pytest.mark.usefixtures("dd_environment")
-# def test_instance_check(dd_run_check, aggregator, instance):
-#     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#
-#     check = RedisCloudCheck('redis_enterprise', {}, [instance])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#     aggregator.assert_all_metrics_covered()
-
-
-# @pytest.mark.unit
-# def test_default_check(dd_run_check, aggregator, instance):
-#     # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-#
-#     check = RedisCloudCheck('redis_enterprise', {}, [instance])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     # aggregator.assert_metrics_using_metadata(get_metadata_metrics())
-#     aggregator.assert_all_metrics_covered()
 
 
 @pytest.mark.unit
@@ -57,17 +17,17 @@ def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggrega
 
     instance = deepcopy(ERSATZ_INSTANCE)
     instance.update({'tls_verify': 'false'})
-    check = RedisCloudCheck('redis_enterprise', {}, [instance])
+    check = RedisCloudCheck('redis_cloud', {}, [instance])
 
     dd_run_check(check)
-    aggregator.assert_service_check('rdse.can_connect', RedisCloudCheck.CRITICAL)
+    aggregator.assert_service_check('rdsc.can_connect', RedisCloudCheck.CRITICAL)
 
 
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
-        'RDSE.LISTENER',
+        'RDSC.LISTENER',
     ]
     instance = deepcopy(INSTANCE)
     instance['metric_groups'] = additional_metric_groups
@@ -79,32 +39,12 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     metrics = DEFAULT_METRICS + additional_metric_groups
     for g in metrics:
         for m in METRICS_MAP[g]:
+            print(f'metric: {m}')
             if m in EPHEMERAL:
                 continue
-            # print(f'metric: {m}')
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
-    aggregator.assert_service_check('rdse.more_groups', count=1)
-
-
-# @pytest.mark.unit
-# def test_instance_full_additional_check(aggregator, dd_run_check, mock_http_response):
-#     instance = deepcopy(INSTANCE)
-#     # add all additional metric groups for validation
-#     instance['metric_groups'] = ADDITIONAL_METRICS
-#
-#     check = RedisEnterpriseCheck(CHECK, {}, [instance])
-#
-#     dd_run_check(check)
-#
-#     groups_to_check = ADDITIONAL_METRICS
-#
-#     for g in groups_to_check:
-#         for m in METRICS_MAP[g]:
-#             aggregator.assert_metric(m)
-#
-#     aggregator.assert_all_metrics_covered()
-#     aggregator.assert_service_check('rdse.openmetrics.health', count=1)
+    aggregator.assert_service_check('rdsc.more_groups', count=1)
 
 
 @pytest.mark.unit
@@ -117,7 +57,7 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
     with pytest.raises(Exception):
         dd_run_check(check)
 
-    aggregator.assert_service_check('rdse.group_bogus', count=0)
+    aggregator.assert_service_check('rdsc.group_bogus', count=0)
 
 
 @pytest.mark.unit
@@ -130,25 +70,4 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
     with pytest.raises(Exception):
         dd_run_check(check)
 
-    aggregator.assert_service_check('rdse.node_imaginary', count=0)
-
-
-# @pytest.mark.integration
-# @pytest.mark.usefixtures("dd_environment")
-# def test_check(aggregator, dd_run_check):
-#
-#     instances = INSTANCE
-#     instances.update({'tls_verify': 'false'})
-#
-#     check = RedisCloudCheck(CHECK, {}, [instances])
-#     dd_run_check(check)
-#
-#     metrics_list = []
-#     for g in DEFAULT_METRICS:
-#         metrics_list.extend(METRICS_MAP[g])
-#     for m in metrics_list:
-#         if m in EPHEMERAL:
-#             continue
-#         aggregator.assert_metric(m)
-#
-#     aggregator.assert_all_metrics_covered()
+    aggregator.assert_service_check('rdsc.node_imaginary', count=0)

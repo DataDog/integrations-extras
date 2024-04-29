@@ -1,4 +1,4 @@
-# enterprise metrics use the namespace 'rdse'
+# cloud metrics use the namespace 'rdsc'
 REDIS_DATABASE = {
     'bdb_avg_latency': 'bdb_avg_latency',
     'bdb_avg_latency_max': 'bdb_avg_latency_max',
@@ -6,7 +6,6 @@ REDIS_DATABASE = {
     'bdb_avg_read_latency_max': 'bdb_avg_read_latency_max',
     'bdb_avg_write_latency': 'bdb_avg_write_latency',
     'bdb_avg_write_latency_max': 'bdb_avg_write_latency_max',
-    #'bdb_conns': {'name': 'bdb_conns', 'type': 'gauge'},
     'bdb_conns': 'bdb_conns',
     'bdb_egress_bytes': 'bdb_egress_bytes',
     'bdb_egress_bytes_max': 'bdb_egress_bytes_max',
@@ -361,10 +360,10 @@ DEFAULT_METRICS = [
 
 
 ADDITIONAL_METRICS = {
-    'RDSE.REPLICATION': REDIS_REPLICATION,
-    'RDSE.SHARDREPL': REDIS_SHARD_REPLICATION,
-    'RDSE.LISTENER': REDIS_LISTENER,
-    'RDSE.PROXY': REDIS_PROXY,
-    'RDSE.BIGSTORE': REDIS_BIGSTORE,
-    'RDSE.FLASH': REDIS_FLASH,
+    'RDSC.REPLICATION': REDIS_REPLICATION,
+    'RDSC.SHARDREPL': REDIS_SHARD_REPLICATION,
+    'RDSC.LISTENER': REDIS_LISTENER,
+    'RDSC.PROXY': REDIS_PROXY,
+    'RDSC.BIGSTORE': REDIS_BIGSTORE,
+    'RDSC.FLASH': REDIS_FLASH,
 }
