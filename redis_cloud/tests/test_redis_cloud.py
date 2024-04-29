@@ -39,9 +39,9 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
     metrics = DEFAULT_METRICS + additional_metric_groups
     for g in metrics:
         for m in METRICS_MAP[g]:
-            print(f'metric: {m}')
             if m in EPHEMERAL:
                 continue
+            # print(f'metric: {m}')
             aggregator.assert_metric(m)
     aggregator.assert_all_metrics_covered()
     aggregator.assert_service_check('rdsc.more_groups', count=1)

@@ -7,7 +7,7 @@ from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompati
 from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
 
-class RedisCloudCheck(AgentCheck):
+class RedisCloudCheck(OpenMetricsBaseCheckV2):
 
     # This will be the prefix of every metric and service check the integration sends
     __NAMESPACE__ = 'rdsc'
@@ -43,7 +43,6 @@ class RedisCloudCheck(AgentCheck):
         self.scraper_configs.append(config)
 
     def get_default_config(self):
-
         metrics = []
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
@@ -71,7 +70,6 @@ class RedisCloudCheck(AgentCheck):
         try:
             super().check(instance)
             self.service_check("can_connect", AgentCheck.OK)
-
         except Exception as e:
             self.log.error('exception: %s', e)
             self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
