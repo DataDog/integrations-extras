@@ -1,0 +1,58 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "b569beaa-dbf6-4c40-a640-fab0ea2b9cab",
+  "app_id": "redis-enterprise",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Redis Enterprise Datadog Integration",
+    "title": "Redis Enterprise v2",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::AI/ML",
+      "Category::Caching",
+      "Category::Data Stores",
+      "Offering::Integration",
+      "Queried Data Type::Metrics",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 7769393,
+      "source_type_name": "Redis Enterprise v2",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "rdse",
+        "check": "rdse.bdb_conns",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "overview-v2": "assets/dashboards/redis_enterprise_overview.json"
+    },
+    "logs": {}
+  },
+  "author": {
+    "homepage": "https://redis.com/redis-enterprise-software/overview",
+    "name": "Redis, Inc.",
+    "sales_email": "press@redis.com",
+    "support_email": "field.engineers@redis.com"
+  },
+  "oauth": {}
+}
