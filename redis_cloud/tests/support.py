@@ -17,8 +17,6 @@ CONFTEST = "https://{}:{}/#/bootstrap".format(HOST, CONFTEST_PORT)
 ERSATZ_INSTANCE = {'openmetrics_endpoint': "https://localhost:8071/metrics", 'tags': ['instance']}
 
 EPHEMERAL = [
-    # "rdsc.bdb_avg_latency",
-    # "rdsc.bdb_avg_latency_max",
     "rdsc.bdb_avg_read_latency",
     "rdsc.bdb_avg_read_latency_max",
     "rdsc.bdb_avg_write_latency",
@@ -26,21 +24,17 @@ EPHEMERAL = [
     'rdsc.no_of_expires',
     'rdsc.node_available_flash',
     'rdsc.node_available_flash_no_overbooking',
-    # 'rdsc.node_avg_latency',
     'rdsc.node_up',
-    # 'rdsc.redis_aof_delayed_fsync',
     'rdsc.redis_blocking_reads',
     'rdsc.redis_blocking_writes',
     'rdsc.redis_db0_avg_ttl',
     'rdsc.redis_db0_expires',
     'rdsc.redis_db0_keys',
-    # 'rdsc.redis_master_link_status',
-    # 'rdsc.redis_master_sync_in_progress',
     'rdsc.redis_mem_fragmentation_ratio',
     'rdsc.redis_used_disk',
 ]
 
-# clous metrics use the namespace 'rdsc'
+# cloud metrics use the namespace 'rdsc'
 METRICS_MAP = {
     'RDSC.DATABASE': [
         'rdsc.bdb_avg_latency',
@@ -359,13 +353,13 @@ DEFAULT_METRICS = [
     'RDSC.DATABASE',
     'RDSC.NODE',
     'RDSC.SHARD',
+    'RDSC.LISTENER',
 ]
 
 ADDITIONAL_METRICS = [
     'RDSC.REPLICATION',
     'RDSC.SHARDREPL',
     'RDSC.PROXY',
-    'RDSC.LISTENER',
     'RDSC.BIGSTORE',
     'RDSC.FLASH',
 ]
