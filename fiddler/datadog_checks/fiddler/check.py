@@ -40,7 +40,7 @@ class FiddlerCheck(AgentCheck):
         """
         headers = {
             'Authorization': f'Bearer {self.token}',
-            'X-Integration': 'fiddler-datadog',
+            'X-Integration': 'fiddler-datadog-3.1.0',
         }
 
         full_url = f'{self.url}/{endpoint}'
@@ -88,7 +88,6 @@ class FiddlerCheck(AgentCheck):
         """
         endpoint = f'v2/models?organization_name={self.organization}&project_name={project}'
         response = self._call(endpoint)
-
         if response.status_code != 200:
             self.log.info('Failed to GET models. Status Code : %s', {response.status_code})
             return []
@@ -117,7 +116,7 @@ class FiddlerCheck(AgentCheck):
             self.log.info('Failed to GET metrics query. Status Code : %s', {response.status_code})
             return [], []
 
-        self.log.debug('METRICS Response : %s', response.json())
+        self.log.info('METRICS Response : %s', response.json())
 
         outputs = []
         for column in response.json()['data']['columns']:
@@ -148,6 +147,24 @@ class FiddlerCheck(AgentCheck):
         if feature:
             tags.append('feature:' + feature)
         return tags
+
+    def _get_baseline_name(self, project: str, model: str):
+        baselines_url = f'v2/baselines?organization_name={self.organization}&project_name={project}&model_name={model}'
+        response = self._call(baselines_url)
+        if response.status_code != 200:
+            self.log.info('Failed to GET baselines. Status Code : %s', {response.status_code})
+            return 'DEFAULT'
+
+        response_json = response.json()
+
+        if 'data' not in response_json or response_json['data']['total'] == 0:
+            return 'DEFAULT'
+
+        baselines = response.json()['data']['items']
+        if len(baselines) > 0:
+            return baselines[0]['name']
+
+        return 'DEFAULT'
 
     def _process_v1compat_query_result(
         self, project: str, model: str, result: Dict[str, Any], outputs: list
@@ -265,6 +282,8 @@ class FiddlerCheck(AgentCheck):
         start_time = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(start_time_epoch / 1000))
         end_time = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(end_time_epoch / 1000))
 
+        baseline_name = self._get_baseline_name(project, model)
+
         bin_size_str = 'Five_Minute'
         if self.bin_size == 3600:
             bin_size_str = 'Hour'
@@ -288,18 +307,20 @@ class FiddlerCheck(AgentCheck):
             if metric.get('needs_categories', False):
                 continue
 
-            queries.append(
-                {
-                    'query_key': metric['key'],
-                    'categories': [],
-                    'columns': metric['columns'],
-                    'viz_type': 'line',
-                    'metric': metric['key'],
-                    'metric_type': metric['type'],
-                    'model_name': model,
-                    'baseline_name': 'DEFAULT',
-                }
-            )
+            query = {
+                'query_key': metric['key'],
+                'categories': [],
+                'columns': metric['columns'],
+                'viz_type': 'line',
+                'metric': metric['key'],
+                'metric_type': metric['type'],
+                'model_name': model,
+            }
+
+            if metric.get('needs_baseline', False):
+                query['baseline_name'] = baseline_name
+
+            queries.append(query)
 
         json_request = {
             'filters': {

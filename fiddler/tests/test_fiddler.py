@@ -93,13 +93,17 @@ def test_get_project_failure(requests_mock, instance):
     assert projects == []
 
 
-def test_run_queries_success(requests_mock, instance, mock_metrics_response_data):
+def test_run_queries_success(requests_mock, instance, mock_metrics_response_data, mock_baselines_response_data):
     check = FiddlerCheck('fiddler', {}, [instance])
 
     requests_mock.get(
         'http://example.com/v2/metrics/test_org:bank_churn:churn_classifier', json=mock_metrics_response_data
     )
     requests_mock.post('http://example.com/v2/queries', json=mock_metrics_response_data)
+    requests_mock.get(
+        'http://example.com/v2/baselines?organization_name=test_org&project_name=bank_churn&model_name=churn_classifier',
+        json=mock_baselines_response_data,
+    )
 
     # Run the _run_queries method and verify the output
     response, outputs = check._run_queries('bank_churn', 'churn_classifier')
@@ -107,13 +111,17 @@ def test_run_queries_success(requests_mock, instance, mock_metrics_response_data
     assert outputs == ['probability_churn']
 
 
-def test_run_queries_failure(requests_mock, instance, mock_metrics_response_data):
+def test_run_queries_failure(requests_mock, instance, mock_metrics_response_data, mock_baselines_response_data):
     check = FiddlerCheck('fiddler', {}, [instance])
 
     requests_mock.get(
         'http://example.com/v2/metrics/test_org:bank_churn:churn_classifier', json=mock_metrics_response_data
     )
     requests_mock.post('http://example.com/v2/queries', status_code=500)
+    requests_mock.get(
+        'http://example.com/v2/baselines?organization_name=test_org&project_name=bank_churn&model_name=churn_classifier',
+        json=mock_baselines_response_data,
+    )
 
     # Run the _run_queries method and verify the output
     response, outputs = check._run_queries('bank_churn', 'churn_classifier')
@@ -140,7 +148,13 @@ def test_create_tags(instance):
 
 
 def test_metric_collection(
-    dd_run_check, aggregator, instance, requests_mock, mock_metrics_response_data, mock_query_expanded_response_data
+    dd_run_check,
+    aggregator,
+    instance,
+    requests_mock,
+    mock_metrics_response_data,
+    mock_query_expanded_response_data,
+    mock_baselines_response_data,
 ):
     check = FiddlerCheck('fiddler', {}, [instance])
 
@@ -155,6 +169,10 @@ def test_metric_collection(
         'http://example.com/v2/metrics/test_org:bank_churn:churn_classifier', json=mock_metrics_response_data
     )
     requests_mock.post('http://example.com/v2/queries', json=mock_query_expanded_response_data)
+    requests_mock.get(
+        'http://example.com/v2/baselines?organization_name=test_org&project_name=bank_churn&model_name=churn_classifier',
+        json=mock_baselines_response_data,
+    )
 
     dd_run_check(check)
 
