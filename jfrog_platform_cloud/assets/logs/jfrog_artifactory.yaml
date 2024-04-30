@@ -1,5 +1,6 @@
 id: jfrog_artifactory
 metric_id: jfrog-platform-cloud
+backend_only: false
 facets:
   - groups:
       - User
@@ -63,15 +64,15 @@ facets:
   - facetType: list
     groups:
       - JFrog Cloud
-    name: Company Name
-    path: jfrog.cloud.company_name
+    name: Audit Data Changed
+    path: jfrog.cloud.audit_data_changed
     source: log
     type: string
   - facetType: list
     groups:
       - JFrog Cloud
-    name: Data Changed
-    path: data_changed
+    name: Company Name
+    path: jfrog.cloud.company_name
     source: log
     type: string
   - facetType: list
@@ -209,7 +210,7 @@ pipeline:
         - log_timestamp
         - "@timestamp"
     - type: attribute-remapper
-      name: Map `entity_name` and `entityname` to `jfrog.cloud.entity_name`
+      name: Map `entity_name`, `entityname` to `jfrog.cloud.entity_name`
       enabled: true
       sources:
         - entity_name
@@ -260,7 +261,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `logged_principal` and `loggedinprincipal` to
+      name: Map `logged_principal`, `loggedinprincipal` to
         `jfrog.cloud.logged_principal`
       enabled: true
       sources:
@@ -324,13 +325,13 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `data_changed` and `datachanged` to `jfrog.cloud.data_changed`
+      name: Map `data_changed`, `datachanged` to `jfrog.cloud.data_changed`
       enabled: true
       sources:
         - data_changed
         - datachanged
       sourceType: attribute
-      target: jfrog.cloud.data_changed
+      target: jfrog.cloud.audit_data_changed
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
