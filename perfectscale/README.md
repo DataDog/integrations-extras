@@ -5,8 +5,7 @@
 
 PerfectScale is a comprehensive cloud-agnostic solution that enables teams with continuous and autonomous Kubernetes optimization capabilities. Our main goal is to empower teams to effortlessly manage their infrastructure, make quick, data-driven decisions, and reach peak performance at the lowest possible cost.
 
-This integration enables you to receive PerfectScale Alerts directly into your Datadog dashboard, ensuring you stay informed about any resilience risks identified in your Kubernetes environment, and helping you prioritize tasks to eliminate the issues before they impact performance and user experience.
-
+PerfectScale monitors resiliency metrics throughout your K8s environment. When PerfectScale identifies under-provisioned or misconfigured workloads, it promptly pushes an alert to the Datadog detailing the issue type (such as OOM, CPU-Throttling, Eviction, etc.) along with its precise location (cluster, namespace, workload, and container).
 
 ## Setup
 
