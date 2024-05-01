@@ -1,1 +1,480 @@
-{"title":"Perfectscale Alerts","description":"[[suggested_dashboards]]","widgets":[{"id":2628569414247692,"definition":{"title":"Total Active Alerts","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{status:active}","aggregator":"sum"}],"response_format":"scalar"}],"autoscale":true,"precision":2,"timeseries_background":{"type":"area"}},"layout":{"x":0,"y":0,"width":3,"height":2}},{"id":2287717342108009,"definition":{"title":"Total Alerts for last 1 day","title_size":"16","title_align":"left","time":{"live_span":"1d"},"type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{status:active}","aggregator":"sum"}],"response_format":"scalar"}],"autoscale":true,"text_align":"center","precision":2,"timeseries_background":{"yaxis":{"include_zero":true},"type":"area"}},"layout":{"x":3,"y":0,"width":3,"height":2}},{"id":6928917062994728,"definition":{"title":"Top Alerts by Cluster","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{*} by {cluster}","aggregator":"sum"}],"response_format":"scalar"}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":6,"y":0,"width":6,"height":2}},{"id":3658969584311560,"definition":{"title":"Top Alerts by Name","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":25,"order":"desc"}}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{*} by {alertname,cluster}","aggregator":"sum"}],"response_format":"scalar"}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":0,"y":2,"width":6,"height":3}},{"id":3717750983208553,"definition":{"title":"Top Alerts by Namespace","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":25,"order":"desc"}}],"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{*} by {namespace,alertname,cluster}","aggregator":"sum"}],"response_format":"scalar"}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":6,"y":2,"width":6,"height":3}},{"id":8167989101852281,"definition":{"title":"Alerts list","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"metrics","name":"query1","query":"sum:perfectscale.alert.metric{*} by {cluster,alertname,risk,namespace,workload,container,firstseen,status,acknowledgedby,acknowledgedy}","aggregator":"sum"}],"response_format":"scalar","text_formats":[],"sort":{"order_by":[{"type":"group","name":"firstseen","order":"asc"}],"count":500},"formulas":[{"cell_display_mode":"number","alias":"value","formula":"query1"}]}],"has_search_bar":"always"},"layout":{"x":0,"y":5,"width":12,"height":7}}],"template_variables":[],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed"}
+{
+  "title": "Perfectscale Alerts",
+  "description": "Perfectscale Alert Visualization",
+  "widgets": [
+    {
+      "id": 3187501998858875,
+      "definition": {
+        "title": "",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6801578134266853,
+            "definition": {
+              "type": "image",
+              "url": "https://raw.githubusercontent.com/perfectscale/integrations-extras/c44c8c37db3d90dfecbd65fbcc39a4a8f84d1051/perfectscale/assets/logos/perfectscale-logo-color.svg",
+              "sizing": "contain",
+              "margin": "md",
+              "has_background": false,
+              "has_border": false,
+              "vertical_align": "center",
+              "horizontal_align": "center"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 1920821377634337,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides a perfectscale alerts overview of your  kubernetes clusters so that you can monitor different issues of a cluster\n",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 2,
+              "width": 6,
+              "height": 2
+            }
+          },
+          {
+            "id": 1599286990743111,
+            "definition": {
+              "type": "note",
+              "content": "\n### Useful Links\n- [Perfectscale Integration Documentation](https://docs.datadoghq.com/integrations/perfectscale/)\n- [Perfectscale Alerts Documentation](https://docs.perfectscale.io/configure-alerts)\n",
+              "background_color": "transparent",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 6,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 8216578232859436,
+      "definition": {
+        "title": "Overview",
+        "background_color": "green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 2628569414247692,
+            "definition": {
+              "title": "Total Active Alerts",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{status:active, $cluster, $namespace, $alertname, $risk}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3
+            }
+          },
+          {
+            "id": 2287717342108009,
+            "definition": {
+              "title": "Total Alerts for last 1 day",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {
+                "live_span": "1d"
+              },
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{status:active, $cluster, $namespace, $alertname, $risk}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "text_align": "center",
+              "precision": 2,
+              "timeseries_background": {
+                "yaxis": {
+                  "include_zero": true
+                },
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 7
+      }
+    },
+    {
+      "id": 7357188242639869,
+      "definition": {
+        "title": "Statistic over time",
+        "background_color": "vivid_blue",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 3494197793870592,
+            "definition": {
+              "title": "FirstSeen",
+              "title_size": "16",
+              "title_align": "left",
+              "show_legend": true,
+              "legend_layout": "auto",
+              "legend_columns": [
+                "avg",
+                "min",
+                "max",
+                "value",
+                "sum"
+              ],
+              "time": {},
+              "type": "timeseries",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{$cluster, $alertname, $namespace, $risk} by {alertname,risk,namespace,container}"
+                    }
+                  ],
+                  "response_format": "timeseries",
+                  "style": {
+                    "palette": "red",
+                    "line_type": "dotted",
+                    "line_width": "normal"
+                  },
+                  "display_type": "bars"
+                }
+              ]
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 4
+            }
+          },
+          {
+            "id": 8167989101852281,
+            "definition": {
+              "title": "Full Alerts List",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "query_table",
+              "requests": [
+                {
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {cluster,alertname,risk,namespace,workload,container,firstseen,status,acknowledgedby}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar",
+                  "text_formats": [],
+                  "sort": {
+                    "order_by": [
+                      {
+                        "type": "group",
+                        "name": "firstseen",
+                        "order": "asc"
+                      }
+                    ],
+                    "count": 500
+                  },
+                  "formulas": [
+                    {
+                      "cell_display_mode": "number",
+                      "alias": "value",
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "has_search_bar": "always"
+            },
+            "layout": {
+              "x": 0,
+              "y": 4,
+              "width": 12,
+              "height": 7
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 7,
+        "width": 12,
+        "height": 12
+      }
+    },
+    {
+      "id": 2848647488362541,
+      "definition": {
+        "title": "General Stats",
+        "background_color": "vivid_yellow",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6928917062994728,
+            "definition": {
+              "title": "Top Alerts by Cluster",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 10,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {cluster}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 3
+            }
+          },
+          {
+            "id": 3658969584311560,
+            "definition": {
+              "title": "Top Alerts by Name",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 25,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {alertname,cluster}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 12,
+              "height": 5
+            }
+          },
+          {
+            "id": 3717750983208553,
+            "definition": {
+              "title": "Top Alerts by Namespace",
+              "title_size": "16",
+              "title_align": "left",
+              "time": {},
+              "type": "toplist",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1",
+                      "limit": {
+                        "count": 25,
+                        "order": "desc"
+                      }
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {namespace,alertname,cluster}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "style": {
+                "display": {
+                  "type": "stacked",
+                  "legend": "automatic"
+                }
+              }
+            },
+            "layout": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 3
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 12,
+        "height": 12,
+        "is_column_break": true
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "cluster",
+      "prefix": "cluster",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "alertname",
+      "prefix": "alertname",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "namespace",
+      "prefix": "namespace",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "risk",
+      "prefix": "risk",
+      "available_values": [],
+      "default": "*"
+    }
+  ],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
