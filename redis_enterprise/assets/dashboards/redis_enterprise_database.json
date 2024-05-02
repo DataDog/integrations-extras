@@ -263,6 +263,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -516,6 +517,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -529,7 +531,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_expired_keys{$cluster, $database}"
+                      "query": "avg:rdse.redis_expired_keys{$cluster, $database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -564,6 +566,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -577,7 +580,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.redis_evicted_keys{$cluster, $database}"
+                      "query": "avg:rdse.redis_evicted_keys{$cluster, $database} by {redis}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -624,4 +627,4 @@
   "layout_type": "ordered",
   "notify_list": [],
   "reflow_type": "fixed"
-
+}
