@@ -1,0 +1,128 @@
+id: gigamon
+# See app_id in your integration's manifest.json file to learn more:
+# https://docs.datadoghq.com/developers/integrations/check_references/#manifest-file
+metric_id: gigamon
+# If for some reason id must be different than app_id, add the app_id in this field instead.
+# If id and app_id already match, this field can be left blank.
+facets:
+  - facetType: list
+    groups:
+      - gigamon
+    name: Application Name
+    path: app_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: dns_name
+    path: dns_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_host
+    path: dns_host
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_message_type
+    path: dns_message_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_query
+    path: dns_query
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_response_time
+    path: dns_response_time
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_opcode
+    path: dns_opcode
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_reply_code
+    path: dns_reply_code
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_ttl
+    path: dns_ttl
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_class
+    path: dns_class
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: dns_flags
+    path: dns_flags
+    source: log
+    type: string
+pipeline:
+  type: pipeline
+  name: Gigamon
+  enabled: true
+  filter:
+    query: "source:gigamon "
+  processors:
+    - type: url-parser
+      name: URL Processor
+      enabled: true
+      sources:
+        - http.url
+      target: http.url_details
+      normalizeEndingSlashes: false
+    - type: user-agent-parser
+      name: Useragent processor
+      enabled: true
+      sources:
+        - http.useragent
+      target: http.useragent_details
+      encoded: false
+      combineVersionDetails: false
+    - type: geo-ip-parser
+      name: Network client
+      enabled: true
+      sources:
+        - network.client.ip
+      target: network.client.geoip
+      ip_processing_behavior: do-nothing
+    - type: service-remapper
+      name: service processor
+      enabled: true
+      sources:
+        - gigamon
+    - type: attribute-remapper
+      name: remapping app name
+      enabled: true
+      sources:
+        - app_name
+      sourceType: attribute
+      target: syslog.appname
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: true
