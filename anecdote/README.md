@@ -19,6 +19,8 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 ### Configuration
 
+- Go to the Datadog website and log into your account.
+- Find and select the Anecdote integration.
 - Sign into your [Anecdote account][1].
 - Navigate to the Integrations section.
 - Find the Datadog integration.
@@ -28,6 +30,12 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 ### Validation
 
 To validate the connection health, you can check Anecdote's dashboard, where you can see bug reports.
+
+## Uninstallation
+
+- Sign into your [Anecdote account][1].
+- Navigate to the Integrations section.
+- Find the Datadog integration and delete the integration via button.
 
 ## Data Collected
 
