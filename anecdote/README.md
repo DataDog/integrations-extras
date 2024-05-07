@@ -35,7 +35,7 @@ To validate the connection health, you can check Anecdote's dashboard, where you
 
 - Sign into your [Anecdote account][1].
 - Navigate to the Integrations section.
-- Find the Datadog integration and delete the integration via button.
+- Find the Datadog integration and click the delete icon to remove the integration.
 
 ## Data Collected
 
