@@ -1,5 +1,11 @@
 # CHANGELOG - ns1
 
+## 0.0.7
+
+***Added***:
+
+* Replaced deprecated /account/billingataglance endpoint with /account/summary endpoint
+
 ## 0.0.6
 
 ***Added***:

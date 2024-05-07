@@ -9,7 +9,7 @@ NS1_ENDPOINTS = {
     # ttl for zone
     "ttl": r"{apiendpoint}/v1/zones/{domain}",
     # account plan limits
-    "billing": "{apiendpoint}/v1/account/billataglance",
+    "billing": "{apiendpoint}/v1/account/summary",
     # pulsar decisions account wide
     "pulsar.decisions": "{apiendpoint}/v1/pulsar/query/decisions{query}",
     # pulsar insufficient decision data for account

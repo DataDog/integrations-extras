@@ -653,61 +653,29 @@ def test_extract_billing(aggregator, instance_1):
     check = Ns1Check('ns1', {}, [instance_1])
     billing_result = """
     {
+        "add_on_features": null,
+        "customer": 12345,
+        "included_units": {
+          "answers_per_record": 50,
+          "filter_chains": 200,
+          "filters_per_record": 15,
+          "monitoring_jobs": 500,
+          "monitoring_minimum_frequency": 30,
+          "monitoring_regions": 2,
+          "queries": 500000,
+          "records": 5000,
+          "zones": 500
+        },
         "last_invoice": 1620086400,
-        "dynamic": {
-            "access_charge": "0.0",
-            "records": 0,
-            "query_credit": 0,
-            "query_cost": "0.00",
-            "query_rate_per_million": "0",
-            "queries": 0,
-            "record_credit": 0,
-            "record_cost": "0.00",
-            "record_rate": "0"
-        },
-        "period": "monthly",
         "next_invoice": 1622764800,
-        "static": {
-            "access_charge": "0.0",
-            "records": 30,
-            "query_credit": 8,
-            "query_cost": "8.07",
-            "query_rate_per_million": "8",
-            "queries": 1509129,
-            "record_credit": 0,
-            "record_cost": "0.00",
-            "record_rate": "0"
-        },
-        "plan": "starter",
-        "next_base_invoice": 1622764800,
-        "recurring_cost": "0.00",
-        "any": {
-            "record_credit": 50,
-            "query_credit": 500000,
-            "overage_order": "ascending"
-        },
-        "bill": "20.87",
-        "recurring_cost_next_invoice": "0.00",
-        "totals": {
-            "query_cost": "8.07",
-            "access_charge": "0.00",
-            "records": 31,
-            "query_credit": 500000,
-            "queries": 1509129,
-            "record_credit": 31,
-            "record_cost": "0.00"
-        },
-        "balance": 12.8,
-        "intelligent": {
-            "access_charge": "0.0",
-            "records": 1,
-            "query_credit": 0,
-            "query_cost": "0.00",
-            "query_rate_per_million": "0",
-            "queries": 0,
-            "record_credit": 0,
-            "record_cost": "0.00",
-            "record_rate": "0"
+        "period": "monthly",
+        "product_type": "Managed DNS",
+        "usage": {
+          "filter_chains": 4,
+          "monitoring_jobs": 1,
+          "queries": 1509129,
+          "records": 552,
+          "zones": 438
         }
     }
     """
