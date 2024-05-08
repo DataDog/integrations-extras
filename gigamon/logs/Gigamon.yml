@@ -4,6 +4,13 @@ facets:
   - facetType: list
     groups:
       - gigamon
+    name: Application Name
+    path: app_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
     name: dns_host
     path: dns_host
     source: log
@@ -13,13 +20,6 @@ facets:
       - gigamon
     name: dns_name
     path: dns_name
-    source: log
-    type: string
-  - facetType: list
-    groups:
-      - gigamon
-    name: service
-    path: service
     source: log
     type: string
 pipeline:
@@ -51,18 +51,5 @@ pipeline:
         - network.client.ip
       target: network.client.geoip
       ip_processing_behavior: do-nothing
-    - type: service-remapper
-      name: service processor
-      enabled: true
-      sources:
-        - gigamon
-    - type: attribute-remapper
-      name: remapping app name
-      enabled: true
-      sources:
-        - app_name
-      sourceType: attribute
-      target: syslog.appname
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: true
+
+
