@@ -1,4 +1,6 @@
-# Redis Enterprise
+# Redis Enterprise (Deprecated)
+
+** This integration is now deprecated. Please use the latest [Redis Enterprise Datadog Integration](https://app.datadoghq.com/integrations/redis-enterprise) going forward. This new integration exposes all of the latest Redis Enterprise metrics and includes updated dashboards.**
 
 ![img](https://raw.githubusercontent.com/DataDog/integrations-extras/master/redisenterprise/images/redis-enterprise.jpg)
 
