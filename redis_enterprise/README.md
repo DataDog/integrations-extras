@@ -2,12 +2,11 @@
 
 ## Overview
 
-Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. 
+Redis is a fast, versatile data store that supports a variety of data structures, including strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability. The community edition of Redis adds additional data models and capabilities, which include vector search, probabilistic data structures, JSON support, and full-text search.
 
-The [Redis Enterprise][1] integration is intended for use in on-premsises or private cloud installations running the enterprise version of Redis software. It is not for use with Redis Cloud installations, for that see the separate Redis Cloud integration.
+This integration works with on-premsises and private cloud installations of [Redis Enterprise][1]. The integration provides metrics for three critical cluster components: databases, nodes, and shards. An overview dashboard is also included.
 
-This integration provides metrics for three critical aspects of a cluster; database, node, and shard, and makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
-
+For a full list of supported metrics, see the **Metrics** section below.
 
 ## Setup
 
@@ -37,7 +36,7 @@ Set the `openmetrics_endpoint` to point to your cluster. See the [example][4].
 
 ## Data Collected
 
-The current release gathers all metrics for databases, nodes, and shard.
+The current release gathers all metrics for databases, nodes, and shards.
 
 
 ### Metrics
@@ -57,7 +56,7 @@ Redis Enterprise does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Redis Field Engineering][7].
+Need help? Please contact [Redis Support][8].
 
 [1]: https://redis.com/redis-enterprise-software/overview/
 [2]: https://docs.datadoghq.com/getting_started/integrations/
@@ -66,4 +65,4 @@ Need help? Contact [Redis Field Engineering][7].
 [5]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redis_enterprise/metadata.csv
 [7]: mailto:field.engineers@redis.com
-
+[8]: https://redis.io/support/
