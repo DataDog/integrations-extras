@@ -18,6 +18,7 @@ If you don't have a PerfectScale account yet, sign up for a [free 30-day trial][
 1. [Sign in to][2] PerfectScale.
 2. To start using the Datadog integration, the cluster should be connected to PerfectScale. If this is not completed yet, add the cluster by following the instructions in the [official PerfectScale documentation][3].
 ![Perfectscale Screenshot][4]
+
 3. Create an [API Key][5] in Datadog for the PerfectScale integration.
 4. [Create a Datadog profile][6].
 5. Paste your API Key and select the associated [site][7].
