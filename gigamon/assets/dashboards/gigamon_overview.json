@@ -1,1 +1,1358 @@
-{"title":"Gigamon Overview","description":"This dashboard provides overview a high-level overview of Gigamon's Deep Observability to display different applications, Rogue activities, Security postures, Troubleshooting Network traffic and Suspicious Activities.","widgets":[{"id":8182222210725779,"definition":{"title":"Gigamon Overview","background_color":"vivid_orange","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":3152073490592164,"definition":{"type":"image","url":"https://raw.githubusercontent.com/Mrudula-Oruganti-Gigamon/integrations-extras/master/gigamon/images/final%20logo.svg","sizing":"fill","has_background":true,"has_border":true,"vertical_align":"center","horizontal_align":"center"},"layout":{"x":0,"y":0,"width":5,"height":2}},{"id":2339152323368686,"definition":{"type":"note","content":"This dashboard provides a high-level overview of Gigamon’s Deep Observability to display different applications, Rogue activities, Security postures, Troubleshooting Network traffic and Suspicious Activities. \n\n","background_color":"blue","font_size":"16","text_align":"center","vertical_align":"top","show_tick":true,"tick_pos":"25%","tick_edge":"bottom","has_padding":true},"layout":{"x":5,"y":0,"width":7,"height":2}},{"id":1734710857721680,"definition":{"type":"note","content":"Further reading: \n1. Application Metadata Intelligence (AMI) empowers your Observability, Security Information and Event Management (SIEM), and Network Performance Monitoring tools with critical metadata attributes across thousands of business, consumer, and IT applications and services. \n2. Gigamon's AMI helps you monitor and manage complex digital applications for your digital transformation initiatives. \n3. This can be achieved through the Gigamon Solution by sending the AMI metadata to Datadog.\n4. Some benefits to highlight are Rich Actionable Insights, Boost Security Posture, etc. To know more,  Click [here](https://docs.gigamon.com/doclib66/Content/GV-Cloud-V-Series-Applications/AMX_intro.html). ","background_color":"orange","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"75%","tick_edge":"top","has_padding":true},"layout":{"x":0,"y":2,"width":12,"height":3}}]},"layout":{"x":0,"y":0,"width":12,"height":6}},{"id":1383861626021082,"definition":{"title":"DNS Details","background_color":"vivid_yellow","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":572263807309523,"definition":{"title":"DNS Response times ","title_size":"16","title_align":"left","show_legend":false,"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@dns_response_time","sort":{"aggregation":"count","order":"desc"},"limit":10}]}],"style":{"palette":"classic"},"display_type":"line"}]},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":3469118238325912,"definition":{"title":"Top DNS queries","title_size":"16","title_align":"left","type":"query_table","requests":[{"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","search":{"query":""},"indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@src_ip","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@dst_ip","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@dns_query","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@dns_host","limit":5,"sort":{"aggregation":"count","order":"desc"}}],"storage":"hot"}],"formulas":[{"cell_display_mode":"bar","formula":"query1","limit":{"count":625,"order":"desc"}}]}],"has_search_bar":"auto"},"layout":{"x":6,"y":0,"width":6,"height":2}}]},"layout":{"x":0,"y":6,"width":12,"height":3}},{"id":7517105921201743,"definition":{"title":"Web Application details","background_color":"vivid_orange","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":4650698518609459,"definition":{"title":"Http Methods seen","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@http_method","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":0,"y":0,"width":6,"height":2}},{"id":1886605252975338,"definition":{"title":"Web Server performance","title_size":"16","title_align":"left","type":"query_table","requests":[{"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@http_server","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@http_rtt","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@src_ip","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@dst_ip","sort":{"aggregation":"count","order":"desc"},"limit":5}]}],"formulas":[{"formula":"query1","limit":{"count":625,"order":"desc"}}]}]},"layout":{"x":6,"y":0,"width":6,"height":2}},{"id":4827677953357939,"definition":{"title":"Web Access method info","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"logs","name":"query1","search":{"query":""},"indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@http_method","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@src_ip","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@dst_ip","limit":5,"sort":{"aggregation":"count","order":"desc"}},{"facet":"@http_uri","limit":5,"sort":{"aggregation":"count","order":"desc"}}],"storage":"hot"}],"response_format":"scalar","formulas":[{"cell_display_mode":"bar","formula":"query1","limit":{"count":625,"order":"desc"}}]}],"has_search_bar":"auto"},"layout":{"x":0,"y":2,"width":6,"height":2}},{"id":7576585332307746,"definition":{"title":"HTTP URLs Accessed","title_size":"16","title_align":"left","type":"query_table","requests":[{"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@src_ip","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@dst_ip","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@http_uri_full","sort":{"aggregation":"count","order":"desc"},"limit":5},{"facet":"@http_rtt","sort":{"aggregation":"count","order":"desc"},"limit":5}]}],"formulas":[{"formula":"query1","limit":{"count":625,"order":"desc"}}]}]},"layout":{"x":6,"y":2,"width":6,"height":2}}]},"layout":{"x":0,"y":9,"width":12,"height":5}},{"id":3446463347271401,"definition":{"title":"SMB Details","background_color":"green","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":6150141742201989,"definition":{"title":"SMB logins","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@smb_login","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":465878956982110,"definition":{"title":"SMB Versions seen on Network","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":25,"order":"desc"}}],"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@smb_version","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":""}}]}],"style":{"scaling":"absolute"}},"layout":{"x":6,"y":0,"width":6,"height":3}}]},"layout":{"x":0,"y":14,"width":12,"height":4}},{"id":6339501929036073,"definition":{"title":"Applications Details","background_color":"vivid_green","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":8750256876312612,"definition":{"title":"Application Overview","title_size":"16","title_align":"left","requests":[{"formulas":[{"formula":"query1","limit":{"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@app_name","sort":{"aggregation":"count","order":"desc"},"limit":100}]}]}],"type":"sunburst","legend":{"type":"table"}},"layout":{"x":0,"y":0,"width":6,"height":4}},{"id":60431138310985,"definition":{"title":"Media type (http Mime)","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@http_mime_type","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":6,"y":0,"width":6,"height":4}},{"id":4087252166246586,"definition":{"title":"IP Versions","title_size":"16","title_align":"left","requests":[{"formulas":[{"formula":"query1","limit":{"order":"desc"}}],"style":{"palette":"classic"},"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@ip_version","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}],"type":"sunburst","hide_total":true,"legend":{"type":"table"}},"layout":{"x":0,"y":4,"width":6,"height":3}},{"id":3973368678927273,"definition":{"title":"Traffic Volume","title_size":"16","title_align":"left","show_legend":true,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"formula":"query1"}],"response_format":"timeseries","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@src_bytes","sort":{"aggregation":"count","order":"desc"},"limit":10},{"facet":"@dst_bytes","sort":{"aggregation":"count","order":"desc"},"limit":10}]}],"style":{"palette":"dog_classic","line_type":"solid","line_width":"normal"},"display_type":"line"}]},"layout":{"x":6,"y":4,"width":6,"height":3}},{"id":5686090246127629,"definition":{"title":"Client Software","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1"}],"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@http_user_agent","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":""}}],"conditional_formats":[{"comparator":">","value":6000,"palette":"white_on_green"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{}},"layout":{"x":0,"y":7,"width":6,"height":2}},{"id":4242276978674381,"definition":{"title":"DHCP message types seen","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","search":{"query":""},"indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@dhcp_message_type","limit":10,"sort":{"aggregation":"count","order":"desc"}}],"storage":"hot"},{"data_source":"logs","name":"query2","search":{"query":""},"indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"storage":"hot"}],"formulas":[{"formula":"query1 + query2"}]}],"type":"sunburst"},"layout":{"x":6,"y":7,"width":6,"height":4}},{"id":621832198909910,"definition":{"title":"Server Software","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@http_server_agent","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":0,"y":9,"width":6,"height":2}}]},"layout":{"x":0,"y":0,"width":12,"height":12,"is_column_break":true}},{"id":7856301779454967,"definition":{"title":"SSL Details","background_color":"blue","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":3195144451877296,"definition":{"title":"Suspicious Usage","title_size":"16","title_align":"left","type":"query_table","requests":[{"response_format":"scalar","queries":[{"search":{"query":"@app_name:(bittorrent OR *min*)"},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@app_name","sort":{"aggregation":"count","order":"desc"},"limit":10},{"facet":"@src_ip","sort":{"aggregation":"count","order":"desc"},"limit":10},{"facet":"@dst_ip","sort":{"aggregation":"count","order":"desc"},"limit":10}]}],"formulas":[{"formula":"query1","limit":{"count":1000,"order":"desc"}}]}]},"layout":{"x":0,"y":0,"width":6,"height":4}},{"id":1453663274722350,"definition":{"title":"Compression schemes","title_size":"16","title_align":"left","type":"toplist","requests":[{"formulas":[{"formula":"query1","limit":{"count":10,"order":"desc"}}],"response_format":"scalar","queries":[{"search":{"query":""},"data_source":"logs","compute":{"aggregation":"count"},"name":"query1","indexes":["*"],"group_by":[{"facet":"@http_content_encoding","sort":{"aggregation":"count","order":"desc"},"limit":10}]}]}]},"layout":{"x":6,"y":0,"width":6,"height":3}},{"id":1774790598181452,"definition":{"title":"Expired SSL Certificates","title_size":"16","title_align":"left","type":"query_table","requests":[{"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@src_ip","limit":5,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@dst_ip","limit":5,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@ssl_validity_not_after","limit":5,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@ssl_issuer","limit":5,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":""},"storage":"hot"}],"sort":{"count":625,"order_by":[{"type":"formula","index":0,"order":"desc"}]},"formulas":[{"formula":"query1"}]}]},"layout":{"x":0,"y":4,"width":12,"height":4}}]},"layout":{"x":0,"y":12,"width":12,"height":9}}],"template_variables":[],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed","tags":[]}
+{
+    "title": "Gigamon Overview",
+    "description": "This dashboard provides overview a high-level overview of Gigamon's Deep Observability to display different applications, Rogue activities, Security postures, Troubleshooting Network traffic and Suspicious Activities.",
+    "widgets": [
+      {
+        "id": 8182222210725779,
+        "definition": {
+          "title": "Gigamon Overview",
+          "background_color": "vivid_orange",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 3152073490592164,
+              "definition": {
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/Mrudula-Oruganti-Gigamon/integrations-extras/master/gigamon/images/final%20logo.svg",
+                "sizing": "fill",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 5,
+                "height": 2
+              }
+            },
+            {
+              "id": 2339152323368686,
+              "definition": {
+                "type": "note",
+                "content": "This dashboard provides a high-level overview of Gigamon’s Deep Observability to display different applications, Rogue activities, Security postures, Troubleshooting Network traffic and Suspicious Activities. \n\n",
+                "background_color": "blue",
+                "font_size": "16",
+                "text_align": "center",
+                "vertical_align": "top",
+                "show_tick": true,
+                "tick_pos": "25%",
+                "tick_edge": "bottom",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 5,
+                "y": 0,
+                "width": 7,
+                "height": 2
+              }
+            },
+            {
+              "id": 1734710857721680,
+              "definition": {
+                "type": "note",
+                "content": "Further reading: \n1. Application Metadata Intelligence (AMI) empowers your Observability, Security Information and Event Management (SIEM), and Network Performance Monitoring tools with critical metadata attributes across thousands of business, consumer, and IT applications and services. \n2. Gigamon's AMI helps you monitor and manage complex digital applications for your digital transformation initiatives. \n3. This can be achieved through the Gigamon Solution by sending the AMI metadata to Datadog.\n4. Some benefits to highlight are Rich Actionable Insights, Boost Security Posture, etc. To know more,  Click [here](https://docs.gigamon.com/doclib66/Content/GV-Cloud-V-Series-Applications/AMX_intro.html). ",
+                "background_color": "orange",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "75%",
+                "tick_edge": "top",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 12,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 6
+        }
+      },
+      {
+        "id": 1383861626021082,
+        "definition": {
+          "title": "DNS Details",
+          "background_color": "vivid_yellow",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 572263807309523,
+              "definition": {
+                "title": "DNS Response times ",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": false,
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@dns_response_time",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ],
+                    "style": {
+                      "palette": "classic"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 3469118238325912,
+              "definition": {
+                "title": "Top DNS queries",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "search": {
+                          "query": ""
+                        },
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@src_ip",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@dns_query",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@dns_host",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          }
+                        ],
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "cell_display_mode": "bar",
+                        "formula": "query1",
+                        "limit": {
+                          "count": 625,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "has_search_bar": "auto"
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 6,
+          "width": 12,
+          "height": 3
+        }
+      },
+      {
+        "id": 7517105921201743,
+        "definition": {
+          "title": "Web Application details",
+          "background_color": "vivid_orange",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 4650698518609459,
+              "definition": {
+                "title": "Http Methods seen",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 10,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@http_method",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 1886605252975338,
+              "definition": {
+                "title": "Web Server performance",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@http_server",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@http_rtt",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@src_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          }
+                        ]
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 625,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 4827677953357939,
+              "definition": {
+                "title": "Web Access method info",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "search": {
+                          "query": ""
+                        },
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@http_method",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@src_ip",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          },
+                          {
+                            "facet": "@http_uri",
+                            "limit": 5,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          }
+                        ],
+                        "storage": "hot"
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "formulas": [
+                      {
+                        "cell_display_mode": "bar",
+                        "formula": "query1",
+                        "limit": {
+                          "count": 625,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "has_search_bar": "auto"
+              },
+              "layout": {
+                "x": 0,
+                "y": 2,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 7576585332307746,
+              "definition": {
+                "title": "HTTP URLs Accessed",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@src_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@http_uri_full",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          },
+                          {
+                            "facet": "@http_rtt",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 5
+                          }
+                        ]
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 625,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 2,
+                "width": 6,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 9,
+          "width": 12,
+          "height": 5
+        }
+      },
+      {
+        "id": 3446463347271401,
+        "definition": {
+          "title": "SMB Details",
+          "background_color": "green",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 6150141742201989,
+              "definition": {
+                "title": "SMB logins",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 10,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@smb_login",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 465878956982110,
+              "definition": {
+                "title": "SMB Versions seen on Network",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 25,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@smb_version",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": ""
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "style": {
+                  "scaling": "absolute"
+                }
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 14,
+          "width": 12,
+          "height": 4
+        }
+      },
+      {
+        "id": 6339501929036073,
+        "definition": {
+          "title": "Applications Details",
+          "background_color": "vivid_green",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 8750256876312612,
+              "definition": {
+                "title": "Application Overview",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@app_name",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 100
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "type": "sunburst",
+                "legend": {
+                  "type": "table"
+                }
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 4
+              }
+            },
+            {
+              "id": 60431138310985,
+              "definition": {
+                "title": "Media type (http Mime)",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 10,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@http_mime_type",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 4
+              }
+            },
+            {
+              "id": 4087252166246586,
+              "definition": {
+                "title": "IP Versions",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "style": {
+                      "palette": "classic"
+                    },
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@ip_version",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "type": "sunburst",
+                "hide_total": true,
+                "legend": {
+                  "type": "table"
+                }
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 3973368678927273,
+              "definition": {
+                "title": "Traffic Volume",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@src_bytes",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          },
+                          {
+                            "facet": "@dst_bytes",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ],
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 4,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 5686090246127629,
+              "definition": {
+                "title": "Client Software",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@http_user_agent",
+                            "limit": 10,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": ""
+                        }
+                      }
+                    ],
+                    "conditional_formats": [
+                      {
+                        "comparator": ">",
+                        "value": 6000,
+                        "palette": "white_on_green"
+                      }
+                    ],
+                    "sort": {
+                      "count": 10,
+                      "order_by": [
+                        {
+                          "type": "formula",
+                          "index": 0,
+                          "order": "desc"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "style": {}
+              },
+              "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 6,
+                "height": 2
+              }
+            },
+            {
+              "id": 4242276978674381,
+              "definition": {
+                "title": "DHCP message types seen",
+                "title_size": "16",
+                "title_align": "left",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "search": {
+                          "query": ""
+                        },
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@dhcp_message_type",
+                            "limit": 10,
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            }
+                          }
+                        ],
+                        "storage": "hot"
+                      },
+                      {
+                        "data_source": "logs",
+                        "name": "query2",
+                        "search": {
+                          "query": ""
+                        },
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [],
+                        "storage": "hot"
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1 + query2"
+                      }
+                    ]
+                  }
+                ],
+                "type": "sunburst"
+              },
+              "layout": {
+                "x": 6,
+                "y": 7,
+                "width": 6,
+                "height": 4
+              }
+            },
+            {
+              "id": 621832198909910,
+              "definition": {
+                "title": "Server Software",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 10,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@http_server_agent",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 9,
+                "width": 6,
+                "height": 2
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 12,
+          "height": 12,
+          "is_column_break": true
+        }
+      },
+      {
+        "id": 7856301779454967,
+        "definition": {
+          "title": "SSL Details",
+          "background_color": "blue",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 3195144451877296,
+              "definition": {
+                "title": "Suspicious Usage",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": "@app_name:(bittorrent OR *min*)"
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@app_name",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          },
+                          {
+                            "facet": "@src_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ],
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 1000,
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 4
+              }
+            },
+            {
+              "id": 1453663274722350,
+              "definition": {
+                "title": "Compression schemes",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "toplist",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1",
+                        "limit": {
+                          "count": 10,
+                          "order": "desc"
+                        }
+                      }
+                    ],
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "search": {
+                          "query": ""
+                        },
+                        "data_source": "logs",
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "group_by": [
+                          {
+                            "facet": "@http_content_encoding",
+                            "sort": {
+                              "aggregation": "count",
+                              "order": "desc"
+                            },
+                            "limit": 10
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 1774790598181452,
+              "definition": {
+                "title": "Expired SSL Certificates",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "query_table",
+                "requests": [
+                  {
+                    "response_format": "scalar",
+                    "queries": [
+                      {
+                        "data_source": "logs",
+                        "name": "query1",
+                        "indexes": [
+                          "*"
+                        ],
+                        "compute": {
+                          "aggregation": "count"
+                        },
+                        "group_by": [
+                          {
+                            "facet": "@src_ip",
+                            "limit": 5,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@dst_ip",
+                            "limit": 5,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@ssl_validity_not_after",
+                            "limit": 5,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          },
+                          {
+                            "facet": "@ssl_issuer",
+                            "limit": 5,
+                            "sort": {
+                              "order": "desc",
+                              "aggregation": "count"
+                            }
+                          }
+                        ],
+                        "search": {
+                          "query": ""
+                        },
+                        "storage": "hot"
+                      }
+                    ],
+                    "sort": {
+                      "count": 625,
+                      "order_by": [
+                        {
+                          "type": "formula",
+                          "index": 0,
+                          "order": "desc"
+                        }
+                      ]
+                    },
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 12,
+                "height": 4
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 12,
+          "width": 12,
+          "height": 9
+        }
+      }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed",
+    "tags": []
+  }
