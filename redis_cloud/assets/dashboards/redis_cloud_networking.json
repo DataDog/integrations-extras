@@ -47,6 +47,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -60,7 +61,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.bdb_used_memory{$cluster} by {bdb_name}"
+                      "query": "avg:rdsc.bdb_total_connections_received{$cluster} by {bdb_name}"
                     },
                     {
                       "data_source": "metrics",
@@ -91,6 +92,7 @@
               "title": "Listener Conns",
               "title_size": "16",
               "title_align": "left",
+              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -99,14 +101,24 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}",
-                      "aggregator": "avg"
+                      "query": "avg:rdsc.listener_conns{*}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
                     }
                   ]
                 }
               ],
               "autoscale": true,
-              "precision": 2,
+              "precision": 0,
               "timeseries_background": {
                 "type": "area"
               }
@@ -132,8 +144,18 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}",
-                      "aggregator": "avg"
+                      "query": "avg:rdsc.dmcproxy_process_open_fds{*}",
+                      "aggregator": "sum"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "number_format": {
+                        "unit": {
+                          "type": "canonical_unit"
+                        }
+                      },
+                      "formula": "query1"
                     }
                   ]
                 }
@@ -163,7 +185,7 @@
     {
       "id": 8960484170053092,
       "definition": {
-        "title": "Listener Resources",
+        "title": "Proxy Resources",
         "background_color": "green",
         "show_title": true,
         "type": "group",
@@ -176,7 +198,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
                 "min",
@@ -184,17 +206,24 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
-                  "response_format": "timeseries",
+                  "formulas": [
+                    {
+                      "alias": "CPU Usage",
+                      "formula": "query1"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdsc.dmcproxy_process_cpu_usage_percent{$cluster} by {node}"
                     }
                   ],
+                  "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -208,7 +237,7 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 3
+              "height": 4
             }
           },
           {
@@ -218,7 +247,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
                 "min",
@@ -226,17 +255,33 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
-                  "response_format": "timeseries",
+                  "formulas": [
+                    {
+                      "alias": "resident",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "virtual",
+                      "formula": "query2"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdsc.dmcproxy_process_resident_memory_bytes{$cluster} by {node}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdsc.dmcproxy_process_virtual_memory_bytes{$cluster} by {node}"
                     }
                   ],
+                  "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -248,9 +293,9 @@
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 4,
               "width": 12,
-              "height": 3
+              "height": 6
             }
           }
         ]
@@ -259,7 +304,7 @@
         "x": 0,
         "y": 7,
         "width": 12,
-        "height": 7
+        "height": 11
       }
     },
     {
@@ -353,6 +398,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -374,17 +420,17 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdse.listener_read_req{$cluster} by {redis}"
+                      "query": "avg:rdse.listener_read_res{$cluster}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdse.listener_write_req{$cluster} by {redis}"
+                      "query": "avg:rdse.listener_write_res{$cluster}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query3",
-                      "query": "avg:rdse.listener_other_req{$cluster} by {redis}"
+                      "query": "avg:rdse.listener_other_res{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -438,17 +484,42 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
-                  "response_format": "timeseries",
+                  "formulas": [
+                    {
+                      "alias": "read",
+                      "formula": "query1"
+                    },
+                    {
+                      "alias": "write",
+                      "formula": "query2"
+                    },
+                    {
+                      "alias": "other",
+                      "formula": "query3"
+                    }
+                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:system.cpu.user{*}"
+                      "query": "avg:rdsc.listener_acc_read_latency{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query2",
+                      "query": "avg:rdsc.listener_acc_write_latency{$cluster}"
+                    },
+                    {
+                      "data_source": "metrics",
+                      "name": "query3",
+                      "query": "avg:rdsc.listener_acc_other_latency{$cluster}"
                     }
                   ],
+                  "response_format": "timeseries",
                   "style": {
                     "palette": "dog_classic",
                     "line_type": "solid",
@@ -462,7 +533,7 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 3
+              "height": 4
             }
           },
           {
@@ -472,7 +543,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "vertical",
               "legend_columns": [
                 "avg",
                 "min",
@@ -496,12 +567,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.listener_auth_cmds{*}"
+                      "query": "avg:rdsc.listener_auth_cmds{$cluster}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdsc.listener_auth_errors{*}"
+                      "query": "avg:rdsc.listener_auth_errors{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -516,9 +587,9 @@
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 4,
               "width": 12,
-              "height": 3
+              "height": 6
             }
           }
         ]
@@ -527,7 +598,7 @@
         "x": 0,
         "y": 7,
         "width": 12,
-        "height": 7
+        "height": 11
       }
     }
   ],

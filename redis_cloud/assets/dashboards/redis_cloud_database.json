@@ -47,6 +47,7 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -101,7 +102,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
@@ -280,12 +281,12 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.bdb_read_hits{$cluster, $database}"
+                      "query": "avg:rdsc.bdb_read_hits{$cluster} by {bdb_name}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdsc.bdb_read_misses{$cluster, $database}"
+                      "query": "avg:rdsc.bdb_read_misses{$cluster} by {bdb_name}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -387,7 +388,7 @@
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
@@ -395,11 +396,13 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
+                      "alias": "used memory",
                       "formula": "query1"
                     }
                   ],
@@ -407,7 +410,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.bdb_used_memory{$cluster, $database} by {redis}"
+                      "query": "avg:rdsc.bdb_used_memory{$cluster, $database}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -442,14 +445,17 @@
                 "value",
                 "sum"
               ],
+              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
+                      "alias": "read",
                       "formula": "query1"
                     },
                     {
+                      "alias": "write",
                       "formula": "query2"
                     }
                   ],
