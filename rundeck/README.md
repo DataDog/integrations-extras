@@ -41,7 +41,7 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 1. Open Datadog and go to **Integrations** > **Integrations**.
 2. Search for "webhooks".
 
-    ![search-dd][3]
+    ![dd-search-2024][3]
 
 3. Click on the webhooks entry shown above. It opens the configuration window.
 
