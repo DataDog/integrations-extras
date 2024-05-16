@@ -1,8 +1,9 @@
+---
 id: gigamon
 backend_only: true
 facets:
   - facetType: list
-    - groups:
+  - groups:
       - Web Access
     name: URL Host
     path: http.url_details.host
@@ -98,7 +99,7 @@ pipeline:
   name: gigamon
   enabled: true
   filter:
-    query: "source:gigamon"
+    query: source:gigamon
   processors:
     - type: url-parser
       name: URL Processor
@@ -122,6 +123,6 @@ pipeline:
         - network.client.ip
       target: network.client.geoip
       ip_processing_behavior: do-nothing
-      
+
 
 
