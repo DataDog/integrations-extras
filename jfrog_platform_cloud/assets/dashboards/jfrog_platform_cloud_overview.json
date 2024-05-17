@@ -821,6 +821,8 @@
               "title": "Accessed resources by username, instance name and IP address",
               "title_size": "16",
               "title_align": "left",
+              "time":
+              {},
               "type": "toplist",
               "requests":
               [
@@ -842,7 +844,7 @@
                       "group_by":
                       [
                         {
-                          "facet": "@http.url",
+                          "facet": "@http.url_details.path",
                           "limit": 10,
                           "sort":
                           {
@@ -851,16 +853,7 @@
                           }
                         },
                         {
-                          "facet": "@usr.id",
-                          "limit": 10,
-                          "sort":
-                          {
-                            "order": "desc",
-                            "aggregation": "count"
-                          }
-                        },
-                        {
-                          "facet": "@jfrog.cloud.tenant_id",
+                          "facet": "@jfrog.cloud.instance_name",
                           "limit": 10,
                           "sort":
                           {
@@ -880,7 +873,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@http.url:/api/v1/system/* -@http.url:/api/v1/metrics* -@http.url:/api/xray/* -@http.url:/api/xrayRepo/* -@http.url:/api/system/* -@http.url:/api/auth/* -@http.url:/api/docker/*/token -@http.url:/api/storage* -@http.url:/api/replications* -@http.url:\"/api/repositories\" -@http.url:/api/subscription/* -@http.url:/api/jobs* -@http.url:/api/retention* -@http.url:\"/ui/auth/canAnnotate\""
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request -@http.url_details.path:/api/v1/system/* -@http.url_details.path:/api/v1/metrics* -@http.url_details.path:/api/xray/* -@http.url_details.path:/api/xrayRepo/* -@http.url_details.path:/api/system/* -@http.url_details.path:/api/auth/* -@http.url_details.path:/api/docker/*/token -@http.url_details.path:/api/storage* -@http.url_details.path:/api/replications* -@http.url_details.path:\"/api/repositories\" -@http.url_details.path:/api/subscription/* -@http.url_details.path:/api/jobs* -@http.url_details.path:/api/retention* -@http.url_details.path:\"/ui/auth/canAnnotate\""
                       },
                       "storage": "hot"
                     }
@@ -888,14 +881,21 @@
                   "formulas":
                   [
                     {
-                      "formula": "query1",
-                      "limit":
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort":
+                  {
+                    "count": 1000,
+                    "order_by":
+                    [
                       {
-                        "count": 10000,
+                        "type": "formula",
+                        "index": 0,
                         "order": "desc"
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               ],
               "custom_links":
@@ -970,6 +970,8 @@
               "title": "Accessed docker repos (top chart)",
               "title_size": "16",
               "title_align": "left",
+              "time":
+              {},
               "type": "toplist",
               "requests":
               [
@@ -977,12 +979,7 @@
                   "formulas":
                   [
                     {
-                      "formula": "query1",
-                      "limit":
-                      {
-                        "count": 10,
-                        "order": "desc"
-                      }
+                      "formula": "query1"
                     }
                   ],
                   "queries":
@@ -1012,11 +1009,23 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request (@http.method:(HEAD OR PUT)) @http.url:*/manifests/*"
+                        "query": "source:jfrog_artifactory @jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request @http.method:(HEAD OR PUT) @http.url_details.path:*/manifests/*"
                       }
                     }
                   ],
-                  "response_format": "scalar"
+                  "response_format": "scalar",
+                  "sort":
+                  {
+                    "count": 10,
+                    "order_by":
+                    [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
               "style":
@@ -1054,6 +1063,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -1091,7 +1102,7 @@
                       ],
                       "search":
                       {
-                        "query": "@jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
+                        "query": "source:jfrog_artifactory @jfrog.cloud.repo:*?* service:jfrog.saas.rt.artifactory.request @http.method:(HEAD OR PUT) @http.url_details.path:*/manifests/*"
                       }
                     }
                   ],
@@ -1167,6 +1178,8 @@
               "title": "Accessed docker images by name and response code (top chart)",
               "title_size": "16",
               "title_align": "left",
+              "time":
+              {},
               "type": "toplist",
               "requests":
               [
@@ -1208,7 +1221,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker* @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url_details.path:*api/docker* @http.method:(HEAD OR PUT) @http.url_details.path:*/manifests/*"
                       },
                       "storage": "hot"
                     }
@@ -1216,14 +1229,21 @@
                   "formulas":
                   [
                     {
-                      "formula": "query1",
-                      "limit":
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort":
+                  {
+                    "count": 100,
+                    "order_by":
+                    [
                       {
-                        "count": 100,
+                        "type": "formula",
+                        "index": 0,
                         "order": "desc"
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               ],
               "custom_links":
@@ -1262,6 +1282,8 @@
                 "value",
                 "sum"
               ],
+              "time":
+              {},
               "type": "timeseries",
               "requests":
               [
@@ -1299,7 +1321,7 @@
                       ],
                       "search":
                       {
-                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url:*api/docker* @http.method:(HEAD OR PUT) @http.url:*/manifests/*"
+                        "query": "source:jfrog_artifactory service:jfrog.saas.rt.artifactory.request @http.url_details.path:*api/docker* @http.method:(HEAD OR PUT) @http.url_details.path:*/manifests/*"
                       }
                     }
                   ],
@@ -2218,8 +2240,6 @@
               "title": "Action types, no NA",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "type": "toplist",
               "requests":
               [
@@ -2511,8 +2531,6 @@
               "title": "Denied actions by IP, no NA",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "requests":
               [
                 {
@@ -2730,8 +2748,6 @@
               "title": "Denied logins by username, no NA",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "requests":
               [
                 {
@@ -3119,8 +3135,6 @@
               "title": "Denied logins by IP, no NA",
               "title_size": "16",
               "title_align": "left",
-              "time":
-              {},
               "requests":
               [
                 {
