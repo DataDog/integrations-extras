@@ -10,7 +10,7 @@ facets:
   - groups:
       - Web Access
     name: URL Path
-    path: http.url
+    path: http.url_details.path
     source: log
   - groups:
       - Web Access
@@ -47,13 +47,6 @@ facets:
     name: Event Name
     path: evt.name
     source: log
-  - facetType: list
-    groups:
-      - JFrog Cloud
-    name: Access repository path
-    path: repository_path
-    source: log
-    type: string
   - facetType: list
     groups:
       - JFrog Cloud
@@ -131,6 +124,13 @@ facets:
       - JFrog Cloud
     name: Repository Name
     path: jfrog.cloud.repo
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - JFrog Cloud
+    name: Repository path (Access)
+    path: jfrog.cloud.repo_path
     source: log
     type: string
   - facetType: list
@@ -348,12 +348,12 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `request_url` to `http.url`
+      name: Map `request_url` to `http.url_details.path`
       enabled: true
       sources:
         - request_url
       sourceType: attribute
-      target: http.url
+      target: http.url_details.path
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
