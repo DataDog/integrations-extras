@@ -22,7 +22,7 @@ Follow the configuration instructions below.
 
    1. First, create an account by visiting the [Datadog website][8] and click on the Get Started Free button.
    2. Generate an API Key.
-      ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/apache-apisix/images/screenshot_1.png)
+      ![Generate an API Key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/apache-apisix/images/datadog_api_key.png)
 
 3. The APISIX-Datadog plugin requires only the DogStatsD component of `datadog/agent` as the plugin asynchronously send metrics to the DogStatsD server following the statsd protocol over standard UDP socket. That's why APISIX recommends using the standalone `datadog/dogstatsd` image instead of using the full agent. It's extremely lightweight (only ~11 MB in size) compared to ~2.8GB of `datadog/agent` image.
 

@@ -49,7 +49,7 @@ Need help? See the [ConfigCat documentation][6] or contact [ConfigCat support][7
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/images/datadog_apikey.png
 [2]: https://configcat.com
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/images/datadog_event.png
-[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/images/datadog_filtering.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/configcat/images/datadog_filtering_2.png
 [5]: https://app.configcat.com
 [6]: https://configcat.com/docs/integrations/datadog/
 [7]: https://configcat.com/support

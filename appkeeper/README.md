@@ -55,7 +55,7 @@ Need help? Contact [Datadog support][9].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/get_token.jpg
 [2]: https://app.datadoghq.com/account/settings#integrations/webhooks
-[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/payload_header.jpg
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/payload_header_2.png
 [4]: https://app.datadoghq.com/synthetics/list
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/synthetic_test_params.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/appkeeper/images/history.jpg
