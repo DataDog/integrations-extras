@@ -12,7 +12,7 @@ Visit [CloudAEye][4] to sign up for free. Once registered, visit the [CloudAEye 
 
 ### Configuration
 
-Once integrated, begin exploring your Datadog costs within CloudAEye. You can create filters for specific Datadog organizations and services alongside costs from any of the other supported CloudAEye providers.
+Once integrated, begin exploring your logs, metrics, and traces within CloudAEye. You can check incidents and root-cause analysis for incidents in CloudAEye's [Root Cause Analysis Dashboard][5].
 
 ## Uninstallation
 
@@ -29,3 +29,4 @@ Need help? Contact [CloudAEye support](mailto:support@cloudaeye.com).
 [2]: https://app.datadoghq.com/organization-settings/oauth-applications
 [3]: https://app.datadoghq.com/organization-settings/api-keys?filter=CloudAEye
 [4]: https://console.cloudaeye.com
+[5]: https://console.cloudaeye.com/rca?startTime=1,months&endTime=now
