@@ -101,14 +101,14 @@ pipeline:
   processors:
     - type: url-parser
       name: URL Processor
-      enabled: true
+      enabled: false
       sources:
         - http.url
       target: http.url_details
       normalizeEndingSlashes: false
     - type: user-agent-parser
       name: Useragent processor
-      enabled: true
+      enabled: false
       sources:
         - http.useragent
       target: http.useragent_details
@@ -116,7 +116,7 @@ pipeline:
       combineVersionDetails: false
     - type: geo-ip-parser
       name: Network client
-      enabled: true
+      enabled: false
       sources:
         - network.client.ip
       target: network.client.geoip
