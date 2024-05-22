@@ -98,26 +98,4 @@ pipeline:
   enabled: true
   filter:
     query: "source:gigamon"
-  processors:
-    - type: url-parser
-      name: URL Processor
-      enabled: false
-      sources:
-        - http.url
-      target: http.url_details
-      normalizeEndingSlashes: false
-    - type: user-agent-parser
-      name: Useragent processor
-      enabled: false
-      sources:
-        - http.useragent
-      target: http.useragent_details
-      encoded: false
-      combineVersionDetails: false
-    - type: geo-ip-parser
-      name: Network client
-      enabled: false
-      sources:
-        - network.client.ip
-      target: network.client.geoip
-      ip_processing_behavior: do-nothing
+  processors: []
