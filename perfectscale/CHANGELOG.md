@@ -5,3 +5,9 @@
 ***Added***:
 
 * Initial Release
+
+## 1.1.0 / 2024-05-22
+
+***Added***:
+
+* Added cluster name tag
