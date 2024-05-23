@@ -1,0 +1,45 @@
+{
+    "manifest_version": "2.0.0",
+    "app_id": "zfs",
+    "display_on_public_website": true,
+    "tile": {
+      "overview": "README.md#Overview",
+      "configuration": "README.md#Setup",
+      "support": "README.md#Support",
+      "changelog": "CHANGELOG.md",
+      "description": "Monitor usage on Zfs pools.",
+      "title": "zfs",
+      "media": [],
+      "classifier_tags": [
+        "Category::OS & System",
+        "Supported OS::Linux"
+      ]
+    },
+    "author": {
+      "support_email": "datadog-zfs@etnbrd.com",
+      "homepage": "https://github.com/DataDog/integrations-extras",
+      "sales_email": "datadog-zfs@etnbrd.com",
+      "name": "Community"
+    },
+    "assets": {
+      "integration": {
+        "source_type_name": "Zfs (Community Version)",
+        "configuration": {
+          "spec": "assets/configuration/spec.yaml"
+        },
+        "events": {
+          "creates_events": false
+        },
+        "metrics": {
+          "prefix": "zfs.",
+          "check": "zfs.pool.capacity",
+          "metadata_path": "metadata.csv"
+        },
+        "service_checks": {
+          "metadata_path": "assets/service_checks.json"
+        },
+        "auto_install": true
+      }
+    }
+  }
+  
