@@ -1,7 +1,22 @@
 id: loadrunner_professional
 metric_id: loadrunner-professional
 backend_only: false
-facets: []
+facets: 
+  - groups: 
+      - LoadRunner Professional
+    name: Scenario Mode
+    path: scenario_started.summary.mode
+    source: log
+  - groups: 
+      - LoadRunner Professional
+    name: Scenario Type
+    path: scenario_started.summary.scenario_type
+    source: log
+  - groups: 
+      - LoadRunner Professional
+    name: Load Behavior
+    path: scenario_started.summary.load_behavior
+    source: log
 pipeline:
   type: pipeline
   name: LoadRunner Scenario Information Pipeline
