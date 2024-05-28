@@ -19,10 +19,10 @@ To set up this integration, you must have an active [Torq account][2] and an Acc
 ### Define Datadog monitors to trigger events in Torq
 
 1. Navigate to **Integrations** > **Integrations**, click the **Webhooks** card, and click **New**.
-    ![datadog_webhook](https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook.png)
+    ![datadog_webhook][4]
 
 2. Enter a meaningful name for the Webhook integration and paste the generated Webhook URL from Torq. You need the integration name to associate the identifier (used for specific Datadog monitors to trigger Torq) and generated Webhook URL from Torq.
-    ![datadog_webhook_2](https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook_2.png)
+    ![datadog_webhook_2][3]
 
 3. Torq recommends adding additional alert information to the payload. You can use portions of the following configuration:
 
@@ -80,7 +80,7 @@ After you create the API key, copy and save it because you are not able to acces
 1. Hover over your user name and select **Organization Settings**.
 2. From the left panel, click **API Keys**.
 3. Click **+ New Key**.
-    ![datadog_api_key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_api_key.png)
+    ![datadog_api_key][6]
 4. Enter a meaningful name for the API key such as `Torq` and click **Create Key**.
 5. Copy the `Key` and save it. You need this key to create a Datadog integration in Torq.
 
@@ -91,7 +91,7 @@ After you create the application key, copy and save it because you are not able 
 1. Hover over your user name and select **Organization Settings**.
 2. From the left panel, click **Application Keys**.
 3. Click **+ New Key**.
-    ![datadog_app_key](https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_app_key.png)
+    ![datadog_app_key][8]
 4. Enter a meaningful name for the application key such as `Torq` and click **Create Key**.
 5. Copy the `Key` and save it. You need this key to create a Datadog integration in Torq.
 
@@ -123,8 +123,12 @@ Need help? Contact [Datadog support][11].
 
 [1]: https://torq.io
 [2]: https://torq.io/get-started/
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook_config.png
+[4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_webhook_search.png
 [5]: https://app.datadoghq.com/account/settings#integrations/webhooks
+[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_api_key_2.png
 [7]: https://docs.datadoghq.com/monitors/manage_monitor/
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/torq/images/datadog_app_key_2.png
 [11]: https://docs.datadoghq.com/help/
 [12]: https://docs.datadoghq.com/account_management/api-app-keys/#add-an-api-key-or-client-token
 [13]: https://docs.datadoghq.com/account_management/api-app-keys/#add-application-keys
