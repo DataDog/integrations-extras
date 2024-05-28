@@ -109,7 +109,7 @@ Additional helpful documentation, links, and articles:
 [5]: https://docs.datadoghq.com/agent/logs/?tab=journald
 [6]: https://docs.datadoghq.com/logs/explorer/facets/#manage-facets
 [7]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source#create-a-pipeline
-[8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard.png
+[8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard_2.png
 [9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
