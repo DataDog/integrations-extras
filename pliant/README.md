@@ -127,7 +127,7 @@ Need help? Contact [Datadog support][7].
 [12]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/curl.png
 [13]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/selectDDkey.png
 [14]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/endpoint.png
-[15]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/integrations_.png
-[16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/webhook_Search.png
+[15]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/integrations_2.png
+[16]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/webhook_Search_2.png
 [17]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/webhooksConfig3.png
 [18]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/pliant/images/webhookForm.png
