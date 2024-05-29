@@ -1,4 +1,4 @@
-# Zfs Integration
+# ZFS Integration
 
 ## Overview
 
