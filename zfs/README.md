@@ -2,7 +2,7 @@
 
 ## Overview
 
-Get metrics and service status in real time from your zfs pools.
+Get metrics and service status in real time from your ZFS pools.
 
 ## Setup
 
