@@ -2,9 +2,10 @@
 
 ## Overview
 
-Anecdote is an AI-driven platform that automatically detects, tracks, organizes, and prioritizes bugs reported by users from your customer feedback.  
+Anecdote continuously monitors customer feedback, like app store reviews, customer support tickets. Anecdote then classifies weather this feedback is a bug, and then sends it this to datadog, including entire meta information available: version, os, etc.
 
-With Anecdote, developers can ensure that no customer-reported bug goes unnoticed. Our app meticulously analyzes all of your fragmented feedback sources in near-real-time, making it easier to promptly address issues.
+For every new reported bug, Anecdote sends an event to Datadog, so developer can create a case or an incident. On top of that, the solution enables correlation analysis of machine signals (like cpu utilization), with user reported signals
+Using the logs of customer feedback data, developers can significantly shorten MTTR and systematically discover hard to repoicate
 
 Anecdote monitors customer feedback from more than 80 sources, including:
 
@@ -19,13 +20,38 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 ### Configuration
 
-- Go to the Datadog website and log into your account.
-- Find and select the Anecdote integration.
-- Sign into your [Anecdote account][1].
-- Navigate to the Integrations section.
-- Find the Datadog integration.
-- Enter the region where your Datadog Workspace is located. You are then redirected to the Datadog website where you need to authenticate your Datadog account with the integration.
-- After logging in, install the Anecdote application within Datadog. This adds "Anecdote: Bug Reports" to your list of Dashboards in Datadog.
+1. **Go to the Anecdote integration**
+   - Visit the Anecdote integration page on the Datadog website.
+
+2. **Click Install to install the integration**
+   - On the Anecdote integration page, click the "Install" button to begin the installation process.
+
+3. **Click Connect [Accounts][1]**
+   - After clicking "Install," you will be prompted to connect your Anecdote account with your Datadog account. Click "Connect Accounts" to proceed.
+
+4. **Sign into your Anecdote account**
+   - You will be redirected to the Anecdote login page. Enter your Anecdote account credentials to sign in.
+
+5. **Navigate to the Integrations section**
+   - Once signed in, navigate to the Integrations section within your Anecdote account.
+
+6. **Find the Datadog integration**
+   - In the Integrations section, search for and select the Datadog integration.
+
+7. **Enter the region where your Datadog Workspace is located**
+   - Enter the region where your Datadog Workspace is located. This ensures that the integration points to the correct Datadog server.
+
+8. **Authenticate your Datadog account with the integration**
+   - You will be redirected to the Datadog website to authenticate your Datadog account. Log in with your Datadog credentials.
+
+9. **Install the Anecdote application within Datadog**
+   - After logging into Datadog, install the Anecdote application within the Datadog environment. This adds "Anecdote: Bug Reports" to your list of Dashboards in Datadog.
+
+10. **Verify the integration**
+    - Return to Anecdote and verify that the integration is successfully connected. You should see a confirmation message or the status of the integration.
+
+11. **Start using the integration**
+    - Once the integration is verified, you can start using Anecdote to send bug reports directly to Datadog and monitor them in your Datadog Dashboards.
 
 ### Validation
 
