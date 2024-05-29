@@ -11,7 +11,7 @@ Anecdote monitors customer feedback from more than 80 sources, including:
 
 - Support tickets (Zendesk, Intercom, Freshdesk, and others)
 - Public reviews (App Store, Google Play, and Trustpilot)
-- Social media comments on Twitter, Reddit, Facebook
+- Social media comments on Twitter, Reddit, and Facebook
 - Customer surveys (SurveyMonkey, Typeform, Medallia, and others)
 
 By aggregating and analyzing user-reported bugs in a unified dashboard, developers gain a comprehensive view of customer feedback, enabling them to prioritize and address issues more effectively.
@@ -61,7 +61,7 @@ To validate the connection health, you can check Anecdote's dashboard, where you
 
 - Sign into your [Anecdote account][1].
 - Navigate to the Integrations section.
-- Find the Datadog integration and delete the integration via button.
+- Find the Datadog integration and click the delete icon to remove the integration.
 
 ## Data Collected
 
