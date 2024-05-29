@@ -95,7 +95,6 @@
               "title": "Total Active Alerts",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_value",
               "requests": [
                 {
@@ -108,7 +107,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{status:active, $cluster, $namespace, $alertname, $risk}",
+                      "query": "sum:perfectscale.alert.metric{status:active,$clustername,$clusteruid,$namespace,$alertname,$risk}",
                       "aggregator": "sum"
                     }
                   ],
@@ -149,7 +148,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{status:active, $cluster, $namespace, $alertname, $risk}",
+                      "query": "sum:perfectscale.alert.metric{status:active,$clustername,$clusteruid,$namespace,$alertname,$risk}",
                       "aggregator": "sum"
                     }
                   ],
@@ -206,7 +205,6 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
@@ -219,7 +217,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{$cluster, $alertname, $namespace, $risk} by {alertname,risk,namespace,container}"
+                      "query": "sum:perfectscale.alert.metric{$alertname,$namespace,$risk} by {alertname,risk,namespace,container}"
                     }
                   ],
                   "response_format": "timeseries",
@@ -245,7 +243,6 @@
               "title": "Full Alerts List",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "query_table",
               "requests": [
                 {
@@ -253,7 +250,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {cluster,alertname,risk,namespace,workload,container,firstseen,status,acknowledgedby}",
+                      "query": "sum:perfectscale.alert.metric{$namespace,$alertname,$risk} by {clustername,clusteruid,alertname,risk,namespace,workload,container,firstseen,status,acknowledgedby}",
                       "aggregator": "sum"
                     }
                   ],
@@ -311,28 +308,33 @@
               "title": "Top Alerts by Cluster",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 10,
-                        "order": "desc"
-                      }
-                    }
-                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {cluster}",
+                      "query": "sum:perfectscale.alert.metric{$namespace,$alertname,$risk} by {clusteruid,clustername}",
                       "aggregator": "sum"
                     }
                   ],
-                  "response_format": "scalar"
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 10,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
               "style": {
@@ -355,28 +357,33 @@
               "title": "Top Alerts by Name",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 25,
-                        "order": "desc"
-                      }
-                    }
-                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {alertname,cluster}",
+                      "query": "sum:perfectscale.alert.metric{$namespace,$alertname,$risk} by {alertname,clustername,clusteruid}",
                       "aggregator": "sum"
                     }
                   ],
-                  "response_format": "scalar"
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 25,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
               "style": {
@@ -399,28 +406,33 @@
               "title": "Top Alerts by Namespace",
               "title_size": "16",
               "title_align": "left",
-              "time": {},
               "type": "toplist",
               "requests": [
                 {
-                  "formulas": [
-                    {
-                      "formula": "query1",
-                      "limit": {
-                        "count": 25,
-                        "order": "desc"
-                      }
-                    }
-                  ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:perfectscale.alert.metric{$cluster, $namespace, $alertname, $risk} by {namespace,alertname,cluster}",
+                      "query": "sum:perfectscale.alert.metric{$namespace,$alertname,$risk} by {namespace,alertname,clustername,clusteruid}",
                       "aggregator": "sum"
                     }
                   ],
-                  "response_format": "scalar"
+                  "response_format": "scalar",
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "sort": {
+                    "count": 25,
+                    "order_by": [
+                      {
+                        "type": "formula",
+                        "index": 0,
+                        "order": "desc"
+                      }
+                    ]
+                  }
                 }
               ],
               "style": {
@@ -441,7 +453,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 19,
         "width": 12,
         "height": 12,
         "is_column_break": true
@@ -449,12 +461,6 @@
     }
   ],
   "template_variables": [
-    {
-      "name": "cluster",
-      "prefix": "cluster",
-      "available_values": [],
-      "default": "*"
-    },
     {
       "name": "alertname",
       "prefix": "alertname",
@@ -470,6 +476,18 @@
     {
       "name": "risk",
       "prefix": "risk",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "clusteruid",
+      "prefix": "clusteruid",
+      "available_values": [],
+      "default": "*"
+    },
+    {
+      "name": "clustername",
+      "prefix": "clustername",
       "available_values": [],
       "default": "*"
     }
