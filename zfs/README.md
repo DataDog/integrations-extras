@@ -6,7 +6,7 @@ Get metrics and service status in real time from your ZFS pools.
 
 ## Setup
 
-The Zfs check is not included in the [Datadog Agent][1] package, so you need to install it.
+The ZFS check is not included in the [Datadog Agent][1] package, so you need to install it.
 
 ### Installation
 
