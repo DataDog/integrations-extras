@@ -21,7 +21,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 ### Configuration
 
 1. **Go to the Anecdote integration**
-   - Visit the Anecdote integration page on the Datadog website.
+   - Visit the Anecdote integration page in your Datadog application.
 
 2. **Click Install to install the integration**
    - On the Anecdote integration page, click the "Install" button to begin the installation process.
