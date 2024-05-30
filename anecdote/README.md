@@ -30,7 +30,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
    - After clicking "Install," you will be prompted to connect your Anecdote account with your Datadog account. Click "Connect Accounts" to proceed.
 
 4. **Sign into your Anecdote account**
-   - You will be redirected to the Anecdote login page. Enter your Anecdote account credentials to sign in.
+   - You are redirected to the Anecdote login page. Enter your Anecdote account credentials to sign in.
 
 5. **Navigate to the Integrations section**
    - Once signed in, navigate to the Integrations section within your Anecdote account.
