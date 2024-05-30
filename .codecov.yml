@@ -199,6 +199,10 @@ coverage:
         target: 75
         flags:
         - tidb
+      Traefik:
+        target: 75
+        flags:
+        - traefik
       Trino:
         target: 75
         flags:
@@ -606,6 +610,11 @@ flags:
     paths:
     - tidb/datadog_checks/tidb
     - tidb/tests
+  traefik:
+    carryforward: true
+    paths:
+    - traefik/datadog_checks/traefik
+    - traefik/tests
   trino:
     carryforward: true
     paths:
