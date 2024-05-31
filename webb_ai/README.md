@@ -2,17 +2,12 @@
 
 ## Overview
 
-Webb.ai revolutionizes software troubleshooting and remediation in the same way GitHub Copilot is revolutionizing software development. We do this by using AI to create and execute a debugging plan based on the knowledge in runbooks, eng wiki and open source software documentation. 
-
-For each step of the debugging plan, we provide AI the requisite data from sources such as service logs, kubernetes events, cloud services, and code changes from github to name a few. 
-
-Customer data shows that Developers using Webb.ai become 10x more productive and reduce MTTR.
-
+Matt is the first AI-enabled reliability engineer that automates troubleshooting to identify the root cause in <5 mins. Matt troubleshoots alerts from Observability tools (e.g., Datadog), cloud providers (e.g., AWS), and infrastructure (e.g., K8s).
 
 ## Setup
 
-Visit [Webb.ai][2] to sign up for free. Once registered, visit the [Webb.ai integrations page][1] and add a Datadog integration. This guides you through the Datadog OAUTH2 flow to grant Webb.ai access to your Datadog data.
-Alternatively you can start the integration from Webb.ai tile in Datadog integrations page.
+Visit [Webb.ai][2] to sign up for free. Once registered, you can start the integration from Webb.ai tile in Datadog integrations page.
+ 
 
 ## Uninstallation
 To remove the Datadog integration from Webb.ai, navigate to the [Webb.ai integrations page][1] and delete Datadog integration from the list.
@@ -22,13 +17,13 @@ To remove the Datadog integration from Webb.ai, navigate to the [Webb.ai integra
 ## Data Collected
 
 ### Metrics
-Webb.ai does not include any metrics.
+Webb.ai does not generate any metrics and therefore relies on Datadog metrics.
 
 ### Service Checks
 Webb.ai does not include any service checks.
 
 ### Events
-Webb.ai does not include any events.
+Webb.ai does not generate any events.
 
 ## Troubleshooting
 
