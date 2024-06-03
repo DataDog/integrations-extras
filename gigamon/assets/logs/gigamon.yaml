@@ -1,6 +1,26 @@
 id: gigamon
-backend_only: true
+metric_id: gigamon
 facets:
+  - groups:
+      - Web Access
+    name: URL Path
+    path: http.url_details.path
+    source: log
+  - groups:
+      - Web Access
+    name: Status Code
+    path: http.status_code
+    source: log
+  - groups:
+      - DNS
+    name: DNS ID
+    path: dns.id
+    source: log
+  - groups:
+      - DNS
+    name: Response Code
+    path: dns.flags.rcode
+    source: log
   - facetType: list
     groups:
       - gigamon
@@ -25,7 +45,57 @@ facets:
 pipeline:
   type: pipeline
   name: gigamon
-  enabled: true
+  enabled: false
   filter:
-    query: "source:gigamon"
-  processors: []
+    query: "source:gigamon "
+  processors:
+    - type: attribute-remapper
+      name: HTTP Host
+      enabled: true
+      sources:
+        - http_host
+      sourceType: attribute
+      target: http.url_details.path
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Http Status Code
+      enabled: true
+      sources:
+        - http_code
+      sourceType: attribute
+      target: http.status_code
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: DNS ID
+      enabled: true
+      sources:
+        - dns_transaction_id
+      sourceType: attribute
+      target: dns.id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: timestamp
+      enabled: true
+      sources:
+        - ts
+      sourceType: attribute
+      target: syslog.timestamp
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: DNS flags
+      enabled: true
+      sources:
+        - dns_flags
+      sourceType: attribute
+      target: dns.flags.rcode
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
