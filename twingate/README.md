@@ -96,12 +96,6 @@ docker run -d --sysctl net.ipv4.ping_group_range="0 2147483647" \
 ## Troubleshooting
 Need help? Contact [Twingate Support][2].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Monitor network access with Twingate's offering in the Datadog Marketplace][13]
-
 [1]: https://www.twingate.com/
 [2]: https://help.twingate.com/hc/en-us
 [3]: https://docs.twingate.com/docs/connector-real-time-logs

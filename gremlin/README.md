@@ -39,12 +39,6 @@ The Gremlin integration does not include any service checks.
 
 Need help? Contact [Datadog support][5].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [How Gremlin monitors its own Chaos Engineering service with Datadog][6]
-
 [1]: https://docs.datadoghq.com/getting_started/#events
 [2]: https://app.datadoghq.com/event/stream
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gremlin/images/events-overlay.png

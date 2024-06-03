@@ -50,12 +50,6 @@ Tailscale does not include any events.
 
 Need help? Contact [Datadog support][3].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Monitor the state of your Tailscale private network with Datadog][7]
-
 [1]: https://tailscale.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/

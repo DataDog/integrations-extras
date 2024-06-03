@@ -29,12 +29,6 @@ The Instabug integration does not include any service checks.
 ## Support
 Need help? Contact [Instabug Support][3].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Leverage user context to debug mobile performance issues with the Instabug Datadog Marketplace offering][6]
-
 [1]: http://instabug.com
 [2]: https://dashboard.instabug.com/signup
 [3]: mailto:support@instabug.com

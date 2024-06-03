@@ -36,12 +36,6 @@ To set up the Sofy integration:
 ## Support
 Need help? Contact [Sofy support][5].
 
-## Further Reading
-Additional helpful documentation, links, and articles:
-* [Monitor your mobile tests with Sofy's offering in the Datadog Marketplace][6]
-* [Sofy Documentation][7]
-
-
 [1]: https://app.datadoghq.com/integrations
 [2]: https://portal.sofy.ai
 [3]: https://portal.sofy.ai/app/user-settings?selectedTab=integration

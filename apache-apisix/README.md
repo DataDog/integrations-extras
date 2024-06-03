@@ -95,10 +95,6 @@ The Apache APISIX check does not include any events.
 
 Need help? Contact [Datadog support][6].
 
-## Further Reading
-
-- [Cloud Monitoring with Datadog in Apache APISIX][7]
-
 [1]: https://apisix.apache.org/docs/apisix/plugins/datadog
 [2]: https://apisix.apache.org/
 [3]: https://docs.datadoghq.com/agent/

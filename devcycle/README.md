@@ -62,10 +62,6 @@ The DevCycle integration does not include any service checks.
 
 Need help? Contact [Datadog Support][3].
 
-## Further Reading
-
-Learn more about [DevCycle][1] and the [DataDog RUM integration][2].
-
 [1]: https://devcycle.com
 [2]: https://docs.devcycle.com/tools-and-integrations/datadog-rum
 [3]: https://docs.datadoghq.com/help/

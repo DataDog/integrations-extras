@@ -38,13 +38,6 @@ The MongoDB Atlas integration does not include any service checks.
 
 Need help? [Contact Datadog Support][5]
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Monitor MongoDB Atlas with Datadog][6]
-- [MongoDB Atlas for Government][7]
-
 [1]: https://app.datadoghq.com/organization-settings/api-keys
 [2]: https://docs.atlas.mongodb.com/tutorial/monitoring-integrations/#procedure
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv

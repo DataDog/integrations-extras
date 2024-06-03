@@ -41,12 +41,6 @@ CloudNatix does not include any events.
 
 Need help? Contact [Cloudnatix support][6].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Optimize your infrastructure with CloudNatix and Datadog][8]
-
 [1]: https://cloudnatix.com/
 [2]: https://app.datadoghq.com/account/settings#agent/kubernetes
 [3]: https://docs.cloudnatix.com/docs/tutorial

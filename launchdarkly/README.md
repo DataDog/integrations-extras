@@ -100,10 +100,6 @@ The LaunchDarkly integration does not include any service checks.
 
 Need help? Contact [Datadog Support][7].
 
-## Further Reading
-
-Learn more about [LaunchDarkly][1] and the [Datadog events integration][4].
-
 [1]: https://launchdarkly.com
 [2]: https://docs.launchdarkly.com/home/relay-proxy
 [3]: https://app.datadoghq.com/organization-settings/api-keys

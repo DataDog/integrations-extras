@@ -45,13 +45,6 @@ Any Apptrail [trail][11] with a Datadog destination will continously send all lo
 
 Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailto:support@apptrail.com).
 
-## Further Reading
-
-- [Apptrail customer documentation][13]
-- [Apptrail Datadog Log delivery documentation][2]
-- [Apptrail audit log format][10]
-- [Apptrail event delivery trails][11]
-
 [1]: https://apptrail.com
 [2]: https://apptrail.com/docs/consumers/guide/event-delivery/integrations/datadog
 [3]: https://docs.datadoghq.com/help/

@@ -45,12 +45,6 @@ Seagence posts an event to Datadog upon detecting a defect.
 
 Need help? Contact [Seagence support][4].
 
-## Further Reading
-
-Additional helpful documentation, links, and articles:
-
-- [Detect Java code-level issues with Seagence and Datadog][7]
-
 [1]: https://www.seagence.com
 [2]: https://app.seagence.com/SeagenceWeb/
 [3]: https://seagence.com/product/getting-started/
