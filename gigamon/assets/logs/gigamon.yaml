@@ -1,6 +1,7 @@
 id: gigamon
-backend_only: true
 metric_id: gigamon
+backend_only: true
+
 facets:
   - groups:
       - Web Access
@@ -46,12 +47,12 @@ facets:
 pipeline:
   type: pipeline
   name: gigamon
-  enabled: true
+  enabled: false
   filter:
     query: "source:gigamon"
   processors:
     - type: attribute-remapper
-      name: http_host` to `http.url_details.path`
+      name: Map http_host` to `http.url_details.path`
       enabled: true
       sources:
         - http_host
@@ -81,16 +82,6 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map `ts` to `syslog.timestamp`
-      enabled: true
-      sources:
-        - ts
-      sourceType: attribute
-      target: syslog.timestamp
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
-    - type: attribute-remapper
       name: Map `dns_flags` to `dns.flags.rcode`
       enabled: true
       sources:
@@ -100,3 +91,8 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
+    - type: date-remapper
+      name: Mapping timestamp to a dateremapper
+      enabled: true
+      sources:
+        - ts
