@@ -52,10 +52,7 @@ For in-depth instructions on configuring the app, see the [Datadog-Shoreline doc
 
 Need help? Contact [Datadog support][2].
 
-## Further reading
-
-For more information, see the [Shoreline documentation][9].
-
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
 [2]: https://docs.datadoghq.com/help/

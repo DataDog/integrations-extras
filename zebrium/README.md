@@ -44,11 +44,7 @@ The Zebrium events and metrics integration uses a [Datadog API key][2], which ne
  
 Need help? Contact [Datadog Support][4].
 
-## Further reading
-
-Additional helpful documentation, links, and articles:
-
-- [Find the root cause faster with Datadog and Zebrium][6]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://www.zebrium.com
 [2]: https://app.datadoghq.com/organization-settings/api-keys
