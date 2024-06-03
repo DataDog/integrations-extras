@@ -50,6 +50,8 @@ See [service_checks.json][10] for a list of service checks provided by this inte
 
 Need help? Contact [Datadog support][8].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://ns1.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest?platform=overview
 [3]: https://docs.datadoghq.com/agent/guide/community-integrations-installation-with-docker-agent/?tab=agentabovev68

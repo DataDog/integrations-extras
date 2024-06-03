@@ -49,6 +49,8 @@ The Superwise integration does not include any service checks.
 
 Need help? See the [Superwise documentation][9].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://www.superwise.ai/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png
 [3]: https://portal.superwise.ai/

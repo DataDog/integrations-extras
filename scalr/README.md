@@ -49,6 +49,8 @@ Scalr sends run execution results as an event to the [Events Explorer][14].
 
 Need help? Contact [Datadog support][4] or [Scalr support][12].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://app.datadoghq.com/account/settings/agent/latest
 [2]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [3]: https://docs.datadoghq.com/getting_started/integrations/

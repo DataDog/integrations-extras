@@ -45,6 +45,8 @@ Any Apptrail [trail][11] with a Datadog destination will continously send all lo
 
 Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailto:support@apptrail.com).
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://apptrail.com
 [2]: https://apptrail.com/docs/consumers/guide/event-delivery/integrations/datadog
 [3]: https://docs.datadoghq.com/help/

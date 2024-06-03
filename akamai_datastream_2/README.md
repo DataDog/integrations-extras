@@ -43,6 +43,8 @@ Akamai DataStream 2 does not include any events.
 
 Need help? Contact [Datadog support][1].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://docs.datadoghq.com/help/
 [2]: https://techdocs.akamai.com/datastream2/docs/stream-datadog
 [3]: https://app.datadoghq.com/logs?query=source%3Aakamai.datastream

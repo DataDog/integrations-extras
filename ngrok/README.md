@@ -56,6 +56,8 @@ Create facets for the following fields:
 
 Need help? Contact [ngrok Support][1] or reference the [ngrok documentation][6].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: mailto:support@ngrok.com
 [2]: https://dashboard.ngrok.com
 [3]: https://ngrok.com/solutions

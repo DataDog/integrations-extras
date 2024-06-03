@@ -36,6 +36,8 @@ To set up the Sofy integration:
 ## Support
 Need help? Contact [Sofy support][5].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://app.datadoghq.com/integrations
 [2]: https://portal.sofy.ai
 [3]: https://portal.sofy.ai/app/user-settings?selectedTab=integration

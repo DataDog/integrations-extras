@@ -50,6 +50,8 @@ Tailscale does not include any events.
 
 Need help? Contact [Datadog support][3].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://tailscale.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/help/

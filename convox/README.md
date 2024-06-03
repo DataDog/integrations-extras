@@ -56,6 +56,8 @@ When configuring environment variables in the `convox.yml` file, the `environmen
 
 Need help? Contact [Datadog support][4].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/snapshot.png
 [2]: https://docs.convox.com/integrations/monitoring/datadog
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html

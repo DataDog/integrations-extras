@@ -99,6 +99,8 @@ The Signal Sciences integration does not include any service checks.
 
 Need help? Contact [Datadog support][10].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
 [3]: https://docs.signalsciences.net/install-guides/

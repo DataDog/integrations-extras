@@ -41,6 +41,8 @@ CloudNatix does not include any events.
 
 Need help? Contact [Cloudnatix support][6].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://cloudnatix.com/
 [2]: https://app.datadoghq.com/account/settings#agent/kubernetes
 [3]: https://docs.cloudnatix.com/docs/tutorial

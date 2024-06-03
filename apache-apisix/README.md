@@ -95,6 +95,8 @@ The Apache APISIX check does not include any events.
 
 Need help? Contact [Datadog support][6].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://apisix.apache.org/docs/apisix/plugins/datadog
 [2]: https://apisix.apache.org/
 [3]: https://docs.datadoghq.com/agent/

@@ -47,6 +47,8 @@ The Roku integration does not include any service checks.
 
 Need help? Contact [Datadog Support][7].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://app.datadoghq.com/integrations/rum-roku
 [2]: https://docs.datadoghq.com/real_user_monitoring/roku/
 [3]: https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=rokurum#setup-rum

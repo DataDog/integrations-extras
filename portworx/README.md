@@ -68,6 +68,8 @@ The Portworx check does not include any events.
 
 Check that the `url` in `portworx.yaml` is correct.
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [4]: https://docs.datadoghq.com/getting_started/integrations/

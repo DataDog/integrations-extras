@@ -52,6 +52,8 @@ The Android integration does not include any service checks.
 
 Need help? Contact [Datadog Support][8].
 
+{{< partial name="whats-next/whats-next.html" >}}
+
 [1]: https://app.datadoghq.com/integrations/rum-android
 [2]: https://docs.datadoghq.com/real_user_monitoring/android/?tabs=kotlin#setup
 [3]: https://docs.datadoghq.com/tracing/trace_collection/dd_libraries/android
