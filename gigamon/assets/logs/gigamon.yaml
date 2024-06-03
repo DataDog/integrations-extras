@@ -1,4 +1,5 @@
 id: gigamon
+backend_only: true
 metric_id: gigamon
 facets:
   - groups:
@@ -45,12 +46,12 @@ facets:
 pipeline:
   type: pipeline
   name: gigamon
-  enabled: false
+  enabled: true
   filter:
-    query: "source:gigamon "
+    query: "source:gigamon"
   processors:
     - type: attribute-remapper
-      name: HTTP Host
+      name: http_host` to `http.url_details.path`
       enabled: true
       sources:
         - http_host
@@ -60,7 +61,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Http Status Code
+      name: Map `http_code` to `http.status_code`
       enabled: true
       sources:
         - http_code
@@ -70,7 +71,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: DNS ID
+      name: Map `dns_transaction_id` to `dns.id`
       enabled: true
       sources:
         - dns_transaction_id
@@ -80,7 +81,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: timestamp
+      name: Map `ts` to `syslog.timestamp`
       enabled: true
       sources:
         - ts
@@ -90,7 +91,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: DNS flags
+      name: Map `dns_flags` to `dns.flags.rcode`
       enabled: true
       sources:
         - dns_flags
