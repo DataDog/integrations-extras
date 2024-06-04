@@ -1,17 +1,10 @@
 id: gigamon
 metric_id: gigamon
-backend_only: true
-
 facets:
   - groups:
       - Web Access
     name: URL Path
     path: http.url_details.path
-    source: log
-  - groups:
-      - Web Access
-    name: Status Code
-    path: http.status_code
     source: log
   - groups:
       - DNS
@@ -22,6 +15,26 @@ facets:
       - DNS
     name: Response Code
     path: dns.flags.rcode
+    source: log
+  - groups:
+      - Web Access
+    name: Referer
+    path: http.referer
+    source: log
+  - groups:
+      - Web Access
+    name: Request ID
+    path: http.request_id
+    source: log
+  - groups:
+      - Web Access
+    name: URL Host
+    path: http.url_details.host
+    source: log
+  - groups:
+      - Web Access
+    name: OS
+    path: http.useragent_details.os.family
     source: log
   - facetType: list
     groups:
@@ -47,27 +60,17 @@ facets:
 pipeline:
   type: pipeline
   name: gigamon
-  enabled: false
+  enabled: true
   filter:
     query: "source:gigamon"
   processors:
     - type: attribute-remapper
-      name: Map http_host` to `http.url_details.path`
+      name: Map 'http_host` to `http.url_details.path`
       enabled: true
       sources:
         - http_host
       sourceType: attribute
       target: http.url_details.path
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
-    - type: attribute-remapper
-      name: Map `http_code` to `http.status_code`
-      enabled: true
-      sources:
-        - http_code
-      sourceType: attribute
-      target: http.status_code
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
@@ -91,8 +94,41 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
-    - type: date-remapper
-      name: Mapping timestamp to a dateremapper
+    - type: attribute-remapper
+      name: Map 'http_header_value' to 'http.refer
       enabled: true
       sources:
-        - ts
+        - http_header_value
+      sourceType: attribute
+      target: http.referer
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map 'http_request_ts' to 'http.request_id'
+      enabled: true
+      sources:
+        - http_request_ts
+      sourceType: attribute
+      target: http.request_id
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map 'http_host' to 'http.url_details.host'
+      enabled: true
+      sources:
+        - http_host
+      sourceType: attribute
+      target: http.url_details.host
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: user-agent-parser
+      name: Map 'http_user_agent' to 'http.useragent_details.os.family'
+      enabled: true
+      sources:
+        - http_user_agent
+      target: http.useragent_details.os.family
+      encoded: false
+      combineVersionDetails: false
