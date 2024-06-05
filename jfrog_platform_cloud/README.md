@@ -14,6 +14,7 @@ This integration streams the following artifactory logs to Datadog:
 
 - **access-audit.log**
 - **artifactory-request.log**
+- **artifactory-access.log**
 - **access-security-audit.log**
 
 These logs will allow customers to readily know who accessed what repositories and how often. The logs will also show what IP addresses accessed those repositories. Log types such as traffic.log, artifactory-access.log and more request logs will be added to this integration in future updates.
