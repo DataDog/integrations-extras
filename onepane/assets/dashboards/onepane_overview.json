@@ -1,0 +1,245 @@
+{
+    "title": "Onepane Overview",
+    "description": "  Onepane acts as a central hub, bringing together information from various systems like Cloud, DevOps and Monitoring tools.\n  This unified view lets you see how changes and events from these systems correlate with incidents, significantly speeding up the process of identifying the root cause (RCA).",
+    "widgets": [
+        {
+            "id": 1931663425333650,
+            "definition": {
+                "title": "Alerts and recent deployment on related components",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Alerts",
+                                "style": {
+                                    "palette": "warm",
+                                    "palette_index": 5
+                                },
+                                "formula": "query1"
+                            },
+                            {
+                                "alias": "Deployment",
+                                "style": {
+                                    "palette": "cool",
+                                    "palette_index": 2
+                                },
+                                "formula": "query2"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "source:alert"
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query2",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "tags:\"category::deployment\""
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "red",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "thick"
+                        },
+                        "display_type": "bars"
+                    }
+                ],
+                "markers": []
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 3
+            }
+        },
+        {
+            "id": 8355301930557406,
+            "definition": {
+                "title": "Deployment Events Correlation: Infrastructure Changes and Impact Analysis",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "alias": "Events",
+                                "style": {
+                                    "palette": "purple",
+                                    "palette_index": 2
+                                },
+                                "formula": "query1"
+                            },
+                            {
+                                "style": {
+                                    "palette": "cool",
+                                    "palette_index": 2
+                                },
+                                "alias": "Deployment",
+                                "formula": "query2"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "-tags:\"category::deployment\" tags:\"platform::onepane\""
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query2",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "tags:\"category::deployment\""
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "thick"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 3,
+                "width": 12,
+                "height": 3
+            }
+        },
+        {
+            "id": 6182012586724472,
+            "definition": {
+                "title": "Event Count Over Host",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                    "avg",
+                    "min",
+                    "max",
+                    "value",
+                    "sum"
+                ],
+                "type": "timeseries",
+                "requests": [
+                    {
+                        "formulas": [
+                            {
+                                "formula": "query1"
+                            }
+                        ],
+                        "queries": [
+                            {
+                                "data_source": "events",
+                                "name": "query1",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [
+                                    {
+                                        "facet": "host",
+                                        "limit": 10,
+                                        "sort": {
+                                            "order": "desc",
+                                            "aggregation": "count"
+                                        }
+                                    }
+                                ],
+                                "search": {
+                                    "query": "host:*"
+                                }
+                            }
+                        ],
+                        "response_format": "timeseries",
+                        "style": {
+                            "palette": "dog_classic",
+                            "order_by": "values",
+                            "line_type": "solid",
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 6,
+                "width": 12,
+                "height": 3
+            }
+        }
+    ],
+    "template_variables": [],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
