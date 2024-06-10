@@ -1,0 +1,43 @@
+version: "3"
+services:
+  starrocks-fe-0:
+    image: starrocks/fe-ubuntu:3.2.2
+    hostname: starrocks-fe-0
+    container_name: starrocks-fe-0
+    command:
+      - /bin/bash
+      - -c
+      - |
+        /opt/starrocks/fe_entrypoint.sh starrocks-fe-0
+    environment:
+      - HOST_TYPE=FQDN
+      - TZ=Asia/Shanghai
+    ports:
+      - "8030:8030"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8030/api/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  starrocks-be-0:
+    image: starrocks/be-ubuntu:3.2.2
+    hostname: starrocks-be-0
+    container_name: starrocks-be-0
+    command:
+      - /bin/bash
+      - -c
+      - |
+        /opt/starrocks/be_entrypoint.sh starrocks-fe-0
+    environment:
+      - HOST_TYPE=FQDN
+      - TZ=Asia/Shanghai
+    ports:
+      - "8040:8040"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8040/api/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    depends_on:
+      - starrocks-fe-0
