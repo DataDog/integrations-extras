@@ -1,16 +1,17 @@
 from datadog_checks.base.checks.prometheus.prometheus_base import PrometheusCheck
 from datadog_checks.base.errors import CheckException
+from checks import AgentCheck
 
 EVENT_TYPE = SOURCE_TYPE_NAME = 'portworx'
 
 
-class PortworxCheck(PrometheusCheck):
+class PortworxCheck(PrometheusCheck, AgentCheck):
     """
     Collect px metrics from Portworx
     """
 
-    def __init__(self, name, init_config, instances=None):
-        super(PortworxCheck, self).__init__(name, init_config, instances)
+    def __init__(self, name, init_config, agentConfig, instances=None):
+        super(PortworxCheck, self).__init__(name, init_config, agentConfig, instances)
         self.NAMESPACE = 'portworx'
         self.metrics_mapper = {
             'px_alerts_poolexpandsuccessful': 'alerts.pool_expand_successful',
