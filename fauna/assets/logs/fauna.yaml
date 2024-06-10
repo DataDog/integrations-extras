@@ -1,0 +1,104 @@
+id: fauna
+metric_id: fauna
+backend_only: false
+facets:
+  - description: Number of read operations consumed.
+    facetType: range
+    groups:
+      - Fauna
+    name: BYTE_READ_OPS
+    path: BYTE_READ_OPS
+    source: log
+    type: integer
+  - description: Number of write operations consumed.
+    facetType: range
+    groups:
+      - Fauna
+    name: BYTE_WRITE_OPS
+    path: BYTE_WRITE_OPS
+    source: log
+    type: integer
+  - description: Number of bytes in the request.
+    facetType: range
+    groups:
+      - Fauna
+    name: BYTES_IN
+    path: BYTES_IN
+    source: log
+    type: integer
+    unit:
+      name: byte
+      family: bytes
+  - description: Number of bytes in the response.
+    facetType: range
+    groups:
+      - Fauna
+    name: BYTES_OUT
+    path: BYTES_OUT
+    source: log
+    type: integer
+    unit:
+      name: byte
+      family: bytes
+  - description: Number of compute operations consumed.
+    facetType: range
+    groups:
+      - Fauna
+    name: COMPUTE_OPS
+    path: COMPUTE_OPS
+    source: log
+    type: integer
+  - description: Query processing time, in milliseconds.
+    facetType: range
+    groups:
+      - Fauna
+    name: QUERY_TIME_MS
+    path: QUERY_TIME_MS
+    source: log
+    type: integer
+    unit:
+      name: millisecond
+      family: time
+  - groups:
+      - Web Access
+    name: Status Code
+    path: http.status_code
+    source: log
+  - facetType: range
+    groups:
+      - Measure
+    name: Duration
+    path: duration
+    source: log
+    type: double
+    unit:
+      family: time
+      name: nanosecond
+pipeline:
+  type: pipeline
+  name: Fauna
+  enabled: true
+  filter:
+    source:fauna
+  processors:
+    - type: date-remapper
+      name: Define `TS` as the official date of the log
+      enabled: true
+      sources:
+        - TS
+    - type: attribute-remapper
+      name: Map `RESPONSE_CODE` to `http.status_code`
+      enabled: true
+      sources:
+        - RESPONSE_CODE
+      sourceType: attribute
+      target: http.status_code
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: arithmetic-processor
+      name: duration = QUERY_TIME_MS * 1000000
+      enabled: true
+      expression: QUERY_TIME_MS * 1000000
+      target: duration
+      replaceMissing: false
