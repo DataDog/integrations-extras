@@ -69,7 +69,7 @@ def instance_min_collection_interval():
 
 
 def instance_neo4j_version():
-    return '4.3'
+    return '5.18'
 
 
 def instance_non_cumulative_histogram_buckets():
