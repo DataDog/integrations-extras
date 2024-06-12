@@ -1,0 +1,48 @@
+{
+  "manifest_version": "1.0.0",
+  "app_uuid": "400be421-32e6-4283-b0d5-7a62dd685b74",
+  "app_id": "oceanbase-cloud",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Configuration",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Monitoring OceanBase Cloud clusters with Datadog",
+    "title": "OceanBase Cloud",
+    "media": [],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::Cloud"
+    ]
+  },
+  "author": {
+    "support_email": "kyle.sj@oceanbase.com",
+    "name": "OceanBase",
+    "homepage": "https://github.com/DataDog/integrations-extras",
+    "sales_email": "szy429532@oceanbase.com"
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 15206722,
+      "source_type_name": "OceanBase Cloud",
+      "configuration": {},
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "oceanbasecloud.",
+        "check": "oceanbasecloud.sql_all_count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+    },
+    "dashboards": {
+      "OceanBase Cloud Overview": "assets/dashboards/oceanbasecloud_overview.json"}
+    }
+  }
+}

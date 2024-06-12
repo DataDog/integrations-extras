@@ -1,0 +1,665 @@
+{
+  "title": "OceanBase Cloud Overview",
+  "description": "This dashboard provides a **high-level** overview of your OceanBase clusters.\n\nFurther reading on OceanBase Cloud monitoring:\n\n- [OceanBase Cloud Monitoring Overview](https://en.oceanbase.com/docs/common-oceanbase-cloud-10000000001253155)\n\nClone this template dashboard to make changes and add your own graph widgets.",
+  "widgets": [{
+    "id": 7564094925683824,
+    "definition": {
+      "title": "Performance and SQL",
+      "title_align": "center",
+      "background_color": "vivid_orange",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 8839969714398146,
+        "definition": {
+          "title": "QPS",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.sql_all_count{$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 856861007312992,
+        "definition": {
+          "title": "Sql Request Time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "millisecond"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.sql_all_rt{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 7602096901735852,
+        "definition": {
+          "title": "Number of sessions",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.all_session{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 5889700880357092,
+        "definition": {
+          "title": "Request waiting queue time consuming",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "microsecond"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.request_queue_time{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 9
+    }
+  }, {
+    "id": 6721016273444172,
+    "definition": {
+      "title": "Transaction",
+      "title_align": "center",
+      "background_color": "vivid_orange",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 258303558111630,
+        "definition": {
+          "title": "TPS",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.transaction_count{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 1900797583681240,
+        "definition": {
+          "title": "Transaction response time",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "millisecond"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.transaction_rt{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 3021928820277280,
+        "definition": {
+          "title": "Trans Log Commit Count",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.trans_commit_log_count{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 6503063283527044,
+        "definition": {
+          "title": "Transaction log size submitted",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "byte"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.clog_trans_log_total_size{$ob_cluster_name,$tenant_name} by {ob_cluster_name,tenant_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 9,
+      "width": 12,
+      "height": 9
+    }
+  }, {
+    "id": 4282240643153284,
+    "definition": {
+      "title": "Host Performance",
+      "title_align": "center",
+      "background_color": "vivid_orange",
+      "show_title": true,
+      "type": "group",
+      "layout_type": "ordered",
+      "widgets": [{
+        "id": 8755331197405978,
+        "definition": {
+          "title": "Load",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.load1{$ob_cluster_name,$host_name} by {host_name,ob_cluster_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 2363424764926658,
+        "definition": {
+          "title": "CPU Percent",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "percent"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.cpu_percent{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 5100067898298036,
+        "definition": {
+          "title": "Memory",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "percent"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.memory_used{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 3014500845399474,
+        "definition": {
+          "title": "Network Throughput",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "mebibyte"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.net_throughput{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 4,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 7183857442264658,
+        "definition": {
+          "title": "OB Clog Disk Usage",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "percent"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.ob_clog_disk_percent{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 8,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 2391245474255482,
+        "definition": {
+          "title": "OB Data Disk Usag",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1",
+              "number_format": {
+                "unit": {
+                  "type": "canonical_unit",
+                  "unit_name": "percent"
+                }
+              }
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.ob_data_disk_percent{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 6,
+          "y": 8,
+          "width": 6,
+          "height": 4
+        }
+      }, {
+        "id": 353434617129980,
+        "definition": {
+          "title": "OB process exists status",
+          "title_size": "16",
+          "title_align": "left",
+          "show_legend": true,
+          "legend_layout": "auto",
+          "legend_columns": ["avg", "min", "max", "value", "sum"],
+          "type": "timeseries",
+          "requests": [{
+            "formulas": [{
+              "formula": "query1"
+            }],
+            "queries": [{
+              "data_source": "metrics",
+              "name": "query1",
+              "query": "avg:oceanbasecloud.ob_process_exists{$ob_cluster_name,$host_name} by {ob_cluster_name,host_name}"
+            }],
+            "response_format": "timeseries",
+            "style": {
+              "palette": "dog_classic",
+              "order_by": "values",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }]
+        },
+        "layout": {
+          "x": 0,
+          "y": 12,
+          "width": 6,
+          "height": 4
+        }
+      }]
+    },
+    "layout": {
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 17,
+      "is_column_break": true
+    }
+  }],
+  "template_variables": [{
+    "name": "ob_cluster_name",
+    "prefix": "ob_cluster_name",
+    "available_values": [],
+    "default": "*"
+  }, {
+    "name": "host_name",
+    "prefix": "host_name",
+    "available_values": [],
+    "default": "*"
+  }, {
+    "name": "tenant_name",
+    "prefix": "tenant_name",
+    "available_values": [],
+    "default": "*"
+  }],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "template_variable_presets": [{
+    "name": "test",
+    "template_variables": [{
+      "name": "ob_cluster_name",
+      "value": "ob5o8us4o266tc"
+    }, {
+      "name": "host_name",
+      "value": "i-02b3be929ed06bd60"
+    }]
+  }],
+  "reflow_type": "fixed"
+}
