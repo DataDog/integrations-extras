@@ -59,17 +59,3 @@ class RedisCloudCheck(OpenMetricsBaseCheckV2):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
         return False
 
-    def check(self, instance):
-        # type: (Any) -> None
-
-        # smoke test
-        url = instance.get('openmetrics_endpoint')
-        if not url:
-            raise ConfigurationError('Configuration error, please fix conf.yaml')
-
-        try:
-            super().check(instance)
-            self.service_check("can_connect", AgentCheck.OK)
-        except Exception as e:
-            self.log.error('exception: %s', e)
-            self.service_check("can_connect", AgentCheck.CRITICAL, message=str(e))
