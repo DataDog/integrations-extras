@@ -58,4 +58,3 @@ class RedisCloudCheck(OpenMetricsBaseCheckV2):
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
         return False
-
