@@ -6,8 +6,7 @@ Redis is a versatile and fast data store that supports strings, hashes, lists, s
 
 The [Redis Cloud][1] integration is intended for use with Redis CLoud deployments of Redis software. It is not for use with Redis Enterprise installations, for that see the separate Redis Enterprise integration.
 
-This integration provides metrics for three critical aspects of a cluster; database, node, and shard, and makes it easier to detect problems before they become critical. For a full list see the 'Metrics' section.
-
+This integration provides metrics for databases, nodes, and shards), making it easier to detect problems before they become critical. 
 
 ## Setup
 
@@ -18,21 +17,21 @@ This integration provides metrics for three critical aspects of a cluster; datab
    datadog-agent integration install -t datadog-redis_cloud==1.0.0
    ```
    
-2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Integration][2] for further information.
+2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][2] for mor information.
 
-3. [Restart][3] the agent.
+3. [Restart][3] the Agent.
 
 
 ### Configuration
 
-Set the `openmetrics_endpoint` to point to your cluster. See the [example][4].
+Set the `openmetrics_endpoint` to point to your cluster. For an example, see the [`conf.yaml.example` file][4].
 
 
 ### Validation
 
 1. Ensure you can ping the machine, particularly in a cloud environment. Run `wget --no-check-certificate <endpoint>` or `curl -k <endpoint>` to ensure that you can receive metrics.
 
-2. Check the [status][5] of the Datadog agent.
+2. Check the [status][5] of the Datadog Agent.
 
 
 ## Data Collected
