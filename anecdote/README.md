@@ -48,7 +48,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 10. In Anecdoate, verify the integration is successfully connected. You should see a confirmation message or the integration status.
     - Return to Anecdote and verify that the integration is successfully connected. You should see a confirmation message or the status of the integration.
 
-11. **Start using the integration**
+11. Once the integration is verified, you can start using Anecdote to send bug reports directly to Datadog and monitor them in the Dashboards page.
 
 ### Validation
 
