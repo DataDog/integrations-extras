@@ -31,7 +31,6 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 5. Once you are signed into Anecdote, navigate to the Integrations section.
 
 6. In the Integrations section, search for and select the Datadog integration.
-   - In the Integrations section, search for and select the Datadog integration.
 
 7. **Enter the region where your Datadog Workspace is located**
    - Enter the region where your Datadog Workspace is located. This ensures that the integration points to the correct Datadog server.
