@@ -23,7 +23,6 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 1. In Datadog, go to **Integrations** and search for Anecdote.
 
 2. On the Anecdote integration page, click **Install** to install the integration.
-   - On the Anecdote integration page, click the "Install" button to begin the installation process.
 
 3. **Click Connect [Accounts][1]**
    - After clicking "Install," you are prompted to connect your Anecdote account with your Datadog account. Click "Connect Accounts" to proceed.
