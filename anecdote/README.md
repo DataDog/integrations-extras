@@ -28,7 +28,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 4. You are redirected to the Anecdote login page. Log in with your Anecdote credentials.
 
-5. **Navigate to the Integrations section**
+5. Once you are signed into Anecdote, navigate to the Integrations section.
    - Once signed in, navigate to the Integrations section within your Anecdote account.
 
 6. **Find the Datadog integration**
