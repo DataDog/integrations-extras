@@ -32,7 +32,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 6. In the Integrations section, search for and select the Datadog integration.
 
-7. **Enter the region where your Datadog Workspace is located**
+7. Enter the region where your Datadog Workspace is located. This ensures the integration points to the correct Datadog server.
    - Enter the region where your Datadog Workspace is located. This ensures that the integration points to the correct Datadog server.
 
 8. **Authenticate your Datadog account with the integration**
