@@ -62,5 +62,4 @@ Need help? Contact [Datadog support][2].
 [6]: https://docs.shoreline.io/installation/kubernetes#install-with-helm
 [7]: https://docs.shoreline.io/installation/virtual-machines
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg
-[9]: https://docs.shoreline.io/
 [10]: /account/settings#integrations/shoreline
