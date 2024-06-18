@@ -1,0 +1,44 @@
+id: "celerdata"
+tests:
+ -
+  sample: "2024-03-28 10:21:53,960 INFO (main|1) [AuthorizationMgr.initBuiltinRoleUnlocked():282] create built-in role cluster_admin[-3]"
+  result:
+    custom:
+      class_name: "AuthorizationMgr"
+      file_line: 282
+      loglevel: "INFO"
+      method_name: "initBuiltinRoleUnlocked"
+      timestamp: 1711621313960
+    message: "create built-in role cluster_admin[-3]"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1711621313960
+ -
+  sample: "2024-03-28 18:58:43,380 INFO (nioEventLoopGroup-4-3|154) [RestBaseAction.handleRequest():73] receive http request. url=/api/health"
+  result:
+    custom:
+      class_name: "RestBaseAction"
+      file_line: 73
+      loglevel: "INFO"
+      method_name: "handleRequest"
+      timestamp: 1711652323380
+    message: "receive http request. url=/api/health"
+    status: "info"
+    tags:
+     - "source:LOGS_SOURCE"
+    timestamp: 1711652323380
+ -
+   sample: "2024-04-10 10:32:23.937+08:00 INFO (stateChangeExecutor|95) [StateChangeExecutor.runOneCycle():179] finished to transfer FE type from INIT to LEADER"
+   result:
+     custom:
+       class_name: "StateChangeExecutor"
+       file_line: 179
+       loglevel: "INFO"
+       method_name: "runOneCycle"
+       timestamp: 1712716343937
+     message: "finished to transfer FE type from INIT to LEADER"
+     status: "info"
+     tags:
+       - "source:LOGS_SOURCE"
+     timestamp: 1712716343937
