@@ -4,7 +4,7 @@
 
 Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. 
 
-The [Redis Cloud][1] integration is intended for use with Redis CLoud deployments of Redis software. It is not for use with Redis Enterprise installations, for that see the separate Redis Enterprise integration.
+The [Redis Cloud][1] integration is intended for use with Redis Cloud deployments of Redis software. It is not for use with Redis Enterprise installations, for that see the separate Redis Enterprise integration.
 
 This integration provides metrics for databases, nodes, and shards), making it easier to detect problems before they become critical. 
 
@@ -17,7 +17,7 @@ This integration provides metrics for databases, nodes, and shards), making it e
    datadog-agent integration install -t datadog-redis_cloud==1.0.0
    ```
    
-2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][2] for mor information.
+2. Configure the integration by setting the `openmetrics_endpoint` to your cluster's master node. See [Getting Started with Integrations][2] for more information.
 
 3. [Restart][3] the Agent.
 
