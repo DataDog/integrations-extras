@@ -6,7 +6,9 @@
 
 Use the OceanBase Cloud Datadog integration to export metrics from OceanBase Cloud clusters to Datadog.
 
-## Configuration
+## Setup
+
+To set up the OceanBase Cloud Datadog integration for your cluster, provide a Datadog API key and region to OceanBase Cloud.
 
 Go to [OceanBase Cloud Integrations][2] to configure the Datadog integration for your OceanBase Cloud project.
 
