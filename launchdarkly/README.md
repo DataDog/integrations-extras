@@ -100,6 +100,8 @@ The LaunchDarkly integration does not include any service checks.
 
 Need help? Contact [Datadog Support][7].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://launchdarkly.com

@@ -41,6 +41,8 @@ IsDown sends events for each outage that happens in the services you monitor. It
 
 Need help? Contact [IsDown support][2].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://isdown.app

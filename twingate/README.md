@@ -96,6 +96,8 @@ docker run -d --sysctl net.ipv4.ping_group_range="0 2147483647" \
 ## Troubleshooting
 Need help? Contact [Twingate Support][2].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://www.twingate.com/

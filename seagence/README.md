@@ -45,6 +45,8 @@ Seagence posts an event to Datadog upon detecting a defect.
 
 Need help? Contact [Seagence support][4].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://www.seagence.com

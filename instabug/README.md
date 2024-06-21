@@ -29,6 +29,8 @@ The Instabug integration does not include any service checks.
 ## Support
 Need help? Contact [Instabug Support][3].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: http://instabug.com

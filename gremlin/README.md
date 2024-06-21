@@ -39,6 +39,8 @@ The Gremlin integration does not include any service checks.
 
 Need help? Contact [Datadog support][5].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://docs.datadoghq.com/getting_started/#events

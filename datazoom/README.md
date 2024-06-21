@@ -40,6 +40,8 @@ Datazoom does not include any events.
 
 Need help? Contact [Datadog support][2].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://help.datazoom.io/hc/en-us/articles/360042494512-Datadog

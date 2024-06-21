@@ -38,6 +38,8 @@ The MongoDB Atlas integration does not include any service checks.
 
 Need help? [Contact Datadog Support][5]
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://app.datadoghq.com/organization-settings/api-keys

@@ -41,6 +41,8 @@ CloudNatix does not include any events.
 
 Need help? Contact [Cloudnatix support][6].
 
+## Further Reading
+
 {{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://cloudnatix.com/
