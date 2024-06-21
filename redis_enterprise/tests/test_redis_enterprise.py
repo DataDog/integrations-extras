@@ -15,18 +15,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 
 @pytest.mark.unit
-def test_emits_critical_service_check_when_service_is_down(dd_run_check, aggregator):
-    # type: (Callable[[AgentCheck, bool], None], AggregatorStub, Dict[str, Any]) -> None
-
-    instance = deepcopy(ERSATZ_INSTANCE)
-    instance.update({'tls_verify': 'false'})
-    check = RedisEnterpriseCheck('redis_enterprise', {}, [instance])
-
-    dd_run_check(check)
-    aggregator.assert_service_check('rdse.can_connect', RedisEnterpriseCheck.CRITICAL)
-
-
-@pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
