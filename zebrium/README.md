@@ -53,4 +53,3 @@ Need help? Contact [Datadog Support][4].
 [3]: https://docs.zebrium.com/docs/monitoring/datadog_autodetect/
 [4]: http://docs.datadoghq.com/help
 [5]: https://cloud.zebrium.com
-[6]: https://www.datadoghq.com/blog/find-the-root-cause-faster-with-zebrium/

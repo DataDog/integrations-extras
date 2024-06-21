@@ -62,6 +62,4 @@ Need help? Contact [Datadog support][8].
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [8]: https://docs.datadoghq.com/help/
-[9]: https://help.ns1.com/hc/en-us/articles/4402752547219
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ns1/assets/service_checks.json
-[11]: https://www.datadoghq.com/blog/ns1-monitoring-datadog/

@@ -38,4 +38,3 @@ Need help? Contact [Instabug Support][3].
 [3]: mailto:support@instabug.com
 [4]: https://app.datadoghq.com/dashboard/lists
 [5]: https://docs.instabug.com/docs/introduction
-[6]: https://www.datadoghq.com/blog/instabug-mobile-usability/

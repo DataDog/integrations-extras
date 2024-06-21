@@ -51,5 +51,4 @@ Need help? Contact [Datadog support][1].
 [2]: https://techdocs.akamai.com/datastream2/docs/stream-datadog
 [3]: https://app.datadoghq.com/logs?query=source%3Aakamai.datastream
 [4]: https://www.datadoghq.com/blog/monitor-akamai-datastream2/
-[5]: https://docs.datadoghq.com/getting_started/site/
 [6]: https://techdocs.akamai.com/datastream2/docs

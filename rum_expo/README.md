@@ -62,5 +62,3 @@ Need help? Contact [Datadog Support][6].
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [5]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/
 [6]: https://docs.datadoghq.com/help/
-[7]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/
-[8]: https://docs.datadoghq.com/real_user_monitoring/error_tracking/expo/

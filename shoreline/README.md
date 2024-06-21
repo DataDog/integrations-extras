@@ -56,13 +56,9 @@ Need help? Contact [Datadog support][2].
 
 {{< partial name="whats-next/whats-next.html" >}}
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/integrate_shoreline_and_datadog.png
 [2]: https://docs.datadoghq.com/help/
 [3]: https://shoreline.io/datadog?source=DatadogIntTile
 [4]: https://docs.shoreline.io/integrations/datadog
 [5]: https://docs.shoreline.io/installation/kubernetes
 [6]: https://docs.shoreline.io/installation/kubernetes#install-with-helm
 [7]: https://docs.shoreline.io/installation/virtual-machines
-[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/shoreline/images/link_icon.svg
-[9]: https://docs.shoreline.io/
-[10]: /account/settings#integrations/shoreline

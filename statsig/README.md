@@ -44,5 +44,4 @@ Need help? Contact [Statsig support][5] or see the [Statsig website][3].
 [1]: https://console.statsig.com/integrations
 [2]: https://github.com/DataDog/integrations-extras/blob/master/statsig/metadata.csv
 [3]: https://www.statsig.com/contact
-[4]: https://www.datadoghq.com/blog/feature-monitoring-statsig-datadog-marketplace/
 [5]: mailto:support@statsig.com

@@ -90,7 +90,6 @@ Need help? Contact [Datadog Support][1] or [F5 Support][6].
 
 [1]: http://docs.datadoghq.com/help/
 [2]: https://www.f5.com/cloud/products/distributed-cloud-console
-[3]: https://www.f5.com/cloud
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
 [5]: https://app.datadoghq.com/logs
 [6]: https://docs.cloud.f5.com/docs/support/support

@@ -66,7 +66,5 @@ Need help? Contact [Datadog Support][3].
 
 {{< partial name="whats-next/whats-next.html" >}}
 
-[1]: https://devcycle.com
-[2]: https://docs.devcycle.com/tools-and-integrations/datadog-rum
 [3]: https://docs.datadoghq.com/help/
 [4]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/

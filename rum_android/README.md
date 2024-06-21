@@ -64,4 +64,3 @@ Need help? Contact [Datadog Support][8].
 [6]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [7]: https://docs.datadoghq.com/real_user_monitoring/android/data_collected/
 [8]: https://docs.datadoghq.com/help/
-[9]: https://docs.datadoghq.com/real_user_monitoring/android/

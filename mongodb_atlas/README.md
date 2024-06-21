@@ -47,5 +47,3 @@ Need help? [Contact Datadog Support][5]
 [3]: https://github.com/DataDog/integrations-extras/blob/master/mongodb_atlas/metadata.csv
 [4]: https://www.mongodb.com/docs/atlas/configure-alerts/#std-label-notification-options
 [5]: https://docs.datadoghq.com/help/
-[6]: https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/
-[7]: https://www.mongodb.com/products/platform/atlas-for-government

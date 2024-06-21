@@ -65,4 +65,3 @@ Need help? Contact [Datadog support][4].
 [3]: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwet.html
 [4]: https://docs.datadoghq.com/help/
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/convox/images/setting_environment_variables.png
-[6]: https://www.datadoghq.com/blog/monitor-aws-ecs-convox-integration/

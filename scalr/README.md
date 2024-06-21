@@ -63,10 +63,7 @@ Need help? Contact [Datadog support][4] or [Scalr support][12].
 [8]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [9]: https://github.com/DataDog/integrations-extras/blob/master/scalr/metadata.csv
 [10]: https://github.com/DataDog/integrations-extras/blob/master/scalr/assets/service_checks.json
-[11]: https://docs.scalr.com/en/latest/integrations.html#datadog
 [12]: https://scalr-labs.atlassian.net/servicedesk/customer/portal/31
-[13]: https://docs.scalr.com
 [14]: https://docs.datadoghq.com/events/explorer/
 [15]: https://docs.scalr.com/en/latest/integrations.html
 [16]: https://docs.datadoghq.com/events/
-

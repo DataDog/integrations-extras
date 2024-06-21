@@ -62,4 +62,3 @@ Need help? See the [Superwise documentation][9].
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/4.png
 [8]: https://github.com/DataDog/integrations-extras/blob/master/superwise/metadata.csv
 [9]: https://docs.superwise.ai
-[10]: https://www.datadoghq.com/blog/superwise-datadog-marketplace/

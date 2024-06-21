@@ -55,4 +55,3 @@ Need help? Contact [Seagence support][4].
 [4]: mailto:support@seagence.com
 [5]: https://app.datadoghq.com/integrations/seagence
 [6]: https://app.datadoghq.com/organization-settings/api-keys?filter=Seagence
-[7]: https://www.datadoghq.com/blog/seagence-datadog-marketplace/

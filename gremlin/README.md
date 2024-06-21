@@ -48,4 +48,3 @@ Need help? Contact [Datadog support][5].
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/gremlin/images/events-overlay.png
 [4]: https://app.gremlin.com/settings/integrations
 [5]: https://docs.datadoghq.com/help/
-[6]: https://www.datadoghq.com/blog/gremlin-datadog/

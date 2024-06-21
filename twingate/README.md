@@ -103,13 +103,7 @@ Need help? Contact [Twingate Support][2].
 [1]: https://www.twingate.com/
 [2]: https://help.twingate.com/hc/en-us
 [3]: https://docs.twingate.com/docs/connector-real-time-logs
-[4]: https://app.datadoghq.com/account/settings/agent/latest
 [5]: https://docs.datadoghq.com/agent/logs/?tab=journald
-[6]: https://docs.datadoghq.com/logs/explorer/facets/#manage-facets
-[7]: https://docs.datadoghq.com/logs/log_configuration/pipelines/?tab=source#create-a-pipeline
-[8]: https://raw.githubusercontent.com/Twingate-Labs/datadog-integrations-extras/master/twingate/images/dashboard.png
-[9]: https://docs.datadoghq.com/logs/explorer/facets/#measures
 [10]: https://app.datadoghq.com/logs
 [11]: https://docs.datadoghq.com/getting_started/agent/
 [12]: https://app.datadoghq.com/dashboard/lists
-[13]: https://www.datadoghq.com/blog/monitor-network-access-with-twingate/

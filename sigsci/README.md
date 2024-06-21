@@ -112,5 +112,4 @@ Need help? Contact [Datadog support][10].
 [8]: https://docs.signalsciences.net/integrations/datadog/
 [9]: https://docs.datadoghq.com/events/
 [10]: https://docs.datadoghq.com/help/
-[11]: https://www.signalsciences.com/blog/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/sigsci/metadata.csv

@@ -58,4 +58,3 @@ Need help? Contact [Datadog Support][7].
 [5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [6]: https://docs.datadoghq.com/real_user_monitoring/roku/data_collected/
 [7]: https://docs.datadoghq.com/help/
-[8]: https://www.datadoghq.com/blog/monitor-roku-with-rum/

@@ -48,4 +48,3 @@ Need help? Contact [Datadog support][2].
 [2]: https://docs.datadoghq.com/help/
 [3]: https://app.datadoghq.com/logs
 [4]: https://app.datadoghq.com/dashboard/lists/preset/3?q=datazoom
-[5]: https://www.datadoghq.com/blog/monitor-datazoom/

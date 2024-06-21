@@ -52,4 +52,3 @@ Need help? Contact [Cloudnatix support][6].
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv
 [6]: mailto:support@cloudnatix.com
 [7]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
-[8]: https://www.datadoghq.com/blog/infrastructure-optimization-rightsizing-cloudnatix-datadog/

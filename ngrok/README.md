@@ -62,7 +62,6 @@ Need help? Contact [ngrok Support][1] or reference the [ngrok documentation][6].
 
 [1]: mailto:support@ngrok.com
 [2]: https://dashboard.ngrok.com
-[3]: https://ngrok.com/solutions
 [4]: https://docs.datadoghq.com/account_management/api-app-keys/
 [6]: https://ngrok.com/docs/integrations/datadog/
 [7]: https://ngrok.com/docs/integrations/datadog/event-destination/
