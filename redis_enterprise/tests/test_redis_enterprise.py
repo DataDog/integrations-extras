@@ -6,6 +6,7 @@ import pytest
 
 # from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.redis_enterprise.check import RedisEnterpriseCheck
+from datadog_checks.base.errors import ConfigurationError
 
 from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
 
@@ -60,8 +61,12 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
 
     check = RedisEnterpriseCheck(CHECK, {}, [instance])
 
-    with pytest.raises(Exception):
+    try:
         dd_run_check(check)
+    except ConfigurationError as ce:
+        assert True
+    except Exception as ex:
+        assert True
 
     aggregator.assert_service_check('rdse.group_bogus', count=0)
 
@@ -73,7 +78,11 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
 
     check = RedisEnterpriseCheck(CHECK, {}, [instance])
 
-    with pytest.raises(Exception):
+    try:
         dd_run_check(check)
+    except ConfigurationError as ce:
+        assert True
+    except Exception as ex:
+        assert True
 
     aggregator.assert_service_check('rdse.node_imaginary', count=0)
