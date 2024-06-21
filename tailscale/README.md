@@ -57,4 +57,5 @@ Need help? Contact [Datadog support][3].
 [1]: https://tailscale.com/
 [3]: https://docs.datadoghq.com/help/
 [4]: https://tailscale.com/kb/1203/audit-logging/
+[5]: https://tailscale.com/kb/1219/network-flow-logs/
 [6]: https://docs.datadoghq.com/account_management/api-app-keys/
