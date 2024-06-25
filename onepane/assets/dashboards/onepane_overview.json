@@ -36,6 +36,14 @@
                                     "palette_index": 2
                                 },
                                 "formula": "query2"
+                            },
+                            {
+                                "style": {
+                                    "palette": "purple",
+                                    "palette_index": 2
+                                },
+                                "alias": "Events",
+                                "formula": "query3"
                             }
                         ],
                         "queries": [
@@ -64,7 +72,21 @@
                                 },
                                 "group_by": [],
                                 "search": {
-                                    "query": "tags:\"category::deployment\""
+                                    "query": "tags:\"category::deployment\" tags:\"platform::onepane\""
+                                }
+                            },
+                            {
+                                "data_source": "events",
+                                "name": "query3",
+                                "indexes": [
+                                    "*"
+                                ],
+                                "compute": {
+                                    "aggregation": "count"
+                                },
+                                "group_by": [],
+                                "search": {
+                                    "query": "-tags:\"category::deployment\" tags:\"platform::onepane\""
                                 }
                             }
                         ],
@@ -84,91 +106,7 @@
                 "x": 0,
                 "y": 0,
                 "width": 12,
-                "height": 3
-            }
-        },
-        {
-            "id": 8355301930557406,
-            "definition": {
-                "title": "Deployment Events Correlation: Infrastructure Changes and Impact Analysis",
-                "title_size": "16",
-                "title_align": "left",
-                "show_legend": true,
-                "legend_layout": "auto",
-                "legend_columns": [
-                    "avg",
-                    "min",
-                    "max",
-                    "value",
-                    "sum"
-                ],
-                "type": "timeseries",
-                "requests": [
-                    {
-                        "formulas": [
-                            {
-                                "alias": "Events",
-                                "style": {
-                                    "palette": "purple",
-                                    "palette_index": 2
-                                },
-                                "formula": "query1"
-                            },
-                            {
-                                "style": {
-                                    "palette": "cool",
-                                    "palette_index": 2
-                                },
-                                "alias": "Deployment",
-                                "formula": "query2"
-                            }
-                        ],
-                        "queries": [
-                            {
-                                "data_source": "events",
-                                "name": "query1",
-                                "indexes": [
-                                    "*"
-                                ],
-                                "compute": {
-                                    "aggregation": "count"
-                                },
-                                "group_by": [],
-                                "search": {
-                                    "query": "-tags:\"category::deployment\" tags:\"platform::onepane\""
-                                }
-                            },
-                            {
-                                "data_source": "events",
-                                "name": "query2",
-                                "indexes": [
-                                    "*"
-                                ],
-                                "compute": {
-                                    "aggregation": "count"
-                                },
-                                "group_by": [],
-                                "search": {
-                                    "query": "tags:\"category::deployment\""
-                                }
-                            }
-                        ],
-                        "response_format": "timeseries",
-                        "style": {
-                            "palette": "dog_classic",
-                            "order_by": "values",
-                            "line_type": "solid",
-                            "line_width": "thick"
-                        },
-                        "display_type": "bars"
-                    }
-                ]
-            },
-            "layout": {
-                "x": 0,
-                "y": 3,
-                "width": 12,
-                "height": 3
+                "height": 4
             }
         },
         {
@@ -232,9 +170,9 @@
             },
             "layout": {
                 "x": 0,
-                "y": 6,
+                "y": 4,
                 "width": 12,
-                "height": 3
+                "height": 5
             }
         }
     ],
