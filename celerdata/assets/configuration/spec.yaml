@@ -1,0 +1,79 @@
+name: celerdata
+
+files:
+
+- name: celerdata.yaml
+  options:
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.display_priority: 5
+        openmetrics_endpoint.value.example: http://127.0.0.1:8030/metrics
+        openmetrics_endpoint.description: |
+          The URL exposing metrics in the OpenMetrics format.
+          You should configure this based on the component you're monitoring.
+          For FE component, use something like http://127.0.0.1:8030/metrics
+          For BE/CN component, use something like http://127.0.0.1:8040/metrics
+        tags.display_priority: 6
+        tags.description: |
+          Tags to be sent with the metrics.
+          If you're collecting metrics of FE component, use tags which has service:fe.
+          If you're collecting metrics of BE component, use tags which has service:be.
+          If you're collecting metrics of CN component, use tags which has service:cn.
+  - template: logs
+    description: |
+      Log Section
+      
+      type - required - Type of log input source (tcp / udp / file / windows_event).
+      port / path / channel_path - required - Set port if type is tcp or udp.
+                                              Set path if type is file.
+                                              Set channel_path if type is windows_event.
+      source  - required - Attribute that defines which integration sent the logs.
+      encoding - optional - For file specifies the file encoding. Default is utf-8. Other
+                            possible values are utf-16-le and utf-16-be.
+      service - optional - The name of the service that generates the log.
+                           Overrides any `service` defined in the `init_config` section.
+      tags - optional - Add tags to the collected logs.
+      
+      Discover Datadog log collection: https://docs.datadoghq.com/logs/log_collection/
+      You should configure this based on the component you're monitoring.
+      For FE component, use items which has service: fe.
+      For BE component, use items which has service: be.
+    example:
+      - type: file
+        path: /path/to/fe.log
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/fe.out
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/fe.warn.log
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/fe.audit.log
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/fe.big_query.log
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/fe.dump.log
+        service: fe
+        source: celerdata
+      - type: file
+        path: /path/to/be.INFO
+        service: be
+        source: celerdata
+      - type: file
+        path: /path/to/be.out
+        service: be
+        source: celerdata
+      - type: file
+        path: /path/to/be.WARNING
+        service: be
+        source: celerdata
