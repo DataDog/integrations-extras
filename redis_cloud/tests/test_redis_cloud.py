@@ -5,7 +5,6 @@ from typing import Any, Callable, Dict  # noqa: F401
 import pytest
 
 from datadog_checks.base.errors import ConfigurationError
-
 from datadog_checks.redis_cloud.check import RedisCloudCheck
 
 from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
