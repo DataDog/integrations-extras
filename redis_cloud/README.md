@@ -2,11 +2,14 @@
 
 ## Overview
 
-Redis is a versatile and fast data store that supports strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability features, as well as Redis Stack for modern data models and processing engines. 
+Redis is a fast, versatile data store that supports a variety of data structures, including strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability. The community edition of Redis adds additional data models and capabilities, which include vector search, probabilistic data structures, JSON support, and full-text search.
 
 The [Redis Cloud][1] integration is intended for use with Redis Cloud deployments of Redis software. It is not for use with Redis Enterprise installations, for that see the separate Redis Enterprise integration.
 
-This integration provides metrics for databases, nodes, and shards), making it easier to detect problems before they become critical. 
+The integration provides metrics for three critical cluster components: databases, nodes, and shards, via a Datadog Agent. This allows you to monitor database throughput, memory utilization, CPU usage, connection counts, replication health, and a variety of additional metrics within Datadog.
+You can use this information to understand the overall health of your Redis Cloud clusters, diagnose application performance issues, and prevent downtime.
+
+For a full list of supported metrics, see the **Metrics** section below.
 
 ## Setup
 
