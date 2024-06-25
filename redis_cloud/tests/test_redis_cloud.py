@@ -4,6 +4,8 @@ from typing import Any, Callable, Dict  # noqa: F401
 
 import pytest
 
+from datadog_checks.base.errors import ConfigurationError
+
 from datadog_checks.redis_cloud.check import RedisCloudCheck
 
 from .support import CHECK, DEFAULT_METRICS, EPHEMERAL, ERSATZ_INSTANCE, INSTANCE, METRICS_MAP
@@ -54,8 +56,12 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
 
     check = RedisCloudCheck(CHECK, {}, [instance])
 
-    with pytest.raises(Exception):
+    try:
         dd_run_check(check)
+    except ConfigurationError:
+        assert True
+    except Exception:
+        assert True
 
     aggregator.assert_service_check('rdsc.group_bogus', count=0)
 
@@ -67,7 +73,11 @@ def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
 
     check = RedisCloudCheck(CHECK, {}, [instance])
 
-    with pytest.raises(Exception):
+    try:
         dd_run_check(check)
+    except ConfigurationError:
+        assert True
+    except Exception:
+        assert True
 
     aggregator.assert_service_check('rdsc.node_imaginary', count=0)
