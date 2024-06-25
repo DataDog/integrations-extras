@@ -1,6 +1,10 @@
 id: traefik
 metric_id: traefik
 backend_only: false
+installation_sources:
+  - traefik
+  - traefik_mesh
+  - mesh
 facets:
   - facetType: range
     groups:
@@ -74,10 +78,10 @@ facets:
     source: log
 pipeline:
   type: pipeline
-  name: Traefik
+  name: Traefik Mesh
   enabled: true
   filter:
-    query: source:traefik
+    query: source:(traefik OR traefik_mesh OR mesh)
   processors:
     - type: grok-parser
       name: Parsing Traefik logs
