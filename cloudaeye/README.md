@@ -2,7 +2,7 @@
 
 ## Overview
 
-Kosal from CloudAEye is your root cause co-pilot. It analyzes your observability data (logs, metrics, traces) and pin-points the root cause automatically. Kosal publishes events with a summary to an integrated dashboard that helps to identify incidents faster. Additionally, Kosal adeptly identifies similar issues within Jira and related code changes that may be causing the incident. Using this integration you may troubleshoot and resolve incidents faster which improves your mean time to repair (MTTR).
+Kosal from CloudAEye acts as your root cause co-pilot. This integration enables Datadog users to import observability data (logs, metrics, traces) and view automated root cause analyses. Additionally, it identifies similar issues within Jira and related code changes that may be contributing to the incident. To expedite incident identification, Kosal publishes events with a summary and root cause to a Datadog dashboard.
 
 ## Setup
 
