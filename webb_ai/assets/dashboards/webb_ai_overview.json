@@ -1,0 +1,218 @@
+{
+  "title": "Webb.ai Overview",
+  "description": "Matt by Webb.ai is the first AI-enabled reliability engineer. Matt troubleshoots alerts from observability tools like Datadog, incidents from infrastructure like Kubernetes, and alerts from  cloud providers like AWS, Azure, and Google Cloud.\n\nThis dashboard provides the list of such RCAs and changes in your Kubernetes cluster.\n\nView RCAs performed by Matt [here](https://app.webb.ai/issues?ts=24h).\n\nView changes in your Kubernetes clusters [here](https://app.webb.ai/issues?ts=24h).",
+  "widgets": [
+    {
+      "id": 325090501093728,
+      "definition": {
+        "title": "About <integration>",
+        "banner_img": "https://d2s77pndg98mr9.cloudfront.net/logos/full_logo_1063x400.svg",
+        "show_title": false,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 6544225029855812,
+            "definition": {
+              "type": "note",
+              "content": "This dashboard provides you the list of RCAs performed by Matt for troubleshooting Datadog alerts, and kubernetes issues.\n\n\nIt also shows you the changes happening in your Kubernetes clusters in real time.",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7032118608350450,
+            "definition": {
+              "type": "note",
+              "content": "- Datadog monitors in alert state are continuously pulled by Matt\n- Once webb.ai receives the alert, it automatically troubleshoots it using relevant datadog metric, and k8s information\n- Once the troubleshooting is done, you can view the analysis and complete steps that Matt has taken\n- An event is sent to Datadog for every RCA done My Matt\n- An event is sent to Datadog for every Kubernetes change observed in your environment",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 4,
+              "height": 2
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 8,
+        "height": 5
+      }
+    },
+    {
+      "id": 1741971994096136,
+      "definition": {
+        "title": "Overview",
+        "background_color": "white",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7493157102499174,
+            "definition": {
+              "type": "note",
+              "content": "Matt by Webb.ai is the first AI-enabled reliability engineer. Matt troubleshoots alerts from observability tools like Datadog, incidents from infrastructure like Kubernetes, and alerts from  cloud providers like AWS, Azure, and Google Cloud.\n\nThis dashboard provides the list of such RCAs and changes in your Kubernetes cluster.\n\nView RCAs performed by Matt [here](https://app.webb.ai).\n\nView changes in your Kubernetes clusters [here](https://app.webb.ai/changes).",
+              "background_color": "white",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 8,
+        "y": 0,
+        "width": 4,
+        "height": 5
+      }
+    },
+    {
+      "id": 3955370034957714,
+      "definition": {
+        "title": "RCAs by Matt",
+        "background_color": "vivid_green",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 4605236168039992,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "query_string": "tags:webbai_rca ",
+                    "data_source": "event_stream",
+                    "event_size": "l"
+                  },
+                  "columns": []
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 4,
+              "height": 4
+            }
+          },
+          {
+            "id": 5706397850700140,
+            "definition": {
+              "type": "note",
+              "content": "This is the list of RCAs performed by Matt.\n\nFull list with filters is can be accessed [here](https://app.webb.ai/issues).\n",
+              "background_color": "yellow",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "center",
+              "show_tick": true,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 4,
+              "y": 0,
+              "width": 2,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 6,
+        "height": 5
+      }
+    },
+    {
+      "id": 274546046144418,
+      "definition": {
+        "title": "Kubernetes Changes",
+        "background_color": "vivid_orange",
+        "show_title": true,
+        "type": "group",
+        "layout_type": "ordered",
+        "widgets": [
+          {
+            "id": 7082901580363058,
+            "definition": {
+              "title": "",
+              "title_size": "16",
+              "title_align": "left",
+              "requests": [
+                {
+                  "response_format": "event_list",
+                  "query": {
+                    "query_string": "tags:webbai_change ",
+                    "data_source": "event_stream",
+                    "event_size": "l"
+                  },
+                  "columns": []
+                }
+              ],
+              "type": "list_stream"
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          }
+        ]
+      },
+      "layout": {
+        "x": 6,
+        "y": 0,
+        "width": 6,
+        "height": 5
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "ordered",
+  "notify_list": [],
+  "reflow_type": "fixed"
+}
