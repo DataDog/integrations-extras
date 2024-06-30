@@ -2,9 +2,7 @@
 
 ## Overview
 
-Fauna is a fully managed, distributed document-relational database. With this integration, Fauna users can stream their 
-database query logs into Datadog. This allows customers to view their queries in near real-time, allowing users to see
-the following for their queries:
+Fauna is a fully managed, distributed document-relational database. With this integration, you can stream your Fauna database query logs into Datadog. This enables you to view your queries in real time, and you can see the following information about your queries:
 1. Fauna Cost Measures
    1. Read Ops
    2. Write Ops
@@ -22,47 +20,51 @@ For the full list of fields available in the logs, see the [Fauna Query Log Reco
 
 ### Installation
 
-1. Use the 'Connect Accounts' button to begin the oauth flow to connect your Fauna and Datadog account.
-2. Once directed to Fauna, login with the account you'd like to connect.
-   1. this step can be skipped if already logged into your Fauna account.
-3. You will be directed to the Fauna Create Integration page, from here, select the region group(s) or databases that you would like to stream logs into Datadog for and click create.
-4. When directed to Datadog, click Authorize to authorize Fauna to create an API key for your account that will be used to send the database query logs.
+1. Click the 'Connect Accounts' button on the [Fauna integration tile][3] to start the OAuth flow and connect your Fauna and Datadog accounts.
+2. Once directed to Fauna, login with the account you'd like to connect. You can skip this step if you're already logged into your Fauna account.
+3. You are redirected to the Fauna Create Integration page, where you can select the region group(s) or databases that you would like to stream logs into Datadog for. Then, click **Create**.
+4. When directed to Datadog, click **Authorize** to authorize Fauna to create an API key for your account that will be used to send the database query logs.
 
-Once this flow is complete it will redirect you to the [Fauna Integrations Page][2] showing your active integration.
-Within the next 10 minutes, any queries issued for the configured region group(s) or databases should now show up in the 
-Datadog Log Explorer under the 'fauna' service.
+Once this flow is complete, you are redirected to the [Fauna Integrations Page][2], which shows your active integration.
+
+Within the next ten minutes, any queries issued for the configured region group(s) or databases should start appearing in the [Datadog Log Explorer][4] under the 'fauna' service.
 
 ### Configuration
 
-Fauna allows configuring the following on your Datadog integration:
-1. Which region groups that database query logs are sent for.
+You can configure the following settings for the Fauna integration:
+
+1. Which region groups database query logs are sent to.
    1. If a region group is enabled for the integration, query logs are sent for every database in the enabled region group.
-2. Which databases that query logs are sent for.
-3. The integration state, Active or Paused. When Paused no logs will be sent.
+2. Which databases query logs are sent from.
+3. The integration state (Active or Paused). When Paused, logs are not sent.
 
-Visit the [Fauna Integrations Page][2] to update any of the configuration or to remove your integration.
+Visit the [Fauna Integrations Page][2] to update any configuration settings or to remove your integration.
 
-It can take up to 10 minutes to see your updates take effect in the Datadog Log Explorer.
+It can take up to ten minutes to see your updates take effect in the Datadog Log Explorer.
 
 ### Validation
 
-Once configured correctly, you should begin seeing your queries showing up in the Datadog Log Explorer under the 'fauna' service.
+Once configured correctly, you should see your queries start to appear in the Datadog Log Explorer under the 'fauna' service.
 
 ### Uninstallation
  - Visit the [Fauna Integrations Page][2] and remove the Datadog integration.
  - Once this integration has been uninstalled, any previous authorizations are revoked.
- - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
+ - Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][5].
 
 ## Data Collected
 
 ### Logs
 
-Fauna will include logs for every query for the databases configured in the integration. 
+Fauna includes logs for every query within the databases configured in the integration. 
 If the integration is configured with a region group, then query logs for all databases within the region group are included.
 
 ## Troubleshooting
 
-Need help? Contact [Fauna support](mailto:support@fauna.com).
+Need help? Contact [Fauna support][6].
 
 [1]: https://docs.fauna.com/fauna/current/tools/query_log/reference/log_reference
 [2]: https://dashboard.fauna.com/resources/integrations
+[3]: https://app.datadoghq.com/integrations/fauna
+[4]: https://docs.datadoghq.com/logs/explorer/
+[5]: https://app.datadoghq.com/organization-settings/api-keys
+[6]: mailto:support@fauna.com
