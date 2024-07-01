@@ -1,0 +1,1107 @@
+{
+    "title": "Qdrant Overview Dashboard",
+    "description": "**Qdrant**\n\nQdrant is an open-source, high-performance vector search engine/database.  This dashboard showcases important insights and metrics enabling you to monitor your Qdrant instance \n\n**Further reading:**\n\n- [Datadog Qdrant Integration Documentation](https://docs.datadoghq.com/integrations/qdrant/)\n- [Qdrant Monitoring Docs](https://qdrant.tech/documentation/guides/monitoring/)",
+    "widgets": [
+      {
+        "id": 6756498291092174,
+        "definition": {
+          "title": "",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 1590802316495700,
+              "definition": {
+                "type": "image",
+                "url": "https://raw.githubusercontent.com/qdrant/api-reference/main/fern/assets/logo.svg",
+                "url_dark_theme": "https://raw.githubusercontent.com/qdrant/api-reference/main/fern/assets/logo-dark.svg",
+                "sizing": "contain",
+                "margin": "lg",
+                "has_background": false,
+                "has_border": false,
+                "vertical_align": "center",
+                "horizontal_align": "center"
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 7992422381542136,
+              "definition": {
+                "type": "note",
+                "content": "**Qdrant**\n\nQdrant is an open-source, high-performance vector search engine/database.  This dashboard showcases important insights and metrics enabling you to monitor your Qdrant instance ",
+                "background_color": "transparent",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 3,
+                "width": 3,
+                "height": 3
+              }
+            },
+            {
+              "id": 2961037249226966,
+              "definition": {
+                "type": "note",
+                "content": "**Further reading:**\n\n- [Datadog Qdrant Integration Documentation](https://docs.datadoghq.com/integrations/qdrant/)\n- [Qdrant Monitoring Docs](https://qdrant.tech/documentation/guides/monitoring/)",
+                "background_color": "transparent",
+                "font_size": "14",
+                "text_align": "left",
+                "vertical_align": "center",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 3,
+                "y": 3,
+                "width": 3,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 6,
+          "height": 7
+        }
+      },
+      {
+        "id": 1001550520732506,
+        "definition": {
+          "title": "Qdrant Overview",
+          "background_color": "vivid_blue",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 102530281599378,
+              "definition": {
+                "type": "note",
+                "content": "The overview section gives you a high-level overview of your system and service checks on the health of your Qdrant instance. ",
+                "background_color": "blue",
+                "font_size": "14",
+                "text_align": "center",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 1
+              }
+            },
+            {
+              "id": 2041622573836122,
+              "definition": {
+                "title": "Host Reporting Qdrant Metrics",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "hostmap",
+                "requests": {
+                  "fill": {
+                    "q": "avg:qdrant.app.info.count{$host} by {host}"
+                  }
+                },
+                "node_type": "host",
+                "no_metric_hosts": false,
+                "no_group_hosts": true,
+                "scope": [
+                  "$host"
+                ],
+                "style": {
+                  "palette": "hostmap_blues",
+                  "palette_flip": false
+                }
+              },
+              "layout": {
+                "x": 0,
+                "y": 1,
+                "width": 4,
+                "height": 4
+              }
+            },
+            {
+              "id": 3006011310190178,
+              "definition": {
+                "title": "Total Collections",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "last",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.collections.total{$host}"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 4,
+                "y": 1,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 2887129204721744,
+              "definition": {
+                "title": "Total Vectors",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "last",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.collections.vector.total{$host}"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 4,
+                "y": 3,
+                "width": 2,
+                "height": 2
+              }
+            },
+            {
+              "id": 6480153057394928,
+              "definition": {
+                "title": "Readiness Check",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "check_status",
+                "check": "qdrant.readyz.status",
+                "grouping": "cluster",
+                "group_by": [
+                  "qdrant_readyz_url",
+                  "host"
+                ],
+                "tags": []
+              },
+              "layout": {
+                "x": 0,
+                "y": 5,
+                "width": 2,
+                "height": 1
+              }
+            },
+            {
+              "id": 6289555577687450,
+              "definition": {
+                "title": "Liveness Check",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "check_status",
+                "check": "qdrant.livez.status",
+                "grouping": "cluster",
+                "group_by": [
+                  "qdrant_livez_url",
+                  "host"
+                ],
+                "tags": []
+              },
+              "layout": {
+                "x": 2,
+                "y": 5,
+                "width": 2,
+                "height": 1
+              }
+            },
+            {
+              "id": 8671913866754838,
+              "definition": {
+                "title": "OpenMetrics Check",
+                "title_size": "16",
+                "title_align": "left",
+                "type": "check_status",
+                "check": "qdrant.openmetrics.health",
+                "grouping": "cluster",
+                "group_by": [
+                  "host",
+                  "endpoint"
+                ],
+                "tags": []
+              },
+              "layout": {
+                "x": 4,
+                "y": 5,
+                "width": 2,
+                "height": 1
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 6,
+          "y": 0,
+          "width": 6,
+          "height": 7
+        }
+      },
+      {
+        "id": 8132605552695124,
+        "definition": {
+          "title": "REST API Statistics",
+          "background_color": "vivid_blue",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 3663609905536602,
+              "definition": {
+                "type": "note",
+                "content": "These metrics help assess the REST API performance and statistics of the Qdrant instances.\n",
+                "background_color": "yellow",
+                "font_size": "14",
+                "text_align": "center",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 1
+              }
+            },
+            {
+              "id": 1359330702650728,
+              "definition": {
+                "title": "Average REST Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "second"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.rest.responses.avg.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 1,
+                "width": 12,
+                "height": 3
+              }
+            },
+            {
+              "id": 7004887938345862,
+              "definition": {
+                "title": "REST Responses",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.app.info.count{$host}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 2,
+                "height": 3
+              }
+            },
+            {
+              "id": 5407751152794876,
+              "definition": {
+                "title": "Minimum REST Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "minute"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.rest.responses.min.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 2,
+                "y": 4,
+                "width": 10,
+                "height": 3
+              }
+            },
+            {
+              "id": 8632689628471056,
+              "definition": {
+                "title": "Failed REST Responses",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.app.info.count{*}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 2,
+                "height": 3
+              }
+            },
+            {
+              "id": 2768127252312686,
+              "definition": {
+                "title": "Maximum REST Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "second"
+                          }
+                        },
+                        "formula": "query2"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "query": "avg:qdrant.rest.responses.max.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 2,
+                "y": 7,
+                "width": 10,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 7,
+          "width": 12,
+          "height": 11
+        }
+      },
+      {
+        "id": 5712480397760900,
+        "definition": {
+          "title": "gRPC API Statistics",
+          "background_color": "vivid_blue",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 1050612540655190,
+              "definition": {
+                "type": "note",
+                "content": "These metrics help assess the gRPC API performance and statistics of the Qdrant instances.",
+                "background_color": "yellow",
+                "font_size": "14",
+                "text_align": "center",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 1
+              }
+            },
+            {
+              "id": 2498001367134350,
+              "definition": {
+                "title": "Average gRPC Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "second"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.grpc.responses.avg.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 1,
+                "width": 12,
+                "height": 3
+              }
+            },
+            {
+              "id": 2159994066325658,
+              "definition": {
+                "title": "gRPC Responses",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.app.info.count{$host}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 2,
+                "height": 3
+              }
+            },
+            {
+              "id": 1005152764990982,
+              "definition": {
+                "title": "Minimum gRPC Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "minute"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "avg:qdrant.grpc.responses.min.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 2,
+                "y": 4,
+                "width": 10,
+                "height": 3
+              }
+            },
+            {
+              "id": 7193370060562922,
+              "definition": {
+                "title": "Failed gRPC Responses",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.app.info.count{*}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 0,
+                "y": 7,
+                "width": 2,
+                "height": 3
+              }
+            },
+            {
+              "id": 1562993128254340,
+              "definition": {
+                "title": "Maximum gRPC Response Duration",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "second"
+                          }
+                        },
+                        "formula": "query2"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "query": "avg:qdrant.grpc.responses.max.duration.seconds{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 2,
+                "y": 7,
+                "width": 10,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 18,
+          "width": 12,
+          "height": 11
+        }
+      },
+      {
+        "id": 8778821484470178,
+        "definition": {
+          "title": "Cluster Statistics",
+          "background_color": "vivid_blue",
+          "show_title": true,
+          "type": "group",
+          "layout_type": "ordered",
+          "widgets": [
+            {
+              "id": 4326225887611782,
+              "definition": {
+                "type": "note",
+                "content": "[Metrics](https://qdrant.tech/documentation/guides/monitoring/#cluster-related-metrics) related to distributed deployment of a Qdrant cluster.",
+                "background_color": "yellow",
+                "font_size": "14",
+                "text_align": "center",
+                "vertical_align": "top",
+                "show_tick": false,
+                "tick_pos": "50%",
+                "tick_edge": "left",
+                "has_padding": true
+              },
+              "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 12,
+                "height": 1
+              }
+            },
+            {
+              "id": 5499735932776244,
+              "definition": {
+                "title": "Cluster Enabled",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.cluster.enabled.count{$host}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 0,
+                "y": 1,
+                "width": 4,
+                "height": 3
+              }
+            },
+            {
+              "id": 1991366821437754,
+              "definition": {
+                "title": "Cluster Term",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "sum",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.cluster.term.count{$host}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 4,
+                "y": 1,
+                "width": 4,
+                "height": 3
+              }
+            },
+            {
+              "id": 8472800295928690,
+              "definition": {
+                "title": "Last Committed Operation Index",
+                "title_size": "16",
+                "title_align": "left",
+                "time": {},
+                "type": "query_value",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "aggregator": "avg",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.cluster.commit.count{$host}.as_count()"
+                      }
+                    ],
+                    "response_format": "scalar"
+                  }
+                ],
+                "autoscale": true,
+                "precision": 2
+              },
+              "layout": {
+                "x": 8,
+                "y": 1,
+                "width": 4,
+                "height": 3
+              }
+            },
+            {
+              "id": 2730782972931758,
+              "definition": {
+                "title": "Total Peers",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Segment Size",
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "operation"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.cluster.peers.total{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 0,
+                "y": 4,
+                "width": 6,
+                "height": 3
+              }
+            },
+            {
+              "id": 1063511632814370,
+              "definition": {
+                "title": "Total Pending Operations",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns": [
+                  "avg",
+                  "min",
+                  "max",
+                  "value",
+                  "sum"
+                ],
+                "time": {},
+                "type": "timeseries",
+                "requests": [
+                  {
+                    "formulas": [
+                      {
+                        "alias": "Segment Size",
+                        "number_format": {
+                          "unit": {
+                            "type": "canonical_unit",
+                            "unit_name": "operation"
+                          }
+                        },
+                        "formula": "query1"
+                      }
+                    ],
+                    "queries": [
+                      {
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "query": "sum:qdrant.cluster.pending.operations.total{$host}"
+                      }
+                    ],
+                    "response_format": "timeseries",
+                    "style": {
+                      "palette": "dog_classic",
+                      "line_type": "solid",
+                      "line_width": "normal"
+                    },
+                    "display_type": "line"
+                  }
+                ]
+              },
+              "layout": {
+                "x": 6,
+                "y": 4,
+                "width": 6,
+                "height": 3
+              }
+            }
+          ]
+        },
+        "layout": {
+          "x": 0,
+          "y": 29,
+          "width": 12,
+          "height": 8,
+          "is_column_break": true
+        }
+      }
+    ],
+    "template_variables": [
+      {
+        "name": "host",
+        "prefix": "host",
+        "available_values": [],
+        "default": "*"
+      }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+  }
