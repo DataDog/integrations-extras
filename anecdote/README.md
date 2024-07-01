@@ -44,7 +44,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 ### Validation
 
-To validate the connection health, you can check Anecdote's dashboard, where you can see bug reports.
+To validate connection health, you can check the Anecdote dashboard in Datadog, which displays bug reports related to your app.
 
 ## Uninstallation
 
