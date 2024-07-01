@@ -19,7 +19,7 @@ A Zscaler Cloud NSS subscription is required.
    * NSS Type: `NSS for Web`
    * SIEM Type: `Other`
    * Batch Size: `16`
-   * API URL: `https://http-intake.logs.datadoghq.com/v1/input?ddsource=zscaler`
+   * API URL: `https://{{< region-param key="http_endpoint" code="true" >}}/v1/input?ddsource=zscaler`
    * HTTP headers:
       * Key: `Content-Type`; Value: `application/json`
       * Key: `DD-API-KEY`; Value: `<YOUR_DATADOG_API_KEY>`
