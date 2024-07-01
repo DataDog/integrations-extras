@@ -38,7 +38,7 @@ By aggregating and analyzing user-reported bugs in a unified dashboard, develope
 
 9. After logging into Datadog, install the Anecdote application. This adds "Anecdote: Bug Reports" to your list of dashboards in Datadog.
 
-10. In Anecdoate, verify the integration is successfully connected. You should see a confirmation message or the integration status.
+10. In Anecdote, verify the integration is successfully connected. You should see a confirmation message or the integration status.
 
 11. Once the integration is verified, you can start using Anecdote to send bug reports directly to Datadog and monitor them in the Dashboards page.
 
