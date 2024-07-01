@@ -97,7 +97,7 @@ Need help? Contact [Datadog support][6].
 
 ## Further Reading
 
-- [Cloud Monitoring with Datadog in Apache APISIX][7]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://apisix.apache.org/docs/apisix/plugins/datadog
 [2]: https://apisix.apache.org/
@@ -105,5 +105,4 @@ Need help? Contact [Datadog support][6].
 [4]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [5]: https://github.com/DataDog/integrations-extras/blob/master/apache-apisix/metadata.csv
 [6]: https://docs.datadoghq.com/help/
-[7]: https://apisix.apache.org/blog/2021/11/12/apisix-datadog
 [8]: https://www.datadoghq.com/

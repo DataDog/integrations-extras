@@ -47,9 +47,7 @@ Need help? Contact [Seagence support][4].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Detect Java code-level issues with Seagence and Datadog][7]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://www.seagence.com
 [2]: https://app.seagence.com/SeagenceWeb/
@@ -57,4 +55,3 @@ Additional helpful documentation, links, and articles:
 [4]: mailto:support@seagence.com
 [5]: https://app.datadoghq.com/integrations/seagence
 [6]: https://app.datadoghq.com/organization-settings/api-keys?filter=Seagence
-[7]: https://www.datadoghq.com/blog/seagence-datadog-marketplace/

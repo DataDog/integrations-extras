@@ -52,11 +52,7 @@ Need help? Contact [Datadog support][8].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [NS1 + Datadog Integration (Outbound) Quick Start Guide][9]
-- [Monitor NS1 with Datadog][11]
-
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://ns1.com/
 [2]: https://app.datadoghq.com/account/settings/agent/latest?platform=overview
@@ -66,6 +62,4 @@ Additional helpful documentation, links, and articles:
 [6]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [7]: https://github.com/DataDog/integrations-extras/blob/master/ns1/metadata.csv
 [8]: https://docs.datadoghq.com/help/
-[9]: https://help.ns1.com/hc/en-us/articles/4402752547219
 [10]: https://github.com/DataDog/integrations-extras/blob/master/ns1/assets/service_checks.json
-[11]: https://www.datadoghq.com/blog/ns1-monitoring-datadog/

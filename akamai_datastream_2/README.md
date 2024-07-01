@@ -45,13 +45,10 @@ Need help? Contact [Datadog support][1].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Monitor Akamai Datastream 2 with Datadog][4]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://docs.datadoghq.com/help/
 [2]: https://techdocs.akamai.com/datastream2/docs/stream-datadog
 [3]: https://app.datadoghq.com/logs?query=source%3Aakamai.datastream
 [4]: https://www.datadoghq.com/blog/monitor-akamai-datastream2/
-[5]: https://docs.datadoghq.com/getting_started/site/
 [6]: https://techdocs.akamai.com/datastream2/docs

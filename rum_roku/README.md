@@ -49,10 +49,7 @@ Need help? Contact [Datadog Support][7].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [RUM Roku Channel Monitoring][2] documentation
-- [Monitor your Roku channels with Datadog RUM][8] blog post
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://app.datadoghq.com/integrations/rum-roku
 [2]: https://docs.datadoghq.com/real_user_monitoring/roku/
@@ -61,4 +58,3 @@ Additional helpful documentation, links, and articles:
 [5]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [6]: https://docs.datadoghq.com/real_user_monitoring/roku/data_collected/
 [7]: https://docs.datadoghq.com/help/
-[8]: https://www.datadoghq.com/blog/monitor-roku-with-rum/

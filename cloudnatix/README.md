@@ -43,9 +43,7 @@ Need help? Contact [Cloudnatix support][6].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Optimize your infrastructure with CloudNatix and Datadog][8]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://cloudnatix.com/
 [2]: https://app.datadoghq.com/account/settings#agent/kubernetes
@@ -54,4 +52,3 @@ Additional helpful documentation, links, and articles:
 [5]: https://github.com/DataDog/integrations-extras/blob/master/cloudnatix/metadata.csv
 [6]: mailto:support@cloudnatix.com
 [7]: https://docs.datadoghq.com/agent/guide/use-community-integrations/?tab=docker
-[8]: https://www.datadoghq.com/blog/infrastructure-optimization-rightsizing-cloudnatix-datadog/

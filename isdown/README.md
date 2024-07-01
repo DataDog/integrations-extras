@@ -41,14 +41,11 @@ IsDown sends events for each outage that happens in the services you monitor. It
 
 Need help? Contact [IsDown support][2].
 
-## Further reading
+## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-[Track service provider outages with IsDown and Datadog][5]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://isdown.app
 [2]: mailto:support@isdown.app
 [3]: assets/service_checks.json
 [4]: https://app.datadoghq.com/organization-settings/api-keys
-[5]: https://www.datadoghq.com/blog/track-provider-outages-isdown-datadog/

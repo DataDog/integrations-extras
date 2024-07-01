@@ -54,9 +54,7 @@ Need help? Contact [Datadog Support][8].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Android and Android TV Monitoring][9]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://app.datadoghq.com/integrations/rum-android
 [2]: https://docs.datadoghq.com/real_user_monitoring/android/?tabs=kotlin#setup
@@ -66,4 +64,3 @@ Additional helpful documentation, links, and articles:
 [6]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [7]: https://docs.datadoghq.com/real_user_monitoring/android/data_collected/
 [8]: https://docs.datadoghq.com/help/
-[9]: https://docs.datadoghq.com/real_user_monitoring/android/

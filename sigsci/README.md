@@ -101,9 +101,7 @@ Need help? Contact [Datadog support][10].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Signal Sciences blog][11]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-dashboard.png
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/sigsci/images/datadog-sigsci-security.png
@@ -114,5 +112,4 @@ Additional helpful documentation, links, and articles:
 [8]: https://docs.signalsciences.net/integrations/datadog/
 [9]: https://docs.datadoghq.com/events/
 [10]: https://docs.datadoghq.com/help/
-[11]: https://www.signalsciences.com/blog/
 [13]: https://github.com/DataDog/integrations-extras/blob/master/sigsci/metadata.csv

@@ -51,9 +51,7 @@ Need help? See the [Superwise documentation][9].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Monitor model performance with Superwise's offering in the Datadog Marketplace][10]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://www.superwise.ai/
 [2]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/5.png
@@ -64,4 +62,3 @@ Additional helpful documentation, links, and articles:
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/superwise/images/4.png
 [8]: https://github.com/DataDog/integrations-extras/blob/master/superwise/metadata.csv
 [9]: https://docs.superwise.ai
-[10]: https://www.datadoghq.com/blog/superwise-datadog-marketplace/
