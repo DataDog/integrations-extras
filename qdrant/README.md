@@ -4,7 +4,7 @@
 
 ## Overview
 
-[Qdrant][1] is a high-performance vector search engine/database. Use the Datadog integration to get metrics in real-time to monitor your Qdrant deployment.
+[Qdrant][1] is a high-performance vector search engine and vector database. Use the Datadog integration to get metrics in real-time to monitor your Qdrant deployment.
 
 For a full list of supported metrics, see the **Metrics** section below.
 
