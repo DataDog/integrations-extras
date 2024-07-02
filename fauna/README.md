@@ -27,7 +27,8 @@ For the full list of fields available in the logs, see the [Fauna Query Log Reco
 
 Once this flow is complete, you are redirected to the [Fauna Integrations Page][2], which shows your active integration.
 
-Within the next ten minutes, any queries issued for the configured region group(s) or databases should start appearing in the [Datadog Log Explorer][4] under the 'fauna' service.
+Within the next ten minutes, the [Fauna Overview Dashboard][7] will begin showing metrics for any queries issued for the configured region group(s) or databases.
+The above issued queries should also start appearing in the [Datadog Log Explorer][4] under the 'fauna' service.
 
 ### Configuration
 
@@ -40,11 +41,11 @@ You can configure the following settings for the Fauna integration:
 
 Visit the [Fauna Integrations Page][2] to update any configuration settings or to remove your integration.
 
-It can take up to ten minutes to see your updates take effect in the Datadog Log Explorer.
+It can take up to ten minutes to see your updates take effect in the [Fauna Overview Dashboard][7] and [Datadog Log Explorer][4].
 
 ### Validation
 
-Once configured correctly, you should see your queries start to appear in the Datadog Log Explorer under the 'fauna' service.
+Once configured correctly, within ten minutes you should see metrics in the [Fauna Overview Dashboard][7] and queries in the [Datadog Log Explorer][4] under the 'fauna' service.
 
 ### Uninstallation
  - Visit the [Fauna Integrations Page][2] and remove the Datadog integration.
@@ -55,7 +56,7 @@ Once configured correctly, you should see your queries start to appear in the Da
 
 ### Logs
 
-Fauna includes logs for every query within the databases configured in the integration. 
+Fauna includes logs for every query within the databases configured in the integration.
 If the integration is configured with a region group, then query logs for all databases within the region group are included.
 
 ## Troubleshooting
@@ -68,3 +69,4 @@ Need help? Contact [Fauna support][6].
 [4]: https://docs.datadoghq.com/logs/explorer/
 [5]: https://app.datadoghq.com/organization-settings/api-keys
 [6]: mailto:support@fauna.com
+[7]: https://app.datadoghq.com/dashboard/lists?q=Fauna%20Overview
