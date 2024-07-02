@@ -1,5 +1,5 @@
 {
-  "title": "Fauna Dashboard",
+  "title": "Fauna Overview",
   "description": "This should include the same copy as the high-level overview  in the About section of the dashboard including helpful links.\n\nClone this template dashboard to make changes and add your own graph widgets. ",
   "widgets": [
     {
@@ -477,7 +477,7 @@
                       "formula": "a"
                     },
                     {
-                      "alias": "Average Query Time",
+                      "alias": "P50 Query Time",
                       "formula": "query1"
                     }
                   ],
@@ -505,7 +505,7 @@
                         "*"
                       ],
                       "compute": {
-                        "aggregation": "avg",
+                        "aggregation": "median",
                         "metric": "@QUERY_TIME_MS"
                       },
                       "group_by": [],
@@ -726,7 +726,7 @@
                   "formulas": [
                     {
                       "alias": "Byte Write Ops",
-                      "formula": "a"
+                      "formula": "default_zero(a)"
                     }
                   ],
                   "queries": [
