@@ -74,4 +74,4 @@ Need help? Contact [Redis Field Engineering][9].
 [6]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/datadog_checks/redis_cloud/data/conf.yaml.example
 [7]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
 [8]: https://github.com/DataDog/integrations-extras/blob/master/redis_cloud/metadata.csv
-[9]: mailto:field.engineers@redis.com
+[9]: mailto:support@redis.com
