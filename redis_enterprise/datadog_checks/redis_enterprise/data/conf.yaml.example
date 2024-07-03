@@ -13,7 +13,23 @@ init_config:
 #
 instances:
 
-  -
+    ## uncomment this section and set the endpoint url
+    # - openmetrics_endpoint: 'https://<host>:8070/metrics'
+    #   tls_verify: false
+    #   namespace: 'rdse'
+
+    ## Metric Group customization is achieved by adding 'metric_groups': [''] to the instance configuration
+    ## where the group is the key from the following structure:
+
+    #ADDITIONAL_METRICS = {
+    #    'RDSE.REPLICATION': REDIS_REPLICATION,
+    #    'RDSE.SHARDREPL': REDIS_SHARD_REPLICATION,
+    #    'RDSE.LISTENER': REDIS_LISTENER,
+    #    'RDSE.PROXY': REDIS_PROXY,
+    #    'RDSE.BIGSTORE': REDIS_BIGSTORE,
+    #    'RDSE.FLASH': REDIS_FLASH,
+    #}
+
     ## @param tags - list of strings - optional
     ## A list of tags to attach to every metric and service check emitted by this instance.
     ##
