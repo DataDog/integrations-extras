@@ -1,17 +1,17 @@
 # CHANGELOG - PureFB
 
-## 1.0.5 / 2024-06-26
+## 2.0.0 / 2024-06-26
 
 ***Added***: 
 
-* Added support for metrics:
+* Added support for metrics that were implemented in the FlashBlade OpenMetrics Exporter:
 `purefb.array.performance_replication`
 `purefb.buckets.quota_space_bytes`
 `purefb.buckets.object_count`
 
 ***Fixed***:
 
-* Renamed metrics to align with the standards of the FlashBlade OpenMetrics Exporter so that they would be correctly consumed
+* Renamed metrics to align with the standards of the FlashBlade OpenMetrics Exporter v1.0.11+ so that they would be correctly consumed
 `purefb.array.clients_performance_avg_size_bytes` to `purefb.clients_performance_average_bytes`
 `purefb.array.clients_performance_bandwidth_bytes` to `purefb.clients.performance_bandwidth_bytes`
 `purefb.array.clients_performance_latency_usec` to `purefb.clients.performance_latency_usec`
@@ -19,8 +19,8 @@
 `purefb.array.nfs_latency_usec` to `purefb.array.nfs_specific_performance_latency_usec`
 `purefb.array.nfs_throughput_iops` to `purefb.array.nfs_specific_performance_throughput_iops`
 
-* Removed deprecated metrics that have been removed from the FlashBlade OpenMetrics Exporter
-`purefb.bucket.replica_links_lag_msec`
+* Removed deprecated metrics that have been removed from the FlashBlade OpenMetrics Exporter v1.0.0+
+`purefb.bucket.replica_links_lag_msec` 
 `purefb.buckets.space_objects`
 `purefb.file.system_links_lag_msec`
 
