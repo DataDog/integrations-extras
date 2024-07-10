@@ -53,14 +53,12 @@ class QdrantCheck(OpenMetricsBaseCheckV2):
                 minor = version_split[1]
                 patch = version_split[2]
 
-                version_raw = f"{major}.{minor}.{patch}"
-
                 version_parts = {
                     "major": major,
                     "minor": minor,
                     "patch": patch,
                 }
-                self.set_metadata("version", version_raw, scheme="semver", part_map=version_parts)
+                self.set_metadata("version", version, scheme="semver", part_map=version_parts)
             else:
                 self.log.debug("Invalid Qdrant version format: %s", version)
         else:
