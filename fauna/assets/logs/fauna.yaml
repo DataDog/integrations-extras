@@ -102,3 +102,22 @@ pipeline:
       expression: QUERY_TIME_MS * 1000000
       target: duration
       replaceMissing: false
+    - type: category-processor
+      name: HTTP Status to Log Level
+      enabled: true
+      categories:
+        - filter:
+            query: "@http.status_code:(>=400 <500)"
+          name: Warning
+        - filter:
+            query: "@http.status_code:>=500"
+          name: Error
+        - filter:
+            query: "@http.status_code:(>=200 <400)"
+          name: OK
+      target: http.status_category
+    - type: status-remapper
+      name: Log Status Mapper
+      enabled: true
+      sources:
+        - http.status_category
