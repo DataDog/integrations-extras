@@ -22,4 +22,8 @@ OM_METRICS = [
     "qdrant.cluster.commit.count",
     "qdrant.cluster.pending.operations.total",
     "qdrant.cluster.voter",
+    "qdrant.grpc.responses.count",
+    "qdrant.grpc.responses.fail.count",
+    "qdrant.rest.responses.count",
+    "qdrant.rest.responses.fail.count",
 ]
