@@ -1,5 +1,4 @@
 DEFAULT_METRICS = {
-    "app_info": "app.info",
     "app_status_recovery_mode": "app.status.recovery.mode",
     "collections_total": "collections.total",
     "collections_vector_total": "collections.vector.total",

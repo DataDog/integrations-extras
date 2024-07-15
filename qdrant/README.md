@@ -1,7 +1,5 @@
 # Qdrant
 
-<img width="1139" alt="Qdrant Datadog Dashboard" src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/qdrant/images/qdrant_dashboard.png">
-
 ## Overview
 
 [Qdrant][1] is a high-performance vector search engine and vector database. Use the Datadog integration to get metrics in real-time to monitor your Qdrant deployment.
@@ -19,7 +17,7 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Qdrant c
 1. Run the following command to install the Agent integration:
 
    ```shell
-   datadog-agent integration install -t qdrant==<INTEGRATION_VERSION>
+   datadog-agent integration install -t qdrant==1.0.0
    ```
 
 2. Configure your integration similar to core [integrations][4].
@@ -50,7 +48,7 @@ See [service_checks.json][13] for a list of service checks provided by this inte
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][12].
+Need help? Contact [Qdrant support][12].
 
 [1]: https://qdrant.tech/
 [2]: https://app.datadoghq.com/account/settings/agent/latest
@@ -60,5 +58,5 @@ Need help? Contact [Datadog support][12].
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
 [10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/qdrant/metadata.csv
-[12]: http://docs.datadoghq.com/help
+[12]: http://qdrant.to/discord
 [13]: https://github.com/DataDog/integrations-extras/blob/master/qdrant/assets/service_checks.json

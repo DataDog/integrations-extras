@@ -7,7 +7,6 @@ def read_file(file_path, is_json=False):
 
 
 OM_METRICS = [
-    "qdrant.app.info.count",
     "qdrant.app.status.recovery.mode.count",
     "qdrant.collections.total",
     "qdrant.collections.vector.total",
