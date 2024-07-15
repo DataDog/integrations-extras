@@ -49,9 +49,7 @@ class QdrantCheck(OpenMetricsBaseCheckV2):
             version = data.get("version", "")
             version_split = version.split(".")
             if len(version_split) >= 3:
-                major = version_split[0]
-                minor = version_split[1]
-                patch = version_split[2]
+                major, minor, patch = version_split[:3]
 
                 version_parts = {
                     "major": major,
