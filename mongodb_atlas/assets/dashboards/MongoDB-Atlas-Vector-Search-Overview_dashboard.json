@@ -15,7 +15,7 @@
                         "id": 92513589796682,
                         "definition": {
                             "type": "note",
-                            "content": "This dashboard provides a high-level overview of your MongoDB Atlas Vector Search performance and usage so you can quickly identify potential slowdowns and resource limitations.",
+                            "content": "This dashboard provides a high-level overview of your MongoDB Atlas Vector Search performance and usage so you can quickly identify potential slowdowns and resource limitations.\n\nThis dashboard will help you monitor your usage of Vector Search in correlation with the rest of your MongoDB Atlas system. Understanding the relation between your overall system memory and disk read IOPS/page faults will help you optimize the allocation of Vector Search resources.",
                             "background_color": "white",
                             "font_size": "14",
                             "text_align": "left",
@@ -28,8 +28,29 @@
                         "layout": {
                             "x": 0,
                             "y": 0,
-                            "width": 6,
-                            "height": 1
+                            "width": 5,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7839726615151794,
+                        "definition": {
+                            "type": "note",
+                            "content": "**Refer to the following resources for more information about Vector Search**\n- [Atlas Vector Search Overview](https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-overview/)\n- [Improve Vector Search Performance](https://www.mongodb.com/docs/atlas/atlas-vector-search/tune-vector-search/)",
+                            "background_color": "white",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 5,
+                            "y": 0,
+                            "width": 3,
+                            "height": 2
                         }
                     }
                 ]
@@ -37,8 +58,8 @@
             "layout": {
                 "x": 0,
                 "y": 0,
-                "width": 6,
-                "height": 4
+                "width": 8,
+                "height": 5
             }
         },
         {
@@ -152,8 +173,8 @@
                             "precision": 0
                         },
                         "layout": {
-                            "x": 4,
-                            "y": 0,
+                            "x": 0,
+                            "y": 1,
                             "width": 2,
                             "height": 1
                         }
@@ -188,7 +209,7 @@
                             "precision": 0
                         },
                         "layout": {
-                            "x": 0,
+                            "x": 2,
                             "y": 1,
                             "width": 2,
                             "height": 1
@@ -230,8 +251,8 @@
                             "precision": 2
                         },
                         "layout": {
-                            "x": 2,
-                            "y": 1,
+                            "x": 0,
+                            "y": 2,
                             "width": 2,
                             "height": 1
                         }
@@ -295,8 +316,8 @@
                             "precision": 0
                         },
                         "layout": {
-                            "x": 4,
-                            "y": 1,
+                            "x": 2,
+                            "y": 2,
                             "width": 2,
                             "height": 1
                         }
@@ -304,10 +325,295 @@
                 ]
             },
             "layout": {
-                "x": 6,
+                "x": 8,
                 "y": 0,
-                "width": 6,
-                "height": 4
+                "width": 4,
+                "height": 5
+            }
+        },
+        {
+            "id": 3169921030702398,
+            "definition": {
+                "title": "Resource Utilization",
+                "background_color": "vivid_blue",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 2501522329430414,
+                        "definition": {
+                            "title": "Search index size by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.search.index.stats.index.size{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 781434559002976,
+                        "definition": {
+                            "title": "Search JVM memory by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Current memory",
+                                            "style": {
+                                                "palette": "warm"
+                                            },
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Max memory",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.search.jvm.current.memory{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.search.jvm.max.memory{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 6640784318000596,
+                        "definition": {
+                            "title": "Atlas IOPS Throughput by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "I/O Read",
+                                            "style": {
+                                                "palette": "warm"
+                                            },
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "I/O Write",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "style": {
+                                                "palette": "cool"
+                                            },
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.iops.reads{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.system.disk.iops.writes{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}.as_count()",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 8228675657479250,
+                        "definition": {
+                            "title": "Atlas max system memory by Cluster",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Resident memory",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "formula": "query1"
+                                        },
+                                        {
+                                            "alias": "Virtual memory",
+                                            "number_format": {
+                                                "unit": {
+                                                    "type": "canonical_unit",
+                                                    "unit_name": "mebibyte"
+                                                }
+                                            },
+                                            "formula": "query2"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "query": "max:mongodb.atlas.mem.resident{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query1"
+                                        },
+                                        {
+                                            "query": "max:mongodb.atlas.mem.virtual{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
+                                            "data_source": "metrics",
+                                            "name": "query2"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "warm",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "line"
+                                }
+                            ],
+                            "custom_links": []
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 3,
+                            "width": 6,
+                            "height": 3
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 5,
+                "width": 12,
+                "height": 7
             }
         },
         {
@@ -622,9 +928,10 @@
             },
             "layout": {
                 "x": 0,
-                "y": 4,
+                "y": 0,
                 "width": 12,
-                "height": 5
+                "height": 5,
+                "is_column_break": true
             }
         },
         {
@@ -715,152 +1022,9 @@
             },
             "layout": {
                 "x": 0,
-                "y": 9,
+                "y": 5,
                 "width": 12,
                 "height": 4
-            }
-        },
-        {
-            "id": 3169921030702398,
-            "definition": {
-                "title": "Resource Utilization",
-                "background_color": "vivid_blue",
-                "show_title": true,
-                "type": "group",
-                "layout_type": "ordered",
-                "widgets": [
-                    {
-                        "id": 2501522329430414,
-                        "definition": {
-                            "title": "Index size by Cluster",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": false,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "formula": "query1"
-                                        }
-                                    ],
-                                    "queries": [
-                                        {
-                                            "query": "max:mongodb.atlas.search.index.stats.index.size{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
-                                            "data_source": "metrics",
-                                            "name": "query1"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "style": {
-                                        "palette": "warm",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "custom_links": []
-                        },
-                        "layout": {
-                            "x": 0,
-                            "y": 0,
-                            "width": 6,
-                            "height": 3
-                        }
-                    },
-                    {
-                        "id": 781434559002976,
-                        "definition": {
-                            "title": "JVM memory by Cluster",
-                            "title_size": "16",
-                            "title_align": "left",
-                            "show_legend": false,
-                            "legend_layout": "auto",
-                            "legend_columns": [
-                                "avg",
-                                "min",
-                                "max",
-                                "value",
-                                "sum"
-                            ],
-                            "type": "timeseries",
-                            "requests": [
-                                {
-                                    "formulas": [
-                                        {
-                                            "alias": "Current memory",
-                                            "style": {
-                                                "palette": "warm"
-                                            },
-                                            "number_format": {
-                                                "unit": {
-                                                    "type": "canonical_unit",
-                                                    "unit_name": "mebibyte"
-                                                }
-                                            },
-                                            "formula": "query1"
-                                        },
-                                        {
-                                            "alias": "Max memory",
-                                            "number_format": {
-                                                "unit": {
-                                                    "type": "canonical_unit",
-                                                    "unit_name": "mebibyte"
-                                                }
-                                            },
-                                            "style": {
-                                                "palette": "cool"
-                                            },
-                                            "formula": "query2"
-                                        }
-                                    ],
-                                    "queries": [
-                                        {
-                                            "query": "max:mongodb.atlas.search.jvm.current.memory{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
-                                            "data_source": "metrics",
-                                            "name": "query1"
-                                        },
-                                        {
-                                            "query": "max:mongodb.atlas.search.jvm.max.memory{$organization,$host,$clustername ,$project,$replica-set,$process-state,$process-type} by {clustername}",
-                                            "data_source": "metrics",
-                                            "name": "query2"
-                                        }
-                                    ],
-                                    "response_format": "timeseries",
-                                    "style": {
-                                        "palette": "warm",
-                                        "line_type": "solid",
-                                        "line_width": "normal"
-                                    },
-                                    "display_type": "line"
-                                }
-                            ],
-                            "custom_links": []
-                        },
-                        "layout": {
-                            "x": 6,
-                            "y": 0,
-                            "width": 6,
-                            "height": 3
-                        }
-                    }
-                ]
-            },
-            "layout": {
-                "x": 0,
-                "y": 13,
-                "width": 12,
-                "height": 4,
-                "is_column_break": true
             }
         }
     ],
