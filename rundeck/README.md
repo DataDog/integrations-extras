@@ -37,6 +37,8 @@ Prepare at least one Rundeck job that you would like to trigger using a Datadog 
 
 ![rundeck-setup][2]
 
+**Note**: If you are using a firewall, add the [Datadog IP ranges][7] to your allowlist.
+
 #### Datadog setup
 1. Open Datadog and go to **Integrations** > **Integrations**.
 2. Search for "webhooks".
@@ -82,3 +84,4 @@ Need help? Contact [Datadog support][6].
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhooks-config.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/rundeck/images/webhook-fill.png
 [6]: https://docs.datadoghq.com/help/
+[7]: https://docs.datadoghq.com/api/latest/ip-ranges/
