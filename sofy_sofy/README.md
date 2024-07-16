@@ -37,16 +37,12 @@ To set up the Sofy integration:
 Need help? Contact [Sofy support][5].
 
 ## Further Reading
-Additional helpful documentation, links, and articles:
-* [Monitor your mobile tests with Sofy's offering in the Datadog Marketplace][6]
-* [Sofy Documentation][7]
 
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://app.datadoghq.com/integrations
 [2]: https://portal.sofy.ai
 [3]: https://portal.sofy.ai/app/user-settings?selectedTab=integration
 [4]: https://app.datadoghq.com/organization-settings/api-keys?filter=Sofy
 [5]: https://support.sofy.ai/support/tickets/new
-[6]: https://www.datadoghq.com/blog/sofy-mobile-tests/
-[7]: https://docs.sofy.ai
 [8]: https://github.com/DataDog/integrations-extras/blob/master/sofy_sofy/metadata.csv

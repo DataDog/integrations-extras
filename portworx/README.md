@@ -70,10 +70,7 @@ Check that the `url` in `portworx.yaml` is correct.
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Monitoring multi-cloud container storage with Portworx and Datadog][11]
-
+{{< partial name="whats-next/whats-next.html" >}}
 
 [2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
@@ -84,3 +81,12 @@ Additional helpful documentation, links, and articles:
 [9]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
 [10]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv
 [11]: https://www.datadoghq.com/blog/portworx-integration/
+
+[2]: https://app.datadoghq.com/account/settings/agent/latest
+[3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
+[4]: https://docs.datadoghq.com/getting_started/integrations/
+[6]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
+[7]: https://github.com/DataDog/integrations-extras/blob/master/portworx/datadog_checks/portworx/data/conf.yaml.example
+[8]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
+[9]: https://docs.datadoghq.com/agent/faq/agent-status-and-information/
+[10]: https://github.com/DataDog/integrations-extras/blob/master/portworx/metadata.csv

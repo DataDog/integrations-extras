@@ -102,7 +102,7 @@ Need help? Contact [Datadog Support][7].
 
 ## Further Reading
 
-Learn more about [LaunchDarkly][1] and the [Datadog events integration][4].
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://launchdarkly.com
 [2]: https://docs.launchdarkly.com/home/relay-proxy

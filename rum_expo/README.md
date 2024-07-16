@@ -54,10 +54,7 @@ Need help? Contact [Datadog Support][6].
 
 ## Further Reading
 
-Additional helpful documentation, links, and articles:
-
-- [Expo Monitoring][7]
-- [Expo Crash Reporting and Error Trackings][8]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://app.datadoghq.com/integrations/rum-expo
 [2]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/#setup
@@ -65,5 +62,3 @@ Additional helpful documentation, links, and articles:
 [4]: https://docs.datadoghq.com/real_user_monitoring/generate_metrics
 [5]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/
 [6]: https://docs.datadoghq.com/help/
-[7]: https://docs.datadoghq.com/real_user_monitoring/reactnative/expo/
-[8]: https://docs.datadoghq.com/real_user_monitoring/error_tracking/expo/

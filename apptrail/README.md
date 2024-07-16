@@ -47,10 +47,7 @@ Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailt
 
 ## Further Reading
 
-- [Apptrail customer documentation][13]
-- [Apptrail Datadog Log delivery documentation][2]
-- [Apptrail audit log format][10]
-- [Apptrail event delivery trails][11]
+{{< partial name="whats-next/whats-next.html" >}}
 
 [1]: https://apptrail.com
 [2]: https://apptrail.com/docs/consumers/guide/event-delivery/integrations/datadog
@@ -62,4 +59,3 @@ Need help? Contact [Datadog support][3] or reach out to [Apptrail support](mailt
 [10]: https://apptrail.com/docs/consumers/guide/event-format
 [11]: https://apptrail.com/docs/consumers/guide/event-delivery/#trails
 [12]: https://apptrail.com/docs/consumers/guide/event-delivery/working-with-trails#selecting-events-using-trail-rules
-[13]: https://apptrail.com/docs/consumers/guide
