@@ -27,8 +27,8 @@ facets:
     source: log
     type: integer
     unit:
-      name: byte
       family: bytes
+      name: byte
   - description: Number of bytes in the response.
     facetType: range
     groups:
@@ -38,8 +38,8 @@ facets:
     source: log
     type: integer
     unit:
-      name: byte
       family: bytes
+      name: byte
   - description: Number of compute operations consumed.
     facetType: range
     groups:
@@ -57,8 +57,8 @@ facets:
     source: log
     type: integer
     unit:
-      name: millisecond
       family: time
+      name: millisecond
   - groups:
       - Web Access
     name: Status Code
@@ -79,7 +79,7 @@ pipeline:
   name: Fauna
   enabled: true
   filter:
-    source:fauna
+    query: source:fauna
   processors:
     - type: date-remapper
       name: Define `TS` as the official date of the log
@@ -117,7 +117,7 @@ pipeline:
           name: OK
       target: http.status_category
     - type: status-remapper
-      name: Log Status Mapper
+      name: Define `http.status_category` as the official status of the log
       enabled: true
       sources:
         - http.status_category
