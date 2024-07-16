@@ -3,9 +3,12 @@
 MongoDB Atlas can push calculated metrics into Datadog to:
 
 - Visualize key MongoDB Atlas metrics.
-- Correlate MongoDB Atlas performance with the rest of your applications.
+- Visualize MongoDB Atlas Vector Search metrics.
+- Correlate overall MongoDB Atlas performance with the rest of your applications.
 
-The integration includes out-of-the-box monitors and dashboard that enable you to view Atlas health and performance metrics, monitor throughput metrics, track the average latency of read and write operations over time, and create monitors that alert you when the number of current connections is approaching the maximum limit.
+The integration includes out-of-the-box monitors and dedicated dashboards that enable you to view Atlas health and performance metrics. You can monitor throughput metrics, track the average latency of read/write operations over time, and create monitors that alert you when the number of current connections is approaching the maximum limit.
+
+With MongoDB Atlas Vector Search metrics, you can also confidently use Atlas Vector Search to index, retrieve, and build performant gen AI applications.
 
 **Note**: The MongoDB Atlas integration is only available on M10+ clusters.
 
