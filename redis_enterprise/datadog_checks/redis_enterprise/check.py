@@ -23,7 +23,7 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         metrics = self.get_default_config()
 
         additional = []
-        groups = self.instance.get('metric_groups', [])
+        groups = self.instance.get('extra_metrics', [])
         for g in groups:
             if g not in ADDITIONAL_METRICS:
                 raise ConfigurationError(f'invalid metric in config: {g}')
@@ -32,6 +32,13 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         if len(additional) > 0:
             self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
+
+        remove = []
+        excludes = self.instance.get('extra_metrics', [])
+        for m in excludes:
+            if m not in metrics:
+                raise ConfigurationError(f'invalid metric in config: {g}')
+            metrics.remove(m)
 
         config = {
             'openmetrics_endpoint': metrics_endpoint,
