@@ -33,7 +33,6 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
             self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
 
-        remove = []
         excludes = self.instance.get('extra_metrics', [])
         for m in excludes:
             if m not in metrics:
