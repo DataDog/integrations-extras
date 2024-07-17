@@ -120,6 +120,7 @@ class InstanceConfig(BaseModel):
     non_cumulative_histogram_buckets: Optional[bool] = None
     ntlm_domain: Optional[str] = None
     openmetrics_endpoint: str
+    options: Optional[tuple[str, ...]] = None
     password: Optional[str] = None
     persist_connections: Optional[bool] = None
     proxy: Optional[Proxy] = None
