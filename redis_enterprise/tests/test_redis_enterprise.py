@@ -21,7 +21,7 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
         'RDSE.LISTENER',
     ]
     instance = deepcopy(INSTANCE)
-    instance['metric_groups'] = additional_metric_groups
+    instance['extra_metrics'] = additional_metric_groups
 
     check = RedisEnterpriseCheck(CHECK, {}, [instance])
 
