@@ -8,12 +8,21 @@ Kosal from CloudAEye acts as your root cause co-pilot. This integration enables 
 
 ### Installation
 
-- Search for CloudAEye in the integrations page.
-- Click on **Install Integration** button.
-- Once installed, click on **Connect Accounts** button which will take you to the [CloudAEye integrations page][1] (Side Navigation Drawer => Integrations => Datadog).
-- Add a Datadog integration. You may have to create your CloudAEye account if you don't have one.
-- Once the keys are populated, your Datadog account will get connected to the CloudAEye.
+- Search for `CloudAEye` in the datadog integrations page.
 
+- Click on **Install Integration** button.
+
+- On successful installation, click on the **Connect Accounts** button upon which you will be redirected to the Integrations page on CloudAEye console (Side Menu > Integrations > Datadog).
+
+- To integrate your datadog account with CloudAEye, you will need to provide the following details
+
+  - `Site`: Select the datadog site where your observability data is located. **Ex: US1-East**. Read more about datadog sites [here](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
+
+  - `API Key`: An API key helps us uniquely identify the organization. To create a new API key in Datadog console, navigate to **Organization Settings > API Keys** and then create a new API Key for CloudAEye integration. Once created copy that key and provide it here. Read more about API Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+
+  - `Application Key`: In addition to an API key, we need an Application Key to programmatically access your data. To create a new Application key in Datadog console, navigate to **Organization Settings > Application Keys** and then created a new Application key (with **scope set to read-only** in all sections). Once created copy that key and provide it here. Read more about Application Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+
+- Once the required keys are populated, click `Test Connection` to test your your Datadog account integration with CloudAEye. A success message indicates that your integration is successful.
 ### Configuration
 
 Once integrated, begin exploring your logs, metrics, and traces data in the CloudAEye dashboard. Some of the most useful features are:
