@@ -40,7 +40,7 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
 @pytest.mark.unit
 def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     # validate exclude_metrics are not present in metrics
-    exclude_metrics = [ 'bdb_conns', 'bdb_up' ]
+    exclude_metrics = ['bdb_conns', 'bdb_up']
     instance = deepcopy(INSTANCE)
     instance['exclude_metrics'] = exclude_metrics
 
@@ -49,7 +49,7 @@ def test_instance_exclude_metrics(aggregator, dd_run_check, mock_http_response):
     dd_run_check(check)
 
     for em in exclude_metrics:
-        assert(f'{RedisEnterpriseCheck.__NAMESPACE__}.{em}' not in aggregator.metric_names)
+        assert f'{RedisEnterpriseCheck.__NAMESPACE__}.{em}' not in aggregator.metric_names
 
 
 @pytest.mark.e2e
@@ -72,6 +72,7 @@ def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_respon
         assert True
 
     aggregator.assert_service_check(f'{RedisEnterpriseCheck.__NAMESPACE__}.group_bogus', count=0)
+
 
 @pytest.mark.unit
 def test_invalid_instance(aggregator, dd_run_check, mock_http_response):
