@@ -19,7 +19,7 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
         'RDSC.LISTENER',
     ]
     instance = deepcopy(INSTANCE)
-    instance['metric_groups'] = additional_metric_groups
+    instance['extra_metrics'] = additional_metric_groups
 
     check = RedisCloudCheck(CHECK, {}, [instance])
 
@@ -58,7 +58,7 @@ def test_end_to_end():
 @pytest.mark.unit
 def test_instance_invalid_group_check(aggregator, dd_run_check, mock_http_response):
     instance = deepcopy(INSTANCE)
-    instance['metric_groups'] = ['redis.bogus', 'redis.raft']
+    instance['extra_metrics'] = ['redis.bogus', 'redis.raft']
 
     check = RedisCloudCheck(CHECK, {}, [instance])
 
