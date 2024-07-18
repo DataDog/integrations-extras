@@ -6,8 +6,7 @@ Redis is a fast, versatile data store that supports a variety of data structures
 
 The [Redis Cloud][1] integration is intended for use with Redis Cloud deployments of Redis software. It is not for use with Redis Enterprise installations. For [Redis Enterprise][2], see the [Datadog Redis Enterprise integration][3].
 
-The integration provides metrics for three critical cluster components: databases, nodes, and shards, via a Datadog Agent. This allows you to monitor database throughput, memory utilization, CPU usage, connection counts, replication health, and a variety of additional metrics within Datadog.
-You can use this information to understand the overall health of your Redis Cloud clusters, diagnose application performance issues, and prevent downtime.
+The integration provides metrics for three critical cluster components: databases, nodes, and shards, via a Datadog Agent. This allows you to monitor database throughput, memory utilization, CPU usage, connection counts, replication health, and a variety of additional metrics within Datadog. You can use this information to understand the overall health of your Redis Cloud clusters, diagnose application performance issues, and prevent downtime.
 
 For a full list of supported metrics, see the **Metrics** section below.
 

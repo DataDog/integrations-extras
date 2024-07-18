@@ -22,15 +22,25 @@ class RedisCloudCheck(OpenMetricsBaseCheckV2):
         metrics = self.get_default_config()
 
         additional = []
-        groups = self.instance.get('metric_groups', [])
+        groups = self.instance.get('extra_metrics', [])
         for g in groups:
-            if g not in ADDITIONAL_METRICS:
-                raise ConfigurationError(f'invalid metric in config: {g}')
+            if g not in ADDITIONAL_METRICS.keys():
+                raise ConfigurationError(f'invalid group in extra_metrics: {g}')
             additional.append(ADDITIONAL_METRICS[g])
 
         if len(additional) > 0:
             self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
+
+        excludes = self.instance.get('exclude_metrics', [])
+        for m in excludes:
+            found = False
+            for mg in metrics:
+                if m in mg.keys():
+                    mg.pop(m)
+                    found = True
+            if not found:
+                raise ConfigurationError(f'invalid metric in excludes: {m}')
 
         config = {
             'openmetrics_endpoint': metrics_endpoint,
