@@ -27,7 +27,7 @@ For the full list of fields available in the logs, see the [Fauna Query Log Reco
 
 Once this flow is complete, you are redirected to the [Fauna Integrations Page][2], which shows your active integration.
 
-Within the next ten minutes, the [Fauna Overview Dashboard][7] will begin showing metrics for any queries issued for the configured region group(s) or databases.
+Within the next ten minutes, the [Fauna Overview Dashboard][7] will begin showing logs for any queries issued for the configured region group(s) or databases.
 The above issued queries should also start appearing in the [Datadog Log Explorer][4] under the 'fauna' service.
 
 ### Configuration
@@ -45,7 +45,7 @@ It can take up to ten minutes to see your updates take effect in the [Fauna Over
 
 ### Validation
 
-Once configured correctly, within ten minutes you should see metrics in the [Fauna Overview Dashboard][7] and queries in the [Datadog Log Explorer][4] under the 'fauna' service.
+Once configured correctly, within ten minutes you should see logs in the [Fauna Overview Dashboard][7] as well in the [Datadog Log Explorer][4] under the 'fauna' service.
 
 ### Uninstallation
  - Visit the [Fauna Integrations Page][2] and remove the Datadog integration.
