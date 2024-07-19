@@ -7,7 +7,7 @@ facets:
     groups:
       - Fauna
     name: fauna.BYTE_READ_OPS
-    path: BYTE_READ_OPS
+    path: fauna.BYTE_READ_OPS
     source: log
     type: integer
   - description: Number of write operations consumed.
@@ -15,7 +15,7 @@ facets:
     groups:
       - Fauna
     name: fauna.BYTE_WRITE_OPS
-    path: BYTE_WRITE_OPS
+    path: fauna.BYTE_WRITE_OPS
     source: log
     type: integer
   - description: Number of bytes in the request.
@@ -23,7 +23,7 @@ facets:
     groups:
       - Fauna
     name: fauna.BYTES_IN
-    path: BYTES_IN
+    path: fauna.BYTES_IN
     source: log
     type: integer
     unit:
@@ -34,7 +34,7 @@ facets:
     groups:
       - Fauna
     name: fauna.BYTES_OUT
-    path: BYTES_OUT
+    path: fauna.BYTES_OUT
     source: log
     type: integer
     unit:
@@ -45,7 +45,7 @@ facets:
     groups:
       - Fauna
     name: fauna.COMPUTE_OPS
-    path: COMPUTE_OPS
+    path: fauna.COMPUTE_OPS
     source: log
     type: integer
   - description: Query processing time, in milliseconds.
@@ -53,7 +53,7 @@ facets:
     groups:
       - Fauna
     name: fauna.QUERY_TIME_MS
-    path: QUERY_TIME_MS
+    path: fauna.QUERY_TIME_MS
     source: log
     type: integer
     unit:
@@ -79,7 +79,7 @@ pipeline:
   name: Fauna
   enabled: true
   filter:
-    query: source:fauna
+    query: "source:fauna"
   processors:
     - type: date-remapper
       name: Define `TS` as the official date of the log
@@ -121,3 +121,73 @@ pipeline:
       enabled: true
       sources:
         - http.status_category
+    - type: attribute-remapper
+      name: Map `BYTE_READ_OPS` to `fauna.BYTE_READ_OPS`
+      enabled: true
+      sources:
+        - BYTE_READ_OPS
+      sourceType: attribute
+      target: fauna.BYTE_READ_OPS
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `BYTE_WRITE_OPS` to `fauna.BYTE_WRITE_OPS`
+      enabled: true
+      sources:
+        - BYTE_WRITE_OPS
+      sourceType: attribute
+      target: fauna.BYTE_WRITE_OPS
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `BYTES_IN` to `fauna.BYTES_IN`
+      enabled: true
+      sources:
+        - BYTES_IN
+      sourceType: attribute
+      target: fauna.BYTES_IN
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `BYTES_OUT` to `fauna.BYTES_OUT`
+      enabled: true
+      sources:
+        - BYTES_OUT
+      sourceType: attribute
+      target: fauna.BYTES_OUT
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `COMPUTE_OPS` to `fauna.COMPUTE_OPS`
+      enabled: true
+      sources:
+        - COMPUTE_OPS
+      sourceType: attribute
+      target: fauna.COMPUTE_OPS
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `QUERY_TIME_MS` to `fauna.QUERY_TIME_MS`
+      enabled: true
+      sources:
+        - QUERY_TIME_MS
+      sourceType: attribute
+      target: fauna.QUERY_TIME_MS
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `TXN_RETRIES` to `fauna.TXN_RETRIES`
+      enabled: true
+      sources:
+        - TXN_RETRIES
+      sourceType: attribute
+      target: fauna.TXN_RETRIES
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
