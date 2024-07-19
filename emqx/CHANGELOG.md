@@ -1,5 +1,12 @@
 # CHANGELOG - EMQX
 
+## 1.2.0 / 2024-07-19
+
+***Improvements***:
+
+* Comprehensive optimization of Dashboard panel layout and design
+* Updated EMQX Logo for improved brand consistency
+
 ## 1.1.0 / 2024-03-13
 
 ***Fixed***:
