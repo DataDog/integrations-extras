@@ -12,17 +12,23 @@ Kosal from CloudAEye acts as your root cause co-pilot. This integration enables 
 
 - Click on **Install Integration** button.
 
-- On successful installation, click on the **Connect Accounts** button upon which you will be redirected to the Integrations page on CloudAEye console (Side Menu > Integrations > Datadog).
+- You need to create a [CloudAEye account](https://docs.cloudaeye.com/user-guide/tasks/register.html) if you do not already have one. 
 
-- To integrate your datadog account with CloudAEye, you will need to provide the following details
+- On successful registration, login to your cloudaeye account and add a **Datadog Integration**. Follow this [step-by-step guide](https://docs.cloudaeye.com/user-guide/integrations/datadog.html) to setup this integration. 
 
-  - `Site`: Select the datadog site where your observability data is located. **Ex: US1-East**. Read more about datadog sites [here](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
+  - To integrate your datadog account with CloudAEye, we usually require the following details.
 
-  - `API Key`: An API key helps us uniquely identify the organization. To create a new API key in Datadog console, navigate to **Organization Settings > API Keys** and then create a new API Key for CloudAEye integration. Once created copy that key and provide it here. Read more about API Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+    - `Site`: The datadog site where your observability data is located. **Ex: US1-East**. Read more about datadog sites [here](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
 
-  - `Application Key`: In addition to an API key, we need an Application Key to programmatically access your data. To create a new Application key in Datadog console, navigate to **Organization Settings > Application Keys** and then created a new Application key (with **scope set to read-only** in all sections). Once created copy that key and provide it here. Read more about Application Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+    - `API Key`: An API key helps us uniquely identify the organization. Read more about API Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
 
-- Once the required keys are populated, click `Test Connection` to test your your Datadog account integration with CloudAEye. A success message indicates that your integration is successful.
+    - `Application Key`: In addition to an API key, we need an Application Key to programmatically access your data. Read more about Application Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+
+
+- Once the integration is complete, your Datadog account is successfully connected to CloudAEye.
+
+
+
 ### Configuration
 
 Once integrated, begin exploring your logs, metrics, and traces data in the CloudAEye dashboard. Some of the most useful features are:
