@@ -13,7 +13,7 @@ This integration queries the following data:
 - Datadog metrics and tags
 
 This integration sends events to Datadog, including the root cause analysis performed by Matt and changes in Kubernetes clusters.
-You can view detailed RCA analysis for your alerts, including all hypotheses analyzed and the exact steps Matt took with supporting evidence.
+You can view detailed root cause analyses for your alerts, including all hypotheses analyzed and the exact steps Matt took with supporting evidence.
 With this analysis, 80-90% of troubleshooting is automated, greatly reducing the debugging time of on-call engineers. 
 
 ## Setup
