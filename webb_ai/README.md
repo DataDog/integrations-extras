@@ -6,7 +6,7 @@ Matt by Webb.ai is the first AI-enabled reliability engineer.
 Matt troubleshoots monitors and alerts from Datadog, Kubernetes, and cloud providers like AWS, Azure, and GCP.
 It identifies the root cause of an alert or incident in less than 5 mins.
 
-With this integration, Matt automatically identifies alerts from Datadog and troubleshoots them, and the mean time to debug those alerts is reduced significantly.
+With this integration, Matt automatically identifies alerts from Datadog and troubleshoots them, and the mean time to debug those alerts is reduced significantly. 80-90% of troubleshooting is automated, greatly reducing the debugging time for on-call engineers.
 
 This integration queries the following data:
 - Datadog events
