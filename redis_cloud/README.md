@@ -43,7 +43,7 @@ Set the `openmetrics_endpoint` to point to your cluster. For an example, see the
 
 ## Data Collected
 
-The current release gathers all metrics for databases, nodes, and shard.
+The current release gathers all metrics for databases, nodes, and shards.
 
 
 ### Metrics
