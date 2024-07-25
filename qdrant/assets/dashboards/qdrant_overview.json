@@ -27,7 +27,7 @@
               "x": 0,
               "y": 0,
               "width": 6,
-              "height": 3
+              "height": 2
             }
           },
           {
@@ -36,7 +36,7 @@
               "type": "note",
               "content": "**Qdrant**\n\nQdrant is an open-source, high-performance vector search engine/database.  This dashboard showcases important insights and metrics enabling you to monitor your Qdrant instance ",
               "background_color": "transparent",
-              "font_size": "14",
+              "font_size": "16",
               "text_align": "left",
               "vertical_align": "center",
               "show_tick": false,
@@ -46,7 +46,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 2,
               "width": 3,
               "height": 3
             }
@@ -55,9 +55,9 @@
             "id": 2961037249226966,
             "definition": {
               "type": "note",
-              "content": "**Further reading:**\n\n- [Datadog Qdrant Integration Documentation](https://docs.datadoghq.com/integrations/qdrant/)\n- [Qdrant Monitoring Docs](https://qdrant.tech/documentation/guides/monitoring/)",
+              "content": "**Further reading:**\n\n- [Datadog Qdrant Integration Docs](https://docs.datadoghq.com/integrations/qdrant/)\n- [Qdrant Monitoring Docs](https://qdrant.tech/documentation/guides/monitoring/)",
               "background_color": "transparent",
-              "font_size": "14",
+              "font_size": "16",
               "text_align": "left",
               "vertical_align": "center",
               "show_tick": false,
@@ -67,7 +67,7 @@
             },
             "layout": {
               "x": 3,
-              "y": 3,
+              "y": 2,
               "width": 3,
               "height": 3
             }
@@ -78,7 +78,7 @@
         "x": 0,
         "y": 0,
         "width": 6,
-        "height": 7
+        "height": 6
       }
     },
     {
@@ -94,11 +94,11 @@
             "id": 102530281599378,
             "definition": {
               "type": "note",
-              "content": "The overview section gives you a high-level overview of your system and service checks on the health of your Qdrant instance. ",
+              "content": "A high-level overview of your system and service checks on the health of your Qdrant instance. ",
               "background_color": "blue",
               "font_size": "14",
               "text_align": "center",
-              "vertical_align": "top",
+              "vertical_align": "center",
               "show_tick": false,
               "tick_pos": "50%",
               "tick_edge": "left",
@@ -109,41 +109,6 @@
               "y": 0,
               "width": 6,
               "height": 1
-            }
-          },
-          {
-            "id": 3006011310190178,
-            "definition": {
-              "title": "Total Collections",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "aggregator": "last",
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:qdrant.collections.total{$host}"
-                    }
-                  ],
-                  "response_format": "scalar"
-                }
-              ],
-              "autoscale": true,
-              "precision": 2
-            },
-            "layout": {
-              "x": 0,
-              "y": 1,
-              "width": 6,
-              "height": 2
             }
           },
           {
@@ -176,9 +141,44 @@
             },
             "layout": {
               "x": 0,
-              "y": 3,
+              "y": 1,
               "width": 6,
               "height": 2
+            }
+          },
+          {
+            "id": 3006011310190178,
+            "definition": {
+              "title": "Total Collections",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "last",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:qdrant.collections.total{$host}"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 6,
+              "height": 1
             }
           },
           {
@@ -198,7 +198,7 @@
             },
             "layout": {
               "x": 0,
-              "y": 5,
+              "y": 4,
               "width": 2,
               "height": 1
             }
@@ -220,7 +220,7 @@
             },
             "layout": {
               "x": 2,
-              "y": 5,
+              "y": 4,
               "width": 2,
               "height": 1
             }
@@ -242,7 +242,7 @@
             },
             "layout": {
               "x": 4,
-              "y": 5,
+              "y": 4,
               "width": 2,
               "height": 1
             }
@@ -253,7 +253,7 @@
         "x": 6,
         "y": 0,
         "width": 6,
-        "height": 7
+        "height": 6
       }
     },
     {
@@ -273,7 +273,7 @@
               "background_color": "orange",
               "font_size": "14",
               "text_align": "center",
-              "vertical_align": "top",
+              "vertical_align": "center",
               "show_tick": false,
               "tick_pos": "50%",
               "tick_edge": "left",
@@ -358,7 +358,7 @@
                       "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.rest.responses.count{*}.as_count()"
+                      "query": "sum:qdrant.rest.responses.count{$host}.as_count()"
                     }
                   ],
                   "response_format": "scalar"
@@ -446,7 +446,7 @@
                       "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.rest.responses.fail.count{*}.as_count()"
+                      "query": "sum:qdrant.rest.responses.fail.count{$host}.as_count()"
                     }
                   ],
                   "response_format": "scalar"
@@ -519,7 +519,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 7,
+        "y": 6,
         "width": 12,
         "height": 8
       }
@@ -541,8 +541,8 @@
               "background_color": "green",
               "font_size": "14",
               "text_align": "center",
-              "vertical_align": "top",
-              "show_tick": false,
+              "vertical_align": "center",
+              "show_tick": true,
               "tick_pos": "50%",
               "tick_edge": "left",
               "has_padding": true
@@ -555,9 +555,9 @@
             }
           },
           {
-            "id": 5499735932776244,
+            "id": 2730782972931758,
             "definition": {
-              "title": "Cluster Enabled",
+              "title": "Total Peers",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -570,10 +570,10 @@
                   ],
                   "queries": [
                     {
-                      "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.cluster.enabled.count{$host}.as_count()"
+                      "query": "sum:qdrant.cluster.peers.total{$host}",
+                      "aggregator": "last"
                     }
                   ],
                   "response_format": "scalar"
@@ -586,13 +586,13 @@
               "x": 0,
               "y": 1,
               "width": 4,
-              "height": 3
+              "height": 2
             }
           },
           {
-            "id": 1991366821437754,
+            "id": 1063511632814370,
             "definition": {
-              "title": "Cluster Term",
+              "title": "Total Pending Operations",
               "title_size": "16",
               "title_align": "left",
               "type": "query_value",
@@ -605,10 +605,10 @@
                   ],
                   "queries": [
                     {
-                      "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.cluster.term.count{$host}.as_count()"
+                      "query": "sum:qdrant.cluster.pending.operations.total{$host}",
+                      "aggregator": "last"
                     }
                   ],
                   "response_format": "scalar"
@@ -621,7 +621,7 @@
               "x": 4,
               "y": 1,
               "width": 4,
-              "height": 3
+              "height": 2
             }
           },
           {
@@ -640,7 +640,7 @@
                   ],
                   "queries": [
                     {
-                      "aggregator": "sum",
+                      "aggregator": "last",
                       "data_source": "metrics",
                       "name": "query1",
                       "query": "sum:qdrant.cluster.commit.count{$host}.as_count()"
@@ -656,90 +656,90 @@
               "x": 8,
               "y": 1,
               "width": 4,
-              "height": 3
-            }
-          },
-          {
-            "id": 2730782972931758,
-            "definition": {
-              "title": "Total Peers",
-              "title_size": "16",
-              "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
-              "requests": [
-                {
-                  "formulas": [
-                    {
-                      "alias": "Segment Size",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "operation"
-                        }
-                      },
-                      "formula": "query1"
-                    }
-                  ],
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "sum:qdrant.cluster.peers.total{$host}"
-                    }
-                  ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
-                }
-              ]
-            },
-            "layout": {
-              "x": 0,
-              "y": 4,
-              "width": 6,
               "height": 2
             }
           },
           {
-            "id": 1063511632814370,
+            "id": 5499735932776244,
             "definition": {
-              "title": "Total Pending Operations",
+              "title": "Cluster Enabled(1 - YES)",
               "title_size": "16",
               "title_align": "left",
-              "show_legend": true,
-              "legend_layout": "auto",
-              "legend_columns": [
-                "avg",
-                "min",
-                "max",
-                "value",
-                "sum"
-              ],
-              "type": "timeseries",
+              "type": "query_value",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "alias": "Segment Size",
-                      "number_format": {
-                        "unit": {
-                          "type": "canonical_unit",
-                          "unit_name": "operation"
-                        }
-                      },
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "last",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:qdrant.cluster.enabled.count{$host}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 0,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 1991366821437754,
+            "definition": {
+              "title": "Cluster Term",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ],
+                  "queries": [
+                    {
+                      "aggregator": "last",
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "sum:qdrant.cluster.term.count{$host}.as_count()"
+                    }
+                  ],
+                  "response_format": "scalar"
+                }
+              ],
+              "autoscale": true,
+              "precision": 2
+            },
+            "layout": {
+              "x": 4,
+              "y": 3,
+              "width": 4,
+              "height": 2
+            }
+          },
+          {
+            "id": 7752642287088404,
+            "definition": {
+              "title": "Voter(1) OR Learner(0)",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "formulas": [
+                    {
                       "formula": "query1"
                     }
                   ],
@@ -747,23 +747,20 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.cluster.pending.operations.total{$host}"
+                      "query": "sum:qdrant.cluster.voter{$host}",
+                      "aggregator": "last"
                     }
                   ],
-                  "response_format": "timeseries",
-                  "style": {
-                    "palette": "dog_classic",
-                    "line_type": "solid",
-                    "line_width": "normal"
-                  },
-                  "display_type": "line"
+                  "response_format": "scalar"
                 }
-              ]
+              ],
+              "autoscale": true,
+              "precision": 2
             },
             "layout": {
-              "x": 6,
-              "y": 4,
-              "width": 6,
+              "x": 8,
+              "y": 3,
+              "width": 4,
               "height": 2
             }
           }
@@ -771,9 +768,9 @@
       },
       "layout": {
         "x": 0,
-        "y": 0,
+        "y": 14,
         "width": 12,
-        "height": 7,
+        "height": 6,
         "is_column_break": true
       }
     },
@@ -794,7 +791,7 @@
               "background_color": "purple",
               "font_size": "14",
               "text_align": "center",
-              "vertical_align": "top",
+              "vertical_align": "center",
               "show_tick": false,
               "tick_pos": "50%",
               "tick_edge": "left",
@@ -879,7 +876,7 @@
                       "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.grpc.responses.count{*}.as_count()"
+                      "query": "sum:qdrant.grpc.responses.count{$host}.as_count()"
                     }
                   ],
                   "response_format": "scalar"
@@ -967,7 +964,7 @@
                       "aggregator": "sum",
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "sum:qdrant.grpc.responses.fail.count{*}.as_count()"
+                      "query": "sum:qdrant.grpc.responses.fail.count{$host}.as_count()"
                     }
                   ],
                   "response_format": "scalar"
@@ -1040,7 +1037,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 7,
+        "y": 20,
         "width": 12,
         "height": 8
       }
