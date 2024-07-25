@@ -1,5 +1,10 @@
 # CHANGELOG - PureFB
 
+## 2.0.1 / 2024-07-22
+
+* Renamed incorrectly named metric to correctly align with metrics namings and instrument standards.
+`purefb.clients_performance_average_bytes` to `purefb.clients.performance_average_bytes`
+
 ## 2.0.0 / 2024-06-26
 
 ***Added***: 

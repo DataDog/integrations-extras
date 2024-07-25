@@ -32,7 +32,7 @@ METRIC_MAP = [
         },
         'purefb_buckets_space_bytes': {'name': 'buckets.space_bytes'},
         'purefb_buckets_space_data_reduction_ratio': {'name': 'buckets.space_data_reduction_ratio'},
-        'purefb_clients_performance_average_bytes': {'name': 'clients_performance_average_bytes'},
+        'purefb_clients_performance_average_bytes': {'name': 'clients.performance_average_bytes'},
         'purefb_clients_performance_bandwidth_bytes': {'name': 'clients.performance_bandwidth_bytes'},
         'purefb_clients_performance_latency_usec': {'name': 'clients.performance_latency_usec'},
         'purefb_clients_performance_throughput_iops': {'name': 'clients.performance_throughput_iops'},
