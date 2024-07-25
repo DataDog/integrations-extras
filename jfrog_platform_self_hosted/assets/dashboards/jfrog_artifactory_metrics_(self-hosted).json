@@ -1,49 +1,58 @@
 {
-    "author_name": "Datadog",
-    "description": "This dashboard provides an overview of the system performance and operational insights associated with JFrog Artifactory.  Included also, are some high-level statistics on storage consumption and garbage collection details\n\nExample configuration and setup are also available at [Github](https://github.com/jfrog/log-analytics-datadog)",
-    "layout_type": "ordered",
-    "template_variables": [],
     "title": "JFrog Artifactory Metrics (Self-hosted)",
-    "widgets": [
+    "description": "This dashboard provides an overview of the system performance and operational insights associated with JFrog Artifactory.  Also included are high-level statistics on storage consumption and garbage collection details\n\nExample configuration and setup are also available at [Github](https://github.com/jfrog/log-analytics-datadog) (cloned)",
+    "widgets":
+    [
         {
-            "definition": {
-                "has_background": true,
-                "has_border": true,
-                "horizontal_align": "center",
-                "sizing": "contain",
+            "id": 7171555168329904,
+            "definition":
+            {
                 "type": "image",
                 "url": "https://media.jfrog.com/wp-content/uploads/2017/12/20133018/artifactory.png",
-                "vertical_align": "center"
+                "sizing": "contain",
+                "has_background": true,
+                "has_border": true,
+                "vertical_align": "center",
+                "horizontal_align": "center"
             },
-            "id": 7171555168329904,
-            "layout": {
-                "height": 1,
-                "width": 3,
+            "layout":
+            {
                 "x": 0,
-                "y": 0
+                "y": 0,
+                "width": 6,
+                "height": 2
             }
         },
         {
-            "definition": {
-                "legend_columns": [
+            "id": 6320888637646166,
+            "definition":
+            {
+                "title": "Artifactory System Metrics",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns":
+                [
                     "avg",
                     "min",
                     "max",
                     "value",
                     "sum"
                 ],
-                "legend_layout": "auto",
-                "markers": [],
-                "requests": [
+                "type": "timeseries",
+                "requests":
+                [
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Disk Free Size",
                                 "formula": "query1"
                             }
                         ],
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -51,22 +60,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "dog_classic",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "dog_classic"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Disk Used Size",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -74,22 +86,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Sys Memory Free Size",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -97,22 +112,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "warm",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "warm"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Sys Memory Used Size",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -120,22 +138,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "purple",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "purple"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Sys CPU Ratio",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": true,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -143,84 +164,96 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "orange",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "orange"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     }
                 ],
-                "right_yaxis": {
+                "yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
+                    "max": "auto"
                 },
-                "show_legend": true,
-                "title": "Artifactory System Metrics",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
+                "right_yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto"
+                },
+                "markers":
+                []
             },
-            "id": 6320888637646166,
-            "layout": {
-                "height": 2,
-                "width": 9,
-                "x": 3,
-                "y": 0
+            "layout":
+            {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 3
             }
         },
         {
-            "definition": {
-                "background_color": "gray",
-                "content": "Tracks system performance metrics associated with JFrog Artifactory",
-                "font_size": "14",
-                "has_padding": true,
-                "show_tick": true,
-                "text_align": "center",
-                "tick_edge": "right",
-                "tick_pos": "50%",
-                "type": "note",
-                "vertical_align": "center"
-            },
             "id": 8472074641619612,
-            "layout": {
-                "height": 1,
-                "width": 3,
+            "definition":
+            {
+                "type": "note",
+                "content": "Tracks system performance metrics associated with JFrog Artifactory",
+                "background_color": "gray",
+                "font_size": "14",
+                "text_align": "center",
+                "vertical_align": "center",
+                "show_tick": true,
+                "tick_pos": "50%",
+                "tick_edge": "right",
+                "has_padding": true
+            },
+            "layout":
+            {
                 "x": 0,
-                "y": 1
+                "y": 2,
+                "width": 6,
+                "height": 1
             }
         },
         {
-            "definition": {
-                "legend_columns": [
+            "id": 4035779743739664,
+            "definition":
+            {
+                "title": "Artifactory DB Connections",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns":
+                [
                     "avg",
                     "min",
                     "max",
                     "value",
                     "sum"
                 ],
-                "legend_layout": "auto",
-                "markers": [],
-                "requests": [
+                "type": "timeseries",
+                "requests":
+                [
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Idle Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -228,22 +261,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "purple",
                             "line_type": "solid",
-                            "line_width": "thick",
-                            "palette": "purple"
-                        }
+                            "line_width": "thick"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Active Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -251,22 +287,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "orange",
                             "line_type": "solid",
-                            "line_width": "thick",
-                            "palette": "orange"
-                        }
+                            "line_width": "thick"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Min Reserved Idle Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -274,22 +313,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "grey",
                             "line_type": "solid",
-                            "line_width": "thin",
-                            "palette": "grey"
-                        }
+                            "line_width": "thin"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Max Allowed Active Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -297,56 +339,65 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     }
                 ],
-                "show_legend": true,
-                "title": "Artifactory DB Connections",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
+                "yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto"
+                },
+                "markers":
+                []
             },
-            "id": 4035779743739664,
-            "layout": {
-                "height": 3,
-                "width": 6,
+            "layout":
+            {
                 "x": 0,
-                "y": 2
+                "y": 3,
+                "width": 6,
+                "height": 3
             }
         },
         {
-            "definition": {
-                "legend_columns": [
+            "id": 7356867538450466,
+            "definition":
+            {
+                "title": "Artifactory JVM Memory",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "horizontal",
+                "legend_columns":
+                [
                     "avg",
                     "min",
                     "max",
                     "value",
                     "sum"
                 ],
-                "legend_layout": "horizontal",
-                "markers": [],
-                "requests": [
+                "type": "timeseries",
+                "requests":
+                [
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Free Memory",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -354,22 +405,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "purple",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "purple"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Max Configured Memory",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -377,22 +431,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "orange",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "orange"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Total Memory",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -400,22 +457,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "grey",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "grey"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Used Memory",
                                 "formula": "query1 - query2"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -428,22 +488,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "# of Processors",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": true,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -451,68 +514,73 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "dog_classic",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "dog_classic"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     }
                 ],
-                "right_yaxis": {
+                "yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
+                    "max": "auto"
                 },
-                "show_legend": true,
-                "title": "Artifactory JVM Memory",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
+                "right_yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto"
+                },
+                "markers":
+                []
             },
-            "id": 7356867538450466,
-            "layout": {
-                "height": 3,
-                "width": 6,
+            "layout":
+            {
                 "x": 6,
-                "y": 2
+                "y": 3,
+                "width": 6,
+                "height": 3
             }
         },
         {
-            "definition": {
-                "legend_columns": [
+            "id": 1837102601350984,
+            "definition":
+            {
+                "title": "Artifactory Garbage Collection",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns":
+                [
                     "avg",
                     "min",
                     "max",
                     "value",
                     "sum"
                 ],
-                "legend_layout": "auto",
-                "markers": [
+                "type": "timeseries",
+                "requests":
+                [
                     {
-                        "display_type": "error dashed",
-                        "value": "y = 0"
-                    }
-                ],
-                "requests": [
-                    {
-                        "display_type": "bars",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Total Size Freed By Full",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -520,22 +588,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
                     },
                     {
-                        "display_type": "bars",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Total Size Freed By Binaries",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -543,22 +614,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "orange",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "orange"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "bars"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "GC Execution Time",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": true,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -566,62 +640,77 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     }
                 ],
-                "right_yaxis": {
-                    "include_zero": true,
-                    "label": "Duration",
-                    "max": "auto",
-                    "min": "auto",
-                    "scale": "linear"
-                },
-                "show_legend": true,
-                "title": "Artifactory Garbage Collection",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
+                "yaxis":
+                {
                     "include_zero": true,
                     "label": "Size",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto"
+                },
+                "right_yaxis":
+                {
+                    "include_zero": true,
+                    "label": "Duration",
+                    "scale": "linear",
+                    "min": "auto",
+                    "max": "auto"
+                },
+                "markers":
+                [
+                    {
+                        "value": "y = 0",
+                        "display_type": "error dashed"
+                    }
+                ]
             },
-            "id": 1837102601350984,
-            "layout": {
-                "height": 3,
-                "width": 6,
+            "layout":
+            {
                 "x": 0,
-                "y": 5
+                "y": 6,
+                "width": 6,
+                "height": 3
             }
         },
         {
-            "definition": {
-                "legend_columns": [
+            "id": 2377485048256252,
+            "definition":
+            {
+                "title": "Artifactory HTTP Connections",
+                "title_size": "16",
+                "title_align": "left",
+                "show_legend": true,
+                "legend_layout": "auto",
+                "legend_columns":
+                [
                     "avg",
                     "min",
                     "max",
                     "value",
                     "sum"
                 ],
-                "legend_layout": "auto",
-                "markers": [],
-                "requests": [
+                "type": "timeseries",
+                "requests":
+                [
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Max HTTP Connections",
                                 "formula": "query1"
                             }
                         ],
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -629,22 +718,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "dog_classic",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "dog_classic"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Leased HTTP Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -652,22 +744,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "warm",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "warm"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Pending HTTP Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -675,22 +770,25 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "cool",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "cool"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     },
                     {
-                        "display_type": "line",
-                        "formulas": [
+                        "formulas":
+                        [
                             {
                                 "alias": "Available HTTP Connections",
                                 "formula": "query1"
                             }
                         ],
                         "on_right_yaxis": false,
-                        "queries": [
+                        "queries":
+                        [
                             {
                                 "data_source": "metrics",
                                 "name": "query1",
@@ -698,33 +796,39 @@
                             }
                         ],
                         "response_format": "timeseries",
-                        "style": {
+                        "style":
+                        {
+                            "palette": "purple",
                             "line_type": "solid",
-                            "line_width": "normal",
-                            "palette": "purple"
-                        }
+                            "line_width": "normal"
+                        },
+                        "display_type": "line"
                     }
                 ],
-                "show_legend": true,
-                "title": "Artifactory HTTP Connections",
-                "title_align": "left",
-                "title_size": "16",
-                "type": "timeseries",
-                "yaxis": {
+                "yaxis":
+                {
                     "include_zero": true,
                     "label": "",
-                    "max": "auto",
+                    "scale": "linear",
                     "min": "auto",
-                    "scale": "linear"
-                }
+                    "max": "auto"
+                },
+                "markers":
+                []
             },
-            "id": 2377485048256252,
-            "layout": {
-                "height": 3,
-                "width": 6,
+            "layout":
+            {
                 "x": 6,
-                "y": 5
+                "y": 6,
+                "width": 6,
+                "height": 3
             }
         }
-    ]
+    ],
+    "template_variables":
+    [],
+    "layout_type": "ordered",
+    "notify_list":
+    [],
+    "reflow_type": "fixed"
 }
