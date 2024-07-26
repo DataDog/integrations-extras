@@ -27,8 +27,6 @@ Kosal from CloudAEye acts as your root cause co-pilot. This integration enables 
 
 - Once the integration is complete, your Datadog account is successfully connected to CloudAEye.
 
-
-
 ### Configuration
 
 Once integrated, begin exploring your logs, metrics, and traces data in the CloudAEye dashboard. Some of the most useful features are:
