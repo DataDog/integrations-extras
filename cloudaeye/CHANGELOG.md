@@ -4,4 +4,4 @@
 
 ***Added***:
 
-* added CloudAEye integration.
+* Added CloudAEye integration.
