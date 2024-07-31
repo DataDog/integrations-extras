@@ -25,7 +25,7 @@ There are multiple ways to configure OpenTelemetry with Datadog:
 
 For more information, see [OpenTelemetry in Datadog][6].
 
-- Using an OpenTelemetry collector
+#### OpenTelemetry collector
 
 To configure an OpenTelemetry collector with Datadog, you need to create a configuration file, for example `otel_collector_config.yaml` with the content below:
 
