@@ -77,7 +77,7 @@ docker run \
     otel/opentelemetry-collector-contrib:0.104.0
 ```
 
-> For additional ways to run the collector, please refer to the [official documentation][7].
+For additional ways to run the collector, see [OpenTelemetry Deployment][7].
 
 - Direct OTEL Ingestion by the Datadog Agent via a configuration file
 
