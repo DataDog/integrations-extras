@@ -65,7 +65,7 @@ service:
       exporters: [datadog]
 ```
 
-Then run the collector with the following command (replacing `DATADOG_SITE` and `DATADOG_API_KEY` with your own values):
+1. Run the collector with the following command (replace `DATADOG_SITE` and `DATADOG_API_KEY` with your own values):
 
 ```bash
 docker run \
