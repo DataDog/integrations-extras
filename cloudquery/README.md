@@ -120,11 +120,11 @@ services:
       - "4318:4318"
 ```
 
-[Restart][10] the Datadog agent for the change to take effect.
+1. [Restart][9] the Datadog agent for the change to take effect.
 
-> For additional ways to configure the Datadog agent, please refer to the [official documentation][11].
+For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog Agent][11].
 
-Once you have the agent or collector ready, you can specify the endpoint in the source spec:
+After you have the Agent or collector ready, specify the endpoint in the source spec:
 
 ```yaml
 kind: source
@@ -143,8 +143,8 @@ spec:
 ### Validation
 
 Run `cloudquery sync spec.yml`.
-Once ingestion starts you should be able to start seeing the traces in Datadog under APM->Traces->Explorer.
-You should see metrics and logs in the respective sections of the Datadog UI as well.
+After ingestion starts, you should start seeing the traces in the Datadog [**APM Traces Explorer**][13].
+You can also validate metrics and logs in the [**Metrics Summary**][14] and [**Log Explorer**][15].
 
 ## Data Collected
 
@@ -163,12 +163,12 @@ The CloudQuery does not include any events.
 ## Uninstallation
 
 If you use the OpenTelemetry collector, you can stop it by running `docker stop <container_id>`.
-IF you use the Datadog agent, remove the configuration or environment variables you added and [restart][10] the agent.
+If you use the Datadog Agent, remove the configuration or environment variables you added and [restart][9] the agent.
 Finally, delete the dashboard from your Datadog account.
 
 ## Support
 
-Need help? [Contact us][4].
+For support, contact [CloudQuery][4].
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/cloudquery/images/cloudquery_logo_png_dark_background.png
 [2]: https://www.cloudquery.io/
@@ -179,7 +179,6 @@ Need help? [Contact us][4].
 [7]: https://docs.datadoghq.com/opentelemetry/collector_exporter/deployment#running-the-collector
 [8]: https://docs.datadoghq.com/agent/configuration/agent-configuration-files/
 [9]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
-[10]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
 [11]: https://docs.datadoghq.com/opentelemetry/interoperability/otlp_ingest_in_the_agent#enabling-otlp-ingestion-on-the-datadog-agent
 [12]: https://docs.datadoghq.com/agent/
 [13]: https://app.datadoghq.com/apm/traces
