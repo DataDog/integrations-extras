@@ -18,7 +18,12 @@ Alternatively, you can use OpenTelemetry Collector and Datadog Exporter as descr
 ### Configuration
 
 CloudQuery supports [OpenTelemetry][5] traces, metrics, and logs out of the box.
-There are multiple ways to configure OpenTelemetry with Datadog. We'll show only a subset of them here, and you can find more information [in the Datadog docs][6].
+There are multiple ways to configure OpenTelemetry with Datadog:
+- [Using an OpenTelemetry collector](#opentelemetry-collector)
+- [Direct OTEL Ingestion by the Datadog Agent through a configuration file](#datadog-agent-otel-ingestion-through-a-configuration-file)
+- [Direct OTEL ingestion by the Datadog Agent through environment variables](#datadog-agent-otel-ingestion-through-environment-variables)
+
+For more information, see [OpenTelemetry in Datadog][6].
 
 - Using an OpenTelemetry collector
 
