@@ -12,13 +12,14 @@ CloudQuery extracts, transforms, and loads configuration from cloud APIs to a va
 
 ### Installation
 
-To ingest OpenTelemetry traces, metrics, and logs from CloudQuery, install the [Datadog Agent][12] version >=6.48.0 or >=7.48.0.
+To ingest OpenTelemetry traces, metrics, and logs from CloudQuery, install the [Datadog Agent][11] version >=6.48.0 or >=7.48.0.
 Alternatively, you can use OpenTelemetry Collector and Datadog Exporter as described below.
 
 ### Configuration
 
 CloudQuery supports [OpenTelemetry][5] traces, metrics, and logs out of the box.
 There are multiple ways to configure OpenTelemetry with Datadog:
+
 - [Using an OpenTelemetry collector](#opentelemetry-collector)
 - [Direct OTEL Ingestion by the Datadog Agent through a configuration file](#datadog-agent-otel-ingestion-through-a-configuration-file)
 - [Direct OTEL ingestion by the Datadog Agent through environment variables](#datadog-agent-otel-ingestion-through-environment-variables)
@@ -28,6 +29,7 @@ For more information, see [OpenTelemetry in Datadog][6].
 #### OpenTelemetry collector
 
 To configure an OpenTelemetry collector with Datadog:
+
 1. Create a configuration file. For example, create an `otel_collector_config.yaml` file with the content below:
 
 ```yaml
@@ -122,7 +124,7 @@ services:
 
 1. [Restart][9] the Datadog agent for the change to take effect.
 
-For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog Agent][11].
+For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog Agent][10].
 
 After you have the Agent or collector ready, specify the endpoint in the source spec:
 
@@ -143,8 +145,8 @@ spec:
 ### Validation
 
 Run `cloudquery sync spec.yml`.
-After ingestion starts, you should start seeing the traces in the Datadog [**APM Traces Explorer**][13].
-You can also validate metrics and logs in the [**Metrics Summary**][14] and [**Log Explorer**][15].
+After ingestion starts, you should start seeing the traces in the Datadog [**APM Traces Explorer**][12].
+You can also validate metrics and logs in the [**Metrics Summary**][13] and [**Log Explorer**][14].
 
 ## Data Collected
 
@@ -179,8 +181,8 @@ For support, contact [CloudQuery][4].
 [7]: https://docs.datadoghq.com/opentelemetry/collector_exporter/deployment#running-the-collector
 [8]: https://docs.datadoghq.com/agent/configuration/agent-configuration-files/
 [9]: https://docs.datadoghq.com/agent/configuration/agent-commands/#restart-the-agent
-[11]: https://docs.datadoghq.com/opentelemetry/interoperability/otlp_ingest_in_the_agent#enabling-otlp-ingestion-on-the-datadog-agent
-[12]: https://docs.datadoghq.com/agent/
-[13]: https://app.datadoghq.com/apm/traces
-[14]: https://app.datadoghq.com/metric/summary
-[15]: https://app.datadoghq.com/logs
+[10]: https://docs.datadoghq.com/opentelemetry/interoperability/otlp_ingest_in_the_agent#enabling-otlp-ingestion-on-the-datadog-agent
+[11]: https://docs.datadoghq.com/agent/
+[12]: https://app.datadoghq.com/apm/traces
+[13]: https://app.datadoghq.com/metric/summary
+[14]: https://app.datadoghq.com/logs
