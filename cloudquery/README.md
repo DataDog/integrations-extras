@@ -79,7 +79,7 @@ docker run \
 
 For additional ways to run the collector, see [OpenTelemetry Deployment][7].
 
-- Direct OTEL Ingestion by the Datadog Agent via a configuration file
+#### Datadog Agent OTEL ingestion through a configuration file
 
 [Locate][8] your `datadog.yaml` file and add the following configuration:
 
