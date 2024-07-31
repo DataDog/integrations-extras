@@ -85,8 +85,8 @@ kind: source
 spec:
   name: "aws"
   path: "cloudquery/aws"
-  registry: "cloudquery"
-  version: "VERSION_SOURCE_AWS"
+  # Replace with the AWS source plugin version
+  version: "<VERSION_SOURCE_AWS>"
   tables: ["aws_s3_buckets"]
   destinations: ["postgresql"]
   otel_endpoint: "0.0.0.0:4318"
@@ -120,8 +120,8 @@ kind: source
 spec:
   name: "aws"
   path: "cloudquery/aws"
-  registry: "cloudquery"
-  version: "VERSION_SOURCE_AWS"
+  # Replace with the AWS source plugin version
+  version: "<VERSION_SOURCE_AWS>"
   tables: ["aws_s3_buckets"]
   destinations: ["postgresql"]
   otel_endpoint: "0.0.0.0:4318"
@@ -161,8 +161,8 @@ kind: source
 spec:
   name: "aws"
   path: "cloudquery/aws"
-  registry: "cloudquery"
-  version: "VERSION_SOURCE_AWS"
+  # Replace with the AWS source plugin version
+  version: "<VERSION_SOURCE_AWS>"
   tables: ["aws_s3_buckets"]
   destinations: ["postgresql"]
   otel_endpoint: "0.0.0.0:4318"
