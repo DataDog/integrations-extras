@@ -12,7 +12,7 @@ CloudQuery extracts, transforms, and loads configuration from cloud APIs to a va
 
 ### Installation
 
-Install the Datadog Agent version >=6.48.0 or >=7.48.0, which supports ingesting OpenTelemetry traces, metrics, and logs from CloudQuery.
+To ingest OpenTelemetry traces, metrics, and logs from CloudQuery, install the [Datadog Agent][12] version >=6.48.0 or >=7.48.0.
 Alternatively, you can use OpenTelemetry Collector and Datadog Exporter as described below.
 
 ### Configuration
