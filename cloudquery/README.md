@@ -81,7 +81,7 @@ For additional ways to run the collector, see [OpenTelemetry Deployment][7].
 
 #### Datadog Agent OTEL ingestion through a configuration file
 
-[Locate][8] your `datadog.yaml` file and add the following configuration:
+1. Locate your [`datadog.yaml` Agent configuration file][8] and add the following configuration:
 
 ```yaml
 otlp_config:
