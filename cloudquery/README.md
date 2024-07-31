@@ -113,6 +113,22 @@ logs_enabled: true
 
 2. [Restart][9] the Datadog agent for the change to take effect.
 
+3. After you have the Agent ready, specify the endpoint in the source spec:
+
+```yaml
+kind: source
+spec:
+  name: "aws"
+  path: "cloudquery/aws"
+  registry: "cloudquery"
+  version: "VERSION_SOURCE_AWS"
+  tables: ["aws_s3_buckets"]
+  destinations: ["postgresql"]
+  otel_endpoint: "0.0.0.0:4318"
+  otel_endpoint_insecure: true
+  spec:
+```
+
 #### Datadog Agent OTEL ingestion through environment variables
 
 1. Pass the `DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENDPOINT` environment variable to the Datadog Agent with a value of `0.0.0.0:4318`.
