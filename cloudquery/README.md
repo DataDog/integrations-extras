@@ -96,7 +96,7 @@ logs_enabled: true
 
 1. [Restart][9] the Datadog agent for the change to take effect.
 
-- Direct OTEL ingestion by the Datadog Agent via environment variables
+#### Datadog Agent OTEL ingestion through environment variables
 
 Pass the `DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENDPOINT` environment variable to the Datadog agent with a value of `0.0.0.0:4318`.
 If you're using Docker compose, you can find an example below:
