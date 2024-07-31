@@ -1,5 +1,6 @@
 id: gigamon
 metric_id: gigamon
+backend_only: false
 facets:
   - groups:
       - Web Access
@@ -39,22 +40,575 @@ facets:
   - facetType: list
     groups:
       - gigamon
-    name: Application Name
+    name: Gigamon APP ID
+    path: app_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Application Name
     path: app_name
     source: log
     type: string
   - facetType: list
     groups:
       - gigamon
-    name: dns_host
+    name: Gigamon Destination IP
+    path: dst_ip
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Destination IPV6
+    path: dst_ipv6
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Destination MAC
+    path: dst_mac
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Destination Packets
+    path: dst_packets
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Destination Port
+    path: dst_port
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DHCP Address
+    path: dhcp_chaddr
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_ciaddr
+    path: dhcp_ciaddr
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_dns_server
+    path: dhcp_dns_server
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_host_name
+    path: dhcp_host_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_ip_lease_time
+    path: dhcp_ip_lease_time
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_message_type
+    path: dhcp_message_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_subnetmask
+    path: dhcp_subnetmask
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dhcp_yiaddr
+    path: dhcp_yiaddr
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Class
+    path: dns_class
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Host Address
+    path: dns_host_addr
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Host Name
     path: dns_host
     source: log
     type: string
   - facetType: list
     groups:
       - gigamon
-    name: dns_name
+    name: Gigamon DNS Host Type
+    path: dns_host_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Name
     path: dns_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Opcode
+    path: dns_opcode
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon DNS Query
+    path: dns_query
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dns_query_type
+    path: dns_query_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dns_reply_code
+    path: dns_reply_code
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dns_response_time
+    path: dns_response_time
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dns_reverse_addr
+    path: dns_reverse_addr
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dns_ttl
+    path: dns_ttl
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon dst_bytes
+    path: dst_bytes
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon end_time
+    path: end_time
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_code
+    path: http_code
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_content_len
+    path: http_content_len
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_content_type
+    path: http_content_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_method
+    path: http_method
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_mime_type
+    path: http_mime_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_request_size
+    path: http_request_size
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_rtt
+    path: http_rtt
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_server
+    path: http_server
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_server_agent
+    path: http_server_agent
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_uri
+    path: http_uri
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_uri_decoded
+    path: http_uri_decoded
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_uri_full
+    path: http_uri_full
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_uri_path
+    path: http_uri_path
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon http_version
+    path: http_version
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ingress_vlan_id
+    path: ingress_vlan_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ip_version
+    path: ip_version
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon krb5_message_type
+    path: krb5_message_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon krb5_server
+    path: krb5_server
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon krb5_service
+    path: krb5_service
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon next_hdr_v6
+    path: next_hdr_v6
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon protocol
+    path: protocol
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_command
+    path: smb_command
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_command_string
+    path: smb_command_string
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_filename
+    path: smb_filename
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_ntlm_domain
+    path: smb_ntlm_domain
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_ntlm_user
+    path: smb_ntlm_user
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_path
+    path: smb_path
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_user_id
+    path: smb_user_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon smb_version
+    path: smb_version
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Source bytes
+    path: src_bytes
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Source IP
+    path: src_ip
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon Source MAC
+    path: src_mac
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon src_packets
+    path: src_packets
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon src_port
+    path: src_port
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssh_rtt
+    path: ssh_rtt
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssh_version
+    path: ssh_version
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_cert_ext_authority_key_id
+    path: ssl_cert_ext_authority_key_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_cert_ext_subject_key_id
+    path: ssl_cert_ext_subject_key_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_certificate_subject_key_algo_oid
+    path: ssl_certificate_subject_key_algo_oid
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_certificate_subject_key_size
+    path: ssl_certificate_subject_key_size
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_cipher_suite_id
+    path: ssl_cipher_suite_id
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_common_name
+    path: ssl_common_name
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_handshake_type
+    path: ssl_handshake_type
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_issuer
+    path: ssl_issuer
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_protocol_version
+    path: ssl_protocol_version
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon ssl_validity_not_after
+    path: ssl_validity_not_after
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon start_time
+    path: start_time
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_flag_syn
+    path: tcp_flag_syn
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_flag_synack
+    path: tcp_flag_synack
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_flags
+    path: tcp_flags
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_retransmission_bytes
+    path: tcp_retransmission_bytes
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_rtt
+    path: tcp_rtt
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - gigamon
+    name: Gigamon tcp_rtt_app
+    path: tcp_rtt_app
     source: log
     type: string
 pipeline:
@@ -64,16 +618,6 @@ pipeline:
   filter:
     query: "source:gigamon"
   processors:
-    - type: attribute-remapper
-      name: Map 'http_host` to `http.url_details.path`
-      enabled: true
-      sources:
-        - http_host
-      sourceType: attribute
-      target: http.url_details.path
-      targetType: attribute
-      preserveSource: false
-      overrideOnConflict: false
     - type: attribute-remapper
       name: Map `dns_transaction_id` to `dns.id`
       enabled: true
@@ -95,7 +639,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'http_header_value' to 'http.referer'
+      name: Map 'http_header_value' to 'http.refer
       enabled: true
       sources:
         - http_header_value
@@ -132,3 +676,12 @@ pipeline:
       target: http.useragent_details.os.family
       encoded: false
       combineVersionDetails: false
+    - type: grok-parser
+      name: Map 'ts' to 'TimeStamp'
+      enabled: true
+      source: message
+      samples:
+        - '{"ts":"Wed Jul 31 12:05:39 2024"}'
+      grok:
+        supportRules: ""
+        matchRules: command_parser %{date("EEE MMM dd HH:mm:ss yyyy"):ts} - %{data::keyvalue}
