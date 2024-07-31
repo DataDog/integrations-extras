@@ -67,7 +67,7 @@ service:
       exporters: [datadog]
 ```
 
-1. Run the collector with the following command (replace `DATADOG_SITE` and `DATADOG_API_KEY` with your own values):
+2. Run the collector with the following command (replace `DATADOG_SITE` and `DATADOG_API_KEY` with your own values):
 
 ```bash
 docker run \
@@ -96,7 +96,7 @@ otlp_config:
 logs_enabled: true
 ```
 
-1. [Restart][9] the Datadog agent for the change to take effect.
+2. [Restart][9] the Datadog agent for the change to take effect.
 
 #### Datadog Agent OTEL ingestion through environment variables
 
@@ -122,7 +122,7 @@ services:
       - "4318:4318"
 ```
 
-1. [Restart][9] the Datadog agent for the change to take effect.
+2. [Restart][9] the Datadog agent for the change to take effect.
 
 For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog Agent][10].
 
