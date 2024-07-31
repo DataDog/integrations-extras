@@ -94,7 +94,7 @@ otlp_config:
 logs_enabled: true
 ```
 
-[Restart][9] the Datadog agent for the change to take effect.
+1. [Restart][9] the Datadog agent for the change to take effect.
 
 - Direct OTEL ingestion by the Datadog Agent via environment variables
 
