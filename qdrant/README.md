@@ -2,10 +2,10 @@
 
 ## Overview
 
-[Qdrant][1] is a high-performance vector search engine and vector database. Use the Datadog integration to get metrics in real-time to monitor your Qdrant deployment.
+[Qdrant][1] is a high-performance vector search engine and vector database. With this integration, you can get real-time metrics to monitor your Qdrant deployment within Datadog including: 
 
-- You can monitor the performance of REST and gRPC interfaces with metrics such as total requests, total failures, time to serve etc to identify potential bottlenecks and mitigate them.
-- You can find information about the readiness of the cluster, and deployment(total peers, pending operations etc) to gain insights into your Qdrant deployment.
+- The performance of REST and gRPC interfaces with metrics such as total requests, total failures, and time to serve to identify potential bottlenecks and mitigate them.
+- Information about the readiness of the cluster, and deployment (total peers, pending operations, etc.) to gain insights into your Qdrant deployment.
 
 For a full list of supported metrics, see the **Metrics** section below.
 
