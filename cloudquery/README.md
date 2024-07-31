@@ -155,6 +155,21 @@ services:
 
 2. [Restart][9] the Datadog agent for the change to take effect.
 
+3. After you have the Agent ready, specify the endpoint in the source spec:
+```yaml
+kind: source
+spec:
+  name: "aws"
+  path: "cloudquery/aws"
+  registry: "cloudquery"
+  version: "VERSION_SOURCE_AWS"
+  tables: ["aws_s3_buckets"]
+  destinations: ["postgresql"]
+  otel_endpoint: "0.0.0.0:4318"
+  otel_endpoint_insecure: true
+  spec:
+```
+
 For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog Agent][10].
 
 After you have the Agent or collector ready, specify the endpoint in the source spec:
