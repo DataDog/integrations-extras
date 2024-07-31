@@ -78,6 +78,21 @@ docker run \
     -v $(pwd)/otel_collector_config.yaml:/etc/otelcol-contrib/config.yaml \
     otel/opentelemetry-collector-contrib:0.104.0
 ```
+3. After you have the collector ready, specify the endpoint in the source spec:
+
+```yaml
+kind: source
+spec:
+  name: "aws"
+  path: "cloudquery/aws"
+  registry: "cloudquery"
+  version: "VERSION_SOURCE_AWS"
+  tables: ["aws_s3_buckets"]
+  destinations: ["postgresql"]
+  otel_endpoint: "0.0.0.0:4318"
+  otel_endpoint_insecure: true
+  spec:
+```
 
 For additional ways to run the collector, see [OpenTelemetry Deployment][7].
 
