@@ -17,7 +17,7 @@ Alternatively, you can use OpenTelemetry Collector and Datadog Exporter as descr
 
 ### Configuration
 
-CloudQuery supports [OpenTelemetry][5] traces, metrics and logs out of the box.
+CloudQuery supports [OpenTelemetry][5] traces, metrics, and logs out of the box.
 There are multiple ways to configure OpenTelemetry with Datadog. We'll show only a subset of them here, and you can find more information [in the Datadog docs][6].
 
 - Using an OpenTelemetry collector
