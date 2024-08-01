@@ -12,6 +12,12 @@ To set up the OceanBase Cloud Datadog integration for your cluster, provide a Da
 
 Go to [OceanBase Cloud Integrations][2] to configure the Datadog integration for your OceanBase Cloud project.
 
+## Uninstallation
+
+Once this integration has been uninstalled, any previous authorizations are revoked. 
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the API Keys page.
+
 ## Data Collected
 
 ### Metrics
