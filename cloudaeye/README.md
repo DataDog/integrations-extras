@@ -20,7 +20,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
     - `Site`: The Datadog site where your observability data is located, such as **US1-East**. Read more about Datadog sites in [the documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
 
-    - `API Key`: An API key helps us uniquely identify the organization. Read more about API Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+    - `API Key`: A Datadog API key helps CloudAEye uniquely identify the organization. Read more about API keys in [the documentation](https://docs.datadoghq.com/account_management/api-app-keys/).
 
     - `Application Key`: In addition to an API key, we need an Application Key to programmatically access your data. Read more about Application Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
 
