@@ -37,7 +37,7 @@ Once integrated, begin exploring your logs, metrics, and traces data in the Clou
 
 To remove the Datadog integration from CloudAEye:
 1. Navigate to the [CloudAEye integrations page][1] (Side Navigation Drawer => Integrations => Datadog) and click **Remove**.
-2. Uninstall this integration from Datadog by clicking the **Uninstall Integration** button below. Once you uninstall this integration, any previous authorizations are revoked.
+3. Click the **Uninstall Integration** button. Once you uninstall this integration, any previous authorizations are revoked.
 3. Ensure that all API keys associated with this integration have been disabled by searching for the integration name (CloudAEye) on the [API Keys management page][3].
 
 ## Support
