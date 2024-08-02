@@ -22,7 +22,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
     - `API Key`: A Datadog API key helps CloudAEye uniquely identify the organization. Read more about API keys in [the documentation](https://docs.datadoghq.com/account_management/api-app-keys/).
 
-    - `Application Key`: In addition to an API key, we need an Application Key to programmatically access your data. Read more about Application Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
+    - `Application Key`: In addition to an API key, CloudAEye needs a Datadog application key to programmatically access your data. Read more about application keys in [the documentation](https://docs.datadoghq.com/account_management/api-app-keys/).
 
 
 - Once the integration is complete, your Datadog account is successfully connected to CloudAEye.
