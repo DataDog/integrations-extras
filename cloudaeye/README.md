@@ -12,7 +12,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
 - Click on **Install Integration** button.
 
-- You need to create a [CloudAEye account](https://docs.cloudaeye.com/user-guide/tasks/register.html) if you do not already have one. 
+1. Create a [CloudAEye account](https://docs.cloudaeye.com/user-guide/tasks/register.html) if you do not already have one. 
 
 - On successful registration, login to your cloudaeye account and add a **Datadog Integration**. Follow this [step-by-step guide](https://docs.cloudaeye.com/user-guide/integrations/datadog.html) to setup this integration. 
 
