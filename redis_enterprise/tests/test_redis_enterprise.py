@@ -21,7 +21,6 @@ def test_instance_additional_check(aggregator, dd_run_check, mock_http_response)
         'RDSE.REPLICATION',
         'RDSE.LISTENER',
         'RDSE.PROXY'
-        # ,
     ]
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
