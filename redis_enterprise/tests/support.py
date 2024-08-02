@@ -38,6 +38,20 @@ EPHEMERAL = [
     'rdse.redis_master_sync_in_progress',
     'rdse.redis_mem_fragmentation_ratio',
     'rdse.redis_used_disk',
+    'rdse.bdb_crdt_syncer_ingress_bytes',
+    'rdse.bdb_crdt_syncer_ingress_bytes_max',
+    'rdse.bdb_crdt_syncer_ingress_bytes_decompressed',
+    'rdse.bdb_crdt_syncer_ingress_bytes_decompressed_max',
+    'rdse.bdb_crdt_syncer_local_ingress_lag_time',
+    'rdse.bdb_crdt_syncer_status',
+    'rdse.bdb_crdt_syncer_egress_bytes',
+    'rdse.bdb_crdt_syncer_egress_bytes_max',
+    'rdse.bdb_crdt_syncer_egress_bytes_decompressed',
+    'rdse.bdb_crdt_syncer_egress_bytes_decompressed_max',
+    'rdse.bdb_replicaof_syncer_ingress_bytes',
+    'rdse.bdb_replicaof_syncer_ingress_bytes_decompressed',
+    'rdse.bdb_replicaof_syncer_local_ingress_lag_time',
+    'rdse.bdb_replicaof_syncer_status'
 ]
 
 # enterprise metrics use the namespace 'rdse'
