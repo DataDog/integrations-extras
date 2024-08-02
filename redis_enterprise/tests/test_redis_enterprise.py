@@ -17,11 +17,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 @pytest.mark.unit
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
-    additional_metric_groups = [
-        'RDSE.REPLICATION',
-        'RDSE.LISTENER',
-        'RDSE.PROXY'
-    ]
+    additional_metric_groups = ['RDSE.REPLICATION', 'RDSE.LISTENER', 'RDSE.PROXY']
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
 

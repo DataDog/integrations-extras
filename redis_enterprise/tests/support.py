@@ -51,7 +51,7 @@ EPHEMERAL = [
     'rdse.bdb_replicaof_syncer_ingress_bytes',
     'rdse.bdb_replicaof_syncer_ingress_bytes_decompressed',
     'rdse.bdb_replicaof_syncer_local_ingress_lag_time',
-    'rdse.bdb_replicaof_syncer_status'
+    'rdse.bdb_replicaof_syncer_status',
 ]
 
 # enterprise metrics use the namespace 'rdse'
