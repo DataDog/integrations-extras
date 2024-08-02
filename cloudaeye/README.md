@@ -18,7 +18,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
   - To integrate your datadog account with CloudAEye, we usually require the following details.
 
-    - `Site`: The datadog site where your observability data is located. **Ex: US1-East**. Read more about datadog sites [here](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
+    - `Site`: The Datadog site where your observability data is located, such as **US1-East**. Read more about Datadog sites in [the documentation](https://docs.datadoghq.com/getting_started/site/#access-the-datadog-site)
 
     - `API Key`: An API key helps us uniquely identify the organization. Read more about API Key [here](https://docs.datadoghq.com/account_management/api-app-keys/)
 
