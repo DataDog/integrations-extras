@@ -4,7 +4,7 @@
 
 Redis is a fast, versatile data store that supports a variety of data structures, including strings, hashes, lists, sets, streams, and more. It also offers programmability, extensibility, persistence, clustering, and high availability. The community edition of Redis adds additional data models and capabilities, which include vector search, probabilistic data structures, JSON support, and full-text search.
 
-This integration works with on-premsises and private cloud installations of [Redis Enterprise][1].
+This integration works with on-premises and private cloud installations of [Redis Enterprise][1].
 The integration provides metrics for three critical cluster components: databases, nodes, and shards. This allows you to monitor database throughput, memory utilization, CPU usage, connection counts, replication health, and a variety of additional metrics within Datadog.
 You can use this information to understand the overall health of your Redis Enterprise clusters, diagnose application performance issues, and prevent downtime.
 
