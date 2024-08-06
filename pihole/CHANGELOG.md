@@ -1,6 +1,6 @@
 # CHANGELOG - pihole
 
-## [3.14.2] - 2023-03-29
+## 3.14.2 - 2023-03-29
 
 ### Added
 
@@ -11,7 +11,7 @@
 
 - Convert string numbers captured from Pihole to floating point as required by the Datadog Agent
 
-## [3.14.1] - Original Release
+## 3.14.1 - Original Release
 
 ### Added
 
