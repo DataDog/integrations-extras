@@ -1,0 +1,18 @@
+pipeline:
+  type: pipeline
+  name: CloudQuery Source Plugins Excluding AWS, Azure, and GCP
+  enabled: true
+  filter:
+    query: "@service.name:cloudquery-* -@service.name:cloudquery-aws -@service.name:cloudquery-azure -@service.name:cloudquery-gcp"
+  processors:
+    - type: attribute-remapper
+      name: Map `remaining` to `retry.remaining`
+      enabled: true
+      sources:
+        - remaining
+      targetFormat: integer
+      target: retry.remaining
+      sourceType: attribute
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false

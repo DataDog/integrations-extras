@@ -1,0 +1,17 @@
+pipeline:
+  type: pipeline
+  name: CloudQuery AWS Source Plugin
+  enabled: true
+  filter:
+    query: "@service.name:cloudquery-aws"
+  processors:
+    - type: grok-parser
+      name: Extract Retries From AWS Source Plugin Logs
+      enabled: true
+      source: message
+      samples:
+        - 'retrying request CloudTrail/LookupEvents, attempt 2'
+        - 'retrying request Elasticsearch Service/ListElasticsearchInstanceTypes, attempt 5'
+      grok:
+        supportRules: ""
+        matchRules: "extract_retries retrying\\s+request\\s%{data:retry.api},\\s+attempt\\s+%{integer:retry.attempt}"
