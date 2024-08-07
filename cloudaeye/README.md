@@ -6,7 +6,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
 ## Setup
 
-### Pre-installation Steps
+### Pre-installation steps
 
 - Create a [CloudAEye account](https://docs.cloudaeye.com/user-guide/tasks/register.html) if you do not already have one. 
 
