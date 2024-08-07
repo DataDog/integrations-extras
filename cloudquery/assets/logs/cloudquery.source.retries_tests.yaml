@@ -1,0 +1,43 @@
+id: cloudquery.source.retries
+tests:
+ -
+  sample: |-
+    {
+      "service": {
+        "name": "cloudquery-pagerduty",
+        "version": "v5.9.0"
+      },
+      "level": "debug",
+      "invocation_id": "5cd45436-45a7-44b1-b986-a662b6a62336",
+      "message": "retrying request",
+      "module": "pagerduty-source",
+      "time": "2024-08-06T20:01:23Z"
+      "remaining": 3
+    }
+  result:
+    custom:
+      service:
+        name: "cloudquery-pagerduty"
+        version: "v5.9.0"
+      level: debug
+      invocation_id: 5cd45436-45a7-44b1-b986-a662b6a62336
+      message: "retrying request"
+      module: pagerduty-source
+      time: "2024-08-06T20:01:23Z"
+      retry:
+        remaining: 3
+    message: |-
+      {
+        "service": {
+          "name": "cloudquery-pagerduty",
+          "version": "v5.9.0"
+        },
+        "level": "debug",
+        "invocation_id": "5cd45436-45a7-44b1-b986-a662b6a62336",
+        "message": "retrying request",
+        "module": "pagerduty-source",
+        "time": "2024-08-06T20:01:23Z"
+        "retry": {
+          "remaining": 2
+        }
+      }
