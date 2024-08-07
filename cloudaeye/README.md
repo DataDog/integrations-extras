@@ -25,7 +25,7 @@ Kosal from CloudAEye acts as your root cause copilot. This integration enables D
 
 - You can now explore your logs, metrics and traces data in the CloudAEye dashboard.
 
-### Notification Setup
+### Notification setup
 
 To get notified about any incident:
 1. On the [CloudAEye integration page][1], navigate to **Settings > Root Cause Analysis** from the side navigation drawer. 
