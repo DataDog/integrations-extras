@@ -175,7 +175,10 @@ For more ways to configure the Datadog Agent, see [OTLP Ingestion by the Datadog
 
 ### Validation
 
-Run `cloudquery sync spec.yml`.
+Run `cloudquery sync spec.yml --log-level debug`.
+
+> Running with `--log-level debug` is recommended to get more detailed logs about requests retries and errors.
+
 After ingestion starts, you should start seeing the traces in the Datadog [**APM Traces Explorer**][12].
 You can also validate metrics and logs in the [**Metrics Summary**][13] and [**Log Explorer**][14].
 
