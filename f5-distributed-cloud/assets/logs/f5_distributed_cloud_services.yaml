@@ -3,6 +3,36 @@ metric_id: f5-distributed-cloud-services
 backend_only: false
 facets:
    - groups:
+      - Web Access
+     name: Method
+     path: http.method
+     source: log
+   - groups:
+      - Web Access
+     name: Status Code
+     path: http.status_code
+     source: log
+   - groups:
+      - Web Access
+     name: User-Agent
+     path: http.useragent
+     source: log
+   - groups:
+      - Web Access
+     name: Browser
+     path: http.useragent_details.browser.family
+     source: log
+   - groups:
+      - Web Access
+     name: Device
+     path: http.useragent_details.device.family
+     source: log
+   - groups:
+      - Web Access
+     name: OS
+     path: http.useragent_details.os.family
+     source: log
+   - groups:
       - Geoip
      name: City Name
      path: network.client.geoip.city.name
@@ -93,24 +123,9 @@ facets:
      path: network.destination.port
      source: log
    - groups:
-      - Web Access
-     name: Method
-     path: http.method
-     source: log
-   - groups:
-      - Web Access
-     name: Status Code
-     path: http.status_code
-     source: log
-   - groups:
       - User
      name: User ID
      path: usr.id
-     source: log
-   - groups:
-      - Web Access
-     name: User-Agent
-     path: http.useragent
      source: log
 pipeline:
   type: pipeline
@@ -249,14 +264,14 @@ pipeline:
           encoded: false
           combineVersionDetails: false
         - type: geo-ip-parser
-          name: Extracting geolocation information from the client IP
+          name: Define network.client.ip as default geoip attribute for source
           enabled: true
           sources:
             - network.client.ip
           target: network.client.geoip
           ip_processing_behavior: do-nothing
         - type: geo-ip-parser
-          name: Extracting geolocation information from the destionation IP
+          name: Define network.destination.ip as default geoip attribute for destination
           enabled: true
           sources:
             - network.destination.ip
