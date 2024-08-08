@@ -1,0 +1,58 @@
+id: doppler
+metric_id: doppler
+backend_only: false
+facets:
+  - groups:
+      - User
+    name: User Name
+    path: usr.name
+    source: log
+  - groups:
+      - User
+    name: User Email
+    path: usr.email
+    source: log
+  - facetType: list
+    groups:
+      - others
+    name: doppler.type
+    path: type
+    source: log
+    type: string
+pipeline:
+  type: pipeline
+  name: Doppler
+  enabled: true
+  filter:
+    query: "source:doppler"
+  processors:
+    - type: date-remapper
+      name: createdAt Date Mapper
+      enabled: true
+      sources:
+        - createdAt
+    - type: message-remapper
+      name: text Message Mapper
+      enabled: true
+      sources:
+        - text
+    - type: attribute-remapper
+      name: User Name Mapper
+      enabled: true
+      sources:
+        - user.name
+      sourceType: attribute
+      target: usr.name
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: User Email Mapper
+      enabled: true
+      sources:
+        - user.email
+      sourceType: attribute
+      target: usr.email
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
