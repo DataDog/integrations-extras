@@ -2,12 +2,26 @@
 
 ## Overview
 
-Onepane is a powerful addition to your existing Datadog, Cloud, and DevOps tools, providing seamless out-of-the-box integrations. It adopts an agentless approach and features automatic asset discovery, allowing you to get value in a matter of hours, not days or weeks. Onepane comprehends your unique landscape, generating a dynamic service map of your operational environment by harnessing data from various systems. This map assists your teams in swiftly resolving incidents and streamlines the audit process. Opt for Onepane to leverage additional ROI on your existing investments. 
+Onepane is a GenAI tool that enhances incident resolution through automated Root Cause Analysis (RCA) by integrating seamlessly with monitoring tools like Datadog.
+By integrating Onepane with Datadog, customers gain rapid incident correlation with changes and infrastructure events, significantly reducing troubleshooting time and improving operational efficiency.
+The integration tracks incident data, infrastructure events, and change data (like code updates), providing valuable insights that help teams quickly identify root causes and prevent future issues.
 
-- Show changes and infrastructure events alongside errors to pinpoint potential root causes.
-- Enable root cause investigation by correlating incidents with change data and infrastructure data.
 
 ## Setup
+
+In Datadog:
+
+- Generate an Application Key:
+
+    - Access your personal settings in Datadog.
+
+    - Navigate to the Application keys section under Organization settings.
+
+    - Select "New Key" to generate a new Application key.
+
+    - Name the key and create it.
+
+    - Copy the generated Application key for future use.
 
 In Onepane:
 
@@ -19,10 +33,17 @@ Here's how to connect your Datadog account to Onepane
 
 - Choose Datadog: From the list of available integrations, select "Datadog".
 
-- Provide Credentials: Enter the required details for your Datadog account:
-    - Datadog Site URL
-    - Datadog API Key
-    - Datadog Application Key
+- When you select Datadog, you will be redirected to the Datadog login page. 
+
+- Authenticate with OAuth.
+
+    - Log in using your Datadog credentials.
+
+    - Upon successful authentication, Datadog will create an API key for you.
+
+- Provide a name for your Datadog connector.
+
+- Input the site URL and Application key obtained from the ![prerequisite steps][8].
 
     ![Integration][4]
 
@@ -56,6 +77,8 @@ Here's how to delete the Datadog integration from your Onepane console:
 
 - Confirm Deletion: A confirmation dialog might appear. If you're certain you want to proceed, click "Confirm" to remove the Datadog integration.
 
+When deleting the Datadog integration, the OAuth-generated API keys and other credentials will be soft-deleted and permanently deleted after 7 days.
+
 By following these steps, you'll successfully disconnect your Datadog account from Onepane.
 
 ## Data Collected
@@ -66,13 +89,14 @@ This integration sends events into Datadog.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][1].
+Need help? Contact [Onepane support][1].
 
-[1]: https://docs.datadoghq.com/help/
+[1]: https://www.onepane.ai/docs
 [2]: https://console.onepane.ai/
 [3]: https://www.onepane.ai/docs/en/articles/9220032-datadog-connector-prerequisites
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/integration.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/deploying.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/host_resources.png
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_mapping.png
+[8]: https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management
 
