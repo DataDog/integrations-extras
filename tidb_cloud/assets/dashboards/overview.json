@@ -722,7 +722,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tidb,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate().rollup(sum, 120)",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
@@ -850,7 +850,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tikv,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate().rollup(sum, 120)",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
@@ -1042,7 +1042,7 @@
                                     "response_format": "timeseries",
                                     "queries": [
                                         {
-                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate()",
+                                            "query": "avg:tidb_cloud.node_cpu_seconds_total{component:tiflash,$cluster_name,$instance,$host,$cluster_id,$project_name} by {instance}.as_rate().rollup(sum, 120)",
                                             "data_source": "metrics",
                                             "name": "query1"
                                         },
