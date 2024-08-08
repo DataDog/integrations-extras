@@ -1,0 +1,18 @@
+id: cloudquery.source.azure
+backend_only: true
+pipeline:
+  type: pipeline
+  name: CloudQuery Azure Source Plugin
+  enabled: true
+  filter:
+    query: "@service.name:cloudquery-azure"
+  processors:
+    - type: grok-parser
+      name: Extract Retries From Azure Source Plugin Logs
+      enabled: true
+      source: message
+      samples:
+        - '=====> Try=1'
+      grok:
+        supportRules: ""
+        matchRules: "extract_retries \\=\\=\\=\\=\\=\\>\\s+Try\\=%{integer:retry.attempt}"

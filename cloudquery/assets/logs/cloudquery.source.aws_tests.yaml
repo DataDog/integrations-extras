@@ -1,0 +1,33 @@
+id: cloudquery.source.aws
+tests:
+  - sample: |-
+      {
+        "service": {
+          "name": "cloudquery-aws",
+          "version": "v27.11.1"
+        },
+        "level": "debug",
+        "invocation_id": "5cd45436-45a7-44b1-b986-a662b6a62336",
+        "account": "default",
+        "accountName": "default",
+        "message": "retrying request EMR/DescribeReleaseLabel, attempt 2",
+        "module": "aws-source",
+        "time": "2024-08-06T20:01:23Z"
+      }
+    result:
+      custom:
+        account: "default"
+        accountName: "default"
+        invocation_id: "5cd45436-45a7-44b1-b986-a662b6a62336"
+        level: "debug"
+        module: "aws-source"
+        retry:
+          api: "EMR/DescribeReleaseLabel"
+          attempt: 2
+        service:
+          name: "cloudquery-aws"
+          version: "v27.11.1"
+        time: "2024-08-06T20:01:23Z"
+      message: "retrying request EMR/DescribeReleaseLabel, attempt 2"
+      tags:
+        - "source:LOGS_SOURCE"
