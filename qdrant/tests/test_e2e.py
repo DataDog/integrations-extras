@@ -1,10 +1,8 @@
-
 import pytest
 
-from datadog_checks.qdrant import QdrantCheck
-
-from datadog_checks.dev.utils import get_metadata_metrics
 from datadog_checks.base.constants import ServiceCheck
+from datadog_checks.dev.utils import get_metadata_metrics
+from datadog_checks.qdrant import QdrantCheck
 from tests.common import OM_METRICS
 
 
