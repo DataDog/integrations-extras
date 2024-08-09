@@ -68,10 +68,6 @@ def instance_min_collection_interval():
     return 15
 
 
-def instance_namespace():
-    return 'rdsc'
-
-
 def instance_non_cumulative_histogram_buckets():
     return False
 
