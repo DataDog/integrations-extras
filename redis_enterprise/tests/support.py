@@ -167,6 +167,7 @@ METRICS_MAP = {
         'rdse.bdb_write_res_max',
     ],
     'RDSE.NODE': [
+        'rdse.namedprocess_namegroup_thread_cpu_seconds_total',
         'rdse.no_of_expires',
         'rdse.node_available_memory',
         'rdse.node_available_memory_no_overbooking',
