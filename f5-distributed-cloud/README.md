@@ -7,8 +7,15 @@ The F5 XC platform includes the Global Log Receiver, which can be configured to 
 
 This integration includes:
 
-- Dashboard - *Access Log Overview*
+- Dashboard - *Access Log Overview* , *WAF Events Overview* , *BOT Defense Events Overview*
 - Saved View - *Including facets for commonly queried fields*
+- Detection Rules - *Detection rules for F5 WAF and Bot Defense Events*
+	- F5 - WAF - High Number of Traffic Being Blocked : Identify high volume of traffic being blocked by the Web Application Firewall (WAF).
+	- F5 - WAF - Unusual Traffic From Single Source IP : Identify unusual traffic patterns originating from a single source IP address.
+	- F5 - WAF - Abnormal Traffic Detected From Unique IP-Port : Identify abnormal traffic patterns originating from a specific IP and port combination.
+	- F5 - Bot Defense - Single Host Affected by Multiple Domains : Detect when a single host within the network is targeted by multiple domains, indicating potential bot activity.
+	- F5 - Bot Defense - Multiple Hosts Affected From a Single Bot Client : Identify when multiple hosts are affected by traffic from a single bot client.
+	- F5 - Bot Defense- Abnormal Traffic Observed in Specific Country : Identify and respond to abnormal traffic patterns observed in particular country within the last 30 minutes.
 
 ## Setup
 
