@@ -60,13 +60,6 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
             metrics.append(dm)
         return metrics
 
-    def create_scraper(self, config):
-        return OpenMetricsCompatibilityScraper(self, self.get_config_with_defaults(config))
-
-    def get_config_with_defaults(self, config):
-        metrics = config.pop('metrics')
-        return ChainMap(config, {'metrics': metrics})
-
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
         return False
