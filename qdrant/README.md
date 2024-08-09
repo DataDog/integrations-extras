@@ -2,7 +2,7 @@
 
 ## Overview
 
-[Qdrant][1] is a high-performance vector search engine and vector database. With this integration, you can get real-time metrics to monitor your Qdrant deployment within Datadog including: 
+[Qdrant][1] is a high-performance vector search engine and vector database. With this integration, you can get real-time metrics to monitor your Qdrant deployment within Datadog including:
 
 - The performance of REST and gRPC interfaces with metrics such as total requests, total failures, and time to serve to identify potential bottlenecks and mitigate them.
 - Information about the readiness of the cluster, and deployment (total peers, pending operations, etc.) to gain insights into your Qdrant deployment.
@@ -28,6 +28,24 @@ For Agent v7.21+ / v6.21+, follow the instructions below to install the Qdrant c
 ### Configuration
 
 1. Edit the `qdrant.d/conf.yaml` file in the `conf.d/` folder at the root of your [Agent's configuration directory][7] to start collecting your Qdrant [metrics](#metrics).
+
+Most importantly, set the `openmetrics_endpoint` value to the [`/metrics` endpoint](https://qdrant.tech/documentation/guides/monitoring/#monitoring) of your Qdrant instance.
+
+```yaml
+instances:
+    ## @param openmetrics_endpoint - string - optional
+    ## The URL exposing metrics in the OpenMetrics format.
+  - openmetrics_endpoint: http://localhost:6333/metrics
+```
+
+If the Qdrant instance requires authentication, you can specify the token by configuring [`extra_headers`](https://github.com/DataDog/integrations-core/blob/26f9ae7660f042c43f5d771f0c937ff805cf442c/openmetrics/datadog_checks/openmetrics/data/conf.yaml.example#L553C1-L558C35).
+
+```yaml
+# @param extra_headers - mapping - optional
+# Additional headers to send with every request.
+extra_headers:
+   api-key: <QDRANT_API_KEY>
+```
 
 2. [Restart the Agent][9]
 
