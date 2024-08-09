@@ -1,8 +1,6 @@
-from collections import ChainMap
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
-from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
 
 from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
