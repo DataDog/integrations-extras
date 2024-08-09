@@ -70,7 +70,7 @@ REDIS_DATABASE = {
 REDIS_NODE = {
     'namedprocess_namegroup_thread_cpu_seconds_total': {
         'name': 'namedprocess_namegroup_thread_cpu_seconds_total',
-        'type': 'gauge'
+        'type': 'gauge',
     },
     'no_of_expires': 'no_of_expires',
     'node_available_memory': 'node_available_memory',
