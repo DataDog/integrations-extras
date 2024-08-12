@@ -1,10 +1,23 @@
 id: anecdote
 metric_id: anecdote
-facets: null
+backend_only: false
+facets:
+  - facetType: list
+    groups:
+      - others
+    name: service
+    path: service
+    source: log
+    type: string
 pipeline:
   type: pipeline
   name: Anecdote Log Pipeline
   enabled: true
   filter:
     query: "source:anecdote "
-  processors: []
+  processors:
+    - type: service-remapper
+      name: Service remapper
+      enabled: true
+      sources:
+        - service
