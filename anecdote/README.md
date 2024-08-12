@@ -4,8 +4,8 @@
 
 Anecdote continuously monitors customer feedback from sources like app store reviews and customer support tickets. With this integration, Anecdote sends any feedback that is classified as a bug to Datadog, in addition to the meta information that is available (version, operating system, etc.).
 
-For every new reported bug, Anecdote sends an event to Datadog so you can create a case or an incident. On top of that, the solution enables correlation analysis of machine signals (like CPU utilization) with user-reported signals.
-Using customer feedback data logs, you can significantly shorten the MTTR and systematically discover hard to replicate issues.
+For every new reported bug, Anecdote sends an event to Datadog so you can create a case or an incident. In addition, the solution enables correlation analysis of machine signals (like CPU utilization) with user-reported signals.
+Using customer feedback data logs, you can significantly shorten the mean time to respond (MTTR) and systematically discover hard to replicate issues.
 
 Anecdote monitors customer feedback from more than 80 sources, including:
 
@@ -61,6 +61,6 @@ See `metadata.csv` for a list of metrics provided by this integration.
 
 Need help? Contact [Anecdote Support][2].
 
-[1]: app.anecdoteai.com
+[1]: https://app.anecdoteai.com
 [2]: mailto:hello@anec.app
 
