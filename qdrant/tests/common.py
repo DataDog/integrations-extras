@@ -7,7 +7,7 @@ def read_file(file_path, is_json=False):
 
 
 OM_METRICS = [
-    "qdrant.app.status.recovery.mode.count",
+    "qdrant.app.status.recovery.mode",
     "qdrant.collections.total",
     "qdrant.collections.vector.total",
     "qdrant.rest.responses.avg.duration.seconds",
@@ -16,7 +16,7 @@ OM_METRICS = [
     "qdrant.grpc.responses.avg.duration.seconds",
     "qdrant.grpc.responses.min.duration.seconds",
     "qdrant.grpc.responses.max.duration.seconds",
-    "qdrant.cluster.enabled.count",
+    "qdrant.cluster.enabled",
     "qdrant.cluster.peers.total",
     "qdrant.cluster.term.count",
     "qdrant.cluster.commit.count",
