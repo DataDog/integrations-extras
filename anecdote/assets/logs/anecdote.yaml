@@ -8,8 +8,43 @@ pipeline:
   filter:
     query: "source:anecdote"
   processors:
-    - type: service-remapper
-      name: Define `service` as the official service of the log
-      enabled: true
-      sources:
-        - service
+    processors:
+      - type: grok-parser
+        grok:
+          match_rules:
+            - '"%{TIMESTAMP_ISO8601:content.timestamp} %{WORD:service} %{GREEDYDATA:message}"'
+      - type: log-date-remapper
+        sources:
+          - content.timestamp
+      - type: service-remapper
+        source: content.service
+      - type: attribute-remapper
+        sources:
+          - id
+        target: log_id
+      - type: attribute-remapper
+        sources:
+          - content.attributes.date
+        target: log_date
+      - type: attribute-remapper
+        sources:
+          - content.tags
+        target: tags
+        target_type: array
+      - type: attribute-remapper
+        sources:
+          - content.attributes.service
+        target: service_name
+      - type: attribute-remapper
+        sources:
+          - content.attributes.tags
+        target: additional_tags
+        target_type: array
+      - type: status-remapper
+        sources:
+          - content.attributes.is_feedback_bug
+      - type: add-tags
+        tags:
+          - environment:production
+          - team:anecdote
+          - source:anecdote
