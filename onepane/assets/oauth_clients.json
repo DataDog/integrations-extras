@@ -1,16 +1,19 @@
 {
-    "integration": {
-      "scopes": [
-        "api_keys_write"
-      ],
-      "client_role": "integration",
-      "name": "Onepane",
-      "onboarding_url": "https://console.onepane.ai/",
-      "description": "Fetch and correlate Datadog events and incidents with OnePane resources, then return the data to Datadog.",
-      "redirect_uris": [
-        "https://app-dev.onepane.ai/api/v1/oauth/9/datadog-login/callback",
-        "https://console.onepane.ai/api/v1/oauth/9/datadog-login/callback"
-      ],
-      "id": "1fb1821a-4fd4-11ef-a121-da7ad0900002"
-    }
+  "integration": {
+    "scopes": [
+      "api_keys_write",
+      "events_read",
+      "hosts_read"
+    ],
+    "client_role": "integration",
+    "name": "Onepane-Integration",
+    "onboarding_url": "https://console.onepane.ai/api/v1/oauth/9/datadog-login",
+    "description": "Onepane Integration",
+    "redirect_uris": [
+      "https://app-dev.onepane.ai/api/v1/oauth/9/datadog-login/callback",
+      "https://console.onepane.ai/api/v1/oauth/9/datadog-login/callback",
+      "http://localhost:8083/api/v1/oauth/9/datadog-login/callback"
+    ],
+    "id": "94c6f742-5614-11ef-a434-da7ad0900002"
+  }
 }

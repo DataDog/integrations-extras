@@ -9,47 +9,27 @@ The integration tracks incident data, infrastructure events, and change data (li
 
 ## Setup
 
-In Datadog:
+**In Datadog:**
 
-- Generate an Application Key:
+- Go to **Integrations**, select the **Onepane** tile, and click **Install Integration**.
 
-    - Access your personal settings in Datadog.
+- Click **Connect Accounts** to begin authorizing the integration. You will be redirected to [console.onepane.ai][2].
 
-    - Navigate to the Application keys section under Organization settings.
+**In Onepane:**
 
-    - Select "New Key" to generate a new Application key.
+- Log in and navigate to **Integrations**.
 
-    - Name the key and create it.
+- Click the **Add Integration** button in the top right corner.
 
-    - Copy the generated Application key for future use.
+- Choose **Datadog** from the list of available integrations.
 
-In Onepane:
+- You will be redirected to the Datadog authorization page.
 
-Here's how to connect your Datadog account to Onepane 
-
-- Access Onepane Console: Head over to the Onepane console at [console.onepane.ai][2]
-
-- Locate Integrations: In the left-hand menu, find the "Integrations" section. Click the "Add Integration" button in the top right corner.
-
-- Choose Datadog: From the list of available integrations, select "Datadog".
-
-- When you select Datadog, you will be redirected to the Datadog login page. 
-
-- Authenticate with OAuth.
-
-    - Log in using your Datadog credentials.
-
-    - Upon successful authentication, Datadog will create an API key for you.
+- Click the **Authorize** button to complete the setup and be redirected back to the Onepane site.
 
 - Provide a name for your Datadog connector.
 
-- Input the site URL and Application key obtained from the ![prerequisite steps][8].
-
-    ![Integration][4]
-
-- Verify Connection: To ensure everything is configured correctly, click the "Test Credentials" button. This validates your entered information.
-
-- Finalize Integration: Once satisfied, click "Create" to establish the Datadog connector. It will be deployed shortly.
+- Click **Create** to complete the integration. The Datadog connector will be deployed shortly.
 
     ![Deploying][5]
 
@@ -63,23 +43,31 @@ Here's how to connect your Datadog account to Onepane
 
 With these steps complete, you'll have successfully integrated Datadog with Onepane
 
-For more details, refer to the [Onepane documentation][2]
+For more details, refer to the [Onepane documentation][9]
 
 ## Uninstallation
 
-Here's how to delete the Datadog integration from your Onepane console:
+**In Onepane:**
 
-- Access Integrations: Navigate to the "Integrations" section within the Onepane console.
+- Log in and navigate to **Integrations**.
 
-- Locate Datadog: Find the Datadog integration from the list.
+- Find the Datadog integration you want to uninstall in the integrations list. 
 
-- Initiate Deletion: Click the three dots menu (ellipsis) in the top right corner of the Datadog integration tile. Select "Delete" from the options.
+- Click the three-dot menu (ellipsis) in the top right corner of the Datadog integration tile and select **Delete** from the options.
 
-- Confirm Deletion: A confirmation dialog might appear. If you're certain you want to proceed, click "Confirm" to remove the Datadog integration.
+    ![Uninstall][3]
 
-When deleting the Datadog integration, the OAuth-generated API keys and other credentials will be soft-deleted and permanently deleted after 7 days.
+- If a confirmation dialog appears, click **Confirm** to proceed and remove the Datadog integration.
 
-By following these steps, you'll successfully disconnect your Datadog account from Onepane.
+    ![Confirmation][8]
+
+**In Datadog:**
+
+- Go to Integrations, select the Onepane tile and click Uninstall Integration.
+
+- Once this integration has been uninstalled, any previous authorizations are revoked.
+
+Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the Datadog API Keys page.
 
 ## Data Collected
 
@@ -93,10 +81,11 @@ Need help? Contact [Onepane support][1].
 
 [1]: https://www.onepane.ai/docs
 [2]: https://console.onepane.ai/
-[3]: https://www.onepane.ai/docs/en/articles/9220032-datadog-connector-prerequisites
+[3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/uninstall.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/integration.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/deploying.png
 [6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/host_resources.png
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_mapping.png
-[8]: https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management
+[8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/confirmation.png
+[9]: https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management
 
