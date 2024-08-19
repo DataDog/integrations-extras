@@ -17,13 +17,13 @@ The integration tracks incident data, infrastructure events, and change data (li
 
 **In Onepane:**
 
-- Log in and navigate to **Integrations**.
+- Log in if you're not already logged in with **Onepane**.
 
-- Click the **Add Integration** button in the top right corner.
+- Please review the  the permissions and click on the 'Connect with datadog' button in the prompt.
 
-- Choose **Datadog** from the list of available integrations.
+    ![Onepane_prompt][10]
 
-- You will be redirected to the Datadog authorization page.
+- You will be redirected back into Datadog to complete the authorization
 
 - Click the **Authorize** button to complete the setup and be redirected back to the Onepane site.
 
@@ -88,4 +88,5 @@ Need help? Contact [Onepane support][1].
 [7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_mapping.png
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/confirmation.png
 [9]: https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management
+[10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_prompt.png
 
