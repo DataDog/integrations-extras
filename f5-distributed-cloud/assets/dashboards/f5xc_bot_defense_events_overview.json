@@ -1,1 +1,1888 @@
-{"title":"F5DCS - BOT Defense Events Overview","description":"[[suggested_dashboards]]","widgets":[{"id":4834396917867448,"definition":{"title":"","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":7787633340162516,"definition":{"type":"image","url":"https://f5cloud.zendesk.com/hc/theming_assets/01HZPG39MVW1G3ZVJQXGW6NA7F","sizing":"contain","margin":"md","has_background":false,"has_border":false,"vertical_align":"center","horizontal_align":"center"},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":1512602229552252,"definition":{"type":"note","content":"Bot Defense protects your Internet applications from automated attacks by identifying and mitigating malicious or bad bots.\n\nGain comprehensive insights into your organization's bot traffic and enhance security by monitoring F5 Bot Defense events with this dashboard.\n\n\nFor further reading, see:\n\n- [F5 Distributed Cloud Services Documentation](https://docs.datadoghq.com/integrations/f5-distributed-cloud/)\n\nTips\n- Use the timeframe selector in the top right of the dashboard to change the default timeframe.\n- Clone this dashboard to rearrange, modify and add widgets and visualizations.","background_color":"white","font_size":"14","text_align":"left","vertical_align":"top","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":0,"y":3,"width":6,"height":4}}]},"layout":{"x":0,"y":0,"width":6,"height":8}},{"id":437346215946462,"definition":{"title":"Bot Defense Logs Overview","background_color":"vivid_purple","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":6876628487392046,"definition":{"title":"Total Bot Defense Events","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","value":0,"palette":"black_on_light_yellow"}]}],"autoscale":true,"precision":2},"layout":{"x":0,"y":0,"width":6,"height":3}},{"id":5645761397283540,"definition":{"title":"Bot Defense Events Over Time","title_size":"16","title_align":"left","show_legend":false,"legend_layout":"auto","legend_columns":["avg","min","max","value","sum"],"type":"timeseries","requests":[{"formulas":[{"alias":"Bot Defense Event Count","formula":"query1"}],"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"timeseries","style":{"palette":"dog_classic","order_by":"values","line_type":"solid","line_width":"normal"},"display_type":"area"}]},"layout":{"x":0,"y":3,"width":6,"height":4}}]},"layout":{"x":6,"y":0,"width":6,"height":8}},{"id":5975949826513918,"definition":{"title":"Datadog Cloud SIEM","title_align":"center","background_color":"vivid_purple","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":1426702454077314,"definition":{"type":"note","content":"Datadog Cloud SIEM analyzes and correlates Bot Defense logs to detect threats to your environment in real time. If you don't see signals please make sure you've enabled [Datadog Cloud SIEM](https://app.datadoghq.com/security). ","background_color":"blue","font_size":"14","text_align":"left","vertical_align":"center","show_tick":false,"tick_pos":"50%","tick_edge":"left","has_padding":true},"layout":{"x":0,"y":0,"width":12,"height":1}},{"id":4522192548452940,"definition":{"title":"CRITICALs","title_size":"16","title_align":"left","type":"query_value","requests":[{"formulas":[{"formula":"query1"}],"queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event status:critical"}}],"response_format":"scalar","conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#b90000"}]}],"autoscale":true,"precision":2,"timeseries_background":{"type":"area"}},"layout":{"x":0,"y":1,"width":2,"height":2}},{"id":5800466129884054,"definition":{"title":"HIGHs","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event status:high"}}],"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#ff7500"}]}],"autoscale":true,"precision":2},"layout":{"x":2,"y":1,"width":2,"height":2}},{"id":7206717297486070,"definition":{"title":"Critical Security Signals","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@workflow.rule.name","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event status:critical"}}],"response_format":"scalar","conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#cd0000"}],"formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":4,"y":1,"width":8,"height":4}},{"id":359680097605552,"definition":{"title":"MEDIUMs","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event status:medium"}}],"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#ff163a"}]}],"autoscale":true,"precision":2},"layout":{"x":0,"y":3,"width":2,"height":2}},{"id":5137836040610368,"definition":{"title":"LOWs","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event status:low"}}],"formulas":[{"formula":"query1"}]}],"autoscale":true,"precision":2},"layout":{"x":2,"y":3,"width":2,"height":1}},{"id":694680056018844,"definition":{"title":"INFOs","title_size":"16","title_align":"left","type":"query_value","requests":[{"response_format":"scalar","queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[],"search":{"query":"source:f5xc service:bot_defense_sec_event status:info"}}],"formulas":[{"formula":"query1"}],"conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#7f8ba4"}]}],"autoscale":true,"precision":2},"layout":{"x":2,"y":4,"width":2,"height":1}},{"id":4067679109332614,"definition":{"title":"High Security Signals","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@workflow.rule.name","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event status:high"}}],"response_format":"scalar","conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#ff753a"}],"formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":0,"y":5,"width":6,"height":4}},{"id":1417571803593662,"definition":{"title":"Medium Security Signals","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"security_signals","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@workflow.rule.name","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event status:medium"}}],"response_format":"scalar","conditional_formats":[{"comparator":">","value":0,"palette":"custom_bg","custom_bg_color":"#ff163a"}],"formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":6,"y":5,"width":6,"height":4}}]},"layout":{"x":0,"y":8,"width":12,"height":10}},{"id":3023409564051560,"definition":{"title":"Bot Defense Event Details","background_color":"vivid_purple","show_title":true,"type":"group","layout_type":"ordered","widgets":[{"id":8142310624486564,"definition":{"title":"Bot Defense Events by Action","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","formulas":[{"formula":"query1"}],"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@action","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"style":{"palette":"datadog16"},"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"type":"sunburst","legend":{"type":"table"}},"layout":{"x":0,"y":0,"width":5,"height":4}},{"id":3865190016246444,"definition":{"title":"HTTP Protocol Details","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@domain","limit":2,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@http_version","limit":2,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@http.method","limit":2,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@http.useragent","limit":2,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@req_path","limit":2,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@req_headers","limit":2,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","sort":{"count":64,"order_by":[{"type":"formula","index":0,"order":"desc"}]},"formulas":[{"cell_display_mode":"bar","alias":"Count","formula":"query1"}]}],"has_search_bar":"auto"},"layout":{"x":5,"y":0,"width":7,"height":4}},{"id":6734708117054422,"definition":{"title":"Top 10 Domains","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@domain","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":0,"y":4,"width":6,"height":4}},{"id":6980374214479828,"definition":{"title":"Top 10 Applications","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@app","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":6,"y":4,"width":6,"height":4}},{"id":843101524814698,"definition":{"title":"Bot Defense Events by Browser Type","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","formulas":[{"formula":"query1"}],"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@browser_type","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"style":{"palette":"datadog16"},"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"type":"sunburst","legend":{"type":"table"}},"layout":{"x":0,"y":8,"width":6,"height":4}},{"id":6586679092438468,"definition":{"title":"Bot Defense Events by Device Type","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","formulas":[{"formula":"query1"}],"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@device_type","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"style":{"palette":"datadog16"},"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"type":"sunburst","legend":{"type":"table"}},"layout":{"x":6,"y":8,"width":6,"height":4}},{"id":6807109184287726,"definition":{"title":"Top 10 Countries","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@country","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":0,"y":12,"width":6,"height":4}},{"id":6766457039676920,"definition":{"title":"Bot Classifications","title_size":"16","title_align":"left","requests":[{"response_format":"scalar","formulas":[{"formula":"query1"}],"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@bot_defense.insight","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"style":{"palette":"datadog16"},"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"type":"sunburst","legend":{"type":"table"}},"layout":{"x":6,"y":12,"width":6,"height":4}},{"id":7313673022766392,"definition":{"title":"Top Automation Types","title_size":"16","title_align":"left","type":"toplist","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@bot_defense.automation_type","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"display":{"type":"stacked","legend":"automatic"}}},"layout":{"x":0,"y":16,"width":6,"height":3}},{"id":1948870765127654,"definition":{"title":"Top Malicious Bots","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@network.client.ip","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@as_org","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@country","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event @bot_defense.insight:MALICIOUS $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]},"formulas":[{"cell_display_mode":"bar","alias":"Count","formula":"query1"}]}],"has_search_bar":"auto"},"layout":{"x":6,"y":16,"width":6,"height":3}},{"id":4109251433256654,"definition":{"title":"Geo-Distributed Source IP Address","title_size":"16","title_align":"left","type":"geomap","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@network.client.geoip.country.iso_code","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"palette":"hostmap_blues","palette_flip":false},"view":{"focus":"WORLD"}},"layout":{"x":0,"y":19,"width":12,"height":4}},{"id":3790441935957182,"definition":{"title":"Geo-Distributed DestinationIP Address","title_size":"16","title_align":"left","type":"geomap","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@network.destination.geoip.country.iso_code","limit":250,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","formulas":[{"formula":"query1"}],"sort":{"count":250,"order_by":[{"type":"formula","index":0,"order":"desc"}]}}],"style":{"palette":"hostmap_blues","palette_flip":false},"view":{"focus":"WORLD"}},"layout":{"x":0,"y":23,"width":12,"height":4}},{"id":667766954782976,"definition":{"title":"Top Attacked Endpoints","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@vh_name","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@req_path","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","sort":{"count":10,"order_by":[{"type":"formula","index":0,"order":"desc"}]},"formulas":[{"cell_display_mode":"bar","alias":"Count","formula":"query1"}]}],"has_search_bar":"auto"},"layout":{"x":0,"y":27,"width":6,"height":4}},{"id":568546578261964,"definition":{"title":"Threat Intel Details","title_size":"16","title_align":"left","type":"query_table","requests":[{"queries":[{"data_source":"logs","name":"query1","indexes":["*"],"compute":{"aggregation":"count"},"group_by":[{"facet":"@threat_intel.indicators_matched","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@threat_intel.results.intention","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@threat_intel.results.category","limit":10,"sort":{"order":"desc","aggregation":"count"}},{"facet":"@threat_intel.results.indicator","limit":10,"sort":{"order":"desc","aggregation":"count"}}],"search":{"query":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"},"storage":"hot"}],"response_format":"scalar","sort":{"count":10000,"order_by":[{"type":"formula","index":0,"order":"desc"}]},"formulas":[{"cell_display_mode":"bar","alias":"Count","formula":"query1"}]}],"has_search_bar":"auto"},"layout":{"x":6,"y":27,"width":6,"height":4}},{"id":7587784373820036,"definition":{"title":"Bot Defense Events","title_size":"16","title_align":"left","requests":[{"response_format":"event_list","query":{"data_source":"logs_stream","query_string":"source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain","indexes":[],"storage":"hot"},"columns":[{"field":"status_line","width":"auto"},{"field":"timestamp","width":"auto"},{"field":"host","width":"auto"},{"field":"@action","width":"auto"},{"field":"@app","width":"auto"},{"field":"@app_type","width":"auto"},{"field":"@as_org","width":"auto"},{"field":"@bot_defense.automation_type","width":"auto"},{"field":"@bot_defense.insight","width":"auto"},{"field":"@browser_type","width":"auto"},{"field":"@city","width":"auto"},{"field":"@country","width":"auto"},{"field":"@device_type","width":"auto"},{"field":"@domain","width":"auto"},{"field":"@http.method","width":"auto"},{"field":"@http.useragent","width":"auto"},{"field":"@network.client.ip","width":"auto"},{"field":"@network.destination.ip","width":"auto"},{"field":"@req_path","width":"auto"},{"field":"@tenant","width":"auto"},{"field":"@user.id","width":"auto"},{"field":"@vh_name","width":"auto"},{"field":"@threat_intel","width":"auto"}]}],"type":"list_stream"},"layout":{"x":0,"y":31,"width":12,"height":4}}]},"layout":{"x":0,"y":18,"width":12,"height":36,"is_column_break":true}}],"template_variables":[{"name":"Host","prefix":"@host","available_values":[],"default":"*"},{"name":"Namespace","prefix":"@namespace","available_values":[],"default":"*"},{"name":"Country","prefix":"@country","available_values":[],"default":"*"},{"name":"Domain","prefix":"@domain","available_values":[],"default":"*"}],"layout_type":"ordered","notify_list":[],"reflow_type":"fixed"}
+{
+    "title": "F5DCS - BOT Defense Events Overview",
+    "description": "[[suggested_dashboards]]",
+    "widgets": [
+        {
+            "id": 4834396917867448,
+            "definition": {
+                "title": "",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 7787633340162516,
+                        "definition": {
+                            "type": "image",
+                            "url": "https://www.f5.com/content/dam/f5-com/global-assets/default-ogimage.png",
+                            "url_dark_theme": "https://www.f5.com/content/dam/f5-com/global-assets/default-ogimage.png",
+                            "sizing": "contain",
+                            "margin": "md",
+                            "has_background": false,
+                            "has_border": false,
+                            "vertical_align": "center",
+                            "horizontal_align": "center"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 1512602229552252,
+                        "definition": {
+                            "type": "note",
+                            "content": "Bot Defense protects your Internet applications from automated attacks by identifying and mitigating malicious or bad bots.\n\nGain comprehensive insights into your organization's bot traffic and enhance security by monitoring F5 Bot Defense events with this dashboard.\n\n\nFor further reading, see:\n\n- [F5 Distributed Cloud Services Documentation](https://docs.datadoghq.com/integrations/f5-distributed-cloud/)\n\nTips\n- Use the timeframe selector in the top right of the dashboard to change the default timeframe.\n- Clone this dashboard to rearrange, modify and add widgets and visualizations.",
+                            "background_color": "white",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "top",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 6,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 0,
+                "width": 6,
+                "height": 8
+            }
+        },
+        {
+            "id": 437346215946462,
+            "definition": {
+                "title": "Bot Defense Logs Overview",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 6876628487392046,
+                        "definition": {
+                            "title": "Total Bot Defense Events",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "black_on_light_yellow"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 5645761397283540,
+                        "definition": {
+                            "title": "Bot Defense Events Over Time",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "show_legend": false,
+                            "legend_layout": "auto",
+                            "legend_columns": [
+                                "avg",
+                                "min",
+                                "max",
+                                "value",
+                                "sum"
+                            ],
+                            "type": "timeseries",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "alias": "Bot Defense Event Count",
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "timeseries",
+                                    "style": {
+                                        "palette": "dog_classic",
+                                        "order_by": "values",
+                                        "line_type": "solid",
+                                        "line_width": "normal"
+                                    },
+                                    "display_type": "area"
+                                }
+                            ]
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 6,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 6,
+                "y": 0,
+                "width": 6,
+                "height": 8
+            }
+        },
+        {
+            "id": 5975949826513918,
+            "definition": {
+                "title": "Datadog Cloud SIEM",
+                "title_align": "center",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 1426702454077314,
+                        "definition": {
+                            "type": "note",
+                            "content": "Datadog Cloud SIEM analyzes and correlates Bot Defense logs to detect threats to your environment in real time. If you don't see signals please make sure you've enabled [Datadog Cloud SIEM](https://app.datadoghq.com/security). ",
+                            "background_color": "blue",
+                            "font_size": "14",
+                            "text_align": "left",
+                            "vertical_align": "center",
+                            "show_tick": false,
+                            "tick_pos": "50%",
+                            "tick_edge": "left",
+                            "has_padding": true
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 12,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4522192548452940,
+                        "definition": {
+                            "title": "CRITICALs",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:critical"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#b90000"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2,
+                            "timeseries_background": {
+                                "type": "area"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 1,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5800466129884054,
+                        "definition": {
+                            "title": "HIGHs",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:high"
+                                            }
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#ff7500"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 1,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 7206717297486070,
+                        "definition": {
+                            "title": "Critical Security Signals",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@workflow.rule.name",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:critical"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#cd0000"
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 4,
+                            "y": 1,
+                            "width": 8,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 359680097605552,
+                        "definition": {
+                            "title": "MEDIUMs",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:medium"
+                                            }
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#ff163a"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 3,
+                            "width": 2,
+                            "height": 2
+                        }
+                    },
+                    {
+                        "id": 5137836040610368,
+                        "definition": {
+                            "title": "LOWs",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:low"
+                                            }
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 3,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 694680056018844,
+                        "definition": {
+                            "title": "INFOs",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_value",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:info"
+                                            }
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#7f8ba4"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "autoscale": true,
+                            "precision": 2
+                        },
+                        "layout": {
+                            "x": 2,
+                            "y": 4,
+                            "width": 2,
+                            "height": 1
+                        }
+                    },
+                    {
+                        "id": 4067679109332614,
+                        "definition": {
+                            "title": "High Security Signals",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@workflow.rule.name",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:high"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#ff753a"
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 5,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 1417571803593662,
+                        "definition": {
+                            "title": "Medium Security Signals",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "security_signals",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@workflow.rule.name",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event status:medium"
+                                            }
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "conditional_formats": [
+                                        {
+                                            "comparator": ">",
+                                            "value": 0,
+                                            "palette": "custom_bg",
+                                            "custom_bg_color": "#ff163a"
+                                        }
+                                    ],
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 5,
+                            "width": 6,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 8,
+                "width": 12,
+                "height": 10
+            }
+        },
+        {
+            "id": 3023409564051560,
+            "definition": {
+                "title": "Bot Defense Event Details",
+                "background_color": "vivid_purple",
+                "show_title": true,
+                "type": "group",
+                "layout_type": "ordered",
+                "widgets": [
+                    {
+                        "id": 8142310624486564,
+                        "definition": {
+                            "title": "Bot Defense Events by Action",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@action",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "datadog16"
+                                    },
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "type": "sunburst",
+                            "legend": {
+                                "type": "table"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 0,
+                            "width": 5,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 3865190016246444,
+                        "definition": {
+                            "title": "HTTP Protocol Details",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@domain",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@http_version",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@http.method",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@http.useragent",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@req_path",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@req_headers",
+                                                    "limit": 2,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 64,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "bar",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 5,
+                            "y": 0,
+                            "width": 7,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 6734708117054422,
+                        "definition": {
+                            "title": "Top 10 Domains",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@domain",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 4,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 6980374214479828,
+                        "definition": {
+                            "title": "Top 10 Applications",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@app",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 4,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 843101524814698,
+                        "definition": {
+                            "title": "Bot Defense Events by Browser Type",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@browser_type",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "datadog16"
+                                    },
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "type": "sunburst",
+                            "legend": {
+                                "type": "table"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 8,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 6586679092438468,
+                        "definition": {
+                            "title": "Bot Defense Events by Device Type",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@device_type",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "datadog16"
+                                    },
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "type": "sunburst",
+                            "legend": {
+                                "type": "table"
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 8,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 6807109184287726,
+                        "definition": {
+                            "title": "Top 10 Countries",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@country",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 12,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 6766457039676920,
+                        "definition": {
+                            "title": "Bot Classifications",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@bot_defense.insight",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "style": {
+                                        "palette": "datadog16"
+                                    },
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "type": "sunburst",
+                            "legend": {
+                                "type": "table"
+                            }
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 12,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 7313673022766392,
+                        "definition": {
+                            "title": "Top Automation Types",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "toplist",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@bot_defense.automation_type",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "display": {
+                                    "type": "stacked",
+                                    "legend": "automatic"
+                                }
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 16,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 1948870765127654,
+                        "definition": {
+                            "title": "Top Malicious Bots",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@network.client.ip",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@as_org",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@country",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event @bot_defense.insight:MALICIOUS $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "bar",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 16,
+                            "width": 6,
+                            "height": 3
+                        }
+                    },
+                    {
+                        "id": 4109251433256654,
+                        "definition": {
+                            "title": "Geo-Distributed Source IP Address",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "geomap",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@network.client.geoip.country.iso_code",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "palette": "hostmap_blues",
+                                "palette_flip": false
+                            },
+                            "view": {
+                                "focus": "WORLD"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 19,
+                            "width": 12,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 3790441935957182,
+                        "definition": {
+                            "title": "Geo-Distributed DestinationIP Address",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "geomap",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@network.destination.geoip.country.iso_code",
+                                                    "limit": 250,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "formulas": [
+                                        {
+                                            "formula": "query1"
+                                        }
+                                    ],
+                                    "sort": {
+                                        "count": 250,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ],
+                            "style": {
+                                "palette": "hostmap_blues",
+                                "palette_flip": false
+                            },
+                            "view": {
+                                "focus": "WORLD"
+                            }
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 23,
+                            "width": 12,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 667766954782976,
+                        "definition": {
+                            "title": "Top Attacked Endpoints",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@vh_name",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@req_path",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 10,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "bar",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 27,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 568546578261964,
+                        "definition": {
+                            "title": "Threat Intel Details",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "type": "query_table",
+                            "requests": [
+                                {
+                                    "queries": [
+                                        {
+                                            "data_source": "logs",
+                                            "name": "query1",
+                                            "indexes": [
+                                                "*"
+                                            ],
+                                            "compute": {
+                                                "aggregation": "count"
+                                            },
+                                            "group_by": [
+                                                {
+                                                    "facet": "@threat_intel.indicators_matched",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@threat_intel.results.intention",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@threat_intel.results.category",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                },
+                                                {
+                                                    "facet": "@threat_intel.results.indicator",
+                                                    "limit": 10,
+                                                    "sort": {
+                                                        "order": "desc",
+                                                        "aggregation": "count"
+                                                    }
+                                                }
+                                            ],
+                                            "search": {
+                                                "query": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain"
+                                            },
+                                            "storage": "hot"
+                                        }
+                                    ],
+                                    "response_format": "scalar",
+                                    "sort": {
+                                        "count": 10000,
+                                        "order_by": [
+                                            {
+                                                "type": "formula",
+                                                "index": 0,
+                                                "order": "desc"
+                                            }
+                                        ]
+                                    },
+                                    "formulas": [
+                                        {
+                                            "cell_display_mode": "bar",
+                                            "alias": "Count",
+                                            "formula": "query1"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "has_search_bar": "auto"
+                        },
+                        "layout": {
+                            "x": 6,
+                            "y": 27,
+                            "width": 6,
+                            "height": 4
+                        }
+                    },
+                    {
+                        "id": 7587784373820036,
+                        "definition": {
+                            "title": "Bot Defense Events",
+                            "title_size": "16",
+                            "title_align": "left",
+                            "requests": [
+                                {
+                                    "response_format": "event_list",
+                                    "query": {
+                                        "data_source": "logs_stream",
+                                        "query_string": "source:f5xc service:bot_defense_sec_event $Host $Namespace $Country $Domain",
+                                        "indexes": [],
+                                        "storage": "hot"
+                                    },
+                                    "columns": [
+                                        {
+                                            "field": "status_line",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "timestamp",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "host",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@action",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@app",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@app_type",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@as_org",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@bot_defense.automation_type",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@bot_defense.insight",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@browser_type",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@city",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@country",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@device_type",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@domain",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@http.method",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@http.useragent",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@network.client.ip",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@network.destination.ip",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@req_path",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@tenant",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@user.id",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@vh_name",
+                                            "width": "auto"
+                                        },
+                                        {
+                                            "field": "@threat_intel",
+                                            "width": "auto"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "type": "list_stream"
+                        },
+                        "layout": {
+                            "x": 0,
+                            "y": 31,
+                            "width": 12,
+                            "height": 4
+                        }
+                    }
+                ]
+            },
+            "layout": {
+                "x": 0,
+                "y": 18,
+                "width": 12,
+                "height": 36,
+                "is_column_break": true
+            }
+        }
+    ],
+    "template_variables": [
+        {
+            "name": "Host",
+            "prefix": "@host",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "Namespace",
+            "prefix": "@namespace",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "Country",
+            "prefix": "@country",
+            "available_values": [],
+            "default": "*"
+        },
+        {
+            "name": "Domain",
+            "prefix": "@domain",
+            "available_values": [],
+            "default": "*"
+        }
+    ],
+    "layout_type": "ordered",
+    "notify_list": [],
+    "reflow_type": "fixed"
+}
