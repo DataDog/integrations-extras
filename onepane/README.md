@@ -2,16 +2,16 @@
 
 ## Overview
 
-Onepane is a GenAI tool that enhances incident resolution through automated Root Cause Analysis (RCA) by integrating seamlessly with monitoring tools like Datadog.
+Onepane is a GenAI tool that enhances incident resolution through automated root cause analysis (RCA) by integrating seamlessly with monitoring tools like Datadog.
 By integrating Onepane with Datadog, customers gain rapid incident correlation with changes and infrastructure events, significantly reducing troubleshooting time and improving operational efficiency.
-The integration tracks incident data, infrastructure events, and change data (like code updates), providing valuable insights that help teams quickly identify root causes and prevent future issues.
+The integration tracks incident data, infrastructure events, and change data (such as code updates), providing valuable insights that help teams quickly identify root causes and prevent future issues.
 
 
 ## Setup
 
 **In Datadog:**
 
-- Go to **Integrations**, select the **Onepane** tile, and click **Install Integration**.
+- Navigate to **Integrations**, select the **Onepane** tile, click **Install Integration**.
 
 - Click **Connect Accounts** to begin authorizing the integration. You will be redirected to [console.onepane.ai][2].
 
@@ -19,11 +19,11 @@ The integration tracks incident data, infrastructure events, and change data (li
 
 - Log in if you're not already logged in with **Onepane**.
 
-- Please review the  the permissions and click on the 'Connect with datadog' button in the prompt.
+- Review the  the permissions and click the **Connect with datadog** button in the prompt.
 
     ![Onepane_prompt][10]
 
-- You will be redirected back into Datadog to complete the authorization
+- You will be redirected back into Datadog to complete the authorization.
 
 - Click the **Authorize** button to complete the setup and be redirected back to the Onepane site.
 
@@ -37,11 +37,11 @@ The integration tracks incident data, infrastructure events, and change data (li
 
     ![Host Resource][6]
 
-- Map Resources: Onepane allows you to map these Datadog resources to your existing Onepane resources for unified view of incidents and events across your infrastructure
+- Map Resources: Onepane allows you to map these Datadog resources to your existing Onepane resources for unified view of incidents and events across your infrastructure.
 
     ![Onepane Mapping][7]
 
-With these steps complete, you'll have successfully integrated Datadog with Onepane
+With these steps complete, you'll have successfully integrated Datadog with Onepane.
 
 For more details, refer to the [Onepane documentation][9]
 
