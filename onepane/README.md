@@ -35,11 +35,7 @@ The integration tracks incident data, infrastructure events, and change data (su
 
 - View Host Resources: After successful deployment, you'll be able to see a list of host resources from your Datadog account within Onepane.
 
-    ![Host Resource][6]
-
 - Map Resources: Onepane allows you to map these Datadog resources to your existing Onepane resources for unified view of incidents and events across your infrastructure.
-
-    ![Onepane Mapping][7]
 
 With these steps complete, you'll have successfully integrated Datadog with Onepane.
 
@@ -84,8 +80,6 @@ Need help? Contact [Onepane support][1].
 [3]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/uninstall.png
 [4]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/integration.png
 [5]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/deploying.png
-[6]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/host_resources.png
-[7]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_mapping.png
 [8]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/confirmation.png
 [9]: https://docs.onepane.ai/docs/en/articles/9419170-integrating-onepane-with-datadog-for-enhanced-incident-management
 [10]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/onepane/images/onepane_prompt.png
