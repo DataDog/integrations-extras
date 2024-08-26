@@ -1,49 +1,70 @@
 id: anecdote
 metric_id: anecdote
 backend_only: true
+facets:
+  - facetType: list
+    groups:
+      - others
+    name: date
+    path: date
+    source: log
+    type: string
+  - facetType: list
+    groups:
+      - others
+    name: service
+    path: service
+    source: log
+    type: string
 pipeline:
   type: pipeline
   name: Anecdote Log Pipeline
   enabled: true
   filter:
-    query: "source:anecdote"
+    query: "source:anecdote "
   processors:
-    - type: grok-parser
-      grok:
-        match_rules:
-          - '"%{TIMESTAMP_ISO8601:content.timestamp} %{WORD:service} %{GREEDYDATA:message}"'
-    - type: log-date-remapper
+    - type: service-remapper
+      name: Service remapper
+      enabled: true
+      sources:
+        - service
+    - type: date-remapper
+      name: Date remapper
+      enabled: true
       sources:
         - content.timestamp
-    - type: service-remapper
-      source: content.service
     - type: attribute-remapper
+      name: ID remapper
+      enabled: true
       sources:
         - id
+      sourceType: attribute
       target: log_id
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
     - type: attribute-remapper
+      name: Date attribute remapper
+      enabled: true
       sources:
         - content.attributes.date
+      sourceType: attribute
       target: log_date
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
     - type: attribute-remapper
+      name: Tags attribute remapper
+      enabled: true
       sources:
         - content.tags
+      sourceType: attribute
       target: tags
-      target_type: array
-    - type: attribute-remapper
-      sources:
-        - content.attributes.service
-      target: service_name
-    - type: attribute-remapper
-      sources:
-        - content.attributes.tags
-      target: additional_tags
-      target_type: array
+      targetType: attribute
+      preserveSource: true
+      overrideOnConflict: false
     - type: status-remapper
+      name: "Status Remapper: Is feedback bug status"
+      enabled: true
       sources:
         - content.attributes.is_feedback_bug
-    - type: add-tags
-      tags:
-        - environment:production
-        - team:anecdote
-        - source:anecdote
