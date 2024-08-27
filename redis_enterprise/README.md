@@ -38,18 +38,18 @@ passed on to Datadog. The individual metrics should be stripped of their prefix,
 The full list of metrics is available on the 'Data Collected' tab of the integration page. For reference the following 
 groups use the associated prefixes; they can be used to search for individual metrics on the data collected page. 
 
-| Group             | Prefix                      |
-|-------------------|-----------------------------|
-| Node¹             | rdse.node_                  |
-| Database²         | rdse.bdb_                   |
-| Shard³            | rdse.redis_                 |
-| Replication       | rdse.bdb_crdt_              |
- | Replication       | rdse.bdb_replicaof_         |
- | Shard Replication | rdse.redis_crdt_            |
- | Proxy             | rdse.dmcproxy_              |
- | Listener          | rdse.listener_              |
- | Bigstore          | rdse.node_bigstore_         |
- | Flash⁴            | rdse.node_available_flash   |
+| Group                | Prefix                      |
+|----------------------|-----------------------------|
+| Node<sup>1</sup>     | rdse.node_                  |
+| Database<sup>2</sup> | rdse.bdb_                   |
+| Shard<sup>3</sup>    | rdse.redis_                 |
+| Replication          | rdse.bdb_crdt_              |
+ | Replication          | rdse.bdb_replicaof_         |
+ | Shard Replication    | rdse.redis_crdt_            |
+ | Proxy                | rdse.dmcproxy_              |
+ | Listener             | rdse.listener_              |
+ | Bigstore             | rdse.node_bigstore_         |
+ | Flash<sup>4</sup>    | rdse.node_available_flash   |
 
 1: this will return bigstore metrics as well<br>
 2: this will return replication metrics as well<br>
