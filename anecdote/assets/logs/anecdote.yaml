@@ -4,14 +4,14 @@ backend_only: true
 facets:
   - facetType: list
     groups:
-      - others
+      - anecdote
     name: date
     path: date
     source: log
     type: string
   - facetType: list
     groups:
-      - others
+      - anecdote
     name: service
     path: service
     source: log
@@ -21,20 +21,20 @@ pipeline:
   name: Anecdote Log Pipeline
   enabled: true
   filter:
-    query: "source:anecdote "
+    query: "source:anecdote"
   processors:
     - type: service-remapper
-      name: Service remapper
+      name: Define `service` as the official service of the log
       enabled: true
       sources:
         - service
     - type: date-remapper
-      name: Date remapper
+      name: Define `content.timestamp` as the official date of the log
       enabled: true
       sources:
         - content.timestamp
     - type: attribute-remapper
-      name: ID remapper
+      name: Map `id` to `log_id`
       enabled: true
       sources:
         - id
@@ -44,7 +44,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Date attribute remapper
+      name: Map `content.attributes.date` to `log_date`
       enabled: true
       sources:
         - content.attributes.date
@@ -54,7 +54,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Tags attribute remapper
+      name: Map `content.tags` to `tags`
       enabled: true
       sources:
         - content.tags
@@ -64,7 +64,7 @@ pipeline:
       preserveSource: true
       overrideOnConflict: false
     - type: status-remapper
-      name: "Status Remapper: Is feedback bug status"
+      name: Define `content.attributes.is_feedback_bug` as the official status of the log
       enabled: true
       sources:
         - content.attributes.is_feedback_bug
