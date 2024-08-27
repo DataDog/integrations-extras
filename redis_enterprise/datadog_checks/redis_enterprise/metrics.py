@@ -76,6 +76,7 @@ REDIS_NODE = {
     'node_available_memory': 'node_available_memory',
     'node_available_memory_no_overbooking': 'node_available_memory_no_overbooking',
     'node_avg_latency': 'node_avg_latency',
+    'node_cert_expiration_seconds': 'node_cert_expiration_seconds',
     'node_conns': 'node_conns',
     'node_cpu_idle': 'node_cpu_idle',
     'node_cpu_idle_max': 'node_cpu_idle_max',
