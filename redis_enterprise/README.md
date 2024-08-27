@@ -51,7 +51,7 @@ groups use the associated prefixes; they can be used to search for individual me
  | Bigstore             | rdse.node_bigstore_         |
  | Flash<sup>4</sup>    | rdse.node_available_flash   |
 
-1: this will return bigstore metrics as well<br>
+1: this will return bigstore and flash metrics as well<br>
 2: this will return replication metrics as well<br>
 3: this will return shard replication metrics as well<br>
 4: all flash metrics are of the form: rdse.node_*_flash
