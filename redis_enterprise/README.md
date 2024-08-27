@@ -42,18 +42,19 @@ groups use the associated prefixes; they can be used to search for individual me
 |-------------------|-----------------------------|
 | Node¹             | rdse.node_                  |
 | Database²         | rdse.bdb_                   |
-| Shard             | rdse.redis_                 |
+| Shard³            | rdse.redis_                 |
 | Replication       | rdse.bdb_crdt_              |
  | Replication       | rdse.bdb_replicaof_         |
  | Shard Replication | rdse.redis_crdt_            |
  | Proxy             | rdse.dmcproxy_              |
  | Listener          | rdse.listener_              |
  | Bigstore          | rdse.node_bigstore_         |
- | Flash³            | rdse.node_available_flash   |
+ | Flash⁴            | rdse.node_available_flash   |
 
 1: this will return bigstore metrics as well<br>
 2: this will return replication metrics as well<br>
-3: all flash metrics are of the form: rdse.node_*_flash
+3: this will return shard replication metrics as well<br>
+4: all flash metrics are of the form: rdse.node_*_flash
 
 ### Validation
 
