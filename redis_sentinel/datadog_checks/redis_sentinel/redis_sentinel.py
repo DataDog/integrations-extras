@@ -25,13 +25,18 @@ class RedisSentinelCheck(AgentCheck):
 
         passwd = instance.get('sentinel_password', None)
 
-        return host, port, passwd
+        ssl = instance.get('sentinel_ssl', False)
+        ssl_keyfile = instance.get('sentinel_ssl_keyfile', None)
+        ssl_certfile = instance.get('sentinel_ssl_certfile', None)
+        ssl_ca_certs = instance.get('sentinel_ssl_ca_certs', None)
+
+        return host, port, passwd, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs
 
     def check(self, instance):
 
-        host, port, password = self._load_config(instance)
+        host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = self._load_config(instance)
 
-        redis_conn = redis.StrictRedis(host=host, port=port, password=password, db=0)
+        redis_conn = redis.StrictRedis(host=host, port=port, password=password, ssl=ssl, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile, ssl_ca_certs=ssl_ca_certs, db=0)
 
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])

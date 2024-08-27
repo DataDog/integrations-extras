@@ -45,19 +45,52 @@ def test_load_config():
     with pytest.raises(ConfigurationError):
         c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port'})
 
-    # Expect to pass when port is an integer, with no password defined.
-    host, port, password = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
+    # When sentinel_ssl is a string
+    with pytest.raises(ConfigurationError):
+        c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port', 'sentinel_ssl': 'true'})
+
+    # Expect to pass when port is an integer, with no password defined and ssl disabled.
+    host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
     assert host == 'localhost'
     assert port == 123
     assert password is None
+    assert ssl is False
+    assert ssl_keyfile is None
+    assert ssl_certfile is None
+    assert ssl_ca_certs is None
 
-    # Expect to pass when port is an integer, with password defined.
-    host, port, password = c._load_config(
+    # Expect to pass when port is an integer, with password defined and ssl disabled.
+    host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = c._load_config(
         {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster', 'sentinel_password': 'password1'}
     )
     assert host == 'localhost'
     assert port == 123
     assert password == 'password1'
+    assert ssl is False
+    assert ssl_keyfile is None
+    assert ssl_certfile is None
+    assert ssl_ca_certs is None
+
+    # Expect to pass when ssl defined.
+    host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = c._load_config(
+        {
+            "sentinel_host": "localhost",
+            "sentinel_port": 123,
+            "masters": "mymaster",
+            "sentinel_password": "password1",
+            "sentinel_ssl": True,
+            "sentinel_ssl_keyfile": "/etc/certs/redis.key",
+            "sentinel_ssl_certfile": "/etc/certs/redis.crt",
+            "sentinel_ssl_ca_certs": "/etc/certs/ca.crt",
+        }
+    )
+    assert host == "localhost"
+    assert port == 123
+    assert password == "password1"
+    assert ssl is True
+    assert ssl_keyfile == "/etc/certs/redis.key"
+    assert ssl_certfile == "/etc/certs/redis.crt"
+    assert ssl_ca_certs == "/etc/certs/ca.crt"
 
 
 @pytest.mark.integration
