@@ -26,19 +26,47 @@ For a full list of supported metrics, see the **Metrics** section below.
 
 ### Configuration
 
-Set the `openmetrics_endpoint` to point to your cluster. See the [example][4].
+Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. Leave `tls_verify` set to false.
 
+There are two optional parameters: extra_metrics, and excluded_metrics, as noted in the example configuration file. 
+
+The extra_metrics parameter takes a list of metric groups. The following are the available groups: RDSE.REPLICATION, RDSE.LISTENER, RDSE.PROXY, RDSE.BIGSTORE, RDSE.FLASH, 
+RDSE.SHARDREPL. The default metric groups are RDSE.NODE, RDSE.DATABASE, and RDSE.SHARD. They are automatically inserted by the integration.
+
+The exclude_metrics parameter takes a list of individual metrics to exclude, meaning that this information will not be 
+passed on to Datadog. The individual metrics should be stripped of their prefix, eg. 'rdse.bdb_up' would become 'bdb_up'. 
+The full list of metrics is available on the 'Data Collected' tab of the integration page. For reference the following 
+groups use the associated prefixes; they can be used to search for individual metrics on the data collected page. 
+
+| Group             | Prefix                      |
+|-------------------|-----------------------------|
+| Node¹             | rdse.node_                  |
+| Database²         | rdse.bdb_                   |
+| Shard             | rdse.redis_                 |
+| Replication       | rdse.bdb_crdt_              |
+ | Replication       | rdse.bdb_replicaof_         |
+ | Shard Replication | rdse.redis_crdt_            |
+ | Proxy             | rdse.dmcproxy_              |
+ | Listener          | rdse.listener_              |
+ | Bigstore          | rdse.node_bigstore_         |
+ | Flash³            | rdse.node_available_flash   |
+
+1: this will return bigstore metrics as well<br>
+2: this will return replication metrics as well<br>
+3: all flash metrics are of the form: rdse.node_*_flash
 
 ### Validation
 
-1. Ensure you can ping the machine, particularly in a cloud environment. Run `wget --no-check-certificate <endpoint>` or `curl -k <endpoint>` to ensure that you can receive metrics.
+1. Ensure you can ping the machine, particularly in a cloud environment. Run `wget --no-check-certificate <endpoint>` 
+or `curl -k <endpoint>` to ensure that you can receive metrics.
 
 2. Check the [status][5] of the Datadog agent.
 
 
 ## Data Collected
 
-The current release gathers all metrics for databases, nodes, and shards.
+The current release gathers all metrics for databases, nodes, and shards. Optionally, via the extra_metrics parameter, 
+data for replication, proxy, listener, etc. can be gathered (see the list in the Configuration section).
 
 
 ### Metrics
