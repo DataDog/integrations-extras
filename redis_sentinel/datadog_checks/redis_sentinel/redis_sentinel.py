@@ -36,7 +36,16 @@ class RedisSentinelCheck(AgentCheck):
 
         host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = self._load_config(instance)
 
-        redis_conn = redis.StrictRedis(host=host, port=port, password=password, ssl=ssl, ssl_keyfile=ssl_keyfile, ssl_certfile=ssl_certfile, ssl_ca_certs=ssl_ca_certs, db=0)
+        redis_conn = redis.StrictRedis(
+            host=host,
+            port=port,
+            password=password,
+            ssl=ssl,
+            ssl_keyfile=ssl_keyfile,
+            ssl_certfile=ssl_certfile,
+            ssl_ca_certs=ssl_ca_certs,
+            db=0,
+        )
 
         for master_name in instance['masters']:
             base_tags = ['redis_name:%s' % master_name] + instance.get('tags', [])

@@ -50,7 +50,9 @@ def test_load_config():
         c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 'port', 'sentinel_ssl': 'true'})
 
     # Expect to pass when port is an integer, with no password defined and ssl disabled.
-    host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = c._load_config({'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'})
+    host, port, password, ssl, ssl_keyfile, ssl_certfile, ssl_ca_certs = c._load_config(
+        {'sentinel_host': 'localhost', 'sentinel_port': 123, 'masters': 'mymaster'}
+    )
     assert host == 'localhost'
     assert port == 123
     assert password is None
