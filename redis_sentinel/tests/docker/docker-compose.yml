@@ -1,19 +1,15 @@
 services:
-  master:
-    image: redis:3
-  slave:
-    image: redis:3
+  redis-master:
+    image: redis:7.4
+  redis-slave:
+    image: redis:7.4
     command: redis-server --slaveof redis-master 6379
-    links:
-      - master:redis-master
-  sentinel:
-    image: "erichsu/redis-sentinel:latest"
+  redis-sentinel:
+    image: bitnami/redis-sentinel:7.4
     environment:
+      - REDIS_MASTER_HOST=redis-master
       - SENTINEL_DOWN_AFTER=5000
       - SENTINEL_FAILOVER=5000
-    links:
-      - master:redis-master
-      - slave
     ports:
       - "26379:26379"
       - "6379:6379"
