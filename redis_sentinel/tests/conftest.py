@@ -11,7 +11,7 @@ DOCKER_DIR = os.path.join(HERE, 'docker')
 
 @pytest.fixture(scope='session')
 def dd_environment():
-    with docker_run(os.path.join(DOCKER_DIR, 'docker-compose.yml'), log_patterns='Synchronization with slave'):
+    with docker_run(os.path.join(DOCKER_DIR, 'docker-compose.yml'), log_patterns='Synchronization with replica'):
         yield
 
 
