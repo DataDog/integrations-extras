@@ -43,7 +43,7 @@ Set the `openmetrics_endpoint` to point to your cluster. For an example, see the
 
 ## Data Collected
 
-The current release gathers all metrics for databases, nodes, and shards.
+The Redis Cloud integration gathers all metrics for databases, nodes, and shards.
 
 
 ### Metrics
@@ -53,12 +53,12 @@ See [metadata.csv][8] for a list of metrics provided by this integration.
 
 ### Service Checks
 
-Redis Cloud does not include any service checks.
+The Redis Cloud integration does not include any service checks.
 
 
 ### Events
 
-Redis Cloud does not include any events.
+The Redis Cloud integration does not include any events.
 
 
 ## Troubleshooting
