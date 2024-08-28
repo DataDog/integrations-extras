@@ -31,7 +31,32 @@ For a full list of supported metrics, see the **Metrics** section below.
 
 ### Configuration
 
-Set the `openmetrics_endpoint` to point to your cluster. For an example, see the [`conf.yaml.example` file][6].
+Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. Leave `tls_verify` set to false.
+
+There are two optional parameters: `extra_metrics` and `excluded_metrics`, as noted in the example configuration file.
+
+The extra_metrics parameter takes a list of metric groups. The following are the available groups: RDSC.REPLICATION, 
+RDSC.LISTENER, RDSC.PROXY, RDSC.BIGSTORE, RDSC.FLASH, RDSC.SHARDREPL. The default metrics groups RDSC.NODE, 
+RDSC.DATABASE, and RDSC.SHARD are automatically inserted by the integration.
+
+The exclude_metrics parameter takes a list of individual metrics to exclude, meaning that this information will not be 
+passed on to Datadog. The individual metrics should be stripped of their prefix, e.g., 'rdsc.bdb_up' would 
+become 'bdb_up'. The full list of metrics is available on the 'Data Collected' tab of the integration page, or via the link in the [Metrics](#metrics) section. 
+The following extra groups use the associated prefixes, which can be used to search for individual metrics on 
+the data collected page.
+
+| Group           | Prefix                    | Notes                                                |
+|-----------------|---------------------------|------------------------------------------------------|
+| RDSC.NODE       | rdsc.node_                | This will return bigstore and flash metrics as well  |
+| RDSC.DATABASE   | rdsc.bdb_                 | This will return replication metrics as well         |
+| RDSC.SHARD      | rdsc.redis_               | This will return shard replication metrics as well   |
+| RDSC.REPLCATION | rdsc.bdb_crdt_            |                                                      |
+| RDSC.REPLCATION | rdsc.bdb_replicaof_       |                                                      |
+| RDSC.SHARDREPL  | rdsc.redis_crdt_          |                                                      |
+| RDSC.PROXY      | rdsc.dmcproxy_            |                                                      |
+| RDSC.LISTENER   | rdsc.listener_            |                                                      |
+| RDSC.BIGSTORE   | rdsc.node_bigstore_       |                                                      |
+| RDSC.FLASH      | rdsc.node_available_flash | All flash metrics are of the form: rdsc.node_*_flash |
 
 
 ### Validation
