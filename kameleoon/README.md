@@ -10,7 +10,7 @@ Feature flag tracking is available in the RUM Browser SDK. For detailed set up i
 
 1. Update your Browser RUM SDK version to 4.25.0 or above.
 2. Initialize the RUM SDK and configure the `enableExperimentalFeatures` initialization parameter with `["feature_flags"]`.
-3. Initialize [Kameleoon's SDK][2] and define `onEvent` handler to watch `Evaluation` events.
+3. Initialize [Kameleoon's SDK][2] and define an `onEvent` handler to watch `Evaluation` events.
 
 ```javascript
 client.onEvent(EventType.Evaluation, ({ featureKey, variation }) => {
