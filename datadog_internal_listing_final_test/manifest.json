@@ -1,0 +1,65 @@
+{
+  "app_id": "datadog-internal-listing-final-test",
+  "app_uuid": "01919e4d-d575-7dee-a204-d65fd5e58369",
+  "manifest_version": "2.0.0",
+  "display_on_public_website": true,
+  "tile": {
+    "title": "Internal Listing [Final Test]",
+    "description": "Monitor your tech stack",
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "uninstallation": "README.md#Uninstallation",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Caption",
+        "image_url": "images/solutions.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Caption",
+        "image_url": "images/network.jpg"
+      }
+    ],
+    "classifier_tags": [
+      "Category::AI/ML",
+      "Offering::Integration",
+      "Supported OS::Windows",
+      "Queried Data Type::Metrics",
+      "Queried Data Type::Incidents",
+      "Submitted Data Type::Events",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "oauth": {},
+  "author": {
+    "support_email": "help@datadoghq.com",
+    "name": "Datadog",
+    "homepage": "https://datadoghq.com",
+    "sales_email": "sales@datadoghq.com",
+    "vendor_id": "datadog"
+  },
+  "assets": {
+    "dashboards": {
+      "Internal Ecosystems Test Integration": "assets/dashboards/internal_ecosystems_test_integration.json"
+    },
+    "monitors": {
+      "Pub Platform Display Name": "assets/monitors/pub_platform_display_name.json"
+    },
+    "integration": {
+      "source_type_name": "custom_test_source_name",
+      "auto_install": true,
+      "process_signatures": [],
+      "metrics": {
+        "prefix": "datadog.",
+        "check": [
+          "datadog.test.integration_metric"
+        ],
+        "metadata_path": "metadata.csv"
+      },
+      "source_type_id": 24937862
+    }
+  }
+}
