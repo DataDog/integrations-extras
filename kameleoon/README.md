@@ -20,7 +20,7 @@ client.onEvent(EventType.Evaluation, ({ featureKey, variation }) => {
 
 ## Support
 
-For more information see [Kameleoon SDK documentation][2] or join [Kameleoon Slack community][3] for support on Kameeloon Datadog integration.
+For more information see the [Kameleoon SDK documentation][2], or join the [Kameleoon Slack community][3] for support on the Kameleoon Datadog integration.
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/guide/setup-feature-flag-data-collection/
 [2]: https://developers.kameleoon.com/feature-management-and-experimentation/web-sdks/js-sdk/
