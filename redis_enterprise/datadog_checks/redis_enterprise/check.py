@@ -1,8 +1,6 @@
-from collections import ChainMap
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
-from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
 
 from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
@@ -23,15 +21,25 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         metrics = self.get_default_config()
 
         additional = []
-        groups = self.instance.get('metric_groups', [])
+        groups = self.instance.get('extra_metrics', [])
         for g in groups:
-            if g not in ADDITIONAL_METRICS:
-                raise ConfigurationError(f'invalid metric in config: {g}')
+            if g not in ADDITIONAL_METRICS.keys():
+                raise ConfigurationError(f'invalid group in extra_metrics: {g}')
             additional.append(ADDITIONAL_METRICS[g])
 
         if len(additional) > 0:
             self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
+
+        excludes = self.instance.get('exclude_metrics', [])
+        for m in excludes:
+            found = False
+            for mg in metrics:
+                if m in mg.keys():
+                    mg.pop(m)
+                    found = True
+            if not found:
+                raise ConfigurationError(f'invalid metric in excludes: {m}')
 
         config = {
             'openmetrics_endpoint': metrics_endpoint,
@@ -49,13 +57,6 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
         return metrics
-
-    def create_scraper(self, config):
-        return OpenMetricsCompatibilityScraper(self, self.get_config_with_defaults(config))
-
-    def get_config_with_defaults(self, config):
-        metrics = config.pop('metrics')
-        return ChainMap(config, {'metrics': metrics})
 
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')

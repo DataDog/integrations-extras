@@ -1,0 +1,74 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "bee8e975-219c-4673-83c0-9fa68b973298",
+  "app_id": "qdrant",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "A high-performance vector search engine/database.",
+    "title": "Qdrant",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "A Qdrant Monitoring Dashboard for Datadog",
+        "image_url": "images/qdrant_dash.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "REST metrics from the Qdrant Datadog dashboard",
+        "image_url": "images/qdrant_rest.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "cluster metrics from the Qdrant Datadog dashboard",
+        "image_url": "images/qdrant_cluster.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "gRPC metrics from the Qdrant Datadog dashboard",
+        "image_url": "images/qdrant_grpc.png"
+      }
+    ],
+    "classifier_tags": [
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS",
+      "Category::AI/ML",
+      "Offering::Integration",
+      "Submitted Data Type::Metrics"
+    ]
+  },
+  "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 18715225,
+      "source_type_name": "Qdrant",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {
+        "prefix": "qdrant.",
+        "check": "qdrant.cluster.term.count",
+        "metadata_path": "metadata.csv"
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    },
+    "dashboards": {
+      "qdrant-overview": "assets/dashboards/qdrant_overview.json"
+    }
+  },
+  "author": {
+    "support_email": "info@qdrant.com",
+    "name": "Qdrant Team",
+    "homepage": "https://qdrant.tech/",
+    "sales_email": "support@qdrant.com"
+  }
+}
