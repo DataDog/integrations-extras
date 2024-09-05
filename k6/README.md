@@ -83,7 +83,7 @@ The k6 integration does not include any events.
 Need help? Read the [k6 Datadog documentation][2] or contact [k6 support][10].
 
 [1]: https://k6.io/open-source
-[2]: https://k6.io/docs/results-visualization/datadog
+[2]: https://grafana.com/docs/k6/latest/results-output/real-time/datadog/
 [3]: https://app.datadoghq.com/organization-settings/api-keys
 [4]: https://github.com/DataDog/integrations-extras/blob/master/k6/metadata.csv
 [5]: https://docs.datadoghq.com/metrics/explorer/
