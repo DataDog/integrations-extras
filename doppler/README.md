@@ -9,6 +9,8 @@ This integration allows Activity Logs from [Doppler][1] to be streamed to Datado
 
 Doppler does not collect any data from your Datadog account.
 
+## Setup
+
 ### Installation
 
 1. Click **Connect Accounts** on the Doppler integration tile to connect Datadog with Doppler.
@@ -22,7 +24,7 @@ Doppler does not collect any data from your Datadog account.
 
 Once the installation is complete, Doppler Activity Logs will automatically start flowing to Datadog.
 
-### Setup
+### Configuration
 
 The integration will automatically send all Doppler Activity Logs to Datadog, no further configuration is available at this time.
 
