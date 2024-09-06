@@ -4,4 +4,4 @@
 
 **_Added_**:
 
-- Initial Release
+* Initial Release
