@@ -1,7 +1,7 @@
 # CHANGELOG - Doppler
 
-## 1.0.0 / 2024-07-02
+## 1.0.0 / 2024-09-06
 
-***Added***:
+**_Added_**:
 
-* Initial Release
+- Initial Release

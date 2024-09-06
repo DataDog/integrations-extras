@@ -55,22 +55,34 @@
       "Category::Security",
       "Category::Developer Tools",
       "Category::Log Collection",
-      "Offering::Integration"
+      "Offering::Integration",
+      "Submitted Data Type::Logs"
     ]
   },
   "assets": {
+    "integration": {
+      "auto_install": true,
+      "source_type_id": 25660413,
+      "source_type_name": "doppler",
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
+      "events": {
+        "creates_events": false
+      },
+      "metrics": {},
+      "service_checks": {}
+    },
     "dashboards": {
       "Doppler": "assets/dashboards/doppler_overview.json"
     },
-    "logs": {
-      "source": "doppler"
-    }
+    "monitors": {},
+    "saved_views": {}
   },
   "author": {
     "support_email": "support@doppler.com",
     "name": "Nic Manoogian",
     "homepage": "https://doppler.com",
     "sales_email": "sales@doppler.com"
-  },
-  "oauth": {}
+  }
 }
