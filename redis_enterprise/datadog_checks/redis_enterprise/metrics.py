@@ -55,7 +55,6 @@ REDIS_DATABASE = {
     'bdb_total_req_max': 'bdb_total_req_max',
     'bdb_total_res': 'bdb_total_res',
     'bdb_total_res_max': 'bdb_total_res_max',
-    # 'bdb_up': {'name': 'bdb_up', 'type': 'gauge'},
     'bdb_up': 'bdb_up',
     'bdb_used_memory': 'bdb_used_memory',
     'bdb_write_hits': 'bdb_write_hits',
@@ -69,10 +68,15 @@ REDIS_DATABASE = {
 }
 
 REDIS_NODE = {
+    'namedprocess_namegroup_thread_cpu_seconds_total': {
+        'name': 'namedprocess_namegroup_thread_cpu_seconds_total',
+        'type': 'gauge',
+    },
     'no_of_expires': 'no_of_expires',
     'node_available_memory': 'node_available_memory',
     'node_available_memory_no_overbooking': 'node_available_memory_no_overbooking',
     'node_avg_latency': 'node_avg_latency',
+    'node_cert_expiration_seconds': 'node_cert_expiration_seconds',
     'node_conns': 'node_conns',
     'node_cpu_idle': 'node_cpu_idle',
     'node_cpu_idle_max': 'node_cpu_idle_max',
