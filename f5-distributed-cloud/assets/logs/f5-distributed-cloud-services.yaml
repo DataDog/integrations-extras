@@ -258,7 +258,7 @@ pipeline:
           preserveSource: false
           overrideOnConflict: false
         - type: user-agent-parser
-          name: Define http.useragent as http.useragent_details
+          name: Extracting user-agent information from the user-agent
           enabled: true
           sources:
             - http.useragent
@@ -266,14 +266,14 @@ pipeline:
           encoded: false
           combineVersionDetails: false
         - type: geo-ip-parser
-          name: Define network.client.ip as default geoip attribute for source
+          name: Extracting geolocation information from the client IP
           enabled: true
           sources:
             - network.client.ip
           target: network.client.geoip
           ip_processing_behavior: do-nothing
         - type: geo-ip-parser
-          name: Define network.destination.ip as default geoip attribute for destination
+          name: Extracting geolocation information from the destionation IP
           enabled: true
           sources:
             - network.destination.ip
