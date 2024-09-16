@@ -1,0 +1,68 @@
+name: maurisource_magento
+files:
+- name: maurisource_magento.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics
+  - template: instances
+    options:
+    # - template: instances/default
+      # # options:
+      # - name: namespace
+      #   # required: true
+      #   enabled: true
+      #   description: The namespace to be prepended to all metrics.
+      #   value:
+      #     example: maurisoruce_magento_metrics
+      #     type: string
+      # - name: host
+      #   required: true
+      #   description: ip address of your magento instance/localhost
+      #   value:
+      #     example: localhost
+      #     type: string
+      # - name: port
+      #   required: true
+      #   description: port of your magento instance/8080
+      #   value:
+      #     example: 8080
+      #     type: integer
+      - template: instances/openmetrics
+        # options:
+        #   - metrics:
+        #       description:
+        overrides:
+        #   openmetrics_endpoint.value.example: http://%%host%%:%%port%%/metrics
+        #   openmetrics_endpoint.description: |
+        #     The URL exposing metrics in the OpenMetrics format.
+        #   openmetrics_endpoint.display_priority: 3
+          namespace.hidden: false
+          metrics.required: true
+          metrics.hidden: false
+          metrics.value.example: 
+            - magento_orders_count_total: magento_orders_count
+            - magento_orders_amount_total: magento_orders_amount
+            - magento_order_items_count_total: magento_order_items_count
+            - magento_cms_block_count_total: magento_cms_block_count
+            - magento_cms_page_count_total: magento_cms_page_count
+            - magento_customer_count_total: magento_customer_count
+            - magento_cronjob_broken_count_total: magento_cronjob_broken_count
+            - magento_cronjob_count_total: magento_cronjob_count
+            - magento_indexer_backlog_count_total: magento_indexer_backlog_count
+            - magento_shipments_count_total: magento_shipments_count
+            - magento_catalog_category_count_total: magento_catalog_category_count
+            - magento_store_count_total: magento_store_count
+            - magento_website_count_total: magento_website_count
+            - magento_products_by_type_count_total: magento_products_by_type_count 
+          extra_metrics.enabled: false
+          exclude_metrics.value.example: 
+            - magento_indexer_backlog_count_total: magento_indexer_backlog_count
+          exclude_metrics.enabled: false                      
+  - template: logs
+    example:
+    - type: file
+      path: "/var/log/magento/var/log/*.log"
+      # exclude_paths: "/var/log/magento/var/log/debug.log"
+      service: "magento"
+      source: "magento"
