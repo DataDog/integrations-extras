@@ -51,6 +51,7 @@ To validate connection health, you can check the Anecdote dashboard in Datadog, 
 - Sign into your [Anecdote account][1].
 - Navigate to the Integrations section.
 - Find the Datadog integration and click the delete icon to remove the integration.
+- Additionally, ensure that all API keys associated with this integration have been disabled by searching for the integration name on the [API Keys page][3].
 
 ## Data Collected
 
@@ -63,4 +64,5 @@ Need help? Contact [Anecdote Support][2].
 
 [1]: https://app.anecdoteai.com
 [2]: mailto:hello@anec.app
+[3]: https://app.datadoghq.com/organization-settings/api-keys
 
