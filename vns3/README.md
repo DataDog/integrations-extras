@@ -32,7 +32,7 @@ Get system and network state information from your Cohesive Networks VNS3 contro
 
 ### Configuration
 
-Deploy and configure the Cohesive Networks Datadog plugin according to the [Documentation][7].
+Deploy and configure the Cohesive Networks Datadog plugin according to the [Datadog Agent Plugin Details][7] documentation.
 
 ## Data Collected
 
