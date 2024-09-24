@@ -12,8 +12,7 @@ facets:
     name: User Email
     path: usr.email
     source: log
-  - facetType: list
-    groups:
+  - groups:
       - Event
     name: Type
     path: type
@@ -43,7 +42,7 @@ pipeline:
       sourceType: attribute
       target: usr.name
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
       name: Map `user.email` to `usr.email`
@@ -53,5 +52,5 @@ pipeline:
       sourceType: attribute
       target: usr.email
       targetType: attribute
-      preserveSource: true
+      preserveSource: false
       overrideOnConflict: false
