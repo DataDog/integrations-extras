@@ -165,7 +165,7 @@ pipeline:
         supportRules: ""
         matchRules: command_parser %{date("EEE MMM dd HH:mm:ss yyyy"):ts}
     - type: date-remapper
-      name: Define 'ts' as the official service of the log
+      name: Define `ts` as the official date of the log
       enabled: true
       sources:
         - ts
@@ -190,7 +190,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'http_uri_full` to `http.url_details.path`
+      name: Map `http_uri_full` to `http.url_details.path`
       enabled: true
       sources:
         - http_uri_full
@@ -210,7 +210,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'http_version' to 'http.version'
+      name: Map `http_version` to `http.version`
       enabled: true
       sources:
         - http_version
@@ -220,7 +220,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'http_method' to 'http.method'
+      name: Map `http_method` to `http.method`
       enabled: true
       sources:
         - http_method
@@ -230,7 +230,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: user-agent-parser
-      name: Map 'http_user_agent' to 'http.useragent_details.os.family'
+      name: Map `http_user_agent` to `http.useragent_details.os.family`
       enabled: true
       sources:
         - http_user_agent
@@ -238,7 +238,7 @@ pipeline:
       encoded: false
       combineVersionDetails: false
     - type: attribute-remapper
-      name: Map 'src_port' to 'network.client.port'
+      name: Map `src_port` to `network.client.port`
       enabled: true
       sources:
         - src_port
@@ -248,7 +248,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map  'dst_port' to 'network.destination.port'
+      name: Map `dst_port` to `network.destination.port`
       enabled: true
       sources:
         - dst_port
@@ -258,7 +258,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'src_ip' to 'network.client.ip'
+      name: Map `src_ip` to `network.client.ip`
       enabled: true
       sources:
         - src_ip
@@ -268,7 +268,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'dst_ip' to 'network.destination.ip'
+      name: Map `dst_ip` to `network.destination.ip`
       enabled: true
       sources:
         - dst_ip
@@ -278,7 +278,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'app_id' to 'gigamon.app_id'
+      name: Map `app_id` to `gigamon.app_id`
       enabled: true
       sources:
         - app_id
@@ -288,7 +288,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ssl_cipher_suite_id' to 'gigamon.ssl_cipher_suite_id'
+      name: Map `ssl_cipher_suite_id` to `gigamon.ssl_cipher_suite_id`
       enabled: true
       sources:
         - ssl_cipher_suite_id
@@ -298,7 +298,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ssl_issuer' to 'gigamon.ssl_issuer'
+      name: Map `ssl_issuer` to `gigamon.ssl_issuer`
       enabled: true
       sources:
         - ssl_issuer
@@ -308,7 +308,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ssl_common_name' to 'gigamon.ssl_common_name'
+      name: Map `ssl_common_name` to `gigamon.ssl_common_name`
       enabled: true
       sources:
         - ssl_common_name
@@ -318,7 +318,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ssl_validity_not_after' to 'gigamon.ssl_validity_not_after'
+      name: Map `ssl_validity_not_after` to `gigamon.ssl_validity_not_after`
       enabled: true
       sources:
         - ssl_validity_not_after
@@ -328,7 +328,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ssl_validity_not_before' to 'gigamon.ssl_validity_not_before'
+      name: Map `ssl_validity_not_before` to `gigamon.ssl_validity_not_before`
       enabled: true
       sources:
         - ssl_validity_not_before
@@ -338,7 +338,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'ip_version' to 'gigamon.ip_version'
+      name: Map `ip_version` to `gigamon.ip_version`
       enabled: true
       sources:
         - ip_version
@@ -348,7 +348,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'dst_packets' to 'gigamon.dst_packets'
+      name: Map `dst_packets` to `gigamon.dst_packets`
       enabled: true
       sources:
         - dst_packets
@@ -358,7 +358,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'src_packets' to 'gigamon.src_packets'
+      name: Map `src_packets` to `gigamon.src_packets`
       enabled: true
       sources:
         - src_packets
@@ -368,7 +368,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'app_name' to 'gigamon.app_name'
+      name: Map `app_name` to `gigamon.app_name`
       enabled: true
       sources:
         - app_name
@@ -378,7 +378,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'dns_ttl' to 'gigamon.dns_ttl'
+      name: Map `dns_ttl` to `gigamon.dns_ttl`
       enabled: true
       sources:
         - dns_ttl
@@ -388,7 +388,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'dst_mac' to 'gigamon.dst_mac'
+      name: Map `dst_mac` to `gigamon.dst_mac`
       enabled: true
       sources:
         - dst_mac
@@ -398,7 +398,7 @@ pipeline:
       preserveSource: false
       overrideOnConflict: false
     - type: attribute-remapper
-      name: Map 'src_mac' to 'gigamon.src_mac'
+      name: Map `src_mac` to `gigamon.src_mac`
       enabled: true
       sources:
         - src_mac
