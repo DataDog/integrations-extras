@@ -32,6 +32,10 @@ EPHEMERAL = [
     'rdsc.redis_db0_keys',
     'rdsc.redis_mem_fragmentation_ratio',
     'rdsc.redis_used_disk',
+    'rdsc.bdb_replicaof_syncer_ingress_bytes',
+    'rdsc.bdb_replicaof_syncer_ingress_bytes_decompressed',
+    'rdsc.bdb_replicaof_syncer_local_ingress_lag_time',
+    'rdsc.bdb_replicaof_syncer_status',
 ]
 
 # cloud metrics use the namespace 'rdsc'
@@ -351,17 +355,17 @@ METRICS_MAP = {
 
 DEFAULT_METRICS = [
     'RDSC.DATABASE',
-    'RDSC.NODE',
     'RDSC.SHARD',
     'RDSC.LISTENER',
+    'RDSC.PROXY',
 ]
 
 ADDITIONAL_METRICS = [
     'RDSC.REPLICATION',
     'RDSC.SHARDREPL',
-    'RDSC.PROXY',
     'RDSC.BIGSTORE',
     'RDSC.FLASH',
+    'RDSC.NODE',
 ]
 
 

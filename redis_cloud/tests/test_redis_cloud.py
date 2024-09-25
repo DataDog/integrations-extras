@@ -16,7 +16,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def test_instance_additional_check(aggregator, dd_run_check, mock_http_response):
     # add additional metric groups for validation
     additional_metric_groups = [
-        'RDSC.LISTENER',
+        'RDSC.REPLICATION', 'RDSC.NODE',
     ]
     instance = deepcopy(INSTANCE)
     instance['extra_metrics'] = additional_metric_groups
