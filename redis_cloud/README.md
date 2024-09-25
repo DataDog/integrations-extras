@@ -35,8 +35,8 @@ Set the `openmetrics_endpoint` to point to your cluster. See the [example][4]. L
 There are two optional parameters: `extra_metrics` and `excluded_metrics`, as noted in the example configuration file.
 
 The extra_metrics parameter takes a list of metric groups. The following groups are available: RDSC.REPLICATION,  
-RDSC.LISTENER, RDSC.PROXY, RDSC.BIGSTORE, RDSC.FLASH, and RDSC.SHARDREPL. The default metrics groups RDSC.NODE,  
-RDSC.DATABASE, and RDSC.SHARD are automatically inserted by the integration.
+RDSC.NODE, RDSC.BIGSTORE, RDSC.FLASH, and RDSC.SHARDREPL. The default metrics groups RDSC.DATABASE, 
+RDSC.PROXY, RDSC.LISTENER and RDSC.SHARD are automatically inserted by the integration.
 
 The `exclude_metrics` parameter takes a list of individual metrics to exclude, meaning that this information is not  
 passed on to Datadog. The individual metrics should be stripped of their prefix, meaning that 'rdsc.bdb_up'  
