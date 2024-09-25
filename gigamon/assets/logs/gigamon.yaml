@@ -164,6 +164,11 @@ pipeline:
       grok:
         supportRules: ""
         matchRules: command_parser %{date("EEE MMM dd HH:mm:ss yyyy"):ts}
+    - type: date-remapper
+      name: Define 'ts' as the official service of the log
+      enabled: true
+      sources:
+        - ts
     - type: attribute-remapper
       name: Map `dns_query` to `dns.question.name`
       enabled: true
