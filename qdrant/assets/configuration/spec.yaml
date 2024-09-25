@@ -1,0 +1,18 @@
+name: Qdrant
+files:
+- name: qdrant.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/openmetrics
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.required: true
+        openmetrics_endpoint.hidden: false
+        openmetrics_endpoint.display_priority: 2
+        openmetrics_endpoint.value.example: http://localhost:6333/metrics
+        openmetrics_endpoint.description: |
+          Endpoint exposing the Qdrant's Prometheus metrics. For more information refer to:
+          https://qdrant.tech/documentation/guides/monitoring/

@@ -135,6 +135,10 @@ coverage:
         target: 75
         flags:
         - purefb
+      Qdrant:
+        target: 75
+        flags:
+        - qdrant
       Radarr:
         target: 75
         flags:
@@ -199,10 +203,6 @@ coverage:
         target: 75
         flags:
         - tidb
-      Traefik:
-        target: 75
-        flags:
-        - traefik
       Trino:
         target: 75
         flags:
@@ -287,6 +287,10 @@ coverage:
         target: 75
         flags:
         - pihole
+      redis_cloud:
+        target: 75
+        flags:
+        - redis_cloud
       snmpwalk:
         target: 75
         flags:
@@ -520,6 +524,11 @@ flags:
     paths:
     - purefb/datadog_checks/purefb
     - purefb/tests
+  qdrant:
+    carryforward: true
+    paths:
+    - qdrant/datadog_checks/qdrant
+    - qdrant/tests
   radarr:
     carryforward: true
     paths:
@@ -610,11 +619,6 @@ flags:
     paths:
     - tidb/datadog_checks/tidb
     - tidb/tests
-  traefik:
-    carryforward: true
-    paths:
-    - traefik/datadog_checks/traefik
-    - traefik/tests
   trino:
     carryforward: true
     paths:
