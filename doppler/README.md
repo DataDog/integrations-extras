@@ -5,7 +5,12 @@
 [Doppler][1] is a secrets manager designed with both security and developer productivity in mind.
 Doppler allows you to securely store secrets (for example: API keys, database credentials, and other sensitive values) and deliver them to your applications.
 
-This integration allows Activity Logs from [Doppler][1] to be streamed to Datadog, allowing you to monitor changes to your workplace.
+This integration sends Activity Logs from [Doppler][1] to Datadog, allowing you to monitor changes to your workplace.
+This includes:
+
+- Modifications to projects, environments, and secrets
+- Changes to your team, including new members, role changes, and removals
+- Changes to workplace settings, including integrations and security features
 
 Doppler does not collect any data from your Datadog account.
 
