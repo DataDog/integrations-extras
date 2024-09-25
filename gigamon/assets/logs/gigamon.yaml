@@ -155,11 +155,6 @@ pipeline:
   filter:
     query: "source:gigamon"
   processors:
-    - type: date-remapper
-      name: Define 'ts' as the official service of the log
-      enabled: true
-      sources:
-        - ts
     - type: grok-parser
       name: "Grok Parser : Parsing 'ts' timestamp"
       enabled: true
