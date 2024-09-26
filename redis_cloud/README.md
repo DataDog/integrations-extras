@@ -44,18 +44,18 @@ becomes 'bdb_up'. The full list of metrics is available on the 'Data Collected' 
 The following extra groups use the associated prefixes, which can be used to search for individual metrics on 
 the Data Collected page.
 
-| Group           | Prefix                    | Notes                                                 |
-|-----------------|---------------------------|-------------------------------------------------------|
-| RDSC.NODE       | rdsc.node_                | This will return bigstore and flash metrics as well.  |
-| RDSC.DATABASE   | rdsc.bdb_                 | This will return replication metrics as well.         |
-| RDSC.SHARD      | rdsc.redis_               | This will return shard replication metrics as well.   |
-| RDSC.REPLCATION | rdsc.bdb_crdt_            |                                                       |
-| RDSC.REPLCATION | rdsc.bdb_replicaof_       |                                                       |
-| RDSC.SHARDREPL  | rdsc.redis_crdt_          |                                                       |
-| RDSC.PROXY      | rdsc.dmcproxy_            |                                                       |
-| RDSC.LISTENER   | rdsc.listener_            |                                                       |
-| RDSC.BIGSTORE   | rdsc.node_bigstore_       |                                                       |
-| RDSC.FLASH      | rdsc.node_available_flash | All flash metrics are of the form: rdsc.node_*_flash. |
+| Group            | Prefix                    | Notes                                                 |
+|------------------|---------------------------|-------------------------------------------------------|
+| RDSC.NODE        | rdsc.node_                | This will return bigstore and flash metrics as well.  |
+| RDSC.DATABASE    | rdsc.bdb_                 | This will return replication metrics as well.         |
+| RDSC.SHARD       | rdsc.redis_               | This will return shard replication metrics as well.   |
+| RDSC.REPLICATION | rdsc.bdb_crdt_            |                                                       |
+| RDSC.REPLICATION | rdsc.bdb_replicaof_       |                                                       |
+| RDSC.SHARDREPL   | rdsc.redis_crdt_          |                                                       |
+| RDSC.PROXY       | rdsc.dmcproxy_            |                                                       |
+| RDSC.LISTENER    | rdsc.listener_            |                                                       |
+| RDSC.BIGSTORE    | rdsc.node_bigstore_       |                                                       |
+| RDSC.FLASH       | rdsc.node_available_flash | All flash metrics are of the form: rdsc.node_*_flash. |
 
 
 ### Validation

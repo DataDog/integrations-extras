@@ -35,11 +35,11 @@
           {
             "id": 5228948460391968,
             "definition": {
-              "title": "Network Operations",
+              "title": "Network Activity",
               "title_size": "16",
               "title_align": "left",
               "show_legend": true,
-              "legend_layout": "auto",
+              "legend_layout": "horizontal",
               "legend_columns": [
                 "avg",
                 "min",
@@ -47,37 +47,46 @@
                 "value",
                 "sum"
               ],
-              "time": {},
               "type": "timeseries",
               "requests": [
                 {
                   "formulas": [
                     {
-                      "alias": "used memory",
+                      "alias": "new connections",
                       "formula": "query1"
+                    },
+                    {
+                      "alias": "instantaneous operationss",
+                      "formula": "query2"
                     }
                   ],
                   "queries": [
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.bdb_total_connections_received{$cluster} by {bdb_name}"
+                      "query": "avg:rdsc.bdb_total_connections_received_max{$cluster}"
                     },
                     {
                       "data_source": "metrics",
                       "name": "query2",
-                      "query": "avg:rdsc.bdb_memory_limit{$cluster} by {bdb_name}"
+                      "query": "avg:rdsc.bdb_instantaneous_ops_per_sec{$cluster}"
                     }
                   ],
                   "response_format": "timeseries",
+                  "on_right_yaxis": true,
                   "style": {
                     "palette": "dog_classic",
+                    "order_reverse": false,
                     "line_type": "solid",
                     "line_width": "normal"
                   },
                   "display_type": "line"
                 }
-              ]
+              ],
+              "yaxis": {
+                "include_zero": true,
+                "min": "0"
+              }
             },
             "layout": {
               "x": 6,
@@ -100,7 +109,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.listener_conns{*}",
+                      "query": "avg:rdsc.listener_conns{$cluster}",
                       "aggregator": "sum"
                     }
                   ],
@@ -143,7 +152,7 @@
                     {
                       "data_source": "metrics",
                       "name": "query1",
-                      "query": "avg:rdsc.dmcproxy_process_open_fds{*}",
+                      "query": "avg:rdsc.dmcproxy_process_open_fds{$cluster}",
                       "aggregator": "sum"
                     }
                   ],
