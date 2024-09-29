@@ -2,7 +2,11 @@
 
 ## Overview
 
-Agora Analytics tracks and interprets real-time voice and video usage, quality, and performance. Analytics is an extension for Agora's Voice Calling, Video Calling, and Interactive Live Streaming that helps to locate quality issues, find root causes, and fix issues to improve the end-user experience.
+Agora Analytics is an integration that provides insights of Agora RTC & Agora CHAT, which includes the following dashboards:
+
+ - Agora Analytics RTC tracks and interprets real-time voice and video usage, quality, and performance. Analytics is an extension for Agora's Voice Calling, Video Calling, and Interactive Live Streaming that helps to locate quality issues, find root causes, and fix issues to improve the end-user experience.
+
+ - Agora Analytics Chat tracks the usage, quality of the Agora Chat, which helps to improve the end-user experience.
 
 This integration sends metrics including usage, quality, and performance data directly to your Datadog account.
 
