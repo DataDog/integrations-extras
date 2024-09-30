@@ -135,6 +135,10 @@ coverage:
         target: 75
         flags:
         - purefb
+      Qdrant:
+        target: 75
+        flags:
+        - qdrant
       Radarr:
         target: 75
         flags:
@@ -143,10 +147,18 @@ coverage:
         target: 75
         flags:
         - reboot_required
+      Redis_Cloud:
+        target: 75
+        flags:
+        - redis_cloud
       Redis_Enterprise:
         target: 75
         flags:
         - redisenterprise
+      Redis_Enterprise_V2:
+        target: 75
+        flags:
+        - redis_enterprise
       Redis_Sentinel:
         target: 75
         flags:
@@ -195,10 +207,6 @@ coverage:
         target: 75
         flags:
         - tidb
-      Traefik:
-        target: 75
-        flags:
-        - traefik
       Trino:
         target: 75
         flags:
@@ -231,6 +239,10 @@ coverage:
         target: 75
         flags:
         - zenoh_router
+      celerdata:
+        target: 75
+        flags:
+        - celerdata
       cfssl:
         target: 75
         flags:
@@ -307,6 +319,11 @@ flags:
     paths:
     - bind9/datadog_checks/bind9
     - bind9/tests
+  celerdata:
+    carryforward: true
+    paths:
+    - celerdata/datadog_checks/celerdata
+    - celerdata/tests
   cfssl:
     carryforward: true
     paths:
@@ -507,6 +524,11 @@ flags:
     paths:
     - purefb/datadog_checks/purefb
     - purefb/tests
+  qdrant:
+    carryforward: true
+    paths:
+    - qdrant/datadog_checks/qdrant
+    - qdrant/tests
   radarr:
     carryforward: true
     paths:
@@ -517,6 +539,16 @@ flags:
     paths:
     - reboot_required/datadog_checks/reboot_required
     - reboot_required/tests
+  redis_cloud:
+    carryforward: true
+    paths:
+    - redis_cloud/datadog_checks/redis_cloud
+    - redis_cloud/tests
+  redis_enterprise:
+    carryforward: true
+    paths:
+    - redis_enterprise/datadog_checks/redis_enterprise
+    - redis_enterprise/tests
   redis_sentinel:
     carryforward: true
     paths:
@@ -592,11 +624,6 @@ flags:
     paths:
     - tidb/datadog_checks/tidb
     - tidb/tests
-  traefik:
-    carryforward: true
-    paths:
-    - traefik/datadog_checks/traefik
-    - traefik/tests
   trino:
     carryforward: true
     paths:

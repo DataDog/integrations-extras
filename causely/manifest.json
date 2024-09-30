@@ -1,0 +1,66 @@
+{
+  "manifest_version": "2.0.0",
+  "app_uuid": "0ac3b5eb-46d2-4091-a001-e95dc5782609",
+  "app_id": "causely",
+  "display_on_public_website": true,
+  "tile": {
+    "overview": "README.md#Overview",
+    "configuration": "README.md#Setup",
+    "support": "README.md#Support",
+    "changelog": "CHANGELOG.md",
+    "description": "Causal AI platform automatically captures, represents and analyzes causality.",
+    "title": "Causely",
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "Kubernetes Service Congested Causality",
+        "image_url": "images/Service_Congested_Causality.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Application DB Connection Noisy Neighbor Causality",
+        "image_url": "images/DB_Connections_Causality.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "Causelhy Remediated Root Causes",
+        "image_url": "images/Causely_Remediated_RootCauses.png"
+      }
+    ],
+    "classifier_tags": [
+      "Category::Containers",
+      "Category::Kubernetes",
+      "Category::Incidents",
+      "Offering::Integration",
+      "Queried Data Type::Metrics",
+      "Queried Data Type::Events",
+      "Submitted Data Type::Events",
+      "Supported OS::Linux",
+      "Supported OS::Windows",
+      "Supported OS::macOS"
+    ]
+  },
+  "assets": {
+    "dashboards": {
+      "causely": "assets/dashboards/causely_dashboard.json"
+    },
+    "integration": {
+      "auto_install": true,
+      "source_type_name": "Causely",
+      "source_type_id": 18684278,
+      "configuration": {},
+      "events": {
+        "creates_events": true
+      },
+      "service_checks": {
+        "metadata_path": "assets/service_checks.json"
+      }
+    }
+  },
+  "author": {
+    "name": "Causely",
+    "homepage": "https://portal.causely.app",
+    "sales_email": "early-access@causely.io",
+    "support_email": "support@causely.io"
+  }
+}

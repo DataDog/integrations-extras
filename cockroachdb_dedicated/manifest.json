@@ -9,13 +9,14 @@
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
     "description": "Send your Cockroach Cloud metrics to DataDog.",
-    "title": "CockroachDB Dedicated",
+    "title": "Cockroach Cloud",
     "media": [],
     "classifier_tags": [
       "Category::Data Stores",
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Supported OS::macOS"
+      "Supported OS::macOS",
+      "Offering::Integration"
     ]
   },
   "author": {
@@ -32,8 +33,11 @@
         "creates_events": false
       },
       "metrics": {
-        "prefix": "crdb_dedicated.",
-        "check": "crdb_dedicated.sys.rss",
+        "prefix": "crdb_",
+        "check": [
+          "crdb_dedicated.sys.uptime",
+          "crdb_cloud.sys.uptime"
+        ],
         "metadata_path": "metadata.csv"
       },
       "service_checks": {
@@ -43,7 +47,8 @@
       "auto_install": true
     },
     "dashboards": {
-      "cockroach_cloud_overview": "assets/dashboards/cockroach_cloud_overview.json"
+      "cockroach_cloud_dedicated_overview": "assets/dashboards/cockroach_cloud_dedicated_overview.json",
+      "cockroach_cloud_serverless_overview": "assets/dashboards/cockroach_cloud_serverless_overview.json"
     },
     "logs": {
       "source": "cockroach-cloud"

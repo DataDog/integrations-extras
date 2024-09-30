@@ -8,14 +8,37 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "MongoDB Atlas",
+    "description": "Track Atlas read/write performance, Vector Search metrics, and more.",
     "title": "MongoDB Atlas",
-    "media": [],
+    "media": [
+      {
+        "media_type": "image",
+        "caption": "MongoDB Atlas Overview Dashboard",
+        "image_url": "images/mongodb_atlas_dashboard.png"
+      },
+      {
+        "media_type": "image",
+        "caption": "MongoDB Atlas Vector Search Overview Dashboard",
+        "image_url": "images/mongodb_atlas_vector_search_dashboard.png"
+      }
+    ],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::Windows",
       "Supported OS::macOS",
-      "Category::Metrics"
+      "Category::AI/ML",
+      "Category::Metrics",
+      "Offering::Integration"
+    ],
+    "resources": [
+      {
+        "resource_type": "blog",
+        "url": "https://www.datadoghq.com/blog/monitor-atlas-performance-metrics-with-datadog/"
+      },
+      {
+        "resource_type": "other",
+        "url": "https://www.mongodb.com/products/platform/atlas-for-government"
+      }
     ]
   },
   "assets": {
@@ -37,14 +60,15 @@
       "source_type_id": 230
     },
     "monitors": {
-      "[MongoDB Atlas] CPU usage is higher than average on host: {{host.name}}": "assets/monitors/high_cpu.json",
-      "[MongoDB Atlas] Memory usage is higher than average on host: {{host.name}}": "assets/monitors/memory.json",
-      "[MongoDB Atlas] Efficiency of queries is degrading": "assets/monitors/query_efficiency.json",
-      "[MongoDB Atlas] Read Latency is higher than average for host: {{host.name}}": "assets/monitors/read_latency.json",
-      "[MongoDB Atlas] Write Latency is higher than average for host: {{host.name}}": "assets/monitors/write_latency.json"
+      "CPU usage is higher than expected": "assets/monitors/high_cpu.json",
+      "Memory usage is higher than normal": "assets/monitors/memory.json",
+      "Query efficiency is degrading": "assets/monitors/query_efficiency.json",
+      "Read latency is higher than expected": "assets/monitors/read_latency.json",
+      "Write latency is higher than expected": "assets/monitors/write_latency.json"
     },
     "dashboards": {
-      "MongoDB-Atlas-Overview": "assets/dashboards/MongoDB-Atlas-Overview_dashboard.json"
+      "MongoDB-Atlas-Overview": "assets/dashboards/MongoDB-Atlas-Overview_dashboard.json",
+      "MongoDB-Atlas-Vector-Search-Overview": "assets/dashboards/MongoDB-Atlas-Vector-Search-Overview_dashboard.json"
     }
   },
   "author": {

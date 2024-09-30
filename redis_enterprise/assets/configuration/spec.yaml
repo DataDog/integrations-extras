@@ -1,0 +1,22 @@
+name: Redis Enterprise V2
+files:
+- name: redis_enterprise.yaml
+  options:
+  - template: init_config
+    options:
+    - template: init_config/default
+  - template: instances
+    options:
+    - template: instances/openmetrics
+      overrides:
+        openmetrics_endpoint.value.example: https://<host>:8070/metrics
+        openmetrics_endpoint.description: |
+          The endpoint should be the URL of the metric exporter of the cloud instance
+        openmetrics_endpoint.display_priority: 3
+        tls_verify.value.example: false
+        tls_verify.enabled: true
+        tls_verify.display_priority: 1
+        extra_metrics.value.example: [ foo, bar ]
+        extra_metrics.enabled: false
+        exclude_metrics.value.example: [ foo, bar ]
+        exclude_metrics.enabled: false

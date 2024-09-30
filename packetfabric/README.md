@@ -17,9 +17,10 @@ With this integration, you can leverage Datadog to monitor your PacketFabric net
 ### Installation
 
 1. Go to the PacketFabric integration in Datadog. 
-2. Click **Install**. 
-3. You are redirected to the PacketFabric login page. Enter your credentials to log in. 
-4. You are shown a page requesting Datadog permissions. Click **Authorize**. 
+2. Click **Install Integration**.
+3. On the **Configure** tab, click **Connect Accounts**. 
+4. You are redirected to the PacketFabric login page. Enter your credentials to log in. 
+5. You are shown a page requesting Datadog permissions. Click **Authorize**. 
 
 Once authorized, the metrics will be sent from PacketFabric to Datadog every 15 minutes as part of a scheduled task. 
 
