@@ -1,8 +1,6 @@
-from collections import ChainMap
 from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
-from datadog_checks.base.checks.openmetrics.v2.scraper import OpenMetricsCompatibilityScraper
 
 from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
 
@@ -59,13 +57,6 @@ class RedisEnterpriseCheck(OpenMetricsBaseCheckV2):
         for dm in DEFAULT_METRICS:
             metrics.append(dm)
         return metrics
-
-    def create_scraper(self, config):
-        return OpenMetricsCompatibilityScraper(self, self.get_config_with_defaults(config))
-
-    def get_config_with_defaults(self, config):
-        metrics = config.pop('metrics')
-        return ChainMap(config, {'metrics': metrics})
 
     def can_connect(self, hostname=None, message=None, tags=None):
         print(f'hostname: {hostname}, message: {message}, tags: {tags}')
