@@ -1,6 +1,6 @@
 ## Overview
 
-[Bind 9][3] is a complete, highly portable implementation of the Domain Name System (DNS) protocol. The Bind9 name server (named), can act as an authoritative name server, recursive resolver, DNS forwarder, or all three simultaneously.
+[Bind 9][19] is a complete, highly portable implementation of the Domain Name System (DNS) protocol. The Bind9 name server (named), can act as an authoritative name server, recursive resolver, DNS forwarder, or all three simultaneously.
 
 
 This integration provides enrichment and visualization for Query, Query Errors, Network, Lame Servers, Notify, and Security log types. It helps to visualize detailed insights into DNS request patterns, DNS communication and proper server configurations, DNS attacks, ensuring a robust and reliable DNS environment through the out-of-the-box dashboards. Additionally, This integration provides out of the box detection rules. Also, it will collect bind9 stats in form of metrics.
@@ -143,7 +143,7 @@ Linux command
 #### Syslog
 1. Add this configuration block to your `bind9.d/conf.yaml` file to start collecting your Bind9 logs.
 
-   See the [sample bind9.d/conf.yaml][5] for available configuration options.
+   See the [sample bind9.d/conf.yaml][8] for available configuration options.
 
    ```yaml
    logs:
@@ -216,13 +216,10 @@ For any further assistance, contact [Datadog support][13].
 
 
 [1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png
-[2]: https://app.datadoghq.com/account/settings/agent/latest
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
-[4]: https://docs.datadoghq.com/getting_started/integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
 [9]: https://docs.datadoghq.com/agent/guide/agent-commands/#start-stop-and-restart-the-agent
-[10]: https://docs.datadoghq.com/agent/guide/agent-commands/#service-status
 [11]: https://github.com/DataDog/integrations-extras/blob/master/bind9/metadata.csv
 [12]: https://github.com/DataDog/integrations-extras/blob/master/bind9/assets/service_checks.json
 [13]: https://docs.datadoghq.com/help/
@@ -231,3 +228,4 @@ For any further assistance, contact [Datadog support][13].
 [16]: https://downloads.isc.org/isc/bind9/9.18.29/doc/arm/html/reference.html#namedconf-statement-category
 [17]: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 [18]: https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information
+[19]: https://www.isc.org/bind/
