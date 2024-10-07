@@ -1,0 +1,74 @@
+{
+    "manifest_version": "2.0.0",
+    "app_uuid": "a42252f6-63f8-4da8-bce9-c765f30e7771",
+    "app_id": "oceanbase-cloud",
+    "display_on_public_website": true,
+    "tile": {
+        "overview": "README.md#Overview",
+        "configuration": "README.md#Setup",
+        "uninstallation": "README.md#Uninstallation",
+        "support": "README.md#Support",
+        "changelog": "CHANGELOG.md",
+        "description": "Monitoring OceanBase Cloud clusters with Datadog",
+        "title": "OceanBase Cloud",
+        "media": [
+            {
+                "media_type": "image",
+                "caption": "Overview of the OceanBase Cloud Datadog dashboard",
+                "image_url": "images/ob-dashboard.jpg"
+            },
+            {
+                "media_type": "image",
+                "caption": "Host performance metrics from the OceanBase Cloud Datadog dashboard",
+                "image_url": "images/ob-host.jpg"
+            },
+            {
+                "media_type": "image",
+                "caption": "SQL performance metrics from the OceanBase Cloud Datadog dashboard",
+                "image_url": "images/ob-sql.jpg"
+            },
+            {
+                "media_type": "image",
+                "caption": "Transaction metrics from the OceanBase Cloud Datadog dashboard",
+                "image_url": "images/ob-transaction.jpg"
+            }
+        ],
+        "classifier_tags": [
+            "Supported OS::Linux",
+            "Supported OS::Windows",
+            "Supported OS::macOS",
+            "Offering::Integration",
+            "Category::Cloud",
+            "Submitted Data Type::Metrics"
+        ]
+    },
+    "author": {
+        "support_email": "eco-products@service.oceanbase.com",
+        "name": "OceanBase",
+        "homepage": "https://en.oceanbase.com",
+        "sales_email": "OceanBaseSales@oceanbase.com"
+    },
+    "assets": {
+        "integration": {
+            "auto_install": true,
+            "source_type_id": 15206722,
+            "source_type_name": "OceanBase Cloud",
+            "configuration": {},
+            "events": {
+                "creates_events": false
+            },
+            "metrics": {
+                "prefix": "oceanbase_cloud.",
+                "check": "oceanbase_cloud.sql_all_count",
+                "metadata_path": "metadata.csv"
+            },
+            "service_checks": {
+                "metadata_path": "assets/service_checks.json"
+            }
+        },
+        "dashboards": {
+            "OceanBase Cloud Overview": "assets/dashboards/oceanbasecloud_overview.json"
+        },
+        "oauth": "assets/oauth_clients.json"
+    }
+}
