@@ -54,3 +54,23 @@ pipeline:
       targetType: attribute
       preserveSource: false
       overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `user.username` to `usr.username`
+      enabled: true
+      sources:
+        - user.username
+      sourceType: attribute
+      target: usr.username
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
+    - type: attribute-remapper
+      name: Map `user.profile_image_url` to `usr.profileImageUrl`
+      enabled: true
+      sources:
+        - user.profile_image_url
+      sourceType: attribute
+      target: usr.profileImageUrl
+      targetType: attribute
+      preserveSource: false
+      overrideOnConflict: false
