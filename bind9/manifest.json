@@ -8,27 +8,44 @@
     "configuration": "README.md#Setup",
     "support": "README.md#Support",
     "changelog": "CHANGELOG.md",
-    "description": "A datadog integration to collect bind9 server metrics",
-    "title": "bind9",
-    "media": [],
+    "description": "A datadog integration to collect bind9 logs and server metrics",
+    "title": "Bind 9",
+    "media": [
+      {
+        "caption": "Bind9 - Overview",
+        "image_url": "images/bind9_overview.png",
+        "media_type": "image"
+      },
+      {
+        "caption": "Bind9 - Details",
+        "image_url": "images/bind9_details.png",
+        "media_type": "image"
+      }
+    ],
     "classifier_tags": [
       "Supported OS::Linux",
       "Supported OS::Windows",
-      "Category::Network",
       "Supported OS::macOS",
-      "Offering::Integration"
+      "Category::Network",
+      "Category::Log Collection",
+      "Category::Metrics",
+      "Offering::Integration",
+      "Submitted Data Type::Logs",
+      "Submitted Data Type::Metrics"
     ]
   },
   "author": {
-    "support_email": "ashuvyas45@gmail.com",
-    "homepage": "https://github.com/DataDog/integrations-extras",
-    "sales_email": "ashuvyas45@gmail.com",
-    "name": "Community"
+    "support_email": "help@datadoghq.com",
+    "homepage": "https://www.datadoghq.com",
+    "sales_email": "info@datadoghq.com",
+    "name": "Datadog"
   },
   "assets": {
     "integration": {
       "source_type_name": "BIND 9",
-      "configuration": {},
+      "configuration": {
+        "spec": "assets/configuration/spec.yaml"
+      },
       "events": {
         "creates_events": false
       },
@@ -42,6 +59,13 @@
       },
       "source_type_id": 10222,
       "auto_install": true
+    },
+    "dashboards": {
+      "Bind9 - Overview": "assets/dashboards/bind9_overview.json",
+      "Bind9 - Details": "assets/dashboards/bind9_details.json"
+    },
+    "logs": {
+      "source": "bind9"
     }
   }
 }
