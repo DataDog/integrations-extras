@@ -96,13 +96,10 @@ pipeline:
       grok:
         supportRules: '_syslog_header (<%{integer}>)?%{date("MMM dd HH:mm:ss")}
           %{regex("[^:]*")}: '
-        matchRules: >-
-          bind9_log_parser (%{_syslog_header})?(%{date("d-MMM-yyyy
+        matchRules: bind9_log_parser (%{_syslog_header})?(%{date("d-MMM-yyyy
           HH:mm:ss.SSS", "UTC"):timestamp}|%{date("yyyy-MM-dd'T'HH:mm:ss.SSSZ",
           "UTC"):timestamp})?( )?%{regex("[^:]*"):event_type}:(
           %{regex("[A-Za-z]*( [0-9])?"):severity}:)? %{greedyData:message}
-
-          sys %{_syslog_header}
     - type: service-remapper
       name: "Define `event_type` as the official service of the log"
       enabled: true
