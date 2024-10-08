@@ -17,7 +17,7 @@ To install the Bind9 integration, run the following Agent installation command a
 
 Linux command
   ```shell
-  sudo -u dd-agent -- datadog-agent integration install datadog-bind9==1.0.0
+  sudo -u dd-agent -- datadog-agent integration install datadog-bind9==2.0.0
   ```
 
 #### Log collection
