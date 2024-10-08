@@ -6,9 +6,7 @@
 
 * Initial release
 
-## 2.0.0
+## 1.1.0
 
 ***Added***:
-
-* Support for Query, Query Errors, Security, Lame Servers, Notify and Network Logs via File-Monitoring/Syslog
-* Pipeline, Dashboards and Detection Rules
+ * Support for data collection of Bind9 logs via File-Monitoring/Syslog and related assets

@@ -3,9 +3,8 @@
 [Bind 9][19] is a complete, highly portable implementation of the Domain Name System (DNS) protocol. The Bind9 name server (named), can act as an authoritative name server, recursive resolver, DNS forwarder, or all three simultaneously.
 
 
-This integration provides enrichment and visualization for Query, Query Errors, Network, Lame Servers, Notify, and Security log types. It helps to visualize detailed insights into DNS request patterns, DNS communication and proper server configurations, DNS attacks, ensuring a robust and reliable DNS environment through the out-of-the-box dashboards. Additionally, This integration provides out of the box detection rules. Also, it will collect bind9 stats in form of metrics.
+This integration provides enrichment and visualization for Query, Query Errors, Network, Lame Servers, Notify, and Security log types. It helps to visualize detailed insights into DNS request patterns, DNS communication and proper server configurations, DNS attacks, ensuring a robust and reliable DNS environment through the out-of-the-box dashboards. Additionally, This integration provides out of the box detection rules. Also, it will collect bind9 stats in form of metrics that can be used for visualizations as needed.
 
-![Snap][1]
 
 ## Setup
 
@@ -17,7 +16,7 @@ To install the Bind9 integration, run the following Agent installation command a
 
 Linux command
   ```shell
-  sudo -u dd-agent -- datadog-agent integration install datadog-bind9==2.0.0
+  sudo -u dd-agent -- datadog-agent integration install datadog-bind9==1.1.0
   ```
 
 #### Log collection
@@ -215,7 +214,6 @@ If you see a **Permission denied** error while monitoring the log files, give th
 For any further assistance, contact [Datadog support][13].
 
 
-[1]: https://raw.githubusercontent.com/DataDog/integrations-extras/master/bind9/images/snapshot.png
 [3]: https://docs.datadoghq.com/agent/guide/use-community-integrations/
 [7]: https://docs.datadoghq.com/agent/guide/agent-configuration-files/#agent-configuration-directory
 [8]: https://github.com/DataDog/integrations-extras/blob/master/bind9/datadog_checks/bind9/data/conf.yaml.example
