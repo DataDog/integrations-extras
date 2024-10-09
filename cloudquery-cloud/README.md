@@ -24,7 +24,8 @@ Detailed documentation for the CloudQuery Datadog source is available [here][5].
 
 ## Uninstallation
 
-Navigate to the **Sources** page under [CloudQuery Cloud][3] and find your Datadog source you have previously set up. Under the **Edit source** tab, click the **Delete this source** button.
+1. Navigate to the **Sources** page under [CloudQuery Cloud][3] and find your Datadog source you have previously set up. 
+2. Under the **Edit source** tab, click the **Delete this source** button.
 
 ## Support
 
