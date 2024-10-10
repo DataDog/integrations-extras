@@ -15,6 +15,7 @@ class LighthouseCheck(AgentCheck):
         lighthouse_urls = instance.get('urls', [])
         lighthouse_name = instance.get('name')
         extra_chrome_flags = instance.get('extra_chrome_flags', [])
+        lighthouse_parameters = instance.get('lighthouse_parameters', [])
         form_factor = instance.get('form_factor')
 
         if backward_compatible_lighthouse_url:
@@ -43,6 +44,10 @@ class LighthouseCheck(AgentCheck):
                 cmd.append("--form-factor=" + form_factor)
                 if form_factor == "desktop":
                     cmd.append("--preset=desktop")
+
+            if lighthouse_parameters:
+                for parameter in lighthouse_parameters:
+                    cmd.append(parameter)
 
             json_string, error_message, exit_code = LighthouseCheck._get_lighthouse_report(cmd, self.log, False)
 
