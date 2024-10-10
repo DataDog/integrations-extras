@@ -1,16 +1,37 @@
 {
-  "title": "Redis Enterprise - Replication",
+  "title": "Redis Enterprise - Active-Active",
   "description": "[[suggested_dashboards]]",
   "widgets": [
     {
       "id": 1612047639653128,
       "definition": {
         "title": "Summary",
-        "background_color": "vivid_blue",
+        "background_color": "blue",
         "show_title": true,
         "type": "group",
         "layout_type": "ordered",
         "widgets": [
+          {
+            "id": 2915118368107020,
+            "definition": {
+              "type": "note",
+              "content": "In Redis Enterprise, Active-Active geo-distribution is based on CRDT technology. The Redis Enterprise implementation of CRDT is called an Active-Active database (formerly known as CRDB). With Active-Active databases, applications can read and write to the same data set from different geographical locations seamlessly and with latency less than one millisecond (ms), without changing the way the application connects to the database.\n\nActive-Active databases also provide disaster recovery and accelerated data read-access for geographically distributed users.",
+              "background_color": "vivid_blue",
+              "font_size": "14",
+              "text_align": "left",
+              "vertical_align": "top",
+              "show_tick": false,
+              "tick_pos": "50%",
+              "tick_edge": "left",
+              "has_padding": true
+            },
+            "layout": {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 4
+            }
+          },
           {
             "id": 2930533713442618,
             "definition": {
@@ -43,7 +64,7 @@
               }
             },
             "layout": {
-              "x": 0,
+              "x": 6,
               "y": 0,
               "width": 2,
               "height": 2
@@ -64,120 +85,6 @@
                       "data_source": "metrics",
                       "name": "query1",
                       "query": "avg:rdse.redis_crdt_peer_lag{$cluster}",
-                      "aggregator": "avg"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 2,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 6989215750840428,
-            "definition": {
-              "title": "Replication Backlog",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.redis_crdt_backlog_histlen{role:master , $cluster}",
-                      "aggregator": "avg"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 4,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 6968331984484540,
-            "definition": {
-              "title": "Raw DB Size",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.redis_crdt_raw_dbsize{role:master , $cluster}",
-                      "aggregator": "avg"
-                    }
-                  ],
-                  "formulas": [
-                    {
-                      "formula": "query1"
-                    }
-                  ]
-                }
-              ],
-              "autoscale": true,
-              "precision": 2,
-              "timeseries_background": {
-                "type": "area"
-              }
-            },
-            "layout": {
-              "x": 6,
-              "y": 0,
-              "width": 2,
-              "height": 2
-            }
-          },
-          {
-            "id": 3111427893009204,
-            "definition": {
-              "title": "Pending Max Writes",
-              "title_size": "16",
-              "title_align": "left",
-              "type": "query_value",
-              "requests": [
-                {
-                  "response_format": "scalar",
-                  "queries": [
-                    {
-                      "data_source": "metrics",
-                      "name": "query1",
-                      "query": "avg:rdse.bdb_crdt_syncer_egress_bytes_max{$cluster}",
                       "aggregator": "avg"
                     }
                   ],
@@ -238,6 +145,120 @@
               "width": 2,
               "height": 2
             }
+          },
+          {
+            "id": 6968331984484540,
+            "definition": {
+              "title": "Raw DB Size",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_crdt_raw_dbsize{role:master , $cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 6,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 6989215750840428,
+            "definition": {
+              "title": "Replication Backlog",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.redis_crdt_backlog_histlen{role:master , $cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 8,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
+          },
+          {
+            "id": 3111427893009204,
+            "definition": {
+              "title": "Pending Max Writes",
+              "title_size": "16",
+              "title_align": "left",
+              "type": "query_value",
+              "requests": [
+                {
+                  "response_format": "scalar",
+                  "queries": [
+                    {
+                      "data_source": "metrics",
+                      "name": "query1",
+                      "query": "avg:rdse.bdb_crdt_syncer_egress_bytes_max{$cluster}",
+                      "aggregator": "avg"
+                    }
+                  ],
+                  "formulas": [
+                    {
+                      "formula": "query1"
+                    }
+                  ]
+                }
+              ],
+              "autoscale": true,
+              "precision": 2,
+              "timeseries_background": {
+                "type": "area"
+              }
+            },
+            "layout": {
+              "x": 10,
+              "y": 2,
+              "width": 2,
+              "height": 2
+            }
           }
         ]
       },
@@ -245,7 +266,7 @@
         "x": 0,
         "y": 0,
         "width": 12,
-        "height": 3
+        "height": 5
       }
     },
     {
@@ -359,7 +380,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 3,
+        "y": 5,
         "width": 12,
         "height": 5
       }
@@ -475,9 +496,10 @@
       },
       "layout": {
         "x": 0,
-        "y": 8,
+        "y": 0,
         "width": 12,
-        "height": 5
+        "height": 5,
+        "is_column_break": true
       }
     },
     {
@@ -591,7 +613,7 @@
       },
       "layout": {
         "x": 0,
-        "y": 13,
+        "y": 5,
         "width": 12,
         "height": 5
       }
