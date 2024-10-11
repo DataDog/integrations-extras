@@ -1,4 +1,8 @@
 # enterprise metrics use the namespace 'rdse'
+REDIS_CLUSTER = {
+    'cluster_shards_limit': 'cluster_shards_limit'
+}
+
 REDIS_DATABASE = {
     'bdb_avg_latency': 'bdb_avg_latency',
     'bdb_avg_latency_max': 'bdb_avg_latency_max',
@@ -366,6 +370,7 @@ REDIS_FLASH = {
 }
 
 DEFAULT_METRICS = [
+    REDIS_CLUSTER,
     REDIS_DATABASE,
     REDIS_NODE,
     REDIS_SHARD,

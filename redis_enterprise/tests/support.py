@@ -98,6 +98,9 @@ EPHEMERAL = [
 
 # enterprise metrics use the namespace 'rdse'
 METRICS_MAP = {
+    'RDSE.CLUSTER': [
+        'rdse.cluster_shards_limit',
+    ],
     'RDSE.DATABASE': [
         'rdse.bdb_avg_latency',
         'rdse.bdb_avg_latency_max',
@@ -400,6 +403,9 @@ METRICS_MAP = {
         'rdse.listener_write_req',
         'rdse.listener_write_req_max',
         'rdse.listener_write_res',
+        'rdse.listener_write_res_max',
+        'rdse.listener_write_started_res',
+        'rdse.listener_write_started_res_max',
     ],
     'RDSE.BIGSTORE': [
         'rdse.node_bigstore_free',
@@ -415,8 +421,8 @@ METRICS_MAP = {
     ],
 }
 
-
 DEFAULT_METRICS = [
+    'RDSE.CLUSTER',
     'RDSE.DATABASE',
     'RDSE.NODE',
     'RDSE.SHARD',
