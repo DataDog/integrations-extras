@@ -1,46 +1,40 @@
-# Agent Check: Artie
+# Artie Integration
 
 ## Overview
 
-This check monitors [Artie][1].
+[Artie][1] is a real-time database replication product for reliably and consistently syncing data from source databases to data warehouses.
 
-Include a high level overview of what this integration does:
-- What does your product do (in 1-2 sentences)?
-- What value will customers get from this integration, and why is it valuable to them?
-- What specific data will your integration monitor, and what's the value of that data?
+With this integration, you can receive metrics about your Artie deployments directly to your Datadog account in order to monitor the health of your data pipelines. Metrics include number of rows processed over time, ingestion lag, flush time, and replication slot size.
 
 ## Setup
 
 ### Installation
 
-To install the Artie check on your host:
+This integration is only available for existing Artie accounts. If you're not using Artie yet and would like to start a trial, contact us at hi@artie.com.
 
-
-1. Install the [developer toolkit]
-(https://docs.datadoghq.com/developers/integrations/python/)
- on any machine.
-
-2. Run `ddev release build artie` to build the package.
-
-3. [Download the Datadog Agent][2].
-
-4. Upload the build artifact to any host with an Agent and
- run `datadog-agent integration install -w
- path/to/artie/dist/<ARTIFACT_NAME>.whl`.
+1. Click **Connect Accounts** on the Artie integration tile to connect Datadog with Artie.
+2. Log into Artie if you aren't logged in yet.
+3. Review the Datadog permissions that will be granted to Artie and click **Authorize**.
 
 ### Configuration
 
-!!! Add list of steps to set up this integration !!!
+The integration will automatically send metrics to Datadog; no further configuration is needed.
 
 ### Validation
 
-!!! Add steps to validate integration is functioning as expected !!!
+The included dashboard should start to show data within 5-10 minutes of connecting the integration, as long as you have data flowing in your Artie deployments.
 
 ## Data Collected
 
 ### Metrics
 
-Artie does not include any metrics.
+Artie reports the following metrics for each of your deployments:
+
+1. Rows processed - the number of rows synced from your source database to your destination database/data warehouse
+2. Ingestion lag time - the median amount of time between a row being published to Kafka and being ingested into your destination
+3. Ingestion row lag - the number of rows remaining to be processed in Kafka at a given time
+4. Flush time - the median amount of time it takes Artie to flush data from its in-memory store into your destination
+5. Replication slot size for any PostgreSQL source databases you have connected
 
 ### Service Checks
 
@@ -52,9 +46,7 @@ Artie does not include any events.
 
 ## Troubleshooting
 
-Need help? Contact [Datadog support][3].
+Need help? Contact [Artie support][2].
 
-[1]: **LINK_TO_INTEGRATION_SITE**
-[2]: https://app.datadoghq.com/account/settings/agent/latest
-[3]: https://docs.datadoghq.com/help/
-
+[1]: https://www.artie.com/
+[2]: mailto:hi@artie.com
