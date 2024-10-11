@@ -129,7 +129,7 @@ REDIS_NODE = {
     'node_up': {
         'name': 'node_up',
         'type': 'gauge',
-    }
+    },
 }
 
 REDIS_SHARD = {
