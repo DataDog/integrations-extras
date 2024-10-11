@@ -1,7 +1,5 @@
 # enterprise metrics use the namespace 'rdse'
-REDIS_CLUSTER = {
-    'cluster_shards_limit': 'cluster_shards_limit'
-}
+REDIS_CLUSTER = {'cluster_shards_limit': 'cluster_shards_limit'}
 
 REDIS_DATABASE = {
     'bdb_avg_latency': 'bdb_avg_latency',
