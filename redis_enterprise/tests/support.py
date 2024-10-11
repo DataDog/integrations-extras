@@ -27,7 +27,6 @@ EPHEMERAL = [
     'rdse.node_available_flash',
     'rdse.node_available_flash_no_overbooking',
     'rdse.node_avg_latency',
-    'rdse.node_up',
     'rdse.redis_aof_delayed_fsync',
     'rdse.redis_blocking_reads',
     'rdse.redis_blocking_writes',
@@ -219,6 +218,10 @@ METRICS_MAP = {
         'rdse.node_provisional_memory_no_overbooking',
         'rdse.node_total_req',
         'rdse.node_up',
+        'rdse.listener_write_res_max',
+        'rdse.listener_write_started_res',
+        'rdse.listener_write_started_res_max',
+        'rdse.node_cert_expiration_seconds',
     ],
     'RDSE.SHARD': [
         'rdse.redis_active_defrag_running',

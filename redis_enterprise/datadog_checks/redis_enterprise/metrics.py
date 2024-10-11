@@ -79,7 +79,7 @@ REDIS_NODE = {
     'node_cert_expiration_seconds': {
         'name': 'node_cert_expiration_seconds',
         'type': 'gauge',
-    }
+    },
     'node_conns': 'node_conns',
     'node_cpu_idle': 'node_cpu_idle',
     'node_cpu_idle_max': 'node_cpu_idle_max',
